@@ -68,8 +68,8 @@ where
 We distinguish different sets of batch scripts:
 
 1. **`setenv.bat`** - this batch script makes the external tools such as **`javac.exe`**, **`scalac.bat`**, **`dotc.bat`**, etc. directly available from the command prompt.
-<pre style="margin:10px 0 0 30px;font-size:75%;">
-> dotc -version
+    <pre style="font-size:75%;">
+&gt; dotc -version
 Dotty compiler version 0.7.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 </pre>
 
@@ -83,8 +83,8 @@ Dotty compiler version 0.7.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 3. Directory **`bin\0.7\`** - its contents must be copied to directory `C:\opt\dotty-0.7.0-RC1\bin\` (please adapt the target path to match your settings) in order to use the **`dotc`** and **`dot`** commands.
     > **NB.** The author wrote (and maintain) those batch files based on the bash scripts found in the standard Dotty distribution.
 
-<pre style="margin:10px 0 0 30px;font-size:80%;">
-> dir /b c:\opt\dotty-0.7.0-RC1\bin
+    <pre style="font-size:80%;">
+&gt; dir /b c:\opt\dotty-0.7.0-RC1\bin
 common
 common.bat
 dot.bat
