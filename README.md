@@ -2,7 +2,7 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;width:120px;"><a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a></td>
+  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers Dotty examples coming from various Web sites - including from the <a href="http://dotty.epfl.ch/">Dotty project</a> website - or written by myself.<br/>
   It also includes several batch scripts for experimenting with Dotty (aka Scala 3.0) on the <span style="font-weight:bold;font-style:italic;">Microsoft Windows</span> platform. </td>
   </tr>
@@ -68,8 +68,8 @@ where
 We distinguish different sets of batch scripts:
 
 1. **`setenv.bat`** - this batch script makes the external tools such as **`javac.exe`**, **`scalac.bat`**, **`dotc.bat`**, etc. directly available from the command prompt.
-    <pre style="font-size:75%;">
-&gt; dotc -version
+<pre style="margin:10px 0 0 30px;font-size:75%;">
+> dotc -version
 Dotty compiler version 0.7.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 </pre>
 
@@ -83,8 +83,8 @@ Dotty compiler version 0.7.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 3. Directory **`bin\0.7\`** - its contents must be copied to directory `C:\opt\dotty-0.7.0-RC1\bin\` (please adapt the target path to match your settings) in order to use the **`dotc`** and **`dot`** commands.
     > **NB.** The author wrote (and maintain) those batch files based on the bash scripts found in the standard Dotty distribution.
 
-    <pre style="font-size:80%;">
-&gt; dir /b c:\opt\dotty-0.7.0-RC1\bin
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+> dir /b c:\opt\dotty-0.7.0-RC1\bin
 common
 common.bat
 dot.bat
@@ -149,8 +149,8 @@ C:\opt\sbt-1.1.4\bin\sbt.bat
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > cleanup.bat
-Finished to clean up 14 subdirectories in C:\dotty\examples
-Finished to clean up 3 subdirectories in C:\dotty\myexamples
+Finished to clean up 15 subdirectories in C:\dotty\examples
+Finished to clean up 7 subdirectories in C:\dotty\myexamples
 </pre>
 
 #### `dirsize.bat {<class_name>}`
@@ -163,6 +163,8 @@ Size of directory "c:\opt\dotty-0.7.0-RC1" is 20.5 Mb
 </pre>
 
 #### `getnightly.bat`
+
+The `getnightly` command downloads JAR library files from the latest Dotty nightly build on the [Maven Central Repository](https://search.maven.org/) and saves them into directory `nightly-jars\`:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > getnightly
@@ -195,7 +197,7 @@ Search for class System in library files C:\opt\SCALA-~1.5\lib\*.jar
 
 Looking for the unknown class **`BinarySearch`** produces the following output:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
-> searchjars Nobody
+> searchjars BinarySearch
 Search for class BinarySearch in library files C:\opt\dotty-0.7.0-RC1\lib\*.jar
 Search for class BinarySearch in library files C:\opt\SCALA-~1.5\lib\*.jar
 </pre>
@@ -275,7 +277,7 @@ Exception in thread "main" java.lang.IncompatibleClassChangeError: Method dotty.
 
 </pre>
 
-> ***[Oracle Java SE Support Roadmap](http://www.oracle.com/technetwork/java/eol-135779.html)***<br/>
+> [***Oracle Java SE Support Roadmap***](http://www.oracle.com/technetwork/java/eol-135779.html)<br/>
 > Oracle will not post further updates of Java SE 8 to its public download sites for commercial use after January 2019.
 
 *[mics](http://lampwww.epfl.ch/~michelou/)/April 2018*
