@@ -2,7 +2,7 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" style="width:120px;"/></a></td>
+  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">The <strong><code>examples</code></strong> directory contains Dotty examples coming from various Web sites - including from the <a href="http://dotty.epfl.ch/">Dotty project</a> website.</td>
   </tr>
 </table>
@@ -17,7 +17,7 @@ This project covers Dotty features such as trait parameters, enum types, implici
 
 *(see example in [Dotty Documentation](http://dotty.epfl.ch/docs/reference/enums/enums.html))*
 
-Executing the `build` command in directory **`examples\enum-Color`** prints the following output:
+Executing the `build` command in directory **`examples\enum-Color\`** prints the following output:
 <pre>
 > build compile run
 Green
@@ -29,7 +29,7 @@ Green
 
 ### `enum-HList`
 
-Executing the `build` command in directory **`examples\enum-HList`** prints no output since all assertions succeed:
+Executing the `build` command in directory **`examples\enum-HList\`** prints no output since all assertions succeed:
 
 <pre>
 > build compile run
@@ -40,7 +40,7 @@ Executing the `build` command in directory **`examples\enum-HList`** prints no o
 
 *(see example in [Dotty Documentation](http://dotty.epfl.ch/docs/reference/enums/enums.html))*
 
-Executing the `build` command in directory **`examples\enum-Planet`** prints the following output:
+Executing the `build` command in directory **`examples\enum-Planet\`** prints the following output:
 
 <pre>
 > build -timer clean compile run
@@ -56,7 +56,7 @@ Your weight on JUPITER is 2.5305575254957406
 C:\dotty\examples\enum-Planet>
 </pre>
 
-Executing the `sbt` command in directory **`examples\enum-Planet`** prints the following output:
+Executing the `sbt` command in directory **`examples\enum-Planet\`** prints the following output:
 
 <pre>
 > sbt clean compile "run 1"
@@ -79,14 +79,14 @@ Your weight on JUPITER is 2.5305575254957406
 
 ### `enum-Tree`
 
-Executing the `build` command in directory **`examples\enum-Tree`** prints the following output:
+Executing the `build` command in directory **`examples\enum-Tree\`** prints the following output:
 
 <pre>
 > build clean compile run
 If(IsZero(Pred(Succ(Zero))),Succ(Succ(Zero)),Pred(Pred(Zero))) --> 2
 </pre>
 
-*mics/April 2018*
+*[mics](http://lampwww.epfl.ch/~michelou/)/April 2018*
 
 
 

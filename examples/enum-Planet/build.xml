@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="enum-Planet" default="compile" basedir=".">
+
+  <property name="sources.dir" value="src" />
+  <property name="scala-source.dir" value="${basedir}/src/main/scala" />
+  <property name="target.dir" value="${basedir}/target" />
+  <property name="build.dir" value="${target.dir}/classes" />
+  <property name="main.class" value="Planet" />
+
+  <!-- set dotty.home -->
+  <property environment="env" />
+  <property name="dotty.home" value="${env.DOTTY_HOME}" />
+
+  <target name="init">
+    <fail message="dotc compiler not found">
+      <condition><not>
+        <available file="${dotty.home}\bin\dotc.bat" />
+      </not></condition>
+    </fail>
+    <path id="dotty.classpath">
+      <fileset dir="${dotty.home}/lib" includes="*.jar" />
+    </path>
+    <path id="project.classpath">
+      <fileset dir="${basedir}" includes="lib/*.jar" />
+    </path>
+    <path id="build.classpath">
+      <path refid="dotty.classpath" />
+      <path refid="project.classpath" />
+      <!-- <pathelement location="${build.dir}" /> -->
+    </path>
+    <pathconvert property="scala.sources" pathsep=" ">
+      <fileset dir="${scala-source.dir}/" includes="**/*.scala" />
+    </pathconvert>
+  </target>
+
+   <macrodef name="dotc" >
+       <attribute name="destdir" default="."/>
+       <attribute name="classpath" default="."/>
+       <sequential>
+           <exec executable="${dotty.home}\bin\dotc.bat">
+               <arg value="-d" />
+               <arg value="@{destdir}" />
+               <arg value="-classpath" />
+               <arg value="@{classpath}" />
+               <arg value="-deprecation" />
+               <arg line="${scala.sources}" />
+           </exec>
+       </sequential>
+   </macrodef>
+
+  <target name="compile" depends="init">
+    <mkdir dir="${build.dir}" />
+    <pathconvert property="classpath" refid="build.classpath" />
+    <dotc destdir="${build.dir}" classpath="${classpath}" />
+  </target>
+
+  <target name="run" depends="compile">
+    <java classname="${main.class}">
+      <classpath>
+        <path refid="build.classpath" />
+      </classpath>
+    </java>
+  </target>
+
+  <target name="clean">
+    <delete dir="${target.dir}"/>
+  </target>
+
+</project>

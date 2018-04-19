@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>dotty.examples</groupId>
+	<artifactId>enum-Tree</artifactId>
+	<version>0.1-SNAPSHOT</version>
+
+	<packaging>jar</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<scala.version>2.12.5</scala.version>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>${scala.version}</version>
+		</dependency>
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-compiler -->
+        <dependency>
+            <groupId>ch.epfl.lamp</groupId>
+            <artifactId>dotty-compiler_2.11</artifactId>
+            <version>0.1.1-bin-20170429-10a2ce6-NIGHTLY</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-interfaces -->
+        <dependency>
+            <groupId>ch.epfl.lamp</groupId>
+            <artifactId>dotty-interfaces</artifactId>
+            <version>0.8.0-bin-20180413-fb95781-NIGHTLY</version>
+        </dependency>
+        <!--
+        <dependency>
+            <groupId>ch.epfl.lamp</groupId>
+            <artifactId>dotty_04</artifactId>
+            <version>0.4.0-bin-20171013-a886cd4-NIGHTLY</version>
+        </dependency>
+        -->
+        <!-- https://mvnrepository.com/artifact/com.typesafe.sbt/sbt-interface -->
+        <dependency>
+            <groupId>com.typesafe.sbt</groupId>
+            <artifactId>sbt-interface</artifactId>
+            <version>0.13.15</version>
+            <type>pom</type>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.typesafe.sbt/compiler-interface -->
+        <dependency>
+            <groupId>com.typesafe.sbt</groupId>
+            <artifactId>compiler-interface</artifactId>
+            <version>0.13.15</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.typesafe.sbt/sbt-launcher-interface -->
+        <dependency>
+            <groupId>com.typesafe.sbt</groupId>
+            <artifactId>sbt-launcher-interface</artifactId>
+            <version>0.13.6</version>
+        </dependency>
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src/main/scala</sourceDirectory>
+		<testSourceDirectory>src/test/scala</testSourceDirectory>
+		<plugins>
+            <!-- http://davidb.github.io/scala-maven-plugin/ -->
+			<plugin>
+				<groupId>net.alchim31.maven</groupId>
+				<artifactId>scala-maven-plugin</artifactId>
+				<version>3.3.2</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.7.0</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

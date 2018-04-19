@@ -7,7 +7,6 @@ lazy val root = (project in file(".")).
     scalaVersion := "0.7.0-RC1",
     scalacOptions ++= Seq(
       "-deprecation",
-      "-encoding", "UTF-8",
-      "-Ywarn-dead-code"
+      "-encoding", "UTF-8"
     )
   )

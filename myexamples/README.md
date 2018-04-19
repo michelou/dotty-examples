@@ -2,14 +2,14 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" style="width:120px;"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">The <strong><code>myexamples</code></strong> directory contains Dotty examples written by myself.</td>
+  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a></td>
+  <td style="border:0;padding:0;vertical-align:text-top;">The <strong><code>myexamples\</code></strong> directory contains Dotty examples written by myself.</td>
   </tr>
 </table>
 
 ### `00_AutoParamTupling`
 
-Executing the `build` command in directory **`myexamples\00_AutoParamTupling`** 
+Executing the `build` command in directory **`myexamples\00_AutoParamTupling\`** 
 prints the following output:
 
 <pre>
@@ -23,7 +23,7 @@ prints the following output:
 
 ### `01_Dependent_Types`
 
-Executing the `build` command in directory **`myexamples\01_Dependent_Types`** prints the following output:
+Executing the `build` command in directory **`myexamples\01_Dependent_Types\`** prints the following output:
 <pre>
 > build clean compile run
 params=Map(grade -> C, sort -> time, width -> 120)
@@ -31,7 +31,7 @@ params=Map(grade -> C, sort -> time, width -> 120)
 
 ### `02_Union_Types`
 
-Executing the `build` command in directory **`myexamples\02_Union_Types`** prints the following output:
+Executing the `build` command in directory **`myexamples\02_Union_Types\`** prints the following output:
 
 <pre>
 > build -timer clean compile run
@@ -52,7 +52,7 @@ testJSON example:
 
 ### `03_Intersection_Types`
 
-Executing the `build`command in directory **`myexamples\03_Intersection_Types`** prints the following output:
+Executing the `build`command in directory **`myexamples\03_Intersection_Types\`** prints the following output:
 
 <pre>
 > build clean compile run
@@ -61,7 +61,7 @@ Buffer(1,2,3,4)
 
 ### `04_Multiversal_Equality`
 
-Executing the `build`command in directory **`myexamples\04_Multiversal_Equality`** prints the following output:
+Executing the `build`command in directory **`myexamples\04_Multiversal_Equality\`** prints the following output:
 
 <pre>
 > build clean compile run
@@ -86,7 +86,7 @@ false
 
 ### `bug4272`
 
-Executing the `build` command in directory **`myexamples\bug4272`** produces a runtime exception with version 0.7 of the Dotty compiler:
+Executing the `build` command in directory **`myexamples\bug4272\`** produces a runtime exception with version 0.7 of the Dotty compiler:
 
 <pre>
 > build clean compile run
@@ -115,14 +115,14 @@ Exception in thread "main" java.lang.AssertionError: cannot merge Constraint(
 
 ### `HelloWorld`
 
-Executing the `build` command in directory **`myexamples\HelloWorld`** prints the following output:
+Executing the `build` command in directory **`myexamples\HelloWorld\`** prints the following output:
 
 <pre>
 > build clean compile run
 Hello world!
 </pre>
 
-*mics/April 2018*
+*[mics](http://lampwww.epfl.ch/~michelou/)/April 2018*
 
 
 
