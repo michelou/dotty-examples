@@ -2,7 +2,7 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" style="width:120px;"/></a></td>
+  <td style="border:0;padding:0 10px 0 0;width:120px;"><a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" style="width:120px;"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers Dotty examples coming from various Web sites - including from the <a href="http://dotty.epfl.ch/">Dotty project</a> website - or written by myself.<br/>
   It also includes several batch scripts for experimenting with Dotty (aka Scala 3.0) on the <span style="font-weight:bold;font-style:italic;">Microsoft Windows</span> platform. </td>
   </tr>
