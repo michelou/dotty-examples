@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="enum-Planet" default="compile" basedir=".">
+<project name="example-project" default="compile" basedir=".">
 
     <property name="sources.dir" value="src" />
     <property name="scala-source.dir" value="${basedir}/src/main/scala" />
     <property name="target.dir" value="${basedir}/target" />
     <property name="build.dir" value="${target.dir}/classes" />
-    <property name="main.class" value="Planet" />
+    <property name="main.class" value="hello.Hello" />
 
     <!-- set dotty.home -->
     <property environment="env" />
@@ -55,7 +55,6 @@
 
     <target name="run" depends="compile">
         <java classname="${main.class}">
-            <arg value="1" />
             <classpath>
                 <path refid="dotty.classpath" />
                 <path refid="build.classpath" />

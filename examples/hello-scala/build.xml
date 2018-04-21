@@ -2,10 +2,11 @@
 <project name="hello-scala" default="compile" basedir=".">
 
     <property name="sources.dir" value="src" />
+    <property name="java-source.dir" value="${basedir}/src/main/java" />
     <property name="scala-source.dir" value="${basedir}/src/main/scala" />
     <property name="target.dir" value="${basedir}/target" />
     <property name="build.dir" value="${target.dir}/classes" />
-    <property name="main.class" value="Main" />
+    <property name="main.class" value="hello" />
 
     <!-- set dotty.home -->
     <property environment="env" />
@@ -33,8 +34,8 @@
     </target>
 
     <macrodef name="dotc" >
-        <attribute name="destdir" default="."/>
-        <attribute name="classpath" default="."/>
+        <attribute name="destdir" default="." />
+        <attribute name="classpath" default="." />
         <sequential>
             <exec executable="${dotty.home}\bin\dotc.bat">
                 <arg value="-d" />
@@ -49,6 +50,11 @@
 
     <target name="compile" depends="init">
         <mkdir dir="${build.dir}" />
+        <javac srcdir="${java-source.dir}"
+               destdir="${build.dir}"
+               includeantruntime="false"
+               classpathref="build.classpath"
+        />
         <pathconvert property="classpath" refid="build.classpath" />
         <dotc destdir="${build.dir}" classpath="${classpath}" />
     </target>
