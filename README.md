@@ -71,10 +71,10 @@ We distinguish different sets of batch scripts:
 
 1. **`setenv.bat`** - this batch script makes the external tools such as **`javac.exe`**, **`scalac.bat`**, **`dotc.bat`**, etc. directly available from the command prompt.
 
-<pre style="font-size:80%;">
-&gt; dotc -version
-Dotty compiler version 0.7.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
-</pre>
+    <pre style="font-size:80%;">
+    &gt; dotc -version
+    Dotty compiler version 0.7.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
+    </pre>
 
 2. Directory **`bin\`** - this directory contains utility batch scripts:
    - **`cleanup.bat`** removes the generated class files from every example directory (both in `examples\` and `myexamples\` directories).
@@ -86,42 +86,42 @@ Dotty compiler version 0.7.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 3. Directory **`bin\0.7\`** - its contents must be copied to directory `C:\opt\dotty-0.7.0-RC1\bin\` (please adapt the target path to match your settings) in order to use the **`dotc`** and **`dot`** commands.
     > **NB.** The author wrote (and maintain) those batch files based on the bash scripts found in the standard Dotty distribution.
 
-<pre style="font-size:80%;">
-&gt; dir /b c:\opt\dotty-0.7.0-RC1\bin
-common
-common.bat
-dot.bat
-dotc
-dotc.bat
-dotd
-dotd.bat
-dotr
-dotr.bat
-</pre>
+	<pre style="font-size:80%;">
+	&gt; dir /b c:\opt\dotty-0.7.0-RC1\bin
+	common
+	common.bat
+	dot.bat
+	dotc
+	dotc.bat
+	dotd
+	dotd.bat
+	dotr
+	dotr.bat
+	</pre>
 
 4. Finally every single example can be built/run using either  the **`build`** command (batch script **`build.bat`**) or the **`sbt`** command.<br/>
     **NB.** We prefer the **`build.`** command here since our simple examples don't require the **`sbt`** machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)):
 
-<pre style="font-size:80%;">
-&gt; build
-Usage: build { options | subcommands }
-  Options:
-        -debug           show commands executed by this script
-        -deprecation     set compiler option -deprecation
-        -explain         set compiler option -explain
-        -compiler:<name>       select compiler (scala|scalac|dotc|dotty), default:dotc
-        -main:<name>           define main class name
-        -timer           display the compile time
-      Subcommands:
-        clean            delete generated class files
-        compile          compile source files (Java and Scala)
-        help             display this help message
-        run              execute main class
-      Properties:
-      (to be defined in SBT configuration file project\build.properties)
-        compiler.cmd     alternative to option -compiler
-        main.class       alternative to option -main
-        main.args        list of arguments to be passed to main class
+	<pre style="font-size:80%;">
+	&gt; build
+	Usage: build { options | subcommands }
+	  Options:
+	        -debug           show commands executed by this script
+	        -deprecation     set compiler option -deprecation
+	        -explain         set compiler option -explain
+	        -compiler:<name>       select compiler (scala|scalac|dotc|dotty), default:dotc
+	        -main:<name>           define main class name
+	        -timer           display the compile time
+	      Subcommands:
+	        clean            delete generated class files
+	        compile          compile source files (Java and Scala)
+	        help             display this help message
+	        run              execute main class
+	      Properties:
+	      (to be defined in SBT configuration file project\build.properties)
+	        compiler.cmd     alternative to option -compiler
+	        main.class       alternative to option -main
+	        main.args        list of arguments to be passed to main class
     </pre>
 
 ## Session examples

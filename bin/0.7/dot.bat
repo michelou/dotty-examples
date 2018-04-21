@@ -16,23 +16,10 @@ for %%f in ("%~dp0..") do set _PROG_HOME=%%~sf
 call %_PROG_HOME%\bin\common.bat
 if not %_EXITCODE%==0 goto end
 
+call :args %*
+
 rem ##########################################################################
 rem ## Main
-
-:loop
-set _ARG=%~1
-if %_DEBUG%==1 echo [%_BASENAME%] _ARG=%_ARG%
-if "%_ARG%"=="" ( goto loop_end
-) else if "%_ARG%"=="--" (
-    shift
-    rem for arg; do addResidual "$arg"; done; set -- ;;
-) else if /i "%_ARG%"=="-debug" ( set _JAVA_DEBUG=%_DEBUG_STR%& shift
-) else (
-    call :addJava "%_ARG%"
-    shift
-)
-goto loop
-:loop_end
 
 call :classpathArgs
 
@@ -49,6 +36,25 @@ goto end
 
 rem ##########################################################################
 rem ## Subroutines
+
+:args
+set _JAVA_DEBUG=
+set _JAVA_ARGS=
+:args_loop
+if "%~1"=="" goto args_done
+set _ARG=%~1
+if %_DEBUG%==1 echo [%_BASENAME%] _ARG=%_ARG%
+if "%_ARG%"=="--" (
+    rem for arg; do addResidual "$arg"; done; set -- ;;
+) else if /i "%_ARG%"=="-debug" (
+    set _JAVA_DEBUG=%_DEBUG_STR%
+) else (
+    call :addJava "%_ARG%"
+)
+shift
+goto args_loop
+:args_done
+goto :eof
 
 rem output parameter: _JAVA_ARGS
 :addJava
