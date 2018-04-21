@@ -1,4 +1,5 @@
+.idea
 docs-local/
 nightly-jars/
-project/
+/project/
 target/

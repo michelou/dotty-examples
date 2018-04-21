@@ -1,0 +1,132 @@
+##############################################################################
+> dir /s /b
+c:\Temp\DottyTest\lib
+c:\Temp\DottyTest\src
+c:\Temp\DottyTest\lib\junit-4.12.jar
+c:\Temp\DottyTest\src\main
+c:\Temp\DottyTest\src\main\java
+c:\Temp\DottyTest\src\main\scala
+c:\Temp\DottyTest\src\main\java\Main.java
+c:\Temp\DottyTest\src\main\scala\Main.scala
+
+// Main.scala
+import org.junit._
+
+object Main {
+  def main(args: Array[String]): Unit = {
+    Assert.assertTrue(args.length > 0)
+    println("Got one or more arguments")
+  }
+}
+
+// Main.java
+import org.junit.*;
+
+public class Main {
+    public void main(String[] args) {
+        Assert.assertTrue(args.length > 0);
+        System.out.println("Got one or more arguments");
+    }
+}
+##############################################################################
+## Dotty 0.7
+
+Normal case (does compile)
+------------
+> "C:\Progra~1\Java\jdk1.8.0_171\bin\java.exe" -Xmx768m -Xms768m -classpath C:\opt\dotty-0.7.0-RC1\lib\scala-library-2.12.4.jar;C:\opt\dotty-0.7.0-RC1\lib\dotty-library_0.7-0.7.0-RC1.jar;C:\opt\dotty-0.7.0-RC1\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.7.0-RC1\lib\sbt-interface-0.13.15.jar;C:\opt\dotty-0.7.0-RC1\lib\dotty-interfaces-0.7.0-RC1.jar;C:\opt\dotty-0.7.0-RC1\lib\dotty-library_0.7-0.7.0-RC1.jar;C:\opt\dotty-0.7.0-RC1\lib\dotty-compiler_0.7-0.7.0-RC1.jar -Dscala.usejavacp=true dotty.tools.dotc.Main -d C:\Temp\DottyTest/target/classes -classpath C:\Temp\DottyTest\lib\junit-4.12.jar;C:\temp\DottyTest\target\class -deprecation C:\Temp\DottyTest\src\main\scala\Main.scala
+
+> dir /b c:\temp\DottyTest\target\classes
+Main$.class
+Main.class
+Main.hasTasty
+
+Incorrect path separator (runtime exception)
+------------------------
+> "C:\Progra~1\Java\jdk1.8.0_171\bin\java.exe" -Xmx768m -Xms768m -classpath C:\opt\dotty-0.7.0-RC1\lib\scala-library-2.12.4.jar;C:\opt\dotty-0.7.0-RC1\lib\dotty-library_0.7-0.7.0-RC1.jar;C:\opt\dotty-0.7.0-RC1\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.7.0-RC1\lib\sbt-interface-0.13.15.jar;C:\opt\dotty-0.7.0-RC1\lib\dotty-interfaces-0.7.0-RC1.jar;C:\opt\dotty-0.7.0-RC1\lib\dotty-library_0.7-0.7.0-RC1.jar;C:\opt\dotty-0.7.0-RC1\lib\dotty-compiler_0.7-0.7.0-RC1.jar -Dscala.usejavacp=true dotty.tools.dotc.Main -d C:\Temp\DottyTest/target/classes -classpath C:\Temp\DottyTest\lib\junit-4.12.jar:C:\temp\DottyTest\target\class -deprecation C:\Temp\DottyTest\src\main\scala\Main.scala
+Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> at index 36: C:\Temp\DottyTest\lib\junit-4.12.jar:C:\temp\DottyTest\target\class
+        at sun.nio.fs.WindowsPathParser.normalize(WindowsPathParser.java:182)
+        at sun.nio.fs.WindowsPathParser.parse(WindowsPathParser.java:153)
+        at sun.nio.fs.WindowsPathParser.parse(WindowsPathParser.java:77)
+        at sun.nio.fs.WindowsPath.parse(WindowsPath.java:94)
+        at sun.nio.fs.WindowsFileSystem.getPath(WindowsFileSystem.java:255)
+        at java.nio.file.Paths.get(Paths.java:84)
+        at dotty.tools.io.Directory$.apply(Directory.scala:26)
+        at dotty.tools.io.AbstractFile$.getDirectory(AbstractFile.scala:25)
+        at dotty.tools.dotc.classpath.ClassPathFactory.classesInPathImpl$$anonfun$1(ClassPathFactory.scala:58)
+        at scala.collection.immutable.List.flatMap(List.scala:335)
+        at dotty.tools.dotc.classpath.ClassPathFactory.classesInPathImpl(ClassPathFactory.scala:60)
+        at dotty.tools.dotc.classpath.ClassPathFactory.classesInExpandedPath(ClassPathFactory.scala:44)
+        at dotty.tools.dotc.config.PathResolver$Calculated$.basis(PathResolver.scala:233)
+        at dotty.tools.dotc.config.PathResolver$Calculated$.containers(PathResolver.scala:237)
+        at dotty.tools.dotc.config.PathResolver.containers(PathResolver.scala:260)
+        at dotty.tools.dotc.config.PathResolver.result(PathResolver.scala:263)
+        at dotty.tools.dotc.config.JavaPlatform.classPath(JavaPlatform.scala:18)
+        at dotty.tools.dotc.config.JavaPlatform.rootLoader(JavaPlatform.scala:45)
+        at dotty.tools.dotc.core.Contexts$ContextBase.rootLoader(Contexts.scala:571)
+        at dotty.tools.dotc.core.Definitions.RootClass$$anonfun$1(Definitions.scala:195)
+        at dotty.tools.dotc.core.Symbols.newModuleSymbol(Symbols.scala:157)
+        at dotty.tools.dotc.core.Symbols.newPackageSymbol(Symbols.scala:206)
+        at dotty.tools.dotc.core.Definitions.RootClass(Definitions.scala:195)
+        at dotty.tools.dotc.core.Denotations$DenotationsBase.recurSimple$1(Denotations.scala:1286)
+        at dotty.tools.dotc.core.Denotations$DenotationsBase.recur$1(Denotations.scala:1290)
+        at dotty.tools.dotc.core.Denotations$DenotationsBase.staticRef(Denotations.scala:1292)
+        at dotty.tools.dotc.core.Symbols.requiredPackage(Symbols.scala:374)
+        at dotty.tools.dotc.core.Definitions.ScalaShadowingPackageVal(Definitions.scala:232)
+        at dotty.tools.dotc.core.Definitions.ScalaShadowingPackageClass(Definitions.scala:233)
+        at dotty.tools.dotc.core.Definitions.init(Definitions.scala:1183)
+        at dotty.tools.dotc.core.Contexts$ContextBase.initialize(Contexts.scala:584)
+        at dotty.tools.dotc.Run.rootContext(Run.scala:45)
+        at dotty.tools.dotc.Run.<init>(Run.scala:66)
+        at dotty.tools.dotc.Compiler.newRun(Compiler.scala:143)
+        at dotty.tools.dotc.Driver.doCompile(Driver.scala:28)
+        at dotty.tools.dotc.Driver.process(Driver.scala:127)
+        at dotty.tools.dotc.Driver.process(Driver.scala:96)
+        at dotty.tools.dotc.Driver.process(Driver.scala:108)
+        at dotty.tools.dotc.Driver.main(Driver.scala:135)
+        at dotty.tools.dotc.Main.main(Main.scala)
+
+##############################################################################
+## Scala 2.12.5
+
+Normal case 
+-----------
+> "C:\opt\scala-2.12.5\bin\scalac.bat" -d C:\Temp\DottyTest/target/classes -classpath C:\Temp\DottyTest\lib\junit-4.12.jar;C:\Temp\DottyTest\target\classes -deprecation C:\Temp\DottyTest\src\main\scala\Main.scala
+
+> dir /b c:\temp\DottyTest\target\classes
+Main$.class
+Main.class
+
+Incorrect path separator (correctly reports 2 errors)
+------------------------
+> "C:\opt\scala-2.12.5\bin\scalac.bat" -d C:\Temp\DottyTest/target/classes -classpath C:\Temp\DottyTest\lib\junit-4.12.jar:C:\Temp\DottyTest\target\classes -deprecation C:\Temp\DottyTest\src\main\scala\Main.scala
+C:\Temp\DottyTest\src\main\scala\Main.scala:1: error: object junit is not a member of package org
+import org.junit._
+           ^
+C:\Temp\DottyTest\src\main\scala\Main.scala:5: error: not found: value Assert
+    Assert.assertTrue(args.length > 0)
+    ^
+two errors found
+
+##############################################################################
+## Java 1.8
+
+Normal case (does compile):
+---------------------------
+> "C:\Progra~1\Java\jdk1.8.0_171\bin\javac.exe" -d C:\Temp\DottyTest/target/classes -classpath C:\Temp\DottyTest\lib\junit-4.12.jar;C:\Temp\DottyTest\target\classes -deprecation C:\Temp\DottyTest\src\main\java\Main.java
+
+> dir /b c:\temp\DottyTest\target\classes
+Main.class
+
+Incorrect path separator (correctly reports 2 errors)
+-----------------------
+> "C:\Progra~1\Java\jdk1.8.0_171\bin\javac.exe" -d C:\Temp\DottyTest/target/classes -classpath C:\Temp\DottyTest\lib\junit
+-4.12.jar:C:\Temp\DottyTest\target\classes -deprecation C:\Temp\DottyTest\src\main\java\Main.java
+C:\Temp\DottyTest\src\main\java\Main.java:1: error: package org.junit does not exist
+import org.junit.*;
+^
+C:\Temp\DottyTest\src\main\java\Main.java:5: error: cannot find symbol
+        Assert.assertTrue(args.length > 0);
+        ^
+  symbol:   variable Assert
+  location: class Main
+2 errors

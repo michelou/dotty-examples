@@ -21,6 +21,7 @@ set _ANT_PATH=
 set _MVN_PATH=
 set _SBT_PATH=
 set _CFR_PATH=
+set _GIT_PATH=
 
 call :javac
 if not %_EXITCODE%==0 goto end
@@ -47,6 +48,11 @@ set _EXITCODE=0
 rem if not %_EXITCODE%==0 goto end
 
 call :cfr
+rem optional
+set _EXITCODE=0
+rem if not %_EXITCODE%==0 goto end
+
+call :git
 rem optional
 set _EXITCODE=0
 rem if not %_EXITCODE%==0 goto end
@@ -260,6 +266,35 @@ if not exist "%_CFR_HOME%\bin\cfr.bat" (
 set "_CFR_PATH=;%_CFR_HOME%\bin"
 goto :eof
 
+:git
+where /q git.exe
+if %ERRORLEVEL%==0 goto :eof
+
+if defined GIT_HOME (
+    set _GIT_HOME=%GIT_HOME%
+    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable GIT_HOME
+) else (
+    set __PATH=C:\opt
+    if exist "!__PATH!\Git\" ( set _GIT_HOME=!__PATH!\Git
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set _GIT_HOME=!__PATH!\%%f
+        if not defined _GIT_HOME (
+            set __PATH=C:\Progra~1
+            for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set _GIT_HOME=!__PATH!\%%f
+        )
+    )
+    if defined _GIT_HOME (
+        if %_DEBUG%==1 echo [%_BASENAME%] Using default Git installation directory !_GIT_HOME!
+    )
+)
+if not exist "%_GIT_HOME%\bin\git.exe" (
+    echo Git executable not found ^(%_GIT_HOME%^)
+    set _EXITCODE=1
+    goto :eof
+)
+set "_GIT_PATH=;%_GIT_HOME%\bin"
+goto :eof
+
 :clean
 for %%f in ("%~dp0") do set __ROOT_DIR=%%~sf
 for /f %%i in ('dir /ad /b "%__ROOT_DIR%\" 2^>NUL') do (
@@ -308,6 +343,11 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('cfr.bat --version 2^>^&1 ^| findstr CFR') do echo CFR_VERSION=%%j
     set __WHERE_ARGS=%__WHERE_ARGS% cfr.bat
 )
+where /q git.exe
+if %ERRORLEVEL%==0 (
+   for /f "tokens=1,2,*" %%i in ('git.exe --version') do echo GIT_VERSION=%%k
+    set __WHERE_ARGS=%__WHERE_ARGS% git.exe
+)
 rem if %_DEBUG%==1 echo [%_BASENAME%] where %__WHERE_ARGS%
 where %__WHERE_ARGS%
 goto :eof
@@ -320,7 +360,7 @@ endlocal & (
     if not defined JAVA_HOME set JAVA_HOME=%_JDK_HOME%
     if not defined SCALA_HOME set SCALA_HOME=%_SCALA_HOME%
     if not defined DOTTY_HOME set DOTTY_HOME=%_DOTTY_HOME%
-    set "PATH=%_JDK_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%;%~dp0bin"
+    set "PATH=%_JDK_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_GIT_PATH%;%~dp0bin"
     call :print_env
     if %_DEBUG%==1 echo [%_BASENAME%] _EXITCODE=%_EXITCODE%
     for /f "delims==" %%i in ('set ^| findstr /b "_"') do set %%i=

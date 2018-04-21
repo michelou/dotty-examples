@@ -129,23 +129,24 @@ echo   Properties:
 echo   ^(may be defined in SBT configuration file project\build.properties^)
 echo     compiler.cmd     alternative to option -compiler
 echo     main.class       alternative to option -main
+echo     main.args        list of arguments to be passed to main class
 goto :eof
 
 rem output parameter(s): _COMPILE_CMD, _RUN_CMD
 :set_compiler
 set __VALUE=%~1
 if /i "%__VALUE%"=="scala" (
-    set _COMPILE_CMD=scalac
-    set _RUN_CMD=scala
+    set _COMPILE_CMD=scalac.bat
+    set _RUN_CMD=scala.bat
 ) else if /i "%__VALUE%"=="scalac" (
-    set _COMPILE_CMD=scalac
-    set _RUN_CMD=scala
+    set _COMPILE_CMD=scalac.bat
+    set _RUN_CMD=scala.bat
 ) else if /i "%__VALUE%"=="dotc" (
-    set _COMPILE_CMD=dotc
-    set _RUN_CMD=dot
+    set _COMPILE_CMD=dotc.bat
+    set _RUN_CMD=dot.bat
 ) else if /i "%__VALUE%"=="dotty" (
-    set _COMPILE_CMD=dotc
-    set _RUN_CMD=dot
+    set _COMPILE_CMD=dotc.bat
+    set _RUN_CMD=dot.bat
 ) else (
     echo Unknown target %__VALUE% ^(scala^|scalac^|dotc^|dotty^)
     set _EXITCODE=1
@@ -234,9 +235,23 @@ if %_COMPILE_REQUIRED%==0 goto :eof
 if %_COMPILE_TIME%==1 (
     for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __COMPILE_TIME_START=%%i
 )
+for /f %%i in ('where dotc.bat') do set _DOTTY_BIN_DIR=%%~dpi
+for /f %%f in ("%_DOTTY_BIN_DIR%..") do set _DOTTY_HOME=%%~sf
+set _DOTTY_LIB_DIR=%_DOTTY_HOME%\lib
+set _DOTTY_JARS=
+for /f %%i in ('dir /b "%_DOTTY_LIB_DIR%\dotty*.jar"') do (
+    set _DOTTY_JARS=!_DOTTY_JARS!%_DOTTY_LIB_DIR%\%%i;
+)
+set __PROJECT_JARS=
+if exist "%_ROOT_DIR%\lib\" (
+    for /f %%i in ('dir /b "%_ROOT_DIR%\lib\*.jar"') do (
+        set __PROJECT_JARS=!__PROJECT_JARS!%_ROOT_DIR%\lib\%%i;
+    )
+)
+
 if not defined __JAVA_SOURCE_FILES goto compile_scala
 set _JAVAC_CMD=javac.exe
-set _JAVAC_OPTS=-classpath %_CLASSES_DIR%
+set _JAVAC_OPTS=-classpath "%_DOTTY_JARS%%__PROJECT_JARS%%_CLASSES_DIR%"
 
 if %_DEBUG%==1 echo [%_BASENAME%] %_JAVAC_CMD% %_JAVAC_OPTS% -d %_CLASSES_DIR% %__JAVA_SOURCE_FILES%
 %_JAVAC_CMD% %_JAVAC_OPTS% -d %_CLASSES_DIR% %__JAVA_SOURCE_FILES%
@@ -252,7 +267,7 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-set __COMPILE_OPTS=%_COMPILE_OPTS% -classpath %_CLASSES_DIR% -d %_CLASSES_DIR%
+set __COMPILE_OPTS=%_COMPILE_OPTS% -classpath "%__PROJECT_JARS%%_CLASSES_DIR%" -d %_CLASSES_DIR%
 
 if %_DEBUG%==1 echo [%_BASENAME%] %_COMPILE_CMD% %__COMPILE_OPTS% %__SCALA_SOURCE_FILES%
 call %_COMPILE_CMD% %__COMPILE_OPTS% %__SCALA_SOURCE_FILES%
@@ -334,7 +349,13 @@ if not exist "%__MAIN_CLASS_FILE%" (
     set _EXITCODE=1
     goto :eof
 )
-set __RUN_OPTS=-classpath %_CLASSES_DIR%
+set __PROJECT_JARS=
+if exist "%_ROOT_DIR%\lib\" (
+    for /f %%i in ('dir /b "%_ROOT_DIR%\lib\*.jar"') do (
+        set __PROJECT_JARS=!__PROJECT_JARS!%_ROOT_DIR%\lib\%%i;
+    )
+)
+set __RUN_OPTS=-classpath "%__PROJECT_JARS%%_CLASSES_DIR%"
 
 if %_DEBUG%==1 echo [%_BASENAME%] %_RUN_CMD% %__RUN_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 call %_RUN_CMD% %__RUN_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%

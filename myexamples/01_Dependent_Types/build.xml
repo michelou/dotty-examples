@@ -1,67 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="00_Auto_ParamTupling" default="compile" basedir=".">
+<project name="01_Dependent_Types default="compile" basedir=".">
 
-  <property name="sources.dir" value="src" />
-  <property name="scala-source.dir" value="${basedir}/src/main/scala" />
-  <property name="target.dir" value="${basedir}/target" />
-  <property name="build.dir" value="${target.dir}/classes" />
-  <property name="main.class" value="Main" />
+    <property name="sources.dir" value="src" />
+    <property name="scala-source.dir" value="${basedir}/src/main/scala" />
+    <property name="target.dir" value="${basedir}/target" />
+    <property name="build.dir" value="${target.dir}/classes" />
+    <property name="main.class" value="Main" />
 
-  <!-- set dotty.home -->
-  <property environment="env" />
-  <property name="dotty.home" value="${env.DOTTY_HOME}" />
+    <!-- set dotty.home -->
+    <property environment="env" />
+    <property name="dotty.home" value="${env.DOTTY_HOME}" />
 
-  <target name="init">
-    <path id="dotty.classpath">
-      <fileset dir="${dotty.home}/lib" includes="*.jar" />
-    </path>
-    <path id="build.classpath">
-      <path refid="dotty.classpath" />
-      <pathelement location="${build.dir}" />
-    </path>
-    <pathconvert property="scala.sources">
-      <fileset dir="${scala-source.dir}/" includes="**/*.scala" />
-    </pathconvert>
-  </target>
+    <target name="init">
+        <fail message="dotc compiler not found">
+            <condition><not>
+                <available file="${dotty.home}\bin\dotc.bat" />
+            </not></condition>
+        </fail>
+        <path id="dotty.classpath">
+            <fileset dir="${dotty.home}/lib" includes="*.jar" />
+        </path>
+        <path id="project.classpath">
+            <fileset dir="${basedir}" includes="lib/*.jar" />
+        </path>
+        <path id="build.classpath">
+            <path refid="project.classpath" />
+            <pathelement location="${build.dir}" />
+        </path>
+        <pathconvert property="scala.sources" pathsep=" ">
+            <fileset dir="${scala-source.dir}/" includes="**/*.scala" />
+        </pathconvert>
+    </target>
 
-   <macrodef name="dotc" >
-       <attribute name="destdir" default="${build.dir}"/>
-       <attribute name="sourcepath" default="${scala-source.dir}"/>
-       <attribute name="classpath" default="."/>
-       <attribute name="deprecation" default="on"/>
-       <sequential>
-           <exec executable="${dotty.home}\bin\dotc.bat">
-               <arg value="-d" />
-               <arg value="@{destdir}" />
-               <arg value="-sourcepath" />
-               <arg value="@{sourcepath}" />
-               <arg value="-classpath" />
-               <arg value="@{classpath}" />
-               <arg value="-deprecation" />
-               <arg value="${scala.sources}" />
-           </exec>
-       </sequential>
-   </macrodef>
+    <macrodef name="dotc" >
+        <attribute name="destdir" default="." />
+        <attribute name="classpath" default="." />
+        <sequential>
+            <exec executable="${dotty.home}\bin\dotc.bat">
+                <arg value="-d" />
+                <arg value="@{destdir}" />
+                <arg value="-classpath" />
+                <arg value="@{classpath}" />
+                <arg value="-deprecation" />
+                <arg line="${scala.sources}" />
+            </exec>
+        </sequential>
+    </macrodef>
 
-  <target name="compile" depends="init">
-    <mkdir dir="${build.dir}" />
-    <dotc destdir="${build.dir}"
-          sourcepath="${scala-source.dir}"
-          classpath="${build.classpath}"
-          deprecation="on">
-    </dotc>
-  </target>
+    <target name="compile" depends="init">
+        <mkdir dir="${build.dir}" />
+        <pathconvert property="classpath" refid="build.classpath" />
+        <dotc destdir="${build.dir}" classpath="${classpath}" />
+    </target>
 
-  <target name="run" depends="compile">
-    <java classname="${main.class}">
-      <classpath>
-        <path refid="build.classpath" />
-      </classpath>
-    </java>
-  </target>
+    <target name="run" depends="compile">
+        <java classname="${main.class}">
+            <classpath>
+                <path refid="dotty.classpath" />
+                <path refid="build.classpath" />
+            </classpath>
+        </java>
+    </target>
 
-  <target name="clean">
-    <delete dir="${target.dir}"/>
-  </target>
+    <target name="clean">
+        <delete dir="${target.dir}"/>
+    </target>
 
 </project>
