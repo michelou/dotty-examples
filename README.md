@@ -40,7 +40,7 @@ C:\opt\cfr-0_125\
 C:\opt\Git\
 </pre>
 
-We further recommand using an advanced console emulator such as [ComEmu](https://conemu.github.io/) (or [Cmdr](http://cmder.net/)) which features [UTF-8 support](https://conemu.github.io/en/UnicodeSupport.html).
+We further recommand using an advanced console emulator such as [ComEmu](https://conemu.github.io/) (or [Cmdr](http://cmder.net/)) which features [Unicode support](https://conemu.github.io/en/UnicodeSupport.html).
 
 ## Directory structure
 
@@ -71,7 +71,7 @@ We distinguish different sets of batch scripts:
 
 1. **`setenv.bat`** - this batch script makes the external tools such as **`javac.exe`**, **`scalac.bat`**, **`dotc.bat`**, etc. directly available from the command prompt.
 
-    <pre style="font-size:75%;">
+<pre style="font-size:80%;">
 &gt; dotc -version
 Dotty compiler version 0.7.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 </pre>
@@ -86,7 +86,7 @@ Dotty compiler version 0.7.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 3. Directory **`bin\0.7\`** - its contents must be copied to directory `C:\opt\dotty-0.7.0-RC1\bin\` (please adapt the target path to match your settings) in order to use the **`dotc`** and **`dot`** commands.
     > **NB.** The author wrote (and maintain) those batch files based on the bash scripts found in the standard Dotty distribution.
 
-    <pre style="font-size:80%;">
+<pre style="font-size:80%;">
 &gt; dir /b c:\opt\dotty-0.7.0-RC1\bin
 common
 common.bat
@@ -102,7 +102,7 @@ dotr.bat
 4. Finally every single example can be built/run using either  the **`build`** command (batch script **`build.bat`**) or the **`sbt`** command.<br/>
     **NB.** We prefer the **`build.`** command here since our simple examples don't require the **`sbt`** machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)):
 
-    <pre style="font-size:80%;">
+<pre style="font-size:80%;">
 &gt; build
 Usage: build { options | subcommands }
   Options:

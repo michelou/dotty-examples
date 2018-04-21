@@ -245,11 +245,13 @@ for /f %%i in ('dir /b "%_DOTTY_LIB_DIR%\dotty*.jar"') do (
 set __PROJECT_JARS=
 if exist "%_ROOT_DIR%\lib\" (
     for /f %%i in ('dir /b "%_ROOT_DIR%\lib\*.jar"') do (
-        set __PROJECT_JARS=!__PROJECT_JARS!%_ROOT_DIR%\lib\%%i;
+        set __PROJECT_JARS=!__PROJECT_JARS!%_ROOT_DIR%\lib\%%i:
     )
 )
 
-if not defined __JAVA_SOURCE_FILES goto compile_scala
+rem if not defined __JAVA_SOURCE_FILES goto compile_scala
+rem see https://github.com/lampepfl/dotty/issues/4356
+goto compile_scala
 set _JAVAC_CMD=javac.exe
 set _JAVAC_OPTS=-classpath "%_DOTTY_JARS%%__PROJECT_JARS%%_CLASSES_DIR%"
 

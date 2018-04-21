@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">The <strong><code>examples</code></strong> directory contains Dotty examples coming from various Web sites - including from the <a href="http://dotty.epfl.ch/">Dotty project</a> website.</td>
+  <td style="border:0;padding:0;vertical-align:text-top;">The <strong><code>examples\</code></strong> directory contains <a href="http://dotty.epfl.ch/" alt="Dotty">Dotty</a> examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a>.</td>
   </tr>
 </table>
 
@@ -11,15 +11,15 @@
 
 *(see [dotty-example-project](https://github.com/lampepfl/dotty-example-project) on Dotty Github)*
 
-This project covers Dotty features such as trait parameters, enum types, implicit functions, implicit parameters, implicit conversions, union types, and so on.
+This project covers [Dotty](http://dotty.epfl.ch/) features such as trait parameters, enum types, implicit functions, implicit parameters, implicit conversions, union types, and so on.
 
 ### `enum-Color`
 
 *(see example in [Dotty Documentation](http://dotty.epfl.ch/docs/reference/enums/enums.html))*
 
 Executing the `build` command in directory **`examples\enum-Color\`** prints the following output:
-<pre>
-> build compile run
+<pre style="font-size:80%;">
+> build clean compile run
 Green
 3
 5
@@ -31,8 +31,8 @@ Green
 
 Executing the `build` command in directory **`examples\enum-HList\`** prints no output since all assertions succeed:
 
-<pre>
-> build compile run
+<pre style="font-size:80%;">
+> build clean compile run
 >
 </pre>
 
@@ -42,7 +42,7 @@ Executing the `build` command in directory **`examples\enum-HList\`** prints no 
 
 Executing the `build` command in directory **`examples\enum-Planet\`** prints the following output:
 
-<pre>
+<pre style="font-size:80%;">
 > build -timer clean compile run
 Compile time: 00:00:05
 Your weight on MERCURY is 0.37775761520093526
@@ -58,7 +58,7 @@ C:\dotty\examples\enum-Planet>
 
 Executing the `sbt` command in directory **`examples\enum-Planet\`** prints the following output:
 
-<pre>
+<pre style="font-size:80%;">
 > sbt clean compile "run 1"
 [warn] Executing in batch mode.
 ...
@@ -81,9 +81,27 @@ Your weight on JUPITER is 2.5305575254957406
 
 Executing the `build` command in directory **`examples\enum-Tree\`** prints the following output:
 
-<pre>
+<pre style="font-size:80%;">
 > build clean compile run
 If(IsZero(Pred(Succ(Zero))),Succ(Succ(Zero)),Pred(Pred(Zero))) --> 2
+</pre>
+
+### `ImplicitFunctionTypes`
+
+Executing the `build` command in directory **`examples\ImplicitFunctionTypes\`** prints the following output:
+
+<pre style="font-size:80%;">
+> build clean compile run
+Table(Row(Cell(top left), Cell(top right)), Row(Cell(bottom left), Cell(bottom right)))
+</pre>
+
+### `IntersectionTypes`
+
+Executing the `build` command in directory **`examples\IntersectionTypes\`** prints the following output:
+
+<pre style="font-size:80%;">
+> build clean compile run
+Buffer(first)
 </pre>
 
 *[mics](http://lampwww.epfl.ch/~michelou/)/April 2018*
