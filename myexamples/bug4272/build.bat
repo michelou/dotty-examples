@@ -126,7 +126,7 @@ echo     compile          compile source files ^(Java and Scala^)
 echo     help             display this help message
 echo     run              execute main class
 echo   Properties:
-echo   ^(may be defined in SBT configuration file project\build.properties^)
+echo   ^(to be defined in SBT configuration file project\build.properties^)
 echo     compiler.cmd     alternative to option -compiler
 echo     main.class       alternative to option -main
 echo     main.args        list of arguments to be passed to main class
@@ -251,10 +251,10 @@ if exist "%_ROOT_DIR%\lib\" (
 
 if not defined __JAVA_SOURCE_FILES goto compile_scala
 set _JAVAC_CMD=javac.exe
-set _JAVAC_OPTS=-classpath "%_DOTTY_JARS%%__PROJECT_JARS%%_CLASSES_DIR%"
+set _JAVAC_OPTS=-classpath "%_DOTTY_JARS%%__PROJECT_JARS%%_CLASSES_DIR%" -d %_CLASSES_DIR%
 
-if %_DEBUG%==1 echo [%_BASENAME%] %_JAVAC_CMD% %_JAVAC_OPTS% -d %_CLASSES_DIR% %__JAVA_SOURCE_FILES%
-%_JAVAC_CMD% %_JAVAC_OPTS% -d %_CLASSES_DIR% %__JAVA_SOURCE_FILES%
+if %_DEBUG%==1 echo [%_BASENAME%] %_JAVAC_CMD% %_JAVAC_OPTS% %__JAVA_SOURCE_FILES%
+%_JAVAC_CMD% %_JAVAC_OPTS% %__JAVA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
     if %_DEBUG%==1 echo [%_BASENAME%] Java compilation failed
     set _EXITCODE=1
@@ -272,7 +272,7 @@ set __COMPILE_OPTS=%_COMPILE_OPTS% -classpath "%__PROJECT_JARS%%_CLASSES_DIR%" -
 if %_DEBUG%==1 echo [%_BASENAME%] %_COMPILE_CMD% %__COMPILE_OPTS% %__SCALA_SOURCE_FILES%
 call %_COMPILE_CMD% %__COMPILE_OPTS% %__SCALA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-    if %_DEBUG%==1 echo [%_BASENAME%] Compilation failed
+    if %_DEBUG%==1 echo [%_BASENAME%] Scala compilation failed
     set _EXITCODE=1
     goto :eof
 )

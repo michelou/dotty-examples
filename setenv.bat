@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-rem only for interactive debugging !
+rem only for interactive debugging
 set _DEBUG=0
 
 rem ##########################################################################
