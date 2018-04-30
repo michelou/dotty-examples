@@ -56,6 +56,15 @@ Your weight on JUPITER is 2.5305575254957406
 C:\dotty\examples\enum-Planet>
 </pre>
 
+**NB.** The `build`command takes the main class name and its arguments from the **`project\build.properties`** configuration file.
+
+<pre style="font-size:80%;">
+sbt.version=1.1.4
+
+main.class=Planet
+main.args=1
+</pre>
+
 Executing the `sbt` command in directory **`examples\enum-Planet\`** prints the following output:
 
 <pre style="font-size:80%;">

@@ -223,7 +223,7 @@ if defined SBT_HOME (
         for %%f in ("!_SBT_BIN_DIR!..") do set _SBT_HOME=%%~sf
     ) else (
         set _PATH=C:\opt
-        for /f %%f in ('dir /ad /b "!_PATH!\sbt-0.13*" 2^>NUL') do set _SBT_HOME=!_PATH!\%%f
+        for /f %%f in ('dir /ad /b "!_PATH!\sbt-1*" 2^>NUL') do set _SBT_HOME=!_PATH!\%%f
         if defined _SBT_HOME (
             if %_DEBUG%==1 echo [%_BASENAME%] Using default sbt installation directory !_SBT_HOME!
         )
