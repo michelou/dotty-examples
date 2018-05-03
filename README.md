@@ -12,7 +12,7 @@
 
 This repository relies on a small set of external software installations for the ***Microsoft Windows*** plaform:
 
-- [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) (prerequisite for Scala 2.12 and Dotty 0.7<sup id="anchor_01">[[1]](#footnote_01)</sup>)
+- [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) (prerequisite for Scala 2.12 and Dotty 0.8<sup id="anchor_01">[[1]](#footnote_01)</sup>)
 - [Scala 2.12](https://www.scala-lang.org/download/)
 - [Dotty 0.x](https://github.com/lampepfl/dotty/releases)
 - [SBT 1.x](https://www.scala-sbt.org/download.html)
@@ -32,12 +32,12 @@ For instance our development environment looks as follows (*April 2018*):
 <pre style="font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_171\
 C:\opt\scala-2.12.5\
-C:\opt\dotty-0.7.0-RC1\
+C:\opt\dotty-0.8.0-RC1\
 C:\opt\apache-ant-1.10.3\
 C:\opt\apache-maven-3.5.3\
 C:\opt\sbt-1.1.4\
 C:\opt\cfr-0_125\
-C:\opt\Git\
+C:\opt\Git-2.17.0\
 </pre>
 
 We further recommand using an advanced console emulator such as [ComEmu](https://conemu.github.io/) (or [Cmdr](http://cmder.net/)) which features [Unicode support](https://conemu.github.io/en/UnicodeSupport.html).
@@ -73,7 +73,7 @@ We distinguish different sets of batch scripts:
 
     <pre style="font-size:80%;">
     &gt; dotc -version
-    Dotty compiler version 0.7.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
+    Dotty compiler version 0.8.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
     </pre>
 
 2. Directory **`bin\`** - this directory contains utility batch scripts:
@@ -83,11 +83,11 @@ We distinguish different sets of batch scripts:
    - **`searchjars.bat <class_name>`** searches for the given class name into all Dotty/Scala JAR files.
    - **`touch.bat`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory **`bin\0.7\`** - its contents must be copied to directory `C:\opt\dotty-0.7.0-RC1\bin\` (please adapt the target path to match your settings) in order to use the **`dotc`** and **`dot`** commands.
+3. Directory **`bin\0.7\`** - its contents must be copied to directory `C:\opt\dotty-0.8.0-RC1\bin\` (please adapt the target path to match your settings) in order to use the **`dotc`** and **`dot`** commands.
     > **NB.** The author wrote (and maintain) those batch files based on the bash scripts found in the standard Dotty distribution.
 
 	<pre style="font-size:80%;">
-	&gt; dir /b c:\opt\dotty-0.7.0-RC1\bin
+	&gt; dir /b c:\opt\dotty-0.8.0-RC1\bin
 	common
 	common.bat
 	dot.bat
@@ -135,21 +135,21 @@ We execute the `setenv` command once to setup our development environment:
 JAVAC_VERSION=1.8.0_171
 JAVA_VERSION=1.8.0_171
 SCALAC_VERSION=2.12.5
-DOTC_VERSION=0.7.0-RC1
+DOTC_VERSION=0.8.0-RC1
 ANT_VERSION=1.10.3
 MVN_VERSION=3.5.3
 SBT_VERSION=1.1.4
 CFR_VERSION=0_125
-GIT_VERSION=2.16.2.windows.1
+GIT_VERSION=2.17.0.windows.1
 C:\Program Files\Java\jdk1.8.0_171\bin\javac.exe
 C:\opt\scala-2.12.5\bin\scalac.bat
-C:\opt\dotty-0.7.0-RC1\bin\dotc.bat
+C:\opt\dotty-0.8.0-RC1\bin\dotc.bat
 C:\opt\apache-ant-1.10.3\bin\ant.bat
 C:\opt\apache-maven-3.5.3\bin\mvn.cmd
 C:\opt\sbt-1.1.4\bin\sbt.bat
 C:\opt\cfr-0_125\bin\cfr.bat
 C:\opt\cfr-0_125\bin\cfr.bat
-C:\opt\Git\bin\git.exe
+C:\opt\Git-2.17.0\bin\git.exe
 
 > where sbt
 C:\opt\sbt-1.1.4\bin\sbt
@@ -167,26 +167,32 @@ Finished to clean up 8 subdirectories in C:\dotty\myexamples
 #### `dirsize.bat {<dir_name>}`
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
-> dirsize examples myexamples c:\opt\dotty-0.7.0-RC1
+> dirsize examples myexamples c:\opt\dotty-0.8.0-RC1
 Size of directory "examples" is 6.3 Mb
 Size of directory "myexamples" is 10.7 Mb
-Size of directory "c:\opt\dotty-0.7.0-RC1" is 20.5 Mb
+Size of directory "c:\opt\dotty-0.8.0-RC1" is 20.4 Mb
 </pre>
 
 #### `getnightly.bat`
 
-The `getnightly` command downloads JAR library files from the latest Dotty nightly build on the [Maven Central Repository](https://search.maven.org/) and saves them into directory `nightly-jars\`:
+The `getnightly` command downloads JAR library files from the latest Dotty nightly build on the [Maven Central Repository](https://search.maven.org/) and saves them into directory **`nightly-jars\`**:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > getnightly
 
 > dir /b nightly-jars
-dotty-compiler_0.8-0.8.0-bin-20180418-553ead0-NIGHTLY.jar
-dotty-doc_0.8-0.8.0-bin-20180418-553ead0-NIGHTLY.jar
-dotty-interfaces-0.8.0-bin-20180418-553ead0-NIGHTLY.jar
-dotty-language-server_0.8-0.8.0-bin-20180418-553ead0-NIGHTLY.jar
-dotty-library_0.8-0.8.0-bin-20180418-553ead0-NIGHTLY.jar
-dotty_0.8-0.8.0-bin-20180418-553ead0-NIGHTLY.jar
+dotty-compiler_0.8-0.8.0-bin-20180423-8feb596-NIGHTLY.jar
+dotty-compiler_0.9-0.9.0-bin-20180502-d0f7846-NIGHTLY.jar
+dotty-doc_0.8-0.8.0-bin-20180423-8feb596-NIGHTLY.jar
+dotty-doc_0.9-0.9.0-bin-20180502-d0f7846-NIGHTLY.jar
+dotty-interfaces-0.8.0-bin-20180423-8feb596-NIGHTLY.jar
+dotty-interfaces-0.9.0-bin-20180502-d0f7846-NIGHTLY.jar
+dotty-language-server_0.8-0.8.0-bin-20180423-8feb596-NIGHTLY.jar
+dotty-language-server_0.9-0.9.0-bin-20180502-d0f7846-NIGHTLY.jar
+dotty-library_0.8-0.8.0-bin-20180423-8feb596-NIGHTLY.jar
+dotty-library_0.9-0.9.0-bin-20180502-d0f7846-NIGHTLY.jar
+dotty_0.8-0.8.0-bin-20180423-8feb596-NIGHTLY.jar
+dotty_0.9-0.9.0-bin-20180502-d0f7846-NIGHTLY.jar
 </pre>
 
 #### `searchjars.bat <class_name>`
@@ -194,7 +200,7 @@ dotty_0.8-0.8.0-bin-20180418-553ead0-NIGHTLY.jar
 Passing argument `System` to the `searchjars` command prints the following output (classfile names are printed with full path and are prefixed with their containing JAR file):
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > searchjars System
-Search for class System in library files C:\opt\dotty-0.7.0-RC1\lib\*.jar
+Search for class System in library files C:\opt\dotty-0.8.0-RC1\lib\*.jar
   scala-library-2.12.5.jar:scala/sys/SystemProperties$.class
   scala-library-2.12.5.jar:scala/sys/SystemProperties.class
   scala-xml_2.12-1.0.6.jar:scala/xml/dtd/SystemID$.class
@@ -209,7 +215,7 @@ Search for class System in library files C:\opt\SCALA-~1.5\lib\*.jar
 Looking for the unknown class `BinarySearch` produces the following output:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > searchjars BinarySearch
-Search for class BinarySearch in library files C:\opt\dotty-0.7.0-RC1\lib\*.jar
+Search for class BinarySearch in library files C:\opt\dotty-0.8.0-RC1\lib\*.jar
 Search for class BinarySearch in library files C:\opt\SCALA-~1.5\lib\*.jar
 </pre>
 
@@ -232,11 +238,11 @@ Your weight on JUPITER is 2.5305575254957406
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > build -debug clean compile run
 [build] _CLEAN=1 _COMPILE=1 _COMPILE_CMD=dotc _RUN=1
-[build] del /s /q C:\dotty\examples\ENUM-P~1\target\dotty-0.7\classes\*.class C:\dotty\examples\ENUM-P~1\target\dotty-0.7\classes\*.hasTasty C:\dotty\examples\ENUM-P~1\target\dotty-0.7\classes\.latest-build
+[build] del /s /q C:\dotty\examples\ENUM-P~1\target\dotty-0.8\classes\*.class C:\dotty\examples\ENUM-P~1\target\dotty-0.8\classes\*.hasTasty C:\dotty\examples\ENUM-P~1\target\dotty-0.8\classes\.latest-build
 [build] 20180322224754 C:\dotty\examples\ENUM-P~1\src\main\scala\Planet.scala
-[build] 00000000000000 C:\dotty\examples\ENUM-P~1\target\dotty-0.7\classes\.latest-build
-[build] dotc  -classpath C:\dotty\examples\ENUM-P~1\target\dotty-0.7\classes -d C:\dotty\examples\ENUM-P~1\target\dotty-0.7\classes  C:\dotty\examples\ENUM-P~1\src\main\scala\Planet.scala
-[build] dot -classpath C:\dotty\examples\ENUM-P~1\target\dotty-0.7\classes Planet 1
+[build] 00000000000000 C:\dotty\examples\ENUM-P~1\target\dotty-0.8\classes\.latest-build
+[build] dotc  -classpath C:\dotty\examples\ENUM-P~1\target\dotty-0.8\classes -d C:\dotty\examples\ENUM-P~1\target\dotty-0.8\classes  C:\dotty\examples\ENUM-P~1\src\main\scala\Planet.scala
+[build] dot -classpath C:\dotty\examples\ENUM-P~1\target\dotty-0.8\classes Planet 1
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -265,28 +271,30 @@ No compilation needed (1 source files)
 <a name="footnote_01">[1]</a> ***2018-04-17*** [↩](#anchor_01)
 
 <div style="margin:0 0 0 20px;">
-Version 0.7 of the Dotty compiler is not compatible with versions 9 and 10 of Java JRE; a <strong><code>java.lang.IncompatibleClassChangeError</code></strong> exception is thrown when starting the <strong><code>dotc</code></strong> command:
+Version 0.8 of the Dotty compiler is not compatible with versions 9 and 10 of Java JRE; a <strong><code>java.lang.IncompatibleClassChangeError</code></strong> exception is thrown when starting the <strong><code>dotc</code></strong> command:
 </div>
 
+<!--
+C:\Progra~1\Java\jre-10.0.1\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.8.0-RC1\lib\scala-library-2.12.4.jar;C:\opt\dotty-0.8.0-RC1\lib\scala-xml_2.12-1.0.6.jar;C:\opt\dotty-0.8.0-RC1\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.8.0-RC1\lib\compiler-interface-1.1.4.jar;C:\opt\dotty-0.8.0-RC1\lib\dotty-interfaces-0.8.0-RC1.jar;C:\opt\dotty-0.8.0-RC1\lib\dotty-library_0.8-0.8.0-RC1.jar;C:\opt\dotty-0.8.0-RC1\lib\dotty-compiler_0.8-0.8.0-RC1.jar -Dscala.usejavacp=true dotty.tools.dotc.Main
+-->
+
 <pre style="margin:10px 0 0 20px;font-size:80%;">
-> C:\Progra~1\Java\jre-10.0.1\bin\java.exe \
--Xmx768m -Xms768m \
--classpath C:\opt\DOTTY-~2.0-R\lib\scala-library-2.12.4.jar;\
-C:\opt\DOTTY-~2.0-R\lib\dotty-library_0.7-0.7.0-RC1.jar;\
-C:\opt\DOTTY-~2.0-R\lib\scala-asm-6.0.0-scala-1.jar;\
-C:\opt\DOTTY-~2.0-R\lib\sbt-interface-0.13.15.jar;\
-C:\opt\DOTTY-~2.0-R\lib\dotty-interfaces-0.7.0-RC1.jar;\
-C:\opt\DOTTY-~2.0-R\lib\dotty-library_0.7-0.7.0-RC1.jar;\
-C:\opt\DOTTY-~2.0-R\lib\dotty-compiler_0.7-0.7.0-RC1.jar \
+> C:\Progra~1\Java\jre-10.0.1\bin\java.exe -Xmx768m -Xms768m \
+-classpath C:\opt\dotty-0.8.0-RC1\lib\scala-library-2.12.4.jar; \
+C:\opt\dotty-0.8.0-RC1\lib\scala-xml_2.12-1.0.6.jar; \
+C:\opt\dotty-0.8.0-RC1\lib\scala-asm-6.0.0-scala-1.jar; \
+C:\opt\dotty-0.8.0-RC1\lib\compiler-interface-1.1.4.jar; \
+C:\opt\dotty-0.8.0-RC1\lib\dotty-interfaces-0.8.0-RC1.jar; \
+C:\opt\dotty-0.8.0-RC1\lib\dotty-library_0.8-0.8.0-RC1.jar; \
+C:\opt\dotty-0.8.0-RC1\lib\dotty-compiler_0.8-0.8.0-RC1.jar \
 -Dscala.usejavacp=true dotty.tools.dotc.Main
 Exception in thread "main" java.lang.IncompatibleClassChangeError: Method dotty.tools.dotc.core.Phases$PhasesBase.dotty$tools$dotc$core$Phases$PhasesBase$$initial$myTyperPhase()Ldotty/tools/dotc/core/Phases$Phase; must be InterfaceMethodref constant
-        at dotty.tools.dotc.core.Contexts$ContextBase.<init>(Contexts.scala:542)
+        at dotty.tools.dotc.core.Contexts$ContextBase.<init>(Contexts.scala:544)
         at dotty.tools.dotc.Driver.initCtx(Driver.scala:39)
         at dotty.tools.dotc.Driver.process(Driver.scala:91)
         at dotty.tools.dotc.Driver.process(Driver.scala:108)
         at dotty.tools.dotc.Driver.main(Driver.scala:135)
         at dotty.tools.dotc.Main.main(Main.scala)
-
 </pre>
 
 > [***Oracle Java SE Support Roadmap***](http://www.oracle.com/technetwork/java/eol-135779.html)<br/>
