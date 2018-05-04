@@ -47,7 +47,7 @@ We further recommand using an advanced console emulator such as [ComEmu](https:/
 This repository is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
-bin\0.7\*.bat
+bin\0.8\*.bat
 docs\
 examples\{dotty-example-project, ..}
 myexamples\{00_AutoParamTupling, ..}
@@ -58,7 +58,7 @@ setenv.bat
 where
 
 - directory **`bin\`** provides several utility batch scripts.
-- directory **`bin\0.7\`** contains the Dotty commands for ***Microsoft Windows*** (*see below*).
+- directory **`bin\0.8\`** contains the Dotty commands for ***Microsoft Windows*** (*see below*).
 - directory **`docs\`** contains several Dotty related papers/articles.
 - directory **`examples\`** contains Dotty examples grabbed from various websites.
 - directory **`myexamples\`** contains self-written examples.
@@ -83,7 +83,7 @@ We distinguish different sets of batch scripts:
    - **`searchjars.bat <class_name>`** searches for the given class name into all Dotty/Scala JAR files.
    - **`touch.bat`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory **`bin\0.7\`** - its contents must be copied to directory `C:\opt\dotty-0.8.0-RC1\bin\` (please adapt the target path to match your settings) in order to use the **`dotc`** and **`dot`** commands.
+3. Directory **`bin\0.8\`** - its contents must be copied to directory **`C:\opt\dotty-0.8.0-RC1\bin\`** (please adapt the target path to match your settings) in order to use the **`dotc`** and **`dot`** commands.
     > **NB.** The author wrote (and maintain) those batch files based on the bash scripts found in the standard Dotty distribution.
 
 	<pre style="font-size:80%;">
@@ -128,7 +128,7 @@ We distinguish different sets of batch scripts:
 
 #### `setenv.bat`
 
-We execute the `setenv` command once to setup our development environment:
+The `setenv` command is executed once to setup your development environment:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv
@@ -158,6 +158,8 @@ C:\opt\sbt-1.1.4\bin\sbt.bat
 
 #### `cleanup.bat`
 
+The `cleanup` command removes the **`target\`** output directories from the example projets: 
+
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > cleanup
 Finished to clean up 15 subdirectories in C:\dotty\examples
@@ -165,6 +167,8 @@ Finished to clean up 8 subdirectories in C:\dotty\myexamples
 </pre>
 
 #### `dirsize.bat {<dir_name>}`
+
+The `dirsize` command returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > dirsize examples myexamples c:\opt\dotty-0.8.0-RC1
