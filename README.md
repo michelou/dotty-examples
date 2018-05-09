@@ -4,17 +4,18 @@
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers Dotty examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a> - or written by myself.<br/>
-  It also includes several batch scripts for experimenting with Dotty (aka Scala 3.0) on the <span style="font-weight:bold;font-style:italic;">Microsoft Windows</span> platform. </td>
+  It also includes several batch scripts for experimenting with Dotty (aka Scala 3.0) on the <b>Microsoft Windows</b> platform.
+  </td>
   </tr>
 </table>
 
 ## Project dependencies
 
-This repository relies on a small set of external software installations for the ***Microsoft Windows*** plaform:
+This repository relies on a small set of external software installations for the **Microsoft Windows** plaform:
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) (required for Scala 2.12 and Dotty 0.8<sup id="anchor_01">[[1]](#footnote_01)</sup>)
 - [Scala 2.12](https://www.scala-lang.org/download/)
-- [Dotty 0.x](https://github.com/lampepfl/dotty/releases)
+- [Dotty 0.8](https://github.com/lampepfl/dotty/releases)
 - [SBT 1.x](https://www.scala-sbt.org/download.html)
 
 Optionally one may also install the following software:
@@ -60,7 +61,7 @@ setenv.bat
 where
 
 - directory **`bin\`** provides several utility batch scripts.
-- directory **`bin\0.8\`** contains the Dotty commands for ***Microsoft Windows*** (*see below*).
+- directory **`bin\0.8\`** contains the Dotty commands for **Microsoft Windows** (*see below*).
 - directory **`docs\`** contains several Dotty related papers/articles.
 - directory **`examples\`** contains Dotty examples grabbed from various websites.
 - directory **`myexamples\`** contains self-written examples.
@@ -88,7 +89,7 @@ We distinguish different sets of batch scripts:
    - **`searchjars.bat <class_name>`** searches for the given class name into all Dotty/Scala JAR files.
    - **`touch.bat`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory **`bin\0.8\`** - The contents of this directory must be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.8.0-RC1\bin\`**) in order to use the **`dotc`** and **`dot`** commands on Windows.
+3. Directory **`bin\0.8\`** - This directory containes batch files which must be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.8.0-RC1\bin\`**) in order to use the **`dotc`** and **`dot`** commands on **Microsoft Windows**.
     > **NB.** The author wrote (and maintain) those batch files based on the bash scripts available from the standard Dotty distribution.
 
 	<pre style="font-size:80%;">
@@ -131,7 +132,7 @@ We distinguish different sets of batch scripts:
 
 ## Optional build tools
 
-As an alternative to the **`build`**/**`sbt`** commands one may also work with the following build tools: **`ant`**, **`gradle`** or **`maven`**:
+As an alternative to the **`build`**/**`sbt`** commands one may also work with the following build tools: **`ant`**, **`gradle`** or **`mvn`**:
 
 <pre style="font-size:80%;">
 > ant clean compile run
@@ -143,7 +144,7 @@ As an alternative to the **`build`**/**`sbt`** commands one may also work with t
 
 > ***Gradle Wrappers***<br/>
 > We don't rely on them even if using [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) is the  recommended way to execute a Gradle build.<br/>
-> Simply run the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of **`gradle`**.
+> Simply execute the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of **`gradle`**.
 
 ## Session examples
 
@@ -191,8 +192,8 @@ The **`cleanup`** command removes the **`target\`** output directories from the 
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > cleanup
-Finished to clean up 15 subdirectories in C:\dotty\examples
-Finished to clean up 8 subdirectories in C:\dotty\myexamples
+Finished to clean up 16 subdirectories in C:\dotty\examples
+Finished to clean up 10 subdirectories in C:\dotty\myexamples
 </pre>
 
 #### `dirsize.bat {<dir_name>}`
@@ -253,6 +254,8 @@ Search for class BinarySearch in library files C:\opt\SCALA-~1.5\lib\*.jar
 </pre>
 
 #### `build.bat`
+
+The **`build`** command is a basic build tool consisting of ~300 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_02">[[2]](#footnote_02)</sup>. 
 
 - Build/run the **`enum-Planet`** project with no build option:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
@@ -332,6 +335,12 @@ Exception in thread "main" java.lang.IncompatibleClassChangeError: Method dotty.
 
 > [***Oracle Java SE Support Roadmap***](http://www.oracle.com/technetwork/java/eol-135779.html)<br/>
 > Oracle will not post further updates of Java SE 8 to its public download sites for commercial use after January 2019.
+
+<a name="footnote_02">[2]</a> ***2018-05-09*** [↩](#anchor_02)
+
+<div style="margin:0 0 0 20px;"> 
+Command Prompt has been around for as long as we can remember, but starting with Windows 10 build 14971, Microsoft is trying to make PowerShell the <a href="https://support.microsoft.com/en-us/help/4027690/windows-powershell-is-replacing-command-prompt">main command shell</a> in the operating system.
+</div>
 
 *[mics](http://lampwww.epfl.ch/~michelou/)/April 2018*
 
