@@ -11,7 +11,7 @@
 
 ## Project dependencies
 
-This repository relies on a small set of external software installations for the **Microsoft Windows** plaform:
+This project repository relies on a small set of software installations for the **Microsoft Windows** plaform:
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) (required for Scala 2.12 and Dotty 0.8<sup id="anchor_01">[[1]](#footnote_01)</sup>)
 - [Scala 2.12](https://www.scala-lang.org/download/)
@@ -89,7 +89,7 @@ We distinguish different sets of batch scripts:
    - **`searchjars.bat <class_name>`** searches for the given class name into all Dotty/Scala JAR files.
    - **`touch.bat`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory **`bin\0.8\`** - This directory containes batch files which must be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.8.0-RC1\bin\`**) in order to use the **`dotc`** and **`dot`** commands on **Microsoft Windows**.
+3. Directory **`bin\0.8\`** - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.8.0-RC1\bin\`**) in order to use the **`dotc`** and **`dot`** commands on **Microsoft Windows**.
     > **NB.** The author wrote (and maintain) those batch files based on the bash scripts available from the standard Dotty distribution.
 
 	<pre style="font-size:80%;">
@@ -307,7 +307,7 @@ No compilation needed (1 source files)
 <a name="footnote_01">[1]</a> ***2018-04-17*** [↩](#anchor_01)
 
 <div style="margin:0 0 0 20px;">
-Version 0.8 of the Dotty compiler is not compatible with versions 9 and 10 of Java JRE; a <strong><code>java.lang.IncompatibleClassChangeError</code></strong> exception is thrown when starting the <strong><code>dotc</code></strong> command:
+Version 0.8 of the Dotty compiler is not compatible with versions 9 and 10 of <a href="https://docs.oracle.com/javase/9/install/overview-jdk-9-and-jre-9-installation.htm">Java JRE</a>; a <strong><code>java.lang.IncompatibleClassChangeError</code></strong> exception is thrown when starting the <strong><code>dotc</code></strong> command:
 </div>
 
 <!--
@@ -342,10 +342,6 @@ Exception in thread "main" java.lang.IncompatibleClassChangeError: Method dotty.
 Command Prompt has been around for as long as we can remember, but starting with Windows 10 build 14971, Microsoft is trying to make PowerShell the <a href="https://support.microsoft.com/en-us/help/4027690/windows-powershell-is-replacing-command-prompt">main command shell</a> in the operating system.
 </div>
 
+
 *[mics](http://lampwww.epfl.ch/~michelou/)/April 2018*
-
-
-
-
-
 
