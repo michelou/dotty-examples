@@ -12,7 +12,7 @@
 
 This repository relies on a small set of external software installations for the ***Microsoft Windows*** plaform:
 
-- [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) (prerequisite for Scala 2.12 and Dotty 0.8<sup id="anchor_01">[[1]](#footnote_01)</sup>)
+- [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) (required for Scala 2.12 and Dotty 0.8<sup id="anchor_01">[[1]](#footnote_01)</sup>)
 - [Scala 2.12](https://www.scala-lang.org/download/)
 - [Dotty 0.x](https://github.com/lampepfl/dotty/releases)
 - [SBT 1.x](https://www.scala-sbt.org/download.html)
@@ -20,6 +20,7 @@ This repository relies on a small set of external software installations for the
 Optionally one may also install the following software:
 
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8)
+- [Gradle 4.7](https://gradle.org/install/) (requires Java 7 or newer)
 - [Apache Maven 3.5](http://maven.apache.org/download.cgi)
 - [CFR 0.x](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.x](https://git-scm.com/download/win)
@@ -31,9 +32,10 @@ For instance our development environment looks as follows (*April 2018*):
 
 <pre style="font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_171\
-C:\opt\scala-2.12.5\
+C:\opt\scala-2.12.6\
 C:\opt\dotty-0.8.0-RC1\
 C:\opt\apache-ant-1.10.3\
+c:\opt\gradle-4.7\
 C:\opt\apache-maven-3.5.3\
 C:\opt\sbt-1.1.4\
 C:\opt\cfr-0_125\
@@ -69,22 +71,25 @@ where
 
 We distinguish different sets of batch scripts:
 
-1. **`setenv.bat`** - this batch script makes the external tools such as **`javac.exe`**, **`scalac.bat`**, **`dotc.bat`**, etc. directly available from the command prompt.
+1. **`setenv.bat`** - This batch script makes the external tools such as **`javac.exe`**, **`scalac.bat`**, **`dotc.bat`**, etc. directly available from the command prompt.
 
     <pre style="font-size:80%;">
+    &gt; scalac -version
+    Scala compiler version 2.12.6 -- Copyright 2002-2018, LAMP/EPFL and Lightbend, Inc.
+
     &gt; dotc -version
     Dotty compiler version 0.8.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
     </pre>
 
-2. Directory **`bin\`** - this directory contains utility batch scripts:
-   - **`cleanup.bat`** removes the generated class files from every example directory (both in `examples\` and `myexamples\` directories).
+2. Directory **`bin\`** - This directory contains utility batch scripts:
+   - **`cleanup.bat`** removes the generated class files from every example directory (both in **`examples\`** and **`myexamples\`** directories).
    - **`dirsize.bat`** prints the size in Kb/Mb/Gb of the specified directory paths.
    - **`getnightly.bat`** downloads the JAR libraries of the latest Dotty nightly build.
    - **`searchjars.bat <class_name>`** searches for the given class name into all Dotty/Scala JAR files.
    - **`touch.bat`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory **`bin\0.8\`** - its contents must be copied to directory **`C:\opt\dotty-0.8.0-RC1\bin\`** (please adapt the target path to match your settings) in order to use the **`dotc`** and **`dot`** commands.
-    > **NB.** The author wrote (and maintain) those batch files based on the bash scripts found in the standard Dotty distribution.
+3. Directory **`bin\0.8\`** - The contents of this directory must be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.8.0-RC1\bin\`**) in order to use the **`dotc`** and **`dot`** commands on Windows.
+    > **NB.** The author wrote (and maintain) those batch files based on the bash scripts available from the standard Dotty distribution.
 
 	<pre style="font-size:80%;">
 	&gt; dir /b c:\opt\dotty-0.8.0-RC1\bin
@@ -99,8 +104,8 @@ We distinguish different sets of batch scripts:
 	dotr.bat
 	</pre>
 
-4. Finally every single example can be built/run using either  the **`build`** command (batch script **`build.bat`**) or the **`sbt`** command.<br/>
-    **NB.** We prefer the **`build.`** command here since our simple examples don't require the **`sbt`** machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)):
+4. **`build.bat`** - Finally every single example can be built/run using either  the **`build`** command or the **`sbt`** command.<br/>
+    > **NB.** We prefer the **`build`** command here since our simple examples don't require the **`sbt`** machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
 
 	<pre style="font-size:80%;">
 	&gt; build
@@ -124,19 +129,46 @@ We distinguish different sets of batch scripts:
 	        main.args        list of arguments to be passed to main class
     </pre>
 
+## Optional build tools
+
+As an alternative to the **`build`**/**`sbt`** commands one may also work with the following build tools: **`ant`**, **`gradle`** or **`maven`**:
+
+<pre style="font-size:80%;">
+> ant clean compile run
+...
+> gradle clean compileDotty run
+...
+> mvn clean compile exec:java
+</pre>
+
+> ***Gradle Wrappers***<br/>
+> We don't rely on them even if using [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) is the  recommended way to execute a Gradle build.<br/>
+> Simply run the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of **`gradle`**.
+
 ## Session examples
 
 #### `setenv.bat`
 
-The `setenv` command is executed once to setup your development environment:
+The **`setenv`** command is executed once to setup your development environment:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv
+
+> where sbt
+C:\opt\sbt-1.1.4\bin\sbt
+C:\opt\sbt-1.1.4\bin\sbt.bat
+</pre>
+
+With option **`-verbose`** the **`setenv`** command displays the version/path of the tools:
+
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+> setenv -verbose
 JAVAC_VERSION=1.8.0_171
 JAVA_VERSION=1.8.0_171
 SCALAC_VERSION=2.12.5
 DOTC_VERSION=0.8.0-RC1
 ANT_VERSION=1.10.3
+GRADLE_VERSION=4.7
 MVN_VERSION=3.5.3
 SBT_VERSION=1.1.4
 CFR_VERSION=0_125
@@ -145,20 +177,17 @@ C:\Program Files\Java\jdk1.8.0_171\bin\javac.exe
 C:\opt\scala-2.12.5\bin\scalac.bat
 C:\opt\dotty-0.8.0-RC1\bin\dotc.bat
 C:\opt\apache-ant-1.10.3\bin\ant.bat
+c:\opt\gradle-4.7\bin\gradle.bat
 C:\opt\apache-maven-3.5.3\bin\mvn.cmd
 C:\opt\sbt-1.1.4\bin\sbt.bat
 C:\opt\cfr-0_125\bin\cfr.bat
 C:\opt\cfr-0_125\bin\cfr.bat
 C:\opt\Git-2.17.0\bin\git.exe
-
-> where sbt
-C:\opt\sbt-1.1.4\bin\sbt
-C:\opt\sbt-1.1.4\bin\sbt.bat
 </pre>
 
 #### `cleanup.bat`
 
-The `cleanup` command removes the **`target\`** output directories from the example projets: 
+The **`cleanup`** command removes the **`target\`** output directories from the example projets: 
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > cleanup
@@ -168,7 +197,7 @@ Finished to clean up 8 subdirectories in C:\dotty\myexamples
 
 #### `dirsize.bat {<dir_name>}`
 
-The `dirsize` command returns the size (in Kb, Mb or Gb) of the specified directory paths:
+The **`dirsize`** command returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > dirsize examples myexamples c:\opt\dotty-0.8.0-RC1
@@ -179,7 +208,7 @@ Size of directory "c:\opt\dotty-0.8.0-RC1" is 20.4 Mb
 
 #### `getnightly.bat`
 
-The `getnightly` command downloads JAR library files from the latest Dotty nightly build on the [Maven Central Repository](https://search.maven.org/) and saves them into directory **`nightly-jars\`**:
+The **`getnightly`** command downloads JAR library files from the latest Dotty nightly build on the [Maven Central Repository](https://search.maven.org/) and saves them into directory **`nightly-jars\`**:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > getnightly
@@ -201,7 +230,7 @@ dotty_0.9-0.9.0-bin-20180502-d0f7846-NIGHTLY.jar
 
 #### `searchjars.bat <class_name>`
 
-Passing argument `System` to the `searchjars` command prints the following output (classfile names are printed with full path and are prefixed with their containing JAR file):
+Passing argument `System` to the **`searchjars`** command prints the following output (classfile names are printed with full path and are prefixed with their containing JAR file):
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > searchjars System
 Search for class System in library files C:\opt\dotty-0.8.0-RC1\lib\*.jar

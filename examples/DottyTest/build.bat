@@ -86,7 +86,7 @@ if not defined __ARG (
 if /i "%__ARG%"=="clean" ( set _CLEAN=1
 ) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
 ) else if /i "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
-) else if /i "%__ARG%"=="help" ( call :help & goto end
+) else if /i "%__ARG%"=="help" ( call :help & goto :eof
 ) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
 ) else if /i "%__ARG%"=="-deprecation" ( set _COMPILE_OPTS=!_COMPILE_OPTS! -deprecation
 ) else if /i "%__ARG%"=="-explain" ( set _COMPILE_OPTS=!_COMPILE_OPTS! -explain

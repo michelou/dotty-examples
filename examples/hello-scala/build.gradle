@@ -1,0 +1,72 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+group = 'dotty.examples'
+version = '0.1-SNAPSHOT'
+
+description = """Example Gradle project that compiles using Dotty"""
+
+ext {
+    dottyLibraryPath = file(System.getenv("DOTTY_HOME") + "/lib")
+    dottyLibraryFiles = files { dottyLibraryPath.listFiles() }
+    dotcLibraryFiles = dottyLibraryFiles.filter { File f ->
+        f.name.startsWith("scala-library") ||
+        f.name.startsWith("scala-xml") ||
+        f.name.startsWith("scala-asm") ||
+        f.name.startsWith("compiler-interface") ||
+        f.name.startsWith("dotty-interfaces") ||
+        f.name.startsWith("dotty-library") ||
+        f.name.startsWith("dotty-compiler")
+    }
+    scalaSourceTree = fileTree(dir: "/src/main/scala", include: "**/*.scala")
+    jarLibraryTree = fileTree(dir: "/lib", include: "**/*.jar")
+    targetDir = file("/target")
+    classesDir = file("${targetDir}/classes")
+    javaMainDir = file("${classesDir}/java/main")
+    runtimeClasspath = files(jarLibraryTree, classesDir, javaMainDir)
+}
+
+sourceSets {
+    main {
+        java {
+            buildDir targetDir
+        }
+    }
+}
+
+mainClassName = "hello"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+clean.doLast {
+    targetDir.deleteDir()
+}
+
+task compileDotty(type: JavaExec, dependsOn: compileJava) {
+    doFirst {
+        if (!classesDir.exists()) classesDir.mkdirs()
+    }
+    classpath = dotcLibraryFiles + runtimeClasspath
+    String sources = scalaSourceTree.files.join("\" \"").replaceAll("\\\\", "/")
+
+    main = "dotty.tools.dotc.Main"
+
+    jvmArgs "-Dscala.usejavacp=true", "-Dfile.encoding=UTF-8"
+
+    //args "-version"
+    args "-d", classesDir, sources
+}
+
+task runDotty(type: JavaExec, dependsOn: compileDotty) {
+    classpath = runtimeClasspath
+
+    jvmArgs "-Xbootclasspath/a:${dottyLibraryFiles.getAsPath()}", "-Dfile.encoding=UTF-8"
+
+    main = mainClassName
+    args ""
+    //systemProperty "message" "Hello"
+}
+
+task run(dependsOn: runDotty, overwrite: true) {
+}

@@ -11,6 +11,9 @@ set _BASENAME=%~n0
 
 set _EXITCODE=0
 
+call :args %*
+if not %_EXITCODE%==0 goto end
+
 rem ##########################################################################
 rem ## Main
 
@@ -18,6 +21,7 @@ set _JDK_PATH=
 set _SCALA_PATH=
 set _DOTTY_PATH=
 set _ANT_PATH=
+set _GRADLE_PATH=
 set _MVN_PATH=
 set _SBT_PATH=
 set _CFR_PATH=
@@ -33,6 +37,11 @@ call :dotc
 if not %_EXITCODE%==0 goto end
 
 call :ant
+rem optional
+set _EXITCODE=0
+rem if not %_EXITCODE%==0 goto end
+
+call :gradle
 rem optional
 set _EXITCODE=0
 rem if not %_EXITCODE%==0 goto end
@@ -63,6 +72,37 @@ goto end
 
 rem ##########################################################################
 rem ## Subroutines
+
+rem input parameter: %*
+:args
+set _VERBOSE=0
+set __N=0
+:args_loop
+set __ARG=%~1
+if not defined __ARG (
+    goto args_done
+) else if not "%__ARG:~0,1%"=="-" (
+    set /a __N=!__N!+1
+)
+if /i "%__ARG%"=="help" ( call :help & goto :eof
+) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
+) else (
+    echo %_BASENAME%: Unknown subcommand %__ARG%
+    set _EXITCODE=1
+    goto :eof
+)
+shift
+goto :args_loop
+:args_done
+goto :eof
+
+:help
+echo Usage: setenv { options ^| subcommands }
+echo   Options:
+echo     -verbose         display environment settings
+echo   Subcommands:
+echo     help             display this help message
+goto :eof
 
 :javac
 where /q javac.exe
@@ -179,6 +219,35 @@ if not exist "%_ANT_HOME%\bin\ant.cmd" (
     goto :eof
 )
 set "_ANT_PATH=;%_ANT_HOME%\bin"
+goto :eof
+
+:gradle
+where /q gradle.bat
+if %ERRORLEVEL%==0 goto :eof
+
+if defined GRADLE_HOME (
+    set _GRADLE_HOME=%GRADLE_HOME%
+    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable GRADLE_HOME
+) else (
+    set __PATH=C:\opt
+    if exist "!__PATH!\gradle\" ( set _GRADLE_HOME=!__PATH!\gradle
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set _GRADLE_HOME=!__PATH!\%%f
+        if not defined _GRADLE_HOME (
+            set __PATH=C:\Progra~1
+            for /f %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set _GRADLE_HOME=!__PATH!\%%f
+        )
+    )
+    if defined _GRADLE_HOME (
+        if %_DEBUG%==1 echo [%_BASENAME%] Using default Gradle installation directory !_GRADLE_HOME!
+    )
+)
+if not exist "%_GRADLE_HOME%\bin\gradle.bat" (
+    echo Gradle executable not found ^(%_GRADLE_HOME%^)
+    set _EXITCODE=1
+    goto :eof
+)
+set "_GRADLE_PATH=;%_GRADLE_HOME%\bin"
 goto :eof
 
 :mvn
@@ -328,6 +397,11 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,3,4,*" %%i in ('ant.bat -version  ^| findstr version') do echo ANT_VERSION=%%l
     set __WHERE_ARGS=%__WHERE_ARGS% ant.bat
 )
+where /q gradle.bat
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,*" %%i in ('gradle.bat -version  ^| findstr Gradle') do echo GRADLE_VERSION=%%j
+    set __WHERE_ARGS=%__WHERE_ARGS% gradle.bat
+)
 where /q mvn.cmd
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,3,*" %%i in ('mvn.cmd -version ^| findstr Apache') do echo MVN_VERSION=%%k
@@ -360,8 +434,8 @@ endlocal & (
     if not defined JAVA_HOME set JAVA_HOME=%_JDK_HOME%
     if not defined SCALA_HOME set SCALA_HOME=%_SCALA_HOME%
     if not defined DOTTY_HOME set DOTTY_HOME=%_DOTTY_HOME%
-    set "PATH=%_JDK_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_GIT_PATH%;%~dp0bin"
-    call :print_env
+    set "PATH=%_JDK_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_GIT_PATH%;%~dp0bin"
+    if %_VERBOSE%==1 call :print_env
     if %_DEBUG%==1 echo [%_BASENAME%] _EXITCODE=%_EXITCODE%
     for /f "delims==" %%i in ('set ^| findstr /b "_"') do set %%i=
 )

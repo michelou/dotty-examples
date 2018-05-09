@@ -33,7 +33,15 @@ Executing the `build` command in directory **`examples\enum-HList\`** prints no 
 
 <pre style="font-size:80%;">
 > build clean compile run
->
+</pre>
+
+### `enum-Java`
+
+<pre style="font-size:80%;">
+> build clean compile run
+SUNDAY
+A
+SUNDAY
 </pre>
 
 ### `enum-Planet`
@@ -95,6 +103,16 @@ Executing the `build` command in directory **`examples\enum-Tree\`** prints the 
 If(IsZero(Pred(Succ(Zero))),Succ(Succ(Zero)),Pred(Pred(Zero))) --> 2
 </pre>
 
+### `hello-scala`
+
+Executing the `build` command in directory **`examples\hello-scala\`** prints the following output:
+
+<pre style="font-size:80%;">
+> build clean compile run
+Hello!
+Java Hello!
+</pre>
+
 ### `ImplicitFunctionTypes`
 
 Executing the `build` command in directory **`examples\ImplicitFunctionTypes\`** prints the following output:
@@ -111,6 +129,43 @@ Executing the `build` command in directory **`examples\IntersectionTypes\`** pri
 <pre style="font-size:80%;">
 > build clean compile run
 Buffer(first)
+</pre>
+
+### `PatternMatching`
+
+<pre style="font-size:80%;">
+> build clean compile run
+even has an even number of characters
+First: H; Second: i
+e,x,a,m
+5 is a natural number
+List(3, 4)
+</pre>
+
+### `TypeLambdas-Underscore`
+
+<pre style="font-size:80%;">
+> build clean compile run
+Type Aliases example:
+11
+11
+11
+
+Functors example:
+functorForOption: Some(1)
+Some(-1)
+functorForList: List(Some(1), None, Some(2))
+functorForList: List(None, Some(2))
+functorForList: List(Some(2))
+functorForList: List()
+List(1, 0, 2)
+</pre>
+
+### `UnionTypes`
+
+<pre style="font-size:80%;">
+> build clean compile run
+either=UserName(Eve)
 </pre>
 
 *[mics](http://lampwww.epfl.ch/~michelou/)/April 2018*
