@@ -16,7 +16,7 @@
 *.xml text
 
 # Declare files that will always have CRLF line endings on checkout.
-*.bat eol=crlf
+*.bat eol=crlf linguist-detectable=false
 *.cmd eol=crlf
 *.ps1 eol=crlf
 *.sln text eol=crlf

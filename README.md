@@ -11,15 +11,15 @@
 
 ## Project dependencies
 
-This project repository relies on a small set of software installations for the **Microsoft Windows** plaform:
+This project repository relies on a few external software for the **Microsoft Windows** plaform:
 
-- [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) (required for Scala 2.12 and Dotty 0.8<sup id="anchor_01">[[1]](#footnote_01)</sup>)
-- [Scala 2.12](https://www.scala-lang.org/download/)
-- [Dotty 0.8](https://github.com/lampepfl/dotty/releases)
+- [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- [Dotty 0.8](https://github.com/lampepfl/dotty/releases) (requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
 - [SBT 1.x](https://www.scala-sbt.org/download.html)
 
 Optionally one may also install the following software:
 
+- [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8)
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8)
 - [Gradle 4.7](https://gradle.org/install/) (requires Java 7 or newer)
 - [Apache Maven 3.5](http://maven.apache.org/download.cgi)
@@ -39,7 +39,7 @@ C:\opt\apache-ant-1.10.3\
 c:\opt\gradle-4.7\
 C:\opt\apache-maven-3.5.3\
 C:\opt\sbt-1.1.4\
-C:\opt\cfr-0_125\
+C:\opt\cfr-0_128\
 C:\opt\Git-2.17.0\
 </pre>
 
@@ -52,6 +52,7 @@ This repository is organized as follows:
 bin\*.bat
 bin\0.8\*.bat
 docs\
+docs\cfr-0_128.zip
 examples\{dotty-example-project, ..}
 myexamples\{00_AutoParamTupling, ..}
 README.md
@@ -63,6 +64,7 @@ where
 - directory **`bin\`** provides several utility batch scripts.
 - directory **`bin\0.8\`** contains the Dotty commands for **Microsoft Windows** (*see below*).
 - directory **`docs\`** contains several Dotty related papers/articles.
+- file **`docs\cfr-0_128.zip`** contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory **`examples\`** contains Dotty examples grabbed from various websites.
 - directory **`myexamples\`** contains self-written examples.
 - file **`README.md`** is the Markdown document for this page.
@@ -172,7 +174,7 @@ ANT_VERSION=1.10.3
 GRADLE_VERSION=4.7
 MVN_VERSION=3.5.3
 SBT_VERSION=1.1.4
-CFR_VERSION=0_125
+CFR_VERSION=0_128
 GIT_VERSION=2.17.0.windows.1
 C:\Program Files\Java\jdk1.8.0_171\bin\javac.exe
 C:\opt\scala-2.12.5\bin\scalac.bat
@@ -181,14 +183,14 @@ C:\opt\apache-ant-1.10.3\bin\ant.bat
 c:\opt\gradle-4.7\bin\gradle.bat
 C:\opt\apache-maven-3.5.3\bin\mvn.cmd
 C:\opt\sbt-1.1.4\bin\sbt.bat
-C:\opt\cfr-0_125\bin\cfr.bat
-C:\opt\cfr-0_125\bin\cfr.bat
+C:\opt\cfr-0_128\bin\cfr.bat
+C:\opt\cfr-0_128\bin\cfr.bat
 C:\opt\Git-2.17.0\bin\git.exe
 </pre>
 
 #### `cleanup.bat`
 
-The **`cleanup`** command removes the **`target\`** output directories from the example projets: 
+The **`cleanup`** command removes the output directories (ie. **`target\`**) from the example projets: 
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > cleanup
