@@ -13,6 +13,29 @@ object Main {
     printValue(1 + 3)
   }
 
+  // see https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/sum-types
+  private def testDivision: Unit = {
+    sealed trait DivisionByZero
+    final case object DivisionByZero extends DivisionByZero
+    final case class Success(result: Double)
+    type DivisionResult = DivisionByZero | Success
+
+    def saveDivide(x: Double, y: Double): DivisionResult =
+      if (y == 0) DivisionByZero else Success(x / y)
+
+    println(saveDivide(1, 2)) // Success(0.5)
+    println(saveDivide(1, 0)) // DivisionByZero
+
+    implicit def divisionToString(result: DivisionResult): String = result match {
+      case DivisionByZero => "Division failed"
+      case Success(r)     => r.toString
+    }
+    def printString(s: String): Unit = println(s)
+
+    printString(saveDivide(1, 2)) // 0.5
+    printString(saveDivide(1, 0)) // Division failed
+  }
+
   // see http://whiley.org/2016/12/09/understanding-effective-unions-in-whiley/
   private def testMessage: Unit = {
     val GET = 1
@@ -62,6 +85,7 @@ object Main {
 
   def main(args: Array[String]): Unit = {
     runExample("testIntFloat")(testIntFloat)
+    runExample("testDivision")(testDivision)
     runExample("testMessage")(testMessage)
     runExample("testJSON")(testJSON)
   }

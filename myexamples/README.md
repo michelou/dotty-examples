@@ -36,10 +36,16 @@ Executing the `build` command in directory **`myexamples\02_Union_Types\`** prin
 
 <pre style="font-size:80%;">
 > build -timer clean compile run
-Compile time: 00:00:06
+Compile time: 00:00:05
 testIntFloat example:
 Float 0.0
 Int 4
+
+testDivision example:
+Success(0.5)
+DivisionByZero
+0.5
+Division failed
 
 testMessage example:
 https://www.google.com
@@ -87,7 +93,7 @@ false
 
 ### [`bug4272`](https://github.com/lampepfl/dotty/issues/4272)
 
-Executing the `build` command in directory **`myexamples\bug4272\`** produces a runtime exception with version 0.7 of the Dotty compiler:
+Executing the `build` command in directory **`myexamples\bug4272\`** produces a runtime exception with version 0.7 of the Dotty compiler (*was fixed in version 0.8*):
 
 <pre style="font-size:80%;">
 > build clean compile run
@@ -120,7 +126,7 @@ Executing the `build` command in directory **`myexamples\bug4356\`** produces a 
 
 <pre>
 > build clean compile
-Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> at index 72: C:\Users\michelou\WORKSP~2\DOTTY-~2\MYEXAM~1\bug4356\\lib\junit-4.12.jar:C:\Users\michelou\WORKSP~2\DOTTY-~2\MYEXAM~1\bug4356\target\dotty-0.7\classes
+Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> at index 72: C:\dotty\MYEXAM~1\bug4356\\lib\junit-4.12.jar:C:\dotty\MYEXAM~1\bug4356\target\dotty-0.7\classes
         at sun.nio.fs.WindowsPathParser.normalize(WindowsPathParser.java:182)
         at sun.nio.fs.WindowsPathParser.parse(WindowsPathParser.java:153)
         at sun.nio.fs.WindowsPathParser.parse(WindowsPathParser.java:77)
@@ -141,7 +147,7 @@ Executing the `build` command in directory **`myexamples\HelloWorld\`** prints t
 Hello world!
 </pre>
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/April 2018*
+*[mics](http://lampwww.epfl.ch/~michelou/)/May 2018*
 
 
 
