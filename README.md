@@ -2,9 +2,12 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers Dotty examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a> - or written by myself.<br/>
-  It also includes several batch scripts for experimenting with Dotty (aka Scala 3.0) on the <b>Microsoft Windows</b> platform.
+  <td style="border:0;padding:0 10px 0 0;max-width:120px;">
+    <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
+  </td>
+  <td style="border:0;padding:0;vertical-align:text-top;">
+    This repository gathers Dotty examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a> - or written by myself.<br/>
+    It also includes several batch scripts for experimenting with Dotty (aka Scala 3.0) on the <b>Microsoft Windows</b> platform.
   </td>
   </tr>
 </table>
@@ -29,7 +32,7 @@ Optionally one may also install the following software:
 > ***Software installation policy***<br/>
 > Whenever possible software is installed via a Zip archive rather than via a Windows installer.
 
-For instance our development environment looks as follows (*April 2018*):
+For instance our development environment looks as follows (*May 2018*):
 
 <pre style="font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_171\
@@ -38,8 +41,8 @@ C:\opt\dotty-0.8.0-RC1\
 C:\opt\apache-ant-1.10.3\
 c:\opt\gradle-4.7\
 C:\opt\apache-maven-3.5.3\
-C:\opt\sbt-1.1.4\
-C:\opt\cfr-0_128\
+C:\opt\sbt-1.1.5\
+C:\opt\cfr-0_129\
 C:\opt\Git-2.17.0\
 </pre>
 
@@ -52,7 +55,7 @@ This repository is organized as follows:
 bin\*.bat
 bin\0.8\*.bat
 docs\
-docs\cfr-0_128.zip
+docs\cfr-0_129.zip
 examples\{dotty-example-project, ..}
 myexamples\{00_AutoParamTupling, ..}
 README.md
@@ -74,7 +77,7 @@ where
 
 We distinguish different sets of batch scripts:
 
-1. **`setenv.bat`** - This batch script makes the external tools such as **`javac.exe`**, **`scalac.bat`**, **`dotc.bat`**, etc. directly available from the command prompt.
+1. **`setenv.bat`** - This batch script makes external tools such as **`javac.exe`**, **`scalac.bat`**, **`dotc.bat`**, etc. directly available from the command prompt.
 
     <pre style="font-size:80%;">
     &gt; scalac -version
@@ -87,7 +90,7 @@ We distinguish different sets of batch scripts:
 2. Directory **`bin\`** - This directory contains utility batch scripts:
    - **`cleanup.bat`** removes the generated class files from every example directory (both in **`examples\`** and **`myexamples\`** directories).
    - **`dirsize.bat`** prints the size in Kb/Mb/Gb of the specified directory paths.
-   - **`getnightly.bat`** downloads the JAR libraries of the latest Dotty nightly build.
+   - **`getnightly.bat`** downloads the JAR libraries of the latest [Dotty nightly build](https://search.maven.org/#search|ga|1|g%3A%22ch.epfl.lamp%22).
    - **`searchjars.bat <class_name>`** searches for the given class name into all Dotty/Scala JAR files.
    - **`touch.bat`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
@@ -132,21 +135,59 @@ We distinguish different sets of batch scripts:
 	        main.args        list of arguments to be passed to main class
     </pre>
 
-## Optional build tools
+## Optional tools
 
-As an alternative to the **`build`**/**`sbt`** commands one may also work with the following build tools: **`ant`**, **`gradle`** or **`mvn`**:
+1. Build tools
 
-<pre style="font-size:80%;">
-> ant clean compile run
-...
-> gradle clean compileDotty run
-...
-> mvn clean compile exec:java
-</pre>
+    Projects in **`examples\`** and **`myexamples\`** can also be built using **`ant`**, **`gradle`** or **`mvn`** as an alternative to the **`build`**/**`sbt`** tools:
 
-> ***Gradle Wrappers***<br/>
-> We don't rely on them even if using [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) is the  recommended way to execute a Gradle build.<br/>
-> Simply execute the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of **`gradle`**.
+	<pre style="font-size:80%;">
+	> ant clean compile run
+	...
+	> gradle clean compileDotty run
+	...
+	> mvn clean compile exec:java
+	</pre>
+	
+	> ***Gradle Wrappers***<br/>
+	> We don't rely on them even if using [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) is the  recommended way to execute a Gradle build.<br/>
+	> Simply execute the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of **`gradle`**.
+
+2. Decompiler tools
+
+    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** which is contained in the Zip archive **`docs\cfr-0_129.zip`**:
+
+    <pre style="font-size:80%;">
+    &gt; cfr myexamples\00_AutoParamTupling\target\dotty-0.8\classes\Main.class
+	/*
+	 * Decompiled with CFR 0_129.
+	 */
+	public final class Main {
+	    public static void test01() {
+	        Main$.MODULE$.test01();
+	    }
+	
+	    public static void main(String[] arrstring) {
+	        Main$.MODULE$.main(arrstring);
+	    }
+	
+	    public static void test02() {
+	        Main$.MODULE$.test02();
+	    }
+	}
+    </pre>
+
+    Here is the output from **`javap`** for the same class file:
+
+    <pre style="font-size:80%;">
+	&gt; javap myexamples\00_AutoParamTupling\target\dotty-0.8\classes\Main.class
+	Compiled from "Main.scala"
+	public final class Main {
+	  public static void test01();
+	  public static void main(java.lang.String[]);
+	  public static void test02();
+	}
+    </pre>
 
 ## Session examples
 
@@ -158,8 +199,8 @@ The **`setenv`** command is executed once to setup your development environment:
 > setenv
 
 > where sbt
-C:\opt\sbt-1.1.4\bin\sbt
-C:\opt\sbt-1.1.4\bin\sbt.bat
+C:\opt\sbt-1.1.5\bin\sbt
+C:\opt\sbt-1.1.5\bin\sbt.bat
 </pre>
 
 With option **`-verbose`** the **`setenv`** command displays the version/path of the tools:
@@ -168,22 +209,21 @@ With option **`-verbose`** the **`setenv`** command displays the version/path of
 > setenv -verbose
 JAVAC_VERSION=1.8.0_171
 JAVA_VERSION=1.8.0_171
-SCALAC_VERSION=2.12.5
+SCALAC_VERSION=2.12.6
 DOTC_VERSION=0.8.0-RC1
 ANT_VERSION=1.10.3
 GRADLE_VERSION=4.7
 MVN_VERSION=3.5.3
-SBT_VERSION=1.1.4
+SBT_VERSION=1.1.5
 CFR_VERSION=0_128
 GIT_VERSION=2.17.0.windows.1
 C:\Program Files\Java\jdk1.8.0_171\bin\javac.exe
-C:\opt\scala-2.12.5\bin\scalac.bat
+C:\opt\scala-2.12.6\bin\scalac.bat
 C:\opt\dotty-0.8.0-RC1\bin\dotc.bat
 C:\opt\apache-ant-1.10.3\bin\ant.bat
 c:\opt\gradle-4.7\bin\gradle.bat
 C:\opt\apache-maven-3.5.3\bin\mvn.cmd
-C:\opt\sbt-1.1.4\bin\sbt.bat
-C:\opt\cfr-0_128\bin\cfr.bat
+C:\opt\sbt-1.1.5\bin\sbt.bat
 C:\opt\cfr-0_128\bin\cfr.bat
 C:\opt\Git-2.17.0\bin\git.exe
 </pre>
@@ -237,8 +277,8 @@ Passing argument `System` to the **`searchjars`** command prints the following o
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > searchjars System
 Search for class System in library files C:\opt\dotty-0.8.0-RC1\lib\*.jar
-  scala-library-2.12.5.jar:scala/sys/SystemProperties$.class
-  scala-library-2.12.5.jar:scala/sys/SystemProperties.class
+  scala-library-2.12.4.jar:scala/sys/SystemProperties$.class
+  scala-library-2.12.4.jar:scala/sys/SystemProperties.class
   scala-xml_2.12-1.0.6.jar:scala/xml/dtd/SystemID$.class
   scala-xml_2.12-1.0.6.jar:scala/xml/dtd/SystemID.class
 Search for class System in library files C:\opt\SCALA-~1.5\lib\*.jar

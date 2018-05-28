@@ -2,8 +2,12 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;min-width:120px;"><a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">The <strong><code>myexamples\</code></strong> directory contains <a href="http://dotty.epfl.ch/" alt="Dotty">Dotty</a> code examples written by myself.</td>
+  <td style="border:0;padding:0 10px 0 0;min-width:120px;">
+    <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
+  </td>
+  <td style="border:0;padding:0;vertical-align:text-top;">
+    The <strong><code>myexamples\</code></strong> directory contains <a href="http://dotty.epfl.ch/" alt="Dotty">Dotty</a> code examples written by myself.
+  </td>
   </tr>
 </table>
 

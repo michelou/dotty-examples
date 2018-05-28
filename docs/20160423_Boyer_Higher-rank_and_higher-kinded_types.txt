@@ -1,0 +1,1 @@
+Source: https://www.stephanboyer.com/post/115/higher-rank-and-higher-kinded-types
