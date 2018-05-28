@@ -215,7 +215,7 @@ ANT_VERSION=1.10.3
 GRADLE_VERSION=4.7
 MVN_VERSION=3.5.3
 SBT_VERSION=1.1.5
-CFR_VERSION=0_128
+CFR_VERSION=0_129
 GIT_VERSION=2.17.0.windows.1
 C:\Program Files\Java\jdk1.8.0_171\bin\javac.exe
 C:\opt\scala-2.12.6\bin\scalac.bat
@@ -224,7 +224,7 @@ C:\opt\apache-ant-1.10.3\bin\ant.bat
 c:\opt\gradle-4.7\bin\gradle.bat
 C:\opt\apache-maven-3.5.3\bin\mvn.cmd
 C:\opt\sbt-1.1.5\bin\sbt.bat
-C:\opt\cfr-0_128\bin\cfr.bat
+C:\opt\cfr-0_129\bin\cfr.bat
 C:\opt\Git-2.17.0\bin\git.exe
 </pre>
 
