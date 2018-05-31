@@ -67,7 +67,7 @@ where
 - directory **`bin\`** provides several utility batch scripts.
 - directory **`bin\0.8\`** contains the Dotty commands for **Microsoft Windows** (*see below*).
 - directory **`docs\`** contains several Dotty related papers/articles.
-- file **`docs\cfr-0_128.zip`** contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
+- file **`docs\cfr-0_129.zip`** contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory **`examples\`** contains Dotty examples grabbed from various websites.
 - directory **`myexamples\`** contains self-written examples.
 - file **`README.md`** is the Markdown document for this page.
@@ -87,7 +87,7 @@ We distinguish different sets of batch scripts:
     Dotty compiler version 0.8.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
     </pre>
 
-2. Directory **`bin\`** - This directory contains utility batch scripts:
+2. Directory **`bin\`** - This directory contains several utility batch scripts:
    - **`cleanup.bat`** removes the generated class files from every example directory (both in **`examples\`** and **`myexamples\`** directories).
    - **`dirsize.bat`** prints the size in Kb/Mb/Gb of the specified directory paths.
    - **`getnightly.bat`** downloads the JAR libraries of the latest [Dotty nightly build](https://search.maven.org/#search|ga|1|g%3A%22ch.epfl.lamp%22).
@@ -95,7 +95,7 @@ We distinguish different sets of batch scripts:
    - **`touch.bat`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
 3. Directory **`bin\0.8\`** - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.8.0-RC1\bin\`**) in order to use the **`dotc`** and **`dot`** commands on **Microsoft Windows**.
-    > **NB.** The author wrote (and maintain) those batch files based on the bash scripts available from the standard Dotty distribution.
+    > **NB.** The author wrote (and does maintain) those batch files based on the bash scripts available from the standard [Dotty](http://dotty.epfl.ch/) distribution.
 
 	<pre style="font-size:80%;">
 	&gt; dir /b c:\opt\dotty-0.8.0-RC1\bin
@@ -109,6 +109,8 @@ We distinguish different sets of batch scripts:
 	dotr
 	dotr.bat
 	</pre>
+
+    > **NB.** The `dotr.bat` batch file does hang on Windows due to implementation issues with the Dotty REPL on Windows.
 
 4. **`build.bat`** - Finally every single example can be built/run using either  the **`build`** command or the **`sbt`** command.<br/>
     > **NB.** We prefer the **`build`** command here since our simple examples don't require the **`sbt`** machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
@@ -155,7 +157,7 @@ We distinguish different sets of batch scripts:
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** which is contained in the Zip archive **`docs\cfr-0_129.zip`**:
+    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract **`docs\cfr-0_129.zip`** to **`c:\opt\`**) which prints Java source code instead of just Java bytecode:
 
     <pre style="font-size:80%;">
     &gt; cfr myexamples\00_AutoParamTupling\target\dotty-0.8\classes\Main.class
@@ -177,16 +179,31 @@ We distinguish different sets of batch scripts:
 	}
     </pre>
 
-    Here is the output from **`javap`** for the same class file:
+    Here is the output from **`javap`** (with option **`-c`**) for the same class file:
 
     <pre style="font-size:80%;">
-	&gt; javap myexamples\00_AutoParamTupling\target\dotty-0.8\classes\Main.class
-	Compiled from "Main.scala"
-	public final class Main {
-	  public static void test01();
-	  public static void main(java.lang.String[]);
-	  public static void test02();
-	}
+	&gt; javap -c target\dotty-0.8\classes\Main.class
+Compiled from "Main.scala"
+public final class Main {
+  public static void test01();
+        Code:
+           0: getstatic     #13                 // Field Main$.MODULE$:LMain$;
+           3: invokevirtual #15                 // Method Main$.test01:()V
+           6: return
+&nbsp;
+  public static void main(java.lang.String[]);
+        Code:
+           0: getstatic     #13                 // Field Main$.MODULE$:LMain$;
+           3: aload_0
+           4: invokevirtual #19                 // Method Main$.main:([Ljava/lang/String;)V
+           7: return
+&nbsp;
+  public static void test02();
+        Code:
+           0: getstatic     #13                 // Field Main$.MODULE$:LMain$;
+           3: invokevirtual #22                 // Method Main$.test02:()V
+           6: return
+}
     </pre>
 
 ## Session examples
@@ -202,6 +219,8 @@ The **`setenv`** command is executed once to setup your development environment:
 C:\opt\sbt-1.1.5\bin\sbt
 C:\opt\sbt-1.1.5\bin\sbt.bat
 </pre>
+
+> **NB.** Execute **`setenv help`** to display the help message.
 
 With option **`-verbose`** the **`setenv`** command displays the version/path of the tools:
 
