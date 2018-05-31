@@ -18,7 +18,8 @@ This project repository relies on a few external software for the **Microsoft Wi
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 - [Dotty 0.8](https://github.com/lampepfl/dotty/releases) (requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
-- [SBT 1.x](https://www.scala-sbt.org/download.html)
+- [
+-  1.x](https://www.scala-sbt.org/download.html)
 
 Optionally one may also install the following software:
 
@@ -41,7 +42,7 @@ C:\opt\dotty-0.8.0-RC1\
 C:\opt\apache-ant-1.10.3\
 c:\opt\gradle-4.7\
 C:\opt\apache-maven-3.5.3\
-C:\opt\sbt-1.1.5\
+C:\opt\sbt-1.1.6\
 C:\opt\cfr-0_129\
 C:\opt\Git-2.17.0\
 </pre>
@@ -183,27 +184,27 @@ We distinguish different sets of batch scripts:
 
     <pre style="font-size:80%;">
 	&gt; javap -c target\dotty-0.8\classes\Main.class
-Compiled from "Main.scala"
-public final class Main {
-  public static void test01();
+    Compiled from "Main.scala"
+    public final class Main {
+      public static void test01();
         Code:
            0: getstatic     #13                 // Field Main$.MODULE$:LMain$;
            3: invokevirtual #15                 // Method Main$.test01:()V
            6: return
-&nbsp;
-  public static void main(java.lang.String[]);
+    
+      public static void main(java.lang.String[]);
         Code:
            0: getstatic     #13                 // Field Main$.MODULE$:LMain$;
            3: aload_0
            4: invokevirtual #19                 // Method Main$.main:([Ljava/lang/String;)V
            7: return
-&nbsp;
-  public static void test02();
+    
+      public static void test02();
         Code:
            0: getstatic     #13                 // Field Main$.MODULE$:LMain$;
            3: invokevirtual #22                 // Method Main$.test02:()V
            6: return
-}
+    }
     </pre>
 
 ## Session examples
@@ -216,8 +217,8 @@ The **`setenv`** command is executed once to setup your development environment:
 > setenv
 
 > where sbt
-C:\opt\sbt-1.1.5\bin\sbt
-C:\opt\sbt-1.1.5\bin\sbt.bat
+C:\opt\sbt-1.1.6\bin\sbt
+C:\opt\sbt-1.1.6\bin\sbt.bat
 </pre>
 
 > **NB.** Execute **`setenv help`** to display the help message.
@@ -233,7 +234,7 @@ DOTC_VERSION=0.8.0-RC1
 ANT_VERSION=1.10.3
 GRADLE_VERSION=4.7
 MVN_VERSION=3.5.3
-SBT_VERSION=1.1.5
+SBT_VERSION=1.1.6
 CFR_VERSION=0_129
 GIT_VERSION=2.17.0.windows.1
 C:\Program Files\Java\jdk1.8.0_171\bin\javac.exe
@@ -242,7 +243,7 @@ C:\opt\dotty-0.8.0-RC1\bin\dotc.bat
 C:\opt\apache-ant-1.10.3\bin\ant.bat
 c:\opt\gradle-4.7\bin\gradle.bat
 C:\opt\apache-maven-3.5.3\bin\mvn.cmd
-C:\opt\sbt-1.1.5\bin\sbt.bat
+C:\opt\sbt-1.1.6\bin\sbt.bat
 C:\opt\cfr-0_129\bin\cfr.bat
 C:\opt\Git-2.17.0\bin\git.exe
 </pre>
