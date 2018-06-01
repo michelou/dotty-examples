@@ -67,17 +67,17 @@ where
 - directory **`bin\`** provides several utility batch scripts.
 - directory **`bin\0.8\`** contains the Dotty commands for **Microsoft Windows** (*see below*).
 - directory **`docs\`** contains several Dotty related papers/articles.
-- file **`docs\cfr-0_129.zip`** contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
+- file [**`docs\cfr-0_129.zip`**](docs/cfr-0_129.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory **`examples\`** contains Dotty examples grabbed from various websites.
-- directory **`myexamples\`** contains self-written examples.
-- file **`README.md`** is the Markdown document for this page.
-- file **`setenv.bat`** is the batch script for setting up our environment.
+- directory **`myexamples\`** contains self-written Dotty examples.
+- file [**`README.md`**](README.md) is the Markdown document for this page.
+- file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
 ## Batch scripts
 
 We distinguish different sets of batch scripts:
 
-1. **`setenv.bat`** - This batch script makes external tools such as **`javac.exe`**, **`scalac.bat`**, **`dotc.bat`**, etc. directly available from the command prompt.
+1. [**`setenv.bat`**](setenv.bat) - This batch script makes external tools such as **`javac.exe`**, **`scalac.bat`**, **`dotc.bat`**, etc. directly available from the command prompt.
 
     <pre style="font-size:80%;">
     &gt; scalac -version
@@ -94,95 +94,95 @@ We distinguish different sets of batch scripts:
    - **`searchjars.bat <class_name>`** searches for the given class name into all Dotty/Scala JAR files.
    - **`touch.bat`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory **`bin\0.8\`** - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.8.0-RC1\bin\`**) in order to use the **`dotc`** and **`dot`** commands on **Microsoft Windows**.
+3. Directory **`bin\0.8\`** - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.8.0-RC1\bin\`**) in order to use the [**`dotc`**](bin/0.8/dotc.bat) and [**`dot`**](bin/0.8/dot.bat) commands on **Microsoft Windows**.
     > **NB.** The author wrote (and does maintain) those batch files based on the bash scripts available from the standard [Dotty](http://dotty.epfl.ch/) distribution.
 
-	<pre style="font-size:80%;">
-	&gt; dir /b c:\opt\dotty-0.8.0-RC1\bin
-	common
-	common.bat
-	dot.bat
-	dotc
-	dotc.bat
-	dotd
-	dotd.bat
-	dotr
-	dotr.bat
-	</pre>
+    <pre style="font-size:80%;">
+    &gt; dir /b c:\opt\dotty-0.8.0-RC1\bin
+    common
+    common.bat
+    dot.bat
+    dotc
+    dotc.bat
+    dotd
+    dotd.bat
+    dotr
+    dotr.bat
+    </pre>
 
-    > **NB.** The `dotr.bat` batch file does hang on Windows due to implementation issues with the Dotty REPL on Windows.
+    > **NB.** The [**`dotr.bat`**](bin/0.8/dotr.bat) batch file does hang on Windows due to implementation issues with the Dotty REPL on Windows.
 
-4. **`build.bat`** - Finally every single example can be built/run using either  the **`build`** command or the **`sbt`** command.<br/>
+4. [**`build.bat`**](examples/dotty-example-project/build.bat) - Finally every single example can be built/run using either  the **`build`** command or the **`sbt`** command.<br/>
     > **NB.** We prefer the **`build`** command here since our simple examples don't require the **`sbt`** machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
 
-	<pre style="font-size:80%;">
-	&gt; build
-	Usage: build { options | subcommands }
-	  Options:
-	        -debug           show commands executed by this script
-	        -deprecation     set compiler option -deprecation
-	        -explain         set compiler option -explain
-	        -compiler:<name>       select compiler (scala|scalac|dotc|dotty), default:dotc
-	        -main:<name>           define main class name
-	        -timer           display the compile time
-	      Subcommands:
-	        clean            delete generated class files
-	        compile          compile source files (Java and Scala)
-	        help             display this help message
-	        run              execute main class
-	      Properties:
-	      (to be defined in SBT configuration file project\build.properties)
-	        compiler.cmd     alternative to option -compiler
-	        main.class       alternative to option -main
-	        main.args        list of arguments to be passed to main class
+    <pre style="font-size:80%;">
+    &gt; build
+    Usage: build { options | subcommands }
+      Options:
+            -debug           show commands executed by this script
+            -deprecation     set compiler option -deprecation
+            -explain         set compiler option -explain
+            -compiler:<name>       select compiler (scala|scalac|dotc|dotty), default:dotc
+            -main:<name>           define main class name
+            -timer           display the compile time
+          Subcommands:
+            clean            delete generated class files
+            compile          compile source files (Java and Scala)
+            help             display this help message
+            run              execute main class
+          Properties:
+          (to be defined in SBT configuration file project\build.properties)
+            compiler.cmd     alternative to option -compiler
+            main.class       alternative to option -main
+            main.args        list of arguments to be passed to main class
     </pre>
 
 ## Optional tools
 
 1. Build tools
 
-    Projects in **`examples\`** and **`myexamples\`** can also be built using **`ant`**, **`gradle`** or **`mvn`** as an alternative to the **`build`**/**`sbt`** tools:
+    Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built using **`ant`**, **`gradle`** or **`mvn`** as an alternative to the **`build`**/**`sbt`** tools:
 
-	<pre style="font-size:80%;">
-	> ant clean compile run
-	...
-	> gradle clean compileDotty run
-	...
-	> mvn clean compile exec:java
-	</pre>
-	
-	> ***Gradle Wrappers***<br/>
-	> We don't rely on them even if using [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) is the  recommended way to execute a Gradle build.<br/>
-	> Simply execute the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of **`gradle`**.
+    <pre style="font-size:80%;">
+    > ant clean compile run
+    ...
+    > gradle clean compileDotty run
+    ...
+    > mvn clean compile exec:java
+    </pre>
+    
+    > ***Gradle Wrappers***<br/>
+    > We don't rely on them even if using [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) is the  recommended way to execute a Gradle build.<br/>
+    > Simply execute the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html).
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract **`docs\cfr-0_129.zip`** to **`c:\opt\`**) which prints Java source code instead of just Java bytecode:
+    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract **`docs\cfr-0_129.zip`** to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
 
     <pre style="font-size:80%;">
     &gt; cfr myexamples\00_AutoParamTupling\target\dotty-0.8\classes\Main.class
-	/*
-	 * Decompiled with CFR 0_129.
-	 */
-	public final class Main {
-	    public static void test01() {
-	        Main$.MODULE$.test01();
-	    }
-	
-	    public static void main(String[] arrstring) {
-	        Main$.MODULE$.main(arrstring);
-	    }
-	
-	    public static void test02() {
-	        Main$.MODULE$.test02();
-	    }
-	}
+    /*
+     * Decompiled with CFR 0_129.
+     */
+    public final class Main {
+        public static void test01() {
+            Main$.MODULE$.test01();
+        }
+    
+        public static void main(String[] arrstring) {
+            Main$.MODULE$.main(arrstring);
+        }
+    
+        public static void test02() {
+            Main$.MODULE$.test02();
+        }
+    }
     </pre>
 
-    Here is the output from **`javap`** (with option **`-c`**) for the same class file:
+    Here is the output from [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) (with option **`-c`**) for the same class file:
 
     <pre style="font-size:80%;">
-	&gt; javap -c target\dotty-0.8\classes\Main.class
+    &gt; javap -c myexamples\00_AutoParamTupling\target\dotty-0.8\classes\Main.class
     Compiled from "Main.scala"
     public final class Main {
       public static void test01();
@@ -210,7 +210,7 @@ We distinguish different sets of batch scripts:
 
 #### `setenv.bat`
 
-The **`setenv`** command is executed once to setup your development environment:
+The [**`setenv`**](setenv.bat) command is executed once to setup your development environment:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv
@@ -222,7 +222,7 @@ C:\opt\sbt-1.1.6\bin\sbt.bat
 
 > **NB.** Execute **`setenv help`** to display the help message.
 
-With option **`-verbose`** the **`setenv`** command displays the version/path of the tools:
+With option **`-verbose`** the **`setenv`** command also displays the version/path of the tools:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv -verbose
@@ -249,7 +249,7 @@ C:\opt\Git-2.17.0\bin\git.exe
 
 #### `cleanup.bat`
 
-The **`cleanup`** command removes the output directories (ie. **`target\`**) from the example projets: 
+The [**`cleanup`**](bin/cleanup.bat) command removes the output directories (ie. **`target\`**) from the example projets: 
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > cleanup
@@ -259,7 +259,7 @@ Finished to clean up 10 subdirectories in C:\dotty\myexamples
 
 #### `dirsize.bat {<dir_name>}`
 
-The **`dirsize`** command returns the size (in Kb, Mb or Gb) of the specified directory paths:
+The [**`dirsize`**](bin/dirsize.bat) command returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > dirsize examples myexamples c:\opt\dotty-0.8.0-RC1
@@ -270,7 +270,7 @@ Size of directory "c:\opt\dotty-0.8.0-RC1" is 20.4 Mb
 
 #### `getnightly.bat`
 
-The **`getnightly`** command downloads JAR library files from the latest Dotty nightly build on the [Maven Central Repository](https://search.maven.org/) and saves them into directory **`nightly-jars\`**:
+The [**`getnightly`**](bin/getnightly.bat) command downloads JAR library files from the latest Dotty nightly build on the [Maven Central Repository](https://search.maven.org/) and saves them into directory **`nightly-jars\`**:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > getnightly
@@ -292,7 +292,7 @@ dotty_0.9-0.9.0-bin-20180502-d0f7846-NIGHTLY.jar
 
 #### `searchjars.bat <class_name>`
 
-Passing argument `System` to the **`searchjars`** command prints the following output (classfile names are printed with full path and are prefixed with their containing JAR file):
+Passing argument **`System`** to the [**`searchjars`**](bin/searchjars.bat) command prints the following output (classfile names are printed with full path and are prefixed with their containing [JAR file](https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html)):
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > searchjars System
 Search for class System in library files C:\opt\dotty-0.8.0-RC1\lib\*.jar
@@ -307,7 +307,7 @@ Search for class System in library files C:\opt\SCALA-~1.5\lib\*.jar
   scala-xml_2.12-1.0.6.jar:scala/xml/dtd/SystemID.class
 </pre>
 
-Looking for the unknown class `BinarySearch` produces the following output:
+Looking for the unknown class **`BinarySearch`** produces the following output:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > searchjars BinarySearch
 Search for class BinarySearch in library files C:\opt\dotty-0.8.0-RC1\lib\*.jar
@@ -316,7 +316,7 @@ Search for class BinarySearch in library files C:\opt\SCALA-~1.5\lib\*.jar
 
 #### `build.bat`
 
-The **`build`** command is a basic build tool consisting of ~300 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_02">[[2]](#footnote_02)</sup>. 
+The [**`build`**](examples/enum-Planet/build.bat) command is a basic build tool consisting of ~300 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_02">[[2]](#footnote_02)</sup>. 
 
 - Build/run the **`enum-Planet`** project with no build option:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
@@ -404,5 +404,5 @@ Command Prompt has been around for as long as we can remember, but starting with
 </div>
 
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/April 2018*
+*[mics](http://lampwww.epfl.ch/~michelou/)/May 2018*
 
