@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="05_Pattern_Matching" default="compile" basedir=".">
+<project name="06_Higher-Kinded_Types" default="compile" basedir=".">
 
     <property name="sources.dir" value="src" />
     <property name="scala-source.dir" value="${basedir}/src/main/scala" />

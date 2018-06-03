@@ -43,7 +43,7 @@ c:\opt\gradle-4.7\
 C:\opt\apache-maven-3.5.3\
 C:\opt\sbt-1.1.6\
 C:\opt\cfr-0_129\
-C:\opt\Git-2.17.0\
+C:\opt\Git-2.17.1\
 </pre>
 
 We further recommand using an advanced console emulator such as [ComEmu](https://conemu.github.io/) (or [Cmdr](http://cmder.net/)) which features [Unicode support](https://conemu.github.io/en/UnicodeSupport.html).
@@ -235,7 +235,7 @@ GRADLE_VERSION=4.7
 MVN_VERSION=3.5.3
 SBT_VERSION=1.1.6
 CFR_VERSION=0_129
-GIT_VERSION=2.17.0.windows.1
+GIT_VERSION=2.17.1.windows.1
 C:\Program Files\Java\jdk1.8.0_171\bin\javac.exe
 C:\opt\scala-2.12.6\bin\scalac.bat
 C:\opt\dotty-0.8.0-RC1\bin\dotc.bat
@@ -244,7 +244,7 @@ c:\opt\gradle-4.7\bin\gradle.bat
 C:\opt\apache-maven-3.5.3\bin\mvn.cmd
 C:\opt\sbt-1.1.6\bin\sbt.bat
 C:\opt\cfr-0_129\bin\cfr.bat
-C:\opt\Git-2.17.0\bin\git.exe
+C:\opt\Git-2.17.1\bin\git.exe
 </pre>
 
 #### `cleanup.bat`

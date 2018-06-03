@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="00_Auto_ParamTupling" default="compile" basedir=".">
+<project name="04_Multiversal_Equality" default="compile" basedir=".">
 
   <property name="sources.dir" value="src" />
   <property name="scala-source.dir" value="${basedir}/src/main/scala" />
