@@ -23,8 +23,8 @@ This project repository relies on a few external software for the **Microsoft Wi
 Optionally one may also install the following software:
 
 - [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8)
-- [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8)
-- [Gradle 4.7](https://gradle.org/install/) (requires Java 7 or newer)
+- [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.3.html))
+- [Gradle 4.8](https://gradle.org/install/) (requires Java 7 or newer) ([*release notes*](https://docs.gradle.org/4.8/release-notes.html))
 - [Apache Maven 3.5](http://maven.apache.org/download.cgi)
 - [CFR 0.x](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.x](https://git-scm.com/download/win)
@@ -32,7 +32,7 @@ Optionally one may also install the following software:
 > ***Software installation policy***<br/>
 > Whenever possible software is installed via a Zip archive rather than via a Windows installer.
 
-For instance our development environment looks as follows (*May 2018*):
+For instance our development environment looks as follows (*June 2018*):
 
 <pre style="font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_171\
@@ -42,7 +42,7 @@ C:\opt\apache-ant-1.10.3\
 c:\opt\gradle-4.7\
 C:\opt\apache-maven-3.5.3\
 C:\opt\sbt-1.1.6\
-C:\opt\cfr-0_129\
+C:\opt\cfr-0_130\
 C:\opt\Git-2.17.1\
 </pre>
 
@@ -55,7 +55,7 @@ This repository is organized as follows:
 bin\*.bat
 bin\0.8\*.bat
 docs\
-docs\cfr-0_129.zip
+docs\cfr-0_130.zip
 examples\{dotty-example-project, ..}
 myexamples\{00_AutoParamTupling, ..}
 README.md
@@ -67,7 +67,7 @@ where
 - directory **`bin\`** provides several utility batch scripts.
 - directory **`bin\0.8\`** contains the Dotty commands for **Microsoft Windows** (*see below*).
 - directory **`docs\`** contains several Dotty related papers/articles.
-- file [**`docs\cfr-0_129.zip`**](docs/cfr-0_129.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
+- file [**`docs\cfr-0_130.zip`**](docs/cfr-0_130.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory **`examples\`** contains Dotty examples grabbed from various websites.
 - directory **`myexamples\`** contains self-written Dotty examples.
 - file [**`README.md`**](README.md) is the Markdown document for this page.
@@ -157,12 +157,12 @@ We distinguish different sets of batch scripts:
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract **`docs\cfr-0_129.zip`** to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
+    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract **`docs\cfr-0_130.zip`** to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
 
     <pre style="font-size:80%;">
     &gt; cfr myexamples\00_AutoParamTupling\target\dotty-0.8\classes\Main.class
     /*
-     * Decompiled with CFR 0_129.
+     * Decompiled with CFR 0_130.
      */
     public final class Main {
         public static void test01() {
@@ -231,19 +231,19 @@ JAVA_VERSION=1.8.0_171
 SCALAC_VERSION=2.12.6
 DOTC_VERSION=0.8.0-RC1
 ANT_VERSION=1.10.3
-GRADLE_VERSION=4.7
+GRADLE_VERSION=4.8
 MVN_VERSION=3.5.3
 SBT_VERSION=1.1.6
-CFR_VERSION=0_129
-GIT_VERSION=2.17.1.windows.1
+CFR_VERSION=0_130
+GIT_VERSION=2.17.1.windows.2
 C:\Program Files\Java\jdk1.8.0_171\bin\javac.exe
 C:\opt\scala-2.12.6\bin\scalac.bat
 C:\opt\dotty-0.8.0-RC1\bin\dotc.bat
 C:\opt\apache-ant-1.10.3\bin\ant.bat
-c:\opt\gradle-4.7\bin\gradle.bat
+c:\opt\gradle-4.8\bin\gradle.bat
 C:\opt\apache-maven-3.5.3\bin\mvn.cmd
 C:\opt\sbt-1.1.6\bin\sbt.bat
-C:\opt\cfr-0_129\bin\cfr.bat
+C:\opt\cfr-0_130\bin\cfr.bat
 C:\opt\Git-2.17.1\bin\git.exe
 </pre>
 
