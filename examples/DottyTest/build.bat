@@ -168,33 +168,6 @@ if %__VALID%==0 (
 set _MAIN_CLASS=%__ARG%
 goto :eof
 
-rem output parameter: _CLASSES_DIR
-:classes_dir
-if /i "%_COMPILE_CMD:~0,5%"=="scala" (
-   set __DIR=%_ROOT_DIR%target\scala
-   set __CMD=scalac.bat
-) else if /i "%_COMPILE_CMD:~0,3%"=="dot" (
-   set __DIR=%_ROOT_DIR%target\dotty
-   set __CMD=dotc.bat
-) else (
-   echo Invalid compiler command %_COMPILE_CMD%
-   set _EXITCODE=1
-   goto :eof
-)
-set __TARGET_DIR=
-for /f %%i in ('dir /s /ad /b "%__DIR%*" 2^>NUL') do set __TARGET_DIR=%%i
-if not defined __TARGET_DIR (
-    set __CMD_VERSION=2.10
-    for /f "delims=-" %%s in ('%__CMD% -version 2^>^&1') do (
-        for %%j in (%%s) do set __VERSION=%%j
-        for /f "tokens=1,2,* delims=." %%k in ("!__VERSION!") do set __CMD_VERSION=%%k.%%l
-    )
-    set __TARGET_DIR=%__DIR%-!__CMD_VERSION!
-)
-set _CLASSES_DIR=%__TARGET_DIR%\classes
-if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
-goto :eof
-
 :clean
 if %_DEBUG%==1 echo [%_BASENAME%] forfiles /s /p %_ROOT_DIR% /m target /c "cmd /c echo @path" 2^>NUL
 for /f %%i in ('forfiles /s /p %_ROOT_DIR% /m target /c "cmd /c if @isdir==TRUE echo @path" 2^>NUL') do (
@@ -215,8 +188,8 @@ for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__STA
 goto :eof
 
 :compile
-call :classes_dir
-if not %_EXITCODE%==0 goto :eof
+set _CLASSES_DIR=%_ROOT_DIR%target\classes
+if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 
 set __TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build
 

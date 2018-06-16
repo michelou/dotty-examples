@@ -3,8 +3,8 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>dotty.myexamples</groupId>
-    <artifactId>04_Multiversal_Equality</artifactId>
+    <groupId>dotty.examples</groupId>
+    <artifactId>IntersectionTypes_0.4</artifactId>
     <version>0.1-SNAPSHOT</version>
 
     <packaging>jar</packaging>
@@ -41,25 +41,11 @@
             <artifactId>dotty-interfaces</artifactId>
             <version>${dotty.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.typesafe.sbt/sbt-interface -->
+        <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
         <dependency>
-            <groupId>com.typesafe.sbt</groupId>
-            <artifactId>sbt-interface</artifactId>
-            <version>0.13.15</version>
-            <type>pom</type>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.typesafe.sbt/compiler-interface -->
-        <dependency>
-            <groupId>com.typesafe.sbt</groupId>
-            <artifactId>compiler-interface</artifactId>
-            <version>0.13.15</version>
-            <type>pom</type>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.typesafe.sbt/sbt-launcher-interface -->
-        <dependency>
-            <groupId>com.typesafe.sbt</groupId>
-            <artifactId>sbt-launcher-interface</artifactId>
-            <version>0.13.6</version>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.6.0</version>
         </dependency>
     </dependencies>
 
@@ -81,10 +67,10 @@
                     </execution>
                 </executions>
                 <configuration>
-                  <jvmArgs>
-                    <jvmArg>-Xms64m</jvmArg>
-                    <jvmArg>-Xmx1024m</jvmArg>
-                  </jvmArgs>
+                    <jvmArgs>
+                        <jvmArg>-Xms64m</jvmArg>
+                        <jvmArg>-Xmx1024m</jvmArg>
+                    </jvmArgs>
                 </configuration>
             </plugin>
             <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
@@ -105,7 +91,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
+            <!-- http://www.mojohaus.org/exec-maven-plugin/ -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -118,18 +104,10 @@
                     </execution>
                 </executions>
                 <configuration>
-                  <mainClass>Main</mainClass>
-                  <!--
-                  <arguments>
-                    <argument>1</argument>
-                  </arguments>
-                  <systemProperties>
-                    <systemProperty>
-                      <key>myproperty</key>
-                      <value>myvalue</value>
-                    </systemProperty>
-                  </systemProperties>
-                  -->
+                    <mainClass>Main</mainClass>
+                    <arguments>
+                        <argument></argument>
+                    </arguments>
                 </configuration>
             </plugin>
         </plugins>

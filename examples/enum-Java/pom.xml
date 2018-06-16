@@ -4,14 +4,16 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>dotty.examples</groupId>
-	<artifactId>hello-Java</artifactId>
+	<artifactId>enum-Java</artifactId>
 	<version>0.1-SNAPSHOT</version>
 
 	<packaging>jar</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<scala.version>2.12.5</scala.version>
+        <!-- Dotty 0.8 is distributed with Scala 2.12.4 -->
+        <scala.version>2.12.4</scala.version>
+        <dotty.version>0.8.0</dotty.version>
 		<java.version>1.8</java.version>
 	</properties>
 
@@ -22,11 +24,17 @@
 			<artifactId>scala-library</artifactId>
 			<version>${scala.version}</version>
 		</dependency>
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-compiler -->
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.8 -->
         <dependency>
             <groupId>ch.epfl.lamp</groupId>
-            <artifactId>dotty-compiler_2.11</artifactId>
-            <version>0.1.1-bin-20170429-10a2ce6-NIGHTLY</version>
+            <artifactId>dotty-library_0.8</artifactId>
+            <version>${dotty.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-compiler_0.8 -->
+        <dependency>
+            <groupId>ch.epfl.lamp</groupId>
+            <artifactId>dotty-compiler_0.8</artifactId>
+            <version>${dotty.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.typesafe.sbt/sbt-interface -->
         <dependency>
@@ -64,7 +72,7 @@
 			<plugin>
 				<groupId>net.alchim31.maven</groupId>
 				<artifactId>scala-maven-plugin</artifactId>
-				<version>3.3.2</version>
+				<version>3.4.0</version>
                 <executions>
 					<execution>
 						<phase>compile</phase>
@@ -73,6 +81,12 @@
 						</goals>
 					</execution>
 				</executions>
+                <configuration>
+                    <jvmArgs>
+                        <jvmArg>-Xms64m</jvmArg>
+                        <jvmArg>-Xmx1024m</jvmArg>
+                    </jvmArgs>
+                </configuration>
 			</plugin>
             <!-- http://www.mojohaus.org/exec-maven-plugin/ -->
             <plugin>
@@ -80,7 +94,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>
                 <configuration>
-                    <mainClass>hello</mainClass>
+                    <mainClass>Test</mainClass>
                     <arguments>
                         <argument></argument>
                     </arguments>
