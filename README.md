@@ -6,8 +6,8 @@
     <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    This repository gathers Dotty examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a> - or written by myself.<br/>
-    It also includes several batch scripts for experimenting with Dotty (aka <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html">Scala 3.0</a>) on the <b>Microsoft Windows</b> platform.
+    This repository gathers code examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a> - or written by myself.<br/>
+    It also includes several <a href="https://en.wikipedia.org/wiki/Batch_file">batch scripts</a> for experimenting with Dotty (aka <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html">Scala 3.0</a>) on the <b>Microsoft Windows</b> platform.
   </td>
   </tr>
 </table>
@@ -17,32 +17,32 @@
 This project repository relies on a few external software for the **Microsoft Windows** plaform:
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-- [Dotty 0.8](https://github.com/lampepfl/dotty/releases) (requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
+- [Dotty 0.9](https://github.com/lampepfl/dotty/releases) (requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
 - [SBT 1.x](https://www.scala-sbt.org/download.html)
 
 Optionally one may also install the following software:
 
 - [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8)
-- [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.3.html))
+- [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.4.html))
 - [Gradle 4.8](https://gradle.org/install/) (requires Java 7 or newer) ([*release notes*](https://docs.gradle.org/4.8/release-notes.html))
-- [Apache Maven 3.5](http://maven.apache.org/download.cgi)
+- [Apache Maven 3.5](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.5.4/release-notes.html))
 - [CFR 0.x](http://www.benf.org/other/cfr/) (Java decompiler)
-- [Git 2.x](https://git-scm.com/download/win)
+- [Git 2.17](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.17.1.txt))
 
 > ***Software installation policy***<br/>
 > Whenever possible software is installed via a Zip archive rather than via a Windows installer.
 
-For instance our development environment looks as follows (*June 2018*):
+For instance our development environment looks as follows (*July 2018*):
 
 <pre style="font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_171\
 C:\opt\scala-2.12.6\
-C:\opt\dotty-0.8.0\
-C:\opt\apache-ant-1.10.3\
-c:\opt\gradle-4.7\
-C:\opt\apache-maven-3.5.3\
+C:\opt\dotty-0.9.0-RC1\
+C:\opt\apache-ant-1.10.4\
+c:\opt\gradle-4.8.1\
+C:\opt\apache-maven-3.5.4\
 C:\opt\sbt-1.1.6\
-C:\opt\cfr-0_130\
+C:\opt\cfr-0_132\
 C:\opt\Git-2.17.1\
 </pre>
 
@@ -53,9 +53,9 @@ We further recommand using an advanced console emulator such as [ComEmu](https:/
 This repository is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
-bin\0.8\*.bat
+bin\0.9\*.bat
+bin\cfr-0_132.zip
 docs\
-docs\cfr-0_130.zip
 examples\{dotty-example-project, ..}
 myexamples\{00_AutoParamTupling, ..}
 README.md
@@ -64,12 +64,12 @@ setenv.bat
 
 where
 
-- directory **`bin\`** provides several utility batch scripts.
-- directory **`bin\0.8\`** contains the Dotty commands for **Microsoft Windows** (*see below*).
-- directory **`docs\`** contains several Dotty related papers/articles.
-- file [**`docs\cfr-0_130.zip`**](docs/cfr-0_130.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
-- directory **`examples\`** contains Dotty examples grabbed from various websites.
-- directory **`myexamples\`** contains self-written Dotty examples.
+- directory [**`bin\\`**](bin/) provides several utility batch scripts.
+- directory [**`bin\0.9\\`**](bin/0.9/) contains the Dotty commands for **Microsoft Windows** (*see below*).
+- file [**`bin\cfr-0_132.zip`**](bin/cfr-0_132.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
+- directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
+- directory [**`examples\\`**](examples/) contains Dotty examples grabbed from various websites.
+- directory [**`myexamples\\`**](myexamples/) contains self-written Dotty examples.
 - file [**`README.md`**](README.md) is the Markdown document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
@@ -77,28 +77,33 @@ where
 
 We distinguish different sets of batch scripts:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch script makes external tools such as **`javac.exe`**, **`scalac.bat`**, **`dotc.bat`**, etc. directly available from the command prompt.
+1. [**`setenv.bat`**](setenv.bat) - This batch script makes external tools such as **`java.exe`**, **`scalac.bat`**, **`dotc.bat`**, etc. directly available from the command prompt.
 
     <pre style="font-size:80%;">
+    &gt; java -version
+    java version "1.8.0_171"
+    Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
+    Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+
     &gt; scalac -version
     Scala compiler version 2.12.6 -- Copyright 2002-2018, LAMP/EPFL and Lightbend, Inc.
 
     &gt; dotc -version
-    Dotty compiler version 0.8.0 -- Copyright 2002-2018, LAMP/EPFL
+    Dotty compiler version 0.9.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
     </pre>
 
-2. Directory **`bin\`** - This directory contains several utility batch scripts:
-   - **`cleanup.bat`** removes the generated class files from every example directory (both in **`examples\`** and **`myexamples\`** directories).
+2. Directory [**`bin\\`**](bin/) - This directory contains several utility batch scripts:
+   - **`cleanup.bat`** removes the generated class files from every example directory (both in [**`examples\\`**](examples/) and [**`myexamples\\`**](myexamples/) directories).
    - **`dirsize.bat`** prints the size in Kb/Mb/Gb of the specified directory paths.
    - **`getnightly.bat`** downloads the JAR libraries of the latest [Dotty nightly build](https://search.maven.org/#search|ga|1|g%3A%22ch.epfl.lamp%22).
    - **`searchjars.bat <class_name>`** searches for the given class name into all Dotty/Scala JAR files.
    - **`touch.bat`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory **`bin\0.8\`** - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.8.0\bin\`**) in order to use the [**`dotc`**](bin/0.8/dotc.bat) and [**`dot`**](bin/0.8/dot.bat) commands on **Microsoft Windows**.
+3. Directory [**`bin\0.9\\`**](bin/0.9/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.9.0-RC1\bin\`**) in order to use the [**`dot`**](bin/0.9/dot.bat), [**`dotc`**](bin/0.9/dotc.bat), [**`dotd`**](bin/0.9/dotd.bat) and [**`dotr`**](bin/0.9/dotr.bat) commands on **Microsoft Windows**.
     > **NB.** The author wrote (and does maintain) those batch files based on the bash scripts available from the standard [Dotty](http://dotty.epfl.ch/) distribution.
 
     <pre style="font-size:80%;">
-    &gt; dir /b c:\opt\dotty-0.8.0\bin
+    &gt; dir /b c:\opt\dotty-0.9.0-RC1\bin
     common
     common.bat
     dot.bat
@@ -110,7 +115,7 @@ We distinguish different sets of batch scripts:
     dotr.bat
     </pre>
 
-    > **NB.** The [**`dotr.bat`**](bin/0.8/dotr.bat) batch file does hang on Windows due to implementation issues with the Dotty REPL on Windows.
+    > **NB.** Prior to version 0.9-RC1 the [**`dotr`**](bin/0.9/dotr.bat) command did hang on Windows due to implementation issues with the Dotty [REPL](https://en.wikipedia.org/wiki/Read–eval–print_loop). This [issue](https://github.com/lampepfl/dotty/pull/4680) has been fixed by using JLine 3 in the REPL.
 
 4. [**`build.bat`**](examples/dotty-example-project/build.bat) - Finally every single example can be built/run using either  the **`build`** command or the **`sbt`** command.<br/>
     > **NB.** We prefer the **`build`** command here since our simple examples don't require the **`sbt`** machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
@@ -141,7 +146,7 @@ We distinguish different sets of batch scripts:
 
 1. Build tools
 
-    Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built using **`ant`**, **`gradle`** or **`mvn`** as an alternative to the **`build`**/**`sbt`** tools:
+    Projects in [**`examples\\`**](examples/) and [**`myexamples\\`**](myexamples/) can also be built using **`ant`**, **`gradle`** or **`mvn`** as an alternative to the **`build`**/**`sbt`** tools:
 
     <pre style="font-size:80%;">
     > ant clean compile run
@@ -157,12 +162,12 @@ We distinguish different sets of batch scripts:
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract **`docs\cfr-0_130.zip`** to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
+    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract **`bin\cfr-0_132.zip`** to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
 
     <pre style="font-size:80%;">
-    &gt; cfr myexamples\00_AutoParamTupling\target\dotty-0.8\classes\Main.class
+    &gt; cfr myexamples\00_AutoParamTupling\target\classes\Main.class
     /*
-     * Decompiled with CFR 0_130.
+     * Decompiled with CFR 0_132.
      */
     public final class Main {
         public static void test01() {
@@ -182,7 +187,7 @@ We distinguish different sets of batch scripts:
     Here is the output from [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) (with option **`-c`**) for the same class file:
 
     <pre style="font-size:80%;">
-    &gt; javap -c myexamples\00_AutoParamTupling\target\dotty-0.8\classes\Main.class
+    &gt; javap -c myexamples\00_AutoParamTupling\target\classes\Main.class
     Compiled from "Main.scala"
     public final class Main {
       public static void test01();
@@ -229,21 +234,21 @@ With option **`-verbose`** the **`setenv`** command also displays the version/pa
 JAVAC_VERSION=1.8.0_171
 JAVA_VERSION=1.8.0_171
 SCALAC_VERSION=2.12.6
-DOTC_VERSION=0.8.0
-ANT_VERSION=1.10.3
-GRADLE_VERSION=4.8
-MVN_VERSION=3.5.3
+DOTC_VERSION=0.9.0-RC1
+ANT_VERSION=1.10.4
+GRADLE_VERSION=4.8.1
+MVN_VERSION=3.5.4
 SBT_VERSION=1.1.6
-CFR_VERSION=0_130
+CFR_VERSION=0_132
 GIT_VERSION=2.17.1.windows.2
 C:\Program Files\Java\jdk1.8.0_171\bin\javac.exe
 C:\opt\scala-2.12.6\bin\scalac.bat
-C:\opt\dotty-0.8.0\bin\dotc.bat
-C:\opt\apache-ant-1.10.3\bin\ant.bat
-c:\opt\gradle-4.8\bin\gradle.bat
-C:\opt\apache-maven-3.5.3\bin\mvn.cmd
+C:\opt\dotty-0.9.0-RC1\bin\dotc.bat
+C:\opt\apache-ant-1.10.4\bin\ant.bat
+c:\opt\gradle-4.8.1\bin\gradle.bat
+C:\opt\apache-maven-3.5.4\bin\mvn.cmd
 C:\opt\sbt-1.1.6\bin\sbt.bat
-C:\opt\cfr-0_130\bin\cfr.bat
+C:\opt\cfr-0_132\bin\cfr.bat
 C:\opt\Git-2.17.1\bin\git.exe
 </pre>
 
@@ -262,10 +267,10 @@ Finished to clean up 10 subdirectories in C:\dotty\myexamples
 The [**`dirsize`**](bin/dirsize.bat) command returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
-> dirsize examples myexamples c:\opt\dotty-0.8.0
-Size of directory "examples" is 6.3 Mb
-Size of directory "myexamples" is 10.7 Mb
-Size of directory "c:\opt\dotty-0.8.0" is 20.4 Mb
+> dirsize examples myexamples c:\opt\dotty-0.9.0-RC1
+Size of directory "examples" is 3.5 Mb
+Size of directory "myexamples" is 1.4 Mb
+Size of directory "c:\opt\dotty-0.9.0-RC1" is 22.8 Mb
 </pre>
 
 #### `getnightly.bat`
@@ -276,18 +281,18 @@ The [**`getnightly`**](bin/getnightly.bat) command downloads JAR library files f
 > getnightly
 
 > dir /b nightly-jars
-dotty-compiler_0.8-0.8.0-bin-20180423-8feb596-NIGHTLY.jar
-dotty-compiler_0.9-0.9.0-bin-20180502-d0f7846-NIGHTLY.jar
-dotty-doc_0.8-0.8.0-bin-20180423-8feb596-NIGHTLY.jar
-dotty-doc_0.9-0.9.0-bin-20180502-d0f7846-NIGHTLY.jar
-dotty-interfaces-0.8.0-bin-20180423-8feb596-NIGHTLY.jar
-dotty-interfaces-0.9.0-bin-20180502-d0f7846-NIGHTLY.jar
-dotty-language-server_0.8-0.8.0-bin-20180423-8feb596-NIGHTLY.jar
-dotty-language-server_0.9-0.9.0-bin-20180502-d0f7846-NIGHTLY.jar
-dotty-library_0.8-0.8.0-bin-20180423-8feb596-NIGHTLY.jar
-dotty-library_0.9-0.9.0-bin-20180502-d0f7846-NIGHTLY.jar
-dotty_0.8-0.8.0-bin-20180423-8feb596-NIGHTLY.jar
-dotty_0.9-0.9.0-bin-20180502-d0f7846-NIGHTLY.jar
+dotty-compiler_0.10-0.10.0-bin-20180706-7a80060-NIGHTLY.jar
+dotty-compiler_0.9-0.9.0-bin-20180525-4e5cf82-NIGHTLY.jar
+dotty-doc_0.10-0.10.0-bin-20180706-7a80060-NIGHTLY.jar
+dotty-doc_0.9-0.9.0-bin-20180525-4e5cf82-NIGHTLY.jar
+dotty-interfaces-0.10.0-bin-20180706-7a80060-NIGHTLY.jar
+dotty-interfaces-0.9.0-bin-20180525-4e5cf82-NIGHTLY.jar
+dotty-language-server_0.10-0.10.0-bin-20180706-7a80060-NIGHTLY.jar
+dotty-language-server_0.9-0.9.0-bin-20180525-4e5cf82-NIGHTLY.jar
+dotty-library_0.10-0.10.0-bin-20180706-7a80060-NIGHTLY.jar
+dotty-library_0.9-0.9.0-bin-20180525-4e5cf82-NIGHTLY.jar
+dotty_0.10-0.10.0-bin-20180706-7a80060-NIGHTLY.jar
+dotty_0.9-0.9.0-bin-20180525-4e5cf82-NIGHTLY.jar
 </pre>
 
 #### `searchjars.bat <class_name>`
@@ -295,11 +300,11 @@ dotty_0.9-0.9.0-bin-20180502-d0f7846-NIGHTLY.jar
 Passing argument **`System`** to the [**`searchjars`**](bin/searchjars.bat) command prints the following output (classfile names are printed with full path and are prefixed with their containing [JAR file](https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html)):
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > searchjars System
-Search for class System in library files C:\opt\dotty-0.8.0\lib\*.jar
-  scala-library-2.12.4.jar:scala/sys/SystemProperties$.class
-  scala-library-2.12.4.jar:scala/sys/SystemProperties.class
-  scala-xml_2.12-1.0.6.jar:scala/xml/dtd/SystemID$.class
-  scala-xml_2.12-1.0.6.jar:scala/xml/dtd/SystemID.class
+Search for class System in library files C:\opt\dotty-0.9.0-RC1\lib\*.jar
+  scala-library-2.12.6.jar:scala/sys/SystemProperties$.class
+  scala-library-2.12.6.jar:scala/sys/SystemProperties.class
+  scala-xml_2.12-1.1.0.jar:scala/xml/dtd/SystemID$.class
+  scala-xml_2.12-1.1.0.jar:scala/xml/dtd/SystemID.class
 Search for class System in library files C:\opt\scala-2.12.6\lib\*.jar
   scala-library.jar:scala/sys/SystemProperties$.class
   scala-library.jar:scala/sys/SystemProperties.class
@@ -310,13 +315,13 @@ Search for class System in library files C:\opt\scala-2.12.6\lib\*.jar
 Looking for the unknown class **`BinarySearch`** produces the following output:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > searchjars BinarySearch
-Search for class BinarySearch in library files C:\opt\dotty-0.8.0\lib\*.jar
-Search for class BinarySearch in library files C:\opt\SCALA-~1.5\lib\*.jar
+Search for class BinarySearch in library files C:\opt\dotty-0.9.0-RC1\lib\*.jar
+Search for class BinarySearch in library files C:\opt\scala-2.12.6\lib\*.jar
 </pre>
 
 #### `build.bat`
 
-The [**`build`**](examples/enum-Planet/build.bat) command is a basic build tool consisting of ~300 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_02">[[2]](#footnote_02)</sup>. 
+The [**`build`**](examples/enum-Planet/build.bat) command is a basic build tool consisting of ~350 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_02">[[2]](#footnote_02)</sup>. 
 
 - Build/run the **`enum-Planet`** project with no build option:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
@@ -363,27 +368,68 @@ No compilation needed (1 source files)
 </pre>
 
 
+#### `dotr.bat`
+
+The Dotty [REPL](https://en.wikipedia.org/wiki/Read–eval–print_loop) does work on **Microsoft Windows** starting with version 0.9 of the [Dotty distribution](https://github.com/lampepfl/dotty/releases).
+
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+> where dotr
+C:\opt\dotty-0.9.0-RC1\bin\dotr
+C:\opt\dotty-0.9.0-RC1\bin\dotr.bat
+
+> dotr -version
+java version "1.8.0_171"
+Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
+Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+
+> dotr
+Starting dotty REPL...
+scala> :help
+The REPL has several commands available:
+
+:help                    print this summary
+:load &lt;path&gt;             interpret lines in a file
+:quit                    exit the interpreter
+:type &lt;expression&gt;       evaluate the type of the given expression
+:imports                 show import history
+:reset                   reset the repl to its initial state, forgetting all session entries
+
+scala> System.getenv().get("JAVA_HOME")
+val res0: String = C:\Progra~1\Java\jdk1.8.0_171
+
+scala> System.getenv().get("DOTTY_HOME")
+val res1: String = C:\opt\dotty-0.9.0-RC1
+
+scala> :load myexamples/HelloWorld/src/main/scala/HelloWorld.scala
+// defined object HelloWorld
+
+scala> HelloWorld.main(Array())
+Hello world!
+
+scala>:quit
+</pre>
+
 ## Footnotes
 
-<a name="footnote_01">[1]</a> ***2018-04-17*** [↩](#anchor_01)
+<a name="footnote_01">[1]</a> ***2018-07-07*** [↩](#anchor_01)
 
 <div style="margin:0 0 0 20px;">
-Version 0.8 of the Dotty compiler is not compatible with versions 9 and 10 of <a href="https://docs.oracle.com/javase/9/install/overview-jdk-9-and-jre-9-installation.htm">Java JRE</a>; a <strong><code>java.lang.IncompatibleClassChangeError</code></strong> exception is thrown when starting the <strong><code>dotc</code></strong> command:
+Version 0.9 of the Dotty compiler is not compatible with versions 9 and 10 of <a href="https://docs.oracle.com/javase/9/install/overview-jdk-9-and-jre-9-installation.htm">Java JRE</a>; a <strong><code>java.lang.IncompatibleClassChangeError</code></strong> exception is thrown when starting the <strong><code>dotc</code></strong> command:
 </div>
 
 <!--
-C:\Progra~1\Java\jre-10.0.1\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.8.0\lib\scala-library-2.12.4.jar;C:\opt\dotty-0.8.0\lib\scala-xml_2.12-1.0.6.jar;C:\opt\dotty-0.8.0\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.8.0\lib\compiler-interface-1.1.4.jar;C:\opt\dotty-0.8.0\lib\dotty-interfaces-0.8.0.jar;C:\opt\dotty-0.8.0\lib\dotty-library_0.8-0.8.0.jar;C:\opt\dotty-0.8.0\lib\dotty-compiler_0.8-0.8.0.jar -Dscala.usejavacp=true dotty.tools.dotc.Main
+C:\Progra~1\Java\jre-10.0.1\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.9.0-RC1\lib\scala-library-2.12.6.jar;C:\opt\dotty-0.9.0-RC1\lib\scala-xml_2.12-1.0.6.jar;C:\opt\dotty-0.9.0-RC1\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.9.0-RC1\lib\compiler-interface-1.1.6.jar;C:\opt\dotty-0.9.0-RC1\lib\dotty-interfaces-0.9.0-RC1.jar;C:\opt\dotty-0.9.0-RC1\lib\dotty-library_0.9-0.9.0-RC1.jar;C:\opt\dotty-0.9.0-RC1\lib\dotty-compiler_0.9-0.9.0-RC1.jar -Dscala.usejavacp=true dotty.tools.dotc.Main
 -->
 
 <pre style="margin:10px 0 0 20px;font-size:80%;">
 > C:\Progra~1\Java\jre-10.0.1\bin\java.exe -Xmx768m -Xms768m \
--classpath C:\opt\dotty-0.8.0\lib\scala-library-2.12.4.jar; \
-C:\opt\dotty-0.8.0\lib\scala-xml_2.12-1.0.6.jar; \
-C:\opt\dotty-0.8.0\lib\scala-asm-6.0.0-scala-1.jar; \
-C:\opt\dotty-0.8.0\lib\compiler-interface-1.1.4.jar; \
-C:\opt\dotty-0.8.0\lib\dotty-interfaces-0.8.0.jar; \
-C:\opt\dotty-0.8.0\lib\dotty-library_0.8-0.8.0.jar; \
-C:\opt\dotty-0.8.0\lib\dotty-compiler_0.8-0.8.0.jar \
+-classpath C:\opt\dotty-0.9.0-RC1\lib\scala-library-2.12.6.jar; \
+C:\opt\dotty-0.9.0-RC1\lib\scala-xml_2.12-1.1.0.jar; \
+C:\opt\dotty-0.9.0-RC1\lib\scala-asm-6.0.0-scala-1.jar; \
+C:\opt\dotty-0.9.0-RC1\lib\compiler-interface-1.1.6.jar; \
+C:\opt\dotty-0.9.0-RC1\lib\dotty-interfaces-0.9.0-RC1.jar; \
+C:\opt\dotty-0.9.0-RC1\lib\dotty-library_0.9-0.9.0-RC1.jar; \
+C:\opt\dotty-0.9.0-RC1\lib\dotty-compiler_0.9-0.9.0-RC1.jar \
 -Dscala.usejavacp=true dotty.tools.dotc.Main
 Exception in thread "main" java.lang.IncompatibleClassChangeError: Method dotty.tools.dotc.core.Phases$PhasesBase.dotty$tools$dotc$core$Phases$PhasesBase$$initial$myTyperPhase()Ldotty/tools/dotc/core/Phases$Phase; must be InterfaceMethodref constant
         at dotty.tools.dotc.core.Contexts$ContextBase.<init>(Contexts.scala:544)
@@ -399,10 +445,10 @@ Exception in thread "main" java.lang.IncompatibleClassChangeError: Method dotty.
 
 <a name="footnote_02">[2]</a> ***2018-05-09*** [↩](#anchor_02)
 
-<div style="margin:0 0 0 20px;"> 
+<div style="margin:0 0 1em 20px;"> 
 Command Prompt has been around for as long as we can remember, but starting with Windows 10 build 14971, Microsoft is trying to make PowerShell the <a href="https://support.microsoft.com/en-us/help/4027690/windows-powershell-is-replacing-command-prompt">main command shell</a> in the operating system.
 </div>
 
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/May 2018*
+*[mics](http://lampwww.epfl.ch/~michelou/)/July 2018*
 
