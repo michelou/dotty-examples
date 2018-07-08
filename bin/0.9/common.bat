@@ -64,6 +64,7 @@ rem jine (introduced with 0.9.0-RC1)
 for /f %%f in ('dir /b "%_LIB_DIR%\*jline-3*"')              do set _JLINE=%_LIB_DIR%\%%f
 for /f %%f in ('dir /b "%_LIB_DIR%\*jline-terminal-3*"')     do set _JLINE_TERMINAL=%_LIB_DIR%\%%f
 for /f %%f in ('dir /b "%_LIB_DIR%\*jline-terminal-jna-3*"') do set _JLINE_TERMINAL_JNA=%_LIB_DIR%\%%f
+for /f %%f in ('dir /b "%_LIB_DIR%\*jna-4*"')                do set _JNA=%_LIB_DIR%\%%f
 
 rem debug
 set _DEBUG_STR=-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005

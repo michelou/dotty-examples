@@ -64,12 +64,12 @@ setenv.bat
 
 where
 
-- directory [**`bin\\`**](bin/) provides several utility batch scripts.
-- directory [**`bin\0.9\\`**](bin/0.9/) contains the Dotty commands for **Microsoft Windows** (*see below*).
+- directory [**`bin\`**](bin/) provides several utility batch scripts.
+- directory [**`bin\0.9\`**](bin/0.9/) contains the Dotty commands for **Microsoft Windows** (*see below*).
 - file [**`bin\cfr-0_132.zip`**](bin/cfr-0_132.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
-- directory [**`examples\\`**](examples/) contains Dotty examples grabbed from various websites.
-- directory [**`myexamples\\`**](myexamples/) contains self-written Dotty examples.
+- directory [**`examples\`**](examples/) contains Dotty examples grabbed from various websites.
+- directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
 - file [**`README.md`**](README.md) is the Markdown document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
@@ -99,7 +99,7 @@ We distinguish different sets of batch scripts:
    - **`searchjars.bat <class_name>`** searches for the given class name into all Dotty/Scala JAR files.
    - **`touch.bat`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory [**`bin\0.9\\`**](bin/0.9/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.9.0-RC1\bin\`**) in order to use the [**`dot`**](bin/0.9/dot.bat), [**`dotc`**](bin/0.9/dotc.bat), [**`dotd`**](bin/0.9/dotd.bat) and [**`dotr`**](bin/0.9/dotr.bat) commands on **Microsoft Windows**.
+3. Directory [**`bin\0.9\`**](bin/0.9/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.9.0-RC1\bin\`**) in order to use the [**`dot`**](bin/0.9/dot.bat), [**`dotc`**](bin/0.9/dotc.bat), [**`dotd`**](bin/0.9/dotd.bat) and [**`dotr`**](bin/0.9/dotr.bat) commands on **Microsoft Windows**.
     > **NB.** The author wrote (and does maintain) those batch files based on the bash scripts available from the standard [Dotty](http://dotty.epfl.ch/) distribution.
 
     <pre style="font-size:80%;">
@@ -115,10 +115,11 @@ We distinguish different sets of batch scripts:
     dotr.bat
     </pre>
 
-    > **NB.** Prior to version 0.9-RC1 the [**`dotr`**](bin/0.9/dotr.bat) command did hang on Windows due to implementation issues with the Dotty [REPL](https://en.wikipedia.org/wiki/Read–eval–print_loop). This [issue](https://github.com/lampepfl/dotty/pull/4680) has been fixed by using JLine 3 in the REPL.
+    > **NB.** Prior to version 0.9-RC1 the [**`dotr`**](bin/0.9/dotr.bat) command did hang on Windows due to implementation issues with the Dotty [REPL](https://en.wikipedia.org/wiki/Read–eval–print_loop). This [issue](https://github.com/lampepfl/dotty/pull/4680) has been fixed by using [JLine 3](https://github.com/jline/jline3) in the REPL.
 
-4. [**`build.bat`**](examples/dotty-example-project/build.bat) - Finally every single example can be built/run using either  the **`build`** command or the **`sbt`** command.<br/>
-    > **NB.** We prefer the **`build`** command here since our simple examples don't require the **`sbt`** machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
+4. [**`build.bat`**](examples/dotty-example-project/build.bat) - Finally every single example can be built/run using either  the **`build`** command or the **`
+5. `** command.<br/>
+    > **NB.** We prefer the **`build`** command here since our simple examples don't require the [**`sbt`** ](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html)machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
 
     <pre style="font-size:80%;">
     &gt; build
@@ -146,7 +147,7 @@ We distinguish different sets of batch scripts:
 
 1. Build tools
 
-    Projects in [**`examples\\`**](examples/) and [**`myexamples\\`**](myexamples/) can also be built using **`ant`**, **`gradle`** or **`mvn`** as an alternative to the **`build`**/**`sbt`** tools:
+    Projects in [**`examples\\`**](examples/) and [**`myexamples\\`**](myexamples/) can also be built using **`ant`**, [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) or **`mvn`** as an alternative to the **`build`**/**`sbt`** tools:
 
     <pre style="font-size:80%;">
     > ant clean compile run
@@ -162,7 +163,7 @@ We distinguish different sets of batch scripts:
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract **`bin\cfr-0_132.zip`** to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
+    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0_132.zip`**](bin/cfr-0_132.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
 
     <pre style="font-size:80%;">
     &gt; cfr myexamples\00_AutoParamTupling\target\classes\Main.class
@@ -323,7 +324,7 @@ Search for class BinarySearch in library files C:\opt\scala-2.12.6\lib\*.jar
 
 The [**`build`**](examples/enum-Planet/build.bat) command is a basic build tool consisting of ~350 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_02">[[2]](#footnote_02)</sup>. 
 
-- Build/run the **`enum-Planet`** project with no build option:
+- Build/run the [**`enum-Planet`**](examples/enum-Planet/) project with no build option:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > build clean compile run
 Your weight on MERCURY is 0.37775761520093526
@@ -336,7 +337,7 @@ Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406
 </pre>
 
-- Build/run the **`enum-Planet`** project with build option **`-debug`**:
+- Build/run the [**`enum-Planet`**](examples/enum-Planet/) project with build option **`-debug`**:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > build -debug clean compile run
 [build] _CLEAN=1 _COMPILE=1 _COMPILE_CMD=dotc _RUN=1
