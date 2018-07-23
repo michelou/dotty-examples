@@ -16,15 +16,15 @@
 
 This project repository relies on a few external software for the **Microsoft Windows** plaform:
 
-- [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
 - [Dotty 0.9](https://github.com/lampepfl/dotty/releases) (requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
 - [SBT 1.x](https://www.scala-sbt.org/download.html)
 
 Optionally one may also install the following software:
 
 - [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8)
-- [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.4.html))
-- [Gradle 4.8](https://gradle.org/install/) (requires Java 7 or newer) ([*release notes*](https://docs.gradle.org/4.8/release-notes.html))
+- [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.5.html))
+- [Gradle 4.9](https://gradle.org/install/) (requires Java 7 or newer) ([*release notes*](https://docs.gradle.org/4.9/release-notes.html))
 - [Apache Maven 3.5](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.5.4/release-notes.html))
 - [CFR 0.x](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.17](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.17.1.txt))
@@ -35,11 +35,11 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*July 2018*):
 
 <pre style="font-size:80%;">
-C:\Program Files\Java\jdk1.8.0_171\
+C:\Program Files\Java\jdk1.8.0_181\
 C:\opt\scala-2.12.6\
 C:\opt\dotty-0.9.0-RC1\
-C:\opt\apache-ant-1.10.4\
-c:\opt\gradle-4.8.1\
+C:\opt\apache-ant-1.10.5\
+c:\opt\gradle-4.9\
 C:\opt\apache-maven-3.5.4\
 C:\opt\sbt-1.1.6\
 C:\opt\cfr-0_132\
@@ -81,9 +81,9 @@ We distinguish different sets of batch scripts:
 
     <pre style="font-size:80%;">
     &gt; java -version
-    java version "1.8.0_171"
-    Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-    Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+    java version "1.8.0_181"
+    Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+    Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 
     &gt; scalac -version
     Scala compiler version 2.12.6 -- Copyright 2002-2018, LAMP/EPFL and Lightbend, Inc.
@@ -147,7 +147,7 @@ We distinguish different sets of batch scripts:
 
 1. Build tools
 
-    Projects in [**`examples\\`**](examples/) and [**`myexamples\\`**](myexamples/) can also be built using **`ant`**, [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) or **`mvn`** as an alternative to the **`build`**/**`sbt`** tools:
+    Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built using **`ant`**, [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) or **`mvn`** as an alternative to the **`build`**/**`sbt`** tools:
 
     <pre style="font-size:80%;">
     > ant clean compile run
@@ -232,21 +232,21 @@ With option **`-verbose`** the **`setenv`** command also displays the version/pa
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv -verbose
-JAVAC_VERSION=1.8.0_171
-JAVA_VERSION=1.8.0_171
+JAVAC_VERSION=1.8.0_181
+JAVA_VERSION=1.8.0_181
 SCALAC_VERSION=2.12.6
 DOTC_VERSION=0.9.0-RC1
-ANT_VERSION=1.10.4
-GRADLE_VERSION=4.8.1
+ANT_VERSION=1.10.5
+GRADLE_VERSION=4.9
 MVN_VERSION=3.5.4
 SBT_VERSION=1.1.6
 CFR_VERSION=0_132
 GIT_VERSION=2.17.1.windows.2
-C:\Program Files\Java\jdk1.8.0_171\bin\javac.exe
+C:\Program Files\Java\jdk1.8.0_181\bin\javac.exe
 C:\opt\scala-2.12.6\bin\scalac.bat
 C:\opt\dotty-0.9.0-RC1\bin\dotc.bat
-C:\opt\apache-ant-1.10.4\bin\ant.bat
-c:\opt\gradle-4.8.1\bin\gradle.bat
+C:\opt\apache-ant-1.10.5\bin\ant.bat
+c:\opt\gradle-4.9\bin\gradle.bat
 C:\opt\apache-maven-3.5.4\bin\mvn.cmd
 C:\opt\sbt-1.1.6\bin\sbt.bat
 C:\opt\cfr-0_132\bin\cfr.bat
@@ -379,9 +379,9 @@ C:\opt\dotty-0.9.0-RC1\bin\dotr
 C:\opt\dotty-0.9.0-RC1\bin\dotr.bat
 
 > dotr -version
-java version "1.8.0_171"
-Java(TM) SE Runtime Environment (build 1.8.0_171-b11)
-Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 
 > dotr
 Starting dotty REPL...
@@ -396,7 +396,7 @@ The REPL has several commands available:
 :reset                   reset the repl to its initial state, forgetting all session entries
 
 scala> System.getenv().get("JAVA_HOME")
-val res0: String = C:\Progra~1\Java\jdk1.8.0_171
+val res0: String = C:\Progra~1\Java\jdk1.8.0_181
 
 scala> System.getenv().get("DOTTY_HOME")
 val res1: String = C:\opt\dotty-0.9.0-RC1
@@ -450,6 +450,7 @@ Exception in thread "main" java.lang.IncompatibleClassChangeError: Method dotty.
 Command Prompt has been around for as long as we can remember, but starting with Windows 10 build 14971, Microsoft is trying to make PowerShell the <a href="https://support.microsoft.com/en-us/help/4027690/windows-powershell-is-replacing-command-prompt">main command shell</a> in the operating system.
 </div>
 
+<hr style="margin:2em 0 0 0;" />
 
 *[mics](http://lampwww.epfl.ch/~michelou/)/July 2018*
 
