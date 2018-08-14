@@ -2,6 +2,7 @@
   * Union Types: http://dotty.epfl.ch/docs/reference/union-types.html
   */
 object UnionTypes {
+  import scala.language.implicitConversions // otherwise warning starting with version 0.9.0
 
   type Admin = String
   type Hash = Long | String

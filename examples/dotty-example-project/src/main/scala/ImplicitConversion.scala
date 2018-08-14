@@ -3,6 +3,7 @@
   * Implicit Conversions: http://dotty.epfl.ch/docs/reference/changed/implicit-conversions.html
   */
 object ImplicitConversion {
+  import scala.language.implicitConversions // otherwise warning starting with version 0.9.0
 
   case class IntWrapper(a: Int) extends AnyVal
   case class DoubleWrapper(b: Double) extends AnyVal

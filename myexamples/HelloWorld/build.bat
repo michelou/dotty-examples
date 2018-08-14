@@ -192,6 +192,7 @@ set __END=%~2
 for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
 goto :eof
 
+rem output parameter: _CLASSES_DIR
 :compile
 set _CLASSES_DIR=%_ROOT_DIR%target\classes
 if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
@@ -333,15 +334,36 @@ if exist "%_ROOT_DIR%\lib\" (
         set __PROJECT_JARS=!__PROJECT_JARS!%_ROOT_DIR%\lib\%%i;
     )
 )
-set __RUN_OPTS=-classpath "%__PROJECT_JARS%%_CLASSES_DIR%"
+set __INSTRUMENTED=
+set __JAVA_OPTS=%JAVA_OPTS%
+if defined __INSTRUMENTED (
+    rem experimental (see https://www.jacoco.org/jacoco/trunk/doc/agent.html)
+    set __JACOCO_AGENT_FILE=C:\opt\jacoco-0.8.1\lib\jacocoagent.jar
+    set __JACOCO_CLI_FILE=C:\opt\jacoco-0.8.1\lib\jacococli.jar
+    if exist "!__JACOCO_AGENT_FILE!" (
+        for %%f in ("%_CLASSES_DIR%\..") do set __INSTRUMENTED_CLASSES_DIR=%%~sf\instrumented-classes
+        if not exist "!__INSTRUMENTED_CLASSES_DIR!" mkdir "!__INSTRUMENTED_CLASSES_DIR!"
+        for /f %%i in ('dir /b "%_CLASSES_DIR%\*.class"') do (
+            java.exe -jar "!__JACOCO_CLI_FILE!" instrument --quiet --dest "!__INSTRUMENTED_CLASSES_DIR!" "%_CLASSES_DIR%\%%i"
+        )
+        set __RUN_OPTS=-classpath "%__PROJECT_JARS%!__JACOCO_AGENT_FILE!;!__INSTRUMENTED_CLASSES_DIR!"
 
+        rem we override the Java options defined in dot.bat
+        for %%f in ("%_CLASSES_DIR%\..") do set __EXEC_FILE=%%~sf\jacoco.exec
+        set JAVA_OPTS=-Xmx768m -Xms768m -javaagent:!__JACOCO_AGENT_FILE!=destfile=!__EXEC_FILE!,append=false
+    )
+) else (
+    set __RUN_OPTS=-classpath "%__PROJECT_JARS%%_CLASSES_DIR%"
+)
 if %_DEBUG%==1 echo [%_BASENAME%] %_RUN_CMD% %__RUN_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 call %_RUN_CMD% %__RUN_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    if %_DEBUG%==1 echo [%_BASENAME%] Execution failed
+    set JAVA_OPTS=%__JAVA_OPTS%
+    if %_DEBUG%==1 echo [%_BASENAME%] Java execution failed ^(%_MAIN_CLASS%^)
     set _EXITCODE=1
     goto :eof
 )
+set JAVA_OPTS=%__JAVA_OPTS%
 goto :eof
 
 rem ##########################################################################

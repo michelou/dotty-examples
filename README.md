@@ -22,7 +22,7 @@ This project repository relies on a few external software for the **Microsoft Wi
 
 Optionally one may also install the following software:
 
-- [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8)
+- [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.12.6))
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.5.html))
 - [Gradle 4.9](https://gradle.org/install/) (requires Java 7 or newer) ([*release notes*](https://docs.gradle.org/4.9/release-notes.html))
 - [Apache Maven 3.5](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.5.4/release-notes.html))
@@ -92,12 +92,12 @@ We distinguish different sets of batch scripts:
     Dotty compiler version 0.9.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
     </pre>
 
-2. Directory [**`bin\\`**](bin/) - This directory contains several utility batch scripts:
-   - **`cleanup.bat`** removes the generated class files from every example directory (both in [**`examples\\`**](examples/) and [**`myexamples\\`**](myexamples/) directories).
-   - **`dirsize.bat`** prints the size in Kb/Mb/Gb of the specified directory paths.
+2. Directory [**`bin\`**](bin/) - This directory contains several utility batch scripts:
+   - **`cleanup.bat`** removes the generated class files from every example directory (both in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories).
+   - **`dirsize.bat <path_1 ..>`** prints the size in Kb/Mb/Gb of the specified directory paths.
    - **`getnightly.bat`** downloads the JAR libraries of the latest [Dotty nightly build](https://search.maven.org/#search|ga|1|g%3A%22ch.epfl.lamp%22).
    - **`searchjars.bat <class_name>`** searches for the given class name into all Dotty/Scala JAR files.
-   - **`touch.bat`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
+   - **`touch.bat <file_path>`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
 3. Directory [**`bin\0.9\`**](bin/0.9/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.9.0-RC1\bin\`**) in order to use the [**`dot`**](bin/0.9/dot.bat), [**`dotc`**](bin/0.9/dotc.bat), [**`dotd`**](bin/0.9/dotd.bat) and [**`dotr`**](bin/0.9/dotr.bat) commands on **Microsoft Windows**.
     > **NB.** The author wrote (and does maintain) those batch files based on the bash scripts available from the standard [Dotty](http://dotty.epfl.ch/) distribution.
@@ -117,8 +117,7 @@ We distinguish different sets of batch scripts:
 
     > **NB.** Prior to version 0.9-RC1 the [**`dotr`**](bin/0.9/dotr.bat) command did hang on Windows due to implementation issues with the Dotty [REPL](https://en.wikipedia.org/wiki/Read–eval–print_loop). This [issue](https://github.com/lampepfl/dotty/pull/4680) has been fixed by using [JLine 3](https://github.com/jline/jline3) in the REPL.
 
-4. [**`build.bat`**](examples/dotty-example-project/build.bat) - Finally every single example can be built/run using either  the **`build`** command or the **`
-5. `** command.<br/>
+4. [**`build.bat`**](examples/dotty-example-project/build.bat) - Finally every single example can be built/run using either  the **`build`** command or the **`sbt`** command.<br/>
     > **NB.** We prefer the **`build`** command here since our simple examples don't require the [**`sbt`** ](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html)machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
 
     <pre style="font-size:80%;">
@@ -147,7 +146,7 @@ We distinguish different sets of batch scripts:
 
 1. Build tools
 
-    Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built using **`ant`**, [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) or **`mvn`** as an alternative to the **`build`**/**`sbt`** tools:
+    Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built using [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) or [**`mvn`**](http://maven.apache.org/ref/3.5.4/maven-embedder/cli.html) as an alternative to the **`build`**/**`sbt`** tools:
 
     <pre style="font-size:80%;">
     > ant clean compile run
@@ -282,18 +281,22 @@ The [**`getnightly`**](bin/getnightly.bat) command downloads JAR library files f
 > getnightly
 
 > dir /b nightly-jars
-dotty-compiler_0.10-0.10.0-bin-20180706-7a80060-NIGHTLY.jar
-dotty-compiler_0.9-0.9.0-bin-20180525-4e5cf82-NIGHTLY.jar
-dotty-doc_0.10-0.10.0-bin-20180706-7a80060-NIGHTLY.jar
-dotty-doc_0.9-0.9.0-bin-20180525-4e5cf82-NIGHTLY.jar
-dotty-interfaces-0.10.0-bin-20180706-7a80060-NIGHTLY.jar
-dotty-interfaces-0.9.0-bin-20180525-4e5cf82-NIGHTLY.jar
-dotty-language-server_0.10-0.10.0-bin-20180706-7a80060-NIGHTLY.jar
-dotty-language-server_0.9-0.9.0-bin-20180525-4e5cf82-NIGHTLY.jar
-dotty-library_0.10-0.10.0-bin-20180706-7a80060-NIGHTLY.jar
-dotty-library_0.9-0.9.0-bin-20180525-4e5cf82-NIGHTLY.jar
-dotty_0.10-0.10.0-bin-20180706-7a80060-NIGHTLY.jar
-dotty_0.9-0.9.0-bin-20180525-4e5cf82-NIGHTLY.jar
+dotty-compiler_0.10-0.10.0-bin-20180719-fe8d050-NIGHTLY.jar
+dotty-doc_0.10-0.10.0-bin-20180719-fe8d050-NIGHTLY.jar
+dotty-interfaces-0.10.0-bin-20180719-fe8d050-NIGHTLY.jar
+dotty-language-server_0.10-0.10.0-bin-20180719-fe8d050-NIGHTLY.jar
+dotty-library_0.10-0.10.0-bin-20180719-fe8d050-NIGHTLY.jar
+dotty_0.10-0.10.0-bin-20180719-fe8d050-NIGHTLY.jar
+</pre>
+
+One can now replace the library files from the original [Dotty](https://github.com/lampepfl/dotty/releases) distribution (installed in `C:\opt\dotty-0.9.0-RC1\` in our case) with the nightly binaries downloaded to the directory **`nightly-jars\`**:
+
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+> mkdir C:\opt\dotty-0.9.0-RC1\lib\0.9.0-RC1
+> mv C:\opt\dotty-0.9.0-RC1\lib\*-0.9.0-RC1.jar C:\opt\dotty-0.9.0-RC1\lib\0.9.0-RC1\
+> copy nightly-jars\*-0.10.0-bin-20180719-fe8d050-NIGHTLY.jar C:\opt\dotty-0.9.0-RC1\lib\
+> dotc -version
+Dotty compiler version 0.10.0-bin-20180719-fe8d050-NIGHTLY-git-fe8d050 -- Copyright 2002-2018, LAMP/EPFL
 </pre>
 
 #### `searchjars.bat <class_name>`
@@ -372,7 +375,7 @@ No compilation needed (1 source files)
 #### `dotr.bat`
 
 The Dotty [REPL](https://en.wikipedia.org/wiki/Read–eval–print_loop) does work on **Microsoft Windows** starting with version 0.9 of the [Dotty distribution](https://github.com/lampepfl/dotty/releases).
-
+   > **NB.** The batch script [**`dotr.bat`**](bin/0.9/dotr.bat) is based on the bash script [**`dotr`**](https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr) available from the standard [Dotty](http://dotty.epfl.ch/) distribution.
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > where dotr
 C:\opt\dotty-0.9.0-RC1\bin\dotr

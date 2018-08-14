@@ -1,10 +1,13 @@
-lazy val root = (project in file(".")).
-  settings(
+val dottyVersion = "0.9.0-RC1"
+
+lazy val root = project
+  .in(file("."))
+  .settings(
     name := "enum-Java",
     description := "Example sbt project that compiles using Dotty",
-    version := "0.1",
+    version := "0.1.0",
 
-    scalaVersion := "0.8.0-RC1",
+    scalaVersion := dottyVersion,
     scalacOptions ++= Seq(
       "-deprecation",
       "-encoding", "UTF-8"
