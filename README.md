@@ -1,4 +1,4 @@
-# Playing with Dotty
+# Running Dotty on Windows
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -18,16 +18,16 @@ This project repository relies on a few external software for the **Microsoft Wi
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
 - [Dotty 0.9](https://github.com/lampepfl/dotty/releases) (requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
-- [SBT 1.x](https://www.scala-sbt.org/download.html)
+- [SBT 1.2.x](https://www.scala-sbt.org/download.html)
 
 Optionally one may also install the following software:
 
 - [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.12.6))
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.5.html))
-- [Gradle 4.9](https://gradle.org/install/) (requires Java 7 or newer) ([*release notes*](https://docs.gradle.org/4.9/release-notes.html))
+- [Gradle 4.10](https://gradle.org/install/) (requires Java 7 or newer) ([*release notes*](https://docs.gradle.org/4.10/release-notes.html))
 - [Apache Maven 3.5](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.5.4/release-notes.html))
 - [CFR 0.x](http://www.benf.org/other/cfr/) (Java decompiler)
-- [Git 2.17](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.17.1.txt))
+- [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.0.txt))
 
 > ***Software installation policy***<br/>
 > Whenever possible software is installed via a Zip archive rather than via a Windows installer.
@@ -39,11 +39,11 @@ C:\Program Files\Java\jdk1.8.0_181\
 C:\opt\scala-2.12.6\
 C:\opt\dotty-0.9.0-RC1\
 C:\opt\apache-ant-1.10.5\
-c:\opt\gradle-4.9\
+c:\opt\gradle-4.10\
 C:\opt\apache-maven-3.5.4\
-C:\opt\sbt-1.1.6\
+C:\opt\sbt-1.2.1\
 C:\opt\cfr-0_132\
-C:\opt\Git-2.17.1\
+C:\opt\Git-2.19.0\
 </pre>
 
 We further recommand using an advanced console emulator such as [ComEmu](https://conemu.github.io/) (or [Cmdr](http://cmder.net/)) which features [Unicode support](https://conemu.github.io/en/UnicodeSupport.html).
@@ -236,20 +236,20 @@ JAVA_VERSION=1.8.0_181
 SCALAC_VERSION=2.12.6
 DOTC_VERSION=0.9.0-RC1
 ANT_VERSION=1.10.5
-GRADLE_VERSION=4.9
+GRADLE_VERSION=4.10
 MVN_VERSION=3.5.4
-SBT_VERSION=1.1.6
+SBT_VERSION=1.2.1
 CFR_VERSION=0_132
-GIT_VERSION=2.17.1.windows.2
+GIT_VERSION=2.19.0.windows.2
 C:\Program Files\Java\jdk1.8.0_181\bin\javac.exe
 C:\opt\scala-2.12.6\bin\scalac.bat
 C:\opt\dotty-0.9.0-RC1\bin\dotc.bat
 C:\opt\apache-ant-1.10.5\bin\ant.bat
-c:\opt\gradle-4.9\bin\gradle.bat
+c:\opt\gradle-4.10\bin\gradle.bat
 C:\opt\apache-maven-3.5.4\bin\mvn.cmd
-C:\opt\sbt-1.1.6\bin\sbt.bat
+C:\opt\sbt-1.2.1\bin\sbt.bat
 C:\opt\cfr-0_132\bin\cfr.bat
-C:\opt\Git-2.17.1\bin\git.exe
+C:\opt\Git-2.19.0\bin\git.exe
 </pre>
 
 #### `cleanup.bat`
@@ -281,12 +281,12 @@ The [**`getnightly`**](bin/getnightly.bat) command downloads JAR library files f
 > getnightly
 
 > dir /b nightly-jars
-dotty-compiler_0.10-0.10.0-bin-20180719-fe8d050-NIGHTLY.jar
-dotty-doc_0.10-0.10.0-bin-20180719-fe8d050-NIGHTLY.jar
-dotty-interfaces-0.10.0-bin-20180719-fe8d050-NIGHTLY.jar
-dotty-language-server_0.10-0.10.0-bin-20180719-fe8d050-NIGHTLY.jar
-dotty-library_0.10-0.10.0-bin-20180719-fe8d050-NIGHTLY.jar
-dotty_0.10-0.10.0-bin-20180719-fe8d050-NIGHTLY.jar
+dotty-compiler_0.10-0.10.0-bin-20180828-1d24eaa-NIGHTLY.jar
+dotty-doc_0.10-0.10.0-bin-20180828-1d24eaa-NIGHTLY.jar
+dotty-interfaces-0.10.0-bin-20180828-1d24eaa-NIGHTLY.jar
+dotty-language-server_0.10-0.10.0-bin-20180828-1d24eaa-NIGHTLY.jar
+dotty-library_0.10-0.10.0-bin-20180828-1d24eaa-NIGHTLY.jar
+dotty_0.10-0.10.0-bin-20180828-1d24eaa-NIGHTLY.jar
 </pre>
 
 One can now replace the library files from the original [Dotty](https://github.com/lampepfl/dotty/releases) distribution (installed in `C:\opt\dotty-0.9.0-RC1\` in our case) with the nightly binaries downloaded to the directory **`nightly-jars\`**:
@@ -371,6 +371,10 @@ Your weight on JUPITER is 2.5305575254957406
 No compilation needed (1 source files)
 </pre>
 
+> **NB.** The above `enum-Planet` example expects 1 argument at execution time.<br/>
+> The [**`build`**](examples/enum-Planet/build.bat) command currently relies on the property `main.args` defined in file `project\build.properties`.; with SBT you have to run the example as follows:<br/>
+> <pre style="margin:10px 0 0 30px;font-size:80%;"> > sbt "run 1"
+> </pre>
 
 #### `dotr.bat`
 

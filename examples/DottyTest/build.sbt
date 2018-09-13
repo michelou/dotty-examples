@@ -2,7 +2,7 @@ val dottyVersion = "0.9.0-RC1"
 
 lazy val root = project
   .in(file("."))
-  ,settings(
+  .settings(
     name := "DottyTest",
     description := "Example sbt project that compiles using Dotty",
     version := "0.1.0",

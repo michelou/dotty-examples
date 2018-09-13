@@ -15,6 +15,7 @@ import dotc.Compiler
 import dotc.core.Phases.Phase
 
 class DottyTest extends ContextEscapeDetection {
+  import scala.language.implicitConversions // otherwise warning starting with version 0.9.0
 
   dotc.parsing.Scanners // initialize keywords
 
@@ -38,7 +39,7 @@ class DottyTest extends ContextEscapeDetection {
 
   protected def initializeCtx(fc: FreshContext): Unit = {
     fc.setSetting(fc.settings.encoding, "UTF8")
-    fc.setSetting(fc.settings.classpath, "C:\\opt\\dotty-0.7.0-RC1\\lib") // Jars.dottyLib)
+    fc.setSetting(fc.settings.classpath, "C:\\opt\\dotty-0.9.0-RC1\\lib") // Jars.dottyLib)
   }
 
   private def compilerWithChecker(phase: String)(assertion: (tpd.Tree, Context) => Unit) = new Compiler {

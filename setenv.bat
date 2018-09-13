@@ -374,6 +374,15 @@ for /f %%i in ('dir /ad /b "%__ROOT_DIR%\" 2^>NUL') do (
 )
 goto :eof
 
+rem SBT now requires special handling to know its version (no comment)
+:print_sbt_version
+rem before SBT 1.2.x
+rem for /f "tokens=1,2,3,4,*" %%i in ('sbt.bat about 2^>nul ^| findstr /r /c:"sbt [0-9]"') do echo SBT_VERSION=%%m
+rem starting with SBT 1.2.x
+for /f %%i in ('where sbt.bat') do for %%f in ("%%~dpi..") do set __SBT_LAUNCHER=%%~sf\bin\sbt-launch.jar
+for /f "tokens=1,2,3,4,*" %%i in ('java -jar "%__SBT_LAUNCHER%" about 2^>nul ^| findstr /r /c:"sbt [0-9]"') do echo SBT_VERSION=%%m
+goto :eof
+
 :print_env
 set __WHERE_ARGS=
 where /q javac.exe
@@ -409,7 +418,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q sbt.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,4,*" %%i in ('sbt.bat about 2^>nul ^| findstr /r /c:"sbt [0-9]"') do echo SBT_VERSION=%%m
+    call :print_sbt_version
     set __WHERE_ARGS=%__WHERE_ARGS% sbt.bat
 )
 where /q cfr.bat
