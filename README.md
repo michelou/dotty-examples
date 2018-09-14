@@ -373,10 +373,11 @@ No compilation needed (1 source files)
 
 > **NB.** The above `enum-Planet` example expects 1 argument at execution time.<br/>
 > For simplicity the [**`build`**](examples/enum-Planet/build.bat) command currently relies on the property `main.args` defined in file `project\build.properties` (part of the SBT configuration).<br/>
-> <pre style="margin:10px 0 0 30px;font-size:80%;"> > type project\build.properties
-sbt.version=1.2.1
-main.class=Planet
-main.args=1
+> <pre style="margin:10px 0 0 30px;font-size:80%;">
+> > type project\build.properties
+> sbt.version=1.2.1
+> main.class=Planet
+> main.args=1
 > </pre>
 > With SBT you have to run the example as follows:<br/>
 > <pre style="margin:10px 0 0 30px;font-size:80%;">
