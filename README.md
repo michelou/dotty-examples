@@ -32,7 +32,7 @@ Optionally one may also install the following software:
 > ***Software installation policy***<br/>
 > Whenever possible software is installed via a Zip archive rather than via a Windows installer.
 
-For instance our development environment looks as follows (*July 2018*):
+For instance our development environment looks as follows (*September 2018*):
 
 <pre style="font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_181\
@@ -221,8 +221,8 @@ The [**`setenv`**](setenv.bat) command is executed once to setup your developmen
 > setenv
 
 > where sbt
-C:\opt\sbt-1.1.6\bin\sbt
-C:\opt\sbt-1.1.6\bin\sbt.bat
+C:\opt\sbt-1.2.1\bin\sbt
+C:\opt\sbt-1.2.1\bin\sbt.bat
 </pre>
 
 > **NB.** Execute **`setenv help`** to display the help message.
@@ -259,7 +259,7 @@ The [**`cleanup`**](bin/cleanup.bat) command removes the output directories (ie.
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > cleanup
 Finished to clean up 16 subdirectories in C:\dotty\examples
-Finished to clean up 10 subdirectories in C:\dotty\myexamples
+Finished to clean up 12 subdirectories in C:\dotty\myexamples
 </pre>
 
 #### `dirsize.bat {<dir_name>}`
@@ -372,8 +372,16 @@ No compilation needed (1 source files)
 </pre>
 
 > **NB.** The above `enum-Planet` example expects 1 argument at execution time.<br/>
-> The [**`build`**](examples/enum-Planet/build.bat) command currently relies on the property `main.args` defined in file `project\build.properties`.; with SBT you have to run the example as follows:<br/>
-> <pre style="margin:10px 0 0 30px;font-size:80%;"> > sbt "run 1"
+> For simplicity the [**`build`**](examples/enum-Planet/build.bat) command currently relies on the property `main.args` defined in file `project\build.properties` (part of the SBT configuration).<br/>
+> <pre style="margin:10px 0 0 30px;font-size:80%;"> > type project\build.properties
+sbt.version=1.2.1<br/>
+main.class=Planet
+main.args=1
+> </pre>
+> With SBT you have to run the example as follows:<br/>
+> <pre style="margin:10px 0 0 30px;font-size:80%;">
+> > sbt clean compile "run 1"
+> > sbt "run 1"
 > </pre>
 
 #### `dotr.bat`
@@ -459,5 +467,5 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 <hr style="margin:2em 0 0 0;" />
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/July 2018*
+*[mics](http://lampwww.epfl.ch/~michelou/)/September 2018*
 
