@@ -13,7 +13,7 @@
 
 ### `00_AutoParamTupling`
 
-Executing the `build` command in directory **`myexamples\00_AutoParamTupling\`** 
+Executing the [**`build`**](00_AutoParamTupling/build.bat) command in directory [**`myexamples\00_AutoParamTupling\`**](00_AutoParamTupling/) 
 prints the following output:
 
 <pre style="font-size:80%;">
@@ -27,7 +27,7 @@ prints the following output:
 
 ### `01_Dependent_Types`
 
-Executing the `build` command in directory **`myexamples\01_Dependent_Types\`** prints the following output:
+Executing the [**`build`**](01_Dependent_Types/build.bat) command in directory [**`myexamples\01_Dependent_Types\`**](01_Dependent_Types/) prints the following output:
 
 <pre style="font-size:80%;">
 > build clean compile run
@@ -36,7 +36,7 @@ params=Map(grade -> C, sort -> time, width -> 120)
 
 ### `02_Union_Types`
 
-Executing the `build` command in directory **`myexamples\02_Union_Types\`** prints the following output:
+Executing the [**`build`**](02_Union_Types/build.bat) command in directory [**`myexamples\02_Union_Types\`**](02_Union_Types/) prints the following output:
 
 <pre style="font-size:80%;">
 > build -timer clean compile run
@@ -63,7 +63,7 @@ testJSON example:
 
 ### `03_Intersection_Types`
 
-Executing the `build`command in directory **`myexamples\03_Intersection_Types\`** prints the following output:
+Executing the [**`build`**](03_Intersection_Types/build.bat) command in directory [**`myexamples\03_Intersection_Types\`**](03_Intersection_Types/) prints the following output:
 
 <pre style="font-size:80%;">
 > build clean compile run
@@ -72,7 +72,7 @@ Buffer(1,2,3,4)
 
 ### `04_Multiversal_Equality`
 
-Executing the `build`command in directory **`myexamples\04_Multiversal_Equality\`** prints the following output:
+Executing the [**`build`**](04_Multiversal_Equality/build.bat) command in directory [**`myexamples\04_Multiversal_Equality\`**](04_Multiversal_Equality/) prints the following output:
 
 <pre>
 > build clean compile run
@@ -97,7 +97,7 @@ false
 
 ### [`bug4272`](https://github.com/lampepfl/dotty/issues/4272)
 
-Executing the `build` command in directory **`myexamples\bug4272\`** produces a runtime exception with version 0.7 of the Dotty compiler (*was fixed in version 0.8*):
+Executing the [**`build`**](bug4272/build.bat) command in directory [**`myexamples\bug4272\`**](bug4272/) produces a runtime exception with version 0.7 of the Dotty compiler (*was fixed in version 0.8*):
 
 <pre style="font-size:80%;">
 > build clean compile run
@@ -144,7 +144,7 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
 
 ### `HelloWorld`
 
-Executing the `build` command in directory **`myexamples\HelloWorld\`** prints the following output:
+Executing the [**`build`**](HelloWorld/build.bat) command in directory [**`myexamples\HelloWorld\`**](HelloWorld/) prints the following output:
 
 <pre>
 > build clean compile run

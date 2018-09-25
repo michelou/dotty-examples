@@ -21,7 +21,7 @@ This project covers [Dotty](http://dotty.epfl.ch/) features such as trait parame
 
 *(see example in [Dotty Documentation](http://dotty.epfl.ch/docs/reference/enums/enums.html))*
 
-Executing the `build` command in directory **`examples\enum-Color\`** prints the following output:
+Executing the [**`build`**](enum-Color/build.bat) command in directory [**`examples\enum-Color\`**](enum-Color/) prints the following output:
 <pre style="font-size:80%;">
 > build clean compile run
 Green
@@ -33,7 +33,7 @@ Green
 
 ### `enum-HList`
 
-Executing the `build` command in directory **`examples\enum-HList\`** prints no output since all assertions succeed:
+Executing the [**`build`**](enum-HList/build.bat) command in directory [**`examples\enum-HList\`**](enum-HList/) prints no output since all assertions succeed:
 
 <pre style="font-size:80%;">
 > build clean compile run
@@ -41,6 +41,7 @@ Executing the `build` command in directory **`examples\enum-HList\`** prints no 
 
 ### `enum-Java`
 
+Executing the [**`build`**](enum-Java/build.bat) command in directory [**`examples\enum-Java\`**](enum-Java/) prints the following output:
 <pre style="font-size:80%;">
 > build clean compile run
 SUNDAY
@@ -52,7 +53,7 @@ SUNDAY
 
 *(see example in [Dotty Documentation](http://dotty.epfl.ch/docs/reference/enums/enums.html))*
 
-Executing the `build` command in directory **`examples\enum-Planet\`** prints the following output:
+Executing the [**`build`**](enum-Planet/build.bat) command in directory [**`examples\enum-Planet\`**](enum-Planet/) prints the following output:
 
 <pre style="font-size:80%;">
 > build -timer clean compile run
@@ -68,23 +69,23 @@ Your weight on JUPITER is 2.5305575254957406
 C:\dotty\examples\enum-Planet>
 </pre>
 
-**NB.** The `build`command takes the main class name and its arguments from the **`project\build.properties`** configuration file.
+**NB.** The `build` command takes the main class name and its arguments from the [**`project\build.properties`**](enum-Planet/project/build.properties) configuration file.
 
 <pre style="font-size:80%;">
-sbt.version=1.1.4
+sbt.version=1.2.1
 
 main.class=Planet
 main.args=1
 </pre>
 
-Executing the `sbt` command in directory **`examples\enum-Planet\`** prints the following output:
+Executing the `sbt` command in directory [**`examples\enum-Planet\`**](enum-Planet/) prints the following output:
 
 <pre style="font-size:80%;">
 > sbt clean compile "run 1"
 [warn] Executing in batch mode.
 ...
 [info] Done updating.
-[info] Compiling 1 Scala source to C:\dotty\examples\enum-Planet\target\scala-0.7\classes...
+[info] Compiling 1 Scala source to C:\dotty\examples\enum-Planet\target\scala-0.9\classes...
 [success] Total time: 4 s, completed 14 avr. 2018 21:36:42
 [info] Running Planet 1
 Your weight on MERCURY is 0.37775761520093526
@@ -100,7 +101,7 @@ Your weight on JUPITER is 2.5305575254957406
 
 ### `enum-Tree`
 
-Executing the `build` command in directory **`examples\enum-Tree\`** prints the following output:
+Executing the [**`build`**](enum-Tree/build.bat) command in directory [**`examples\enum-Tree\`**](enum-Tree) prints the following output:
 
 <pre style="font-size:80%;">
 > build clean compile run
@@ -109,7 +110,7 @@ If(IsZero(Pred(Succ(Zero))),Succ(Succ(Zero)),Pred(Pred(Zero))) --> 2
 
 ### `hello-scala`
 
-Executing the `build` command in directory **`examples\hello-scala\`** prints the following output:
+Executing the [**`build`**](hello-scala/build.bat) command in directory [**`examples\hello-scala\`**](hello-scala/) prints the following output:
 
 <pre style="font-size:80%;">
 > build clean compile run
@@ -119,7 +120,7 @@ Java Hello!
 
 ### `ImplicitFunctionTypes`
 
-Executing the `build` command in directory **`examples\ImplicitFunctionTypes\`** prints the following output:
+Executing the [**`build`**](ImplicitFunctionTypes/build.bat) command in directory [**`examples\ImplicitFunctionTypes\`**](ImplicitFunctionTypes/) prints the following output:
 
 <pre style="font-size:80%;">
 > build clean compile run
@@ -128,7 +129,7 @@ Table(Row(Cell(top left), Cell(top right)), Row(Cell(bottom left), Cell(bottom r
 
 ### `IntersectionTypes`
 
-Executing the `build` command in directory **`examples\IntersectionTypes\`** prints the following output:
+Executing the [**`build`**](IntersectionTypes/build.bat) command in directory [**`examples\IntersectionTypes\`**](IntersectionTypes/) prints the following output:
 
 <pre style="font-size:80%;">
 > build clean compile run
@@ -137,6 +138,7 @@ Buffer(first)
 
 ### `PatternMatching`
 
+Executing the [**`build`**](PatternMatching/build.bat) command in directory [**`examples\PatternMatching\`**](PatternMatching/) prints the following output:
 <pre style="font-size:80%;">
 > build clean compile run
 even has an even number of characters
@@ -148,6 +150,7 @@ List(3, 4)
 
 ### `TypeLambdas-Underscore`
 
+Executing the [**`build`**](TypeLambdas-Underscore/build.bat) command in directory [**`examples\TypeLambdas-Underscore\`**](TypeLambdas-Underscore/) prints the following output:
 <pre style="font-size:80%;">
 > build clean compile run
 Type Aliases example:
@@ -167,6 +170,7 @@ List(1, 0, 2)
 
 ### `UnionTypes`
 
+Executing the [**`build`**](UnionTypes/build.bat) command in directory [**`examples\UnionTypes\`**](UnionTypes/) prints the following output:
 <pre style="font-size:80%;">
 > build clean compile run
 either=UserName(Eve)

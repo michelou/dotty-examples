@@ -63,8 +63,8 @@ rem if not %_EXITCODE%==0 goto end
 
 call :git
 rem optional
-set _EXITCODE=0
-rem if not %_EXITCODE%==0 goto end
+rem set _EXITCODE=0
+if not %_EXITCODE%==0 goto end
 
 if "%~1"=="clean" call :clean
 
@@ -133,7 +133,7 @@ if not exist "%_JDK_HOME%\bin\javac.exe" (
     set _EXITCODE=1
     goto :eof
 )
-set "_JDK_PATH=%_JDK_HOME%\bin;"
+set "_JDK_PATH=;%_JDK_HOME%\bin"
 goto :eof
 
 :scalac
@@ -375,64 +375,78 @@ for /f %%i in ('dir /ad /b "%__ROOT_DIR%\" 2^>NUL') do (
 goto :eof
 
 rem SBT now requires special handling to know its version (no comment)
-:print_sbt_version
+:sbt_version
+set _SBT_VERSION=
 rem before SBT 1.2.x
 rem for /f "tokens=1,2,3,4,*" %%i in ('sbt.bat about 2^>nul ^| findstr /r /c:"sbt [0-9]"') do echo SBT_VERSION=%%m
 rem starting with SBT 1.2.x
 for /f %%i in ('where sbt.bat') do for %%f in ("%%~dpi..") do set __SBT_LAUNCHER=%%~sf\bin\sbt-launch.jar
-for /f "tokens=1,2,3,4,*" %%i in ('java -jar "%__SBT_LAUNCHER%" about 2^>nul ^| findstr /r /c:"sbt [0-9]"') do echo SBT_VERSION=%%m
+for /f "tokens=1,2,3,4,*" %%i in ('java -jar "%__SBT_LAUNCHER%" about 2^>nul ^| findstr /r /c:"sbt [0-9]"') do set _SBT_VERSION=%%m
 goto :eof
 
 :print_env
+set __VERBOSE=%1
+set __VERSIONS_LINE1=
+set __VERSIONS_LINE2=
 set __WHERE_ARGS=
 where /q javac.exe
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,*" %%i in ('javac.exe -version 2^>^&1') do echo JAVAC_VERSION=%%j
-    for /f "tokens=1,2,3,*" %%i in ('java.exe -version 2^>^&1 ^| findstr version 2^>^&1') do echo JAVA_VERSION=%%~k
-    set "__WHERE_ARGS=%__WHERE_ARGS% javac.exe java.exe"
+    for /f "tokens=1,2,*" %%i in ('javac.exe -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% javac %%j,"
+    set __WHERE_ARGS=%__WHERE_ARGS% javac.exe
+)
+where /q java.exe
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,2,3,*" %%i in ('java.exe -version 2^>^&1 ^| findstr version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% java %%~k,"
+    set __WHERE_ARGS=%__WHERE_ARGS% java.exe
 )
 where /q scalac.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,4,*" %%i in ('scalac.bat -version') do echo SCALAC_VERSION=%%l
+    for /f "tokens=1,2,3,4,*" %%i in ('scalac.bat -version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalac %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% scalac.bat
 )
 where /q dotc.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,4,*" %%i in ('dotc.bat -version 2^>^&1') do echo DOTC_VERSION=%%l
+    for /f "tokens=1,2,3,4,*" %%i in ('dotc.bat -version 2^>^&1') do set __VERSIONS_LINE1=%__VERSIONS_LINE1% dotc %%l,
     set __WHERE_ARGS=%__WHERE_ARGS% dotc.bat
 )
 where /q ant.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,4,*" %%i in ('ant.bat -version  ^| findstr version') do echo ANT_VERSION=%%l
+    for /f "tokens=1,2,3,4,*" %%i in ('ant.bat -version  ^| findstr version') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% ant %%l,
     set __WHERE_ARGS=%__WHERE_ARGS% ant.bat
 )
 where /q gradle.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('gradle.bat -version  ^| findstr Gradle') do echo GRADLE_VERSION=%%j
+    for /f "tokens=1,*" %%i in ('gradle.bat -version  ^| findstr Gradle') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j,
     set __WHERE_ARGS=%__WHERE_ARGS% gradle.bat
 )
 where /q mvn.cmd
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,*" %%i in ('mvn.cmd -version ^| findstr Apache') do echo MVN_VERSION=%%k
+    for /f "tokens=1,2,3,*" %%i in ('mvn.cmd -version ^| findstr Apache') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% mvn %%k,
     set __WHERE_ARGS=%__WHERE_ARGS% mvn.cmd
 )
-where /q sbt.bat
-if %ERRORLEVEL%==0 (
-    call :print_sbt_version
+call :sbt_version
+if defined _SBT_VERSION (
+    set __VERSIONS_LINE2=%__VERSIONS_LINE2% sbt %_SBT_VERSION%,
     set __WHERE_ARGS=%__WHERE_ARGS% sbt.bat
 )
 where /q cfr.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('cfr.bat --version 2^>^&1 ^| findstr CFR') do echo CFR_VERSION=%%j
+    for /f "tokens=1,*" %%i in ('cfr.bat --version 2^>^&1 ^| findstr CFR') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% cfr %%j,
     set __WHERE_ARGS=%__WHERE_ARGS% cfr.bat
 )
 where /q git.exe
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1,2,*" %%i in ('git.exe --version') do echo GIT_VERSION=%%k
+   for /f "tokens=1,2,*" %%i in ('git.exe --version') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% git %%k
     set __WHERE_ARGS=%__WHERE_ARGS% git.exe
 )
-rem if %_DEBUG%==1 echo [%_BASENAME%] where %__WHERE_ARGS%
-where %__WHERE_ARGS%
+echo Tool versions:
+echo   %__VERSIONS_LINE1%
+echo   %__VERSIONS_LINE2%
+if %__VERBOSE%==1 (
+    rem if %_DEBUG%==1 echo [%_BASENAME%] where %__WHERE_ARGS%
+    echo Tool paths:
+    for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p
+)
 goto :eof
 
 rem ##########################################################################
@@ -444,7 +458,7 @@ endlocal & (
     if not defined SCALA_HOME set SCALA_HOME=%_SCALA_HOME%
     if not defined DOTTY_HOME set DOTTY_HOME=%_DOTTY_HOME%
     set "PATH=%_JDK_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_GIT_PATH%;%~dp0bin"
-    if %_VERBOSE%==1 call :print_env
+    call :print_env %_VERBOSE%
     if %_DEBUG%==1 echo [%_BASENAME%] _EXITCODE=%_EXITCODE%
     for /f "delims==" %%i in ('set ^| findstr /b "_"') do set %%i=
 )

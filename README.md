@@ -24,7 +24,8 @@ Optionally one may also install the following software:
 
 - [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.12.6))
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.5.html))
-- [Gradle 4.10](https://gradle.org/install/) (requires Java 7 or newer) ([*release notes*](https://docs.gradle.org/4.10/release-notes.html))
+- [Gradle 
+- ](https://gradle.org/install/) (requires Java 7 or newer) ([*release notes*](https://docs.gradle.org/current/release-notes.html))
 - [Apache Maven 3.5](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.5.4/release-notes.html))
 - [CFR 0.x](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.0.txt))
@@ -39,10 +40,10 @@ C:\Program Files\Java\jdk1.8.0_181\
 C:\opt\scala-2.12.6\
 C:\opt\dotty-0.9.0-RC1\
 C:\opt\apache-ant-1.10.5\
-c:\opt\gradle-4.10\
+c:\opt\gradle-4.10.2\
 C:\opt\apache-maven-3.5.4\
-C:\opt\sbt-1.2.1\
-C:\opt\cfr-0_132\
+C:\opt\sbt-1.2.3\
+C:\opt\cfr-0_133\
 C:\opt\Git-2.19.0\
 </pre>
 
@@ -54,7 +55,7 @@ This repository is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
 bin\0.9\*.bat
-bin\cfr-0_132.zip
+bin\cfr-0_133.zip
 docs\
 examples\{dotty-example-project, ..}
 myexamples\{00_AutoParamTupling, ..}
@@ -66,7 +67,7 @@ where
 
 - directory [**`bin\`**](bin/) provides several utility batch scripts.
 - directory [**`bin\0.9\`**](bin/0.9/) contains the Dotty commands for **Microsoft Windows** (*see below*).
-- file [**`bin\cfr-0_132.zip`**](bin/cfr-0_132.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
+- file [**`bin\cfr-0_133.zip`**](bin/cfr-0_133.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
 - directory [**`examples\`**](examples/) contains Dotty examples grabbed from various websites.
 - directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
@@ -162,12 +163,12 @@ We distinguish different sets of batch scripts:
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0_132.zip`**](bin/cfr-0_132.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
+    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0_133.zip`**](bin/cfr-0_133.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
 
     <pre style="font-size:80%;">
     &gt; cfr myexamples\00_AutoParamTupling\target\classes\Main.class
     /*
-     * Decompiled with CFR 0_132.
+     * Decompiled with CFR 0_133.
      */
     public final class Main {
         public static void test01() {
@@ -221,8 +222,8 @@ The [**`setenv`**](setenv.bat) command is executed once to setup your developmen
 > setenv
 
 > where sbt
-C:\opt\sbt-1.2.1\bin\sbt
-C:\opt\sbt-1.2.1\bin\sbt.bat
+C:\opt\sbt-1.2.3\bin\sbt
+C:\opt\sbt-1.2.3\bin\sbt.bat
 </pre>
 
 > **NB.** Execute **`setenv help`** to display the help message.
@@ -231,25 +232,20 @@ With option **`-verbose`** the **`setenv`** command also displays the version/pa
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv -verbose
-JAVAC_VERSION=1.8.0_181
-JAVA_VERSION=1.8.0_181
-SCALAC_VERSION=2.12.6
-DOTC_VERSION=0.9.0-RC1
-ANT_VERSION=1.10.5
-GRADLE_VERSION=4.10
-MVN_VERSION=3.5.4
-SBT_VERSION=1.2.1
-CFR_VERSION=0_132
-GIT_VERSION=2.19.0.windows.2
-C:\Program Files\Java\jdk1.8.0_181\bin\javac.exe
-C:\opt\scala-2.12.6\bin\scalac.bat
-C:\opt\dotty-0.9.0-RC1\bin\dotc.bat
-C:\opt\apache-ant-1.10.5\bin\ant.bat
-c:\opt\gradle-4.10\bin\gradle.bat
-C:\opt\apache-maven-3.5.4\bin\mvn.cmd
-C:\opt\sbt-1.2.1\bin\sbt.bat
-C:\opt\cfr-0_132\bin\cfr.bat
-C:\opt\Git-2.19.0\bin\git.exe
+Tool versions:
+   java 10.0.2, scalac 2.12.6, dotc 0.9.0-RC1,
+   ant 1.10.5, gradle 4.10.2, mvn 3.5.4, sbt 1.2.1, cfr 0_133, git 2.19.0.windows.1
+Tool paths:
+   C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
+   C:\ProgramData\Oracle\Java\javapath\java.exe
+   C:\opt\scala-2.12.6\bin\scalac.bat
+   C:\opt\dotty-0.9.0-RC1\bin\dotc.bat
+   C:\opt\apache-ant-1.10.5\bin\ant.bat
+   C:\opt\gradle-4.10.2\bin\gradle.bat
+   C:\opt\apache-maven-3.5.4\bin\mvn.cmd
+   C:\opt\sbt-1.2.3\bin\sbt.bat
+   C:\opt\cfr-0_133\bin\cfr.bat
+   C:\opt\Git-2.19.0\bin\git.exe
 </pre>
 
 #### `cleanup.bat`
@@ -435,11 +431,11 @@ Version 0.9 of the Dotty compiler is not compatible with versions 9 and 10 of <a
 </div>
 
 <!--
-C:\Progra~1\Java\jre-10.0.1\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.9.0-RC1\lib\scala-library-2.12.6.jar;C:\opt\dotty-0.9.0-RC1\lib\scala-xml_2.12-1.0.6.jar;C:\opt\dotty-0.9.0-RC1\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.9.0-RC1\lib\compiler-interface-1.1.6.jar;C:\opt\dotty-0.9.0-RC1\lib\dotty-interfaces-0.9.0-RC1.jar;C:\opt\dotty-0.9.0-RC1\lib\dotty-library_0.9-0.9.0-RC1.jar;C:\opt\dotty-0.9.0-RC1\lib\dotty-compiler_0.9-0.9.0-RC1.jar -Dscala.usejavacp=true dotty.tools.dotc.Main
+C:\Progra~1\Java\jre-10.0.2\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.9.0-RC1\lib\scala-library-2.12.6.jar;C:\opt\dotty-0.9.0-RC1\lib\scala-xml_2.12-1.0.6.jar;C:\opt\dotty-0.9.0-RC1\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.9.0-RC1\lib\compiler-interface-1.1.6.jar;C:\opt\dotty-0.9.0-RC1\lib\dotty-interfaces-0.9.0-RC1.jar;C:\opt\dotty-0.9.0-RC1\lib\dotty-library_0.9-0.9.0-RC1.jar;C:\opt\dotty-0.9.0-RC1\lib\dotty-compiler_0.9-0.9.0-RC1.jar -Dscala.usejavacp=true dotty.tools.dotc.Main
 -->
 
 <pre style="margin:10px 0 0 20px;font-size:80%;">
-> C:\Progra~1\Java\jre-10.0.1\bin\java.exe -Xmx768m -Xms768m \
+> C:\Progra~1\Java\jre-10.0.2\bin\java.exe -Xmx768m -Xms768m \
 -classpath C:\opt\dotty-0.9.0-RC1\lib\scala-library-2.12.6.jar; \
 C:\opt\dotty-0.9.0-RC1\lib\scala-xml_2.12-1.1.0.jar; \
 C:\opt\dotty-0.9.0-RC1\lib\scala-asm-6.0.0-scala-1.jar; \
@@ -450,10 +446,10 @@ C:\opt\dotty-0.9.0-RC1\lib\dotty-compiler_0.9-0.9.0-RC1.jar \
 -Dscala.usejavacp=true dotty.tools.dotc.Main
 Exception in thread "main" java.lang.IncompatibleClassChangeError: Method dotty.tools.dotc.core.Phases$PhasesBase.dotty$tools$dotc$core$Phases$PhasesBase$$initial$myTyperPhase()Ldotty/tools/dotc/core/Phases$Phase; must be InterfaceMethodref constant
         at dotty.tools.dotc.core.Contexts$ContextBase.<init>(Contexts.scala:544)
-        at dotty.tools.dotc.Driver.initCtx(Driver.scala:39)
-        at dotty.tools.dotc.Driver.process(Driver.scala:91)
-        at dotty.tools.dotc.Driver.process(Driver.scala:108)
-        at dotty.tools.dotc.Driver.main(Driver.scala:135)
+        at dotty.tools.dotc.Driver.initCtx(Driver.scala:41)
+        at dotty.tools.dotc.Driver.process(Driver.scala:98)
+        at dotty.tools.dotc.Driver.process(Driver.scala:115)
+        at dotty.tools.dotc.Driver.main(Driver.scala:142)
         at dotty.tools.dotc.Main.main(Main.scala)
 </pre>
 
