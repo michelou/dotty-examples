@@ -6,41 +6,16 @@
     <groupId>dotty.myexamples</groupId>
     <artifactId>02_Union_Types</artifactId>
     <version>0.1-SNAPSHOT</version>
-
     <packaging>jar</packaging>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Dotty 0.8 is distributed with Scala 2.12.4 -->
-        <scala.version>2.12.4</scala.version>
-        <dotty.version>0.8.0</dotty.version>
-        <java.version>1.8</java.version>
-    </properties>
+    <parent>
+    	<groupId>dotty.myexamples</groupId>
+	    <artifactId>dotty-myexamples</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
 
     <dependencies>
-        <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scala-library</artifactId>
-            <version>${scala.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.8 -->
-        <dependency>
-            <groupId>ch.epfl.lamp</groupId>
-            <artifactId>dotty-library_0.8</artifactId>
-            <version>${dotty.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-compiler_0.8 -->
-        <dependency>
-            <groupId>ch.epfl.lamp</groupId>
-            <artifactId>dotty-compiler_0.8</artifactId>
-            <version>${dotty.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-interfaces -->
-        <dependency>
-            <groupId>ch.epfl.lamp</groupId>
-            <artifactId>dotty-interfaces</artifactId>
-            <version>${dotty.version}</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/com.typesafe.sbt/sbt-interface -->
         <dependency>
             <groupId>com.typesafe.sbt</groupId>
@@ -71,7 +46,7 @@
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
-                <version>3.4.0</version>
+                <version>${scala.maven.version}</version>
                 <executions>
                     <execution>
                         <phase>compile</phase>
@@ -91,7 +66,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <version>${maven.compiler.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -109,7 +84,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
+                <version>${exec.maven.version}</version>
                 <executions>
                     <execution>
                         <goals>

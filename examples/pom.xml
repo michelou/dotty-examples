@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>dotty.examples</groupId>
+    <artifactId>dotty-examples</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Dotty 0.9 is distributed with Scala 2.12.6 -->
+        <scala.version>2.12.6</scala.version>
+        <dotty.version>0.9.0-RC1</dotty.version>
+        <java.version>1.8</java.version>
+        <!-- Maven plugins -->
+        <scala.maven.version>3.4.2</scala.maven.version>
+        <maven.compiler.version>3.8.0</maven.compiler.version>
+        <exec.maven.version>1.6.0</exec.maven.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.9 -->
+        <dependency>
+            <groupId>ch.epfl.lamp</groupId>
+            <artifactId>dotty-library_0.9</artifactId>
+            <version>${dotty.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-compiler_0.9 -->
+        <dependency>
+            <groupId>ch.epfl.lamp</groupId>
+            <artifactId>dotty-compiler_0.9</artifactId>
+            <version>${dotty.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-interfaces -->
+        <dependency>
+            <groupId>ch.epfl.lamp</groupId>
+            <artifactId>dotty-interfaces</artifactId>
+            <version>${dotty.version}</version>
+        </dependency>
+        <!-- http://davidb.github.io/scala-maven-plugin/ -->
+        <dependency>
+            <groupId>net.alchim31.maven</groupId>
+            <artifactId>scala-maven-plugin</artifactId>
+            <version>${scala.maven.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>${maven.compiler.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>${exec.maven.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>

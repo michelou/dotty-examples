@@ -22,10 +22,9 @@ This project repository relies on a few external software for the **Microsoft Wi
 
 Optionally one may also install the following software:
 
-- [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.12.6))
+- [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.12.7))
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.5.html))
-- [Gradle 
-- ](https://gradle.org/install/) (requires Java 7 or newer) ([*release notes*](https://docs.gradle.org/current/release-notes.html))
+- [Gradle](https://gradle.org/install/) (requires Java 7 or newer) ([*release notes*](https://docs.gradle.org/current/release-notes.html))
 - [Apache Maven 3.5](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.5.4/release-notes.html))
 - [CFR 0.x](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.0.txt))
@@ -87,7 +86,7 @@ We distinguish different sets of batch scripts:
     Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 
     &gt; scalac -version
-    Scala compiler version 2.12.6 -- Copyright 2002-2018, LAMP/EPFL and Lightbend, Inc.
+    Scala compiler version 2.12.7 -- Copyright 2002-2018, LAMP/EPFL and Lightbend, Inc.
 
     &gt; dotc -version
     Dotty compiler version 0.9.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
@@ -131,12 +130,13 @@ We distinguish different sets of batch scripts:
             -compiler:<name>       select compiler (scala|scalac|dotc|dotty), default:dotc
             -main:<name>           define main class name
             -timer           display the compile time
-          Subcommands:
+         
+      Subcommands:
             clean            delete generated class files
             compile          compile source files (Java and Scala)
             help             display this help message
             run              execute main class
-          Properties:
+      Properties:
           (to be defined in SBT configuration file project\build.properties)
             compiler.cmd     alternative to option -compiler
             main.class       alternative to option -main
@@ -233,12 +233,12 @@ With option **`-verbose`** the **`setenv`** command also displays the version/pa
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv -verbose
 Tool versions:
-   java 10.0.2, scalac 2.12.6, dotc 0.9.0-RC1,
+   java 10.0.2, scalac 2.12.7, dotc 0.9.0-RC1,
    ant 1.10.5, gradle 4.10.2, mvn 3.5.4, sbt 1.2.1, cfr 0_133, git 2.19.0.windows.1
 Tool paths:
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
-   C:\opt\scala-2.12.6\bin\scalac.bat
+   C:\opt\scala-2.12.7\bin\scalac.bat
    C:\opt\dotty-0.9.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.5\bin\ant.bat
    C:\opt\gradle-4.10.2\bin\gradle.bat
@@ -305,7 +305,7 @@ Search for class System in library files C:\opt\dotty-0.9.0-RC1\lib\*.jar
   scala-library-2.12.6.jar:scala/sys/SystemProperties.class
   scala-xml_2.12-1.1.0.jar:scala/xml/dtd/SystemID$.class
   scala-xml_2.12-1.1.0.jar:scala/xml/dtd/SystemID.class
-Search for class System in library files C:\opt\scala-2.12.6\lib\*.jar
+Search for class System in library files C:\opt\scala-2.12.7\lib\*.jar
   scala-library.jar:scala/sys/SystemProperties$.class
   scala-library.jar:scala/sys/SystemProperties.class
   scala-xml_2.12-1.0.6.jar:scala/xml/dtd/SystemID$.class
@@ -316,7 +316,7 @@ Looking for the unknown class **`BinarySearch`** produces the following output:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > searchjars BinarySearch
 Search for class BinarySearch in library files C:\opt\dotty-0.9.0-RC1\lib\*.jar
-Search for class BinarySearch in library files C:\opt\scala-2.12.6\lib\*.jar
+Search for class BinarySearch in library files C:\opt\scala-2.12.7\lib\*.jar
 </pre>
 
 #### `build.bat`
