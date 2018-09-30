@@ -36,7 +36,7 @@ For instance our development environment looks as follows (*September 2018*):
 
 <pre style="font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_181\
-C:\opt\scala-2.12.6\
+C:\opt\scala-2.12.7\
 C:\opt\dotty-0.9.0-RC1\
 C:\opt\apache-ant-1.10.5\
 c:\opt\gradle-4.10.2\
@@ -77,7 +77,7 @@ where
 
 We distinguish different sets of batch scripts:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch script makes external tools such as **`java.exe`**, **`scalac.bat`**, **`dotc.bat`**, etc. directly available from the command prompt.
+1. [**`setenv.bat`**](setenv.bat) - This batch script makes external tools such as **`java.exe`**, **`scalac.bat`**, [**`dotc.bat`**](bin/0.9/dotc.bat), etc. directly available from the command prompt.
 
     <pre style="font-size:80%;">
     &gt; java -version
@@ -124,23 +124,23 @@ We distinguish different sets of batch scripts:
     &gt; build
     Usage: build { options | subcommands }
       Options:
-            -debug           show commands executed by this script
-            -deprecation     set compiler option -deprecation
-            -explain         set compiler option -explain
-            -compiler:<name>       select compiler (scala|scalac|dotc|dotty), default:dotc
-            -main:<name>           define main class name
-            -timer           display the compile time
+        -debug           show commands executed by this script
+        -deprecation     set compiler option -deprecation
+        -explain         set compiler option -explain
+        -compiler:<name>       select compiler (scala|scalac|dotc|dotty), default:dotc
+        -main:<name>           define main class name
+        -timer           display the compile time
          
       Subcommands:
-            clean            delete generated class files
-            compile          compile source files (Java and Scala)
-            help             display this help message
-            run              execute main class
+        clean            delete generated class files
+        compile          compile source files (Java and Scala)
+        help             display this help message
+        run              execute main class
       Properties:
-          (to be defined in SBT configuration file project\build.properties)
-            compiler.cmd     alternative to option -compiler
-            main.class       alternative to option -main
-            main.args        list of arguments to be passed to main class
+      (to be defined in SBT configuration file project\build.properties)
+        compiler.cmd     alternative to option -compiler
+        main.class       alternative to option -main
+        main.args        list of arguments to be passed to main class
     </pre>
 
 ## Optional tools
@@ -220,7 +220,9 @@ The [**`setenv`**](setenv.bat) command is executed once to setup your developmen
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv
-
+Tool versions:
+   java 10.0.2, scalac 2.12.7, dotc 0.9.0-RC1,
+   ant 1.10.5, gradle 4.10.2, mvn 3.5.4, sbt 1.2.1, cfr 0_133, git 2.19.0.windows.1
 > where sbt
 C:\opt\sbt-1.2.3\bin\sbt
 C:\opt\sbt-1.2.3\bin\sbt.bat
@@ -277,22 +279,38 @@ The [**`getnightly`**](bin/getnightly.bat) command downloads JAR library files f
 > getnightly
 
 > dir /b nightly-jars
-dotty-compiler_0.10-0.10.0-bin-20180828-1d24eaa-NIGHTLY.jar
-dotty-doc_0.10-0.10.0-bin-20180828-1d24eaa-NIGHTLY.jar
-dotty-interfaces-0.10.0-bin-20180828-1d24eaa-NIGHTLY.jar
-dotty-language-server_0.10-0.10.0-bin-20180828-1d24eaa-NIGHTLY.jar
-dotty-library_0.10-0.10.0-bin-20180828-1d24eaa-NIGHTLY.jar
-dotty_0.10-0.10.0-bin-20180828-1d24eaa-NIGHTLY.jar
+dotty-compiler_0.10-0.10.0-bin-20180928-6317000-NIGHTLY.jar
+dotty-doc_0.10-0.10.0-bin-20180928-6317000-NIGHTLY.jar
+dotty-interfaces-0.10.0-bin-20180928-6317000-NIGHTLY.jar
+dotty-language-server_0.10-0.10.0-bin-20180928-6317000-NIGHTLY.jar
+dotty-library_0.10-0.10.0-bin-20180928-6317000-NIGHTLY.jar
+dotty_0.10-0.10.0-bin-20180928-6317000-NIGHTLY.jar
 </pre>
 
 One can now replace the library files from the original [Dotty](https://github.com/lampepfl/dotty/releases) distribution (installed in `C:\opt\dotty-0.9.0-RC1\` in our case) with the nightly binaries downloaded to the directory **`nightly-jars\`**:
 
+- We first create a backup of both versions:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
-> mkdir C:\opt\dotty-0.9.0-RC1\lib\0.9.0-RC1
-> mv C:\opt\dotty-0.9.0-RC1\lib\*-0.9.0-RC1.jar C:\opt\dotty-0.9.0-RC1\lib\0.9.0-RC1\
-> copy nightly-jars\*-0.10.0-bin-20180719-fe8d050-NIGHTLY.jar C:\opt\dotty-0.9.0-RC1\lib\
+> mkdir %DOTTY_HOME%\lib\0.10.0-bin-20180928-6317000-NIGHTLY
+> copy nightly-jars\*-0.10.0-bin-20180928-6317000-NIGHTLY.jar %DOTTY_HOME%\lib\0.10.0-bin-20180928-6317000-NIGHTLY
+> mkdir %DOTTY_HOME%\lib\0.9.0-RC1
+> copy %DOTTY_HOME%\lib\*-0.9.0-RC1.jar %DOTTY_HOME%\lib\0.9.0-RC1\
+</pre>
+
+- Now we can switch from 0.9.0-RC1 to the nightly build version:
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+> del %DOTTY_HOME%\lib\*-0.9.0-RC1.jar
+> copy %DOTTY_HOME%\lib\0.10.0-bin-20180928-6317000-NIGHTLY\*.jar %DOTTY_HOME%\lib\
 > dotc -version
-Dotty compiler version 0.10.0-bin-20180719-fe8d050-NIGHTLY-git-fe8d050 -- Copyright 2002-2018, LAMP/EPFL
+Dotty compiler version 0.10.0-bin-20180928-6317000-NIGHTLY-git-6317000 -- Copyright 2002-2018, LAMP/EPFL
+</pre>
+
+- Finally we restore the original JAR files in Dotty installation directory:
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+> del %DOTTY_HOME%\lib\*-0.10.0-bin-20180928-6317000-NIGHTLY.jar
+> copy %DOTTY_HOME%\lib\0.9.0-RC1\*-0.9.0-RC1.jar %DOTTY_HOME%\lib\
+> dotc -version
+Dotty compiler version 0.9.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 </pre>
 
 #### `searchjars.bat <class_name>`
