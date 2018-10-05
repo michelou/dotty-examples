@@ -51,7 +51,6 @@ for /f %%f in ('dir /b "%_LIB_DIR%\*scala-asm*"')            do set _SCALA_ASM=%
 for /f %%f in ('dir /b "%_LIB_DIR%\*scala-library*"')        do set _SCALA_LIB=%_LIB_DIR%\%%f
 for /f %%f in ('dir /b "%_LIB_DIR%\*scala-xml*"')            do set _SCALA_XML=%_LIB_DIR%\%%f
 for /f %%f in ('dir /b "%_LIB_DIR%\*compiler-interface*"')   do set _SBT_INTF=%_LIB_DIR%\%%f
-rem jine (introduced with 0.9.0)
 for /f %%f in ('dir /b "%_LIB_DIR%\*jline-reader-3*"')       do set _JLINE_READER=%_LIB_DIR%\%%f
 for /f %%f in ('dir /b "%_LIB_DIR%\*jline-terminal-3*"')     do set _JLINE_TERMINAL=%_LIB_DIR%\%%f
 for /f %%f in ('dir /b "%_LIB_DIR%\*jline-terminal-jna-3*"') do set _JLINE_TERMINAL_JNA=%_LIB_DIR%\%%f

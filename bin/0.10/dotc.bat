@@ -84,7 +84,7 @@ rem Optimize for short-running applications, see https://github.com/lampepfl/dot
 ) else if /i "%_ARG%"=="-decompile" ( set _PROG_NAME=%_DECOMPILER_MAIN%
 ) else if /i "%_ARG%"=="print-tasty" (
     set _PROG_NAME=%_DECOMPILER_MAIN%
-    call: addScala "-print-tasty"
+    call :addScala "-print-tasty"
 ) else if /i "%_ARG%"=="-run" ( set _PROG_NAME=%_REPL_MAIN%
 ) else if /i "%_ARG%"=="-colors" ( set _COLORS=true
 ) else if /i "%_ARG%"=="-no-colors" ( set _COLORS=
@@ -145,7 +145,7 @@ set __TOOLCHAIN=%__TOOLCHAIN%%_DOTTY_INTF%%_PSEP%
 set __TOOLCHAIN=%__TOOLCHAIN%%_DOTTY_LIB%%_PSEP%
 set __TOOLCHAIN=%__TOOLCHAIN%%_DOTTY_COMP%%_PSEP%
 
-rem jline (introduced with 0.9.0)
+rem # jline
 set __TOOLCHAIN=%__TOOLCHAIN%%_JLINE_READER%%_PSEP%
 set __TOOLCHAIN=%__TOOLCHAIN%%_JLINE_TERMINAL%%_PSEP%
 set __TOOLCHAIN=%__TOOLCHAIN%%_JLINE_TERMINAL_JNA%%_PSEP%
