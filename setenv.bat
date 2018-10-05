@@ -178,7 +178,7 @@ if defined DOTTY_HOME (
         for %%f in ("!_DOTTY_BIN_DIR!..") do set _DOTTY_HOME=%%~sf
     ) else (
         set _PATH=C:\opt
-        for /f %%f in ('dir /ad /b "!_PATH!\dotty*" 2^>NUL') do set _DOTTY_HOME=!_PATH!\%%f
+        for /f %%f in ('dir /ad /b /od "!_PATH!\dotty*" 2^>NUL') do set _DOTTY_HOME=!_PATH!\%%f
         if defined _DOTTY_HOME (
             if %_DEBUG%==1 echo [%_BASENAME%] Using default Dotty installation directory !_DOTTY_HOME!
         )
