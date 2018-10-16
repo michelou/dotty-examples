@@ -275,7 +275,7 @@ The [**`dirsize`**](bin/dirsize.bat) command returns the size (in Kb, Mb or Gb) 
 > dirsize examples myexamples c:\opt\dotty-0.10.0-RC1
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
-Size of directory "c:\opt\dotty-0.10.0-RC1" is 43.5 Mb
+Size of directory "c:\opt\dotty-0.10.0-RC1" is 22.4 Mb
 </pre>
 
 #### `getnightly.bat`
