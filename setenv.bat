@@ -374,20 +374,20 @@ for /f %%i in ('dir /ad /b "%__ROOT_DIR%\" 2^>NUL') do (
 )
 goto :eof
 
-rem SBT now requires special handling to know its version (no comment)
+rem output parameter: _SBT_VERSION
+rem Note: SBT requires special handling to know its version (no comment)
 :sbt_version
 set _SBT_VERSION=
-rem before SBT 1.2.x
-rem for /f "tokens=1,2,3,4,*" %%i in ('sbt.bat about 2^>nul ^| findstr /r /c:"sbt [0-9]"') do echo SBT_VERSION=%%m
-rem starting with SBT 1.2.x
 for /f %%i in ('where sbt.bat') do for %%f in ("%%~dpi..") do set __SBT_LAUNCHER=%%~sf\bin\sbt-launch.jar
-for /f "tokens=1,2,3,4,*" %%i in ('java -jar "%__SBT_LAUNCHER%" about 2^>nul ^| findstr /r /c:"sbt [0-9]"') do set _SBT_VERSION=%%m
+for /f "tokens=1,*" %%i in ('java.exe -jar "%__SBT_LAUNCHER%" sbtVersion ^| findstr [0-9].[0-9]') do set _SBT_VERSION=%%j
+for /f "tokens=1,*" %%i in ('java.exe -jar "%__SBT_LAUNCHER%" scalaVersion ^| findstr [0-9].[0-9]') do set _SBT_VERSION=%_SBT_VERSION%/%%j
 goto :eof
 
 :print_env
 set __VERBOSE=%1
 set __VERSIONS_LINE1=
 set __VERSIONS_LINE2=
+set __VERSIONS_LINE3=
 set __WHERE_ARGS=
 where /q javac.exe
 if %ERRORLEVEL%==0 (
@@ -411,12 +411,12 @@ if %ERRORLEVEL%==0 (
 )
 where /q ant.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,4,*" %%i in ('ant.bat -version  ^| findstr version') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% ant %%l,
+    for /f "tokens=1,2,3,4,*" %%i in ('ant.bat -version ^| findstr version') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% ant %%l,
     set __WHERE_ARGS=%__WHERE_ARGS% ant.bat
 )
 where /q gradle.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('gradle.bat -version  ^| findstr Gradle') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j,
+    for /f "tokens=1,*" %%i in ('gradle.bat -version ^| findstr Gradle') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j,
     set __WHERE_ARGS=%__WHERE_ARGS% gradle.bat
 )
 where /q mvn.cmd
@@ -431,17 +431,18 @@ if defined _SBT_VERSION (
 )
 where /q cfr.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('cfr.bat --version 2^>^&1 ^| findstr CFR') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% cfr %%j,
+    for /f "tokens=1,*" %%i in ('cfr.bat --version 2^>^&1 ^| findstr CFR') do set __VERSIONS_LINE3=%__VERSIONS_LINE3% cfr %%j,
     set __WHERE_ARGS=%__WHERE_ARGS% cfr.bat
 )
 where /q git.exe
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1,2,*" %%i in ('git.exe --version') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% git %%k
+   for /f "tokens=1,2,*" %%i in ('git.exe --version') do set __VERSIONS_LINE3=%__VERSIONS_LINE3% git %%k
     set __WHERE_ARGS=%__WHERE_ARGS% git.exe
 )
 echo Tool versions:
 echo   %__VERSIONS_LINE1%
 echo   %__VERSIONS_LINE2%
+echo   %__VERSIONS_LINE3%
 if %__VERBOSE%==1 (
     rem if %_DEBUG%==1 echo [%_BASENAME%] where %__WHERE_ARGS%
     echo Tool paths:

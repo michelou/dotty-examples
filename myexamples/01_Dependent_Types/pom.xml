@@ -9,8 +9,8 @@
     <packaging>jar</packaging>
 
     <parent>
-    	<groupId>dotty.myexamples</groupId>
-	    <artifactId>dotty-myexamples</artifactId>
+        <groupId>dotty.myexamples</groupId>
+        <artifactId>dotty-myexamples</artifactId>
         <version>0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -20,7 +20,7 @@
         <dependency>
             <groupId>com.typesafe.sbt</groupId>
             <artifactId>sbt-interface</artifactId>
-            <version>0.13.15</version>
+            <version>0.13.15</version> <!-- May, 2017 -->
             <type>pom</type>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.typesafe.sbt/compiler-interface -->

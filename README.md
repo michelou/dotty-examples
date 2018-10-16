@@ -18,13 +18,13 @@ This project repository relies on a few external software for the **Microsoft Wi
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
 - [Dotty 0.10](https://github.com/lampepfl/dotty/releases) (*reminder*: Dotty 0.9 requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
-- [SBT 1.2.x](https://www.scala-sbt.org/download.html)
+- [SBT 1.2.4](https://www.scala-sbt.org/download.html) (with Scala 2.12.16 preloaded) ([*release notes*](https://www.scala-sbt.org/1.x/docs/sbt-1.2-Release-Notes.html))
 
 Optionally one may also install the following software:
 
 - [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.12.7))
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.5.html))
-- [Gradle](https://gradle.org/install/) (requires Java 7 or newer) ([*release notes*](https://docs.gradle.org/current/release-notes.html))
+- [Gradle 4.10](https://gradle.org/install/) (requires Java 7 or newer) ([*release notes*](https://docs.gradle.org/current/release-notes.html))
 - [Apache Maven 3.5](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.5.4/release-notes.html))
 - [CFR 0.x](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.0.txt))
@@ -41,9 +41,9 @@ C:\opt\dotty-0.10.0-RC1\
 C:\opt\apache-ant-1.10.5\
 c:\opt\gradle-4.10.2\
 C:\opt\apache-maven-3.5.4\
-C:\opt\sbt-1.2.3\
+C:\opt\sbt-1.2.4\
 C:\opt\cfr-0_133\
-C:\opt\Git-2.19.0\
+C:\opt\Git-2.19.1\
 </pre>
 
 We further recommand using an advanced console emulator such as [ComEmu](https://conemu.github.io/) (or [Cmdr](http://cmder.net/)) which features [Unicode support](https://conemu.github.io/en/UnicodeSupport.html).
@@ -224,11 +224,12 @@ The [**`setenv`**](setenv.bat) command is executed once to setup your developmen
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv
 Tool versions:
-   java 10.0.2, scalac 2.12.7, dotc 0.10.0-RC1,
-   ant 1.10.5, gradle 4.10.2, mvn 3.5.4, sbt 1.2.1, cfr 0_133, git 2.19.0.windows.1
+   javac 1.8.0_181, java 1.8.0_181, scalac 2.12.7, dotc 0.10.0-RC1,
+   ant 1.10.5, gradle 4.10.2, mvn 3.5.4, sbt 1.2.4/2.12.17,
+   cfr 0_133, git 2.19.1.windows.1
 > where sbt
-C:\opt\sbt-1.2.3\bin\sbt
-C:\opt\sbt-1.2.3\bin\sbt.bat
+C:\opt\sbt-1.2.4\bin\sbt
+C:\opt\sbt-1.2.4\bin\sbt.bat
 </pre>
 
 > **NB.** Execute **`setenv help`** to display the help message.
@@ -238,9 +239,12 @@ With option **`-verbose`** the **`setenv`** command also displays the path of th
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv -verbose
 Tool versions:
-   java 10.0.2, scalac 2.12.7, dotc 0.10.0-RC1,
-   ant 1.10.5, gradle 4.10.2, mvn 3.5.4, sbt 1.2.1, cfr 0_133, git 2.19.0.windows.1
+   javac 1.8.0_181, java 1.8.0_181, scalac 2.12.7, dotc 0.10.0-RC1,
+   ant 1.10.5, gradle 4.10.2, mvn 3.5.4, sbt 1.2.4/2.12.17,
+   cfr 0_133, git 2.19.1.windows.1
 Tool paths:
+   C:\Program Files\Java\jdk1.8.0_181\bin\javac.exe
+   C:\Program Files\Java\jdk1.8.0_181\bin\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\opt\scala-2.12.7\bin\scalac.bat
@@ -248,9 +252,9 @@ Tool paths:
    C:\opt\apache-ant-1.10.5\bin\ant.bat
    C:\opt\gradle-4.10.2\bin\gradle.bat
    C:\opt\apache-maven-3.5.4\bin\mvn.cmd
-   C:\opt\sbt-1.2.3\bin\sbt.bat
+   C:\opt\sbt-1.2.4\bin\sbt.bat
    C:\opt\cfr-0_133\bin\cfr.bat
-   C:\opt\Git-2.19.0\bin\git.exe
+   C:\opt\Git-2.19.1\bin\git.exe
 </pre>
 
 #### `cleanup.bat`
@@ -269,9 +273,9 @@ The [**`dirsize`**](bin/dirsize.bat) command returns the size (in Kb, Mb or Gb) 
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > dirsize examples myexamples c:\opt\dotty-0.10.0-RC1
-Size of directory "examples" is 3.5 Mb
-Size of directory "myexamples" is 1.4 Mb
-Size of directory "c:\opt\dotty-0.10.0-RC1" is 22.8 Mb
+Size of directory "examples" is 3.9 Mb
+Size of directory "myexamples" is 1.2 Mb
+Size of directory "c:\opt\dotty-0.10.0-RC1" is 43.5 Mb
 </pre>
 
 #### `getnightly.bat`
@@ -282,20 +286,20 @@ The [**`getnightly`**](bin/getnightly.bat) command downloads JAR library files f
 > getnightly
 
 > dir /b nightly-jars
-dotty-compiler_0.11-0.11.0-bin-20181004-3f86587-NIGHTLY.jar
-dotty-doc_0.11-0.11.0-bin-20181004-3f86587-NIGHTLY.jar
-dotty-interfaces-0.11.0-bin-20181004-3f86587-NIGHTLY.jar
-dotty-language-server_0.11-0.11.0-bin-20181004-3f86587-NIGHTLY.jar
-dotty-library_0.11-0.11.0-bin-20181004-3f86587-NIGHTLY.jar
-dotty_0.11-0.11.0-bin-20181004-3f86587-NIGHTLY.jar
+dotty-compiler_0.11-0.11.0-bin-20181015-d3a0ac8-NIGHTLY.jar
+dotty-doc_0.11-0.11.0-bin-20181015-d3a0ac8-NIGHTLY.jar
+dotty-interfaces-0.11.0-bin-20181015-d3a0ac8-NIGHTLY.jar
+dotty-language-server_0.11-0.11.0-bin-20181015-d3a0ac8-NIGHTLY.jar
+dotty-library_0.11-0.11.0-bin-20181015-d3a0ac8-NIGHTLY.jar
+dotty_0.11-0.11.0-bin-20181015-d3a0ac8-NIGHTLY.jar
 </pre>
 
 One can now replace the library files from the original [Dotty](https://github.com/lampepfl/dotty/releases) distribution (installed in `C:\opt\dotty-0.10.0-RC1\` in our case) with the nightly binaries downloaded to the directory **`nightly-jars\`**:
 
 - We first create a backup of both versions:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
-> mkdir %DOTTY_HOME%\lib\0.11.0-bin-20181004-3f86587-NIGHTLY
-> copy nightly-jars\*-0.11.0-bin-20181004-3f86587-NIGHTLY.jar %DOTTY_HOME%\lib\0.11.0-bin-20181004-3f86587-NIGHTLY
+> mkdir %DOTTY_HOME%\lib\0.11.0-bin-20181015-d3a0ac8-NIGHTLY
+> copy nightly-jars\*-0.11.0-bin-20181015-d3a0ac8-NIGHTLY.jar %DOTTY_HOME%\lib\0.11.0-bin-20181015-d3a0ac8-NIGHTLY
 > mkdir %DOTTY_HOME%\lib\0.10.0-RC1
 > copy %DOTTY_HOME%\lib\*-0.10.0-RC1.jar %DOTTY_HOME%\lib\0.10.0-RC1\
 </pre>
@@ -303,14 +307,14 @@ One can now replace the library files from the original [Dotty](https://github.c
 - Now we can switch from 0.10.0-RC1 to the nightly build version:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > del %DOTTY_HOME%\lib\*-0.10.0-RC1.jar
-> copy %DOTTY_HOME%\lib\0.11.0-bin-20181004-3f86587-NIGHTLY\*.jar %DOTTY_HOME%\lib\
+> copy %DOTTY_HOME%\lib\0.11.0-bin-20181015-d3a0ac8-NIGHTLY\*.jar %DOTTY_HOME%\lib\
 > dotc -version
-Dotty compiler version 0.11.0-bin-20181004-3f86587-NIGHTLY-git-3f86587 -- Copyright 2002-2018, LAMP/EPFL
+Dotty compiler version 0.11.0-bin-20181015-d3a0ac8-NIGHTLY-git-d3a0ac8 -- Copyright 2002-2018, LAMP/EPFL
 </pre>
 
 - Finally we restore the original JAR files in Dotty installation directory:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
-> del %DOTTY_HOME%\lib\*-0.11.0-bin-20181004-3f86587-NIGHTLY
+> del %DOTTY_HOME%\lib\*-0.11.0-bin-20181015-d3a0ac8-NIGHTLY
 > copy %DOTTY_HOME%\lib\0.10.0-RC1\*-0.10.0-RC1.jar %DOTTY_HOME%\lib\
 > dotc -version
 Dotty compiler version 0.10.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
@@ -328,7 +332,7 @@ Search for class System in library files C:\opt\dotty-0.10.0-RC1\lib\*.jar
   scala-xml_2.12-1.1.0.jar:scala/xml/dtd/SystemID.class
 Search for class System in library files C:\opt\scala-2.12.7\lib\*.jar
   scala-library.jar:scala/sys/SystemProperties$.class
-  scala-library.jar:scala/sys/SystemProperties.class
+  scala-library.jar:scala/sys/SysctemProperties.class
   scala-xml_2.12-1.0.6.jar:scala/xml/dtd/SystemID$.class
   scala-xml_2.12-1.0.6.jar:scala/xml/dtd/SystemID.class
 </pre>

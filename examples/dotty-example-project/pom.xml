@@ -9,8 +9,8 @@
     <packaging>jar</packaging>
 
     <parent>
-    	<groupId>dotty.examples</groupId>
-	    <artifactId>dotty-examples</artifactId>
+        <groupId>dotty.examples</groupId>
+        <artifactId>dotty-examples</artifactId>
         <version>0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>

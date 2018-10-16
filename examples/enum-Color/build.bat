@@ -217,7 +217,7 @@ for /f %%i in ('dir /b "%_DOTTY_LIB_DIR%\dotty*.jar"') do (
 )
 set __PROJECT_JARS=
 if exist "%_ROOT_DIR%\lib\" (
-    for /f %%i in ('dir /b "%_ROOT_DIR%\lib\*.jar"') do (
+    for /f %%i in ('dir /b "%_ROOT_DIR%\lib\*.jar" 2^>NUL') do (
         set __PROJECT_JARS=!__PROJECT_JARS!%_ROOT_DIR%\lib\%%i;
     )
 )
