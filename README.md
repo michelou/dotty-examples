@@ -18,7 +18,7 @@ This project repository relies on a few external software for the **Microsoft Wi
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
 - [Dotty 0.10](https://github.com/lampepfl/dotty/releases) (*reminder*: Dotty 0.9 requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
-- [SBT 1.2.4](https://www.scala-sbt.org/download.html) (with Scala 2.12.17 preloaded) ([*release notes*](https://www.scala-sbt.org/1.x/docs/sbt-1.2-Release-Notes.html))
+- [SBT 1.2.4](https://www.scala-sbt.org/download.html) (with Scala 2.12.17 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.4))
 
 Optionally one may also install the following software:
 
