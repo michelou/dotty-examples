@@ -1,4 +1,5 @@
 object Main {
+  import scala.language.implicitConversions // otherwise warning starting with version 0.9.0
 
   private def testIntFloat: Unit = {
     type IntFloat = Int | Float
@@ -9,8 +10,24 @@ object Main {
       }
     }
 
-    printValue(0.0f)
-    printValue(1 + 3)
+    printValue(0.0f)  // Float 0.0
+    printValue(1 + 3) // Int 4
+  }
+
+  // see https://www.typescriptlang.org/docs/handbook/advanced-types.html
+  private def testPadding: Unit = {
+    /**
+     * Takes a string and adds "padding" to the left.
+     * If 'padding' is a string, then 'padding' is appended to the left side.
+     * If 'padding' is a number, then that number of spaces is added to the left side.
+     */
+    def padLeft(value: String, padding: String | Int): String = padding match {
+      case s: String => padding + value
+      case i: Int => s"%${i}s".format(value)
+    }
+
+    println(padLeft("abc", "01234")) // "01234abc"
+    println(padLeft("abc", 8))       // "     abc"
   }
 
   // see https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/sum-types
@@ -72,11 +89,30 @@ object Main {
     }
 
     val a = JArray(1, "abc", true)
-    println(stringify(1))
-    println(stringify(a))
+    println(stringify(1)) // 1
+    println(stringify(a)) // [1, "abc", true]
     println(stringify(JObject(Map("a" -> 1, "b" -> "blue", "c" -> a))))
+    // {a: 1, b: "blue", c: [1, "abc", true]}
   }
-
+/*
+  // see https://www.typescriptlang.org/docs/handbook/advanced-types.html
+  private def testShape: Unit = {
+    trait Square {
+      val kind = "square"
+      def size = 3
+    }
+    trait Rectangle {
+      val kind = "rectangle"
+      def width = 2
+      def height = 3
+    }
+    type Shape = Square | Rectangle
+    def area(s: Shape): Int = s.kind match { // value `kind` is not a member of Shape
+      case "square" => s.size * s.size
+      case "rectangle" => s.width * s.height
+    }
+  }
+*/
   private def runExample(name: String)(f: => Unit) = {
     println(Console.MAGENTA + s"$name example:" + Console.RESET)
     f
@@ -85,9 +121,11 @@ object Main {
 
   def main(args: Array[String]): Unit = {
     runExample("testIntFloat")(testIntFloat)
+    runExample("testPadding")(testPadding)
     runExample("testDivision")(testDivision)
     runExample("testMessage")(testMessage)
     runExample("testJSON")(testJSON)
+    //runExample("testShape")(testShape)
   }
 
 }

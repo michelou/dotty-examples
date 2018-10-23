@@ -45,11 +45,24 @@ object Main {
   def f(x: Resettable & Resizable[Int]) = {
     x.reset().add(1).add(3).add(2).remove(3).add(3).add(4)
   }
-
+/*
+  // see https://www.typescriptlang.org/docs/handbook/advanced-types.html
+  case class Person(name: String)
+  trait Loggable { def log(): Unit }
+  class ConsoleLogger extends Loggable {
+    def log(): Unit = { println("x") }
+  }
+  def extend[T, U](first: T, second: U): T & U = {
+    // Ok with Typescript, not possible with Dotty !?
+  }
+*/
   def main(args: Array[String]): Unit = {
     val buf = new Buffer[Int]
     f(buf)
-    println(buf)    
+    println(buf)
+    
+    //val jim = extend(Person("Jim"), new ConsoleLogger())
+    //jim.log()
   }
 
 }

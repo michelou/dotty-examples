@@ -112,20 +112,14 @@ if defined JDK_HOME (
     set _JDK_HOME=%JDK_HOME%
     if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable JDK_HOME
 ) else (
-    where /q javac.exe
-    if !ERRORLEVEL!==0 (
-        for /f "delims=" %%i in ('where /f javac.exe') do set _JDK_BIN_DIR=%%~dpsi
-        for %%f in ("!_JDK_BIN_DIR!..") do set _JDK_HOME=%%~sf
-    ) else (
-        set _PATH=C:\Progra~1\Java
-        for /f "delims=" %%f in ('dir /ad /b "!_PATH!\jdk1.8*" 2^>NUL') do set _JDK_HOME=!_PATH!\%%f
-        if not defined _JDK_HOME (
-           set _PATH=C:\opt
-           for /f %%f in ('dir /ad /b "!_PATH!\jdk1.8*" 2^>NUL') do set _JDK_HOME=!_PATH!\%%f
-        )
-        if defined _JDK_HOME (
-            if %_DEBUG%==1 echo [%_BASENAME%] Using default Java SDK installation directory !_JDK_HOME!
-        )
+    set _PATH=C:\Progra~1\Java
+    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\jdk1.8*" 2^>NUL') do set _JDK_HOME=!_PATH!\%%f
+    if not defined _JDK_HOME (
+        set _PATH=C:\opt
+        for /f %%f in ('dir /ad /b "!_PATH!\jdk1.8*" 2^>NUL') do set _JDK_HOME=!_PATH!\%%f
+    )
+    if defined _JDK_HOME (
+        if %_DEBUG%==1 echo [%_BASENAME%] Using default Java SDK installation directory !_JDK_HOME!
     )
 )
 if not exist "%_JDK_HOME%\bin\javac.exe" (
@@ -133,7 +127,8 @@ if not exist "%_JDK_HOME%\bin\javac.exe" (
     set _EXITCODE=1
     goto :eof
 )
-set "_JDK_PATH=;%_JDK_HOME%\bin"
+rem variable _JDK_PATH is prepended to PATH, so path separator must appear as last character
+set "_JDK_PATH=%_JDK_HOME%\bin;"
 goto :eof
 
 :scalac
@@ -144,16 +139,10 @@ if defined SCALA_HOME (
     set _SCALA_HOME=%SCALA_HOME%
     if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable SCALA_HOME
 ) else (
-    where /q scalac.bat
-    if !ERRORLEVEL!==0 (
-        for /f "delims=" %%i in ('where /f scalac.bat') do set _SCALA_BIN_DIR=%%~dpsi
-        for %%f in ("!_SCALA_BIN_DIR!..") do set _SCALA_HOME=%%~sf
-    ) else (
-        set _PATH=C:\opt
-        for /f %%f in ('dir /ad /b "!_PATH!\scala-2*" 2^>NUL') do set _SCALA_HOME=!_PATH!\%%f
-        if defined _SCALA_HOME (
-            if %_DEBUG%==1 echo [%_BASENAME%] Using default Scala installation directory !_SCALA_HOME!
-        )
+    set _PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!_PATH!\scala-2*" 2^>NUL') do set _SCALA_HOME=!_PATH!\%%f
+    if defined _SCALA_HOME (
+        if %_DEBUG%==1 echo [%_BASENAME%] Using default Scala installation directory !_SCALA_HOME!
     )
 )
 if not exist "%_SCALA_HOME%\bin\scalac.bat" (
@@ -172,16 +161,10 @@ if defined DOTTY_HOME (
     set _DOTTY_HOME=%DOTTY_HOME%
     if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable DOTTY_HOME
 ) else (
-    where /q dotc.bat
-    if !ERRORLEVEL!==0 (
-        for /f "delims=" %%i in ('where /f dotc.bat') do set _DOTTY_BIN_DIR=%%~dpsi
-        for %%f in ("!_DOTTY_BIN_DIR!..") do set _DOTTY_HOME=%%~sf
-    ) else (
-        set _PATH=C:\opt
-        for /f %%f in ('dir /ad /b /od "!_PATH!\dotty*" 2^>NUL') do set _DOTTY_HOME=!_PATH!\%%f
-        if defined _DOTTY_HOME (
-            if %_DEBUG%==1 echo [%_BASENAME%] Using default Dotty installation directory !_DOTTY_HOME!
-        )
+    set _PATH=C:\opt
+    for /f %%f in ('dir /ad /b /od "!_PATH!\dotty*" 2^>NUL') do set _DOTTY_HOME=!_PATH!\%%f
+    if defined _DOTTY_HOME (
+        if %_DEBUG%==1 echo [%_BASENAME%] Using default Dotty installation directory !_DOTTY_HOME!
     )
 )
 if not exist "%_DOTTY_HOME%\bin\dotc.bat" (
@@ -258,16 +241,10 @@ if defined MAVEN_HOME (
     set _MVN_HOME=%MAVEN_HOME%
     if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable MAVEN_HOME
 ) else (
-    where /q mvn.cmd
-    if !ERRORLEVEL!==0 (
-        for /f "delims=" %%i in ('where /f mvn.cmd') do set _MVN_BIN_DIR=%%~dpsi
-        for %%f in ("!_MVN_BIN_DIR!..") do set _MVN_HOME=%%~sf
-    ) else (
-        set _PATH=C:\opt
-        for /f %%f in ('dir /ad /b "!_PATH!\apache-maven-*" 2^>NUL') do set _MVN_HOME=!_PATH!\%%f
-        if defined _MVN_HOME (
-            if %_DEBUG%==1 echo [%_BASENAME%] Using default Maven installation directory !_MVN_HOME!
-        )
+    set _PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!_PATH!\apache-maven-*" 2^>NUL') do set _MVN_HOME=!_PATH!\%%f
+    if defined _MVN_HOME (
+        if %_DEBUG%==1 echo [%_BASENAME%] Using default Maven installation directory !_MVN_HOME!
     )
 )
 if not exist "%_MVN_HOME%\bin\mvn.cmd" (
@@ -286,16 +263,10 @@ if defined SBT_HOME (
     set _SBT_HOME=%SBT_HOME%
     if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable SBT_HOME
 ) else (
-    where /q sbt.bat
-    if !ERRORLEVEL!==0 (
-        for /f "delims=" %%i in ('where /f sbt.bat') do set _SBT_BIN_DIR=%%~dpsi
-        for %%f in ("!_SBT_BIN_DIR!..") do set _SBT_HOME=%%~sf
-    ) else (
-        set _PATH=C:\opt
-        for /f %%f in ('dir /ad /b "!_PATH!\sbt-1*" 2^>NUL') do set _SBT_HOME=!_PATH!\%%f
-        if defined _SBT_HOME (
-            if %_DEBUG%==1 echo [%_BASENAME%] Using default sbt installation directory !_SBT_HOME!
-        )
+    set _PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!_PATH!\sbt-1*" 2^>NUL') do set _SBT_HOME=!_PATH!\%%f
+    if defined _SBT_HOME (
+        if %_DEBUG%==1 echo [%_BASENAME%] Using default sbt installation directory !_SBT_HOME!
     )
 )
 if not exist "%_SBT_HOME%\bin\sbt.bat" (
@@ -315,16 +286,10 @@ if defined CFR_HOME (
     set _CFR_HOME=%CFR_HOME%
     if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable CFR_HOME
 ) else (
-    where /q cfr.bat
-    if !ERRORLEVEL!==0 (
-        for /f "delims=" %%i in ('where /f cfr.bat') do set _CFR_BIN_DIR=%%~dpsi
-        for %%f in ("!_SBT_BIN_DIR!..") do set _CFR_HOME=%%~sf
-    ) else (
-        set _PATH=C:\opt
-        for /f %%f in ('dir /ad /b "!_PATH!\cfr*" 2^>NUL') do set _CFR_HOME=!_PATH!\%%f
-        if defined _CFR_HOME (
-            if %_DEBUG%==1 echo [%_BASENAME%] Using default cfr installation directory !_CFR_HOME!
-        )
+    set _PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!_PATH!\cfr*" 2^>NUL') do set _CFR_HOME=!_PATH!\%%f
+    if defined _CFR_HOME (
+        if %_DEBUG%==1 echo [%_BASENAME%] Using default cfr installation directory !_CFR_HOME!
     )
 )
 if not exist "%_CFR_HOME%\bin\cfr.bat" (

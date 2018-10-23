@@ -90,6 +90,7 @@ if /i "%__ARG%"=="clean" ( set _CLEAN=1
 ) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
 ) else if /i "%__ARG%"=="-deprecation" ( set _COMPILE_OPTS=!_COMPILE_OPTS! -deprecation
 ) else if /i "%__ARG%"=="-explain" ( set _COMPILE_OPTS=!_COMPILE_OPTS! -explain
+) else if /i "%__ARG%"=="-feature" ( set _COMPILE_OPTS=!_COMPILE_OPTS! -feature
 ) else if /i "%__ARG%"=="-timer" ( set _COMPILE_TIME=1
 ) else if /i "%__ARG:~0,10%"=="-compiler:" (
     call :set_compiler "!__ARG:~10!"
