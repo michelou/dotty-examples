@@ -14,11 +14,11 @@
 
 ## Project dependencies
 
-This project repository relies on a few external software for the **Microsoft Windows** plaform:
+This project repository relies on a few external software for the **Microsoft Windows** platform:
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
 - [Dotty 0.10](https://github.com/lampepfl/dotty/releases) (*reminder*: Dotty 0.9 requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
-- [SBT 1.2.4](https://www.scala-sbt.org/download.html) (with Scala 2.12.17 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.4))
+- [SBT 1.2.6](https://www.scala-sbt.org/download.html) (with Scala 2.12.17 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.6))
 
 Optionally one may also install the following software:
 
@@ -26,7 +26,7 @@ Optionally one may also install the following software:
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.5.html))
 - [Gradle 4.10](https://gradle.org/install/) (requires Java 7 or newer) ([*release notes*](https://docs.gradle.org/current/release-notes.html))
 - [Apache Maven 3.5](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.5.4/release-notes.html))
-- [CFR 0.x](http://www.benf.org/other/cfr/) (Java decompiler)
+- [CFR 0.13](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.0.txt))
 
 > ***Software installation policy***<br/>
@@ -35,13 +35,13 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*October 2018*):
 
 <pre style="font-size:80%;">
-C:\Program Files\Java\jdk1.8.0_181\
+C:\Program Files\Java\jdk1.8.0_191\
 C:\opt\scala-2.12.7\
 C:\opt\dotty-0.10.0-RC1\
 C:\opt\apache-ant-1.10.5\
 c:\opt\gradle-4.10.2\
 C:\opt\apache-maven-3.5.4\
-C:\opt\sbt-1.2.4\
+C:\opt\sbt-1.2.6\
 C:\opt\cfr-0_133\
 C:\opt\Git-2.19.1\
 </pre>
@@ -78,13 +78,11 @@ where
 
 We distinguish different sets of batch scripts:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch script makes external tools such as **`java.exe`**, **`scalac.bat`**, [**`dotc.bat`**](bin/0.9/dotc.bat), etc. directly available from the command prompt.
+1. [**`setenv.bat`**](setenv.bat) - This batch script makes external tools such as **`javac.exe`**, **`scalac.bat`**, [**`dotc.bat`**](bin/0.9/dotc.bat), etc. directly available from the command prompt.
 
     <pre style="font-size:80%;">
-    &gt; java -version
-    java version "1.8.0_181"
-    Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
-    Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+    &gt; javac -version
+    javac 1.8.0_191
 
     &gt; scalac -version
     Scala compiler version 2.12.7 -- Copyright 2002-2018, LAMP/EPFL and Lightbend, Inc.
@@ -130,10 +128,9 @@ We distinguish different sets of batch scripts:
         -debug           show commands executed by this script
         -deprecation     set compiler option -deprecation
         -explain         set compiler option -explain
-        -compiler:<name>       select compiler (scala|scalac|dotc|dotty), default:dotc
-        -main:<name>           define main class name
+        -compiler:&lt;name&gt;       select compiler (scala|scalac|dotc|dotty), default:dotc
+        -main:&lt;name&gt;           define main class name
         -timer           display the compile time
-         
       Subcommands:
         clean            delete generated class files
         compile          compile source files (Java and Scala)
@@ -224,12 +221,12 @@ The [**`setenv`**](setenv.bat) command is executed once to setup your developmen
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv
 Tool versions:
-   javac 1.8.0_181, java 1.8.0_181, scalac 2.12.7, dotc 0.10.0-RC1,
-   ant 1.10.5, gradle 4.10.2, mvn 3.5.4, sbt 1.2.4/2.12.17,
+   javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.10.0-RC1,
+   ant 1.10.5, gradle 4.10.2, mvn 3.5.4, sbt 1.2.6/2.12.17,
    cfr 0_133, git 2.19.1.windows.1
 > where sbt
-C:\opt\sbt-1.2.4\bin\sbt
-C:\opt\sbt-1.2.4\bin\sbt.bat
+C:\opt\sbt-1.2.6\bin\sbt
+C:\opt\sbt-1.2.6\bin\sbt.bat
 </pre>
 
 > **NB.** Execute **`setenv help`** to display the help message.
@@ -239,12 +236,12 @@ With option **`-verbose`** the **`setenv`** command also displays the path of th
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv -verbose
 Tool versions:
-   javac 1.8.0_181, java 1.8.0_181, scalac 2.12.7, dotc 0.10.0-RC1,
-   ant 1.10.5, gradle 4.10.2, mvn 3.5.4, sbt 1.2.4/2.12.17,
+   javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.10.0-RC1,
+   ant 1.10.5, gradle 4.10.2, mvn 3.5.4, sbt 1.2.6/2.12.17,
    cfr 0_133, git 2.19.1.windows.1
 Tool paths:
-   C:\Program Files\Java\jdk1.8.0_181\bin\javac.exe
-   C:\Program Files\Java\jdk1.8.0_181\bin\java.exe
+   C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
+   C:\Program Files\Java\jdk1.8.0_191\bin\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\opt\scala-2.12.7\bin\scalac.bat
@@ -252,7 +249,7 @@ Tool paths:
    C:\opt\apache-ant-1.10.5\bin\ant.bat
    C:\opt\gradle-4.10.2\bin\gradle.bat
    C:\opt\apache-maven-3.5.4\bin\mvn.cmd
-   C:\opt\sbt-1.2.4\bin\sbt.bat
+   C:\opt\sbt-1.2.6\bin\sbt.bat
    C:\opt\cfr-0_133\bin\cfr.bat
    C:\opt\Git-2.19.1\bin\git.exe
 </pre>
@@ -416,9 +413,9 @@ C:\opt\dotty-0.10.0-RC1\bin\dotr
 C:\opt\dotty-0.10.0-RC1\bin\dotr.bat
 
 > dotr -version
-java version "1.8.0_181"
-Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+java version "1.8.0_191"
+Java(TM) SE Runtime Environment (build 1.8.0_191-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.191-b12, mixed mode)
 
 > dotr
 Starting dotty REPL...
@@ -433,7 +430,7 @@ The REPL has several commands available:
 :reset                   reset the repl to its initial state, forgetting all session entries
 
 scala> System.getenv().get("JAVA_HOME")
-val res0: String = C:\Progra~1\Java\jdk1.8.0_181
+val res0: String = C:\Progra~1\Java\jdk1.8.0_191
 
 scala> System.getenv().get("DOTTY_HOME")
 val res1: String = C:\opt\dotty-0.10.0-RC1
