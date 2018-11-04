@@ -96,7 +96,7 @@ We distinguish different sets of batch scripts:
    - **`dirsize.bat <path_1> ..`** prints the size in Kb/Mb/Gb of the specified directory paths.
    - **`getnightly.bat`** downloads the JAR libraries of the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
    - **`searchjars.bat <class_name>`** searches for the given class name into all Dotty/Scala JAR files.
-   - **`timeit.bat "<cmd_1> { & <cmd2> }"`** prints the execution time of the specified commands.
+   - **`timeit.bat <cmd_1> { & <cmd2> }`** prints the execution time of the specified commands.
    - **`touch.bat <file_path>`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
 3. Directory [**`bin\0.10\`**](bin/0.10/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.10.0-RC1\bin\`**) in order to use the [**`dot`**](bin/0.10/dot.bat), [**`dotc`**](bin/0.10/dotc.bat), [**`dotd`**](bin/0.10/dotd.bat) and [**`dotr`**](bin/0.10/dotr.bat) commands on **Microsoft Windows**.
@@ -119,7 +119,7 @@ We distinguish different sets of batch scripts:
     > **NB.** Prior to version 0.9-RC1 the [**`dotr`**](bin/0.9/dotr.bat) command did hang on Windows due to implementation issues with the Dotty [REPL](https://en.wikipedia.org/wiki/Read–eval–print_loop). This [issue](https://github.com/lampepfl/dotty/pull/4680) has been fixed by using [JLine 3](https://github.com/jline/jline3) in the REPL.
 -->
 
-4. [**`build.bat`**](examples/dotty-example-project/build.bat) - Finally each example can be built/run using either  the **`build`** command.<br/>
+4. [**`build.bat`**](examples/dotty-example-project/build.bat) - Finally each example can be built/run using the **`build`** command.<br/>
     > **NB.** We prefer the **`build`** command here since our simple examples don't require the [**`sbt`** ](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html)machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
 
     <pre style="font-size:80%;">
@@ -129,8 +129,8 @@ We distinguish different sets of batch scripts:
         -debug           show commands executed by this script
         -deprecation     set compiler option -deprecation
         -explain         set compiler option -explain
-        -compiler:&lt;name&gt;       select compiler (scala|scalac|dotc|dotty), default:dotc
-        -main:&lt;name&gt;           define main class name
+        -compiler:&lt;name&gt; select compiler (scala|scalac|dotc|dotty), default:dotc
+        -main:&lt;name&gt;     define main class name
         -timer           display the compile time
       Subcommands:
         clean            delete generated class files
@@ -263,8 +263,8 @@ The [**`cleanup`**](bin/cleanup.bat) command removes the output directories (ie.
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > cleanup
-Finished to clean up 16 subdirectories in C:\dotty\examples
-Finished to clean up 12 subdirectories in C:\dotty\myexamples
+Finished to clean up 16 subdirectories in W:\dotty\examples
+Finished to clean up 12 subdirectories in W:\dotty\myexamples
 </pre>
 
 #### `dirsize.bat {<dir_name>}`
@@ -405,11 +405,11 @@ Your weight on JUPITER is 2.5305575254957406
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > build -debug clean compile run
 [build] _CLEAN=1 _COMPILE=1 _COMPILE_CMD=dotc _RUN=1
-[build] del /s /q C:\dotty\examples\ENUM-P~1\target\classes\*.class C:\dotty\examples\ENUM-P~1\target\classes\*.hasTasty C:\dotty\examples\ENUM-P~1\target\classes\.latest-build
-[build] 20180322224754 C:\dotty\examples\ENUM-P~1\src\main\scala\Planet.scala
-[build] 00000000000000 C:\dotty\examples\ENUM-P~1\target\classes\.latest-build
-[build] dotc  -classpath C:\dotty\examples\ENUM-P~1\target\classes -d C:\dotty\examples\ENUM-P~1\target\classes  C:\dotty\examples\ENUM-P~1\src\main\scala\Planet.scala
-[build] dot -classpath C:\dotty\examples\ENUM-P~1\target\classes Planet 1
+[build] del /s /q W:\dotty\examples\ENUM-P~1\target\classes\*.class W:\dotty\examples\ENUM-P~1\target\classes\*.hasTasty W:\dotty\examples\ENUM-P~1\target\classes\.latest-build
+[build] 20180322224754 W:\dotty\examples\ENUM-P~1\src\main\scala\Planet.scala
+[build] 00000000000000 W:\dotty\examples\ENUM-P~1\target\classes\.latest-build
+[build] dotc  -classpath W:\dotty\examples\ENUM-P~1\target\classes -d C:\dotty\examples\ENUM-P~1\target\classes  W:\dotty\examples\ENUM-P~1\src\main\scala\Planet.scala
+[build] dot -classpath W:\dotty\examples\ENUM-P~1\target\classes Planet 1
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
