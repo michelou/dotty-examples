@@ -25,7 +25,7 @@ Optionally one may also install the following software:
 - [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.12.7))
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.5.html))
 - [Gradle 4.10](https://gradle.org/install/) (requires Java 7 or newer) ([*release notes*](https://docs.gradle.org/current/release-notes.html))
-- [Apache Maven 3.5](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.5.4/release-notes.html))
+- [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.6.0/release-notes.html))
 - [CFR 0.13](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.0.txt))
 
@@ -40,7 +40,7 @@ C:\opt\scala-2.12.7\
 C:\opt\dotty-0.10.0-RC1\
 C:\opt\apache-ant-1.10.5\
 c:\opt\gradle-4.10.2\
-C:\opt\apache-maven-3.5.4\
+C:\opt\apache-maven-3.6.0\
 C:\opt\sbt-1.2.6\
 C:\opt\cfr-0_133\
 C:\opt\Git-2.19.1\
@@ -93,9 +93,10 @@ We distinguish different sets of batch scripts:
 
 2. Directory [**`bin\`**](bin/) - This directory contains several utility batch scripts:
    - **`cleanup.bat`** removes the generated class files from every example directory (both in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories).
-   - **`dirsize.bat <path_1 ..>`** prints the size in Kb/Mb/Gb of the specified directory paths.
-   - **`getnightly.bat`** downloads the JAR libraries of the latest [Dotty nightly build](https://search.maven.org/#search|ga|1|g%3A%22ch.epfl.lamp%22).
+   - **`dirsize.bat <path_1> ..`** prints the size in Kb/Mb/Gb of the specified directory paths.
+   - **`getnightly.bat`** downloads the JAR libraries of the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
    - **`searchjars.bat <class_name>`** searches for the given class name into all Dotty/Scala JAR files.
+   - **`timeit.bat "<cmd_1> { & <cmd2> }"`** prints the execution time of the specified commands.
    - **`touch.bat <file_path>`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
 3. Directory [**`bin\0.10\`**](bin/0.10/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.10.0-RC1\bin\`**) in order to use the [**`dot`**](bin/0.10/dot.bat), [**`dotc`**](bin/0.10/dotc.bat), [**`dotd`**](bin/0.10/dotd.bat) and [**`dotr`**](bin/0.10/dotr.bat) commands on **Microsoft Windows**.
@@ -118,7 +119,7 @@ We distinguish different sets of batch scripts:
     > **NB.** Prior to version 0.9-RC1 the [**`dotr`**](bin/0.9/dotr.bat) command did hang on Windows due to implementation issues with the Dotty [REPL](https://en.wikipedia.org/wiki/Read–eval–print_loop). This [issue](https://github.com/lampepfl/dotty/pull/4680) has been fixed by using [JLine 3](https://github.com/jline/jline3) in the REPL.
 -->
 
-4. [**`build.bat`**](examples/dotty-example-project/build.bat) - Finally every single example can be built/run using either  the **`build`** command or the **`sbt`** command.<br/>
+4. [**`build.bat`**](examples/dotty-example-project/build.bat) - Finally each example can be built/run using either  the **`build`** command.<br/>
     > **NB.** We prefer the **`build`** command here since our simple examples don't require the [**`sbt`** ](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html)machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
 
     <pre style="font-size:80%;">
@@ -147,9 +148,11 @@ We distinguish different sets of batch scripts:
 
 1. Build tools
 
-    Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built using [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) or [**`mvn`**](http://maven.apache.org/ref/3.5.4/maven-embedder/cli.html) as an alternative to the **`build`**/**`sbt`** tools:
+    Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories can also be built using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to the **`build`** tool:
 
     <pre style="font-size:80%;">
+    > sbt clean compile run
+    ...
     > ant clean compile run
     ...
     > gradle clean compileDotty run
@@ -222,7 +225,7 @@ The [**`setenv`**](setenv.bat) command is executed once to setup your developmen
 > setenv
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.10.0-RC1,
-   ant 1.10.5, gradle 4.10.2, mvn 3.5.4, sbt 1.2.6/2.12.17,
+   ant 1.10.5, gradle 4.10.2, mvn 3.6.0, sbt 1.2.6/2.12.17,
    cfr 0_133, git 2.19.1.windows.1
 > where sbt
 C:\opt\sbt-1.2.6\bin\sbt
@@ -237,7 +240,7 @@ With option **`-verbose`** the **`setenv`** command also displays the path of th
 > setenv -verbose
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.10.0-RC1,
-   ant 1.10.5, gradle 4.10.2, mvn 3.5.4, sbt 1.2.6/2.12.17,
+   ant 1.10.5, gradle 4.10.2, mvn 3.6.0, sbt 1.2.6/2.12.17,
    cfr 0_133, git 2.19.1.windows.1
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
@@ -248,7 +251,7 @@ Tool paths:
    C:\opt\dotty-0.10.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.5\bin\ant.bat
    C:\opt\gradle-4.10.2\bin\gradle.bat
-   C:\opt\apache-maven-3.5.4\bin\mvn.cmd
+   C:\opt\apache-maven-3.6.0\bin\mvn.cmd
    C:\opt\sbt-1.2.6\bin\sbt.bat
    C:\opt\cfr-0_133\bin\cfr.bat
    C:\opt\Git-2.19.1\bin\git.exe
@@ -277,7 +280,7 @@ Size of directory "c:\opt\dotty-0.10.0-RC1" is 22.4 Mb
 
 #### `getnightly.bat`
 
-The [**`getnightly`**](bin/getnightly.bat) command downloads JAR library files from the latest Dotty nightly build on the [Maven Central Repository](https://search.maven.org/) and saves them into directory **`nightly-jars\`**:
+The [**`getnightly`**](bin/getnightly.bat) command downloads JAR library files from the latest Dotty nightly build on the [Maven Central Repository](https://search.maven.org/search?q=g:ch.epfl.lamp) and saves them into directory **`nightly-jars\`**:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > getnightly
@@ -340,6 +343,46 @@ Looking for the unknown class **`BinarySearch`** produces the following output:
 Search for class BinarySearch in library files C:\opt\dotty-0.10.0-RC1\lib\*.jar
 Search for class BinarySearch in library files C:\opt\scala-2.12.7\lib\*.jar
 </pre>
+
+#### `timeit.bat <cmd_1> { & <cmd_i> }`
+
+The [**`timeit`**](bin/timeit.bat) command prints the execution time (`hh:MM:ss`) of the specified command (possibly with options and parameters):
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+> timeit dir /b
+.gitignore
+.gradle
+build.bat
+build.gradle
+build.sbt
+build.xml
+pom.xml
+project
+settings.gradle
+src
+target
+Execution time: 00:00:01
+> timeit build clean compile
+Execution time: 00:00:08
+</pre>
+
+Chaining of commands is also possible. Note that the command separator (either **`&&`** or **`&`**) must be escaped if the command chain is not quoted. For instance:
+
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+> timeit build clean compile ^&^& ant run
+...
+Execution time: 00:00:11
+> timeit "build clean compile && ant run"
+...
+Execution time: 00:00:11
+</pre>
+
+> **NB.** The **`&&`** command separator performs error checking - that is, the commands to the right of the **`&&`** command run ***if and only if*** the command to the left of **`&&`** succeeds. The **`&`** command ***does not*** perform error checking - that is, all commands run.
+
+<!--
+#### `touch.bat`
+
+The [**`touch.bat`**](bin/touch.bat) command
+-->
 
 #### `build.bat`
 

@@ -17,15 +17,15 @@ rem ##########################################################################
 rem ## Main
 
 for %%i in (examples myexamples) do (
-    if %_DEBUG%==1 echo [%_BASENAME%] call :clean-dir "%_ROOT_DIR%\%%i"
-    call :clean-dir "%_ROOT_DIR%\%%i"
+    if %_DEBUG%==1 echo [%_BASENAME%] call :clean_dir "%_ROOT_DIR%\%%i"
+    call :clean_dir "%_ROOT_DIR%\%%i"
 )
 goto end
 
 rem ##########################################################################
 rem ## Subroutines
 
-:clean-dir
+:clean_dir
 set __PARENT_DIR=%~1
 set __N=0
 for /f %%i in ('dir /ad /b "%__PARENT_DIR%" ^| findstr -v bin') do (

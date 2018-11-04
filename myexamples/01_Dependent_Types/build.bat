@@ -188,6 +188,10 @@ for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__STA
 goto :eof
 
 :compile
+rem for /f "tokens=1,2,3,4,*" %%i in ('dotc.bat -version 2^>^&1') do (
+rem     for /f "delims=. tokens=1,2,*" %%x in ("%%l") do set _SCALA_VERSION=%%x.%%y
+rem )
+rem set _CLASSES_DIR=%_ROOT_DIR%target\scala-%_SCALA_VERSION%\classes
 set _CLASSES_DIR=%_ROOT_DIR%target\classes
 if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 
