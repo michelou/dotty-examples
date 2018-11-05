@@ -54,7 +54,7 @@ set __TIME_START=%~1
 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIME_END=%%i
 
 call :duration "%__TIME_START%" "%__TIME_END%"
-echo Execution time: %_DURATION% 1>&2
+echo Execution time: %_DURATION%
 goto :eof
 
 rem output parameter: _DURATION
