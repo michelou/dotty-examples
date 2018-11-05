@@ -17,7 +17,7 @@ rem ## Main
 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIME_START=%%i
 
 if "%1"=="" (
-    echo error: timeit expects a single command or several chained commands
+    echo Error: timeit expects a single command or several chained commands 1>&2
     set _EXITCODE=1
     goto end
 )
@@ -37,8 +37,9 @@ if not [%_CH1:"=@%]==[@] set _CMDS="%_CMDS:^^=%"
 if %_DEBUG%==1 echo [%_BASENAME%] cmd /c %_CMDS%
 cmd /c %_CMDS%
 if not %ERRORLEVEL%==0 (
-    call :execution_time "%_TIME_START%"
+    echo Error: Failed to execute commands 1>&2
     set _EXITCODE=1
+    call :execution_time "%_TIME_START%"
     goto end
 )
 call :execution_time "%_TIME_START%"

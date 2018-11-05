@@ -87,7 +87,7 @@ if not defined __ARG (
 if /i "%__ARG%"=="help" ( call :help & goto :eof
 ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
 ) else (
-    echo %_BASENAME%: Unknown subcommand %__ARG%
+    echo Error: unknown subcommand %__ARG% 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -123,7 +123,7 @@ if defined JDK_HOME (
     )
 )
 if not exist "%_JDK_HOME%\bin\javac.exe" (
-    if %_DEBUG%==1 echo [%_BASENAME%] javac executable not found ^(%_JDK_HOME%^)
+    echo Error: javac executable not found ^(%_JDK_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -146,7 +146,7 @@ if defined SCALA_HOME (
     )
 )
 if not exist "%_SCALA_HOME%\bin\scalac.bat" (
-    if %_DEBUG%==1 echo [%_BASENAME%] Scala executable not found ^(%_SCALA_HOME%^)
+    echo Error: Scala executable not found ^(%_SCALA_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -168,7 +168,7 @@ if defined DOTTY_HOME (
     )
 )
 if not exist "%_DOTTY_HOME%\bin\dotc.bat" (
-    if %_DEBUG%==1 echo [%_BASENAME%] Dotty executable not found ^(%_DOTTY_HOME%^)
+    echo Error: Dotty executable not found ^(%_DOTTY_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -197,7 +197,7 @@ if defined ANT_HOME (
     )
 )
 if not exist "%_ANT_HOME%\bin\ant.cmd" (
-    echo Ant executable not found ^(%_ANT_HOME%^)
+    echo Error: Ant executable not found ^(%_ANT_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -226,7 +226,7 @@ if defined GRADLE_HOME (
     )
 )
 if not exist "%_GRADLE_HOME%\bin\gradle.bat" (
-    echo Gradle executable not found ^(%_GRADLE_HOME%^)
+    echo Error: Gradle executable not found ^(%_GRADLE_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -248,7 +248,7 @@ if defined MAVEN_HOME (
     )
 )
 if not exist "%_MVN_HOME%\bin\mvn.cmd" (
-    if %_DEBUG%==1 echo [%_BASENAME%] Maven executable not found ^(%_MVN_HOME%^)
+    echo Error: Maven executable not found ^(%_MVN_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -270,7 +270,7 @@ if defined SBT_HOME (
     )
 )
 if not exist "%_SBT_HOME%\bin\sbt.bat" (
-    if %_DEBUG%==1 echo [%_BASENAME%] sbt executable not found ^(%_SBT_HOME%^)
+    echo Error: sbt executable not found ^(%_SBT_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -293,7 +293,7 @@ if defined CFR_HOME (
     )
 )
 if not exist "%_CFR_HOME%\bin\cfr.bat" (
-    if %_DEBUG%==1 echo [%_BASENAME%] cfr executable not found ^(%_CFR_HOME%^)
+    echo Error: cfr executable not found ^(%_CFR_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -322,11 +322,11 @@ if defined GIT_HOME (
     )
 )
 if not exist "%_GIT_HOME%\bin\git.exe" (
-    echo Git executable not found ^(%_GIT_HOME%^)
+    echo Error: Git executable not found ^(%_GIT_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_GIT_PATH=;%_GIT_HOME%\bin"
+set "_GIT_PATH=;%_GIT_HOME%\bin;%_GIT_HOME%\usr\bin"
 goto :eof
 
 :clean

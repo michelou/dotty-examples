@@ -23,7 +23,7 @@ for %%i in (%*) do (
         call :dir_size "!__DIR!"
         if not !_EXITCODE!==0 goto end
     ) else (
-        echo !__DIR! is not a directory
+        echo Error: !__DIR! is not a directory 1>&2
         set _EXITCODE=1
     )
 )
@@ -48,7 +48,7 @@ Write-Host ([math]::Round($n,1))" "$unit
 if %_DEBUG%==1 echo [%_BASENAME%] powershell -C "..."
 for /f "delims=" %%i in ('powershell -C "%__PS1_SCRIPT%"') do set __DIR_SIZE=%%i
 if not %ERRORLEVEL%==0 (
-    if %_DEBUG%==1 echo [%_BASENAME%] Execution of ps1 cmdlet failed
+    echo Error: Execution of ps1 cmdlet failed 1>&2
     set _EXITCODE=1
     goto :eof
 )

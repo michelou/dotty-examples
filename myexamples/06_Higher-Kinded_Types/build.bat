@@ -94,6 +94,7 @@ if /i "%__ARG%"=="clean" ( set _CLEAN=1
   if "%_COMPILE_CMD:~0,3%"=="dot" ( set _COMPILE_OPTS=!_COMPILE_OPTS! -explain-types
   ) else ( set _COMPILE_OPTS=!_COMPILE_OPTS! -explaintypes
   )
+) else if /i "%__ARG%"=="-feature" ( set _COMPILE_OPTS=!_COMPILE_OPTS! -feature
 ) else if /i "%__ARG%"=="-timer" ( set _COMPILE_TIME=1
 ) else if /i "%__ARG:~0,10%"=="-compiler:" (
     call :set_compiler "!__ARG:~10!"
@@ -102,7 +103,7 @@ if /i "%__ARG%"=="clean" ( set _CLEAN=1
     call :set_main "!__ARG:~6!"
     if not !_EXITCODE!== 0 goto :eof
 ) else (
-    echo %_BASENAME%: Unknown subcommand %__ARG%
+    echo Error: Unknown subcommand %__ARG% 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -153,7 +154,7 @@ if /i "%__VALUE%"=="scala" (
     set _COMPILE_CMD=dotc.bat
     set _RUN_CMD=dot.bat
 ) else (
-    echo Unknown target %__VALUE% ^(scala^|scalac^|dotc^|dotty^)
+    echo Error: Unknown target %__VALUE% ^(scala^|scalac^|dotc^|dotty^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -166,7 +167,7 @@ set __VALID=0
 for /f %%i in ('powershell -C "$s='%__ARG%'; if($s -match '^[\w$]+(\.[\w$]+)*$'){1}else{0}"') do set __VALID=%%i
 rem if %_DEBUG%==1 echo [%_BASENAME%] __ARG=%__ARG% __VALID=%__VALID%
 if %__VALID%==0 (
-    echo Invalid class name passed to option "-main" ^(%__ARG%^)
+    echo Error: Invalid class name passed to option "-main" ^(%__ARG%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -178,7 +179,7 @@ if %_DEBUG%==1 echo [%_BASENAME%] forfiles /s /p %_ROOT_DIR% /m target /c "cmd /
 for /f %%i in ('forfiles /s /p %_ROOT_DIR% /m target /c "cmd /c if @isdir==TRUE echo @path" 2^>NUL') do (
     rmdir /s /q %%i
     if not !ERRORLEVEL!==0 (
-        if %_DEBUG%==1 echo [%_BASENAME%] Failed to clean directory %%i
+        echo Error: Failed to clean directory %%i 1>&2
         set _EXITCODE=1
     )
 )
@@ -193,6 +194,10 @@ for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__STA
 goto :eof
 
 :compile
+rem for /f "tokens=1,2,3,4,*" %%i in ('dotc.bat -version 2^>^&1') do (
+rem     for /f "delims=. tokens=1,2,*" %%x in ("%%l") do set _SCALA_VERSION=%%x.%%y
+rem )
+rem set _CLASSES_DIR=%_ROOT_DIR%target\scala-%_SCALA_VERSION%\classes
 set _CLASSES_DIR=%_ROOT_DIR%target\classes
 if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 
@@ -234,14 +239,14 @@ set _JAVAC_OPTS=-classpath "%_DOTTY_JARS%%__PROJECT_JARS%%_CLASSES_DIR%" -d %_CL
 if %_DEBUG%==1 echo [%_BASENAME%] %_JAVAC_CMD% %_JAVAC_OPTS% %__JAVA_SOURCE_FILES%
 %_JAVAC_CMD% %_JAVAC_OPTS% %__JAVA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-    if %_DEBUG%==1 echo [%_BASENAME%] Java compilation failed
+    echo Error: Java compilation failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
 :compile_scala
 where /q %_COMPILE_CMD%
 if not %ERRORLEVEL%==0 (
-    if %_DEBUG%==1 echo [%_BASENAME%] %_COMPILE_CMD% compiler not found
+    echo Error: %_COMPILE_CMD% compiler not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -250,7 +255,7 @@ set __COMPILE_OPTS=%_COMPILE_OPTS% -classpath "%__PROJECT_JARS%%_CLASSES_DIR%" -
 if %_DEBUG%==1 echo [%_BASENAME%] %_COMPILE_CMD% %__COMPILE_OPTS% %__SCALA_SOURCE_FILES%
 call %_COMPILE_CMD% %__COMPILE_OPTS% %__SCALA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-    if %_DEBUG%==1 echo [%_BASENAME%] Scala compilation failed
+    echo Error: Scala compilation failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -323,7 +328,7 @@ goto :eof
 :run
 set __MAIN_CLASS_FILE=%_CLASSES_DIR%\%_MAIN_CLASS:.=\%.class
 if not exist "%__MAIN_CLASS_FILE%" (
-    echo Main class '%_MAIN_CLASS%' not found ^(%__MAIN_CLASS_FILE%^)
+    echo Error: Main class '%_MAIN_CLASS%' not found ^(%__MAIN_CLASS_FILE%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -338,7 +343,7 @@ set __RUN_OPTS=-classpath "%__PROJECT_JARS%%_CLASSES_DIR%"
 if %_DEBUG%==1 echo [%_BASENAME%] %_RUN_CMD% %__RUN_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 call %_RUN_CMD% %__RUN_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    if %_DEBUG%==1 echo [%_BASENAME%] Execution failed
+    echo Error: Execution failed ^(%_MAIN_CLASS%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )

@@ -36,7 +36,7 @@ if defined DOTTY_HOME (
     )
 )
 if not exist "%_DOTTY_HOME%\bin\dotc.bat" (
-    if %_DEBUG%==1 echo [%_BASENAME%] Dotty installation directory %_DOTTY_HOME% not found
+    echo Error: Dotty installation directory %_DOTTY_HOME% not found 1>&2
     set _EXITCODE=1
     goto end
 )
@@ -62,7 +62,7 @@ if defined SCALA_HOME (
     )
 )
 if not exist "%_SCALA_HOME%\bin\scalac.bat" (
-    if %_DEBUG%==1 echo [%_BASENAME%] Scala installation directory %_SCALA_HOME% not found
+    echo Error: Scala installation directory %_SCALA_HOME% not found 1>&2
     set _EXITCODE=1
     goto end
 )

@@ -15,7 +15,7 @@ for %%f in ("%~dp0..") do set _ROOT_DIR=%%~sf
 
 set _PS1_FILE=%_ROOT_DIR%\bin\%_BASENAME%.ps1
 if not exist "%_PS1_FILE%" (
-    if %_DEBUG%==1 echo [%_BASENAME%] PS1 file not found
+    echo Error: PS1 file %_PS1_FILE% not found 1>&2
     set _EXITCODE=1
     goto end
 )
@@ -34,7 +34,7 @@ for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%"
    if %_DEBUG%==1 echo [%_BASENAME%] powershell -c "Invoke-WebRequest -Uri !__URL! -Outfile !__JAR_FILE!"
    powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri !__URL! -Outfile !__JAR_FILE!"
    if not !ERRORLEVEL!==0 (
-       if %_DEBUG%==1 echo [%_BASENAME%] Failed to download file !__JAR_FILE!
+       echo Error: Failed to download file !__JAR_FILE! 1>&2
        set _EXITCODE=1
        goto end
    )

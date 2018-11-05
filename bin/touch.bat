@@ -42,7 +42,7 @@ if (%_DEBUG% -eq 1) { Get-ItemProperty %__FILE% ^| Select LastWriteTime }
 if %_DEBUG%==1 echo [%_BASENAME%] powershell -c "..."
 powershell -c "%__PS1_SCRIPT%"
 if not %ERRORLEVEL%==0 (
-    if %_DEBUG%==1 echo [%_BASENAME%] Execution of ps1 cmdlet failed
+    echo Error: Execution of ps1 cmdlet failed 1>&2
     set _EXITCODE=1
     goto :eof
 )

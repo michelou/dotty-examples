@@ -34,7 +34,7 @@ for /f %%i in ('dir /ad /b "%__PARENT_DIR%" ^| findstr -v bin') do (
         if %_DEBUG%==1 echo [%_BASENAME%] _BUILD_FILE=!_BUILD_FILE!
         call "!_BUILD_FILE!" clean
         if not !ERRORLEVEL!==0 (
-            if %_DEBUG%==1 echo [%_BASENAME%] Failed to clean up directory %__PARENT_DIR%\%%i
+            echo Error: Failed to clean up directory %__PARENT_DIR%\%%i 1>&2
             set _EXITCODE=1
         )
         set /a __N+=1
