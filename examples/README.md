@@ -66,7 +66,7 @@ Your weight on EARTH is 0.9999999999999999
 Your weight on NEPTUNE is 1.1383280724696578
 Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406
-C:\dotty\examples\enum-Planet>
+W:\dotty\examples\enum-Planet>
 </pre>
 
 **NB.** The `build` command takes the main class name and its arguments from the [**`project\build.properties`**](enum-Planet/project/build.properties) configuration file.
@@ -85,7 +85,7 @@ Executing the `sbt` command in directory [**`examples\enum-Planet\`**](enum-Plan
 [warn] Executing in batch mode.
 ...
 [info] Done updating.
-[info] Compiling 1 Scala source to C:\dotty\examples\enum-Planet\target\scala-0.9\classes...
+[info] Compiling 1 Scala source to W:\dotty\examples\enum-Planet\target\scala-0.9\classes...
 [success] Total time: 4 s, completed 14 avr. 2018 21:36:42
 [info] Running Planet 1
 Your weight on MERCURY is 0.37775761520093526

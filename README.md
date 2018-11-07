@@ -18,11 +18,11 @@ This project repository relies on a few external software for the **Microsoft Wi
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
 - [Dotty 0.10](https://github.com/lampepfl/dotty/releases) (*reminder*: Dotty 0.9 requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
-- [SBT 1.2.6](https://www.scala-sbt.org/download.html) (with Scala 2.12.17 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.6))
 
 Optionally one may also install the following software:
 
 - [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.12.7))
+- [SBT 1.2.6](https://www.scala-sbt.org/download.html) (with Scala 2.12.17 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.6))
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.5.html))
 - [Gradle 4.10](https://gradle.org/install/) (requires Java 7 or newer) ([*release notes*](https://docs.gradle.org/current/release-notes.html))
 - [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.6.0/release-notes.html))
@@ -66,13 +66,15 @@ setenv.bat
 where
 
 - directory [**`bin\`**](bin/) provides several utility batch scripts.
-- directory [**`bin\0.10\`**](bin/0.10/) contains the batch commands for Dotty 0.10 (*see below*).
+- directory [**`bin\0.10\`**](bin/0.10/) contains the batch commands for Dotty 0.10.
 - file [**`bin\cfr-0_134.zip`**](bin/cfr-0_134.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
 - directory [**`examples\`**](examples/) contains Dotty examples grabbed from various websites.
 - directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
 - file [**`README.md`**](README.md) is the Markdown document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
+
+In the next section we give a brief description of the batch scripts present in this repository.
 
 ## Batch scripts
 
@@ -121,7 +123,7 @@ We distinguish different sets of batch scripts:
 -->
 
 4. [**`build.bat`**](examples/dotty-example-project/build.bat) - Finally each example can be built/run using the **`build`** command.<br/>
-    > **NB.** We prefer the **`build`** command here since our simple examples don't require the [**`sbt`** ](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html)machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
+    > **NB.** We prefer the **`build`** command here since our code examples are simple and don't require the [**`sbt`** ](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html)machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
 
     <pre style="font-size:80%;">
     &gt; build
@@ -228,7 +230,7 @@ The [**`setenv`**](setenv.bat) command is executed once to setup our development
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.10.0-RC1,
    ant 1.10.5, gradle 4.10.2, mvn 3.6.0, sbt 1.2.6/2.12.17,
-   cfr 0_134, git 2.19.1.windows.1
+   cfr 0_134, git 2.19.1.windows.1, diff 3.6
 > where sbt
 C:\opt\sbt-1.2.6\bin\sbt
 C:\opt\sbt-1.2.6\bin\sbt.bat
@@ -269,6 +271,8 @@ The [**`cleanup`**](bin/cleanup.bat) command removes the output directories (ie.
 Finished to clean up 16 subdirectories in W:\dotty\examples
 Finished to clean up 12 subdirectories in W:\dotty\myexamples
 </pre>
+
+> **NB.** In the above console output **`W:`** is a virtual drive we created using the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) in order to hide/reduce the real path of our project directory; for instance:<br/>**`> subst W: %USERPROFILE%\workspace`**.
 
 #### `dirsize.bat {<dir_name>}`
 
@@ -340,7 +344,7 @@ Search for class System in library files C:\opt\scala-2.12.7\lib\*.jar
   scala-xml_2.12-1.0.6.jar:scala/xml/dtd/SystemID.class
 </pre>
 
-Looking for the unknown class **`BinarySearch`** produces the following output:
+Searching for an unknown class - e.g. **`BinarySearch`** - produces the following output:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > searchjars BinarySearch
 Search for class BinarySearch in library files C:\opt\dotty-0.10.0-RC1\lib\*.jar
@@ -349,7 +353,7 @@ Search for class BinarySearch in library files C:\opt\scala-2.12.7\lib\*.jar
 
 #### `timeit.bat <cmd_1> { & <cmd_i> }`
 
-The [**`timeit`**](bin/timeit.bat) command prints the execution time (`hh:MM:ss`) of the specified command (possibly with options and parameters):
+The [**`timeit`**](bin/timeit.bat) command prints the execution time (`hh:MM:ss`) of the specified command (possibly given with options and parameters):
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > timeit dir /b
 .gitignore
@@ -439,7 +443,7 @@ No compilation needed (1 source files)
 > For simplicity the [**`build`**](examples/enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](examples/enum-Planet/project/build.properties) (part of the SBT configuration).<br/>
 > <pre style="margin:10px 0 0 30px;font-size:80%;">
 > > type project\build.properties
-> sbt.version=1.2.1
+> sbt.version=1.2.6
 > main.class=Planet
 > main.args=1
 > </pre>
