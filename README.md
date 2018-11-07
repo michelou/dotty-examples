@@ -29,10 +29,10 @@ Optionally one may also install the following software:
 - [CFR 0.13](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.0.txt))
 
-> ***Software installation policy***<br/>
-> Whenever possible software is installed via a Zip archive rather than via a Windows installer.
+> ***Installation policy***<br/>
+> Whenever possible software is installed via a Zip archive rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in memory of* the [`\opt\`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*October 2018*):
+For instance our development environment looks as follows (*November 2018*):
 
 <pre style="font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_191\
@@ -42,7 +42,7 @@ C:\opt\apache-ant-1.10.5\
 c:\opt\gradle-4.10.2\
 C:\opt\apache-maven-3.6.0\
 C:\opt\sbt-1.2.6\
-C:\opt\cfr-0_133\
+C:\opt\cfr-0_134\
 C:\opt\Git-2.19.1\
 </pre>
 
@@ -55,7 +55,7 @@ This repository is organized as follows:
 bin\*.bat
 bin\0.9\*.bat
 bin\0.10\*.bat
-bin\cfr-0_133.zip
+bin\cfr-0_134.zip
 docs\
 examples\{dotty-example-project, ..}
 myexamples\{00_AutoParamTupling, ..}
@@ -67,7 +67,7 @@ where
 
 - directory [**`bin\`**](bin/) provides several utility batch scripts.
 - directory [**`bin\0.10\`**](bin/0.10/) contains the batch commands for Dotty 0.10 (*see below*).
-- file [**`bin\cfr-0_133.zip`**](bin/cfr-0_133.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
+- file [**`bin\cfr-0_134.zip`**](bin/cfr-0_134.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
 - directory [**`examples\`**](examples/) contains Dotty examples grabbed from various websites.
 - directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
@@ -93,10 +93,11 @@ We distinguish different sets of batch scripts:
 
 2. Directory [**`bin\`**](bin/) - This directory contains several utility batch scripts:
    - **`cleanup.bat`** removes the generated class files from every example directory (both in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories).
-   - **`dirsize.bat <path_1> ..`** prints the size in Kb/Mb/Gb of the specified directory paths.
-   - **`getnightly.bat`** downloads the JAR libraries of the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
+   - **`dirsize.bat <dir_path_1> ..`** prints the size in Kb/Mb/Gb of the specified directory paths.
+   - **`getnightly.bat`** downloads the JAR libraries of the latest [Dotty nightly build](https://
+   - .maven.org/search?q=g:ch.epfl.lamp).
    - **`searchjars.bat <class_name>`** searches for the given class name into all Dotty/Scala JAR files.
-   - **`timeit.bat <cmd_1> { & <cmd2> }`** prints the execution time of the specified commands.
+   - **`timeit.bat <cmd_1> { & <cmd_2> }`** prints the execution time of the specified commands.
    - **`touch.bat <file_path>`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
 3. Directory [**`bin\0.10\`**](bin/0.10/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.10.0-RC1\bin\`**) in order to use the [**`dot`**](bin/0.10/dot.bat), [**`dotc`**](bin/0.10/dotc.bat), [**`dotd`**](bin/0.10/dotd.bat) and [**`dotr`**](bin/0.10/dotr.bat) commands on **Microsoft Windows**.
@@ -129,6 +130,7 @@ We distinguish different sets of batch scripts:
         -debug           show commands executed by this script
         -deprecation     set compiler option -deprecation
         -explain         set compiler option -explain
+        -explain-types   set compiler option -explain-types
         -compiler:&lt;name&gt; select compiler (scala|scalac|dotc|dotty), default:dotc
         -main:&lt;name&gt;     define main class name
         -timer           display the compile time
@@ -166,12 +168,12 @@ We distinguish different sets of batch scripts:
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0_133.zip`**](bin/cfr-0_133.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
+    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0_134.zip`**](bin/cfr-0_134.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
 
     <pre style="font-size:80%;">
     &gt; cfr myexamples\00_AutoParamTupling\target\classes\Main.class
     /*
-     * Decompiled with CFR 0_133.
+     * Decompiled with CFR 0_134.
      */
     public final class Main {
         public static void test01() {
@@ -219,14 +221,14 @@ We distinguish different sets of batch scripts:
 
 #### `setenv.bat`
 
-The [**`setenv`**](setenv.bat) command is executed once to setup your development environment:
+The [**`setenv`**](setenv.bat) command is executed once to setup our development environment:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.10.0-RC1,
    ant 1.10.5, gradle 4.10.2, mvn 3.6.0, sbt 1.2.6/2.12.17,
-   cfr 0_133, git 2.19.1.windows.1
+   cfr 0_134, git 2.19.1.windows.1
 > where sbt
 C:\opt\sbt-1.2.6\bin\sbt
 C:\opt\sbt-1.2.6\bin\sbt.bat
@@ -241,7 +243,7 @@ With option **`-verbose`** the **`setenv`** command also displays the path of th
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.10.0-RC1,
    ant 1.10.5, gradle 4.10.2, mvn 3.6.0, sbt 1.2.6/2.12.17,
-   cfr 0_133, git 2.19.1.windows.1
+   cfr 0_134, git 2.19.1.windows.1
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
    C:\Program Files\Java\jdk1.8.0_191\bin\java.exe
@@ -253,7 +255,7 @@ Tool paths:
    C:\opt\gradle-4.10.2\bin\gradle.bat
    C:\opt\apache-maven-3.6.0\bin\mvn.cmd
    C:\opt\sbt-1.2.6\bin\sbt.bat
-   C:\opt\cfr-0_133\bin\cfr.bat
+   C:\opt\cfr-0_134\bin\cfr.bat
    C:\opt\Git-2.19.1\bin\git.exe
 </pre>
 
@@ -531,5 +533,5 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 <hr style="margin:2em 0 0 0;" />
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/October 2018*
+*[mics](http://lampwww.epfl.ch/~michelou/)/November 2018*
 
