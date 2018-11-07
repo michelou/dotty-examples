@@ -243,7 +243,7 @@ With option **`-verbose`** the **`setenv`** command also displays the path of th
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.10.0-RC1,
    ant 1.10.5, gradle 4.10.2, mvn 3.6.0, sbt 1.2.6/2.12.17,
-   cfr 0_134, git 2.19.1.windows.1
+   cfr 0_134, git 2.19.1.windows.1, diff 3.6
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
    C:\Program Files\Java\jdk1.8.0_191\bin\java.exe
@@ -257,6 +257,7 @@ Tool paths:
    C:\opt\sbt-1.2.6\bin\sbt.bat
    C:\opt\cfr-0_134\bin\cfr.bat
    C:\opt\Git-2.19.1\bin\git.exe
+   C:\opt\Git-2.19.1\usr\bin\diff.exe
 </pre>
 
 #### `cleanup.bat`

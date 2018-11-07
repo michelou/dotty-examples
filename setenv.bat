@@ -401,8 +401,13 @@ if %ERRORLEVEL%==0 (
 )
 where /q git.exe
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1,2,*" %%i in ('git.exe --version') do set __VERSIONS_LINE3=%__VERSIONS_LINE3% git %%k
+   for /f "tokens=1,2,*" %%i in ('git.exe --version') do set __VERSIONS_LINE3=%__VERSIONS_LINE3% git %%k,
     set __WHERE_ARGS=%__WHERE_ARGS% git.exe
+)
+where /q diff.exe
+if %ERRORLEVEL%==0 (
+   for /f "tokens=1-3,*" %%i in ('diff.exe --version ^| findstr diff') do set __VERSIONS_LINE3=%__VERSIONS_LINE3% diff %%l
+    set __WHERE_ARGS=%__WHERE_ARGS% diff.exe
 )
 echo Tool versions:
 echo   %__VERSIONS_LINE1%
