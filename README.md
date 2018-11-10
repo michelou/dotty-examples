@@ -339,23 +339,23 @@ Dotty compiler version 0.10.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 > **NB.** You need to have *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.10.0-RC1\`** in our case) in order to run the **`activate/reset`** subcommands.<br/> Concretely the **`getnightly`** command manages the two sets of libraries files; they are organized as follows:
 > <pre style="margin:10px 0 0 30px;font-size:80%;">
 > > pushd c:\opt\dotty-0.10.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd
-VERSION
-VERSION-NIGHTLY
-lib\0.10.0-RC1\
-&nbsp;&nbsp;dist_0.10-0.10.0-RC1.jar
-&nbsp;&nbsp;dotty-compiler_0.10-0.10.0-RC1.jar
-&nbsp;&nbsp;dotty-doc_0.10-0.10.0-RC1.jar
-&nbsp;&nbsp;dotty-interfaces-0.10.0-RC1.jar
-&nbsp;&nbsp;dotty-library_0.10-0.10.0-RC1.jar
-lib\0.11.0-bin-20181109-a9029dc-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
-</pre>
-In the above output the file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the default Dotty installation respectively from the nightly build.
+> VERSION
+> VERSION-NIGHTLY
+> lib\0.10.0-RC1\
+> &nbsp;&nbsp;dist_0.10-0.10.0-RC1.jar
+> &nbsp;&nbsp;dotty-compiler_0.10-0.10.0-RC1.jar
+> &nbsp;&nbsp;dotty-doc_0.10-0.10.0-RC1.jar
+> &nbsp;&nbsp;dotty-interfaces-0.10.0-RC1.jar
+> &nbsp;&nbsp;dotty-library_0.10-0.10.0-RC1.jar
+> lib\0.11.0-bin-20181109-a9029dc-NIGHTLY\
+> &nbsp;&nbsp;dotty-compiler_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
+> &nbsp;&nbsp;dotty-doc_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
+> &nbsp;&nbsp;dotty-interfaces-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
+> &nbsp;&nbsp;dotty-language-server_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
+> &nbsp;&nbsp;dotty-library_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
+> &nbsp;&nbsp;dotty_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
+> </pre>
+> In the above output the file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the default Dotty installation respectively from the nightly build.
 
 #### `searchjars.bat <class_name>`
 
