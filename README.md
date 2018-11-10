@@ -17,7 +17,7 @@
 This project repository relies on a few external software for the **Microsoft Windows** platform:
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
-- [Dotty 0.10](https://github.com/lampepfl/dotty/releases) (Java 9+ is supported *Reminder*: Dotty 0.9 requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
+- [Dotty 0.10](https://github.com/lampepfl/dotty/releases) (Java 9+ is supported. *Reminder*: Dotty 0.9 requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
 
 Optionally one may also install the following software:
 
@@ -287,7 +287,7 @@ Size of directory "c:\opt\dotty-0.10.0-RC1" is 22.4 Mb
 
 #### `getnightly.bat`
 
-By default the [**`getnightly`**](bin/getnightly.bat) command downloads the library files from the latest Dotty nightly build available in the [Maven Central Repository](https://search.maven.org/search?q=g:ch.epfl.lamp) and saves them into directory **`nightly-jars\`**:
+By default the [**`getnightly`**](bin/getnightly.bat) command downloads the library files of the latest Dotty nightly build available from the [Maven Central Repository](https://search.maven.org/search?q=g:ch.epfl.lamp) and saves them into directory **`nightly-jars\`**:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > getnightly
@@ -314,9 +314,9 @@ Downloading file dotty-interfaces-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar ... 3.
 Finished to download 6 files to directory W:\dotty\nightly-jars
 </pre>
 
-One can now replace the library files from the original [Dotty](https://github.com/lampepfl/dotty/releases) distribution (installed in directory **`C:\opt\dotty-0.10.0-RC1\`** in our case) with library files from the nightly build:
+One can now replace the library files from the original [Dotty](https://github.com/lampepfl/dotty/releases) distribution (installed in directory **`C:\opt\dotty-0.10.0-RC1\`** in our case) with library files from the latest nightly build.
 
-- We specify the **`activate`** subcommand to switch to the nightly build version:
+Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in Dotty installation directory.
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > getnightly activate
 Finished to download 6 files to directory W:\dotty\nightly-jars
@@ -325,10 +325,7 @@ Activate nightly build libraries: 0.11.0-bin-20181109-a9029dc-NIGHTLY
 
 > dotc -version
 Dotty compiler version 0.11.0-bin-20181109-a9029dc-NIGHTLY-git-a9029dc -- Copyright 2002-2018, LAMP/EPFL
-</pre>
 
-- We specify the **`reset`** subcommand to restore the original library files in Dotty installation directory:
-<pre style="margin:10px 0 0 30px;font-size:80%;">
 > getnightly reset
 Activate default Dotty libraries: 0.10.0-RC1
 
@@ -336,7 +333,7 @@ Activate default Dotty libraries: 0.10.0-RC1
 Dotty compiler version 0.10.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 </pre>
 
-> **NB.** You need to have *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.10.0-RC1\`** in our case) in order to run the **`activate/reset`** subcommands.<br/> Concretely the **`getnightly`** command manages the two sets of libraries files; they are organized as follows:
+> **NB.** You need to have *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.10.0-RC1\`** in our case) in order to run the **`activate/reset`** subcommands.<br/> Concretely the [**`getnightly`**](bin/getnightly.bat) command manages two sets of libraries files which are organized as follows:
 > <pre style="margin:10px 0 0 30px;font-size:80%;">
 > > pushd c:\opt\dotty-0.10.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd
 > VERSION
@@ -355,7 +352,7 @@ Dotty compiler version 0.10.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 > &nbsp;&nbsp;dotty-library_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
 > &nbsp;&nbsp;dotty_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
 > </pre>
-> In the above output the file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the default Dotty installation respectively from the nightly build.
+> In the above output the file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the default Dotty installation respectively from the latest nightly build.
 
 #### `searchjars.bat <class_name>`
 
