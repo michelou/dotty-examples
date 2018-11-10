@@ -6,7 +6,7 @@
     <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    This repository gathers code examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a> - or written by myself.<br/>
+    This repository gathers code examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a> - or written by myself.<br/>\opt
     It also includes several <a href="https://en.wikipedia.org/wiki/Batch_file">batch scripts</a> for experimenting with Dotty (aka <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html">Scala 3.0</a>) on the <b>Microsoft Windows</b> platform.
   </td>
   </tr>
@@ -17,7 +17,7 @@
 This project repository relies on a few external software for the **Microsoft Windows** platform:
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
-- [Dotty 0.10](https://github.com/lampepfl/dotty/releases) (*reminder*: Dotty 0.9 requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
+- [Dotty 0.10](https://github.com/lampepfl/dotty/releases) (Java 9+ is supported *Reminder*: Dotty 0.9 requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
 
 Optionally one may also install the following software:
 
@@ -30,7 +30,7 @@ Optionally one may also install the following software:
 - [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.0.txt))
 
 > ***Installation policy***<br/>
-> Whenever possible software is installed via a Zip archive rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in memory of* the [`\opt\`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
+> Whenever possible software is installed via a Zip archive rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in memory of* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
 For instance our development environment looks as follows (*November 2018*):
 
@@ -96,7 +96,7 @@ We distinguish different sets of batch scripts:
 2. Directory [**`bin\`**](bin/) - This directory contains several utility batch scripts:
    - **`cleanup.bat`** removes the generated class files from every example directory (both in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories).
    - **`dirsize.bat <dir_path_1> ..`** prints the size in Kb/Mb/Gb of the specified directory paths.
-   - **`getnightly.bat`** downloads the JAR libraries of the latest [Dotty nightly build](https://
+   - **`getnightly.bat`** downloads/installs the library files from the latest [Dotty nightly build](https://
    - .maven.org/search?q=g:ch.epfl.lamp).
    - **`searchjars.bat <class_name>`** searches for the given class name into all Dotty/Scala JAR files.
    - **`timeit.bat <cmd_1> { & <cmd_2> }`** prints the execution time of the specified commands.
@@ -287,45 +287,75 @@ Size of directory "c:\opt\dotty-0.10.0-RC1" is 22.4 Mb
 
 #### `getnightly.bat`
 
-The [**`getnightly`**](bin/getnightly.bat) command downloads JAR library files from the latest Dotty nightly build on the [Maven Central Repository](https://search.maven.org/search?q=g:ch.epfl.lamp) and saves them into directory **`nightly-jars\`**:
+By default the [**`getnightly`**](bin/getnightly.bat) command downloads the library files from the latest Dotty nightly build available in the [Maven Central Repository](https://search.maven.org/search?q=g:ch.epfl.lamp) and saves them into directory **`nightly-jars\`**:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > getnightly
 
 > dir /b nightly-jars
-dotty-compiler_0.11-0.11.0-bin-20181015-d3a0ac8-NIGHTLY.jar
-dotty-doc_0.11-0.11.0-bin-20181015-d3a0ac8-NIGHTLY.jar
-dotty-interfaces-0.11.0-bin-20181015-d3a0ac8-NIGHTLY.jar
-dotty-language-server_0.11-0.11.0-bin-20181015-d3a0ac8-NIGHTLY.jar
-dotty-library_0.11-0.11.0-bin-20181015-d3a0ac8-NIGHTLY.jar
-dotty_0.11-0.11.0-bin-20181015-d3a0ac8-NIGHTLY.jar
+dotty-compiler_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
+dotty-doc_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
+dotty-interfaces-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
+dotty-language-server_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
+dotty-library_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
+dotty_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
 </pre>
 
-One can now replace the library files from the original [Dotty](https://github.com/lampepfl/dotty/releases) distribution (installed in `C:\opt\dotty-0.10.0-RC1\` in our case) with the nightly binaries downloaded to the directory **`nightly-jars\`**:
+With option **`-verbose`** the **`getnightly`** command also displays the download progress:
 
-- We first create a backup of both versions:
-<pre style="margin:10px 0 0 30px;font-size:80%;">
-> mkdir %DOTTY_HOME%\lib\0.11.0-bin-20181015-d3a0ac8-NIGHTLY
-> copy nightly-jars\*-0.11.0-bin-20181015-d3a0ac8-NIGHTLY.jar %DOTTY_HOME%\lib\0.11.0-bin-20181015-d3a0ac8-NIGHTLY
-> mkdir %DOTTY_HOME%\lib\0.10.0-RC1
-> copy %DOTTY_HOME%\lib\*-0.10.0-RC1.jar %DOTTY_HOME%\lib\0.10.0-RC1\
+<pre style="margin:10px 0 0 30px;font-size:80%">
+> getnightly -verbose
+Downloading file dotty-language-server_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar ... 101.6 Kb
+Downloading file dotty-doc_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar ... 997.4 Kb
+Downloading file dotty-compiler_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar ... 9.1 Mb
+Downloading file dotty_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-library_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar ... 555.1 Kb
+Downloading file dotty-interfaces-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar ... 3.4 Kb
+Finished to download 6 files to directory W:\dotty\nightly-jars
 </pre>
 
-- Now we can switch from 0.10.0-RC1 to the nightly build version:
+One can now replace the library files from the original [Dotty](https://github.com/lampepfl/dotty/releases) distribution (installed in directory **`C:\opt\dotty-0.10.0-RC1\`** in our case) with library files from the nightly build:
+
+- We specify the **`activate`** subcommand to switch to the nightly build version:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
-> del %DOTTY_HOME%\lib\*-0.10.0-RC1.jar
-> copy %DOTTY_HOME%\lib\0.11.0-bin-20181015-d3a0ac8-NIGHTLY\*.jar %DOTTY_HOME%\lib\
+> getnightly activate
+Finished to download 6 files to directory W:\dotty\nightly-jars
+Local nightly version has changed from unknown to 0.11.0-bin-20181109-a9029dc-NIGHTLY
+Activate nightly build libraries: 0.11.0-bin-20181109-a9029dc-NIGHTLY
+
 > dotc -version
-Dotty compiler version 0.11.0-bin-20181015-d3a0ac8-NIGHTLY-git-d3a0ac8 -- Copyright 2002-2018, LAMP/EPFL
+Dotty compiler version 0.11.0-bin-20181109-a9029dc-NIGHTLY-git-a9029dc -- Copyright 2002-2018, LAMP/EPFL
 </pre>
 
-- Finally we restore the original JAR files in Dotty installation directory:
+- We specify the **`reset`** subcommand to restore the original library files in Dotty installation directory:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
-> del %DOTTY_HOME%\lib\*-0.11.0-bin-20181015-d3a0ac8-NIGHTLY
-> copy %DOTTY_HOME%\lib\0.10.0-RC1\*-0.10.0-RC1.jar %DOTTY_HOME%\lib\
+> getnightly reset
+Activate default Dotty libraries: 0.10.0-RC1
+
 > dotc -version
 Dotty compiler version 0.10.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 </pre>
+
+> **NB.** You need to have *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.10.0-RC1\`** in our case) in order to run the **`activate/reset`** subcommands.<br/> Concretely the **`getnightly`** command manages the two sets of libraries files; they are organized as follows:
+> <pre style="margin:10px 0 0 30px;font-size:80%;">
+> > pushd c:\opt\dotty-0.10.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd
+VERSION
+VERSION-NIGHTLY
+lib\0.10.0-RC1\
+&nbsp;&nbsp;dist_0.10-0.10.0-RC1.jar
+&nbsp;&nbsp;dotty-compiler_0.10-0.10.0-RC1.jar
+&nbsp;&nbsp;dotty-doc_0.10-0.10.0-RC1.jar
+&nbsp;&nbsp;dotty-interfaces-0.10.0-RC1.jar
+&nbsp;&nbsp;dotty-library_0.10-0.10.0-RC1.jar
+lib\0.11.0-bin-20181109-a9029dc-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
+</pre>
+In the above output the file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the default Dotty installation respectively from the nightly build.
 
 #### `searchjars.bat <class_name>`
 
@@ -395,7 +425,7 @@ The [**`touch.bat`**](bin/touch.bat) command
 
 The [**`build`**](examples/enum-Planet/build.bat) command is a basic build tool consisting of ~350 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_02">[[2]](#footnote_02)</sup>. 
 
-- Build/run the [**`enum-Planet`**](examples/enum-Planet/) project with no build option:
+- Build/run the [**`examples\enum-Planet`**](examples/enum-Planet/) project with no build option:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > build clean compile run
 Your weight on MERCURY is 0.37775761520093526
@@ -408,7 +438,7 @@ Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406
 </pre>
 
-- Build/run the [**`enum-Planet`**](examples/enum-Planet/) project with build option **`-debug`**:
+- Build/run the [**`examples\enum-Planet`**](examples/enum-Planet/) project with build option **`-debug`**:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > build -debug clean compile run
 [build] _CLEAN=1 _COMPILE=1 _COMPILE_CMD=dotc _RUN=1
