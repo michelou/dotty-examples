@@ -40,16 +40,17 @@ rem ## Subroutines
 :args
 set _JAVA_DEBUG=
 set _JAVA_ARGS=
+
 :args_loop
 if "%~1"=="" goto args_done
-set _ARG=%~1
-if %_DEBUG%==1 echo [%_BASENAME%] _ARG=%_ARG%
-if "%_ARG%"=="--" (
+set __ARG=%~1
+if %_DEBUG%==1 echo [%_BASENAME%] __ARG=%__ARG%
+if "%__ARG%"=="--" (
     rem for arg; do addResidual "$arg"; done; set -- ;;
-) else if /i "%_ARG%"=="-debug" (
+) else if /i "%__ARG%"=="-debug" (
     set _JAVA_DEBUG=%_DEBUG_STR%
 ) else (
-    call :addJava "%_ARG%"
+    call :addJava "%__ARG%"
 )
 shift
 goto args_loop

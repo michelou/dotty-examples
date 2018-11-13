@@ -66,6 +66,7 @@ setenv.bat
 where
 
 - directory [**`bin\`**](bin/) provides several utility batch scripts.
+- directory [**`bin\0.9\`**](bin/0.10/) contains the batch commands for Dotty 0.9.
 - directory [**`bin\0.10\`**](bin/0.10/) contains the batch commands for Dotty 0.10.
 - file [**`bin\cfr-0_134.zip`**](bin/cfr-0_134.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
@@ -80,7 +81,7 @@ In the next section we give a brief description of the batch scripts present in 
 
 We distinguish different sets of batch scripts:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch script makes external tools such as **`javac.exe`**, **`scalac.bat`**, [**`dotc.bat`**](bin/0.9/dotc.bat), etc. directly available from the command prompt.
+1. [**`setenv.bat`**](setenv.bat) - This batch script makes external tools such as **`javac.exe`**, **`scalac.bat`**, [**`dotc.bat`**](bin/0.10/dotc.bat), etc. directly available from the command prompt.
 
     <pre style="font-size:80%;">
     &gt; javac -version
@@ -287,7 +288,9 @@ Size of directory "c:\opt\dotty-0.10.0-RC1" is 22.4 Mb
 
 #### `getnightly.bat`
 
-By default the [**`getnightly`**](bin/getnightly.bat) command downloads the library files of the latest Dotty nightly build available from the [Maven Central Repository](https://search.maven.org/search?q=g:ch.epfl.lamp) and saves them into directory **`nightly-jars\`**:
+By default the [**`getnightly`**](bin/getnightly.bat) command downloads the library files of the latest Dotty nightly build available from the [Maven Central Repository](https://search.maven.org/search?q=g:ch.epfl.lamp) and saves them into directory **`nightly-jars\`**.
+
+> **NB.** Execute **`getnightly help`** to display the help message.
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > getnightly
@@ -314,9 +317,9 @@ Downloading file dotty-interfaces-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar ... 3.
 Finished to download 6 files to directory W:\dotty\nightly-jars
 </pre>
 
-One can now replace the library files from the original [Dotty](https://github.com/lampepfl/dotty/releases) distribution (installed in directory **`C:\opt\dotty-0.10.0-RC1\`** in our case) with library files from the latest nightly build.
+We can now replace the library files from the original [Dotty](https://github.com/lampepfl/dotty/releases) distribution (installed in directory **`C:\opt\dotty-0.10.0-RC1\`** in our case) with library files from the latest nightly build.
 
-Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in Dotty installation directory.
+Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in the Dotty installation directory.
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > getnightly activate
 Finished to download 6 files to directory W:\dotty\nightly-jars
@@ -352,7 +355,7 @@ Dotty compiler version 0.10.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 > &nbsp;&nbsp;dotty-library_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
 > &nbsp;&nbsp;dotty_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
 > </pre>
-> In the above output the file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the default Dotty installation respectively from the latest nightly build.
+> In the above output the file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original Dotty installation respectively from the latest nightly build.
 
 #### `searchjars.bat <class_name>`
 
