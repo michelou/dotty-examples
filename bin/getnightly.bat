@@ -14,9 +14,8 @@ set _EXITCODE=0
 for %%f in ("%~dp0..") do set _ROOT_DIR=%%~sf
 
 call :args %*
-if not %_EXITCODE%==0 ( goto end
-) else if defined _HELP ( goto end
-)
+if not %_EXITCODE%==0 goto end
+if defined _HELP call :help & exit /b %_EXITCODE%
 
 set _PS1_FILE=%_ROOT_DIR%\bin\%_BASENAME%.ps1
 if not exist "%_PS1_FILE%" (
@@ -63,20 +62,17 @@ rem ##########################################################################
 rem ## Subroutines
 
 rem input parameter: %*
-rem output parameter: _VERBOSE
+rem output parameter: _HELP, _VERBOSE
 :args
-set _DOWNLOAD_ONLY=1
 set _ACTIVATE_NIGHTLY=
+set _DOWNLOAD_ONLY=1
+set _HELP=
 set _VERBOSE=0
-set __N=0
+
 :args_loop
 set __ARG=%~1
-if not defined __ARG (
-    goto args_done
-) else if not "%__ARG:~0,1%"=="-" (
-    set /a __N+=1
-)
-if /i "%__ARG%"=="help" ( call :help & goto :eof
+if not defined __ARG goto args_done
+if /i "%__ARG%"=="help" ( set _HELP=1& goto :eof
 ) else if /i "%__ARG%"=="download" ( set _DOWNLOAD_ONLY=1
 ) else if /i "%__ARG%"=="activate" (
     set _DOWNLOAD_ONLY=
@@ -91,7 +87,7 @@ if /i "%__ARG%"=="help" ( call :help & goto :eof
     goto :eof
 )
 shift
-goto :args_loop
+goto args_loop
 :args_done
 if %_DEBUG%==1 (
     rem for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TOTAL_TIME_START=%%i
@@ -100,8 +96,7 @@ if %_DEBUG%==1 (
 goto :eof
 
 :help
-set _HELP=1
-echo Usage: getnightly { options ^| subcommands }
+echo Usage: %_BASENAME% { options ^| subcommands }
 echo   Options:
 echo     -verbose         display download progress
 echo   Subcommands:

@@ -11,69 +11,74 @@ set _BASENAME=%~n0
 
 set _EXITCODE=0
 
-set _JAR_CMD=jar.exe
-
 set _CLASS_NAME=%~1
-if not defined _CLASS_NAME set _CLASS_NAME=Jar
-
-if defined DOTTY_HOME (
-    set _DOTTY_HOME=%DOTTY_HOME%
-    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable DOTTY_HOME
-) else (
-    where /q dotc.bat
-    if !ERRORLEVEL!==0 (
-        for /f "delims=" %%i in ('where /f dotc.bat') do set _DOTTY_BIN_DIR=%%~dpsi
-        for /f %%f in ("!_DOTTY_BIN_DIR!..") do set _DOTTY_HOME=%%~sf
-        if %_DEBUG%==1 echo [%_BASENAME%] Using path of dotc executable found in PATH
-    ) else (
-        set _PATH=C:\opt
-        for /f %%f in ('dir /ad /b "!_PATH!\dotty-*" 2^>NUL') do set _DOTTY_HOME=!_PATH!\%%f
-        if defined _DOTTY_HOME (
-            rem path name of installation directory may contain spaces
-            for /f "delims=" %%f in ("!_DOTTY_HOME!") do set _DOTTY_HOME=%%~sf
-            if %_DEBUG%==1 echo [%_BASENAME%] Using default Dotty installation directory !_DOTTY_HOME!
-        )
-    )
+if not defined _CLASS_NAME (
+    echo Warning: No class name specified; defaulting to 'Jar'. 1>&2
+    set _CLASS_NAME=Jar
 )
-if not exist "%_DOTTY_HOME%\bin\dotc.bat" (
-    echo Error: Dotty installation directory %_DOTTY_HOME% not found 1>&2
-    set _EXITCODE=1
-    goto end
-)
-set _DOTTY_LIB_DIR=%_DOTTY_HOME%\lib
-
-if defined SCALA_HOME (
-    set _SCALA_HOME=%SCALA_HOME%
-    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable SCALA_HOME
-) else (
-    where /q scalac.bat
-    if !ERRORLEVEL!==0 (
-        for /f "delims=" %%i in ('where /f scalac.bat') do set _SCALA_BIN_DIR=%%~dpsi
-        for /f %%f in ("!_SCALA_BIN_DIR!..") do set _SCALA_HOME=%%~sf
-        if %_DEBUG%==1 echo [%_BASENAME%] Using path of scalac executable found in PATH
-    ) else (
-        set _PATH=C:\opt
-        for /f %%f in ('dir /ad /b "!_PATH!\scala-*" 2^>NUL') do set _SCALA_HOME=!_PATH!\%%f
-        if defined _SCALA_HOME (
-            rem path name of installation directory may contain spaces
-            for /f "delims=" %%f in ("!_SCALA_HOME!") do set _SCALA_HOME=%%~sf
-            if %_DEBUG%==1 echo [%_BASENAME%] Using default Scala installation directory !_SCALA_HOME!
-        )
-    )
-)
-if not exist "%_SCALA_HOME%\bin\scalac.bat" (
-    echo Error: Scala installation directory %_SCALA_HOME% not found 1>&2
-    set _EXITCODE=1
-    goto end
-)
-set _SCALA_LIB_DIR=%_SCALA_HOME%\lib
 
 rem ##########################################################################
 rem ## Main
 
-echo Search for class %_CLASS_NAME% in library files %_DOTTY_LIB_DIR%\*.jar
-for /f %%i in ('dir /b "%_DOTTY_LIB_DIR%\*.jar"') do (
-    set _JAR_FILE=%_DOTTY_LIB_DIR%\%%i
+call :init
+if not %_EXITCODE%==0 goto end
+
+call :dotty
+if not %_EXITCODE%==0 goto end
+
+call :scala
+if not %_EXITCODE%==0 goto end
+
+goto end
+
+rem ##########################################################################
+rem ## Subroutines
+
+rem output parameters: _JAR_CMD, _DOTTY_HOME, _SCALA_HOME
+:init
+where /q jar.exe
+if not %ERRORLEVEL%==0 (
+    echo Error: jar command not found ^(check your PATH variable^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set _JAR_CMD=jar.exe
+
+where /q dotc.bat
+if not %ERRORLEVEL%==0 (
+    echo Error: dotc command not found ^(check your PATH variable^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+for /f %%i in ('where dotc.bat') do (
+    for %%f in ("%%~dpi..") do set _DOTTY_HOME=%%~sf
+)
+if not exist "%_DOTTY_HOME%\lib\" (
+    echo Error: Dotty library directory not found ^(check your PATH variable^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+where /q scalac.bat
+if not %ERRORLEVEL%==0 (
+    echo Error: scalac command not found ^(check your PATH variable^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+for /f %%i in ('where scalac.bat') do (
+    for %%f in ("%%~dpi..") do set _SCALA_HOME=%%~sf
+)
+if not exist "%_SCALA_HOME%\lib\" (
+    echo Error: Scala library directory not found ^(check your PATH variable^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
+:dotty
+set __DOTTY_LIB_DIR=%_DOTTY_HOME%\lib
+echo Search for class %_CLASS_NAME% in library files %__DOTTY_LIB_DIR%\*.jar
+for /f %%i in ('dir /b "%__DOTTY_LIB_DIR%\lib\*.jar" 2^>NUL') do (
+    set _JAR_FILE=%__DOTTY_LIB_DIR%\%%i
     for %%f in (!_JAR_FILE!) do set _JAR_FILENAME=%%~nxf
     if %_DEBUG%==1 echo [%_BASENAME%] %_JAR_CMD% -tvf "!_JAR_FILE!" ^| findstr "%_CLASS_NAME%"
     for /f "delims=" %%f in ('%_JAR_CMD% -tvf "!_JAR_FILE!" ^| findstr "%_CLASS_NAME%"') do (
@@ -81,10 +86,13 @@ for /f %%i in ('dir /b "%_DOTTY_LIB_DIR%\*.jar"') do (
         echo   !_JAR_FILENAME!:!_LAST!
     )
 )
+goto :eof
 
-echo Search for class %_CLASS_NAME% in library files %_SCALA_LIB_DIR%\*.jar
-for /f %%i in ('dir /b "%_SCALA_LIB_DIR%\*.jar"') do (
-    set _JAR_FILE=%_SCALA_LIB_DIR%\%%i
+:scala
+set __SCALA_LIB_DIR=%_SCALA_HOME%\lib
+echo Search for class %_CLASS_NAME% in library files %__SCALA_LIB_DIR%\*.jar
+for /f %%i in ('dir /b "%__SCALA_LIB_DIR%\*.jar" 2^>NUL') do (
+    set _JAR_FILE=%__SCALA_LIB_DIR%\%%i
     for %%f in (!_JAR_FILE!) do set _JAR_FILENAME=%%~nxf
     if %_DEBUG%==1 echo [%_BASENAME%] %_JAR_CMD% -tvf "!_JAR_FILE!" ^| findstr "%_CLASS_NAME%"
     for /f "delims=" %%f in ('%_JAR_CMD% -tvf "!_JAR_FILE!" ^| findstr "%_CLASS_NAME%"') do (
@@ -92,7 +100,7 @@ for /f %%i in ('dir /b "%_SCALA_LIB_DIR%\*.jar"') do (
         echo   !_JAR_FILENAME!:!_LAST!
     )
 )
-goto end
+goto :eof
 
 rem ##########################################################################
 rem ## Cleanups
