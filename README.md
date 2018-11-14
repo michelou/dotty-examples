@@ -6,7 +6,7 @@
     <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    This repository gathers code examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a> - or written by myself.<br/>\opt
+    This repository gathers code examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a> - or written by myself.<br/>
     It also includes several <a href="https://en.wikipedia.org/wiki/Batch_file">batch scripts</a> for experimenting with Dotty (aka <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html">Scala 3.0</a>) on the <b>Microsoft Windows</b> platform.
   </td>
   </tr>
@@ -97,8 +97,7 @@ We distinguish different sets of batch scripts:
 2. Directory [**`bin\`**](bin/) - This directory contains several utility batch scripts:
    - **`cleanup.bat`** removes the generated class files from every example directory (both in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories).
    - **`dirsize.bat <dir_path_1> ..`** prints the size in Kb/Mb/Gb of the specified directory paths.
-   - **`getnightly.bat`** downloads/installs the library files from the latest [Dotty nightly build](https://
-   - .maven.org/search?q=g:ch.epfl.lamp).
+   - **`getnightly.bat`** downloads/installs the library files from the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
    - **`searchjars.bat <class_name>`** searches for the given class name into all Dotty/Scala JAR files.
    - **`timeit.bat <cmd_1> { & <cmd_2> }`** prints the execution time of the specified commands.
    - **`touch.bat <file_path>`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
@@ -290,8 +289,6 @@ Size of directory "c:\opt\dotty-0.10.0-RC1" is 22.4 Mb
 
 By default the [**`getnightly`**](bin/getnightly.bat) command downloads the library files of the latest Dotty nightly build available from the [Maven Central Repository](https://search.maven.org/search?q=g:ch.epfl.lamp) and saves them into directory **`nightly-jars\`**.
 
-> **NB.** Execute **`getnightly help`** to display the help message.
-
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > getnightly
 
@@ -303,6 +300,8 @@ dotty-language-server_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
 dotty-library_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
 dotty_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
 </pre>
+
+> **NB.** Execute **`getnightly help`** to display the help message.
 
 With option **`-verbose`** the **`getnightly`** command also displays the download progress:
 
