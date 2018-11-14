@@ -16,14 +16,6 @@ for %%f in ("%~dp0..") do set _ROOT_DIR=%%~sf
 rem ##########################################################################
 rem ## Main
 
-if %_DEBUG%==1 echo [%_BASENAME%] %_ROOT_DIR%\bin\cleanup.bat
-call %_ROOT_DIR%\bin\cleanup.bat
-if not %ERRORLEVEL%==0 (
-    if %_DEBUG%==1 echo [%_BASENAME%] Failed to clean up example directories
-    set _EXITCODE=1
-    goto end
-)
-
 for %%i in (examples myexamples) do (
     if %_DEBUG%==1 echo [%_BASENAME%] call :run "%_ROOT_DIR%\%%i"
     call :run "%_ROOT_DIR%\%%i"
@@ -40,8 +32,8 @@ for /f %%i in ('dir /ad /b "%__PARENT_DIR%" ^| findstr -v bin') do (
     echo Running example %%i
     set _BUILD_FILE=%__PARENT_DIR%\%%i\build.bat
     if exist "!_BUILD_FILE!" (
-        if %_DEBUG%==1 echo [%_BASENAME%] _BUILD_FILE=!_BUILD_FILE!
-        call "!_BUILD_FILE!" run >NUL
+        if %_DEBUG%==1 echo [%_BASENAME%] call "!_BUILD_FILE!" clean run ^>NUL
+        call "!_BUILD_FILE!" clean run >NUL
         if not !ERRORLEVEL!==0 (
             if %_DEBUG%==1 echo [%_BASENAME%] Failed to run directory %__PARENT_DIR%\%%i
             set _EXITCODE=1

@@ -6,7 +6,7 @@
     <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    The source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is achieved by the <a href="https://drone.io/">Drone platform</a> hosted on an <a href="http://lampsrv9.epfl.ch/lampepfl/dotty/">EPFL server</a>.</br>This page describes the additions/changes we made in our <a href="https://github.com/michelou/dotty">fork</a> of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps on the <b>Microsoft Windows</b> platform.
+    The source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is achieved by the <a href="https://drone.io/">Drone platform</a> hosted on an <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">EPFL server</a>.</br>This page describes the additions/changes we made in our <a href="https://github.com/michelou/dotty">fork</a> of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps on the <b>Microsoft Windows</b> platform.
   </td>
   </tr>
 </table>
@@ -61,7 +61,7 @@ vscode-dotty
 
 > **NB.** The three directories **`collection-strawman\`**, **`scala-backend\`** and **`scala2-library\`** are actually Git submodules; we invite you to read ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/) (Jan 8, 2015).
 
-Directories **`bin\`**, **`dist\bin\`**, **`project\scripts\`** and the root directory contain the following additions:
+Concretely directories **`bin\`**, **`dist\bin\`**, **`project\scripts\`** and the root directory contain the following additions:
 
 <pre style="font-size:80%;">
 bin\common.bat
@@ -99,7 +99,7 @@ We distinguish different sets of batch scripts:
 3. Directory [**`dist\bin\`** ](https://github.com/michelou/dotty/tree/master/dist/bin) - This directory contains the batch files to be added unchanged to a [Dotty software release](https://github.com/lampepfl/dotty/releases).
 
     <pre style="font-size:80%;">
-    &gt; dir /b .\bin
+    &gt; dir /b .\dist\bin
     common
     common.bat
     dot.bat
@@ -111,7 +111,7 @@ We distinguish different sets of batch scripts:
     dotr.bat
     </pre>
 
-4. [**`build.bat`**](https://github.com/michelou/dotty/blob/master/project/scripts/build.bat) - This batch script performs similar build/test steps as on the <a href="http://lampsrv9.epfl.ch/lampepfl/dotty/">EPFL server</a> on a local Windows machine.
+4. [**`build.bat`**](https://github.com/michelou/dotty/blob/master/project/scripts/build.bat) - This batch script performs similar build/test steps as on the [EPFL server](http://dotty-ci.epfl.ch/lampepfl/dotty) on a local Windows machine.
 
     <pre style="font-size:80%;">
     &gt; build help
@@ -124,9 +124,54 @@ We distinguish different sets of batch scripts:
         boot[strap]            generate compiler bootstrap (after build)
         boot[strap]-only       generate ONLY compiler bootstrap
         cleanall               clean project (sbt+git) and quit
+        clone                  update submodules
         doc[umentation]        generate documentation (after bootstrap)
         doc[umentation]-only]  generate ONLY documentation
         help                   display this help message
+</pre>
+
+## Session examples
+
+#### `setenv.bat`
+
+The [**`setenv`**](setenv.bat) command is executed once to setup our development environment:
+
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+> setenv
+Tool versions:
+   javac 1.8.0_191, java 1.8.0_191,
+   sbt 1.2.3/2.12.7, git 2.19.1.windows.1, diff 3.6
+> where sbt
+C:\opt\sbt-1.2.6\bin\sbt
+C:\opt\sbt-1.2.6\bin\sbt.bat
+</pre>
+
+> **NB.** Execute **`setenv help`** to display the help message.
+
+With option **`-verbose`** the **`setenv`** command also displays the path of the tools:
+
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+> setenv -verbose
+Tool versions:
+   javac 1.8.0_191, java 1.8.0_191,
+   sbt 1.2.3/2.12.7, git 2.19.1.windows.1, diff 3.6
+Tool paths:
+   C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
+   C:\Program Files\Java\jdk1.8.0_191\bin\java.exe
+   C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
+   C:\opt\sbt-1.2.6\bin\sbt.bat
+   C:\opt\Git-2.19.1\bin\git.exe
+   C:\opt\Git-2.19.1\usr\bin\diff.exe
+</pre>
+
+#### `build.bat`
+
+The [**`build`**](project/scripts/build.bat) command is a basic build tool consisting of ~400 lines of batch code. 
+
+- Clean all generated files/directories from the [**`Dotty fork`**](https://github.com/michelou/dotty/blob/master/):
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+> build cleanall
+
 </pre>
 
 <hr style="margin:2em 0 0 0;" />
