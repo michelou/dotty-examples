@@ -13,7 +13,7 @@
 
 ## Project dependencies
 
-Our <a href="https://github.com/michelou/dotty">Dotty fork</a> relies on 3 external software for the **Microsoft Windows** platform:
+Our <a href="https://github.com/michelou/dotty">Dotty fork</a> relies on three external software for the **Microsoft Windows** platform:
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
 - [SBT 1.2.6](https://www.scala-sbt.org/download.html) (with Scala 2.12.17 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.6))
@@ -59,7 +59,7 @@ tests
 vscode-dotty
 </pre>
 
-> **NB.** The 3 directories **`collection-strawman\`**, **`scala-backend\`** and **`scala2-library\`** are actually Git submodules; we encourage you to read ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/) (Jan 8, 2015).
+> **NB.** The three directories **`collection-strawman\`**, **`scala-backend\`** and **`scala2-library\`** are actually Git submodules; we invite you to read ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/) (Jan 8, 2015).
 
 Directories **`bin\`**, **`dist\bin\`**, **`project\scripts\`** and the root directory contain the following additions:
 
@@ -96,6 +96,8 @@ We distinguish different sets of batch scripts:
 
 2. Directory [**`bin\`** ](https://github.com/michelou/dotty/tree/master/bin) - This directory contains the batch files used internally during the build process.
 
+3. Directory [**`dist\bin\`** ](https://github.com/michelou/dotty/tree/master/dist/bin) - This directory contains the batch files to be added unchanged to a [Dotty software release](https://github.com/lampepfl/dotty/releases).
+
     <pre style="font-size:80%;">
     &gt; dir /b .\bin
     common
@@ -109,25 +111,22 @@ We distinguish different sets of batch scripts:
     dotr.bat
     </pre>
 
-
-3. Directory [**`dist\bin\`** ](https://github.com/michelou/dotty/tree/master/dist/bin) - This directory contains the batch files to be added unchanged to a [Dotty software release](https://github.com/lampepfl/dotty/releases).
-
 4. [**`build.bat`**](https://github.com/michelou/dotty/blob/master/project/scripts/build.bat) - This batch script performs similar build/test steps as on the <a href="http://lampsrv9.epfl.ch/lampepfl/dotty/">EPFL server</a> on a local Windows machine.
 
     <pre style="font-size:80%;">
-&gt; build help
-Usage: build { options | subcommands }
-  Options:
-    -verbose               display environment settings
-  Subcommands:
-    arch[ives]             generate gz/zip archives (after bootstrap)
-    arch[ives]-only        generate ONLY gz/zip archives
-    boot[strap]            generate compiler bootstrap (after build)
-    boot[strap]-only       generate ONLY compiler bootstrap
-    cleanall               clean project (sbt+git) and quit
-    doc[umentation]        generate documentation (after bootstrap)
-    doc[umentation]-only]  generate ONLY documentation
-    help                   display this help message
+    &gt; build help
+    Usage: build { options | subcommands }
+      Options:
+        -verbose               display environment settings
+      Subcommands:
+        arch[ives]             generate gz/zip archives (after bootstrap)
+        arch[ives]-only        generate ONLY gz/zip archives
+        boot[strap]            generate compiler bootstrap (after build)
+        boot[strap]-only       generate ONLY compiler bootstrap
+        cleanall               clean project (sbt+git) and quit
+        doc[umentation]        generate documentation (after bootstrap)
+        doc[umentation]-only]  generate ONLY documentation
+        help                   display this help message
 </pre>
 
 <hr style="margin:2em 0 0 0;" />
