@@ -13,7 +13,7 @@
 
 ## Project dependencies
 
-Our <a href="https://github.com/michelou/dotty">Dotty fork</a> relies on three external software for the **Microsoft Windows** platform:
+Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three external software for the **Microsoft Windows** platform:
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
 - [SBT 1.2.6](https://www.scala-sbt.org/download.html) (with Scala 2.12.17 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.6))
@@ -94,9 +94,9 @@ We distinguish different sets of batch scripts:
     git version 2.19.1.windows.1
     </pre>
 
-2. Directory [**`bin\`** ](https://github.com/michelou/dotty/tree/master/bin) - This directory contains the batch files used internally during the build process.
+2. Directory [**`bin\`** ](https://github.com/michelou/dotty/tree/batch-files/bin) - This directory contains the batch files used internally during the build process.
 
-3. Directory [**`dist\bin\`** ](https://github.com/michelou/dotty/tree/master/dist/bin) - This directory contains the batch files to be added unchanged to a [Dotty software release](https://github.com/lampepfl/dotty/releases).
+3. Directory [**`dist\bin\`** ](https://github.com/michelou/dotty/tree/batch-files/dist/bin) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software release](https://github.com/lampepfl/dotty/releases).
 
     <pre style="font-size:80%;">
     &gt; dir /b .\dist\bin
@@ -111,24 +111,35 @@ We distinguish different sets of batch scripts:
     dotr.bat
     </pre>
 
-4. [**`build.bat`**](https://github.com/michelou/dotty/blob/master/project/scripts/build.bat) - This batch script performs similar build/test steps as on the [EPFL server](http://dotty-ci.epfl.ch/lampepfl/dotty) on a local Windows machine.
+4. [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat) - This batch script performs similar build/test steps as on the [EPFL server](http://dotty-ci.epfl.ch/lampepfl/dotty) on a local Windows machine.
 
     <pre style="font-size:80%;">
     &gt; build help
     Usage: build { options | subcommands }
       Options:
+        -timer                 display the total build time
         -verbose               display environment settings
       Subcommands:
         arch[ives]             generate gz/zip archives (after bootstrap)
         arch[ives]-only        generate ONLY gz/zip archives
-        boot[strap]            generate compiler bootstrap (after build)
+        boot[strap]            generate compiler bootstrap (after compile)
         boot[strap]-only       generate ONLY compiler bootstrap
         cleanall               clean project (sbt+git) and quit
         clone                  update submodules
+        compile                genarate compiler 1st stage (after clone)
         doc[umentation]        generate documentation (after bootstrap)
         doc[umentation]-only]  generate ONLY documentation
         help                   display this help message
 </pre>
+
+The execution of the above subcommands obeys the following dependency rules:
+
+| Dependency | Output |
+| ------------- | ------------- |
+| compile &rarr; clone | ... |
+| bootstrap &rarr; compile | ...  |
+| archives &rarr; bootstrapContent | `dist\bootstrapped\*.gz,*.zip` |
+| documentation &rarr; bootstrap | ... |
 
 ## Session examples
 
@@ -141,6 +152,7 @@ The [**`setenv`**](setenv.bat) command is executed once to setup our development
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191,
    sbt 1.2.3/2.12.7, git 2.19.1.windows.1, diff 3.6
+
 > where sbt
 C:\opt\sbt-1.2.6\bin\sbt
 C:\opt\sbt-1.2.6\bin\sbt.bat

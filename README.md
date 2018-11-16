@@ -12,16 +12,18 @@
   </tr>
 </table>
 
+
+> **NB.** We also decided to take a further step towards building the [Dotty software](https://github.com/lampepfl/dotty/releases) on Microsoft Windows; read our [***work report***](DRONE.md) to learn more !
+
+
 ## Project dependencies
 
-This project repository relies on a few external software for the **Microsoft Windows** platform:
+This project repository depends on a few external software for the **Microsoft Windows** platform:
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
 - [Dotty 0.10](https://github.com/lampepfl/dotty/releases) (Java 9+ is supported. *Reminder*: Dotty 0.9 requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
 
-> **NB.** By the way we decided to take a further step towards building the Dotty software  on Microsoft Windows; just have a look at our [***work report***](DRONE.md) !
-
-Optionally one may also install the following software:
+Optionally you may also install the following software:
 
 - [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.12.7))
 - [SBT 1.2.6](https://www.scala-sbt.org/download.html) (with Scala 2.12.17 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.6))
@@ -105,7 +107,7 @@ We distinguish different sets of batch scripts:
    - **`touch.bat <file_path>`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
 3. Directory [**`bin\0.10\`**](bin/0.10/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.10.0-RC1\bin\`**) in order to use the [**`dot`**](bin/0.10/dot.bat), [**`dotc`**](bin/0.10/dotc.bat), [**`dotd`**](bin/0.10/dotd.bat) and [**`dotr`**](bin/0.10/dotr.bat) commands on **Microsoft Windows**.
-    > **NB.** The author wrote (and does maintain) those batch files based on the bash scripts available from the standard [Dotty](http://dotty.epfl.ch/) distribution.
+    > **NB.** We wrote (and do maintain) those batch files based on the bash scripts available from the standard [Dotty](http://dotty.epfl.ch/) distribution.
 
     <pre style="font-size:80%;">
     &gt; dir /b c:\opt\dotty-0.10.0-RC1\bin
@@ -194,7 +196,7 @@ We distinguish different sets of batch scripts:
     }
     </pre>
 
-    Here is the output from [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) (with option **`-c`**) for the same class file:
+    Here is the console output from [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) (with option **`-c`**) for the same class file:
 
     <pre style="font-size:80%;">
     &gt; javap -c myexamples\00_AutoParamTupling\target\classes\Main.class
@@ -486,8 +488,8 @@ No compilation needed (1 source files)
 
 #### `dotr.bat`
 
-The Dotty [REPL](https://en.wikipedia.org/wiki/Read–eval–print_loop) does work on **Microsoft Windows** starting with version 0.9 of the [Dotty distribution](https://github.com/lampepfl/dotty/releases).
-   > **NB.** The batch script [**`dotr.bat`**](bin/0.9/dotr.bat) is based on the bash script [**`dotr`**](https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr) available from the standard [Dotty](http://dotty.epfl.ch/) distribution.
+The [Dotty REPL](https://en.wikipedia.org/wiki/Read–eval–print_loop) does work on **Microsoft Windows** starting with version 0.9 of the [Dotty distribution](https://github.com/lampepfl/dotty/releases).
+   > **NB.** The batch script [**`dotr.bat`**](bin/0.9/dotr.bat) is based on the bash script [**`dotr`**](https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr) available from the standard [Dotty distribution](https://github.com/lampepfl/dotty/releases).
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > where dotr
 C:\opt\dotty-0.10.0-RC1\bin\dotr
