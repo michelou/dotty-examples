@@ -132,6 +132,8 @@ We distinguish different sets of batch scripts:
         help                   display this help message
 </pre>
 
+> **NB.** Subcommands whose name ends with **`-only`** permit to repeat one operation while ignoring the precedent ones.
+
 The execution of the above subcommands obeys the following dependency rules:
 
 | **A** depends on **B** | Output from **A** |
@@ -286,11 +288,15 @@ testing loading tasty from .tasty file in jar
 > > build clone compile-only
 > </pre>
 
-- **`archives`** - This subcommand generates the gz/zip archives ***provided that*** the execution of the two subcommands **`compile`** and **`bootstrap`** was successful.
+- **`archives`** - This subcommand generates the gz/zip archives ***if*** the execution of the two subcommands **`compile`** and **`bootstrap`** was successful.<br/>Below we execute the **`arch-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
-&gt; build archives
+&gt; build arch-only
 [...]
+
+> dir /a-d /b dist-bootstrapped\target
+dotty-0.11.0-bin-SNAPSHOT.tar.gz
+dotty-0.11.0-bin-SNAPSHOT.zip
 </pre>
 
 > **NB.** The following command performs the same operation as **`build archives`**:  
@@ -298,12 +304,68 @@ testing loading tasty from .tasty file in jar
 > > build clone compile-only bootstrap-only archives-only
 > </pre>
 
-- **`documentation`** - This subcommand generates the HTML documentation ***provided that*** the execution of the two subcommands **`compile`** and **`bootstrap`** was successful.
+- **`documentation`** - This subcommand generates the Dotty documentation (website and reference) ***if*** the execution of the two subcommands **`compile`** and **`bootstrap`** was successful.<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
-&gt; build documentation
+&gt; build -timer doc-only
+Working directory: W:\dotty
 [...]
+[info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 0.11.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty -classpath ...
+Compiling (1/406): AlternateConstructorsPhase.scala
+[...]
+Compiling (406/406): package.scala
+[...]
+28 warnings found
+there were 3987 feature warning(s); re-run with -feature for details
+[doc info] Generating doc page for: dotty.tools.dotc.plugins
+[...]
+[doc info] Generating doc page for: dotty.tools.dotc.core.unpickleScala2.Scala2Unpickler$.TempPolyType$
+================================================================================
+Dottydoc summary report for project `Dotty`
+================================================================================
+Documented members in public API:
+[...]
+Summary:
+
+public members with docstrings:    5130/14346 (35%)
+protected members with docstrings: 162/537 (30%)
+================================================================================
+
+Documented members in internal API:
+[...]
+Summary internal API:
+
+public members with docstrings:    147/588 (25%)
+protected members with docstrings: 6/60 (10%)
+private members with docstrings:   445/2429 (18%)
+total warnings with regards to compilation and documentation: 28
+[success] Total time: 143 s, completed 16 nov. 2018 23:07:29
+Total execution time: 00:02:34
+
+&gt; dir /b docs\_site
+.gitignore
+api
+blog
+css
+docs
+images
+index.html
+js
+sidebar.yml
+versions
+
+&gt; dir /b docs\docs 
+contributing       
+index.md           
+internals          
+reference          
+release-notes      
+resources          
+typelevel.md       
+usage              
 </pre>
+
+> **NB.** In the above console output **`W:`** is a virtual drive we created using the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) in order to hide/reduce the real path of our project directory; for instance:<br/>**`> subst W: %USERPROFILE%\workspace`**.
 
 <!--
 > build -timer compile-only
