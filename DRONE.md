@@ -20,7 +20,7 @@ Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three 
 - [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.0.txt))
 
 > ***Installation policy***<br/>
-> Whenever possible software is installed via a Zip archive rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in memory of* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
+> Whenever possible software is installed via a Zip archive rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in memory of* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
 For instance our development environment looks as follows (*November 2018*):
 
@@ -82,7 +82,7 @@ In the next section we give a brief description of the batch scripts present in 
 
 We distinguish different sets of batch scripts:
 
-1. [**`setenv.bat`**](https://github.com/michelou/dotty/blob/master/setenv.bat) - This batch script makes external tools such as **`java.exe`**, **`sbt.bat`** and **`git.exe`** directly available from the command prompt.
+1. [**`setenv.bat`**](https://github.com/michelou/dotty/tree/master/setenv.bat) - This batch script makes external tools such as **`java.exe`**, **`sbt.bat`** and **`git.exe`** directly available from the command prompt.
 
     <pre style="font-size:80%;">
     &gt; java -version
@@ -94,9 +94,9 @@ We distinguish different sets of batch scripts:
     git version 2.19.1.windows.1
     </pre>
 
-2. Directory [**`bin\`** ](https://github.com/michelou/dotty/tree/batch-files/bin) - This directory contains the batch files used internally during the build process.
+2. Directory [**`bin\`** ](https://github.com/michelou/dotty/tree/master/bin) - This directory contains batch files used internally during the build process.
 
-3. Directory [**`dist\bin\`** ](https://github.com/michelou/dotty/tree/batch-files/dist/bin) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software release](https://github.com/lampepfl/dotty/releases).
+3. Directory [**`dist\bin\`** ](https://github.com/michelou/dotty/tree/master/dist/bin) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software release](https://github.com/lampepfl/dotty/releases).
 
     <pre style="font-size:80%;">
     &gt; dir /b .\dist\bin
@@ -111,7 +111,7 @@ We distinguish different sets of batch scripts:
     dotr.bat
     </pre>
 
-4. [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat) - This batch script performs similar build/test steps as on the [EPFL server](http://dotty-ci.epfl.ch/lampepfl/dotty) on a local Windows machine.
+4. [**`build.bat`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat) - This batch script performs similar build/test steps as on the [EPFL server](http://dotty-ci.epfl.ch/lampepfl/dotty) on a local Windows machine.
 
     <pre style="font-size:80%;">
     &gt; build help
@@ -136,29 +136,30 @@ The execution of the above subcommands obeys the following dependency rules:
 
 | **A** depends on **B** | Output from **A** |
 | ------------- | ------------- |
-| **`cleanall`** &rarr; *none* | &nbsp; |
-| **`clone`** &rarr; *none* | &nbsp; |
-| **`compile`** &rarr; **`clone`** | &nbsp; |
-| **`bootstrap`** &rarr; **`compile`** | &nbsp; |
-| **`archives`** &rarr; **`bootstrap`** | **`dist\bootstrapped\*.gz,*.zip`** |
-| **`documentation`** &rarr; **`bootstrap`** | &nbsp; |
+| `cleanall` &rarr; *none* | &nbsp; |
+| `clone` &rarr; *none* | &nbsp; |
+| `compile` &rarr; `clone` | &nbsp; |
+| `bootstrap` &rarr; `compile` | &nbsp; |
+| `archives` &rarr; `bootstrap` | `dist\bootstrapped\*.gz,*.zip` |
+| `documentation` &rarr; `bootstrap` | &nbsp; |
 
 ## Windows related issues
 
-We have come across several Windows related issues while executing subcommands of [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat); in particular:
+We have come across several Windows related issues while executing subcommands of [**`build.bat`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat); in particular:
 
 | Subcommand | Bug report |
 | ---------- | ---------- |
-| **`compile`** | [#5457](https://github.com/lampepfl/dotty/pull/5457) |
-| **`bootstrap`** | *pending* |
-| **`documentation`** | [#5430](https://github.com/lampepfl/dotty/pull/5430) |
+| `compile` | [#5457](https://github.com/lampepfl/dotty/pull/5457) |
+| `bootstrap` | *pending* |
+| `documentation` | [#5430](https://github.com/lampepfl/dotty/pull/5430) |
 | *code review* | [#5452](https://github.com/lampepfl/dotty/pull/5452) |
 
-In summary, we encountered several Windows related issues with the <a href="https://github.com/lampepfl/dotty/">source code</a> of the <a href="http://dotty.epfl.ch/">Dotty project</a>:
+In summary, we encountered several Windows related issues with the [source code](https://github.com/lampepfl/dotty/) of the [Dotty project](http://dotty.epfl.ch/):
 
-- Unspecified text encoding in some file operations<br/>*Example*: [**`Source`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html)**`.fromFile(f)`** **&rarr;**[**`Source`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html)**`.fromFile(f, "UTF-8")`**.
+- Unspecified text encoding in some file operations<br/>*Example*: [**`Source`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html)**`.fromFile(f)`** **&rarr;** [**`Source`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html)**`.fromFile(f, "UTF-8")`**.
 - Platform-specific new lines<br/>*Example*: **`"\n"`** **&rarr;** **`sys.props("line.separator")`**.
 - Platform-specific path separators<br/>*Example*: **`":"`** **&rarr;** [**`java.io.File.pathSeparator`**](https://docs.oracle.com/javase/8/docs/api/java/io/File.html#pathSeparator).
+- Special characters in file names<br/>*Example*: **`new PlainFile(Path("<quote>"))`** **&rarr;** **`new PlainFile(Path("_quote_"))`**
 - Transformation of URL addresses to platform-specific paths *(to be validated)*<br/>*Example*: **`getLocation.`**[**`getFile`**](https://docs.oracle.com/javase/8/docs/api/java/net/URL.html#getFile) **&rarr;** **`new JFile(url.getFile).getAbsolutePath`**.
 - *(more to come)*
 
@@ -166,7 +167,7 @@ In summary, we encountered several Windows related issues with the <a href="http
 
 #### `setenv.bat`
 
-The [**`setenv`**](setenv.bat) command is executed once to setup our development environment; it makes external tools such as **`javac.exe`**, **`sbt.bat`** and **`git.exe`** directly available from the command prompt:
+The [**`setenv`**](https://github.com/michelou/dotty/tree/master/setenv.bat) command is executed once to setup our development environment; it makes external tools such as **`javac.exe`**, **`sbt.bat`** and **`git.exe`** directly available from the command prompt:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv
@@ -195,13 +196,15 @@ Tool paths:
    C:\opt\sbt-1.2.6\bin\sbt.bat
    C:\opt\Git-2.19.1\bin\git.exe
    C:\opt\Git-2.19.1\usr\bin\diff.exe
+Current branch:
+   master
 </pre>
 
 #### `build.bat`
 
-The [**`build`**](project/scripts/build.bat) command is a basic build tool consisting of ~400 lines of batch code. 
+The [**`build`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat) command is a basic build tool consisting of ~400 lines of batch code. 
 
-- **`cleanall`** - This subcommand removes all generated *and untracked* files/directories from our [**`Dotty fork`**](https://github.com/michelou/dotty/blob/master/).<br/>Concretely, **`build cleanall`** executes the two commands **`sbt clean`** *and* [**`git clean -xdf`**](https://git-scm.com/docs/git-clean/) which removes all untracked directories/files, including build products.
+- **`cleanall`** - This subcommand removes all generated *and untracked* files/directories from our [**`Dotty fork`**](https://github.com/michelou/dotty/tree/master/).<br/>Concretely, **`build cleanall`** executes the two commands **`sbt clean`** *and* [**`git clean -xdf`**](https://git-scm.com/docs/git-clean/) which removes all untracked directories/files, including build products.
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > build cleanall
 [..]
@@ -278,6 +281,11 @@ testing loading tasty from .tasty file in jar
 [...]
 </pre>
 
+> **NB.** The following command performs the same operation as **`build compile`**:  
+> <pre style="margin:10px 0 0 30px;font-size:80%;">
+> > build clone compile-only
+> </pre>
+
 - **`archives`** - This subcommand generates the gz/zip archives ***provided that*** the execution of the two subcommands **`compile`** and **`bootstrap`** was successful.
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
@@ -285,12 +293,22 @@ testing loading tasty from .tasty file in jar
 [...]
 </pre>
 
+> **NB.** The following command performs the same operation as **`build archives`**:  
+> <pre style="margin:10px 0 0 30px;font-size:80%;">
+> > build clone compile-only bootstrap-only archives-only
+> </pre>
+
 - **`documentation`** - This subcommand generates the HTML documentation ***provided that*** the execution of the two subcommands **`compile`** and **`bootstrap`** was successful.
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 &gt; build documentation
 [...]
 </pre>
+
+<!--
+> build -timer compile-only
+Total execution time: 00:20:25
+-->
 
 <hr style="margin:2em 0 0 0;" />
 
