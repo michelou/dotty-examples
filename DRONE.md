@@ -134,12 +134,31 @@ We distinguish different sets of batch scripts:
 
 The execution of the above subcommands obeys the following dependency rules:
 
-| Dependency | Output |
+| **A** depends on **B** | Output from **A** |
 | ------------- | ------------- |
-| compile &rarr; clone | ... |
-| bootstrap &rarr; compile | ...  |
+| compile &rarr; clone | &nbsp; |
+| bootstrap &rarr; compile | &nbsp; |
 | archives &rarr; bootstrapContent | `dist\bootstrapped\*.gz,*.zip` |
-| documentation &rarr; bootstrap | ... |
+| documentation &rarr; bootstrap | &nbsp; |
+
+## Windows related issues
+
+We have come across several Windows related issues while executing subcommands of [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat); in particular:
+
+| Subcommand | Bug report |
+| ---------- | ---------- |
+| `compile` | *pending* |
+| `bootstrap` | *pending* |
+| `documentation` | [#5430](https://github.com/lampepfl/dotty/pull/5430) |
+| - | [#5452](https://github.com/lampepfl/dotty/pull/5452) |
+
+In summary, we encountered several Windows related issues with the <a href="https://github.com/lampepfl/dotty/">source code</a> of the <a href="http://dotty.epfl.ch/">Dotty project</a>:
+
+- Unspecified text encoding in some file operations<br/>*Example*: **`Source.fromFile(f)`** instead of **`Source.fromFile(f, `**<span style="font-family:courier;font-weight:bold;color:#660000;">"UTF-8"</span>**`)`**.
+- Platform-specific new lines<br/>*Example*: <span style="font-family:courier;font-weight:bold;color:#660000;">"\n"</span> instead of **`sys.props(`**<span style="font-family:courier;font-weight:bold;color:#660000;">"line.separator"</span>**`)`**.
+- Platform-specific path separators<br/>*Example*: <span style="font-family:courier;font-weight:bold;color:#660000;">":"</span> instead of **`java.io.File.pathSeparator`**.
+- Transformation of URL addresses to platform-specific paths<br/>*Example*: **`getLocation.getFile`** instead of **`new JFile(url.getFile).getAbsolutePath`**.
+- *(a few more)*
 
 ## Session examples
 
@@ -183,8 +202,32 @@ The [**`build`**](project/scripts/build.bat) command is a basic build tool consi
 - Clean all generated files/directories from the [**`Dotty fork`**](https://github.com/michelou/dotty/blob/master/):
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > build cleanall
-
+[..]
+Removing .vscode/
+Removing HelloWorld$.class
+Removing HelloWorld.class
+Removing HelloWorld.tasty
+Removing compiler/target/
+Removing dist-bootstrapped/
+Removing doc-tool/target/
+Removing dotty-bootstrapped/
+Removing interfaces/target/
+Removing library/target/
+Removing out/
+Removing project/project/project/
+Removing project/project/target/
+Removing project/target/
+Removing sbt-bridge/target/
+Removing scala-compiler/
+Removing scala-library/
+Removing scala-reflect/
+Removing scalap/
+Removing setenv.bat
+Removing target/
+Removing testlogs/
 </pre>
+
+> **NB.** The **`cleanall`** subcommand executes the command [**`git clean -xdf`**](https://git-scm.com/docs/git-clean/) which removes all untracked directories/files, including build products.
 
 <hr style="margin:2em 0 0 0;" />
 
