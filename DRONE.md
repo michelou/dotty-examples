@@ -136,12 +136,12 @@ The execution of the above subcommands obeys the following dependency rules:
 
 | **A** depends on **B** | Output from **A** |
 | ------------- | ------------- |
-| cleanall &rarr; *none* | &nbsp; |
-| clone &rarr; *none* | &nbsp; |
-| compile &rarr; clone | &nbsp; |
-| bootstrap &rarr; compile | &nbsp; |
-| archives &rarr; bootstrapContent | `dist\bootstrapped\*.gz,*.zip` |
-| documentation &rarr; bootstrap | &nbsp; |
+| **`cleanall`** &rarr; *none* | &nbsp; |
+| **`clone`** &rarr; *none* | &nbsp; |
+| **`compile`** &rarr; **`clone`** | &nbsp; |
+| **`bootstrap`** &rarr; **`compile`** | &nbsp; |
+| **`archives`** &rarr; **`bootstrap`** | **`dist\bootstrapped\*.gz,*.zip`** |
+| **`documentation`** &rarr; **`bootstrap`** | &nbsp; |
 
 ## Windows related issues
 
@@ -149,17 +149,17 @@ We have come across several Windows related issues while executing subcommands o
 
 | Subcommand | Bug report |
 | ---------- | ---------- |
-| `compile` | *pending* |
-| `bootstrap` | *pending* |
-| `documentation` | [#5430](https://github.com/lampepfl/dotty/pull/5430) |
-| - | [#5452](https://github.com/lampepfl/dotty/pull/5452) |
+| **`compile`** | [#5457](https://github.com/lampepfl/dotty/pull/5457) |
+| **`bootstrap`** | *pending* |
+| **`documentation`** | [#5430](https://github.com/lampepfl/dotty/pull/5430) |
+| *code review* | [#5452](https://github.com/lampepfl/dotty/pull/5452) |
 
 In summary, we encountered several Windows related issues with the <a href="https://github.com/lampepfl/dotty/">source code</a> of the <a href="http://dotty.epfl.ch/">Dotty project</a>:
 
-- Unspecified text encoding in some file operations<br/>*Example*: [**`Source`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html)**`.fromFile(f)`** instead of [**`Source`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html)**`.fromFile(f, "UTF-8")`**.
-- Platform-specific new lines<br/>*Example*: **`"\n"`** instead of **`sys.props("line.separator")`**.
-- Platform-specific path separators<br/>*Example*: **`":"`** instead of [**`java.io.File.pathSeparator`**](https://docs.oracle.com/javase/8/docs/api/java/io/File.html#pathSeparator).
-- Transformation of URL addresses to platform-specific paths *(to be validated)*<br/>*Example*: **`getLocation.`**[**`getFile`**](https://docs.oracle.com/javase/8/docs/api/java/net/URL.html#getFile) instead of **`new JFile(url.getFile).getAbsolutePath`**.
+- Unspecified text encoding in some file operations<br/>*Example*: [**`Source`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html)**`.fromFile(f)`** **&rarr;**[**`Source`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html)**`.fromFile(f, "UTF-8")`**.
+- Platform-specific new lines<br/>*Example*: **`"\n"`** **&rarr;** **`sys.props("line.separator")`**.
+- Platform-specific path separators<br/>*Example*: **`":"`** **&rarr;** [**`java.io.File.pathSeparator`**](https://docs.oracle.com/javase/8/docs/api/java/io/File.html#pathSeparator).
+- Transformation of URL addresses to platform-specific paths *(to be validated)*<br/>*Example*: **`getLocation.`**[**`getFile`**](https://docs.oracle.com/javase/8/docs/api/java/net/URL.html#getFile) **&rarr;** **`new JFile(url.getFile).getAbsolutePath`**.
 - *(more to come)*
 
 ## Session examples
