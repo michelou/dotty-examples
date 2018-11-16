@@ -122,11 +122,11 @@ We distinguish different sets of batch scripts:
       Subcommands:
         arch[ives]             generate gz/zip archives (after bootstrap)
         arch[ives]-only        generate ONLY gz/zip archives
-        boot[strap]            generate compiler bootstrap (after compile)
-        boot[strap]-only       generate ONLY compiler bootstrap
+        boot[strap]            generate bootstrap compiler (after compile)
+        boot[strap]-only       generate ONLY bootstrap compiler
         cleanall               clean project (sbt+git) and quit
         clone                  update submodules
-        compile                genarate compiler 1st stage (after clone)
+        compile                genarate 1st stage compiler (after clone)
         doc[umentation]        generate documentation (after bootstrap)
         doc[umentation]-only]  generate ONLY documentation
         help                   display this help message
@@ -278,14 +278,14 @@ testing loading tasty from .tasty file in jar
 [...]
 </pre>
 
-- **`archives`** - This subcommand generates the gz/zip archives ***provided that*** the execution of the two commands **`compile`** and **`bootstrap`** was successful.
+- **`archives`** - This subcommand generates the gz/zip archives ***provided that*** the execution of the two subcommands **`compile`** and **`bootstrap`** was successful.
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 &gt; build archives
 [...]
 </pre>
 
-- **`documentation`** - This subcommand generates the HTML documentation ***provided that*** the execution of the two commands **`compile`** and **`bootstrap`** was successful.
+- **`documentation`** - This subcommand generates the HTML documentation ***provided that*** the execution of the two subcommands **`compile`** and **`bootstrap`** was successful.
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 &gt; build documentation
