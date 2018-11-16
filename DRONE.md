@@ -136,6 +136,8 @@ The execution of the above subcommands obeys the following dependency rules:
 
 | **A** depends on **B** | Output from **A** |
 | ------------- | ------------- |
+| cleanall &rarr; *none* | &nbsp; |
+| clone &rarr; *none* | &nbsp; |
 | compile &rarr; clone | &nbsp; |
 | bootstrap &rarr; compile | &nbsp; |
 | archives &rarr; bootstrapContent | `dist\bootstrapped\*.gz,*.zip` |
@@ -154,17 +156,17 @@ We have come across several Windows related issues while executing subcommands o
 
 In summary, we encountered several Windows related issues with the <a href="https://github.com/lampepfl/dotty/">source code</a> of the <a href="http://dotty.epfl.ch/">Dotty project</a>:
 
-- Unspecified text encoding in some file operations<br/>*Example*: **`Source.fromFile(f)`** instead of **`Source.fromFile(f, `**<span style="font-family:courier;font-weight:bold;color:#660000;">"UTF-8"</span>**`)`**.
-- Platform-specific new lines<br/>*Example*: <span style="font-family:courier;font-weight:bold;color:#660000;">"\n"</span> instead of **`sys.props(`**<span style="font-family:courier;font-weight:bold;color:#660000;">"line.separator"</span>**`)`**.
-- Platform-specific path separators<br/>*Example*: <span style="font-family:courier;font-weight:bold;color:#660000;">":"</span> instead of **`java.io.File.pathSeparator`**.
-- Transformation of URL addresses to platform-specific paths<br/>*Example*: **`getLocation.getFile`** instead of **`new JFile(url.getFile).getAbsolutePath`**.
-- *(a few more)*
+- Unspecified text encoding in some file operations<br/>*Example*: [**`Source`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html)**`.fromFile(f)`** instead of [**`Source`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html)**`.fromFile(f, "UTF-8")`**.
+- Platform-specific new lines<br/>*Example*: **`"\n"`** instead of **`sys.props("line.separator")`**.
+- Platform-specific path separators<br/>*Example*: **`":"`** instead of [**`java.io.File.pathSeparator`**](https://docs.oracle.com/javase/8/docs/api/java/io/File.html#pathSeparator).
+- Transformation of URL addresses to platform-specific paths *(to be validated)*<br/>*Example*: **`getLocation.`**[**`getFile`**](https://docs.oracle.com/javase/8/docs/api/java/net/URL.html#getFile) instead of **`new JFile(url.getFile).getAbsolutePath`**.
+- *(more to come)*
 
 ## Session examples
 
 #### `setenv.bat`
 
-The [**`setenv`**](setenv.bat) command is executed once to setup our development environment:
+The [**`setenv`**](setenv.bat) command is executed once to setup our development environment; it makes external tools such as **`javac.exe`**, **`sbt.bat`** and **`git.exe`** directly available from the command prompt:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv
@@ -199,7 +201,7 @@ Tool paths:
 
 The [**`build`**](project/scripts/build.bat) command is a basic build tool consisting of ~400 lines of batch code. 
 
-- Clean all generated files/directories from the [**`Dotty fork`**](https://github.com/michelou/dotty/blob/master/):
+- **`cleanall`** - This subcommand removes all generated *and untracked* files/directories from our [**`Dotty fork`**](https://github.com/michelou/dotty/blob/master/).<br/>Concretely, **`build cleanall`** executes the two commands **`sbt clean`** *and* [**`git clean -xdf`**](https://git-scm.com/docs/git-clean/) which removes all untracked directories/files, including build products.
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > build cleanall
 [..]
@@ -227,7 +229,68 @@ Removing target/
 Removing testlogs/
 </pre>
 
-> **NB.** The **`cleanall`** subcommand executes the command [**`git clean -xdf`**](https://git-scm.com/docs/git-clean/) which removes all untracked directories/files, including build products.
+- **`compile`** - This subcommand generates the *"1st stage compiler"* for Dotty and executes the relevant test suites. 
+
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+&gt; build compile
+sbt compile and sbt test
+[...]
+[info] Done compiling.
+[...]
+[info] Done packaging.
+[...]
+[info] Test run started
+[info] Test dotty.tools.dottydoc.TestWhitelistedCollections.arrayAndImmutableHasDocumentation started
+[info] Test run finished: 0 failed, 0 ignored, 1 total, 21.918s
+[info] Test run started
+[...]
+8 suites passed, 0 failed, 8 total
+[...]
+[info] Test run started
+[...]
+2 suites passed, 0 failed, 2 total
+[...]
+[info] Test run started
+[...]
+11 suites passed, 0 failed, 11 total
+[...]
+[info] Test run started
+[...]
+[info] Passed: Total 73, Failed 0, Errors 0, Passed 73
+[info] Passed: Total 290, Failed 0, Errors 0, Passed 288, Skipped 2
+[success] Total time: 1063 s, completed 16 nov. 2018 15:39:19
+testing sbt dotc and dotr
+hello world
+testing sbt dotc -from-tasty and dotr -classpath
+hello world
+testing sbt dotc -decompile
+[...]
+testing sbt dotr with no -classpath
+hello world
+testing loading tasty from .tasty file in jar
+[...]
+</pre>
+
+- **`bootstrap`** - This subcommand generates the *"bootstrap compiler"* for Dotty and executes the relevant test suites ***provided that*** the execution of the **`compile`** subcommand was successful.
+
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+&gt; build bootstrap
+[...]
+</pre>
+
+- **`archives`** - This subcommand generates the gz/zip archives ***provided that*** the execution of the two commands **`compile`** and **`bootstrap`** was successful.
+
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+&gt; build archives
+[...]
+</pre>
+
+- **`documentation`** - This subcommand generates the HTML documentation ***provided that*** the execution of the two commands **`compile`** and **`bootstrap`** was successful.
+
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+&gt; build documentation
+[...]
+</pre>
 
 <hr style="margin:2em 0 0 0;" />
 
