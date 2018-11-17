@@ -6,7 +6,7 @@
     <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    The source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is achieved by the <a href="https://drone.io/">Drone platform</a> hosted on an <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">EPFL server</a>.</br>This page describes the additions/changes we made in our <a href="https://github.com/michelou/dotty">fork</a> of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps on the <b>Microsoft Windows</b> platform.
+    The source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed by the <a href="https://drone.io/">Drone platform</a> running on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server from <a href="https://lamp.epfl.ch/">LAMP-EPFL</a>.</br>This page describes the additions/changes we made in our <a href="https://github.com/michelou/dotty">fork</a> of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps on the <b>Microsoft Windows</b> platform.
   </td>
   </tr>
 </table>
@@ -32,7 +32,7 @@ C:\opt\Git-2.19.1\
 
 ## Directory structure
 
-The directory structure of the [Dotty repository](https://github.com/lampepfl/dotty/) is quite complex but fortunately we only have to deal with the three (sub-)directories **`bin\`**, **`dist\bin\`** and **`project\scripts\`**.
+The directory structure of the [Dotty repository](https://github.com/lampepfl/dotty/) is quite complex but fortunately we only have to deal with the three subdirectories **`bin\`**, **`dist\bin\`** and **`project\scripts\`**.
 
 <pre style="font-size:80%;">
 > dir /ad /b
@@ -59,7 +59,7 @@ tests
 vscode-dotty
 </pre>
 
-> **NB.** The three directories **`collection-strawman\`**, **`scala-backend\`** and **`scala2-library\`** are actually Git submodules; we invite you to read ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/) (Jan 8, 2015).
+> **NB.** The three directories [**`collection-strawman\`**](https://github.com/dotty-staging/collection-strawman), [**`scala-backend\`**](https://github.com/lampepfl/scala/tree/sharing-backend) and [**`scala2-library\`**](https://github.com/lampepfl/scala/tree/dotty-library2.12) are actually Git submodules (see article ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/), Jan 8, 2015).<br/>Git information (e.g. path, URL, branch) about submodules is stored in file [**`.gitmodules`**](https://github.com/michelou/dotty/blob/master/.gitmodules).
 
 Concretely directories **`bin\`**, **`dist\bin\`**, **`project\scripts\`** and the root directory contain the following additions:
 
@@ -142,8 +142,8 @@ The execution of the above subcommands obeys the following dependency rules:
 | `clone` &rarr; *none* | &nbsp; |
 | `compile` &rarr; `clone` | &nbsp; |
 | `bootstrap` &rarr; `compile` | &nbsp; |
-| `archives` &rarr; `bootstrap` | `dist\bootstrapped\*.gz,*.zip` |
-| `documentation` &rarr; `bootstrap` | &nbsp; |
+| `archives` &rarr; `bootstrap` | `dist-bootstrapped\target\*.gz,*.zip` |
+| `documentation` &rarr; `bootstrap` | `docs\_site\*.html`<br/>`docs\docs\*.md` |
 
 ## Windows related issues
 
@@ -198,7 +198,7 @@ Tool paths:
    C:\opt\sbt-1.2.6\bin\sbt.bat
    C:\opt\Git-2.19.1\bin\git.exe
    C:\opt\Git-2.19.1\usr\bin\diff.exe
-Current branch:
+Current Git branch:
    master
 </pre>
 
@@ -276,17 +276,17 @@ testing loading tasty from .tasty file in jar
 [...]
 </pre>
 
-- **`bootstrap`** - This subcommand generates the *"bootstrap compiler"* for Dotty and executes the relevant test suites ***provided that*** the execution of the **`compile`** subcommand was successful.
+> **NB.** The following command performs the same operation as **`build compile`**:  
+> <pre style="margin:10px 0 0 30px;font-size:80%;">
+> > build clone compile-only
+> </pre>
+
+- **`bootstrap`** - This subcommand generates the *"bootstrap compiler"* for Dotty and executes the relevant test suites ***if*** the execution of the **`compile`** subcommand was successful.
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 &gt; build bootstrap
 [...]
 </pre>
-
-> **NB.** The following command performs the same operation as **`build compile`**:  
-> <pre style="margin:10px 0 0 30px;font-size:80%;">
-> > build clone compile-only
-> </pre>
 
 - **`archives`** - This subcommand generates the gz/zip archives ***if*** the execution of the two subcommands **`compile`** and **`bootstrap`** was successful.<br/>Below we execute the **`arch-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
@@ -304,13 +304,13 @@ dotty-0.11.0-bin-SNAPSHOT.zip
 > > build clone compile-only bootstrap-only archives-only
 > </pre>
 
-- **`documentation`** - This subcommand generates the Dotty documentation (website and reference) ***if*** the execution of the two subcommands **`compile`** and **`bootstrap`** was successful.<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
+- **`documentation`** - This subcommand generates the Dotty documentation ([website](https://dotty.epfl.ch/) and [online reference](https://dotty.epfl.ch/docs/)) ***if*** the execution of the two subcommands **`compile`** and **`bootstrap`** was successful.<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 &gt; build -timer doc-only
 Working directory: W:\dotty
 [...]
-[info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 0.11.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty -classpath ...
+[info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 0.11.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
 Compiling (1/406): AlternateConstructorsPhase.scala
 [...]
 Compiling (406/406): package.scala
