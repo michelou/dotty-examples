@@ -32,7 +32,7 @@ C:\opt\Git-2.19.1\
 
 ## Directory structure
 
-The directory structure of the [Dotty repository](https://github.com/lampepfl/dotty/) is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**]](https://github.com/michelou/dotty/tree/master/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts).
+The directory structure of the [Dotty repository](https://github.com/lampepfl/dotty/) is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/master/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts).
 
 <pre style="font-size:80%;">
 > dir /ad /b
@@ -59,7 +59,7 @@ tests
 vscode-dotty
 </pre>
 
-> **NB.** The three directories [**`collection-strawman\`**](https://github.com/dotty-staging/collection-strawman), [**`scala-backend\`**](https://github.com/lampepfl/scala/tree/sharing-backend) and [**`scala2-library\`**](https://github.com/lampepfl/scala/tree/dotty-library2.12) are actually Git submodules (see article ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/), Jan 8, 2015).<br/>Git information (e.g. path, URL, branch) about submodules is stored in file [**`.gitmodules`**](https://github.com/michelou/dotty/blob/master/.gitmodules).
+> **NB.** The three directories [**`collection-strawman\`**](https://github.com/dotty-staging/collection-strawman), [**`scala-backend\`**](https://github.com/lampepfl/scala/tree/sharing-backend) and [**`scala2-library\`**](https://github.com/lampepfl/scala/tree/dotty-library2.12) are actually Git submodules (see article ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/), Jan 8, 2015). Their Git information (e.g. path, URL, branch) is stored in file [**`.gitmodules`**](https://github.com/michelou/dotty/blob/master/.gitmodules).
 
 Concretely directories [**`bin\`**](https://github.com/michelou/dotty/tree/master/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin), [**`project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts) and the root directory contain the following additions:
 
@@ -75,6 +75,8 @@ dist\bin\dotr.bat
 project\scripts\build.bat
 setenv.bat
 </pre>
+
+> **NB.** We also defined a virtual drive **`W:`** In our working environment in order to reduce/hide the real path of our project directory (see [Windows command prompt limitation](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation)). The Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) is used to create virtual drives; for instance:<br/>**`> subst W: %USERPROFILE%\workspace`**.
 
 In the next section we give a brief description of the batch scripts present in those directories.
 
@@ -368,8 +370,6 @@ resources
 typelevel.md       
 usage              
 </pre>
-
-> **NB.** In the above console output **`W:`** is a virtual drive we created using the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) in order to hide/reduce the real path of our project directory; for instance:<br/>**`> subst W: %USERPROFILE%\workspace`**.
 
 <!--
 > build -timer compile-only
