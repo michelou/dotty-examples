@@ -142,7 +142,7 @@ Subcommands obey the following dependency rules for their execution:
 | `compile-only` | ~24 min | &nbsp; |
 | `bootstrap` &rarr; `compile` | ~47 min | &nbsp; |
 | `archives` &rarr; `bootstrap` | &nbsp; | `dist-bootstrapped\target\*.gz,*.zip` |
-| `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
+| `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |<br/>
 <sup>**(1)**</sup> Average time in minutes (measured on a i7-i8550U laptop with 16 GB of memory).
 
 > **NB.** Subcommands whose name ends with **`-only`** help us to execute one single step without running again the precedent ones.
