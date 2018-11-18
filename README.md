@@ -57,7 +57,6 @@ We further recommand using an advanced console emulator such as [ComEmu](https:/
 This repository is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
-bin\0.9\*.bat
 bin\0.10\*.bat
 bin\cfr-0_134.zip
 docs\
@@ -70,7 +69,6 @@ setenv.bat
 where
 
 - directory [**`bin\`**](bin/) provides several utility batch scripts.
-- directory [**`bin\0.9\`**](bin/0.10/) contains the batch commands for Dotty 0.9.
 - directory [**`bin\0.10\`**](bin/0.10/) contains the batch commands for Dotty 0.10.
 - file [**`bin\cfr-0_134.zip`**](bin/cfr-0_134.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
@@ -81,11 +79,11 @@ where
 
 In the next section we give a brief description of the batch scripts present in this repository.
 
-## Batch scripts
+## Batch commands
 
-We distinguish different sets of batch scripts:
+We distinguish different sets of batch files:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch script makes external tools such as **`javac.exe`**, **`scalac.bat`**, [**`dotc.bat`**](bin/0.10/dotc.bat), etc. directly available from the command prompt.
+1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as **`javac.exe`**, **`scalac.bat`**, [**`dotc.bat`**](bin/0.10/dotc.bat), etc. directly available from the command prompt.
 
     <pre style="font-size:80%;">
     &gt; javac -version
@@ -489,7 +487,7 @@ No compilation needed (1 source files)
 
 #### `dotr.bat`
 
-The [Dotty REPL](https://en.wikipedia.org/wiki/Read–eval–print_loop) does work on **Microsoft Windows** starting with version 0.9 of the [Dotty distribution](https://github.com/lampepfl/dotty/releases).
+The [Dotty REPL](https://docs.scala-lang.org/overviews/repl/overview.html) is an interactive tool for evaluating Scala expressions. Concretely, it executes a source script by wrapping it in a template and then compiling and executing the resulting program.
    > **NB.** The batch script [**`dotr.bat`**](bin/0.9/dotr.bat) is based on the bash script [**`dotr`**](https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr) available from the standard [Dotty distribution](https://github.com/lampepfl/dotty/releases).
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > where dotr

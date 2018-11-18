@@ -32,7 +32,7 @@ C:\opt\Git-2.19.1\
 
 ## Directory structure
 
-The directory structure of the [Dotty repository](https://github.com/lampepfl/dotty/) is quite complex but fortunately we only have to deal with the three subdirectories **`bin\`**, **`dist\bin\`** and **`project\scripts\`**.
+The directory structure of the [Dotty repository](https://github.com/lampepfl/dotty/) is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**]](https://github.com/michelou/dotty/tree/master/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts).
 
 <pre style="font-size:80%;">
 > dir /ad /b
@@ -61,7 +61,7 @@ vscode-dotty
 
 > **NB.** The three directories [**`collection-strawman\`**](https://github.com/dotty-staging/collection-strawman), [**`scala-backend\`**](https://github.com/lampepfl/scala/tree/sharing-backend) and [**`scala2-library\`**](https://github.com/lampepfl/scala/tree/dotty-library2.12) are actually Git submodules (see article ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/), Jan 8, 2015).<br/>Git information (e.g. path, URL, branch) about submodules is stored in file [**`.gitmodules`**](https://github.com/michelou/dotty/blob/master/.gitmodules).
 
-Concretely directories **`bin\`**, **`dist\bin\`**, **`project\scripts\`** and the root directory contain the following additions:
+Concretely directories [**`bin\`**](https://github.com/michelou/dotty/tree/master/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin), [**`project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts) and the root directory contain the following additions:
 
 <pre style="font-size:80%;">
 bin\common.bat
@@ -78,11 +78,11 @@ setenv.bat
 
 In the next section we give a brief description of the batch scripts present in those directories.
 
-## Batch scripts
+## Batch commands
 
-We distinguish different sets of batch scripts:
+We distinguish different sets of batch files:
 
-1. [**`setenv.bat`**](https://github.com/michelou/dotty/tree/master/setenv.bat) - This batch script makes external tools such as **`java.exe`**, **`sbt.bat`** and **`git.exe`** directly available from the command prompt.
+1. [**`setenv.bat`**](https://github.com/michelou/dotty/tree/master/setenv.bat) - This batch command makes external tools such as **`java.exe`**, **`sbt.bat`** and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt.
 
     <pre style="font-size:80%;">
     &gt; java -version
@@ -94,9 +94,9 @@ We distinguish different sets of batch scripts:
     git version 2.19.1.windows.1
     </pre>
 
-2. Directory [**`bin\`** ](https://github.com/michelou/dotty/tree/master/bin) - This directory contains batch files used internally during the build process.
+2. Directory [**`bin\`**](https://github.com/michelou/dotty/tree/master/bin) - This directory contains batch files used internally during the build process.
 
-3. Directory [**`dist\bin\`** ](https://github.com/michelou/dotty/tree/master/dist/bin) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software release](https://github.com/lampepfl/dotty/releases).
+3. Directory [**`dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software release](https://github.com/lampepfl/dotty/releases).
 
     <pre style="font-size:80%;">
     &gt; dir /b .\dist\bin
@@ -111,7 +111,7 @@ We distinguish different sets of batch scripts:
     dotr.bat
     </pre>
 
-4. [**`build.bat`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat) - This batch script performs similar build/test steps as on the [EPFL server](http://dotty-ci.epfl.ch/lampepfl/dotty) on a local Windows machine.
+4. [**`build.bat`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat) - This batch command performs on our local Windows machine build/test steps similar to the ones on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
     <pre style="font-size:80%;">
     &gt; build help
@@ -132,22 +132,25 @@ We distinguish different sets of batch scripts:
         help                   display this help message
 </pre>
 
-> **NB.** Subcommands whose name ends with **`-only`** permit to repeat one operation while ignoring the precedent ones.
+Subcommands obey the following dependency rules for their execution:
 
-The execution of the above subcommands obeys the following dependency rules:
-
-| **A** depends on **B** | Output from **A** |
+| **A** depends on **B** | Execution time<sup>**(1)**</sup> | Output from **A** |
 | ------------- | ------------- |
-| `cleanall` &rarr; *none* | &nbsp; |
-| `clone` &rarr; *none* | &nbsp; |
-| `compile` &rarr; `clone` | &nbsp; |
-| `bootstrap` &rarr; `compile` | &nbsp; |
-| `archives` &rarr; `bootstrap` | `dist-bootstrapped\target\*.gz,*.zip` |
-| `documentation` &rarr; `bootstrap` | `docs\_site\*.html`<br/>`docs\docs\*.md` |
+| `cleanall` &rarr; *none* | &lt;1 min | &nbsp; |
+| `clone` &rarr; *none* | &nbsp; | &nbsp; |
+| `compile` &rarr; `clone` | ~24 min | `compiler\target\`<br/>`library\target`<br/>`sbt-bridge\target\` |
+| `compile-only` | ~24 min | &nbsp; |
+| `bootstrap` &rarr; `compile` | ~47 min | &nbsp; |
+| `archives` &rarr; `bootstrap` | &nbsp; | `dist-bootstrapped\target\*.gz,*.zip` |
+| `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
+<sup>**(1)**</sup> Average time in minutes (measured on a i7-i8550U laptop with 16 GB  of memory).
+
+> **NB.** Subcommands whose name ends with **`-only`** help us to execute one single step without running again the precedent ones.
+
 
 ## Windows related issues
 
-We have come across several Windows related issues while executing subcommands of [**`build.bat`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat); in particular:
+In short, we have come across the following issues while executing subcommands of [**`build.bat`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat):
 
 | Subcommand | Bug report |
 | ---------- | ---------- |
@@ -169,7 +172,7 @@ In summary, we encountered several Windows related issues with the [source code]
 
 #### `setenv.bat`
 
-The [**`setenv`**](https://github.com/michelou/dotty/tree/master/setenv.bat) command is executed once to setup our development environment; it makes external tools such as **`javac.exe`**, **`sbt.bat`** and **`git.exe`** directly available from the command prompt:
+The [**`setenv`**](https://github.com/michelou/dotty/tree/master/setenv.bat) command is executed once to setup our development environment; it makes external tools such as **`javac.exe`**, **`sbt.bat`** and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv
@@ -184,7 +187,7 @@ C:\opt\sbt-1.2.6\bin\sbt.bat
 
 > **NB.** Execute **`setenv help`** to display the help message.
 
-With option **`-verbose`** the **`setenv`** command also displays the path of the tools:
+With option **`-verbose`** the **`setenv`** command also displays the path of the tools and the current Git branch:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv -verbose
@@ -204,12 +207,12 @@ Current Git branch:
 
 #### `build.bat`
 
-The [**`build`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat) command is a basic build tool consisting of ~400 lines of batch code. 
+The [**`build`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat) command consists of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code and features the following subcommands:
 
-- **`cleanall`** - This subcommand removes all generated *and untracked* files/directories from our [**`Dotty fork`**](https://github.com/michelou/dotty/tree/master/).<br/>Concretely, **`build cleanall`** executes the two commands **`sbt clean`** *and* [**`git clean -xdf`**](https://git-scm.com/docs/git-clean/) which removes all untracked directories/files, including build products.
+- **`cleanall`** - This subcommand removes all generated *and untracked* files/directories from our [**`Dotty fork`**](https://github.com/michelou/dotty/tree/master/).<br/>Internally, **`build cleanall`** executes the two commands **`sbt clean`** *and* [**`git clean -xdf`**](https://git-scm.com/docs/git-clean/) which removes all untracked directories/files, including build products.
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > build cleanall
-[..]
+[...(sbt)...]
 Removing .vscode/
 Removing HelloWorld$.class
 Removing HelloWorld.class
