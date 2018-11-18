@@ -18,7 +18,7 @@
 
 ## Project dependencies
 
-This project repository depends on a few external software for the **Microsoft Windows** platform:
+This project repository depends on two external software for the **Microsoft Windows** platform:
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
 - [Dotty 0.10](https://github.com/lampepfl/dotty/releases) (Java 9+ is supported. *Reminder*: Dotty 0.9 requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
@@ -306,7 +306,7 @@ dotty_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
 
 > **NB.** Execute **`getnightly help`** to display the help message.
 
-With option **`-verbose`** the **`getnightly`** command also displays the download progress:
+With option **`-verbose`** the [**`getnightly`**](bin/getnightly.bat) command also displays the download progress:
 
 <pre style="margin:10px 0 0 30px;font-size:80%">
 > getnightly -verbose
@@ -338,7 +338,7 @@ Activate default Dotty libraries: 0.10.0-RC1
 Dotty compiler version 0.10.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 </pre>
 
-> **NB.** You need to have *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.10.0-RC1\`** in our case) in order to run the **`activate/reset`** subcommands.<br/> Concretely the [**`getnightly`**](bin/getnightly.bat) command manages two sets of libraries files which are organized as follows:
+> **NB.** You need to have *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.10.0-RC1\`** in our case) in order to run the **`activate/reset`** subcommands.<br/> Internally the [**`getnightly`**](bin/getnightly.bat) command manages two sets of libraries files which are organized as follows:
 > <pre style="margin:10px 0 0 30px;font-size:80%;">
 > > pushd c:\opt\dotty-0.10.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd
 > VERSION
@@ -487,7 +487,7 @@ No compilation needed (1 source files)
 
 #### `dotr.bat`
 
-The [Dotty REPL](https://docs.scala-lang.org/overviews/repl/overview.html) is an interactive tool for evaluating Scala expressions. Concretely, it executes a source script by wrapping it in a template and then compiling and executing the resulting program.
+The [Dotty REPL](https://docs.scala-lang.org/overviews/repl/overview.html) is an interactive tool for evaluating Scala expressions. Internally, it executes a source script by wrapping it in a template and then compiling and executing the resulting program.
    > **NB.** The batch script [**`dotr.bat`**](bin/0.9/dotr.bat) is based on the bash script [**`dotr`**](https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr) available from the standard [Dotty distribution](https://github.com/lampepfl/dotty/releases).
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > where dotr
