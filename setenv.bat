@@ -395,7 +395,7 @@ if defined _SBT_VERSION (
 )
 where /q cfr.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('cfr.bat --version 2^>^&1 ^| findstr CFR') do set __VERSIONS_LINE3=%__VERSIONS_LINE3% cfr %%j,
+    for /f "tokens=1,*" %%i in ('cfr.bat 2^>^&1 ^| findstr /b CFR') do set __VERSIONS_LINE3=%__VERSIONS_LINE3% cfr %%j,
     set __WHERE_ARGS=%__WHERE_ARGS% cfr.bat
 )
 where /q git.exe

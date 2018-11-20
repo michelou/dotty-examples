@@ -7,7 +7,7 @@
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This repository gathers code examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a> - or written by myself.<br/>
-    In particular it includes several <a href="https://en.wikipedia.org/wiki/Batch_file">batch scripts</a> for experimenting with Dotty (aka <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html">Scala 3.0</a>) on the <b>Microsoft Windows</b> platform.
+    In particular it includes several <a href="https://en.wikipedia.org/wiki/Batch_file">batch scripts</a> for experimenting with the Dotty language (aka <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html">Scala 3.0</a>) on the <b>Microsoft Windows</b> platform.
   </td>
   </tr>
 </table>
@@ -46,7 +46,7 @@ C:\opt\apache-ant-1.10.5\
 c:\opt\gradle-4.10.2\
 C:\opt\apache-maven-3.6.0\
 C:\opt\sbt-1.2.6\
-C:\opt\cfr-0_134\
+C:\opt\cfr-0.135\
 C:\opt\Git-2.19.1\
 </pre>
 
@@ -58,7 +58,7 @@ This repository is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
 bin\0.10\*.bat
-bin\cfr-0_134.zip
+bin\cfr-0.135.zip
 docs\
 examples\{dotty-example-project, ..}
 myexamples\{00_AutoParamTupling, ..}
@@ -70,12 +70,14 @@ where
 
 - directory [**`bin\`**](bin/) provides several utility batch scripts.
 - directory [**`bin\0.10\`**](bin/0.10/) contains the batch commands for Dotty 0.10.
-- file [**`bin\cfr-0_134.zip`**](bin/cfr-0_134.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
+- file [**`bin\cfr-0.135.zip`**](bin/cfr-0.135.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
 - directory [**`examples\`**](examples/) contains Dotty examples grabbed from various websites.
 - directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
 - file [**`README.md`**](README.md) is the Markdown document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
+
+> **NB.** We also define a virtual drive **`W:`** In our working environment in order to reduce/hide the real path of our project directory (see [Windows command prompt limitation](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation)). The Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) is used to create virtual drives; for instance:<br/>**`> subst W: %USERPROFILE%\workspace`**.
 
 In the next section we give a brief description of the batch scripts present in this repository.
 
@@ -172,12 +174,12 @@ We distinguish different sets of batch files:
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0_134.zip`**](bin/cfr-0_134.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
+    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.135.zip`**](bin/cfr-0.135.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
 
     <pre style="font-size:80%;">
     &gt; cfr myexamples\00_AutoParamTupling\target\classes\Main.class
     /*
-     * Decompiled with CFR 0_134.
+     * Decompiled with CFR 0.135.
      */
     public final class Main {
         public static void test01() {
@@ -232,7 +234,7 @@ The [**`setenv`**](setenv.bat) command is executed once to setup our development
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.10.0-RC1,
    ant 1.10.5, gradle 4.10.2, mvn 3.6.0, sbt 1.2.6/2.12.17,
-   cfr 0_134, git 2.19.1.windows.1, diff 3.6
+   cfr 0.135, git 2.19.1.windows.1, diff 3.6
 
 > where sbt
 C:\opt\sbt-1.2.6\bin\sbt
@@ -248,7 +250,7 @@ With option **`-verbose`** the **`setenv`** command also displays the path of th
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.10.0-RC1,
    ant 1.10.5, gradle 4.10.2, mvn 3.6.0, sbt 1.2.6/2.12.17,
-   cfr 0_134, git 2.19.1.windows.1, diff 3.6
+   cfr 0.135, git 2.19.1.windows.1, diff 3.6
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
    C:\Program Files\Java\jdk1.8.0_191\bin\java.exe
@@ -260,7 +262,7 @@ Tool paths:
    C:\opt\gradle-4.10.2\bin\gradle.bat
    C:\opt\apache-maven-3.6.0\bin\mvn.cmd
    C:\opt\sbt-1.2.6\bin\sbt.bat
-   C:\opt\cfr-0_134\bin\cfr.bat
+   C:\opt\cfr-0.135\bin\cfr.bat
    C:\opt\Git-2.19.1\bin\git.exe
    C:\opt\Git-2.19.1\usr\bin\diff.exe
 </pre>
@@ -274,8 +276,6 @@ The [**`cleanup`**](bin/cleanup.bat) command removes the output directories (ie.
 Finished to clean up 16 subdirectories in W:\dotty\examples
 Finished to clean up 12 subdirectories in W:\dotty\myexamples
 </pre>
-
-> **NB.** In the above console output **`W:`** is a virtual drive we created using the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) in order to hide/reduce the real path of our project directory; for instance:<br/>**`> subst W: %USERPROFILE%\workspace`**.
 
 #### `dirsize.bat {<dir_name>}`
 
@@ -472,7 +472,7 @@ No compilation needed (1 source files)
 </pre>
 
 > **NB.** The above `enum-Planet` example expects 1 argument at execution time.<br/>
-> For simplicity the [**`build`**](examples/enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](examples/enum-Planet/project/build.properties) (part of the SBT configuration).<br/>
+> For simplicity the [**`build`**](examples/enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](examples/enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="margin:10px 0 0 30px;font-size:80%;">
 > > type project\build.properties
 > sbt.version=1.2.6

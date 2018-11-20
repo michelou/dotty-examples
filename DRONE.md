@@ -6,7 +6,7 @@
     <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    The source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed by the <a href="https://drone.io/">Drone platform</a> running on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server from <a href="https://lamp.epfl.ch/">LAMP-EPFL</a>.</br>This page describes the additions/changes we made in our <a href="https://github.com/michelou/dotty">fork</a> of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps on the <b>Microsoft Windows</b> platform.
+    The source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed by the <a href="https://drone.io/">Drone platform</a> running on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server from <a href="https://lamp.epfl.ch/">LAMP-EPFL</a>.</br>This page describes the additions/changes we made to the source code in our <a href="https://github.com/michelou/dotty">fork</a> of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps on the <b>Microsoft Windows</b> platform.
   </td>
   </tr>
 </table>
@@ -76,7 +76,7 @@ project\scripts\build.bat
 setenv.bat
 </pre>
 
-> **NB.** We also defined a virtual drive **`W:`** In our working environment in order to reduce/hide the real path of our project directory (see [Windows command prompt limitation](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation)). The Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) is used to create virtual drives; for instance:<br/>**`> subst W: %USERPROFILE%\workspace`**.
+> **NB.** We also define a virtual drive **`W:`** In our working environment in order to reduce/hide the real path of our project directory (see [Windows command prompt limitation](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation)). The Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) is used to create virtual drives; for instance:<br/>**`> subst W: %USERPROFILE%\workspace`**.
 
 In the next section we give a brief description of the batch scripts present in those directories.
 
@@ -153,7 +153,7 @@ Subcommands obey the following dependency rules for their execution:
 
 ## Windows related issues
 
-In short, we have come across the following issues while executing subcommands of [**`build.bat`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat):
+We have come across several Windows related issues while executing subcommands of [**`build.bat`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat):
 
 | Subcommand | Bug report |
 | ---------- | ---------- |
@@ -162,7 +162,7 @@ In short, we have come across the following issues while executing subcommands o
 | `documentation` | [#5430](https://github.com/lampepfl/dotty/pull/5430) |
 | *code review* | [#5452](https://github.com/lampepfl/dotty/pull/5452) |
 
-In summary, we encountered several Windows related issues with the [source code](https://github.com/lampepfl/dotty/) of the [Dotty project](http://dotty.epfl.ch/):
+Below we summarize additions/changes we made to the [source code](https://github.com/lampepfl/dotty/) of the [Dotty project](http://dotty.epfl.ch/):
 
 - Unspecified text encoding in some file operations<br/>*Example*: [**`Source`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html)**`.fromFile(f)`** **&rarr;** [**`Source`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html)**`.fromFile(f, "UTF-8")`**.
 - Platform-specific new lines<br/>*Example*: **`"\n"`** **&rarr;** **`sys.props("line.separator")`**.
@@ -287,14 +287,14 @@ testing loading tasty from .tasty file in jar
 > > build clone compile-only
 > </pre>
 
-- **`bootstrap`** - This subcommand generates the *"bootstrap compiler"* for Dotty and executes the relevant test suites ***if*** the execution of the **`compile`** subcommand was successful.
+- **`bootstrap`** - ***If*** execution of the **`compile`** subcommand was successful the **`bootstrap`** subcommand generates the *"bootstrap compiler"* for Dotty and executes the relevant test suites..
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 &gt; build bootstrap
 [...]
 </pre>
 
-- **`archives`** - This subcommand generates the gz/zip archives ***if*** the execution of the two subcommands **`compile`** and **`bootstrap`** was successful.<br/>Below we execute the **`arch-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
+- **`archives`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`archvies`** subcommand generates the gz/zip archives.<br/>Below we execute the **`arch-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 &gt; build arch-only
@@ -310,7 +310,7 @@ dotty-0.11.0-bin-SNAPSHOT.zip
 > > build clone compile-only bootstrap-only archives-only
 > </pre>
 
-- **`documentation`** - This subcommand generates the Dotty documentation ([website](https://dotty.epfl.ch/) and [online reference](https://dotty.epfl.ch/docs/)) ***if*** the execution of the two subcommands **`compile`** and **`bootstrap`** was successful.<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
+- **`documentation`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Dotty website](https://dotty.epfl.ch/) and the online [Dotty documentation](https://dotty.epfl.ch/docs/).<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 &gt; build -timer doc-only
