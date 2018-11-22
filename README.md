@@ -77,7 +77,7 @@ where
 - file [**`README.md`**](README.md) is the Markdown document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
-> **NB.** We also define a virtual drive **`W:`** In our working environment in order to reduce/hide the real path of our project directory (see [Windows command prompt limitation](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation)). The Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) is used to create virtual drives; for instance:<br/>**`> subst W: %USERPROFILE%\workspace`**.
+> **NB.** We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article [*Windows command prompt limitation*](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation)).<br/>We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance: **`subst W: %USERPROFILE%\workspace`**.
 
 In the next section we give a brief description of the batch scripts present in this repository.
 

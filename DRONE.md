@@ -6,10 +6,12 @@
     <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    The source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed by the <a href="https://drone.io/">Drone platform</a> running on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server from <a href="https://lamp.epfl.ch/">LAMP-EPFL</a>.</br>This page describes the additions/changes we made to the source code in our <a href="https://github.com/michelou/dotty">fork</a> of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps on the <b>Microsoft Windows</b> platform.
+    The source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed by the <a href="https://drone.io/">Drone platform</a> running on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server from <a href="https://lamp.epfl.ch/">LAMP-EPFL</a>.</br>This page describes the additions/changes we made to the source code in our <a href="https://github.com/michelou/dotty">fork</a> of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps locally on a Windows machine.
   </td>
   </tr>
 </table>
+
+> **NB.** The [Scala CI](https://scala-ci.typesafe.com/) runs as a Jenkins instance whose configuration is described in the so-called [chef cookbook](https://github.com/scala/scala-jenkins-infra).
 
 ## Project dependencies
 
@@ -76,7 +78,7 @@ project\scripts\build.bat
 setenv.bat
 </pre>
 
-> **NB.** We also define a virtual drive **`W:`** In our working environment in order to reduce/hide the real path of our project directory (see [Windows command prompt limitation](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation)). The Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) is used to create virtual drives; for instance:<br/>**`> subst W: %USERPROFILE%\workspace`**.
+> **NB.** We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see [Windows command prompt limitation](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation)).<br/>We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance: **`subst W: %USERPROFILE%\workspace`**.
 
 In the next section we give a brief description of the batch scripts present in those directories.
 
@@ -138,15 +140,19 @@ Subcommands obey the following dependency rules for their execution:
 
 | **A** depends on **B** | Execution time<sup>**(1)**</sup> | Output from **A** |
 | ------------- | ------------- | ------------- |
-| `cleanall` &rarr; *none* | &lt;1 min | &nbsp; |
-| `clone` &rarr; *none* | &lt;1 min | &nbsp; |
+| `cleanall` &rarr; &empty; | &lt;1 min | &nbsp; |
+| `clone` &rarr; &empty; | &lt;1 min | &nbsp; |
 | `compile` &rarr; `clone` | ~24 min | `compiler\target\`<br/>`library\target`<br/>`sbt-bridge\target\` |
-| `compile-only` | ~24 min | &nbsp; |
 | `bootstrap` &rarr; `compile` | ~47 min | &nbsp; |
 | `archives` &rarr; `bootstrap` | &nbsp; | `dist-bootstrapped\target\*.gz,*.zip` |
 | `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
+| ------------- | ------------- | ------------- |
+| `compile-only` &rarr; &empty; | ~24 min | &nbsp; |
+| `bootstrap-only` &rarr; &empty; | &nbsp; | &nbsp; |
+| `archives-only` &rarr; &empty; | &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
+| `documentation-only` &rarr; &empty; | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
 
-<sup>**(1)**</sup> Average time in minutes (measured on a i7-i8550U laptop with 16 GB of memory).
+<sub><sup>**(1)**</sup> Average time measured on a i7-i8550U laptop with 16 GB of memory.</sub>
 
 > **NB.** Subcommands whose name ends with **`-only`** help us to execute one single step without running again the precedent ones.
 
@@ -157,17 +163,17 @@ We have come across several Windows related issues while executing subcommands o
 
 | Subcommand | Bug report |
 | ---------- | ---------- |
-| `compile` | [#5457](https://github.com/lampepfl/dotty/pull/5457) |
+| `compile` | [#5457](https://github.com/lampepfl/dotty/pull/5457) *(merged)* |
 | `bootstrap` | *pending* |
-| `documentation` | [#5430](https://github.com/lampepfl/dotty/pull/5430) |
-| *code review* | [#5452](https://github.com/lampepfl/dotty/pull/5452) |
+| `documentation` | [#5430](https://github.com/lampepfl/dotty/pull/5430) *(merged)* |
+| *code review* | [#5452](https://github.com/lampepfl/dotty/pull/5452) *(merged)* |
 
 Below we summarize additions/changes we made to the [source code](https://github.com/lampepfl/dotty/) of the [Dotty project](http://dotty.epfl.ch/):
 
 - Unspecified text encoding in some file operations<br/>*Example*: [**`Source`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html)**`.fromFile(f)`** **&rarr;** [**`Source`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html)**`.fromFile(f, "UTF-8")`**.
 - Platform-specific new lines<br/>*Example*: **`"\n"`** **&rarr;** **`sys.props("line.separator")`**.
 - Platform-specific path separators<br/>*Example*: **`":"`** **&rarr;** [**`java.io.File.pathSeparator`**](https://docs.oracle.com/javase/8/docs/api/java/io/File.html#pathSeparator).
-- Special characters in file names<br/>*Example*: **`new PlainFile(Path("<quote>"))`** **&rarr;** **`new PlainFile(Path("_quote_"))`**
+- Illegal characters in file names<br/>*Example*: **`new PlainFile(Path("<quote>"))`** **&rarr;** **`new VirtualFile("<quote>")`**
 - Transformation of URL addresses to platform-specific paths *(to be validated)*<br/>*Example*: **`getLocation.`**[**`getFile`**](https://docs.oracle.com/javase/8/docs/api/java/net/URL.html#getFile) **&rarr;** **`new JFile(url.getFile).getAbsolutePath`**.
 - *(more to come)*
 
