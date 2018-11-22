@@ -139,14 +139,14 @@ We distinguish different sets of batch files:
 Subcommands obey the following dependency rules for their execution:
 
 | **A** depends on **B** | Execution time<sup>**(1)**</sup> | Output from **A** |
-| ------------- | ------------- | ------------- |
+| :------------ | :------------: | :------------ |
 | `cleanall` &rarr; &empty; | &lt;1 min | &nbsp; |
 | `clone` &rarr; &empty; | &lt;1 min | &nbsp; |
 | `compile` &rarr; `clone` | ~24 min | `compiler\target\`<br/>`library\target`<br/>`sbt-bridge\target\` |
 | `bootstrap` &rarr; `compile` | ~47 min | &nbsp; |
 | `archives` &rarr; `bootstrap` | &nbsp; | `dist-bootstrapped\target\*.gz,*.zip` |
 | `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
-| ------------- | ------------- | ------------- |
+| <hr/> | <hr/> | <hr/> |
 | `compile-only` &rarr; &empty; | ~24 min | &nbsp; |
 | `bootstrap-only` &rarr; &empty; | &nbsp; | &nbsp; |
 | `archives-only` &rarr; &empty; | &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
