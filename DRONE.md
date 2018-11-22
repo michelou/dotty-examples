@@ -145,8 +145,8 @@ Subcommands obey the following dependency rules for their execution:
 | `compile` &rarr; `clone` | ~24 min | `compiler\target\`<br/>`library\target`<br/>`sbt-bridge\target\` |
 | `bootstrap` &rarr; `compile` | ~47 min | &nbsp; |
 | `archives` &rarr; `bootstrap` | &nbsp; | `dist-bootstrapped\target\*.gz,*.zip` |
-| `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
-| <hr/> | <hr/> | <hr/> |
+| `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |<br/>
+| :------------ | :------------: | :------------ |
 | `compile-only` &rarr; &empty; | ~24 min | &nbsp; |
 | `bootstrap-only` &rarr; &empty; | &nbsp; | &nbsp; |
 | `archives-only` &rarr; &empty; | &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
@@ -161,12 +161,12 @@ Subcommands obey the following dependency rules for their execution:
 
 We have come across several Windows related issues while executing subcommands of [**`build.bat`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat):
 
-| Subcommand | Bug report |
-| ---------- | ---------- |
-| `compile` | [#5457](https://github.com/lampepfl/dotty/pull/5457) *(merged)* |
-| `bootstrap` | *pending* |
-| `documentation` | [#5430](https://github.com/lampepfl/dotty/pull/5430) *(merged)* |
-| *code review* | [#5452](https://github.com/lampepfl/dotty/pull/5452) *(merged)* |
+| Subcommand | Bug report | Bug status |
+| :--------- | :--------- | :--------: |
+| `compile` | [#5457](https://github.com/lampepfl/dotty/pull/5457) | merged |
+| `bootstrap` | [#5487](https://github.com/lampepfl/dotty/pull/5487) | *pending* |
+| `documentation` | [#5430](https://github.com/lampepfl/dotty/pull/5430) | merged |
+| *code review* | [#5452](https://github.com/lampepfl/dotty/pull/5452) | merged |
 
 Below we summarize additions/changes we made to the [source code](https://github.com/lampepfl/dotty/) of the [Dotty project](http://dotty.epfl.ch/):
 
