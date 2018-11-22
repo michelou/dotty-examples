@@ -68,7 +68,7 @@ setenv.bat
 
 where
 
-- directory [**`bin\`**](bin/) provides several utility batch scripts.
+- directory [**`bin\`**](bin/) provides several utility batch commands.
 - directory [**`bin\0.10\`**](bin/0.10/) contains the batch commands for Dotty 0.10.
 - file [**`bin\cfr-0.135.zip`**](bin/cfr-0.135.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
@@ -79,11 +79,11 @@ where
 
 > **NB.** We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article [*Windows command prompt limitation*](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation)).<br/>We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance: **`subst W: %USERPROFILE%\workspace`**.
 
-In the next section we give a brief description of the batch scripts present in this repository.
+In the next section we give a brief description of the batch files present in this repository.
 
 ## Batch commands
 
-We distinguish different sets of batch files:
+We distinguish different sets of batch commands:
 
 1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as **`javac.exe`**, **`scalac.bat`**, [**`dotc.bat`**](bin/0.10/dotc.bat), etc. directly available from the command prompt.
 
@@ -98,7 +98,7 @@ We distinguish different sets of batch files:
     Dotty compiler version 0.10.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
     </pre>
 
-2. Directory [**`bin\`**](bin/) - This directory contains several utility batch scripts:
+2. Directory [**`bin\`**](bin/) - This directory contains several utility batch files:
    - **`cleanup.bat`** removes the generated class files from every example directory (both in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories).
    - **`dirsize.bat <dir_path_1> ..`** prints the size in Kb/Mb/Gb of the specified directory paths.
    - **`getnightly.bat`** downloads/installs the library files from the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
@@ -488,7 +488,7 @@ No compilation needed (1 source files)
 #### `dotr.bat`
 
 The [Dotty REPL](https://docs.scala-lang.org/overviews/repl/overview.html) is an interactive tool for evaluating Scala expressions. Internally, it executes a source script by wrapping it in a template and then compiling and executing the resulting program.
-   > **NB.** The batch script [**`dotr.bat`**](bin/0.9/dotr.bat) is based on the bash script [**`dotr`**](https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr) available from the standard [Dotty distribution](https://github.com/lampepfl/dotty/releases).
+   > **NB.** The batch file [**`dotr.bat`**](bin/0.9/dotr.bat) is based on the bash script [**`dotr`**](https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr) available from the standard [Dotty distribution](https://github.com/lampepfl/dotty/releases).
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > where dotr
 C:\opt\dotty-0.10.0-RC1\bin\dotr

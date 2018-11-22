@@ -6,12 +6,12 @@
     <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    The source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed by the <a href="https://drone.io/">Drone platform</a> running on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server from <a href="https://lamp.epfl.ch/">LAMP-EPFL</a>.</br>This page describes the additions/changes we made to the source code in our <a href="https://github.com/michelou/dotty">fork</a> of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps locally on a Windows machine.
+    Source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed by the <a href="https://drone.io/">Drone platform</a> running on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server from <a href="https://lamp.epfl.ch/">LAMP-EPFL</a>.</br>This page describes the additions/changes we made to the source code in our <a href="https://github.com/michelou/dotty">fork</a> of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps locally on a Windows machine.
   </td>
   </tr>
 </table>
 
-> **NB.** The [Scala CI](https://scala-ci.typesafe.com/) runs as a Jenkins instance whose configuration is described in the so-called [chef cookbook](https://github.com/scala/scala-jenkins-infra).
+> **NB.** [Scala CI](https://scala-ci.typesafe.com/) runs as a Jenkins instance whose configuration is described in the so-called [chef cookbook](https://github.com/scala/scala-jenkins-infra).
 
 ## Project dependencies
 
@@ -61,7 +61,7 @@ tests
 vscode-dotty
 </pre>
 
-> **NB.** The three directories [**`collection-strawman\`**](https://github.com/dotty-staging/collection-strawman), [**`scala-backend\`**](https://github.com/lampepfl/scala/tree/sharing-backend) and [**`scala2-library\`**](https://github.com/lampepfl/scala/tree/dotty-library2.12) are actually Git submodules (see article ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/), Jan 8, 2015). Their Git information (e.g. path, URL, branch) is stored in file [**`.gitmodules`**](https://github.com/michelou/dotty/blob/master/.gitmodules).
+> **NB.** The three directories [**`collection-strawman\`**](https://github.com/dotty-staging/collection-strawman), [**`scala-backend\`**](https://github.com/lampepfl/scala/tree/sharing-backend) and [**`scala2-library\`**](https://github.com/lampepfl/scala/tree/dotty-library2.12) are actually Git submodules (see article ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/)). Their Git information (e.g. path, URL, branch) is stored in file [**`.gitmodules`**](https://github.com/michelou/dotty/blob/master/.gitmodules).
 
 Concretely directories [**`bin\`**](https://github.com/michelou/dotty/tree/master/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin), [**`project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts) and the root directory contain the following additions:
 
@@ -80,11 +80,11 @@ setenv.bat
 
 > **NB.** We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see [Windows command prompt limitation](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation)).<br/>We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance: **`subst W: %USERPROFILE%\workspace`**.
 
-In the next section we give a brief description of the batch scripts present in those directories.
+In the next section we give a brief description of the batch files present in those directories.
 
 ## Batch commands
 
-We distinguish different sets of batch files:
+We distinguish different sets of batch commands:
 
 1. [**`setenv.bat`**](https://github.com/michelou/dotty/tree/master/setenv.bat) - This batch command makes external tools such as **`java.exe`**, **`sbt.bat`** and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt.
 
@@ -115,7 +115,7 @@ We distinguish different sets of batch files:
     dotr.bat
     </pre>
 
-4. [**`build.bat`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat) - This batch command performs on our local Windows machine build/test steps similar to the ones on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
+4. [**`build.bat`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat) - This batch command performs on a Windows machine build/test steps similar to the ones on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
     <pre style="font-size:80%;">
     &gt; build help
@@ -125,15 +125,17 @@ We distinguish different sets of batch files:
         -verbose               display environment settings
       Subcommands:
         arch[ives]             generate gz/zip archives (after bootstrap)
-        arch[ives]-only        generate ONLY gz/zip archives
         boot[strap]            generate bootstrap compiler (after compile)
-        boot[strap]-only       generate ONLY bootstrap compiler
         cleanall               clean project (sbt+git) and quit
         clone                  update submodules
-        compile                genarate 1st stage compiler (after clone)
+        compile                generate 1st stage compiler (after clone)
         doc[umentation]        generate documentation (after bootstrap)
-        doc[umentation]-only]  generate ONLY documentation
         help                   display this help message
+      Advanced subcommands (no deps):
+        arch[ives]-only        generate ONLY gz/zip archives
+        boot[strap]-only       generate ONLY bootstrap compiler
+        compile                generate ONLY 1st stage compiler
+        doc[umentation]-only]  generate ONLY documentation
 </pre>
 
 Subcommands obey the following dependency rules for their execution:
@@ -145,16 +147,17 @@ Subcommands obey the following dependency rules for their execution:
 | `compile` &rarr; `clone` | ~24 min | `compiler\target\`<br/>`library\target`<br/>`sbt-bridge\target\` |
 | `bootstrap` &rarr; `compile` | ~47 min | &nbsp; |
 | `archives` &rarr; `bootstrap` | &nbsp; | `dist-bootstrapped\target\*.gz,*.zip` |
-| `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |<br/>
-| :------------ | :------------: | :------------ |
-| `compile-only` &rarr; &empty; | ~24 min | &nbsp; |
-| `bootstrap-only` &rarr; &empty; | &nbsp; | &nbsp; |
-| `archives-only` &rarr; &empty; | &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
-| `documentation-only` &rarr; &empty; | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
+| `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
 
 <sub><sup>**(1)**</sup> Average time measured on a i7-i8550U laptop with 16 GB of memory.</sub>
 
 > **NB.** Subcommands whose name ends with **`-only`** help us to execute one single step without running again the precedent ones.
+> 
+| Subcommand | Execution time | Output | | :------------ | :------------: | :------------ |
+| `compile-only` &rarr; &empty; | ~24 min | &nbsp; |
+| `bootstrap-only` &rarr; &empty; | &nbsp; | &nbsp; |
+| `archives-only` &rarr; &empty; | &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
+| `documentation-only` &rarr; &empty; | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
 
 
 ## Windows related issues
@@ -163,18 +166,18 @@ We have come across several Windows related issues while executing subcommands o
 
 | Subcommand | Bug report | Bug status |
 | :--------- | :--------- | :--------: |
-| `compile` | [#5457](https://github.com/lampepfl/dotty/pull/5457) | merged |
-| `bootstrap` | [#5487](https://github.com/lampepfl/dotty/pull/5487) | *pending* |
-| `documentation` | [#5430](https://github.com/lampepfl/dotty/pull/5430) | merged |
-| *code review* | [#5452](https://github.com/lampepfl/dotty/pull/5452) | merged |
+| `compile` | [#5457](https://github.com/lampepfl/dotty/pull/5457) | [merged](https://github.com/lampepfl/dotty/commit/eb175cb) |
+| `bootstrap` | [#5487](https://github.com/lampepfl/dotty/pull/5487) | [merged](https://github.com/lampepfl/dotty/commit/052c3b1) |
+| `documentation` | [#5430](https://github.com/lampepfl/dotty/pull/5430) | [merged](https://github.com/lampepfl/dotty/commit/81b30383800495c64f2c8cfd0979e69e504104bc) |
+| *code review* | [#5452](https://github.com/lampepfl/dotty/pull/5452) | [merged](https://github.com/lampepfl/dotty/commit/7e093b15ff2a927212c7f40aa36b71d0a28f81b5) |
 
 Below we summarize additions/changes we made to the [source code](https://github.com/lampepfl/dotty/) of the [Dotty project](http://dotty.epfl.ch/):
 
-- Unspecified text encoding in some file operations<br/>*Example*: [**`Source`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html)**`.fromFile(f)`** **&rarr;** [**`Source`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html)**`.fromFile(f, "UTF-8")`**.
+- Unspecified text encoding in some file operations<br/>*Example*: [**`Source.fromFile(f)`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html) **&rarr;** **`Source.fromFile(f, "UTF-8")`**.
 - Platform-specific new lines<br/>*Example*: **`"\n"`** **&rarr;** **`sys.props("line.separator")`**.
 - Platform-specific path separators<br/>*Example*: **`":"`** **&rarr;** [**`java.io.File.pathSeparator`**](https://docs.oracle.com/javase/8/docs/api/java/io/File.html#pathSeparator).
 - Illegal characters in file names<br/>*Example*: **`new PlainFile(Path("<quote>"))`** **&rarr;** **`new VirtualFile("<quote>")`**
-- Transformation of URL addresses to platform-specific paths *(to be validated)*<br/>*Example*: **`getLocation.`**[**`getFile`**](https://docs.oracle.com/javase/8/docs/api/java/net/URL.html#getFile) **&rarr;** **`new JFile(url.getFile).getAbsolutePath`**.
+- Transformation of URL addresses to platform-specific paths *(to be validated)*<br/>*Example*: [**`getLocation.getFile`**](https://docs.oracle.com/javase/8/docs/api/java/net/URL.html#getFile) **&rarr;** **`new JFile(url.getFile).getAbsolutePath`**.
 - *(more to come)*
 
 ## Session examples
