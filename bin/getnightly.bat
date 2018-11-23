@@ -35,7 +35,7 @@ if not %_EXITCODE%==0 goto end
 
 if defined _DOWNLOAD_ONLY (
     call :download
-    if not %_EXITCODE%==0 goto end
+    if not !_EXITCODE!==0 goto end
     goto end
 )
 
@@ -44,16 +44,16 @@ if not %_EXITCODE%==0 goto end
 
 if defined _ACTIVATE_NIGHTLY (
     call :download
-    if not %_EXITCODE%==0 goto end
+    if not !_EXITCODE!==0 goto end
 
     call :backup_nightly
-    if not %_EXITCODE%==0 goto end
+    if not !_EXITCODE!==0 goto end
 
     call :activate_nightly
-    if not %_EXITCODE%==0 goto end
+    if not !_EXITCODE!==0 goto end
 ) else (
     call :activate_dotty
-    if not %_EXITCODE%==0 goto end
+    if not !_EXITCODE!==0 goto end
 )
 
 goto end

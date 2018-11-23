@@ -7,7 +7,7 @@
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This repository gathers code examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a> - or written by myself.<br/>
-    In particular it includes several <a href="https://en.wikipedia.org/wiki/Batch_file">batch scripts</a> for experimenting with the Dotty language (aka <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html">Scala 3.0</a>) on the <b>Microsoft Windows</b> platform.
+    In particular it includes several <a href="https://en.wikipedia.org/wiki/Batch_file">batch scripts</a> for experimenting with the Dotty language (aka <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html">Scala 3.0</a>) on a Windows machine.
   </td>
   </tr>
 </table>
@@ -21,7 +21,11 @@
 This project repository depends on two external software for the **Microsoft Windows** platform:
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
-- [Dotty 0.10](https://github.com/lampepfl/dotty/releases) (Java 9+ is supported. *Reminder*: Dotty 0.9 requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
+- [Dotty 0.10](https://github.com/lampepfl/dotty/releases) (Java 9+ is supported) 
+
+<!--
+*Reminder*: Dotty 0.9 requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
+-->
 
 Optionally you may also install the following software:
 
@@ -31,7 +35,7 @@ Optionally you may also install the following software:
 - [Gradle 4.10](https://gradle.org/install/) (requires Java 7 or newer) ([*release notes*](https://docs.gradle.org/current/release-notes.html))
 - [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.6.0/release-notes.html))
 - [CFR 0.13](http://www.benf.org/other/cfr/) (Java decompiler)
-- [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.0.txt))
+- [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.2.txt))
 
 > ***Installation policy***<br/>
 > Whenever possible software is installed via a Zip archive rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in memory of* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
@@ -227,14 +231,14 @@ We distinguish different sets of batch commands:
 
 #### `setenv.bat`
 
-The [**`setenv`**](setenv.bat) command is executed once to setup our development environment:
+The [**`setenv`**](setenv.bat) command is executed once to setup our development environment; it makes external tools such as **`javac.exe`**, **`sbt.bat`** and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.10.0-RC1,
    ant 1.10.5, gradle 4.10.2, mvn 3.6.0, sbt 1.2.6/2.12.17,
-   cfr 0.135, git 2.19.1.windows.1, diff 3.6
+   cfr 0.135, git 2.19.2.windows.1, diff 3.6
 
 > where sbt
 C:\opt\sbt-1.2.6\bin\sbt
@@ -243,14 +247,14 @@ C:\opt\sbt-1.2.6\bin\sbt.bat
 
 > **NB.** Execute **`setenv help`** to display the help message.
 
-With option **`-verbose`** the **`setenv`** command also displays the path of the tools:
+With option **`-verbose`** the [**`setenv`**](setenv.bat) command also displays the path of the tools:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv -verbose
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.10.0-RC1,
    ant 1.10.5, gradle 4.10.2, mvn 3.6.0, sbt 1.2.6/2.12.17,
-   cfr 0.135, git 2.19.1.windows.1, diff 3.6
+   cfr 0.135, git 2.19.2.windows.1, diff 3.6
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
    C:\Program Files\Java\jdk1.8.0_191\bin\java.exe
@@ -425,9 +429,9 @@ The [**`touch.bat`**](bin/touch.bat) command
 
 #### `build.bat`
 
-The [**`build`**](examples/enum-Planet/build.bat) command is a basic build tool consisting of ~350 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_02">[[2]](#footnote_02)</sup>. 
+The [**`build`**](examples/enum-Planet/build.bat) command is a basic build tool consisting of ~350 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_01">[[1]](#footnote_01)</sup>. 
 
-- Build/run the [**`examples\enum-Planet`**](examples/enum-Planet/) project with no build option:
+- Running the **`build`** command with no build option in project [**`examples\enum-Planet`**](examples/enum-Planet/) generates the following output:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > build clean compile run
 Your weight on MERCURY is 0.37775761520093526
@@ -440,7 +444,7 @@ Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406
 </pre>
 
-- Build/run the [**`examples\enum-Planet`**](examples/enum-Planet/) project with build option **`-debug`**:
+- Running the **`build`** command with build option **`-debug`** in project [**`examples\enum-Planet`**](examples/enum-Planet/) also displays internal steps of the build process:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > build -debug clean compile run
 [build] _CLEAN=1 _COMPILE=1 _COMPILE_CMD=dotc _RUN=1
@@ -487,7 +491,7 @@ No compilation needed (1 source files)
 
 #### `dotr.bat`
 
-The [Dotty REPL](https://docs.scala-lang.org/overviews/repl/overview.html) is an interactive tool for evaluating Scala expressions. Internally, it executes a source script by wrapping it in a template and then compiling and executing the resulting program.
+[Dotty REPL](https://docs.scala-lang.org/overviews/repl/overview.html) is an interactive tool for evaluating Scala expressions. Internally, it executes a source script by wrapping it in a template and then compiling and executing the resulting program.
    > **NB.** The batch file [**`dotr.bat`**](bin/0.9/dotr.bat) is based on the bash script [**`dotr`**](https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr) available from the standard [Dotty distribution](https://github.com/lampepfl/dotty/releases).
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > where dotr
@@ -528,11 +532,13 @@ scala>:quit
 
 ## Footnotes
 
+<!-- ## removed on 2018-11-23 ##
 <a name="footnote_01">[1]</a> ***2018-07-07*** [↩](#anchor_01)
 
 <div style="margin:0 0 0 20px;">
 Version 0.9 of the Dotty compiler is not compatible with versions 9 and 10 of <a href="https://docs.oracle.com/javase/9/install/overview-jdk-9-and-jre-9-installation.htm">Java JRE</a>; a <strong><code>java.lang.IncompatibleClassChangeError</code></strong> exception is thrown when starting the <strong><code>dotc</code></strong> command:
 </div>
+-->
 
 <!--
 C:\Progra~1\Java\jre-10.0.2\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.9.0\lib\scala-library-2.12.6.jar;C:\opt\dotty-0.9.0\lib\scala-xml_2.12-1.1.0.jar;C:\opt\dotty-0.9.0\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.9.0\lib\compiler-interface-1.1.6.jar;C:\opt\dotty-0.9.0\lib\dotty-interfaces-0.9.0.jar;C:\opt\dotty-0.9.0\lib\dotty-library_0.9-0.9.0.jar;C:\opt\dotty-0.9.0\lib\dotty-compiler_0.9-0.9.0.jar -Dscala.usejavacp=true dotty.tools.dotc.Main
@@ -540,6 +546,7 @@ C:\Progra~1\Java\jre-10.0.2\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dot
 C:\Progra~1\Java\jre-10.0.2\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.10.0-RC1\lib\scala-library-2.12.7.jar;C:\opt\dotty-0.10.0-RC1\lib\scala-xml_2.12-1.1.0.jar;C:\opt\dotty-0.10.0-RC1\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.10.0-RC1\lib\compiler-interface-1.2.2.jar;C:\opt\dotty-0.10.0-RC1\lib\dotty-interfaces-0.10.0-RC1.jar;C:\opt\dotty-0.10.0-RC1\lib\dotty-library_0.10-0.10.0-RC1.jar;C:\opt\dotty-0.10.0-RC1\lib\dotty-compiler_0.10-0.10.0-RC1.jar -Dscala.usejavacp=true dotty.tools.dotc.Main
 -->
 
+<!--
 <pre style="margin:10px 0 0 20px;font-size:80%;">
 > C:\Progra~1\Java\jre-10.0.2\bin\java.exe -Xmx768m -Xms768m \
 -classpath C:\opt\dotty-0.9.0\lib\scala-library-2.12.6.jar; \
@@ -561,8 +568,9 @@ Exception in thread "main" java.lang.IncompatibleClassChangeError: Method dotty.
 
 > [***Oracle Java SE Support Roadmap***](http://www.oracle.com/technetwork/java/eol-135779.html)<br/>
 > Oracle will not post further updates of Java SE 8 to its public download sites for commercial use after January 2019.
+-->
 
-<a name="footnote_02">[2]</a> ***2018-05-09*** [↩](#anchor_02)
+<a name="footnote_01">[1]</a> ***2018-05-09*** [↩](#anchor_01)
 
 <div style="margin:0 0 1em 20px;"> 
 Command Prompt has been around for as long as we can remember, but starting with Windows 10 build 14971, Microsoft is trying to make PowerShell the <a href="https://support.microsoft.com/en-us/help/4027690/windows-powershell-is-replacing-command-prompt">main command shell</a> in the operating system.

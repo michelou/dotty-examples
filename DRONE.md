@@ -11,7 +11,7 @@
   </tr>
 </table>
 
-> **NB.** [Scala CI](https://scala-ci.typesafe.com/) runs as a Jenkins instance whose configuration is described in the so-called [chef cookbook](https://github.com/scala/scala-jenkins-infra).
+> **NB.** [Scala CI](https://scala-ci.typesafe.com/) runs as a Jenkins instance whose configuration is described in the so-called [Chef cookbook](https://github.com/scala/scala-jenkins-infra).
 
 ## Project dependencies
 
@@ -19,17 +19,17 @@ Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three 
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
 - [SBT 1.2.6](https://www.scala-sbt.org/download.html) (with Scala 2.12.17 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.6))
-- [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.0.txt))
+- [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.2.txt))
 
 > ***Installation policy***<br/>
-> Whenever possible software is installed via a Zip archive rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in memory of* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
+> Whenever possible software is installed via a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in memory of* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
 For instance our development environment looks as follows (*November 2018*):
 
 <pre style="font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_191\
 C:\opt\sbt-1.2.6\
-C:\opt\Git-2.19.1\
+C:\opt\Git-2.19.2\
 </pre>
 
 ## Directory structure
@@ -78,7 +78,7 @@ project\scripts\build.bat
 setenv.bat
 </pre>
 
-> **NB.** We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see [Windows command prompt limitation](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation)).<br/>We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance: **`subst W: %USERPROFILE%\workspace`**.
+> **NB.** We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article [*Windows command prompt limitation*](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation)).<br/>We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance: **`subst W: %USERPROFILE%\workspace`**.
 
 In the next section we give a brief description of the batch files present in those directories.
 
@@ -95,7 +95,7 @@ We distinguish different sets of batch commands:
     Java HotSpot(TM) 64-Bit Server VM (build 25.191-b12, mixed mode)
 
     &gt; git --version
-    git version 2.19.1.windows.1
+    git version 2.19.2.windows.1
     </pre>
 
 2. Directory [**`bin\`**](https://github.com/michelou/dotty/tree/master/bin) - This directory contains batch files used internally during the build process.
@@ -134,7 +134,7 @@ We distinguish different sets of batch commands:
       Advanced subcommands (no deps):
         arch[ives]-only        generate ONLY gz/zip archives
         boot[strap]-only       generate ONLY bootstrap compiler
-        compile                generate ONLY 1st stage compiler
+        compile-only           generate ONLY 1st stage compiler
         doc[umentation]-only]  generate ONLY documentation
 </pre>
 
@@ -153,7 +153,8 @@ Subcommands obey the following dependency rules for their execution:
 
 > **NB.** Subcommands whose name ends with **`-only`** help us to execute one single step without running again the precedent ones.
 > 
-| Subcommand | Execution time | Output | | :------------ | :------------: | :------------ |
+| Subcommand | Execution time | Output |
+| :------------ | :------------: | :------------ |
 | `compile-only` &rarr; &empty; | ~24 min | &nbsp; |
 | `bootstrap-only` &rarr; &empty; | &nbsp; | &nbsp; |
 | `archives-only` &rarr; &empty; | &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
@@ -164,8 +165,8 @@ Subcommands obey the following dependency rules for their execution:
 
 We have come across several Windows related issues while executing subcommands of [**`build.bat`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat):
 
-| Subcommand | Bug report | Bug status |
-| :--------- | :--------- | :--------: |
+| Subcommand | [Pull request](https://github.com/lampepfl/dotty/pulls) | Request status |
+| :--------- | :--------: | :--------: |
 | `compile` | [#5457](https://github.com/lampepfl/dotty/pull/5457) | [merged](https://github.com/lampepfl/dotty/commit/eb175cb) |
 | `bootstrap` | [#5487](https://github.com/lampepfl/dotty/pull/5487) | [merged](https://github.com/lampepfl/dotty/commit/052c3b1) |
 | `documentation` | [#5430](https://github.com/lampepfl/dotty/pull/5430) | [merged](https://github.com/lampepfl/dotty/commit/81b30383800495c64f2c8cfd0979e69e504104bc) |
@@ -190,7 +191,7 @@ The [**`setenv`**](https://github.com/michelou/dotty/tree/master/setenv.bat) com
 > setenv
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191,
-   sbt 1.2.3/2.12.7, git 2.19.1.windows.1, diff 3.6
+   sbt 1.2.3/2.12.7, git 2.19.2.windows.1, diff 3.6
 
 > where sbt
 C:\opt\sbt-1.2.6\bin\sbt
@@ -205,14 +206,14 @@ With option **`-verbose`** the **`setenv`** command also displays the path of th
 > setenv -verbose
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191,
-   sbt 1.2.3/2.12.7, git 2.19.1.windows.1, diff 3.6
+   sbt 1.2.3/2.12.7, git 2.19.2.windows.1, diff 3.6
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
    C:\Program Files\Java\jdk1.8.0_191\bin\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\opt\sbt-1.2.6\bin\sbt.bat
-   C:\opt\Git-2.19.1\bin\git.exe
-   C:\opt\Git-2.19.1\usr\bin\diff.exe
+   C:\opt\Git-2.19.2\bin\git.exe
+   C:\opt\Git-2.19.2\usr\bin\diff.exe
 Current Git branch:
    master
 </pre>
