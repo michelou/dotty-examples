@@ -45,7 +45,7 @@ For instance our development environment looks as follows (*November 2018*):
 <pre style="font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_191\
 C:\opt\scala-2.12.7\
-C:\opt\dotty-0.10.0-RC1\
+C:\opt\dotty-0.10.0\
 C:\opt\apache-ant-1.10.5\
 c:\opt\gradle-4.10.2\
 C:\opt\apache-maven-3.6.0\
@@ -99,7 +99,7 @@ We distinguish different sets of batch commands:
     Scala compiler version 2.12.7 -- Copyright 2002-2018, LAMP/EPFL and Lightbend, Inc.
 
     &gt; dotc -version
-    Dotty compiler version 0.10.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
+    Dotty compiler version 0.10.0 -- Copyright 2002-2018, LAMP/EPFL
     </pre>
 
 2. Directory [**`bin\`**](bin/) - This directory contains several utility batch files:
@@ -110,11 +110,11 @@ We distinguish different sets of batch commands:
    - **`timeit.bat <cmd_1> { & <cmd_2> }`** prints the execution time of the specified commands.
    - **`touch.bat <file_path>`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory [**`bin\0.10\`**](bin/0.10/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.10.0-RC1\bin\`**) in order to use the [**`dot`**](bin/0.10/dot.bat), [**`dotc`**](bin/0.10/dotc.bat), [**`dotd`**](bin/0.10/dotd.bat) and [**`dotr`**](bin/0.10/dotr.bat) commands on **Microsoft Windows**.
+3. Directory [**`bin\0.10\`**](bin/0.10/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.10.0\bin\`**) in order to use the [**`dot`**](bin/0.10/dot.bat), [**`dotc`**](bin/0.10/dotc.bat), [**`dotd`**](bin/0.10/dotd.bat) and [**`dotr`**](bin/0.10/dotr.bat) commands on **Microsoft Windows**.
     > **NB.** We wrote (and do maintain) those batch files based on the bash scripts available from the standard [Dotty](http://dotty.epfl.ch/) distribution.
 
     <pre style="font-size:80%;">
-    &gt; dir /b c:\opt\dotty-0.10.0-RC1\bin
+    &gt; dir /b c:\opt\dotty-0.10.0\bin
     common
     common.bat
     dot.bat
@@ -236,7 +236,7 @@ The [**`setenv`**](setenv.bat) command is executed once to setup our development
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv
 Tool versions:
-   javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.10.0-RC1,
+   javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.10.0,
    ant 1.10.5, gradle 4.10.2, mvn 3.6.0, sbt 1.2.6/2.12.17,
    cfr 0.135, git 2.19.2.windows.1, diff 3.6
 
@@ -252,7 +252,7 @@ With option **`-verbose`** the [**`setenv`**](setenv.bat) command also displays 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv -verbose
 Tool versions:
-   javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.10.0-RC1,
+   javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.10.0,
    ant 1.10.5, gradle 4.10.2, mvn 3.6.0, sbt 1.2.6/2.12.17,
    cfr 0.135, git 2.19.2.windows.1, diff 3.6
 Tool paths:
@@ -261,7 +261,7 @@ Tool paths:
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\opt\scala-2.12.7\bin\scalac.bat
-   C:\opt\dotty-0.10.0-RC1\bin\dotc.bat
+   C:\opt\dotty-0.10.0\bin\dotc.bat
    C:\opt\apache-ant-1.10.5\bin\ant.bat
    C:\opt\gradle-4.10.2\bin\gradle.bat
    C:\opt\apache-maven-3.6.0\bin\mvn.cmd
@@ -286,10 +286,10 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 The [**`dirsize`**](bin/dirsize.bat) command returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
-> dirsize examples myexamples c:\opt\dotty-0.10.0-RC1
+> dirsize examples myexamples c:\opt\dotty-0.10.0
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
-Size of directory "c:\opt\dotty-0.10.0-RC1" is 22.4 Mb
+Size of directory "c:\opt\dotty-0.10.0" is 22.4 Mb
 </pre>
 
 #### `getnightly.bat`
@@ -323,7 +323,7 @@ Downloading file dotty-interfaces-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar ... 3.
 Finished to download 6 files to directory W:\dotty\nightly-jars
 </pre>
 
-We can now replace the library files from the original [Dotty distribution](https://github.com/lampepfl/dotty/releases) (installed in directory **`C:\opt\dotty-0.10.0-RC1\`** in our case) with library files from the latest nightly build.
+We can now replace the library files from the original [Dotty distribution](https://github.com/lampepfl/dotty/releases) (installed in directory **`C:\opt\dotty-0.10.0\`** in our case) with library files from the latest nightly build.
 
 Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in the Dotty installation directory.
 <pre style="margin:10px 0 0 30px;font-size:80%;">
@@ -336,23 +336,23 @@ Activate nightly build libraries: 0.11.0-bin-20181109-a9029dc-NIGHTLY
 Dotty compiler version 0.11.0-bin-20181109-a9029dc-NIGHTLY-git-a9029dc -- Copyright 2002-2018, LAMP/EPFL
 
 > getnightly reset
-Activate default Dotty libraries: 0.10.0-RC1
+Activate default Dotty libraries: 0.10.0
 
 > dotc -version
-Dotty compiler version 0.10.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
+Dotty compiler version 0.10.0 -- Copyright 2002-2018, LAMP/EPFL
 </pre>
 
-> **NB.** You need to have *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.10.0-RC1\`** in our case) in order to run the **`activate/reset`** subcommands.<br/> Internally the [**`getnightly`**](bin/getnightly.bat) command manages two sets of libraries files which are organized as follows:
+> **NB.** You need to have *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.10.0\`** in our case) in order to run the **`activate/reset`** subcommands.<br/> Internally the [**`getnightly`**](bin/getnightly.bat) command manages two sets of libraries files which are organized as follows:
 > <pre style="margin:10px 0 0 30px;font-size:80%;">
-> > pushd c:\opt\dotty-0.10.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd
+> > pushd c:\opt\dotty-0.10.0&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd
 > VERSION
 > VERSION-NIGHTLY
-> lib\0.10.0-RC1\
-> &nbsp;&nbsp;dist_0.10-0.10.0-RC1.jar
-> &nbsp;&nbsp;dotty-compiler_0.10-0.10.0-RC1.jar
-> &nbsp;&nbsp;dotty-doc_0.10-0.10.0-RC1.jar
-> &nbsp;&nbsp;dotty-interfaces-0.10.0-RC1.jar
-> &nbsp;&nbsp;dotty-library_0.10-0.10.0-RC1.jar
+> lib\0.10.0\
+> &nbsp;&nbsp;dist_0.10-0.10.0.jar
+> &nbsp;&nbsp;dotty-compiler_0.10-0.10.0.jar
+> &nbsp;&nbsp;dotty-doc_0.10-0.10.0.jar
+> &nbsp;&nbsp;dotty-interfaces-0.10.0.jar
+> &nbsp;&nbsp;dotty-library_0.10-0.10.0.jar
 > lib\0.11.0-bin-20181109-a9029dc-NIGHTLY\
 > &nbsp;&nbsp;dotty-compiler_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
 > &nbsp;&nbsp;dotty-doc_0.11-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar
@@ -368,7 +368,7 @@ Dotty compiler version 0.10.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 Passing argument **`System`** to the [**`searchjars`**](bin/searchjars.bat) command prints the following output (classfile names are printed with full path and are prefixed with their containing [JAR file](https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html)):
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > searchjars System
-Search for class System in library files C:\opt\dotty-0.10.0-RC1\lib\*.jar
+Search for class System in library files C:\opt\dotty-0.10.0\lib\*.jar
   scala-library-2.12.7.jar:scala/sys/SystemProperties$.class
   scala-library-2.12.7.jar:scala/sys/SystemProperties.class
   scala-xml_2.12-1.1.0.jar:scala/xml/dtd/SystemID$.class
@@ -383,7 +383,7 @@ Search for class System in library files C:\opt\scala-2.12.7\lib\*.jar
 Searching for an unknown class - e.g. **`BinarySearch`** - produces the following output:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > searchjars BinarySearch
-Search for class BinarySearch in library files C:\opt\dotty-0.10.0-RC1\lib\*.jar
+Search for class BinarySearch in library files C:\opt\dotty-0.10.0\lib\*.jar
 Search for class BinarySearch in library files C:\opt\scala-2.12.7\lib\*.jar
 </pre>
 
@@ -495,8 +495,8 @@ No compilation needed (1 source files)
    > **NB.** The batch file [**`dotr.bat`**](bin/0.9/dotr.bat) is based on the bash script [**`dotr`**](https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr) available from the standard [Dotty distribution](https://github.com/lampepfl/dotty/releases).
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > where dotr
-C:\opt\dotty-0.10.0-RC1\bin\dotr
-C:\opt\dotty-0.10.0-RC1\bin\dotr.bat
+C:\opt\dotty-0.10.0\bin\dotr
+C:\opt\dotty-0.10.0\bin\dotr.bat
 
 > dotr -version
 java version "1.8.0_191"
@@ -519,7 +519,7 @@ scala> System.getenv().get("JAVA_HOME")
 val res0: String = C:\Progra~1\Java\jdk1.8.0_191
 
 scala> System.getenv().get("DOTTY_HOME")
-val res1: String = C:\opt\dotty-0.10.0-RC1
+val res1: String = C:\opt\dotty-0.10.0
 
 scala> :load myexamples/HelloWorld/src/main/scala/HelloWorld.scala
 // defined object HelloWorld
@@ -543,7 +543,7 @@ Version 0.9 of the Dotty compiler is not compatible with versions 9 and 10 of <a
 <!--
 C:\Progra~1\Java\jre-10.0.2\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.9.0\lib\scala-library-2.12.6.jar;C:\opt\dotty-0.9.0\lib\scala-xml_2.12-1.1.0.jar;C:\opt\dotty-0.9.0\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.9.0\lib\compiler-interface-1.1.6.jar;C:\opt\dotty-0.9.0\lib\dotty-interfaces-0.9.0.jar;C:\opt\dotty-0.9.0\lib\dotty-library_0.9-0.9.0.jar;C:\opt\dotty-0.9.0\lib\dotty-compiler_0.9-0.9.0.jar -Dscala.usejavacp=true dotty.tools.dotc.Main
 
-C:\Progra~1\Java\jre-10.0.2\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.10.0-RC1\lib\scala-library-2.12.7.jar;C:\opt\dotty-0.10.0-RC1\lib\scala-xml_2.12-1.1.0.jar;C:\opt\dotty-0.10.0-RC1\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.10.0-RC1\lib\compiler-interface-1.2.2.jar;C:\opt\dotty-0.10.0-RC1\lib\dotty-interfaces-0.10.0-RC1.jar;C:\opt\dotty-0.10.0-RC1\lib\dotty-library_0.10-0.10.0-RC1.jar;C:\opt\dotty-0.10.0-RC1\lib\dotty-compiler_0.10-0.10.0-RC1.jar -Dscala.usejavacp=true dotty.tools.dotc.Main
+C:\Progra~1\Java\jre-10.0.2\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.10.0\lib\scala-library-2.12.7.jar;C:\opt\dotty-0.10.0\lib\scala-xml_2.12-1.1.0.jar;C:\opt\dotty-0.10.0\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.10.0\lib\compiler-interface-1.2.2.jar;C:\opt\dotty-0.10.0\lib\dotty-interfaces-0.10.0.jar;C:\opt\dotty-0.10.0\lib\dotty-library_0.10-0.10.0.jar;C:\opt\dotty-0.10.0\lib\dotty-compiler_0.10-0.10.0.jar -Dscala.usejavacp=true dotty.tools.dotc.Main
 -->
 
 <!--
