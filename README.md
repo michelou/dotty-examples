@@ -51,7 +51,7 @@ c:\opt\gradle-4.10.2\
 C:\opt\apache-maven-3.6.0\
 C:\opt\sbt-1.2.6\
 C:\opt\cfr-0.135\
-C:\opt\Git-2.19.1\
+C:\opt\Git-2.19.2\
 </pre>
 
 We further recommand using an advanced console emulator such as [ComEmu](https://conemu.github.io/) (or [Cmdr](http://cmder.net/)) which features [Unicode support](https://conemu.github.io/en/UnicodeSupport.html).
@@ -267,8 +267,8 @@ Tool paths:
    C:\opt\apache-maven-3.6.0\bin\mvn.cmd
    C:\opt\sbt-1.2.6\bin\sbt.bat
    C:\opt\cfr-0.135\bin\cfr.bat
-   C:\opt\Git-2.19.1\bin\git.exe
-   C:\opt\Git-2.19.1\usr\bin\diff.exe
+   C:\opt\Git-2.19.2\bin\git.exe
+   C:\opt\Git-2.19.2\usr\bin\diff.exe
 </pre>
 
 #### `cleanup.bat`
@@ -323,7 +323,7 @@ Downloading file dotty-interfaces-0.11.0-bin-20181109-a9029dc-NIGHTLY.jar ... 3.
 Finished to download 6 files to directory W:\dotty\nightly-jars
 </pre>
 
-We can now replace the library files from the original [Dotty](https://github.com/lampepfl/dotty/releases) distribution (installed in directory **`C:\opt\dotty-0.10.0-RC1\`** in our case) with library files from the latest nightly build.
+We can now replace the library files from the original [Dotty distribution](https://github.com/lampepfl/dotty/releases) (installed in directory **`C:\opt\dotty-0.10.0-RC1\`** in our case) with library files from the latest nightly build.
 
 Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in the Dotty installation directory.
 <pre style="margin:10px 0 0 30px;font-size:80%;">
@@ -444,7 +444,7 @@ Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406
 </pre>
 
-- Running the **`build`** command with build option **`-debug`** in project [**`examples\enum-Planet`**](examples/enum-Planet/) also displays internal steps of the build process:
+- Running the [**`build`**](examples/enum-Planet/build.bat) command with build option **`-debug`** in project [**`examples\enum-Planet`**](examples/enum-Planet/) also displays internal steps of the build process:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > build -debug clean compile run
 [build] _CLEAN=1 _COMPILE=1 _COMPILE_CMD=dotc _RUN=1

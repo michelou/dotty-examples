@@ -34,7 +34,7 @@ C:\opt\Git-2.19.2\
 
 ## Directory structure
 
-The directory structure of the [Dotty repository](https://github.com/lampepfl/dotty/) is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/master/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts).
+The directory structure of the [Dotty repository](https://github.com/lampepfl/dotty/) is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/master/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts).
 
 <pre style="font-size:80%;">
 > dir /ad /b
@@ -63,7 +63,7 @@ vscode-dotty
 
 > **NB.** The three directories [**`collection-strawman\`**](https://github.com/dotty-staging/collection-strawman), [**`scala-backend\`**](https://github.com/lampepfl/scala/tree/sharing-backend) and [**`scala2-library\`**](https://github.com/lampepfl/scala/tree/dotty-library2.12) are actually Git submodules (see article ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/)). Their Git information (e.g. path, URL, branch) is stored in file [**`.gitmodules`**](https://github.com/michelou/dotty/blob/master/.gitmodules).
 
-Concretely directories [**`bin\`**](https://github.com/michelou/dotty/tree/master/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin), [**`project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts) and the root directory contain the following additions:
+Concretely directories [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin), [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts) and the root directory contain the following additions:
 
 <pre style="font-size:80%;">
 bin\common.bat
@@ -86,7 +86,7 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. [**`setenv.bat`**](https://github.com/michelou/dotty/tree/master/setenv.bat) - This batch command makes external tools such as **`java.exe`**, **`sbt.bat`** and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt.
+1. [**`setenv.bat`**](https://github.com/michelou/dotty/tree/batch-files/setenv.bat) - This batch command makes external tools such as **`java.exe`**, **`sbt.bat`** and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt.
 
     <pre style="font-size:80%;">
     &gt; java -version
@@ -98,9 +98,9 @@ We distinguish different sets of batch commands:
     git version 2.19.2.windows.1
     </pre>
 
-2. Directory [**`bin\`**](https://github.com/michelou/dotty/tree/master/bin) - This directory contains batch files used internally during the build process.
+2. Directory [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin) - This directory contains batch files used internally during the build process.
 
-3. Directory [**`dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software release](https://github.com/lampepfl/dotty/releases).
+3. Directory [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software release](https://github.com/lampepfl/dotty/releases).
 
     <pre style="font-size:80%;">
     &gt; dir /b .\dist\bin
@@ -115,7 +115,7 @@ We distinguish different sets of batch commands:
     dotr.bat
     </pre>
 
-4. [**`build.bat`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat) - This batch command performs on a Windows machine build/test steps similar to the ones on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
+4. [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat) - This batch command performs on a Windows machine build/test steps similar to the ones on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
     <pre style="font-size:80%;">
     &gt; build help
@@ -155,22 +155,23 @@ Subcommands obey the following dependency rules for their execution:
 > 
 | Subcommand | Execution time | Output |
 | :------------ | :------------: | :------------ |
-| `compile-only` &rarr; &empty; | ~24 min | &nbsp; |
-| `bootstrap-only` &rarr; &empty; | &nbsp; | &nbsp; |
-| `archives-only` &rarr; &empty; | &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
-| `documentation-only` &rarr; &empty; | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
+| `compile-only` | ~24 min | &nbsp; |
+| `bootstrap-only` | &nbsp; | &nbsp; |
+| `archives-only`| &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
+| `documentation-only` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
 
 
 ## Windows related issues
 
-We have come across several Windows related issues while executing subcommands of [**`build.bat`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat):
+We have come across several Windows related issues while executing subcommands of [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat):
 
-| Subcommand | [Pull request](https://github.com/lampepfl/dotty/pulls) | Request status |
-| :--------- | :--------: | :--------: |
-| `compile` | [#5457](https://github.com/lampepfl/dotty/pull/5457) | [merged](https://github.com/lampepfl/dotty/commit/eb175cb) |
-| `bootstrap` | [#5487](https://github.com/lampepfl/dotty/pull/5487) | [merged](https://github.com/lampepfl/dotty/commit/052c3b1) |
-| `documentation` | [#5430](https://github.com/lampepfl/dotty/pull/5430) | [merged](https://github.com/lampepfl/dotty/commit/81b30383800495c64f2c8cfd0979e69e504104bc) |
-| *code review* | [#5452](https://github.com/lampepfl/dotty/pull/5452) | [merged](https://github.com/lampepfl/dotty/commit/7e093b15ff2a927212c7f40aa36b71d0a28f81b5) |
+| [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Comment |
+| :--------: | :--------: | :--------- |
+| [#5487](https://github.com/lampepfl/dotty/pull/5487) | [merged](https://github.com/lampepfl/dotty/commit/052c3b1) | Subcommand `bootstrap` |
+| [#5457](https://github.com/lampepfl/dotty/pull/5457) | [merged](https://github.com/lampepfl/dotty/commit/eb175cb) | Subcommand `compile` |
+| [#5452](https://github.com/lampepfl/dotty/pull/5452) | [merged](https://github.com/lampepfl/dotty/commit/7e093b15ff2a927212c7f40aa36b71d0a28f81b5) | Code review |
+| [#5444](https://github.com/lampepfl/dotty/pull/5444) | *pending* | Windows infrastructure |
+| [#5430](https://github.com/lampepfl/dotty/pull/5430) | [merged](https://github.com/lampepfl/dotty/commit/81b30383800495c64f2c8cfd0979e69e504104bc) | Subcommand `documentation` |
 
 Below we summarize additions/changes we made to the [source code](https://github.com/lampepfl/dotty/) of the [Dotty project](http://dotty.epfl.ch/):
 
@@ -185,7 +186,7 @@ Below we summarize additions/changes we made to the [source code](https://github
 
 #### `setenv.bat`
 
-The [**`setenv`**](https://github.com/michelou/dotty/tree/master/setenv.bat) command is executed once to setup our development environment; it makes external tools such as **`javac.exe`**, **`sbt.bat`** and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt:
+The **`setenv`** command is executed once to setup our development environment; it makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv
@@ -304,7 +305,7 @@ testing loading tasty from .tasty file in jar
 [...]
 </pre>
 
-- **`archives`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`archvies`** subcommand generates the gz/zip archives.<br/>Below we execute the **`arch-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
+- **`archives`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`archives`** subcommand generates the gz/zip archives.<br/>Below we execute the **`arch-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 &gt; build arch-only
