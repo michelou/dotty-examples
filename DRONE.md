@@ -32,6 +32,8 @@ C:\opt\sbt-1.2.6\
 C:\opt\Git-2.19.2\
 </pre>
 
+> **NB.** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like **`awk`**, **`diff`**, **`mv`**, **`rmdir`**, **`sed`** and **`wc`**).
+
 ## Directory structure
 
 The directory structure of the [Dotty repository](https://github.com/lampepfl/dotty/) is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/master/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts).
@@ -78,7 +80,7 @@ project\scripts\build.bat
 setenv.bat
 </pre>
 
-> **NB.** We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article [*Windows command prompt limitation*](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation)).<br/>We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance: **`subst W: %USERPROFILE%\workspace`**.
+> **NB.** We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).<br/>We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance: **`subst W: %USERPROFILE%\workspace`**.
 
 In the next section we give a brief description of the batch files present in those directories.
 

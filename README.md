@@ -38,7 +38,7 @@ Optionally you may also install the following software:
 - [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.2.txt))
 
 > ***Installation policy***<br/>
-> Whenever possible software is installed via a Zip archive rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in memory of* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
+> Whenever possible software is installed via a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in memory of* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
 For instance our development environment looks as follows (*November 2018*):
 
@@ -50,9 +50,11 @@ C:\opt\apache-ant-1.10.5\
 c:\opt\gradle-4.10.2\
 C:\opt\apache-maven-3.6.0\
 C:\opt\sbt-1.2.6\
-C:\opt\cfr-0.135\
+C:\opt\cfr-0.136\
 C:\opt\Git-2.19.2\
 </pre>
+
+> **NB.** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like **`awk`**, **`diff`**, **`mv`**, **`rmdir`**, **`sed`** and **`wc`**).
 
 We further recommand using an advanced console emulator such as [ComEmu](https://conemu.github.io/) (or [Cmdr](http://cmder.net/)) which features [Unicode support](https://conemu.github.io/en/UnicodeSupport.html).
 
@@ -62,7 +64,7 @@ This repository is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
 bin\0.10\*.bat
-bin\cfr-0.135.zip
+bin\cfr-0.136.zip
 docs\
 examples\{dotty-example-project, ..}
 myexamples\{00_AutoParamTupling, ..}
@@ -74,14 +76,14 @@ where
 
 - directory [**`bin\`**](bin/) provides several utility batch commands.
 - directory [**`bin\0.10\`**](bin/0.10/) contains the batch commands for Dotty 0.10.
-- file [**`bin\cfr-0.135.zip`**](bin/cfr-0.135.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
+- file [**`bin\cfr-0.136.zip`**](bin/cfr-0.136.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
 - directory [**`examples\`**](examples/) contains Dotty examples grabbed from various websites.
 - directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
 - file [**`README.md`**](README.md) is the Markdown document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 
-> **NB.** We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article [*Windows command prompt limitation*](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation)).<br/>We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance: **`subst W: %USERPROFILE%\workspace`**.
+> **NB.** We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).<br/>We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance: **`subst W: %USERPROFILE%\workspace`**.
 
 In the next section we give a brief description of the batch files present in this repository.
 
@@ -178,12 +180,12 @@ We distinguish different sets of batch commands:
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.135.zip`**](bin/cfr-0.135.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
+    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.136.zip`**](bin/cfr-0.136.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
 
     <pre style="font-size:80%;">
     &gt; cfr myexamples\00_AutoParamTupling\target\classes\Main.class
     /*
-     * Decompiled with CFR 0.135.
+     * Decompiled with CFR 0.136.
      */
     public final class Main {
         public static void test01() {
@@ -238,7 +240,7 @@ The [**`setenv`**](setenv.bat) command is executed once to setup our development
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.10.0,
    ant 1.10.5, gradle 4.10.2, mvn 3.6.0, sbt 1.2.6/2.12.17,
-   cfr 0.135, git 2.19.2.windows.1, diff 3.6
+   cfr 0.136, git 2.19.2.windows.1, diff 3.6
 
 > where sbt
 C:\opt\sbt-1.2.6\bin\sbt
@@ -254,7 +256,7 @@ With option **`-verbose`** the [**`setenv`**](setenv.bat) command also displays 
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.10.0,
    ant 1.10.5, gradle 4.10.2, mvn 3.6.0, sbt 1.2.6/2.12.17,
-   cfr 0.135, git 2.19.2.windows.1, diff 3.6
+   cfr 0.136, git 2.19.2.windows.1, diff 3.6
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
    C:\Program Files\Java\jdk1.8.0_191\bin\java.exe
@@ -266,7 +268,7 @@ Tool paths:
    C:\opt\gradle-4.10.2\bin\gradle.bat
    C:\opt\apache-maven-3.6.0\bin\mvn.cmd
    C:\opt\sbt-1.2.6\bin\sbt.bat
-   C:\opt\cfr-0.135\bin\cfr.bat
+   C:\opt\cfr-0.136\bin\cfr.bat
    C:\opt\Git-2.19.2\bin\git.exe
    C:\opt\Git-2.19.2\usr\bin\diff.exe
 </pre>
