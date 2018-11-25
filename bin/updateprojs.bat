@@ -14,8 +14,8 @@ set _EXITCODE=0
 for %%f in ("%~dp0..") do set _ROOT_DIR=%%~sf
 
 rem file build.sbt
-set _DOTTY_VERSION_OLD="0.9.0-RC1"
-set _DOTTY_VERSION_NEW="0.10.0-RC1"
+set _DOTTY_VERSION_OLD="0.10.0-RC1"
+set _DOTTY_VERSION_NEW="0.10.0"
 
 rem file project\build.properties
 set _SBT_VERSION_OLD=sbt.version=1.2.3
@@ -61,6 +61,7 @@ set __PARENT_DIR=%~1
 set __N1=0
 set __N2=0
 set __N3=0
+echo Parent directory: %__PARENT_DIR%
 for /f %%i in ('dir /ad /b "%__PARENT_DIR%"') do (
     set __BUILD_SBT=%__PARENT_DIR%\%%i\build.sbt
     if exist "!__BUILD_SBT!" (
@@ -68,7 +69,7 @@ for /f %%i in ('dir /ad /b "%__PARENT_DIR%"') do (
         call :replace "!__BUILD_SBT!" "%_DOTTY_VERSION_OLD%" "%_DOTTY_VERSION_NEW%"
         set /a __N1+=1
     ) else (
-       echo Warning: Could not find file !__BUILD_PROPS! 1>&2
+       echo    Warning: Could not find file %%i\build.sbt 1>&2
     )
     set __BUILD_PROPS=%__PARENT_DIR%\%%i\project\build.properties
     if exist "!__BUILD_PROPS!" (
@@ -76,7 +77,7 @@ for /f %%i in ('dir /ad /b "%__PARENT_DIR%"') do (
         call :replace "!__BUILD_PROPS!" "%_SBT_VERSION_OLD%" "%_SBT_VERSION_NEW%"
         set /a __N2+=1
     ) else (
-       echo Warning: Could not find file !__BUILD_PROPS! 1>&2
+       echo    Warning: Could not find file %%i\project\build.properties 1>&2
     )
     set __PLUGINS_SBT=%__PARENT_DIR%\%%i\project\plugins.sbt
     if exist "!__PLUGINS_SBT!" (
@@ -84,12 +85,12 @@ for /f %%i in ('dir /ad /b "%__PARENT_DIR%"') do (
         call :replace "!__PLUGINS_SBT!" "%_SBT_DOTTY_VERSION_OLD%" "%_SBT_DOTTY_VERSION_NEW%"
         set /a __N3+=1
     ) else (
-       echo Warning: Could not find file !__PLUGINS_SBT! 1>&2
+       echo    Warning: Could not find file %%i\project\plugins.sbt 1>&2
     )
 )
-echo Updated %__N1% build.sbt files in %__PARENT_DIR%
-echo Updated %__N2% build.properties files in %__PARENT_DIR%
-echo Updated %__N3% plugins.sbt files in %__PARENT_DIR%
+echo    Updated %__N1% build.sbt files
+echo    Updated %__N2% project\build.properties files
+echo    Updated %__N3% project\plugins.sbt files
 goto :eof
 
 rem ##########################################################################

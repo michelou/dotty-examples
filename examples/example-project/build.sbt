@@ -4,7 +4,7 @@ lazy val root = (project in file(".")).
     description := "Hello example",
     version := "0.1",
 
-    scalaVersion := "0.10.0-RC1",
+    scalaVersion := "0.10.0",
     scalacOptions ++= Seq(
       "-deprecation",
       "-encoding", "UTF-8"

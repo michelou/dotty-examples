@@ -91,7 +91,7 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as **`javac.exe`**, **`scalac.bat`**, [**`dotc.bat`**](bin/0.10/dotc.bat), etc. directly available from the command prompt.
+1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), **`scalac.bat`**, [**`dotc.bat`**](bin/0.10/dotc.bat), etc. directly available from the command prompt.
 
     <pre style="font-size:80%;">
     &gt; javac -version
@@ -233,7 +233,7 @@ We distinguish different sets of batch commands:
 
 #### `setenv.bat`
 
-The [**`setenv`**](setenv.bat) command is executed once to setup our development environment; it makes external tools such as **`javac.exe`**, **`sbt.bat`** and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt:
+The [**`setenv`**](setenv.bat) command is executed once to setup our development environment; it makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv
@@ -427,6 +427,36 @@ Execution time: 00:00:11
 #### `touch.bat`
 
 The [**`touch.bat`**](bin/touch.bat) command
+
+
+#### `updateprojs`
+
+The [**`updateprojs`**](bin/updateprojs.bat) command updates the following software versions:
+
+| Project file | Variable | Example |
+| :----- | :----: | :------ |
+| `build.sbt` | `dottyVersion` | `0.10.0-RC` &rarr; `0.10.0`|
+| `project\build.properties` | `sbt.version` | `1.2.3` &rarr; `1.2.6` |
+| `project\plugins.sbt` | `sbt-dotty` | `0.2.4` &rarr; `0.2.6` |
+
+> **NB.** Currently we have to edit the value pairs (old/new) directly in the batch file.
+
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+> updateprojs
+Parent directory: W:\dotty\examples
+   Warning: Could not find file hello-scala\project\plugins.sbt
+   Warning: Could not find file UnionTypes_0.4\project\plugins.sbt
+   Updated 17 build.sbt files
+   Updated 17 project\build.properties files
+   Updated 15 project\plugins.sbt files
+Parent directory: W:\dotty\myexamples
+   Warning: Could not find file 07_Value_Types\build.sbt
+   Warning: Could not find file 07_Value_Types\project\build.properties
+   Warning: Could not find file 07_Value_Types\project\plugins.sbt
+   Updated 11 build.sbt files
+   Updated 11 project\build.properties files
+   Updated 11 project\plugins.sbt files
+</pre>
 -->
 
 #### `build.bat`
