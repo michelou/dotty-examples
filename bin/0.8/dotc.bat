@@ -96,7 +96,7 @@ rem will be available as system properties.
     call :addJava "%_ARG%"
     call :addScala "%_ARG%"
 ) else if "%_ARG:~0,2%"=="-J" (
-    call :addJava "%_ARG%"
+    call :addJava "%_ARG:~2%"
     call :addScala "%_ARG%"
 ) else (
     call :addResidual "%_ARG%"
