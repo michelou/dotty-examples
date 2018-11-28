@@ -1,4 +1,4 @@
-# Building Dotty on Windows
+# <span id="top">Building Dotty on Windows</span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -16,7 +16,7 @@
 > - [Jenkins](https://jenkins.io/doc/): the [CI server](https://scala-ci.typesafe.com/) is hosted by [Lightbend](https://en.wikipedia.org/wiki/Lightbend) in San-Francisco, USA (configuration described in [Chef cookbook](https://github.com/scala/scala-jenkins-infra)).<br/>
 > - [Travis CI](https://docs.travis-ci.com/user/tutorial/): the [CI server](https://travis-ci.org/scala/scala) is hosted by [Travis CI](https://www.travis-ci.com/) in Berlin, Germany.
 
-## Project dependencies
+## <span id="anchor_01">Project dependencies</span>
 
 Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three external software for the **Microsoft Windows** platform:
 
@@ -175,7 +175,7 @@ We have come across several Windows related issues while executing subcommands o
 | [#5487](https://github.com/lampepfl/dotty/pull/5487) | [merged](https://github.com/lampepfl/dotty/commit/052c3b1) | Subcommand `bootstrap` |
 | [#5457](https://github.com/lampepfl/dotty/pull/5457) | [merged](https://github.com/lampepfl/dotty/commit/eb175cb) | Subcommand `compile` |
 | [#5452](https://github.com/lampepfl/dotty/pull/5452) | [merged](https://github.com/lampepfl/dotty/commit/7e093b15ff2a927212c7f40aa36b71d0a28f81b5) | Code review |
-| [#5444](https://github.com/lampepfl/dotty/pull/5444) | *pending* | Windows infrastructure |
+| [#5444](https://github.com/lampepfl/dotty/pull/5444) | *pending* | Windows commands |
 | [#5430](https://github.com/lampepfl/dotty/pull/5430) | [merged](https://github.com/lampepfl/dotty/commit/81b30383800495c64f2c8cfd0979e69e504104bc) | Subcommand `documentation` |
 
 Below we summarize additions/changes we made to the [source code](https://github.com/lampepfl/dotty/) of the [Dotty project](http://dotty.epfl.ch/):
@@ -191,7 +191,7 @@ Below we summarize additions/changes we made to the [source code](https://github
 
 #### `setenv.bat`
 
-The **`setenv`** command is executed once to setup our development environment; it makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt:
+The **`setenv`** command is executed once to setup our development environment; it makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt (see section [**Project dependencies**](#anchor_01)):
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv
@@ -303,14 +303,14 @@ testing loading tasty from .tasty file in jar
 > > build clone compile-only
 > </pre>
 
-- **`bootstrap`** - ***If*** execution of the **`compile`** subcommand was successful the **`bootstrap`** subcommand generates the *"bootstrap compiler"* for Dotty and executes the relevant test suites..
+- **`bootstrap`** - ***If*** execution of the **`compile`** subcommand was successful the **`bootstrap`** subcommand generates the *"bootstrap compiler"* for Dotty and executes the relevant test suites.
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 &gt; build bootstrap
 [...]
 </pre>
 
-- **`archives`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`archives`** subcommand generates the gz/zip archives.<br/>Below we execute the **`arch-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
+- **`archives`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`archives`** subcommand generates the gz/zip archives.<br/>Below we execute the **`arch-only`** subcommand for the sake of brievity (previous steps are *assumed* to be successful): 
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 &gt; build arch-only
@@ -361,7 +361,7 @@ public members with docstrings:    147/588 (25%)
 protected members with docstrings: 6/60 (10%)
 private members with docstrings:   445/2429 (18%)
 total warnings with regards to compilation and documentation: 28
-[success] Total time: 143 s, completed 16 nov. 2018 23:07:29
+[success] Total time: 143 s, completed 28 nov. 2018 21:07:29
 Total execution time: 00:02:34
 
 &gt; dir /b docs\_site
@@ -392,6 +392,9 @@ usage
 Total execution time: 00:20:25
 -->
 
-<hr style="margin:2em 0 0 0;" />
+<div style="border-top:2px solid #cccccc;margin:30px 0 0 0;">
+<div style="float:left;font-style:italic;"><a href="http://lampwww.epfl.ch/~michelou/">mics</a>/November 2018</div>
+<div style="float:right;font-weight:bold;"><a href="#top">&#9650;top</a></div>
+</div>
+<p>&nbsp;</p>
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/November 2018*

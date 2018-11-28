@@ -1,4 +1,4 @@
-# Running Dotty on Windows
+# <span id="top">Running Dotty on Windows</span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -7,7 +7,7 @@
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This repository gathers code examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a> - or written by myself.<br/>
-    In particular it includes several <a href="https://en.wikipedia.org/wiki/Batch_file">batch scripts</a> for experimenting with the Dotty language (aka <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html">Scala 3.0</a>) on a Windows machine.
+    In particular it includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a> for experimenting with the Dotty language (aka <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html">Scala 3.0</a>) on a Windows machine.
   </td>
   </tr>
 </table>
@@ -54,7 +54,7 @@ C:\opt\cfr-0.136\
 C:\opt\Git-2.19.2\
 </pre>
 
-> **NB.** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like **`awk`**, **`diff`**, **`mv`**, **`rmdir`**, **`sed`** and **`wc`**).
+> **NB.** [Git for Windows](https://git-scm.com/) provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like **`awk`**, **`diff`**, **`mv`**, **`rmdir`**, **`sed`** and **`wc`**).
 
 We further recommand using an advanced console emulator such as [ComEmu](https://conemu.github.io/) (or [Cmdr](http://cmder.net/)) which features [Unicode support](https://conemu.github.io/en/UnicodeSupport.html).
 
@@ -80,8 +80,8 @@ where
 - directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
 - directory [**`examples\`**](examples/) contains Dotty examples grabbed from various websites.
 - directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
-- file [**`README.md`**](README.md) is the Markdown document for this page.
-- file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
+- file [**`README.md`**](README.md) is the [Markdown](https://github.github.com/gfm/) document for this page.
+- file [**`setenv.bat`**](setenv.bat) is the batch command for setting up our environment.
 
 > **NB.** We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).<br/>We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance: **`subst W: %USERPROFILE%\workspace`**.
 
@@ -105,7 +105,7 @@ We distinguish different sets of batch commands:
     </pre>
 
 2. Directory [**`bin\`**](bin/) - This directory contains several utility batch files:
-   - **`cleanup.bat`** removes the generated class files from every example directory (both in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories).
+   - [**`cleanup.bat`**](bin/cleanup.bat) removes the generated class files from every example directory (both in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories).
    - **`dirsize.bat <dir_path_1> ..`** prints the size in Kb/Mb/Gb of the specified directory paths.
    - **`getnightly.bat`** downloads/installs the library files from the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
    - **`searchjars.bat <class_name>`** searches for the given class name into all Dotty/Scala JAR files.
@@ -113,7 +113,7 @@ We distinguish different sets of batch commands:
    - **`touch.bat <file_path>`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
 3. Directory [**`bin\0.11\`**](bin/0.11/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.11.0-RC1\bin\`**) in order to use the [**`dot`**](bin/0.11/dot.bat), [**`dotc`**](bin/0.11/dotc.bat), [**`dotd`**](bin/0.11/dotd.bat) and [**`dotr`**](bin/0.11/dotr.bat) commands on **Microsoft Windows**.
-    > **NB.** We wrote (and do maintain) those batch files based on the bash scripts available from the standard [Dotty](http://dotty.epfl.ch/) distribution.
+    > **NB.** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Dotty distribution](https://github.com/lampepfl/dotty/releases).
 
     <pre style="font-size:80%;">
     &gt; dir /b c:\opt\dotty-0.11.0-RC1\bin
@@ -162,7 +162,7 @@ We distinguish different sets of batch commands:
 
 1. Build tools
 
-    Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories can also be built using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to the **`build`** tool:
+    Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories can also be built using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to our **`build`** tool:
 
     <pre style="font-size:80%;">
     > sbt clean compile run
@@ -463,7 +463,7 @@ Parent directory: W:\dotty\myexamples
 
 The [**`build`**](examples/enum-Planet/build.bat) command is a basic build tool consisting of ~350 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_01">[[1]](#footnote_01)</sup>. 
 
-- Running the **`build`** command with no build option in project [**`examples\enum-Planet`**](examples/enum-Planet/) generates the following output:
+- Running the [**`build`**](examples/enum-Planet/build.bat) command with no build option in project [**`examples\enum-Planet`**](examples/enum-Planet/) generates the following output:
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > build clean compile run
 Your weight on MERCURY is 0.37775761520093526
@@ -608,7 +608,9 @@ Exception in thread "main" java.lang.IncompatibleClassChangeError: Method dotty.
 Command Prompt has been around for as long as we can remember, but starting with Windows 10 build 14971, Microsoft is trying to make PowerShell the <a href="https://support.microsoft.com/en-us/help/4027690/windows-powershell-is-replacing-command-prompt">main command shell</a> in the operating system.
 </div>
 
-<hr style="margin:2em 0 0 0;" />
-
-*[mics](http://lampwww.epfl.ch/~michelou/)/November 2018*
+<div style="border-top:2px solid #cccccc;margin:30px 0 0 0;">
+<div style="float:left;font-style:italic;"><a href="http://lampwww.epfl.ch/~michelou/">mics</a>/November 2018</div>
+<div style="float:right;font-weight:bold;"><a href="#top">&#9650;top</a></div>
+</div>
+<p>&nbsp;</p>
 
