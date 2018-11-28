@@ -21,7 +21,7 @@
 This project repository depends on two external software for the **Microsoft Windows** platform:
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
-- [Dotty 0.11](https://github.com/lampepfl/dotty/releases) (Java 9+ is supported) 
+- [Dotty 0.11](https://github.com/lampepfl/dotty/releases) (Java 9+ supported since 0.10) 
 
 <!--
 *Reminder*: Dotty 0.9 requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)

@@ -11,7 +11,10 @@
   </tr>
 </table>
 
-> **NB.** [Scala CI](https://scala-ci.typesafe.com/) runs as a Jenkins instance whose configuration is described in the so-called [Chef cookbook](https://github.com/scala/scala-jenkins-infra).
+> **NB.** Continuous delivery of Scala builds is currently performed on two platforms:
+>
+> - [Jenkins](https://jenkins.io/doc/): the [CI server](https://scala-ci.typesafe.com/) is hosted by [Lightbend](https://en.wikipedia.org/wiki/Lightbend) in San-Francisco, USA (configuration described in [Chef cookbook](https://github.com/scala/scala-jenkins-infra)).<br/>
+> - [Travis CI](https://docs.travis-ci.com/user/tutorial/): the [CI server](https://travis-ci.org/scala/scala) is hosted by [Travis CI](https://www.travis-ci.com/) in Berlin, Germany.
 
 ## Project dependencies
 
@@ -314,8 +317,8 @@ testing loading tasty from .tasty file in jar
 [...]
 
 > dir /a-d /b dist-bootstrapped\target
-dotty-0.11.0-bin-SNAPSHOT.tar.gz
-dotty-0.11.0-bin-SNAPSHOT.zip
+dotty-0.12.0-bin-SNAPSHOT.tar.gz
+dotty-0.12.0-bin-SNAPSHOT.zip
 </pre>
 
 > **NB.** The following command performs the same operation as **`build archives`**:  
@@ -329,7 +332,7 @@ dotty-0.11.0-bin-SNAPSHOT.zip
 &gt; build -timer doc-only
 Working directory: W:\dotty
 [...]
-[info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 0.11.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
+[info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 0.12.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
 Compiling (1/406): AlternateConstructorsPhase.scala
 [...]
 Compiling (406/406): package.scala
