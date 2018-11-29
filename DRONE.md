@@ -11,7 +11,7 @@
   </tr>
 </table>
 
-> **NB.** Continuous delivery of Scala builds is currently performed on two platforms:
+> **NB.** Continuous delivery of Scala builds is currently performed by the following services:
 >
 > - [Jenkins](https://jenkins.io/doc/): the [CI server](https://scala-ci.typesafe.com/) is hosted by [Lightbend](https://en.wikipedia.org/wiki/Lightbend) in San-Francisco, USA (configuration described in [Chef cookbook](https://github.com/scala/scala-jenkins-infra)).<br/>
 > - [Travis CI](https://docs.travis-ci.com/user/tutorial/): the [CI server](https://travis-ci.org/scala/scala) is hosted by [Travis CI](https://www.travis-ci.com/) in Berlin, Germany.
@@ -130,16 +130,16 @@ We distinguish different sets of batch commands:
         -verbose               display environment settings
       Subcommands:
         arch[ives]             generate gz/zip archives (after bootstrap)
-        boot[strap]            generate bootstrap compiler (after compile)
+        boot[strap]            generate+test bootstrapped compiler (after compile)
         cleanall               clean project (sbt+git) and quit
         clone                  update submodules
-        compile                generate 1st stage compiler (after clone)
+        compile                generate+test 1st stage compiler (after clone)
         doc[umentation]        generate documentation (after bootstrap)
         help                   display this help message
       Advanced subcommands (no deps):
         arch[ives]-only        generate ONLY gz/zip archives
-        boot[strap]-only       generate ONLY bootstrap compiler
-        compile-only           generate ONLY 1st stage compiler
+        boot[strap]-only       generate+test ONLY bootstrapped compiler
+        compile-only           generate+test ONLY 1st stage compiler
         doc[umentation]-only]  generate ONLY documentation
 </pre>
 
@@ -150,7 +150,7 @@ Subcommands obey the following dependency rules for their execution:
 | `cleanall` &rarr; &empty; | &lt;1 min | &nbsp; |
 | `clone` &rarr; &empty; | &lt;1 min | &nbsp; |
 | `compile` &rarr; `clone` | ~24 min | `compiler\target\`<br/>`library\target`<br/>`sbt-bridge\target\` |
-| `bootstrap` &rarr; `compile` | ~47 min | &nbsp; |
+| `bootstrap` &rarr; `compile` | ~45 min | &nbsp; |
 | `archives` &rarr; `bootstrap` | &nbsp; | `dist-bootstrapped\target\*.gz,*.zip` |
 | `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
 
@@ -163,7 +163,7 @@ Subcommands obey the following dependency rules for their execution:
 | `compile-only` | ~24 min | &nbsp; |
 | `bootstrap-only` | &nbsp; | &nbsp; |
 | `archives-only`| &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
-| `documentation-only` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
+| `documentation-only` | &lt;3 min | `docs\_site\*.html`<br/>`docs\docs\*.md` |
 
 
 ## Windows related issues
@@ -206,7 +206,7 @@ C:\opt\sbt-1.2.6\bin\sbt.bat
 
 > **NB.** Execute **`setenv help`** to display the help message.
 
-With option **`-verbose`** the **`setenv`** command also displays the path of the tools and the current Git branch:
+With option **`-verbose`** the **`setenv`** command also displays the tool paths and the current Git branch:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > setenv -verbose
@@ -256,6 +256,23 @@ Removing target/
 Removing testlogs/
 </pre>
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;With option **`-verbose`** the **`build`** command also displays the tool paths/options and the current Git branch:
+
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+> build -verbose cleanall
+Tool paths
+  GIT_CMD=C:\opt\Git-2.19.2\bin\git.exe
+  SBT_CMD=C:\opt\sbt-1.2.6\bin\sbt.bat
+Tool options
+  JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
+  SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=C:\Users\michelou\.ivy2\ -Dsbt.log.noformat=true
+Current Git branch
+  url-file [origin/url-file]
+
+[...(sbt)...]
+[...(git)...]
+</pre>
+
 - **`compile`** - This subcommand generates the *"1st stage compiler"* for Dotty and executes the relevant test suites. 
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
@@ -298,7 +315,7 @@ testing loading tasty from .tasty file in jar
 [...]
 </pre>
 
-> **NB.** The following command performs the same operation as **`build compile`**:  
+> &nbsp;&nbsp;&nbsp;**NB.** The following command performs the same operation as **`build compile`**:  
 > <pre style="margin:10px 0 0 30px;font-size:80%;">
 > > build clone compile-only
 > </pre>
@@ -321,7 +338,7 @@ dotty-0.12.0-bin-SNAPSHOT.tar.gz
 dotty-0.12.0-bin-SNAPSHOT.zip
 </pre>
 
-> **NB.** The following command performs the same operation as **`build archives`**:  
+> &nbsp;&nbsp;&nbsp;**NB.** The following command performs the same operation as **`build archives`**:  
 > <pre style="margin:10px 0 0 30px;font-size:80%;">
 > > build clone compile-only bootstrap-only archives-only
 > </pre>
@@ -349,21 +366,25 @@ Documented members in public API:
 [...]
 Summary:
 
-public members with docstrings:    5130/14346 (35%)
-protected members with docstrings: 162/537 (30%)
+public members with docstrings:    5181/14606 (35%)
+protected members with docstrings: 164/537 (30%)
 ================================================================================
 
 Documented members in internal API:
 [...]
 Summary internal API:
 
-public members with docstrings:    147/588 (25%)
+public members with docstrings:    154/601 (25%)
 protected members with docstrings: 6/60 (10%)
-private members with docstrings:   445/2429 (18%)
-total warnings with regards to compilation and documentation: 28
-[success] Total time: 143 s, completed 28 nov. 2018 21:07:29
-Total execution time: 00:02:34
+private members with docstrings:   464/2450 (18%)
+total warnings with regards to compilation and documentation: 29
+[success] Total time: 146 s, completed 29 nov. 2018 11:49:22
+Total execution time: 00:02:36
+</pre>
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output directory **`docs\_site\`** contains the files of the online [Dotty documentation](https://dotty.epfl.ch/docs/):
+
+<pre style="margin:10px 0 0 30px;font-size:80%;">
 &gt; dir /b docs\_site
 .gitignore
 api
@@ -375,16 +396,28 @@ index.html
 js
 sidebar.yml
 versions
+&gt; dir /a-d /b /s docs\_site\*.html | wc -l
+2551
+&gt; dir /a-d /b /s docs\_site\*.jpg docs\_site\*.png docs\_site\*.svg | wc -l
+23
+&gt; dir /a-d /b /s docs\_site\*.js | wc -l
+9
+</pre>
 
-&gt; dir /b docs\docs 
-contributing       
-index.md           
-internals          
-reference          
-release-notes      
-resources          
-typelevel.md       
-usage              
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output directory **`docs\docs\`** contains the Markdown files of the [Dotty website](https://dotty.epfl.ch/):
+
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+&gt; dir /b docs\docs
+contributing
+index.md  
+internals 
+reference 
+release-notes
+resources   
+typelevel.md
+usage
+&gt; dir /a-d /b /s docs\docs\*.md | wc -l
+88 
 </pre>
 
 <!--
