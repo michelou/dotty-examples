@@ -609,8 +609,11 @@ Command Prompt has been around for as long as we can remember, but starting with
 </div>
 
 <div style="border-top:2px solid #cccccc;margin:30px 0 0 0;">
-<div style="float:left;font-style:italic;"><a href="http://lampwww.epfl.ch/~michelou/">mics</a>/November 2018</div>
-<div style="float:right;font-weight:bold;"><a href="#top">&#9650;top</a></div>
+  <div style="float:left;font-style:italic;">
+    <a href="http://lampwww.epfl.ch/~michelou/">mics</a>/November 2018
+  </div>
+  <div style="float:right;font-weight:bold;">
+    <a href="#top">&#9650;top</a>
+  </div>
+  <div style="clear:both;"></div>
 </div>
-<p>&nbsp;</p>
-
