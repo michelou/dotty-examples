@@ -37,7 +37,7 @@ Optionally you may also install the following software:
 - [CFR 0.13](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.2.txt))
 
-> ***Installation policy***<br/>
+> **&#9755;** ***Installation policy***<br/>
 > Whenever possible software is installed via a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in memory of* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
 For instance our development environment looks as follows (*November 2018*):
@@ -174,7 +174,7 @@ We distinguish different sets of batch commands:
     > mvn clean compile exec:java
     </pre>
     
-    > ***Gradle Wrappers***<br/>
+    > **&#9755;** ***Gradle Wrappers***<br/>
     > We don't rely on them even if using [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) is the  recommended way to execute a Gradle build.<br/>
     > Simply execute the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html).
 
@@ -344,7 +344,7 @@ Activate default Dotty libraries: 0.11.0-RC1
 Dotty compiler version 0.11.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 </pre>
 
-> **NB.** You need to have *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.11.0-RC1\`** in our case) in order to run the **`activate/reset`** subcommands.<br/> Internally the [**`getnightly`**](bin/getnightly.bat) command manages two sets of libraries files which are organized as follows:
+> **&#9888;** You need to have *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.11.0-RC1\`** in our case) in order to run the **`activate/reset`** subcommands.<br/> Internally the [**`getnightly`**](bin/getnightly.bat) command manages two sets of libraries files which are organized as follows:
 > <pre style="margin:10px 0 0 30px;font-size:80%;">
 > > pushd c:\opt\dotty-0.11.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd
 > VERSION
@@ -610,5 +610,4 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/November 2018*
-<span style="margin-left:80%;"><a href="#top">&#9650;top</a></span>
+*[mics](http://lampwww.epfl.ch/~michelou/)/November 2018* [**&#9650;**](#top)

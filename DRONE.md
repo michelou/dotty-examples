@@ -24,7 +24,7 @@ Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three 
 - [SBT 1.2.6](https://www.scala-sbt.org/download.html) (with Scala 2.12.17 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.6))
 - [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.2.txt))
 
-> ***Installation policy***<br/>
+> **&#9755;** ***Installation policy***<br/>
 > Whenever possible software is installed via a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in memory of* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
 For instance our development environment looks as follows (*November 2018*):
@@ -392,9 +392,7 @@ usage
 Total execution time: 00:20:25
 -->
 
-<div style="border-top:2px solid #cccccc;margin:30px 0 0 0;">
-<div style="float:left;font-style:italic;"><a href="http://lampwww.epfl.ch/~michelou/">mics</a>/November 2018</div>
-<div style="float:right;font-weight:bold;"><a href="#top">&#9650;top</a></div>
-</div>
-<p>&nbsp;</p>
+***
+
+*[mics](http://lampwww.epfl.ch/~michelou/)/November 2018* [**&#9650;**](#top)
 
