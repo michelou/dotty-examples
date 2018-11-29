@@ -608,12 +608,7 @@ Exception in thread "main" java.lang.IncompatibleClassChangeError: Method dotty.
 Command Prompt has been around for as long as we can remember, but starting with Windows 10 build 14971, Microsoft is trying to make PowerShell the <a href="https://support.microsoft.com/en-us/help/4027690/windows-powershell-is-replacing-command-prompt">main command shell</a> in the operating system.
 </div>
 
-<div style="border-top:2px solid #cccccc;margin:30px 0 0 0;">
-  <div style="float:left;font-style:italic;">
-    <a href="http://lampwww.epfl.ch/~michelou/">mics</a>/November 2018
-  </div>
-  <div style="float:right;font-weight:bold;">
-    <a href="#top">&#9650;top</a>
-  </div>
-  <div style="clear:both;"></div>
-</div>
+***
+
+*[mics](http://lampwww.epfl.ch/~michelou/)/November 2018*
+<span style="margin-left:80%;"><a href="#top">&#9650;top</a></span>
