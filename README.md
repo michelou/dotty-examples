@@ -30,7 +30,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 Optionally you may also install the following software:
 
 - [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.12.7))
-- [SBT 1.2.6](https://www.scala-sbt.org/download.html) (with Scala 2.12.17 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.6))
+- [SBT 1.2.7](https://www.scala-sbt.org/download.html) (with Scala 2.12.17 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.7))
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.5.html))
 - [Gradle 5.0](https://gradle.org/install/) (requires Java 7 or newer) ([*release notes*](https://docs.gradle.org/current/release-notes.html))
 - [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.6.0/release-notes.html))
@@ -49,7 +49,7 @@ C:\opt\dotty-0.11.0-RC1\
 C:\opt\apache-ant-1.10.5\
 c:\opt\gradle-5.0\
 C:\opt\apache-maven-3.6.0\
-C:\opt\sbt-1.2.6\
+C:\opt\sbt-1.2.7\
 C:\opt\cfr-0.136\
 C:\opt\Git-2.19.2\
 </pre>
@@ -239,12 +239,12 @@ The [**`setenv`**](setenv.bat) command is executed once to setup our development
 > setenv
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.11.0-RC1,
-   ant 1.10.5, gradle 5.0, mvn 3.6.0, sbt 1.2.6/2.12.17,
+   ant 1.10.5, gradle 5.0, mvn 3.6.0, sbt 1.2.7/2.12.17,
    cfr 0.136, git 2.19.2.windows.1, diff 3.6
 
 > where sbt
-C:\opt\sbt-1.2.6\bin\sbt
-C:\opt\sbt-1.2.6\bin\sbt.bat
+C:\opt\sbt-1.2.7\bin\sbt
+C:\opt\sbt-1.2.7\bin\sbt.bat
 </pre>
 
 > **NB.** Execute **`setenv help`** to display the help message.
@@ -255,7 +255,7 @@ With option **`-verbose`** the [**`setenv`**](setenv.bat) command also displays 
 > setenv -verbose
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.11.0-RC1,
-   ant 1.10.5, gradle 5.0, mvn 3.6.0, sbt 1.2.6/2.12.17,
+   ant 1.10.5, gradle 5.0, mvn 3.6.0, sbt 1.2.7/2.12.17,
    cfr 0.136, git 2.19.2.windows.1, diff 3.6
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
@@ -267,7 +267,7 @@ Tool paths:
    C:\opt\apache-ant-1.10.5\bin\ant.bat
    C:\opt\gradle-5.0\bin\gradle.bat
    C:\opt\apache-maven-3.6.0\bin\mvn.cmd
-   C:\opt\sbt-1.2.6\bin\sbt.bat
+   C:\opt\sbt-1.2.7\bin\sbt.bat
    C:\opt\cfr-0.136\bin\cfr.bat
    C:\opt\Git-2.19.2\bin\git.exe
    C:\opt\Git-2.19.2\usr\bin\diff.exe
@@ -436,7 +436,7 @@ The [**`updateprojs`**](bin/updateprojs.bat) command updates the following softw
 | Project file | Variable | Example |
 | :----- | :----: | :------ |
 | `build.sbt` | `dottyVersion` | `0.10.0` &rarr; `0.11.0-RC1`|
-| `project\build.properties` | `sbt.version` | `1.2.3` &rarr; `1.2.6` |
+| `project\build.properties` | `sbt.version` | `1.2.6` &rarr; `1.2.7` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.2.4` &rarr; `0.2.6` |
 
 > **NB.** Currently we have to edit the value pairs (old/new) directly in the batch file.
@@ -511,7 +511,7 @@ No compilation needed (1 source files)
 > For simplicity the [**`build`**](examples/enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](examples/enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="margin:10px 0 0 30px;font-size:80%;">
 > > type project\build.properties
-> sbt.version=1.2.6
+> sbt.version=1.2.7
 > main.class=Planet
 > main.args=1
 > </pre>

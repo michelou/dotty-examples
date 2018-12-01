@@ -21,7 +21,7 @@
 Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three external software for the **Microsoft Windows** platform:
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
-- [SBT 1.2.6](https://www.scala-sbt.org/download.html) (with Scala 2.12.17 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.6))
+- [SBT 1.2.7](https://www.scala-sbt.org/download.html) (with Scala 2.12.17 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.7))
 - [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.2.txt))
 
 > **&#9755;** ***Installation policy***<br/>
@@ -31,7 +31,7 @@ For instance our development environment looks as follows (*November 2018*):
 
 <pre style="font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_191\
-C:\opt\sbt-1.2.6\
+C:\opt\sbt-1.2.7\
 C:\opt\Git-2.19.2\
 </pre>
 
@@ -161,7 +161,7 @@ Subcommands obey the following dependency rules for their execution:
 | Subcommand | Execution time | Output |
 | :------------ | :------------: | :------------ |
 | `compile-only` | ~24 min | &nbsp; |
-| `bootstrap-only` | &nbsp; | &nbsp; |
+| `bootstrap-only` | ~26 min | &nbsp; |
 | `archives-only`| &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
 | `documentation-only` | &lt;3 min | `docs\_site\*.html`<br/>`docs\docs\*.md` |
 
@@ -200,8 +200,8 @@ Tool versions:
    sbt 1.2.3/2.12.7, git 2.19.2.windows.1, diff 3.6
 
 > where sbt
-C:\opt\sbt-1.2.6\bin\sbt
-C:\opt\sbt-1.2.6\bin\sbt.bat
+C:\opt\sbt-1.2.7\bin\sbt
+C:\opt\sbt-1.2.7\bin\sbt.bat
 </pre>
 
 > **NB.** Execute **`setenv help`** to display the help message.
@@ -217,7 +217,7 @@ Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
    C:\Program Files\Java\jdk1.8.0_191\bin\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
-   C:\opt\sbt-1.2.6\bin\sbt.bat
+   C:\opt\sbt-1.2.7\bin\sbt.bat
    C:\opt\Git-2.19.2\bin\git.exe
    C:\opt\Git-2.19.2\usr\bin\diff.exe
 Current Git branch:
@@ -262,7 +262,7 @@ Removing testlogs/
 > build -verbose cleanall
 Tool paths
   GIT_CMD=C:\opt\Git-2.19.2\bin\git.exe
-  SBT_CMD=C:\opt\sbt-1.2.6\bin\sbt.bat
+  SBT_CMD=C:\opt\sbt-1.2.7\bin\sbt.bat
 Tool options
   JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
   SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=C:\Users\michelou\.ivy2\ -Dsbt.log.noformat=true
