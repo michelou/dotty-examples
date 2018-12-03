@@ -164,7 +164,7 @@ We distinguish different sets of batch commands:
     | `archives` &rarr; `bootstrap` | &nbsp; | `dist-bootstrapped\target\*.gz,*.zip` |
     | `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
 
-    <sub><sup>**(1)**</sup> Average time measured on a i7-i8550U laptop with 16 GB of memory.</sub>
+    <sub><sup>**(1)**</sup> Average execution time measured on a i7-i8550U laptop with 16 GB of memory.</sub>
 
     > **NB.** Subcommands whose name ends with **`-only`** help us to execute one single step without running again the precedent ones.
     > 
@@ -175,7 +175,7 @@ We distinguish different sets of batch commands:
     | `archives-only`| &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
     | `documentation-only` | &lt;3 min | `docs\_site\*.html`<br/>`docs\docs\*.md` |
 
-5. [**`cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) - This batch command performs test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\cmdTests`**](https://github.com/lampepfl/dotty/blob/master/project/scripts/cmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
+5. [**`cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) - This batch command performs test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\cmdTests`**](https://github.com/lampepfl/dotty/blob/master/project/scripts/cmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server (see console output in section [**Session examples**](#anchor_02)).
 
 6. [**`bootstapCmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) - This batch command performs the test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\bootstrapCmdTests`**](https://github.com/lampepfl/dotty/blob/master/project/scripts/bootstrapCmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
@@ -188,7 +188,7 @@ We have come across several Windows related issues while executing subcommands o
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Comment |
 | :--------: | :--------: | :--------- |
-| [#5561](https://github.com/lampepfl/dotty/pull/5561) | *pending* | **`bootsrapCmdTests`** |
+| [#5561](https://github.com/lampepfl/dotty/pull/5561) | [merged](https://github.com/lampepfl/dotty/commit/24a2798f51e1cc01d476b9c00ac0e4b925acc8e5) | **`bootsrapCmdTests`** |
 | [#5487](https://github.com/lampepfl/dotty/pull/5487) | [merged](https://github.com/lampepfl/dotty/commit/052c3b1) | **`build bootstrap`** |
 | [#5457](https://github.com/lampepfl/dotty/pull/5457) | [merged](https://github.com/lampepfl/dotty/commit/eb175cb) | **`build compile`** |
 | [#5452](https://github.com/lampepfl/dotty/pull/5452) | [merged](https://github.com/lampepfl/dotty/commit/7e093b15ff2a927212c7f40aa36b71d0a28f81b5) | Code review |
@@ -204,7 +204,7 @@ Below we summarize additions/changes we made to the [source code](https://github
 - Transformation of URL addresses to platform-specific paths *(to be validated)*<br/>*Example*: [**`getLocation.getFile`**](https://docs.oracle.com/javase/8/docs/api/java/net/URL.html#getFile) **&rarr;** **`new JFile(url.getFile).getAbsolutePath`**.
 - *(more to come)*
 
-## Session examples
+## <span id="anchor_02">Session examples</span>
 
 #### `setenv.bat`
 
