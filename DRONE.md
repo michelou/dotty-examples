@@ -25,7 +25,7 @@ Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three 
 - [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.2.txt))
 
 > **&#9755;** ***Installation policy***<br/>
-> Whenever possible software is installed via a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in memory of* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
+> Whenever possible software is installed via a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
 For instance our development environment looks as follows (*November 2018*):
 
@@ -35,7 +35,7 @@ C:\opt\sbt-1.2.7\
 C:\opt\Git-2.19.2\
 </pre>
 
-> **NB.** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like **`awk`**, **`diff`**, **`mv`**, **`rmdir`**, **`sed`** and **`wc`**).
+> **NB.** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like **`awk`**, **`diff`**, **`file`**, **`mv`**, **`rmdir`**, **`sed`** and **`wc`**).
 
 ## Directory structure
 
@@ -79,11 +79,19 @@ dist\bin\common.bat
 dist\bin\dotc.bat
 dist\bin\dotd.bat
 dist\bin\dotr.bat
+project\scripts\bootstrapCmdTests.bat
 project\scripts\build.bat
+project\scripts\cmdTests.bat
+project\scripts\common.bat
+project\scripts\genDocs.bat
 setenv.bat
 </pre>
 
-> **NB.** We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).<br/>We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance: **`subst W: %USERPROFILE%\workspace`**.
+We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support). We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance:
+
+<pre style="font-size:80%;">
+&gt; subst W: %USERPROFILE%\workspace
+</pre>
 
 In the next section we give a brief description of the batch files present in those directories.
 
@@ -136,16 +144,18 @@ We distinguish different sets of batch commands:
         compile                generate+test 1st stage compiler (after clone)
         doc[umentation]        generate documentation (after bootstrap)
         help                   display this help message
+        sbt                    test sbt-dotty (after bootstrap)
       Advanced subcommands (no deps):
         arch[ives]-only        generate ONLY gz/zip archives
         boot[strap]-only       generate+test ONLY bootstrapped compiler
         compile-only           generate+test ONLY 1st stage compiler
-        doc[umentation]-only]  generate ONLY documentation
+        doc[umentation]-only   generate ONLY documentation
+        sbt-only               test ONLY sbt-dotty
 </pre>
 
-Subcommands obey the following dependency rules for their execution:
+    Subcommands obey the following dependency rules for their execution:
 
-| **A** depends on **B** | Execution time<sup>**(1)**</sup> | Output from **A** |
+    | **A** depends on **B** | Execution time<sup>**(1)**</sup> | Output from **A** |
 | :------------ | :------------: | :------------ |
 | `cleanall` &rarr; &empty; | &lt;1 min | &nbsp; |
 | `clone` &rarr; &empty; | &lt;1 min | &nbsp; |
@@ -154,16 +164,22 @@ Subcommands obey the following dependency rules for their execution:
 | `archives` &rarr; `bootstrap` | &nbsp; | `dist-bootstrapped\target\*.gz,*.zip` |
 | `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
 
-<sub><sup>**(1)**</sup> Average time measured on a i7-i8550U laptop with 16 GB of memory.</sub>
+    <sub><sup>**(1)**</sup> Average time measured on a i7-i8550U laptop with 16 GB of memory.</sub>
 
-> **NB.** Subcommands whose name ends with **`-only`** help us to execute one single step without running again the precedent ones.
-> 
+    > **NB.** Subcommands whose name ends with **`-only`** help us to execute one single step without running again the precedent ones.
+    > 
 | Subcommand | Execution time | Output |
 | :------------ | :------------: | :------------ |
 | `compile-only` | ~24 min | &nbsp; |
 | `bootstrap-only` | ~26 min | &nbsp; |
 | `archives-only`| &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
 | `documentation-only` | &lt;3 min | `docs\_site\*.html`<br/>`docs\docs\*.md` |
+
+5. [**`cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) - This batch command performs test steps on a Windows machine in a similar manner to the shell script [`cmdTests`](https://github.com/lampepfl/dotty/blob/master/project/scripts/cmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
+
+6. [**`bootstapCmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) - This batch command performs the test steps on a Windows machine in a similar manner to the shell script [`bootstrapCmdTests`](https://github.com/lampepfl/dotty/blob/master/project/scripts/bootstrapCmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
+
+7. [**`genDocs.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) - This batch command generates the Dotty documentation on a Windows machine in a similar manner to the shell script [`genDocs`](https://github.com/lampepfl/dotty/blob/master/project/scripts/genDocs) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
 
 ## Windows related issues
