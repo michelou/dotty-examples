@@ -151,35 +151,35 @@ We distinguish different sets of batch commands:
         compile-only           generate+test ONLY 1st stage compiler
         doc[umentation]-only   generate ONLY documentation
         sbt-only               test ONLY sbt-dotty
-</pre>
+    </pre>
 
     Subcommands obey the following dependency rules for their execution:
 
     | **A** depends on **B** | Execution time<sup>**(1)**</sup> | Output from **A** |
-| :------------ | :------------: | :------------ |
-| `cleanall` &rarr; &empty; | &lt;1 min | &nbsp; |
-| `clone` &rarr; &empty; | &lt;1 min | &nbsp; |
-| `compile` &rarr; `clone` | ~24 min | `compiler\target\`<br/>`library\target`<br/>`sbt-bridge\target\` |
-| `bootstrap` &rarr; `compile` | ~45 min | &nbsp; |
-| `archives` &rarr; `bootstrap` | &nbsp; | `dist-bootstrapped\target\*.gz,*.zip` |
-| `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
+    | :------------ | :------------: | :------------ |
+    | `cleanall` &rarr; &empty; | &lt;1 min | &nbsp; |
+    | `clone` &rarr; &empty; | &lt;1 min | &nbsp; |
+    | `compile` &rarr; `clone` | ~24 min | `compiler\target\`<br/>`library\target`<br/>`sbt-bridge\target\` |
+    | `bootstrap` &rarr; `compile` | ~45 min | &nbsp; |
+    | `archives` &rarr; `bootstrap` | &nbsp; | `dist-bootstrapped\target\*.gz,*.zip` |
+    | `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
 
     <sub><sup>**(1)**</sup> Average time measured on a i7-i8550U laptop with 16 GB of memory.</sub>
 
     > **NB.** Subcommands whose name ends with **`-only`** help us to execute one single step without running again the precedent ones.
     > 
-| Subcommand | Execution time | Output |
-| :------------ | :------------: | :------------ |
-| `compile-only` | ~24 min | &nbsp; |
-| `bootstrap-only` | ~26 min | &nbsp; |
-| `archives-only`| &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
-| `documentation-only` | &lt;3 min | `docs\_site\*.html`<br/>`docs\docs\*.md` |
+    | Subcommand | Execution time | Output |
+    | :------------ | :------------: | :------------ |
+    | `compile-only` | ~24 min | &nbsp; |
+    | `bootstrap-only` | ~26 min | &nbsp; |
+    | `archives-only`| &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
+    | `documentation-only` | &lt;3 min | `docs\_site\*.html`<br/>`docs\docs\*.md` |
 
-5. [**`cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) - This batch command performs test steps on a Windows machine in a similar manner to the shell script [`cmdTests`](https://github.com/lampepfl/dotty/blob/master/project/scripts/cmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
+5. [**`cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) - This batch command performs test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\cmdTests`**](https://github.com/lampepfl/dotty/blob/master/project/scripts/cmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
-6. [**`bootstapCmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) - This batch command performs the test steps on a Windows machine in a similar manner to the shell script [`bootstrapCmdTests`](https://github.com/lampepfl/dotty/blob/master/project/scripts/bootstrapCmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
+6. [**`bootstapCmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) - This batch command performs the test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\bootstrapCmdTests`**](https://github.com/lampepfl/dotty/blob/master/project/scripts/bootstrapCmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
-7. [**`genDocs.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) - This batch command generates the Dotty documentation on a Windows machine in a similar manner to the shell script [`genDocs`](https://github.com/lampepfl/dotty/blob/master/project/scripts/genDocs) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
+7. [**`genDocs.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) - This batch command generates the Dotty documentation on a Windows machine in a similar manner to the shell script [**`project\script\genDocs`**](https://github.com/lampepfl/dotty/blob/master/project/scripts/genDocs) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
 
 ## Windows related issues
@@ -188,11 +188,12 @@ We have come across several Windows related issues while executing subcommands o
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Comment |
 | :--------: | :--------: | :--------- |
-| [#5487](https://github.com/lampepfl/dotty/pull/5487) | [merged](https://github.com/lampepfl/dotty/commit/052c3b1) | Subcommand `bootstrap` |
-| [#5457](https://github.com/lampepfl/dotty/pull/5457) | [merged](https://github.com/lampepfl/dotty/commit/eb175cb) | Subcommand `compile` |
+| [#5561](https://github.com/lampepfl/dotty/pull/5561) | *pending* | **`bootsrapCmdTests`** |
+| [#5487](https://github.com/lampepfl/dotty/pull/5487) | [merged](https://github.com/lampepfl/dotty/commit/052c3b1) | **`build bootstrap`** |
+| [#5457](https://github.com/lampepfl/dotty/pull/5457) | [merged](https://github.com/lampepfl/dotty/commit/eb175cb) | **`build compile`** |
 | [#5452](https://github.com/lampepfl/dotty/pull/5452) | [merged](https://github.com/lampepfl/dotty/commit/7e093b15ff2a927212c7f40aa36b71d0a28f81b5) | Code review |
-| [#5444](https://github.com/lampepfl/dotty/pull/5444) | *pending* | Windows commands |
-| [#5430](https://github.com/lampepfl/dotty/pull/5430) | [merged](https://github.com/lampepfl/dotty/commit/81b30383800495c64f2c8cfd0979e69e504104bc) | Subcommand `documentation` |
+| [#5444](https://github.com/lampepfl/dotty/pull/5444) | *pending* | Batch commands |
+| [#5430](https://github.com/lampepfl/dotty/pull/5430) | [merged](https://github.com/lampepfl/dotty/commit/81b30383800495c64f2c8cfd0979e69e504104bc) | **`build documentation`** |
 
 Below we summarize additions/changes we made to the [source code](https://github.com/lampepfl/dotty/) of the [Dotty project](http://dotty.epfl.ch/):
 
@@ -281,7 +282,7 @@ Tool paths
   SBT_CMD=C:\opt\sbt-1.2.7\bin\sbt.bat
 Tool options
   JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
-  SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=C:\Users\michelou\.ivy2\ -Dsbt.log.noformat=true
+  SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
 Current Git branch
   url-file [origin/url-file]
 
@@ -441,7 +442,171 @@ usage
 Total execution time: 00:20:25
 -->
 
+#### `cmdTests`
+
+
+The [**`cmdTests`**](https://github.com/michelou/dotty/tree/master/project/scripts/cmdTests.bat) command performs several tests running Dotty commands from [**`sbt`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html).
+
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+&gt; cmdTests
+testing sbt dotc and dotr
+hello world
+testing sbt dotc -from-tasty and dotr -classpath
+hello world
+testing sbt dotc -decompile
+[info] Loading project definition from U:\workspace-perso\dotty\project\project
+[info] Loading project definition from U:\workspace-perso\dotty\project
+  def main(args: scala.Array[scala.Predef.String]): scala.Unit = scala.Predef.println("hello world")
+testing sbt dotc -decompile from file
+[info] Loading project definition from U:\workspace-perso\dotty\project\project
+[info] Loading project definition from U:\workspace-perso\dotty\project
+  def main(args: scala.Array[scala.Predef.String]): scala.Unit = scala.Predef.println("hello world")
+testing sbt dotr with no -classpath
+hello world
+testing loading tasty from .tasty file in jar
+[info] Loading project definition from U:\workspace-perso\dotty\project\project
+[info] Loading project definition from U:\workspace-perso\dotty\project
+  def main(args: scala.Array[scala.Predef.String]): scala.Unit = scala.Predef.println("hello world")
+</pre>
+
+#### `bootstrapCmdTests`
+
+[**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/master/project/scripts/bootstrapCmdTests.bat) command performs several benchmark tests and .
+
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+&gt; bootstrapCmdTests
+[...]
+[info] Updating dotty-bench...
+[...]
+[info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
+# JMH version: 1.19
+# VM version: JDK 1.8.0_191, VM 25.191-b12
+# VM invoker: C:\Progra~1\Java\jdk1.8.0_191\jre\bin\java.exe
+# VM options: -Xms2G -Xmx2G
+# Warmup: 1 iterations, 1 s each
+# Measurement: 1 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: dotty.tools.benchmarks.Worker.compile
+
+# Run progress: 0.00% complete, ETA 00:00:02
+# Fork: 1 of 1
+# Warmup Iteration   1: 3011.972 ms/op
+Iteration   1: 533.625 ms/op
+
+
+Result "dotty.tools.benchmarks.Worker.compile":
+  533.625 ms/op
+
+
+# Run complete. Total time: 00:00:05
+
+Benchmark       Mode  Cnt    Score   Error  Units
+Worker.compile  avgt       533.625          ms/op
+[success] Total time: 21 s, completed 3 dÚc. 2018 09:44:07
+[...]
+[info] Updating dotty-bench-bootstrapped...
+[...]
+[info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
+# JMH version: 1.19
+# VM version: JDK 1.8.0_191, VM 25.191-b12
+# VM invoker: C:\Progra~1\Java\jdk1.8.0_191\jre\bin\java.exe
+# VM options: -Xms2G -Xmx2G
+# Warmup: 1 iterations, 1 s each
+# Measurement: 1 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: dotty.tools.benchmarks.Worker.compile
+
+# Run progress: 0.00% complete, ETA 00:00:02
+# Fork: 1 of 1
+# Warmup Iteration   1: 2359.948 ms/op
+Iteration   1: 361.619 ms/op
+
+
+Result "dotty.tools.benchmarks.Worker.compile":
+  361.619 ms/op
+
+
+# Run complete. Total time: 00:00:04
+
+Benchmark       Mode  Cnt    Score   Error  Units
+Worker.compile  avgt       361.619          ms/op
+[success] Total time: 21 s, completed 3 dÚc. 2018 09:44:42
+[...]
+[info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
+# JMH version: 1.19
+# VM version: JDK 1.8.0_191, VM 25.191-b12
+# VM invoker: C:\Progra~1\Java\jdk1.8.0_191\jre\bin\java.exe
+# VM options: -Xms2G -Xmx2G
+# Warmup: 1 iterations, 1 s each
+# Measurement: 1 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: dotty.tools.benchmarks.Worker.compile
+
+# Run progress: 0.00% complete, ETA 00:00:02
+# Fork: 1 of 1
+# Warmup Iteration   1: 13858.101 ms/op
+Iteration   1: 5828.334 ms/op
+
+
+Result "dotty.tools.benchmarks.Worker.compile":
+  5828.334 ms/op
+
+
+\# Run complete. Total time: 00:00:20
+
+Benchmark       Mode  Cnt     Score   Error  Units
+Worker.compile  avgt       5828.334          ms/op
+[success] Total time: 28 s, completed 3 dÚc. 2018 09:45:23
+testing scala.quoted.Expr.run from sbt dotr
+[...]
+[info] [dist-bootstrapped] Creating a distributable package in dist-bootstrapped\target\pack
+[...]
+[info] [dist-bootstrapped] done.
+[success] Total time: 8 s, completed 3 dÚc. 2018 09:46:13
+testing ./bin/dotc and ./bin/dotr
+testing ./bin/dotc -from-tasty and dotr -classpath
+testing ./bin/dotd
+Compiling (1/1): HelloWorld.scala
+[doc info] Generating doc page for: <empty>
+[doc info] Generating doc page for: <empty>.HelloWorld$
+[doc info] Generating doc page for: <empty>.HelloWorld$
+================================================================================
+Dottydoc summary report for project `Hello`
+================================================================================
+Documented members in public API:
+
+package <empty>
+--------------------------------------------------------------------------------
+public: 0/2 (0%)         protected: 0
+
+
+Summary:
+
+public members with docstrings:    0/2 (0%)
+protected members with docstrings: 0
+================================================================================
+
+Documented members in internal API:
+
+package <empty>
+--------------------------------------------------------------------------------
+public: 0        protected: 0    private: 0
+
+
+Summary internal API:
+
+public members with docstrings:    0
+protected members with docstrings: 0
+private members with docstrings:   0
+</pre>
+
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/November 2018* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/December 2018* [**&#9650;**](#top)
 
