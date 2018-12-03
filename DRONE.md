@@ -470,7 +470,7 @@ testing loading tasty from .tasty file in jar
 
 #### `bootstrapCmdTests`
 
-[**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) command performs several benchmarks and generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](tests/pos/HelloWorld.scala) program.
+[**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) command performs several benchmarks and generates the documentation page for the [**`https://github.com/michelou/dotty/tree/master/tests\pos\HelloWorld.scala`**](tests/pos/HelloWorld.scala) program.
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 &gt; bootstrapCmdTests
@@ -583,7 +583,7 @@ private members with docstrings:   0
 
 ## `genDocs`
 
-[**`genDocs`**](project/scripts/genDocs.bat) command generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](tests/pos/HelloWorld.scala) program.
+[**`genDocs`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) command generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program.
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 &gt; genDocs    
