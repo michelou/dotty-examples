@@ -35,7 +35,7 @@ C:\opt\sbt-1.2.7\
 C:\opt\Git-2.19.2\
 </pre>
 
-> **NB.** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like **`awk`**, **`diff`**, **`file`**, **`mv`**, **`rmdir`**, **`sed`** and **`wc`**).
+> **NB.** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
 
 ## Directory structure
 
@@ -111,7 +111,7 @@ We distinguish different sets of batch commands:
     git version 2.19.2.windows.1
     </pre>
 
-2. Directory [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin) - This directory contains batch files used internally during the build process.
+2. Directory [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin) - This directory contains batch files used internally during the build process (see the [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) command).
 
 3. Directory [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software release](https://github.com/lampepfl/dotty/releases).
 
@@ -128,7 +128,7 @@ We distinguish different sets of batch commands:
     dotr.bat
     </pre>
 
-4. [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat) - This batch command performs on a Windows machine build/test steps similar to the ones on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
+4. [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat) - This batch command performs on a Windows machine the same build/test steps as on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
     <pre style="font-size:80%;">
     &gt; build help
@@ -175,20 +175,20 @@ We distinguish different sets of batch commands:
     | `archives-only`| &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
     | `documentation-only` | &lt;3 min | `docs\_site\*.html`<br/>`docs\docs\*.md` |
 
-5. [**`cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) - This batch command performs test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\cmdTests`**](https://github.com/lampepfl/dotty/blob/master/project/scripts/cmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server (see console output in section [**Session examples**](#anchor_02)).
+5. [**`cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) - This batch command performs test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\cmdTests`**](project/scripts/cmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server (see console output in section [**Session examples**](#anchor_02)).
 
-6. [**`bootstapCmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) - This batch command performs the test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\bootstrapCmdTests`**](https://github.com/lampepfl/dotty/blob/master/project/scripts/bootstrapCmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
+6. [**`bootstapCmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) - This batch command performs the test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\bootstrapCmdTests`**](project/scripts/bootstrapCmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
-7. [**`genDocs.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) - This batch command generates the Dotty documentation on a Windows machine in a similar manner to the shell script [**`project\script\genDocs`**](https://github.com/lampepfl/dotty/blob/master/project/scripts/genDocs) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
+7. [**`genDocs.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) - This batch command generates the Dotty documentation on a Windows machine in a similar manner to the shell script [**`project\script\genDocs`**](project/scripts/genDocs) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
 
 ## Windows related issues
 
 We have come across several Windows related issues while executing subcommands of [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat):
 
-| [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Comment |
+| [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :--------: | :--------: | :--------- |
-| [#5561](https://github.com/lampepfl/dotty/pull/5561) | [merged](https://github.com/lampepfl/dotty/commit/24a2798f51e1cc01d476b9c00ac0e4b925acc8e5) | **`bootsrapCmdTests`** |
+| [#5561](https://github.com/lampepfl/dotty/pull/5561) | [merged](https://github.com/lampepfl/dotty/commit/24a2798f51e1cc01d476b9c00ac0e4b925acc8e5) | [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) |
 | [#5487](https://github.com/lampepfl/dotty/pull/5487) | [merged](https://github.com/lampepfl/dotty/commit/052c3b1) | **`build bootstrap`** |
 | [#5457](https://github.com/lampepfl/dotty/pull/5457) | [merged](https://github.com/lampepfl/dotty/commit/eb175cb) | **`build compile`** |
 | [#5452](https://github.com/lampepfl/dotty/pull/5452) | [merged](https://github.com/lampepfl/dotty/commit/7e093b15ff2a927212c7f40aa36b71d0a28f81b5) | Code review |
@@ -444,8 +444,7 @@ Total execution time: 00:20:25
 
 #### `cmdTests`
 
-
-The [**`cmdTests`**](https://github.com/michelou/dotty/tree/master/project/scripts/cmdTests.bat) command performs several tests running Dotty commands from [**`sbt`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html).
+The [**`cmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) command performs several tests running Dotty commands from [**`sbt`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html).
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 &gt; cmdTests
@@ -471,7 +470,7 @@ testing loading tasty from .tasty file in jar
 
 #### `bootstrapCmdTests`
 
-[**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/master/project/scripts/bootstrapCmdTests.bat) command performs several benchmark tests and .
+[**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) command performs several benchmarks and generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](tests/pos/HelloWorld.scala) program.
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 &gt; bootstrapCmdTests
@@ -504,7 +503,7 @@ Result "dotty.tools.benchmarks.Worker.compile":
 
 Benchmark       Mode  Cnt    Score   Error  Units
 Worker.compile  avgt       533.625          ms/op
-[success] Total time: 21 s, completed 3 dÚc. 2018 09:44:07
+[success] Total time: 21 s, completed 3 déc. 2018 09:44:07
 [...]
 [info] Updating dotty-bench-bootstrapped...
 [...]
@@ -534,7 +533,7 @@ Result "dotty.tools.benchmarks.Worker.compile":
 
 Benchmark       Mode  Cnt    Score   Error  Units
 Worker.compile  avgt       361.619          ms/op
-[success] Total time: 21 s, completed 3 dÚc. 2018 09:44:42
+[success] Total time: 21 s, completed 3 déc. 2018 09:44:42
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
 # JMH version: 1.19
@@ -558,17 +557,17 @@ Result "dotty.tools.benchmarks.Worker.compile":
   5828.334 ms/op
 
 
-\# Run complete. Total time: 00:00:20
+# Run complete. Total time: 00:00:20
 
 Benchmark       Mode  Cnt     Score   Error  Units
 Worker.compile  avgt       5828.334          ms/op
-[success] Total time: 28 s, completed 3 dÚc. 2018 09:45:23
+[success] Total time: 28 s, completed 3 déc. 2018 09:45:23
 testing scala.quoted.Expr.run from sbt dotr
 [...]
 [info] [dist-bootstrapped] Creating a distributable package in dist-bootstrapped\target\pack
 [...]
 [info] [dist-bootstrapped] done.
-[success] Total time: 8 s, completed 3 dÚc. 2018 09:46:13
+[success] Total time: 8 s, completed 3 déc. 2018 09:46:13
 testing ./bin/dotc and ./bin/dotr
 testing ./bin/dotc -from-tasty and dotr -classpath
 testing ./bin/dotd
@@ -576,34 +575,36 @@ Compiling (1/1): HelloWorld.scala
 [doc info] Generating doc page for: <empty>
 [doc info] Generating doc page for: <empty>.HelloWorld$
 [doc info] Generating doc page for: <empty>.HelloWorld$
-================================================================================
-Dottydoc summary report for project `Hello`
-================================================================================
-Documented members in public API:
-
-package <empty>
---------------------------------------------------------------------------------
-public: 0/2 (0%)         protected: 0
-
-
-Summary:
-
-public members with docstrings:    0/2 (0%)
-protected members with docstrings: 0
-================================================================================
-
-Documented members in internal API:
-
-package <empty>
---------------------------------------------------------------------------------
-public: 0        protected: 0    private: 0
-
-
-Summary internal API:
-
+[...]
 public members with docstrings:    0
 protected members with docstrings: 0
 private members with docstrings:   0
+</pre>
+
+## `genDocs`
+
+[**`genDocs`**](project/scripts/genDocs.bat) command generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](tests/pos/HelloWorld.scala) program.
+
+<pre style="margin:10px 0 0 30px;font-size:80%;">
+&gt; genDocs    
+Working directory: W:\dotty
+[..(sbt)..]       
+[info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 
+OT -project-url https://github.com/lampepfl/dotty -classpath ...
+[...]
+Summary:
+
+public members with docstrings:    5187/14614 (35%)
+protected members with docstrings: 165/538 (30%)
+================================================================================
+[...]
+Summary internal API:
+
+public members with docstrings:    156/604 (25%)
+protected members with docstrings: 6/60 (10%)
+private members with docstrings:   466/2454 (18%)
+total warnings with regards to compilation and documentation: 29
+[success] Total time: 135 s, completed 3 déc. 2018 15:05:04
 </pre>
 
 ***
