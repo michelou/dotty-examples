@@ -29,7 +29,7 @@ Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three 
 
 For instance our development environment looks as follows (*November 2018*):
 
-<pre style="font-size:80%;">
+<pre style="padding:0 0 0 4px;font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_191\
 C:\opt\sbt-1.2.7\
 C:\opt\Git-2.19.2\
@@ -99,7 +99,7 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. [**`setenv.bat`**](https://github.com/michelou/dotty/tree/batch-files/setenv.bat) - This batch command makes external tools such as **`java.exe`**, **`sbt.bat`** and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt.
+1. [**`setenv.bat`**](https://github.com/michelou/dotty/tree/batch-files/setenv.bat) - This batch command makes external tools such as [**`java.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt.
 
     <pre style="font-size:80%;">
     > setenv help

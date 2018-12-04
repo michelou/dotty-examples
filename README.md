@@ -54,7 +54,7 @@ C:\opt\cfr-0.136\
 C:\opt\Git-2.19.2\
 </pre>
 
-> **NB.** [Git for Windows](https://git-scm.com/) provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like **`awk`**, **`diff`**, **`mv`**, **`rmdir`**, **`sed`** and **`wc`**).
+> **NB.** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
 
 We further recommand using an advanced console emulator such as [ComEmu](https://conemu.github.io/) (or [Cmdr](http://cmder.net/)) which features [Unicode support](https://conemu.github.io/en/UnicodeSupport.html).
 
@@ -110,8 +110,8 @@ We distinguish different sets of batch commands:
 
 2. Directory [**`bin\`**](bin/) - This directory contains several utility batch files:
    - [**`cleanup.bat`**](bin/cleanup.bat) removes the generated class files from every example directory (both in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories).
-   - **`dirsize.bat <dir_path_1> ..`** prints the size in Kb/Mb/Gb of the specified directory paths.
-   - **`getnightly.bat`** downloads/installs the library files from the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
+   - [**`dirsize.bat <dir_path_1> ..`**](bin/dirsize.bat) prints the size in Kb/Mb/Gb of the specified directory paths.
+   - [**`getnightly.bat`**](bin/getnightly.bat) downloads/installs the library files from the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
    - **`searchjars.bat <class_name>`** searches for the given class name into all Dotty/Scala JAR files.
    - **`timeit.bat <cmd_1> { & <cmd_2> }`** prints the execution time of the specified commands.
    - **`touch.bat <file_path>`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
