@@ -210,7 +210,7 @@ Below we summarize additions/changes we made to the [source code](https://github
 
 The **`setenv`** command is executed once to setup our development environment; it makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt (see section [**Project dependencies**](#anchor_01)):
 
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+<pre style="font-size:80%;">
 > setenv
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191,
@@ -225,7 +225,7 @@ C:\opt\sbt-1.2.7\bin\sbt.bat
 
 With option **`-verbose`** the **`setenv`** command also displays the tool paths and the current Git branch:
 
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+<pre style="font-size:80%;">
 > setenv -verbose
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191,
@@ -246,34 +246,35 @@ Current Git branch:
 The [**`build`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat) command consists of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code and features the following subcommands:
 
 - **`cleanall`** - This subcommand removes all generated *and untracked* files/directories from our [**`Dotty fork`**](https://github.com/michelou/dotty/tree/master/).<br/>Internally, **`build cleanall`** executes the two commands **`sbt clean`** *and* [**`git clean -xdf`**](https://git-scm.com/docs/git-clean/) which removes all untracked directories/files, including build products.
-<pre style="margin:10px 0 0 30px;font-size:80%;">
-> build cleanall
-[...(sbt)...]
-Removing .vscode/
-Removing HelloWorld$.class
-Removing HelloWorld.class
-Removing HelloWorld.tasty
-Removing compiler/target/
-Removing dist-bootstrapped/
-Removing doc-tool/target/
-Removing dotty-bootstrapped/
-Removing interfaces/target/
-Removing library/target/
-Removing out/
-Removing project/project/project/
-Removing project/project/target/
-Removing project/target/
-Removing sbt-bridge/target/
-Removing scala-compiler/
-Removing scala-library/
-Removing scala-reflect/
-Removing scalap/
-Removing setenv.bat
-Removing target/
-Removing testlogs/
-</pre>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;With option **`-verbose`** the **`build`** command also displays the tool paths/options and the current Git branch:
+    <pre style="font-size:80%;">
+    > build cleanall
+    [...(sbt)...]
+    Removing .vscode/
+    Removing HelloWorld$.class
+    Removing HelloWorld.class
+    Removing HelloWorld.tasty
+    Removing compiler/target/
+    Removing dist-bootstrapped/
+    Removing doc-tool/target/
+    Removing dotty-bootstrapped/
+    Removing interfaces/target/
+    Removing library/target/
+    Removing out/
+    Removing project/project/project/
+    Removing project/project/target/
+    Removing project/target/
+    Removing sbt-bridge/target/
+    Removing scala-compiler/
+    Removing scala-library/
+    Removing scala-reflect/
+    Removing scalap/
+    Removing setenv.bat
+    Removing target/
+    Removing testlogs/
+    </pre>
+
+    The command **`build -verbose cleanall`** also displays the tool paths/options and the current Git branch:
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > build -verbose cleanall
@@ -292,7 +293,7 @@ Current Git branch
 
 - **`compile`** - This subcommand generates the *"1st stage compiler"* for Dotty and executes the relevant test suites. 
 
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+    <pre style="font-size:80%;">
 &gt; build compile
 sbt compile and sbt test
 [...]
@@ -332,33 +333,27 @@ testing loading tasty from .tasty file in jar
 [...]
 </pre>
 
-> &nbsp;&nbsp;&nbsp;**NB.** The following command performs the same operation as **`build compile`**:  
-> <pre style="margin:10px 0 0 30px;font-size:80%;">
-> > build clone compile-only
-> </pre>
+    > **:mag_right:** The two commands **`build compile`** and **`build clone compile-only`** perform the same operations.
 
 - **`bootstrap`** - ***If*** execution of the **`compile`** subcommand was successful the **`bootstrap`** subcommand generates the *"bootstrap compiler"* for Dotty and executes the relevant test suites.
 
-<pre style="margin:10px 0 0 30px;font-size:80%;">
-&gt; build bootstrap
-[...]
-</pre>
+    <pre style="font-size:80%;">
+    &gt; build bootstrap
+    [...]
+    </pre>
 
 - **`archives`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`archives`** subcommand generates the gz/zip archives.<br/>Below we execute the **`arch-only`** subcommand for the sake of brievity (previous steps are *assumed* to be successful): 
 
-<pre style="margin:10px 0 0 30px;font-size:80%;">
-&gt; build arch-only
-[...]
+    <pre style="font-size:80%;">
+    &gt; build arch-only
+    [...]
+    &nbsp;
+    > dir /a-d /b dist-bootstrapped\target
+    dotty-0.12.0-bin-SNAPSHOT.tar.gz
+    dotty-0.12.0-bin-SNAPSHOT.zip
+    </pre>
 
-> dir /a-d /b dist-bootstrapped\target
-dotty-0.12.0-bin-SNAPSHOT.tar.gz
-dotty-0.12.0-bin-SNAPSHOT.zip
-</pre>
-
-> &nbsp;&nbsp;&nbsp;**NB.** The following command performs the same operation as **`build archives`**:  
-> <pre style="margin:10px 0 0 30px;font-size:80%;">
-> > build clone compile-only bootstrap-only archives-only
-> </pre>
+    > **:mag_right:** The two commands **`build archives`** and **`build compile archives-only`** perform the same operations.
 
 - **`documentation`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Dotty website](https://dotty.epfl.ch/) and the online [Dotty documentation](https://dotty.epfl.ch/docs/).<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
@@ -446,7 +441,7 @@ Total execution time: 00:20:25
 
 The [**`cmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) command performs several tests running Dotty commands from [**`sbt`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html).
 
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+<pre style="font-size:80%;">
 &gt; cmdTests
 testing sbt dotc and dotr
 hello world
@@ -472,7 +467,7 @@ testing loading tasty from .tasty file in jar
 
 [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) command performs several benchmarks and generates the documentation page for the [**`https://github.com/michelou/dotty/tree/master/tests\pos\HelloWorld.scala`**](tests/pos/HelloWorld.scala) program.
 
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+<pre style="font-size:80%;">
 &gt; bootstrapCmdTests
 [...]
 [info] Updating dotty-bench...
@@ -585,7 +580,7 @@ private members with docstrings:   0
 
 [**`genDocs`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) command generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program.
 
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+<pre style="font-size:80%;">
 &gt; genDocs    
 Working directory: W:\dotty
 [..(sbt)..]       
