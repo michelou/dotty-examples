@@ -221,9 +221,7 @@ C:\opt\sbt-1.2.7\bin\sbt
 C:\opt\sbt-1.2.7\bin\sbt.bat
 </pre>
 
-> **NB.** Execute **`setenv help`** to display the help message.
-
-With option **`-verbose`** the **`setenv`** command also displays the tool paths and the current Git branch:
+Command **`setenv -verbose`** also displays the tool paths and the current Git branch:
 
 <pre style="font-size:80%;">
 > setenv -verbose
@@ -239,6 +237,18 @@ Tool paths:
    C:\opt\Git-2.19.2\usr\bin\diff.exe
 Current Git branch:
    master
+</pre>
+
+Command **`setenv help`** displays the help message:
+
+<pre style="font-size:80%;">
+> setenv help
+Usage: setenv { options | subcommands }
+  Options:
+    -verbose         display environment settings
+  Subcommands:
+    help             display this help message
+    update           update repository from remote master
 </pre>
 
 #### `build.bat`
@@ -274,64 +284,64 @@ The [**`build`**](https://github.com/michelou/dotty/tree/master/project/scripts/
     Removing testlogs/
     </pre>
 
-    The command **`build -verbose cleanall`** also displays the tool paths/options and the current Git branch:
+    Command **`build -verbose cleanall`** also displays the tool paths/options and the current Git branch:
 
-<pre style="margin:10px 0 0 30px;font-size:80%;">
-> build -verbose cleanall
-Tool paths
-  GIT_CMD=C:\opt\Git-2.19.2\bin\git.exe
-  SBT_CMD=C:\opt\sbt-1.2.7\bin\sbt.bat
-Tool options
-  JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
-  SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
-Current Git branch
-  url-file [origin/url-file]
-
-[...(sbt)...]
-[...(git)...]
-</pre>
+    <pre style="font-size:80%;">
+    > build -verbose cleanall
+    Tool paths
+      GIT_CMD=C:\opt\Git-2.19.2\bin\git.exe
+      SBT_CMD=C:\opt\sbt-1.2.7\bin\sbt.bat
+    Tool options
+      JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
+      SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
+    Current Git branch
+      url-file [origin/url-file]
+    &nbsp;
+    [...(sbt)...]
+    [...(git)...]
+    </pre>
 
 - **`compile`** - This subcommand generates the *"1st stage compiler"* for Dotty and executes the relevant test suites. 
 
     <pre style="font-size:80%;">
-&gt; build compile
-sbt compile and sbt test
-[...]
-[info] Done compiling.
-[...]
-[info] Done packaging.
-[...]
-[info] Test run started
-[info] Test dotty.tools.dottydoc.TestWhitelistedCollections.arrayAndImmutableHasDocumentation started
-[info] Test run finished: 0 failed, 0 ignored, 1 total, 21.918s
-[info] Test run started
-[...]
-8 suites passed, 0 failed, 8 total
-[...]
-[info] Test run started
-[...]
-2 suites passed, 0 failed, 2 total
-[...]
-[info] Test run started
-[...]
-11 suites passed, 0 failed, 11 total
-[...]
-[info] Test run started
-[...]
-[info] Passed: Total 73, Failed 0, Errors 0, Passed 73
-[info] Passed: Total 290, Failed 0, Errors 0, Passed 288, Skipped 2
-[success] Total time: 1063 s, completed 16 nov. 2018 15:39:19
-testing sbt dotc and dotr
-hello world
-testing sbt dotc -from-tasty and dotr -classpath
-hello world
-testing sbt dotc -decompile
-[...]
-testing sbt dotr with no -classpath
-hello world
-testing loading tasty from .tasty file in jar
-[...]
-</pre>
+    &gt; build compile
+    sbt compile and sbt test
+    [...]
+    [info] Done compiling.
+    [...]
+    [info] Done packaging.
+    [...]
+    [info] Test run started
+    [info] Test dotty.tools.dottydoc.TestWhitelistedCollections.arrayAndImmutableHasDocumentation started
+    [info] Test run finished: 0 failed, 0 ignored, 1 total, 21.918s
+    [info] Test run started
+    [...]
+    8 suites passed, 0 failed, 8 total
+    [...]
+    [info] Test run started
+    [...]
+    2 suites passed, 0 failed, 2 total
+    [...]
+    [info] Test run started
+    [...]
+    11 suites passed, 0 failed, 11 total
+    [...]
+    [info] Test run started
+    [...]
+    [info] Passed: Total 73, Failed 0, Errors 0, Passed 73
+    [info] Passed: Total 290, Failed 0, Errors 0, Passed 288, Skipped 2
+    [success] Total time: 1063 s, completed 16 nov. 2018 15:39:19
+    testing sbt dotc and dotr
+    hello world
+    testing sbt dotc -from-tasty and dotr -classpath
+    hello world
+    testing sbt dotc -decompile
+    [...]
+    testing sbt dotr with no -classpath
+    hello world
+    testing loading tasty from .tasty file in jar
+    [...]
+    </pre>
 
     > **:mag_right:** The two commands **`build compile`** and **`build clone compile-only`** perform the same operations.
 
@@ -341,6 +351,8 @@ testing loading tasty from .tasty file in jar
     &gt; build bootstrap
     [...]
     </pre>
+
+    > **:mag_right:** The two commands **`build bootstrap`** and **`build compile bootstrap-only`** perform the same operations.
 
 - **`archives`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`archives`** subcommand generates the gz/zip archives.<br/>Below we execute the **`arch-only`** subcommand for the sake of brievity (previous steps are *assumed* to be successful): 
 
@@ -353,70 +365,72 @@ testing loading tasty from .tasty file in jar
     dotty-0.12.0-bin-SNAPSHOT.zip
     </pre>
 
-    > **:mag_right:** The two commands **`build archives`** and **`build compile archives-only`** perform the same operations.
+    > **:mag_right:** The two commands **`build archives`** and **`build bootstrap archives-only`** perform the same operations.
 
 - **`documentation`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Dotty website](https://dotty.epfl.ch/) and the online [Dotty documentation](https://dotty.epfl.ch/docs/).<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
-<pre style="margin:10px 0 0 30px;font-size:80%;">
-&gt; build -timer doc-only
-Working directory: W:\dotty
-[...]
-[info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 0.12.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
-Compiling (1/406): AlternateConstructorsPhase.scala
-[...]
-Compiling (406/406): package.scala
-[...]
-28 warnings found
-there were 3987 feature warning(s); re-run with -feature for details
-[doc info] Generating doc page for: dotty.tools.dotc.plugins
-[...]
-[doc info] Generating doc page for: dotty.tools.dotc.core.unpickleScala2.Scala2Unpickler$.TempPolyType$
-================================================================================
-Dottydoc summary report for project `Dotty`
-================================================================================
-Documented members in public API:
-[...]
-Summary:
+    <pre style="font-size:80%;">
+    &gt; build -timer doc-only
+    Working directory: W:\dotty
+    [...]
+    [info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 0.12.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
+    Compiling (1/406): AlternateConstructorsPhase.scala
+    [...]
+    Compiling (406/406): package.scala
+    [...]
+    28 warnings found
+    there were 3987 feature warning(s); re-run with -feature for details
+    [doc info] Generating doc page for: dotty.tools.dotc.plugins
+    [...]
+    [doc info] Generating doc page for: dotty.tools.dotc.core.unpickleScala2.Scala2Unpickler$.TempPolyType$
+    ================================================================================
+    Dottydoc summary report for project `Dotty`
+    ================================================================================
+    Documented members in public API:
+    [...]
+    Summary:
+    &nbsp;
+    public members with docstrings:    5181/14606 (35%)
+    protected members with docstrings: 164/537 (30%)
+    ================================================================================
+    &nbsp;
+    Documented members in internal API:
+    [...]
+    Summary internal API:
+    &nbsp;
+    public members with docstrings:    154/601 (25%)
+    protected members with docstrings: 6/60 (10%)
+    private members with docstrings:   464/2450 (18%)
+    total warnings with regards to compilation and documentation: 29
+    [success] Total time: 146 s, completed 29 nov. 2018 11:49:22
+    Total execution time: 00:02:36
+    </pre>
 
-public members with docstrings:    5181/14606 (35%)
-protected members with docstrings: 164/537 (30%)
-================================================================================
+    > **:mag_right:** The two commands **`build documentation`** and **`build bootstrap documentation-only`** perform the same operations.
 
-Documented members in internal API:
-[...]
-Summary internal API:
+    Output directory **`docs\_site\`** contains the files of the online [Dotty documentation](https://dotty.epfl.ch/docs/):
 
-public members with docstrings:    154/601 (25%)
-protected members with docstrings: 6/60 (10%)
-private members with docstrings:   464/2450 (18%)
-total warnings with regards to compilation and documentation: 29
-[success] Total time: 146 s, completed 29 nov. 2018 11:49:22
-Total execution time: 00:02:36
-</pre>
+    <pre style="font-size:80%;">
+    &gt; dir /b docs\_site
+    .gitignore
+    api
+    blog
+    css
+    docs
+    images
+    index.html
+    js
+    sidebar.yml
+    versions
+    &gt; dir /a-d /b /s docs\_site\*.html | wc -l
+    2551
+    &gt; dir /a-d /b /s docs\_site\*.jpg docs\_site\*.png docs\_site\*.svg | wc -l
+    23
+    &gt; dir /a-d /b /s docs\_site\*.js | wc -l
+    9
+    </pre>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output directory **`docs\_site\`** contains the files of the online [Dotty documentation](https://dotty.epfl.ch/docs/):
-
-<pre style="margin:10px 0 0 30px;font-size:80%;">
-&gt; dir /b docs\_site
-.gitignore
-api
-blog
-css
-docs
-images
-index.html
-js
-sidebar.yml
-versions
-&gt; dir /a-d /b /s docs\_site\*.html | wc -l
-2551
-&gt; dir /a-d /b /s docs\_site\*.jpg docs\_site\*.png docs\_site\*.svg | wc -l
-23
-&gt; dir /a-d /b /s docs\_site\*.js | wc -l
-9
-</pre>
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Output directory **`docs\docs\`** contains the Markdown files of the [Dotty website](https://dotty.epfl.ch/):
+    Output directory **`docs\docs\`** contains the Markdown files of the [Dotty website](https://dotty.epfl.ch/):
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 &gt; dir /b docs\docs
