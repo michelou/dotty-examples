@@ -177,7 +177,7 @@ We distinguish different sets of batch commands:
 
 5. [**`cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) - This batch command performs test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\cmdTests`**](project/scripts/cmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server (see console output in section [**Session examples**](#anchor_02)).
 
-6. [**`bootstapCmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) - This batch command performs the test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\bootstrapCmdTests`**](project/scripts/bootstrapCmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
+6. [**`bootstrapCmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) - This batch command performs the test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\bootstrapCmdTests`**](project/scripts/bootstrapCmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
 7. [**`genDocs.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) - This batch command generates the Dotty documentation on a Windows machine in a similar manner to the shell script [**`project\script\genDocs`**](project/scripts/genDocs) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
@@ -432,19 +432,19 @@ The [**`build`**](https://github.com/michelou/dotty/tree/master/project/scripts/
 
     Output directory **`docs\docs\`** contains the Markdown files of the [Dotty website](https://dotty.epfl.ch/):
 
-<pre style="margin:10px 0 0 30px;font-size:80%;">
-&gt; dir /b docs\docs
-contributing
-index.md  
-internals 
-reference 
-release-notes
-resources   
-typelevel.md
-usage
-&gt; dir /a-d /b /s docs\docs\*.md | wc -l
-88 
-</pre>
+    <pre style="font-size:80%;">
+    &gt; dir /b docs\docs
+    contributing
+    index.md  
+    internals 
+    reference 
+    release-notes
+    resources   
+    typelevel.md
+    usage
+    &gt; dir /a-d /b /s docs\docs\*.md | wc -l
+    88 
+    </pre>
 
 <!--
 > build -timer compile-only
@@ -462,18 +462,18 @@ hello world
 testing sbt dotc -from-tasty and dotr -classpath
 hello world
 testing sbt dotc -decompile
-[info] Loading project definition from U:\workspace-perso\dotty\project\project
-[info] Loading project definition from U:\workspace-perso\dotty\project
+[info] Loading project definition from W:\dotty\project\project
+[info] Loading project definition from W:\dotty\project
   def main(args: scala.Array[scala.Predef.String]): scala.Unit = scala.Predef.println("hello world")
 testing sbt dotc -decompile from file
-[info] Loading project definition from U:\workspace-perso\dotty\project\project
-[info] Loading project definition from U:\workspace-perso\dotty\project
+[info] Loading project definition from W:\dotty\project\project
+[info] Loading project definition from W:\dotty\project
   def main(args: scala.Array[scala.Predef.String]): scala.Unit = scala.Predef.println("hello world")
 testing sbt dotr with no -classpath
 hello world
 testing loading tasty from .tasty file in jar
-[info] Loading project definition from U:\workspace-perso\dotty\project\project
-[info] Loading project definition from U:\workspace-perso\dotty\project
+[info] Loading project definition from W:\dotty\project\project
+[info] Loading project definition from W:\dotty\project
   def main(args: scala.Array[scala.Predef.String]): scala.Unit = scala.Predef.println("hello world")
 </pre>
 
