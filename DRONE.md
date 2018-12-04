@@ -29,7 +29,7 @@ Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three 
 
 For instance our development environment looks as follows (*November 2018*):
 
-<pre style="padding:0 0 0 4px;font-size:80%;">
+<pre style="font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_191\
 C:\opt\sbt-1.2.7\
 C:\opt\Git-2.19.2\
@@ -467,7 +467,7 @@ testing loading tasty from .tasty file in jar
 
 #### `bootstrapCmdTests`
 
-[**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) command performs several benchmarks and generates the documentation page for the [**`https://github.com/michelou/dotty/tree/master/tests\pos\HelloWorld.scala`**](tests/pos/HelloWorld.scala) program.
+[**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) command performs several benchmarks and generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program.
 
 <pre style="font-size:80%;">
 &gt; bootstrapCmdTests
