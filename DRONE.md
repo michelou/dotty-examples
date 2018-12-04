@@ -39,7 +39,7 @@ C:\opt\Git-2.19.2\
 
 ## Directory structure
 
-The directory structure of the [Dotty repository](https://github.com/lampepfl/dotty/) is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/master/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts).
+The directory structure of the [Dotty repository](https://github.com/lampepfl/dotty/) is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts).
 
 <pre style="font-size:80%;">
 > dir /ad /b
@@ -102,13 +102,13 @@ We distinguish different sets of batch commands:
 1. [**`setenv.bat`**](https://github.com/michelou/dotty/tree/batch-files/setenv.bat) - This batch command makes external tools such as **`java.exe`**, **`sbt.bat`** and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt.
 
     <pre style="font-size:80%;">
-    &gt; java -version
-    java version "1.8.0_191"
-    Java(TM) SE Runtime Environment (build 1.8.0_191-b12)
-    Java HotSpot(TM) 64-Bit Server VM (build 25.191-b12, mixed mode)
-
-    &gt; git --version
-    git version 2.19.2.windows.1
+    > setenv help
+    Usage: setenv { options | subcommands }
+      Options:
+        -verbose         display environment settings
+      Subcommands:
+        help             display this help message
+        update           update repository from remote master
     </pre>
 
 2. Directory [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin) - This directory contains batch files used internally during the build process (see the [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) command).
@@ -128,7 +128,7 @@ We distinguish different sets of batch commands:
     dotr.bat
     </pre>
 
-4. [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat) - This batch command performs on a Windows machine the same build/test steps as on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
+4. [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat) - This batch command performs on a Windows machine the same build/test steps as specified in file [**`.drone.yml`**](https://github.com/michelou/dotty/blob/master/.drone.yml) and executed on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
     <pre style="font-size:80%;">
     &gt; build help
@@ -239,21 +239,9 @@ Current Git branch:
    master
 </pre>
 
-Command **`setenv help`** displays the help message:
-
-<pre style="font-size:80%;">
-> setenv help
-Usage: setenv { options | subcommands }
-  Options:
-    -verbose         display environment settings
-  Subcommands:
-    help             display this help message
-    update           update repository from remote master
-</pre>
-
 #### `build.bat`
 
-The [**`build`**](https://github.com/michelou/dotty/tree/master/project/scripts/build.bat) command consists of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code and features the following subcommands:
+The [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat) command consists of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code and features the following subcommands:
 
 - **`cleanall`** - This subcommand removes all generated *and untracked* files/directories from our [**`Dotty fork`**](https://github.com/michelou/dotty/tree/master/).<br/>Internally, **`build cleanall`** executes the two commands **`sbt clean`** *and* [**`git clean -xdf`**](https://git-scm.com/docs/git-clean/) which removes all untracked directories/files, including build products.
 
@@ -590,7 +578,7 @@ protected members with docstrings: 0
 private members with docstrings:   0
 </pre>
 
-## `genDocs`
+#### `genDocs`
 
 [**`genDocs`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) command generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program.
 
