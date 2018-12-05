@@ -98,14 +98,12 @@ We distinguish different sets of batch commands:
 1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), **`scalac.bat`**, [**`dotc.bat`**](bin/0.11/dotc.bat), etc. directly available from the command prompt.
 
     <pre style="font-size:80%;">
-    &gt; javac -version
-    javac 1.8.0_191
-
-    &gt; scalac -version
-    Scala compiler version 2.12.7 -- Copyright 2002-2018, LAMP/EPFL and Lightbend, Inc.
-
-    &gt; dotc -version
-    Dotty compiler version 0.11.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
+    > setenv help
+    Usage: setenv { options | subcommands }
+      Options:
+        -verbose         display environment settings
+      Subcommands:
+        help             display this help message
     </pre>
 
 2. Directory [**`bin\`**](bin/) - This directory contains several utility batch files:
@@ -239,7 +237,7 @@ We distinguish different sets of batch commands:
 
 The [**`setenv`**](setenv.bat) command is executed once to setup our development environment; it makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt:
 
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+<pre style="font-size:80%;">
 > setenv
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.11.0-RC1,
@@ -251,11 +249,9 @@ C:\opt\sbt-1.2.7\bin\sbt
 C:\opt\sbt-1.2.7\bin\sbt.bat
 </pre>
 
-> **NB.** Execute **`setenv help`** to display the help message.
+Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 
-With option **`-verbose`** the [**`setenv`**](setenv.bat) command also displays the path of the tools:
-
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+<pre style="font-size:80%;">
 > setenv -verbose
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.11.0-RC1,
@@ -281,7 +277,7 @@ Tool paths:
 
 The [**`cleanup`**](bin/cleanup.bat) command removes the output directories (ie. **`target\`**) from the example projets: 
 
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+<pre style="font-size:80%;">
 > cleanup
 Finished to clean up 16 subdirectories in W:\dotty\examples
 Finished to clean up 12 subdirectories in W:\dotty\myexamples
@@ -291,7 +287,7 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 
 The [**`dirsize`**](bin/dirsize.bat) command returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+<pre style="font-size:80%;">
 > dirsize examples myexamples c:\opt\dotty-0.11.0-RC1
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
@@ -302,7 +298,7 @@ Size of directory "c:\opt\dotty-0.11.0-RC1" is 22.4 Mb
 
 By default the [**`getnightly`**](bin/getnightly.bat) command downloads the library files of the latest Dotty nightly build available from the [Maven Central Repository](https://search.maven.org/search?q=g:ch.epfl.lamp) and saves them into directory **`nightly-jars\`**.
 
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+<pre style="font-size:80%;">
 > getnightly
 
 > dir /b nightly-jars
@@ -318,7 +314,7 @@ dotty_0.12-0.12.0-bin-20181126-a64e083-NIGHTLY.jar
 
 With option **`-verbose`** the [**`getnightly`**](bin/getnightly.bat) command also displays the download progress:
 
-<pre style="margin:10px 0 0 30px;font-size:80%">
+<pre style="font-size:80%">
 > getnightly -verbose
 Downloading file dotty-library_0.12-0.12.0-bin-20181126-a64e083-NIGHTLY.jar ... 599.5 Kb
 Downloading file dotty_0.12-0.12.0-bin-20181126-a64e083-NIGHTLY.jar ... 0.3 Kb
@@ -332,7 +328,8 @@ Finished to download 6 files to directory W:\dotty\nightly-jars
 We can now replace the library files from the original [Dotty distribution](https://github.com/lampepfl/dotty/releases) (installed in directory **`C:\opt\dotty-0.11.0-RC1\`** in our case) with library files from the latest nightly build.
 
 Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in the Dotty installation directory.
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+
+<pre style="font-size:80%;">
 > getnightly activate
 Finished to download 6 files to directory W:\dotty\nightly-jars
 Local nightly version has changed from unknown to 0.12.0-bin-20181126-a64e083-NIGHTLY
@@ -348,8 +345,8 @@ Activate default Dotty libraries: 0.11.0-RC1
 Dotty compiler version 0.11.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 </pre>
 
-> **&#9888;** You need to have *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.11.0-RC1\`** in our case) in order to run the **`activate/reset`** subcommands.<br/> Internally the [**`getnightly`**](bin/getnightly.bat) command manages two sets of libraries files which are organized as follows:
-> <pre style="margin:10px 0 0 30px;font-size:80%;">
+> **:warning:** You need to have *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.11.0-RC1\`** in our case) in order to run the **`activate/reset`** subcommands.<br/> Internally the [**`getnightly`**](bin/getnightly.bat) command manages two sets of libraries files which are organized as follows:
+> <pre style="font-size:80%;">
 > > pushd c:\opt\dotty-0.11.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd
 > VERSION
 > VERSION-NIGHTLY
@@ -372,7 +369,8 @@ Dotty compiler version 0.11.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 #### `searchjars.bat <class_name>`
 
 Passing argument **`System`** to the [**`searchjars`**](bin/searchjars.bat) command prints the following output (classfile names are printed with full path and are prefixed with their containing [JAR file](https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html)):
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+
+<pre style="font-size:80%;">
 > searchjars System
 Search for class System in library files C:\opt\dotty-0.11.0-RC1\lib\*.jar
   scala-library-2.12.7.jar:scala/sys/SystemProperties$.class
@@ -387,7 +385,8 @@ Search for class System in library files C:\opt\scala-2.12.7\lib\*.jar
 </pre>
 
 Searching for an unknown class - e.g. **`BinarySearch`** - produces the following output:
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+
+<pre style="font-size:80%;">
 > searchjars BinarySearch
 Search for class BinarySearch in library files C:\opt\dotty-0.11.0-RC1\lib\*.jar
 Search for class BinarySearch in library files C:\opt\scala-2.12.7\lib\*.jar
@@ -396,7 +395,8 @@ Search for class BinarySearch in library files C:\opt\scala-2.12.7\lib\*.jar
 #### `timeit.bat <cmd_1> { & <cmd_i> }`
 
 The [**`timeit`**](bin/timeit.bat) command prints the execution time (`hh:MM:ss`) of the specified command (possibly given with options and parameters):
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+
+<pre style="font-size:80%;">
 > timeit dir /b
 .gitignore
 .gradle
@@ -416,7 +416,7 @@ Execution time: 00:00:08
 
 Chaining of commands is also possible. Note that the command separator (either **`&&`** or **`&`**) must be escaped if the command chain is not quoted. For instance:
 
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+<pre style="font-size:80%;">
 > timeit build clean compile ^&^& ant run
 ...
 Execution time: 00:00:11
@@ -443,7 +443,7 @@ The [**`updateprojs`**](bin/updateprojs.bat) command updates the following softw
 | `project\build.properties` | `sbt.version` | `1.2.6` &rarr; `1.2.7` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.2.4` &rarr; `0.2.6` |
 
-> **NB.** Currently we have to edit the value pairs (old/new) directly in the batch file.
+> **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 > updateprojs
@@ -528,8 +528,10 @@ No compilation needed (1 source files)
 #### `dotr.bat`
 
 [Dotty REPL](https://docs.scala-lang.org/overviews/repl/overview.html) is an interactive tool for evaluating Scala expressions. Internally, it executes a source script by wrapping it in a template and then compiling and executing the resulting program.
-   > **NB.** The batch file [**`dotr.bat`**](bin/0.11/dotr.bat) is based on the bash script [**`dotr`**](https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr) available from the standard [Dotty distribution](https://github.com/lampepfl/dotty/releases).
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+
+   > **NB.** Batch file [**`dotr.bat`**](bin/0.11/dotr.bat) is based on the bash script [**`dotr`**](https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr) available from the standard [Dotty distribution](https://github.com/lampepfl/dotty/releases).
+
+<pre style="font-size:80%;">
 > where dotr
 C:\opt\dotty-0.11.0-RC1\bin\dotr
 C:\opt\dotty-0.11.0-RC1\bin\dotr.bat
@@ -583,7 +585,7 @@ C:\opt\jdk-11.0.1\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.11.0-
 -->
 
 <!--
-<pre style="margin:10px 0 0 20px;font-size:80%;">
+<pre style="font-size:80%;">
 > C:\Progra~1\Java\jre-10.0.2\bin\java.exe -Xmx768m -Xms768m \
 -classpath C:\opt\dotty-0.9.0\lib\scala-library-2.12.6.jar; \
 C:\opt\dotty-0.9.0\lib\scala-xml_2.12-1.1.0.jar; \
@@ -614,4 +616,4 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/November 2018* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/December 2018* [**&#9650;**](#top)

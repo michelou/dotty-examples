@@ -195,6 +195,10 @@ We have come across several Windows related issues while executing subcommands o
 | [#5444](https://github.com/lampepfl/dotty/pull/5444) | *pending* | Batch commands |
 | [#5430](https://github.com/lampepfl/dotty/pull/5430) | [merged](https://github.com/lampepfl/dotty/commit/81b30383800495c64f2c8cfd0979e69e504104bc) | **`build documentation`** |
 
+> **NB.** Related pull requests from other contributors include:<br/>
+> **&bull;** [#5560](https://github.com/lampepfl/dotty/pull/5560) Fix Windows path.<br/>
+> **&bull;** [#5531](https://github.com/lampepfl/dotty/pull/5531) Test AppVeyor integration.
+
 Below we summarize additions/changes we made to the [source code](https://github.com/lampepfl/dotty/) of the [Dotty project](http://dotty.epfl.ch/):
 
 - Unspecified text encoding in some file operations<br/>*Example*: [**`Source.fromFile(f)`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html) **&rarr;** **`Source.fromFile(f, "UTF-8")`**.
