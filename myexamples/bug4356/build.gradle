@@ -43,10 +43,9 @@ clean.doLast {
     targetDir.deleteDir()
 }
 
-task compileDotty(type: JavaExec, dependsOn: compileJava) {
-    doFirst {
-        if (!classesDir.exists()) classesDir.mkdirs()
-    }
+task compileDotty(type: JavaExec) {
+    dependsOn compileJava
+
     classpath = dotcLibraryFiles + runtimeClasspath
     String sources = scalaSourceTree.files.join("\" \"").replaceAll("\\\\", "/")
 
@@ -58,7 +57,13 @@ task compileDotty(type: JavaExec, dependsOn: compileJava) {
     args "-d", classesDir, sources
 }
 
-task runDotty(type: JavaExec, dependsOn: compileDotty) {
+compileDotty.doFirst {
+    if (!classesDir.exists()) classesDir.mkdirs()
+}
+
+run {
+    dependsOn compileDotty
+
     classpath = runtimeClasspath
 
     jvmArgs "-Xbootclasspath/a:${dottyLibraryFiles.getAsPath()}", "-Dfile.encoding=UTF-8"
@@ -66,9 +71,6 @@ task runDotty(type: JavaExec, dependsOn: compileDotty) {
     main = mainClassName
     args "1"
     //systemProperty "message" "Hello"
-}
-
-task run(dependsOn: runDotty, overwrite: true) {
 }
 
 repositories {
