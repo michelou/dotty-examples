@@ -12,10 +12,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Dotty 0.10 is distributed with Scala 2.12.7 -->
         <scala.version>2.12.7</scala.version>
-        <dotty.version>0.10.0-RC1</dotty.version>
+        <dotty.version>0.11.0-RC1</dotty.version>
         <java.version>1.8</java.version>
         <!-- Maven plugins -->
-        <scala.maven.version>3.4.2</scala.maven.version> <!-- Jul, 2018 -->
+        <scala.maven.version>3.4.4</scala.maven.version> <!-- Nov, 2018 -->
         <maven.compiler.version>3.8.0</maven.compiler.version> <!-- Jul, 2018 -->
         <exec.maven.version>1.6.0</exec.maven.version> <!-- Mar, 2017 -->
     </properties>
@@ -26,16 +26,16 @@
             <artifactId>scala-library</artifactId>
             <version>${scala.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.10 -->
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.11 -->
         <dependency>
             <groupId>ch.epfl.lamp</groupId>
-            <artifactId>dotty-library_0.10</artifactId>
+            <artifactId>dotty-library_0.11</artifactId>
             <version>${dotty.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-compiler_0.10 -->
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-compiler_0.11 -->
         <dependency>
             <groupId>ch.epfl.lamp</groupId>
-            <artifactId>dotty-compiler_0.10</artifactId>
+            <artifactId>dotty-compiler_0.11</artifactId>
             <version>${dotty.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-interfaces -->

@@ -214,7 +214,7 @@ The **`setenv`** command is executed once to setup our development environment; 
 > setenv
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191,
-   sbt 1.2.3/2.12.7, git 2.19.2.windows.1, diff 3.6
+   sbt 1.2.7/2.12.7, git 2.19.2.windows.1, diff 3.6
 
 > where sbt
 C:\opt\sbt-1.2.7\bin\sbt
@@ -227,7 +227,7 @@ Command **`setenv -verbose`** also displays the tool paths and the current Git b
 > setenv -verbose
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191,
-   sbt 1.2.3/2.12.7, git 2.19.2.windows.1, diff 3.6
+   sbt 1.2.7/2.12.7, git 2.19.2.windows.1, diff 3.6
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
    C:\Program Files\Java\jdk1.8.0_191\bin\java.exe
@@ -467,7 +467,7 @@ testing loading tasty from .tasty file in jar
 
 #### `bootstrapCmdTests`
 
-[**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) command performs several benchmarks and generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program.
+The [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) command performs several benchmarks and generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program.
 
 <pre style="font-size:80%;">
 &gt; bootstrapCmdTests
@@ -580,7 +580,7 @@ private members with docstrings:   0
 
 #### `genDocs`
 
-[**`genDocs`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) command generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program.
+The [**`genDocs`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) command generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program.
 
 <pre style="font-size:80%;">
 &gt; genDocs    
