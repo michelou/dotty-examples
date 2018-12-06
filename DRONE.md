@@ -196,8 +196,8 @@ We have come across several Windows related issues while executing subcommands o
 | [#5430](https://github.com/lampepfl/dotty/pull/5430) | [merged](https://github.com/lampepfl/dotty/commit/81b30383800495c64f2c8cfd0979e69e504104bc) | **`build documentation`** |
 
 > **NB.** Related pull requests from other contributors include:<br/>
-> **&bull;** [#5560](https://github.com/lampepfl/dotty/pull/5560) Fix Windows path.<br/>
-> **&bull;** [#5531](https://github.com/lampepfl/dotty/pull/5531) Test AppVeyor integration.
+> <ul><li><a href="https://github.com/lampepfl/dotty/pull/5560">#5560</a> Fix Windows path.</li>
+> <li><a href="https://github.com/lampepfl/dotty/pull/5531">#5531</a> Test AppVeyor integration.</li></ul>
 
 Below we summarize additions/changes we made to the [source code](https://github.com/lampepfl/dotty/) of the [Dotty project](http://dotty.epfl.ch/):
 

@@ -110,9 +110,9 @@ We distinguish different sets of batch commands:
    - [**`cleanup.bat`**](bin/cleanup.bat) removes the generated class files from every example directory (both in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories).
    - [**`dirsize.bat <dir_path_1> ..`**](bin/dirsize.bat) prints the size in Kb/Mb/Gb of the specified directory paths.
    - [**`getnightly.bat`**](bin/getnightly.bat) downloads/installs the library files from the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
-   - **`searchjars.bat <class_name>`** searches for the given class name into all Dotty/Scala JAR files.
-   - **`timeit.bat <cmd_1> { & <cmd_2> }`** prints the execution time of the specified commands.
-   - **`touch.bat <file_path>`** updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
+   - [**`searchjars.bat <class_name>`**](bin/searchjars.bat) searches for the given class name into all Dotty/Scala JAR files.
+   - [**`timeit.bat <cmd_1> { & <cmd_2> }`**](bin/timeit.bat) prints the execution time of the specified commands.
+   - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
 3. Directory [**`bin\0.11\`**](bin/0.11/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.11.0-RC1\bin\`**) in order to use the [**`dot`**](bin/0.11/dot.bat), [**`dotc`**](bin/0.11/dotc.bat), [**`dotd`**](bin/0.11/dotd.bat) and [**`dotr`**](bin/0.11/dotr.bat) commands on **Microsoft Windows**.
     > **NB.** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Dotty distribution](https://github.com/lampepfl/dotty/releases).
@@ -467,8 +467,9 @@ Parent directory: W:\dotty\myexamples
 
 The [**`build`**](examples/enum-Planet/build.bat) command is a basic build tool consisting of ~350 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_01">[[1]](#footnote_01)</sup>. 
 
-- Running the [**`build`**](examples/enum-Planet/build.bat) command with no build option in project [**`examples\enum-Planet`**](examples/enum-Planet/) generates the following output:
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+Running the [**`build`**](examples/enum-Planet/build.bat) command with no build option in project [**`examples\enum-Planet`**](examples/enum-Planet/) generates the following output:
+
+<pre style="font-size:80%;">
 > build clean compile run
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
@@ -477,11 +478,11 @@ Your weight on URANUS is 0.9051271993894251
 Your weight on EARTH is 0.9999999999999999
 Your weight on NEPTUNE is 1.1383280724696578
 Your weight on MARS is 0.37873718403712886
-Your weight on JUPITER is 2.5305575254957406
-</pre>
+Your weight on JUPITER is 2.5305575254957406</pre>
 
-- Running the [**`build`**](examples/enum-Planet/build.bat) command with build option **`-debug`** in project [**`examples\enum-Planet`**](examples/enum-Planet/) also displays internal steps of the build process:
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+Running the [**`build`**](examples/enum-Planet/build.bat) command with build option **`-debug`** in project [**`examples\enum-Planet`**](examples/enum-Planet/) also displays internal steps of the build process:
+
+<pre style="font-size:80%;">
 > build -debug clean compile run
 [build] _CLEAN=1 _COMPILE=1 _COMPILE_CMD=dotc _RUN=1
 [build] del /s /q W:\dotty\examples\ENUM-P~1\target\classes\*.class W:\dotty\examples\ENUM-P~1\target\classes\*.hasTasty W:\dotty\examples\ENUM-P~1\target\classes\.latest-build
@@ -497,30 +498,28 @@ Your weight on EARTH is 0.9999999999999999
 Your weight on NEPTUNE is 1.1383280724696578
 Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406
-[build] _EXITCODE=0
-</pre>
+[build] _EXITCODE=0</pre>
 
-- Compilation of the Java/Scala source files is performed only if needed during the build process:
+Compilation of the Java/Scala source files is performed only if needed during the build process:
 
-<pre style="margin:10px 0 0 30px;font-size:80%;">
+<pre style="font-size:80%;">
 > build clean
 
 > build compile
 
 > build compile
-No compilation needed (1 source files)
-</pre>
+No compilation needed (1 source files)</pre>
 
 > **NB.** The above `enum-Planet` example expects 1 argument at execution time.<br/>
 > For simplicity the [**`build`**](examples/enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](examples/enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
-> <pre style="margin:10px 0 0 30px;font-size:80%;">
+> <pre style="font-size:80%;">
 > > type project\build.properties
 > sbt.version=1.2.7
 > main.class=Planet
 > main.args=1
 > </pre>
 > With SBT you have to run the example as follows:<br/>
-> <pre style="margin:10px 0 0 30px;font-size:80%;">
+> <pre style="font-size:80%;">
 > > sbt clean compile "run 1"
 > > sbt "run 1"
 > </pre>
