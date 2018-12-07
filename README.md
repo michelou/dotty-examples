@@ -29,7 +29,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 
 Optionally you may also install the following software:
 
-- [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.12.7))
+- [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.12.8))
 - [SBT 1.2.7](https://www.scala-sbt.org/download.html) (with Scala 2.12.17 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.7))
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.5.html))
 - [Gradle 5.0](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/current/release-notes.html))
@@ -44,7 +44,7 @@ For instance our development environment looks as follows (*November 2018*):
 
 <pre style="font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_191\
-C:\opt\scala-2.12.7\
+C:\opt\scala-2.12.8\
 C:\opt\dotty-0.11.0-RC1\
 C:\opt\apache-ant-1.10.5\
 c:\opt\gradle-5.0\
@@ -240,7 +240,7 @@ The [**`setenv`**](setenv.bat) command is executed once to setup our development
 <pre style="font-size:80%;">
 > setenv
 Tool versions:
-   javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.11.0-RC1,
+   javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.11.0-RC1,
    ant 1.10.5, gradle 5.0, mvn 3.6.0, sbt 1.2.7/2.12.17,
    cfr 0.136, git 2.19.2.windows.1, diff 3.6
 
@@ -254,7 +254,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 <pre style="font-size:80%;">
 > setenv -verbose
 Tool versions:
-   javac 1.8.0_191, java 1.8.0_191, scalac 2.12.7, dotc 0.11.0-RC1,
+   javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.11.0-RC1,
    ant 1.10.5, gradle 5.0, mvn 3.6.0, sbt 1.2.7/2.12.17,
    cfr 0.136, git 2.19.2.windows.1, diff 3.6
 Tool paths:
@@ -262,7 +262,7 @@ Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
-   C:\opt\scala-2.12.7\bin\scalac.bat
+   C:\opt\scala-2.12.8\bin\scalac.bat
    C:\opt\dotty-0.11.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.5\bin\ant.bat
    C:\opt\gradle-5.0\bin\gradle.bat
@@ -389,7 +389,7 @@ Searching for an unknown class - e.g. **`BinarySearch`** - produces the followin
 <pre style="font-size:80%;">
 > searchjars BinarySearch
 Search for class BinarySearch in library files C:\opt\dotty-0.11.0-RC1\lib\*.jar
-Search for class BinarySearch in library files C:\opt\scala-2.12.7\lib\*.jar
+Search for class BinarySearch in library files C:\opt\scala-2.12.8\lib\*.jar
 </pre>
 
 #### `timeit.bat <cmd_1> { & <cmd_i> }`

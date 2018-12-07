@@ -1,3 +1,5 @@
+package p
+
 import org.junit._
 
 object Main {
