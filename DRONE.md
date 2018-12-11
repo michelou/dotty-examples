@@ -206,8 +206,7 @@ Below we summarize additions/changes we made to the [source code](https://github
 - Platform-specific new lines<br/>*Example*: **`"\n"`** **&rarr;** **`sys.props("line.separator")`**.
 - Platform-specific path separators<br/>*Example*: **`":"`** **&rarr;** [**`java.io.File.pathSeparator`**](https://docs.oracle.com/javase/8/docs/api/java/io/File.html#pathSeparator).
 - Illegal characters in file names<br/>*Example*: **`new PlainFile(Path("<quote>"))`** **&rarr;** **`new VirtualFile("<quote>")`**
-- Transformation of URL addresses to platform-specific paths *(to be validated)*<br/>*Example*: [**`getLocation.getFile`**](https://docs.oracle.com/javase/8/docs/api/java/net/URL.html#getFile) **&rarr;** **`new JFile(url.getFile).getAbsolutePath`**.
-- *(more to come)*
+- Transformation of URL addresses to file system paths<br/>*Example*: [**`url.getFile`**](https://docs.oracle.com/javase/8/docs/api/java/net/URL.html#getFile) **&rarr;** **`Paths.get(url.toURI).toString`**.
 
 ## <span id="anchor_02">Session examples</span>
 
