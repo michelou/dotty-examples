@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 rem only for interactive debugging !
-set _DEBUG=0
+set _DEBUG=1
 
 rem ##########################################################################
 rem ## Environment setup
@@ -28,6 +28,10 @@ if %_CLEAN%==1 (
 )
 if %_COMPILE%==1 (
     call :compile
+    if not !_EXITCODE!==0 goto end
+)
+if %_DOC%==1 (
+    call :doc
     if not !_EXITCODE!==0 goto end
 )
 if %_RUN%==1 (
@@ -70,6 +74,8 @@ set _COMPILE=0
 set _COMPILE_CMD=%_COMPILE_CMD_DEFAULT%
 set _COMPILE_OPTS=-feature
 set _COMPILE_TIME=0
+set _DOC=0
+set _DOC_CMD=dotd
 set _MAIN_CLASS=%_MAIN_CLASS_DEFAULT%
 set _MAIN_ARGS=%_MAIN_ARGS_DEFAULT%
 set _RUN=0
@@ -85,6 +91,7 @@ if not defined __ARG (
 )
 if /i "%__ARG%"=="clean" ( set _CLEAN=1
 ) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
+) else if /i "%__ARG%"=="doc" ( set _DOC=1
 ) else if /i "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
 ) else if /i "%__ARG%"=="help" ( call :help & goto end
 ) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
@@ -112,7 +119,7 @@ goto :args_loop
 :args_done
 if %_DEBUG%==1 (
     for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TOTAL_TIME_START=%%i
-    echo [%_BASENAME%] _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _COMPILE_CMD=%_COMPILE_CMD% _RUN=%_RUN%
+    echo [%_BASENAME%] _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _COMPILE_CMD=%_COMPILE_CMD% _DOC=%_DOC% _RUN=%_RUN%
 )
 goto :eof
 
@@ -129,6 +136,7 @@ echo     -timer           display compile time
 echo   Subcommands:
 echo     clean            delete generated class files
 echo     compile          compile source files ^(Java and Scala^)
+echo     doc              generate documentation
 echo     help             display this help message
 echo     run              execute main class
 echo   Properties:
@@ -143,15 +151,19 @@ rem output parameter(s): _COMPILE_CMD, _RUN_CMD
 set __VALUE=%~1
 if /i "%__VALUE%"=="scala" (
     set _COMPILE_CMD=scalac.bat
+    set _DOC_CMD=scaladoc.bat
     set _RUN_CMD=scala.bat
 ) else if /i "%__VALUE%"=="scalac" (
     set _COMPILE_CMD=scalac.bat
+    set _DOC_CMD=scaladoc.bat
     set _RUN_CMD=scala.bat
 ) else if /i "%__VALUE%"=="dotc" (
     set _COMPILE_CMD=dotc.bat
+    set _DOC_CMD=dotd.bat
     set _RUN_CMD=dot.bat
 ) else if /i "%__VALUE%"=="dotty" (
     set _COMPILE_CMD=dotc.bat
+    set _DOC_CMD=dotd.bat
     set _RUN_CMD=dot.bat
 ) else (
     echo Error: Unknown target %__VALUE% ^(scala^|scalac^|dotc^|dotty^) 1>&2
@@ -323,6 +335,29 @@ set __FILE_PATH=%~1
 set _TIMESTAMP=00000000000000
 for /f %%i in ('powershell -C "(Get-ChildItem '%__FILE_PATH%').LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
     set _TIMESTAMP=%%i
+)
+goto :eof
+
+:doc
+set _DOCS_DIR=%_ROOT_DIR%target\docs
+if not exist "%_DOCS_DIR%" mkdir "%_DOCS_DIR%" 1>NUL
+
+set __TIMESTAMP_FILE=%_DOCS_DIR%\.latest-build
+
+set __SCALA_SOURCE_FILES=
+for /f %%i in ('dir /s /b "%_ROOT_DIR%src\main\scala\*.scala" 2^>NUL') do (
+    set __SCALA_SOURCE_FILES=!__SCALA_SOURCE_FILES! %%i
+)
+
+for %%i in ("%~dp0\.") do set __PROJECT=%%~ni
+set __DOC_OPTS=-d %_DOCS_DIR% -project %__PROJECT%
+
+if %_DEBUG%==1 echo [%_BASENAME%] %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES%
+call %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES%
+if not %ERRORLEVEL%==0 (
+    echo Error: Scala documentation generation failed 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 goto :eof
 

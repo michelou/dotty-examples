@@ -16,61 +16,19 @@
     </parent>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/com.typesafe.sbt/sbt-interface -->
-        <dependency>
-            <groupId>com.typesafe.sbt</groupId>
-            <artifactId>sbt-interface</artifactId>
-            <version>0.13.15</version>
-            <type>pom</type>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.typesafe.sbt/compiler-interface -->
-        <dependency>
-            <groupId>com.typesafe.sbt</groupId>
-            <artifactId>compiler-interface</artifactId>
-            <version>0.13.15</version>
-            <type>pom</type>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.typesafe.sbt/sbt-launcher-interface -->
-        <dependency>
-            <groupId>com.typesafe.sbt</groupId>
-            <artifactId>sbt-launcher-interface</artifactId>
-            <version>0.13.6</version>
-        </dependency>
+        <!-- see parent pom.xml -->
     </dependencies>
 
     <build>
-        <sourceDirectory>src/main/scala</sourceDirectory>
-        <testSourceDirectory>src/test/scala</testSourceDirectory>
+        <sourceDirectory>src/main</sourceDirectory>
+        <testSourceDirectory>src/test</testSourceDirectory>
+        <outputDirectory>target/classes</outputDirectory>
         <plugins>
-            <!-- http://davidb.github.io/scala-maven-plugin/ -->
-            <plugin>
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>scala-maven-plugin</artifactId>
-                <version>${scala.maven.version}</version>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <jvmArgs>
-                        <jvmArg>-Xms64m</jvmArg>
-                        <jvmArg>-Xmx1024m</jvmArg>
-                    </jvmArgs>
-                </configuration>
-            </plugin>
             <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.version}</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
                 <executions>
                     <execution>
                         <phase>compile</phase>
@@ -79,24 +37,54 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <includes>
+                        <include>java/**/*.java</include>
+                    </includes>
+                </configuration>
             </plugin>
-            <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
+            <!-- local Maven plugin for Scala 2.x/3.x (see ${scala.version}) -->
+            <!-- (see directory /plugins/scala-maven-plugin/) -->
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>${exec.maven.version}</version>
+                <groupId>ch.epfl.alumni</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>${scala.maven.version}</version>
                 <executions>
                     <execution>
+                        <id>scala-compile</id>
+                        <phase>compile</phase>
                         <goals>
-                            <goal>java</goal>
+                            <goal>compile</goal>
                         </goals>
+                        <configuration>
+                            <includes>
+                                <include>scala/**/*.scala</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>scala-run</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>Test</mainClass>
+                            <arguments>
+                                <argument></argument>
+                            </arguments>
+                        </configuration>
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>Test</mainClass>
-                    <arguments>
-                        <argument></argument>
-                    </arguments>
+                    <scalaVersion>${scala.version}</scalaVersion>
+                    <localInstall>${scala.local.install}</localInstall>
+                    <jvmArgs>
+                        <jvmArg>-Xms64m</jvmArg>
+                        <jvmArg>-Xmx1024m</jvmArg>
+                    </jvmArgs>
                 </configuration>
             </plugin>
         </plugins>
