@@ -166,7 +166,7 @@ We distinguish different sets of batch commands:
 
 1. Build tools
 
-    Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories can also be built using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to our **`build`** tool:
+    Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories can also be built using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to the **`build`** batch command:
 
     <pre style="font-size:80%;">
     > sbt clean compile run

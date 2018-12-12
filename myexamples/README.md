@@ -6,14 +6,16 @@
     <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    The <strong><code>myexamples\</code></strong> directory contains <a href="http://dotty.epfl.ch/" alt="Dotty">Dotty</a> code examples written by myself.
+    Directory <strong><code>myexamples\</code></strong> contains <a href="http://dotty.epfl.ch/" alt="Dotty">Dotty</a> code examples written by myself.
   </td>
   </tr>
 </table>
 
+Each example in directory **`myexamples\`** can also be built using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to the **`build`** batch command.
+
 ## Build tools
 
-We consider project [**`HelloWorld`**](HelloWorld/) to present the available build tools  for building/testing the codes examples contained in directory [**`myexamples\`**](./):
+In this section we explain in more detail the available build tools available in the [**`myexamples\HelloWorld`**](HelloWorld/) example (and also in other examples from directory **`myexamples\`**):
 
 1. [**`build.bat`**](HelloWorld/build.bat) - This batch command is a basic build tool consisting of ~350 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code.
     <pre>
@@ -64,7 +66,7 @@ We consider project [**`HelloWorld`**](HelloWorld/) to present the available bui
     exit /b %_EXITCODE%
     </pre>
 
-2. [**`build.gradle`**](HelloWorld/build.gradle) - This Gradle configuration file depends on the parent file [**`..\common.gradle`**](../common.grade):
+2. [**`build.gradle`**](HelloWorld/build.gradle) - [Gradle](http://www.gradle.org/) is a build tool which replaces XML based build scripts with an internal DSL which is based on [Groovy](http://www.groovy-lang.org/) programming language. The configuration file [**`build.gradle`**](HelloWorld/build.gradle) for [**`myexamples\HelloWorld`**](HelloWorld/) looks as follows:
     <pre style="font-size:80%;">
     apply plugin: 'java'
     apply plugin: 'application'
@@ -83,24 +85,27 @@ We consider project [**`HelloWorld`**](HelloWorld/) to present the available bui
     }
     </pre>
 
-3. [**`build.sbt`**](HelloWorld/build.sbt) - This Sbt configuration file is a standalone file.
+    In particular we note that [**`build.gradle`**](HelloWorld/build.gradle)<ul><li>imports the two plugins: [**`java`**](https://docs.gradle.org/current/userguide/java_plugin.html) and [**`application`**](https://docs.gradle.org/current/userguide/application_plugin.html#header)</li><li>imports code (eg. task **`compileDotty`**) from the parent file [**`common.gradle`**](common.gradle)</li><li>assigns property **`mainClassName`** to **`main`** and value **`''`** to **`args`** (no argument in this case) in **`run.doFirst`**</li></ul>
+
+3. [**`build.sbt`**](HelloWorld/build.sbt) - This Sbt configuration file is a standalone file written in Scala.
     <pre style="font-size:80%;">
     val dottyVersion = "0.11.0-RC1"
     &nbsp;
     lazy val root = project
       .in(file("."))
       .settings(
-        name := "hello-scala",
+        name := "HelloWorld",
         description := "Example sbt project that compiles using Dotty",
         version := "0.1.0",
         &nbsp;
         scalaVersion := dottyVersion,
-        mainClass in Compile := Some("hello"),
-        logLevel := Level.Warn
+        scalacOptions ++= Seq(
+          "-deprecation"
+        )
       )
     </pre>
 
-4. [**`build.sc`**](HelloWorld/build.sc) - This Mill configuration file
+4. [**`build.sc`**](HelloWorld/build.sc) - This Mill configuration file is a standalone file written in Scala written in Scala (with direct access to [OS-Lib](https://github.com/lihaoyi/os-lib)).
     <pre style="font-size:80%;">
     import mill._, scalalib._
     &nbsp;
@@ -113,10 +118,10 @@ We consider project [**`HelloWorld`**](HelloWorld/) to present the available bui
     }
     </pre>
 
-5. [**`build.xml`**](HelloWorld/build.xml) - This Ant configuration file
+5. [**`build.xml`**](HelloWorld/build.xml) - [Apache Ant](https://ant.apache.org/) is a Java-based build tool using XML-based configuration files. The configuration file [**`build.xml`**](HelloWorld/build.xml) is a standalone file consisting of four targets and one macro definition to execute **`dotc.bat`**.
     <pre style="font-size:80%;">
     &lt;?xml version="1.0" encoding="UTF-8"?>
-    &lt;project name="enum-Tree" default="compile" basedir=".">
+    &lt;project name="HelloWorld" default="compile" basedir=".">
         ...
         &lt;target name="init"> ... &lt;/target>
         &lt;macrodef name="dotc"> ... &lt;/macrodef>
@@ -126,7 +131,7 @@ We consider project [**`HelloWorld`**](HelloWorld/) to present the available bui
     &lt;/project>
     </pre>
 
-6. [**`pom.xml`**](HelloWorld/pom.xml) - The Maven configuration file in project **`HelloWorld`** depends on the parent file [**`..\pom.xml`**](../pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**)
+6. [**`pom.xml`**](HelloWorld/pom.xml) - The Maven configuration file in the **`HelloWorld`** example depends on the parent file [**`..\pom.xml`**](../pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**)
     <pre style="font-size:80%;">
     &lt;?xml version="1.0" encoding="UTF-8"?>
     &lt;project xmlns="http://maven.apache.org/POM/4.0.0" ...>

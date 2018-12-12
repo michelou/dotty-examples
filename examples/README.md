@@ -6,14 +6,16 @@
     <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    The <strong><code>examples\</code></strong> directory contains <a href="http://dotty.epfl.ch/" alt="Dotty">Dotty</a> examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a>.
+    Directory <strong><code>examples\</code></strong> contains <a href="http://dotty.epfl.ch/" alt="Dotty">Dotty</a> examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a>.
   </td>
   </tr>
 </table>
 
+Each example in directory **`examples\`** can also be built using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to the **`build`** batch command.
+
 ## Build tools
 
-We consider project [**`dotty-example-project`**](dotty-example-project/) to present the available build tools  for building/testing the codes examples contained in directory [**`examples\`**](./):
+In this section we explain in more detail the available build tools available in the [**`examples\dotty-example-project`**](dotty-example-project/) example (and also in other examples from directory **`examples\`**):
 
 1. [**`build.bat`**](dotty-example-project/build.bat) - This batch command is a basic build tool consisting of ~350 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code.
     <pre>
@@ -64,7 +66,7 @@ We consider project [**`dotty-example-project`**](dotty-example-project/) to pre
     exit /b %_EXITCODE%
     </pre>
 
-2. [**`build.gradle`**](dotty-example-project/build.gradle) - This Gradle configuration file depends on the parent file [**`..\common.gradle`**](../common.grade):
+2. [**`build.gradle`**](dotty-example-project/build.gradle) - [Gradle](http://www.gradle.org/) is a build tool which replaces XML based build scripts with an internal DSL which is based on [Groovy](http://www.groovy-lang.org/) programming language.The configuration file [**`build.gradle`**](dotty-example-project/build.gradle) for [**`examples\dotty-example-project`**](dotty-example-project/) looks as follows:
     <pre style="font-size:80%;">
     apply plugin: 'java'
     apply plugin: 'application'
@@ -83,7 +85,9 @@ We consider project [**`dotty-example-project`**](dotty-example-project/) to pre
     }
     </pre>
 
-3. [**`build.sbt`**](dotty-example-project/build.sbt) - This Sbt configuration file is a standalone file.
+    In particular we note that [**`build.gradle`**](dotty-example-project/build.gradle)<ul><li>imports the two plugins: [**`java`**](https://docs.gradle.org/current/userguide/java_plugin.html) and [**`application`**](https://docs.gradle.org/current/userguide/application_plugin.html#header)</li><li>imports code (eg. task **`compileDotty`**) from the parent file [**`common.gradle`**](common.gradle)</li><li>assigns property **`mainClassName`** to **`main`** and value **`''`** to **`args`** (no argument in this case) in **`run.doFirst`**</li></ul>
+
+3. [**`build.sbt`**](dotty-example-project/build.sbt) - This Sbt configuration file is a standalone file written in Scala.
     <pre style="font-size:80%;">
     val dottyVersion = "0.11.0-RC1"
     &nbsp;
@@ -97,11 +101,11 @@ We consider project [**`dotty-example-project`**](dotty-example-project/) to pre
         scalaVersion := dottyVersion,
         scalacOptions ++= Seq(
           "-deprecation"
-        ),
+        )
       )
     </pre>
 
-4. [**`build.sc`**](dotty-example-project/build.sc) - This Mill configuration file
+4. [**`build.sc`**](dotty-example-project/build.sc) - This Mill configuration file is a standalone file written in Scala (with direct access to [OS-Lib](https://github.com/lihaoyi/os-lib)).
     <pre style="font-size:80%;">
     import mill._, scalalib._
     &nbsp;
@@ -110,14 +114,18 @@ We consider project [**`dotty-example-project`**](dotty-example-project/) to pre
       def scalacOptions = Seq("-deprecation", "-feature")
       def forkArgs = Seq("-Xmx1g")
       def mainClass = Some("Main")
-      def sources = T.sources { os.pwd / 'src }
+      def sources = T.sources { os.pwd / "src" }
+      def clean() = T.command {
+        val path = os.pwd / "out" / "go"
+        os.walk(path, skip = _.last == "clean").foreach(os.remove.all)
+      }
     }
     </pre>
 
-5. [**`build.xml`**](dotty-example-project/build.xml) - This Ant configuration file
+5. [**`build.xml`**](dotty-example-project/build.xml) - [Apache Ant](https://ant.apache.org/) is a Java-based build tool using XML-based configuration files. The configuration file [**`build.xml`**](dotty-example-project/build.xml) is a standalone file consisting of four targets and one macro definition to execute **`dotc.bat`**.
     <pre style="font-size:80%;">
     &lt;?xml version="1.0" encoding="UTF-8"?>
-    &lt;project name="enum-Tree" default="compile" basedir=".">
+    &lt;project name="dotty-example-project" default="compile" basedir=".">
         ...
         &lt;target name="init"> ... &lt;/target>
         &lt;macrodef name="dotc"> ... &lt;/macrodef>
@@ -126,7 +134,7 @@ We consider project [**`dotty-example-project`**](dotty-example-project/) to pre
         &lt;target name="clean"> ... &lt;/target>
     &lt;/project>
     </pre>
-6. [**`pom.xml`**](dotty-example-project/pom.xml) - This Maven configuration file in project **`dotty-example-project`** depends on the parent file [**`..\pom.xml`**](../pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
+6. [**`pom.xml`**](dotty-example-project/pom.xml) - This Maven configuration file the  **`dotty-example-project`** example depends on the parent file [**`pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
     <pre style="font-size:80%;">
     &lt;?xml version="1.0" encoding="UTF-8"?>
     &lt;project xmlns="http://maven.apache.org/POM/4.0.0" ...>
