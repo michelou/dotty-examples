@@ -34,6 +34,7 @@ Optionally you may also install the following software:
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.5.html))
 - [Gradle 5.0](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/current/release-notes.html))
 - [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.6.0/release-notes.html))
+- [Mill 0.3](https://www.lihaoyi.com/mill/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
 - [CFR 0.13](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.2.txt))
 
@@ -44,14 +45,15 @@ For instance our development environment looks as follows (*December 2018*):
 
 <pre style="font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_191\
-C:\opt\scala-2.12.8\
-C:\opt\dotty-0.11.0-RC1\
 C:\opt\apache-ant-1.10.5\
-c:\opt\gradle-5.0\
 C:\opt\apache-maven-3.6.0\
-C:\opt\sbt-1.2.7\
 C:\opt\cfr-0.137\
+C:\opt\dotty-0.11.0-RC1\
 C:\opt\Git-2.19.2\
+C:\opt\gradle-5.0\
+C:\opt\Mill-0.3.5\
+C:\opt\sbt-1.2.7\
+C:\opt\scala-2.12.8\
 </pre>
 
 > **NB.** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
@@ -164,7 +166,7 @@ We distinguish different sets of batch commands:
 
 1. Build tools
 
-    Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories can also be built using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to our **`build`** tool:
+    Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories can also be built using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to our **`build`** tool:
 
     <pre style="font-size:80%;">
     > sbt clean compile run
@@ -172,6 +174,8 @@ We distinguish different sets of batch commands:
     > ant clean compile run
     ...
     > gradle clean build run
+    ...
+    > mill -i go
     ...
     > mvn clean compile test
     </pre>
@@ -241,7 +245,7 @@ The [**`setenv`**](setenv.bat) command is executed once to setup our development
 > setenv
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.11.0-RC1,
-   ant 1.10.5, gradle 5.0, mvn 3.6.0, sbt 1.2.7/2.12.17,
+   ant 1.10.5, gradle 5.0, mill 0.3.5, mvn 3.6.0, sbt 1.2.7/2.12.17,
    cfr 0.137, git 2.19.2.windows.1, diff 3.6
 
 > where sbt
@@ -255,7 +259,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 > setenv -verbose
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.11.0-RC1,
-   ant 1.10.5, gradle 5.0, mvn 3.6.0, sbt 1.2.7/2.12.17,
+   ant 1.10.5, gradle 5.0, mill 0.3.5, mvn 3.6.0, sbt 1.2.7/2.12.17,
    cfr 0.137, git 2.19.2.windows.1, diff 3.6
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
@@ -266,6 +270,7 @@ Tool paths:
    C:\opt\dotty-0.11.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.5\bin\ant.bat
    C:\opt\gradle-5.0\bin\gradle.bat
+   C:\opt\Mill-0.3.5\mill.bat
    C:\opt\apache-maven-3.6.0\bin\mvn.cmd
    C:\opt\sbt-1.2.7\bin\sbt.bat
    C:\opt\cfr-0.137\bin\cfr.bat
@@ -403,6 +408,7 @@ The [**`timeit`**](bin/timeit.bat) command prints the execution time (`hh:MM:ss`
 build.bat
 build.gradle
 build.sbt
+build.sc
 build.xml
 pom.xml
 project

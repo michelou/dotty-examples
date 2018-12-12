@@ -23,6 +23,7 @@ set _SCALA_PATH=
 set _DOTTY_PATH=
 set _ANT_PATH=
 set _GRADLE_PATH=
+set _MILL_PATH=
 set _MVN_PATH=
 set _SBT_PATH=
 set _CFR_PATH=
@@ -39,32 +40,35 @@ if not %_EXITCODE%==0 goto end
 
 call :ant
 rem optional
-set _EXITCODE=0
 rem if not %_EXITCODE%==0 goto end
+set _EXITCODE=0
 
 call :gradle
 rem optional
-set _EXITCODE=0
 rem if not %_EXITCODE%==0 goto end
+set _EXITCODE=0
+
+call :mill
+rem optional
+rem if not %_EXITCODE%==0 goto end
+set _EXITCODE=0
 
 call :mvn
 rem optional
-set _EXITCODE=0
 rem if not %_EXITCODE%==0 goto end
+set _EXITCODE=0
 
 call :sbt
 rem optional
-set _EXITCODE=0
 rem if not %_EXITCODE%==0 goto end
+set _EXITCODE=0
 
 call :cfr
 rem optional
-set _EXITCODE=0
 rem if not %_EXITCODE%==0 goto end
+set _EXITCODE=0
 
 call :git
-rem optional
-rem set _EXITCODE=0
 if not %_EXITCODE%==0 goto end
 
 if "%~1"=="clean" call :clean
@@ -232,6 +236,35 @@ if not exist "%_GRADLE_HOME%\bin\gradle.bat" (
 set "_GRADLE_PATH=;%_GRADLE_HOME%\bin"
 goto :eof
 
+:mill
+where /q mill.bat
+if %ERRORLEVEL%==0 goto :eof
+
+if defined MILL_HOME (
+    set _MILL_HOME=%MILL_HOME%
+    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable MILL_HOME
+) else (
+    set __PATH=C:\opt
+    if exist "!__PATH!\mill\" ( set _MILL_HOME=!__PATH!\mill
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\mill-*" 2^>NUL') do set _MILL_HOME=!__PATH!\%%f
+        if not defined _MILL_HOME (
+            set __PATH=C:\Progra~1
+            for /f %%f in ('dir /ad /b "!__PATH!\mill-*" 2^>NUL') do set _MILL_HOME=!__PATH!\%%f
+        )
+    )
+    if defined _MILL_HOME (
+        if %_DEBUG%==1 echo [%_BASENAME%] Using default Mill installation directory !_MILL_HOME!
+    )
+)
+if not exist "%_MILL_HOME%\mill.bat" (
+    echo Error: Mill executable not found ^(%_MILL_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_MILL_PATH=;%_MILL_HOME%"
+goto :eof
+
 :mvn
 where /q mvn.cmd
 if %ERRORLEVEL%==0 goto :eof
@@ -383,6 +416,11 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('gradle.bat -version ^| findstr Gradle') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j,
     set __WHERE_ARGS=%__WHERE_ARGS% gradle.bat
 )
+where /q mill.bat
+if %ERRORLEVEL%==0 (
+    for /f "tokens=*" %%i in ('mill.bat -i version 2^>NUL') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% mill %%i,
+    set __WHERE_ARGS=%__WHERE_ARGS% mill.bat
+)
 where /q mvn.cmd
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,3,*" %%i in ('mvn.cmd -version ^| findstr Apache') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% mvn %%k,
@@ -427,7 +465,7 @@ endlocal & (
     if not defined JAVA_HOME set JAVA_HOME=%_JDK_HOME%
     if not defined SCALA_HOME set SCALA_HOME=%_SCALA_HOME%
     if not defined DOTTY_HOME set DOTTY_HOME=%_DOTTY_HOME%
-    set "PATH=%_JDK_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_GIT_PATH%;%~dp0bin"
+    set "PATH=%_JDK_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MILL_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_GIT_PATH%;%~dp0bin"
     call :print_env %_VERBOSE%
     if %_DEBUG%==1 echo [%_BASENAME%] _EXITCODE=%_EXITCODE%
     for /f "delims==" %%i in ('set ^| findstr /b "_"') do set %%i=

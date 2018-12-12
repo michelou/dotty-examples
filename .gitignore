@@ -1,5 +1,6 @@
 .idea
 docs-local/
 nightly-jars/
+out/
 /project/
 target/

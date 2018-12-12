@@ -11,6 +11,167 @@
   </tr>
 </table>
 
+## Build tools
+
+We consider project [**`HelloWorld`**](HelloWorld/) to present the available build tools  for building/testing the codes examples contained in directory [**`myexamples\`**](./):
+
+1. [**`build.bat`**](HelloWorld/build.bat) - This batch command is a basic build tool consisting of ~350 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code.
+    <pre>
+    @echo off
+    setlocal enabledelayedexpansion
+    ...
+    set _EXITCODE=0
+    &nbsp;
+    for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
+    &nbsp;
+    call :props
+    if not %_EXITCODE%==0 goto end
+    &nbsp;
+    call :args %*
+    if not %_EXITCODE%==0 goto end
+    rem ## Main
+    if %_CLEAN%==1 (
+        call :clean
+        if not !_EXITCODE!==0 goto end
+    )
+    if %_COMPILE%==1 (
+        call :compile
+        if not !_EXITCODE!==0 goto end
+    )
+    if %_RUN%==1 (
+        call :run
+        if not !_EXITCODE!==0 goto end
+    )
+    goto end
+    rem ## Subroutines
+    :props
+    ...
+    goto :eof
+    :args
+    ...
+    goto :eof
+    :clean
+    ...
+    goto :eof
+    :compile
+    ...
+    goto :eof
+    :run
+    ...
+    goto :eof
+    :end
+    ...
+    exit /b %_EXITCODE%
+    </pre>
+
+2. [**`build.gradle`**](HelloWorld/build.gradle) - This Gradle configuration file depends on the parent file [**`..\common.gradle`**](../common.grade):
+    <pre style="font-size:80%;">
+    apply plugin: 'java'
+    apply plugin: 'application'
+    apply from: '../common.gradle'
+    &nbsp;
+    group = 'dotty.examples'
+    version = '0.1-SNAPSHOT'
+    &nbsp;
+    description = """Example Gradle project that compiles using Dotty"""
+    &nbsp;
+    mainClassName = 'Main'
+    &nbsp;
+    run.doFirst {
+        main mainClassName
+        args ''
+    }
+    </pre>
+
+3. [**`build.sbt`**](HelloWorld/build.sbt) - This Sbt configuration file is a standalone file.
+    <pre style="font-size:80%;">
+    val dottyVersion = "0.11.0-RC1"
+    &nbsp;
+    lazy val root = project
+      .in(file("."))
+      .settings(
+        name := "hello-scala",
+        description := "Example sbt project that compiles using Dotty",
+        version := "0.1.0",
+        &nbsp;
+        scalaVersion := dottyVersion,
+        mainClass in Compile := Some("hello"),
+        logLevel := Level.Warn
+      )
+    </pre>
+
+4. [**`build.sc`**](HelloWorld/build.sc) - This Mill configuration file
+    <pre style="font-size:80%;">
+    import mill._, scalalib._
+    &nbsp;
+    object go extends ScalaModule {
+      def scalaVersion = "0.11.0-RC1"  // "2.12.18"
+      def scalacOptions = Seq("-deprecation", "-feature")
+      def forkArgs = Seq("-Xmx1g")
+      def mainClass = Some("HelloWorld")
+      def sources = T.sources { os.pwd / 'src }
+    }
+    </pre>
+
+5. [**`build.xml`**](HelloWorld/build.xml) - This Ant configuration file
+    <pre style="font-size:80%;">
+    &lt;?xml version="1.0" encoding="UTF-8"?>
+    &lt;project name="enum-Tree" default="compile" basedir=".">
+        ...
+        &lt;target name="init"> ... &lt;/target>
+        &lt;macrodef name="dotc"> ... &lt;/macrodef>
+        &lt;target name="compile" depends="init"> ... &lt;/target>
+        &lt;target name="run" depends="compile"> ... &lt;/target>
+        &lt;target name="clean"> ... &lt;/target>
+    &lt;/project>
+    </pre>
+
+6. [**`pom.xml`**](HelloWorld/pom.xml) - The Maven configuration file in project **`HelloWorld`** depends on the parent file [**`..\pom.xml`**](../pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**)
+    <pre style="font-size:80%;">
+    &lt;?xml version="1.0" encoding="UTF-8"?>
+    &lt;project xmlns="http://maven.apache.org/POM/4.0.0" ...>
+        ...
+        &lt;artifactId>HelloWorld&lt;/artifactId>
+        ...
+        &lt;parent>
+            ...
+            &lt;relativePath>../pom.xml&lt;/relativePath>
+        &lt;/parent>
+        &lt;dependencies>
+            &lt;!-- see parent pom.xml -->
+        &lt;/dependencies>
+        &lt;build>
+            &lt;sourceDirectory>src/main&lt;/sourceDirectory>
+            &lt;testSourceDirectory>src/test&lt;/testSourceDirectory>
+            &lt;outputDirectory>target/classes&lt;/outputDirectory>
+            &lt;plugins>
+                &lt;plugin>
+                    &lt;groupId>org.apache.maven.plugins&lt;/groupId>
+                    &lt;artifactId>maven-compiler-plugin&lt;/artifactId>
+                    ...
+                    &lt;configuration>
+                        ...
+                        &lt;includes>
+                            &lt;include>java/**/*.java&lt;/include>
+                        &lt;/includes>
+                    &lt;/configuration>
+                &lt;/plugin>
+                &lt;plugin>
+                    &lt;groupId>ch.epfl.alumni&lt;/groupId>
+                    &lt;artifactId>scala-maven-plugin&lt;/artifactId>
+                    ...
+                    &lt;configuration>
+                        &lt;scalaVersion>${scala.version}&lt;/scalaVersion>
+                        ...
+                    &lt;/configuration>
+                &lt;/plugin>
+            &lt;/plugins>
+        &lt;/build>
+    &lt;/project>
+    </pre>
+
+## Session examples
+
 ### `00_AutoParamTupling`
 
 Executing the [**`build`**](00_AutoParamTupling/build.bat) command in directory [**`myexamples\00_AutoParamTupling\`**](00_AutoParamTupling/) 
