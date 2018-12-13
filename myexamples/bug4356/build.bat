@@ -202,12 +202,15 @@ if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 goto :eof
 
 :clean
-if %_DEBUG%==1 echo [%_BASENAME%] forfiles /s /p %_ROOT_DIR% /m target /c "cmd /c echo @path" 2^>NUL
-for /f %%i in ('forfiles /s /p %_ROOT_DIR% /m target /c "cmd /c if @isdir==TRUE echo @path" 2^>NUL') do (
-    rmdir /s /q %%i
-    if not !ERRORLEVEL!==0 (
-        echo Error: Failed to clean directory %%i 1>&2
-        set _EXITCODE=1
+for %%m in (out target) do (
+    if %_DEBUG%==1 echo [%_BASENAME%] forfiles /s /p %_ROOT_DIR% /m %%m /c "cmd /c echo @path" 2^>NUL
+    for /f %%i in ('forfiles /s /p %_ROOT_DIR% /m %%m /c "cmd /c if @isdir==TRUE echo @path" 2^>NUL') do (
+        if %_DEBUG%==1 echo [%_BASENAME%] rmdir /s /q %%i
+        rmdir /s /q %%i
+        if not !ERRORLEVEL!==0 (
+            echo Error: Failed to clean directory %%i 1>&2
+            set _EXITCODE=1
+        )
     )
 )
 goto :eof

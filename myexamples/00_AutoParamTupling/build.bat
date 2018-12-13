@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 rem only for interactive debugging !
-set _DEBUG=1
+set _DEBUG=0
 
 rem ##########################################################################
 rem ## Environment setup
@@ -69,6 +69,7 @@ goto :eof
 
 rem input parameter: %*
 :args
+set _CHECK_TASTY=0
 set _CLEAN=0
 set _COMPILE=0
 set _COMPILE_CMD=%_COMPILE_CMD_DEFAULT%
@@ -94,6 +95,7 @@ if /i "%__ARG%"=="clean" ( set _CLEAN=1
 ) else if /i "%__ARG%"=="doc" ( set _DOC=1
 ) else if /i "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
 ) else if /i "%__ARG%"=="help" ( call :help & goto end
+) else if /i "%__ARG%"=="-check-tasty" ( set _CHECK_TASTY=1
 ) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
 ) else if /i "%__ARG%"=="-deprecation" ( set _COMPILE_OPTS=!_COMPILE_OPTS! -deprecation
 ) else if /i "%__ARG%"=="-explain" ( set _COMPILE_OPTS=!_COMPILE_OPTS! -explain
@@ -102,6 +104,7 @@ if /i "%__ARG%"=="clean" ( set _CLEAN=1
   ) else ( set _COMPILE_OPTS=!_COMPILE_OPTS! -explaintypes
   )
 rem ) else if /i "%__ARG%"=="-feature" ( set _COMPILE_OPTS=!_COMPILE_OPTS! -feature
+) else if /i "%__ARG%"=="-help" ( call :help & goto end
 ) else if /i "%__ARG%"=="-timer" ( set _COMPILE_TIME=1
 ) else if /i "%__ARG:~0,10%"=="-compiler:" (
     call :set_compiler "!__ARG:~10!"
@@ -187,12 +190,15 @@ set _MAIN_CLASS=%__ARG%
 goto :eof
 
 :clean
-if %_DEBUG%==1 echo [%_BASENAME%] forfiles /s /p %_ROOT_DIR% /m target /c "cmd /c echo @path" 2^>NUL
-for /f %%i in ('forfiles /s /p %_ROOT_DIR% /m target /c "cmd /c if @isdir==TRUE echo @path" 2^>NUL') do (
-    rmdir /s /q %%i
-    if not !ERRORLEVEL!==0 (
-        echo Error: Failed to clean directory %%i 1>&2
-        set _EXITCODE=1
+for %%m in (out target) do (
+    if %_DEBUG%==1 echo [%_BASENAME%] forfiles /s /p %_ROOT_DIR% /m %%m /c "cmd /c echo @path" 2^>NUL
+    for /f %%i in ('forfiles /s /p %_ROOT_DIR% /m %%m /c "cmd /c if @isdir==TRUE echo @path" 2^>NUL') do (
+        if %_DEBUG%==1 echo [%_BASENAME%] rmdir /s /q %%i
+        rmdir /s /q %%i
+        if not !ERRORLEVEL!==0 (
+            echo Error: Failed to clean directory %%i 1>&2
+            set _EXITCODE=1
+        )
     )
 )
 goto :eof
@@ -280,6 +286,16 @@ if %_COMPILE_TIME%==1 (
     call :duration "%__COMPILE_TIME_START%" "!__COMPILE_TIME_END!"
     echo Compile time: !_DURATION! 1>&2
 )
+echo 1111111111 _CHECK_TASTY=%_CHECK_TASTY% _COMPILE_CMD=%_COMPILE_CMD:~0,3%
+
+    set _TASTY_DIR=%_ROOT_DIR%\target\tasty
+    if not exist "!_TASTY_DIR!\" mkdir "!_TASTY_DIR!"
+    dir /s /b "%_CLASSES_DIR%\*.class"
+    for /f "delims=" %%i in ('dir /s /b "%_CLASSES_DIR%\*.class"') do (
+        rem echo %_COMPILE_CMD% -from-tasty -classpath "%_CLASSES_DIR%" -d "!_TASTY_DIR!"
+        echo %%i
+    }
+
 goto :eof
 
 rem input parameter: 1=timestamp file 2=source files
