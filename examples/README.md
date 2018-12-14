@@ -1,4 +1,4 @@
-# Dotty examples
+# <span id="top">Dotty examples</span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -85,9 +85,42 @@ In this section we explain in more detail the available build tools available in
     }
     </pre>
 
-    In particular we note that [**`build.gradle`**](dotty-example-project/build.gradle)<ul><li>imports the two plugins: [**`java`**](https://docs.gradle.org/current/userguide/java_plugin.html) and [**`application`**](https://docs.gradle.org/current/userguide/application_plugin.html#header)</li><li>imports code (eg. task **`compileDotty`**) from the parent file [**`common.gradle`**](common.gradle)</li><li>assigns property **`mainClassName`** to **`main`** and value **`''`** to **`args`** (no argument in this case) in **`run.doFirst`**</li></ul>
+    We note that [**`build.gradle`**](dotty-example-project/build.gradle)<ul><li>imports the two [Gradle plugins](https://docs.gradle.org/current/userguide/plugins.html): [**`java`**](https://docs.gradle.org/current/userguide/java_plugin.html) and [**`application`**](https://docs.gradle.org/current/userguide/application_plugin.html#header)</li><li>imports code from the parent file [**`common.gradle`**](common.gradle)</li><li>assigns property **`mainClassName`** to **`main`** and value **`''`** to **`args`** (no argument in this case) in **`run.doFirst`**</li></ul>
 
-3. [**`build.sbt`**](dotty-example-project/build.sbt) - This Sbt configuration file is a standalone file written in Scala.
+    The parent file [**`common.gradle`**](common.gradle) defines the task **`compileDotty`** and manages the task dependencies.
+
+    <pre style="font-size:80%;">
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    &nbsp;
+    ext {
+        dottyLibraryPath = file(System.getenv("DOTTY_HOME") + "/lib")
+        ...
+        targetDir = file("/target")
+    }
+    clean.doLast {
+        targetDir.deleteDir()
+    }
+    task compileDotty(type: JavaExec) {
+        dependsOn compileJava
+        ...
+        main "dotty.tools.dotc.Main"
+    }
+    compileDotty.doFirst {
+        if (!classesDir.exists()) classesDir.mkdirs()
+    }
+    build {
+        dependsOn compileDotty
+    }
+    run {
+        dependsOn build
+        ...
+        main mainClassName
+    }
+    ...
+    </pre>
+
+3. [**`build.sbt`**](dotty-example-project/build.sbt) - This Sbt configuration file is a standalone file written in [Scala](https://www.scala-lang.org/) and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
     <pre style="font-size:80%;">
     val dottyVersion = "0.11.0-RC1"
     &nbsp;
@@ -122,7 +155,7 @@ In this section we explain in more detail the available build tools available in
     }
     </pre>
 
-5. [**`build.xml`**](dotty-example-project/build.xml) - [Apache Ant](https://ant.apache.org/) is a Java-based build tool using XML-based configuration files. The configuration file [**`build.xml`**](dotty-example-project/build.xml) is a standalone file consisting of four targets and one macro definition to execute **`dotc.bat`**.
+5. [**`build.xml`**](dotty-example-project/build.xml) - [Apache Ant](https://ant.apache.org/) is a Java-based build tool using XML-based configuration files. The configuration file [**`build.xml`**](dotty-example-project/build.xml) is a standalone file consisting of four targets and one macro definition to execute  the external batch command **`dotc.bat`** (**WIP** : [Ivy](http://ant.apache.org/ivy/) support).
     <pre style="font-size:80%;">
     &lt;?xml version="1.0" encoding="UTF-8"?>
     &lt;project name="dotty-example-project" default="compile" basedir=".">
@@ -345,7 +378,7 @@ Executing the [**`build`**](UnionTypes/build.bat) command in directory [**`examp
 either=UserName(Eve)
 </pre>
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/April 2018*
+*[mics](http://lampwww.epfl.ch/~michelou/)/December 2018* [**&#9650;**](#top)
 
 
 

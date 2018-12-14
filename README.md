@@ -36,7 +36,7 @@ Optionally you may also install the following software:
 - [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.6.0/release-notes.html))
 - [Mill 0.3](https://www.lihaoyi.com/mill/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
 - [CFR 0.13](http://www.benf.org/other/cfr/) (Java decompiler)
-- [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.2.txt))
+- [Git 2.20](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.20.0.txt))
 
 > **&#9755;** ***Installation policy***<br/>
 > Whenever possible software is installed via a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
@@ -49,7 +49,7 @@ C:\opt\apache-ant-1.10.5\
 C:\opt\apache-maven-3.6.0\
 C:\opt\cfr-0.137\
 C:\opt\dotty-0.11.0-RC1\
-C:\opt\Git-2.19.2\
+C:\opt\Git-2.20.0\
 C:\opt\gradle-5.0\
 C:\opt\Mill-0.3.5\
 C:\opt\sbt-1.2.7\
@@ -246,7 +246,7 @@ The [**`setenv`**](setenv.bat) command is executed once to setup our development
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.11.0-RC1,
    ant 1.10.5, gradle 5.0, mill 0.3.5, mvn 3.6.0, sbt 1.2.7/2.12.17,
-   cfr 0.137, git 2.19.2.windows.1, diff 3.6
+   cfr 0.137, git 2.20.0.windows.1, diff 3.6
 
 > where sbt
 C:\opt\sbt-1.2.7\bin\sbt
@@ -260,7 +260,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.11.0-RC1,
    ant 1.10.5, gradle 5.0, mill 0.3.5, mvn 3.6.0, sbt 1.2.7/2.12.17,
-   cfr 0.137, git 2.19.2.windows.1, diff 3.6
+   cfr 0.137, git 2.20.0.windows.1, diff 3.6
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
    C:\Program Files\Java\jdk1.8.0_191\bin\java.exe
@@ -274,8 +274,8 @@ Tool paths:
    C:\opt\apache-maven-3.6.0\bin\mvn.cmd
    C:\opt\sbt-1.2.7\bin\sbt.bat
    C:\opt\cfr-0.137\bin\cfr.bat
-   C:\opt\Git-2.19.2\bin\git.exe
-   C:\opt\Git-2.19.2\usr\bin\diff.exe
+   C:\opt\Git-2.20.0\bin\git.exe
+   C:\opt\Git-2.20.0\usr\bin\diff.exe
 </pre>
 
 #### `cleanup.bat`
@@ -307,12 +307,12 @@ By default the [**`getnightly`**](bin/getnightly.bat) command downloads the libr
 > getnightly
 
 > dir /b nightly-jars
-dotty-compiler_0.12-0.12.0-bin-20181126-a64e083-NIGHTLY.jar
-dotty-doc_0.12-0.12.0-bin-20181126-a64e083-NIGHTLY.jar
-dotty-interfaces-0.12.0-bin-20181126-a64e083-NIGHTLY.jar
-dotty-language-server_0.12-0.12.0-bin-20181126-a64e083-NIGHTLY.jar
-dotty-library_0.12-0.12.0-bin-20181126-a64e083-NIGHTLY.jar
-dotty_0.12-0.12.0-bin-20181126-a64e083-NIGHTLY.jar
+dotty-compiler_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar
+dotty-doc_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar
+dotty-interfaces-0.12.0-bin-20181213-62292f2-NIGHTLY.jar
+dotty-language-server_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar
+dotty-library_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar
+dotty_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar
 </pre>
 
 > **NB.** Execute **`getnightly help`** to display the help message.
@@ -321,13 +321,13 @@ With option **`-verbose`** the [**`getnightly`**](bin/getnightly.bat) command al
 
 <pre style="font-size:80%">
 > getnightly -verbose
-Downloading file dotty-library_0.12-0.12.0-bin-20181126-a64e083-NIGHTLY.jar ... 599.5 Kb
-Downloading file dotty_0.12-0.12.0-bin-20181126-a64e083-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-language-server_0.12-0.12.0-bin-20181126-a64e083-NIGHTLY.jar ... 122.2 Kb
-Downloading file dotty-doc_0.12-0.12.0-bin-20181126-a64e083-NIGHTLY.jar ... 997.8 Kb
-Downloading file dotty-compiler_0.12-0.12.0-bin-20181126-a64e083-NIGHTLY.jar ... 9.3 Mb
-Downloading file dotty-interfaces-0.12.0-bin-20181126-a64e083-NIGHTLY.jar ... 3.4 Kb
-Finished to download 6 files to directory W:\dotty\nightly-jars
+Downloading file dotty-compiler_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar ... 10.2 Mb
+Downloading file dotty-language-server_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar ... 123.1 Kb
+Downloading file dotty-doc_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar ... 993.5 Kb
+Downloading file dotty_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-library_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar ... 725.9 Kb
+Downloading file dotty-interfaces-0.12.0-bin-20181213-62292f2-NIGHTLY.jar ... 3.4 Kb
+Finished to download 6 files to directory C:\Users\michelou\WORKSP~1\DOTTY-~1\nightly-jars
 </pre>
 
 We can now replace the library files from the original [Dotty distribution](https://github.com/lampepfl/dotty/releases) (installed in directory **`C:\opt\dotty-0.11.0-RC1\`** in our case) with library files from the latest nightly build.
@@ -336,12 +336,12 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 
 <pre style="font-size:80%;">
 > getnightly activate
-Finished to download 6 files to directory W:\dotty\nightly-jars
-Local nightly version has changed from unknown to 0.12.0-bin-20181126-a64e083-NIGHTLY
-Activate nightly build libraries: 0.12.0-bin-20181126-a64e083-NIGHTLY
+Finished to download 6 files to directory C:\Users\michelou\WORKSP~1\DOTTY-~1\nightly-jars
+Local nightly version has changed from unknown to 0.12.0-bin-20181213-62292f2-NIGHTLY
+Activate nightly build libraries: 0.12.0-bin-20181213-62292f2-NIGHTLY
 
 > dotc -version
-Dotty compiler version 0.12.0-bin-20181126-a64e083-NIGHTLY-git-a64e083 -- Copyright 2002-2018, LAMP/EPFL
+Dotty compiler version 0.12.0-bin-20181213-62292f2-NIGHTLY-git-62292f2 -- Copyright 2002-2018, LAMP/EPFL
 
 > getnightly reset
 Activate default Dotty libraries: 0.11.0-RC1
@@ -361,13 +361,13 @@ Dotty compiler version 0.11.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 > &nbsp;&nbsp;dotty-doc_0.11-0.11.0-RC1.jar
 > &nbsp;&nbsp;dotty-interfaces-0.11.0-RC1.jar
 > &nbsp;&nbsp;dotty-library_0.11-0.11.0-RC1.jar
-> lib\0.12.0-bin-20181126-a64e083-NIGHTLY\
-> &nbsp;&nbsp;dotty-compiler_0.12-0.12.0-bin-20181126-a64e083-NIGHTLY.jar
-> &nbsp;&nbsp;dotty-doc_0.12-0.12.0-bin-20181126-a64e083-NIGHTLY.jar
-> &nbsp;&nbsp;dotty-interfaces-0.12.0-bin-20181126-a64e083-NIGHTLY.jar
-> &nbsp;&nbsp;dotty-language-server_0.12-0.12.0-bin-20181126-a64e083-NIGHTLY.jar
-> &nbsp;&nbsp;dotty-library_0.12-0.12.0-bin-20181126-a64e083-NIGHTLY.jar
-> &nbsp;&nbsp;dotty_0.12-0.12.0-bin-20181126-a64e083-NIGHTLY.jar
+> lib\0.12.0-bin-20181213-62292f2-NIGHTLY\
+> &nbsp;&nbsp;dotty-compiler_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar
+> &nbsp;&nbsp;dotty-doc_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar
+> &nbsp;&nbsp;dotty-interfaces-0.12.0-bin-20181213-62292f2-NIGHTLY.jar
+> &nbsp;&nbsp;dotty-language-server_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar
+> &nbsp;&nbsp;dotty-library_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar
+> &nbsp;&nbsp;dotty_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar
 > </pre>
 > In the above output the file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original Dotty installation respectively from the latest nightly build.
 
@@ -377,24 +377,35 @@ Passing argument **`System`** to the [**`searchjars`**](bin/searchjars.bat) comm
 
 <pre style="font-size:80%;">
 > searchjars System
-Search for class System in library files C:\opt\dotty-0.11.0-RC1\lib\*.jar
+Searching for class System in library files C:\opt\DOTTY-~1.0-R\lib\*.jar
   scala-library-2.12.7.jar:scala/sys/SystemProperties$.class
   scala-library-2.12.7.jar:scala/sys/SystemProperties.class
   scala-xml_2.12-1.1.0.jar:scala/xml/dtd/SystemID$.class
   scala-xml_2.12-1.1.0.jar:scala/xml/dtd/SystemID.class
-Search for class System in library files C:\opt\scala-2.12.7\lib\*.jar
+Searching for class System in library files C:\opt\SCALA-~1.8\lib\*.jar
   scala-library.jar:scala/sys/SystemProperties$.class
-  scala-library.jar:scala/sys/SysctemProperties.class
+  scala-library.jar:scala/sys/SystemProperties.class
   scala-xml_2.12-1.0.6.jar:scala/xml/dtd/SystemID$.class
   scala-xml_2.12-1.0.6.jar:scala/xml/dtd/SystemID.class
+Searching for class System in library files C:\PROGRA~1\Java\JDK18~1.0_1\lib\*.jar
+  sa-jdi.jar:sun/jvm/hotspot/memory/SystemDictionary$1.class
+  sa-jdi.jar:sun/jvm/hotspot/memory/SystemDictionary$2.class
+  sa-jdi.jar:sun/jvm/hotspot/memory/SystemDictionary$ClassAndLoaderVisitor.class
+  sa-jdi.jar:sun/jvm/hotspot/memory/SystemDictionary$ClassVisitor.class
+  sa-jdi.jar:sun/jvm/hotspot/memory/SystemDictionary.class
+  sa-jdi.jar:sun/jvm/hotspot/utilities/SystemDictionaryHelper$1.class
+  sa-jdi.jar:sun/jvm/hotspot/utilities/SystemDictionaryHelper$2.class
+  sa-jdi.jar:sun/jvm/hotspot/utilities/SystemDictionaryHelper$3.class
+  sa-jdi.jar:sun/jvm/hotspot/utilities/SystemDictionaryHelper.class
 </pre>
 
 Searching for an unknown class - e.g. **`BinarySearch`** - produces the following output:
 
 <pre style="font-size:80%;">
 > searchjars BinarySearch
-Search for class BinarySearch in library files C:\opt\dotty-0.11.0-RC1\lib\*.jar
-Search for class BinarySearch in library files C:\opt\scala-2.12.8\lib\*.jar
+Searching for class BinarySearch in library files C:\opt\DOTTY-~1.0-R\lib\*.jar
+Searching for class BinarySearch in library files C:\opt\SCALA-~1.8\lib\*.jar
+Searching for class BinarySearch in library files C:\PROGRA~1\Java\JDK18~1.0_1\lib\*.jar
 </pre>
 
 #### `timeit.bat <cmd_1> { & <cmd_i> }`

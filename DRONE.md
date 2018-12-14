@@ -22,7 +22,7 @@ Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three 
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
 - [SBT 1.2.7](https://www.scala-sbt.org/download.html) (with Scala 2.12.17 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.7))
-- [Git 2.19](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.19.2.txt))
+- [Git 2.20](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.20.0.txt))
 
 > **&#9755;** ***Installation policy***<br/>
 > Whenever possible software is installed via a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
@@ -32,7 +32,7 @@ For instance our development environment looks as follows (*November 2018*):
 <pre style="font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_191\
 C:\opt\sbt-1.2.7\
-C:\opt\Git-2.19.2\
+C:\opt\Git-2.20.0\
 </pre>
 
 > **NB.** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
@@ -218,7 +218,7 @@ The **`setenv`** command is executed once to setup our development environment; 
 > setenv
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191,
-   sbt 1.2.7/2.12.7, git 2.19.2.windows.1, diff 3.6
+   sbt 1.2.7/2.12.7, git 2.20.0.windows.1, diff 3.6
 
 > where sbt
 C:\opt\sbt-1.2.7\bin\sbt
@@ -231,14 +231,14 @@ Command **`setenv -verbose`** also displays the tool paths and the current Git b
 > setenv -verbose
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191,
-   sbt 1.2.7/2.12.7, git 2.19.2.windows.1, diff 3.6
+   sbt 1.2.7/2.12.7, git 2.20.0.windows.1, diff 3.6
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
    C:\Program Files\Java\jdk1.8.0_191\bin\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\opt\sbt-1.2.7\bin\sbt.bat
-   C:\opt\Git-2.19.2\bin\git.exe
-   C:\opt\Git-2.19.2\usr\bin\diff.exe
+   C:\opt\Git-2.20.0\bin\git.exe
+   C:\opt\Git-2.20.0\usr\bin\diff.exe
 Current Git branch:
    master
 </pre>
@@ -281,7 +281,7 @@ The [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project/scr
     <pre style="font-size:80%;">
     > build -verbose cleanall
     Tool paths
-      GIT_CMD=C:\opt\Git-2.19.2\bin\git.exe
+      GIT_CMD=C:\opt\Git-2.20.0\bin\git.exe
       SBT_CMD=C:\opt\sbt-1.2.7\bin\sbt.bat
     Tool options
       JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
