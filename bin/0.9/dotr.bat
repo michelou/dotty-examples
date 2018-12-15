@@ -33,7 +33,7 @@ rem if [ $execute_repl == true ] || ([ $execute_run == false ] && [ $options_ind
 if %_CASE_1%==1 (
     set _DOTC_ARGS=
     if defined _CLASS_PATH set _DOTC_ARGS=-classpath "%_CLASS_PATH%"
-    set _DOTC_ARGS=!_DOTC_ARGS! %_JAVA_OPTIONS% -repl %_RESIDUAL_ARGS%
+    set _DOTC_ARGS=!_DOTC_ARGS! %_JAVA_OPTS% -repl %_RESIDUAL_ARGS%
     echo Starting dotty REPL...
     if %_DEBUG%==1 echo [%_BASENAME%] %_PROG_HOME%\bin\dotc.bat !_DOTC_ARGS!
     %_PROG_HOME%\bin\dotc.bat !_DOTC_ARGS!
@@ -44,16 +44,17 @@ rem elif [ $execute_repl == true ] || [ ${#residual_args[@]} -ne 0 ]; then
     ) else ( set _CP_ARG=!_CP_ARG!%_PSEP%.
     )
     if %_CLASS_PATH_COUNT% gtr 1 (
-        echo warning: multiple classpaths are found, dotr only use the last one.
+        echo Warning: Multiple classpaths are found, dotr only use the last one. 1>&2
     )
     if %_WITH_COMPILER%==1 (
         set _CP_ARG=!_CP_ARG!%_PSEP%%_DOTTY_COMP%%_PSEP%%_DOTTY_INTF%%_PSEP%%_SCALA_ASM%
     )
-    set _JAVA_ARGS=%_JAVA_DEBUG% -classpath "!_CP_ARG!" %_JVM_OPTIONS% %_RESIDUAL_ARGS%
+    set _JAVA_ARGS=%_JAVA_DEBUG% -classpath "!_CP_ARG!" %_JVM_OPTS% %_RESIDUAL_ARGS%
     if %_DEBUG%==1 echo [%_BASENAME%] %_JAVACMD% !_JAVA_ARGS!
     %_JAVACMD% !_JAVA_ARGS!
+    if not !ERRORLEVEL!==0 ( set _EXITCODE=1& goto end )
 ) else (
-    echo warning: command option is not correct.
+    echo Warning: Command option is not correct. 1>&2
 )
 
 goto end
@@ -69,19 +70,20 @@ set _WITH_COMPILER=0
 set _JAVA_DEBUG=
 set _CLASS_PATH_COUNT=0
 set _CLASS_PATH=
-set _JVM_OPTIONS=
-set _JAVA_OPTIONS=
+set _JVM_OPTS=
+set _JAVA_OPTS=
 
 :args_loop
-if "%1"=="" goto args_done
-set "_ARG=%1"
+if "%~1"=="" goto args_done
+set "_ARG=%~1"
 if %_DEBUG%==1 echo [%_BASENAME%] _ARG=%_ARG%
 if /i "%_ARG%"=="-repl" (
     set _EXECUTE_REPL=1
 ) else if /i "%_ARG%"=="-run" (
     set _EXECUTE_RUN=1
 ) else if /i "%_ARG%"=="-classpath" (
-    set _CLASS_PATH=%2
+    set _CLASS_PATH=%~2
+    if %_DEBUG%==1 echo [%_BASENAME%] _ARG=%~2
     set /a _CLASS_PATH_COUNT+=1
     shift
 ) else if /i "%_ARG%"=="-with-compiler" (
@@ -89,8 +91,8 @@ if /i "%_ARG%"=="-repl" (
 ) else if /i "%_ARG%"=="-d" (
     set _JAVA_DEBUG=%_DEBUG_STR%
 ) else if /i "%_ARG:~0,2%"=="-J" (
-    set _JVM_OPTIONS=!_JVM_OPTIONS! %_ARG:~2%
-    set _JAVA_OPTIONS=!_JAVA_OPTIONS! %_ARG%
+    set _JVM_OPTS=!_JVM_OPTS! %_ARG:~2%
+    set _JAVA_OPTS=!_JAVA_OPTS! %_ARG%
 ) else (
     set _RESIDUAL_ARGS=%_RESIDUAL_ARGS% %_ARG%
 )

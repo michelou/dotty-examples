@@ -20,7 +20,7 @@
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
-- [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
+- [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)<sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
 - [Dotty 0.11](https://github.com/lampepfl/dotty/releases) (Java 9+ supported since 0.10) 
 
 <!--
@@ -30,7 +30,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 Optionally you may also install the following software:
 
 - [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.12.8))
-- [SBT 1.2.7](https://www.scala-sbt.org/download.html) (with Scala 2.12.17 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.7))
+- [SBT 1.2.7](https://www.scala-sbt.org/download.html) (with Scala 2.12.8 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.7))
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.5.html))
 - [Gradle 5.0](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/current/release-notes.html))
 - [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.6.0/release-notes.html))
@@ -245,7 +245,7 @@ The [**`setenv`**](setenv.bat) command is executed once to setup our development
 > setenv
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.11.0-RC1,
-   ant 1.10.5, gradle 5.0, mill 0.3.5, mvn 3.6.0, sbt 1.2.7/2.12.17,
+   ant 1.10.5, gradle 5.0, mill 0.3.5, mvn 3.6.0, sbt 1.2.7/2.12.8,
    cfr 0.137, git 2.20.0.windows.1, diff 3.6
 
 > where sbt
@@ -259,7 +259,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 > setenv -verbose
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.11.0-RC1,
-   ant 1.10.5, gradle 5.0, mill 0.3.5, mvn 3.6.0, sbt 1.2.7/2.12.17,
+   ant 1.10.5, gradle 5.0, mill 0.3.5, mvn 3.6.0, sbt 1.2.7/2.12.8,
    cfr 0.137, git 2.20.0.windows.1, diff 3.6
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
@@ -482,7 +482,7 @@ Parent directory: W:\dotty\myexamples
 
 #### `build.bat`
 
-The [**`build`**](examples/enum-Planet/build.bat) command is a basic build tool consisting of ~350 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_01">[[1]](#footnote_01)</sup>. 
+The [**`build`**](examples/enum-Planet/build.bat) command is a basic build tool consisting of ~350 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_02">[[2]](#footnote_02)</sup>. 
 
 Running the [**`build`**](examples/enum-Planet/build.bat) command with no build option in project [**`examples\enum-Planet`**](examples/enum-Planet/) generates the following output:
 
@@ -619,12 +619,15 @@ Exception in thread "main" java.lang.IncompatibleClassChangeError: Method dotty.
         at dotty.tools.dotc.Driver.main(Driver.scala:142)
         at dotty.tools.dotc.Main.main(Main.scala)
 </pre>
-
-> [***Oracle Java SE Support Roadmap***](http://www.oracle.com/technetwork/java/eol-135779.html)<br/>
-> Oracle will not post further updates of Java SE 8 to its public download sites for commercial use after January 2019.
 -->
 
-<a name="footnote_01">[1]</a> ***2018-05-09*** [↩](#anchor_01)
+<a name="footnote_01">[1]</a> ***2018-11-18*** [↩](#anchor_01)
+
+<div style="margin:0 0 1em 20px;">
+Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an LTS release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the next LTS release.
+</div>
+
+<a name="footnote_02">[2]</a> ***2018-05-09*** [↩](#anchor_02)
 
 <div style="margin:0 0 1em 20px;"> 
 Command Prompt has been around for as long as we can remember, but starting with Windows 10 build 14971, Microsoft is trying to make PowerShell the <a href="https://support.microsoft.com/en-us/help/4027690/windows-powershell-is-replacing-command-prompt">main command shell</a> in the operating system.

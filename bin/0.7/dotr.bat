@@ -49,6 +49,7 @@ if %_CASE_1%==1 (
     set _JAVA_ARGS=%_JAVA_DEBUG% -classpath "!_CP_ARG!" %_RESIDUAL_ARGS%
     if %_DEBUG%==1 echo [%_BASENAME%] %_JAVACMD% !_JAVA_ARGS!
     %_JAVACMD% !_JAVA_ARGS!
+    if not !ERRORLEVEL!==0 ( set _EXITCODE=1& goto end )
 ) else (
     echo warning: command option is not correct.
 )
@@ -77,7 +78,8 @@ if /i "%_ARG%"=="-repl" (
 ) else if /i "%_ARG%"=="-run" (
     set _EXECUTE_RUN=1
 ) else if /i "%_ARG%"=="-classpath" (
-    set _CLASS_PATH=%2
+    set _CLASS_PATH=%~2
+    if %_DEBUG%==1 echo [%_BASENAME%] _ARG=%~2
     set /a _CLASS_PATH_COUNT+=1
     shift
 ) else if /i "%_ARG%"=="-with-compiler" (
@@ -85,7 +87,7 @@ if /i "%_ARG%"=="-repl" (
 ) else if /i "%_ARG%"=="-d" (
     set _JAVA_DEBUG=%_DEBUG_STR%
 ) else if /i "%_ARG:~0,2%"=="-J" (
-    set _JVM_OPTIONS=!_JVM_OPTIONS! %_ARG%
+    set _JVM_OPTIONS=!_JVM_OPTIONS! %_ARG:~2%
 ) else (
     set _RESIDUAL_ARGS=%_RESIDUAL_ARGS% %_ARG%
 )
