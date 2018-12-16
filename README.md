@@ -12,9 +12,14 @@
   </tr>
 </table>
 
-
-> **NB.** We also decided to take a further step towards building the [Dotty software](https://github.com/lampepfl/dotty/releases) on Microsoft Windows; read our [***work report***](DRONE.md) to learn more !
-
+<div style="margin:12px 0; padding:0 0 0 6px;border-top:2px dotted #ff9999;border-bottom:2px dotted #ff9999;color:#999999;">
+<div>This page is part of a series of topics related to <a href="http://dotty.epfl.ch/">Dotty</a> on Windows:</div>
+<ul style="padding:0p;margin:0;">
+<li>Running Dotty on Windows</li>
+<li><a href="DRONE.md">Building Dotty on Windows</a></li>
+<li><a href="CDS.md">Data Sharing and Dotty on Windows</a></li>
+</ul>
+</div>
 
 ## Project dependencies
 
@@ -36,7 +41,7 @@ Optionally you may also install the following software:
 - [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.6.0/release-notes.html))
 - [Mill 0.3](https://www.lihaoyi.com/mill/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
 - [CFR 0.13](http://www.benf.org/other/cfr/) (Java decompiler)
-- [Git 2.20](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.20.0.txt))
+- [Git 2.20](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.20.1.txt))
 
 > **&#9755;** ***Installation policy***<br/>
 > Whenever possible software is installed via a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
@@ -47,9 +52,9 @@ For instance our development environment looks as follows (*December 2018*):
 C:\Program Files\Java\jdk1.8.0_191\
 C:\opt\apache-ant-1.10.5\
 C:\opt\apache-maven-3.6.0\
-C:\opt\cfr-0.137\
+C:\opt\cfr-0.138\
 C:\opt\dotty-0.11.0-RC1\
-C:\opt\Git-2.20.0\
+C:\opt\Git-2.20.1\
 C:\opt\gradle-5.0\
 C:\opt\Mill-0.3.5\
 C:\opt\sbt-1.2.7\
@@ -66,7 +71,7 @@ This repository is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
 bin\0.11\*.bat
-bin\cfr-0.137.zip
+bin\cfr-0.138.zip
 docs\
 examples\{dotty-example-project, ..}
 myexamples\{00_AutoParamTupling, ..}
@@ -78,7 +83,7 @@ where
 
 - directory [**`bin\`**](bin/) provides several utility batch commands.
 - directory [**`bin\0.11\`**](bin/0.11/) contains the batch commands for Dotty 0.11.
-- file [**`bin\cfr-0.137.zip`**](bin/cfr-0.137.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
+- file [**`bin\cfr-0.138.zip`**](bin/cfr-0.138.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
 - directory [**`examples\`**](examples/) contains Dotty examples grabbed from various websites.
 - directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
@@ -186,12 +191,12 @@ We distinguish different sets of batch commands:
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.137.zip`**](bin/cfr-0.137.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
+    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.138.zip`**](bin/cfr-0.138.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
 
     <pre style="font-size:80%;">
     &gt; cfr myexamples\00_AutoParamTupling\target\classes\Main.class
     /*
-     * Decompiled with CFR 0.137.
+     * Decompiled with CFR 0.138.
      */
     public final class Main {
         public static void test01() {
@@ -246,7 +251,7 @@ The [**`setenv`**](setenv.bat) command is executed once to setup our development
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.11.0-RC1,
    ant 1.10.5, gradle 5.0, mill 0.3.5, mvn 3.6.0, sbt 1.2.7/2.12.8,
-   cfr 0.137, git 2.20.0.windows.1, diff 3.6
+   cfr 0.138, git 2.20.1.windows.1, diff 3.6
 
 > where sbt
 C:\opt\sbt-1.2.7\bin\sbt
@@ -260,7 +265,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.11.0-RC1,
    ant 1.10.5, gradle 5.0, mill 0.3.5, mvn 3.6.0, sbt 1.2.7/2.12.8,
-   cfr 0.137, git 2.20.0.windows.1, diff 3.6
+   cfr 0.138, git 2.20.1.windows.1, diff 3.6
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
    C:\Program Files\Java\jdk1.8.0_191\bin\java.exe
@@ -273,9 +278,9 @@ Tool paths:
    C:\opt\Mill-0.3.5\mill.bat
    C:\opt\apache-maven-3.6.0\bin\mvn.cmd
    C:\opt\sbt-1.2.7\bin\sbt.bat
-   C:\opt\cfr-0.137\bin\cfr.bat
-   C:\opt\Git-2.20.0\bin\git.exe
-   C:\opt\Git-2.20.0\usr\bin\diff.exe
+   C:\opt\cfr-0.138\bin\cfr.bat
+   C:\opt\Git-2.20.1\bin\git.exe
+   C:\opt\Git-2.20.1\usr\bin\diff.exe
 </pre>
 
 #### `cleanup.bat`
