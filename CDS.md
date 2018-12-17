@@ -6,7 +6,7 @@
     <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    This page presents findings from my experiments with <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/class-data-sharing.html">Java class data sharing</a> (CDS) and <a href="http://dotty.epfl.ch/">Dotty</a> on the Windows platform. CDS helps reduce the startup time for Java applications, in particular smaller applications, as well as reduce memory footprint.
+    This page presents findings from my experiments with <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/class-data-sharing.html">Java class data sharing</a> (CDS) and <a href="http://dotty.epfl.ch/">Dotty</a> on the Windows platform. CDS helps reduce the startup time for Java applications as well as reduce their memory footprint.
   </td>
   </tr>
 </table>
@@ -18,9 +18,6 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 - Data Sharing and Dotty on Windows
 
 
-> **:mag_right:**
-> [Scala 2.12](https://www.scala-lang.org/download/) is a software product announced to require Java 8; in contrast [Dotty](http://dotty.epfl.ch/) (aka [Scala 3.0](https://www.scala-lang.org/blog/2018/04/19/scala-3.html)) is still in development and will support Java 9+, in particular [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html) (2<sup>nd</sup> LTS version after Java 8).
-
 ## Project dependencies
 
 This project depends on two external software for the **Microsoft Windows** platform:
@@ -28,75 +25,81 @@ This project depends on two external software for the **Microsoft Windows** plat
 - [Oracle Java 11 SDK](https://docs.oracle.com/en/java/javase/11/) ([*release notes*](https://www.oracle.com/technetwork/java/javase/11-0-1-relnotes-5032023.html))
 - [Dotty 0.11](https://github.com/lampepfl/dotty/releases) (Java 9+ supported since 0.10)
 
+> **:mag_right:**
+> [Scala 2.12](https://www.scala-lang.org/download/) is a software product announced to require Java 8; in contrast [Dotty](http://dotty.epfl.ch/) (aka [Scala 3.0](https://www.scala-lang.org/blog/2018/04/19/scala-3.html)) is still in development and also supports Java 9+. In the following we choose to work with [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html), the 2<sup>nd</sup> [LTS](https://www.oracle.com/technetwork/java/java-se-support-roadmap.html) version after Java 8.
+
+
 ## Overview
 
-- Section **Java Example** present a Java demo application.
-- In section **Dotty Example** we move to [Dotty](http://dotty.epfl.ch/) with the same application written in Dotty.
+- Section **Java Example** presents a Java code example using data sharing.
+- In section **Dotty Example** we move to [Dotty](http://dotty.epfl.ch/) with the same example written in [Dotty](http://dotty.epfl.ch/).
 - Finally we describe the batch command **`sharedata.bat`**.
 
 > **:warning:** We have submitted a bug report related to the usage of option **`-Xlog`** on Windows (see [JDK-8215398](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8215398)): 
 
 ## Java Example
 
-We added an option **`-share`** to the batch command [**`build`**](cdsexamples/HelloWorld_Java/build.bat) in the Java demo applicatin. Internally we generate a Java shared archive as last step of the compilation phase (**`target\HelloWorld.jsa`**):
+The [**`build`**](cdsexamples/JavaExemple/build.bat) batch command has two new two options working with the **`run`** subcommand:
+
+- The **`-share`** enables/disables data sharing.
+- The **`-iter`** option gives the number of run iterations.
+
+Internally we generate a Java shared archive as a last step of the compilation phase (**`target\JavaExample.jsa`**):
 
 <pre style="font-size:80%;">
 > build help
 Usage: build { options | subcommands }
   Options:
+    -iter:1..99        set number of run iterations
     -share[:(on|off)]  enable/disable data sharing (default:off)
-    -verbose          display progress messages
+    -verbose           display progress messages
   Subcommands:
-    clean             delete generated files
-    compile           compile Java source files
-    help              display this help message
-    run               execute main class
+    clean              delete generated files
+    compile            compile Java source files
+    help               display this help message
+    run                execute main class
 </pre>
+
+We first execute the following command:
 
 <pre style="font-size:80%;">
 &gt; build -verbose clean compile
-Create Java archive target\HelloWorld.jar
-Create class list file target\HelloWorld.classlist
-Create Java shared archive target\HelloWorld.jsa
+Create Java archive target\JavaExample.jar
+Create class list file target\JavaExample.classlist
+Create Java shared archive target\JavaExample.jsa
 </pre>
 
-Let's check the contents of the **`target\`** output directory:
+Let's check the generated files in directory **`target\`**:
 
 <pre style="font-size:80%;">
 &gt; tree /a /f target |findstr /v "^[A-Z]"
-|   HelloWorld.classlist
-|   HelloWorld.jar
-|   HelloWorld.jsa
+|   JavaExample.classlist
+|   JavaExample.jar
+|   JavaExample.jsa
 |   MANIFEST.MF
 |
 +---classes
 |   |   .latest-build
 |   |
 |   \---cdsexamples
-|           HelloWorld.class
+|           JavaExample.class
 |
 \---logs
         log_classlist.log
         log_dump.log
 </pre>
 
-We can now execute our Java example ***with data sharing*** (default settings: **`-share:off`**):
+Here are a few observations:
 
-<pre style="font-size:80%;">
-&gt; build -verbose run -share
-Hello world !
-Statistics (see details in target\logs\log_share_on.log):
-   Share flag      : on
-   Shared classes  : 516
-   File/jrt classes: 1
-   Load time       : 0.113s
-</pre>
+- File **`MANIFEST.MF`** is added to **`JavaExample.jar`** as usual. 
+- File **`logs\log_classlist.log`** contains the execution log for the generation of **`JavaExample.classlist`** (***only*** with option **`-verbose`**).
+- File **`logs\log_dump.log`** contains the execution log for the generation of **`JavaExample.jsa`** (***only*** with option **`-verbose`**).
 
-For comparison here is the output ***without data sharing***:
+We can now execute our Java example ***without data sharing*** (default settings: **`-share:off`**):
 
 <pre style="font-size:80%;">
 &gt; build -verbose run
-Hello world !
+Hello from Java !
 Statistics (see details in target\logs\log_share_off.log):
    Share flag      : off
    Shared classes  : 0
@@ -104,11 +107,48 @@ Statistics (see details in target\logs\log_share_off.log):
    Load time       : 0.150s
 </pre>
 
-Command **`java.exe -Xshare:dump`** uses file **`lib\classlist`** to generate the Java shared archive **`bin\server\classes.jsa`** (17.3 Mb).
+For comparison here is the output ***with data sharing***:
+
 <pre style="font-size:80%;">
+&gt; build -verbose run -share
+Hello from Java !
+Statistics (see details in target\logs\log_share_on.log):
+   Share flag      : on
+   Shared classes  : 516
+   File/jrt classes: 1
+   Load time       : 0.113s
+</pre>
+
+With option **`-iter:<n>`** the **`run`** subcommand executes **`n`** times the Java example:
+
+<pre style="font-size:80%;">
+&gt; build -verbose run -share -iter:4
+Hello from Java !
+Hello from Java !
+Hello from Java !
+Hello from Java !
+Statistics (see details in target\logs\log_share_on.log):
+   Share flag       : on
+   Shared classes   : 513
+   File/jrt classes : 1
+   Average load time: 0.081s
+   #iteration(s)    : 4
+Packages (503):
+   java.io.*        : 31
+   java.lang.*      : 151
+   java.nio.*       : 27
+   java.security.*  : 22
+   java.util.*      : 116
+   jdk.internal.*   : 91
+   sun.*            : 65
+</pre>
+
+> **&#9755;** ***Data Sharing and JDK 11 Installation*** <br/>
+> The [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html) installation contains the file **`<jdk_path>\lib\classlist`**. Running command **`java.exe -Xshare:dump`** will read that file and generate a 17.3 Mb Java shared archive **`<jdk_path>\bin\server\classes.jsa`**.
+> <pre style="font-size:80%;">
 &gt; java -version 2>&1 | findstr version
 openjdk version "11.0.1" 2018-10-16
-
+&nbsp;
 &gt; java -Xshare:dump
 [...]
 Number of classes 1272
@@ -119,7 +159,7 @@ ro  space:   7304712 [ 40.4% of total] [...]
 md  space:      2560 [  0.0% of total] [...]
 od  space:   6534368 [ 36.1% of total] [...]
 total    :  17872784 [100.0% of total] [...]
-
+&nbsp;
 &gt; dir /b c:\opt\jdk-11.0.1\bin\server
 classes.jsa
 jvm.dll
@@ -127,12 +167,13 @@ jvm.dll
 
 ## Dotty Example
 
-We added an option **`-share`** to the batch command [**`build`**](cdsexamples/HelloWorld/build.bat) in the [Dotty](http://dotty.epfl.ch/) demo applicatin. Internally we generate a Java shared archive as last step of the compilation phase (**`target\HelloWorld.jsa`**):
+We add option **`-share`** to the [**`build`**](cdsexamples/DottyExample/build.bat) batch command in order to control data sharing in our [Dotty](http://dotty.epfl.ch/) example. Internally we generate a Java shared archive as a last step of the compilation phase (**`target\DottyExample.jsa`**):
 
 <pre style="font-size:80%;">
-> build help
+&gt; build help
 Usage: build { options | subcommands }
   Options:
+    -iter:1..99        set number of run iterations
     -share[:(on|off)]  enable/disable data sharing (default:off)
     -verbose          display progress messages
   Subcommands:
@@ -141,6 +182,45 @@ Usage: build { options | subcommands }
     help              display this help message
     run               execute main class
 </pre>
+
+Similarly to the previous section we execute the following command:
+
+<pre style="font-size:80%;">
+&gt; build -verbose clean compile
+Create Java archive target\DottyExample.jar
+Create class list file target\DottyExample.classlist
+Create Java shared archive target\DottyExample.jsa
+</pre>
+
+Let's now check the generated output in directory **`target\`**:
+
+<pre style="font-size:80%;">
+> tree /a /f target |findstr /v "^[A-Z]"
+|   DottyExample.classlist
+|   DottyExample.jar
+|   DottyExample.jsa
+|   MANIFEST.MF
+|
++---classes
+|   |   .latest-build
+|   |
+|   \---cdsexamples
+|           Main$.class
+|           Main.class
+|           Main.tasty
+|
+\---logs
+        log_classlist.log
+        log_dump.log
+</pre>
+
+Here are a few observations:
+
+- File **`MANIFEST.MF`** is added to **`DottyExample.jar`** as usual.
+- Files **`classes\Main$.class`** and **`classes\Main.tasty`** (typed AST) are specific to the [Dotty](http://dotty.epfl.ch/) compiler.
+- File **`logs\log_classlist.log`** contains the execution log for the generation of **`DottyExample.classlist`** (***only*** with option **`-verbose`**).
+- File **`logs\log_dump.log`** contains the execution log for the generation of **`DottyExample.jsa`** (***only*** with option **`-verbose`**).
+
 
 ## Batch command
 
@@ -151,13 +231,13 @@ The [**`sharedata`**](bin/sharedata.bat) batch command:
 Usage: sharedata { options | subcommands }
   Options:
     -share[:(on|off)]  set the share flag (default:off)
-    -verbose          display generation progress
+    -verbose           display generation progress
   Subcommands:
-    activate          install the Java shared archive
-    dump              create the Java shared archive
-    help              display this help message
-    reset             uninstall the Java share archive
-    test              execute test application (depends on dump)
+    activate           install the Java shared archive
+    dump               create the Java shared archive
+    help               display this help message
+    reset              uninstall the Java shared archive
+    test               execute test application (depends on dump)
 </pre>
 
 <pre style="font-size:80%;">

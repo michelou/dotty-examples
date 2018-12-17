@@ -6,7 +6,7 @@
     <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed by the <a href="https://drone.io/">Drone platform</a> running on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This page describes the additions/changes we made to the source code in our <a href="https://github.com/michelou/dotty">fork</a> of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps locally on a Windows machine.
+    Source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed by the <a href="https://drone.io/">Drone platform</a> running on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This page describes changes we made to the source code of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps locally on a Windows machine.
   </td>
   </tr>
 </table>
@@ -18,11 +18,13 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 - [Data Sharing and Dotty on Windows](CDS.md)
 
 
-> **&#9755;** ***Scala CI***<br/>
-> Continuous delivery of Scala builds is currently performed by the following services:
+> **&#9755;** ***Scala CI/CD***<br/>
+> Continuous delivery (CD) typically performs the following steps:<br/>&nbsp;&nbsp;&nbsp;Checkout **&rarr;** Compile **&rarr;** Test **&rarr;** Deploy.<br/>
+> CI/CD of [Scala](https://www.scala-lang.org/) builds is currently performed by the following cloud services:
 >
 > - [Jenkins](https://jenkins.io/doc/): the [CI server](https://scala-ci.typesafe.com/) is hosted by [Lightbend](https://en.wikipedia.org/wiki/Lightbend) in San-Francisco, USA (configuration described in [Chef cookbook](https://github.com/scala/scala-jenkins-infra)).<br/>
 > - [Travis CI](https://docs.travis-ci.com/user/tutorial/): the [CI server](https://travis-ci.org/scala/scala) is hosted by [Travis CI](https://www.travis-ci.com/) in Berlin, Germany.
+
 
 ## <span id="anchor_01">Project dependencies</span>
 

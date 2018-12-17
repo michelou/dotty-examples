@@ -16,7 +16,7 @@ for %%f in ("%~dp0..") do set _ROOT_DIR=%%~sf
 rem ##########################################################################
 rem ## Main
 
-for %%i in (examples myexamples) do (
+for %%i in (cdsexamples examples myexamples) do (
     if %_DEBUG%==1 echo [%_BASENAME%] call :clean_dir "%_ROOT_DIR%\%%i"
     call :clean_dir "%_ROOT_DIR%\%%i"
 )
@@ -25,8 +25,14 @@ goto end
 rem ##########################################################################
 rem ## Subroutines
 
+rem input parameter: %1=parent directory
 :clean_dir
 set __PARENT_DIR=%~1
+if not exist "%__PARENT_DIR%" (
+    echo Warning: Directory not found ^(%__PARENT_DIR%^) 1>&2
+	set _EXITCODE=1
+	goto :eof
+)
 set __N=0
 for /f %%i in ('dir /ad /b "%__PARENT_DIR%" ^| findstr -v bin') do (
     set _BUILD_FILE=%__PARENT_DIR%\%%i\build.bat
