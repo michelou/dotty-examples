@@ -127,7 +127,7 @@ if %_DEBUG%==1 (
 goto :eof
 
 :help
-echo Usage: build { options ^| subcommands }
+echo Usage: %_BASENAME% { options ^| subcommands }
 echo   Options:
 echo     -debug           show commands executed by this script
 echo     -deprecation     set compiler option -deprecation

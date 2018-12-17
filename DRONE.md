@@ -11,20 +11,18 @@
   </tr>
 </table>
 
-<div style="margin:10px 0; padding:0 0 0 6px;border-top:2px dotted #ff9999;border-bottom:2px dotted #ff9999;color:#999999;">
-<div>This page is part of a series of topics related to <a href="http://dotty.epfl.ch/">Dotty</a> on Windows:</div>
-<ul style="padding:0p;margin:0;">
-<li><a href="README.md">Running Dotty on Windows</a></li>
-<li>Building Dotty on Windows</li>
-<li><a href="CDS.md">Data Sharing and Dotty on Windows</a></li>
-</ul>
-</div>
+This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/) on Windows:
 
-## Foreword
-Continuous delivery of Scala builds is currently performed by the following services:
+- [Running Dotty on Windows](README.md)
+- Building Dotty on Windows
+- [Data Sharing and Dotty on Windows](CDS.md)
 
-- [Jenkins](https://jenkins.io/doc/): the [CI server](https://scala-ci.typesafe.com/) is hosted by [Lightbend](https://en.wikipedia.org/wiki/Lightbend) in San-Francisco, USA (configuration described in [Chef cookbook](https://github.com/scala/scala-jenkins-infra)).<br/>
-- [Travis CI](https://docs.travis-ci.com/user/tutorial/): the [CI server](https://travis-ci.org/scala/scala) is hosted by [Travis CI](https://www.travis-ci.com/) in Berlin, Germany.
+
+> **&#9755;** ***Scala CI***<br/>
+> Continuous delivery of Scala builds is currently performed by the following services:
+>
+> - [Jenkins](https://jenkins.io/doc/): the [CI server](https://scala-ci.typesafe.com/) is hosted by [Lightbend](https://en.wikipedia.org/wiki/Lightbend) in San-Francisco, USA (configuration described in [Chef cookbook](https://github.com/scala/scala-jenkins-infra)).<br/>
+> - [Travis CI](https://docs.travis-ci.com/user/tutorial/): the [CI server](https://travis-ci.org/scala/scala) is hosted by [Travis CI](https://www.travis-ci.com/) in Berlin, Germany.
 
 ## <span id="anchor_01">Project dependencies</span>
 
