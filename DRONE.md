@@ -24,6 +24,8 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 >
 > - [Jenkins](https://jenkins.io/doc/): the [CI server](https://scala-ci.typesafe.com/) is hosted by [Lightbend](https://en.wikipedia.org/wiki/Lightbend) in San-Francisco, USA (configuration described in [Chef cookbook](https://github.com/scala/scala-jenkins-infra)).<br/>
 > - [Travis CI](https://docs.travis-ci.com/user/tutorial/): the [CI server](https://travis-ci.org/scala/scala) is hosted by [Travis CI](https://www.travis-ci.com/) in Berlin, Germany.
+>
+> Let's note in passing that [OpenJDK](https://ci.adoptopenjdk.net/) (e.g. Java 11) also relies on [Jenkins](https://jenkins.io/doc/) for continuous integration.
 
 
 ## <span id="anchor_01">Project dependencies</span>
@@ -45,7 +47,7 @@ C:\opt\sbt-1.2.7\
 C:\opt\Git-2.20.1\
 </pre>
 
-> **NB.** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
+> **:mag_right:** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
 
 ## Directory structure
 
@@ -76,7 +78,7 @@ tests
 vscode-dotty
 </pre>
 
-> **NB.** The three directories [**`collection-strawman\`**](https://github.com/dotty-staging/collection-strawman), [**`scala-backend\`**](https://github.com/lampepfl/scala/tree/sharing-backend) and [**`scala2-library\`**](https://github.com/lampepfl/scala/tree/dotty-library2.12) are actually Git submodules (see article ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/)). Their Git information (e.g. path, URL, branch) is stored in file [**`.gitmodules`**](https://github.com/michelou/dotty/blob/master/.gitmodules).
+> **:mag_right:** The three directories [**`collection-strawman\`**](https://github.com/dotty-staging/collection-strawman), [**`scala-backend\`**](https://github.com/lampepfl/scala/tree/sharing-backend) and [**`scala2-library\`**](https://github.com/lampepfl/scala/tree/dotty-library2.12) are actually Git submodules (see article ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/)). Their Git information (e.g. path, URL, branch) is stored in file [**`.gitmodules`**](https://github.com/michelou/dotty/blob/master/.gitmodules).
 
 Concretely directories [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin), [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts) and the root directory contain the following additions:
 

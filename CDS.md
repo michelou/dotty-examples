@@ -149,27 +149,39 @@ Packages (513):
    jdk.* (92), sun.* (65)
 </pre>
 
+We can also execute [**`java.exe`**](https://docs.oracle.com/en/java/javase/11/tools/java.html) directly to check if data sharing is effectively used:
+
+<pre style="font-size:80%;">
+&gt; java -verbose:class -Xshare:on -XX:SharedArchiveFile=target\Main.jsa ^
+ -jar W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\Main.jar | findstr cdsexamples
+[0.089s][info][class,load] cdsexamples.Main source: shared objects file
+
+&gt; java -verbose:class -Xshare:off -XX:SharedArchiveFile=target\Main.jsa ^
+ -jar W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\Main.jar | findstr cdsexamples
+[0.112s][info][class,load] cdsexamples.Main source: file:/W:/dotty-examples/cdsexamples/JavaExample/target/Main.jar
+</pre>
+
 > **&#9755;** ***Data Sharing and JDK 11 Installation*** <br/>
 > The [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html) installation contains the file **`<jdk_path>\lib\classlist`**. Running command **`java.exe -Xshare:dump`** will read that file and generate a 17.3 Mb Java shared archive **`<jdk_path>\bin\server\classes.jsa`**.
 > <pre style="font-size:80%;">
-&gt; java -version 2>&1 | findstr version
-openjdk version "11.0.1" 2018-10-16
-&nbsp;
-&gt; java -Xshare:dump
-[...]
-Number of classes 1272
-[...]
-mc  space:      8416 [  0.0% of total] [...]
-rw  space:   4022728 [ 22.2% of total] [...]
-ro  space:   7304712 [ 40.4% of total] [...]
-md  space:      2560 [  0.0% of total] [...]
-od  space:   6534368 [ 36.1% of total] [...]
-total    :  17872784 [100.0% of total] [...]
-&nbsp;
-&gt; dir /b c:\opt\jdk-11.0.1\bin\server
-classes.jsa
-jvm.dll
-</pre>
+> &gt; java -version 2>&1 | findstr version
+> openjdk version "11.0.1" 2018-10-16
+> &nbsp;
+> &gt; java -Xshare:dump
+> [...]
+> Number of classes 1272
+> [...]
+> mc  space:      8416 [  0.0% of total] [...]
+> rw  space:   4022728 [ 22.2% of total] [...]
+> ro  space:   7304712 [ 40.4% of total] [...]
+> md  space:      2560 [  0.0% of total] [...]
+> od  space:   6534368 [ 36.1% of total] [...]
+> total    :  17872784 [100.0% of total] [...]
+> &nbsp;
+> &gt; dir /b c:\opt\jdk-11.0.1\bin\server
+> classes.jsa
+> jvm.dll
+> </pre>
 
 ## Dotty Example
 
@@ -334,32 +346,37 @@ Shared classes: 942, file/jrt classes: 3
 (see W:\dotty\data-sharing\logs\dotty-cds-repl-share.log)
 </pre>
 
-## References
+## Related Reading
 
+<a name="ref_01">&#9658;</a> <a href="http://openjdk.java.net/jeps/250">**JEP 250**</a>: Store Interned Strings in CDS Archives *(2014-09-24)*
 
-<a name="ref_01">[1]</a> <a href="http://openjdk.java.net/jeps/250">**JEP 250**</a>: Store Interned Strings in CDS Archives *(2014-09-24)*
-
-<div style="margin:0 0 1em 20px;">
+<p style="margin:0 0 1em 20px;">
 Interned strings are now stored in CDS archives.
-</div>
+</p>
 
-<a name="ref_02">[2]</a> <a href="https://openjdk.java.net/jeps/310">**JEP 310**</a>: Application Class-Data Sharing *(2017-08-08)*
+<a name="ref_02">&#9658;</a> <a href="https://openjdk.java.net/jeps/310">**JEP 310**</a>: Application Class-Data Sharing *(2017-08-08)*
 
-<div style="margin:0 0 1em 20px;">
+<p style="margin:0 0 1em 20px;">
 To improve startup and footprint, AppCDS extends the existing CDS feature to allow application classes to be placed in the shared archive.
-</div>
+</p>
 
-<a name="ref_03">[3]</a> <a href="https://bugs.openjdk.java.net/browse/JDK-8198565">**JDK-8198565**</a>: Extend CDS to Support the Module Path *(2018-02-22)*
+<a name="ref_03">&#9658;</a> <a href="https://bugs.openjdk.java.net/browse/JDK-8198565">**JDK-8198565**</a>: Extend CDS to Support the Module Path *(2018-02-22)*
 
-<div style="margin:0 0 1em 20px;">
+<p style="margin:0 0 1em 20px;">
 In JDK 11, CDS has been improved to support archiving classes from the module path.
-</div>
+</p>
 
-<a name="ref_04">[4]</a> <a href="https://openjdk.java.net/jeps/341">**JEP 341**</a>: Default CDS Archives *(2018-06-01)*
+<a name="ref_04">&#9658;</a> <a href="https://openjdk.java.net/jeps/341">**JEP 341**</a>: Default CDS Archives *(2018-06-01)*
 
-<div style="margin:0 0 1em 20px;">
+<p style="margin:0 0 1em 20px;">
 The JDK build process now generates a CDS archive, using the default class list, on 64-bit platforms.
-</div>
+</p>
+
+<a name="ref_05">&#9658;</a> <a href="https://developer.ibm.com/tutorials/j-class-sharing-openj9/">**IBM Developer**</a>: Class sharing in Eclipse OpenJ9 *(2018-06-06)*
+
+<p style="margin:0 0 1em 20px;">
+In the <a href="https://www.eclipse.org/openj9/">OpenJ9</a> implementation, all systems, application classes and ahead-of-time (<a href="https://www.eclipse.org/openj9/docs/aot/">AOT</a>) compiled code can be stored in a dynamic class cache in shared memory.
+</p>
 
 <!--
 ## Footnotes
