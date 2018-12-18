@@ -41,8 +41,8 @@ This project depends on two external software for the **Microsoft Windows** plat
 
 The [**`build`**](cdsexamples/JavaExemple/build.bat) batch command has two new two options working with the **`run`** subcommand:
 
-- Option **`-share`** enables/disables data sharing.
 - Option **`-iter`** specifies the number of run iterations (for calculating meaningful average load times).
+- Option **`-share`** enables/disables data sharing.
 
 Internally we generate a Java shared archive as a last step of the compilation phase (**`compile`** subcommand):
 
@@ -60,7 +60,7 @@ Usage: build { options | subcommands }
     run                execute main class
 </pre>
 
-We first execute the following command:
+We first execute command **`build clean compile`**:
 
 <pre style="font-size:80%;">
 &gt; build -verbose clean compile
@@ -107,9 +107,9 @@ Statistics (see details in target\logs\log_share_off.log):
    Average load time: 0.117s
    #iteration(s)    : 1
 Classes per package (596):
-   java.io.* (38), java.lang.* (168), java.net.* (9)
-   java.nio.* (38), java.security.* (24), java.util.* (137)
-   jdk.* (107), sun.* (74), cdsexamples.* (1)
+   java.io.* (38), java.lang.* (168), java.net.* (9), java.nio.* (38)
+   java.security.* (24), java.util.* (137), jdk.* (107), sun.* (74)
+   [APP] cdsexamples.* (1)
 </pre>
 
 For comparison here is the output ***with data sharing***:
@@ -124,9 +124,9 @@ Statistics (see details in target\logs\log_share_on.log):
    Average load time: 0.077s
    #iteration(s)    : 1
 Classes per package (586):
-   java.io.* (38), java.lang.* (168), java.net.* (9)
-   java.nio.* (38), java.security.* (23), java.util.* (137)
-   jdk.* (99), sun.* (73), cdsexamples.* (1)
+   java.io.* (38), java.lang.* (168), java.net.* (9), java.nio.* (38)
+   java.security.* (23), java.util.* (137), jdk.* (99), sun.* (73)
+   [APP] cdsexamples.* (1)
 </pre>
 
 With option **`-iter:<n>`** the **`run`** subcommand executes **`n`** times the Java example:
@@ -144,9 +144,9 @@ Statistics (see details in target\logs\log_share_on.log):
    Average load time: 0.084s
    #iteration(s)    : 4
 Classes per package (586):
-   java.io.* (38), java.lang.* (168), java.net.* (9)
-   java.nio.* (38), java.security.* (23), java.util.* (137)
-   jdk.* (99), sun.* (73), cdsexamples.* (1)
+   java.io.* (38), java.lang.* (168), java.net.* (9), java.nio.* (38)
+   java.security.* (23), java.util.* (137), jdk.* (99), sun.* (73)
+   [APP] cdsexamples.* (1)
 </pre>
 
 We can also execute [**`java.exe`**](https://docs.oracle.com/en/java/javase/11/tools/java.html) directly to check if data sharing is effectively used:
@@ -187,8 +187,8 @@ We can also execute [**`java.exe`**](https://docs.oracle.com/en/java/javase/11/t
 
 The [**`build`**](cdsexamples/DottyExemple/build.bat) batch command has two new two options working with the **`run`** subcommand:
 
-- Option **`-share`** enables/disables data sharing.
 - Option **`-iter`** specifies the number of run iterations (for calculating meaningful average load times).
+- Option **`-share`** enables/disables data sharing.
 
 Internally we generate a Java shared archive as a last step of the compilation phase (**`compile`** subcommand):
 
@@ -252,13 +252,15 @@ Hello from Dotty !
 Statistics (see details in target\logs\log_share_off.log):
    Share flag       : off
    Shared classes   : 0
-   File/jrt classes : 592
-   Average load time: 0.115s
+   File/jrt classes : 936
+   Average load time: 0.357s
    #iteration(s)    : 1
-Classes per packages (592):
-   java.io.* (36), java.lang.* (167), java.net.* (9)
-   java.nio.* (38), java.security.* (23), java.util.* (136)
-   jdk.* (107), sun.* (74), cdsexamples.* (2)
+Classes per package (938):
+   java.io.* (39), java.lang.* (216), java.net.* (9), java.nio.* (38)
+   java.security.* (24), java.util.* (142), jdk.* (121) sun.* (80)
+   [APP] cdsexamples.* (2)
+   scala.* (28), scala.collection.* (161), scala.io.* (1), scala.math.* (19)
+   scala.reflect.* (25), scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
 </pre>
 
 For comparison here is the output ***with data sharing***:
@@ -268,14 +270,16 @@ For comparison here is the output ***with data sharing***:
 Hello from Dotty !
 Statistics (see details in target\logs\log_share_on.log):
    Share flag       : on
-   Shared classes   : 514
+   Shared classes   : 869
    File/jrt classes : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
-   Average load time: 0.085s
+   Average load time: 0.123s
    #iteration(s)    : 1
-Classes per packages (515):
-   java.io.* (31), java.lang.* (151), java.net.* (9)
-   java.nio.* (27), java.security.* (22), java.util.* (116)
-   jdk.* (92), sun.* (65), cdsexamples.* (2)
+Classes per package (872):
+   java.io.* (34), java.lang.* (208), java.net.* (9), java.nio.* (27)
+   java.security.* (23), java.util.* (122), jdk.* (106) sun.* (74)
+   [APP] cdsexamples.* (2)
+   scala.* (28), scala.collection.* (161), scala.io.* (1), scala.math.* (19)
+   scala.reflect.* (25), scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
 </pre>
 
 With option **`-iter:<n>`** the **`run`** subcommand executes **`n`** times the [Dotty](http://dotty.epfl.ch/) example:
@@ -288,14 +292,16 @@ Hello from Dotty !
 Hello from Dotty !
 Statistics (see details in target\logs\log_share_on.log):
    Share flag       : on
-   Shared classes   : 514
+   Shared classes   : 869
    File/jrt classes : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
-   Average load time: 0.082s
+   Average load time: 0.126s
    #iteration(s)    : 4
-Classes per package (515):
-   java.io.* (31), java.lang.* (151), java.net.* (9)
-   java.nio.* (27), java.security.* (22), java.util.* (116)
-   jdk.* (92), sun.* (65), cdsexamples.* (2)
+Classes per package (872):
+   java.io.* (34), java.lang.* (208), java.net.* (9), java.nio.* (27)
+   java.security.* (23), java.util.* (122), jdk.* (106) sun.* (74)
+   [APP] cdsexamples.* (2)
+   scala.* (28), scala.collection.* (161), scala.io.* (1), scala.math.* (19)
+   scala.reflect.* (25), scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
 </pre>
 
 
