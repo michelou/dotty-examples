@@ -103,13 +103,13 @@ Hello from Java !
 Statistics (see details in target\logs\log_share_off.log):
    Share flag       : off
    Shared classes   : 0
-   File/jrt classes : 591
+   File/jrt classes : 596
    Average load time: 0.117s
    #iteration(s)    : 1
-Packages (590):
-   java.io.* (36), java.lang.* (167), java.net.* (9)
-   java.nio.* (38), java.security.* (23), java.util.* (136)
-   jdk.* (107), sun.* (74)
+Classes per package (596):
+   java.io.* (38), java.lang.* (168), java.net.* (9)
+   java.nio.* (38), java.security.* (24), java.util.* (137)
+   jdk.* (107), sun.* (74), cdsexamples.* (1)
 </pre>
 
 For comparison here is the output ***with data sharing***:
@@ -119,14 +119,14 @@ For comparison here is the output ***with data sharing***:
 Hello from Java !
 Statistics (see details in target\logs\log_share_on.log):
    Share flag       : on
-   Shared classes   : 513
-   File/jrt classes : 1
+   Shared classes   : 585
+   File/jrt classes : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
    Average load time: 0.077s
    #iteration(s)    : 1
-Packages (513):
-   java.io.* (31), java.lang.* (151), java.net.* (9)
-   java.nio.* (27), java.security.* (22), java.util.* (116)
-   jdk.* (92), sun.* (65)
+Classes per package (586):
+   java.io.* (38), java.lang.* (168), java.net.* (9)
+   java.nio.* (38), java.security.* (23), java.util.* (137)
+   jdk.* (99), sun.* (73), cdsexamples.* (1)
 </pre>
 
 With option **`-iter:<n>`** the **`run`** subcommand executes **`n`** times the Java example:
@@ -139,14 +139,14 @@ Hello from Java !
 Hello from Java !
 Statistics (see details in target\logs\log_share_on.log):
    Share flag       : on
-   Shared classes   : 513
-   File/jrt classes : 1
+   Shared classes   : 585
+   File/jrt classes : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
    Average load time: 0.084s
    #iteration(s)    : 4
-Packages (513):
-   java.io.* (31), java.lang.* (151), java.net.* (9)
-   java.nio.* (27), java.security.* (22), java.util.* (116)
-   jdk.* (92), sun.* (65)
+Classes per package (586):
+   java.io.* (38), java.lang.* (168), java.net.* (9)
+   java.nio.* (38), java.security.* (23), java.util.* (137)
+   jdk.* (99), sun.* (73), cdsexamples.* (1)
 </pre>
 
 We can also execute [**`java.exe`**](https://docs.oracle.com/en/java/javase/11/tools/java.html) directly to check if data sharing is effectively used:
@@ -243,6 +243,60 @@ Here are a few observations:
 - Files **`classes\Main$.class`** and **`classes\Main.tasty`** (typed AST) are specific to the [Dotty](http://dotty.epfl.ch/) compiler.
 - *(option **`-verbose`**)* File **`logs\log_classlist.log`** contains the execution log for the generation of **`DottyExample.classlist`**.
 - *(option **`-verbose`**)* File **`logs\log_dump.log`** contains the execution log for the generation of **`DottyExample.jsa`**.
+
+We can now execute our [Dotty](http://dotty.epfl.ch/) example ***without data sharing*** (default settings: **`-share:off`**):
+
+<pre style="font-size:80%;">
+&gt; build -verbose run
+Hello from Dotty !
+Statistics (see details in target\logs\log_share_off.log):
+   Share flag       : off
+   Shared classes   : 0
+   File/jrt classes : 592
+   Average load time: 0.115s
+   #iteration(s)    : 1
+Classes per packages (592):
+   java.io.* (36), java.lang.* (167), java.net.* (9)
+   java.nio.* (38), java.security.* (23), java.util.* (136)
+   jdk.* (107), sun.* (74), cdsexamples.* (2)
+</pre>
+
+For comparison here is the output ***with data sharing***:
+
+<pre style="font-size:80%;">
+&gt; build -verbose run -share
+Hello from Dotty !
+Statistics (see details in target\logs\log_share_on.log):
+   Share flag       : on
+   Shared classes   : 514
+   File/jrt classes : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
+   Average load time: 0.085s
+   #iteration(s)    : 1
+Classes per packages (515):
+   java.io.* (31), java.lang.* (151), java.net.* (9)
+   java.nio.* (27), java.security.* (22), java.util.* (116)
+   jdk.* (92), sun.* (65), cdsexamples.* (2)
+</pre>
+
+With option **`-iter:<n>`** the **`run`** subcommand executes **`n`** times the [Dotty](http://dotty.epfl.ch/) example:
+
+<pre style="font-size:80%;">
+&gt; build -verbose run -share -iter:4
+Hello from Dotty !
+Hello from Dotty !
+Hello from Dotty !
+Hello from Dotty !
+Statistics (see details in target\logs\log_share_on.log):
+   Share flag       : on
+   Shared classes   : 514
+   File/jrt classes : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
+   Average load time: 0.082s
+   #iteration(s)    : 4
+Classes per package (515):
+   java.io.* (31), java.lang.* (151), java.net.* (9)
+   java.nio.* (27), java.security.* (22), java.util.* (116)
+   jdk.* (92), sun.* (65), cdsexamples.* (2)
+</pre>
 
 
 ## Batch command
