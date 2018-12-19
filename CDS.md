@@ -51,7 +51,7 @@ Source file [**`src\main\java\Main.java`**](cdsexamples/JavaExample/src/main/jav
     }
 }</pre>
 
-Batch command  [**`build`**](cdsexamples/JavaExemple/build.bat) has two new options working with the **`run`** subcommand:
+Batch command  [**`build`**](cdsexamples/JavaExample/build.bat) has two new options working with the **`run`** subcommand:
 
 - Option **`-iter:<n>`** specifies the number of run iterations (for calculating meaningful average load times).
 - Option **`-share`** enables/disables data sharing.
@@ -222,7 +222,7 @@ Source file [**`src\main\scala\Main.scala`**](cdsexamples/DottyExample/src/main/
   }
 }</pre>
 
-The [**`build`**](cdsexamples/DottyExemple/build.bat) batch command has two new options working with the **`run`** subcommand:
+Batch command [**`build`**](cdsexamples/DottyExample/build.bat) has two new options working with the **`run`** subcommand:
 
 - Option **`-iter:<n>`** specifies the number of run iterations (for calculating meaningful average load times).
 - Option **`-share`** enables/disables data sharing.
@@ -478,7 +478,10 @@ Classes per package (889):
   <dt><a name="ref_04">&#9658;</a> <a href="https://openjdk.java.net/jeps/341"><b>JEP 341</b></a>: Default CDS Archives (2018-06-01)</dt>
   <dd>The JDK build process now generates a CDS archive, using the default class list, on 64-bit platforms.</dd>
 
-  <dt><a name="ref_05">&#9658;</a> <a href="https://developer.ibm.com/tutorials/j-class-sharing-openj9/"><b>IBM Developer</b></a>: Class sharing in Eclipse OpenJ9 (2018-06-06)</dt>
+  <dt><a name="ref05">&#9658;</a> <a href="https://www.youtube.com/watch?v=b8GzWd--RXg">JEE Conference 2018</a>: Class Data Sharing in the HotSpot VM  (2018-06-05)</dt>
+  <dd>In his talk <a href="https://jeeconf.com/speaker/volker-simonis-2/">Volker Simonis</a> briefly introduces CDS and AppCDS and demonstrates how it can be used (<a href="https://simonis.github.io/JEEConf2018/CDS/cds.xhtml#/">web slides</a>).</dd>
+
+  <dt><a name="ref_06">&#9658;</a> <a href="https://developer.ibm.com/tutorials/j-class-sharing-openj9/"><b>IBM Developer</b></a>: Class sharing in Eclipse OpenJ9 (2018-06-06)</dt>
   <dd>In the <a href="https://www.eclipse.org/openj9/">OpenJ9</a> implementation, all systems, application classes and ahead-of-time (<a href="https://www.eclipse.org/openj9/docs/aot/">AOT</a>) compiled code can be stored in a dynamic class cache in shared memory.</dd>
 </dl>
 
