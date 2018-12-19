@@ -39,15 +39,25 @@ This project depends on two external software for the **Microsoft Windows** plat
 
 ## Java Example
 
-The [**`build`**](cdsexamples/JavaExemple/build.bat) batch command has two new options working with the **`run`** subcommand:
-
-- Option **`-iter`** specifies the number of run iterations (for calculating meaningful average load times).
-- Option **`-share`** enables/disables data sharing.
-
-Internally we generate a Java shared archive as a last step of the compilation phase (**`compile`** subcommand):
+Source file [**`src\main\java\Main.java`**](cdsexamples/JavaExample/src/main/java/Main.java) is the main program of our Java code example:
 
 <pre style="font-size:80%;">
-> build help
+<b>package</b> cdsexamples;
+
+<b>public class</b> Main {
+    <b>public static void</b> main(String[] args) {
+        System.out.println("Hello from Java !");
+        //ScriptEngineTest.run();  // .jsa file size: 9 Mb -> 24 Mb !
+    }
+}</pre>
+
+Batch command  [**`build`**](cdsexamples/JavaExemple/build.bat) has two new options working with the **`run`** subcommand:
+
+- Option **`-iter:<n>`** specifies the number of run iterations (for calculating meaningful average load times).
+- Option **`-share`** enables/disables data sharing.
+
+<pre style="font-size:80%;">
+&gt; build help
 Usage: build { options | subcommands }
   Options:
     -iter:1..99        set number of run iterations
@@ -60,6 +70,8 @@ Usage: build { options | subcommands }
     run                execute main class
 </pre>
 
+> **:mag_right:** Internally the **`compile`** subcommand generates a Java archive and a Java shared archive as a last step of the compilation phase.
+
 We first execute command **`build clean compile`**:
 
 <pre style="font-size:80%;">
@@ -68,32 +80,6 @@ Create Java archive target\JavaExample.jar
 Create class list file target\JavaExample.classlist
 Create Java shared archive target\JavaExample.jsa
 </pre>
-
-Let's check the generated files in directory **`target\`**:
-
-<pre style="font-size:80%;">
-&gt; tree /a /f target |findstr /v "^[A-Z]"
-|   JavaExample.classlist
-|   JavaExample.jar
-|   JavaExample.jsa
-|   MANIFEST.MF
-|
-+---classes
-|   |   .latest-build
-|   |
-|   \---cdsexamples
-|           JavaExample.class
-|
-\---logs
-        log_classlist.log
-        log_dump.log
-</pre>
-
-Here are a few observations:
-
-- File **`MANIFEST.MF`** is added to **`JavaExample.jar`** as usual. 
-- *[option **`-verbose`**]* File **`logs\log_classlist.log`** contains the execution log for the generation of **`JavaExample.classlist`**.
-- *[option **`-verbose`**]* File **`logs\log_dump.log`** contains the execution log for the generation of **`JavaExample.jsa`**.
 
 We can now execute our Java example ***without data sharing*** (default settings: **`-share:off`**):
 
@@ -149,7 +135,47 @@ Classes per package (586):
    [APP] cdsexamples.* (1)
 </pre>
 
-We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/tools/java.html) command directly to check if data sharing is effectively used:
+Let's check the generated files in directory **`target\`**:
+
+<pre style="font-size:80%;">
+&gt; tree /a /f target | findstr /v "^[A-Z]"
+|   JavaExample.classlist
+|   JavaExample.jar
+|   JavaExample.jsa
+|   MANIFEST.MF
+|
++---classes
+|   |   .latest-build
+|   |
+|   \---cdsexamples
+|           JavaExample.class
+|
+\---logs
+        log_classlist.log
+        log_dump.log
+        log_share_off.log
+        log_share_on.log
+</pre>
+
+Here are a few observations:
+
+- File **`MANIFEST.MF`** is added to **`JavaExample.jar`** as usual. 
+- Files **`logs\log_classlist.log`** and **`logs\log_dump.log`** are generated when option **`-verbose`** is passed to the **`compile`** subcommand; they contain the execution logs for the generation of **`JavaExample.classlist`** resp. **`JavaExample.jsa`**.
+- File **`logs\log_share_off.log`** is generated when option **`-share:on`** is passed to the **`run`** subcommand.
+- File **`logs\log_share_on.log`** is generated when option **`-share:off`** is passed to the **`run`** subcommand.
+
+For instance file **`logs\log_share_off.log`** looks as follows:
+
+<pre style="font-size:80%;">
+[0.008s][info][class,load] opened: c:\opt\jdk-11.0.1\lib\modules
+[0.018s][info][class,load] java.lang.Object source: jrt:/java.base
+[...]
+[0.121s][info][class,load] cdsexamples.Main source: file:/[..]/target/JavaExample.jar
+[...]
+[0.124s][info][class,load] java.lang.Shutdown$Lock source: jrt:/java.base
+</pre>
+
+We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/tools/java.html) command (*from Java 9+*) directly to check if data sharing is effectively used:
 
 <pre style="font-size:80%;">
 &gt; java -verbose:class -Xshare:on -XX:SharedArchiveFile=target\Main.jsa ^
@@ -185,12 +211,21 @@ We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/t
 
 ## Dotty Example
 
+Source file [**`src\main\scala\Main.scala`**](cdsexamples/DottyExample/src/main/scala/Main.scala) is the main program of our [Dotty](http://dotty.epfl.ch/) code example:
+
+<pre style="font-size:80%;">
+<b>package</b> cdsexamples
+
+<b>object</b> Main {
+  <b>def</b> main(args: Array[String]): Unit = {
+    println("Hello from Dotty !")
+  }
+}</pre>
+
 The [**`build`**](cdsexamples/DottyExemple/build.bat) batch command has two new options working with the **`run`** subcommand:
 
-- Option **`-iter`** specifies the number of run iterations (for calculating meaningful average load times).
+- Option **`-iter:<n>`** specifies the number of run iterations (for calculating meaningful average load times).
 - Option **`-share`** enables/disables data sharing.
-
-Internally we generate a Java shared archive as a last step of the compilation phase (**`compile`** subcommand):
 
 <pre style="font-size:80%;">
 &gt; build help
@@ -206,6 +241,8 @@ Usage: build { options | subcommands }
     run                execute main class
 </pre>
 
+> **:mag_right:** Internally the **`compile`** subcommand generates a Java archive and a Java shared archive as a last step of the compilation phase.
+
 Similarly to the previous section we execute the following command:
 
 <pre style="font-size:80%;">
@@ -214,35 +251,6 @@ Create Java archive target\DottyExample.jar
 Create class list file target\DottyExample.classlist
 Create Java shared archive target\DottyExample.jsa
 </pre>
-
-Let's now check the generated files in directory **`target\`**:
-
-<pre style="font-size:80%;">
-> tree /a /f target |findstr /v "^[A-Z]"
-|   DottyExample.classlist
-|   DottyExample.jar
-|   DottyExample.jsa
-|   MANIFEST.MF
-|
-+---classes
-|   |   .latest-build
-|   |
-|   \---cdsexamples
-|           Main$.class
-|           Main.class
-|           Main.tasty
-|
-\---logs
-        log_classlist.log
-        log_dump.log
-</pre>
-
-Here are a few observations:
-
-- File **`MANIFEST.MF`** is added to **`DottyExample.jar`** as usual.
-- Files **`classes\Main$.class`** and **`classes\Main.tasty`** (typed AST) are specific to the [Dotty](http://dotty.epfl.ch/) compiler.
-- *(option **`-verbose`**)* File **`logs\log_classlist.log`** contains the execution log for the generation of **`DottyExample.classlist`**.
-- *(option **`-verbose`**)* File **`logs\log_dump.log`** contains the execution log for the generation of **`DottyExample.jsa`**.
 
 We can now execute our [Dotty](http://dotty.epfl.ch/) example ***without data sharing*** (default settings: **`-share:off`**):
 
@@ -304,6 +312,37 @@ Classes per package (872):
    scala.reflect.* (25), scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
 </pre>
 
+Finally we check the generated files in directory **`target\`**:
+
+<pre style="font-size:80%;">
+> tree /a /f target | findstr /v "^[A-Z]"
+|   DottyExample.classlist
+|   DottyExample.jar
+|   DottyExample.jsa
+|   MANIFEST.MF
+|
++---classes
+|   |   .latest-build
+|   |
+|   \---cdsexamples
+|           Main$.class
+|           Main.class
+|           Main.tasty
+|
+\---logs
+        log_classlist.log
+        log_dump.log
+        log_share_off.log
+        log_share_on.log
+</pre>
+
+Here are a few observations:
+
+- File **`MANIFEST.MF`** is added to **`DottyExample.jar`** as usual.
+- Files **`classes\Main$.class`** and **`classes\Main.tasty`** (typed AST) are specific to the [Dotty](http://dotty.epfl.ch/) compiler.
+- Files **`logs\log_classlist.log`** and **`logs\log_dump.log`** are generated when option **`-verbose`** is passed to the **`compile`** subcommand; they contain the execution logs for the generation of **`DottyExample.classlist`** resp. **`DottyExample.jsa`**. 
+- File **`logs\log_share_off.log`** is generated when option **`-share:on`** is passed to the **`run`** subcommand.
+- File **`logs\log_share_on.log`** is generated when option **`-share:off`** is passed to the **`run`** subcommand.
 
 ## Batch command
 
