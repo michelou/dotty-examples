@@ -39,7 +39,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 
 ## Java Example
 
-The [**`build`**](cdsexamples/JavaExemple/build.bat) batch command has two new two options working with the **`run`** subcommand:
+The [**`build`**](cdsexamples/JavaExemple/build.bat) batch command has two new options working with the **`run`** subcommand:
 
 - Option **`-iter`** specifies the number of run iterations (for calculating meaningful average load times).
 - Option **`-share`** enables/disables data sharing.
@@ -112,7 +112,7 @@ Classes per package (596):
    [APP] cdsexamples.* (1)
 </pre>
 
-For comparison here is the output ***with data sharing***:
+For comparison here is the console output ***with data sharing***:
 
 <pre style="font-size:80%;">
 &gt; build -verbose run -share
@@ -129,7 +129,7 @@ Classes per package (586):
    [APP] cdsexamples.* (1)
 </pre>
 
-With option **`-iter:<n>`** the **`run`** subcommand executes **`n`** times the Java example:
+Subcommand **`run`** with option **`-iter:<n>`** (where **`n=1..99`**) executes the Java program **`n`** times:
 
 <pre style="font-size:80%;">
 &gt; build -verbose run -share -iter:4
@@ -149,7 +149,7 @@ Classes per package (586):
    [APP] cdsexamples.* (1)
 </pre>
 
-We can also execute [**`java.exe`**](https://docs.oracle.com/en/java/javase/11/tools/java.html) directly to check if data sharing is effectively used:
+We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/tools/java.html) command directly to check if data sharing is effectively used:
 
 <pre style="font-size:80%;">
 &gt; java -verbose:class -Xshare:on -XX:SharedArchiveFile=target\Main.jsa ^
@@ -185,7 +185,7 @@ We can also execute [**`java.exe`**](https://docs.oracle.com/en/java/javase/11/t
 
 ## Dotty Example
 
-The [**`build`**](cdsexamples/DottyExemple/build.bat) batch command has two new two options working with the **`run`** subcommand:
+The [**`build`**](cdsexamples/DottyExemple/build.bat) batch command has two new options working with the **`run`** subcommand:
 
 - Option **`-iter`** specifies the number of run iterations (for calculating meaningful average load times).
 - Option **`-share`** enables/disables data sharing.
@@ -215,7 +215,7 @@ Create class list file target\DottyExample.classlist
 Create Java shared archive target\DottyExample.jsa
 </pre>
 
-Let's now check the generated output in directory **`target\`**:
+Let's now check the generated files in directory **`target\`**:
 
 <pre style="font-size:80%;">
 > tree /a /f target |findstr /v "^[A-Z]"
@@ -282,7 +282,7 @@ Classes per package (872):
    scala.reflect.* (25), scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
 </pre>
 
-With option **`-iter:<n>`** the **`run`** subcommand executes **`n`** times the [Dotty](http://dotty.epfl.ch/) example:
+Subcommand **`run`** with option **`-iter:<n>`** (**`n=1..99`**) executes **`n`** times the [Dotty](http://dotty.epfl.ch/) example:
 
 <pre style="font-size:80%;">
 &gt; build -verbose run -share -iter:4
@@ -382,61 +382,66 @@ Support files for Java class sharing:
 &gt; sharedata -verbose test
 Execute test application with Scala REPL WITHOUT Java shared archive
 Support files for Java class sharing:
-   dotty-cds-compiler.classlist (158 Kb)
-   dotty-cds-compiler.jsa (60864 Kb)
-   dotty-cds-repl.classlist (70 Kb)
-   dotty-cds-repl.jsa (23872 Kb)
+   dotty-cds-compiler.classlist (119 Kb)
+   dotty-cds-compiler.jsa (55488 Kb)
+   dotty-cds-repl.classlist (31 Kb)
+   dotty-cds-repl.jsa (16640 Kb)
+   dotty-cds.jar (3 Kb)
    dotty-cds_0.11-0.11.0-RC1.jar (3 Kb)
-Statistics of shared vs. file/jrt classes
-Shared classes: 0, file/jrt classes: 944
-(see W:\dotty\data-sharing\logs\dotty-cds-repl-share.log)
+Statistics (see data-sharing\logs\dotty-cds-repl-share.log)
+   Share flag      : off
+   Shared classes  : 0
+   File/jrt classes: 951
+   Load time       : 0.383s
+Classes per package (955):
+   java.io.* (39), java.lang.* (222), java.net.* (9), java.nio.* (39)
+   java.security.* (24), java.util.* (142), jdk.* (121) sun.* (82)
+
+   scala.* (30), scala.collection.* (166), scala.io.* (1), scala.math.* (19)
+   scala.reflect.* (27), scala.runtime.* (6), scala.sys.* (14), scala.util.* (14)
 </pre>
 
 <pre style="font-size:80%;">
-> sharedata -verbose -share test
+&gt; sharedata -verbose -share test
 Execute test application with Scala REPL WITH Java shared archive
 Support files for Java class sharing:
-   dotty-cds-compiler.classlist (158 Kb)
-   dotty-cds-compiler.jsa (60864 Kb)
-   dotty-cds-repl.classlist (70 Kb)
-   dotty-cds-repl.jsa (23872 Kb)
+   dotty-cds-compiler.classlist (119 Kb)
+   dotty-cds-compiler.jsa (55488 Kb)
+   dotty-cds-repl.classlist (31 Kb)
+   dotty-cds-repl.jsa (16640 Kb)
+   dotty-cds.jar (3 Kb)
    dotty-cds_0.11-0.11.0-RC1.jar (3 Kb)
-Statistics of shared vs. file/jrt classes
-Shared classes: 942, file/jrt classes: 3
-(see W:\dotty\data-sharing\logs\dotty-cds-repl-share.log)
+Statistics (see data-sharing\logs\dotty-cds-repl-share.log)
+   Share flag      : on
+   Shared classes  : 884
+   File/jrt classes: 1
+   Load time       : 0.140s
+Classes per package (889):
+   java.io.* (34), java.lang.* (214), java.net.* (9), java.nio.* (28)
+   java.security.* (23), java.util.* (122), jdk.* (106) sun.* (76)
+
+   scala.* (30), scala.collection.* (166), scala.io.* (1), scala.math.* (19)
+   scala.reflect.* (27), scala.runtime.* (6), scala.sys.* (14), scala.util.* (14)
 </pre>
 
 ## Related Reading
 
-<a name="ref_01">&#9658;</a> <a href="http://openjdk.java.net/jeps/250">**JEP 250**</a>: Store Interned Strings in CDS Archives *(2014-09-24)*
+<dl>
+  <dt><a name="ref_01">&#9658;</a> <a href="http://openjdk.java.net/jeps/250"><b>JEP 250</b></a>: Store Interned Strings in CDS Archives (2014-09-24)</dt>
+  <dd>Interned strings are now stored in CDS archives.</dd>
 
-<p style="margin:0 0 1em 20px;">
-Interned strings are now stored in CDS archives.
-</p>
+  <dt><a name="ref_02">&#9658;</a> <a href="https://openjdk.java.net/jeps/310"><b>JEP 310</b></a>: Application Class-Data Sharing (2017-08-08)</dt>
+  <dd>To improve startup and footprint, AppCDS extends the existing CDS feature to allow application classes to be placed in the shared archive.</dd>
 
-<a name="ref_02">&#9658;</a> <a href="https://openjdk.java.net/jeps/310">**JEP 310**</a>: Application Class-Data Sharing *(2017-08-08)*
+  <dt><a name="ref_03">&#9658;</a> <a href="https://bugs.openjdk.java.net/browse/JDK-8198565"><b>JDK-8198565</b></a>: Extend CDS to Support the Module Path (2018-02-22)</dt>
+  <dd>In JDK 11, CDS has been improved to support archiving classes from the module path.</dd>
 
-<p style="margin:0 0 1em 20px;">
-To improve startup and footprint, AppCDS extends the existing CDS feature to allow application classes to be placed in the shared archive.
-</p>
+  <dt><a name="ref_04">&#9658;</a> <a href="https://openjdk.java.net/jeps/341"><b>JEP 341</b></a>: Default CDS Archives (2018-06-01)</dt>
+  <dd>The JDK build process now generates a CDS archive, using the default class list, on 64-bit platforms.</dd>
 
-<a name="ref_03">&#9658;</a> <a href="https://bugs.openjdk.java.net/browse/JDK-8198565">**JDK-8198565**</a>: Extend CDS to Support the Module Path *(2018-02-22)*
-
-<p style="margin:0 0 1em 20px;">
-In JDK 11, CDS has been improved to support archiving classes from the module path.
-</p>
-
-<a name="ref_04">&#9658;</a> <a href="https://openjdk.java.net/jeps/341">**JEP 341**</a>: Default CDS Archives *(2018-06-01)*
-
-<p style="margin:0 0 1em 20px;">
-The JDK build process now generates a CDS archive, using the default class list, on 64-bit platforms.
-</p>
-
-<a name="ref_05">&#9658;</a> <a href="https://developer.ibm.com/tutorials/j-class-sharing-openj9/">**IBM Developer**</a>: Class sharing in Eclipse OpenJ9 *(2018-06-06)*
-
-<p style="margin:0 0 1em 20px;">
-In the <a href="https://www.eclipse.org/openj9/">OpenJ9</a> implementation, all systems, application classes and ahead-of-time (<a href="https://www.eclipse.org/openj9/docs/aot/">AOT</a>) compiled code can be stored in a dynamic class cache in shared memory.
-</p>
+  <dt><a name="ref_05">&#9658;</a> <a href="https://developer.ibm.com/tutorials/j-class-sharing-openj9/"><b>IBM Developer</b></a>: Class sharing in Eclipse OpenJ9 (2018-06-06)</dt>
+  <dd>In the <a href="https://www.eclipse.org/openj9/">OpenJ9</a> implementation, all systems, application classes and ahead-of-time (<a href="https://www.eclipse.org/openj9/docs/aot/">AOT</a>) compiled code can be stored in a dynamic class cache in shared memory.</dd>
+</dl>
 
 <!--
 ## Footnotes
