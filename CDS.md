@@ -56,7 +56,10 @@ Source file [**`src\main\java\Main.java`**](cdsexamples/JavaExample/src/main/jav
 <b>public class</b> Main {
     <b>public static void</b> main(String[] args) {
         System.out.println("Hello from Java !");
-        <i>//ScriptEngineTest.run();  // .jsa file size: 9 Mb -> 24 Mb !</i>
+        <b>if</b> (args.length > 0) {
+            System.out.println(VMOptions.asString());
+            <i>//ScriptEngineTest.run();  // .jsa file size: 9 Mb -> 24 Mb !</i>
+        }
     }
 }</pre>
 
@@ -81,7 +84,7 @@ Usage: build { options | subcommands }
 
 > **:mag_right:** Internally the **`compile`** subcommand generates a Java archive and a Java shared archive as a last step of the compilation phase.
 
-We first execute command **`build clean compile`** option **`--verbose`** prints out the progress messages:
+We first execute command **`build clean compile`** option **`-verbose`** prints out the progress messages:
 
 <pre style="font-size:80%;">
 &gt; build clean compile
@@ -92,7 +95,7 @@ Create class list file target\JavaExample.classlist
 Create Java shared archive target\JavaExample.jsa
 </pre>
 
-We can now execute our Java example ***without data sharing***; option **`--verbose`** prints out the status of data sharing:
+We can now execute our Java example ***without data sharing***; option **`-verbose`** prints out the CDS status:
 
 <pre style="font-size:80%;">
 &gt; build run
@@ -113,7 +116,22 @@ Classes per package (596):
    [APP] cdsexamples.* (1)
 </pre>
 
-For comparison here is the console output ***with data sharing***; option **`--verbose`** prints out the status of data sharing:
+> **:mag_right:** Subcommand **`run`** accepts 1 optional argument for testing purposes; for instance **`build run:1`** produces the following output (see [**`src\main\java\VMOptions.java`**](cdsexamples/JavaExample/src/main/java/VMOptions.java)):
+> <pre style="font-size:80%;">
+> &gt; build run:1
+> Hello from Java !
+> VM Options:
+>    -Xshare:off
+>    -XX:SharedArchiveFile=C:\&lt;project_path&gt;\target\JavaExample.jsa
+>    -Xlog:disable
+> </pre>
+> Value for **`-Xlog`** is different with **`build run:1 -verbose`**:<br/>
+> <pre style="font-size:80%;">
+>    -Xlog:class+load:file=&lt;project_path&gt;\target\logs\log_share_on.log
+> </pre>
+
+
+For comparison here is the console output ***with data sharing***; option **`-verbose`** prints out the CDS status:
 
 <pre style="font-size:80%;">
 &gt; build run -share
@@ -225,6 +243,10 @@ Source file [**`src\main\scala\Main.scala`**](cdsexamples/DottyExample/src/main/
 <b>object</b> Main {
   <b>def</b> main(args: Array[String]): Unit = {
     println("Hello from Dotty !")
+    <b>if</b> (args.length > 0) {
+      //TastyTest.run()
+      println(VMOptions.asString)
+    }
   }
 }</pre>
 
@@ -249,7 +271,7 @@ Usage: build { options | subcommands }
 
 > **:mag_right:** Internally the **`compile`** subcommand generates a Java archive and a Java shared archive as a last step of the compilation phase.
 
-Similarly to the previous section we execute the following command; option **`--verbose`** prints out the progress messages:
+Similarly to the previous section we execute the following command; option **`-verbose`** prints out the progress messages:
 
 <pre style="font-size:80%;">
 &gt; build clean compile
@@ -260,7 +282,7 @@ Create class list file target\DottyExample.classlist
 Create Java shared archive target\DottyExample.jsa
 </pre>
 
-We can now execute our [Dotty](http://dotty.epfl.ch/) example ***without data sharing*** (default settings: **`-share:off`**); option **`--verbose`** prints out the status of data sharing:
+We can now execute our [Dotty](http://dotty.epfl.ch/) example ***without data sharing*** (default settings: **`-share:off`**); option **`-verbose`** prints out the CDS status:
 
 <pre style="font-size:80%;">
 &gt; build run
@@ -283,7 +305,7 @@ Classes per package (945):
    scala.reflect.* (25), scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
 </pre>
 
-For comparison here is the output ***with data sharing***; option **`--verbose`** prints out the status of data sharing:
+For comparison here is the output ***with data sharing***; option **`-verbose`** prints out the CDS status:
 
 <pre style="font-size:80%;">
 &gt; build run -share
@@ -429,7 +451,7 @@ dotty-cds_0.11-0.11.0-RC1.jar
 }
 </pre>
 
-Subcommand **`test`** ...tbd...; option **`--verbose`** prints out the status of data sharing:
+Subcommand **`test`** ...tbd...; option **`-verbose`** prints out the CDS status:
 <pre style="font-size:80%;">
 &gt; sharedata test
 Support files for Java class sharing:
