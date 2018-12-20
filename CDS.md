@@ -24,9 +24,19 @@ This project depends on two external software for the **Microsoft Windows** plat
 
 - [Oracle Java 11 SDK](https://docs.oracle.com/en/java/javase/11/) ([*release notes*](https://www.oracle.com/technetwork/java/javase/11-0-1-relnotes-5032023.html))
 - [Dotty 0.11](https://github.com/lampepfl/dotty/releases) (Java 9+ supported since 0.10)
+- [Git 2.20](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.20.1.txt))
 
-> **:mag_right:**
-> [Scala 2.12](https://www.scala-lang.org/download/) is a software product announced to require Java 8; in contrast [Dotty](http://dotty.epfl.ch/) (aka [Scala 3](https://www.scala-lang.org/blog/2018/04/19/scala-3.html)) is still in development and also supports Java 9+. In the following we choose to work with [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html), the 2<sup>nd</sup> [LTS](https://www.oracle.com/technetwork/java/java-se-support-roadmap.html) version after Java 8.
+> **:mag_right:** [Scala 2.12](https://www.scala-lang.org/download/) is a software product announced to require Java 8; in contrast [Dotty](http://dotty.epfl.ch/) (aka [Scala 3](https://www.scala-lang.org/blog/2018/04/19/scala-3.html)) is still in development and also supports Java 9+. In the following we choose to work with [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html), the 2<sup>nd</sup> [LTS](https://www.oracle.com/technetwork/java/java-se-support-roadmap.html) version after Java 8.
+
+For instance our development environment looks as follows (*December 2018*):
+
+<pre style="font-size:80%;">
+C:\opt\jdk-11.0.1\
+C:\opt\dotty-0-11.0-RC1\
+C:\opt\Git-2.20.1\
+</pre>
+
+> **:mag_right:** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
 
 
 ## Overview
@@ -43,11 +53,10 @@ Source file [**`src\main\java\Main.java`**](cdsexamples/JavaExample/src/main/jav
 
 <pre style="font-size:80%;">
 <b>package</b> cdsexamples;
-
 <b>public class</b> Main {
     <b>public static void</b> main(String[] args) {
         System.out.println("Hello from Java !");
-        //ScriptEngineTest.run();  // .jsa file size: 9 Mb -> 24 Mb !
+        <i>//ScriptEngineTest.run();  // .jsa file size: 9 Mb -> 24 Mb !</i>
     }
 }</pre>
 
@@ -67,58 +76,68 @@ Usage: build { options | subcommands }
     clean              delete generated files
     compile            compile Java source files
     help               display this help message
-    run                execute main class
+    run[:arg]          execute main class with 1 optional argument
 </pre>
 
 > **:mag_right:** Internally the **`compile`** subcommand generates a Java archive and a Java shared archive as a last step of the compilation phase.
 
-We first execute command **`build clean compile`**:
+We first execute command **`build clean compile`** option **`--verbose`** prints out the progress messages:
 
 <pre style="font-size:80%;">
+&gt; build clean compile
+&nbsp;
 &gt; build -verbose clean compile
 Create Java archive target\JavaExample.jar
 Create class list file target\JavaExample.classlist
 Create Java shared archive target\JavaExample.jsa
 </pre>
 
-We can now execute our Java example ***without data sharing*** (default settings: **`-share:off`**):
+We can now execute our Java example ***without data sharing***; option **`--verbose`** prints out the status of data sharing:
 
 <pre style="font-size:80%;">
-&gt; build -verbose run
+&gt; build run
+Hello from Java !
+&nbsp;
+&gt; build run -verbose
 Hello from Java !
 Statistics (see details in target\logs\log_share_off.log):
    Share flag       : off
    Shared classes   : 0
    File/jrt classes : 596
-   Average load time: 0.117s
+   Average load time: 0.115s
    #iteration(s)    : 1
 Classes per package (596):
-   java.io.* (38), java.lang.* (168), java.net.* (9), java.nio.* (38)
-   java.security.* (24), java.util.* (137), jdk.* (107), sun.* (74)
+   java.io.* (38), java.lang.* (168), java.math.* (0), java.net.* (9)
+   java.nio.* (38), java.security.* (24), java.util.* (137)
+   jdk.* (107), scala.* (0), sun.* (74)
    [APP] cdsexamples.* (1)
 </pre>
 
-For comparison here is the console output ***with data sharing***:
+For comparison here is the console output ***with data sharing***; option **`--verbose`** prints out the status of data sharing:
 
 <pre style="font-size:80%;">
-&gt; build -verbose run -share
+&gt; build run -share
+Hello from Java !
+&nbsp;
+&gt; build run -verbose -share
 Hello from Java !
 Statistics (see details in target\logs\log_share_on.log):
    Share flag       : on
    Shared classes   : 585
    File/jrt classes : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
-   Average load time: 0.077s
+   Average load time: 0.085s
    #iteration(s)    : 1
 Classes per package (586):
-   java.io.* (38), java.lang.* (168), java.net.* (9), java.nio.* (38)
-   java.security.* (23), java.util.* (137), jdk.* (99), sun.* (73)
+   java.io.* (38), java.lang.* (168), java.math.* (0), java.net.* (9)
+   java.nio.* (38), java.security.* (23), java.util.* (137)
+   jdk.* (99), scala.* (0), sun.* (73)
    [APP] cdsexamples.* (1)
 </pre>
 
 Subcommand **`run`** with option **`-iter:<n>`** (where **`n=1..99`**) executes the Java program **`n`** times:
 
 <pre style="font-size:80%;">
-&gt; build -verbose run -share -iter:4
+&gt; build run -verbose -share -iter:4
 Hello from Java !
 Hello from Java !
 Hello from Java !
@@ -127,11 +146,12 @@ Statistics (see details in target\logs\log_share_on.log):
    Share flag       : on
    Shared classes   : 585
    File/jrt classes : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
-   Average load time: 0.084s
+   Average load time: 0.09s
    #iteration(s)    : 4
 Classes per package (586):
-   java.io.* (38), java.lang.* (168), java.net.* (9), java.nio.* (38)
-   java.security.* (23), java.util.* (137), jdk.* (99), sun.* (73)
+   java.io.* (38), java.lang.* (168), java.math.* (0), java.net.* (9)
+   java.nio.* (38), java.security.* (23), java.util.* (137)
+   jdk.* (99), scala.* (0), sun.* (73)
    [APP] cdsexamples.* (1)
 </pre>
 
@@ -148,7 +168,9 @@ Let's check the generated files in directory **`target\`**:
 |   |   .latest-build
 |   |
 |   \---cdsexamples
-|           JavaExample.class
+|           JavaExample.classs
+|           ScriptEngineTest.class
+|           VMOptions.class
 |
 \---logs
         log_classlist.log
@@ -164,13 +186,13 @@ Here are a few observations:
 - File **`logs\log_share_off.log`** is generated when option **`-share:on`** is passed to the **`run`** subcommand.
 - File **`logs\log_share_on.log`** is generated when option **`-share:off`** is passed to the **`run`** subcommand.
 
-For instance file **`logs\log_share_off.log`** looks as follows:
+For instance we can read from file **`logs\log_share_off.log`** that  source of **`cdsexamples.Main`** is **`file:/`** and that the total load time on the last line is **`0.124s`**:
 
 <pre style="font-size:80%;">
 [0.008s][info][class,load] opened: c:\opt\jdk-11.0.1\lib\modules
 [0.018s][info][class,load] java.lang.Object source: jrt:/java.base
 [...]
-[0.121s][info][class,load] cdsexamples.Main source: file:/[..]/target/JavaExample.jar
+[0.121s][info][class,load] cdsexamples.Main source: file:/&lt;project_path&gt;/target/JavaExample.jar
 [...]
 [0.124s][info][class,load] java.lang.Shutdown$Lock source: jrt:/java.base
 </pre>
@@ -178,35 +200,20 @@ For instance file **`logs\log_share_off.log`** looks as follows:
 We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/tools/java.html) command (*from Java 9+*) directly to check if data sharing is effectively used:
 
 <pre style="font-size:80%;">
-&gt; java -verbose:class -Xshare:on -XX:SharedArchiveFile=target\Main.jsa ^
- -jar W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\Main.jar | findstr cdsexamples
+&gt; java -verbose:class -Xshare:on -XX:SharedArchiveFile=target\JavaExample.jsa ^
+ -jar W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar | findstr cdsexamples
 [0.089s][info][class,load] cdsexamples.Main source: shared objects file
 
-&gt; java -verbose:class -Xshare:off -XX:SharedArchiveFile=target\Main.jsa ^
- -jar W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\Main.jar | findstr cdsexamples
+&gt; java -verbose:class -Xshare:off -XX:SharedArchiveFile=target\JavaExample.jsa ^
+ -jar W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar | findstr cdsexamples
 [0.112s][info][class,load] cdsexamples.Main source: file:/W:/dotty-examples/cdsexamples/JavaExample/target/Main.jar
 </pre>
 
-> **&#9755;** ***Data Sharing and JDK 11 Installation*** <br/>
-> The [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html) installation contains the file **`<jdk_path>\lib\classlist`**. Running command **`java.exe -Xshare:dump`** will read that file and generate a 17.3 Mb Java shared archive **`<jdk_path>\bin\server\classes.jsa`**.
+> **:mag_right:** The ***crucial point*** here is to use the correct path of **`JavaExample.jar`** together with the specified Java shared archive. Command [**`grep -a`**](https://www.linux.org/docs/man1/grep.html) (**`-a`** means "*Process a binary file as if it were text*") helps us to extract that path from **`JavaExample.jsa`**.<br/>
 > <pre style="font-size:80%;">
-> &gt; java -version 2>&1 | findstr version
-> openjdk version "11.0.1" 2018-10-16
-> &nbsp;
-> &gt; java -Xshare:dump
-> [...]
-> Number of classes 1272
-> [...]
-> mc  space:      8416 [  0.0% of total] [...]
-> rw  space:   4022728 [ 22.2% of total] [...]
-> ro  space:   7304712 [ 40.4% of total] [...]
-> md  space:      2560 [  0.0% of total] [...]
-> od  space:   6534368 [ 36.1% of total] [...]
-> total    :  17872784 [100.0% of total] [...]
-> &nbsp;
-> &gt; dir /b c:\opt\jdk-11.0.1\bin\server
-> classes.jsa
-> jvm.dll
+> &gt; grep -aPo '.{0,40}JavaExample.jar{0,40}' target\JavaExample.jsa
+>   W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar
+>   W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar
 > </pre>
 
 ## Dotty Example
@@ -215,7 +222,6 @@ Source file [**`src\main\scala\Main.scala`**](cdsexamples/DottyExample/src/main/
 
 <pre style="font-size:80%;">
 <b>package</b> cdsexamples
-
 <b>object</b> Main {
   <b>def</b> main(args: Array[String]): Unit = {
     println("Hello from Dotty !")
@@ -238,77 +244,88 @@ Usage: build { options | subcommands }
     clean              delete generated files
     compile            compile Scala source files
     help               display this help message
-    run                execute main class
+    run[:arg]          execute main class with 1 optional argument
 </pre>
 
 > **:mag_right:** Internally the **`compile`** subcommand generates a Java archive and a Java shared archive as a last step of the compilation phase.
 
-Similarly to the previous section we execute the following command:
+Similarly to the previous section we execute the following command; option **`--verbose`** prints out the progress messages:
 
 <pre style="font-size:80%;">
+&gt; build clean compile
+&nbsp;
 &gt; build -verbose clean compile
 Create Java archive target\DottyExample.jar
 Create class list file target\DottyExample.classlist
 Create Java shared archive target\DottyExample.jsa
 </pre>
 
-We can now execute our [Dotty](http://dotty.epfl.ch/) example ***without data sharing*** (default settings: **`-share:off`**):
+We can now execute our [Dotty](http://dotty.epfl.ch/) example ***without data sharing*** (default settings: **`-share:off`**); option **`--verbose`** prints out the status of data sharing:
 
 <pre style="font-size:80%;">
-&gt; build -verbose run
+&gt; build run
+Hello from Dotty !
+&nbsp;
+&gt; build run -verbose
 Hello from Dotty !
 Statistics (see details in target\logs\log_share_off.log):
    Share flag       : off
    Shared classes   : 0
-   File/jrt classes : 936
-   Average load time: 0.357s
+   File/jrt classes : 940
+   Average load time: 0.384s
    #iteration(s)    : 1
-Classes per package (938):
-   java.io.* (39), java.lang.* (216), java.net.* (9), java.nio.* (38)
-   java.security.* (24), java.util.* (142), jdk.* (121) sun.* (80)
+Classes per package (945):
+   java.io.* (39), java.lang.* (216), java.math.* (3), java.net.* (9)
+   java.nio.* (38), java.security.* (24), java.util.* (142)
+   jdk.* (121), sun.* (80)
    [APP] cdsexamples.* (2)
-   scala.* (28), scala.collection.* (161), scala.io.* (1), scala.math.* (19)
+   scala.* (28), scala.collection.* (165), scala.io.* (1), scala.math.* (19)
    scala.reflect.* (25), scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
 </pre>
 
-For comparison here is the output ***with data sharing***:
+For comparison here is the output ***with data sharing***; option **`--verbose`** prints out the status of data sharing:
 
 <pre style="font-size:80%;">
-&gt; build -verbose run -share
+&gt; build run -share
+Hello from Dotty !
+&nbsp;
+&gt; build run -verbose -share
 Hello from Dotty !
 Statistics (see details in target\logs\log_share_on.log):
    Share flag       : on
-   Shared classes   : 869
+   Shared classes   : 873
    File/jrt classes : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
-   Average load time: 0.123s
+   Average load time: 0.125s
    #iteration(s)    : 1
-Classes per package (872):
-   java.io.* (34), java.lang.* (208), java.net.* (9), java.nio.* (27)
-   java.security.* (23), java.util.* (122), jdk.* (106) sun.* (74)
+Classes per package (879):
+   java.io.* (34), java.lang.* (208), java.math.* (3), java.net.* (9)
+   java.nio.* (27), java.security.* (23), java.util.* (122)
+   jdk.* (106), sun.* (74)
    [APP] cdsexamples.* (2)
-   scala.* (28), scala.collection.* (161), scala.io.* (1), scala.math.* (19)
+   scala.* (28), scala.collection.* (165), scala.io.* (1), scala.math.* (19)
    scala.reflect.* (25), scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
 </pre>
 
 Subcommand **`run`** with option **`-iter:<n>`** (**`n=1..99`**) executes **`n`** times the [Dotty](http://dotty.epfl.ch/) example:
 
 <pre style="font-size:80%;">
-&gt; build -verbose run -share -iter:4
+&gt; build run -verbose -share -iter:4
 Hello from Dotty !
 Hello from Dotty !
 Hello from Dotty !
 Hello from Dotty !
 Statistics (see details in target\logs\log_share_on.log):
    Share flag       : on
-   Shared classes   : 869
+   Shared classes   : 873
    File/jrt classes : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
-   Average load time: 0.126s
+   Average load time: 0.134s
    #iteration(s)    : 4
-Classes per package (872):
-   java.io.* (34), java.lang.* (208), java.net.* (9), java.nio.* (27)
-   java.security.* (23), java.util.* (122), jdk.* (106) sun.* (74)
+Classes per package (879):
+   java.io.* (34), java.lang.* (208), java.math.* (3), java.net.* (9)
+   java.nio.* (27), java.security.* (23), java.util.* (122)
+   jdk.* (106), sun.* (74)
    [APP] cdsexamples.* (2)
-   scala.* (28), scala.collection.* (161), scala.io.* (1), scala.math.* (19)
+   scala.* (28), scala.collection.* (165), scala.io.* (1), scala.math.* (19)
    scala.reflect.* (25), scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
 </pre>
 
@@ -328,6 +345,12 @@ Finally we check the generated files in directory **`target\`**:
 |           Main$.class
 |           Main.class
 |           Main.tasty
+|           TastyTest$.class
+|           TastyTest.class
+|           TastyTest.tasty
+|           VMOptions$.class
+|           VMOptions.class
+|           VMOptions.tasty
 |
 \---logs
         log_classlist.log
@@ -406,18 +429,16 @@ dotty-cds_0.11-0.11.0-RC1.jar
 }
 </pre>
 
+Subcommand **`test`** ...tbd...; option **`--verbose`** prints out the status of data sharing:
 <pre style="font-size:80%;">
 &gt; sharedata test
-Execute test application with Scala REPL WITHOUT Java shared archive
 Support files for Java class sharing:
    dotty-cds-compiler.classlist (158 Kb)
    dotty-cds-compiler.jsa (60864 Kb)
    dotty-cds-repl.classlist (70 Kb)
    dotty-cds-repl.jsa (23872 Kb)
    dotty-cds_0.11-0.11.0-RC1.jar (3 Kb)
-</pre>
-
-<pre style="font-size:80%;">
+&nbsp;
 &gt; sharedata -verbose test
 Execute test application with Scala REPL WITHOUT Java shared archive
 Support files for Java class sharing:
@@ -462,6 +483,30 @@ Classes per package (889):
    scala.* (30), scala.collection.* (166), scala.io.* (1), scala.math.* (19)
    scala.reflect.* (27), scala.runtime.* (6), scala.sys.* (14), scala.util.* (14)
 </pre>
+
+
+> **&#9755;** ***Data Sharing and JDK 11 Installation*** <br/>
+> The [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html) installation contains the file **`<jdk_path>\lib\classlist`**. Running command **`java.exe -Xshare:dump`** will read that file and generate a 17.3 Mb Java shared archive **`<jdk_path>\bin\server\classes.jsa`**.
+> <pre style="font-size:80%;">
+> &gt; java -version 2>&1 | findstr version
+> openjdk version "11.0.1" 2018-10-16
+> &nbsp;
+> &gt; java -Xshare:dump
+> [...]
+> Number of classes 1272
+> [...]
+> mc  space:      8416 [  0.0% of total] [...]
+> rw  space:   4022728 [ 22.2% of total] [...]
+> ro  space:   7304712 [ 40.4% of total] [...]
+> md  space:      2560 [  0.0% of total] [...]
+> od  space:   6534368 [ 36.1% of total] [...]
+> total    :  17872784 [100.0% of total] [...]
+> &nbsp;
+> &gt; dir /b c:\opt\jdk-11.0.1\bin\server
+> classes.jsa
+> jvm.dll
+> </pre>
+
 
 ## Related Reading
 

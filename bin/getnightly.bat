@@ -24,7 +24,7 @@ if not exist "%_PS1_FILE%" (
     goto end
 )
 
-set _OUTPUT_DIR=%_ROOT_DIR%\nightly-jars
+set _OUTPUT_DIR=%_ROOT_DIR%\out\nightly-jars
 if not exist "%_OUTPUT_DIR%" mkdir "%_OUTPUT_DIR%" 1>NUL
 
 rem ##########################################################################

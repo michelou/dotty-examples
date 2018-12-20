@@ -59,7 +59,7 @@ C:\opt\sbt-1.2.7\
 C:\opt\scala-2.12.8\
 </pre>
 
-> **NB.** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
+> **NB.** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
 
 We further recommand using an advanced console emulator such as [ComEmu](https://conemu.github.io/) (or [Cmdr](http://cmder.net/)) which features [Unicode support](https://conemu.github.io/en/UnicodeSupport.html).
 
@@ -117,7 +117,8 @@ We distinguish different sets of batch commands:
 2. Directory [**`bin\`**](bin/) - This directory contains several utility batch files:
    - [**`cleanup.bat`**](bin/cleanup.bat) removes the generated class files from every example directory (both in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories).
    - [**`dirsize.bat <dir_path_1> ..`**](bin/dirsize.bat) prints the size in Kb/Mb/Gb of the specified directory paths.
-   - [**`getnightly.bat`**](bin/getnightly.bat) downloads/installs the library files from the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
+   - [**`
+   - .bat`**](bin/getnightly.bat) downloads/installs the library files from the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
    - [**`searchjars.bat <class_name>`**](bin/searchjars.bat) searches for the given class name into all Dotty/Scala JAR files.
    - [**`timeit.bat <cmd_1> { & <cmd_2> }`**](bin/timeit.bat) prints the execution time of the specified commands.
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
@@ -289,7 +290,8 @@ Tool paths:
 The [**`cleanup`**](bin/cleanup.bat) command removes the output directories (ie. **`target\`**) from the example projets: 
 
 <pre style="font-size:80%;">
-> cleanup
+&gt; cleanup
+Finished to clean up 2 subdirectories in W:\dotty\cdsexamples
 Finished to clean up 16 subdirectories in W:\dotty\examples
 Finished to clean up 12 subdirectories in W:\dotty\myexamples
 </pre>
@@ -312,7 +314,7 @@ By default the [**`getnightly`**](bin/getnightly.bat) command downloads the libr
 <pre style="font-size:80%;">
 > getnightly
 
-> dir /b nightly-jars
+> dir /b out\nightly-jars
 dotty-compiler_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar
 dotty-doc_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar
 dotty-interfaces-0.12.0-bin-20181213-62292f2-NIGHTLY.jar
@@ -333,7 +335,7 @@ Downloading file dotty-doc_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar ... 993.
 Downloading file dotty_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar ... 0.3 Kb
 Downloading file dotty-library_0.12-0.12.0-bin-20181213-62292f2-NIGHTLY.jar ... 725.9 Kb
 Downloading file dotty-interfaces-0.12.0-bin-20181213-62292f2-NIGHTLY.jar ... 3.4 Kb
-Finished to download 6 files to directory C:\Users\michelou\WORKSP~1\DOTTY-~1\nightly-jars
+Finished to download 6 files to directory C:\Users\michelou\WORKSP~1\DOTTY-~1\out\nightly-jars
 </pre>
 
 We can now replace the library files from the original [Dotty distribution](https://github.com/lampepfl/dotty/releases) (installed in directory **`C:\opt\dotty-0.11.0-RC1\`** in our case) with library files from the latest nightly build.
@@ -342,7 +344,7 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 
 <pre style="font-size:80%;">
 > getnightly activate
-Finished to download 6 files to directory C:\Users\michelou\WORKSP~1\DOTTY-~1\nightly-jars
+Finished to download 6 files to directory C:\Users\michelou\WORKSP~1\DOTTY-~1\out\nightly-jars
 Local nightly version has changed from unknown to 0.12.0-bin-20181213-62292f2-NIGHTLY
 Activate nightly build libraries: 0.12.0-bin-20181213-62292f2-NIGHTLY
 

@@ -58,6 +58,7 @@ rem input parameter: %*
 set _CLEAN=0
 set _COMPILE=0
 set _RUN=0
+set _RUN_ARG=
 set _RUN_ITER=1
 set _SHARE_FLAG=off
 set _VERBOSE=0
@@ -72,11 +73,13 @@ if not defined __ARG (
 )
 if /i "%__ARG%"=="clean" ( set _CLEAN=1
 ) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
+) else if /i "%__ARG:~0,4%"=="run:" (
+    set _RUN_ARGS=%__ARG:~4%& set _COMPILE=1& set _RUN=1
 ) else if /i "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
 ) else if /i "%__ARG%"=="help" ( call :help & goto end
 ) else if /i "%__ARG:~0,6%"=="-iter:" (
     call :iter "%__ARG:~6%"
-	if not !_EXITCODE!==0 goto :eof
+    if not !_EXITCODE!==0 goto :eof
 ) else if /i "%__ARG%"=="-share" ( set _SHARE_FLAG=on
 ) else if /i "%__ARG%"=="-share:off" ( set _SHARE_FLAG=off
 ) else if /i "%__ARG%"=="-share:on" ( set _SHARE_FLAG=on
@@ -105,7 +108,7 @@ echo   Subcommands:
 echo     clean               delete generated files
 echo     compile             compile Scala source files
 echo     help                display this help message
-echo     run                 execute main class
+echo     run[:arg]           execute main class with 1 optional argument
 goto :eof
 
 :iter
@@ -165,7 +168,7 @@ rmdir /s /q "%_TARGET_DIR%"
 if not %ERRORLEVEL%==0 (
     echo Error: Failed to clean output directory %_TARGET% 1>&2
     set _EXITCODE=1
-	goto :eof
+    goto :eof
 )
 goto :eof
 
@@ -173,8 +176,8 @@ goto :eof
 set __SOURCE_FILE=%_SOURCE_DIR%\main\scala\%_MAIN_CLASS_NAME%.scala
 if not exist "%__SOURCE_FILE%" (
     echo Error: Java source file not found ^(%__SOURCE_FILE%^) 1>&2
-	set _EXITCODE=1
-	goto :eof
+    set _EXITCODE=1
+    goto :eof
 )
 set __CLASSES_DIR=%_TARGET_DIR%\classes
 if not exist "%__CLASSES_DIR%\" mkdir "%__CLASSES_DIR%" 1>NUL
@@ -189,7 +192,7 @@ for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
 call :compile_required "%__TIMESTAMP_FILE%" "%__SCALA_SOURCE_FILES%"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
-set __COMPILE_OPTS=-deprecation
+set __COMPILE_OPTS=-deprecation -feature
 if %_DEBUG%==1 echo [%_BASENAME%] call %_COMPILE_CMD% %__COMPILE_OPTS% -d %__CLASSES_DIR% %__SCALA_SOURCE_FILES%
 call %_COMPILE_CMD% %__COMPILE_OPTS% -d %__CLASSES_DIR% %__SCALA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
@@ -202,13 +205,13 @@ if %_VERBOSE%==1 echo Create Java archive !_JAR_FILE:%_ROOT_DIR%=!
 set __MANIFEST_FILE=%_TARGET_DIR%\MANIFEST.MF
 (
     echo Manifest-Version: 1.0
-	echo Built-By: Stephane
+    echo Built-By: Stephane
     echo Build-Jdk: %_JAVA_VERSION%
     echo Specification-Title: %_MAIN_PKG_NAME%
     echo Specification-Version: 0.1-SNAPSHOT
     echo Implementation-Title: %_MAIN_PKG_NAME%
     echo Implementation-Version: 0.1-SNAPSHOT
-	echo Main-Class: %_MAIN_CLASS%
+    echo Main-Class: %_MAIN_CLASS%
 ) > %__MANIFEST_FILE%
 if %_DEBUG%==1 echo [%_BASENAME%] %_JAR_CMD% -cfm %_JAR_FILE% %__MANIFEST_FILE% -C %__CLASSES_DIR% .
 %_JAR_CMD% -cfm %_JAR_FILE% %__MANIFEST_FILE% -C %__CLASSES_DIR% .
@@ -338,8 +341,8 @@ if %_DEBUG%==1 (
 ) else (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -J-Xlog:disable
 )
-if %_DEBUG%==1 echo [%_BASENAME%] call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS%
-call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS%
+if %_DEBUG%==1 echo [%_BASENAME%] call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% %_RUN_ARGS%
+call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% %_RUN_ARGS%
 if not %ERRORLEVEL%==0 (
     echo Error: Failed to execute class %_MAIN_CLASS% 1>&2
     set _EXITCODE=1
@@ -376,9 +379,9 @@ if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"file:/" /c:"jrt:/" "%__SHARE_LOG_F
 for /f "tokens=1,*" %%i in ('findstr /c:"file:/" /c:"jrt:/" "%__SHARE_LOG_FILE%"') do (
     set /a __N_FILE+=1
     if %_DEBUG%==1 echo %%j
-	if !__N_FILE! lss 2 ( set __FILES=!__FILES! %%j
-	) else if not "!__FILES:.=!"=="!__FILES!" ( set __FILES=!__FILES! ...
-	)
+    if !__N_FILE! lss 2 ( set __FILES=!__FILES! %%j
+    ) else if not "!__FILES:...=!"=="!__FILES!" ( set __FILES=!__FILES! ...
+    )
 )
 
 set __N_MAIN=0
@@ -396,6 +399,11 @@ set __N_JAVA_LANG=0
 if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] java.lang." "%__SHARE_LOG_FILE%"
 for /f "delims=" %%i in ('findstr /c:"] java.lang." "%__SHARE_LOG_FILE%"') do (
     set /a __N_JAVA_LANG+=1
+)
+set __N_JAVA_MATH=0
+if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] java.math." "%__SHARE_LOG_FILE%"
+for /f "delims=" %%i in ('findstr /c:"] java.math." "%__SHARE_LOG_FILE%"') do (
+    set /a __N_JAVA_MATH+=1
 )
 set __N_JAVA_NET=0
 if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] java.net." "%__SHARE_LOG_FILE%"
@@ -477,30 +485,31 @@ for /f "delims=[]" %%i in ('powershell -c "Get-Content %__SHARE_LOG_FILE% | sele
 )
 if %__N% equ %_RUN_ITER% (
     if "%_SHARE_FLAG%"=="off" ( set __FILE_TEXT=%__N_FILE%
-	) else if %__N_FILE% gtr 0 ( set __FILE_TEXT=%__N_FILE% ^(%__FILES:~1%^)
-	) else ( set __FILE_TEXT=%__N_FILE%
-	)
+    ) else if %__N_FILE% gtr 0 ( set __FILE_TEXT=%__N_FILE% ^(%__FILES:~1%^)
+    ) else ( set __FILE_TEXT=%__N_FILE%
+    )
     call :average
-	set __LOAD_TIME_AVERAGE=!_AVERAGE!s
-	set /a __N_PACKAGES=__N_MAIN
-	rem Java libraries
-	set /a __N_PACKAGES=__N_PACKAGES+__N_JAVA_IO+__N_JAVA_LANG+__N_JAVA_NET+__N_JAVA_NIO
-	set /a __N_PACKAGES=__N_PACKAGES+__N_JAVA_SECURITY+__N_JAVA_UTIL+__N_JDK+__N_SUN
-	rem Scala libraries
-	set /a __N_PACKAGES=__N_PACKAGES+__N_SCALA+__N_SCALA_COLLECTION+__N_SCALA_IO+__N_SCALA_MATH
-	set /a __N_PACKAGES=__N_PACKAGES+__N_SCALA_REFLECT+__N_SCALA_RUNTIME+__N_SCALA_SYS+__N_SCALA_UTIL
+    set __LOAD_TIME_AVERAGE=!_AVERAGE!s
+    set /a __N_PACKAGES=__N_MAIN
+    rem Java libraries
+    set /a __N_PACKAGES=__N_PACKAGES+__N_JAVA_IO+__N_JAVA_LANG+__N_JAVA_MATH+__N_JAVA_NET+__N_JAVA_NIO
+    set /a __N_PACKAGES=__N_PACKAGES+__N_JAVA_SECURITY+__N_JAVA_UTIL+__N_JDK+__N_SUN
+    rem Scala libraries
+    set /a __N_PACKAGES=__N_PACKAGES+__N_SCALA+__N_SCALA_COLLECTION+__N_SCALA_IO+__N_SCALA_MATH
+    set /a __N_PACKAGES=__N_PACKAGES+__N_SCALA_REFLECT+__N_SCALA_RUNTIME+__N_SCALA_SYS+__N_SCALA_UTIL
     echo Statistics ^(see details in !__SHARE_LOG_FILE:%_ROOT_DIR%=!^):
     echo    Share flag       : %_SHARE_FLAG%
     echo    Shared classes   : %__N_SHARED%
     echo    File/jrt classes : !__FILE_TEXT!
     echo    Average load time: !__LOAD_TIME_AVERAGE!
     echo    #iteration^(s^)    : %_RUN_ITER%
-	echo Classes per package ^(!__N_PACKAGES!^):
-	echo    java.io.* ^(%__N_JAVA_IO%^), java.lang.* ^(%__N_JAVA_LANG%^), java.net.* ^(%__N_JAVA_NET%^), java.nio.* ^(%__N_JAVA_NIO%^)
-	echo    java.security.* ^(%__N_JAVA_SECURITY%^), java.util.* ^(%__N_JAVA_UTIL%^), jdk.* ^(%__N_JDK%^), sun.* ^(%__N_SUN%^)
-	echo    [APP] %_MAIN_PKG_NAME%.* ^(%__N_MAIN%^)
-	echo    scala.* ^(%__N_SCALA%^), scala.collection.* ^(%__N_SCALA_COLLECTION%^), scala.io.* ^(%__N_SCALA_IO%^), scala.math.* ^(%__N_SCALA_MATH%^)
-	echo    scala.reflect.* ^(%__N_SCALA_REFLECT%^), scala.runtime.* ^(%__N_SCALA_RUNTIME%^), scala.sys.* ^(%__N_SCALA_SYS%^), scala.util.* ^(%__N_SCALA_UTIL%^)
+    echo Classes per package ^(!__N_PACKAGES!^):
+    echo    java.io.* ^(%__N_JAVA_IO%^), java.lang.* ^(%__N_JAVA_LANG%^), java.math.* ^(%__N_JAVA_MATH%^), java.net.* ^(%__N_JAVA_NET%^)
+    echo    java.nio.* ^(%__N_JAVA_NIO%^), java.security.* ^(%__N_JAVA_SECURITY%^), java.util.* ^(%__N_JAVA_UTIL%^)
+    echo    jdk.* ^(%__N_JDK%^), sun.* ^(%__N_SUN%^)
+    echo    [APP] %_MAIN_PKG_NAME%.* ^(%__N_MAIN%^)
+    echo    scala.* ^(%__N_SCALA%^), scala.collection.* ^(%__N_SCALA_COLLECTION%^), scala.io.* ^(%__N_SCALA_IO%^), scala.math.* ^(%__N_SCALA_MATH%^)
+    echo    scala.reflect.* ^(%__N_SCALA_REFLECT%^), scala.runtime.* ^(%__N_SCALA_RUNTIME%^), scala.sys.* ^(%__N_SCALA_SYS%^), scala.util.* ^(%__N_SCALA_UTIL%^)
 )
 goto :eof
 
