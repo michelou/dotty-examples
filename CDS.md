@@ -84,7 +84,7 @@ Usage: build { options | subcommands }
 
 > **:mag_right:** Internally the **`compile`** subcommand generates a Java archive and a Java shared archive as a last step of the compilation phase.
 
-We first execute command **`build clean compile`** option **`-verbose`** prints out the progress messages:
+We first execute command **`build clean compile`**; the same command with option **`-verbose`** prints out the progress messages:
 
 <pre style="font-size:80%;">
 &gt; build clean compile
@@ -95,7 +95,7 @@ Create class list file target\JavaExample.classlist
 Create Java shared archive target\JavaExample.jsa
 </pre>
 
-We can now execute our Java example ***without data sharing***; option **`-verbose`** prints out the CDS status:
+We can now execute our Java example ***without data sharing***; the same command with option **`-verbose`** prints out the CDS status:
 
 <pre style="font-size:80%;">
 &gt; build run
@@ -173,7 +173,7 @@ Classes per package (586):
    [APP] cdsexamples.* (1)
 </pre>
 
-Let's check the generated files in directory **`target\`**:
+Let's check the contents of the output directory **`target\`**:
 
 <pre style="font-size:80%;">
 &gt; tree /a /f target | findstr /v "^[A-Z]"
@@ -197,7 +197,7 @@ Let's check the generated files in directory **`target\`**:
         log_share_on.log
 </pre>
 
-Here are a few observations:
+Note the following about the generated files:
 
 - File **`MANIFEST.MF`** is added to **`JavaExample.jar`** as usual. 
 - Files **`logs\log_classlist.log`** and **`logs\log_dump.log`** are generated when option **`-verbose`** is passed to the **`compile`** subcommand; they contain the execution logs for the generation of **`JavaExample.classlist`** resp. **`JavaExample.jsa`**.
@@ -227,7 +227,7 @@ We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/t
 [0.112s][info][class,load] cdsexamples.Main source: file:/W:/dotty-examples/cdsexamples/JavaExample/target/Main.jar
 </pre>
 
-> **:mag_right:** The ***crucial point*** here is to use the correct path of **`JavaExample.jar`** together with the specified Java shared archive. Command [**`grep -a`**](https://www.linux.org/docs/man1/grep.html) (**`-a`** means "*Process a binary file as if it were text*") helps us to extract that path from **`JavaExample.jsa`**.<br/>
+> **:warning:** The ***crucial point*** here is to use the correct path of **`JavaExample.jar`** together with the specified Java shared archive. Command [**`grep -a`**](https://www.linux.org/docs/man1/grep.html) (**`-a`** means "*Process a binary file as if it were text*") helps us to extract that path from **`JavaExample.jsa`**.<br/>
 > <pre style="font-size:80%;">
 > &gt; grep -aPo '.{0,40}JavaExample.jar{0,40}' target\JavaExample.jsa
 >   W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar
@@ -351,7 +351,7 @@ Classes per package (879):
    scala.reflect.* (25), scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
 </pre>
 
-Finally we check the generated files in directory **`target\`**:
+Finally we check the contents of the output directory **`target\`**:
 
 <pre style="font-size:80%;">
 > tree /a /f target | findstr /v "^[A-Z]"
@@ -381,7 +381,7 @@ Finally we check the generated files in directory **`target\`**:
         log_share_on.log
 </pre>
 
-Here are a few observations:
+Note the following about the generated files:
 
 - File **`MANIFEST.MF`** is added to **`DottyExample.jar`** as usual.
 - Files **`classes\Main$.class`** and **`classes\Main.tasty`** (typed AST) are specific to the [Dotty](http://dotty.epfl.ch/) compiler.
