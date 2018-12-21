@@ -443,15 +443,20 @@ if %__N% equ %_RUN_ITER% (
     ) else if %__N_FILE% gtr 0 ( set __FILE_TEXT=%__N_FILE% ^(%__FILES:~1%^)
     ) else ( set __FILE_TEXT=%__N_FILE%
     )
-    call :average
-    set __LOAD_TIME_AVERAGE=!_AVERAGE!s
-    set /a __N_PACKAGES=__N_MAIN+__N_JAVA_IO+__N_JAVA_LANG+__N_JAVA_MATH+__N_JAVA_NET+__N_JAVA_NIO
+    if %_RUN_ITER%==1 ( set __TIME_TEXT=Load time        : !__LOAD_TIME[1]!
+    ) else (
+        call :average
+        set __TIME_TEXT=Average load time: !_AVERAGE!s
+    )
+    set /a __N_PACKAGES=__N_MAIN
+    rem Java libraries
+    set /a __N_PACKAGES=__N_PACKAGES+__N_JAVA_IO+__N_JAVA_LANG+__N_JAVA_MATH+__N_JAVA_NET+__N_JAVA_NIO
     set /a __N_PACKAGES=__N_PACKAGES+__N_JAVA_SECURITY+__N_JAVA_UTIL+__N_JDK+__N_SCALA+__N_SUN
     echo Statistics ^(see details in !__SHARE_LOG_FILE:%_ROOT_DIR%=!^):
     echo    Share flag       : %_SHARE_FLAG%
     echo    Shared classes   : %__N_SHARED%
     echo    File/jrt classes : !__FILE_TEXT!
-    echo    Average load time: !__LOAD_TIME_AVERAGE!
+    echo    !__TIME_TEXT!
     echo    #iteration^(s^)    : %_RUN_ITER%
     echo Classes per package ^(!__N_PACKAGES!^):
     echo    java.io.* ^(%__N_JAVA_IO%^), java.lang.* ^(%__N_JAVA_LANG%^), java.math.* ^(%__N_JAVA_MATH%^), java.net.* ^(%__N_JAVA_NET%^)

@@ -1,4 +1,8 @@
+.classpath
+.dotty-ide*
 .idea
+.project
+.settings/
 docs-local/
 nightly-jars/
 out/

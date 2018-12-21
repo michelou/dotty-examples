@@ -107,7 +107,7 @@ Statistics (see details in target\logs\log_share_off.log):
    Share flag       : off
    Shared classes   : 0
    File/jrt classes : 596
-   Average load time: 0.115s
+   Load time        : 0.115s
    #iteration(s)    : 1
 Classes per package (596):
    java.io.* (38), java.lang.* (168), java.math.* (0), java.net.* (9)
@@ -143,7 +143,7 @@ Statistics (see details in target\logs\log_share_on.log):
    Share flag       : on
    Shared classes   : 585
    File/jrt classes : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
-   Average load time: 0.085s
+   Load time        : 0.085s
    #iteration(s)    : 1
 Classes per package (586):
    java.io.* (38), java.lang.* (168), java.math.* (0), java.net.* (9)
@@ -244,8 +244,8 @@ Source file [**`src\main\scala\Main.scala`**](cdsexamples/DottyExample/src/main/
   <b>def</b> main(args: Array[String]): Unit = {
     println("Hello from Dotty !")
     <b>if</b> (args.length > 0) {
-      //TastyTest.run()
       println(VMOptions.asString)
+      <i>//TastyTest.run()</i>
     }
   }
 }</pre>
@@ -294,7 +294,7 @@ Statistics (see details in target\logs\log_share_off.log):
    Share flag       : off
    Shared classes   : 0
    File/jrt classes : 940
-   Average load time: 0.384s
+   Load time        : 0.384s
    #iteration(s)    : 1
 Classes per package (945):
    java.io.* (39), java.lang.* (216), java.math.* (3), java.net.* (9)
@@ -317,7 +317,7 @@ Statistics (see details in target\logs\log_share_on.log):
    Share flag       : on
    Shared classes   : 873
    File/jrt classes : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
-   Average load time: 0.125s
+   Load time        : 0.125s
    #iteration(s)    : 1
 Classes per package (879):
    java.io.* (34), java.lang.* (208), java.math.* (3), java.net.* (9)
@@ -443,8 +443,8 @@ dotty-cds_0.11-0.11.0-RC1.jar
 <b>object</b> Main {
   <b>def</b> main(args: Array[String]): Unit = {
     println("Support files for Java class sharing:")
-    <b>val</b> cdsUrl = getClass().getProtectionDomain().getCodeSource().getLocation()
-    <b>val</b> libDir = java.nio.file.Paths.get(cdsUrl.toURI()).getParent().toFile()
+    <b>val</b> jarUrl = getClass().getProtectionDomain().getCodeSource().getLocation()
+    <b>val</b> libDir = java.nio.file.Paths.get(jarUrl.toURI()).getParent().toFile()
     <b>val</b> files = libDir.listFiles.filter(_.getName.startsWith("dotty-cds"))
     files.foreach(f => println("   "+f.getName()+" ("+(f.length()/1024)+" Kb)"))
   }
@@ -533,6 +533,10 @@ Classes per package (889):
 ## Related Reading
 
 <dl>
+<!--
+  <dt><a name="ref_00"></a> <a href="https://patents.google.com/patent/US9336018"><b>US9336018</b></a>: Mechanism for class data sharing using extension and application class-loaders (2014-05-02)</dt>
+  <dd> </dd>
+-->
   <dt><a name="ref_01">&#9658;</a> <a href="http://openjdk.java.net/jeps/250"><b>JEP 250</b></a>: Store Interned Strings in CDS Archives (2014-09-24)</dt>
   <dd>Interned strings are now stored in CDS archives.</dd>
 
