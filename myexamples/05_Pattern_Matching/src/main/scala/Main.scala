@@ -1,3 +1,5 @@
+package myexamples
+
 object Main {
 
   trait Animal {

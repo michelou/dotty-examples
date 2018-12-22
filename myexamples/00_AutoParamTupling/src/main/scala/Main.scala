@@ -1,3 +1,5 @@
+package myexamples
+
 object Main {
 
   def test01: Unit = {

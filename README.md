@@ -151,15 +151,17 @@ We distinguish different sets of batch commands:
     Usage: build { options | subcommands }
       Options:
         -debug           show commands executed by this script
-        -deprecation     set compiler option -deprecation
         -explain         set compiler option -explain
         -explain-types   set compiler option -explain-types
         -compiler:&lt;name&gt; select compiler (scala|scalac|dotc|dotty), default:dotc
         -main:&lt;name&gt;     define main class name
+        -tasty           compile both from source and TASTy files
         -timer           display the compile time
+        -verbose         display progress messages
       Subcommands:
         clean            delete generated class files
         compile          compile source files (Java and Scala)
+        doc              generate documentation
         help             display this help message
         run              execute main class
       Properties:
@@ -492,7 +494,7 @@ Parent directory: W:\dotty\myexamples
 
 The [**`build`**](examples/enum-Planet/build.bat) command is a basic build tool consisting of ~350 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_02">[[2]](#footnote_02)</sup>. 
 
-Running the [**`build`**](examples/enum-Planet/build.bat) command with no build option in project [**`examples\enum-Planet`**](examples/enum-Planet/) generates the following output:
+Running the [**`build`**](examples/enum-Planet/build.bat) command with ***no*** option in project [**`examples\enum-Planet`**](examples/enum-Planet/) generates the following output:
 
 <pre style="font-size:80%;">
 > build clean compile run
@@ -505,7 +507,23 @@ Your weight on NEPTUNE is 1.1383280724696578
 Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406</pre>
 
-Running the [**`build`**](examples/enum-Planet/build.bat) command with build option **`-debug`** in project [**`examples\enum-Planet`**](examples/enum-Planet/) also displays internal steps of the build process:
+Running the [**`build`**](examples/enum-Planet/build.bat) command with option **`-verbose`** in project [**`examples\enum-Planet`**](examples/enum-Planet/) displays progress messages:
+
+<pre style="font-size:80%;">
+&gt; build -verbose clean compile run
+Compile Scala sources to target\classes
+Execute Scala main class Planet
+Your weight on MERCURY is 0.37775761520093526
+Your weight on SATURN is 1.0660155388115666
+Your weight on VENUS is 0.9049990998410455
+Your weight on URANUS is 0.9051271993894251
+Your weight on EARTH is 0.9999999999999999
+Your weight on NEPTUNE is 1.1383280724696578
+Your weight on MARS is 0.37873718403712886
+Your weight on JUPITER is 2.5305575254957406
+</pre>
+
+Finally, running the [**`build`**](examples/enum-Planet/build.bat) command with option **`-debug`** in project [**`examples\enum-Planet`**](examples/enum-Planet/) also displays internal steps of the build process:
 
 <pre style="font-size:80%;">
 > build -debug clean compile run

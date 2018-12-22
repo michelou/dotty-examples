@@ -1,3 +1,5 @@
+package myexamples
+
 object Main {
   import scala.language.implicitConversions // otherwise warning starting with version 0.9.0
 
