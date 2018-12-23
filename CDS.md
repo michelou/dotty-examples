@@ -532,28 +532,44 @@ Classes per package (889):
 
 ## Related Reading
 
+#### 2006
+<dl>
+  <dt><a href="https://www.ibm.com/developerworks/java/library/j-ibmjava4/index.html">IBM Developer</a>:<a name="ref_01">&nbsp;</a>Class sharing</dt>
+  <dd><i>by Ben Corrie (2006-05-30)</i><br/>The IBM implementation of the 5.0 JVM allows all system and application classes to be stored in a persistent dynamic class cache in shared memory.</dd>
+</dl>
+
+#### 2014
 <dl>
 <!--
-  <dt><a name="ref_00"></a> <a href="https://patents.google.com/patent/US9336018"><b>US9336018</b></a>: Mechanism for class data sharing using extension and application class-loaders (2014-05-02)</dt>
+  <dt><a href="https://patents.google.com/patent/US9336018"><b>US9336018</b></a>: <a name="ref_02">&nbsp;</a>Mechanism for class data sharing using extension and application class-loaders (2014-05-02)</dt>
   <dd> </dd>
 -->
-  <dt><a name="ref_01">&#9658;</a> <a href="http://openjdk.java.net/jeps/250"><b>JEP 250</b></a>: Store Interned Strings in CDS Archives (2014-09-24)</dt>
-  <dd>Interned strings are now stored in CDS archives.</dd>
+  <dt><a href="http://openjdk.java.net/jeps/250"><b>JEP 250</b></a>:<a name="ref_03">&nbsp;</a>Store Interned Strings in CDS Archives)</dt>
+  <dd><i>by Jiangli Zhou (2014-09-24)</i><br/>Interned strings are now stored in CDS archives.</dd>
+</dl>
 
-  <dt><a name="ref_02">&#9658;</a> <a href="https://openjdk.java.net/jeps/310"><b>JEP 310</b></a>: Application Class-Data Sharing (2017-08-08)</dt>
-  <dd>To improve startup and footprint, AppCDS extends the existing CDS feature to allow application classes to be placed in the shared archive.</dd>
+#### 2017
+<dl>
+  <dt><a href="https://openjdk.java.net/jeps/310"><b>JEP 310</b></a>:<a name="ref_04">&nbsp;</a>Application Class-Data Sharing</dt>
+  <dd><i>by Ioi Lam (2017-08-08)</i></br>To improve startup and footprint, AppCDS extends the existing CDS feature to allow application classes to be placed in the shared archive.</dd>
+</dl>
 
-  <dt><a name="ref_03">&#9658;</a> <a href="https://bugs.openjdk.java.net/browse/JDK-8198565"><b>JDK-8198565</b></a>: Extend CDS to Support the Module Path (2018-02-22)</dt>
-  <dd>In JDK 11, CDS has been improved to support archiving classes from the module path.</dd>
+#### 2018
+<dl>
+  <dt><a href="https://bugs.openjdk.java.net/browse/JDK-8198565"><b>JDK-8198565</b></a>:<a name="ref_05">&nbsp;</a>Extend CDS to Support the Module Path</dt>
+  <dd><i>by Calvin Cheung (2018-02-22)</i><br/>In JDK 11, CDS has been improved to support archiving classes from the module path.</dd>
 
-  <dt><a name="ref_04">&#9658;</a> <a href="https://openjdk.java.net/jeps/341"><b>JEP 341</b></a>: Default CDS Archives (2018-06-01)</dt>
-  <dd>The JDK build process now generates a CDS archive, using the default class list, on 64-bit platforms.</dd>
+  <dt><a href="https://openjdk.java.net/jeps/341"><b>JEP 341</b></a>:<a name="ref_06">&nbsp;</a>Default CDS Archives</dt>
+  <dd><i>by Jiangli Zhou, Calvin Cheung, Ioi Lam (2018-06-01)</i><br/>The JDK build process now generates a CDS archive, using the default class list, on 64-bit platforms.</dd>
 
-  <dt><a name="ref05">&#9658;</a> <a href="https://www.youtube.com/watch?v=b8GzWd--RXg">JEE Conference 2018</a>: Class Data Sharing in the HotSpot VM  (2018-06-05)</dt>
-  <dd>In his talk <a href="https://jeeconf.com/speaker/volker-simonis-2/">Volker Simonis</a> briefly introduces CDS and AppCDS and demonstrates how it can be used (<a href="https://simonis.github.io/JEEConf2018/CDS/cds.xhtml#/">web slides</a>).</dd>
+  <dt><a href="https://www.youtube.com/watch?v=b8GzWd--RXg"><sub><img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="Youtube" width="20px"/></sub> JEEConf 2018</a>:<a name="ref07">&nbsp;</a>Class Data Sharing in the HotSpot VM</dt>
+  <dd><i>by <a href="https://jeeconf.com/speaker/volker-simonis-2/">Volker Simonis</a> (2018-06-05)</i><br/>In his talk he introduces CDS and AppCDS and demonstrates how it can be used (<a href="https://simonis.github.io/JEEConf2018/CDS/cds.xhtml#/">web slides</a>).</dd>
 
-  <dt><a name="ref_06">&#9658;</a> <a href="https://developer.ibm.com/tutorials/j-class-sharing-openj9/"><b>IBM Developer</b></a>: Class sharing in Eclipse OpenJ9 (2018-06-06)</dt>
-  <dd>In the <a href="https://www.eclipse.org/openj9/">OpenJ9</a> implementation, all systems, application classes and ahead-of-time (<a href="https://www.eclipse.org/openj9/docs/aot/">AOT</a>) compiled code can be stored in a dynamic class cache in shared memory.</dd>
+  <dt><a href="https://developer.ibm.com/tutorials/j-class-sharing-openj9/"><b>IBM Developer</b></a>:<a name="ref_08">&nbsp;</a>Class sharing in Eclipse OpenJ9</dt>
+  <dd><i>by Ben Corrie and Hang Shao (2018-06-06)</i><br/>In the <a href="https://www.eclipse.org/openj9/">OpenJ9</a> implementation, all systems, application classes and ahead-of-time (<a href="https://www.eclipse.org/openj9/docs/aot/">AOT</a>) compiled code can be stored in a dynamic class cache in shared memory.</dd>
+
+  <dt><a href="https://www.youtube.com/watch?v=nniYSR4GAH4"><sub><img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="Youtube" width="20px"/></sub> Oracle Code 2018</a>:<a name="ref09">&nbsp;</a>Application Class Data Sharing</dt>
+  <dd><i>by Ioi Lam and Jiangli Zhou (2018-10-23)</i><br/>Archiving and Sharing Class Metadata and Java Objects in HotSpot VM to Improve Startup Performance and Reduce Footprint (<a href="docs/20181023_Application_Class_Data_Sharing.pdf" title="">PDF</a>).</dd>
 </dl>
 
 <!--

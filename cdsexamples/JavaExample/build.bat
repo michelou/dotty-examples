@@ -217,7 +217,6 @@ if %_DEBUG%==1 ( set __REDIRECT_STDOUT=
 ) else ( set __REDIRECT_STDOUT=1^>NUL
 )
 
-if %_VERBOSE%==1 echo Create class list file !_CLASSLIST_FILE:%_ROOT_DIR%=!
 rem Important: options containing an "=" character must be quoted
 set __JAVA_TOOL_OPTS="-XX:DumpLoadedClassList=%_CLASSLIST_FILE%"
 if %_DEBUG%==1 (
@@ -230,7 +229,9 @@ if %_DEBUG%==1 (
 ) else (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -Xlog:disable
 )
-if %_DEBUG%==1 echo [%_BASENAME%] %_JAVA_CMD% %__JAVA_TOOL_OPTS% -jar %_JAR_FILE%
+if %_DEBUG%==1 ( echo [%_BASENAME%] %_JAVA_CMD% %__JAVA_TOOL_OPTS% -jar %_JAR_FILE%
+) else if %_VERBOSE%==1 ( echo Create class list file !_CLASSLIST_FILE:%_ROOT_DIR%=!
+)
 %_JAVA_CMD% %__JAVA_TOOL_OPTS% -jar %_JAR_FILE% %__REDIRECT_STDOUT%
 if not %ERRORLEVEL%==0 (
     echo Error: Failed to create file %_CLASSLIST_FILE% 1>&2
@@ -238,7 +239,6 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 
-if %_VERBOSE%==1 echo Create Java shared archive !_JSA_FILE:%_ROOT_DIR%=!
 set __JAVA_TOOL_OPTS=-Xshare:dump "-XX:SharedClassListFile=%_CLASSLIST_FILE%" "-XX:SharedArchiveFile=%_JSA_FILE%"
 if %_DEBUG%==1 (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-Xlog:class+path=info"
@@ -250,8 +250,10 @@ if %_DEBUG%==1 (
 ) else (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -Xlog:disable
 )
-if %_DEBUG%==1 echo [%_BASENAME%] %_JAVA_CMD% %__JAVA_TOOL_OPTS% -jar %_JAR_FILE%
-%_JAVA_CMD% %__JAVA_TOOL_OPTS% -jar %_JAR_FILE% %__REDIRECT_STDOUT%
+if %_DEBUG%==1 ( echo [%_BASENAME%] %_JAVA_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE%
+) else if %_VERBOSE%==1 ( echo Create Java shared archive !_JSA_FILE:%_ROOT_DIR%=!
+)
+%_JAVA_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %__REDIRECT_STDOUT%
 if not %ERRORLEVEL%==0 (
     echo Error: Failed to create shared archive %_JAR_FILE% 1>&2
     set _EXITCODE=1
@@ -333,14 +335,16 @@ if %_DEBUG%==1 (
 ) else (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -Xlog:disable
 )
-if %_DEBUG%==1 echo [%_BASENAME%] %_JAVA_CMD% %__JAVA_TOOL_OPTS% -jar %_JAR_FILE% %_RUN_ARGS%
+if %_DEBUG%==1 ( echo [%_BASENAME%] %_JAVA_CMD% %__JAVA_TOOL_OPTS% -jar %_JAR_FILE% %_RUN_ARGS%
+else if %_VERBOSE%==1 ( echo Execute Java archive %_JAR_FILE% %_RUN_ARGS%
+)
 %_JAVA_CMD% %__JAVA_TOOL_OPTS% -jar %_JAR_FILE% %_RUN_ARGS%
 if not %ERRORLEVEL%==0 (
     echo Error: Failed to execute class %_MAIN_CLASS% 1>&2
     set _EXITCODE=1
     goto :eof
 )
-if %_VERBOSE%==1 if not %_DEBUG%==1 (
+if %_VERBOSE%==1 (
     if %_DEBUG%==1 echo [%_BASENAME%] call :stats "%__SHARE_LOG_FILE%" "%__N%"
     call :stats "%__SHARE_LOG_FILE%" "%__N%"
 )
@@ -366,13 +370,23 @@ for /f "delims=" %%i in ('findstr shared "%__SHARE_LOG_FILE%"') do (
     if %_DEBUG%==1 echo %%i
 )
 set __N_FILE=0
-set __FILES=
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"file:/" /c:"jrt:/" "%__SHARE_LOG_FILE%"
-for /f "tokens=1,*" %%i in ('findstr /c:"file:/" /c:"jrt:/" "%__SHARE_LOG_FILE%"') do (
+set __FILE_URLS=
+if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"file:/" "%__SHARE_LOG_FILE%"
+for /f "tokens=1,*" %%i in ('findstr /c:"file:/" "%__SHARE_LOG_FILE%"') do (
     set /a __N_FILE+=1
     if %_DEBUG%==1 echo %%j
-    if !__N_FILE! lss 2 ( set __FILES=!__FILES! %%j
-    ) else if not "!__FILES:...=!"=="!__FILES!" ( set __FILES=!__FILES! ...
+    if !__N_FILE! lss 2 ( set __FILE_URLS=!__FILE_URLS! %%j
+    ) else if not "!__FILE_URLS:...=!"=="!__FILE_URLS!" ( set __FILE_URLS=!__FILE_URLS! ...
+    )
+)
+set __N_JRT=0
+set __JRT_URLS=
+if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"jrt:/" "%__SHARE_LOG_FILE%"
+for /f "tokens=1,*" %%i in ('findstr /c:"jrt:/" "%__SHARE_LOG_FILE%"') do (
+    set /a __N_JRT+=1
+    if %_DEBUG%==1 echo %%j
+    if !__N_JRT! lss 2 ( set __JRT_URLS=!__JRT_URLS! %%j
+    ) else if not "!__JRT_URLS:...=!"=="!__JRT_URLS!" ( set __JRT_URLS=!__JRT_URLS! ...
     )
 )
 
@@ -440,8 +454,12 @@ for /f "delims=[]" %%i in ('powershell -c "Get-Content %__SHARE_LOG_FILE% | sele
 )
 if %__N% equ %_RUN_ITER% (
     if "%_SHARE_FLAG%"=="off" ( set __FILE_TEXT=%__N_FILE%
-    ) else if %__N_FILE% gtr 0 ( set __FILE_TEXT=%__N_FILE% ^(%__FILES:~1%^)
+    ) else if %__N_FILE% gtr 0 ( set __FILE_TEXT=%__N_FILE% ^(%__FILE_URLS:~1%^)
     ) else ( set __FILE_TEXT=%__N_FILE%
+    )
+    if "%_SHARE_FLAG%"=="off" ( set __JRT_TEXT=%__N_JRT%
+    ) else if %__N_JRT% gtr 0 ( set __JRT_TEXT=%__N_JRT% ^(%__JRT_URLS:~1%^)
+    ) else ( set __JRT_TEXT=%__N_JRT%
     )
     if %_RUN_ITER%==1 ( set __TIME_TEXT=Load time        : !__LOAD_TIME[1]!
     ) else (
@@ -455,7 +473,8 @@ if %__N% equ %_RUN_ITER% (
     echo Statistics ^(see details in !__SHARE_LOG_FILE:%_ROOT_DIR%=!^):
     echo    Share flag       : %_SHARE_FLAG%
     echo    Shared classes   : %__N_SHARED%
-    echo    File/jrt classes : !__FILE_TEXT!
+    echo    File classes     : !__FILE_TEXT!
+    echo    jrt images       : !__JRT_TEXT!
     echo    !__TIME_TEXT!
     echo    #iteration^(s^)    : %_RUN_ITER%
     echo Classes per package ^(!__N_PACKAGES!^):
