@@ -345,7 +345,7 @@ if %_DEBUG%==1 (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -J-Xlog:disable
 )
 if %_DEBUG%==1 ( echo [%_BASENAME%] call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% %_RUN_ARGS%
-) else if %_VERBOSE%==1 ( echo Execute Java archive %_JAR_FILE% %_RUN_ARGS%
+) else if %_VERBOSE%==1 ( echo Execute Java archive !_JAR_FILE:%_ROOT_DIR%=! %_RUN_ARGS%
 )
 call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% %_RUN_ARGS%
 if not %ERRORLEVEL%==0 (
@@ -503,13 +503,15 @@ if %__N% equ %_RUN_ITER% (
     ) else if %__N_FILE% gtr 0 ( set __FILE_TEXT=%__N_FILE% ^(%__FILE_URLS:~1%^)
     ) else ( set __FILE_TEXT=%__N_FILE%
     )
+    if "%_SHARE_FLAG%"=="off" ( set __JRT_TEXT=%__N_JRT%
+    ) else if %__N_JRT% gtr 0 ( set __JRT_TEXT=%__N_JRT% ^(%__JRT_URLS:~1%^)
+    ) else ( set __JRT_TEXT=%__N_JRT%
+    )
     if %_RUN_ITER%==1 ( set __TIME_TEXT=Load time        : !__LOAD_TIME[1]!
     ) else (
         call :average
         set __TIME_TEXT=Average load time: !_AVERAGE!s
     )
-    call :average
-    set __LOAD_TIME_AVERAGE=!_AVERAGE!s
     set /a __N_PACKAGES=__N_MAIN
     rem Java libraries
     set /a __N_PACKAGES=__N_PACKAGES+__N_JAVA_IO+__N_JAVA_LANG+__N_JAVA_MATH+__N_JAVA_NET+__N_JAVA_NIO

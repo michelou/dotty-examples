@@ -336,7 +336,7 @@ if %_DEBUG%==1 (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -Xlog:disable
 )
 if %_DEBUG%==1 ( echo [%_BASENAME%] %_JAVA_CMD% %__JAVA_TOOL_OPTS% -jar %_JAR_FILE% %_RUN_ARGS%
-else if %_VERBOSE%==1 ( echo Execute Java archive %_JAR_FILE% %_RUN_ARGS%
+else if %_VERBOSE%==1 ( echo Execute Java archive !_JAR_FILE:%_ROOT_DIR%=! %_RUN_ARGS%
 )
 %_JAVA_CMD% %__JAVA_TOOL_OPTS% -jar %_JAR_FILE% %_RUN_ARGS%
 if not %ERRORLEVEL%==0 (

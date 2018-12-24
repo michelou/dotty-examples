@@ -106,8 +106,9 @@ Hello from Java !
 Statistics (see details in target\logs\log_share_off.log):
    Share flag       : off
    Shared classes   : 0
-   File/jrt classes : 596
-   Load time        : 0.115s
+   File classes     : 1
+   jrt images       : 595
+   Load time        : 0.109
    #iteration(s)    : 1
 Classes per package (596):
    java.io.* (38), java.lang.* (168), java.math.* (0), java.net.* (9)
@@ -142,8 +143,9 @@ Hello from Java !
 Statistics (see details in target\logs\log_share_on.log):
    Share flag       : on
    Shared classes   : 585
-   File/jrt classes : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
-   Load time        : 0.085s
+   File classes     : 0
+   jrt images       : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
+   Load time        : 0.082
    #iteration(s)    : 1
 Classes per package (586):
    java.io.* (38), java.lang.* (168), java.math.* (0), java.net.* (9)
@@ -163,8 +165,9 @@ Hello from Java !
 Statistics (see details in target\logs\log_share_on.log):
    Share flag       : on
    Shared classes   : 585
-   File/jrt classes : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
-   Average load time: 0.09s
+   File classes     : 0
+   jrt images       : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
+   Average load time: 0.084s
    #iteration(s)    : 4
 Classes per package (586):
    java.io.* (38), java.lang.* (168), java.math.* (0), java.net.* (9)
@@ -289,19 +292,21 @@ We can now execute our [Dotty](http://dotty.epfl.ch/) example ***without data sh
 Hello from Dotty !
 &nbsp;
 &gt; build run -verbose
+Execute Java archive target\DottyExample.jar
 Hello from Dotty !
 Statistics (see details in target\logs\log_share_off.log):
    Share flag       : off
    Shared classes   : 0
-   File/jrt classes : 940
-   Load time        : 0.384s
+   File classes     : 265
+   jrt images       : 671
+   Load time        : 0.349
    #iteration(s)    : 1
-Classes per package (945):
+Classes per package (941):
    java.io.* (39), java.lang.* (216), java.math.* (3), java.net.* (9)
    java.nio.* (38), java.security.* (24), java.util.* (142)
    jdk.* (121), sun.* (80)
    [APP] cdsexamples.* (2)
-   scala.* (28), scala.collection.* (165), scala.io.* (1), scala.math.* (19)
+   scala.* (28), scala.collection.* (161), scala.io.* (1), scala.math.* (19)
    scala.reflect.* (25), scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
 </pre>
 
@@ -312,19 +317,21 @@ For comparison here is the output ***with data sharing***; option **`-verbose`**
 Hello from Dotty !
 &nbsp;
 &gt; build run -verbose -share
+Execute Java archive target\DottyExample.jar
 Hello from Dotty !
 Statistics (see details in target\logs\log_share_on.log):
    Share flag       : on
-   Shared classes   : 873
-   File/jrt classes : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
-   Load time        : 0.125s
+   Shared classes   : 869
+   File classes     : 0
+   jrt images       : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
+   Load time        : 0.125
    #iteration(s)    : 1
-Classes per package (879):
+Classes per package (875):
    java.io.* (34), java.lang.* (208), java.math.* (3), java.net.* (9)
    java.nio.* (27), java.security.* (23), java.util.* (122)
    jdk.* (106), sun.* (74)
    [APP] cdsexamples.* (2)
-   scala.* (28), scala.collection.* (165), scala.io.* (1), scala.math.* (19)
+   scala.* (28), scala.collection.* (161), scala.io.* (1), scala.math.* (19)
    scala.reflect.* (25), scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
 </pre>
 
@@ -332,22 +339,27 @@ Subcommand **`run`** with option **`-iter:<n>`** (**`n=1..99`**) executes **`n`*
 
 <pre style="font-size:80%;">
 &gt; build run -verbose -share -iter:4
+Execute Java archive target\DottyExample.jar
 Hello from Dotty !
+Execute Java archive target\DottyExample.jar
 Hello from Dotty !
+Execute Java archive target\DottyExample.jar
 Hello from Dotty !
+Execute Java archive target\DottyExample.jar
 Hello from Dotty !
 Statistics (see details in target\logs\log_share_on.log):
    Share flag       : on
-   Shared classes   : 873
-   File/jrt classes : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
-   Average load time: 0.134s
+   Shared classes   : 869
+   File classes     : 0
+   jrt images       : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
+   Average load time: 0.128s
    #iteration(s)    : 4
-Classes per package (879):
+Classes per package (875):
    java.io.* (34), java.lang.* (208), java.math.* (3), java.net.* (9)
    java.nio.* (27), java.security.* (23), java.util.* (122)
    jdk.* (106), sun.* (74)
    [APP] cdsexamples.* (2)
-   scala.* (28), scala.collection.* (165), scala.io.* (1), scala.math.* (19)
+   scala.* (28), scala.collection.* (161), scala.io.* (1), scala.math.* (19)
    scala.reflect.* (25), scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
 </pre>
 
