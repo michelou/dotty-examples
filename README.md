@@ -650,7 +650,7 @@ Exception in thread "main" java.lang.IncompatibleClassChangeError: Method dotty.
 <a name="footnote_01">[1]</a> ***2018-11-18*** [↩](#anchor_01)
 
 <div style="margin:0 0 1em 20px;">
-Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an LTS release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the next LTS release.
+Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the next LTS release.
 </div>
 
 <a name="footnote_02">[2]</a> ***2018-05-09*** [↩](#anchor_02)

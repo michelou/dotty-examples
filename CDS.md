@@ -507,11 +507,18 @@ Classes per package (889):
 </pre>
 
 
-> **&#9755;** ***Data Sharing and JDK 11 Installation*** <br/>
-> The [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html) installation contains the file **`<jdk_path>\lib\classlist`**. Running command **`java.exe -Xshare:dump`** will read that file and generate a 17.3 Mb Java shared archive **`<jdk_path>\bin\server\classes.jsa`**.
+> **&#9755;** ***Data Sharing and Oracle JDK 11*** <br/>
+> The [Oracle JDK 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html) installation contains the file **`<install_dir>\lib\classlist`**. Let's check if data sharing is enabled:
+> 
+> 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, last displayed line ends with  **`(build 11.0.1+13, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.1+13, mixed mode)`** otherwise.
+> 2. Command **`java.exe -Xshare:dump`** generates the 17.3 Mb Java shared archive **`<install_dir>\bin\server\classes.jsa`** from file **`<install_dir>\lib\classlist`**.
+> 3. Repeat command from point 1. 
+> 
 > <pre style="font-size:80%;">
-> &gt; java -version 2>&1 | findstr version
+> &gt; c:\opt\jdk-11.0.1\bin\java -version
 > openjdk version "11.0.1" 2018-10-16
+> OpenJDK Runtime Environment 18.9 (build 11.0.1+13)
+> OpenJDK 64-Bit Server VM 18.9 (build 11.0.1+13, mixed mode)
 > &nbsp;
 > &gt; java -Xshare:dump
 > [...]
@@ -527,6 +534,11 @@ Classes per package (889):
 > &gt; dir /b c:\opt\jdk-11.0.1\bin\server
 > classes.jsa
 > jvm.dll
+> &nbsp;
+> &gt; c:\opt\jdk-11.0.1\bin\java -version
+> openjdk version "11.0.1" 2018-10-16
+> OpenJDK Runtime Environment 18.9 (build 11.0.1+13)
+> OpenJDK 64-Bit Server VM 18.9 (build 11.0.1+13, mixed mode, sharing)
 > </pre>
 
 
