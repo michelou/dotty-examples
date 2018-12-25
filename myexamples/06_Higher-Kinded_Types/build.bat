@@ -293,15 +293,19 @@ if %_COMPILE_TIME%==1 (
 )
 if %_TASTY%==1 (
     if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
-    if %_DEBUG%==1 ( echo [%_BASENAME%] %_COMPILE_CMD% -from-tasty %_MAIN_CLASS% -classpath "%_CLASSES_DIR%" -d "%_TASTY_CLASSES_DIR%"
-    ) else if %_VERBOSE%==1 ( echo Compile TASTy files to !_TASTY_CLASSES_DIR:%_ROOT_DIR%=!
-	)
-	call %_COMPILE_CMD% -from-tasty %_MAIN_CLASS% -classpath "%_CLASSES_DIR%" -d "%_TASTY_CLASSES_DIR%"
-    if not !ERRORLEVEL!==0 (
-       echo Error: Scala compilation from tasty failed 1>&2
-        set _EXITCODE=1
-        goto :eof
+    for /f %%f in ('dir /b "%_CLASSES_DIR%\*.tasty" 2^>NUL') do (
+        set __CLASS_NAME=%%f
+        set __CLASS_NAME=!__CLASS_NAME:~0,-6!
+        if %_DEBUG%==0 ( echo [%_BASENAME%] %_COMPILE_CMD% -from-tasty "!__CLASS_NAME!" -classpath "%_CLASSES_DIR%" -d "%_TASTY_CLASSES_DIR%"
+        ) else if %_VERBOSE%==1 ( echo Compile TASTy files to !_TASTY_CLASSES_DIR:%_ROOT_DIR%=!
+        )
+        call %_COMPILE_CMD% -from-tasty "!__CLASS_NAME!" -classpath "%_CLASSES_DIR%" -d "%_TASTY_CLASSES_DIR%"
+        if not !ERRORLEVEL!==0 (
+            echo Error: Scala compilation from tasty failed 1>&2
+            set _EXITCODE=1
+        )
     )
+    if not !_EXITCODE!==0 goto :eof
 )
 goto :eof
 
@@ -411,10 +415,10 @@ if not %ERRORLEVEL%==0 (
 )
 if %_TASTY%==1 (
     if not exist "%_TASTY_CLASSES_DIR%" (
-	    echo Warning: TASTy output directory not found 1>&2
-	    set _EXITCODE=1
-		goto :eof
-	)
+        echo Warning: TASTy output directory not found 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
     set __RUN_OPTS=-classpath "%__PROJECT_JARS%%_TASTY_CLASSES_DIR%"
 
     if %_DEBUG%==1 ( echo [%_BASENAME%] %_RUN_CMD% !__RUN_OPTS! %_MAIN_CLASS% %_MAIN_ARGS%
