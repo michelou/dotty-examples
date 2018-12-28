@@ -237,23 +237,11 @@ if %_COMPILE_REQUIRED%==0 goto :eof
 if %_COMPILE_TIME%==1 (
     for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __COMPILE_TIME_START=%%i
 )
-for /f %%i in ('where dotc.bat') do set _DOTTY_BIN_DIR=%%~dpi
-for /f %%f in ("%_DOTTY_BIN_DIR%..") do set _DOTTY_HOME=%%~sf
-set _DOTTY_LIB_DIR=%_DOTTY_HOME%\lib
-set _DOTTY_JARS=
-for /f %%i in ('dir /b "%_DOTTY_LIB_DIR%\dotty*.jar"') do (
-    set _DOTTY_JARS=!_DOTTY_JARS!%_DOTTY_LIB_DIR%\%%i;
-)
-set __PROJECT_JARS=
-if exist "%_ROOT_DIR%\lib\" (
-    for /f %%i in ('dir /b "%_ROOT_DIR%\lib\*.jar" 2^>NUL') do (
-        set __PROJECT_JARS=!__PROJECT_JARS!%_ROOT_DIR%\lib\%%i;
-    )
-)
+call :libs_cpath
 
 if not defined __JAVA_SOURCE_FILES goto compile_scala
 set _JAVAC_CMD=javac.exe
-set _JAVAC_OPTS=-classpath "%_DOTTY_JARS%%__PROJECT_JARS%%_CLASSES_DIR%" -d %_CLASSES_DIR%
+set _JAVAC_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d %_CLASSES_DIR%
 
 if %_DEBUG%==1 ( echo [%_BASENAME%] %_JAVAC_CMD% %_JAVAC_OPTS% %__JAVA_SOURCE_FILES%
 ) else if %_VERBOSE%==1 ( echo Compile Java sources to !_CLASSES_DIR:%_ROOT_DIR%=!
@@ -292,17 +280,18 @@ if %_COMPILE_TIME%==1 (
 )
 if %_TASTY%==1 (
     if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
+    set __CLASS_NAMES=
     for /f %%f in ('dir /b "%_CLASSES_DIR%\*.tasty" 2^>NUL') do (
         set __CLASS_NAME=%%f
-        set __CLASS_NAME=!__CLASS_NAME:~0,-6!
-        if %_DEBUG%==0 ( echo [%_BASENAME%] %_COMPILE_CMD% -from-tasty "!__CLASS_NAME!" -classpath "%_CLASSES_DIR%" -d "%_TASTY_CLASSES_DIR%"
-        ) else if %_VERBOSE%==1 ( echo Compile TASTy files to !_TASTY_CLASSES_DIR:%_ROOT_DIR%=!
-        )
-        call %_COMPILE_CMD% -from-tasty "!__CLASS_NAME!" -classpath "%_CLASSES_DIR%" -d "%_TASTY_CLASSES_DIR%"
-        if not !ERRORLEVEL!==0 (
-            echo Error: Scala compilation from tasty failed 1>&2
-            set _EXITCODE=1
-        )
+		set __CLASS_NAMES=!__CLASS_NAMES! !__CLASS_NAME:~0,-6!
+    )
+    if %_DEBUG%==1 ( echo [%_BASENAME%] %_COMPILE_CMD% -from-tasty !__CLASS_NAMES! -classpath %_CLASSES_DIR% -d %_TASTY_CLASSES_DIR%
+    ) else if %_VERBOSE%==1 ( echo Compile TASTy files to !_TASTY_CLASSES_DIR:%_ROOT_DIR%=!
+    )
+    call %_COMPILE_CMD% -from-tasty !__CLASS_NAMES! -classpath %_CLASSES_DIR% -d %_TASTY_CLASSES_DIR%
+    if not !ERRORLEVEL!==0 (
+        echo Error: Scala compilation from TASTy files failed 1>&2
+        set _EXITCODE=1
     )
     if not !_EXITCODE!==0 goto :eof
 )
@@ -364,6 +353,21 @@ for /f %%i in ('powershell -C "(Get-ChildItem '%__FILE_PATH%').LastWriteTime | G
 )
 goto :eof
 
+rem output parameter: _LIBS_CPATH
+:libs_cpath
+set _LIBS_CPATH=
+rem for /f %%i in ('where dotc.bat') do set __DOTTY_BIN_DIR=%%~dpi
+rem for /f %%f in ("!__DOTTY_BIN_DIR!..") do set __DOTTY_HOME=%%~sf
+rem for /f %%i in ('dir /b "!__DOTTY_HOME!\lib\dotty*.jar"') do (
+rem     set _LIBS_CPATH=!_LIBS_CPATH!!__DOTTY_HOME!\lib\%%i;
+rem )
+if exist "%_ROOT_DIR%\lib\" (
+    for /f %%i in ('dir /b "%_ROOT_DIR%\lib\*.jar" 2^>NUL') do (
+        set _LIBS_CPATH=!_LIBS_CPATH!%_ROOT_DIR%\lib\%%i;
+    )
+)
+goto :eof
+
 :doc
 if not exist "%_DOCS_DIR%" mkdir "%_DOCS_DIR%" 1>NUL
 
@@ -395,13 +399,8 @@ if not exist "%__MAIN_CLASS_FILE%" (
     set _EXITCODE=1
     goto :eof
 )
-set __PROJECT_JARS=
-if exist "%_ROOT_DIR%\lib\" (
-    for /f %%i in ('dir /b "%_ROOT_DIR%\lib\*.jar"') do (
-        set __PROJECT_JARS=!__PROJECT_JARS!%_ROOT_DIR%\lib\%%i;
-    )
-)
-set __RUN_OPTS=-classpath "%__PROJECT_JARS%%_CLASSES_DIR%"
+call :libs_cpath
+set __RUN_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%"
 
 if %_DEBUG%==1 ( echo [%_BASENAME%] %_RUN_CMD% %__RUN_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 ) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS%
@@ -418,7 +417,7 @@ if %_TASTY%==1 (
         set _EXITCODE=1
         goto :eof
     )
-    set __RUN_OPTS=-classpath "%__PROJECT_JARS%%_TASTY_CLASSES_DIR%"
+    set __RUN_OPTS=-classpath "%_LIBS_CPATH%%_TASTY_CLASSES_DIR%;%_CLASSES_DIR%"
 
     if %_DEBUG%==1 ( echo [%_BASENAME%] %_RUN_CMD% !__RUN_OPTS! %_MAIN_CLASS% %_MAIN_ARGS%
     ) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% ^(compiled from TASTy^)

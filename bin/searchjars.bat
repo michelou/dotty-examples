@@ -32,6 +32,12 @@ if not %_EXITCODE%==0 goto end
 call :search "%_JAVA_HOME%\lib"
 if not %_EXITCODE%==0 goto end
 
+for /f %%f in ('cd') do set _CWD=%%~sf
+if not exist "%_CWD%\lib\*" goto end
+
+call :search "%_CWD%\lib"
+if not %_EXITCODE%==0 goto end
+
 goto end
 
 rem ##########################################################################

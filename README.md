@@ -175,19 +175,13 @@ We distinguish different sets of batch commands:
 
 1. Build tools
 
-    Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories can also be built using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to the **`build`** batch command:
-
-    <pre style="font-size:80%;">
-    > sbt clean compile run
-    ...
-    > ant clean compile run
-    ...
-    > gradle clean build run
-    ...
-    > mill -i go
-    ...
-    > mvn clean compile test
-    </pre>
+    Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories can also be built with the following tools as an alternative to the **`build`** batch command:
+    | Tool | Config file | Example |
+    | [**`sbt`**](https://www.scala-sbt.org/) | **`build.sbt`** | **`sbt clean compile run`** |
+    | [**`ant`**](https://ant.apache.org/manual/running.html) | **`build.xml`** | **`ant clean compile run`** |
+    | [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) | **`build.gradle`** | **`gradle clean build run`** |
+    | [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) | | **`mill -i go`** |
+    | [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) | **`pom.xml`** | **`mvn clean compile test`** |
     
     > **&#9755;** ***Gradle Wrappers***<br/>
     > We don't rely on them even if using [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) is the  recommended way to execute a Gradle build.<br/>
@@ -248,7 +242,7 @@ We distinguish different sets of batch commands:
 
 #### `setenv.bat`
 
-The [**`setenv`**](setenv.bat) command is executed once to setup our development environment; it makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt:
+Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt:
 
 <pre style="font-size:80%;">
 > setenv
@@ -289,7 +283,7 @@ Tool paths:
 
 #### `cleanup.bat`
 
-The [**`cleanup`**](bin/cleanup.bat) command removes the output directories (ie. **`target\`**) from the example projets: 
+Command [**`cleanup`**](bin/cleanup.bat) removes the output directories (ie. **`target\`**) from the example projets: 
 
 <pre style="font-size:80%;">
 &gt; cleanup
@@ -300,7 +294,7 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 
 #### `dirsize.bat {<dir_name>}`
 
-The [**`dirsize`**](bin/dirsize.bat) command returns the size (in Kb, Mb or Gb) of the specified directory paths:
+Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
 > dirsize examples myexamples c:\opt\dotty-0.11.0-RC1
@@ -327,7 +321,7 @@ dotty_0.12-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar
 
 > **NB.** Execute **`getnightly help`** to display the help message.
 
-With option **`-verbose`** the [**`getnightly`**](bin/getnightly.bat) command also displays the download progress:
+Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
 <pre style="font-size:80%">
 > getnightly -verbose
@@ -420,7 +414,7 @@ Searching for class BinarySearch in library files C:\PROGRA~1\Java\JDK18~1.0_1\l
 
 #### `timeit.bat <cmd_1> { & <cmd_i> }`
 
-The [**`timeit`**](bin/timeit.bat) command prints the execution time (`hh:MM:ss`) of the specified command (possibly given with options and parameters):
+Command [**`timeit`**](bin/timeit.bat) prints the execution time (`hh:MM:ss`) of the specified command (possibly given with options and parameters):
 
 <pre style="font-size:80%;">
 > timeit dir /b
@@ -492,7 +486,7 @@ Parent directory: W:\dotty\myexamples
 
 #### `build.bat`
 
-The [**`build`**](examples/enum-Planet/build.bat) command is a basic build tool consisting of ~350 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_02">[[2]](#footnote_02)</sup>. 
+Command [**`build`**](examples/enum-Planet/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_02">[[2]](#footnote_02)</sup>. 
 
 Running the [**`build`**](examples/enum-Planet/build.bat) command with ***no*** option in project [**`examples\enum-Planet`**](examples/enum-Planet/) generates the following output:
 

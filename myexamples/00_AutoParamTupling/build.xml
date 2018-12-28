@@ -4,8 +4,12 @@
     <property name="sources.dir" value="src" />
     <property name="scala-source.dir" value="${basedir}/src/main/scala" />
     <property name="target.dir" value="${basedir}/target" />
-    <property name="build.dir" value="${target.dir}/classes" />
-    <property name="main.class" value="Main" />
+    <property name="build.dir" value="${target.dir}/main/classes" />
+    <property name="main.class" value="myexamples.Main" />
+
+    <property name="test-source.dir" value="${basedir}/src/test/scala" />
+    <property name="test-build.dir" value="${target.dir}/test/classes" />
+    <property name="test-report.dir" value="${target.dir}/test/reports" />
 
     <!-- set dotty.home -->
     <property environment="env" />
@@ -27,22 +31,27 @@
             <path refid="project.classpath" />
             <pathelement location="${build.dir}" />
         </path>
-        <pathconvert property="scala.sources" pathsep=" ">
-            <fileset dir="${scala-source.dir}/" includes="**/*.scala" />
-        </pathconvert>
+        <path id="test.classpath">
+            <path refid="project.classpath" />
+            <pathelement location="${build.dir}"/>
+            <pathelement location="${test-build.dir}"/>
+        </path>
     </target>
 
     <macrodef name="dotc" >
         <attribute name="destdir" default="." />
         <attribute name="classpath" default="." />
+        <attribute name="sources" default="" />
         <sequential>
             <exec executable="${dotty.home}\bin\dotc.bat">
+                <arg value="-deprecation" />
+                <arg value="-feature" />
+                <arg value="-explain" />
                 <arg value="-d" />
                 <arg value="@{destdir}" />
                 <arg value="-classpath" />
-                <arg value="@{classpath}" />
-                <arg value="-deprecation" />
-                <arg line="${scala.sources}" />
+                <arg value="&quot;@{classpath}&quot;" />
+                <arg value="@{sources}" />
             </exec>
         </sequential>
     </macrodef>
@@ -50,7 +59,19 @@
     <target name="compile" depends="init">
         <mkdir dir="${build.dir}" />
         <pathconvert property="classpath" refid="build.classpath" />
-        <dotc destdir="${build.dir}" classpath="${classpath}" />
+        <pathconvert property="sources" pathsep=" ">
+            <fileset dir="${scala-source.dir}/" includes="**/*.scala" />
+        </pathconvert>
+        <dotc destdir="${build.dir}" classpath="${classpath}" sources="${sources}"/>
+    </target>
+
+    <target name="compile-test" depends="init, compile">
+        <mkdir dir="${test-build.dir}" />
+        <pathconvert property="test.classpath" refid="test.classpath" />
+        <pathconvert property="test.sources" pathsep=" ">
+            <fileset dir="${test-source.dir}/" includes="**/*.scala" />
+        </pathconvert>
+        <dotc destdir="${test-build.dir}" classpath="${test.classpath}" sources="${test.sources}"/>
     </target>
 
     <target name="run" depends="compile">
@@ -60,6 +81,23 @@
                 <path refid="build.classpath" />
             </classpath>
         </java>
+    </target>
+
+    <target name="test" depends="compile, compile-test">
+		<!--
+		see https://junit.org/junit5/docs/snapshot/user-guide/#running-tests-console-launcher-options
+		-->
+        <java classpathref="test.classpath" classname="org.junit.platform.console.ConsoleLauncher" fork="true" failonerror="true">
+			<arg value="&quot;--select-directory=${test-build.dir}&quot;"/>
+            <arg line="--reports-dir &quot;${test-report.dir}&quot;"/> <!-- created if not found -->
+			<arg value="--fail-if-no-tests"/>
+        </java>
+        <junitreport todir="${test-report.dir}">
+            <fileset dir="${test-report.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${test-report.dir}/html"/>
+        </junitreport>
     </target>
 
     <target name="clean">
