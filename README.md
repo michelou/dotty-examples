@@ -176,7 +176,8 @@ We distinguish different sets of batch commands:
 1. Build tools
 
     Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories can also be built with the following tools as an alternative to the **`build`** batch command:
-    | Tool | Config file | Example |
+
+    | **Tool** | **Config file** | **Example** |
     | [**`sbt`**](https://www.scala-sbt.org/) | **`build.sbt`** | **`sbt clean compile run`** |
     | [**`ant`**](https://ant.apache.org/manual/running.html) | **`build.xml`** | **`ant clean compile run`** |
     | [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) | **`build.gradle`** | **`gradle clean build run`** |
