@@ -15,6 +15,7 @@ for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
 
 set _SOURCE_DIR=%_ROOT_DIR%src
 set _TARGET_DIR=%_ROOT_DIR%target
+set _DOCS_DIR=%_TARGET_DIR%\docs
 set _LOG_DIR=%_TARGET_DIR%\logs
 
 set _MAIN_CLASS_NAME=Main
@@ -43,6 +44,10 @@ if %_COMPILE%==1 (
     call :compile
     if not !_EXITCODE!==0 goto end
 )
+if %_DOC%==1 (
+    call :doc
+    if not !_EXITCODE!==0 goto end
+)
 if %_RUN%==1 (
     call :run
     if not !_EXITCODE!==0 goto end
@@ -57,6 +62,7 @@ rem input parameter: %*
 :args
 set _CLEAN=0
 set _COMPILE=0
+set _DOC=0
 set _RUN=0
 set _RUN_ARGS=
 set _RUN_ITER=1
@@ -73,6 +79,7 @@ if not defined __ARG (
 )
 if /i "%__ARG%"=="clean" ( set _CLEAN=1
 ) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
+) else if /i "%__ARG%"=="doc" ( set _DOC=1
 ) else if /i "%__ARG:~0,4%"=="run:" (
     set _RUN_ARGS=%__ARG:~4%& set _COMPILE=1& set _RUN=1
 ) else if /i "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
@@ -107,6 +114,7 @@ echo     -verbose            display progress messages
 echo   Subcommands:
 echo     clean               delete generated files
 echo     compile             compile Scala source files
+echo     doc                 generate Scala documentation
 echo     help                display this help message
 echo     run[:arg]           execute main class with 1 optional argument
 goto :eof
@@ -158,15 +166,18 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 set _COMPILE_CMD=dotc.bat
+set _DOC_CMD=dotd.bat
 set _RUN_CMD=dotr.bat
 goto :eof
 
 :clean
 if not exist "%_TARGET_DIR%\" goto :eof
-if %_DEBUG%==1 echo [%_BASENAME%] rmdir /s /q %_TARGET_DIR%
+if %_DEBUG%==1 ( echo [%_BASENAME%] rmdir /s /q %_TARGET_DIR%
+) else if %_VERBOSE%==1 ( echo Delete output directory !_TARGET_DIR:%_ROOT_DIR%=!
+)
 rmdir /s /q "%_TARGET_DIR%"
 if not %ERRORLEVEL%==0 (
-    echo Error: Failed to clean output directory %_TARGET% 1>&2
+    echo Error: Failed to delete output directory %_TARGET_DIR% 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -329,6 +340,30 @@ for /f %%i in ('powershell -C "(Get-ChildItem '%__FILE_PATH%').LastWriteTime | G
 )
 goto :eof
 
+:doc
+if not exist "%_DOCS_DIR%" mkdir "%_DOCS_DIR%" 1>NUL
+
+set __SCALA_SOURCE_FILES=
+for /f %%i in ('dir /s /b "%_ROOT_DIR%src\main\scala\*.scala" 2^>NUL') do (
+    set __SCALA_SOURCE_FILES=!__SCALA_SOURCE_FILES! %%i
+)
+
+for %%i in ("%~dp0\.") do set __PROJECT=%%~ni
+set __DOC_OPTS=-siteroot %_DOCS_DIR% -project %__PROJECT% -project-version 0.1-SNAPSHOT
+
+set __REDIRECT_STDERR=
+if %_DEBUG%==1 ( echo [%_BASENAME%] %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES%
+) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into !_DOCS_DIR:%_ROOT_DIR%=!
+) else ( set __REDIRECT_STDERR=2^>NUL
+)
+call %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES% %__REDIRECT_STDERR%
+if not %ERRORLEVEL%==0 (
+    echo Error: Scala documentation generation failed 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
 :run
 set __N=1
 :run_iter
@@ -462,6 +497,11 @@ if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] scala.collection." "%__SHARE_LOG
 for /f "delims=" %%i in ('findstr /c:"] scala.collection." "%__SHARE_LOG_FILE%"') do (
     set /a __N_SCALA_COLLECTION+=1
 )
+set __N_SCALA_COMPAT=0
+if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] scala.compat." "%__SHARE_LOG_FILE%"
+for /f "delims=" %%i in ('findstr /c:"] scala.compat." "%__SHARE_LOG_FILE%"') do (
+    set /a __N_SCALA_COMPAT+=1
+)
 set __N_SCALA_IO=0
 if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] scala.io." "%__SHARE_LOG_FILE%"
 for /f "delims=" %%i in ('findstr /c:"] scala.io." "%__SHARE_LOG_FILE%"') do (
@@ -517,7 +557,8 @@ if %__N% equ %_RUN_ITER% (
     set /a __N_PACKAGES=__N_PACKAGES+__N_JAVA_IO+__N_JAVA_LANG+__N_JAVA_MATH+__N_JAVA_NET+__N_JAVA_NIO
     set /a __N_PACKAGES=__N_PACKAGES+__N_JAVA_SECURITY+__N_JAVA_UTIL+__N_JDK+__N_SUN
     rem Scala libraries
-    set /a __N_PACKAGES=__N_PACKAGES+__N_SCALA+__N_SCALA_COLLECTION+__N_SCALA_IO+__N_SCALA_MATH
+    set /a __N_PACKAGES=__N_PACKAGES+__N_SCALA+__N_SCALA_COLLECTION+__N_SCALA_COMPAT
+	set /a __N_PACKAGES=__N_PACKAGES+__N_SCALA_IO+__N_SCALA_MATH
     set /a __N_PACKAGES=__N_PACKAGES+__N_SCALA_REFLECT+__N_SCALA_RUNTIME+__N_SCALA_SYS+__N_SCALA_UTIL
     echo Statistics ^(see details in !__SHARE_LOG_FILE:%_ROOT_DIR%=!^):
     echo    Share flag       : %_SHARE_FLAG%
@@ -531,8 +572,9 @@ if %__N% equ %_RUN_ITER% (
     echo    java.nio.* ^(%__N_JAVA_NIO%^), java.security.* ^(%__N_JAVA_SECURITY%^), java.util.* ^(%__N_JAVA_UTIL%^)
     echo    jdk.* ^(%__N_JDK%^), sun.* ^(%__N_SUN%^)
     echo    [APP] %_MAIN_PKG_NAME%.* ^(%__N_MAIN%^)
-    echo    scala.* ^(%__N_SCALA%^), scala.collection.* ^(%__N_SCALA_COLLECTION%^), scala.io.* ^(%__N_SCALA_IO%^), scala.math.* ^(%__N_SCALA_MATH%^)
-    echo    scala.reflect.* ^(%__N_SCALA_REFLECT%^), scala.runtime.* ^(%__N_SCALA_RUNTIME%^), scala.sys.* ^(%__N_SCALA_SYS%^), scala.util.* ^(%__N_SCALA_UTIL%^)
+    echo    scala.* ^(%__N_SCALA%^), scala.collection.* ^(%__N_SCALA_COLLECTION%^), scala.compat.* ^(%__N_SCALA_COMPAT%^)
+    echo    scala.io.* ^(%__N_SCALA_IO%^), scala.math.* ^(%__N_SCALA_MATH%^), scala.reflect.* ^(%__N_SCALA_REFLECT%^)
+    echo    scala.runtime.* ^(%__N_SCALA_RUNTIME%^), scala.sys.* ^(%__N_SCALA_SYS%^), scala.util.* ^(%__N_SCALA_UTIL%^)
 )
 goto :eof
 

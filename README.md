@@ -14,7 +14,7 @@
 
 This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/) on Windows:
 
-- Running Dotty on Windows
+- Running Dotty on Windows [**&#9660;**](#bottom)
 - [Building Dotty on Windows](DRONE.md)
 - [Data Sharing and Dotty on Windows](CDS.md)
 
@@ -59,7 +59,7 @@ C:\opt\sbt-1.2.7\
 C:\opt\scala-2.12.8\
 </pre>
 
-> **NB.** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
+> **:mag_right:** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
 
 We further recommand using an advanced console emulator such as [ComEmu](https://conemu.github.io/) (or [Cmdr](http://cmder.net/)) which features [Unicode support](https://conemu.github.io/en/UnicodeSupport.html).
 
@@ -103,7 +103,7 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), **`scalac.bat`**, [**`dotc.bat`**](bin/0.11/dotc.bat), etc. directly available from the command prompt.
+1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`scalac.bat`**](https://docs.scala-lang.org/overviews/compiler-options/index.html), [**`dotc.bat`**](bin/0.11/dotc.bat), etc. directly available from the command prompt.
 
     <pre style="font-size:80%;">
     > setenv help
@@ -124,7 +124,7 @@ We distinguish different sets of batch commands:
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
 3. Directory [**`bin\0.11\`**](bin/0.11/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.11.0-RC1\bin\`**) in order to use the [**`dot`**](bin/0.11/dot.bat), [**`dotc`**](bin/0.11/dotc.bat), [**`dotd`**](bin/0.11/dotd.bat) and [**`dotr`**](bin/0.11/dotr.bat) commands on **Microsoft Windows**.
-    > **NB.** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Dotty distribution](https://github.com/lampepfl/dotty/releases).
+    > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Dotty distribution](https://github.com/lampepfl/dotty/releases).
 
     <pre style="font-size:80%;">
     &gt; dir /b c:\opt\dotty-0.11.0-RC1\bin
@@ -144,7 +144,7 @@ We distinguish different sets of batch commands:
 -->
 
 4. [**`build.bat`**](examples/dotty-example-project/build.bat) - Finally each example can be built/run using the **`build`** command.<br/>
-    > **NB.** We prefer the **`build`** command here since our code examples are simple and don't require the [**`sbt`** ](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html)machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
+    > **&#9755;** We prefer the **`build`** command here since our code examples are simple and don't require the [**`sbt`** ](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html)machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
 
     <pre style="font-size:80%;">
     &gt; build
@@ -175,7 +175,7 @@ We distinguish different sets of batch commands:
 
 1. Build tools
 
-    Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories can also be built with the following tools as an alternative to the **`build`** batch command:
+    Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories can also be built with the following tools as an alternative to the **`build`** command:
 
     | **Tool** | **Config file** | **Example** |
     | :------: | :-------------: | :---------- |
@@ -307,7 +307,7 @@ Size of directory "c:\opt\dotty-0.11.0-RC1" is 22.4 Mb
 
 #### `getnightly.bat`
 
-By default the [**`getnightly`**](bin/getnightly.bat) command downloads the library files of the latest Dotty nightly build available from the [Maven Central Repository](https://search.maven.org/search?q=g:ch.epfl.lamp) and saves them into directory **`nightly-jars\`**.
+By default the [**`getnightly`**](bin/getnightly.bat) command downloads the library files of the latest Dotty nightly build available from the [Maven Central Repository](https://search.maven.org/search?q=g:ch.epfl.lamp) and saves them into directory **`out\nightly-jars\`**.
 
 <pre style="font-size:80%;">
 > getnightly
@@ -448,7 +448,7 @@ Execution time: 00:00:11
 Execution time: 00:00:11
 </pre>
 
-> **NB.** The **`&&`** command separator performs error checking - that is, the commands to the right of the **`&&`** command run ***if and only if*** the command to the left of **`&&`** succeeds. The **`&`** command ***does not*** perform error checking - that is, all commands run.
+> **:mag_right:** The **`&&`** command separator performs error checking - that is, the commands to the right of the **`&&`** command run ***if and only if*** the command to the left of **`&&`** succeeds. The **`&`** command ***does not*** perform error checking - that is, all commands run.
 
 <!--
 #### `touch.bat`
@@ -458,10 +458,10 @@ The [**`touch.bat`**](bin/touch.bat) command
 
 #### `updateprojs`
 
-The [**`updateprojs`**](bin/updateprojs.bat) command updates the following software versions:
+Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software versions:
 
 | Project file | Variable | Example |
-| :----- | :----: | :------ |
+| :----------- | :------: | :------ |
 | `build.sbt` | `dottyVersion` | `0.10.0` &rarr; `0.11.0-RC1`|
 | `project\build.properties` | `sbt.version` | `1.2.6` &rarr; `1.2.7` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.2.4` &rarr; `0.2.6` |
@@ -549,7 +549,7 @@ Compilation of the Java/Scala source files is performed only if needed during th
 > build compile
 No compilation needed (1 source files)</pre>
 
-> **NB.** The above `enum-Planet` example expects 1 argument at execution time.<br/>
+> **:mag_right:** The above `enum-Planet` example expects 1 argument at execution time.<br/>
 > For simplicity the [**`build`**](examples/enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](examples/enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
 > > type project\build.properties
@@ -658,3 +658,4 @@ Command Prompt has been around for as long as we can remember, but starting with
 ***
 
 *[mics](http://lampwww.epfl.ch/~michelou/)/December 2018* [**&#9650;**](#top)
+<span id="bottom">&nbsp;</span>

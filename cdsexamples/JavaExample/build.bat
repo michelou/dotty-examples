@@ -15,6 +15,7 @@ for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
 
 set _SOURCE_DIR=%_ROOT_DIR%src
 set _TARGET_DIR=%_ROOT_DIR%target
+set _DOCS_DIR=%_TARGET_DIR%\docs
 set _LOG_DIR=%_TARGET_DIR%\logs
 
 set _MAIN_CLASS_NAME=Main
@@ -43,6 +44,10 @@ if %_COMPILE%==1 (
     call :compile
     if not !_EXITCODE!==0 goto end
 )
+if %_DOC%==1 (
+    call :doc
+    if not !_EXITCODE!==0 goto end
+)
 if %_RUN%==1 (
     call :run
     if not !_EXITCODE!==0 goto end
@@ -57,6 +62,7 @@ rem input parameter: %*
 :args
 set _CLEAN=0
 set _COMPILE=0
+set _DOC=0
 set _RUN=0
 set _RUN_ARGS=
 set _RUN_ITER=1
@@ -73,6 +79,7 @@ if not defined __ARG (
 )
 if /i "%__ARG%"=="clean" ( set _CLEAN=1
 ) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
+) else if /i "%__ARG%"=="doc" ( set _DOC=1
 ) else if /i "%__ARG:~0,4%"=="run:" (
     set _RUN_ARGS=%__ARG:~4%& set _COMPILE=1& set _RUN=1
 ) else if /i "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
@@ -107,6 +114,7 @@ echo     -verbose            display progress messages
 echo   Subcommands:
 echo     clean               delete generated files
 echo     compile             compile Java source files
+echo     doc                 generate Java documentation
 echo     help                display this help message
 echo     run[:arg]           execute main class with 1 optional argument
 goto :eof
@@ -131,6 +139,7 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 set _JAVAC_CMD=javac.exe
+set _JAVADOC_CMD=javadoc.exe
 set _JAR_CMD=jar.exe
 
 where /q java.exe
@@ -155,10 +164,12 @@ goto :eof
 
 :clean
 if not exist "%_TARGET_DIR%\" goto :eof
-if %_DEBUG%==1 echo [%_BASENAME%] rmdir /s /q %_TARGET_DIR%
+if %_DEBUG%==1 ( echo [%_BASENAME%] rmdir /s /q %_TARGET_DIR%
+) else if %_VERBOSE%==1 ( echo Delete output directory !_TARGET_DIR:%_ROOT_DIR%=!
+)
 rmdir /s /q "%_TARGET_DIR%"
 if not %ERRORLEVEL%==0 (
-    echo Error: Failed to clean output directory %_TARGET% 1>&2
+    echo Error: Failed to delete output directory %_TARGET_DIR% 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -317,6 +328,29 @@ set __FILE_PATH=%~1
 set _TIMESTAMP=00000000000000
 for /f %%i in ('powershell -C "(Get-ChildItem '%__FILE_PATH%').LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
     set _TIMESTAMP=%%i
+)
+goto :eof
+
+:doc
+if not exist "%_DOCS_DIR%" mkdir "%_DOCS_DIR%" 1>NUL
+
+set __JAVA_SOURCE_FILES=
+for /f %%i in ('dir /s /b "%_ROOT_DIR%src\main\java\*.java" 2^>NUL') do (
+    set __JAVA_SOURCE_FILES=!__JAVA_SOURCE_FILES! %%i
+)
+
+for %%i in ("%~dp0\.") do set __PROJECT=%%~ni
+set __JAVADOC_OPTS=-d %_DOCS_DIR% -windowtitle %__PROJECT% -doctitle "<h1>%__PROJECT%</h1>"
+if not %_DEBUG%==1 if not %_VERBOSE%==1 set __JAVADOC_OPTS=-quiet %__JAVADOC_OPTS%
+
+if %_DEBUG%==1 ( echo [%_BASENAME%] %_JAVADOC_CMD% %__JAVADOC_OPTS% %__JAVA_SOURCE_FILES%
+) else if %_VERBOSE%==1 ( echo Generate Java documentation into !_DOCS_DIR:%_ROOT_DIR%=!
+)
+%_JAVADOC_CMD% %__JAVADOC_OPTS% %__JAVA_SOURCE_FILES%
+if not %ERRORLEVEL%==0 (
+    echo Error: Failed to generate Java documentation 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 goto :eof
 

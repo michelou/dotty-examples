@@ -385,10 +385,12 @@ for /f %%i in ('dir /s /b "%_ROOT_DIR%src\main\scala\*.scala" 2^>NUL') do (
 for %%i in ("%~dp0\.") do set __PROJECT=%%~ni
 set __DOC_OPTS=-siteroot %_DOCS_DIR% -project %__PROJECT% -project-version 0.1-SNAPSHOT
 
+set __REDIRECT_STDERR=
 if %_DEBUG%==1 ( echo [%_BASENAME%] %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES%
 ) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into !_DOCS_DIR:%_ROOT_DIR%=!
+) else ( set __REDIRECT_STDERR=2^>NUL
 )
-call %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES%
+call %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES% %__REDIRECT_STDERR%
 if not %ERRORLEVEL%==0 (
     echo Error: Scala documentation generation failed 1>&2
     set _EXITCODE=1

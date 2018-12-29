@@ -14,12 +14,12 @@
 This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/) on Windows:
 
 - [Running Dotty on Windows](README.md)
-- Building Dotty on Windows
+- Building Dotty on Windows [**&#9660;**](#bottom)
 - [Data Sharing and Dotty on Windows](CDS.md)
 
 
 > **&#9755;** ***Scala CI/CD***<br/>
-> Continuous delivery (CD) typically performs the following steps:<br/>&nbsp;&nbsp;&nbsp;Checkout **&rarr;** Compile **&rarr;** Test **&rarr;** Deploy.<br/>
+> Continuous delivery (CD) typically performs the following steps:<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checkout **&rarr;** Compile **&rarr;** Test **&rarr;** Deploy.<br/>
 > CI/CD of [Scala](https://www.scala-lang.org/) builds is currently performed by the following cloud services:
 >
 > - [Jenkins](https://jenkins.io/doc/): the [CI server](https://scala-ci.typesafe.com/) is hosted by [Lightbend](https://en.wikipedia.org/wiki/Lightbend) in San-Francisco, USA (configuration described in [Chef cookbook](https://github.com/scala/scala-jenkins-infra)).<br/>
@@ -226,7 +226,7 @@ Below we summarize additions/changes we made to the [source code](https://github
 
 #### `setenv.bat`
 
-The **`setenv`** command is executed once to setup our development environment; it makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt (see section [**Project dependencies**](#anchor_01)):
+Command **`setenv`** is executed once to setup our development environment; it makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt (see section [**Project dependencies**](#anchor_01)):
 
 <pre style="font-size:80%;">
 > setenv
@@ -459,7 +459,7 @@ Total execution time: 00:20:25
 
 #### `cmdTests`
 
-Command [**`cmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) performs several tests running Dotty commands from [**`sbt`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html).
+Command [**`project\scripts\cmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) performs several tests running Dotty commands from [**`sbt`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html).
 
 <pre style="font-size:80%;">
 &gt; cmdTests
@@ -485,7 +485,7 @@ testing loading tasty from .tasty file in jar
 
 #### `bootstrapCmdTests`
 
-Command [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) performs several benchmarks and generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program.
+Command [**`project\scripts\bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) performs several benchmarks and generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program.
 
 <pre style="font-size:80%;">
 &gt; bootstrapCmdTests
@@ -633,4 +633,4 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 ***
 
 *[mics](http://lampwww.epfl.ch/~michelou/)/December 2018* [**&#9650;**](#top)
-
+<span id="bottom">&nbsp;</span>

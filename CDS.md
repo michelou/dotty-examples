@@ -15,7 +15,7 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 
 - [Running Dotty on Windows](README.md)
 - [Building Dotty on Windows](DRONE.md)
-- Data Sharing and Dotty on Windows
+- Data Sharing and Dotty on Windows [**&#9660;**](#bottom)
 
 
 ## Project dependencies
@@ -78,6 +78,7 @@ Usage: build { options | subcommands }
   Subcommands:
     clean              delete generated files
     compile            compile Java source files
+    doc                generate Java documentation
     help               display this help message
     run[:arg]          execute main class with 1 optional argument
 </pre>
@@ -204,8 +205,8 @@ Note the following about the generated files:
 
 - File **`MANIFEST.MF`** is added to **`JavaExample.jar`** as usual. 
 - Files **`logs\log_classlist.log`** and **`logs\log_dump.log`** are generated when option **`-verbose`** is passed to the **`compile`** subcommand; they contain the execution logs for the generation of **`JavaExample.classlist`** resp. **`JavaExample.jsa`**.
-- File **`logs\log_share_off.log`** is generated when option **`-share:on`** is passed to the **`run`** subcommand.
-- File **`logs\log_share_on.log`** is generated when option **`-share:off`** is passed to the **`run`** subcommand.
+- File **`logs\log_share_off.log`** is generated when option **`-share:off`** is passed to the **`run`** subcommand.
+- File **`logs\log_share_on.log`** is generated when option **`-share:on`** is passed to the **`run`** subcommand.
 
 For instance we can read from file **`logs\log_share_off.log`** that  source of **`cdsexamples.Main`** is **`file:/`** and that the total load time on the last line is **`0.124s`**:
 
@@ -230,7 +231,7 @@ We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/t
 [0.112s][info][class,load] cdsexamples.Main source: file:/W:/dotty-examples/cdsexamples/JavaExample/target/Main.jar
 </pre>
 
-> **:warning:** The ***crucial point*** here is to use the correct path of **`JavaExample.jar`** together with the specified Java shared archive. Command [**`grep -a`**](https://www.linux.org/docs/man1/grep.html) (**`-a`** means "*Process a binary file as if it were text*") helps us to extract that path from **`JavaExample.jsa`**.<br/>
+> **:warning:** The ***crucial point*** here is to use the correct path of **`JavaExample.jar`** together with the specified Java shared archive. Command [**`grep -a`**](https://www.linux.org/docs/man1/grep.html) (**`-a`** means "*process a binary file as if it were text*") helps us to extract that path from **`JavaExample.jsa`**.<br/>
 > <pre style="font-size:80%;">
 > &gt; grep -aPo '.{0,40}JavaExample.jar{0,40}' target\JavaExample.jsa
 >   W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar
@@ -268,6 +269,7 @@ Usage: build { options | subcommands }
   Subcommands:
     clean              delete generated files
     compile            compile Scala source files
+    doc                generate Scala documentation
     help               display this help message
     run[:arg]          execute main class with 1 optional argument
 </pre>
@@ -306,8 +308,9 @@ Classes per package (941):
    java.nio.* (38), java.security.* (24), java.util.* (142)
    jdk.* (121), sun.* (80)
    [APP] cdsexamples.* (2)
-   scala.* (28), scala.collection.* (161), scala.io.* (1), scala.math.* (19)
-   scala.reflect.* (25), scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
+   scala.* (28), scala.collection.* (161), scala.compat.* (0)
+   scala.io.* (1), scala.math.* (19), scala.reflect.* (25)
+   scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
 </pre>
 
 For comparison here is the output ***with data sharing***; option **`-verbose`** prints out the CDS status:
@@ -331,8 +334,9 @@ Classes per package (875):
    java.nio.* (27), java.security.* (23), java.util.* (122)
    jdk.* (106), sun.* (74)
    [APP] cdsexamples.* (2)
-   scala.* (28), scala.collection.* (161), scala.io.* (1), scala.math.* (19)
-   scala.reflect.* (25), scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
+   scala.* (28), scala.collection.* (161), scala.compat.* (0)
+   scala.io.* (1), scala.math.* (19), scala.reflect.* (25)
+   scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
 </pre>
 
 Subcommand **`run`** with option **`-iter:<n>`** (**`n=1..99`**) executes **`n`** times the [Dotty](http://dotty.epfl.ch/) example:
@@ -359,8 +363,9 @@ Classes per package (875):
    java.nio.* (27), java.security.* (23), java.util.* (122)
    jdk.* (106), sun.* (74)
    [APP] cdsexamples.* (2)
-   scala.* (28), scala.collection.* (161), scala.io.* (1), scala.math.* (19)
-   scala.reflect.* (25), scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
+   scala.* (28), scala.collection.* (161), scala.compat.* (0)
+   scala.io.* (1), scala.math.* (19), scala.reflect.* (25)
+   scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
 </pre>
 
 Finally we check the contents of the output directory **`target\`**:
@@ -398,12 +403,12 @@ Note the following about the generated files:
 - File **`MANIFEST.MF`** is added to **`DottyExample.jar`** as usual.
 - Files **`classes\Main$.class`** and **`classes\Main.tasty`** (typed AST) are specific to the [Dotty](http://dotty.epfl.ch/) compiler.
 - Files **`logs\log_classlist.log`** and **`logs\log_dump.log`** are generated when option **`-verbose`** is passed to the **`compile`** subcommand; they contain the execution logs for the generation of **`DottyExample.classlist`** resp. **`DottyExample.jsa`**. 
-- File **`logs\log_share_off.log`** is generated when option **`-share:on`** is passed to the **`run`** subcommand.
-- File **`logs\log_share_on.log`** is generated when option **`-share:off`** is passed to the **`run`** subcommand.
+- File **`logs\log_share_off.log`** is generated when option **`-share:off`** is passed to the **`run`** subcommand.
+- File **`logs\log_share_on.log`** is generated when option **`-share:on`** is passed to the **`run`** subcommand.
 
-## Batch command
+## Batch command `sharedata`
 
-The [**`sharedata`**](bin/sharedata.bat) batch command:
+Command [**`sharedata`**](bin/sharedata.bat) ...*tbd*...
 
 <pre style="font-size:80%;">
 &gt; sharedata help
@@ -463,7 +468,7 @@ dotty-cds_0.11-0.11.0-RC1.jar
 }
 </pre>
 
-Subcommand **`test`** ...tbd...; option **`-verbose`** prints out the CDS status:
+Subcommand **`test`** ...*tbd*...; option **`-verbose`** prints out the CDS status:
 <pre style="font-size:80%;">
 &gt; sharedata test
 Support files for Java class sharing:
@@ -485,14 +490,16 @@ Support files for Java class sharing:
 Statistics (see data-sharing\logs\dotty-cds-repl-share.log)
    Share flag      : off
    Shared classes  : 0
-   File/jrt classes: 951
+   File classes    : 274
+   jrt images      : 677
    Load time       : 0.383s
-Classes per package (955):
+Classes per package (957):
    java.io.* (39), java.lang.* (222), java.net.* (9), java.nio.* (39)
-   java.security.* (24), java.util.* (142), jdk.* (121) sun.* (82)
+   java.security.* (24), java.util.* (142), jdk.* (121), sun.* (82)
 
-   scala.* (30), scala.collection.* (166), scala.io.* (1), scala.math.* (19)
-   scala.reflect.* (27), scala.runtime.* (6), scala.sys.* (14), scala.util.* (14)
+   scala.* (30), scala.collection.* (166), scala.compat.* (2)
+   scala.io.* (1), scala.math.* (19), scala.reflect.* (27)
+   scala.runtime.* (6), scala.sys.* (14), scala.util.* (14)
 </pre>
 
 <pre style="font-size:80%;">
@@ -510,12 +517,13 @@ Statistics (see data-sharing\logs\dotty-cds-repl-share.log)
    Shared classes  : 884
    File/jrt classes: 1
    Load time       : 0.140s
-Classes per package (889):
+Classes per package (891):
    java.io.* (34), java.lang.* (214), java.net.* (9), java.nio.* (28)
-   java.security.* (23), java.util.* (122), jdk.* (106) sun.* (76)
+   java.security.* (23), java.util.* (122), jdk.* (106), sun.* (76)
 
-   scala.* (30), scala.collection.* (166), scala.io.* (1), scala.math.* (19)
-   scala.reflect.* (27), scala.runtime.* (6), scala.sys.* (14), scala.util.* (14)
+   scala.* (30), scala.collection.* (166), scala.compat.* (2)
+   scala.io.* (1), scala.math.* (19), scala.reflect.* (27)
+   scala.runtime.* (6), scala.sys.* (14), scala.util.* (14)
 </pre>
 
 
@@ -607,3 +615,4 @@ Classes per package (889):
 ***
 
 *[mics](http://lampwww.epfl.ch/~michelou/)/December 2018* [**&#9650;**](#top)
+<span id="bottom">&nbsp;</span>
