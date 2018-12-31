@@ -33,7 +33,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 Optionally you may also install the following software:
 
 - [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.12.8))
-- [SBT 1.2.7](https://www.scala-sbt.org/download.html) (with Scala 2.12.8 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.7))
+- [SBT 1.2.8](https://www.scala-sbt.org/download.html) (with Scala 2.12.7 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.5.html))
 - [Gradle 5.0](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/current/release-notes.html))
 - [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.6.0/release-notes.html))
@@ -55,7 +55,7 @@ C:\opt\dotty-0.11.0-RC1\
 C:\opt\Git-2.20.1\
 C:\opt\gradle-5.0\
 C:\opt\Mill-0.3.5\
-C:\opt\sbt-1.2.7\
+C:\opt\sbt-1.2.8\
 C:\opt\scala-2.12.8\
 </pre>
 
@@ -88,14 +88,14 @@ where
 - file [**`README.md`**](README.md) is the [Markdown](https://github.github.com/gfm/) document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch command for setting up our environment.
 
-> **:mag_right:** ***Markdown Editing***<br/>
-> We use the portable version of [MarkdownPad 2](http://markdownpad.com/faq.html#portable) for Windows to edit our Markdown files (see article ["Mastering Markdown"](https://guides.github.com/features/mastering-markdown/) from [GitHub Guides](https://guides.github.com/)).
+> **:mag_right:** We use the portable version of [MarkdownPad 2](http://markdownpad.com/faq.html#portable) for Windows to edit our Markdown files (see article ["Mastering Markdown"](https://guides.github.com/features/mastering-markdown/) from [GitHub Guides](https://guides.github.com/)).
 
-We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support). We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance:
-
-<pre style="font-size:80%;">
-&gt; subst W: %USERPROFILE%\workspace
-</pre>
+We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).
+> **:mag_right:** We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance:
+>
+> <pre style="font-size:80%;">
+> &gt; subst W: %USERPROFILE%\workspace
+> </pre>
 
 In the next section we give a brief description of the batch files present in this repository.
 
@@ -117,8 +117,7 @@ We distinguish different sets of batch commands:
 2. Directory [**`bin\`**](bin/) - This directory contains several utility batch files:
    - [**`cleanup.bat`**](bin/cleanup.bat) removes the generated class files from every example directory (both in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories).
    - [**`dirsize.bat <dir_path_1> ..`**](bin/dirsize.bat) prints the size in Kb/Mb/Gb of the specified directory paths.
-   - [**`
-   - .bat`**](bin/getnightly.bat) downloads/installs the library files from the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
+   - [**`getnightly.bat`**](bin/getnightly.bat) downloads/installs the library files from the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
    - [**`searchjars.bat <class_name>`**](bin/searchjars.bat) searches for the given class name into all Dotty/Scala JAR files.
    - [**`timeit.bat <cmd_1> { & <cmd_2> }`**](bin/timeit.bat) prints the execution time of the specified commands.
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
@@ -144,7 +143,7 @@ We distinguish different sets of batch commands:
 -->
 
 4. [**`build.bat`**](examples/dotty-example-project/build.bat) - Finally each example can be built/run using the **`build`** command.<br/>
-    > **&#9755;** We prefer the **`build`** command here since our code examples are simple and don't require the [**`sbt`** ](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html)machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
+    > **&#9755;** We prefer command **`build`** here since our code examples are simple and don't require the [**`sbt`** ](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html)machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
 
     <pre style="font-size:80%;">
     &gt; build
@@ -177,7 +176,7 @@ We distinguish different sets of batch commands:
 
     Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories can also be built with the following tools as an alternative to the **`build`** command:
 
-    | **Tool** | **Config file** | **Example** |
+    | **Build tool** | **Config file** | **Usage example** |
     | :------: | :-------------: | :---------- |
     | [**`sbt`**](https://www.scala-sbt.org/) | **`build.sbt`** | **`sbt clean compile run`** |
     | [**`ant`**](https://ant.apache.org/manual/running.html) | **`build.xml`** | **`ant clean compile run`** |
@@ -213,7 +212,7 @@ We distinguish different sets of batch commands:
     }
     </pre>
 
-    Here is the console output from [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) (with option **`-c`**) for the same class file:
+    Here is the console output from [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) with option **`-c`** for the same class file:
 
     <pre style="font-size:80%;">
     &gt; javap -c myexamples\00_AutoParamTupling\target\classes\Main.class
@@ -240,7 +239,7 @@ We distinguish different sets of batch commands:
     }
     </pre>
 
-## Session examples
+# Usage examples
 
 #### `setenv.bat`
 
@@ -250,12 +249,12 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 > setenv
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.11.0-RC1,
-   ant 1.10.5, gradle 5.0, mill 0.3.5, mvn 3.6.0, sbt 1.2.7/2.12.8,
+   ant 1.10.5, gradle 5.0, mill 0.3.5, mvn 3.6.0, sbt 1.2.8/2.12.8,
    cfr 0.138, git 2.20.1.windows.1, diff 3.6
 
 > where sbt
-C:\opt\sbt-1.2.7\bin\sbt
-C:\opt\sbt-1.2.7\bin\sbt.bat
+C:\opt\sbt-1.2.8\bin\sbt
+C:\opt\sbt-1.2.8\bin\sbt.bat
 </pre>
 
 Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
@@ -264,7 +263,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 > setenv -verbose
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.11.0-RC1,
-   ant 1.10.5, gradle 5.0, mill 0.3.5, mvn 3.6.0, sbt 1.2.7/2.12.8,
+   ant 1.10.5, gradle 5.0, mill 0.3.5, mvn 3.6.0, sbt 1.2.8/2.12.8,
    cfr 0.138, git 2.20.1.windows.1, diff 3.6
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
@@ -277,7 +276,7 @@ Tool paths:
    C:\opt\gradle-5.0\bin\gradle.bat
    C:\opt\Mill-0.3.5\mill.bat
    C:\opt\apache-maven-3.6.0\bin\mvn.cmd
-   C:\opt\sbt-1.2.7\bin\sbt.bat
+   C:\opt\sbt-1.2.8\bin\sbt.bat
    C:\opt\cfr-0.138\bin\cfr.bat
    C:\opt\Git-2.20.1\bin\git.exe
    C:\opt\Git-2.20.1\usr\bin\diff.exe
@@ -307,7 +306,7 @@ Size of directory "c:\opt\dotty-0.11.0-RC1" is 22.4 Mb
 
 #### `getnightly.bat`
 
-By default the [**`getnightly`**](bin/getnightly.bat) command downloads the library files of the latest Dotty nightly build available from the [Maven Central Repository](https://search.maven.org/search?q=g:ch.epfl.lamp) and saves them into directory **`out\nightly-jars\`**.
+By default command [**`getnightly`**](bin/getnightly.bat) downloads the library files of the latest Dotty nightly build available from the [Maven Central Repository](https://search.maven.org/search?q=g:ch.epfl.lamp) and saves them into directory **`out\nightly-jars\`**.
 
 <pre style="font-size:80%;">
 > getnightly
@@ -356,7 +355,7 @@ Activate default Dotty libraries: 0.11.0-RC1
 Dotty compiler version 0.11.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 </pre>
 
-> **:warning:** You need to have *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.11.0-RC1\`** in our case) in order to run the **`activate/reset`** subcommands.<br/> Internally the [**`getnightly`**](bin/getnightly.bat) command manages two sets of libraries files which are organized as follows:
+> **:warning:** You need *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.11.0-RC1\`** in our case) in order to run the **`activate/reset`** subcommands.<br/> Internally the [**`getnightly`**](bin/getnightly.bat) command manages two sets of libraries files which are organized as follows:
 > <pre style="font-size:80%;">
 > > pushd c:\opt\dotty-0.11.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd
 > VERSION
@@ -379,7 +378,7 @@ Dotty compiler version 0.11.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 
 #### `searchjars.bat <class_name>`
 
-Passing argument **`System`** to the [**`searchjars`**](bin/searchjars.bat) command prints the following output (classfile names are printed with full path and are prefixed with their containing [JAR file](https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html)):
+Passing argument **`System`** to command [**`searchjars`**](bin/searchjars.bat) prints the following output (classfile names are printed with full path and are prefixed with their containing [JAR file](https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html)):
 
 <pre style="font-size:80%;">
 > searchjars System
@@ -463,7 +462,7 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 | Project file | Variable | Example |
 | :----------- | :------: | :------ |
 | `build.sbt` | `dottyVersion` | `0.10.0` &rarr; `0.11.0-RC1`|
-| `project\build.properties` | `sbt.version` | `1.2.6` &rarr; `1.2.7` |
+| `project\build.properties` | `sbt.version` | `1.2.7` &rarr; `1.2.8` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.2.4` &rarr; `0.2.6` |
 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
@@ -490,7 +489,7 @@ Parent directory: W:\dotty\myexamples
 
 Command [**`build`**](examples/enum-Planet/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_02">[[2]](#footnote_02)</sup>. 
 
-Running the [**`build`**](examples/enum-Planet/build.bat) command with ***no*** option in project [**`examples\enum-Planet`**](examples/enum-Planet/) generates the following output:
+Running command [**`build`**](examples/enum-Planet/build.bat) with ***no*** option in project [**`examples\enum-Planet`**](examples/enum-Planet/) generates the following output:
 
 <pre style="font-size:80%;">
 > build clean compile run
@@ -503,7 +502,7 @@ Your weight on NEPTUNE is 1.1383280724696578
 Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406</pre>
 
-Running the [**`build`**](examples/enum-Planet/build.bat) command with option **`-verbose`** in project [**`examples\enum-Planet`**](examples/enum-Planet/) displays progress messages:
+Running command [**`build`**](examples/enum-Planet/build.bat) with option **`-verbose`** in project [**`examples\enum-Planet`**](examples/enum-Planet/) displays progress messages:
 
 <pre style="font-size:80%;">
 &gt; build -verbose clean compile run
@@ -519,7 +518,7 @@ Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406
 </pre>
 
-Finally, running the [**`build`**](examples/enum-Planet/build.bat) command with option **`-debug`** in project [**`examples\enum-Planet`**](examples/enum-Planet/) also displays internal steps of the build process:
+Finally, running command [**`build`**](examples/enum-Planet/build.bat) with option **`-debug`** in project [**`examples\enum-Planet`**](examples/enum-Planet/) also displays internal steps of the build process:
 
 <pre style="font-size:80%;">
 > build -debug clean compile run
@@ -553,7 +552,7 @@ No compilation needed (1 source files)</pre>
 > For simplicity the [**`build`**](examples/enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](examples/enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
 > > type project\build.properties
-> sbt.version=1.2.7
+> sbt.version=1.2.8
 > main.class=Planet
 > main.args=1
 > </pre>
@@ -645,15 +644,15 @@ Exception in thread "main" java.lang.IncompatibleClassChangeError: Method dotty.
 
 <a name="footnote_01">[1]</a> ***2018-11-18*** [↩](#anchor_01)
 
-<div style="margin:0 0 1em 20px;">
+<p style="margin:0 0 1em 20px;">
 Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the next LTS release.
-</div>
+</p>
 
 <a name="footnote_02">[2]</a> ***2018-05-09*** [↩](#anchor_02)
 
-<div style="margin:0 0 1em 20px;"> 
+<p style="margin:0 0 1em 20px;"> 
 Command Prompt has been around for as long as we can remember, but starting with Windows 10 build 14971, Microsoft is trying to make PowerShell the <a href="https://support.microsoft.com/en-us/help/4027690/windows-powershell-is-replacing-command-prompt">main command shell</a> in the operating system.
-</div>
+</p>
 
 ***
 

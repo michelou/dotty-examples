@@ -26,7 +26,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 - [Dotty 0.11](https://github.com/lampepfl/dotty/releases) (Java 9+ supported since 0.10)
 - [Git 2.20](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.20.1.txt))
 
-> **:mag_right:** [Scala 2.12](https://www.scala-lang.org/download/) is a software product announced to require Java 8; in contrast [Dotty](http://dotty.epfl.ch/) (aka [Scala 3](https://www.scala-lang.org/blog/2018/04/19/scala-3.html)) is still in development and also supports Java 9+. In the following we choose to work with [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html), the 2<sup>nd</sup> [LTS](https://www.oracle.com/technetwork/java/java-se-support-roadmap.html) version after Java 8.
+> **:mag_right:** [Scala 2.12](https://www.scala-lang.org/download/) is a software product announced to require Java 8; in contrast [Dotty](http://dotty.epfl.ch/) (aka [Scala 3](https://www.scala-lang.org/blog/2018/04/19/scala-3.html)) is still in development and also supports Java 9+. In the following we choose to work with [Oracle Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html), the 2<sup>nd</sup> [LTS](https://www.oracle.com/technetwork/java/java-se-support-roadmap.html) version after Java 8.
 
 For instance our development environment looks as follows (*December 2018*):
 
@@ -41,13 +41,13 @@ C:\opt\Git-2.20.1\
 
 ## Overview
 
-- Section **Java Example** presents a Java code example using data sharing.
-- In section **Dotty Example** we move to [Dotty](http://dotty.epfl.ch/) with the same example written in [Dotty](http://dotty.epfl.ch/).
+- Section **Java example** presents a Java code example using data sharing.
+- In section **Dotty example** we move to [Dotty](http://dotty.epfl.ch/) with the same example written in [Dotty](http://dotty.epfl.ch/).
 - Finally we describe the batch command **`sharedata.bat`**.
 
 > **:warning:** We have submitted a bug report related to the usage of option **`-Xlog`** on Windows (see [JDK-8215398](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8215398)): 
 
-## Java Example
+## Java example
 
 Source file [**`src\main\java\Main.java`**](cdsexamples/JavaExample/src/main/java/Main.java) is the main program of our Java code example:
 
@@ -238,7 +238,7 @@ We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/t
 >   W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar
 > </pre>
 
-## Dotty Example
+## Dotty example
 
 Source file [**`src\main\scala\Main.scala`**](cdsexamples/DottyExample/src/main/scala/Main.scala) is the main program of our [Dotty](http://dotty.epfl.ch/) code example:
 

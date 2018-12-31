@@ -33,7 +33,7 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three external software for the **Microsoft Windows** platform:
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)<sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
-- [SBT 1.2.7](https://www.scala-sbt.org/download.html) (with Scala 2.12.8 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.7))
+- [SBT 1.2.8](https://www.scala-sbt.org/download.html) (with Scala 2.12.7 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
 - [Git 2.20](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.20.1.txt))
 
 > **&#9755;** ***Installation policy***<br/>
@@ -43,7 +43,7 @@ For instance our development environment looks as follows (*December 2018*):
 
 <pre style="font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_191\
-C:\opt\sbt-1.2.7\
+C:\opt\sbt-1.2.8\
 C:\opt\Git-2.20.1\
 </pre>
 
@@ -99,11 +99,13 @@ project\scripts\genDocs.bat
 setenv.bat
 </pre>
 
-We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support). We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance:
+We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).
 
-<pre style="font-size:80%;">
-&gt; subst W: %USERPROFILE%\workspace
-</pre>
+> **:mag_right:** We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance:
+>
+> <pre style="font-size:80%;">
+> &gt; subst W: %USERPROFILE%\workspace
+> </pre>
 
 In the next section we give a brief description of the batch files present in those directories.
 
@@ -175,17 +177,28 @@ We distinguish different sets of batch commands:
     | `bootstrap` &rarr; `compile` | ~45 min | &nbsp; |
     | `archives` &rarr; `bootstrap` | &nbsp; | `dist-bootstrapped\target\*.gz,*.zip` |
     | `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
+    | `sbt` &rarr; `bootstrap` | &nbsp; | &nbsp; |
 
     <sub><sup>**(1)**</sup> Average execution time measured on a i7-i8550U laptop with 16 GB of memory.</sub>
 
-    > **NB.** Subcommands whose name ends with **`-only`** help us to execute one single step without running again the precedent ones.
+    > **:mag_right:** Subcommands whose name ends with **`-only`** help us to execute one single step without running again the precedent ones.
     > 
-    | Subcommand | Execution time | Output |
-    | :------------ | :------------: | :------------ |
-    | `compile-only` | ~24 min | &nbsp; |
-    | `bootstrap-only` | ~26 min | &nbsp; |
-    | `archives-only`| &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
-    | `documentation-only` | &lt;3 min | `docs\_site\*.html`<br/>`docs\docs\*.md` |
+    > | Subcommand | Execution time | Output |
+    > | :------------ | :------------: | :------------ |
+    > | `compile-only` | ~24 min | &nbsp; |
+    > | `bootstrap-only` | ~26 min | &nbsp; |
+    > | `archives-only`| &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
+    > | `documentation-only` | &lt;3 min | `docs\_site\*.html`<br/>`docs\docs\*.md` |
+    > | `sbt-only` | &nbsp; | &nbsp; |
+    >
+    > In particular we have:
+    > 
+    > | Command | Equivalent command |
+    > | :------ | :----------------- |
+    > | **`build compile`** | **`build clone compile-only`** |
+    > | **`build bootstrap`** | **`build compile bootstrap-only`** |
+    > | **`build documentation`** | **`build bootstrap documentation-only`** |
+    > | **`build archives`** | **`build bootstrap archives-only`** |
 
 5. [**`cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) - This batch command performs test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\cmdTests`**](project/scripts/cmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server (see console output in section [**Session examples**](#anchor_02)).
 
@@ -200,16 +213,16 @@ We have come across several Windows related issues while executing subcommands o
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :--------: | :--------: | :--------- |
-| [#5659](https://github.com/lampepfl/dotty/pull/5659) | [merged](https://github.com/lampepfl/dotty/commit/7b9ffbb56b2bd33efead1c0f38a71c057c31463e) | [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) |
+| [#5659](https://github.com/lampepfl/dotty/pull/5659) | [merged](https://github.com/lampepfl/dotty/commit/7b9ffbb56b2bd33efead1c0f38a71c057c31463e) | **`build bootstrap`** |
 | [#5587](https://github.com/lampepfl/dotty/pull/5587) | [merged](https://github.com/lampepfl/dotty/commit/172d6a0a1a3a4cbdb0a3ac4741b3f561d1221c40) | **`build bootstrap`** |
-| [#5561](https://github.com/lampepfl/dotty/pull/5561) | [merged](https://github.com/lampepfl/dotty/commit/24a2798f51e1cc01d476b9c00ac0e4b925acc8e5) | [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) |
+| [#5561](https://github.com/lampepfl/dotty/pull/5561) | [merged](https://github.com/lampepfl/dotty/commit/24a2798f51e1cc01d476b9c00ac0e4b925acc8e5) | **`build bootstrap`** |
 | [#5487](https://github.com/lampepfl/dotty/pull/5487) | [merged](https://github.com/lampepfl/dotty/commit/052c3b1) | **`build bootstrap`** |
 | [#5457](https://github.com/lampepfl/dotty/pull/5457) | [merged](https://github.com/lampepfl/dotty/commit/eb175cb) | **`build compile`** |
 | [#5452](https://github.com/lampepfl/dotty/pull/5452) | [merged](https://github.com/lampepfl/dotty/commit/7e093b15ff2a927212c7f40aa36b71d0a28f81b5) | Code review |
 | [#5444](https://github.com/lampepfl/dotty/pull/5444) | *pending* | Batch commands |
 | [#5430](https://github.com/lampepfl/dotty/pull/5430) | [merged](https://github.com/lampepfl/dotty/commit/81b30383800495c64f2c8cfd0979e69e504104bc) | **`build documentation`** |
 
-> **NB.** Related pull requests from other contributors include:<br/>
+> **&#9755;** Related pull requests from other contributors include:<br/>
 > <ul><li><a href="https://github.com/lampepfl/dotty/pull/5560">#5560</a> Fix Windows path (<a href="https://github.com/lampepfl/dotty/commit/67c86783ff48723ae96fedeb51c50db62f375042">merged</a>).</li>
 > <li><a href="https://github.com/lampepfl/dotty/pull/5531">#5531</a> Test AppVeyor integration (<a href="https://github.com/lampepfl/dotty/pull/5531#issuecomment-446505630">closed</a>).</li></ul>
 
@@ -222,7 +235,7 @@ Below we summarize additions/changes we made to the [source code](https://github
 - Transformation of URL addresses to file system paths<br/>*Example*: [**`url.getFile`**](https://docs.oracle.com/javase/8/docs/api/java/net/URL.html#getFile) **&rarr;** **`Paths.get(url.toURI).toString`**.
 - Unspecified character encoding when piping stdout<br/>*Example*: **`new InputStreamReader(process.getInputStream)`** **&rarr;** **`new InputStreamReader(process.getInputStream, "UTF-8")`**<br/>where **`process`** has type [**`ProcessBuilder`**](https://docs.oracle.com/javase/8/docs/api/java/lang/ProcessBuilder.html).
 
-## <span id="anchor_02">Session examples</span>
+## <span id="anchor_02">Usage examples</span>
 
 #### `setenv.bat`
 
@@ -232,11 +245,11 @@ Command **`setenv`** is executed once to setup our development environment; it m
 > setenv
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191,
-   sbt 1.2.7/2.12.7, git 2.20.1.windows.1, diff 3.6
+   sbt 1.2.8/2.12.7, git 2.20.1.windows.1, diff 3.6
 
 > where sbt
-C:\opt\sbt-1.2.7\bin\sbt
-C:\opt\sbt-1.2.7\bin\sbt.bat
+C:\opt\sbt-1.2.8\bin\sbt
+C:\opt\sbt-1.2.8\bin\sbt.bat
 </pre>
 
 Command **`setenv -verbose`** also displays the tool paths and the current Git branch:
@@ -245,12 +258,12 @@ Command **`setenv -verbose`** also displays the tool paths and the current Git b
 > setenv -verbose
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191,
-   sbt 1.2.7/2.12.7, git 2.20.1.windows.1, diff 3.6
+   sbt 1.2.8/2.12.7, git 2.20.1.windows.1, diff 3.6
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
    C:\Program Files\Java\jdk1.8.0_191\bin\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
-   C:\opt\sbt-1.2.7\bin\sbt.bat
+   C:\opt\sbt-1.2.8\bin\sbt.bat
    C:\opt\Git-2.20.1\bin\git.exe
    C:\opt\Git-2.20.1\usr\bin\diff.exe
 Current Git branch:
@@ -259,7 +272,7 @@ Current Git branch:
 
 #### `build.bat`
 
-The [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat) command consists of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code and features the following subcommands:
+Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat) consists of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code and features the following subcommands:
 
 - **`cleanall`** - This subcommand removes all generated *and untracked* files/directories from our [**`Dotty fork`**](https://github.com/michelou/dotty/tree/master/).<br/>Internally, **`build cleanall`** executes the two commands **`sbt clean`** *and* [**`git clean -xdf`**](https://git-scm.com/docs/git-clean/) which removes all untracked directories/files, including build products.
 
@@ -296,7 +309,7 @@ The [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project/scr
     > build -verbose cleanall
     Tool paths
       GIT_CMD=C:\opt\Git-2.20.1\bin\git.exe
-      SBT_CMD=C:\opt\sbt-1.2.7\bin\sbt.bat
+      SBT_CMD=C:\opt\sbt-1.2.8\bin\sbt.bat
     Tool options
       JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
       SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -349,16 +362,12 @@ The [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project/scr
     [...]
     </pre>
 
-    > **:mag_right:** The two commands **`build compile`** and **`build clone compile-only`** perform the same operations.
-
 - **`bootstrap`** - ***If*** execution of the **`compile`** subcommand was successful the **`bootstrap`** subcommand generates the *"bootstrap compiler"* for Dotty and executes the relevant test suites.
 
     <pre style="font-size:80%;">
     &gt; build bootstrap
     [...]
     </pre>
-
-    > **:mag_right:** The two commands **`build bootstrap`** and **`build compile bootstrap-only`** perform the same operations.
 
 - **`archives`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`archives`** subcommand generates the gz/zip archives.<br/>Below we execute the **`arch-only`** subcommand for the sake of brievity (previous steps are *assumed* to be successful): 
 
@@ -370,8 +379,6 @@ The [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project/scr
     dotty-0.12.0-bin-SNAPSHOT.tar.gz
     dotty-0.12.0-bin-SNAPSHOT.zip
     </pre>
-
-    > **:mag_right:** The two commands **`build archives`** and **`build bootstrap archives-only`** perform the same operations.
 
 - **`documentation`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Dotty website](https://dotty.epfl.ch/) and the online [Dotty documentation](https://dotty.epfl.ch/docs/).<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
@@ -411,8 +418,6 @@ The [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project/scr
     [success] Total time: 146 s, completed 29 nov. 2018 11:49:22
     Total execution time: 00:02:36
     </pre>
-
-    > **:mag_right:** The two commands **`build documentation`** and **`build bootstrap documentation-only`** perform the same operations.
 
     Output directory **`docs\_site\`** contains the files of the online [Dotty documentation](https://dotty.epfl.ch/docs/):
 

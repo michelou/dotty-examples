@@ -211,7 +211,7 @@ In this section we explain in more detail the available build tools available in
     &lt;/project>
     </pre>
 
-## Session examples
+## Usage examples
 
 ### `dotty-example-project`
 
