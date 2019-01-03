@@ -208,7 +208,7 @@ if %_VERBOSE%==1 echo Create Java archive !_JAR_FILE:%_ROOT_DIR%=!
 set __MANIFEST_FILE=%_TARGET_DIR%\MANIFEST.MF
 (
     echo Manifest-Version: 1.0
-    echo Built-By: Stephane
+    echo Built-By: michelou
     echo Build-Jdk: %_JAVA_VERSION%
     echo Specification-Title: %_MAIN_PKG_NAME%
     echo Specification-Version: 0.1-SNAPSHOT

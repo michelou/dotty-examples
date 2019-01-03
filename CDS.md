@@ -26,7 +26,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 - [Dotty 0.11](https://github.com/lampepfl/dotty/releases) (Java 9+ supported since 0.10)
 - [Git 2.20](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.20.1.txt))
 
-> **:mag_right:** [Scala 2.12](https://www.scala-lang.org/download/) is a software product announced to require Java 8; in contrast [Dotty](http://dotty.epfl.ch/) (aka [Scala 3](https://www.scala-lang.org/blog/2018/04/19/scala-3.html)) is still in development and also supports Java 9+. In the following we choose to work with [Oracle Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html), the 2<sup>nd</sup> [LTS](https://www.oracle.com/technetwork/java/java-se-support-roadmap.html) version after Java 8.
+> **:mag_right:** [Scala 2.12](https://www.scala-lang.org/download/) is a software product announced to require Java 8. In contrast [Scala 2.13](https://www.scala-lang.org/news/roadmap-2.13.html) and [Dotty](http://dotty.epfl.ch/) (aka [Scala 3](https://www.scala-lang.org/blog/2018/04/19/scala-3.html)) are still in development and also support Java 9+. In the following we choose to work with [Oracle Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html), the 2<sup>nd</sup> [LTS](https://www.oracle.com/technetwork/java/java-se-support-roadmap.html) version after Java 8.
 
 For instance our development environment looks as follows (*December 2018*):
 
@@ -41,8 +41,8 @@ C:\opt\Git-2.20.1\
 
 ## Overview
 
-- Section **Java example** presents a Java code example using data sharing.
-- In section **Dotty example** we move to [Dotty](http://dotty.epfl.ch/) with the same example written in [Dotty](http://dotty.epfl.ch/).
+- Section **Java example** presents a tiny Java code example using data sharing.
+- In section **Dotty example** we move to [Dotty](http://dotty.epfl.ch/) with a similar example written in [Dotty](http://dotty.epfl.ch/).
 - Finally we describe the batch command **`sharedata.bat`**.
 
 > **:warning:** We have submitted a bug report related to the usage of option **`-Xlog`** on Windows (see [JDK-8215398](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8215398)): 
@@ -562,7 +562,7 @@ Classes per package (891):
 > </pre>
 
 
-## Related Reading
+## Related reading
 
 #### 2006
 <dl>
@@ -595,7 +595,7 @@ Classes per package (891):
   <dd><i>by Jiangli Zhou, Calvin Cheung, Ioi Lam (2018-06-01)</i><br/>The JDK build process now generates a CDS archive, using the default class list, on 64-bit platforms.</dd>
 
   <dt><a href="https://www.youtube.com/watch?v=b8GzWd--RXg"><sub><img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="Youtube" width="20px"/></sub> JEEConf 2018</a>:<a name="ref07">&nbsp;</a>Class Data Sharing in the HotSpot VM</dt>
-  <dd><i>by <a href="https://jeeconf.com/speaker/volker-simonis-2/">Volker Simonis</a> (2018-06-05)</i><br/>In his talk he introduces CDS and AppCDS and demonstrates how it can be used (<a href="https://simonis.github.io/JEEConf2018/CDS/cds.xhtml#/">web slides</a>).</dd>
+  <dd><i>by <a href="https://jeeconf.com/speaker/volker-simonis-2/">Volker Simonis</a> (2018-06-05)</i><br/>In his talk Volker Simonis introduces CDS and AppCDS and demonstrates how it can be used (<a href="https://simonis.github.io/JEEConf2018/CDS/cds.xhtml#/">web slides</a>).</dd>
 
   <dt><a href="https://developer.ibm.com/tutorials/j-class-sharing-openj9/"><b>IBM Developer</b></a>:<a name="ref_08">&nbsp;</a>Class sharing in Eclipse OpenJ9</dt>
   <dd><i>by Ben Corrie and Hang Shao (2018-06-06)</i><br/>In the <a href="https://www.eclipse.org/openj9/">OpenJ9</a> implementation, all systems, application classes and ahead-of-time (<a href="https://www.eclipse.org/openj9/docs/aot/">AOT</a>) compiled code can be stored in a dynamic class cache in shared memory.</dd>

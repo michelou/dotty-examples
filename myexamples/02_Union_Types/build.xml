@@ -5,7 +5,7 @@
     <property name="scala-source.dir" value="${basedir}/src/main/scala" />
     <property name="target.dir" value="${basedir}/target" />
     <property name="build.dir" value="${target.dir}/classes" />
-    <property name="main.class" value="Main" />
+    <property name="main.class" value="myexamples.Main" />
 
     <!-- set dotty.home -->
     <property environment="env" />
@@ -18,29 +18,32 @@
             </not></condition>
         </fail>
         <path id="dotty.classpath">
-            <fileset dir="${dotty.home}/lib" includes="*.jar" />
-        </path>
-        <path id="project.classpath">
-            <fileset dir="${basedir}" includes="lib/*.jar" />
+            <fileset dir="${dotty.home}/lib" includes="dotty-library*.jar" />
+            <fileset dir="${dotty.home}/lib" includes="scala-library*.jar" />
         </path>
         <path id="build.classpath">
-            <path refid="project.classpath" />
+            <fileset dir="${basedir}" includes="lib/*.jar" />
             <pathelement location="${build.dir}" />
         </path>
-        <pathconvert property="scala.sources" pathsep=" ">
-            <fileset dir="${scala-source.dir}/" includes="**/*.scala" />
-        </pathconvert>
+        <path id="basedir.ref">
+            <pathelement location="${basedir}"/>
+        </path>
     </target>
 
     <macrodef name="dotc" >
+        <attribute name="srcdir" default="." />
         <attribute name="destdir" default="." />
-        <attribute name="classpath" default="." />
+        <attribute name="classpathref" default="basedir.ref" />
         <sequential>
+            <pathconvert property="scala.sources" pathsep=" ">
+                <fileset dir="@{srcdir}" includes="**/*.scala" />
+            </pathconvert>
+            <pathconvert property="classpath" refid="@{classpathref}" />
             <exec executable="${dotty.home}\bin\dotc.bat">
                 <arg value="-d" />
                 <arg value="@{destdir}" />
                 <arg value="-classpath" />
-                <arg value="@{classpath}" />
+                <arg value="&quot;${classpath}&quot;" />
                 <arg value="-deprecation" />
                 <arg line="${scala.sources}" />
             </exec>
@@ -49,8 +52,9 @@
 
     <target name="compile" depends="init">
         <mkdir dir="${build.dir}" />
-        <pathconvert property="classpath" refid="build.classpath" />
-        <dotc destdir="${build.dir}" classpath="${classpath}" />
+        <dotc srcdir="${scala-source.dir}"
+              destdir="${build.dir}"
+              classpathref="build.classpath" />
     </target>
 
     <target name="run" depends="compile">

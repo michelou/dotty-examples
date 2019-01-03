@@ -33,11 +33,11 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three external software for the **Microsoft Windows** platform:
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)<sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
-- [SBT 1.2.8](https://www.scala-sbt.org/download.html) (with Scala 2.12.7 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
+- [SBT 1.2.8](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
 - [Git 2.20](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.20.1.txt))
 
 > **&#9755;** ***Installation policy***<br/>
-> Whenever possible software is installed via a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
+> When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
 For instance our development environment looks as follows (*December 2018*):
 

@@ -33,16 +33,16 @@ This project depends on two external software for the **Microsoft Windows** plat
 Optionally you may also install the following software:
 
 - [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.12.8))
-- [SBT 1.2.8](https://www.scala-sbt.org/download.html) (with Scala 2.12.7 preloaded) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
+- [SBT 1.2.8](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.5.html))
-- [Gradle 5.0](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/current/release-notes.html))
+- [Gradle 5.1](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.1/release-notes.html))
 - [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.6.0/release-notes.html))
 - [Mill 0.3](https://www.lihaoyi.com/mill/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
 - [CFR 0.13](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.20](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.20.1.txt))
 
 > **&#9755;** ***Installation policy***<br/>
-> Whenever possible software is installed via a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
+> When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
 For instance our development environment looks as follows (*December 2018*):
 
@@ -53,7 +53,7 @@ C:\opt\apache-maven-3.6.0\
 C:\opt\cfr-0.138\
 C:\opt\dotty-0.11.0-RC1\
 C:\opt\Git-2.20.1\
-C:\opt\gradle-5.0\
+C:\opt\gradle-5.1\
 C:\opt\Mill-0.3.5\
 C:\opt\sbt-1.2.8\
 C:\opt\scala-2.12.8\
@@ -88,7 +88,7 @@ where
 - file [**`README.md`**](README.md) is the [Markdown](https://github.github.com/gfm/) document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch command for setting up our environment.
 
-> **:mag_right:** We use the portable version of [MarkdownPad 2](http://markdownpad.com/faq.html#portable) for Windows to edit our Markdown files (see article ["Mastering Markdown"](https://guides.github.com/features/mastering-markdown/) from [GitHub Guides](https://guides.github.com/)).
+> **:mag_right:** We use the portable version of [MarkdownPad 2 for Windows](http://markdownpad.com/faq.html#portable) to edit our Markdown files (see article ["Mastering Markdown"](https://guides.github.com/features/mastering-markdown/) from [GitHub Guides](https://guides.github.com/)).
 
 We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).
 > **:mag_right:** We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance:
@@ -239,7 +239,7 @@ We distinguish different sets of batch commands:
     }
     </pre>
 
-# Usage examples
+## Usage examples
 
 #### `setenv.bat`
 
@@ -249,7 +249,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 > setenv
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.11.0-RC1,
-   ant 1.10.5, gradle 5.0, mill 0.3.5, mvn 3.6.0, sbt 1.2.8/2.12.8,
+   ant 1.10.5, gradle 5.1, mill 0.3.5, mvn 3.6.0, sbt 1.2.8/2.12.8,
    cfr 0.138, git 2.20.1.windows.1, diff 3.6
 
 > where sbt
@@ -263,7 +263,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 > setenv -verbose
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.11.0-RC1,
-   ant 1.10.5, gradle 5.0, mill 0.3.5, mvn 3.6.0, sbt 1.2.8/2.12.8,
+   ant 1.10.5, gradle 5.1, mill 0.3.5, mvn 3.6.0, sbt 1.2.8/2.12.8,
    cfr 0.138, git 2.20.1.windows.1, diff 3.6
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
@@ -273,7 +273,7 @@ Tool paths:
    C:\opt\scala-2.12.8\bin\scalac.bat
    C:\opt\dotty-0.11.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.5\bin\ant.bat
-   C:\opt\gradle-5.0\bin\gradle.bat
+   C:\opt\gradle-5.1\bin\gradle.bat
    C:\opt\Mill-0.3.5\mill.bat
    C:\opt\apache-maven-3.6.0\bin\mvn.cmd
    C:\opt\sbt-1.2.8\bin\sbt.bat

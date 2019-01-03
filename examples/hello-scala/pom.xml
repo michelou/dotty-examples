@@ -73,9 +73,6 @@
                         </goals>
                         <configuration>
                             <mainClass>hello</mainClass>
-                            <arguments>
-                                <argument></argument>
-                            </arguments>
                         </configuration>
                     </execution>
                 </executions>
