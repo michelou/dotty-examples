@@ -19,7 +19,8 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 
 
 > **&#9755;** ***Continuous Delivery/Integration (CD/CI)***<br/>
-> Continuous delivery typically performs the following steps:<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checkout **&rarr;** Compile **&rarr;** Test **&rarr;** Deploy.<br/>
+> Continuous delivery typically performs the following steps:<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checkout **&rarr;** Compile **&rarr;** Test **&rarr;** Deploy.
+> 
 > | Language | CD/CI service | Hosting |
 > | :------: | :------------ | :--------------- |
 > | [Dotty](http://dotty-ci.epfl.ch/lampepfl/dotty) | [Drone](https://drone.io/) | [EPFL](http://dotty-ci.epfl.ch/lampepfl/dotty) in Lausanne, Switzerland |
