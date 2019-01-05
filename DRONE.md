@@ -18,14 +18,14 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 - [Data Sharing and Dotty on Windows](CDS.md)
 
 
-> **&#9755;** ***Scala CI/CD***<br/>
-> Continuous delivery (CD) typically performs the following steps:<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checkout **&rarr;** Compile **&rarr;** Test **&rarr;** Deploy.<br/>
-> CI/CD of [Scala](https://www.scala-lang.org/) builds is currently performed by the following cloud services:
->
-> - [Jenkins](https://jenkins.io/doc/): the [CI server](https://scala-ci.typesafe.com/) is hosted by [Lightbend](https://en.wikipedia.org/wiki/Lightbend) in San-Francisco, USA (configuration described in [Chef cookbook](https://github.com/scala/scala-jenkins-infra)).<br/>
-> - [Travis CI](https://docs.travis-ci.com/user/tutorial/): the [CI server](https://travis-ci.org/scala/scala) is hosted by [Travis CI](https://www.travis-ci.com/) in Berlin, Germany.
->
-> Let's note in passing that [OpenJDK](https://ci.adoptopenjdk.net/) (e.g. Java 11) also relies on [Jenkins](https://jenkins.io/doc/) for continuous integration.
+> **&#9755;** ***Continuous Delivery/Integration (CD/CI)***<br/>
+> Continuous delivery typically performs the following steps:<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checkout **&rarr;** Compile **&rarr;** Test **&rarr;** Deploy.<br/>
+> | Language | CD/CI service | Hosting |
+> | :------: | :------------ | :--------------- |
+> | [Dotty](http://dotty-ci.epfl.ch/lampepfl/dotty) | [Drone](https://drone.io/) | [EPFL](http://dotty-ci.epfl.ch/lampepfl/dotty) in Lausanne, Switzerland |
+> | [Scala](https://www.scala-lang.org/) | [Jenkins](https://jenkins.io/doc/)<br/>[Travis CI](https://docs.travis-ci.com/user/tutorial/) | [Lightbend ](https://scala-ci.typesafe.com/) in San-Francisco, USA<br/>[Travis](https://travis-ci.org/scala/scala) in Berlin, Germany
+> | [Oracle&nbsp;OpenJDK](https://ci.adoptopenjdk.net/) | [Jenkins](https://jenkins.io/doc/) | Oracle |
+> | [IBM OpenJ9](https://ci.eclipse.org/openj9/) | [Jenkins](https://jenkins.io/doc/) | IBM |
 
 
 ## <span id="anchor_01">Project dependencies</span>
@@ -39,7 +39,7 @@ Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*December 2018*):
+For instance our development environment looks as follows (*January 2019*):
 
 <pre style="font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_191\
@@ -637,5 +637,5 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/December 2018* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/January 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>

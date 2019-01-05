@@ -36,7 +36,7 @@ Optionally you may also install the following software:
 - [SBT 1.2.8](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.5.html))
 - [Gradle 5.1](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.1/release-notes.html))
-- [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([*release notes*](http://maven.apache.org/docs/3.6.0/release-notes.html))
+- [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([requires Java 7](http://maven.apache.org/docs/history.html))  ([*release notes*](http://maven.apache.org/docs/3.6.0/release-notes.html))
 - [Mill 0.3](https://www.lihaoyi.com/mill/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
 - [CFR 0.13](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.20](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.20.1.txt))
@@ -44,7 +44,7 @@ Optionally you may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*December 2018*):
+For instance our development environment looks as follows (*January 2019*):
 
 <pre style="font-size:80%;">
 C:\Program Files\Java\jdk1.8.0_191\
@@ -123,7 +123,7 @@ We distinguish different sets of batch commands:
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
 3. Directory [**`bin\0.11\`**](bin/0.11/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.11.0-RC1\bin\`**) in order to use the [**`dot`**](bin/0.11/dot.bat), [**`dotc`**](bin/0.11/dotc.bat), [**`dotd`**](bin/0.11/dotd.bat) and [**`dotr`**](bin/0.11/dotr.bat) commands on **Microsoft Windows**.
-    > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Dotty distribution](https://github.com/lampepfl/dotty/releases).
+    > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Dotty distribution](https://github.com/lampepfl/dotty/releases). We also have submitted pull request [#5444](https://github.com/lampepfl/dotty/pull/5444) to add them to the Scala distribution.
 
     <pre style="font-size:80%;">
     &gt; dir /b c:\opt\dotty-0.11.0-RC1\bin
@@ -174,7 +174,7 @@ We distinguish different sets of batch commands:
 
 1. Build tools
 
-    Projects in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories can also be built with the following tools as an alternative to the **`build`** command:
+    Examples in directories [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built with the following tools as an alternative to the **`build`** command (see [**`examples\README`**](examples/README.md) and [**`myexamples\README`**](myexamples/README.md) for more details):
 
     | **Build tool** | **Config file** | **Usage example** |
     | :------: | :-------------: | :---------- |
@@ -312,26 +312,26 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 > getnightly
 
 > dir /b out\nightly-jars
-dotty-compiler_0.12-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar
-dotty-doc_0.12-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar
-dotty-interfaces-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar
-dotty-language-server_0.12-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar
-dotty-library_0.12-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar
-dotty_0.12-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar
+dotty-compiler_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
+dotty-doc_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
+dotty-interfaces-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
+dotty-language-server_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
+dotty-library_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
+dotty_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
 </pre>
 
-> **NB.** Execute **`getnightly help`** to display the help message.
+> **:mag_right:** Execute **`getnightly help`** to display the help message.
 
 Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
 <pre style="font-size:80%">
 > getnightly -verbose
-Downloading file dotty-language-server_0.12-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar ... 123.7 Kb
-Downloading file dotty-doc_0.12-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar ... 1002.3 Kb
-Downloading file dotty-compiler_0.12-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar ... 10.3 Mb
-Downloading file dotty_0.12-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-library_0.12-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar ... 758 Kb
-Downloading file dotty-interfaces-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-language-server_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar ... 140.4 Kb
+Downloading file dotty-doc_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar ... 1002.3 Kb
+Downloading file dotty-compiler_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar ... 10.4 Mb
+Downloading file dotty_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-library_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar ... 758.7 Kb
+Downloading file dotty-interfaces-0.12.0-bin-20190104-2b31453-NIGHTLY.jar ... 3.4 Kb
 Finished to download 6 files to directory C:\Users\michelou\WORKSP~1\DOTTY-~1\out\nightly-jars
 </pre>
 
@@ -342,11 +342,11 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 <pre style="font-size:80%;">
 > getnightly activate
 Finished to download 6 files to directory C:\Users\michelou\WORKSP~1\DOTTY-~1\out\nightly-jars
-Local nightly version has changed from unknown to 0.12.0-bin-20181220-caac6b9-NIGHTLY
-Activate nightly build libraries: 0.12.0-bin-20181220-caac6b9-NIGHTLY
+Local nightly version has changed from 0.12.0-bin-20181225-8dbf130-NIGHTLY to 0.12.0-bin-20190104-2b31453-NIGHTLY
+Activate nightly build libraries: 0.12.0-bin-20190104-2b31453-NIGHTLY
 
 > dotc -version
-Dotty compiler version 0.12.0-bin-20181220-caac6b9-NIGHTLY-git-caac6b9 -- Copyright 2002-2018, LAMP/EPFL
+Dotty compiler version 0.12.0-bin-20190104-2b31453-NIGHTLY-git-2b31453 -- Copyright 2002-2019, LAMP/EPFL
 
 > getnightly reset
 Activate default Dotty libraries: 0.11.0-RC1
@@ -366,22 +366,37 @@ Dotty compiler version 0.11.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 > &nbsp;&nbsp;dotty-doc_0.11-0.11.0-RC1.jar
 > &nbsp;&nbsp;dotty-interfaces-0.11.0-RC1.jar
 > &nbsp;&nbsp;dotty-library_0.11-0.11.0-RC1.jar
-> lib\0.12.0-bin-20181220-caac6b9-NIGHTLY\
-> &nbsp;&nbsp;dotty-compiler_0.12-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar
-> &nbsp;&nbsp;dotty-doc_0.12-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar
-> &nbsp;&nbsp;dotty-interfaces-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar
-> &nbsp;&nbsp;dotty-language-server_0.12-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar
-> &nbsp;&nbsp;dotty-library_0.12-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar
-> &nbsp;&nbsp;dotty_0.12-0.12.0-bin-20181220-caac6b9-NIGHTLY.jar
+> lib\0.12.0-bin-20190104-2b31453-NIGHTLY\
+> &nbsp;&nbsp;dotty-compiler_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
+> &nbsp;&nbsp;dotty-doc_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
+> &nbsp;&nbsp;dotty-interfaces-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
+> &nbsp;&nbsp;dotty-language-server_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
+> &nbsp;&nbsp;dotty-library_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
+> &nbsp;&nbsp;dotty_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
 > </pre>
 > In the above output the file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original Dotty installation respectively from the latest nightly build.
 
 #### `searchjars.bat <class_name>`
 
-Passing argument **`System`** to command [**`searchjars`**](bin/searchjars.bat) prints the following output (classfile names are printed with full path and are prefixed with their containing [JAR file](https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html)):
+Command **`searchjars`** helps us to search for class file names in various directories.
 
 <pre style="font-size:80%;">
-> searchjars System
+&gt; searchjars -help
+Usage: searchjars { options | subcommands }
+  Options:
+    -artifact        include ~\.ivy2 and ~\.m2 directories
+    -help            display this help message
+    -ivy             include ~\.ivy directory
+    -maven           include ~\.m2 directory
+    -verbose         display download progress
+  Arguments:
+    &lt;class_name&gt;     class name
+</pre>
+
+Passing argument **`System`** to command [**`searchjars`**](bin/searchjars.bat) prints the following output (class file names are printed with full path and are prefixed with their containing [JAR file](https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html)):
+
+<pre style="font-size:80%;">
+&gt; searchjars System
 Searching for class System in library files C:\opt\DOTTY-~1.0-R\lib\*.jar
   scala-library-2.12.7.jar:scala/sys/SystemProperties$.class
   scala-library-2.12.7.jar:scala/sys/SystemProperties.class
@@ -411,6 +426,33 @@ Searching for an unknown class - e.g. **`BinarySearch`** - produces the followin
 Searching for class BinarySearch in library files C:\opt\DOTTY-~1.0-R\lib\*.jar
 Searching for class BinarySearch in library files C:\opt\SCALA-~1.8\lib\*.jar
 Searching for class BinarySearch in library files C:\PROGRA~1\Java\JDK18~1.0_1\lib\*.jar
+</pre>
+
+Searching for **`FileSystem`** with option **`-artifact`** produces the following output:
+
+<pre style="font-size:80%;">
+&gt; searchjars FileSystem -artifact
+Searching for class FileSystem in library files C:\opt\DOTTY-~1.0-R\lib\*.jar
+Searching for class FileSystem in library files C:\opt\SCALA-~1.8\lib\*.jar
+Searching for class FileSystem in library files C:\PROGRA~1\Java\JDK18~1.0_1\lib\*.jar
+Searching for class FileSystem in library files C:\Users\michelou\.ivy2\cache\*.jar
+  okhttp-3.7.0.jar:okhttp3/internal/io/FileSystem$1.class
+  okhttp-3.7.0.jar:okhttp3/internal/io/FileSystem.class
+  org.eclipse.lsp4j-0.5.0.jar:org/eclipse/lsp4j/FileSystemWatcher.class
+  org.eclipse.xtend.lib.macro-2.16.0.jar:org/eclipse/xtend/lib/macro/file/FileSystemSupport.class
+  org.eclipse.xtend.lib.macro-2.16.0.jar:org/eclipse/xtend/lib/macro/file/MutableFileSystemSupport.class
+  jmh-core-1.19.jar:org/openjdk/jmh/generators/core/FileSystemDestination.class
+  jmh-core-1.21.jar:org/openjdk/jmh/generators/core/FileSystemDestination.class
+  ivy-2.3.0-sbt-b18f59ea3bc914a297bb6f1a4f7fb0ace399e310.jar:org/apache/ivy/plugins/resolver/FileSystemResolver.class
+  ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar:org/apache/ivy/plugins/resolver/FileSystemResolver.class
+Searching for class FileSystem in library files C:\Users\michelou\.m2\repository\*.jar
+  commons-io-2.2.jar:org/apache/commons/io/FileSystemUtils.class
+  commons-io-2.5.jar:org/apache/commons/io/FileSystemUtils.class
+  commons-io-2.6.jar:org/apache/commons/io/FileSystemUtils.class
+  ivy-2.4.0.jar:org/apache/ivy/plugins/resolver/FileSystemResolver.class
+  sigar-1.6.4.jar:org/hyperic/sigar/FileSystem.class
+  [...]
+  stagemonitor-os-0.88.9.jar:org/stagemonitor/os/metrics/FileSystemMetricSet.class
 </pre>
 
 #### `timeit.bat <cmd_1> { & <cmd_i> }`
@@ -656,5 +698,5 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/December 2018* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/January 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>

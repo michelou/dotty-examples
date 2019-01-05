@@ -87,6 +87,7 @@ if /i "%__ARG%"=="clean" ( set _CLEAN=1
 ) else if /i "%__ARG:~0,6%"=="-iter:" (
     call :iter "%__ARG:~6%"
     if not !_EXITCODE!==0 goto :eof
+) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
 ) else if /i "%__ARG%"=="-share" ( set _SHARE_FLAG=on
 ) else if /i "%__ARG%"=="-share:off" ( set _SHARE_FLAG=off
 ) else if /i "%__ARG%"=="-share:on" ( set _SHARE_FLAG=on
@@ -204,11 +205,10 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 
-if %_VERBOSE%==1 echo Create Java archive !_JAR_FILE:%_ROOT_DIR%=!
 set __MANIFEST_FILE=%_TARGET_DIR%\MANIFEST.MF
 (
     echo Manifest-Version: 1.0
-    echo Built-By: michelou
+    echo Built-By: %USERNAME%
     echo Build-Jdk: %_JAVA_VERSION%
     echo Specification-Title: %_MAIN_PKG_NAME%
     echo Specification-Version: 0.1-SNAPSHOT
@@ -216,8 +216,10 @@ set __MANIFEST_FILE=%_TARGET_DIR%\MANIFEST.MF
     echo Implementation-Version: 0.1-SNAPSHOT
     echo Main-Class: %_MAIN_CLASS%
 ) > %__MANIFEST_FILE%
-if %_DEBUG%==1 echo [%_BASENAME%] %_JAR_CMD% -cfm %_JAR_FILE% %__MANIFEST_FILE% -C %__CLASSES_DIR% .
-%_JAR_CMD% -cfm %_JAR_FILE% %__MANIFEST_FILE% -C %__CLASSES_DIR% .
+if %_DEBUG%==1 ( echo [%_BASENAME%] %_JAR_CMD% cfm %_JAR_FILE% %__MANIFEST_FILE% -C %__CLASSES_DIR% .
+) else if %_VERBOSE%==1 ( echo Create Java archive !_JAR_FILE:%_ROOT_DIR%=!
+)
+%_JAR_CMD% cfm %_JAR_FILE% %__MANIFEST_FILE% -C %__CLASSES_DIR% .
 if not %ERRORLEVEL%==0 (
     echo Error: Failed to generate Java archive %_JAR_FILE% 1>&2
     set _EXITCODE=1
@@ -262,7 +264,7 @@ if %_DEBUG%==1 (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -Xlog:disable
 )
 if %_DEBUG%==1 ( echo [%_BASENAME%] %_JAVA_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE%
-) else if %_VERBOSE%==1 ( echo Create Java shared archive !_JSA_FILE:%_ROOT_DIR%=!
+) else if %_VERBOSE%==1 ( echo Create Java shared archive !_JSA_FILE:%_ROOT_DIR%\=!
 )
 %_JAVA_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %__REDIRECT_STDOUT%
 if not %ERRORLEVEL%==0 (
@@ -370,7 +372,7 @@ if %_DEBUG%==1 (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -Xlog:disable
 )
 if %_DEBUG%==1 ( echo [%_BASENAME%] %_JAVA_CMD% %__JAVA_TOOL_OPTS% -jar %_JAR_FILE% %_RUN_ARGS%
-else if %_VERBOSE%==1 ( echo Execute Java archive !_JAR_FILE:%_ROOT_DIR%=! %_RUN_ARGS%
+else if %_VERBOSE%==1 ( echo Execute Java archive !_JAR_FILE:%_ROOT_DIR%\=! %_RUN_ARGS%
 )
 %_JAVA_CMD% %__JAVA_TOOL_OPTS% -jar %_JAR_FILE% %_RUN_ARGS%
 if not %ERRORLEVEL%==0 (
@@ -426,58 +428,59 @@ for /f "tokens=1,*" %%i in ('findstr /c:"jrt:/" "%__SHARE_LOG_FILE%"') do (
 
 set __N_MAIN=0
 if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] %_MAIN_PKG_NAME%." "%__SHARE_LOG_FILE%"
-for /f "delims=" %%i in ('findstr /c:"] %_MAIN_PKG_NAME%." "%__SHARE_LOG_FILE%"') do (
+for /f "delims=" %%i in ('findstr /c:"] %_MAIN_PKG_NAME%." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: %_MAIN_PKG_NAME%."') do (
     set /a __N_MAIN+=1
 )
+
 rem Java libraries
 set __N_JAVA_IO=0
 if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] java.io." "%__SHARE_LOG_FILE%"
-for /f "delims=" %%i in ('findstr /c:"] java.io." "%__SHARE_LOG_FILE%"') do (
+for /f "delims=" %%i in ('findstr /c:"] java.io." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: java.io."') do (
     set /a __N_JAVA_IO+=1
 )
 set __N_JAVA_LANG=0
 if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] java.lang." "%__SHARE_LOG_FILE%"
-for /f "delims=" %%i in ('findstr /c:"] java.lang." "%__SHARE_LOG_FILE%"') do (
+for /f "delims=" %%i in ('findstr /c:"] java.lang." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: java.lang."') do (
     set /a __N_JAVA_LANG+=1
 )
 set __N_JAVA_MATH=0
 if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] java.math." "%__SHARE_LOG_FILE%"
-for /f "delims=" %%i in ('findstr /c:"] java.math." "%__SHARE_LOG_FILE%"') do (
+for /f "delims=" %%i in ('findstr /c:"] java.math." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: java.math."') do (
     set /a __N_JAVA_MATH+=1
 )
 set __N_JAVA_NET=0
 if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] java.net." "%__SHARE_LOG_FILE%"
-for /f "delims=" %%i in ('findstr /c:"] java.net." "%__SHARE_LOG_FILE%"') do (
+for /f "delims=" %%i in ('findstr /c:"] java.net." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: java.net."') do (
     set /a __N_JAVA_NET+=1
 )
 set __N_JAVA_NIO=0
 if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] java.nio." "%__SHARE_LOG_FILE%"
-for /f "delims=" %%i in ('findstr /c:"] java.nio." "%__SHARE_LOG_FILE%"') do (
+for /f "delims=" %%i in ('findstr /c:"] java.nio." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: java.nio."') do (
     set /a __N_JAVA_NIO+=1
 )
 set __N_JAVA_SECURITY=0
 if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] java.security." "%__SHARE_LOG_FILE%"
-for /f "delims=" %%i in ('findstr /c:"] java.security." "%__SHARE_LOG_FILE%"') do (
+for /f "delims=" %%i in ('findstr /c:"] java.security." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: java.security."') do (
     set /a __N_JAVA_SECURITY+=1
 )
 set __N_JAVA_UTIL=0
 if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] java.util." "%__SHARE_LOG_FILE%"
-for /f "delims=" %%i in ('findstr /c:"] java.util." "%__SHARE_LOG_FILE%"') do (
+for /f "delims=" %%i in ('findstr /c:"] java.util." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: java.util."') do (
     set /a __N_JAVA_UTIL+=1
 )
 set __N_JDK=0
 if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] jdk." "%__SHARE_LOG_FILE%"
-for /f "delims=" %%i in ('findstr /c:"] jdk." "%__SHARE_LOG_FILE%"') do (
+for /f "delims=" %%i in ('findstr /c:"] jdk." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: jdk."') do (
     set /a __N_JDK+=1
 )
 set __N_SCALA=0
 if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] scala." "%__SHARE_LOG_FILE%"
-for /f "delims=" %%i in ('findstr /c:"] scala." "%__SHARE_LOG_FILE%"') do (
+for /f "delims=" %%i in ('findstr /c:"] scala." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: scala."') do (
     set /a __N_SCALA+=1
 )
 set __N_SUN=0
 if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] sun." "%__SHARE_LOG_FILE%"
-for /f "delims=" %%i in ('findstr /c:"] sun." "%__SHARE_LOG_FILE%"') do (
+for /f "delims=" %%i in ('findstr /c:"] sun." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: sun."') do (
     set /a __N_SUN+=1
 )
 
@@ -504,14 +507,15 @@ if %__N% equ %_RUN_ITER% (
     rem Java libraries
     set /a __N_PACKAGES=__N_PACKAGES+__N_JAVA_IO+__N_JAVA_LANG+__N_JAVA_MATH+__N_JAVA_NET+__N_JAVA_NIO
     set /a __N_PACKAGES=__N_PACKAGES+__N_JAVA_SECURITY+__N_JAVA_UTIL+__N_JDK+__N_SCALA+__N_SUN
-    echo Statistics ^(see details in !__SHARE_LOG_FILE:%_ROOT_DIR%=!^):
+    echo [96mStatistics ^(see details in !__SHARE_LOG_FILE:%_ROOT_DIR%=!^):[0m
     echo    Share flag       : %_SHARE_FLAG%
+    echo    Shared archive   : !_JSA_FILE:%_ROOT_DIR%\=!
     echo    Shared classes   : %__N_SHARED%
     echo    File classes     : !__FILE_TEXT!
     echo    jrt images       : !__JRT_TEXT!
     echo    !__TIME_TEXT!
     echo    #iteration^(s^)    : %_RUN_ITER%
-    echo Classes per package ^(!__N_PACKAGES!^):
+    echo [96mClasses per package ^(!__N_PACKAGES!^):[0m
     echo    java.io.* ^(%__N_JAVA_IO%^), java.lang.* ^(%__N_JAVA_LANG%^), java.math.* ^(%__N_JAVA_MATH%^), java.net.* ^(%__N_JAVA_NET%^)
     echo    java.nio.* ^(%__N_JAVA_NIO%^), java.security.* ^(%__N_JAVA_SECURITY%^), java.util.* ^(%__N_JAVA_UTIL%^)
     echo    jdk.* ^(%__N_JDK%^), scala.* ^(%__N_SCALA%^), sun.* ^(%__N_SUN%^)

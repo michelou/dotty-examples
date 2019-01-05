@@ -28,7 +28,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 
 > **:mag_right:** [Scala 2.12](https://www.scala-lang.org/download/) is a software product announced to require Java 8. In contrast [Scala 2.13](https://www.scala-lang.org/news/roadmap-2.13.html) and [Dotty](http://dotty.epfl.ch/) (aka [Scala 3](https://www.scala-lang.org/blog/2018/04/19/scala-3.html)) are still in development and also support Java 9+. In the following we choose to work with [Oracle Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html), the 2<sup>nd</sup> [LTS](https://www.oracle.com/technetwork/java/java-se-support-roadmap.html) version after Java 8.
 
-For instance our development environment looks as follows (*December 2018*):
+For instance our development environment looks as follows (*January 2019*):
 
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.1\
@@ -55,10 +55,10 @@ Source file [**`src\main\java\Main.java`**](cdsexamples/JavaExample/src/main/jav
 <b>package</b> cdsexamples;
 <b>public class</b> Main {
     <b>public static void</b> main(String[] args) {
-        System.out.println("Hello from Java !");
+        System.out.println(<span style="color:#660000;">"Hello from Java !"</span>);
         <b>if</b> (args.length > 0) {
             System.out.println(VMOptions.asString());
-            <i>//ScriptEngineTest.run();  // .jsa file size: 9 Mb -> 24 Mb !</i>
+            <i style="color:#009900;">//ScriptEngineTest.run();  // .jsa file size: 9 Mb -> 24 Mb !</i>
         }
     }
 }</pre>
@@ -91,6 +91,7 @@ We first execute command **`build clean compile`**; the same command with option
 &gt; build clean compile
 &nbsp;
 &gt; build -verbose clean compile
+Delete output directory target
 Create Java archive target\JavaExample.jar
 Create class list file target\JavaExample.classlist
 Create Java shared archive target\JavaExample.jsa
@@ -106,6 +107,7 @@ Hello from Java !
 Hello from Java !
 Statistics (see details in target\logs\log_share_off.log):
    Share flag       : off
+   Shared archive   : target\JavaExample.jsa
    Shared classes   : 0
    File classes     : 1
    jrt images       : 595
@@ -143,6 +145,7 @@ Hello from Java !
 Hello from Java !
 Statistics (see details in target\logs\log_share_on.log):
    Share flag       : on
+   Shared archive   : target\JavaExample.jsa
    Shared classes   : 585
    File classes     : 0
    jrt images       : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
@@ -245,11 +248,11 @@ Source file [**`src\main\scala\Main.scala`**](cdsexamples/DottyExample/src/main/
 <pre style="font-size:80%;">
 <b>package</b> cdsexamples
 <b>object</b> Main {
-  <b>def</b> main(args: Array[String]): Unit = {
-    println("Hello from Dotty !")
+  <b>def</b> main(args: <b style="color:#000066;">Array</b>[String]): <b style="color:#000066;">Unit</b> = {
+    println(<span style="color:#990000;">"Hello from Dotty !"</span>)
     <b>if</b> (args.length > 0) {
       println(VMOptions.asString)
-      <i>//TastyTest.run()</i>
+      <i style="color:#006600;">//TastyTest.run()</i>
     }
   }
 }</pre>
@@ -282,6 +285,7 @@ Similarly to the previous section we execute the following command; option **`-v
 &gt; build clean compile
 &nbsp;
 &gt; build -verbose clean compile
+Delete output directory target
 Create Java archive target\DottyExample.jar
 Create class list file target\DottyExample.classlist
 Create Java shared archive target\DottyExample.jsa
@@ -298,19 +302,20 @@ Execute Java archive target\DottyExample.jar
 Hello from Dotty !
 Statistics (see details in target\logs\log_share_off.log):
    Share flag       : off
+   Shared archive   : target\DottyExample.jsa
    Shared classes   : 0
    File classes     : 265
    jrt images       : 671
    Load time        : 0.349
    #iteration(s)    : 1
-Classes per package (941):
-   java.io.* (39), java.lang.* (216), java.math.* (3), java.net.* (9)
+Classes per package (721):
+   java.io.* (39), java.lang.* (0), java.math.* (3), java.net.* (9)
    java.nio.* (38), java.security.* (24), java.util.* (142)
    jdk.* (121), sun.* (80)
    [APP] cdsexamples.* (2)
    scala.* (28), scala.collection.* (161), scala.compat.* (0)
    scala.io.* (1), scala.math.* (19), scala.reflect.* (25)
-   scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
+   scala.runtime.* (5), scala.sys.* (10), scala.util.* (14)
 </pre>
 
 For comparison here is the output ***with data sharing***; option **`-verbose`** prints out the CDS status:
@@ -324,19 +329,20 @@ Execute Java archive target\DottyExample.jar
 Hello from Dotty !
 Statistics (see details in target\logs\log_share_on.log):
    Share flag       : on
+   Shared archive   : target\DottyExample.jsa
    Shared classes   : 869
    File classes     : 0
    jrt images       : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
    Load time        : 0.125
    #iteration(s)    : 1
-Classes per package (875):
-   java.io.* (34), java.lang.* (208), java.math.* (3), java.net.* (9)
+Classes per package (870):
+   java.io.* (34), java.lang.* (207), java.math.* (3), java.net.* (9)
    java.nio.* (27), java.security.* (23), java.util.* (122)
    jdk.* (106), sun.* (74)
    [APP] cdsexamples.* (2)
    scala.* (28), scala.collection.* (161), scala.compat.* (0)
    scala.io.* (1), scala.math.* (19), scala.reflect.* (25)
-   scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
+   scala.runtime.* (5), scala.sys.* (10), scala.util.* (14)
 </pre>
 
 Subcommand **`run`** with option **`-iter:<n>`** (**`n=1..99`**) executes **`n`** times the [Dotty](http://dotty.epfl.ch/) example:
@@ -353,19 +359,20 @@ Execute Java archive target\DottyExample.jar
 Hello from Dotty !
 Statistics (see details in target\logs\log_share_on.log):
    Share flag       : on
+   Shared archive   : target\DottyExample.jsa
    Shared classes   : 869
    File classes     : 0
    jrt images       : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
    Average load time: 0.128s
    #iteration(s)    : 4
-Classes per package (875):
-   java.io.* (34), java.lang.* (208), java.math.* (3), java.net.* (9)
+Classes per package (870):
+   java.io.* (34), java.lang.* (207), java.math.* (3), java.net.* (9)
    java.nio.* (27), java.security.* (23), java.util.* (122)
    jdk.* (106), sun.* (74)
    [APP] cdsexamples.* (2)
    scala.* (28), scala.collection.* (161), scala.compat.* (0)
    scala.io.* (1), scala.math.* (19), scala.reflect.* (25)
-   scala.runtime.* (5), scala.sys.* (14), scala.util.* (14)
+   scala.runtime.* (5), scala.sys.* (10), scala.util.* (14)
 </pre>
 
 Finally we check the contents of the output directory **`target\`**:
@@ -426,23 +433,15 @@ Usage: sharedata { options | subcommands }
 
 <pre style="font-size:80%;">
 &gt; sharedata activate
-Create class list file for Scala compiler
-Create Java shared archive for Scala compiler
-[...]
-Number of classes 3609
-[...]
-Create class list file for Scala REPL
-[...]
-Create Java shared archive for Scala REPL
-[...]
-Number of classes 1586
-[...]
-Execute test application with Scala REPL WITHOUT Java shared archive
+Create class list file out\data-sharing\dotty-cds-compiler.classlist
+Create Java shared archive out\data-sharing\dotty-cds-compiler.jsa
+Create class list file out\data-sharing\dotty-cds-repl.classlist
+Create Java shared archive out\data-sharing\dotty-cds-repl.jsa
 Support files for Java class sharing:
-   dotty-cds-compiler.classlist (158 Kb)
-   dotty-cds-compiler.jsa (60864 Kb)
-   dotty-cds-repl.classlist (70 Kb)
-   dotty-cds-repl.jsa (23872 Kb)
+   dotty-cds-compiler.classlist (119 Kb)
+   dotty-cds-compiler.jsa (55488 Kb)
+   dotty-cds-repl.classlist (31 Kb)
+   dotty-cds-repl.jsa (16640 Kb)
    dotty-cds.jar (3 Kb)
    dotty-cds_0.11-0.11.0-RC1.jar (3 Kb)
 </pre>
@@ -457,13 +456,14 @@ dotty-cds_0.11-0.11.0-RC1.jar
 </pre>
 
 <pre style="font-size:80%;">
+<b>package</b> cds
 <b>object</b> Main {
-  <b>def</b> main(args: Array[String]): Unit = {
-    println("Support files for Java class sharing:")
+  <b>def</b> main(args: <b style="color:#000066;">Array</b>[String]): <b style="color:#000066;">Unit</b> = {
+    println(<span style="color:#660000;">"Support files for Java class sharing:"</span>)
     <b>val</b> jarUrl = getClass().getProtectionDomain().getCodeSource().getLocation()
     <b>val</b> libDir = java.nio.file.Paths.get(jarUrl.toURI()).getParent().toFile()
     <b>val</b> files = libDir.listFiles.filter(_.getName.startsWith("dotty-cds"))
-    files.foreach(f => println("   "+f.getName()+" ("+(f.length()/1024)+" Kb)"))
+    files.foreach(f => println("   "+f.getName()+" ("+(f.length()/1024)+<span style="color:#660000;">" Kb)"</span>))
   }
 }
 </pre>
@@ -472,34 +472,34 @@ Subcommand **`test`** ...*tbd*...; option **`-verbose`** prints out the CDS stat
 <pre style="font-size:80%;">
 &gt; sharedata test
 Support files for Java class sharing:
-   dotty-cds-compiler.classlist (158 Kb)
-   dotty-cds-compiler.jsa (60864 Kb)
-   dotty-cds-repl.classlist (70 Kb)
-   dotty-cds-repl.jsa (23872 Kb)
+   dotty-cds-compiler.classlist (119 Kb)
+   dotty-cds-compiler.jsa (55488 Kb)
+   dotty-cds-repl.classlist (31 Kb)
+   dotty-cds-repl.jsa (16640 Kb)
    dotty-cds_0.11-0.11.0-RC1.jar (3 Kb)
 &nbsp;
 &gt; sharedata -verbose test
-Execute test application with Scala REPL WITHOUT Java shared archive
+Execute test application with Scala REPL <span style="background-color:#cc0000;color:white;">WITHOUT</span> Java shared archive
 Support files for Java class sharing:
    dotty-cds-compiler.classlist (119 Kb)
    dotty-cds-compiler.jsa (55488 Kb)
    dotty-cds-repl.classlist (31 Kb)
    dotty-cds-repl.jsa (16640 Kb)
-   dotty-cds.jar (3 Kb)
    dotty-cds_0.11-0.11.0-RC1.jar (3 Kb)
-Statistics (see data-sharing\logs\dotty-cds-repl-share.log)
+Statistics (see out\data-sharing\logs\dotty-cds-repl-share.log)
    Share flag      : off
+   Shared archive  : out\data-sharing\dotty-cds-repl.jsa
    Shared classes  : 0
    File classes    : 274
    jrt images      : 677
-   Load time       : 0.383s
-Classes per package (957):
-   java.io.* (39), java.lang.* (222), java.net.* (9), java.nio.* (39)
+   Load time       : 0.401s
+Classes per package (950):
+   java.io.* (39), java.lang.* (218), java.net.* (9), java.nio.* (39)
    java.security.* (24), java.util.* (142), jdk.* (121), sun.* (82)
-
-   scala.* (30), scala.collection.* (166), scala.compat.* (2)
+   [APP] cds.* (2)
+   scala.* (30), scala.collection.* (165), scala.compat.* (2)
    scala.io.* (1), scala.math.* (19), scala.reflect.* (27)
-   scala.runtime.* (6), scala.sys.* (14), scala.util.* (14)
+   scala.runtime.* (6), scala.sys.* (10), scala.util.* (14)
 </pre>
 
 <pre style="font-size:80%;">
@@ -512,18 +512,20 @@ Support files for Java class sharing:
    dotty-cds-repl.jsa (16640 Kb)
    dotty-cds.jar (3 Kb)
    dotty-cds_0.11-0.11.0-RC1.jar (3 Kb)
-Statistics (see data-sharing\logs\dotty-cds-repl-share.log)
+Statistics (see out\data-sharing\logs\dotty-cds-repl-share.log)
    Share flag      : on
+   Shared archive  : out\data-sharing\dotty-cds-repl.jsa
    Shared classes  : 884
-   File/jrt classes: 1
-   Load time       : 0.140s
-Classes per package (891):
-   java.io.* (34), java.lang.* (214), java.net.* (9), java.nio.* (28)
+   File classes    : 0
+   jrt images      : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
+   Load time       : 0.146s
+Classes per package (884):
+   java.io.* (34), java.lang.* (210), java.net.* (9), java.nio.* (28)
    java.security.* (23), java.util.* (122), jdk.* (106), sun.* (76)
-
-   scala.* (30), scala.collection.* (166), scala.compat.* (2)
+   [APP] cds.* (2)
+   scala.* (30), scala.collection.* (165), scala.compat.* (2)
    scala.io.* (1), scala.math.* (19), scala.reflect.* (27)
-   scala.runtime.* (6), scala.sys.* (14), scala.util.* (14)
+   scala.runtime.* (6), scala.sys.* (10), scala.util.* (14)
 </pre>
 
 
@@ -614,5 +616,5 @@ Classes per package (891):
 -->
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/December 2018* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/January 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>

@@ -23,10 +23,10 @@ rem ## Main
 call :init
 if not %_EXITCODE%==0 goto end
 
-call :search "%_DOTTY_HOME%\lib"
+call :search "%_DOTTY_HOME%\lib" 1
 if not %_EXITCODE%==0 goto end
 
-call :search "%_SCALA_HOME%\lib"
+call :search "%_SCALA_HOME%\lib" 1
 if not %_EXITCODE%==0 goto end
 
 call :search "%_JAVA_HOME%\lib"
@@ -34,15 +34,15 @@ if not %_EXITCODE%==0 goto end
 
 for /f %%f in ('cd') do set _CWD=%%~sf
 if exist "%_CWD%\lib\*" (
-    call :search "%_CWD%\lib"
+    call :search "%_CWD%\lib" 1
     if not !_EXITCODE!==0 goto end
 )
 if defined _IVY if exist "%USERPROFILE%\.ivy2\" (
-    call :search "%USERPROFILE%\.ivy2"
+    call :search "%USERPROFILE%\.ivy2\cache" 1
     if not !_EXITCODE!==0 goto end
 )
 if defined _MAVEN if exist "%USERPROFILE%\.m2\" (
-    call :search "%USERPROFILE%\.m2"
+    call :search "%USERPROFILE%\.m2\repository" 1
     if not !_EXITCODE!==0 goto end
 )
 
@@ -149,9 +149,16 @@ goto :eof
 rem input parameter: %1=lib directory
 :search
 set __LIB_DIR=%~1
+set __RECURSIVE=%~2
+
+if defined __RECURSIVE ( set __DIR_OPTS=/s /b
+) else ( set __DIR_OPTS=/b
+)
 echo Searching for class %_CLASS_NAME% in library files %__LIB_DIR%\*.jar
-for /f %%i in ('dir /s /b "%__LIB_DIR%\*.jar" 2^>NUL') do (
-    set __JAR_FILE=%%i
+for /f %%i in ('dir %__DIR_OPTS% "%__LIB_DIR%\*.jar" 2^>NUL') do (
+    if defined __RECURSIVE ( set __JAR_FILE=%%i
+    ) else ( set __JAR_FILE=%__LIB_DIR%\%%i
+    )
     for %%f in (!__JAR_FILE!) do set _JAR_FILENAME=%%~nxf
     if %_DEBUG%==1 echo [%_BASENAME%] %_JAR_CMD% -tvf "!__JAR_FILE!" ^| findstr ".*%_CLASS_NAME%.*\.class$"
     for /f "delims=" %%f in ('powershell -c "%_JAR_CMD% -tvf "!__JAR_FILE!" | Where {$_.endsWith('class') -And $_.split('/.')[-2].contains('%_CLASS_NAME%')}"') do (
