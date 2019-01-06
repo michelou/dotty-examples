@@ -39,13 +39,25 @@ C:\opt\Git-2.20.1\
 > **:mag_right:** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
 
 
-## Overview
+## Directory structure
 
-- Section **Java example** presents a tiny Java code example using data sharing.
-- In section **Dotty example** we move to [Dotty](http://dotty.epfl.ch/) with a similar example written in [Dotty](http://dotty.epfl.ch/).
-- Finally we describe the batch command **`sharedata.bat`**.
+This project is organized as follows:
 
-> **:warning:** We have submitted a bug report related to the usage of option **`-Xlog`** on Windows (see [JDK-8215398](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8215398)): 
+<pre style="font-size:80%;">
+bin\sharedata.bat
+cdsexamples\DottyExample,JavaExample
+CDS.md
+setenv.bat
+</pre>
+
+where
+
+- directory [**`cdsexamples\DottyExample\`**](cdsexamples/DottyExample/) contains a tiny Scala code example demonstrating data sharing.
+- directory [**`cdsexamples\JavaExample\`**](cdsexamples/JavaExample/) contains a tiny Java code example demonstrating data sharing.
+- file [**`bin\sharedata.bat`**](bin/sharedata.bat)
+- file [**`CDS.md`**](CDS.md) is the [Markdown](https://github.github.com/gfm/) document for this page.
+
+In the next sections we present both examples and describe the usage of command **`sharedata`**.
 
 ## Java example
 
@@ -97,7 +109,7 @@ Create class list file target\JavaExample.classlist
 Create Java shared archive target\JavaExample.jsa
 </pre>
 
-We can now execute our Java example ***without data sharing***; the same command with option **`-verbose`** prints out the CDS status:
+We can now execute our Java example ***without data sharing***; the same command with option **`-verbose`** prints out the execution report:
 
 <pre style="font-size:80%;">
 &gt; build run
@@ -105,14 +117,15 @@ Hello from Java !
 &nbsp;
 &gt; build run -verbose
 Hello from Java !
-Statistics (see details in target\logs\log_share_off.log):
+Execution report:
    Share flag       : off
    Shared archive   : target\JavaExample.jsa
    Shared classes   : 0
    File classes     : 1
    jrt images       : 595
-   Load time        : 0.109
+   Load time        : 0.115
    #iteration(s)    : 1
+   Execution logs   : target\logs\log_share_off.log
 Classes per package (596):
    java.io.* (38), java.lang.* (168), java.math.* (0), java.net.* (9)
    java.nio.* (38), java.security.* (24), java.util.* (137)
@@ -133,9 +146,10 @@ Classes per package (596):
 > <pre style="font-size:80%;">
 >    -Xlog:class+load:file=&lt;project_path&gt;\target\logs\log_share_on.log
 > </pre>
+> We have submitted a bug report related to the usage of option **`-Xlog`** on Windows (see [JDK-8215398](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8215398)).
 
 
-For comparison here is the console output ***with data sharing***; option **`-verbose`** prints out the CDS status:
+For comparison here is the console output ***with data sharing***; option **`-verbose`** prints out the execution report:
 
 <pre style="font-size:80%;">
 &gt; build run -share
@@ -143,14 +157,15 @@ Hello from Java !
 &nbsp;
 &gt; build run -verbose -share
 Hello from Java !
-Statistics (see details in target\logs\log_share_on.log):
+Execution report:
    Share flag       : on
    Shared archive   : target\JavaExample.jsa
    Shared classes   : 585
    File classes     : 0
    jrt images       : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
-   Load time        : 0.082
+   Load time        : 0.084
    #iteration(s)    : 1
+   Execution logs   : target\logs\log_share_on.log
 Classes per package (586):
    java.io.* (38), java.lang.* (168), java.math.* (0), java.net.* (9)
    java.nio.* (38), java.security.* (23), java.util.* (137)
@@ -166,13 +181,15 @@ Hello from Java !
 Hello from Java !
 Hello from Java !
 Hello from Java !
-Statistics (see details in target\logs\log_share_on.log):
+Execution report:
    Share flag       : on
+   Shared archive   : target\JavaExample.jsa
    Shared classes   : 585
    File classes     : 0
    jrt images       : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
-   Average load time: 0.084s
+   Average load time: 0.088s
    #iteration(s)    : 4
+   Execution logs   : target\logs\log_share_on.log
 Classes per package (586):
    java.io.* (38), java.lang.* (168), java.math.* (0), java.net.* (9)
    java.nio.* (38), java.security.* (23), java.util.* (137)
@@ -291,7 +308,7 @@ Create class list file target\DottyExample.classlist
 Create Java shared archive target\DottyExample.jsa
 </pre>
 
-We can now execute our [Dotty](http://dotty.epfl.ch/) example ***without data sharing*** (default settings: **`-share:off`**); option **`-verbose`** prints out the CDS status:
+We can now execute our [Dotty](http://dotty.epfl.ch/) example ***without data sharing*** (default settings: **`-share:off`**); option **`-verbose`** prints out the execution report:
 
 <pre style="font-size:80%;">
 &gt; build run
@@ -300,16 +317,17 @@ Hello from Dotty !
 &gt; build run -verbose
 Execute Java archive target\DottyExample.jar
 Hello from Dotty !
-Statistics (see details in target\logs\log_share_off.log):
+Execution report:
    Share flag       : off
    Shared archive   : target\DottyExample.jsa
    Shared classes   : 0
    File classes     : 265
    jrt images       : 671
-   Load time        : 0.349
+   Load time        : 0.355
    #iteration(s)    : 1
-Classes per package (721):
-   java.io.* (39), java.lang.* (0), java.math.* (3), java.net.* (9)
+   Execution logs   : target\logs\log_share_off.log
+Classes per package (936):
+   java.io.* (39), java.lang.* (215), java.math.* (3), java.net.* (9)
    java.nio.* (38), java.security.* (24), java.util.* (142)
    jdk.* (121), sun.* (80)
    [APP] cdsexamples.* (2)
@@ -318,7 +336,7 @@ Classes per package (721):
    scala.runtime.* (5), scala.sys.* (10), scala.util.* (14)
 </pre>
 
-For comparison here is the output ***with data sharing***; option **`-verbose`** prints out the CDS status:
+For comparison here is the output ***with data sharing***; option **`-verbose`** prints out the execution report:
 
 <pre style="font-size:80%;">
 &gt; build run -share
@@ -327,14 +345,15 @@ Hello from Dotty !
 &gt; build run -verbose -share
 Execute Java archive target\DottyExample.jar
 Hello from Dotty !
-Statistics (see details in target\logs\log_share_on.log):
+Execution report:
    Share flag       : on
    Shared archive   : target\DottyExample.jsa
    Shared classes   : 869
    File classes     : 0
    jrt images       : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
-   Load time        : 0.125
+   Load time        : 0.139
    #iteration(s)    : 1
+   Execution logs   : target\logs\log_share_on.log
 Classes per package (870):
    java.io.* (34), java.lang.* (207), java.math.* (3), java.net.* (9)
    java.nio.* (27), java.security.* (23), java.util.* (122)
@@ -357,14 +376,15 @@ Execute Java archive target\DottyExample.jar
 Hello from Dotty !
 Execute Java archive target\DottyExample.jar
 Hello from Dotty !
-Statistics (see details in target\logs\log_share_on.log):
+Execution report:
    Share flag       : on
    Shared archive   : target\DottyExample.jsa
    Shared classes   : 869
    File classes     : 0
    jrt images       : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
-   Average load time: 0.128s
+   Average load time: 0.126s
    #iteration(s)    : 4
+   Execution logs   : target\logs\log_share_on.log
 Classes per package (870):
    java.io.* (34), java.lang.* (207), java.math.* (3), java.net.* (9)
    java.nio.* (27), java.security.* (23), java.util.* (122)
@@ -374,8 +394,18 @@ Classes per package (870):
    scala.io.* (1), scala.math.* (19), scala.reflect.* (25)
    scala.runtime.* (5), scala.sys.* (10), scala.util.* (14)
 </pre>
-
-Finally we check the contents of the output directory **`target\`**:
+<!--
+> **:mag_right:** We can use the [**`timeit`**](bin/timeit.bat) command to display the execution times with and without data sharing for **`99`** run iterations:
+>
+> <pre style="font-size:80%;">
+> &gt; timeit build run -iter:99 | findstr /v Hello
+> Execution time: 00:01:22
+>
+> &gt; timeit build run -share -iter:99 | findstr /v Hello
+> Execution time: 00:01:00
+> </pre>
+-->
+Finally we can check the contents of the output directory **`target\`**:
 
 <pre style="font-size:80%;">
 > tree /a /f target | findstr /v "^[A-Z]"
@@ -468,7 +498,7 @@ dotty-cds_0.11-0.11.0-RC1.jar
 }
 </pre>
 
-Subcommand **`test`** ...*tbd*...; option **`-verbose`** prints out the CDS status:
+Subcommand **`test`** ...*tbd*...; option **`-verbose`** prints out the execution report:
 <pre style="font-size:80%;">
 &gt; sharedata test
 Support files for Java class sharing:
@@ -510,7 +540,6 @@ Support files for Java class sharing:
    dotty-cds-compiler.jsa (55488 Kb)
    dotty-cds-repl.classlist (31 Kb)
    dotty-cds-repl.jsa (16640 Kb)
-   dotty-cds.jar (3 Kb)
    dotty-cds_0.11-0.11.0-RC1.jar (3 Kb)
 Statistics (see out\data-sharing\logs\dotty-cds-repl-share.log)
    Share flag      : on
@@ -578,7 +607,7 @@ Classes per package (884):
   <dt><a href="https://patents.google.com/patent/US9336018"><b>US9336018</b></a>: <a name="ref_02">&nbsp;</a>Mechanism for class data sharing using extension and application class-loaders (2014-05-02)</dt>
   <dd> </dd>
 -->
-  <dt><a href="http://openjdk.java.net/jeps/250"><b>JEP 250</b></a>:<a name="ref_03">&nbsp;</a>Store Interned Strings in CDS Archives)</dt>
+  <dt><a href="http://openjdk.java.net/jeps/250"><b>JEP 250</b></a>:<a name="ref_03">&nbsp;</a>Store Interned Strings in CDS Archives</dt>
   <dd><i>by Jiangli Zhou (2014-09-24)</i><br/>Interned strings are now stored in CDS archives.</dd>
 </dl>
 

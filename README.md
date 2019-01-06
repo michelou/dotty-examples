@@ -65,7 +65,7 @@ We further recommand using an advanced console emulator such as [ComEmu](https:/
 
 ## Directory structure
 
-This repository is organized as follows:
+This project is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
 bin\0.11\*.bat

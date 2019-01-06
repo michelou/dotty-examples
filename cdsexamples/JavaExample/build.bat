@@ -196,7 +196,7 @@ for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
 call :compile_required "%__TIMESTAMP_FILE%" "%__JAVA_SOURCE_FILES%"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
-set __JAVAC_OPTS=-deprecation
+set __JAVAC_OPTS=-deprecation --release 8
 if %_DEBUG%==1 echo [%_BASENAME%] %_JAVAC_CMD% %__JAVAC_OPTS% -d %__CLASSES_DIR% %__JAVA_SOURCE_FILES%
 %_JAVAC_CMD% %__JAVAC_OPTS% -d %__CLASSES_DIR% %__JAVA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
@@ -264,7 +264,7 @@ if %_DEBUG%==1 (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -Xlog:disable
 )
 if %_DEBUG%==1 ( echo [%_BASENAME%] %_JAVA_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE%
-) else if %_VERBOSE%==1 ( echo Create Java shared archive !_JSA_FILE:%_ROOT_DIR%\=!
+) else if %_VERBOSE%==1 ( echo Create Java shared archive !_JSA_FILE:%_ROOT_DIR%=!
 )
 %_JAVA_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %__REDIRECT_STDOUT%
 if not %ERRORLEVEL%==0 (
@@ -381,8 +381,8 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 if %_VERBOSE%==1 (
-    if %_DEBUG%==1 echo [%_BASENAME%] call :stats "%__SHARE_LOG_FILE%" "%__N%"
-    call :stats "%__SHARE_LOG_FILE%" "%__N%"
+    if %_DEBUG%==1 echo [%_BASENAME%] call :report "%__SHARE_LOG_FILE%" "%__N%"
+    call :report "%__SHARE_LOG_FILE%" "%__N%"
 )
 if %__N% lss %_RUN_ITER% (
     set /a __N+=1
@@ -391,7 +391,7 @@ if %__N% lss %_RUN_ITER% (
 goto :eof
 
 rem input parameter: %1=share log file %2=n-th iteration
-:stats
+:report
 set __SHARE_LOG_FILE=%~1
 set __N=%~2
 if not exist "%__SHARE_LOG_FILE%" (
@@ -507,14 +507,15 @@ if %__N% equ %_RUN_ITER% (
     rem Java libraries
     set /a __N_PACKAGES=__N_PACKAGES+__N_JAVA_IO+__N_JAVA_LANG+__N_JAVA_MATH+__N_JAVA_NET+__N_JAVA_NIO
     set /a __N_PACKAGES=__N_PACKAGES+__N_JAVA_SECURITY+__N_JAVA_UTIL+__N_JDK+__N_SCALA+__N_SUN
-    echo [96mStatistics ^(see details in !__SHARE_LOG_FILE:%_ROOT_DIR%=!^):[0m
+    echo [96mExecution report:[0m
     echo    Share flag       : %_SHARE_FLAG%
-    echo    Shared archive   : !_JSA_FILE:%_ROOT_DIR%\=!
+    echo    Shared archive   : !_JSA_FILE:%_ROOT_DIR%=!
     echo    Shared classes   : %__N_SHARED%
     echo    File classes     : !__FILE_TEXT!
     echo    jrt images       : !__JRT_TEXT!
     echo    !__TIME_TEXT!
     echo    #iteration^(s^)    : %_RUN_ITER%
+    echo    Execution logs   : !__SHARE_LOG_FILE:%_ROOT_DIR%=!
     echo [96mClasses per package ^(!__N_PACKAGES!^):[0m
     echo    java.io.* ^(%__N_JAVA_IO%^), java.lang.* ^(%__N_JAVA_LANG%^), java.math.* ^(%__N_JAVA_MATH%^), java.net.* ^(%__N_JAVA_NET%^)
     echo    java.nio.* ^(%__N_JAVA_NIO%^), java.security.* ^(%__N_JAVA_SECURITY%^), java.util.* ^(%__N_JAVA_UTIL%^)

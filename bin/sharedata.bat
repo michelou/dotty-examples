@@ -57,22 +57,22 @@ if defined _DUMP_ONLY (
 
 if defined _TEST_ONLY (
     call :test
-    if not %_EXITCODE%==0 goto end
+    if not !_EXITCODE!==0 goto end
     goto end
 )
 
 if defined _ACTIVATE (
     call :dump
-    if not %_EXITCODE%==0 goto end
+    if not !_EXITCODE!==0 goto end
 
     call :test
-    if not %_EXITCODE%==0 goto end
+    if not !_EXITCODE!==0 goto end
 
     call :activate
-    if not %_EXITCODE%==0 goto end
+    if not !_EXITCODE!==0 goto end
 ) else if defined _RESET (
     call :reset
-    if not %_EXITCODE%==0 goto end
+    if not !_EXITCODE!==0 goto end
 )
 goto end
 
@@ -359,13 +359,13 @@ if not %ERRORLEVEL%==0 (
 if %__CDS_COPIED%==1 del "%_DOTTY_HOME%\lib\%_CDS_NAME%*"
 
 if %_VERBOSE%==1 (
-    if %_DEBUG%==1 echo [%_BASENAME%] call :stats "%_REPL_SHARE_LOG_FILE%"
-    call :stats "%_REPL_SHARE_LOG_FILE%"
+    if %_DEBUG%==1 echo [%_BASENAME%] call :report "%_REPL_SHARE_LOG_FILE%"
+    call :report "%_REPL_SHARE_LOG_FILE%"
 )
 goto :eof
 
 rem input parameter: %1=share log file
-:stats
+:report
 set __SHARE_LOG_FILE=%~1
 if not exist "%__SHARE_LOG_FILE%" (
     echo Error: Share log file %__SHARE_LOG_FILE% not found 1>&2
@@ -514,13 +514,14 @@ rem Scala libraries
 set /a __N_PACKAGES=__N_PACKAGES+__N_SCALA+__N_SCALA_COLLECTION+__N_SCALA_COMPAT+__N_SCALA_IO
 set /a __N_PACKAGES=__N_PACKAGES+__N_SCALA_MATH+__N_SCALA_REFLECT
 set /a __N_PACKAGES=__N_PACKAGES+__N_SCALA_RUNTIME+__N_SCALA_SYS+__N_SCALA_UTIL
-echo [96mStatistics ^(see !__SHARE_LOG_FILE:%_ROOT_DIR%\=!^)[0m
+echo [96mExecution report:[0m
 echo    Share flag      : %_SHARE_FLAG%
 echo    Shared archive  : !_REPL_JSA_FILE:%_ROOT_DIR%\=!
 echo    Shared classes  : %__N_SHARED%
 echo    File classes    : %__FILE_TEXT%
 echo    jrt images      : %__JRT_TEXT%
 echo    Load time       : %__LOAD_TIME%
+echo    Execution logs  : !__SHARE_LOG_FILE:%_ROOT_DIR%\=!
 echo [96mClasses per package ^(!__N_PACKAGES!^):[0m
 echo    java.io.* ^(%__N_JAVA_IO%^), java.lang.* ^(%__N_JAVA_LANG%^), java.net.* ^(%__N_JAVA_NET%^), java.nio.* ^(%__N_JAVA_NIO%^)
 echo    java.security.* ^(%__N_JAVA_SECURITY%^), java.util.* ^(%__N_JAVA_UTIL%^), jdk.* ^(%__N_JDK%^), sun.* ^(%__N_SUN%^)
@@ -539,14 +540,14 @@ if not exist "%_APP_JAR_FILE%" (
     goto :eof
 )
 set __CDS_JAR_FILE=%_DOTTY_HOME%\lib\%_CDS_INSTALL_NAME%.jar
-if %_DEBUG%==1 echo [%_BASENAME%] copy "%_APP_JAR_FILE%" "%__CDS_JAR_FILE%"
+if %_DEBUG%==1 echo [%_BASENAME%] copy /y "%_APP_JAR_FILE%" "%__CDS_JAR_FILE%"
 copy /y "%_APP_JAR_FILE%" "%__CDS_JAR_FILE%" 1>NUL
 if not exist "%_COMPILER_CLASSLIST_FILE%" (
     echo Error: Classlist file %_COMPILER_CLASSLIST_FILE% not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-if %_DEBUG%==1 echo [%_BASENAME%] copy "%_COMPILER_CLASSLIST_FILE%" "%_DOTTY_HOME%\lib\"
+if %_DEBUG%==1 echo [%_BASENAME%] copy /y "%_COMPILER_CLASSLIST_FILE%" "%_DOTTY_HOME%\lib\"
 copy /y "%_COMPILER_CLASSLIST_FILE%" "%_DOTTY_HOME%\lib\" 1>NUL
 if not %ERRORLEVEL%==0 (
     echo Error: Failed to copy %_COMPILER_CLASSLIST_FILE% to %_DOTTY_HOME%\lib\ 1>&2
@@ -559,7 +560,7 @@ if not exist "%_COMPILER_JSA_FILE%" (
     set _EXITCODE=1
     goto :eof
 )
-if %_DEBUG%==1 echo [%_BASENAME%] copy "%_COMPILER_JSA_FILE%" "%_DOTTY_HOME%\lib\"
+if %_DEBUG%==1 echo [%_BASENAME%] copy /y "%_COMPILER_JSA_FILE%" "%_DOTTY_HOME%\lib\"
 copy /y "%_COMPILER_JSA_FILE%" "%_DOTTY_HOME%\lib\" 1>NUL
 if not %ERRORLEVEL%==0 (
     echo Error: Failed to copy %_COMPILER_JSA_FILE% to %_DOTTY_HOME%\lib\ 1>&2
@@ -572,7 +573,7 @@ if not exist "%_REPL_CLASSLIST_FILE%" (
     set _EXITCODE=1
     goto :eof
 )
-if %_DEBUG%==1 echo [%_BASENAME%] copy "%_REPL_CLASSLIST_FILE%" "%_DOTTY_HOME%\lib\"
+if %_DEBUG%==1 echo [%_BASENAME%] copy /y "%_REPL_CLASSLIST_FILE%" "%_DOTTY_HOME%\lib\"
 copy /y "%_REPL_CLASSLIST_FILE%" "%_DOTTY_HOME%\lib\" 1>NUL
 if not %ERRORLEVEL%==0 (
     echo Error: Failed to copy classlist file %_REPL_CLASSLIST_FILE% to %_DOTTY_HOME%\lib\ 1>&2
@@ -591,7 +592,7 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-if %_DEBUG%==1 echo [%_BASENAME%] copy "%_APP_JAR_FILE%" "%_DOTTY_HOME%\lib\%_CDS_INSTALL_NAME%.jar"
+if %_DEBUG%==1 echo [%_BASENAME%] copy /y "%_APP_JAR_FILE%" "%_DOTTY_HOME%\lib\%_CDS_INSTALL_NAME%.jar"
 copy /y "%_APP_JAR_FILE%" "%_DOTTY_HOME%\lib\%_CDS_INSTALL_NAME%.jar" 1>NUL
 if not %ERRORLEVEL%==0 (
     echo Error: Failed to copy %_CDS_INSTALL_NAME%.jar% to %_DOTTY_HOME%\lib\ 1>&2
