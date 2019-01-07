@@ -17,21 +17,34 @@ In the following we explain in more detail the available build tools available i
 
 ## Command `build`
 
-Command [**`build.bat`**](dotty-example-project/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code.
+Command [**`build`**](dotty-example-project/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code.
+
+The batch file obeys the following coding conventions:
+
+1. It is organized in 4 sections: `Environment setup`, `Main`, `Subroutines` and `Cleanups`.
+2. Names of global variables start with the `_` character.
+3. Names of local variables (e.g. inside subroutines) start with `__` (two `_` characters).
+
 <pre style="font-size:80%;">
 @echo off
 setlocal enabledelayedexpansion
 ...
+rem ##########################################################################
+rem ## Environment setup
+
 set _EXITCODE=0
-&nbsp;
+
 for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
-&nbsp;
+
 call :props
 if not %_EXITCODE%==0 goto end
-&nbsp;
+
 call :args %*
 if not %_EXITCODE%==0 goto end
+
+rem ##########################################################################
 rem ## Main
+
 if %_CLEAN%==1 (
     call :clean
     if not !_EXITCODE!==0 goto end
@@ -45,7 +58,10 @@ if %_RUN%==1 (
     if not !_EXITCODE!==0 goto end
 )
 goto end
+
+rem ##########################################################################
 rem ## Subroutines
+
 :props
 ...
 goto :eof
@@ -61,6 +77,11 @@ goto :eof
 :run
 ...
 goto :eof
+:end
+
+rem ##########################################################################
+rem ## Cleanups
+
 :end
 ...
 exit /b %_EXITCODE%
@@ -174,14 +195,13 @@ object go extends ScalaModule {
 
 Command [**`ant`**](https://ant.apache.org/) is a Java-based build tool using XML-based configuration files.
 
-The configuration file [**`build.xml`**](dotty-example-project/build.xml) is a standalone file consisting of four targets and one macro definition to execute  the external batch command **`dotc.bat`** (**WIP** : [Ivy](http://ant.apache.org/ivy/) support).
+The configuration file [**`build.xml`**](examples/dotty-example-project/build.xml) in the **`dotty-example-project`** example depends on the parent file [**`build.xml`**](examples/build.xml) which defines macro definition **`dotc`** to execute the external batch command **`dotc.bat`** (**WIP** : [Ivy](http://ant.apache.org/ivy/) support).
 
 <pre style="font-size:80%;">
 &lt;?xml version="1.0" encoding="UTF-8"?>
 &lt;project name="dotty-example-project" default="compile" basedir=".">
     ...
-    &lt;target name="init"> ... &lt;/target>
-    &lt;macrodef name="dotc"> ... &lt;/macrodef>
+    &lt;import file="../build.xml" />
     &lt;target name="compile" depends="init"> ... &lt;/target>
     &lt;target name="run" depends="compile"> ... &lt;/target>
     &lt;target name="clean"> ... &lt;/target>
