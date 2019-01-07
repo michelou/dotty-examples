@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="dotty-common">
+
+    <!-- set dotty.home -->
+    <property environment="env" />
+    <property name="dotty.home" value="${env.DOTTY_HOME}" />
+
+    <target name="init">
+        <fail message="dotc compiler not found">
+            <condition><not>
+                <available file="${dotty.home}\bin\dotc.bat" />
+            </not></condition>
+        </fail>
+        <path id="dotty.classpath">
+            <fileset dir="${dotty.home}/lib" includes="dotty-library*.jar" />
+            <fileset dir="${dotty.home}/lib" includes="scala-library*.jar" />
+        </path>
+        <path id="build.classpath">
+            <fileset dir="${basedir}" includes="lib/*.jar" />
+            <pathelement location="${build.dir}" />
+        </path>
+        <path id="basedir.ref">
+            <pathelement location="${basedir}"/>
+        </path>
+    </target>
+
+    <macrodef name="dotc" >
+        <attribute name="srcdir" default="." />
+        <attribute name="destdir" default="." />
+        <attribute name="classpathref" default="basedir.ref" />
+        <sequential>
+            <pathconvert property="scala.sources" pathsep=" ">
+                <fileset dir="@{srcdir}" includes="**/*.scala" />
+            </pathconvert>
+            <resourcecount property="n">
+                <fileset dir="@{srcdir}" includes="**/*.scala" />
+            </resourcecount>
+            <condition property="s" value="s" else="">
+                <not><matches string="${n}" pattern="[0-1]" /></not>
+            </condition>
+            <exec executable="echo" taskname="scalac">
+                <arg value="Compiling ${n} source file${s} to @{destdir}" />
+            </exec>
+            <pathconvert property="classpath" refid="@{classpathref}" />
+            <exec executable="${dotty.home}\bin\dotc.bat">
+                <arg value="-d" />
+                <arg value="@{destdir}" />
+                <arg value="-classpath" />
+                <arg value="&quot;${classpath}&quot;" />
+                <arg value="-deprecation" />
+                <arg line="${scala.sources}" />
+            </exec>
+        </sequential>
+    </macrodef>
+
+</project>

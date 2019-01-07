@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="00_Auto_ParamTupling" default="compile" basedir=".">
 
-    <property name="sources.dir" value="src" />
     <property name="scala-source.dir" value="${basedir}/src/main/scala" />
     <property name="target.dir" value="${basedir}/target" />
     <property name="build.dir" value="${target.dir}/main/classes" />
@@ -11,61 +10,17 @@
     <property name="test-build.dir" value="${target.dir}/test/classes" />
     <property name="test-report.dir" value="${target.dir}/test/reports" />
 
-    <!-- set dotty.home -->
-    <property environment="env" />
-    <property name="dotty.home" value="${env.DOTTY_HOME}" />
-
-    <target name="init">
-        <fail message="dotc compiler not found">
-            <condition><not>
-                <available file="${dotty.home}\bin\dotc.bat" />
-            </not></condition>
-        </fail>
-        <path id="dotty.classpath">
-            <fileset dir="${dotty.home}/lib" includes="*.jar" />
-        </path>
-        <path id="project.classpath">
-            <fileset dir="${basedir}" includes="lib/*.jar" />
-        </path>
-        <path id="build.classpath">
-            <path refid="project.classpath" />
-            <pathelement location="${build.dir}" />
-        </path>
-        <path id="test.classpath">
-            <path refid="project.classpath" />
-            <pathelement location="${build.dir}"/>
-            <pathelement location="${test-build.dir}"/>
-        </path>
-    </target>
-
-    <macrodef name="dotc" >
-        <attribute name="destdir" default="." />
-        <attribute name="classpath" default="." />
-        <attribute name="sources" default="" />
-        <sequential>
-            <exec executable="${dotty.home}\bin\dotc.bat">
-                <arg value="-deprecation" />
-                <arg value="-feature" />
-                <arg value="-explain" />
-                <arg value="-d" />
-                <arg value="@{destdir}" />
-                <arg value="-classpath" />
-                <arg value="&quot;@{classpath}&quot;" />
-                <arg value="@{sources}" />
-            </exec>
-        </sequential>
-    </macrodef>
+    <!-- task 'init' and macro 'dotc' are defined in parent build.xml -->
+    <import file="../build.xml" />
 
     <target name="compile" depends="init">
         <mkdir dir="${build.dir}" />
-        <pathconvert property="classpath" refid="build.classpath" />
-        <pathconvert property="sources" pathsep=" ">
-            <fileset dir="${scala-source.dir}/" includes="**/*.scala" />
-        </pathconvert>
-        <dotc destdir="${build.dir}" classpath="${classpath}" sources="${sources}"/>
+        <dotc srcdir="${scala-source.dir}"
+              destdir="${build.dir}"
+              classpathref="build.classpath" />
     </target>
 
-    <target name="compile-test" depends="init, compile">
+    <target name="test-compile" depends="init, compile">
         <mkdir dir="${test-build.dir}" />
         <pathconvert property="test.classpath" refid="test.classpath" />
         <pathconvert property="test.sources" pathsep=" ">
@@ -83,7 +38,7 @@
         </java>
     </target>
 
-    <target name="test" depends="compile, compile-test">
+    <target name="test" depends="compile, test-compile">
 		<!--
 		see https://junit.org/junit5/docs/snapshot/user-guide/#running-tests-console-launcher-options
 		-->
