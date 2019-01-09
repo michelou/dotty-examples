@@ -14,17 +14,18 @@
 
 We can build/run each example in directory **`myexamples\`** using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to the **`build`** batch command.
 
-In the following we explain in more detail the available build tools available in the [**`HelloWorld`**](HelloWorld) example (and also in other examples from directory **`myexamples\`**):
+In the following we explain in more detail the build tools available in the [**`HelloWorld`**](HelloWorld) example (and also in other examples from directory **`myexamples\`**):
 
 ## Command `build`
 
-Command [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code.
+Command [**`build`**](dotty-example-project/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
 
-The batch file obeys the following coding conventions:
+The batch file for command [**`build`**](dotty-example-project/build.bat) obeys the following coding conventions:
 
-1. It is organized in 4 sections: `Environment setup`, `Main`, `Subroutines` and `Cleanups`.
-2. Names of global variables start with the `_` character.
-3. Names of local variables (e.g. inside subroutines) start with `__` (two `_` characters).
+- The file is organized in 4 sections: `Environment setup`, `Main`, `Subroutines` and `Cleanups`.
+- The file contains exactly ***one exit instruction*** (label **`end`** in section **`Cleanups`**).
+- Names of global variables start with the `_` character (shell variables defined in the user environment start with a letter).
+- Names of local variables (e.g. inside subroutines or  **`if/for`** constructs) start with `__` (two `_` characters).
 
 <pre style="font-size:80%;">
 @echo off
@@ -194,9 +195,9 @@ object go extends ScalaModule {
 
 ## Command `ant`
 
-Command [**`ant`**](https://ant.apache.org/) is a Java-based build tool using XML-based configuration files.
+Command [**`ant`**](https://ant.apache.org/) (["Another Neat Tool"](https://ant.apache.org/faq.html#ant-name)) is a Java-based build tool created in 2000 and is now maintained by the [Apache Software Foundation](https://ant.apache.org/faq.html#history). It works with XML-based configuration files.
 
-The configuration file [**`HelloWorld\build.xml`**](HelloWorld/build.xml) in the **`dotty-example-project`** example depends on the parent file [**`build.xml`**](build.xml) which defines macro definition **`dotc`** to execute the external batch command **`dotc.bat`** (**WIP** : [Ivy](http://ant.apache.org/ivy/) support).
+The configuration file [**`build.xml`**](examples/dotty-example-project/build.xml) in directory [**`dotty-example-project\`**](dotty-example-project/) depends on the parent file [**`build.xml`**](examples/build.xml) which provides the macro definition **`dotc`** to execute the external batch command **`dotc.bat`** (**WIP** : [Ivy](http://ant.apache.org/ivy/) support).
 
 <pre style="font-size:80%;">
 &lt;?xml version="1.0" encoding="UTF-8"?>
@@ -211,15 +212,15 @@ The configuration file [**`HelloWorld\build.xml`**](HelloWorld/build.xml) in the
 
 ## Command `mvn`
 
-Command [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) is a Java-based build tool using XML-based configuration files and providing a way to share JARs across several projects.
+Command [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) is a Java-based build tool created in 2002 and now maintained by the [Apache Software Foundation](https://maven.apache.org/docs/history.html). It works with XML-based configuration files and provides a way to share JARs across several projects.
 
-The configuration file [**`HelloWorld\pom.xml`**](HelloWorld/pom.xml) in the  **`HelloWorld`** example depends on the parent file [**`pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
+The configuration file [**`pom.xml`**](HelloWorld/pom.xml) in directory [**`HelloWorld\`**](HelloWorld/) depends on the parent file [**`pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
 
 <pre style="font-size:80%;">
 &lt;?xml version="1.0" encoding="UTF-8"?>
 &lt;project xmlns="http://maven.apache.org/POM/4.0.0" ...>
     ...
-    &lt;artifactId>dotty-example-projectlloWorld&lt;/artifactId>
+    &lt;artifactId>HelloWorld&lt;/artifactId>
     ...
     &lt;parent>
         ...
@@ -277,10 +278,12 @@ W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
 
-<!--
-### [`bug4272`](https://github.com/lampepfl/dotty/issues/4272)
+## Footnotes
 
-Executing the [**`build`**](bug4272/build.bat) command in directory [**`bug4272\`**](bug4272/) produces a runtime exception with version 0.7 of the Dotty compiler (*was fixed in version 0.8*):
+<a name="footnote_01">[1]</a> <a href="https://github.com/lampepfl/dotty/issues/4272" style="font-weight:bold;">bug4272</a> ***2018-04-08*** [↩](#anchor_01)
+
+<div style="margin:0 0 1em 20px;">
+Executing command <a href="bug4272/build.bat" style="font-weight:bold;font-family:Courier;">build</a> in directory <a href="bug4272/" style="font-weight:bold;font-family:Courier;">bug4272\</a> produces a runtime exception with version 0.7 of the Dotty compiler (*was fixed in version 0.8*):
 
 <pre style="font-size:80%;">
 > build clean compile run
@@ -306,10 +309,12 @@ Exception in thread "main" java.lang.AssertionError: cannot merge Constraint(
         at dotty.tools.dotc.Driver.main(Driver.scala:135)
         at dotty.tools.dotc.Main.main(Main.scala)
 </pre>
+</div>
 
-### [`bug4356`](https://github.com/lampepfl/dotty/issues/4356)
+<a name="footnote_02">[2]</a> <a href="https://github.com/lampepfl/dotty/issues/4356" style="font-weight:bold;">bug4356</a> ***2018-04-21*** [↩](#anchor_02)
 
-Executing the `build` command in directory **`bug4356\`** produces a runtime exception with version 0.7 of the Dotty compiler:
+<div style="margin:0 0 1em 20px;">
+Executing <a href="bug4356/build.bat" style="font-weight:bold;font-family:Courier;">build</a> in directory <a href="bug4356/" style="font-weight:bold;font-family:Courier;">bug4272\</a> produces a runtime exception with version 0.7 of the Dotty compiler:
 
 <pre>
 > build clean compile
@@ -324,6 +329,7 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
         at dotty.tools.dotc.Driver.main(Driver.scala:135)
         at dotty.tools.dotc.Main.main(Main.scala)
 </pre>
--->
+</div>
+
 
 *[mics](http://lampwww.epfl.ch/~michelou/)/January 2019* [**&#9650;**](#top)

@@ -53,7 +53,6 @@ set _JAVA_DEBUG=
 set _HELP=
 set _VERBOSE=
 set _QUIET=
-set _COLORS=
 set _SCALA_ARGS=
 set _JAVA_ARGS=
 set _RESIDUAL_ARGS=
@@ -87,8 +86,6 @@ rem Optimize for short-running applications, see https://github.com/lampepfl/dot
 ) else if /i "%_ARG%"=="-run" ( set _PROG_NAME=%_REPL_MAIN%
 ) else if /i "%_ARG%"=="-bootcp" ( set _BOOTCP=true
 ) else if /i "%_ARG%"=="-nobootcp" ( set _BOOTCP=
-) else if /i "%_ARG%"=="-colors" ( set _COLORS=true
-) else if /i "%_ARG%"=="-no-colors" ( set _COLORS=
 ) else if /i "%_ARG%"=="-with-compiler" ( set _JVM_CP_ARGS=%_PSEP%%_DOTTY_COMP%
 rem break out -D and -J options and add them to JAVA_OPTS as well
 rem so they reach the JVM in time to do some good. The -D options

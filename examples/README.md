@@ -13,17 +13,18 @@
 
 We can build/run each example in directory **`examples\`** using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to the **`build`** batch command.
 
-In the following we explain in more detail the available build tools available in the [**`examples\dotty-example-project`**](dotty-example-project/) example (and also in other examples from directory **`examples\`**):
+In the following we explain in more detail the build tools available in the [**`examples\enum-Planet`**](enum-Planet/) example (and also in other examples from directory **`examples\`**):
 
 ## Command `build`
 
-Command [**`build`**](dotty-example-project/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code.
+Command [**`build`**](enum-Planet/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
 
-The batch file obeys the following coding conventions:
+The batch file for command [**`build`**](enum-Planet/build.bat) obeys the following coding conventions:
 
-1. It is organized in 4 sections: `Environment setup`, `Main`, `Subroutines` and `Cleanups`.
-2. Names of global variables start with the `_` character.
-3. Names of local variables (e.g. inside subroutines) start with `__` (two `_` characters).
+- The file is organized in 4 sections: `Environment setup`, `Main`, `Subroutines` and `Cleanups`.
+- The file contains exactly ***one exit instruction*** (label **`end`** in section **`Cleanups`**).
+- Names of global variables start with the `_` character (shell variables defined in the user environment start with a letter).
+- Names of local variables (e.g. inside subroutines or  **`if/for`** constructs) start with `__` (two `_` characters).
 
 <pre style="font-size:80%;">
 @echo off
@@ -87,11 +88,26 @@ rem ## Cleanups
 exit /b %_EXITCODE%
 </pre>
 
+Execution of [enum-Planet\src\main\scala\Planet.scala](enum-Planet/src/main/scala/Planet.scala) produces the following output:
+
+<pre style="font-size:80%;">
+&gt; build clean run
+Your weight on MERCURY is 0.37775761520093526
+Your weight on SATURN is 1.0660155388115666
+Your weight on VENUS is 0.9049990998410455
+Your weight on URANUS is 0.9051271993894251
+Your weight on EARTH is 0.9999999999999999
+Your weight on NEPTUNE is 1.1383280724696578
+Your weight on MARS is 0.37873718403712886
+Your weight on JUPITER is 2.5305575254957406
+</pre>
+
+
 ## Command `gradle`
 
-Command [**`gradle`**](http://www.gradle.org/) is a build tool which replaces XML based build scripts with an internal DSL based on [Groovy](http://www.groovy-lang.org/).
+Command [**`gradle`**](http://www.gradle.org/) is a build tool created in 2007 and is the official build tool for Android applications. It replaces XML-based build scripts with a [Groovy](http://www.groovy-lang.org/)-based DSL.
 
-The configuration file [**`build.gradle`**](dotty-example-project/build.gradle) for [**`examples\dotty-example-project`**](dotty-example-project/) looks as follows:
+The configuration file [**`build.gradle`**](enum-Planet/build.gradle) for [**`examples\enum-Planet`**](enum-Planet/) looks as follows:
 
 <pre style="font-size:80%;">
 apply plugin: 'java'
@@ -103,7 +119,7 @@ version = '0.1-SNAPSHOT'
 &nbsp;
 description = """Example Gradle project that compiles using Dotty"""
 &nbsp;
-mainClassName = 'Main'
+mainClassName = 'Planet'
 &nbsp;
 run.doFirst {
     main mainClassName
@@ -111,7 +127,7 @@ run.doFirst {
 }
 </pre>
 
-We note that [**`build.gradle`**](dotty-example-project/build.gradle)<ul><li>imports the two [Gradle plugins](https://docs.gradle.org/current/userguide/plugins.html): [**`java`**](https://docs.gradle.org/current/userguide/java_plugin.html) and [**`application`**](https://docs.gradle.org/current/userguide/application_plugin.html#header)</li><li>imports code from the parent file [**`common.gradle`**](common.gradle)</li><li>assigns property **`mainClassName`** to **`main`** and value **`''`** to **`args`** (no argument in this case) in **`run.doFirst`**</li></ul>
+We note that [**`build.gradle`**](enum-Planet/build.gradle)<ul><li>imports the two [Gradle plugins](https://docs.gradle.org/current/userguide/plugins.html): [**`java`**](https://docs.gradle.org/current/userguide/java_plugin.html) and [**`application`**](https://docs.gradle.org/current/userguide/application_plugin.html#header)</li><li>imports code from the parent file [**`common.gradle`**](common.gradle)</li><li>assigns property **`mainClassName`** to **`main`** and value **`''`** to **`args`** (no argument in this case) in **`run.doFirst`**</li></ul>
 
 The parent file [**`common.gradle`**](common.gradle) defines the task **`compileDotty`** and manages the task dependencies.
 
@@ -150,7 +166,7 @@ run {
 
 Command [**`sbt`**](https://www.scala-sbt.org/) is a build tool for [**`Scala`**](https://www.scala-lang.org/) and Java. It is written in Scala and requires Java 1.8 or later.
 
-The configuration file [**`build.sbt`**](dotty-example-project/build.sbt) is a standalone file written in [Scala](https://www.scala-lang.org/) and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
+The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is a standalone file written in [Scala](https://www.scala-lang.org/) and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
 <pre style="font-size:80%;">
 val dottyVersion = "0.11.0-RC1"
@@ -158,7 +174,7 @@ val dottyVersion = "0.11.0-RC1"
 lazy val root = project
   .in(file("."))
   .settings(
-    name := "dotty-example-project",
+    name := "enum-Planet",
     description := "Example sbt project that compiles using Dotty",
     version := "0.1.0",
     &nbsp;
@@ -173,7 +189,7 @@ lazy val root = project
 
 Command [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) is a build tool which aims for simplicity to build projects in a fast and predictable manner. It is written in Scala and requires Java 1.8 or later.
 
-The configuration file [**`build.sc`**](dotty-example-project/build.sc) is a standalone file written in Scala (with direct access to [OS-Lib](https://github.com/lihaoyi/os-lib)).
+The configuration file [**`build.sc`**](enum-Planet/build.sc) is a standalone file written in Scala (with direct access to [OS-Lib](https://github.com/lihaoyi/os-lib)).
 
 <pre style="font-size:80%;">
 import mill._, scalalib._
@@ -182,7 +198,7 @@ object go extends ScalaModule {
   def scalaVersion = "0.11.0-RC1"  // "2.12.18"
   def scalacOptions = Seq("-deprecation", "-feature")
   def forkArgs = Seq("-Xmx1g")
-  def mainClass = Some("Main")
+  def mainClass = Some("Planet")
   def sources = T.sources { os.pwd / "src" }
   def clean() = T.command {
     val path = os.pwd / "out" / "go"
@@ -193,13 +209,13 @@ object go extends ScalaModule {
 
 ## Command `ant`
 
-Command [**`ant`**](https://ant.apache.org/) is a Java-based build tool using XML-based configuration files.
+Command [**`ant`**](https://ant.apache.org/) (["Another Neat Tool"](https://ant.apache.org/faq.html#ant-name)) is a Java-based build tool created in 2000 and is now maintained by the [Apache Software Foundation](https://ant.apache.org/faq.html#history). It works with XML-based configuration files.
 
-The configuration file [**`build.xml`**](examples/dotty-example-project/build.xml) in the **`dotty-example-project`** example depends on the parent file [**`build.xml`**](examples/build.xml) which defines macro definition **`dotc`** to execute the external batch command **`dotc.bat`** (**WIP** : [Ivy](http://ant.apache.org/ivy/) support).
+The configuration file [**`build.xml`**](enum-Planet/build.xml) in directory [**`enum-Planet\`**](enum-Planet/) depends on the parent file [**`build.xml`**](examples/build.xml) which provides the macro definition **`dotc`** to execute the external batch command **`dotc.bat`** (**WIP** : [Ivy](http://ant.apache.org/ivy/) support).
 
 <pre style="font-size:80%;">
 &lt;?xml version="1.0" encoding="UTF-8"?>
-&lt;project name="dotty-example-project" default="compile" basedir=".">
+&lt;project name="enum-Planet" default="compile" basedir=".">
     ...
     &lt;import file="../build.xml" />
     &lt;target name="compile" depends="init"> ... &lt;/target>
@@ -210,15 +226,15 @@ The configuration file [**`build.xml`**](examples/dotty-example-project/build.xm
 
 ## Command `mvn`
 
-Command [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) is a Java-based build tool using XML-based configuration files and providing a way to share JARs across several projects.
+Command [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) is a Java-based build tool created in 2002 and now maintained by the [Apache Software Foundation](https://maven.apache.org/docs/history.html). It works with XML-based configuration files and provides a way to share JARs across several projects.
 
-The configuration file [**`pom.xml`**](dotty-example-project/pom.xml) in the  **`dotty-example-project`** example depends on the parent file [**`pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
+The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enum-Planet\`**](enum-Planet/) depends on the parent file [**`pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
 
 <pre style="font-size:80%;">
 &lt;?xml version="1.0" encoding="UTF-8"?>
 &lt;project xmlns="http://maven.apache.org/POM/4.0.0" ...>
     ...
-    &lt;artifactId>dotty-example-projectlloWorld&lt;/artifactId>
+    &lt;artifactId>enum-Planet&lt;/artifactId>
     ...
     &lt;parent>
         ...
