@@ -19,7 +19,7 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 - [Data Sharing and Dotty on Windows](CDS.md)
 
 
-## Project dependencies
+## <span id="anchor_01">Project dependencies</span>
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
@@ -50,7 +50,7 @@ For instance our development environment looks as follows (*January 2019*):
 C:\Program Files\Java\jdk1.8.0_191\
 C:\opt\apache-ant-1.10.5\
 C:\opt\apache-maven-3.6.0\
-C:\opt\cfr-0.138\
+C:\opt\cfr-0.139\
 C:\opt\dotty-0.11.0-RC1\
 C:\opt\Git-2.20.1\
 C:\opt\gradle-5.1\
@@ -69,7 +69,7 @@ This project is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
 bin\0.11\*.bat
-bin\cfr-0.138.zip
+bin\cfr-0.139.zip
 docs\
 examples\{dotty-example-project, ..}
 myexamples\{00_AutoParamTupling, ..}
@@ -81,7 +81,7 @@ where
 
 - directory [**`bin\`**](bin/) provides several utility batch commands.
 - directory [**`bin\0.11\`**](bin/0.11/) contains the batch commands for Dotty 0.11.
-- file [**`bin\cfr-0.138.zip`**](bin/cfr-0.138.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
+- file [**`bin\cfr-0.139.zip`**](bin/cfr-0.139.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
 - directory [**`examples\`**](examples/) contains Dotty examples grabbed from various websites.
 - directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
@@ -103,7 +103,7 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`scalac.bat`**](https://docs.scala-lang.org/overviews/compiler-options/index.html), [**`dotc.bat`**](bin/0.11/dotc.bat), etc. directly available from the command prompt.
+1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`scalac.bat`**](https://docs.scala-lang.org/overviews/compiler-options/index.html), [**`dotc.bat`**](bin/0.11/dotc.bat), etc. directly available from the command prompt (see section [**Project dependencies**](#anchor_01)).
 
     <pre style="font-size:80%;">
     > setenv help
@@ -174,15 +174,15 @@ We distinguish different sets of batch commands:
 
 1. Build tools
 
-    Examples in directories [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built with the following tools as an alternative to the **`build`** command (see [**`examples\README`**](examples/README.md) and [**`myexamples\README`**](myexamples/README.md) for more details):
+    Code examples in directories [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built with the following tools as an alternative to the **`build`** command (see [**`examples\README`**](examples/README.md) and [**`myexamples\README`**](myexamples/README.md) for more details):
 
-    | **Build tool** | **Config file** | **Usage example** |
+    | **Build tool** | **Config file** | **Parent file** | **Usage example** |
     | :------: | :-------------: | :---------- |
-    | [**`sbt`**](https://www.scala-sbt.org/) | **`build.sbt`** | **`sbt clean compile run`** |
-    | [**`ant`**](https://ant.apache.org/manual/running.html) | **`build.xml`** | **`ant clean compile run`** |
-    | [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) | **`build.gradle`** | **`gradle clean build run`** |
-    | [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) | **`build.sc`** | **`mill -i go`** |
-    | [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) | **`pom.xml`** | **`mvn clean compile test`** |
+    | [**`sbt`**](https://www.scala-sbt.org/) | **`build.sbt`** | &empty; | **`sbt clean compile run`** |
+    | [**`ant`**](https://ant.apache.org/manual/running.html) | **`build.xml`** | **`build.xml`** | **`ant clean compile run`** |
+    | [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) | **`build.gradle`** | &empty; | **`gradle clean build run`** |
+    | [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) | **`build.sc`** | &empty; | **`mill -i go`** |
+    | [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) | **`pom.xml`** | **`pom.xml`** | **`mvn clean compile test`** |
     
     > **&#9755;** ***Gradle Wrappers***<br/>
     > We don't rely on them even if using [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) is the  recommended way to execute a Gradle build.<br/>
@@ -190,12 +190,12 @@ We distinguish different sets of batch commands:
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.138.zip`**](bin/cfr-0.138.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
+    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.139.zip`**](bin/cfr-0.139.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
 
     <pre style="font-size:80%;">
     &gt; cfr myexamples\00_AutoParamTupling\target\classes\Main.class
     /*
-     * Decompiled with CFR 0.138.
+     * Decompiled with CFR 0.139.
      */
     public final class Main {
         public static void test01() {
@@ -250,7 +250,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.11.0-RC1,
    ant 1.10.5, gradle 5.1, mill 0.3.5, mvn 3.6.0, sbt 1.2.8/2.12.8,
-   cfr 0.138, git 2.20.1.windows.1, diff 3.6
+   cfr 0.139, git 2.20.1.windows.1, diff 3.6
 
 > where sbt
 C:\opt\sbt-1.2.8\bin\sbt
@@ -264,7 +264,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.11.0-RC1,
    ant 1.10.5, gradle 5.1, mill 0.3.5, mvn 3.6.0, sbt 1.2.8/2.12.8,
-   cfr 0.138, git 2.20.1.windows.1, diff 3.6
+   cfr 0.139, git 2.20.1.windows.1, diff 3.6
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
    C:\Program Files\Java\jdk1.8.0_191\bin\java.exe
@@ -277,7 +277,7 @@ Tool paths:
    C:\opt\Mill-0.3.5\mill.bat
    C:\opt\apache-maven-3.6.0\bin\mvn.cmd
    C:\opt\sbt-1.2.8\bin\sbt.bat
-   C:\opt\cfr-0.138\bin\cfr.bat
+   C:\opt\cfr-0.139\bin\cfr.bat
    C:\opt\Git-2.20.1\bin\git.exe
    C:\opt\Git-2.20.1\usr\bin\diff.exe
 </pre>
@@ -312,12 +312,12 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 > getnightly
 
 > dir /b out\nightly-jars
-dotty-compiler_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
-dotty-doc_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
-dotty-interfaces-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
-dotty-language-server_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
-dotty-library_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
-dotty_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
+dotty-compiler_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
+dotty-doc_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
+dotty-interfaces-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
+dotty-language-server_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
+dotty-library_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
+dotty_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
 </pre>
 
 > **:mag_right:** Execute **`getnightly help`** to display the help message.
@@ -326,12 +326,12 @@ Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the downlo
 
 <pre style="font-size:80%">
 > getnightly -verbose
-Downloading file dotty-language-server_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar ... 140.4 Kb
-Downloading file dotty-doc_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar ... 1002.3 Kb
-Downloading file dotty-compiler_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar ... 10.4 Mb
-Downloading file dotty_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-library_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar ... 758.7 Kb
-Downloading file dotty-interfaces-0.12.0-bin-20190104-2b31453-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-language-server_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar ... 140.4 Kb
+Downloading file dotty-doc_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar ... 1002.3 Kb
+Downloading file dotty-compiler_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar ... 10.4 Mb
+Downloading file dotty-library_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar ... 767.9 Kb
+Downloading file dotty-interfaces-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar ... 3.4 Kb
 Finished to download 6 files to directory C:\Users\michelou\WORKSP~1\DOTTY-~1\out\nightly-jars
 </pre>
 
@@ -342,11 +342,11 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 <pre style="font-size:80%;">
 > getnightly activate
 Finished to download 6 files to directory C:\Users\michelou\WORKSP~1\DOTTY-~1\out\nightly-jars
-Local nightly version has changed from 0.12.0-bin-20181225-8dbf130-NIGHTLY to 0.12.0-bin-20190104-2b31453-NIGHTLY
-Activate nightly build libraries: 0.12.0-bin-20190104-2b31453-NIGHTLY
+Local nightly version has changed from 0.12.0-bin-20190104-2b31453-NIGHTLY to 0.12.0-bin-20190109-3d7d15f-NIGHTLY
+Activate nightly build libraries: 0.12.0-bin-20190109-3d7d15f-NIGHTLY
 
 > dotc -version
-Dotty compiler version 0.12.0-bin-20190104-2b31453-NIGHTLY-git-2b31453 -- Copyright 2002-2019, LAMP/EPFL
+Dotty compiler version 0.12.0-bin-20190109-3d7d15f-NIGHTLY-git-3d7d15f -- Copyright 2002-2019, LAMP/EPFL
 
 > getnightly reset
 Activate default Dotty libraries: 0.11.0-RC1
@@ -366,19 +366,19 @@ Dotty compiler version 0.11.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 > &nbsp;&nbsp;dotty-doc_0.11-0.11.0-RC1.jar
 > &nbsp;&nbsp;dotty-interfaces-0.11.0-RC1.jar
 > &nbsp;&nbsp;dotty-library_0.11-0.11.0-RC1.jar
-> lib\0.12.0-bin-20190104-2b31453-NIGHTLY\
-> &nbsp;&nbsp;dotty-compiler_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
-> &nbsp;&nbsp;dotty-doc_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
-> &nbsp;&nbsp;dotty-interfaces-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
-> &nbsp;&nbsp;dotty-language-server_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
-> &nbsp;&nbsp;dotty-library_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
-> &nbsp;&nbsp;dotty_0.12-0.12.0-bin-20190104-2b31453-NIGHTLY.jar
+> lib\0.12.0-bin-20190109-3d7d15f-NIGHTLY\
+> &nbsp;&nbsp;dotty-compiler_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
+> &nbsp;&nbsp;dotty-doc_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
+> &nbsp;&nbsp;dotty-interfaces-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
+> &nbsp;&nbsp;dotty-language-server_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
+> &nbsp;&nbsp;dotty-library_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
+> &nbsp;&nbsp;dotty_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
 > </pre>
 > In the above output the file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original Dotty installation respectively from the latest nightly build.
 
 #### `searchjars.bat <class_name>`
 
-Command **`searchjars`** helps us to search for class file names in various directories.
+Command **`searchjars`** helps us to search for class file names in the following directories: project's **`lib\`** directory (*if present*), Dotty's **`lib\`** directory, Java's **`lib\`** directory and Ivy/Maven default directories.
 
 <pre style="font-size:80%;">
 &gt; searchjars -help
@@ -544,65 +544,8 @@ Your weight on NEPTUNE is 1.1383280724696578
 Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406</pre>
 
-Running command [**`build`**](examples/enum-Planet/build.bat) with option **`-verbose`** in project [**`examples\enum-Planet`**](examples/enum-Planet/) displays progress messages:
+More usage examples are presented in [**`examples\README.md`**](examples/README.md) resp. [**`myexamples\README.md`**](myexamples/README.md)
 
-<pre style="font-size:80%;">
-&gt; build -verbose clean compile run
-Compile Scala sources to target\classes
-Execute Scala main class Planet
-Your weight on MERCURY is 0.37775761520093526
-Your weight on SATURN is 1.0660155388115666
-Your weight on VENUS is 0.9049990998410455
-Your weight on URANUS is 0.9051271993894251
-Your weight on EARTH is 0.9999999999999999
-Your weight on NEPTUNE is 1.1383280724696578
-Your weight on MARS is 0.37873718403712886
-Your weight on JUPITER is 2.5305575254957406
-</pre>
-
-Finally, running command [**`build`**](examples/enum-Planet/build.bat) with option **`-debug`** in project [**`examples\enum-Planet`**](examples/enum-Planet/) also displays internal steps of the build process:
-
-<pre style="font-size:80%;">
-> build -debug clean compile run
-[build] _CLEAN=1 _COMPILE=1 _COMPILE_CMD=dotc _RUN=1
-[build] del /s /q W:\dotty\examples\ENUM-P~1\target\classes\*.class W:\dotty\examples\ENUM-P~1\target\classes\*.hasTasty W:\dotty\examples\ENUM-P~1\target\classes\.latest-build
-[build] 20180322224754 W:\dotty\examples\ENUM-P~1\src\main\scala\Planet.scala
-[build] 00000000000000 W:\dotty\examples\ENUM-P~1\target\classes\.latest-build
-[build] dotc  -classpath W:\dotty\examples\ENUM-P~1\target\classes -d C:\dotty\examples\ENUM-P~1\target\classes  W:\dotty\examples\ENUM-P~1\src\main\scala\Planet.scala
-[build] dot -classpath W:\dotty\examples\ENUM-P~1\target\classes Planet 1
-Your weight on MERCURY is 0.37775761520093526
-Your weight on SATURN is 1.0660155388115666
-Your weight on VENUS is 0.9049990998410455
-Your weight on URANUS is 0.9051271993894251
-Your weight on EARTH is 0.9999999999999999
-Your weight on NEPTUNE is 1.1383280724696578
-Your weight on MARS is 0.37873718403712886
-Your weight on JUPITER is 2.5305575254957406
-[build] _EXITCODE=0</pre>
-
-Compilation of the Java/Scala source files is performed only if needed during the build process:
-
-<pre style="font-size:80%;">
-> build clean
-
-> build compile
-
-> build compile
-No compilation needed (1 source files)</pre>
-
-> **:mag_right:** The above `enum-Planet` example expects 1 argument at execution time.<br/>
-> For simplicity the [**`build`**](examples/enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](examples/enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
-> <pre style="font-size:80%;">
-> > type project\build.properties
-> sbt.version=1.2.8
-> main.class=Planet
-> main.args=1
-> </pre>
-> With SBT you have to run the example as follows:<br/>
-> <pre style="font-size:80%;">
-> > sbt clean compile "run 1"
-> > sbt "run 1"
-> </pre>
 
 #### `dotr.bat`
 

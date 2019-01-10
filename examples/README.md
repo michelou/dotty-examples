@@ -88,7 +88,7 @@ rem ## Cleanups
 exit /b %_EXITCODE%
 </pre>
 
-Execution of [enum-Planet\src\main\scala\Planet.scala](enum-Planet/src/main/scala/Planet.scala) produces the following output:
+Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
 
 <pre style="font-size:80%;">
 &gt; build clean run
@@ -102,6 +102,67 @@ Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406
 </pre>
 
+
+Running command [**`build`**](enum-Planet/build.bat) with option **`-verbose`** in project [**`enum-Planet\`**](enum-Planet/) displays progress messages:
+
+<pre style="font-size:80%;">
+&gt; build -verbose clean compile run
+Compile Scala sources to target\classes
+Execute Scala main class Planet
+Your weight on MERCURY is 0.37775761520093526
+Your weight on SATURN is 1.0660155388115666
+Your weight on VENUS is 0.9049990998410455
+Your weight on URANUS is 0.9051271993894251
+Your weight on EARTH is 0.9999999999999999
+Your weight on NEPTUNE is 1.1383280724696578
+Your weight on MARS is 0.37873718403712886
+Your weight on JUPITER is 2.5305575254957406
+</pre>
+
+Finally, running command [**`build`**](enum-Planet/build.bat) with option **`-debug`** in project [**`enum-Planet`**](enum-Planet/) also displays internal steps of the build process:
+
+<pre style="font-size:80%;">
+> build -debug clean compile run
+[build] _CLEAN=1 _COMPILE=1 _COMPILE_CMD=dotc _RUN=1
+[build] del /s /q W:\dotty\examples\ENUM-P~1\target\classes\*.class W:\dotty\examples\ENUM-P~1\target\classes\*.hasTasty W:\dotty\examples\ENUM-P~1\target\classes\.latest-build
+[build] 20180322224754 W:\dotty\examples\ENUM-P~1\src\main\scala\Planet.scala
+[build] 00000000000000 W:\dotty\examples\ENUM-P~1\target\classes\.latest-build
+[build] dotc  -classpath W:\dotty\examples\ENUM-P~1\target\classes -d C:\dotty\examples\ENUM-P~1\target\classes  W:\dotty\examples\ENUM-P~1\src\main\scala\Planet.scala
+[build] dot -classpath W:\dotty\examples\ENUM-P~1\target\classes Planet 1
+Your weight on MERCURY is 0.37775761520093526
+Your weight on SATURN is 1.0660155388115666
+Your weight on VENUS is 0.9049990998410455
+Your weight on URANUS is 0.9051271993894251
+Your weight on EARTH is 0.9999999999999999
+Your weight on NEPTUNE is 1.1383280724696578
+Your weight on MARS is 0.37873718403712886
+Your weight on JUPITER is 2.5305575254957406
+[build] _EXITCODE=0</pre>
+
+Compilation of the Java/Scala source files is performed only if needed during the build process:
+
+<pre style="font-size:80%;">
+> build clean
+
+> build compile
+
+> build compile
+No compilation needed (1 source files)</pre>
+
+> **:mag_right:** The above `enum-Planet` example expects 1 argument at execution time.<br/>
+> For simplicity the [**`build`**](enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
+> <pre style="font-size:80%;">
+> > type project\build.properties
+> sbt.version=1.2.8
+> main.class=Planet
+> main.args=1
+> </pre>
+> With SBT you have to run the example as follows:<br/>
+> <pre style="font-size:80%;">
+> > sbt clean compile "run 1"
+> > sbt "run 1"
+> </pre>
+> 
 
 ## Command `gradle`
 

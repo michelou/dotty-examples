@@ -52,12 +52,30 @@ setenv.bat
 
 where
 
+- file [**`bin\sharedata.bat`**](bin/sharedata.bat) 
 - directory [**`cdsexamples\DottyExample\`**](cdsexamples/DottyExample/) contains a tiny Scala code example demonstrating data sharing.
 - directory [**`cdsexamples\JavaExample\`**](cdsexamples/JavaExample/) contains a tiny Java code example demonstrating data sharing.
-- file [**`bin\sharedata.bat`**](bin/sharedata.bat)
 - file [**`CDS.md`**](CDS.md) is the [Markdown](https://github.github.com/gfm/) document for this page.
 
 In the next sections we present both examples and describe the usage of command **`sharedata`**.
+
+<!--
+## Batch commands
+
+We distinguish different sets of batch commands:
+
+1. [**`setenv.bat`**](https://github.com/michelou/dotty/tree/batch-files/setenv.bat) - This batch command makes external tools such as [**`java.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt.
+
+    <pre style="font-size:80%;">
+    > setenv help
+    Usage: setenv { options | subcommands }
+      Options:
+        -verbose         display environment settings
+      Subcommands:
+        help             display this help message
+        update           update repository from remote master
+    </pre>
+-->
 
 ## Java example
 
