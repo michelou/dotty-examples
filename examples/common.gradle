@@ -17,7 +17,7 @@ ext {
     //jarLibraryTree = fileTree(dir: "/lib", include: "**/*.jar")
     targetDir = file("/target")
     classesDir = file("${targetDir}/classes")
-	buildClasspath = files(dotcLibraryFiles, classesDir)
+    buildClasspath = files(dotcLibraryFiles, classesDir)
     runtimeClasspath = files(dottyLibraryFiles, classesDir)
 }
 

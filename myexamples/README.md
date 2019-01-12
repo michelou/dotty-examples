@@ -12,7 +12,7 @@
 </table>
 
 
-We can build/run each example in directory **`myexamples\`** using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to the **`build`** batch command.
+We can build/run each example in directory [**`myexamples\`**](.) using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to the **`build`** batch command.
 
 In the following we explain in more detail the build tools available in the [**`HelloWorld`**](HelloWorld) example (and also in other examples from directory **`myexamples\`**):
 
@@ -89,9 +89,17 @@ rem ## Cleanups
 exit /b %_EXITCODE%
 </pre>
 
+Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
+
+<pre style="font-size:80%;">
+&gt; build clean run
+Hello world!
+</pre>
+
+
 ## Command `gradle`
 
-Command [**`gradle`**](http://www.gradle.org/) is a build tool which replaces XML based build scripts with an internal DSL based on [Groovy](http://www.groovy-lang.org/).
+Command [**`gradle`**](http://www.gradle.org/) is the official build tool for Android applications (tool created in 2007). It replaces XML-based build scripts with a [Groovy](http://www.groovy-lang.org/)-based DSL.
 
 The configuration file [**`build.gradle`**](HelloWorld/build.gradle) for [**`HelloWorld\`**](HelloWorld/) looks as follows:
 
@@ -148,9 +156,22 @@ run {
 ...
 </pre>
 
+Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
+
+<pre style="font-size:80%;">
+&gt; gradle clean run
+
+&gt; Task :run
+Hello world!
+
+BUILD SUCCESSFUL in 4s
+7 actionable tasks: 7 executed
+</pre>
+
+
 ## Command `sbt`
 
-Command [**`sbt`**](https://www.scala-sbt.org/) is a build tool for [**`Scala`**](https://www.scala-lang.org/) and Java. It is written in Scala and requires Java 1.8 or later.
+Command [**`sbt`**](https://www.scala-sbt.org/) is a Scala-based build tool for [**`Scala`**](https://www.scala-lang.org/) and Java.
 
 The configuration file [**`build.sbt`**](dotty-example-project/build.sbt) is a standalone file written in [Scala](https://www.scala-lang.org/) and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
@@ -171,9 +192,17 @@ lazy val root = project
   )
 </pre>
 
+Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
+
+<pre style="font-size:80%;">
+&gt; sbt -warn clean run
+Hello world!
+</pre>
+
+
 ## Command `mill`
 
-Command [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) is a build tool which aims for simplicity to build projects in a fast and predictable manner. It is written in Scala and requires Java 1.8 or later.
+Command [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
 
 The configuration file [**`build.sc`**](dotty-example-project/build.sc) is a standalone file written in Scala (with direct access to [OS-Lib](https://github.com/lihaoyi/os-lib)).
 
@@ -193,9 +222,18 @@ object go extends ScalaModule {
 }
 </pre>
 
+Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
+
+<pre style="font-size:80%;">
+&gt; mill -i go
+[38/38] go.run
+Hello world!
+</pre>
+
+
 ## Command `ant`
 
-Command [**`ant`**](https://ant.apache.org/) (["Another Neat Tool"](https://ant.apache.org/faq.html#ant-name)) is a Java-based build tool created in 2000 and is now maintained by the [Apache Software Foundation](https://ant.apache.org/faq.html#history). It works with XML-based configuration files.
+Command [**`ant`**](https://ant.apache.org/) (["Another Neat Tool"](https://ant.apache.org/faq.html#ant-name)) is a Java-based build maintained by the [Apache Software Foundation](https://ant.apache.org/faq.html#history) (tool created in 2000). It works with XML-based configuration files.
 
 The configuration file [**`build.xml`**](examples/dotty-example-project/build.xml) in directory [**`dotty-example-project\`**](dotty-example-project/) depends on the parent file [**`build.xml`**](examples/build.xml) which provides the macro definition **`dotc`** to execute the external batch command **`dotc.bat`** (**WIP** : [Ivy](http://ant.apache.org/ivy/) support).
 
@@ -209,6 +247,29 @@ The configuration file [**`build.xml`**](examples/dotty-example-project/build.xm
     &lt;target name="clean"> ... &lt;/target>
 &lt;/project>
 </pre>
+
+Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
+
+<pre style="font-size:80%;">
+&gt; ant clean run
+Buildfile: W:\dotty-examples\myexamples\HelloWorld\build.xml
+
+clean:
+   [delete] Deleting directory W:\dotty-examples\myexamples\HelloWorld\target
+
+init:
+
+compile:
+    [mkdir] Created dir: W:\dotty-examples\myexamples\HelloWorld\target\classes
+   [scalac] Compiling 1 source file to W:\dotty-examples\myexamples\HelloWorld/target/classes
+
+run:
+     [java] Hello world!
+
+BUILD SUCCESSFUL
+Total time: 3 seconds
+</pre>
+
 
 ## Command `mvn`
 
@@ -275,6 +336,13 @@ Running command **` mvn compile test`** with option **`-debug`** produces additi
 [DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_191\bin\java.exe \
  -Xms64m -Xmx1024m -cp C:\opt\dotty-0.11.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
+</pre>
+
+Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
+
+<pre style="font-size:80%;">
+&gt; mvn --quiet clean test
+Hello world!
 </pre>
 
 

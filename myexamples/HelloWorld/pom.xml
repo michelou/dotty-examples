@@ -71,7 +71,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <mainClass>HelloWorld</mainClass>
+                            <mainClass>myexamples.HelloWorld</mainClass>
                             <arguments>
                                 <argument></argument>
                             </arguments>

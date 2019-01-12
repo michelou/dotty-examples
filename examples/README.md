@@ -11,7 +11,7 @@
   </tr>
 </table>
 
-We can build/run each example in directory **`examples\`** using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to the **`build`** batch command.
+We can build/run each example in directory [**`examples\`**](.) using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to the **`build`** batch command.
 
 In the following we explain in more detail the build tools available in the [**`enum-Planet\`**](enum-Planet/) example (and also in other examples from directory **`examples\`**):
 
@@ -270,19 +270,7 @@ lazy val root = project
 Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) expects one argument and produces the following output:
 
 <pre style="font-size:80%;">
-&gt; sbt clean "run 1"
-[info] Loading settings for project enum-planet-build from plugins.sbt ...
-[info] Loading project definition from W:\dotty-examples\examples\enum-Planet\project
-[info] Loading settings for project root from build.sbt ...
-[info] Set current project to enum-Planet (in build file:/W:/dotty-examples/examples/enum-Planet/)
-[success] Total time: 0 s, completed 12 janv. 2019 12:44:13
-[info] Updating ...
-[info] Done updating.
-[info] Compiling 1 Scala source to W:\dotty-examples\examples\enum-Planet\target\scala-0.11\classes ...
-[info] Done compiling.
-[info] Packaging W:\dotty-examples\examples\enum-Planet\target\scala-0.11\enum-planet_0.11-0.1.0.jar ...
-[info] Done packaging.
-[info] Running Planet 1
+&gt; sbt -warn clean "run 1"
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -291,7 +279,6 @@ Your weight on EARTH is 0.9999999999999999
 Your weight on NEPTUNE is 1.1383280724696578
 Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406
-[success] Total time: 5 s, completed 12 janv. 2019 12:44:18
 </pre>
 
 
@@ -317,9 +304,25 @@ object go extends ScalaModule {
 }
 </pre>
 
+Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
+
+<pre style="font-size:80%;">
+&gt; mill -i go.run 1
+[38/38] go.run
+Your weight on MERCURY is 0.37775761520093526
+Your weight on SATURN is 1.0660155388115666
+Your weight on VENUS is 0.9049990998410455
+Your weight on URANUS is 0.9051271993894251
+Your weight on EARTH is 0.9999999999999999
+Your weight on NEPTUNE is 1.1383280724696578
+Your weight on MARS is 0.37873718403712886
+Your weight on JUPITER is 2.5305575254957406
+</pre>
+
+
 ## Command `ant`
 
-Command [**`ant`**](https://ant.apache.org/) (["Another Neat Tool"](https://ant.apache.org/faq.html#ant-name)) is a Java-based build tool maintained by the [Apache Software Foundation](https://ant.apache.org/faq.html#history) (created in 2000). It works with XML-based configuration files.
+Command [**`ant`**](https://ant.apache.org/) (["Another Neat Tool"](https://ant.apache.org/faq.html#ant-name)) is a Java-based build tool maintained by the [Apache Software Foundation](https://ant.apache.org/faq.html#history) (tool created in 2000). It works with XML-based configuration files.
 
 The configuration file [**`build.xml`**](enum-Planet/build.xml) in directory [**`enum-Planet\`**](enum-Planet/) depends on the parent file [**`build.xml`**](build.xml) which provides the macro definition **`dotc`** to execute the external batch command **`dotc.bat`** (**WIP** : [Ivy](http://ant.apache.org/ivy/) support).
 
@@ -334,9 +337,39 @@ The configuration file [**`build.xml`**](enum-Planet/build.xml) in directory [**
 &lt;/project>
 </pre>
 
+Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
+
+<pre style="font-size:80%;">
+&gt; ant clean run
+Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
+
+clean:
+   [delete] Deleting directory W:\dotty-examples\examples\enum-Planet\target
+
+init:
+
+compile:
+    [mkdir] Created dir: W:\dotty-examples\examples\enum-Planet\target\classes
+   [scalac] Compiling 1 source file to W:\dotty-examples\examples\enum-Planet/target/classes
+
+run:
+     [java] Your weight on MERCURY is 0.37775761520093526
+     [java] Your weight on SATURN is 1.0660155388115666
+     [java] Your weight on VENUS is 0.9049990998410455
+     [java] Your weight on URANUS is 0.9051271993894251
+     [java] Your weight on EARTH is 0.9999999999999999
+     [java] Your weight on NEPTUNE is 1.1383280724696578
+     [java] Your weight on MARS is 0.37873718403712886
+     [java] Your weight on JUPITER is 2.5305575254957406
+
+BUILD SUCCESSFUL
+Total time: 3 seconds
+</pre>
+
+
 ## Command `mvn`
 
-Command [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) is a Java-based build tool maintained by the [Apache Software Foundation](https://maven.apache.org/docs/history.html) (created in 2002). It works with XML-based configuration files and provides a way to share JARs across several projects.
+Command [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) is a Java-based build tool maintained by the [Apache Software Foundation](https://maven.apache.org/docs/history.html) (tool created in 2002). It works with XML-based configuration files and provides a way to share JARs across several projects.
 
 The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enum-Planet\`**](enum-Planet/) depends on the parent file [**`pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
 
@@ -400,6 +433,21 @@ Running command **` mvn compile test`** with option **`-debug`** produces additi
  -Xms64m -Xmx1024m -cp C:\opt\dotty-0.11.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
+
+Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
+
+<pre style="font-size:80%;">
+&gt; mvn --quiet clean test
+Your weight on MERCURY is 0.37775761520093526
+Your weight on SATURN is 1.0660155388115666
+Your weight on VENUS is 0.9049990998410455
+Your weight on URANUS is 0.9051271993894251
+Your weight on EARTH is 0.9999999999999999
+Your weight on NEPTUNE is 1.1383280724696578
+Your weight on MARS is 0.37873718403712886
+Your weight on JUPITER is 2.5305575254957406
+</pre>
+
 
 *[mics](http://lampwww.epfl.ch/~michelou/)/January 2019* [**&#9650;**](#top)
 
