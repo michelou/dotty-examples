@@ -6,9 +6,14 @@
     <property name="dotty.home" value="${env.DOTTY_HOME}" />
 
     <target name="init">
+        <condition property="dotc.executable"
+		    value="${dotty.home}/bin/dotc.bat"
+			else="${dotty.home}/bin/dotc">
+            <os family="windows" />
+        </condition>
         <fail message="dotc compiler not found">
             <condition><not>
-                <available file="${dotty.home}\bin\dotc.bat" />
+                <available file="${dotc.executable}" />
             </not></condition>
         </fail>
         <path id="dotty.classpath">
@@ -42,7 +47,7 @@
                 <arg value="Compiling ${n} source file${s} to @{destdir}" />
             </exec>
             <pathconvert property="classpath" refid="@{classpathref}" />
-            <exec executable="${dotty.home}\bin\dotc.bat">
+            <exec executable="${dotc.executable}">
                 <arg value="-d" />
                 <arg value="@{destdir}" />
                 <arg value="-classpath" />

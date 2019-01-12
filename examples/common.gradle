@@ -14,11 +14,11 @@ ext {
         f.name.startsWith("dotty-compiler")
     }
     scalaSourceTree = fileTree(dir: "/src/main/scala", include: "**/*.scala")
-    jarLibraryTree = fileTree(dir: "/lib", include: "**/*.jar")
+    //jarLibraryTree = fileTree(dir: "/lib", include: "**/*.jar")
     targetDir = file("/target")
     classesDir = file("${targetDir}/classes")
-    javaMainDir = file("${classesDir}/java/main")
-    runtimeClasspath = files(jarLibraryTree, classesDir, javaMainDir)
+	buildClasspath = files(dotcLibraryFiles, classesDir)
+    runtimeClasspath = files(dottyLibraryFiles, classesDir)
 }
 
 clean.doLast {
@@ -28,7 +28,7 @@ clean.doLast {
 task compileDotty(type: JavaExec) {
     dependsOn compileJava
 
-    classpath dotcLibraryFiles + runtimeClasspath
+    classpath buildClasspath
     String sources = scalaSourceTree.files.join("\" \"").replaceAll("\\\\", "/")
 
     main "dotty.tools.dotc.Main"
@@ -60,7 +60,7 @@ run {
 
     classpath runtimeClasspath
 
-    jvmArgs "-Xbootclasspath/a:${dottyLibraryFiles.getAsPath()}", "-Dfile.encoding=UTF-8"
+    jvmArgs "-Dfile.encoding=UTF-8"
 
     main mainClassName
     args ''

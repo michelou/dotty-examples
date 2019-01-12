@@ -13,7 +13,7 @@
 
 We can build/run each example in directory **`examples\`** using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to the **`build`** batch command.
 
-In the following we explain in more detail the build tools available in the [**`examples\enum-Planet`**](enum-Planet/) example (and also in other examples from directory **`examples\`**):
+In the following we explain in more detail the build tools available in the [**`enum-Planet\`**](enum-Planet/) example (and also in other examples from directory **`examples\`**):
 
 ## Command `build`
 
@@ -166,9 +166,9 @@ No compilation needed (1 source files)</pre>
 
 ## Command `gradle`
 
-Command [**`gradle`**](http://www.gradle.org/) is a build tool created in 2007 and is the official build tool for Android applications. It replaces XML-based build scripts with a [Groovy](http://www.groovy-lang.org/)-based DSL.
+Command [**`gradle`**](http://www.gradle.org/) is the official build tool for Android applications (tool created in 2007). It replaces XML-based build scripts with a [Groovy](http://www.groovy-lang.org/)-based DSL.
 
-The configuration file [**`build.gradle`**](enum-Planet/build.gradle) for [**`examples\enum-Planet`**](enum-Planet/) looks as follows:
+The configuration file [**`build.gradle`**](enum-Planet/build.gradle) for [**`enum-Planet\`**](enum-Planet/) looks as follows:
 
 <pre style="font-size:80%;">
 apply plugin: 'java'
@@ -223,9 +223,29 @@ run {
 ...
 </pre>
 
+Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
+
+<pre style="font-size:80%;">
+&gt; gradle clean run
+
+> Task :run
+Your weight on MERCURY is 0.37775761520093526
+Your weight on SATURN is 1.0660155388115666
+Your weight on VENUS is 0.9049990998410455
+Your weight on URANUS is 0.9051271993894251
+Your weight on EARTH is 0.9999999999999999
+Your weight on NEPTUNE is 1.1383280724696578
+Your weight on MARS is 0.37873718403712886
+Your weight on JUPITER is 2.5305575254957406
+
+BUILD SUCCESSFUL in 4s
+7 actionable tasks: 7 executed
+</pre>
+
+
 ## Command `sbt`
 
-Command [**`sbt`**](https://www.scala-sbt.org/) is a build tool for [**`Scala`**](https://www.scala-lang.org/) and Java. It is written in Scala and requires Java 1.8 or later.
+Command [**`sbt`**](https://www.scala-sbt.org/) is a Scala-based build tool for [**`Scala`**](https://www.scala-lang.org/) and Java.
 
 The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is a standalone file written in [Scala](https://www.scala-lang.org/) and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
@@ -246,9 +266,38 @@ lazy val root = project
   )
 </pre>
 
+
+Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) expects one argument and produces the following output:
+
+<pre style="font-size:80%;">
+&gt; sbt clean "run 1"
+[info] Loading settings for project enum-planet-build from plugins.sbt ...
+[info] Loading project definition from W:\dotty-examples\examples\enum-Planet\project
+[info] Loading settings for project root from build.sbt ...
+[info] Set current project to enum-Planet (in build file:/W:/dotty-examples/examples/enum-Planet/)
+[success] Total time: 0 s, completed 12 janv. 2019 12:44:13
+[info] Updating ...
+[info] Done updating.
+[info] Compiling 1 Scala source to W:\dotty-examples\examples\enum-Planet\target\scala-0.11\classes ...
+[info] Done compiling.
+[info] Packaging W:\dotty-examples\examples\enum-Planet\target\scala-0.11\enum-planet_0.11-0.1.0.jar ...
+[info] Done packaging.
+[info] Running Planet 1
+Your weight on MERCURY is 0.37775761520093526
+Your weight on SATURN is 1.0660155388115666
+Your weight on VENUS is 0.9049990998410455
+Your weight on URANUS is 0.9051271993894251
+Your weight on EARTH is 0.9999999999999999
+Your weight on NEPTUNE is 1.1383280724696578
+Your weight on MARS is 0.37873718403712886
+Your weight on JUPITER is 2.5305575254957406
+[success] Total time: 5 s, completed 12 janv. 2019 12:44:18
+</pre>
+
+
 ## Command `mill`
 
-Command [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) is a build tool which aims for simplicity to build projects in a fast and predictable manner. It is written in Scala and requires Java 1.8 or later.
+Command [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
 
 The configuration file [**`build.sc`**](enum-Planet/build.sc) is a standalone file written in Scala (with direct access to [OS-Lib](https://github.com/lihaoyi/os-lib)).
 
@@ -270,9 +319,9 @@ object go extends ScalaModule {
 
 ## Command `ant`
 
-Command [**`ant`**](https://ant.apache.org/) (["Another Neat Tool"](https://ant.apache.org/faq.html#ant-name)) is a Java-based build tool created in 2000 and is now maintained by the [Apache Software Foundation](https://ant.apache.org/faq.html#history). It works with XML-based configuration files.
+Command [**`ant`**](https://ant.apache.org/) (["Another Neat Tool"](https://ant.apache.org/faq.html#ant-name)) is a Java-based build tool maintained by the [Apache Software Foundation](https://ant.apache.org/faq.html#history) (created in 2000). It works with XML-based configuration files.
 
-The configuration file [**`build.xml`**](enum-Planet/build.xml) in directory [**`enum-Planet\`**](enum-Planet/) depends on the parent file [**`build.xml`**](examples/build.xml) which provides the macro definition **`dotc`** to execute the external batch command **`dotc.bat`** (**WIP** : [Ivy](http://ant.apache.org/ivy/) support).
+The configuration file [**`build.xml`**](enum-Planet/build.xml) in directory [**`enum-Planet\`**](enum-Planet/) depends on the parent file [**`build.xml`**](build.xml) which provides the macro definition **`dotc`** to execute the external batch command **`dotc.bat`** (**WIP** : [Ivy](http://ant.apache.org/ivy/) support).
 
 <pre style="font-size:80%;">
 &lt;?xml version="1.0" encoding="UTF-8"?>
@@ -287,7 +336,7 @@ The configuration file [**`build.xml`**](enum-Planet/build.xml) in directory [**
 
 ## Command `mvn`
 
-Command [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) is a Java-based build tool created in 2002 and now maintained by the [Apache Software Foundation](https://maven.apache.org/docs/history.html). It works with XML-based configuration files and provides a way to share JARs across several projects.
+Command [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) is a Java-based build tool maintained by the [Apache Software Foundation](https://maven.apache.org/docs/history.html) (created in 2002). It works with XML-based configuration files and provides a way to share JARs across several projects.
 
 The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enum-Planet\`**](enum-Planet/) depends on the parent file [**`pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
 

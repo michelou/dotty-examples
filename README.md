@@ -19,16 +19,12 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 - [Data Sharing and Dotty on Windows](CDS.md)
 
 
-## <span id="anchor_01">Project dependencies</span>
+## <span id="section_01">Project dependencies</span>
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
 - [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)<sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
 - [Dotty 0.11](https://github.com/lampepfl/dotty/releases) (Java 9+ supported since 0.10) 
-
-<!--
-*Reminder*: Dotty 0.9 requires Java 8 <sup id="anchor_01">[[1]](#footnote_01)</sup>)
--->
 
 Optionally you may also install the following software:
 
@@ -53,7 +49,7 @@ C:\opt\apache-maven-3.6.0\
 C:\opt\cfr-0.139\
 C:\opt\dotty-0.11.0-RC1\
 C:\opt\Git-2.20.1\
-C:\opt\gradle-5.1\
+C:\opt\gradle-5.1.1\
 C:\opt\Mill-0.3.5\
 C:\opt\sbt-1.2.8\
 C:\opt\scala-2.12.8\
@@ -88,7 +84,7 @@ where
 - file [**`README.md`**](README.md) is the [Markdown](https://github.github.com/gfm/) document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch command for setting up our environment.
 
-> **:mag_right:** We use the portable version of [MarkdownPad 2 for Windows](http://markdownpad.com/faq.html#portable) to edit our Markdown files (see article ["Mastering Markdown"](https://guides.github.com/features/mastering-markdown/) from [GitHub Guides](https://guides.github.com/)).
+> **:mag_right:** We use the portable version of [MarkdownPad 2](http://markdownpad.com/faq.html#portable) to edit our Markdown files (see article ["Mastering Markdown"](https://guides.github.com/features/mastering-markdown/) from [GitHub Guides](https://guides.github.com/)).
 
 We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).
 > **:mag_right:** We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance:
@@ -103,7 +99,7 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`scalac.bat`**](https://docs.scala-lang.org/overviews/compiler-options/index.html), [**`dotc.bat`**](bin/0.11/dotc.bat), etc. directly available from the command prompt (see section [**Project dependencies**](#anchor_01)).
+1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`scalac.bat`**](https://docs.scala-lang.org/overviews/compiler-options/index.html), [**`dotc.bat`**](bin/0.11/dotc.bat), etc. directly available from the command prompt (see section [**Project dependencies**](#section_01)).
 
     <pre style="font-size:80%;">
     > setenv help
@@ -249,7 +245,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 > setenv
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.11.0-RC1,
-   ant 1.10.5, gradle 5.1, mill 0.3.5, mvn 3.6.0, sbt 1.2.8/2.12.8,
+   ant 1.10.5, gradle 5.1.1, mill 0.3.5, mvn 3.6.0, sbt 1.2.8/2.12.8,
    cfr 0.139, git 2.20.1.windows.1, diff 3.6
 
 > where sbt
@@ -263,7 +259,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 > setenv -verbose
 Tool versions:
    javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.11.0-RC1,
-   ant 1.10.5, gradle 5.1, mill 0.3.5, mvn 3.6.0, sbt 1.2.8/2.12.8,
+   ant 1.10.5, gradle 5.1.1, mill 0.3.5, mvn 3.6.0, sbt 1.2.8/2.12.8,
    cfr 0.139, git 2.20.1.windows.1, diff 3.6
 Tool paths:
    C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
@@ -273,7 +269,7 @@ Tool paths:
    C:\opt\scala-2.12.8\bin\scalac.bat
    C:\opt\dotty-0.11.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.5\bin\ant.bat
-   C:\opt\gradle-5.1\bin\gradle.bat
+   C:\opt\gradle-5.1.1\bin\gradle.bat
    C:\opt\Mill-0.3.5\mill.bat
    C:\opt\apache-maven-3.6.0\bin\mvn.cmd
    C:\opt\sbt-1.2.8\bin\sbt.bat
@@ -355,26 +351,30 @@ Activate default Dotty libraries: 0.11.0-RC1
 Dotty compiler version 0.11.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 </pre>
 
-> **:warning:** You need *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.11.0-RC1\`** in our case) in order to run the **`activate/reset`** subcommands.<br/> Internally the [**`getnightly`**](bin/getnightly.bat) command manages two sets of libraries files which are organized as follows:
-> <pre style="font-size:80%;">
-> > pushd c:\opt\dotty-0.11.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd
-> VERSION
-> VERSION-NIGHTLY
-> lib\0.11.0-RC1\
-> &nbsp;&nbsp;dist_0.11-0.11.0-RC1.jar
-> &nbsp;&nbsp;dotty-compiler_0.11-0.11.0-RC1.jar
-> &nbsp;&nbsp;dotty-doc_0.11-0.11.0-RC1.jar
-> &nbsp;&nbsp;dotty-interfaces-0.11.0-RC1.jar
-> &nbsp;&nbsp;dotty-library_0.11-0.11.0-RC1.jar
-> lib\0.12.0-bin-20190109-3d7d15f-NIGHTLY\
-> &nbsp;&nbsp;dotty-compiler_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
-> &nbsp;&nbsp;dotty-doc_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
-> &nbsp;&nbsp;dotty-interfaces-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
-> &nbsp;&nbsp;dotty-language-server_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
-> &nbsp;&nbsp;dotty-library_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
-> &nbsp;&nbsp;dotty_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
-> </pre>
-> In the above output the file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original Dotty installation respectively from the latest nightly build.
+> **:warning:** You need *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.11.0-RC1\`** in our case) in order to run the **`activate/reset`** subcommands.
+
+Internally the [**`getnightly`**](bin/getnightly.bat) command manages two sets of libraries files which are organized as follows:
+
+<pre style="font-size:80%;">
+&gt; pushd c:\opt\dotty-0.11.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd
+VERSION
+VERSION-NIGHTLY
+lib\0.11.0-RC1\
+&nbsp;&nbsp;dist_0.11-0.11.0-RC1.jar
+&nbsp;&nbsp;dotty-compiler_0.11-0.11.0-RC1.jar
+&nbsp;&nbsp;dotty-doc_0.11-0.11.0-RC1.jar
+&nbsp;&nbsp;dotty-interfaces-0.11.0-RC1.jar
+&nbsp;&nbsp;dotty-library_0.11-0.11.0-RC1.jar
+lib\0.12.0-bin-20190109-3d7d15f-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
+</pre>
+
+In the above output the file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original Dotty installation respectively from the latest nightly build.
 
 #### `searchjars.bat <class_name>`
 
@@ -551,7 +551,7 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 
 [Dotty REPL](https://docs.scala-lang.org/overviews/repl/overview.html) is an interactive tool for evaluating Scala expressions. Internally, it executes a source script by wrapping it in a template and then compiling and executing the resulting program.
 
-   > **NB.** Batch file [**`dotr.bat`**](bin/0.11/dotr.bat) is based on the bash script [**`dotr`**](https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr) available from the standard [Dotty distribution](https://github.com/lampepfl/dotty/releases).
+   > **:warning:** Batch file [**`dotr.bat`**](bin/0.11/dotr.bat) is based on the bash script [**`dotr`**](https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr) available from the standard [Dotty distribution](https://github.com/lampepfl/dotty/releases). We also have submitted pull request [#5444](https://github.com/lampepfl/dotty/pull/5444) to add that batch file to the Scala distribution.
 
 <pre style="font-size:80%;">
 > where dotr
@@ -593,7 +593,7 @@ scala>:quit
 ## Footnotes
 
 <!-- ## removed on 2018-11-23 ##
-<a name="footnote_01">[1]</a> ***2018-07-07*** [↩](#anchor_01)
+<a name="footnote_01">[1]</a> ***2018-07-07*** [↩](#anchor_02)
 
 <div style="margin:0 0 0 20px;">
 Version 0.9 of the Dotty compiler is not compatible with versions 9 and 10 of <a href="https://docs.oracle.com/javase/9/install/overview-jdk-9-and-jre-9-installation.htm">Java JRE</a>; a <strong><code>java.lang.IncompatibleClassChangeError</code></strong> exception is thrown when starting the <strong><code>dotc</code></strong> command:
