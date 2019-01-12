@@ -173,7 +173,7 @@ We distinguish different sets of batch commands:
     Code examples in directories [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built with the following tools as an alternative to the **`build`** command (see [**`examples\README`**](examples/README.md) and [**`myexamples\README`**](myexamples/README.md) for more details):
 
     | **Build tool** | **Config file** | **Parent file** | **Usage example** |
-    | :------: | :-------------: | :---------- |
+    | :------------: | :-------------: | :-------------: | :---------------- |
     | [**`sbt`**](https://www.scala-sbt.org/) | **`build.sbt`** | &empty; | **`sbt clean compile run`** |
     | [**`ant`**](https://ant.apache.org/manual/running.html) | **`build.xml`** | **`build.xml`** | **`ant clean compile run`** |
     | [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) | **`build.gradle`** | &empty; | **`gradle clean build run`** |
