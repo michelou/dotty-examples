@@ -367,6 +367,9 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :run
+if %_DEBUG%==1 ( echo [%_BASENAME%] ^(#iterations=%_RUN_ITER%^) call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% %_RUN_ARGS%
+) else if %_VERBOSE%==1 ( echo Execute Java archive ^(#iterations=%_RUN_ITER%^) !_JAR_FILE:%_ROOT_DIR%=! %_RUN_ARGS%
+)
 set __N=1
 :run_iter
 set __SHARE_LOG_FILE=%_LOG_DIR%\log_share_%_SHARE_FLAG%.log
@@ -380,9 +383,6 @@ if %_DEBUG%==1 (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-J-Xlog:class+load:file=!__SHARE_LOG_FILE:~2!"
 ) else (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -J-Xlog:disable
-)
-if %_DEBUG%==1 ( echo [%_BASENAME%] call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% %_RUN_ARGS%
-) else if %_VERBOSE%==1 ( echo Execute Java archive !_JAR_FILE:%_ROOT_DIR%=! %_RUN_ARGS%
 )
 call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% %_RUN_ARGS%
 if not %ERRORLEVEL%==0 (

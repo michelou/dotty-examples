@@ -186,7 +186,7 @@ We distinguish different sets of batch commands:
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.139.zip`**](bin/cfr-0.139.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of just [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
+    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.139.zip`**](bin/cfr-0.139.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
 
     <pre style="font-size:80%;">
     &gt; cfr myexamples\00_AutoParamTupling\target\classes\Main.class
@@ -280,7 +280,7 @@ Tool paths:
 
 #### `cleanup.bat`
 
-Command [**`cleanup`**](bin/cleanup.bat) removes the output directories (ie. **`target\`**) from the example projets: 
+Command [**`cleanup`**](bin/cleanup.bat) removes the output directories (ie. **`target\`**) from the example projects: 
 
 <pre style="font-size:80%;">
 &gt; cleanup
@@ -353,7 +353,7 @@ Dotty compiler version 0.11.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 
 > **:warning:** You need *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.11.0-RC1\`** in our case) in order to run the **`activate/reset`** subcommands.
 
-Internally the [**`getnightly`**](bin/getnightly.bat) command manages two sets of libraries files which are organized as follows:
+Internally command [**`getnightly`**](bin/getnightly.bat) manages two sets of libraries files which are organized as follows:
 
 <pre style="font-size:80%;">
 &gt; pushd c:\opt\dotty-0.11.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd
@@ -374,7 +374,7 @@ lib\0.12.0-bin-20190109-3d7d15f-NIGHTLY\
 &nbsp;&nbsp;dotty_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
 </pre>
 
-In the above output the file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original Dotty installation respectively from the latest nightly build.
+In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original Dotty installation respectively from the latest nightly build.
 
 #### `searchjars.bat <class_name>`
 
@@ -457,7 +457,7 @@ Searching for class FileSystem in library files C:\Users\michelou\.m2\repository
 
 #### `timeit.bat <cmd_1> { & <cmd_i> }`
 
-Command [**`timeit`**](bin/timeit.bat) prints the execution time (`hh:MM:ss`) of the specified command (possibly given with options and parameters):
+Command [**`timeit`**](bin/timeit.bat) prints the execution time (`hh:MM:ss` format) of the specified command (possibly given with options and parameters):
 
 <pre style="font-size:80%;">
 > timeit dir /b
