@@ -37,7 +37,6 @@ if %_DEBUG%==1 echo [%_BASENAME%] "%_JAVACMD%" %_JAVA_OPTS% %_JAVA_DEBUG% %_JAVA
 -Dscala.usejavacp=true ^
 %_PROG_NAME% %_SCALA_ARGS% %_RESIDUAL_ARGS%
 if not %ERRORLEVEL%==0 (
-    if %_DEBUG%==1 echo [%_BASENAME%] Dotty compiler execution failed
     set _EXITCODE=1
     goto end
 )
@@ -77,7 +76,7 @@ if "%__ARG%"=="--" (
 ) else if /i "%__ARG%"=="-q" ( set _QUIET=true
 ) else if /i "%__ARG%"=="-quiet" ( set _QUIET=true
 rem Optimize for short-running applications, see https://github.com/lampepfl/dotty/issues/222
-) else if "%__ARG%"=="-=short" (
+) else if "%__ARG%"=="-Oshort" (
     call :addJava "-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
 ) else if /i "%__ARG%"=="-repl" ( set _PROG_NAME=%_REPL_MAIN%
 ) else if /i "%__ARG%"=="-compile" ( set _PROG_NAME=%_COMPILER_MAIN%
@@ -86,18 +85,17 @@ rem Optimize for short-running applications, see https://github.com/lampepfl/dot
     set _PROG_NAME=%_DECOMPILER_MAIN%
     call :addScala "-print-tasty"
 ) else if /i "%__ARG%"=="-run" ( set _PROG_NAME=%_REPL_MAIN%
+rem Load classes from Java shared archive if available (use -Xlog:class+load=info for details)
+) else if /i "%__ARG%"=="-share" (
+    call :addJava "-Xshare:auto
+    call :addJava "-XX:SharedArchiveFile=%_LIB_DIR%\dotty-cds-compiler.jsa"
 ) else if /i "%__ARG%"=="-with-compiler" ( set _JVM_CP_ARGS=%_PSEP%%_DOTTY_COMP%
 rem break out -D and -J options and add them to JAVA_OPTS as well
 rem so they reach the JVM in time to do some good. The -D options
 rem will be available as system properties.
-) else if "%__ARG:~0,2%"=="-D" (
-    call :addJava "%__ARG%"
-    call :addScala "%__ARG%"
-) else if "%__ARG:~0,2%"=="-J" (
-    call :addJava "%__ARG:~2%"
-    call :addScala "%__ARG%"
-) else (
-    call :addResidual "%__ARG%"
+) else if "%__ARG:~0,2%"=="-D" ( call :addJava "%__ARG%"
+) else if "%__ARG:~0,2%"=="-J" ( call :addJava "%__ARG:~2%"
+) else ( call :addResidual "%__ARG%"
 )
 shift
 goto args_loop

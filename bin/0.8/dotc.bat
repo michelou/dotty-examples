@@ -77,7 +77,7 @@ if "%_ARG%"=="--" (
 ) else if /i "%_ARG%"=="-q" ( set _QUIET=true
 ) else if /i "%_ARG%"=="-quiet" ( set _QUIET=true
 rem Optimize for short-running applications, see https://github.com/lampepfl/dotty/issues/222
-) else if "%_ARG%"=="-=short" (
+) else if "%_ARG%"=="-Oshort" (
     call :addJava "-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
 ) else if /i "%_ARG%"=="-repl" ( set _PROG_NAME=%_REPL_MAIN%
 ) else if /i "%_ARG%"=="-compile" ( set _PROG_NAME=%_COMPILER_MAIN%
@@ -89,14 +89,9 @@ rem Optimize for short-running applications, see https://github.com/lampepfl/dot
 rem break out -D and -J options and add them to JAVA_OPTS as well
 rem so they reach the JVM in time to do some good. The -D options
 rem will be available as system properties.
-) else if "%_ARG:~0,2%"=="-D" (
-    call :addJava "%_ARG%"
-    call :addScala "%_ARG%"
-) else if "%_ARG:~0,2%"=="-J" (
-    call :addJava "%_ARG:~2%"
-    call :addScala "%_ARG%"
-) else (
-    call :addResidual "%_ARG%"
+) else if "%_ARG:~0,2%"=="-D" ( call :addJava "%_ARG%"
+) else if "%_ARG:~0,2%"=="-J" ( call :addJava "%_ARG:~2%"
+) else ( call :addResidual "%_ARG%"
 )
 shift
 goto args_loop
