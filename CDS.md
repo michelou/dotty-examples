@@ -17,6 +17,8 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 - [Building Dotty on Windows](DRONE.md)
 - Data Sharing and Dotty on Windows [**&#9660;**](#bottom)
 
+Other topics we are currently investigating - on Windows or not - include [GraalVM](https://www.graalvm.org/) (docs), [JMH](https://openjdk.java.net/projects/code-tools/jmh/), [OpenJDK 11](https://adoptopenjdk.net/) and [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html).
+
 
 ## Project dependencies
 

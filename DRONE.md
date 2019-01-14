@@ -17,13 +17,13 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 - Building Dotty on Windows [**&#9660;**](#bottom)
 - [Data Sharing and Dotty on Windows](CDS.md)
 
+Other topics we are currently investigating - on Windows or not - include [GraalVM](https://www.graalvm.org/) (docs), [JMH](https://openjdk.java.net/projects/code-tools/jmh/), [OpenJDK 11](https://adoptopenjdk.net/) and [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html).
 
-> **&#9755;** ***Continuous Delivery/Integration (CD/CI)***<br/>
-> Continuous delivery typically performs the following steps:<br/>
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Checkout **&rarr;** Compile **&rarr;** Test **&rarr;** Deploy.
+> **&#9755;** ***Continuous Integration/Delivery (CI/CD)***<br/>
+> (steps: Checkout **&rarr;** Compile **&rarr;** Test **&rarr;** Deploy)
 > 
-> | Language | CD/CI service | Hosting |
-> | :------: | :------------ | :--------------- |
+> | Software | CI/CD service | Hosting |
+> | :------: | :------------ | :------ |
 > | [Dotty](http://dotty-ci.epfl.ch/lampepfl/dotty) | [Drone](https://drone.io/) | [EPFL](http://dotty-ci.epfl.ch/lampepfl/dotty) in Lausanne, Switzerland |
 > | [Scala](https://www.scala-lang.org/) | [Jenkins](https://jenkins.io/doc/)<br/>[Travis CI](https://docs.travis-ci.com/user/tutorial/) | [Lightbend ](https://scala-ci.typesafe.com/) in San-Francisco, USA<br/>[Travis](https://travis-ci.org/scala/scala) in Berlin, Germany
 > | [Oracle&nbsp;OpenJDK](https://ci.adoptopenjdk.net/) | [Jenkins](https://jenkins.io/doc/) | Oracle |
@@ -49,7 +49,7 @@ C:\opt\sbt-1.2.8\
 C:\opt\Git-2.20.1\
 </pre>
 
-> **:mag_right:** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
+> **:mag_right:** [Git for Windows](https://git-scm.com/) provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
 
 ## Directory structure
 
@@ -183,7 +183,7 @@ We distinguish different sets of batch commands:
 
     <sub><sup>**(1)**</sup> Average execution time measured on a i7-i8550U laptop with 16 GB of memory.</sub>
 
-    > **:mag_right:** Subcommands whose name ends with **`-only`** help us to execute one single step without running again the precedent ones.
+    > **:mag_right:** Subcommands whose name ends with **`-only`** help us to execute one single step without running again the precedent ones. They are listed as *Advanced subcommands* by command **`build help`** and should ***never*** be used in an automatic build.
     > 
     > | Subcommand | Execution time | Output |
     > | :------------ | :------------: | :------------ |
@@ -201,6 +201,7 @@ We distinguish different sets of batch commands:
     > | **`build bootstrap`** | **`build compile bootstrap-only`** |
     > | **`build documentation`** | **`build bootstrap documentation-only`** |
     > | **`build archives`** | **`build bootstrap archives-only`** |
+    > | **`build sbt`** | **`build bootstrap sbt-only`** |
 
 5. [**`cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) - This batch command performs test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\cmdTests`**](project/scripts/cmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server (see console output in section [**Usage examples**](#section_05)).
 
@@ -466,7 +467,8 @@ Total execution time: 00:20:25
 
 #### `cmdTests`
 
-Command [**`project\scripts\cmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) performs several tests running Dotty commands from [**`sbt`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html).
+Command [**`project\scripts\cmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) performs several tests running Dotty commands from [**`sbt`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html). In the normal case, command [**`cmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) is called by command **`build compile`** but may also be called directly.
+
 
 <pre style="font-size:80%;">
 &gt; cmdTests
@@ -492,7 +494,7 @@ testing loading tasty from .tasty file in jar
 
 #### `bootstrapCmdTests`
 
-Command [**`project\scripts\bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) performs several benchmarks and generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program.
+Command [**`project\scripts\bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) performs several benchmarks and generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program. In the normal case, command [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) is called by command **`build bootstrap`** but may also be called directly.
 
 <pre style="font-size:80%;">
 &gt; bootstrapCmdTests

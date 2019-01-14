@@ -54,6 +54,10 @@ if %_COMPILE%==1 (
     call :compile
     if not !_EXITCODE!==0 goto end
 )
+if %_DOC%==1 (
+    call :doc
+    if not !_EXITCODE!==0 goto end
+)
 if %_RUN%==1 (
     call :run
     if not !_EXITCODE!==0 goto end
@@ -73,6 +77,9 @@ goto :eof
 ...
 goto :eof
 :compile
+...
+goto :eof
+:doc
 ...
 goto :eof
 :run
@@ -167,6 +174,10 @@ No compilation needed (1 source files)</pre>
 ## Command `gradle`
 
 Command [**`gradle`**](http://www.gradle.org/) is the official build tool for Android applications (tool created in 2007). It replaces XML-based build scripts with a [Groovy](http://www.groovy-lang.org/)-based DSL.
+
+> **&#9755;** ***Gradle Wrappers***<br/>
+> We don't rely on them even if using [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) is the  recommended way to execute a Gradle build.<br/>
+> Simply execute the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html).
 
 The configuration file [**`build.gradle`**](enum-Planet/build.gradle) for [**`enum-Planet\`**](enum-Planet/) looks as follows:
 

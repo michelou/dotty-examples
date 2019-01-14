@@ -18,6 +18,7 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 - [Building Dotty on Windows](DRONE.md)
 - [Data Sharing and Dotty on Windows](CDS.md)
 
+Other topics we are currently investigating - on Windows or not - include [GraalVM](https://www.graalvm.org/) (docs), [JMH](https://openjdk.java.net/projects/code-tools/jmh/), [OpenJDK 11](https://adoptopenjdk.net/) and [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html).
 
 ## <span id="section_01">Project dependencies</span>
 
@@ -179,10 +180,6 @@ We distinguish different sets of batch commands:
     | [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) | **`build.gradle`** | **`common.gradle`** | **`gradle clean build run`** |
     | [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) | **`build.sc`** | &empty; | **`mill -i go`** |
     | [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) | **`pom.xml`** | **`pom.xml`** | **`mvn clean compile test`** |
-    
-    > **&#9755;** ***Gradle Wrappers***<br/>
-    > We don't rely on them even if using [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) is the  recommended way to execute a Gradle build.<br/>
-    > Simply execute the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html).
 
 2. Decompiler tools
 
@@ -208,7 +205,7 @@ We distinguish different sets of batch commands:
     }
     </pre>
 
-    Here is the console output from [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) with option **`-c`** for the same class file:
+    Here is the console output from command [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) with option **`-c`** for the same class file:
 
     <pre style="font-size:80%;">
     &gt; javap -c myexamples\00_AutoParamTupling\target\classes\Main.class
@@ -315,8 +312,6 @@ dotty-language-server_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
 dotty-library_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
 dotty_0.12-0.12.0-bin-20190109-3d7d15f-NIGHTLY.jar
 </pre>
-
-> **:mag_right:** Execute **`getnightly help`** to display the help message.
 
 Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
