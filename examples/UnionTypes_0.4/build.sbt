@@ -3,7 +3,7 @@
 // See http://www.foundweekends.org/giter8/testing.html#Using+the+Giter8Plugin for more details.
 lazy val root = (project in file("src")).
   settings(
-    scalaVersion := "0.11.0-RC1",
+    scalaVersion := "0.12.0-RC1",
     name := "dotty-template",
     test in Test := {
       val _ = (g8Test in Test).toTask("").value

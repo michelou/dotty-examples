@@ -187,7 +187,7 @@ Command [**`sbt`**](https://www.scala-sbt.org/) is a Scala-based build tool for 
 The configuration file [**`build.sbt`**](dotty-example-project/build.sbt) is a standalone file written in [Scala](https://www.scala-lang.org/) and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
 <pre style="font-size:80%;">
-val dottyVersion = "0.11.0-RC1"
+val dottyVersion = "0.12.0-RC1"
 &nbsp;
 lazy val root = project
   .in(file("."))

@@ -14,8 +14,8 @@ set _EXITCODE=0
 for %%f in ("%~dp0..") do set _ROOT_DIR=%%~sf
 
 rem file build.sbt
-set _DOTTY_VERSION_OLD="0.10.0"
-set _DOTTY_VERSION_NEW="0.11.0-RC1"
+set _DOTTY_VERSION_OLD="0.11.0-RC1"
+set _DOTTY_VERSION_NEW="0.12.0-RC1"
 
 rem file project\build.properties
 set _SBT_VERSION_OLD=sbt.version=1.2.7
@@ -24,6 +24,10 @@ set _SBT_VERSION_NEW=sbt.version=1.2.8
 rem file project\plugins.sbt
 set _SBT_DOTTY_VERSION_OLD="0.2.5"
 set _SBT_DOTTY_VERSION_NEW="0.2.6"
+
+rem file build.sc
+set _MILL_DOTTY_VERSION_OLD="0.11.0-RC1"
+set _MILL_DOTTY_VERSION_NEW="0.12.0-RC1"
 
 rem ##########################################################################
 rem ## Main
@@ -61,6 +65,7 @@ set __PARENT_DIR=%~1
 set __N1=0
 set __N2=0
 set __N3=0
+set __N4=0
 echo Parent directory: %__PARENT_DIR%
 for /f %%i in ('dir /ad /b "%__PARENT_DIR%"') do (
     set __BUILD_SBT=%__PARENT_DIR%\%%i\build.sbt
@@ -87,10 +92,19 @@ for /f %%i in ('dir /ad /b "%__PARENT_DIR%"') do (
     ) else (
        echo    Warning: Could not find file %%i\project\plugins.sbt 1>&2
     )
+	set __BUILD_SC=%__PARENT_DIR%\%%i\build.sc
+    if exist "!__BUILD_SC!" (
+        if %_DEBUG%==1 echo [%_BASENAME%] call :replace "!__BUILD_SC!" "%_MILL_DOTTY_VERSION_OLD%" "%_MILL_DOTTY_VERSION_NEW%"
+        call :replace "!__BUILD_SC!" "%_MILL_DOTTY_VERSION_OLD%" "%_MILL_DOTTY_VERSION_NEW%"
+        set /a __N4+=1
+    ) else (
+       echo    Warning: Could not find file %%i\build.sc 1>&2
+    )
 )
 echo    Updated %__N1% build.sbt files
 echo    Updated %__N2% project\build.properties files
 echo    Updated %__N3% project\plugins.sbt files
+echo    Updated %__N4% build.sc files
 goto :eof
 
 rem ##########################################################################

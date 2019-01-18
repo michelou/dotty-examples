@@ -24,10 +24,11 @@ Other topics we are currently investigating - on Windows or not - include [Graal
 > 
 > | Software | CI/CD service | Hosting |
 > | :------: | :------------ | :------ |
-> | [Dotty](http://dotty-ci.epfl.ch/lampepfl/dotty) | [Drone](https://drone.io/) | [EPFL](http://dotty-ci.epfl.ch/lampepfl/dotty) in Lausanne, Switzerland |
-> | [Scala](https://www.scala-lang.org/) | [Jenkins](https://jenkins.io/doc/)<br/>[Travis CI](https://docs.travis-ci.com/user/tutorial/) | [Lightbend ](https://scala-ci.typesafe.com/) in San-Francisco, USA<br/>[Travis](https://travis-ci.org/scala/scala) in Berlin, Germany
-> | [Oracle&nbsp;OpenJDK](https://ci.adoptopenjdk.net/) | [Jenkins](https://jenkins.io/doc/) | Oracle |
-> | [IBM OpenJ9](https://ci.eclipse.org/openj9/) | [Jenkins](https://jenkins.io/doc/) | IBM |
+> | [Dotty](http://dotty-ci.epfl.ch/lampepfl/dotty) | [Drone](https://drone.io/) <sup>**(1)**</sup> | [EPFL](http://dotty-ci.epfl.ch/lampepfl/dotty) in Lausanne, Switzerland |
+> | [Scala](https://www.scala-lang.org/) | [Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup><br/>[Travis CI](https://docs.travis-ci.com/user/tutorial/) <sup>**(3)**</sup> | [Lightbend ](https://scala-ci.typesafe.com/) in San-Francisco, USA<br/>[Travis](https://travis-ci.org/scala/scala) in Berlin, Germany
+> | [Oracle&nbsp;OpenJDK](https://ci.adoptopenjdk.net/) | [Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup> | Oracle |
+> | [IBM OpenJ9](https://ci.eclipse.org/openj9/) | [Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup> | IBM |<br/>
+> <sub><sup>**(1)**</sup> Written in [Go](https://github.com/drone/drone), <sup>**(2)**</sup> Written in Java, <sup>**(3)**</sup> Written in Ruby.</sub>
 
 
 ## <span id="section_01">Project dependencies</span>
@@ -179,8 +180,7 @@ We distinguish different sets of batch commands:
     | `bootstrap` &rarr; `compile` | ~45 min | &nbsp; |
     | `archives` &rarr; `bootstrap` | &nbsp; | `dist-bootstrapped\target\*.gz,*.zip` |
     | `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
-    | `sbt` &rarr; `bootstrap` | &nbsp; | &nbsp; |
-
+    | `sbt` &rarr; `bootstrap` | &nbsp; | &nbsp; |<br/>
     <sub><sup>**(1)**</sup> Average execution time measured on a i7-i8550U laptop with 16 GB of memory.</sub>
 
     > **:mag_right:** Subcommands whose name ends with **`-only`** help us to execute one single step without running again the precedent ones. They are listed as *Advanced subcommands* by command **`build help`** and should ***never*** be used in an automatic build.
