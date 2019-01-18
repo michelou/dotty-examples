@@ -393,8 +393,8 @@ Passing argument **`System`** to command [**`searchjars`**](bin/searchjars.bat) 
 <pre style="font-size:80%;">
 &gt; searchjars System
 Searching for class System in library files C:\opt\DOTTY-~1.0-R\lib\*.jar
-  scala-library-2.12.7.jar:scala/sys/SystemProperties$.class
-  scala-library-2.12.7.jar:scala/sys/SystemProperties.class
+  scala-library-2.12.8.jar:scala/sys/SystemProperties$.class
+  scala-library-2.12.8.jar:scala/sys/SystemProperties.class
   scala-xml_2.12-1.1.0.jar:scala/xml/dtd/SystemID$.class
   scala-xml_2.12-1.1.0.jar:scala/xml/dtd/SystemID.class
 Searching for class System in library files C:\opt\SCALA-~1.8\lib\*.jar
@@ -598,7 +598,7 @@ Version 0.9 of the Dotty compiler is not compatible with versions 9 and 10 of <a
 <!--
 C:\opt\jdk-11.0.1\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.9.0\lib\scala-library-2.12.6.jar;C:\opt\dotty-0.9.0\lib\scala-xml_2.12-1.1.0.jar;C:\opt\dotty-0.9.0\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.9.0\lib\compiler-interface-1.1.6.jar;C:\opt\dotty-0.9.0\lib\dotty-interfaces-0.9.0.jar;C:\opt\dotty-0.9.0\lib\dotty-library_0.9-0.9.0.jar;C:\opt\dotty-0.9.0\lib\dotty-compiler_0.9-0.9.0.jar -Dscala.usejavacp=true dotty.tools.dotc.Main
 
-C:\opt\jdk-11.0.1\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.12.0-RC1\lib\scala-library-2.12.7.jar;C:\opt\dotty-0.12.0-RC1\lib\scala-xml_2.12-1.1.0.jar;C:\opt\dotty-0.12.0-RC1\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.12.0-RC1\lib\compiler-interface-1.2.2.jar;C:\opt\dotty-0.12.0-RC1\lib\dotty-interfaces-0.12.0-RC1.jar;C:\opt\dotty-0.12.0-RC1\lib\dotty-library_0.11-0.12.0-RC1.jar;C:\opt\dotty-0.12.0-RC1\lib\dotty-compiler_0.11-0.12.0-RC1.jar -Dscala.usejavacp=true dotty.tools.dotc.Main
+C:\opt\jdk-11.0.1\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.12.0-RC1\lib\scala-library-2.12.8.jar;C:\opt\dotty-0.12.0-RC1\lib\scala-xml_2.12-1.1.0.jar;C:\opt\dotty-0.12.0-RC1\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.12.0-RC1\lib\compiler-interface-1.2.2.jar;C:\opt\dotty-0.12.0-RC1\lib\dotty-interfaces-0.12.0-RC1.jar;C:\opt\dotty-0.12.0-RC1\lib\dotty-library_0.11-0.12.0-RC1.jar;C:\opt\dotty-0.12.0-RC1\lib\dotty-compiler_0.11-0.12.0-RC1.jar -Dscala.usejavacp=true dotty.tools.dotc.Main
 -->
 
 <!--
