@@ -13,7 +13,7 @@
 
 We can build/run each example in directory [**`examples\`**](.) using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to the **`build`** batch command.
 
-In the following we explain in more detail the build tools available in the [**`enum-Planet\`**](enum-Planet/) example (and also in other examples from directory **`examples\`**):
+In the following we explain in more detail the build tools available in the [**`enum-Planet\`**](enum-Planet/) example (and also in other examples from directory [**`examples\`**](./)):
 
 ## Command `build`
 
@@ -303,7 +303,7 @@ The configuration file [**`build.sc`**](enum-Planet/build.sc) is a standalone fi
 import mill._, scalalib._
 &nbsp;
 object go extends ScalaModule {
-  def scalaVersion = "0.11.0-RC1"  // "2.12.18"
+  def scalaVersion = "0.12.0-RC1"  // "2.12.18"
   def scalacOptions = Seq("-deprecation", "-feature")
   def forkArgs = Seq("-Xmx1g")
   def mainClass = Some("Planet")
@@ -431,17 +431,17 @@ Running command **` mvn compile test`** with option **`-debug`** produces additi
 
 <pre>
 &gt; mvn -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL
-[DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_191\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.11.0-RC1 \
+[DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_201\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.12.0-RC1 \
  -cp C:\opt\dotty-0.11.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_191\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.11.0-RC1 [...]
-[DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_191\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.11.0-RC1\lib\*.jar;\
+[DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_201\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.12.0-RC1 [...]
+[DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_201\bin\java.exe \
+ -Xms64m -Xmx1024m -cp C:\opt\dotty-0.12.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 

@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="dotty-common">
+<project name="dotty-common" default="init" xmlns:ivy="antlib:org.apache.ivy.ant">
 
     <!-- set dotty.home -->
     <property environment="env" />
     <property name="dotty.home" value="${env.DOTTY_HOME}" />
 
+    <target name="resolve">
+        <!-- installed: C:/opt/apache-ant-1.10.5/lib/ivy-2.5.0-rc1.jar -->
+        <taskdef resource="org/apache/ivy/ant/antlib.xml"
+            uri="antlib:org.apache.ivy.ant" />
+		<ivy:resolve file="../ivy.xml"/>
+		<ivy:cachepath pathid="lib.path.id" conf="default"/>
+    </target>
+
     <target name="init">
         <condition property="dotc.executable"
-		    value="${dotty.home}/bin/dotc.bat"
-			else="${dotty.home}/bin/dotc">
+            value="${dotty.home}/bin/dotc.bat"
+            else="${dotty.home}/bin/dotc">
             <os family="windows" />
         </condition>
         <fail message="dotc compiler not found">

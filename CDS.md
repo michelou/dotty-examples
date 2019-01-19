@@ -24,7 +24,7 @@ Other topics we are currently investigating - on Windows or not - include [Graal
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
-- [Oracle Java 11 SDK](https://docs.oracle.com/en/java/javase/11/) ([*release notes*](https://www.oracle.com/technetwork/java/javase/11-0-1-relnotes-5032023.html))
+- [Oracle Java 11 SDK](https://www.oracle.com/technetwork/java/javase/downloads/index.html) ([*release notes*](https://www.oracle.com/technetwork/java/javase/11-0-2-relnotes-5188746.html))
 - [Dotty 0.12](https://github.com/lampepfl/dotty/releases) (Java 9+ supported since 0.10)
 - [Git 2.20](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.20.1.txt))
 
@@ -33,7 +33,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 For instance our development environment looks as follows (*January 2019*):
 
 <pre style="font-size:80%;">
-C:\opt\jdk-11.0.1\
+C:\opt\jdk-11.0.2\
 C:\opt\dotty-0-12.0-RC1\
 C:\opt\Git-2.20.1\
 </pre>
@@ -136,20 +136,21 @@ We can now execute our Java example ***without data sharing***; the same command
 Hello from Java !
 &nbsp;
 &gt; build run -verbose
+Execute Java archive (#iterations=1) target\JavaExample.jar
 Hello from Java !
 Execution report:
    Share flag       : off
    Shared archive   : target\JavaExample.jsa
    Shared classes   : 0
    File classes     : 1
-   jrt images       : 595
-   Load time        : 0.115
+   jrt images       : 599
+   Load time        : 0.108
    #iteration(s)    : 1
    Execution logs   : target\logs\log_share_off.log
-Classes per package (596):
+Classes per package (600):
    java.io.* (38), java.lang.* (168), java.math.* (0), java.net.* (9)
    java.nio.* (38), java.security.* (24), java.util.* (137)
-   jdk.* (107), scala.* (0), sun.* (74)
+   jdk.* (111), scala.* (0), sun.* (74)
    [APP] cdsexamples.* (1)
 </pre>
 
@@ -166,7 +167,7 @@ Classes per package (596):
 > <pre style="font-size:80%;">
 >    -Xlog:class+load:file=&lt;project_path&gt;\target\logs\log_share_on.log
 > </pre>
-> We have submitted a bug report related to the usage of option **`-Xlog`** on Windows (see [JDK-8215398](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8215398)).
+> We have submitted a bug report related to the usage of option **`-Xlog`** on Windows (see [JDK-8215398](https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8215398)); the bug was fixed on January 2, 2019.
 
 
 For comparison here is the console output ***with data sharing***; option **`-verbose`** prints out the execution report:
@@ -176,20 +177,21 @@ For comparison here is the console output ***with data sharing***; option **`-ve
 Hello from Java !
 &nbsp;
 &gt; build run -verbose -share
+Execute Java archive (#iterations=1) target\JavaExample.jar
 Hello from Java !
 Execution report:
    Share flag       : on
    Shared archive   : target\JavaExample.jsa
-   Shared classes   : 585
+   Shared classes   : 589
    File classes     : 0
    jrt images       : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
-   Load time        : 0.084
+   Load time        : 0.088
    #iteration(s)    : 1
    Execution logs   : target\logs\log_share_on.log
-Classes per package (586):
+Classes per package (590):
    java.io.* (38), java.lang.* (168), java.math.* (0), java.net.* (9)
    java.nio.* (38), java.security.* (23), java.util.* (137)
-   jdk.* (99), scala.* (0), sun.* (73)
+   jdk.* (103), scala.* (0), sun.* (73)
    [APP] cdsexamples.* (1)
 </pre>
 
@@ -197,6 +199,7 @@ Subcommand **`run`** with option **`-iter:<n>`** (where **`n=1..99`**) executes 
 
 <pre style="font-size:80%;">
 &gt; build run -verbose -share -iter:4
+Execute Java archive (#iterations=4) W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar
 Hello from Java !
 Hello from Java !
 Hello from Java !
@@ -204,16 +207,16 @@ Hello from Java !
 Execution report:
    Share flag       : on
    Shared archive   : target\JavaExample.jsa
-   Shared classes   : 585
+   Shared classes   : 589
    File classes     : 0
    jrt images       : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
    Average load time: 0.088s
    #iteration(s)    : 4
    Execution logs   : target\logs\log_share_on.log
-Classes per package (586):
+Classes per package (590):
    java.io.* (38), java.lang.* (168), java.math.* (0), java.net.* (9)
    java.nio.* (38), java.security.* (23), java.util.* (137)
-   jdk.* (99), scala.* (0), sun.* (73)
+   jdk.* (103), scala.* (0), sun.* (73)
    [APP] cdsexamples.* (1)
 </pre>
 
@@ -251,7 +254,7 @@ Note the following about the generated files:
 For instance we can read from file **`logs\log_share_off.log`** that  source of **`cdsexamples.Main`** is **`file:/`** and that the total load time on the last line is **`0.124s`**:
 
 <pre style="font-size:80%;">
-[0.008s][info][class,load] opened: c:\opt\jdk-11.0.1\lib\modules
+[0.008s][info][class,load] opened: c:\opt\jdk-11.0.2\lib\modules
 [0.018s][info][class,load] java.lang.Object source: jrt:/java.base
 [...]
 [0.121s][info][class,load] cdsexamples.Main source: file:/&lt;project_path&gt;/target/JavaExample.jar
@@ -335,7 +338,7 @@ We can now execute our [Dotty](http://dotty.epfl.ch/) example ***without data sh
 Hello from Dotty !
 &nbsp;
 &gt; build run -verbose
-Execute Java archive target\DottyExample.jar
+Execute Java archive (#iterations=1) target\DottyExample.jar
 Hello from Dotty !
 Execution report:
    Share flag       : off
@@ -346,10 +349,10 @@ Execution report:
    Load time        : 0.355
    #iteration(s)    : 1
    Execution logs   : target\logs\log_share_off.log
-Classes per package (936):
+Classes per package (940):
    java.io.* (39), java.lang.* (215), java.math.* (3), java.net.* (9)
    java.nio.* (38), java.security.* (24), java.util.* (142)
-   jdk.* (121), sun.* (80)
+   jdk.* (125), sun.* (80)
    [APP] cdsexamples.* (2)
    scala.* (28), scala.collection.* (161), scala.compat.* (0)
    scala.io.* (1), scala.math.* (19), scala.reflect.* (25)
@@ -363,21 +366,21 @@ For comparison here is the output ***with data sharing***; option **`-verbose`**
 Hello from Dotty !
 &nbsp;
 &gt; build run -verbose -share
-Execute Java archive target\DottyExample.jar
+Execute Java archive (#iterations=1) target\DottyExample.jar
 Hello from Dotty !
 Execution report:
    Share flag       : on
    Shared archive   : target\DottyExample.jsa
-   Shared classes   : 869
+   Shared classes   : 873
    File classes     : 0
    jrt images       : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
    Load time        : 0.139
    #iteration(s)    : 1
    Execution logs   : target\logs\log_share_on.log
-Classes per package (870):
+Classes per package (874):
    java.io.* (34), java.lang.* (207), java.math.* (3), java.net.* (9)
    java.nio.* (27), java.security.* (23), java.util.* (122)
-   jdk.* (106), sun.* (74)
+   jdk.* (110), sun.* (74)
    [APP] cdsexamples.* (2)
    scala.* (28), scala.collection.* (161), scala.compat.* (0)
    scala.io.* (1), scala.math.* (19), scala.reflect.* (25)
@@ -396,16 +399,16 @@ Hello from Dotty !
 Execution report:
    Share flag       : on
    Shared archive   : target\DottyExample.jsa
-   Shared classes   : 869
+   Shared classes   : 873
    File classes     : 0
    jrt images       : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
    Average load time: 0.126s
    #iteration(s)    : 4
    Execution logs   : target\logs\log_share_on.log
-Classes per package (870):
+Classes per package (874):
    java.io.* (34), java.lang.* (207), java.math.* (3), java.net.* (9)
    java.nio.* (27), java.security.* (23), java.util.* (122)
-   jdk.* (106), sun.* (74)
+   jdk.* (110), sun.* (74)
    [APP] cdsexamples.* (2)
    scala.* (28), scala.collection.* (161), scala.compat.* (0)
    scala.io.* (1), scala.math.* (19), scala.reflect.* (25)
@@ -486,10 +489,9 @@ Create class list file out\data-sharing\dotty-cds-repl.classlist
 Create Java shared archive out\data-sharing\dotty-cds-repl.jsa
 Support files for Java class sharing:
    dotty-cds-compiler.classlist (119 Kb)
-   dotty-cds-compiler.jsa (55488 Kb)
+   dotty-cds-compiler.jsa (55616 Kb)
    dotty-cds-repl.classlist (31 Kb)
    dotty-cds-repl.jsa (16640 Kb)
-   dotty-cds.jar (3 Kb)
    dotty-cds_0.12-0.12.0-RC1.jar (3 Kb)
 </pre>
 
@@ -520,7 +522,7 @@ Subcommand **`test`** ...*tbd*...; option **`-verbose`** prints out the executio
 &gt; sharedata test
 Support files for Java class sharing:
    dotty-cds-compiler.classlist (119 Kb)
-   dotty-cds-compiler.jsa (55488 Kb)
+   dotty-cds-compiler.jsa (55616 Kb)
    dotty-cds-repl.classlist (31 Kb)
    dotty-cds-repl.jsa (16640 Kb)
    dotty-cds_0.12-0.12.0-RC1.jar (3 Kb)
@@ -529,7 +531,7 @@ Support files for Java class sharing:
 Execute test application with Scala REPL <span style="background-color:#cc0000;color:white;">WITHOUT</span> Java shared archive
 Support files for Java class sharing:
    dotty-cds-compiler.classlist (119 Kb)
-   dotty-cds-compiler.jsa (55488 Kb)
+   dotty-cds-compiler.jsa (55616 Kb)
    dotty-cds-repl.classlist (31 Kb)
    dotty-cds-repl.jsa (16640 Kb)
    dotty-cds_0.12-0.12.0-RC1.jar (3 Kb)
@@ -538,12 +540,12 @@ Execution report:
    Shared archive  : out\data-sharing\dotty-cds-repl.jsa
    Shared classes  : 0
    File classes    : 274
-   jrt images      : 677
-   Load time       : 0.401s
+   jrt images      : 681
+   Load time       : 0.388s
    Execution logs  : out\data-sharing\logs\dotty-cds-repl-share.log
-Classes per package (950):
+Classes per package (954):
    java.io.* (39), java.lang.* (218), java.net.* (9), java.nio.* (39)
-   java.security.* (24), java.util.* (142), jdk.* (121), sun.* (82)
+   java.security.* (24), java.util.* (142), jdk.* (125), sun.* (82)
    [APP] cds.* (2)
    scala.* (30), scala.collection.* (165), scala.compat.* (2)
    scala.io.* (1), scala.math.* (19), scala.reflect.* (27)
@@ -555,21 +557,21 @@ Classes per package (950):
 Execute test application with Scala REPL WITH Java shared archive
 Support files for Java class sharing:
    dotty-cds-compiler.classlist (119 Kb)
-   dotty-cds-compiler.jsa (55488 Kb)
+   dotty-cds-compiler.jsa (55616 Kb)
    dotty-cds-repl.classlist (31 Kb)
    dotty-cds-repl.jsa (16640 Kb)
    dotty-cds_0.12-0.12.0-RC1.jar (3 Kb)
 Execution report:
    Share flag      : on
    Shared archive  : out\data-sharing\dotty-cds-repl.jsa
-   Shared classes  : 884
+   Shared classes  : 888
    File classes    : 0
    jrt images      : 1 (sun.nio.fs.WindowsLinkSupport source: jrt:/java.base)
-   Load time       : 0.146s
+   Load time       : 0.140s
    Execution logs  : out\data-sharing\logs\dotty-cds-repl-share.log
-Classes per package (884):
+Classes per package (888):
    java.io.* (34), java.lang.* (210), java.net.* (9), java.nio.* (28)
-   java.security.* (23), java.util.* (122), jdk.* (106), sun.* (76)
+   java.security.* (23), java.util.* (122), jdk.* (110), sun.* (76)
    [APP] cds.* (2)
    scala.* (30), scala.collection.* (165), scala.compat.* (2)
    scala.io.* (1), scala.math.* (19), scala.reflect.* (27)
@@ -585,36 +587,36 @@ Classes per package (884):
 > 3. Repeat command from point 1. 
 > 
 > <pre style="font-size:80%;">
-> &gt; c:\opt\jdk-11.0.1\bin\java -version
-> openjdk version "11.0.1" 2018-10-16
-> OpenJDK Runtime Environment 18.9 (build 11.0.1+13)
-> OpenJDK 64-Bit Server VM 18.9 (build 11.0.1+13, mixed mode)
+> &gt; c:\opt\jdk-11.0.2\bin\java -version
+> java version "11.0.2" 2019-01-15 LTS
+> Java(TM) SE Runtime Environment 18.9 (build 11.0.2+9-LTS)
+> Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode)
 > &nbsp;
 > &gt; java -Xshare:dump
 > [...]
 > Number of classes 1272
 > [...]
 > mc  space:      8416 [  0.0% of total] [...]
-> rw  space:   4022728 [ 22.2% of total] [...]
-> ro  space:   7304712 [ 40.4% of total] [...]
+> rw  space:   4026504 [ 22.3% of total] [...]
+> ro  space:   7312280 [ 40.4% of total] [...]
 > md  space:      2560 [  0.0% of total] [...]
-> od  space:   6534368 [ 36.1% of total] [...]
-> total    :  17872784 [100.0% of total] [...]
+> od  space:   6540160 [ 36.2% of total] [...]
+> total    :  17889920 [100.0% of total] [...]
 > &nbsp;
-> &gt; dir /b c:\opt\jdk-11.0.1\bin\server
+> &gt; dir /b c:\opt\jdk-11.0.2\bin\server
 > classes.jsa
 > jvm.dll
 > &nbsp;
-> &gt; c:\opt\jdk-11.0.1\bin\java -version
-> openjdk version "11.0.1" 2018-10-16
-> OpenJDK Runtime Environment 18.9 (build 11.0.1+13)
-> OpenJDK 64-Bit Server VM 18.9 (build 11.0.1+13, mi
-> xed mode, sharing)
+> &gt; c:\opt\jdk-11.0.2\bin\java -version
+> java version "11.0.2" 2019-01-15 LTS
+> Java(TM) SE Runtime Environment 18.9 (build 11.0.2+9-LTS)
+> Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode, sharing)
 > </pre>
 
 ## Usage example
 
 <pre style="font-size:80%;">
+&gt; cd examples\enum-Planet
 &gt; dotc -share -d target\classes src\main\scala\Planet.scala "-J-Xlog:class+load=info" > class-load.txt
 </pre>
 
@@ -622,30 +624,30 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 
 <pre style="font-size:80%;">
 &gt; findstr /c:"source: file" class-load.txt
-[0.764s][info][class,load] dotty.tools.dotc.core.Comments$Comment$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[0.768s][info][class,load] dotty.tools.dotc.ast.untpd$Mod$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[0.768s][info][class,load] dotty.tools.dotc.ast.untpd$Mod$Enum$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[0.773s][info][class,load] dotty.tools.dotc.ast.untpd$Mod$Private$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[0.774s][info][class,load] dotty.tools.dotc.ast.untpd$Mod$Final$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[0.783s][info][class,load] dotty.tools.dotc.parsing.xml.Utility$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[0.784s][info][class,load] dotty.tools.dotc.ast.untpd$GenFrom$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[0.784s][info][class,load] dotty.tools.dotc.ast.untpd$ForDo$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[0.785s][info][class,load] dotty.tools.dotc.ast.untpd$InterpolatedString$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[1.000s][info][class,load] dotty.tools.dotc.ast.DesugarEnums$CaseKind$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[1.020s][info][class,load] dotty.tools.dotc.typer.ProtoTypes$PolyProto$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[1.124s][info][class,load] dotty.tools.dotc.core.Types$RecType$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[1.354s][info][class,load] dotty.tools.dotc.ast.desugar$IdPattern$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[1.408s][info][class,load] scala.collection.mutable.ListBuffer$$anon$1 source: file:/C:/opt/dotty-0.12.0-RC1/lib/scala-library-2.12.8.jar
-[1.478s][info][class,load] dotty.tools.dotc.ast.Trees$Import$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[1.488s][info][class,load] dotty.tools.dotc.ast.Trees$Typed$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[1.492s][info][class,load] dotty.tools.dotc.ast.Trees$SeqLiteral$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[1.571s][info][class,load] scala.runtime.java8.JFunction1$mcZI$sp source: file:/C:/opt/dotty-0.12.0-RC1/lib/scala-library-2.12.8.jar
-[1.602s][info][class,load] scala.StringContext$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/scala-library-2.12.8.jar
-[1.765s][info][class,load] dotty.tools.dotc.core.NameOps$TermNameDecorator$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[1.788s][info][class,load] dotty.tools.dotc.ast.Trees$Assign$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[1.885s][info][class,load] scala.tools.nsc.backend.jvm.BCodeAsmCommon$EnclosingMethodEntry source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
-[2.052s][info][class,load] scala.transient source: file:/C:/opt/dotty-0.12.0-RC1/lib/scala-library-2.12.8.jar
-[2.053s][info][class,load] scala.volatile source: file:/C:/opt/dotty-0.12.0-RC1/lib/scala-library-2.12.8.jar
+[0.696s][info][class,load] dotty.tools.dotc.core.Comments$Comment$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
+[0.700s][info][class,load] dotty.tools.dotc.ast.untpd$Mod$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
+[0.701s][info][class,load] dotty.tools.dotc.ast.untpd$Mod$Enum$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
+[0.705s][info][class,load] dotty.tools.dotc.ast.untpd$Mod$Private$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
+[0.706s][info][class,load] dotty.tools.dotc.ast.untpd$Mod$Final$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
+[0.715s][info][class,load] dotty.tools.dotc.parsing.xml.Utility$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
+[0.716s][info][class,load] dotty.tools.dotc.ast.untpd$GenFrom$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
+[0.716s][info][class,load] dotty.tools.dotc.ast.untpd$ForDo$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
+[0.718s][info][class,load] dotty.tools.dotc.ast.untpd$InterpolatedString$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
+[0.942s][info][class,load] dotty.tools.dotc.ast.DesugarEnums$CaseKind$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
+[0.959s][info][class,load] dotty.tools.dotc.typer.ProtoTypes$PolyProto$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
+[1.062s][info][class,load] dotty.tools.dotc.core.Types$RecType$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
+[1.269s][info][class,load] dotty.tools.dotc.ast.desugar$IdPattern$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
+[1.323s][info][class,load] scala.collection.mutable.ListBuffer$$anon$1 source: file:/C:/opt/dotty-0.12.0-RC1/lib/scala-library-2.12.8.jar
+[1.392s][info][class,load] dotty.tools.dotc.ast.Trees$Import$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
+[1.402s][info][class,load] dotty.tools.dotc.ast.Trees$Typed$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
+[1.405s][info][class,load] dotty.tools.dotc.ast.Trees$SeqLiteral$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
+[1.489s][info][class,load] scala.runtime.java8.JFunction1$mcZI$sp source: file:/C:/opt/dotty-0.12.0-RC1/lib/scala-library-2.12.8.jar
+[1.520s][info][class,load] scala.StringContext$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/scala-library-2.12.8.jar
+[1.680s][info][class,load] dotty.tools.dotc.core.NameOps$TermNameDecorator$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
+[1.699s][info][class,load] dotty.tools.dotc.ast.Trees$Assign$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
+[1.826s][info][class,load] scala.transient source: file:/C:/opt/dotty-0.12.0-RC1/lib/scala-library-2.12.8.jar
+[1.827s][info][class,load] scala.volatile source: file:/C:/opt/dotty-0.12.0-RC1/lib/scala-library-2.12.8.jar
+[1.978s][info][class,load] scala.tools.nsc.backend.jvm.BCodeAsmCommon$EnclosingMethodEntry source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
 </pre>
 
 

@@ -358,7 +358,7 @@ goto :eof
 
 :run
 if %_DEBUG%==1 ( echo [%_BASENAME%] ^(#iterations=%_RUN_ITER%^) %_JAVA_CMD% %__JAVA_TOOL_OPTS% -jar %_JAR_FILE% %_RUN_ARGS%
-) else if %_VERBOSE%==1 ( echo Execute Java archive ^(#iterations=%_RUN_ITER%^) !_JAR_FILE:%_ROOT_DIR%\=! %_RUN_ARGS%
+) else if %_VERBOSE%==1 ( echo Execute Java archive ^(#iterations=%_RUN_ITER%^) !_JAR_FILE:%_ROOT_DIR%=! %_RUN_ARGS%
 )
 set __N=1
 :run_iter

@@ -18,6 +18,7 @@
 
     <target name="run" depends="compile">
         <java classname="${main.class}">
+            <!-- <arg value="1" /> -->
             <classpath>
                 <path refid="dotty.classpath" />
                 <path refid="build.classpath" />

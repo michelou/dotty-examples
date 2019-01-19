@@ -44,7 +44,7 @@ Optionally you may also install the following software:
 For instance our development environment looks as follows (*January 2019*):
 
 <pre style="font-size:80%;">
-C:\Program Files\Java\jdk1.8.0_191\
+C:\Program Files\Java\jdk1.8.0_201\
 C:\opt\apache-ant-1.10.5\
 C:\opt\apache-maven-3.6.0\
 C:\opt\cfr-0.139\
@@ -241,7 +241,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 > setenv
 Tool versions:
-   javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.12.0-RC1,
+   javac 1.8.0_201, java 1.8.0_201, scalac 2.12.8, dotc 0.12.0-RC1,
    ant 1.10.5, gradle 5.1.1, mill 0.3.6, mvn 3.6.0, sbt 1.2.8/2.12.8,
    cfr 0.139, git 2.20.1.windows.1, diff 3.6
 
@@ -255,12 +255,12 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 <pre style="font-size:80%;">
 > setenv -verbose
 Tool versions:
-   javac 1.8.0_191, java 1.8.0_191, scalac 2.12.8, dotc 0.12.0-RC1,
+   javac 1.8.0_201, java 1.8.0_201, scalac 2.12.8, dotc 0.12.0-RC1,
    ant 1.10.5, gradle 5.1.1, mill 0.3.6, mvn 3.6.0, sbt 1.2.8/2.12.8,
    cfr 0.139, git 2.20.1.windows.1, diff 3.6
 Tool paths:
-   C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
-   C:\Program Files\Java\jdk1.8.0_191\bin\java.exe
+   C:\Program Files\Java\jdk1.8.0_201\bin\javac.exe
+   C:\Program Files\Java\jdk1.8.0_201\bin\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\opt\scala-2.12.8\bin\scalac.bat
@@ -554,9 +554,9 @@ C:\opt\dotty-0.12.0-RC1\bin\dotr
 C:\opt\dotty-0.12.0-RC1\bin\dotr.bat
 
 > dotr -version
-java version "1.8.0_191"
-Java(TM) SE Runtime Environment (build 1.8.0_191-b12)
-Java HotSpot(TM) 64-Bit Server VM (build 25.191-b12, mixed mode)
+java version "1.8.0_201"
+Java(TM) SE Runtime Environment (build 1.8.0_201-b09)
+Java HotSpot(TM) 64-Bit Server VM (build 25.201-b09, mixed mode)
 
 > dotr
 Starting dotty REPL...
@@ -571,7 +571,7 @@ The REPL has several commands available:
 :reset                   reset the repl to its initial state, forgetting all session entries
 
 scala> System.getenv().get("JAVA_HOME")
-val res0: String = C:\Progra~1\Java\jdk1.8.0_191
+val res0: String = C:\Progra~1\Java\jdk1.8.0_201
 
 scala> System.getenv().get("DOTTY_HOME")
 val res1: String = C:\opt\dotty-0.12.0-RC1

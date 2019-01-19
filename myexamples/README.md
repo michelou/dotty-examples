@@ -14,13 +14,13 @@
 
 We can build/run each example in directory [**`myexamples\`**](.) using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to the **`build`** batch command.
 
-In the following we explain in more detail the build tools available in the [**`HelloWorld`**](HelloWorld) example (and also in other examples from directory **`myexamples\`**):
+In the following we explain in more detail the build tools available in the [**`HelloWorld`**](HelloWorld) example (and also in other examples from directory [**`myexamples\`**](./)):
 
 ## Command `build`
 
 Command [**`build`**](dotty-example-project/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
 
-The batch file for command [**`build`**](dotty-example-project/build.bat) obeys the following coding conventions:
+The batch file for command [**`build`**](HelloWorld/build.bat) obeys the following coding conventions:
 
 - The file is organized in 4 sections: `Environment setup`, `Main`, `Subroutines` and `Cleanups`.
 - The file contains exactly ***one exit instruction*** (label **`end`** in section **`Cleanups`**).
@@ -184,7 +184,7 @@ BUILD SUCCESSFUL in 4s
 
 Command [**`sbt`**](https://www.scala-sbt.org/) is a Scala-based build tool for [**`Scala`**](https://www.scala-lang.org/) and Java.
 
-The configuration file [**`build.sbt`**](dotty-example-project/build.sbt) is a standalone file written in [Scala](https://www.scala-lang.org/) and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
+The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is a standalone file written in [Scala](https://www.scala-lang.org/) and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
 <pre style="font-size:80%;">
 val dottyVersion = "0.12.0-RC1"
@@ -215,13 +215,13 @@ Hello world!
 
 Command [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
 
-The configuration file [**`build.sc`**](dotty-example-project/build.sc) is a standalone file written in Scala (with direct access to [OS-Lib](https://github.com/lihaoyi/os-lib)).
+The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone file written in Scala (with direct access to [OS-Lib](https://github.com/lihaoyi/os-lib)).
 
 <pre style="font-size:80%;">
 import mill._, scalalib._
 &nbsp;
 object go extends ScalaModule {
-  def scalaVersion = "0.11.0-RC1"  // "2.12.18"
+  def scalaVersion = "0.12.0-RC1"  // "2.12.18"
   def scalacOptions = Seq("-deprecation", "-feature")
   def forkArgs = Seq("-Xmx1g")
   def mainClass = Some("Main")
@@ -246,7 +246,7 @@ Hello world!
 
 Command [**`ant`**](https://ant.apache.org/) (["Another Neat Tool"](https://ant.apache.org/faq.html#ant-name)) is a Java-based build maintained by the [Apache Software Foundation](https://ant.apache.org/faq.html#history) (tool created in 2000). It works with XML-based configuration files.
 
-The configuration file [**`build.xml`**](examples/dotty-example-project/build.xml) in directory [**`dotty-example-project\`**](dotty-example-project/) depends on the parent file [**`build.xml`**](examples/build.xml) which provides the macro definition **`dotc`** to execute the external batch command **`dotc.bat`** (**WIP** : [Ivy](http://ant.apache.org/ivy/) support).
+The configuration file [**`build.xml`**](HelloWorld/build.xml) in directory [**`HelloWorld\`**](HelloWorld/) depends on the parent file [**`build.xml`**](myexamples/build.xml) which provides the macro definition **`dotc`** to execute the external batch command **`dotc.bat`** (**WIP** : [Ivy](http://ant.apache.org/ivy/) support).
 
 <pre style="font-size:80%;">
 &lt;?xml version="1.0" encoding="UTF-8"?>
@@ -284,7 +284,7 @@ Total time: 3 seconds
 
 ## Command `mvn`
 
-Command [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) is a Java-based build tool created in 2002 and now maintained by the [Apache Software Foundation](https://maven.apache.org/docs/history.html). It works with XML-based configuration files and provides a way to share JARs across several projects.
+Command [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) is a Java-based build tool maintained by the [Apache Software Foundation](https://maven.apache.org/docs/history.html) (tool created in 2002). It works with XML-based configuration files and provides a way to share JARs across several projects.
 
 The configuration file [**`pom.xml`**](HelloWorld/pom.xml) in directory [**`HelloWorld\`**](HelloWorld/) depends on the parent file [**`pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
 
@@ -335,17 +335,17 @@ Running command **` mvn compile test`** with option **`-debug`** produces additi
 
 <pre>
 &gt; mvn -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL
-[DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_191\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.11.0-RC1 \
- -cp C:\opt\dotty-0.11.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
+[DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_201\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.12.0-RC1 \
+ -cp C:\opt\dotty-0.12.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_191\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.11.0-RC1 [...]
-[DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_191\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.11.0-RC1\lib\*.jar;\
+[DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_201\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.12.0-RC1 [...]
+[DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_201\bin\java.exe \
+ -Xms64m -Xmx1024m -cp C:\opt\dotty-0.12.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 

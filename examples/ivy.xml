@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- see http://ant.apache.org/ivy/history/latest-milestone/ivyfile.html -->
+<ivy-module version="2.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+    <info organisation="myorg" module="examples"/>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
+        <dependency org="commons-lang" name="commons-lang" rev="2.6"/>
+	    <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+        <dependency org="log4j" name="log4j" rev="1.2.17"/>
+		
+		<!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-compiler_0.12 -->
+        <dependency org="ch.epfl.lamp" name="dotty-compiler_0.12" rev="0.12.0-RC1"/>
+
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-interfaces -->
+        <dependency org="ch.epfl.lamp" name="dotty-interfaces" rev="0.12.0-RC1"/>
+
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.12 -->
+        <dependency org="ch.epfl.lamp" name="dotty-library_0.12" rev="0.12.0-RC1"/>
+
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/scala-library -->
+        <dependency org="ch.epfl.lamp" name="scala-library" rev="0.12.0-RC1"/>
+    </dependencies>
+</ivy-module>
