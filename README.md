@@ -175,11 +175,11 @@ We distinguish different sets of batch commands:
 
     | **Build tool** | **Config file** | **Parent file** | **Usage example** |
     | :------------: | :-------------: | :-------------: | :---------------- |
-    | [**`sbt`**](https://www.scala-sbt.org/) | **`build.sbt`** | &empty; | **`sbt clean compile run`** |
-    | [**`ant`**](https://ant.apache.org/manual/running.html) | **`build.xml`** | **`build.xml`** | **`ant clean compile run`** |
-    | [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) | **`build.gradle`** | **`common.gradle`** | **`gradle clean build run`** |
-    | [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) | **`build.sc`** | &empty; | **`mill -i go`** |
-    | [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) | **`pom.xml`** | **`pom.xml`** | **`mvn clean compile test`** |
+    | [**`sbt`**](https://www.scala-sbt.org/) | [**`build.sbt`**](examples/enum-Planet/build.sbt) | &empty; | **`sbt clean compile run`** |
+    | [**`ant`**](https://ant.apache.org/manual/running.html) | [**`build.xml`**](examples/enum-Planet/build.xml) | [**`build.xml`**](examples/build.xml) | **`ant clean compile run`** |
+    | [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) | [**`build.gradle`**](examples/enum-Planet/build.gradle) | [**`common.gradle`**](examples/common.gradle) | **`gradle clean build run`** |
+    | [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) | [**`build.sc`**](examples/enum-Planet/build.sc) | &empty; | **`mill -i go`** |
+    | [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) | [**`pom.xml`**](examples/enum-Planet/pom.xml) | [**`pom.xml`**](examples/pom.xml) | **`mvn clean compile test`** |
 
 2. Decompiler tools
 

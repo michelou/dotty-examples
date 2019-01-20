@@ -199,7 +199,7 @@ Subcommand **`run`** with option **`-iter:<n>`** (where **`n=1..99`**) executes 
 
 <pre style="font-size:80%;">
 &gt; build run -verbose -share -iter:4
-Execute Java archive (#iterations=4) W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar
+Execute Java archive (#iterations=4) target\JavaExample.jar
 Hello from Java !
 Hello from Java !
 Hello from Java !
@@ -610,7 +610,7 @@ Classes per package (888):
 > &gt; c:\opt\jdk-11.0.2\bin\java -version
 > java version "11.0.2" 2019-01-15 LTS
 > Java(TM) SE Runtime Environment 18.9 (build 11.0.2+9-LTS)
-> Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode, sharing)
+> Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode, <span style="background-color:#00cc00;color:white;">sharing</span>)
 > </pre>
 
 ## Usage example

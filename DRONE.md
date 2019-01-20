@@ -19,15 +19,16 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 
 Other topics we are currently investigating - on Windows or not - include [GraalVM](https://www.graalvm.org/) (docs), [JMH](https://openjdk.java.net/projects/code-tools/jmh/), [OpenJDK 11](https://adoptopenjdk.net/) and [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html).
 
-> **&#9755;** ***Continuous Integration/Delivery (CI/CD)***<br/>
+> **&#9755;** ***Continuous Integration/Delivery*** (CI/CD)<br/>
 > (steps: Checkout **&rarr;** Compile **&rarr;** Test **&rarr;** Deploy)
 > 
-> | Software | CI/CD service | Hosting |
+> | Software | CI/CD&nbsp;service | Hosting |
 > | :------: | :------------ | :------ |
 > | [Dotty](http://dotty-ci.epfl.ch/lampepfl/dotty) | [Drone](https://drone.io/) <sup>**(1)**</sup> | [EPFL](http://dotty-ci.epfl.ch/lampepfl/dotty) in Lausanne, Switzerland |
 > | [Scala](https://www.scala-lang.org/) | [Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup><br/>[Travis CI](https://docs.travis-ci.com/user/tutorial/) <sup>**(3)**</sup> | [Lightbend ](https://scala-ci.typesafe.com/) in San-Francisco, USA<br/>[Travis](https://travis-ci.org/scala/scala) in Berlin, Germany
 > | [Oracle&nbsp;OpenJDK](https://ci.adoptopenjdk.net/) | [Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup> | Oracle |
-> | [IBM OpenJ9](https://ci.eclipse.org/openj9/) | [Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup> | IBM |<br/>
+> | [IBM OpenJ9](https://ci.eclipse.org/openj9/) | [Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup> | IBM |
+>
 > <sub><sup>**(1)**</sup> Written in [Go](https://github.com/drone/drone), <sup>**(2)**</sup> Written in Java, <sup>**(3)**</sup> Written in Ruby.</sub>
 
 
@@ -45,7 +46,7 @@ Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three 
 For instance our development environment looks as follows (*January 2019*):
 
 <pre style="font-size:80%;">
-C:\Program Files\Java\jdk1.8.0_191\
+C:\Program Files\Java\jdk1.8.0_201\
 C:\opt\sbt-1.2.8\
 C:\opt\Git-2.20.1\
 </pre>
@@ -247,7 +248,7 @@ Command **`setenv`** is executed once to setup our development environment; it m
 <pre style="font-size:80%;">
 > setenv
 Tool versions:
-   javac 1.8.0_191, java 1.8.0_191,
+   javac 1.8.0_201, java 1.8.0_201,
    sbt 1.2.8/2.12.7, git 2.20.1.windows.1, diff 3.6
 
 > where sbt
@@ -260,11 +261,11 @@ Command **`setenv -verbose`** also displays the tool paths and the current Git b
 <pre style="font-size:80%;">
 > setenv -verbose
 Tool versions:
-   javac 1.8.0_191, java 1.8.0_191,
+   javac 1.8.0_201, java 1.8.0_201,
    sbt 1.2.8/2.12.7, git 2.20.1.windows.1, diff 3.6
 Tool paths:
-   C:\Program Files\Java\jdk1.8.0_191\bin\javac.exe
-   C:\Program Files\Java\jdk1.8.0_191\bin\java.exe
+   C:\Program Files\Java\jdk1.8.0_201\bin\javac.exe
+   C:\Program Files\Java\jdk1.8.0_201\bin\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\opt\sbt-1.2.8\bin\sbt.bat
    C:\opt\Git-2.20.1\bin\git.exe
@@ -503,8 +504,8 @@ Command [**`project\scripts\bootstrapCmdTests`**](https://github.com/michelou/do
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.19
-# VM version: JDK 1.8.0_191, VM 25.191-b12
-# VM invoker: C:\Progra~1\Java\jdk1.8.0_191\jre\bin\java.exe
+# VM version: JDK 1.8.0_201, VM 25.201-b09
+# VM invoker: C:\Progra~1\Java\jdk1.8.0_201\jre\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -533,8 +534,8 @@ Worker.compile  avgt       533.625          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.19
-# VM version: JDK 1.8.0_191, VM 25.191-b12
-# VM invoker: C:\Progra~1\Java\jdk1.8.0_191\jre\bin\java.exe
+# VM version: JDK 1.8.0_201, VM 25.201-b09
+# VM invoker: C:\Progra~1\Java\jdk1.8.0_201\jre\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -561,8 +562,8 @@ Worker.compile  avgt       361.619          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
 # JMH version: 1.19
-# VM version: JDK 1.8.0_191, VM 25.191-b12
-# VM invoker: C:\Progra~1\Java\jdk1.8.0_191\jre\bin\java.exe
+# VM version: JDK 1.8.0_201, VM 25.201-b09
+# VM invoker: C:\Progra~1\Java\jdk1.8.0_201\jre\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
