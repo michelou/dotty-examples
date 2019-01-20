@@ -503,7 +503,7 @@ Command [**`project\scripts\bootstrapCmdTests`**](https://github.com/michelou/do
 [info] Updating dotty-bench...
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
-# JMH version: 1.19
+# JMH version: 1.21
 # VM version: JDK 1.8.0_201, VM 25.201-b09
 # VM invoker: C:\Progra~1\Java\jdk1.8.0_201\jre\bin\java.exe
 # VM options: -Xms2G -Xmx2G
@@ -533,7 +533,7 @@ Worker.compile  avgt       533.625          ms/op
 [info] Updating dotty-bench-bootstrapped...
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
-# JMH version: 1.19
+# JMH version: 1.21
 # VM version: JDK 1.8.0_201, VM 25.201-b09
 # VM invoker: C:\Progra~1\Java\jdk1.8.0_201\jre\bin\java.exe
 # VM options: -Xms2G -Xmx2G
@@ -561,7 +561,7 @@ Worker.compile  avgt       361.619          ms/op
 [success] Total time: 21 s, completed 3 déc. 2018 09:44:42
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
-# JMH version: 1.19
+# JMH version: 1.21
 # VM version: JDK 1.8.0_201, VM 25.201-b09
 # VM invoker: C:\Progra~1\Java\jdk1.8.0_201\jre\bin\java.exe
 # VM options: -Xms2G -Xmx2G

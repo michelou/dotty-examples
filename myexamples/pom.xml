@@ -12,7 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <!-- Scala settings -->
-        <scala.version>0.11.0-RC1</scala.version> <!-- eg. "2.12.18" or "0.10.0" -->
+        <scala.version>0.12.0-RC1</scala.version> <!-- eg. "2.12.18" or "0.11.0" -->
         <scala.local.install>true</scala.local.install>
         <!-- Maven plugins -->
         <scala.maven.version>1.0-SNAPSHOT</scala.maven.version> <!-- Dec, 2018 -->
