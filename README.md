@@ -305,24 +305,24 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 > getnightly
 
 > dir /b out\nightly-jars
-dotty-compiler_0.12-0.12.0-bin-20190117-b4a26ca-NIGHTLY.jar
-dotty-doc_0.12-0.12.0-bin-20190117-b4a26ca-NIGHTLY.jar
-dotty-interfaces-0.12.0-bin-20190117-b4a26ca-NIGHTLY.jar
-dotty-language-server_0.12-0.12.0-bin-20190117-b4a26ca-NIGHTLY.jar
-dotty-library_0.12-0.12.0-bin-20190117-b4a26ca-NIGHTLY.jar
-dotty_0.12-0.12.0-bin-20190117-b4a26ca-NIGHTLY.jar
+dotty-compiler_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar
+dotty-doc_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar
+dotty-interfaces-0.13.0-bin-20190120-e873908-NIGHTLY.jar
+dotty-language-server_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar
+dotty-library_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar
+dotty_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar
 </pre>
 
 Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
 <pre style="font-size:80%">
 > getnightly -verbose
-Downloading file dotty-library_0.12-0.12.0-bin-20190117-b4a26ca-NIGHTLY.jar ... 772.8 Kb
-Downloading file dotty_0.12-0.12.0-bin-20190117-b4a26ca-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-language-server_0.12-0.12.0-bin-20190117-b4a26ca-NIGHTLY.jar ... 140.4 Kb
-Downloading file dotty-doc_0.12-0.12.0-bin-20190117-b4a26ca-NIGHTLY.jar ... 1002.3 Kb
-Downloading file dotty-compiler_0.12-0.12.0-bin-20190117-b4a26ca-NIGHTLY.jar ... 10.4 Mb
-Downloading file dotty-interfaces-0.12.0-bin-20190117-b4a26ca-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-language-server_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar ... 142.6 Kb
+Downloading file dotty-doc_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar ... 1011.5 Kb
+Downloading file dotty-compiler_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar ... 10.6 Mb
+Downloading file dotty_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-library_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar ... 796.9 Kb
+Downloading file dotty-interfaces-0.13.0-bin-20190120-e873908-NIGHTLY.jar ... 3.4 Kb
 Finished to download 6 files to directory W:\DOTTY-~1\out\nightly-jars
 </pre>
 
@@ -333,11 +333,11 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 <pre style="font-size:80%;">
 > getnightly activate
 Finished to download 6 files to directory W:\DOTTY-~1\out\nightly-jars
-Local nightly version has changed from unknown to 0.12.0-bin-20190117-b4a26ca-NIGHTLY
-Activate nightly build libraries: 0.12.0-bin-20190117-b4a26ca-NIGHTLY
+Local nightly version has changed from 0.12.0-bin-20190117-b4a26ca-NIGHTLY to 0.13.0-bin-20190120-e873908-NIGHTLY
+Activate nightly build libraries: 0.13.0-bin-20190120-e873908-NIGHTLY
 
 > dotc -version
-Dotty compiler version 0.12.0-bin-20190117-b4a26ca-NIGHTLY-git-b4a26ca -- Copyright 2002-2019, LAMP/EPFL
+Dotty compiler version 0.13.0-bin-20190120-e873908-NIGHTLY-git-e873908 -- Copyright 2002-2019, LAMP/EPFL
 
 > getnightly reset
 Activate default Dotty libraries: 0.12.0-RC1
@@ -360,13 +360,13 @@ lib\0.12.0-RC1\
 &nbsp;&nbsp;dotty-doc_0.12-0.12.0-RC1.jar
 &nbsp;&nbsp;dotty-interfaces-0.12.0-RC1.jar
 &nbsp;&nbsp;dotty-library_0.12-0.12.0-RC1.jar
-lib\0.12.0-bin-20190117-b4a26ca-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.12-0.12.0-bin-20190117-b4a26ca-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.12-0.12.0-bin-20190117-b4a26ca-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.12.0-bin-20190117-b4a26ca-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.12-0.12.0-bin-20190117-b4a26ca-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.12-0.12.0-bin-20190117-b4a26ca-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.12-0.12.0-bin-20190117-b4a26ca-NIGHTLY.jar
+lib\0.13.0-bin-20190120-e873908-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.13.0-bin-20190120-e873908-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original Dotty installation respectively from the latest nightly build.

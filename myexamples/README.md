@@ -104,7 +104,7 @@ Hello world!
 </pre>
 
 
-## Command `gradle`
+## Gradle build tool
 
 Command [**`gradle`**](http://www.gradle.org/) is the official build tool for Android applications (tool created in 2007). It replaces XML-based build scripts with a [Groovy](http://www.groovy-lang.org/)-based DSL.
 
@@ -180,7 +180,7 @@ BUILD SUCCESSFUL in 4s
 </pre>
 
 
-## Command `sbt`
+## SBT build tool
 
 Command [**`sbt`**](https://www.scala-sbt.org/) is a Scala-based build tool for [**`Scala`**](https://www.scala-lang.org/) and Java.
 
@@ -211,7 +211,7 @@ Hello world!
 </pre>
 
 
-## Command `mill`
+## Mill build tool
 
 Command [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
 
@@ -242,11 +242,11 @@ Hello world!
 </pre>
 
 
-## Command `ant`
+## Ant build tool
 
 Command [**`ant`**](https://ant.apache.org/) (["Another Neat Tool"](https://ant.apache.org/faq.html#ant-name)) is a Java-based build maintained by the [Apache Software Foundation](https://ant.apache.org/faq.html#history) (tool created in 2000). It works with XML-based configuration files.
 
-The configuration file [**`build.xml`**](HelloWorld/build.xml) in directory [**`HelloWorld\`**](HelloWorld/) depends on the parent file [**`build.xml`**](myexamples/build.xml) which provides the macro definition **`dotc`** to execute the external batch command **`dotc.bat`** (**WIP** : [Ivy](http://ant.apache.org/ivy/) support).
+The configuration file [**`build.xml`**](HelloWorld/build.xml) in directory [**`HelloWorld\`**](HelloWorld/) depends on the parent file [**`build.xml`**](myexamples/build.xml) which provides the macro definition **`dotc`** to compile the Scala source files.
 
 <pre style="font-size:80%;">
 &lt;?xml version="1.0" encoding="UTF-8"?>
@@ -259,7 +259,7 @@ The configuration file [**`build.xml`**](HelloWorld/build.xml) in directory [**`
 &lt;/project>
 </pre>
 
-Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
+Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output ([Ivy](http://ant.apache.org/ivy/) support is enabled by default):
 
 <pre style="font-size:80%;">
 &gt; ant clean run
@@ -267,6 +267,12 @@ Buildfile: W:\dotty-examples\myexamples\HelloWorld\build.xml
 
 clean:
    [delete] Deleting directory W:\dotty-examples\myexamples\HelloWorld\target
+
+init.local:
+
+init.ivy:
+[ivy:resolve] :: Apache Ivy 2.5.0-rc1 - 20180412005306 :: http://ant.apache.org/ivy/ ::
+[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.5/lib/ivy-2.5.0-rc1.jar!/org/apache/ivy/core/settings/ivysettings.xml
 
 init:
 
@@ -281,8 +287,42 @@ BUILD SUCCESSFUL
 Total time: 3 seconds
 </pre>
 
+> **&#9755;** ***Apache Ivy**<br/>
+> The [Ivy](http://ant.apache.org/ivy/) Java archive must be added to the Ant installation directory as displayed by task **`init.ivy`** in the above output. In our case we work with version 2.5.0-rc1 of the Apache Ivy library.
+> <pre style="font-size:80%;">
+> &gt; dir /b c:\opt\apache-ant-1.10.5\lib\ivy*
+> ivy-2.5.0-rc1.jar
+> </pre>
 
-## Command `mvn`
+We specify property **`-Duse.local=true`** to use Dotty local installation (*reminder*: variable **`DOTTY_HOME`** is set by command **`setenv`**):
+
+<pre style="font-size:80%;">
+&gt; ant -Duse.local=true clean run
+Buildfile: W:\dotty-examples\myexamples\HelloWorld\build.xml
+
+clean:
+   [delete] Deleting directory W:\dotty-examples\myexamples\HelloWorld\target
+
+init.local:
+     [echo] DOTTY_HOME=C:\opt\dotty-0.12.0-RC1
+
+init.ivy:
+
+init:
+
+compile:
+    [mkdir] Created dir: W:\dotty-examples\myexamples\HelloWorld\target\classes
+   [scalac] Compiling 1 source file to W:\dotty-examples\myexamples\HelloWorld/target/classes
+
+run:
+     [java] Hello world!
+
+BUILD SUCCESSFUL
+Total time: 14 seconds
+</pre>
+
+
+## Maven build tool
 
 Command [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) is a Java-based build tool maintained by the [Apache Software Foundation](https://maven.apache.org/docs/history.html) (tool created in 2002). It works with XML-based configuration files and provides a way to share JARs across several projects.
 

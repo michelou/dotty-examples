@@ -3,17 +3,9 @@
 
     <!-- set dotty.home -->
     <property environment="env" />
-    <property name="dotty.home" value="${env.DOTTY_HOME}" />
 
-    <target name="resolve">
-        <!-- installed: C:/opt/apache-ant-1.10.5/lib/ivy-2.5.0-rc1.jar -->
-        <taskdef resource="org/apache/ivy/ant/antlib.xml"
-            uri="antlib:org.apache.ivy.ant" />
-		<ivy:resolve file="../ivy.xml"/>
-		<ivy:cachepath pathid="lib.path.id" conf="default"/>
-    </target>
-
-    <target name="init">
+    <target name="init.local" if="use.local">
+        <property name="dotty.home" value="${env.DOTTY_HOME}" />
         <condition property="dotc.executable"
             value="${dotty.home}/bin/dotc.bat"
             else="${dotty.home}/bin/dotc">
@@ -24,10 +16,39 @@
                 <available file="${dotc.executable}" />
             </not></condition>
         </fail>
+        <echo message="DOTTY_HOME=${dotty.home}" />
+        <path id="dotc.classpath">
+            <fileset dir="${dotty.home}/lib" includes="dotty-*.jar" />
+            <fileset dir="${dotty.home}/lib" includes="jline-*.jar" />
+            <fileset dir="${dotty.home}/lib" includes="scala-*.jar" />
+        </path>
         <path id="dotty.classpath">
             <fileset dir="${dotty.home}/lib" includes="dotty-library*.jar" />
             <fileset dir="${dotty.home}/lib" includes="scala-library*.jar" />
         </path>
+    </target>
+
+    <target name="init.ivy" unless="use.local">
+        <!-- installed: C:/opt/apache-ant-1.10.5/lib/ivy-2.5.0-rc1.jar -->
+        <taskdef resource="org/apache/ivy/ant/antlib.xml"
+            uri="antlib:org.apache.ivy.ant" />
+        <ivy:resolve file="../ivy.xml" log="download-only" />
+        <ivy:cachepath pathid="dotc.classpath" conf="default"/>
+
+        <condition property="user.home"
+            value="${env.USERPROFILE}"
+            else="${env.HOME}">
+            <os family="windows" />
+        </condition>
+        <property name="ivy.cache" value="${user.home}/.ivy2/cache/" />
+        <path id="dotty.classpath">
+            <fileset dir="${ivy.cache}" includes="**/dotty-library*.jar" />
+            <fileset dir="${ivy.cache}" includes="**/scala-library*.jar" />
+        </path>
+
+    </target>
+
+    <target name="init" depends="init.local, init.ivy">
         <path id="build.classpath">
             <fileset dir="${basedir}" includes="lib/*.jar" />
             <pathelement location="${build.dir}" />
@@ -55,6 +76,38 @@
                 <arg value="Compiling ${n} source file${s} to @{destdir}" />
             </exec>
             <pathconvert property="classpath" refid="@{classpathref}" />
+            <java fork="true" classname="dotty.tools.dotc.Main" classpathref="dotc.classpath">
+                <jvmarg value="-Xmx768m" />
+                <jvmarg value="-Xms768m" />
+                <jvmarg value="-Dscala.usejavacp=true" />
+                <arg value="-deprecation" />
+                <arg value="-d" />
+                <arg value="@{destdir}" />
+                <arg value="-classpath" />
+                <arg value="&quot;${classpath}&quot;" />
+                <arg line="${scala.sources}" />
+            </java>
+        </sequential>
+    </macrodef>
+    <!--
+    <macrodef name="dotc.local" >
+        <attribute name="srcdir" default="." />
+        <attribute name="destdir" default="." />
+        <attribute name="classpathref" default="basedir.ref" />
+        <sequential>
+            <pathconvert property="scala.sources" pathsep=" ">
+                <fileset dir="@{srcdir}" includes="**/*.scala" />
+            </pathconvert>
+            <resourcecount property="n">
+                <fileset dir="@{srcdir}" includes="**/*.scala" />
+            </resourcecount>
+            <condition property="s" value="s" else="">
+                <not><matches string="${n}" pattern="[0-1]" /></not>
+            </condition>
+            <exec executable="echo" taskname="scalac">
+                <arg value="Compiling ${n} source file${s} to @{destdir}" />
+            </exec>
+            <pathconvert property="classpath" refid="@{classpathref}" />
             <exec executable="${dotc.executable}">
                 <arg value="-d" />
                 <arg value="@{destdir}" />
@@ -65,5 +118,5 @@
             </exec>
         </sequential>
     </macrodef>
-
+    -->
 </project>
