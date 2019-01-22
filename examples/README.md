@@ -29,71 +29,70 @@ Command [**`build`**](enum-Planet/build.bat) is a basic build tool consisting of
 
 <pre style="font-size:80%;">
 @echo off
-setlocal enabledelayedexpansion
+<b>setlocal enabledelayedexpansion</b>
 ...
-rem ##########################################################################
-rem ## Environment setup
+<span style="color:#006600;">rem ##########################################################################
+rem ## Environment setup</span>
 
-set _EXITCODE=0
+<b>set</b> _EXITCODE=0
 
 for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
 
-call :props
+<b>call <span style="color:#9966ff;">:props</span></b>
 if not %_EXITCODE%==0 goto end
 
-call :args %*
+<b>call <span style="color:#9966ff;">:args</span> %*</b>
 if not %_EXITCODE%==0 goto end
 
-rem ##########################################################################
-rem ## Main
+<span style="color:#006600;">rem ##########################################################################
+rem ## Main</span>
 
 if %_CLEAN%==1 (
     call :clean
     if not !_EXITCODE!==0 goto end
 )
 if %_COMPILE%==1 (
-    call :compile
+    <b>call <span style="color:#9966ff;">:compile</span></b>
     if not !_EXITCODE!==0 goto end
 )
 if %_DOC%==1 (
-    call :doc
+    <b>call <span style="color:#9966ff;">:doc</span></b>
     if not !_EXITCODE!==0 goto end
 )
 if %_RUN%==1 (
-    call :run
+    <b>call <span style="color:#9966ff;">:run</span></b>
     if not !_EXITCODE!==0 goto end
 )
-goto end
+<b>goto <span style="color:#9966ff;">end</span></b>
 
-rem ##########################################################################
-rem ## Subroutines
+<span style="color:#006600;">rem ##########################################################################
+rem ## Subroutines</span>
 
-:props
+<span style="color:#9966ff;">:props</span>
+...
+<b>goto :eof</b>
+<span style="color:#9966ff;">:args</span>
+...
+<b>goto :eof</b>
+<span style="color:#9966ff;">:clean</span>
 ...
 goto :eof
-:args
+<span style="color:#9966ff;">:compile</span>
 ...
 goto :eof
-:clean
+<span style="color:#9966ff;">:doc</span>
 ...
-goto :eof
-:compile
+<b>goto :eof</b>
+<span style="color:#9966ff;">:run</span>
 ...
-goto :eof
-:doc
-...
-goto :eof
-:run
-...
-goto :eof
-:end
+<b>goto :eof</b>
 
-rem ##########################################################################
-rem ## Cleanups
+<span style="color:#006600;">rem ##########################################################################
+rem ## Cleanups</span>
 
-:end
+<span style="color:#9966ff;">:end</span>
 ...
-exit /b %_EXITCODE%
+<b>exit</b> /b %_EXITCODE%
 </pre>
 
 Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
@@ -130,7 +129,7 @@ Your weight on JUPITER is 2.5305575254957406
 Finally, running command [**`build`**](enum-Planet/build.bat) with option **`-debug`** in project [**`enum-Planet`**](enum-Planet/) also displays internal steps of the build process:
 
 <pre style="font-size:80%;">
-> build -debug clean compile run
+<b/>&gt;</b> build -debug clean compile run
 [build] _CLEAN=1 _COMPILE=1 _COMPILE_CMD=dotc _RUN=1
 [build] del /s /q W:\dotty\examples\ENUM-P~1\target\classes\*.class W:\dotty\examples\ENUM-P~1\target\classes\*.hasTasty W:\dotty\examples\ENUM-P~1\target\classes\.latest-build
 [build] 20180322224754 W:\dotty\examples\ENUM-P~1\src\main\scala\Planet.scala
@@ -160,7 +159,7 @@ No compilation needed (1 source files)</pre>
 > **:mag_right:** The above `enum-Planet` example expects 1 argument at execution time.<br/>
 > For simplicity the [**`build`**](enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
-> > type project\build.properties
+> <b>&gt;</b> type project\build.properties
 > sbt.version=1.2.8
 > main.class=Planet
 > main.args=1
@@ -183,16 +182,16 @@ Command [**`gradle`**](http://www.gradle.org/) is the official build tool for An
 The configuration file [**`build.gradle`**](enum-Planet/build.gradle) for [**`enum-Planet\`**](enum-Planet/) looks as follows:
 
 <pre style="font-size:80%;">
-apply plugin: 'java'
-apply plugin: 'application'
-apply from: '../common.gradle'
+apply plugin: <span style="color:#990000;">'java'</span>
+apply plugin: <span style="color:#990000;">'application'</span>
+apply from: <span style="color:#990000;">'../common.gradle'</span>
 &nbsp;
-group = 'dotty.examples'
-version = '0.1-SNAPSHOT'
+group = <span style="color:#990000;">'dotty.examples'</span>
+version = <span style="color:#990000;">'0.1-SNAPSHOT'</span>
 &nbsp;
-description = """Example Gradle project that compiles using Dotty"""
+description = <span style="color:#990000;">"""Example Gradle project that compiles using Dotty"""</span>
 &nbsp;
-mainClassName = 'Planet'
+mainClassName = <span style="color:#990000;">'Planet'</span>
 &nbsp;
 run.doFirst {
     main mainClassName
@@ -209,9 +208,9 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 &nbsp;
 ext {
-    dottyLibraryPath = file(System.getenv("DOTTY_HOME") + "/lib")
+    dottyLibraryPath = file(System.getenv(<span style="color:#990000;">"DOTTY_HOME"</span>) + <span style="color:#990000;">"/lib"</span>)
     ...
-    targetDir = file("/target")
+    targetDir = file(<span style="color:#990000;">"/target"</span>)
 }
 clean.doLast {
     targetDir.deleteDir()
@@ -219,7 +218,7 @@ clean.doLast {
 task compileDotty(type: JavaExec) {
     dependsOn compileJava
     ...
-    main "dotty.tools.dotc.Main"
+    main <span style="color:#990000;">"dotty.tools.dotc.Main"</span>
 }
 compileDotty.doFirst {
     if (!classesDir.exists()) classesDir.mkdirs()
@@ -238,7 +237,7 @@ run {
 Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
 
 <pre style="font-size:80%;">
-&gt; gradle clean run
+<b>&gt;</b> gradle clean run
 
 > Task :run
 Your weight on MERCURY is 0.37775761520093526
@@ -262,18 +261,18 @@ Command [**`sbt`**](https://www.scala-sbt.org/) is a Scala-based build tool for 
 The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is a standalone file written in [Scala](https://www.scala-lang.org/) and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
 <pre style="font-size:80%;">
-val dottyVersion = "0.12.0-RC1"
+<b>val</b> dottyVersion = <span style="color:#990000;">"0.12.0-RC1"</span>
 &nbsp;
-lazy val root = project
+<b>lazy val</b> root = project
   .in(file("."))
   .settings(
-    name := "enum-Planet",
-    description := "Example sbt project that compiles using Dotty",
-    version := "0.1.0",
+    name := <span style="color:#990000;">"enum-Planet"</span>,
+    description := <span style="color:#990000;">"Example sbt project that compiles using Dotty"</span>,
+    version := <span style="color:#990000;">"0.1.0"</span>,
     &nbsp;
     scalaVersion := dottyVersion,
     scalacOptions ++= Seq(
-      "-deprecation"
+      <span style="color:#990000;">"-deprecation"</span>
     )
   )
 </pre>
@@ -301,17 +300,17 @@ Command [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) is a Scala
 The configuration file [**`build.sc`**](enum-Planet/build.sc) is a standalone file written in Scala (with direct access to [OS-Lib](https://github.com/lihaoyi/os-lib)).
 
 <pre style="font-size:80%;">
-import mill._, scalalib._
+<b>import</b> mill._, scalalib._
 &nbsp;
-object go extends ScalaModule {
-  def scalaVersion = "0.12.0-RC1"  // "2.12.18"
-  def scalacOptions = Seq("-deprecation", "-feature")
-  def forkArgs = Seq("-Xmx1g")
-  def mainClass = Some("Planet")
-  def sources = T.sources { os.pwd / "src" }
-  def clean() = T.command {
-    val path = os.pwd / "out" / "go"
-    os.walk(path, skip = _.last == "clean").foreach(os.remove.all)
+<b>object</b> go <b>extends</b> ScalaModule {
+  <b>def</b> scalaVersion = <span style="color:#990000;">"0.12.0-RC1"</span>  // "2.12.18"
+  <b>def</b> scalacOptions = Seq(<span style="color:#990000;">"-deprecation"</span>, <span style="color:#990000;">"-feature"</span>)
+  <b>def</b> forkArgs = Seq(<span style="color:#990000;">"-Xmx1g"</span>)
+  <b>def</b> mainClass = Some(<span style="color:#990000;">"Planet"</span>)
+  <b>def</b> sources = T.sources { os.pwd / <span style="color:#990000;">"src"</span> }
+  <b>def</b> clean() = T.command {
+    val path = os.pwd / <span style="color:#990000;">"out"</span> / <span style="color:#990000;">"go"</span>
+    os.walk(path, skip = _.last == <span style="color:#990000;">"clean"</span>).foreach(os.remove.all)
   }
 }
 </pre>
@@ -319,7 +318,7 @@ object go extends ScalaModule {
 Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
 
 <pre style="font-size:80%;">
-&gt; mill -i go.run 1
+<b>&gt;</b> mill -i go.run 1
 [38/38] go.run
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
@@ -340,37 +339,37 @@ The configuration file [**`build.xml`**](enum-Planet/build.xml) in directory [**
 
 <pre style="font-size:80%;">
 &lt;?xml version="1.0" encoding="UTF-8"?>
-&lt;project name="enum-Planet" default="compile" basedir=".">
+<b>&lt;project</b> name=<span style="color:#990000;">"enum-Planet"</span> default=<span style="color:#990000;">"compile"</span> basedir=<span style="color:#990000;">"."</span>&gt;
     ...
-    &lt;import file="../build.xml" />
-    &lt;target name="compile" depends="init"> ... &lt;/target>
-    &lt;target name="run" depends="compile"> ... &lt;/target>
-    &lt;target name="clean"> ... &lt;/target>
-&lt;/project>
+    <b>&lt;import</b> file=<span style="color:#990000;">"../build.xml"</span> /&gt;
+    <b>&lt;target</b> name=<span style="color:#990000;">"compile"</span> depends="init"> ... <b>&lt;/target&gt;</b>
+    <b>&lt;target</b> name=<span style="color:#990000;">"run"</span> depends=<span style="color:#990000;">"compile"</span>&gt; ... <b>&lt;/target&gt;</b>
+    <b>&lt;target</b> name=<span style="color:#990000;">"clean"</span>&gt; ... <b>&lt;/target&gt;</b>
+<b>&lt;/project&gt;</b>
 </pre>
 
 Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output ([Ivy](http://ant.apache.org/ivy/) support is enabled by default):
 
 <pre style="font-size:80%;">
-&gt; ant clean run
+<b>&gt;</b> ant clean run
 Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
 
-clean:
+<span style="font-weight:bold;color:#9966ff;">clean:</span>
    [delete] Deleting directory W:\dotty-examples\examples\enum-Planet\target
 
-init.local:
+<span style="font-weight:bold;color:#9966ff;">init.local:</span>
 
-init.ivy:
+<span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 [ivy:resolve] :: Apache Ivy 2.5.0-rc1 - 20180412005306 :: http://ant.apache.org/ivy/ ::
 [ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.5/lib/ivy-2.5.0-rc1.jar!/org/apache/ivy/core/settings/ivysettings.xml
 
-init:
+<span style="font-weight:bold;color:#9966ff;">init:</span>
 
-compile:
+<span style="font-weight:bold;color:#9966ff;">compile:</span>
     [mkdir] Created dir: W:\dotty-examples\examples\enum-Planet\target\classes
    [scalac] Compiling 1 source file to W:\dotty-examples\examples\enum-Planet/target/classes
 
-run:
+<span style="font-weight:bold;color:#9966ff;">run:</span>
      [java] Your weight on MERCURY is 0.37775761520093526
      [java] Your weight on SATURN is 1.0660155388115666
      [java] Your weight on VENUS is 0.9049990998410455
@@ -384,34 +383,34 @@ BUILD SUCCESSFUL
 Total time: 19 seconds
 </pre>
 
-> **&#9755;** ***Apache Ivy**<br/>
-> The [Ivy](http://ant.apache.org/ivy/) Java archive must be added to the Ant installation directory as displayed by task **`init.ivy`** in the above output. In our case we work with version 2.5.0-rc1 of the Apache Ivy library.
+> **&#9755;** ***Apache Ivy***<br/>
+> The [Ivy](http://ant.apache.org/ivy/) Java archive must be added to the [Ant](https://ant.apache.org/) installation directory as displayed by task **`init.ivy`** in the above output. In our case we work with [version 2.5.0-rc1](http://ant.apache.org/ivy/history/2.5.0-rc1/release-notes.html) of the Apache Ivy library.
 > <pre style="font-size:80%;">
-> &gt; dir /b c:\opt\apache-ant-1.10.5\lib\ivy*
+> <b>&gt;</b> dir /b c:\opt\apache-ant-1.10.5\lib\ivy*
 > ivy-2.5.0-rc1.jar
 > </pre>
 
 We specify property **`-Duse.local=true`** to use Dotty local installation (*reminder*: variable **`DOTTY_HOME`** is set by command **`setenv`**):
 
 <pre style="font-size:80%;">
-&gt; ant -Duse.local=true clean run
+<b>&gt;</b> ant -Duse.local=true clean run
 Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
 
-clean:
+<span style="font-weight:bold;color:#9966ff;">clean:</span>
    [delete] Deleting directory W:\dotty-examples\examples\enum-Planet\target
 
-init.local:
+<span style="font-weight:bold;color:#9966ff;">init.local:</span>
      [echo] DOTTY_HOME=C:\opt\dotty-0.12.0-RC1
 
-init.ivy:
+<span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
-init:
+<span style="font-weight:bold;color:#9966ff;">init:</span>
 
-compile:
+<span style="font-weight:bold;color:#9966ff;">compile:</span>
     [mkdir] Created dir: W:\dotty-examples\examples\enum-Planet\target\classes
    [scalac] Compiling 1 source file to W:\dotty-examples\examples\enum-Planet/target/classes
 
-run:
+<span style="font-weight:bold;color:#9966ff;">run:</span>
      [java] Your weight on MERCURY is 0.37775761520093526
      [java] Your weight on SATURN is 1.0660155388115666
      [java] Your weight on VENUS is 0.9049990998410455
@@ -434,34 +433,34 @@ The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enu
 
 <pre style="font-size:80%;">
 &lt;?xml version="1.0" encoding="UTF-8"?>
-&lt;project xmlns="http://maven.apache.org/POM/4.0.0" ...>
+<b>&lt;project</b> xmlns=<span style="color:#990000;">"http://maven.apache.org/POM/4.0.0"</span> ...&gt;
     ...
-    &lt;artifactId>enum-Planet&lt;/artifactId>
+    <b>&lt;artifactId&gt;</b>enum-Planet<b>&lt;/artifactId&gt;</b>
     ...
-    &lt;parent>
+    <b>&lt;parent&gt;</b>
         ...
         &lt;relativePath>../pom.xml&lt;/relativePath>
-    &lt;/parent>
-    &lt;dependencies>
+    <b>&lt;/parent&gt;</b>
+    <b>&lt;dependencies&gt;</b>
         &lt;!-- see parent pom.xml -->
-    &lt;/dependencies>
-    &lt;build>
+    <b>&lt;/dependencies&gt;</b>
+    <b>&lt;build&gt;</b>
         &lt;sourceDirectory>src/main&lt;/sourceDirectory>
         &lt;testSourceDirectory>src/test&lt;/testSourceDirectory>
         &lt;outputDirectory>target/classes&lt;/outputDirectory>
-        &lt;plugins>
-            &lt;plugin>
+        <b>&lt;plugins&gt;</b>
+            <b>&lt;plugin&gt;</b>
                 &lt;groupId>org.apache.maven.plugins&lt;/groupId>
                 &lt;artifactId>maven-compiler-plugin&lt;/artifactId>
                 ...
-                &lt;configuration>
+                <b>&lt;configuration&gt;</b>
                     ...
                     &lt;includes>
                         &lt;include>java/**/*.java&lt;/include>
                     &lt;/includes>
-                &lt;/configuration>
-            &lt;/plugin>
-            &lt;plugin>
+                <b>&lt;/configuration&gt;</b>
+            <b>&lt;/plugin&gt;</b>
+            <b>&lt;plugin&gt;</b>
                 &lt;groupId>ch.epfl.alumni&lt;/groupId>
                 &lt;artifactId>scala-maven-plugin&lt;/artifactId>
                 ...
@@ -469,10 +468,10 @@ The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enu
                     &lt;scalaVersion>${scala.version}&lt;/scalaVersion>
                     ...
                 &lt;/configuration>
-            &lt;/plugin>
-        &lt;/plugins>
-    &lt;/build>
-&lt;/project>
+            <b>&lt;/plugin&gt;</b>
+        <b>&lt;/plugins&gt;</b>
+    <b>&lt;/build&gt;</b>
+<b>&lt;/project&gt;</b>
 </pre>
 
 Running command **` mvn compile test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our Maven plugin **`scala-maven-plugin`**:
@@ -496,7 +495,7 @@ W:\dotty-examples\examples\hello-scala\target\classes hello
 Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
 
 <pre style="font-size:80%;">
-&gt; mvn --quiet clean test
+<b>&gt;</b> mvn --quiet clean test
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455

@@ -32,75 +32,74 @@ Command [**`build`**](dotty-example-project/build.bat) is a basic build tool con
 @echo off
 setlocal enabledelayedexpansion
 ...
-rem ##########################################################################
-rem ## Environment setup
+<span style="color:#006600;">rem ##########################################################################
+rem ## Environment setup</span>
 
-set _EXITCODE=0
+<b>set</b> _EXITCODE=0
 
-for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
+<b>for</b> %%f in ("%~dp0") <b>do set</b> _ROOT_DIR=%%~sf
 
-call :props
-if not %_EXITCODE%==0 goto end
+<b>call :props</b>
+<b>if not</b> %_EXITCODE%==0 <b>goto end</b>
 
-call :args %*
-if not %_EXITCODE%==0 goto end
+<b>call :args %*</b>
+<b>if not</b> %_EXITCODE%==0 <b>goto end</b>
 
-rem ##########################################################################
-rem ## Main
+<span style="color:#006600;">rem ##########################################################################
+rem ## Main</span>
 
-if %_CLEAN%==1 (
-    call :clean
-    if not !_EXITCODE!==0 goto end
+<b>if</b> %_CLEAN%==1 (
+    <b>call <span style="color:#9966ff;">:clean</span></b>
+    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
 if %_COMPILE%==1 (
-    call :compile
-    if not !_EXITCODE!==0 goto end
+    <b>call <span style="color:#9966ff;">:compile</span></b>
+    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
 if %_DOC%==1 (
-    call :doc
-    if not !_EXITCODE!==0 goto end
+    <b>call <span style="color:#9966ff;">:doc</span></b>
+    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
-if %_RUN%==1 (
-    call :run
-    if not !_EXITCODE!==0 goto end
+<b>if</b> %_RUN%==1 (
+    <b>call <span style="color:#9966ff;">:run</span></b>
+    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
-goto end
+<b>goto end</b>
 
-rem ##########################################################################
-rem ## Subroutines
+<span style="color:#006600;">rem ##########################################################################
+rem ## Subroutines</span>
 
-:props
+<span style="color:#9966ff;">:props</span>
+...
+<b>goto :eof</b>
+<span style="color:#9966ff;">:args</span>
 ...
 goto :eof
-:args
+<span style="color:#9966ff;">:clean</span>
+...
+<b>goto :eof</b>
+<span style="color:#9966ff;">:compile</span>
 ...
 goto :eof
-:clean
+<span style="color:#9966ff;">:doc</span>
 ...
 goto :eof
-:compile
+<span style="color:#9966ff;">:run</span>
 ...
-goto :eof
-:doc
-...
-goto :eof
-:run
-...
-goto :eof
+<b>goto :eof</b>
+
+<span style="color:#006600;">rem ##########################################################################
+rem ## Cleanups</span>
+
 :end
-
-rem ##########################################################################
-rem ## Cleanups
-
-:end
 ...
-exit /b %_EXITCODE%
+<b>exit</b> /b %_EXITCODE%
 </pre>
 
 Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
 
 <pre style="font-size:80%;">
-&gt; build clean run
+<b>&gt;</b> build clean run
 Hello world!
 </pre>
 
@@ -116,16 +115,16 @@ Command [**`gradle`**](http://www.gradle.org/) is the official build tool for An
 The configuration file [**`build.gradle`**](HelloWorld/build.gradle) for [**`HelloWorld\`**](HelloWorld/) looks as follows:
 
 <pre style="font-size:80%;">
-apply plugin: 'java'
-apply plugin: 'application'
-apply from: '../common.gradle'
+apply plugin: <span style="color:#990000;">'java'</span>
+apply plugin: <span style="color:#990000;">'application'</span>
+apply from: <span style="color:#990000;">'../common.gradle'</span>
 &nbsp;
-group = 'dotty.examples'
-version = '0.1-SNAPSHOT'
+group = <span style="color:#990000;">'dotty.examples'</span>
+version = <span style="color:#990000;">'0.1-SNAPSHOT'</span>
 &nbsp;
-description = """Example Gradle project that compiles using Dotty"""
+description = <span style="color:#990000;">"""Example Gradle project that compiles using Dotty"""</span>
 &nbsp;
-mainClassName = 'Main'
+mainClassName = <span style="color:#990000;">'Main'</span>
 &nbsp;
 run.doFirst {
     main mainClassName
@@ -142,9 +141,9 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 &nbsp;
 ext {
-    dottyLibraryPath = file(System.getenv("DOTTY_HOME") + "/lib")
+    dottyLibraryPath = file(System.getenv(<span style="color:#990000;">"DOTTY_HOME"</span>) + <span style="color:#990000;">"/lib"</span>)
     ...
-    targetDir = file("/target")
+    targetDir = file(<span style="color:#990000;">"/target"</span>)
 }
 clean.doLast {
     targetDir.deleteDir()
@@ -171,7 +170,7 @@ run {
 Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
 
 <pre style="font-size:80%;">
-&gt; gradle clean run
+<b>&gt;</b> gradle clean run
 
 &gt; Task :run
 Hello world!
@@ -188,18 +187,18 @@ Command [**`sbt`**](https://www.scala-sbt.org/) is a Scala-based build tool for 
 The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is a standalone file written in [Scala](https://www.scala-lang.org/) and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
 <pre style="font-size:80%;">
-val dottyVersion = "0.12.0-RC1"
+<b>val</b> dottyVersion = <span style="color:#990000;">"0.12.0-RC1"</span>
 &nbsp;
-lazy val root = project
-  .in(file("."))
+<b>lazy val</b> root = project
+  .in(file(<span style="color:#990000;">"."</span>))
   .settings(
-    name := "dotty-example-project",
-    description := "Example sbt project that compiles using Dotty",
-    version := "0.1.0",
+    name := <span style="color:#990000;">"dotty-example-project"</span>,
+    description := <span style="color:#990000;">"Example sbt project that compiles using Dotty"</span>,
+    version := <span style="color:#990000;">"0.1.0"</span>,
     &nbsp;
     scalaVersion := dottyVersion,
     scalacOptions ++= Seq(
-      "-deprecation"
+      <span style="color:#990000;">"-deprecation"</span>
     )
   )
 </pre>
@@ -207,7 +206,7 @@ lazy val root = project
 Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
 
 <pre style="font-size:80%;">
-&gt; sbt -warn clean run
+<b>&gt;</b> sbt -warn clean run
 Hello world!
 </pre>
 
@@ -219,17 +218,17 @@ Command [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) is a Scala
 The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone file written in Scala (with direct access to [OS-Lib](https://github.com/lihaoyi/os-lib)).
 
 <pre style="font-size:80%;">
-import mill._, scalalib._
+<b>import</b> mill._, scalalib._
 &nbsp;
-object go extends ScalaModule {
-  def scalaVersion = "0.12.0-RC1"  // "2.12.18"
-  def scalacOptions = Seq("-deprecation", "-feature")
-  def forkArgs = Seq("-Xmx1g")
-  def mainClass = Some("Main")
-  def sources = T.sources { os.pwd / "src" }
-  def clean() = T.command {
-    val path = os.pwd / "out" / "go"
-    os.walk(path, skip = _.last == "clean").foreach(os.remove.all)
+<b>object</b> go <b>extends</b> ScalaModule {
+  <b>def</b> scalaVersion = <span style="color:#990000;">"0.12.0-RC1"</span>  // "2.12.18"
+  <b>def</b> scalacOptions = Seq(<span style="color:#990000;">"-deprecation"</span>, <span style="color:#990000;">"-feature"</span>)
+  <b>def</b> forkArgs = Seq(<span style="color:#990000;">"-Xmx1g"</span>)
+  <b>def</b> mainClass = Some(<span style="color:#990000;">"Main"</span>)
+  <b>def</b> sources = T.sources { os.pwd / <span style="color:#990000;">"src"</span> }
+  <b>def</b> clean() = T.command {
+    val path = os.pwd / <span style="color:#990000;">"out"</span> / <span style="color:#990000;">"go"</span>
+    os.walk(path, skip = _.last == <span style="color:#990000;">"clean"</span>).foreach(os.remove.all)
   }
 }
 </pre>
@@ -237,7 +236,7 @@ object go extends ScalaModule {
 Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
 
 <pre style="font-size:80%;">
-&gt; mill -i go
+<b>&gt;</b> mill -i go
 [38/38] go.run
 Hello world!
 </pre>
@@ -251,37 +250,37 @@ The configuration file [**`build.xml`**](HelloWorld/build.xml) in directory [**`
 
 <pre style="font-size:80%;">
 &lt;?xml version="1.0" encoding="UTF-8"?>
-&lt;project name="dotty-example-project" default="compile" basedir=".">
+<b>&lt;project</b> name=<span style="color:#990000;">"dotty-example-project"</span> default=<span style="color:#990000;">"compile"</span> basedir=<span style="color:#990000;">"."</span>&gt;
     ...
-    &lt;import file="../build.xml" />
-    &lt;target name="compile" depends="init"> ... &lt;/target>
-    &lt;target name="run" depends="compile"> ... &lt;/target>
-    &lt;target name="clean"> ... &lt;/target>
-&lt;/project>
+    <b>&lt;import</b> file=<span style="color:#990000;">"../build.xml"</span> />
+    <b>&lt;target</b> name=<span style="color:#990000;">"compile"</span> depends=<span style="color:#990000;">"init"</span>&gt; ... <b>&lt;/target&gt;</b>
+    <b>&lt;target</b> name=<span style="color:#990000;">"run"</span> depends=<span style="color:#990000;">"compile"</span>&gt; ... <b>&lt;/target&gt;</b>
+    <b>&lt;target</b> name=<span style="color:#990000;">"clean"</span>&gt; ... <b>&lt;/target&gt;</b>
+<b>&lt;/project&gt;</b>
 </pre>
 
 Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output ([Ivy](http://ant.apache.org/ivy/) support is enabled by default):
 
 <pre style="font-size:80%;">
-&gt; ant clean run
+<b>&gt;</b> ant clean run
 Buildfile: W:\dotty-examples\myexamples\HelloWorld\build.xml
 
-clean:
+<span style="font-weight:bold;color:#9966ff;">clean:</span>
    [delete] Deleting directory W:\dotty-examples\myexamples\HelloWorld\target
 
-init.local:
+<span style="font-weight:bold;color:#9966ff;">init.local:</span>
 
-init.ivy:
+<span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 [ivy:resolve] :: Apache Ivy 2.5.0-rc1 - 20180412005306 :: http://ant.apache.org/ivy/ ::
 [ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.5/lib/ivy-2.5.0-rc1.jar!/org/apache/ivy/core/settings/ivysettings.xml
 
-init:
+<span style="font-weight:bold;color:#9966ff;">init:</span>
 
-compile:
+<span style="font-weight:bold;color:#9966ff;">compile:</span>
     [mkdir] Created dir: W:\dotty-examples\myexamples\HelloWorld\target\classes
    [scalac] Compiling 1 source file to W:\dotty-examples\myexamples\HelloWorld/target/classes
 
-run:
+<span style="font-weight:bold;color:#9966ff;">run:</span>
      [java] Hello world!
 
 BUILD SUCCESSFUL
@@ -291,31 +290,31 @@ Total time: 3 seconds
 > **&#9755;** ***Apache Ivy**<br/>
 > The [Ivy](http://ant.apache.org/ivy/) Java archive must be added to the Ant installation directory as displayed by task **`init.ivy`** in the above output. In our case we work with version 2.5.0-rc1 of the Apache Ivy library.
 > <pre style="font-size:80%;">
-> &gt; dir /b c:\opt\apache-ant-1.10.5\lib\ivy*
+> <b>&gt;</b> dir /b c:\opt\apache-ant-1.10.5\lib\ivy*
 > ivy-2.5.0-rc1.jar
 > </pre>
 
 We specify property **`-Duse.local=true`** to use Dotty local installation (*reminder*: variable **`DOTTY_HOME`** is set by command **`setenv`**):
 
 <pre style="font-size:80%;">
-&gt; ant -Duse.local=true clean run
+<b>&gt;</b> ant -Duse.local=true clean run
 Buildfile: W:\dotty-examples\myexamples\HelloWorld\build.xml
 
-clean:
+<span style="font-weight:bold;color:#9966ff;">clean:</span>
    [delete] Deleting directory W:\dotty-examples\myexamples\HelloWorld\target
 
-init.local:
+<span style="font-weight:bold;color:#9966ff;">init.local:</span>
      [echo] DOTTY_HOME=C:\opt\dotty-0.12.0-RC1
 
-init.ivy:
+<span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
-init:
+<span style="font-weight:bold;color:#9966ff;">init:</span>
 
-compile:
+<span style="font-weight:bold;color:#9966ff;">compile:</span>
     [mkdir] Created dir: W:\dotty-examples\myexamples\HelloWorld\target\classes
    [scalac] Compiling 1 source file to W:\dotty-examples\myexamples\HelloWorld/target/classes
 
-run:
+<span style="font-weight:bold;color:#9966ff;">run:</span>
      [java] Hello world!
 
 BUILD SUCCESSFUL
@@ -331,23 +330,23 @@ The configuration file [**`pom.xml`**](HelloWorld/pom.xml) in directory [**`Hell
 
 <pre style="font-size:80%;">
 &lt;?xml version="1.0" encoding="UTF-8"?>
-&lt;project xmlns="http://maven.apache.org/POM/4.0.0" ...>
+<b>&lt;project</b> xmlns=<span style="color:#990000;">"http://maven.apache.org/POM/4.0.0"</span> ...>
     ...
     &lt;artifactId>HelloWorld&lt;/artifactId>
     ...
-    &lt;parent>
+    <b>&lt;parent&gt;</b>
         ...
         &lt;relativePath>../pom.xml&lt;/relativePath>
-    &lt;/parent>
-    &lt;dependencies>
+    <b>&lt;/parent&gt;</b>
+    <b>&lt;dependencies&gt;</b>
         &lt;!-- see parent pom.xml -->
-    &lt;/dependencies>
-    &lt;build>
+    <b>&lt;/dependencies&gt;</b>
+    <b>&lt;build&gt;</b>
         &lt;sourceDirectory>src/main&lt;/sourceDirectory>
         &lt;testSourceDirectory>src/test&lt;/testSourceDirectory>
         &lt;outputDirectory>target/classes&lt;/outputDirectory>
-        &lt;plugins>
-            &lt;plugin>
+        <b>&lt;plugins&gt;</b>
+            <b>&lt;plugin&gt;</b>
                 &lt;groupId>org.apache.maven.plugins&lt;/groupId>
                 &lt;artifactId>maven-compiler-plugin&lt;/artifactId>
                 ...
@@ -357,8 +356,8 @@ The configuration file [**`pom.xml`**](HelloWorld/pom.xml) in directory [**`Hell
                         &lt;include>java/**/*.java&lt;/include>
                     &lt;/includes>
                 &lt;/configuration>
-            &lt;/plugin>
-            &lt;plugin>
+            <b>&lt;/plugin&gt;</b>
+            <b>&lt;plugin&gt;</b>
                 &lt;groupId>ch.epfl.alumni&lt;/groupId>
                 &lt;artifactId>scala-maven-plugin&lt;/artifactId>
                 ...
@@ -366,10 +365,10 @@ The configuration file [**`pom.xml`**](HelloWorld/pom.xml) in directory [**`Hell
                     &lt;scalaVersion>${scala.version}&lt;/scalaVersion>
                     ...
                 &lt;/configuration>
-            &lt;/plugin>
-        &lt;/plugins>
-    &lt;/build>
-&lt;/project>
+            <b>&lt;/plugin&gt;</b>
+        <b>&lt;/plugins&gt;</b>
+    <b>&lt;/build&gt;</b>
+<b>&lt;/project&gt;</b>
 </pre>
 
 Running command **` mvn compile test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our Maven plugin **`scala-maven-plugin`**:
@@ -393,7 +392,7 @@ W:\dotty-examples\examples\hello-scala\target\classes hello
 Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
 
 <pre style="font-size:80%;">
-&gt; mvn --quiet clean test
+<b>&gt;</b> mvn --quiet clean test
 Hello world!
 </pre>
 
@@ -406,7 +405,7 @@ Hello world!
 Executing command <a href="bug4272/build.bat" style="font-weight:bold;font-family:Courier;">build</a> in directory <a href="bug4272/" style="font-weight:bold;font-family:Courier;">bug4272\</a> produces a runtime exception with version 0.7 of the Dotty compiler (*was fixed in version 0.8*):
 
 <pre style="font-size:80%;">
-> build clean compile run
+<b>&gt;</b> build clean compile run
 exception occurred while typechecking C:\dotty\MYEXAM~1\bug4272\src\main\scala\Main.scala
 exception occurred while compiling C:\dotty\MYEXAM~1\bug4272\src\main\scala\Main.scala
 Exception in thread "main" java.lang.AssertionError: cannot merge Constraint(
@@ -437,7 +436,7 @@ Exception in thread "main" java.lang.AssertionError: cannot merge Constraint(
 Executing <a href="bug4356/build.bat" style="font-weight:bold;font-family:Courier;">build</a> in directory <a href="bug4356/" style="font-weight:bold;font-family:Courier;">bug4272\</a> produces a runtime exception with version 0.7 of the Dotty compiler:
 
 <pre>
-> build clean compile
+<b>&gt;</b> build clean compile
 Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> at index 72: C:\dotty\MYEXAM~1\bug4356\\lib\junit-4.12.jar:C:\dotty\MYEXAM~1\bug4356\target\dotty-0.7\classes
         at sun.nio.fs.WindowsPathParser.normalize(WindowsPathParser.java:182)
         at sun.nio.fs.WindowsPathParser.parse(WindowsPathParser.java:153)
