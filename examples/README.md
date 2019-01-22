@@ -19,12 +19,13 @@ In the following we explain in more detail the build tools available in the [**`
 
 Command [**`build`**](enum-Planet/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
 
-The batch file for command [**`build`**](enum-Planet/build.bat) obeys the following coding conventions:
-
-- The file is organized in 4 sections: `Environment setup`, `Main`, `Subroutines` and `Cleanups`.
-- The file contains exactly ***one exit instruction*** (label **`end`** in section **`Cleanups`**).
-- Names of global variables start with the `_` character (shell variables defined in the user environment start with a letter).
-- Names of local variables (e.g. inside subroutines or  **`if/for`** constructs) start with `__` (two `_` characters).
+> **:mag_right:** The batch file for command [**`build`**](enum-Planet/build.bat) obeys the following coding conventions:
+>
+> - We use at most 80 characters per line. In general we would say that 80 characters fit well with 4:3 screens and 100 characters fit well with 16:9 screens ([Google's convention](https://google.github.io/styleguide/javaguide.html#s4.4-column-limit) is 100 characters).
+> - We organize our code in 4 sections: `Environment setup`, `Main`, `Subroutines` and `Cleanups`.
+> - We write exactly ***one exit instruction*** (label **`end`** in section **`Cleanups`**).
+> - We start names of global variables with the `_` character (shell variables defined in the user environment start with a letter).
+> - We start names of local variables (e.g. inside subroutines or  **`if/for`** constructs) start with `__` (two `_` characters).
 
 <pre style="font-size:80%;">
 @echo off
