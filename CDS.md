@@ -24,11 +24,11 @@ Other topics we are currently investigating - on Windows or not - include [Graal
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
-- [Oracle Java 11 SDK](https://www.oracle.com/technetwork/java/javase/downloads/index.html) ([*release notes*](https://www.oracle.com/technetwork/java/javase/11-0-2-relnotes-5188746.html))
+- [Hotspot OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot) ([*release notes*](https://jdk.java.net/11/release-notes))
 - [Dotty 0.12](https://github.com/lampepfl/dotty/releases) (Java 9+ supported since 0.10)
 - [Git 2.20](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.20.1.txt))
 
-> **:mag_right:** [Scala 2.12](https://www.scala-lang.org/download/) is a software product announced to require Java 8. In contrast [Scala 2.13](https://www.scala-lang.org/news/roadmap-2.13.html) and [Dotty](http://dotty.epfl.ch/) (aka [Scala 3](https://www.scala-lang.org/blog/2018/04/19/scala-3.html)) are still in development and also support Java 9+. In the following we choose to work with [Oracle Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html), the 2<sup>nd</sup> [LTS](https://www.oracle.com/technetwork/java/java-se-support-roadmap.html) version after Java 8.
+> **:mag_right:** [Scala 2.12](https://www.scala-lang.org/download/) is a software product announced to require Java 8. In contrast [Scala 2.13](https://www.scala-lang.org/news/roadmap-2.13.html) and [Dotty](http://dotty.epfl.ch/) (aka [Scala 3](https://www.scala-lang.org/blog/2018/04/19/scala-3.html)) are still in development and also support Java 9+. In the following we choose to work with [Hotspot OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot), the 2<sup>nd</sup> [LTS](https://www.oracle.com/technetwork/java/java-se-support-roadmap.html) version after Java 8.
 
 For instance our development environment looks as follows (*January 2019*):
 
@@ -59,7 +59,7 @@ where
 - directory [**`cdsexamples\JavaExample\`**](cdsexamples/JavaExample/) contains a tiny Java code example demonstrating data sharing.
 - file [**`CDS.md`**](CDS.md) is the [Markdown](https://github.github.com/gfm/) document for this page.
 
-In the next sections we present both examples and describe the usage of command **`sharedata`**.
+In the next sections we present both examples and describe the usage of command [**`sharedata`**](bin/sharedata.bat).
 
 <!--
 ## Batch commands
@@ -579,38 +579,38 @@ Classes per package (888):
 </pre>
 
 
-> **&#9755;** ***Data Sharing and Oracle JDK 11*** <br/>
+> **&#9755;** ***Data Sharing and Hotspot OpenJDK 11*** <br/>
 > The [Oracle JDK 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html) installation contains the file **`<install_dir>\lib\classlist`**. Let's check if data sharing is enabled:
 > 
-> 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last displayed line ends with  **`(build 11.0.1+13, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.1+13, mixed mode)`** otherwise.
+> 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last displayed line ends with  **`(build 11.0.2+7, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.2+7, mixed mode)`** otherwise.
 > 2. Command **`java.exe -Xshare:dump`** generates the 17.3 Mb Java shared archive **`<install_dir>\bin\server\classes.jsa`** from file **`<install_dir>\lib\classlist`**.
 > 3. Repeat command from point 1. 
 > 
 > <pre style="font-size:80%;">
 > &gt; c:\opt\jdk-11.0.2\bin\java -version
-> java version "11.0.2" 2019-01-15 LTS
-> Java(TM) SE Runtime Environment 18.9 (build 11.0.2+9-LTS)
-> Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode)
+> openjdk version "11.0.2" 2018-10-16
+> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.2+7)
+> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.2+7, mixed mode)
 > &nbsp;
 > &gt; java -Xshare:dump
 > [...]
 > Number of classes 1272
 > [...]
 > mc  space:      8416 [  0.0% of total] [...]
-> rw  space:   4026504 [ 22.3% of total] [...]
-> ro  space:   7312280 [ 40.4% of total] [...]
+> rw  space:   4022976 [ 22.2% of total] [...]
+> ro  space:   7305208 [ 40.4% of total] [...]
 > md  space:      2560 [  0.0% of total] [...]
-> od  space:   6540160 [ 36.2% of total] [...]
-> total    :  17889920 [100.0% of total] [...]
+> od  space:   6534648 [ 36.1% of total] [...]
+> total    :  17873808 [100.0% of total] [...]
 > &nbsp;
 > &gt; dir /b c:\opt\jdk-11.0.2\bin\server
 > classes.jsa
 > jvm.dll
 > &nbsp;
 > &gt; c:\opt\jdk-11.0.2\bin\java -version
-> java version "11.0.2" 2019-01-15 LTS
-> Java(TM) SE Runtime Environment 18.9 (build 11.0.2+9-LTS)
-> Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode, <span style="background-color:#00cc00;color:white;">sharing</span>)
+> openjdk version "11.0.2" 2018-10-16
+> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.2+7)
+> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.2+7, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
 > </pre>
 
 ## Usage example

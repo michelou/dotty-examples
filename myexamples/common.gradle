@@ -58,7 +58,8 @@ build {
 run {
     dependsOn build
 
-    classpath runtimeClasspath
+    //classpath runtimeClasspath
+    classpath classesDir
 
     jvmArgs "-Dfile.encoding=UTF-8"
 
@@ -69,4 +70,16 @@ run {
 
 repositories {
     mavenCentral()
+}
+
+dependencies {
+    //classpath group: "ch.epfl.lamp", name: "dotty-compiler_0.12", version: "0.12.0-RC1"
+    implementation "ch.epfl.lamp:dotty-compiler_0.12:0.12.0-RC1"
+    implementation "ch.epfl.lamp:dotty-library_0.12:0.12.0-RC1"
+    implementation "ch.epfl.lamp:dotty-library_0.12:0.12.0-RC1"
+    implementation "org.jline:jline-reader:3.9.0"
+    implementation "org.jline:jline-terminal:3.9.0"
+    implementation "org.jline:jline-terminal-jna:3.9.0"
+    implementation "org.scala-lang:scala-library:2.12.8"
+    implementation "org.scala-lang.modules:scala-xml_2.12:1.1.0"
 }

@@ -11,6 +11,10 @@ set _BASENAME=%~n0
 
 set _EXITCODE=0
 
+for /f "tokens=1,* delims=:" %%i in ('chcp') do set _CODE_PAGE_DEFAULT=%%j
+rem make sure we use UTF-8 encoding for console outputs
+chcp 65001 1>NUL
+
 call :args %*
 if not %_EXITCODE%==0 goto end
 if defined _HELP call :help & exit /b %_EXITCODE%
