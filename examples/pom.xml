@@ -15,8 +15,9 @@
         <scala.version>0.12.0-RC1</scala.version> <!-- eg. "2.12.18" or "0.11.0" -->
         <scala.local.install>true</scala.local.install>
         <!-- Maven plugins -->
-        <scala.maven.version>1.0-SNAPSHOT</scala.maven.version> <!-- Dec, 2018 -->
-        <maven.compiler.version>3.8.0</maven.compiler.version> <!-- Jul, 2018 -->
+        <scala.maven.version>1.0-SNAPSHOT</scala.maven.version> <!-- Dec 2018 -->
+        <maven.compiler.version>3.8.0</maven.compiler.version> <!-- Jul 2018 -->
+		<maven.jar.version>3.1.1</maven.jar.version> <!-- Dec 2018 -->
         <exec.maven.version>1.6.0</exec.maven.version> <!-- Mar, 2017 -->
         <jmh.version>1.21</jmh.version> <!-- Oracle, May 2018 -->
     </properties>
@@ -32,6 +33,12 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <version>${maven.compiler.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.1.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
         <dependency>

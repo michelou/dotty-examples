@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>dotty.examples</groupId>
-	<artifactId>enum-Planet</artifactId>
-	<version>0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+    <groupId>dotty.examples</groupId>
+    <artifactId>enum-Planet</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <parent>
-    	<groupId>dotty.examples</groupId>
-	    <artifactId>dotty-examples</artifactId>
+        <groupId>dotty.examples</groupId>
+        <artifactId>dotty-examples</artifactId>
         <version>0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-	<dependencies>
+    <dependencies>
         <!-- see parent pom.xml -->
-	</dependencies>
+    </dependencies>
 
-	<build>
-		<sourceDirectory>src/main</sourceDirectory>
-		<testSourceDirectory>src/test</testSourceDirectory>
+    <properties>
+	    <mainClass>Planet</mainClass>
+	</properties>
+
+    <build>
+        <sourceDirectory>src/main</sourceDirectory>
+        <testSourceDirectory>src/test</testSourceDirectory>
         <outputDirectory>target/classes</outputDirectory>
-		<plugins>
+        <plugins>
             <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven.compiler.version}</version>
-				<executions>
-					<execution>
-						<phase>compile</phase>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-					</execution>
-				</executions>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -44,7 +48,7 @@
                         <include>java/**/*.java</include>
                     </includes>
                 </configuration>
-			</plugin>
+            </plugin>
             <!-- local Maven plugin for Scala 2.x/3.x (see ${scala.version}) -->
             <!-- (see directory /plugins/scala-maven-plugin/) -->
             <plugin>
@@ -71,7 +75,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <mainClass>Planet</mainClass>
+                            <mainClass>${mainClass}</mainClass>
                             <arguments>
                                 <argument>1</argument>
                             </arguments>
@@ -87,6 +91,19 @@
                     </jvmArgs>
                 </configuration>
             </plugin>
-		</plugins>
-	</build>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven.jar.version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>${mainClass}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -29,7 +29,7 @@ Other topics we are currently investigating - on Windows or not - include [Graal
 > | [Oracle&nbsp;OpenJDK](https://ci.adoptopenjdk.net/) | [Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup> | Oracle |
 > | [IBM OpenJ9](https://ci.eclipse.org/openj9/) | [Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup> | IBM |
 >
-> <sub><sup>**(1)**</sup> Written in [Go](https://github.com/drone/drone), <sup>**(2)**</sup> Written in Java, <sup>**(3)**</sup> Written in Ruby.</sub>
+> <sub><sup>**(1)**</sup> Written in [Go](https://github.com/drone/drone), <sup>**(2)**</sup> Written in [Java](https://www.oracle.com/technetwork/java/index.html), <sup>**(3)**</sup> Written in [Ruby](https://www.ruby-lang.org/en/).</sub>
 
 
 ## <span id="section_01">Project dependencies</span>
@@ -137,7 +137,6 @@ We distinguish different sets of batch commands:
     &gt; dir /b .\dist\bin
     common
     common.bat
-    dot.bat
     dotc
     dotc.bat
     dotd
@@ -181,7 +180,8 @@ We distinguish different sets of batch commands:
     | `bootstrap` &rarr; `compile` | ~45 min | &nbsp; |
     | `archives` &rarr; `bootstrap` | &nbsp; | `dist-bootstrapped\target\*.gz,*.zip` |
     | `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
-    | `sbt` &rarr; `bootstrap` | &nbsp; | &nbsp; |<br/>
+    | `sbt` &rarr; `bootstrap` | &nbsp; | &nbsp; |
+    
     <sub><sup>**(1)**</sup> Average execution time measured on a i7-i8550U laptop with 16 GB of memory.</sub>
 
     > **:mag_right:** Subcommands whose name ends with **`-only`** help us to execute one single step without running again the precedent ones. They are listed as *Advanced subcommands* by command **`build help`** and should ***never*** be used in an automatic build.
@@ -194,7 +194,7 @@ We distinguish different sets of batch commands:
     > | `documentation-only` | &lt;3 min | `docs\_site\*.html`<br/>`docs\docs\*.md` |
     > | `sbt-only` | &nbsp; | &nbsp; |
     >
-    > In particular we have:
+    > In particular we have the following equivalences:
     > 
     > | Command | Equivalent command |
     > | :------ | :----------------- |
@@ -324,7 +324,7 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     [...(git)...]
     </pre>
 
-- **`compile`** - This subcommand generates the *"1st stage compiler"* for Dotty and executes the relevant test suites. 
+- **`compile`** - This subcommand generates the *"1st stage compiler"* for [Dotty](http://dotty.epfl.ch/) and executes the relevant test suites. 
 
     <pre style="font-size:80%;">
     &gt; build compile

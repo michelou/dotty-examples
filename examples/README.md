@@ -507,10 +507,31 @@ Your weight on JUPITER is 2.5305575254957406
 </pre>
 
 
+<pre style="font-size:80%;">
+<b>&gt;</b> mvn clean compile package
+...
+[INFO]
+[INFO] --- maven-jar-plugin:3.1.1:jar (default-jar) @ enum-Planet ---
+[INFO] Building jar: W:\dotty-examples\examples\enum-Planet\target\enum-Planet-0.1-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  9.468 s
+[INFO] Finished at: 2019-01-27T19:53:09+01:00
+[INFO] ------------------------------------------------------------------------
+
+<b>&gt;</b> java -version 2>&1 | findstr version
+openjdk version "11.0.2" 2018-10-16
+
+<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.12.0-RC1\lib\dotty-library_0.12-0.12.0-RC1.jar;c:\opt\dotty-0.12.0-RC1\lib\scala-library-2.12.8.jar -jar target\enum-Planet-0.1-SNAPSHOT.jar 1
+Your weight on MERCURY is 0.37775761520093526
+Your weight on SATURN is 1.0660155388115666
+Your weight on VENUS is 0.9049990998410455
+Your weight on URANUS is 0.9051271993894251
+Your weight on EARTH is 0.9999999999999999
+Your weight on NEPTUNE is 1.1383280724696578
+Your weight on MARS is 0.37873718403712886
+Your weight on JUPITER is 2.5305575254957406
+</pre>
+
 *[mics](http://lampwww.epfl.ch/~michelou/)/January 2019* [**&#9650;**](#top)
-
-
-
-
-
-
