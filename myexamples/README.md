@@ -371,10 +371,10 @@ The configuration file [**`pom.xml`**](HelloWorld/pom.xml) in directory [**`Hell
 <b>&lt;/project&gt;</b>
 </pre>
 
-Running command **` mvn compile test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our Maven plugin **`scala-maven-plugin`**:
+Running command **`mvn clean test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our Maven plugin **`scala-maven-plugin`**:
 
 <pre>
-&gt; mvn -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL
+&gt; mvn -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL
 [DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_201\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.12.0-RC1 \
  -cp C:\opt\dotty-0.12.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
@@ -389,10 +389,33 @@ Running command **` mvn compile test`** with option **`-debug`** produces additi
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
-Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
+Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output (option **`--quiet`** tells Maven not to display anything other than **`ERROR`** level messages):
 
 <pre style="font-size:80%;">
 <b>&gt;</b> mvn --quiet clean test
+Hello world!
+</pre>
+
+We can also specify phase **`package`** to generate (and maybe execute) the **`HelloWorld`** Java archive:
+
+<pre style="font-size:80%;">
+<b>&gt;</b> mvn clean package
+[INFO] Scanning for projects...
+[INFO]
+[INFO] --------------------< dotty.myexamples:HelloWorld >---------------------
+[INFO] Building HelloWorld 0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[..]
+[INFO] --- maven-jar-plugin:3.1.1:jar (default-jar) @ HelloWorld ---
+[INFO] Building jar: W:\dotty-examples\myexamples\HelloWorld\target\HelloWorld-0.1-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.635 s
+[INFO] Finished at: 2019-01-31T13:53:22+01:00
+[INFO] ------------------------------------------------------------------------
+
+<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.12.0-RC1\lib\dotty-library_0.12-0.12.0-RC1.jar;c:\opt\dotty-0.12.0-RC1\lib\scala-library-2.12.8.jar -jar target\HelloWorld-0.1-SNAPSHOT.jar
 Hello world!
 </pre>
 

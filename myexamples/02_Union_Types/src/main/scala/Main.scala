@@ -35,7 +35,7 @@ object Main {
   // see https://www.schoolofhaskell.com/school/to-infinity-and-beyond/pick-of-the-week/sum-types
   private def testDivision: Unit = {
     sealed trait DivisionByZero
-    final case object DivisionByZero extends DivisionByZero
+    case object DivisionByZero extends DivisionByZero
     final case class Success(result: Double)
     type DivisionResult = DivisionByZero | Success
 

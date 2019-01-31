@@ -1,10 +1,12 @@
 package p
 
-import org.junit._
+import org.apiguardian.api.API.Status
+
+import org.junit.jupiter.api.Assertions
 
 object Main {
   def main(args: Array[String]): Unit = {
-    Assert.assertTrue(args.length > 0)
+    Assertions.assertTrue(args.length > 0)
     println("Got one or more arguments")
   }
 }

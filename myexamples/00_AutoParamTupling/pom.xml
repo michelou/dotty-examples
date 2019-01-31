@@ -19,6 +19,11 @@
         <!-- see parent pom.xml -->
     </dependencies>
 
+    <properties>
+        <mainClass>myexamples.Main</mainClass>
+        <m2.repository>${user.home}\.m2\repository</m2.repository>
+    </properties>
+
     <build>
         <sourceDirectory>src/main</sourceDirectory>
         <testSourceDirectory>src/test</testSourceDirectory>
@@ -31,7 +36,15 @@
                 <version>${maven.compiler.version}</version>
                 <executions>
                     <execution>
+                        <id>src-compile</id>
                         <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <phase>test</phase>
                         <goals>
                             <goal>compile</goal>
                         </goals>
@@ -62,6 +75,16 @@
                             <includes>
                                 <include>scala/**/*.scala</include>
                             </includes>
+                            <additionalClasspathElements>
+                                <additionalClasspathElement>${m2.repository}/junit/junit/4.11/junit-4.11.jar</additionalClasspathElement> <!-- @withRun -->
+                                <additionalClasspathElement>${m2.repository}/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.repository}/org/junit/jupiter/junit-jupiter-api/5.3.2/junit-jupiter-api-5.3.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.repository}/org/junit/platform/junit-platform-commons/1.3.2/junit-platform-commons-1.3.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.repository}/org/junit/platform/junit-platform-runner/1.3.2/junit-platform-runner-1.3.2.jar</additionalClasspathElement>
+                                <!--
+                                <additionalClasspathElement>${m2.repository}/org/junit/vintage/junit-vintage-engine/5.3.2/junit-vintage-engine-5.3.2.jar</additionalClasspathElement>
+                                -->
+                            </additionalClasspathElements>
                         </configuration>
                     </execution>
                     <execution>
@@ -71,7 +94,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <mainClass>Main</mainClass>
+                            <mainClass>${mainClass}</mainClass>
                             <arguments>
                                 <argument></argument>
                             </arguments>
@@ -86,6 +109,24 @@
                         <jvmArg>-Xmx1024m</jvmArg>
                     </jvmArgs>
                 </configuration>
+            </plugin>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven.jar.version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>${mainClass}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <!-- JUnit 5 requires Surefire version 2.22.1 or higher -->
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.1</version>
             </plugin>
         </plugins>
     </build>
