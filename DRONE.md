@@ -16,6 +16,7 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 - [Running Dotty on Windows](README.md)
 - Building Dotty on Windows [**&#9660;**](#bottom)
 - [Data Sharing and Dotty on Windows](CDS.md)
+- [OpenJDK and Dotty on Windows](OPENJDK.md)
 
 Other topics we are currently investigating - on Windows or not - include [GraalVM](https://www.graalvm.org/) (docs), [JMH](https://openjdk.java.net/projects/code-tools/jmh/), [OpenJDK 11](https://adoptopenjdk.net/) and [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html).
 
@@ -638,7 +639,7 @@ total warnings with regards to compilation and documentation: 29
 <a name="footnote_01">[1]</a> ***2018-11-18*** [↩](#anchor_02)
 
 <div style="margin:0 0 1em 20px;">
-Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the next LTS release.
+Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current LTS release.
 </div>
 
 ***

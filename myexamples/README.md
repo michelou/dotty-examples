@@ -25,15 +25,14 @@ Command [**`build`**](dotty-example-project/build.bat) is a basic build tool con
 > - We use at most 80 characters per line. In general we would say that 80 characters fit well with 4:3 screens and 100 characters fit well with 16:9 screens ([Google's convention](https://google.github.io/styleguide/javaguide.html#s4.4-column-limit) is 100 characters).
 > - We organize our code in 4 sections: `Environment setup`, `Main`, `Subroutines` and `Cleanups`.
 > - We write exactly ***one exit instruction*** (label **`end`** in section **`Cleanups`**).
-> - We start names of global variables with the `_` character (shell variables defined in the user environment start with a letter).
-> - We start names of local variables (e.g. inside subroutines or  **`if/for`** constructs) start with `__` (two `_` characters).
+> - We adopt the following naming conventions: global variables start with character `_` (shell variables defined in the user environment start with a letter) and local variables (e.g. inside subroutines or  **`if/for`** constructs) start with `__` (two `_` characters).
 
 <pre style="font-size:80%;">
 @echo off
 setlocal enabledelayedexpansion
 ...
-<span style="color:#006600;">rem ##########################################################################
-rem ## Environment setup</span>
+<i>rem ##########################################################################
+rem ## Environment setup</i>
 
 <b>set</b> _EXITCODE=0
 
@@ -45,18 +44,18 @@ rem ## Environment setup</span>
 <b>call :args %*</b>
 <b>if not</b> %_EXITCODE%==0 <b>goto end</b>
 
-<span style="color:#006600;">rem ##########################################################################
-rem ## Main</span>
+<i>rem ##########################################################################
+rem ## Main</i>
 
 <b>if</b> %_CLEAN%==1 (
     <b>call <span style="color:#9966ff;">:clean</span></b>
     <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
-if %_COMPILE%==1 (
+<b>if</b> %_COMPILE%==1 (
     <b>call <span style="color:#9966ff;">:compile</span></b>
     <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
-if %_DOC%==1 (
+<b>if</b> %_DOC%==1 (
     <b>call <span style="color:#9966ff;">:doc</span></b>
     <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
@@ -66,8 +65,8 @@ if %_DOC%==1 (
 )
 <b>goto end</b>
 
-<span style="color:#006600;">rem ##########################################################################
-rem ## Subroutines</span>
+<i>rem ##########################################################################
+rem ## Subroutines</i>
 
 <span style="color:#9966ff;">:props</span>
 ...
@@ -83,13 +82,13 @@ goto :eof
 goto :eof
 <span style="color:#9966ff;">:doc</span>
 ...
-goto :eof
+<b>goto :eof</b>
 <span style="color:#9966ff;">:run</span>
 ...
 <b>goto :eof</b>
 
-<span style="color:#006600;">rem ##########################################################################
-rem ## Cleanups</span>
+<i>rem ##########################################################################
+rem ## Cleanups</i>
 
 :end
 ...
@@ -148,7 +147,7 @@ ext {
 clean.doLast {
     targetDir.deleteDir()
 }
-task compileDotty(type: JavaExec) {
+<b>task</b> compileDotty(type: JavaExec) {
     dependsOn compileJava
     ...
     main "dotty.tools.dotc.Main"
@@ -332,7 +331,7 @@ The configuration file [**`pom.xml`**](HelloWorld/pom.xml) in directory [**`Hell
 &lt;?xml version="1.0" encoding="UTF-8"?>
 <b>&lt;project</b> xmlns=<span style="color:#990000;">"http://maven.apache.org/POM/4.0.0"</span> ...>
     ...
-    &lt;artifactId>HelloWorld&lt;/artifactId>
+    <b>&lt;artifactId&gt;</b>HelloWorld<b>&lt;/artifactId&gt;</b>
     ...
     <b>&lt;parent&gt;</b>
         ...
@@ -350,21 +349,21 @@ The configuration file [**`pom.xml`**](HelloWorld/pom.xml) in directory [**`Hell
                 &lt;groupId>org.apache.maven.plugins&lt;/groupId>
                 &lt;artifactId>maven-compiler-plugin&lt;/artifactId>
                 ...
-                &lt;configuration>
+                <b>&lt;configuration&gt;</b>
                     ...
                     &lt;includes>
                         &lt;include>java/**/*.java&lt;/include>
                     &lt;/includes>
-                &lt;/configuration>
+                <b>&lt;/configuration&gt;</b>
             <b>&lt;/plugin&gt;</b>
             <b>&lt;plugin&gt;</b>
                 &lt;groupId>ch.epfl.alumni&lt;/groupId>
                 &lt;artifactId>scala-maven-plugin&lt;/artifactId>
                 ...
-                &lt;configuration>
-                    &lt;scalaVersion>${scala.version}&lt;/scalaVersion>
+                <b>&lt;configuration&gt;</b>
+                    <b>&lt;scalaVersion&gt;</b>${scala.version}<b>&lt;/scalaVersion&gt;</b>
                     ...
-                &lt;/configuration>
+                <b>&lt;/configuration&gt;</b>
             <b>&lt;/plugin&gt;</b>
         <b>&lt;/plugins&gt;</b>
     <b>&lt;/build&gt;</b>
@@ -375,16 +374,16 @@ Running command **`mvn clean test`** with option **`-debug`** produces additiona
 
 <pre>
 &gt; mvn -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL
-[DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_201\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.12.0-RC1 \
  -cp C:\opt\dotty-0.12.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_201\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.12.0-RC1 [...]
-[DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_201\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
  -Xms64m -Xmx1024m -cp C:\opt\dotty-0.12.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
@@ -474,4 +473,4 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
 </div>
 
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/January 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/February 2019* [**&#9650;**](#top)

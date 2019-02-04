@@ -9,8 +9,8 @@
     <packaging>jar</packaging>
 
     <parent>
-    	<groupId>dotty.myexamples</groupId>
-	    <artifactId>dotty-myexamples</artifactId>
+        <groupId>dotty.myexamples</groupId>
+        <artifactId>dotty-myexamples</artifactId>
         <version>0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -21,6 +21,7 @@
 
     <properties>
         <mainClass>myexamples.Main</mainClass>
+        <m2.repository>${user.home}\.m2\repository</m2.repository>
     </properties>
 
     <build>
@@ -35,7 +36,15 @@
                 <version>${maven.compiler.version}</version>
                 <executions>
                     <execution>
+                        <id>default-compile</id>
                         <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <phase>test</phase>
                         <goals>
                             <goal>compile</goal>
                         </goals>
@@ -49,7 +58,7 @@
                     </includes>
                 </configuration>
             </plugin>
-            <!-- local Maven plugin for Scala 2.x/3.x (see ${scala.version}) -->
+            <!-- local Maven plugin for Scala 2.x/3.x (see ${scala.version} -->
             <!-- (see directory /plugins/scala-maven-plugin/) -->
             <plugin>
                 <groupId>ch.epfl.alumni</groupId>
@@ -57,7 +66,7 @@
                 <version>${scala.maven.version}</version>
                 <executions>
                     <execution>
-                        <id>scala-compile</id>
+                        <id>default-compile</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>compile</goal>
@@ -69,7 +78,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>scala-run</id>
+                        <id>default-test</id>
                         <phase>test</phase>
                         <goals>
                             <goal>run</goal>
@@ -103,6 +112,12 @@
                         </manifest>
                     </archive>
                 </configuration>
+            </plugin>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
             </plugin>
         </plugins>
     </build>

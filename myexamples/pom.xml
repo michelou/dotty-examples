@@ -17,6 +17,8 @@
         <!-- Maven plugins -->
         <scala.maven.version>1.0-SNAPSHOT</scala.maven.version> <!-- Dec 2018 -->
         <maven.compiler.version>3.8.0</maven.compiler.version> <!-- Jul 2018 -->
+        <!-- Note: JUnit 5 requires Surefire version 2.22.1 or higher -->
+		<maven.surefire.version>2.22.1</maven.surefire.version> <!-- Oct 2018 -->
         <maven.jar.version>3.1.1</maven.jar.version> <!-- Dec 2018 -->
         <exec.maven.version>1.6.0</exec.maven.version> <!-- Mar, 2017 -->
         <jmh.version>1.21</jmh.version> <!-- Oracle, May 2018 -->
@@ -75,12 +77,20 @@
             <version>5.3.2</version>
             <scope>test</scope>
         </dependency>
+		<!--
 		<dependency>
 		    <groupId>org.junit.vintage</groupId>
 			<artifactId>junit-vintage-engine</artifactId>
 			<version>5.3.2</version>
             <scope>test</scope>
 		</dependency>
+		-->
+		<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven.surefire.version}</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
         <dependency>
             <groupId>org.codehaus.mojo</groupId>

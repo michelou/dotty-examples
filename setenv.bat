@@ -94,9 +94,9 @@ if not defined __ARG goto args_done
 if /i "%__ARG%"=="help" ( set _HELP=1& goto :eof
 ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
 ) else (
-    echo Error: Unknown subcommand %__ARG% 1>&2
+    echo [91mError[0m: Unknown subcommand %__ARG% 1>&2
     set _EXITCODE=1
-    goto :eof
+    goto args_done
 )
 shift
 goto args_loop
@@ -119,10 +119,10 @@ if defined JDK_HOME (
     set _JDK_HOME=%JDK_HOME%
     if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable JDK_HOME
 ) else (
-    set _PATH=C:\Progra~1\Java
-    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\jdk1.8*" 2^>NUL') do set _JDK_HOME=!_PATH!\%%f
+    set _PATH=C:\opt
+    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\jdk-8*" 2^>NUL') do set _JDK_HOME=!_PATH!\%%f
     if not defined _JDK_HOME (
-        set _PATH=C:\opt
+        set _PATH=C:\Progra~1\Java
         for /f %%f in ('dir /ad /b "!_PATH!\jdk1.8*" 2^>NUL') do set _JDK_HOME=!_PATH!\%%f
     )
     if defined _JDK_HOME (
@@ -130,7 +130,7 @@ if defined JDK_HOME (
     )
 )
 if not exist "%_JDK_HOME%\bin\javac.exe" (
-    echo Error: javac executable not found ^(%_JDK_HOME%^) 1>&2
+    echo [91mError[0m: javac executable not found ^(%_JDK_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -153,7 +153,7 @@ if defined SCALA_HOME (
     )
 )
 if not exist "%_SCALA_HOME%\bin\scalac.bat" (
-    echo Error: Scala executable not found ^(%_SCALA_HOME%^) 1>&2
+    echo [91mError[0m: Scala executable not found ^(%_SCALA_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -175,7 +175,7 @@ if defined DOTTY_HOME (
     )
 )
 if not exist "%_DOTTY_HOME%\bin\dotc.bat" (
-    echo Error: Dotty executable not found ^(%_DOTTY_HOME%^) 1>&2
+    echo [91mError[0m: Dotty executable not found ^(%_DOTTY_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -204,7 +204,7 @@ if defined ANT_HOME (
     )
 )
 if not exist "%_ANT_HOME%\bin\ant.cmd" (
-    echo Error: Ant executable not found ^(%_ANT_HOME%^) 1>&2
+    echo [91mError[0m: Ant executable not found ^(%_ANT_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -233,7 +233,7 @@ if defined GRADLE_HOME (
     )
 )
 if not exist "%_GRADLE_HOME%\bin\gradle.bat" (
-    echo Error: Gradle executable not found ^(%_GRADLE_HOME%^) 1>&2
+    echo [91mError[0m: Gradle executable not found ^(%_GRADLE_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -262,7 +262,7 @@ if defined MILL_HOME (
     )
 )
 if not exist "%_MILL_HOME%\mill.bat" (
-    echo Error: Mill executable not found ^(%_MILL_HOME%^) 1>&2
+    echo [91mError[0m: Mill executable not found ^(%_MILL_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -284,7 +284,7 @@ if defined MAVEN_HOME (
     )
 )
 if not exist "%_MVN_HOME%\bin\mvn.cmd" (
-    echo Error: Maven executable not found ^(%_MVN_HOME%^) 1>&2
+    echo [91mError[0m: Maven executable not found ^(%_MVN_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -306,7 +306,7 @@ if defined SBT_HOME (
     )
 )
 if not exist "%_SBT_HOME%\bin\sbt.bat" (
-    echo Error: sbt executable not found ^(%_SBT_HOME%^) 1>&2
+    echo [91mError[0m: sbt executable not found ^(%_SBT_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -329,7 +329,7 @@ if defined CFR_HOME (
     )
 )
 if not exist "%_CFR_HOME%\bin\cfr.bat" (
-    echo Error: cfr executable not found ^(%_CFR_HOME%^) 1>&2
+    echo [91mError[0m: cfr executable not found ^(%_CFR_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -358,7 +358,7 @@ if defined GIT_HOME (
     )
 )
 if not exist "%_GIT_HOME%\bin\git.exe" (
-    echo Error: Git executable not found ^(%_GIT_HOME%^) 1>&2
+    echo [91mError[0m: Git executable not found ^(%_GIT_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )

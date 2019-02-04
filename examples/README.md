@@ -24,49 +24,48 @@ Command [**`build`**](enum-Planet/build.bat) is a basic build tool consisting of
 > - We use at most 80 characters per line. In general we would say that 80 characters fit well with 4:3 screens and 100 characters fit well with 16:9 screens ([Google's convention](https://google.github.io/styleguide/javaguide.html#s4.4-column-limit) is 100 characters).
 > - We organize our code in 4 sections: `Environment setup`, `Main`, `Subroutines` and `Cleanups`.
 > - We write exactly ***one exit instruction*** (label **`end`** in section **`Cleanups`**).
-> - We start names of global variables with the `_` character (shell variables defined in the user environment start with a letter).
-> - We start names of local variables (e.g. inside subroutines or  **`if/for`** constructs) start with `__` (two `_` characters).
+> - We adopt the following naming conventions: global variables start with character `_` (shell variables defined in the user environment start with a letter) and local variables (e.g. inside subroutines or  **`if/for`** constructs) start with `__` (two `_` characters).
 
 <pre style="font-size:80%;">
 @echo off
 <b>setlocal enabledelayedexpansion</b>
 ...
-<span style="color:#006600;">rem ##########################################################################
-rem ## Environment setup</span>
+<i>rem ##########################################################################
+rem ## Environment setup</i>
 
 <b>set</b> _EXITCODE=0
 
-for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
+<b>for</b> %%f <b>in</b> ("%~dp0") <b>do set</b> _ROOT_DIR=%%~sf
 
 <b>call <span style="color:#9966ff;">:props</span></b>
-if not %_EXITCODE%==0 goto end
+<b>if not</b> %_EXITCODE%==0 <b>goto <span style="color:#9966ff;">end</span></b>
 
 <b>call <span style="color:#9966ff;">:args</span> %*</b>
-if not %_EXITCODE%==0 goto end
+<b>if not</b> %_EXITCODE%==0 <b>goto <span style="color:#9966ff;">end</span></b>
 
-<span style="color:#006600;">rem ##########################################################################
-rem ## Main</span>
+<i>rem ##########################################################################
+rem ## Main</i>
 
-if %_CLEAN%==1 (
-    call :clean
-    if not !_EXITCODE!==0 goto end
+<b>if</b> %_CLEAN%==1 (
+    <b>call :clean</b>
+    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
-if %_COMPILE%==1 (
+<b>if</b> %_COMPILE%==1 (
     <b>call <span style="color:#9966ff;">:compile</span></b>
-    if not !_EXITCODE!==0 goto end
+    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
 if %_DOC%==1 (
     <b>call <span style="color:#9966ff;">:doc</span></b>
-    if not !_EXITCODE!==0 goto end
+    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
 if %_RUN%==1 (
     <b>call <span style="color:#9966ff;">:run</span></b>
-    if not !_EXITCODE!==0 goto end
+    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
 <b>goto <span style="color:#9966ff;">end</span></b>
 
-<span style="color:#006600;">rem ##########################################################################
-rem ## Subroutines</span>
+<i>rem ##########################################################################
+rem ## Subroutines</i>
 
 <span style="color:#9966ff;">:props</span>
 ...
@@ -76,10 +75,10 @@ rem ## Subroutines</span>
 <b>goto :eof</b>
 <span style="color:#9966ff;">:clean</span>
 ...
-goto :eof
+<b>goto :eof</b>
 <span style="color:#9966ff;">:compile</span>
 ...
-goto :eof
+<b>goto :eof</b>
 <span style="color:#9966ff;">:doc</span>
 ...
 <b>goto :eof</b>
@@ -87,8 +86,8 @@ goto :eof
 ...
 <b>goto :eof</b>
 
-<span style="color:#006600;">rem ##########################################################################
-rem ## Cleanups</span>
+<i>rem ##########################################################################
+rem ## Cleanups</i>
 
 <span style="color:#9966ff;">:end</span>
 ...
@@ -215,13 +214,13 @@ ext {
 clean.doLast {
     targetDir.deleteDir()
 }
-task compileDotty(type: JavaExec) {
+<b>task</b> compileDotty(type: JavaExec) {
     dependsOn compileJava
     ...
     main <span style="color:#990000;">"dotty.tools.dotc.Main"</span>
 }
 compileDotty.doFirst {
-    if (!classesDir.exists()) classesDir.mkdirs()
+    <b>if</b> (!classesDir.exists()) classesDir.mkdirs()
 }
 build {
     dependsOn compileDotty
@@ -234,7 +233,7 @@ run {
 ...
 </pre>
 
-Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
+Execution of [**`Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
 
 <pre style="font-size:80%;">
 <b>&gt;</b> gradle clean run
@@ -281,7 +280,7 @@ The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is a standalone 
 Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) expects one argument and produces the following output:
 
 <pre style="font-size:80%;">
-&gt; sbt -warn clean "run 1"
+<b>&gt;</b> sbt -warn clean "run 1"
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -439,10 +438,10 @@ The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enu
     ...
     <b>&lt;parent&gt;</b>
         ...
-        &lt;relativePath>../pom.xml&lt;/relativePath>
+        <b>&lt;relativePath&gt;</b>../pom.xml<b>&lt;/relativePath&gt;</b>
     <b>&lt;/parent&gt;</b>
     <b>&lt;dependencies&gt;</b>
-        &lt;!-- see parent pom.xml -->
+        <i>&lt;!-- see parent pom.xml --&gt;</i>
     <b>&lt;/dependencies&gt;</b>
     <b>&lt;build&gt;</b>
         &lt;sourceDirectory>src/main&lt;/sourceDirectory>
@@ -455,19 +454,19 @@ The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enu
                 ...
                 <b>&lt;configuration&gt;</b>
                     ...
-                    &lt;includes>
+                    <b>&lt;includes&gt;</b>
                         &lt;include>java/**/*.java&lt;/include>
-                    &lt;/includes>
+                    <b>&lt;/includes&gt;</b>
                 <b>&lt;/configuration&gt;</b>
             <b>&lt;/plugin&gt;</b>
             <b>&lt;plugin&gt;</b>
                 &lt;groupId>ch.epfl.alumni&lt;/groupId>
                 &lt;artifactId>scala-maven-plugin&lt;/artifactId>
                 ...
-                &lt;configuration>
-                    &lt;scalaVersion>${scala.version}&lt;/scalaVersion>
+                <b>&lt;configuration&gt;</b>
+                    <b>&lt;scalaVersion&gt;</b>${scala.version}<b>&lt;/scalaVersion&gt;</b>
                     ...
-                &lt;/configuration>
+                <b>&lt;/configuration&gt;</b>
             <b>&lt;/plugin&gt;</b>
         <b>&lt;/plugins&gt;</b>
     <b>&lt;/build&gt;</b>
@@ -478,21 +477,21 @@ Running command **` mvn compile test`** with option **`-debug`** produces additi
 
 <pre>
 &gt; mvn -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL
-[DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_201\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.12.0-RC1 \
  -cp C:\opt\dotty-0.11.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_201\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.12.0-RC1 [...]
-[DEBUG] [execute] C:\Progra~1\Java\jdk1.8.0_201\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
  -Xms64m -Xmx1024m -cp C:\opt\dotty-0.12.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
-Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
+Execution of [**`Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
 
 <pre style="font-size:80%;">
 <b>&gt;</b> mvn --quiet clean test
