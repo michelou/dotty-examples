@@ -24,6 +24,7 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 This project depends on several external software for the **Microsoft Windows** platform:
 
 - [BellSoft OpenJDK 11](https://bell-sw.com/pages/java-11.0.2/) from [BellSoft](https://bell-sw.com/pages/about).
+- [DCEVM OpenJDK 11](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm) from [Travis](https://travis-ci.com/).
 - [OpenJ9 OpenJDK 11](https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9) from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html).
 - [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot) from [Oracle]().
 - [RedHat OpenJDK 11](https://developers.redhat.com/products/openjdk/download/) from [RedHat]().
@@ -39,6 +40,7 @@ For instance our development environment looks as follows (*February 2019*):
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.2\
 C:\opt\jdk-bellsoft-11.0.2\
+C:\opt\jdk-dcevm-11.0.1\
 C:\opt\jdk-openj9-11.0.2\
 C:\opt\jdk-redhat-11.0.1\
 C:\opt\jdk-sapmachine-11.0.2\
@@ -73,6 +75,45 @@ OpenJDK 64-Bit Server VM (build 11.0.2-BellSoft+7, mixed mode)
 openjdk version "11.0.2-BellSoft" 2018-10-16
 OpenJDK Runtime Environment (build 11.0.2-BellSoft+7)
 OpenJDK 64-Bit Server VM (build 11.0.2-BellSoft+7, mixed mode, sharing)
+</pre>
+
+
+### DCEVM OpenJDK 11
+
+<pre style="font-size:80%;">
+<b>&gt;</b> c:\opt\jdk-dcevm-11.0.1\bin\java -version
+Starting HotswapAgent 'c:\opt\jdk-dcevm-11.0.1\lib\hotswap\hotswap-agent.jar'
+HOTSWAP AGENT: 13:13:46.677 INFO [...]
+HOTSWAP AGENT: 13:13:47.328 INFO [...]
+openjdk version "11.0.1.6" 2018-12-16
+OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.1.6+7-201901011603)
+Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.1.6+7-201901011603, mixed mode)
+
+<b>&gt;</b> c:\opt\jdk-dcevm-11.0.1\bin\java -Xshare:dump
+Starting HotswapAgent 'c:\opt\jdk-dcevm-11.0.1\lib\hotswap\hotswap-agent.jar'
+narrow_klass_base = 0x0000000800000000, narrow_klass_shift = 3
+[...]
+Number of classes 1821
+    instance classes   =  1673
+    obj array classes  =   140
+    type array classes =     8
+Updating ConstMethods ... done.
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  Internal Error (c:/Users/travis/build/TravaOpenJDK/trava-jdk-11-dcevm/openjdk-build/workspace/build/src/src/hotspot/share/memory/metaspaceShared.cpp:1624), pid=280208, tid=291128
+#  guarantee(ik->loader_type() != 0) failed: Class loader type must be set for this class com/sun/proxy/$Proxy0
+#
+# JRE version: OpenJDK Runtime Environment (11.0.1.6+7) (build 11.0.1.6+7-201901011603)
+# Java VM: Dynamic Code Evolution 64-Bit Server VM (11.0.1.6+7-201901011603, interpreted mode, compressed oops, serial gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+# An error report file with more information is saved as:
+# W:\dotty-batch-files\hs_err_pid280208.log
+#
+# If you would like to submit a bug report, please visit:
+#   https://github.com/AdoptOpenJDK/openjdk-build/issues
+#
 </pre>
 
 

@@ -73,9 +73,9 @@ if /i "%__ARG%"=="-artifact" ( set _IVY=1& set _MAVEN=1
     if not defined _CLASS_NAME ( set _CLASS_NAME=%__ARG%
     ) else if not defined _METH_NAME ( set _METH_NAME=%__ARG%
     ) else (
-        echo Error: Unknown subcommand %__ARG% 1>&2
+        echo [91mError[0m: Unknown subcommand %__ARG% 1>&2
         set _EXITCODE=1
-        goto :eof
+        goto :args_done
     )
 )
 shift
@@ -100,7 +100,7 @@ rem output parameters: _JAR_CMD, _JAVA_HOME, _DOTTY_HOME, _SCALA_HOME
 :init
 where /q jar.exe
 if not %ERRORLEVEL%==0 (
-    echo Error: jar command not found ^(check your PATH variable^) 1>&2
+    echo [91mError[0m: jar command not found ^(check your PATH variable^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -110,14 +110,15 @@ for /f "delims=" %%i in ('where "%_JAR_CMD%"') do (
     for %%f in ("%%~dpi..") do set _JAVA_HOME=%%~sf
 )
 if not exist "%_JAVA_HOME%\lib\" (
-    echo Error: Java library directory not found ^(check your PATH variable^) 1>&2
+    echo [91mError[0m: Java library directory not found ^(check your PATH variable^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
 
+rem determine location of Dotty installation directory
 where /q dotc.bat
 if not %ERRORLEVEL%==0 (
-    echo Error: dotc command not found ^(check your PATH variable^) 1>&2
+    echo [91mError[0m: dotc command not found ^(check your PATH variable^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -125,11 +126,12 @@ for /f "delims=" %%i in ('where dotc.bat') do (
     for %%f in ("%%~dpi..") do set _DOTTY_HOME=%%~sf
 )
 if not exist "%_DOTTY_HOME%\lib\" (
-    echo Error: Dotty library directory not found ^(check your PATH variable^) 1>&2
+    echo [91mError[0m: Dotty library directory not found ^(check your PATH variable^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
 
+rem determine location of Scala installation directory
 where /q scalac.bat
 if not %ERRORLEVEL%==0 (
     echo Error: scalac command not found ^(check your PATH variable^) 1>&2
@@ -140,7 +142,7 @@ for /f "delims=" %%i in ('where scalac.bat') do (
     for %%f in ("%%~dpi..") do set _SCALA_HOME=%%~sf
 )
 if not exist "%_SCALA_HOME%\lib\" (
-    echo Error: Scala library directory not found ^(check your PATH variable^) 1>&2
+    echo [91mError[0m: Scala library directory not found ^(check your PATH variable^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -154,7 +156,7 @@ set __RECURSIVE=%~2
 if defined __RECURSIVE ( set __DIR_OPTS=/s /b
 ) else ( set __DIR_OPTS=/b
 )
-echo Searching for class %_CLASS_NAME% in library files %__LIB_DIR%\*.jar
+echo Searching for class %_CLASS_NAME% in library files !__LIB_DIR:%USERPROFILE%=%%USERPROFILE%%!\*.jar
 for /f %%i in ('dir %__DIR_OPTS% "%__LIB_DIR%\*.jar" 2^>NUL') do (
     if defined __RECURSIVE ( set __JAR_FILE=%%i
     ) else ( set __JAR_FILE=%__LIB_DIR%\%%i

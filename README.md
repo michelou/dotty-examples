@@ -45,7 +45,7 @@ Optionally you may also install the following software:
 For instance our development environment looks as follows (*February 2019*):
 
 <pre style="font-size:80%;">
-C:\opt\jdk-8.0_202-b081\
+C:\opt\jdk-1.8.0_202-b081\
 C:\opt\apache-ant-1.10.5\
 C:\opt\apache-maven-3.6.0\
 C:\opt\cfr-0.139\
@@ -259,8 +259,8 @@ Tool versions:
    ant 1.10.5, gradle 5.2, mill 0.3.6, mvn 3.6.0, sbt 1.2.8/2.12.8,
    cfr 0.139, git 2.20.1.windows.1, diff 3.6
 Tool paths:
-   C:\opt\jdk-8.0_202-b08\bin\javac.exe
-   C:\opt\jdk-8.0_202-b08\bin\java.exe
+   C:\opt\jdk-1.8.0_202-b08\bin\javac.exe
+   C:\opt\jdk-1.8.0_202-b08\bin\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\opt\scala-2.12.8\bin\scalac.bat
@@ -429,7 +429,7 @@ Searching for **`FileSystem`** with option **`-artifact`** produces the followin
 Searching for class FileSystem in library files C:\opt\DOTTY-~1.0-R\lib\*.jar
 Searching for class FileSystem in library files C:\opt\SCALA-~1.8\lib\*.jar
 Searching for class FileSystem in library files C:\PROGRA~1\Java\JDK18~1.0_1\lib\*.jar
-Searching for class FileSystem in library files C:\Users\michelou\.ivy2\cache\*.jar
+Searching for class FileSystem in library files %USERFPROFILE%\.ivy2\cache\*.jar
   okhttp-3.7.0.jar:okhttp3/internal/io/FileSystem$1.class
   okhttp-3.7.0.jar:okhttp3/internal/io/FileSystem.class
   org.eclipse.lsp4j-0.5.0.jar:org/eclipse/lsp4j/FileSystemWatcher.class
@@ -439,7 +439,7 @@ Searching for class FileSystem in library files C:\Users\michelou\.ivy2\cache\*.
   jmh-core-1.21.jar:org/openjdk/jmh/generators/core/FileSystemDestination.class
   ivy-2.3.0-sbt-b18f59ea3bc914a297bb6f1a4f7fb0ace399e310.jar:org/apache/ivy/plugins/resolver/FileSystemResolver.class
   ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar:org/apache/ivy/plugins/resolver/FileSystemResolver.class
-Searching for class FileSystem in library files C:\Users\michelou\.m2\repository\*.jar
+Searching for class FileSystem in library files %USERPROFILE%\.m2\repository\*.jar
   commons-io-2.2.jar:org/apache/commons/io/FileSystemUtils.class
   commons-io-2.5.jar:org/apache/commons/io/FileSystemUtils.class
   commons-io-2.6.jar:org/apache/commons/io/FileSystemUtils.class
@@ -570,7 +570,7 @@ The REPL has several commands available:
 :reset                   reset the repl to its initial state, forgetting all session entries
 
 <b>scala&gt;</b> System.getenv().get("JAVA_HOME")
-val res0: String = C:\opt\jdk-8.0_202-b08
+val res0: String = C:\opt\jdk-1.8.0_202-b08
 
 <b>scala&gt;</b> System.getenv().get("DOTTY_HOME")
 val res1: String = C:\opt\dotty-0.12.0-RC1
