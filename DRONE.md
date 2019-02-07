@@ -261,7 +261,7 @@ C:\opt\sbt-1.2.8\bin\sbt.bat
 Command **`setenv -verbose`** also displays the tool paths and the current Git branch:
 
 <pre style="font-size:80%;">
-> setenv -verbose
+<b>&gt;</b> setenv -verbose
 Tool versions:
    javac 1.8.0_201, java 1.8.0_201,
    sbt 1.2.8/2.12.7, git 2.20.1.windows.1, diff 3.6
@@ -371,7 +371,7 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
 - **`bootstrap`** - ***If*** execution of the **`compile`** subcommand was successful the **`bootstrap`** subcommand generates the *"bootstrap compiler"* for Dotty and executes the relevant test suites.
 
     <pre style="font-size:80%;">
-    &gt; build bootstrap
+    <b>&gt;</b> build bootstrap
     [...]
     </pre>
 
@@ -389,7 +389,7 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
 - **`documentation`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Dotty website](https://dotty.epfl.ch/) and the online [Dotty documentation](https://dotty.epfl.ch/docs/).<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
     <pre style="font-size:80%;">
-    &gt; build -timer doc-only
+    <b>&gt;</b> build -timer doc-only
     Working directory: W:\dotty
     [...]
     [info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 0.12.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
@@ -428,7 +428,7 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     Output directory **`docs\_site\`** contains the files of the online [Dotty documentation](https://dotty.epfl.ch/docs/):
 
     <pre style="font-size:80%;">
-    &gt; dir /b docs\_site
+    <b>&gt;</b> dir /b docs\_site
     .gitignore
     api
     blog
@@ -474,7 +474,7 @@ Command [**`project\scripts\cmdTests`**](https://github.com/michelou/dotty/tree/
 
 
 <pre style="font-size:80%;">
-&gt; cmdTests
+<b>&gt;</b> cmdTests
 testing sbt dotc and dotr
 hello world
 testing sbt dotc -from-tasty and dotr -classpath
@@ -500,7 +500,7 @@ testing loading tasty from .tasty file in jar
 Command [**`project\scripts\bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) performs several benchmarks and generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program. In the normal case, command [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) is called by command **`build bootstrap`** but may also be called directly.
 
 <pre style="font-size:80%;">
-&gt; bootstrapCmdTests
+<b>&gt;</b> bootstrapCmdTests
 [...]
 [info] Updating dotty-bench...
 [...]
@@ -613,7 +613,7 @@ private members with docstrings:   0
 Command [**`genDocs`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program.
 
 <pre style="font-size:80%;">
-&gt; genDocs    
+<b>&gt;</b> genDocs    
 Working directory: W:\dotty
 [..(sbt)..]       
 [info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 

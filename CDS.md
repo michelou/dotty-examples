@@ -6,7 +6,7 @@
     <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    This page presents findings from my experiments with <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/class-data-sharing.html">Java class data sharing</a> (CDS) and <a href="http://dotty.epfl.ch/">Dotty</a> on the Windows platform. Introduced in <a href="https://openjdk.java.net/groups/hotspot/docs/RuntimeOverview.html#Class%20Data%20Sharing|outline">J2SE 5.0</a>, CDS helps reduce the startup time for Java applications as well as reduce their memory footprint.
+    This page presents findings from our experiments with <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/class-data-sharing.html">Java class data sharing</a> (CDS) and <a href="http://dotty.epfl.ch/">Dotty</a> on the Windows platform. Introduced in <a href="https://openjdk.java.net/groups/hotspot/docs/RuntimeOverview.html#Class%20Data%20Sharing|outline">J2SE 5.0</a>, CDS helps reduce the startup time for Java applications as well as reduce their memory footprint.
   </td>
   </tr>
 </table>
@@ -554,7 +554,7 @@ Classes per package (954):
 </pre>
 
 <pre style="font-size:80%;">
-&gt; sharedata -verbose -share test
+<b>&gt;</b> sharedata -verbose -share test
 Execute test application with Scala REPL WITH Java shared archive
 Support files for Java class sharing:
    dotty-cds-compiler.classlist (119 Kb)
@@ -581,19 +581,19 @@ Classes per package (888):
 
 
 > **&#9755;** ***Data Sharing and Hotspot OpenJDK 11*** <br/>
-> The [Oracle JDK 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html) installation contains the file **`<install_dir>\lib\classlist`**. Let's check if data sharing is enabled:
+> The [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot) installation contains the file **`<install_dir>\lib\classlist`**. Let's check if data sharing is enabled:
 > 
 > 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last displayed line ends with  **`(build 11.0.2+7, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.2+7, mixed mode)`** otherwise.
 > 2. Command **`java.exe -Xshare:dump`** generates the 17.3 Mb Java shared archive **`<install_dir>\bin\server\classes.jsa`** from file **`<install_dir>\lib\classlist`**.
 > 3. Repeat command from point 1. 
 > 
 > <pre style="font-size:80%;">
-> &gt; c:\opt\jdk-11.0.2\bin\java -version
+> <b>&gt;</b> c:\opt\jdk-11.0.2\bin\java -version
 > openjdk version "11.0.2" 2018-10-16
 > OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.2+7)
 > OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.2+7, mixed mode)
 > &nbsp;
-> &gt; java -Xshare:dump
+> <b>&gt;</b> java -Xshare:dump
 > [...]
 > Number of classes 1272
 > [...]
@@ -604,11 +604,11 @@ Classes per package (888):
 > od  space:   6534648 [ 36.1% of total] [...]
 > total    :  17873808 [100.0% of total] [...]
 > &nbsp;
-> &gt; dir /b c:\opt\jdk-11.0.2\bin\server
+> <b>&gt;</b> dir /b c:\opt\jdk-11.0.2\bin\server
 > classes.jsa
 > jvm.dll
 > &nbsp;
-> &gt; c:\opt\jdk-11.0.2\bin\java -version
+> <b>&gt;</b> c:\opt\jdk-11.0.2\bin\java -version
 > openjdk version "11.0.2" 2018-10-16
 > OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.2+7)
 > OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.2+7, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
@@ -617,7 +617,7 @@ Classes per package (888):
 ## Usage example
 
 <pre style="font-size:80%;">
-&gt; cd examples\enum-Planet
+<b>&gt;</b> cd examples\enum-Planet
 &gt; dotc -share -d target\classes src\main\scala\Planet.scala "-J-Xlog:class+load=info" > class-load.txt
 </pre>
 

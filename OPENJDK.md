@@ -26,9 +26,9 @@ This project depends on several external software for the **Microsoft Windows** 
 - [BellSoft OpenJDK 11](https://bell-sw.com/pages/java-11.0.2/) from [BellSoft](https://bell-sw.com/pages/about).
 - [DCEVM OpenJDK 11](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm) from [Travis](https://travis-ci.com/).
 - [OpenJ9 OpenJDK 11](https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9) from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html).
-- [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot) from [Oracle]().
-- [RedHat OpenJDK 11](https://developers.redhat.com/products/openjdk/download/) from [RedHat]().
-- [SapMachine OpenJDK 11](https://sap.github.io/SapMachine/) from [SAP]().
+- [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot) from [Oracle](https://www.oracle.com/).
+- [RedHat OpenJDK 11](https://developers.redhat.com/products/openjdk/download/) from [RedHat](https://www.redhat.com/).
+- [SapMachine OpenJDK 11](https://sap.github.io/SapMachine/) from [SAP](https://www.sap.com/).
 - [Zulu OpenJDK 11](https://www.azul.com/downloads/zulu/zulu-windows) from [Azul Systems](https://www.azul.com/).
 - *(to come)* [Corretto OpenJDK](https://aws.amazon.com/corretto/) from [Amazon](https://aws.amazon.com/) (only version 8, version 11 planned for April 2019)
 
@@ -42,7 +42,7 @@ C:\opt\jdk-11.0.2\
 C:\opt\jdk-bellsoft-11.0.2\
 C:\opt\jdk-dcevm-11.0.1\
 C:\opt\jdk-openj9-11.0.2\
-C:\opt\jdk-redhat-11.0.1\
+C:\opt\jdk-redhat-11.0.2\
 C:\opt\jdk-sapmachine-11.0.2\
 C:\opt\jdk-zulu-11.0.2\
 </pre>
@@ -158,37 +158,39 @@ Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode, sharing)
 ### RedHat OpenJDK 11
 
 <pre style="font-size:80%;">
-&gt; c:\opt\jdk-redhat-11.0.1\bin\java -version
-openjdk version "11.0.1-redhat" 2018-10-16 LTS
-OpenJDK Runtime Environment (build 11.0.1-redhat+13-LTS)
-OpenJDK 64-Bit Server VM (build 11.0.1-redhat+13-LTS, mixed mode)
+<b>&gt;</b> c:\opt\jdk-redhat-11.0.2\bin\java -version
+openjdk version "11.0.2-redhat" 2019-01-15 LTS
+OpenJDK Runtime Environment (build 11.0.2-redhat+7-LTS)
+OpenJDK 64-Bit Server VM (build 11.0.2-redhat+7-LTS, mixed mode)
 
-&gt; c:\opt\jdk-redhat-11.0.1\bin\java -Xshare:dump
+<b>&gt;</b> c:\opt\jdk-redhat-11.0.2\bin\java -Xshare:dump
 [...]
-&gt; dir c:\opt\jdk-redhat-11.0.1\bin\server | findstr jsa
-24.12.2018  17:52        18 153 472 classes.jsa
+Number of classes 1270
+[...]
+<b>&gt;</b> dir c:\opt\jdk-redhat-11.0.2\bin\server | findstr jsa
+07.02.2019  22:51        18 153 472 classes.jsa
 
-&gt; c:\opt\jdk-redhat-11.0.1\bin\java -version
-openjdk version "11.0.1-redhat" 2018-10-16 LTS
-OpenJDK Runtime Environment (build 11.0.1-redhat+13-LTS)
-OpenJDK 64-Bit Server VM (build 11.0.1-redhat+13-LTS, mixed mode, sharing)
+<b>&gt;</b> c:\opt\jdk-redhat-11.0.2\bin\java -version
+openjdk version "11.0.2-redhat" 2019-01-15 LTS
+OpenJDK Runtime Environment (build 11.0.2-redhat+7-LTS)
+OpenJDK 64-Bit Server VM (build 11.0.2-redhat+7-LTS, mixed mode, sharing)
 </pre>
 
 
 ### SapMachine OpenJDK 11
 
 <pre style="font-size:80%;">
-&gt; c:\opt\jdk-sapmachine-11.0.2\bin\java -version
+<b>&gt;</b> c:\opt\jdk-sapmachine-11.0.2\bin\java -version
 openjdk version "11.0.2" 2019-01-16 LTS
 OpenJDK Runtime Environment (build 11.0.2+0-LTS-sapmachine)
 OpenJDK 64-Bit Server VM (build 11.0.2+0-LTS-sapmachine, mixed mode)
 &nbsp;
-&gt; c:\opt\jdk-sapmachine-11.0.2\bin\java -Xshare:dump
+<b>&gt;</b> c:\opt\jdk-sapmachine-11.0.2\bin\java -Xshare:dump
 [...]
-&gt; dir c:\opt\jdk-sapmachine-11.0.2\bin\server | findstr jsa
+<b>&gt;</b> dir c:\opt\jdk-sapmachine-11.0.2\bin\server | findstr jsa
 02.01.2019  11:53        17 956 864 classes.jsa
 &nbsp;
-&gt; c:\opt\jdk-sapmachine-11.0.2\bin\java -version
+<b>&gt;</b> c:\opt\jdk-sapmachine-11.0.2\bin\java -version
 openjdk version "11.0.2" 2019-01-16 LTS
 OpenJDK Runtime Environment (build 11.0.2+0-LTS-sapmachine)
 OpenJDK 64-Bit Server VM (build 11.0.2+0-LTS-sapmachine, mixed mode, sharing)
