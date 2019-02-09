@@ -2,7 +2,7 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;min-width:60px;max-width:120px;">
+  <td style="border:0;padding:0 10px 0 0;width:60px;">
     <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
