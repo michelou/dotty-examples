@@ -2,8 +2,8 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;max-width:120px;">
-    <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
+  <td style="border:0;padding:0 10px 0 0;min-width:60px;max-width:120px;">
+    <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="100%"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed by the <a href="https://drone.io/">Drone platform</a> running on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This page describes changes we made to the source code of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps locally on a Windows machine.
@@ -135,7 +135,7 @@ We distinguish different sets of batch commands:
 3. Directory [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software release](https://github.com/lampepfl/dotty/releases).
 
     <pre style="font-size:80%;">
-    &gt; dir /b .\dist\bin
+    <b>&gt; dir /b .\dist\bin</b>
     common
     common.bat
     dotc
@@ -149,7 +149,7 @@ We distinguish different sets of batch commands:
 4. [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat) - This batch command performs on a Windows machine the same build/test steps as specified in file [**`.drone.yml`**](https://github.com/michelou/dotty/blob/master/.drone.yml) and executed on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
     <pre style="font-size:80%;">
-    &gt; build help
+    <b>&gt; build help</b>
     Usage: build { options | subcommands }
       Options:
         -timer                 display the total build time
@@ -160,6 +160,7 @@ We distinguish different sets of batch commands:
         cleanall               clean project (sbt+git) and quit
         clone                  update submodules
         compile                generate+test 1st stage compiler (after clone)
+        community              test community-build (after bootstrap)
         doc[umentation]        generate documentation (after bootstrap)
         help                   display this help message
         sbt                    test sbt-dotty (after bootstrap)
@@ -167,6 +168,7 @@ We distinguish different sets of batch commands:
         arch[ives]-only        generate ONLY gz/zip archives
         boot[strap]-only       generate+test ONLY bootstrapped compiler
         compile-only           generate+test ONLY 1st stage compiler
+        community-only         test ONLY community-build
         doc[umentation]-only   generate ONLY documentation
         sbt-only               test ONLY sbt-dotty
     </pre>
@@ -179,6 +181,7 @@ We distinguish different sets of batch commands:
     | `clone` &rarr; &empty; | &lt;1 min | &nbsp; |
     | `compile` &rarr; `clone` | ~24 min | `compiler\target\`<br/>`library\target`<br/>`sbt-bridge\target\` |
     | `bootstrap` &rarr; `compile` | ~45 min | &nbsp; |
+    | `community` &rarr; `bootstrap` | &nbsp; | &nbsp; |
     | `archives` &rarr; `bootstrap` | &nbsp; | `dist-bootstrapped\target\*.gz,*.zip` |
     | `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
     | `sbt` &rarr; `bootstrap` | &nbsp; | &nbsp; |
@@ -191,6 +194,7 @@ We distinguish different sets of batch commands:
     > | :------------ | :------------: | :------------ |
     > | `compile-only` | ~24 min | &nbsp; |
     > | `bootstrap-only` | ~26 min | &nbsp; |
+    > | `community-only` | &nbsp; | &nbsp; |
     > | `archives-only`| &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
     > | `documentation-only` | &lt;3 min | `docs\_site\*.html`<br/>`docs\docs\*.md` |
     > | `sbt-only` | &nbsp; | &nbsp; |
@@ -201,8 +205,9 @@ We distinguish different sets of batch commands:
     > | :------ | :----------------- |
     > | **`build compile`** | **`build clone compile-only`** |
     > | **`build bootstrap`** | **`build compile bootstrap-only`** |
-    > | **`build documentation`** | **`build bootstrap documentation-only`** |
+    > | **`build community`** | **`build bootstrap community-only`** |
     > | **`build archives`** | **`build bootstrap archives-only`** |
+    > | **`build documentation`** | **`build bootstrap documentation-only`** |
     > | **`build sbt`** | **`build bootstrap sbt-only`** |
 
 5. [**`cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) - This batch command performs test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\cmdTests`**](project/scripts/cmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server (see console output in section [**Usage examples**](#section_05)).
@@ -248,10 +253,10 @@ Below we summarize additions/changes we made to the [source code](https://github
 Command **`setenv`** is executed once to setup our development environment; it makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt (see section [**Project dependencies**](#section_01)):
 
 <pre style="font-size:80%;">
-> setenv
+<b>&gt; setenv</b>
 Tool versions:
-   javac 1.8.0_201, java 1.8.0_201,
-   sbt 1.2.8/2.12.7, git 2.20.1.windows.1, diff 3.6
+   javac 1.8.0_202, java 1.8.0_202,
+   sbt 1.2.8/2.12.8, git 2.20.1.windows.1, diff 3.6
 
 > where sbt
 C:\opt\sbt-1.2.8\bin\sbt
@@ -261,7 +266,7 @@ C:\opt\sbt-1.2.8\bin\sbt.bat
 Command **`setenv -verbose`** also displays the tool paths and the current Git branch:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> setenv -verbose
+<b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_202, java 1.8.0_202,
    sbt 1.2.8/2.12.8, git 2.20.1.windows.1, diff 3.6
@@ -284,7 +289,7 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
 - **`cleanall`** - This subcommand removes all generated *and untracked* files/directories from our [**`Dotty fork`**](https://github.com/michelou/dotty/tree/master/).<br/>Internally, **`build cleanall`** executes the two commands **`sbt clean`** *and* [**`git clean -xdf`**](https://git-scm.com/docs/git-clean/) which removes all untracked directories/files, including build products.
 
     <pre style="font-size:80%;">
-    > build cleanall
+    <b>&gt; build cleanall</b>
     [...(sbt)...]
     Removing .vscode/
     Removing HelloWorld$.class
@@ -313,7 +318,7 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     Command **`build -verbose cleanall`** also displays the tool paths/options and the current Git branch:
 
     <pre style="font-size:80%;">
-    > build -verbose cleanall
+    <b>&gt; build -verbose cleanall</b>
     Tool paths
       GIT_CMD=C:\opt\Git-2.20.1\bin\git.exe
       JAVA_CMD=C:\opt\jdk-1.8.0_202-b08\bin\java.exe
@@ -476,7 +481,7 @@ Command [**`project\scripts\cmdTests`**](https://github.com/michelou/dotty/tree/
 
 
 <pre style="font-size:80%;">
-<b>&gt;</b> cmdTests
+<b>&gt; cmdTests</b>
 testing sbt dotc and dotr
 hello world
 testing sbt dotc -from-tasty and dotr -classpath
@@ -508,7 +513,7 @@ Command [**`project\scripts\bootstrapCmdTests`**](https://github.com/michelou/do
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.21
-# VM version: JDK 1.8.0_202, VM 25.201-b09
+# VM version: JDK 1.8.0_202, VM 25.202-b08
 # VM invoker: C:\opt\jdk-1.8.0_202-b08\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
@@ -538,7 +543,7 @@ Worker.compile  avgt       533.625          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.21
-# VM version: JDK 1.8.0_202, VM 25.201-b09
+# VM version: JDK 1.8.0_202, VM 25.202-b08
 # VM invoker: C:\opt\jdk-1.8.0_202-b08\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
@@ -566,7 +571,7 @@ Worker.compile  avgt       361.619          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
 # JMH version: 1.21
-# VM version: JDK 1.8.0_202, VM 25.201-b09
+# VM version: JDK 1.8.0_202, VM 25.202-b08
 # VM invoker: C:\opt\jdk-1.8.0_202-b08\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
@@ -615,7 +620,7 @@ private members with docstrings:   0
 Command [**`genDocs`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program.
 
 <pre style="font-size:80%;">
-<b>&gt;</b> genDocs    
+<b>&gt; genDocs</b>
 Working directory: W:\dotty
 [..(sbt)..]       
 [info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 
