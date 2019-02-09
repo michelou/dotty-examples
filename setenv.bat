@@ -120,7 +120,7 @@ if defined JDK_HOME (
     if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable JDK_HOME
 ) else (
     set _PATH=C:\opt
-    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\jdk-8*" 2^>NUL') do set _JDK_HOME=!_PATH!\%%f
+    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\jdk-1.8*" 2^>NUL') do set _JDK_HOME=!_PATH!\%%f
     if not defined _JDK_HOME (
         set _PATH=C:\Progra~1\Java
         for /f %%f in ('dir /ad /b "!_PATH!\jdk1.8*" 2^>NUL') do set _JDK_HOME=!_PATH!\%%f
@@ -470,7 +470,7 @@ endlocal & (
     if not defined SCALA_HOME set SCALA_HOME=%_SCALA_HOME%
     if not defined DOTTY_HOME set DOTTY_HOME=%_DOTTY_HOME%
     set "PATH=%_JDK_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MILL_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_GIT_PATH%;%~dp0bin"
-    call :print_env %_VERBOSE%
+    if %_EXITCODE%==0 call :print_env %_VERBOSE%
     if %_DEBUG%==1 echo [%_BASENAME%] _EXITCODE=%_EXITCODE%
     for /f "delims==" %%i in ('set ^| findstr /b "_"') do set %%i=
 )

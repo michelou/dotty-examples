@@ -18,7 +18,7 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 - [Data Sharing and Dotty on Windows](CDS.md)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-Other topics we are currently investigating - on Windows or not - include [GraalVM](https://www.graalvm.org/) (docs), [JMH](https://openjdk.java.net/projects/code-tools/jmh/), [OpenJDK 11](https://adoptopenjdk.net/) and [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html).
+Other topics we are currently investigating [JMH](https://openjdk.java.net/projects/code-tools/jmh/), [OpenJDK 11](https://adoptopenjdk.net/) and [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html).
 
 > **&#9755;** ***Continuous Integration/Delivery*** (CI/CD)<br/>
 > (steps: Checkout **&rarr;** Compile **&rarr;** Test **&rarr;** Deploy)
@@ -37,17 +37,17 @@ Other topics we are currently investigating - on Windows or not - include [Graal
 
 Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three external software for the **Microsoft Windows** platform:
 
-- [Oracle Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)<sup id="anchor_02">[[1]](#footnote_01)</sup> ([*release notes*](http://www.oracle.com/technetwork/java/javase/8u-relnotes-2225394.html))
+- [Oracle OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot)<sup id="anchor_02">[[1]](#footnote_01)</sup> ([*release notes*](https://wiki.openjdk.java.net/display/jdk8u/JDK+8u202))
 - [SBT 1.2.8](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
 - [Git 2.20](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.20.1.txt))
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*January 2019*):
+For instance our development environment looks as follows (*February 2019*):
 
 <pre style="font-size:80%;">
-C:\Program Files\Java\jdk1.8.0_201\
+C:\opt\jdk-1.8.0_202-b08\
 C:\opt\sbt-1.2.8\
 C:\opt\Git-2.20.1\
 </pre>
@@ -59,12 +59,12 @@ C:\opt\Git-2.20.1\
 The directory structure of the [Dotty repository](https://github.com/lampepfl/dotty/) is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts).
 
 <pre style="font-size:80%;">
-> dir /ad /b
+<b>&gt;</b> dir /ad /b
 .git
 .vscode-template
 bench
 bin
-collection-strawman
+community-build
 compiler
 dist
 doc-tool
@@ -83,7 +83,7 @@ tests
 vscode-dotty
 </pre>
 
-> **:mag_right:** The three directories [**`collection-strawman\`**](https://github.com/dotty-staging/collection-strawman), [**`scala-backend\`**](https://github.com/lampepfl/scala/tree/sharing-backend) and [**`scala2-library\`**](https://github.com/lampepfl/scala/tree/dotty-library2.12) are actually Git submodules (see article ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/)). Their Git information (e.g. path, URL, branch) is stored in file [**`.gitmodules`**](https://github.com/michelou/dotty/blob/master/.gitmodules).
+> **:mag_right:** Directories like [**`scala-backend\`**](https://github.com/lampepfl/scala/tree/sharing-backend), [**`scala2-library\`**](https://github.com/lampepfl/scala/tree/dotty-library2.12) and **`community-build`** subdirectories are actually Git submodules (see article ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/)). Their Git information (e.g. path, URL, branch) is stored in file [**`.gitmodules`**](https://github.com/michelou/dotty/blob/master/.gitmodules).
 
 Concretely directories [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin), [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts) and the root directory contain the following additions:
 
@@ -263,11 +263,12 @@ Command **`setenv -verbose`** also displays the tool paths and the current Git b
 <pre style="font-size:80%;">
 <b>&gt;</b> setenv -verbose
 Tool versions:
-   javac 1.8.0_201, java 1.8.0_201,
-   sbt 1.2.8/2.12.7, git 2.20.1.windows.1, diff 3.6
+   javac 1.8.0_202, java 1.8.0_202,
+   sbt 1.2.8/2.12.8, git 2.20.1.windows.1, diff 3.6
 Tool paths:
-   C:\Program Files\Java\jdk1.8.0_201\bin\javac.exe
-   C:\Program Files\Java\jdk1.8.0_201\bin\java.exe
+   C:\opt\jdk-1.8.0_202-b08\bin\javac.exe
+   C:\opt\jdk-1.8.0_202-b08\bin\java.exe
+   C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\opt\sbt-1.2.8\bin\sbt.bat
    C:\opt\Git-2.20.1\bin\git.exe
@@ -315,12 +316,13 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     > build -verbose cleanall
     Tool paths
       GIT_CMD=C:\opt\Git-2.20.1\bin\git.exe
+      JAVA_CMD=C:\opt\jdk-1.8.0_202-b08\bin\java.exe
       SBT_CMD=C:\opt\sbt-1.2.8\bin\sbt.bat
     Tool options
       JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
       SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
     Current Git branch
-      url-file [origin/url-file]
+      master
     &nbsp;
     [...(sbt)...]
     [...(git)...]
@@ -506,8 +508,8 @@ Command [**`project\scripts\bootstrapCmdTests`**](https://github.com/michelou/do
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.21
-# VM version: JDK 1.8.0_201, VM 25.201-b09
-# VM invoker: C:\Progra~1\Java\jdk1.8.0_201\jre\bin\java.exe
+# VM version: JDK 1.8.0_202, VM 25.201-b09
+# VM invoker: C:\opt\jdk-1.8.0_202-b08\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -536,8 +538,8 @@ Worker.compile  avgt       533.625          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.21
-# VM version: JDK 1.8.0_201, VM 25.201-b09
-# VM invoker: C:\Progra~1\Java\jdk1.8.0_201\jre\bin\java.exe
+# VM version: JDK 1.8.0_202, VM 25.201-b09
+# VM invoker: C:\opt\jdk-1.8.0_202-b08\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -564,8 +566,8 @@ Worker.compile  avgt       361.619          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
 # JMH version: 1.21
-# VM version: JDK 1.8.0_201, VM 25.201-b09
-# VM invoker: C:\Progra~1\Java\jdk1.8.0_201\jre\bin\java.exe
+# VM version: JDK 1.8.0_202, VM 25.201-b09
+# VM invoker: C:\opt\jdk-1.8.0_202-b08\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -644,5 +646,5 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/January 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/February 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>

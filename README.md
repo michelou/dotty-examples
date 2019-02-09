@@ -419,7 +419,7 @@ Searching for an unknown class - e.g. **`BinarySearch`** - produces the followin
 > searchjars BinarySearch
 Searching for class BinarySearch in library files C:\opt\DOTTY-~1.0-R\lib\*.jar
 Searching for class BinarySearch in library files C:\opt\SCALA-~1.8\lib\*.jar
-Searching for class BinarySearch in library files C:\PROGRA~1\Java\JDK18~1.0_1\lib\*.jar
+Searching for class BinarySearch in library files C:\opt\JDK-8~1.0_2\lib\*.jar
 </pre>
 
 Searching for **`FileSystem`** with option **`-artifact`** produces the following output:
@@ -428,7 +428,7 @@ Searching for **`FileSystem`** with option **`-artifact`** produces the followin
 &gt; searchjars FileSystem -artifact
 Searching for class FileSystem in library files C:\opt\DOTTY-~1.0-R\lib\*.jar
 Searching for class FileSystem in library files C:\opt\SCALA-~1.8\lib\*.jar
-Searching for class FileSystem in library files C:\PROGRA~1\Java\JDK18~1.0_1\lib\*.jar
+Searching for class FileSystem in library files C:\opt\JDK-8~1.0_2\lib\*.jar
 Searching for class FileSystem in library files %USERFPROFILE%\.ivy2\cache\*.jar
   okhttp-3.7.0.jar:okhttp3/internal/io/FileSystem$1.class
   okhttp-3.7.0.jar:okhttp3/internal/io/FileSystem.class
