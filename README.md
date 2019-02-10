@@ -33,7 +33,7 @@ Optionally you may also install the following software:
 - [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.12.8))
 - [SBT 1.2.8](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.5.html))
-- [Gradle 5.2](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.2/release-notes.html))
+- [Gradle 5.2](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.2.1/release-notes.html))
 - [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([requires Java 7](http://maven.apache.org/docs/history.html))  ([*release notes*](http://maven.apache.org/docs/3.6.0/release-notes.html))
 - [Mill 0.3](https://www.lihaoyi.com/mill/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
 - [CFR 0.13](http://www.benf.org/other/cfr/) (Java decompiler)
@@ -51,7 +51,7 @@ C:\opt\apache-maven-3.6.0\
 C:\opt\cfr-0.139\
 C:\opt\dotty-0.12.0-RC1\
 C:\opt\Git-2.20.1\
-C:\opt\gradle-5.2\
+C:\opt\gradle-5.2.1\
 C:\opt\Mill-0.3.6\
 C:\opt\sbt-1.2.8\
 C:\opt\scala-2.12.8\
@@ -104,7 +104,7 @@ We distinguish different sets of batch commands:
 1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`scalac.bat`**](https://docs.scala-lang.org/overviews/compiler-options/index.html), [**`dotc.bat`**](bin/0.12/dotc.bat), etc. directly available from the command prompt (see section [**Project dependencies**](#section_01)).
 
     <pre style="font-size:80%;">
-    > setenv help
+    <b>&gt; setenv help</b>
     Usage: setenv { options | subcommands }
       Options:
         -verbose         display environment settings
@@ -124,7 +124,7 @@ We distinguish different sets of batch commands:
     > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Dotty distribution](https://github.com/lampepfl/dotty/releases). We also have submitted pull request [#5444](https://github.com/lampepfl/dotty/pull/5444) to add them to the Scala distribution.
 
     <pre style="font-size:80%;">
-    &gt; dir /b c:\opt\dotty-0.12.0-RC1\bin
+    <b>&gt; dir /b c:\opt\dotty-0.12.0-RC1\bin</b>
     common
     common.bat
     dotc
@@ -143,7 +143,7 @@ We distinguish different sets of batch commands:
     > **&#9755;** We prefer command **`build`** here since our code examples are simple and don't require the [**`sbt`** ](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html)machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
 
     <pre style="font-size:80%;">
-    &gt; build
+    <b>&gt; build</b>
     Usage: build { options | subcommands }
       Options:
         -debug           show commands executed by this script
@@ -186,7 +186,7 @@ We distinguish different sets of batch commands:
     As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.139.zip`**](bin/cfr-0.139.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
 
     <pre style="font-size:80%;">
-    &gt; cfr myexamples\00_AutoParamTupling\target\classes\Main.class
+    <b>&gt; cfr myexamples\00_AutoParamTupling\target\classes\Main.class</b>
     /*
      * Decompiled with CFR 0.139.
      */
@@ -208,7 +208,7 @@ We distinguish different sets of batch commands:
     Here is the console output from command [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) with option **`-c`** for the same class file:
 
     <pre style="font-size:80%;">
-    &gt; javap -c myexamples\00_AutoParamTupling\target\classes\Main.class
+    <b>&gt; javap -c myexamples\00_AutoParamTupling\target\classes\Main.class</b>
     Compiled from "Main.scala"
     public final class Main {
       public static void test01();
@@ -239,13 +239,13 @@ We distinguish different sets of batch commands:
 Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> setenv
+<b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_202, java 1.8.0_202, scalac 2.12.8, dotc 0.12.0-RC1,
-   ant 1.10.5, gradle 5.2, mill 0.3.6, mvn 3.6.0, sbt 1.2.8/2.12.8,
+   ant 1.10.5, gradle 5.2.1, mill 0.3.6, mvn 3.6.0, sbt 1.2.8/2.12.8,
    cfr 0.139, git 2.20.1.windows.1, diff 3.6
 
-<b>&gt;</b> where sbt
+<b>&gt; where sbt</b>
 C:\opt\sbt-1.2.8\bin\sbt
 C:\opt\sbt-1.2.8\bin\sbt.bat
 </pre>
@@ -253,10 +253,10 @@ C:\opt\sbt-1.2.8\bin\sbt.bat
 Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> setenv -verbose
+<b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_202, java 1.8.0_202, scalac 2.12.8, dotc 0.12.0-RC1,
-   ant 1.10.5, gradle 5.2, mill 0.3.6, mvn 3.6.0, sbt 1.2.8/2.12.8,
+   ant 1.10.5, gradle 5.2.1, mill 0.3.6, mvn 3.6.0, sbt 1.2.8/2.12.8,
    cfr 0.139, git 2.20.1.windows.1, diff 3.6
 Tool paths:
    C:\opt\jdk-1.8.0_202-b08\bin\javac.exe
@@ -266,7 +266,7 @@ Tool paths:
    C:\opt\scala-2.12.8\bin\scalac.bat
    C:\opt\dotty-0.12.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.5\bin\ant.bat
-   C:\opt\gradle-5.2\bin\gradle.bat
+   C:\opt\gradle-5.2.1\bin\gradle.bat
    C:\opt\Mill-0.3.6\mill.bat
    C:\opt\apache-maven-3.6.0\bin\mvn.cmd
    C:\opt\sbt-1.2.8\bin\sbt.bat
@@ -280,7 +280,7 @@ Tool paths:
 Command [**`cleanup`**](bin/cleanup.bat) removes the output directories (ie. **`target\`**) from the example projects: 
 
 <pre style="font-size:80%;">
-&gt; cleanup
+<b>&gt; cleanup</b>
 Finished to clean up 2 subdirectories in W:\dotty\cdsexamples
 Finished to clean up 16 subdirectories in W:\dotty\examples
 Finished to clean up 12 subdirectories in W:\dotty\myexamples
@@ -291,7 +291,7 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> dirsize examples myexamples c:\opt\dotty-0.12.0-RC1
+<b>&gt; dirsize examples myexamples c:\opt\dotty-0.12.0-RC1</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
 Size of directory "c:\opt\dotty-0.12.0-RC1" is 22.4 Mb
@@ -302,9 +302,9 @@ Size of directory "c:\opt\dotty-0.12.0-RC1" is 22.4 Mb
 By default command [**`getnightly`**](bin/getnightly.bat) downloads the library files of the latest Dotty nightly build available from the [Maven Central Repository](https://search.maven.org/search?q=g:ch.epfl.lamp) and saves them into directory **`out\nightly-jars\`**.
 
 <pre style="font-size:80%;">
-<b>&gt;</b> getnightly
+<b>&gt; getnightly</b>
 
-<b>&gt;</b> dir /b out\nightly-jars
+<b>&gt; dir /b out\nightly-jars</b>
 dotty-compiler_0.13-0.13.0-bin-20190202-03887b7-NIGHTLY.jar
 dotty-doc_0.13-0.13.0-bin-20190202-03887b7-NIGHTLY.jar
 dotty-language-server_0.13-0.13.0-bin-20190202-03887b7-NIGHTLY.jar
@@ -316,7 +316,7 @@ dotty_0.13-0.13.0-bin-20190202-03887b7-NIGHTLY.jar
 Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
 <pre style="font-size:80%">
-<b>&gt;</b> getnightly -verbose
+<b>&gt; getnightly -verbose</b>
 Downloading file dotty-compiler_0.13-0.13.0-bin-20190202-03887b7-NIGHTLY.jar ... 10.7 Mb
 Downloading file dotty-language-server_0.13-0.13.0-bin-20190202-03887b7-NIGHTLY.jar ... 142.7 Kb
 Downloading file dotty-doc_0.13-0.13.0-bin-20190202-03887b7-NIGHTLY.jar ... 1013 Kb
@@ -331,17 +331,17 @@ We can now replace the library files from the original [Dotty distribution](http
 Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in the Dotty installation directory.
 
 <pre style="font-size:80%;">
-<b>&gt;</b> getnightly activate
+<b>&gt; getnightly activate</b>
 Finished to download 6 files to directory W:\DOTTY-~1\out\nightly-jars
 Activate nightly build libraries: 0.13.0-bin-20190120-e873908-NIGHTLY
 
-<b>&gt;</b> dotc -version
+<b>&gt; dotc -version</b>
 Dotty compiler version 0.13.0-bin-20190120-e873908-NIGHTLY-git-e873908 -- Copyright 2002-2019, LAMP/EPFL
 
-<b>&gt;</b> getnightly reset
+<b>&gt; getnightly reset</b>
 Activate default Dotty libraries: 0.12.0-RC1
 
-<b>&gt;</b> dotc -version
+<b>&gt; dotc -version</b>
 Dotty compiler version 0.12.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 </pre>
 
@@ -350,7 +350,7 @@ Dotty compiler version 0.12.0-RC1 -- Copyright 2002-2018, LAMP/EPFL
 Internally command [**`getnightly`**](bin/getnightly.bat) manages two sets of libraries files which are organized as follows:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> pushd c:\opt\dotty-0.12.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd
+<b>&gt; pushd c:\opt\dotty-0.12.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd</b>
 VERSION
 VERSION-NIGHTLY
 lib\0.12.0-RC1\
@@ -375,7 +375,7 @@ In the above output file **`VERSION-NIGHTLY`** contains the signature of the man
 Command **`searchjars`** helps us to search for class file names in the following directories: project's **`lib\`** directory (*if present*), Dotty's **`lib\`** directory, Java's **`lib\`** directory and Ivy/Maven default directories.
 
 <pre style="font-size:80%;">
-<b>&gt;</b> searchjars -help
+<b>&gt; searchjars -help</b>
 Usage: searchjars { options | subcommands }
   Options:
     -artifact        include ~\.ivy2 and ~\.m2 directories
@@ -390,7 +390,7 @@ Usage: searchjars { options | subcommands }
 Passing argument **`System`** to command [**`searchjars`**](bin/searchjars.bat) prints the following output (class file names are printed with full path and are prefixed with their containing [JAR file](https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html)):
 
 <pre style="font-size:80%;">
-<b>&gt;</b> searchjars System
+<b>&gt; searchjars System</b>
 Searching for class System in library files C:\opt\DOTTY-~1.0-R\lib\*.jar
   scala-library-2.12.8.jar:scala/sys/SystemProperties$.class
   scala-library-2.12.8.jar:scala/sys/SystemProperties.class
@@ -416,7 +416,7 @@ Searching for class System in library files C:\opt\JDK-8~1.0_2\lib\*.jar
 Searching for an unknown class - e.g. **`BinarySearch`** - produces the following output:
 
 <pre style="font-size:80%;">
-> searchjars BinarySearch
+<b>&gt; searchjars BinarySearch</b>
 Searching for class BinarySearch in library files C:\opt\DOTTY-~1.0-R\lib\*.jar
 Searching for class BinarySearch in library files C:\opt\SCALA-~1.8\lib\*.jar
 Searching for class BinarySearch in library files C:\opt\JDK-8~1.0_2\lib\*.jar
@@ -425,7 +425,7 @@ Searching for class BinarySearch in library files C:\opt\JDK-8~1.0_2\lib\*.jar
 Searching for **`FileSystem`** with option **`-artifact`** produces the following output:
 
 <pre style="font-size:80%;">
-&gt; searchjars FileSystem -artifact
+<b>&gt; searchjars FileSystem -artifact</b>
 Searching for class FileSystem in library files C:\opt\DOTTY-~1.0-R\lib\*.jar
 Searching for class FileSystem in library files C:\opt\SCALA-~1.8\lib\*.jar
 Searching for class FileSystem in library files C:\opt\JDK-8~1.0_2\lib\*.jar
@@ -454,7 +454,7 @@ Searching for class FileSystem in library files %USERPROFILE%\.m2\repository\*.j
 Command [**`timeit`**](bin/timeit.bat) prints the execution time (`hh:MM:ss` format) of the specified command (possibly given with options and parameters):
 
 <pre style="font-size:80%;">
-> timeit dir /b
+<b>&gt; timeit dir /b</b>
 .gitignore
 .gradle
 build.bat
@@ -475,10 +475,10 @@ Execution time: 00:00:08
 Chaining of commands is also possible. Note that the command separator (either **`&&`** or **`&`**) must be escaped if the command chain is not quoted. For instance:
 
 <pre style="font-size:80%;">
-> timeit build clean compile ^&^& ant run
+<b>&gt; timeit build clean compile ^&^& ant run</b>
 ...
 Execution time: 00:00:11
-> timeit "build clean compile && ant run"
+<b>&gt; timeit "build clean compile && ant run"</b>
 ...
 Execution time: 00:00:11
 </pre>
@@ -504,7 +504,7 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
-> updateprojs
+<b>&gt; updateprojs</b>
 Parent directory: W:\dotty\examples
    Warning: Could not find file hello-scala\project\plugins.sbt
    Warning: Could not find file UnionTypes_0.4\project\plugins.sbt
@@ -528,7 +528,7 @@ Command [**`build`**](examples/enum-Planet/build.bat) is a basic build tool cons
 Running command [**`build`**](examples/enum-Planet/build.bat) with ***no*** option in project [**`examples\enum-Planet`**](examples/enum-Planet/) generates the following output:
 
 <pre style="font-size:80%;">
-> build clean compile run
+<b>&gt; build clean compile run</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -548,16 +548,16 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
    > **:warning:** Batch file [**`dotr.bat`**](bin/0.12/dotr.bat) is based on the bash script [**`dotr`**](https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr) available from the standard [Dotty distribution](https://github.com/lampepfl/dotty/releases). We also have submitted pull request [#5444](https://github.com/lampepfl/dotty/pull/5444) to add that batch file to the Scala distribution.
 
 <pre style="font-size:80%;">
-<b>&gt;</b> where dotr
+<b>&gt; where dotr</b>
 C:\opt\dotty-0.12.0-RC1\bin\dotr
 C:\opt\dotty-0.12.0-RC1\bin\dotr.bat
 
-<b>&gt;</b> dotr -version
+<b>&gt; dotr -version</b>
 openjdk version "1.8.0_202"
 OpenJDK Runtime Environment (AdoptOpenJDK)(build 1.8.0_202-b08)
 OpenJDK 64-Bit Server VM (AdoptOpenJDK)(build 25.202-b08, mixed mode)
 
-<b>&gt;</b> dotr
+<b>&gt; dotr</b>
 Starting dotty REPL...
 scala> :help
 The REPL has several commands available:

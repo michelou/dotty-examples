@@ -61,17 +61,17 @@ An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For
 ### BellSoft OpenJDK 11
 
 <pre style="font-size:80%;">
-<b>&gt;</b> c:\opt\jdk-bellsoft-11.0.2-lite\bin\java -version
+<b>&gt; c:\opt\jdk-bellsoft-11.0.2-lite\bin\java -version</b>
 openjdk version "11.0.2-BellSoft" 2018-10-16
 OpenJDK Runtime Environment (build 11.0.2-BellSoft+7)
 OpenJDK 64-Bit Server VM (build 11.0.2-BellSoft+7, mixed mode)
 
-<b>&gt;</b> c:\opt\jdk-bellsoft-11.0.2-lite\bin\java -Xshare:dump
+<b>&gt; c:\opt\jdk-bellsoft-11.0.2-lite\bin\java -Xshare:dump</b>
 [...]
-<b>&gt;</b> dir c:\opt\jdk-11.0.2\bin\server | findstr jsa
+<b>&gt; dir c:\opt\jdk-11.0.2\bin\server | findstr jsa</b>
 25.01.2019  23:27        18 153 472 classes.jsa
 
-<b>&gt;</b> c:\opt\jdk-bellsoft-11.0.2-lite\bin\java -version
+<b>&gt; c:\opt\jdk-bellsoft-11.0.2-lite\bin\java -version</b>
 openjdk version "11.0.2-BellSoft" 2018-10-16
 OpenJDK Runtime Environment (build 11.0.2-BellSoft+7)
 OpenJDK 64-Bit Server VM (build 11.0.2-BellSoft+7, mixed mode, sharing)
@@ -81,39 +81,29 @@ OpenJDK 64-Bit Server VM (build 11.0.2-BellSoft+7, mixed mode, sharing)
 ### DCEVM OpenJDK 11
 
 <pre style="font-size:80%;">
-<b>&gt;</b> c:\opt\jdk-dcevm-11.0.1\bin\java -version
+<b>&gt; c:\opt\jdk-dcevm-11.0.1\bin\java -version</b>
 Starting HotswapAgent 'c:\opt\jdk-dcevm-11.0.1\lib\hotswap\hotswap-agent.jar'
-HOTSWAP AGENT: 13:13:46.677 INFO [...]
-HOTSWAP AGENT: 13:13:47.328 INFO [...]
+HOTSWAP AGENT: 17:59:08.070 INFO [...]
+HOTSWAP AGENT: 17:59:08.304 INFO [...]
 openjdk version "11.0.1.6" 2018-12-16
-OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.1.6+7-201901011603)
-Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.1.6+7-201901011603, mixed mode)
+OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.1.6+8-201902100759)
+Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.1.6+8-201902100759, mixed mode)
 
-<b>&gt;</b> c:\opt\jdk-dcevm-11.0.1\bin\java -Xshare:dump
-Starting HotswapAgent 'c:\opt\jdk-dcevm-11.0.1\lib\hotswap\hotswap-agent.jar'
-narrow_klass_base = 0x0000000800000000, narrow_klass_shift = 3
+<b>&gt; c:\opt\jdk-dcevm-11.0.1\bin\java -Xshare:dump</b>
 [...]
 Number of classes 1821
-    instance classes   =  1673
-    obj array classes  =   140
-    type array classes =     8
-Updating ConstMethods ... done.
-#
-# A fatal error has been detected by the Java Runtime Environment:
-#
-#  Internal Error (c:/Users/travis/build/TravaOpenJDK/trava-jdk-11-dcevm/openjdk-build/workspace/build/src/src/hotspot/share/memory/metaspaceShared.cpp:1624), pid=280208, tid=291128
-#  guarantee(ik->loader_type() != 0) failed: Class loader type must be set for this class com/sun/proxy/$Proxy0
-#
-# JRE version: OpenJDK Runtime Environment (11.0.1.6+7) (build 11.0.1.6+7-201901011603)
-# Java VM: Dynamic Code Evolution 64-Bit Server VM (11.0.1.6+7-201901011603, interpreted mode, compressed oops, serial gc, windows-amd64)
-# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
-#
-# An error report file with more information is saved as:
-# W:\dotty-batch-files\hs_err_pid280208.log
-#
-# If you would like to submit a bug report, please visit:
-#   https://github.com/AdoptOpenJDK/openjdk-build/issues
-#
+[...]
+total    :  18142064 [100.0% of total] out of  18415616 bytes [ 98.5% used]
+<b>&gt; dir c:\opt\jdk-dcevm-11.0.1\bin\server | findstr jsa</b>
+10.02.2019  17:59        18 481 152 classes.jsa
+
+<b>&gt; c:\opt\jdk-dcevm-11.0.1\bin\java -version</b>
+Starting HotswapAgent 'c:\opt\jdk-dcevm-11.0.1\lib\hotswap\hotswap-agent.jar'
+HOTSWAP AGENT: 18:01:52.543 INFO [...]
+HOTSWAP AGENT: 18:01:52.765 INFO [...]
+openjdk version "11.0.1.6" 2018-12-16
+OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.1.6+8-201902100759)
+Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.1.6+8-201902100759, mixed mode, sharing)
 </pre>
 
 
@@ -123,7 +113,7 @@ Compared to the other OpenJDK distributions OpenJ9 JDK 11 provides advanced sett
 > **:mag_right:** Execute **`java -Xshareclasses:help`** to list the settings.
 
 <pre style="font-size:80%;">
-&gt; c:\opt\jdk-openj9-11.0.2\bin\java -version
+<b>&gt; c:\opt\jdk-openj9-11.0.2\bin\java -version</b>
 openjdk version "11.0.2" 2019-01-15
 OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.2+9)
 Eclipse OpenJ9 VM AdoptOpenJDK (build openj9-0.12.0, JRE 11 Windows 10 amd64-64-Bit Compressed References 20190130_114 (JIT enabled, AOT enabled)
@@ -138,17 +128,17 @@ JCL      - 50b45cd160 based on jdk-11.0.2+8)
 
 Oracle OpenJDK is the [reference implementation](https://openjdk.java.net/projects/jdk/11/); the other OpenJDK distributions are derived from it.
 <pre style="font-size:80%;">
-&gt; c:\opt\jdk-11.0.2\bin\java -version
+<b>&gt; c:\opt\jdk-11.0.2\bin\java -version</b>
 java version "11.0.2" 2019-01-15 LTS
 Java(TM) SE Runtime Environment 18.9 (build 11.0.2+9-LTS)
 Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode)
 
 &gt; c:\opt\jdk-11.0.2\bin\java -Xshare:dump
 [...]
-&gt; dir c:\opt\jdk-11.0.2\bin\server | findstr jsa
+<b>&gt; dir c:\opt\jdk-11.0.2\bin\server | findstr jsa</b>
 17.12.2018  13:03        18 153 472 classes.jsa
 
-&gt; c:\opt\jdk-11.0.2\bin\java -version
+<b>&gt; c:\opt\jdk-11.0.2\bin\java -version</b>
 java version "11.0.2" 2019-01-15 LTS
 Java(TM) SE Runtime Environment 18.9 (build 11.0.2+9-LTS)
 Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode, sharing)
@@ -158,19 +148,19 @@ Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode, sharing)
 ### RedHat OpenJDK 11
 
 <pre style="font-size:80%;">
-<b>&gt;</b> c:\opt\jdk-redhat-11.0.2\bin\java -version
+<b>&gt; c:\opt\jdk-redhat-11.0.2\bin\java -version</b>
 openjdk version "11.0.2-redhat" 2019-01-15 LTS
 OpenJDK Runtime Environment (build 11.0.2-redhat+7-LTS)
 OpenJDK 64-Bit Server VM (build 11.0.2-redhat+7-LTS, mixed mode)
 
-<b>&gt;</b> c:\opt\jdk-redhat-11.0.2\bin\java -Xshare:dump
+<b>&gt; c:\opt\jdk-redhat-11.0.2\bin\java -Xshare:dump</b>
 [...]
 Number of classes 1270
 [...]
 <b>&gt;</b> dir c:\opt\jdk-redhat-11.0.2\bin\server | findstr jsa
 07.02.2019  22:51        18 153 472 classes.jsa
 
-<b>&gt;</b> c:\opt\jdk-redhat-11.0.2\bin\java -version
+<b>&gt; c:\opt\jdk-redhat-11.0.2\bin\java -version</b>
 openjdk version "11.0.2-redhat" 2019-01-15 LTS
 OpenJDK Runtime Environment (build 11.0.2-redhat+7-LTS)
 OpenJDK 64-Bit Server VM (build 11.0.2-redhat+7-LTS, mixed mode, sharing)
@@ -180,17 +170,17 @@ OpenJDK 64-Bit Server VM (build 11.0.2-redhat+7-LTS, mixed mode, sharing)
 ### SapMachine OpenJDK 11
 
 <pre style="font-size:80%;">
-<b>&gt;</b> c:\opt\jdk-sapmachine-11.0.2\bin\java -version
+<b>&gt; c:\opt\jdk-sapmachine-11.0.2\bin\java -version</b>
 openjdk version "11.0.2" 2019-01-16 LTS
 OpenJDK Runtime Environment (build 11.0.2+0-LTS-sapmachine)
 OpenJDK 64-Bit Server VM (build 11.0.2+0-LTS-sapmachine, mixed mode)
 &nbsp;
-<b>&gt;</b> c:\opt\jdk-sapmachine-11.0.2\bin\java -Xshare:dump
+<b>&gt; c:\opt\jdk-sapmachine-11.0.2\bin\java -Xshare:dump</b>
 [...]
-<b>&gt;</b> dir c:\opt\jdk-sapmachine-11.0.2\bin\server | findstr jsa
+<b>&gt; dir c:\opt\jdk-sapmachine-11.0.2\bin\server | findstr jsa</b>
 02.01.2019  11:53        17 956 864 classes.jsa
 &nbsp;
-<b>&gt;</b> c:\opt\jdk-sapmachine-11.0.2\bin\java -version
+<b>&gt; c:\opt\jdk-sapmachine-11.0.2\bin\java -version</b>
 openjdk version "11.0.2" 2019-01-16 LTS
 OpenJDK Runtime Environment (build 11.0.2+0-LTS-sapmachine)
 OpenJDK 64-Bit Server VM (build 11.0.2+0-LTS-sapmachine, mixed mode, sharing)
@@ -200,17 +190,17 @@ OpenJDK 64-Bit Server VM (build 11.0.2+0-LTS-sapmachine, mixed mode, sharing)
 ### Zulu OpenJDK 11
 
 <pre style="font-size:80%;">
-&gt; c:\opt\jdk-zulu-11.0.2\bin\java -version
+<b>&gt; c:\opt\jdk-zulu-11.0.2\bin\java -version</b>
 openjdk version "11.0.2" 2019-01-15 LTS
 OpenJDK Runtime Environment Zulu11.29+3-CA (build 11.0.2+7-LTS)
 OpenJDK 64-Bit Server VM Zulu11.29+3-CA (build 11.0.2+7-LTS, mixed mode)
 &nbsp;
-&gt; c:\opt\jdk-zulu-11.0.2\bin\java -Xshare:dump
+<b>&gt; c:\opt\jdk-zulu-11.0.2\bin\java -Xshare:dump</b>
 [...]
-&gt; dir c:\opt\jdk-zulu11.2.3-11.0.1\bin\server | findstr jsa
+<b>&gt; dir c:\opt\jdk-zulu11.2.3-11.0.1\bin\server | findstr jsa</b>
 24.12.2018  18:01        18 153 472 classes.jsa
 &nbsp;
-&gt; c:\opt\jdk-zulu-11.0.2\bin\java -version
+<b>&gt; c:\opt\jdk-zulu-11.0.2\bin\java -version</b>
 openjdk version "11.0.2" 2019-01-15 LTS
 OpenJDK Runtime Environment Zulu11.29+3-CA (build 11.0.2+7-LTS)
 OpenJDK 64-Bit Server VM Zulu11.29+3-CA (build 11.0.2+7-LTS, mixed mode, sharing)
