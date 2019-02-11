@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;max-width:120px;">
-    <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
+    <a href="http://dotty.epfl.ch/"><img src="docs/dotty.png" width="120"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This repository gathers code examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a> - or written by myself.<br/>
@@ -92,7 +92,7 @@ We also define a virtual drive **`W:`** in our working environment in order to r
 > **:mag_right:** We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
-> &gt; subst W: %USERPROFILE%\workspace
+> <b>&gt; subst W: %USERPROFILE%\workspace</b>
 > </pre>
 
 In the next section we give a brief description of the batch files present in this repository.
@@ -468,7 +468,7 @@ settings.gradle
 src
 target
 Execution time: 00:00:01
-> timeit build clean compile
+<b>&gt; timeit build clean compile</b>
 Execution time: 00:00:08
 </pre>
 

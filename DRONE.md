@@ -2,8 +2,8 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;width:60px;">
-    <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="60"/></a>
+  <td style="border:0;padding:0 10px 0 0;max-width:120px;">
+    <a href="http://dotty.epfl.ch/"><img src="docs/dotty.png" width="120"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed by the <a href="https://drone.io/">Drone platform</a> running on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This page describes changes we made to the source code of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps locally on a Windows machine.
@@ -59,7 +59,7 @@ C:\opt\Git-2.20.1\
 The directory structure of the [Dotty repository](https://github.com/lampepfl/dotty/) is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts).
 
 <pre style="font-size:80%;">
-<b>&gt;</b> dir /ad /b
+<b>&gt; dir /ad /b</b>
 .git
 .vscode-template
 bench
@@ -109,7 +109,7 @@ We also define a virtual drive **`W:`** in our working environment in order to r
 > **:mag_right:** We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
-> &gt; subst W: %USERPROFILE%\workspace
+> <b>&gt; subst W: %USERPROFILE%\workspace</b>
 > </pre>
 
 In the next section we give a brief description of the batch files present in those directories.
@@ -258,7 +258,7 @@ Tool versions:
    javac 1.8.0_202, java 1.8.0_202,
    sbt 1.2.8/2.12.8, git 2.20.1.windows.1, diff 3.6
 
-> where sbt
+<b>&gt; where sbt</b>
 C:\opt\sbt-1.2.8\bin\sbt
 C:\opt\sbt-1.2.8\bin\sbt.bat
 </pre>
@@ -336,7 +336,7 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
 - **`compile`** - This subcommand generates the *"1st stage compiler"* for [Dotty](http://dotty.epfl.ch/) and executes the relevant test suites. 
 
     <pre style="font-size:80%;">
-    &gt; build compile
+    <b>&gt; build compile</b>
     sbt compile and sbt test
     [...]
     [info] Done compiling.
@@ -378,17 +378,17 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
 - **`bootstrap`** - ***If*** execution of the **`compile`** subcommand was successful the **`bootstrap`** subcommand generates the *"bootstrap compiler"* for Dotty and executes the relevant test suites.
 
     <pre style="font-size:80%;">
-    <b>&gt;</b> build bootstrap
+    <b>&gt; build bootstrap</b>
     [...]
     </pre>
 
 - **`archives`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`archives`** subcommand generates the gz/zip archives.<br/>Below we execute the **`arch-only`** subcommand for the sake of brievity (previous steps are *assumed* to be successful): 
 
     <pre style="font-size:80%;">
-    &gt; build arch-only
+    <b>&gt; build arch-only</b>
     [...]
     &nbsp;
-    > dir /a-d /b dist-bootstrapped\target
+    <b>&gt; dir /a-d /b dist-bootstrapped\target</b>
     dotty-0.12.0-bin-SNAPSHOT.tar.gz
     dotty-0.12.0-bin-SNAPSHOT.zip
     </pre>
@@ -396,7 +396,7 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
 - **`documentation`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Dotty website](https://dotty.epfl.ch/) and the online [Dotty documentation](https://dotty.epfl.ch/docs/).<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
     <pre style="font-size:80%;">
-    <b>&gt;</b> build -timer doc-only
+    <b>&gt; build -timer doc-only</b>
     Working directory: W:\dotty
     [...]
     [info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 0.12.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
@@ -435,7 +435,7 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     Output directory **`docs\_site\`** contains the files of the online [Dotty documentation](https://dotty.epfl.ch/docs/):
 
     <pre style="font-size:80%;">
-    <b>&gt;</b> dir /b docs\_site
+    <b>&gt; dir /b docs\_site</b>
     .gitignore
     api
     blog
@@ -446,18 +446,18 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     js
     sidebar.yml
     versions
-    &gt; dir /a-d /b /s docs\_site\*.html | wc -l
+    <b>&gt; dir /a-d /b /s docs\_site\*.html | wc -l</b>
     2551
-    &gt; dir /a-d /b /s docs\_site\*.jpg docs\_site\*.png docs\_site\*.svg | wc -l
+    <b>&gt; dir /a-d /b /s docs\_site\*.jpg docs\_site\*.png docs\_site\*.svg | wc -l</b>
     23
-    &gt; dir /a-d /b /s docs\_site\*.js | wc -l
+    <b>&gt; dir /a-d /b /s docs\_site\*.js | wc -l</b>
     9
     </pre>
 
     Output directory **`docs\docs\`** contains the Markdown files of the [Dotty website](https://dotty.epfl.ch/):
 
     <pre style="font-size:80%;">
-    &gt; dir /b docs\docs
+    <b>&gt; dir /b docs\docs</b>
     contributing
     index.md  
     internals 
@@ -466,7 +466,7 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     resources   
     typelevel.md
     usage
-    &gt; dir /a-d /b /s docs\docs\*.md | wc -l
+    <b>&gt; dir /a-d /b /s docs\docs\*.md | wc -l</b>
     88 
     </pre>
 
@@ -507,7 +507,7 @@ testing loading tasty from .tasty file in jar
 Command [**`project\scripts\bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) performs several benchmarks and generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program. In the normal case, command [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) is called by command **`build bootstrap`** but may also be called directly.
 
 <pre style="font-size:80%;">
-<b>&gt;</b> bootstrapCmdTests
+<b>&gt; bootstrapCmdTests</b>
 [...]
 [info] Updating dotty-bench...
 [...]

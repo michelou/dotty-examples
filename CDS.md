@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;max-width:120px;">
-    <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
+    <a href="http://dotty.epfl.ch/"><img src="docs/dotty.png" width="120"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This page presents findings from our experiments with <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/class-data-sharing.html">Java class data sharing</a> (CDS) and <a href="http://dotty.epfl.ch/">Dotty</a> on the Windows platform. Introduced in <a href="https://openjdk.java.net/groups/hotspot/docs/RuntimeOverview.html#Class%20Data%20Sharing|outline">J2SE 5.0</a>, CDS helps reduce the startup time for Java applications as well as reduce their memory footprint.
@@ -70,7 +70,7 @@ We distinguish different sets of batch commands:
 1. [**`setenv.bat`**](https://github.com/michelou/dotty/tree/batch-files/setenv.bat) - This batch command makes external tools such as [**`java.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt.
 
     <pre style="font-size:80%;">
-    > setenv help
+    <b>&gt; setenv help</b>
     Usage: setenv { options | subcommands }
       Options:
         -verbose         display environment settings
@@ -102,7 +102,7 @@ Batch command  [**`build`**](cdsexamples/JavaExample/build.bat) has two new opti
 - Option **`-share`** enables/disables data sharing.
 
 <pre style="font-size:80%;">
-&gt; build help
+<b>&gt; build help</b>
 Usage: build { options | subcommands }
   Options:
     -iter:1..99        set number of run iterations
@@ -121,9 +121,9 @@ Usage: build { options | subcommands }
 We first execute command **`build clean compile`**; the same command with option **`-verbose`** prints out the progress messages:
 
 <pre style="font-size:80%;">
-&gt; build clean compile
+<b>&gt; build clean compile</b>
 &nbsp;
-&gt; build -verbose clean compile
+<b>&gt; build -verbose clean compile</b>
 Delete output directory target
 Create Java archive target\JavaExample.jar
 Create class list file target\JavaExample.classlist
@@ -133,10 +133,10 @@ Create Java shared archive target\JavaExample.jsa
 We can now execute our Java example ***without data sharing***; the same command with option **`-verbose`** prints out the execution report:
 
 <pre style="font-size:80%;">
-&gt; build run
+<b>&gt; build run</b>
 Hello from Java !
 &nbsp;
-&gt; build run -verbose
+<b>&gt; build run -verbose</b>
 Execute Java archive (#iterations=1) target\JavaExample.jar
 Hello from Java !
 Execution report:
@@ -157,7 +157,7 @@ Classes per package (600):
 
 > **:mag_right:** Subcommand **`run`** accepts 1 optional argument for testing purposes; for instance **`build run:1`** produces the following output (see [**`src\main\java\VMOptions.java`**](cdsexamples/JavaExample/src/main/java/VMOptions.java)):
 > <pre style="font-size:80%;">
-> &gt; build run:1
+> <b>&gt; build run:1</b>
 > Hello from Java !
 > VM Options:
 >    -Xshare:off
@@ -174,10 +174,10 @@ Classes per package (600):
 For comparison here is the console output ***with data sharing***; option **`-verbose`** prints out the execution report:
 
 <pre style="font-size:80%;">
-&gt; build run -share
+<b>&gt; build run -share</b>
 Hello from Java !
 &nbsp;
-&gt; build run -verbose -share
+<b>&gt; build run -verbose -share</b>
 Execute Java archive (#iterations=1) target\JavaExample.jar
 Hello from Java !
 Execution report:
@@ -199,7 +199,7 @@ Classes per package (590):
 Subcommand **`run`** with option **`-iter:<n>`** (where **`n=1..99`**) executes the Java program **`n`** times:
 
 <pre style="font-size:80%;">
-&gt; build run -verbose -share -iter:4
+<b>&gt; build run -verbose -share -iter:4</b>
 Execute Java archive (#iterations=4) target\JavaExample.jar
 Hello from Java !
 Hello from Java !
@@ -224,7 +224,7 @@ Classes per package (590):
 Let's check the contents of the output directory **`target\`**:
 
 <pre style="font-size:80%;">
-&gt; tree /a /f target | findstr /v "^[A-Z]"
+<b>&gt; tree /a /f target | findstr /v "^[A-Z]"</b>
 |   JavaExample.classlist
 |   JavaExample.jar
 |   JavaExample.jsa
@@ -266,18 +266,18 @@ For instance we can read from file **`logs\log_share_off.log`** that  source of 
 We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/tools/java.html) command (*from Java 9+*) directly to check if data sharing is effectively used:
 
 <pre style="font-size:80%;">
-&gt; java -verbose:class -Xshare:on -XX:SharedArchiveFile=target\JavaExample.jsa ^
- -jar W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar | findstr cdsexamples
+<b>&gt; java -verbose:class -Xshare:on -XX:SharedArchiveFile=target\JavaExample.jsa ^
+ -jar W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar | findstr cdsexamples</b>
 [0.089s][info][class,load] cdsexamples.Main source: shared objects file
 
-&gt; java -verbose:class -Xshare:off -XX:SharedArchiveFile=target\JavaExample.jsa ^
- -jar W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar | findstr cdsexamples
+<b>&gt; java -verbose:class -Xshare:off -XX:SharedArchiveFile=target\JavaExample.jsa ^
+ -jar W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar | findstr cdsexamples</b>
 [0.112s][info][class,load] cdsexamples.Main source: file:/W:/dotty-examples/cdsexamples/JavaExample/target/Main.jar
 </pre>
 
 > **:warning:** The ***crucial point*** here is to use the correct path of **`JavaExample.jar`** together with the specified Java shared archive. Command [**`grep -a`**](https://www.linux.org/docs/man1/grep.html) (**`-a`** means "*process a binary file as if it were text*") helps us to extract that path from **`JavaExample.jsa`**.<br/>
 > <pre style="font-size:80%;">
-> &gt; grep -aPo '.{0,40}JavaExample.jar{0,40}' target\JavaExample.jsa
+> <b>&gt; grep -aPo '.{0,40}JavaExample.jar{0,40}' target\JavaExample.jsa</b>
 >   W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar
 >   W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar
 > </pre>
@@ -304,7 +304,7 @@ Batch command [**`build`**](cdsexamples/DottyExample/build.bat) has two new opti
 - Option **`-share`** enables/disables data sharing.
 
 <pre style="font-size:80%;">
-&gt; build help
+<b>&gt; build help</b>
 Usage: build { options | subcommands }
   Options:
     -iter:1..99        set number of run iterations
@@ -323,9 +323,9 @@ Usage: build { options | subcommands }
 Similarly to the previous section we execute the following command; option **`-verbose`** prints out the progress messages:
 
 <pre style="font-size:80%;">
-&gt; build clean compile
+<b>&gt; build clean compile</b>
 &nbsp;
-&gt; build -verbose clean compile
+<b>&gt; build -verbose clean compile</b>
 Delete output directory target
 Create Java archive target\DottyExample.jar
 Create class list file target\DottyExample.classlist
@@ -335,10 +335,10 @@ Create Java shared archive target\DottyExample.jsa
 We can now execute our [Dotty](http://dotty.epfl.ch/) example ***without data sharing*** (default settings: **`-share:off`**); option **`-verbose`** prints out the execution report:
 
 <pre style="font-size:80%;">
-&gt; build run
+<b>&gt; build run</b>
 Hello from Dotty !
 &nbsp;
-&gt; build run -verbose
+<b>&gt; build run -verbose</b>
 Execute Java archive (#iterations=1) target\DottyExample.jar
 Hello from Dotty !
 Execution report:
@@ -363,10 +363,10 @@ Classes per package (940):
 For comparison here is the output ***with data sharing***; option **`-verbose`** prints out the execution report:
 
 <pre style="font-size:80%;">
-&gt; build run -share
+<b>&gt; build run -share</b>
 Hello from Dotty !
 &nbsp;
-&gt; build run -verbose -share
+<b>&gt; build run -verbose -share</b>
 Execute Java archive (#iterations=1) target\DottyExample.jar
 Hello from Dotty !
 Execution report:
@@ -391,7 +391,7 @@ Classes per package (874):
 Subcommand **`run`** with option **`-iter:<n>`** (**`n=1..99`**) executes **`n`** times the [Dotty](http://dotty.epfl.ch/) example:
 
 <pre style="font-size:80%;">
-&gt; build run -verbose -share -iter:4
+<b>&gt; build run -verbose -share -iter:4</b>
 Execute Java archive (#iterations=4) target\DottyExample.jar
 Hello from Dotty !
 Hello from Dotty !
@@ -419,10 +419,10 @@ Classes per package (874):
 > **:mag_right:** We can use the [**`timeit`**](bin/timeit.bat) command to display the execution times with and without data sharing for **`99`** run iterations:
 >
 > <pre style="font-size:80%;">
-> &gt; timeit build run -iter:99 | findstr /v Hello
+> <b>&gt; timeit build run -iter:99 | findstr /v Hello</b>
 > Execution time: 00:01:22
 >
-> &gt; timeit build run -share -iter:99 | findstr /v Hello
+> <b>&gt; timeit build run -share -iter:99 | findstr /v Hello</b>
 > Execution time: 00:01:00
 > </pre>
 -->
@@ -469,7 +469,7 @@ Note the following about the generated files:
 Command [**`sharedata`**](bin/sharedata.bat) ...*tbd*...
 
 <pre style="font-size:80%;">
-&gt; sharedata help
+<b>&gt; sharedata help</b>
 Usage: sharedata { options | subcommands }
   Options:
     -share[:(on|off)]  set the share flag (default:off)
@@ -483,7 +483,7 @@ Usage: sharedata { options | subcommands }
 </pre>
 
 <pre style="font-size:80%;">
-&gt; sharedata activate
+<b>&gt; sharedata activate</b>
 Create class list file out\data-sharing\dotty-cds-compiler.classlist
 Create Java shared archive out\data-sharing\dotty-cds-compiler.jsa
 Create class list file out\data-sharing\dotty-cds-repl.classlist
@@ -497,7 +497,7 @@ Support files for Java class sharing:
 </pre>
 
 <pre style="font-size:80%;">
-&gt; dir /b c:\opt\dotty-0.12.0-RC1\lib\dotty-cds*
+<b>&gt; dir /b c:\opt\dotty-0.12.0-RC1\lib\dotty-cds*</b>
 dotty-cds-compiler.classlist
 dotty-cds-compiler.jsa
 dotty-cds-repl.classlist
@@ -520,7 +520,7 @@ dotty-cds_0.12-0.12.0-RC1.jar
 
 Subcommand **`test`** ...*tbd*...; option **`-verbose`** prints out the execution report:
 <pre style="font-size:80%;">
-&gt; sharedata test
+<b>&gt; sharedata test</b>
 Support files for Java class sharing:
    dotty-cds-compiler.classlist (119 Kb)
    dotty-cds-compiler.jsa (55616 Kb)
@@ -528,7 +528,7 @@ Support files for Java class sharing:
    dotty-cds-repl.jsa (16640 Kb)
    dotty-cds_0.12-0.12.0-RC1.jar (3 Kb)
 &nbsp;
-&gt; sharedata -verbose test
+<b>&gt; sharedata -verbose test</b>
 Execute test application with Scala REPL <span style="background-color:#cc0000;color:white;">WITHOUT</span> Java shared archive
 Support files for Java class sharing:
    dotty-cds-compiler.classlist (119 Kb)
@@ -554,7 +554,7 @@ Classes per package (954):
 </pre>
 
 <pre style="font-size:80%;">
-<b>&gt;</b> sharedata -verbose -share test
+<b>&gt; sharedata -verbose -share test</b>
 Execute test application with Scala REPL WITH Java shared archive
 Support files for Java class sharing:
    dotty-cds-compiler.classlist (119 Kb)
@@ -588,12 +588,12 @@ Classes per package (888):
 > 3. Repeat command from point 1. 
 > 
 > <pre style="font-size:80%;">
-> <b>&gt;</b> c:\opt\jdk-11.0.2\bin\java -version
+> <b>&gt; c:\opt\jdk-11.0.2\bin\java -version</b>
 > openjdk version "11.0.2" 2018-10-16
 > OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.2+7)
 > OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.2+7, mixed mode)
 > &nbsp;
-> <b>&gt;</b> java -Xshare:dump
+> <b>&gt; java -Xshare:dump</b>
 > [...]
 > Number of classes 1272
 > [...]
@@ -604,11 +604,11 @@ Classes per package (888):
 > od  space:   6534648 [ 36.1% of total] [...]
 > total    :  17873808 [100.0% of total] [...]
 > &nbsp;
-> <b>&gt;</b> dir /b c:\opt\jdk-11.0.2\bin\server
+> <b>&gt; dir /b c:\opt\jdk-11.0.2\bin\server</b>
 > classes.jsa
 > jvm.dll
 > &nbsp;
-> <b>&gt;</b> c:\opt\jdk-11.0.2\bin\java -version
+> <b>&gt; c:\opt\jdk-11.0.2\bin\java -version</b>
 > openjdk version "11.0.2" 2018-10-16
 > OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.2+7)
 > OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.2+7, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
@@ -617,14 +617,14 @@ Classes per package (888):
 ## Usage example
 
 <pre style="font-size:80%;">
-<b>&gt;</b> cd examples\enum-Planet
-&gt; dotc -share -d target\classes src\main\scala\Planet.scala "-J-Xlog:class+load=info" > class-load.txt
+<b>&gt; cd examples\enum-Planet</b>
+<b>&gt; dotc -share -d target\classes src\main\scala\Planet.scala "-J-Xlog:class+load=info" > class-load.txt</b>
 </pre>
 
 We can observe that 24 classes could not be found in the Java shared archive **`dotty-cds-compiler.jsa`**:
 
 <pre style="font-size:80%;">
-&gt; findstr /c:"source: file" class-load.txt
+<b>&gt; findstr /c:"source: file" class-load.txt</b>
 [0.696s][info][class,load] dotty.tools.dotc.core.Comments$Comment$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
 [0.700s][info][class,load] dotty.tools.dotc.ast.untpd$Mod$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
 [0.701s][info][class,load] dotty.tools.dotc.ast.untpd$Mod$Enum$ source: file:/C:/opt/dotty-0.12.0-RC1/lib/dotty-compiler_0.12-0.12.0-RC1.jar
@@ -704,5 +704,5 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/January 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/February 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>

@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;max-width:120px;">
-    <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
+    <a href="http://dotty.epfl.ch/"><img src="docs/dotty.png" width="120"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     <a href="http://openjdk.java.net/faq/">OpenJDK</a> is an open-source project initiated by Oracle in 2010. Java 8 is the first LTS version of Java to be released <i>both</i> as a commercial product (<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Oracle Java SE 8 </a>) and as an open-source product (<a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">Oracle OpenJDK 8</a>).<br/>In the following we focus on OpenJDK 11, the current LTS version of Java.
@@ -133,7 +133,7 @@ java version "11.0.2" 2019-01-15 LTS
 Java(TM) SE Runtime Environment 18.9 (build 11.0.2+9-LTS)
 Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode)
 
-&gt; c:\opt\jdk-11.0.2\bin\java -Xshare:dump
+<b>&gt; c:\opt\jdk-11.0.2\bin\java -Xshare:dump</b>
 [...]
 <b>&gt; dir c:\opt\jdk-11.0.2\bin\server | findstr jsa</b>
 17.12.2018  13:03        18 153 472 classes.jsa
