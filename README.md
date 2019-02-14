@@ -45,7 +45,7 @@ Optionally you may also install the following software:
 For instance our development environment looks as follows (*February 2019*):
 
 <pre style="font-size:80%;">
-C:\opt\jdk-1.8.0_202-b081\
+C:\opt\jdk-1.8.0_202-b08\
 C:\opt\apache-ant-1.10.5\
 C:\opt\apache-maven-3.6.0\
 C:\opt\cfr-0.139\
@@ -305,24 +305,24 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; getnightly</b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.13-0.13.0-bin-20190202-03887b7-NIGHTLY.jar
-dotty-doc_0.13-0.13.0-bin-20190202-03887b7-NIGHTLY.jar
-dotty-language-server_0.13-0.13.0-bin-20190202-03887b7-NIGHTLY.jar
-dotty-library_0.13-0.13.0-bin-20190202-03887b7-NIGHTLY.jar
-dotty-sbt-bridge-0.13.0-bin-20190202-03887b7-NIGHTLY.jar
-dotty_0.13-0.13.0-bin-20190202-03887b7-NIGHTLY.jar
+dotty-compiler_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar
+dotty-doc_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar
+dotty-language-server_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar
+dotty-library_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar
+dotty-sbt-bridge-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar
+dotty_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar
 </pre>
 
 Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
 <pre style="font-size:80%">
 <b>&gt; getnightly -verbose</b>
-Downloading file dotty-compiler_0.13-0.13.0-bin-20190202-03887b7-NIGHTLY.jar ... 10.7 Mb
-Downloading file dotty-language-server_0.13-0.13.0-bin-20190202-03887b7-NIGHTLY.jar ... 142.7 Kb
-Downloading file dotty-doc_0.13-0.13.0-bin-20190202-03887b7-NIGHTLY.jar ... 1013 Kb
-Downloading file dotty_0.13-0.13.0-bin-20190202-03887b7-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-library_0.13-0.13.0-bin-20190202-03887b7-NIGHTLY.jar ... 803.1 Kb
-Downloading file dotty-sbt-bridge-0.13.0-bin-20190202-03887b7-NIGHTLY.jar ... 13.3 Kb
+Downloading file dotty-compiler_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar ... 10.9 Mb
+Downloading file dotty_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-language-server_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar ... 146 Kb
+Downloading file dotty-doc_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar ... 1 Mb
+Downloading file dotty-library_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar ... 819.6 Kb
+Downloading file dotty-sbt-bridge-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar ... 13.3 Kb
 Finished to download 6 files to directory W:\DOTTY-~1\out\nightly-jars
 </pre>
 

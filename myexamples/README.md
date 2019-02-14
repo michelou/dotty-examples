@@ -28,8 +28,8 @@ Command [**`build`**](dotty-example-project/build.bat) is a basic build tool con
 > - We adopt the following naming conventions: global variables start with character `_` (shell variables defined in the user environment start with a letter) and local variables (e.g. inside subroutines or  **`if/for`** constructs) start with `__` (two `_` characters).
 
 <pre style="font-size:80%;">
-@echo off
-setlocal enabledelayedexpansion
+<b>@echo off</b>
+<b>setlocal enabledelayedexpansion</b>
 ...
 <i>rem ##########################################################################
 rem ## Environment setup</i>
@@ -73,13 +73,13 @@ rem ## Subroutines</i>
 <b>goto :eof</b>
 <span style="color:#9966ff;">:args</span>
 ...
-goto :eof
+<b>goto :eof</b>
 <span style="color:#9966ff;">:clean</span>
 ...
 <b>goto :eof</b>
 <span style="color:#9966ff;">:compile</span>
 ...
-goto :eof
+<b>goto :eof</b>
 <span style="color:#9966ff;">:doc</span>
 ...
 <b>goto :eof</b>
@@ -98,7 +98,7 @@ rem ## Cleanups</i>
 Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> build clean run
+<b>&gt; build clean run</b>
 Hello world!
 </pre>
 
@@ -169,7 +169,7 @@ run {
 Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> gradle clean run
+<b>&gt; gradle clean run</b>
 
 &gt; Task :run
 Hello world!
@@ -205,7 +205,7 @@ The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is a standalone f
 Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> sbt -warn clean run
+<b>&gt; sbt -warn clean run</b>
 Hello world!
 </pre>
 
@@ -235,7 +235,7 @@ The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone fil
 Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> mill -i go
+<b>&gt; mill -i go</b>
 [38/38] go.run
 Hello world!
 </pre>
@@ -261,7 +261,7 @@ The configuration file [**`build.xml`**](HelloWorld/build.xml) in directory [**`
 Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output ([Ivy](http://ant.apache.org/ivy/) support is enabled by default):
 
 <pre style="font-size:80%;">
-<b>&gt;</b> ant clean run
+<b>&gt; ant clean run</b>
 Buildfile: W:\dotty-examples\myexamples\HelloWorld\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">clean:</span>
@@ -286,10 +286,10 @@ BUILD SUCCESSFUL
 Total time: 3 seconds
 </pre>
 
-> **&#9755;** ***Apache Ivy**<br/>
+> **&#9755;** **Apache Ivy**<br/>
 > The [Ivy](http://ant.apache.org/ivy/) Java archive must be added to the Ant installation directory as displayed by task **`init.ivy`** in the above output. In our case we work with version 2.5.0-rc1 of the Apache Ivy library.
 > <pre style="font-size:80%;">
-> <b>&gt;</b> dir /b c:\opt\apache-ant-1.10.5\lib\ivy*
+> <b>&gt; dir /b c:\opt\apache-ant-1.10.5\lib\ivy</b>
 > ivy-2.5.0-rc1.jar
 > </pre>
 
@@ -373,7 +373,7 @@ The configuration file [**`pom.xml`**](HelloWorld/pom.xml) in directory [**`Hell
 Running command **`mvn clean test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our Maven plugin **`scala-maven-plugin`**:
 
 <pre>
-&gt; mvn -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL
+<b>&gt; mvn -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.12.0-RC1 \
  -cp C:\opt\dotty-0.12.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
@@ -398,7 +398,7 @@ Hello world!
 We can also specify phase **`package`** to generate (and maybe execute) the **`HelloWorld`** Java archive:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> mvn clean package
+<b>&gt; mvn clean package</b>
 [INFO] Scanning for projects...
 [INFO]
 [INFO] --------------------< dotty.myexamples:HelloWorld >---------------------
@@ -427,7 +427,7 @@ Hello world!
 Executing command <a href="bug4272/build.bat" style="font-weight:bold;font-family:Courier;">build</a> in directory <a href="bug4272/" style="font-weight:bold;font-family:Courier;">bug4272\</a> produces a runtime exception with version 0.7 of the Dotty compiler (*was fixed in version 0.8*):
 
 <pre style="font-size:80%;">
-<b>&gt;</b> build clean compile run
+<b>&gt; build clean compile run</b>
 exception occurred while typechecking C:\dotty\MYEXAM~1\bug4272\src\main\scala\Main.scala
 exception occurred while compiling C:\dotty\MYEXAM~1\bug4272\src\main\scala\Main.scala
 Exception in thread "main" java.lang.AssertionError: cannot merge Constraint(
@@ -458,7 +458,7 @@ Exception in thread "main" java.lang.AssertionError: cannot merge Constraint(
 Executing <a href="bug4356/build.bat" style="font-weight:bold;font-family:Courier;">build</a> in directory <a href="bug4356/" style="font-weight:bold;font-family:Courier;">bug4272\</a> produces a runtime exception with version 0.7 of the Dotty compiler:
 
 <pre>
-<b>&gt;</b> build clean compile
+<b>&gt; build clean compile</b>
 Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> at index 72: C:\dotty\MYEXAM~1\bug4356\\lib\junit-4.12.jar:C:\dotty\MYEXAM~1\bug4356\target\dotty-0.7\classes
         at sun.nio.fs.WindowsPathParser.normalize(WindowsPathParser.java:182)
         at sun.nio.fs.WindowsPathParser.parse(WindowsPathParser.java:153)

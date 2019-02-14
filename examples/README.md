@@ -27,7 +27,7 @@ Command [**`build`**](enum-Planet/build.bat) is a basic build tool consisting of
 > - We adopt the following naming conventions: global variables start with character `_` (shell variables defined in the user environment start with a letter) and local variables (e.g. inside subroutines or  **`if/for`** constructs) start with `__` (two `_` characters).
 
 <pre style="font-size:80%;">
-@echo off
+<b>@echo off</b>
 <b>setlocal enabledelayedexpansion</b>
 ...
 <i>rem ##########################################################################
@@ -54,11 +54,11 @@ rem ## Main</i>
     <b>call <span style="color:#9966ff;">:compile</span></b>
     <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
-if %_DOC%==1 (
+<b>if</b> %_DOC%==1 (
     <b>call <span style="color:#9966ff;">:doc</span></b>
     <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
-if %_RUN%==1 (
+<b>if</b> %_RUN%==1 (
     <b>call <span style="color:#9966ff;">:run</span></b>
     <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
@@ -97,7 +97,7 @@ rem ## Cleanups</i>
 Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
 
 <pre style="font-size:80%;">
-&gt; build clean run
+<b>&gt; build clean run</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -112,7 +112,7 @@ Your weight on JUPITER is 2.5305575254957406
 Running command [**`build`**](enum-Planet/build.bat) with option **`-verbose`** in project [**`enum-Planet\`**](enum-Planet/) displays progress messages:
 
 <pre style="font-size:80%;">
-&gt; build -verbose clean compile run
+<b>&gt; build -verbose clean compile run</b>
 Compile Scala sources to target\classes
 Execute Scala main class Planet
 Your weight on MERCURY is 0.37775761520093526
@@ -128,7 +128,7 @@ Your weight on JUPITER is 2.5305575254957406
 Finally, running command [**`build`**](enum-Planet/build.bat) with option **`-debug`** in project [**`enum-Planet`**](enum-Planet/) also displays internal steps of the build process:
 
 <pre style="font-size:80%;">
-<b/>&gt;</b> build -debug clean compile run
+<b/>&gt; build -debug clean compile run</b>
 [build] _CLEAN=1 _COMPILE=1 _COMPILE_CMD=dotc _RUN=1
 [build] del /s /q W:\dotty\examples\ENUM-P~1\target\classes\*.class W:\dotty\examples\ENUM-P~1\target\classes\*.hasTasty W:\dotty\examples\ENUM-P~1\target\classes\.latest-build
 [build] 20180322224754 W:\dotty\examples\ENUM-P~1\src\main\scala\Planet.scala
@@ -148,25 +148,25 @@ Your weight on JUPITER is 2.5305575254957406
 Compilation of the Java/Scala source files is performed only if needed during the build process:
 
 <pre style="font-size:80%;">
-> build clean
+<b>&gt; build clean</b>
 
-> build compile
+<b>&gt; build compile</b>
 
-> build compile
+<b>&gt; build compile</b>
 No compilation needed (1 source files)</pre>
 
 > **:mag_right:** The above `enum-Planet` example expects 1 argument at execution time.<br/>
 > For simplicity the [**`build`**](enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
-> <b>&gt;</b> type project\build.properties
+> <b>&gt; type project\build.properties</b>
 > sbt.version=1.2.8
 > main.class=Planet
 > main.args=1
 > </pre>
 > With SBT you have to run the example as follows:<br/>
 > <pre style="font-size:80%;">
-> > sbt clean compile "run 1"
-> > sbt "run 1"
+> <b>&gt; sbt clean compile "run 1"</b>
+> <b>&gt; sbt "run 1"</b>
 > </pre>
 > 
 
@@ -236,7 +236,7 @@ run {
 Execution of [**`Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> gradle clean run
+<b>&gt; gradle clean run</b>
 
 > Task :run
 Your weight on MERCURY is 0.37775761520093526
@@ -280,7 +280,7 @@ The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is a standalone 
 Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) expects one argument and produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> sbt -warn clean "run 1"
+<b>&gt; sbt -warn clean "run 1"</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -317,7 +317,7 @@ The configuration file [**`build.sc`**](enum-Planet/build.sc) is a standalone fi
 Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> mill -i go.run 1
+<b>&gt; mill -i go.run 1</b>
 [38/38] go.run
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
@@ -350,7 +350,7 @@ The configuration file [**`build.xml`**](enum-Planet/build.xml) in directory [**
 Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output ([Ivy](http://ant.apache.org/ivy/) support is enabled by default):
 
 <pre style="font-size:80%;">
-<b>&gt;</b> ant clean run
+<b>&gt; ant clean run</b>
 Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">clean:</span>
@@ -382,17 +382,17 @@ BUILD SUCCESSFUL
 Total time: 19 seconds
 </pre>
 
-> **&#9755;** ***Apache Ivy***<br/>
+> **&#9755;** ***Apache Ivy**<br/>
 > The [Ivy](http://ant.apache.org/ivy/) Java archive must be added to the [Ant](https://ant.apache.org/) installation directory as displayed by task **`init.ivy`** in the above output. In our case we work with [version 2.5.0-rc1](http://ant.apache.org/ivy/history/2.5.0-rc1/release-notes.html) of the Apache Ivy library.
 > <pre style="font-size:80%;">
-> <b>&gt;</b> dir /b c:\opt\apache-ant-1.10.5\lib\ivy*
+> <b>&gt; dir /b c:\opt\apache-ant-1.10.5\lib\ivy</b>
 > ivy-2.5.0-rc1.jar
 > </pre>
 
 We specify property **`-Duse.local=true`** to use Dotty local installation (*reminder*: variable **`DOTTY_HOME`** is set by command **`setenv`**):
 
 <pre style="font-size:80%;">
-<b>&gt;</b> ant -Duse.local=true clean run
+<b>&gt; ant -Duse.local=true clean run</b>
 Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">clean:</span>
@@ -476,7 +476,7 @@ The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enu
 Running command **` mvn compile test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our Maven plugin **`scala-maven-plugin`**:
 
 <pre>
-&gt; mvn -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL
+<b>&gt; mvn -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.12.0-RC1 \
  -cp C:\opt\dotty-0.11.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
@@ -494,7 +494,7 @@ W:\dotty-examples\examples\hello-scala\target\classes hello
 Execution of [**`Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> mvn --quiet clean test
+<b>&gt; mvn --quiet clean test</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -507,7 +507,7 @@ Your weight on JUPITER is 2.5305575254957406
 
 
 <pre style="font-size:80%;">
-<b>&gt;</b> mvn clean compile package
+<b>&gt; mvn clean compile package</b>
 ...
 [INFO]
 [INFO] --- maven-jar-plugin:3.1.1:jar (default-jar) @ enum-Planet ---
@@ -519,10 +519,10 @@ Your weight on JUPITER is 2.5305575254957406
 [INFO] Finished at: 2019-01-27T19:53:09+01:00
 [INFO] ------------------------------------------------------------------------
 
-<b>&gt;</b> java -version 2>&1 | findstr version
+<b>&gt; java -version 2>&1 | findstr version</b>
 openjdk version "11.0.2" 2018-10-16
 
-<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.12.0-RC1\lib\dotty-library_0.12-0.12.0-RC1.jar;c:\opt\dotty-0.12.0-RC1\lib\scala-library-2.12.8.jar -jar target\enum-Planet-0.1-SNAPSHOT.jar 1
+<b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.12.0-RC1\lib\dotty-library_0.12-0.12.0-RC1.jar;c:\opt\dotty-0.12.0-RC1\lib\scala-library-2.12.8.jar -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455

@@ -62,6 +62,7 @@ The directory structure of the [Dotty repository](https://github.com/lampepfl/do
 <b>&gt; dir /ad /b</b>
 .git
 .vscode-template
+AUTHORS.md, CONTRIBUTING.md, LICENSE.md, README.md
 bench
 bin
 community-build
@@ -76,15 +77,15 @@ project
 sandbox
 sbt-bridge
 sbt-dotty
-scala-backend
-scala2-library
+scalastyle-config.xml
 semanticdb
 tests
 vscode-dotty
 </pre>
 
+<!-- 2019-02-13
 > **:mag_right:** Directories like [**`scala-backend\`**](https://github.com/lampepfl/scala/tree/sharing-backend), [**`scala2-library\`**](https://github.com/lampepfl/scala/tree/dotty-library2.12) and **`community-build`** subdirectories are actually Git submodules (see article ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/)). Their Git information (e.g. path, URL, branch) is stored in file [**`.gitmodules`**](https://github.com/michelou/dotty/blob/master/.gitmodules).
-
+-->
 Concretely directories [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin), [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts) and the root directory contain the following additions:
 
 <pre style="font-size:80%;">
