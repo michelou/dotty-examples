@@ -3,10 +3,11 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;max-width:120px;">
-    <a href="http://dotty.epfl.ch/"><img src="docs/dotty.png" width="120"/></a>
+    <a href="http://dotty.epfl.ch/"><img style="border:0;width:120px;" src="docs/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    This page presents findings from our experiments with <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/class-data-sharing.html">Java class data sharing</a> (CDS) and <a href="http://dotty.epfl.ch/">Dotty</a> on the Windows platform. Introduced in <a href="https://openjdk.java.net/groups/hotspot/docs/RuntimeOverview.html#Class%20Data%20Sharing|outline">J2SE 5.0</a>, CDS helps reduce the startup time for Java applications as well as reduce their memory footprint.
+    Introduced in <a href="https://openjdk.java.net/groups/hotspot/docs/RuntimeOverview.html#Class%20Data%20Sharing|outline">J2SE 5.0</a>, <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/class-data-sharing.html">Java class data sharing</a> (CDS) helps reduce the startup time for Java applications as well as reduce their memory footprint.<br/>
+    This page presents findings from our experiments with <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/class-data-sharing.html">CDS</a> and <a href="http://dotty.epfl.ch/">Dotty</a> on the Windows platform. 
   </td>
   </tr>
 </table>
@@ -18,7 +19,7 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 - Data Sharing and Dotty on Windows [**&#9660;**](#bottom)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-Other topics we are currently investigating include [JMH](https://openjdk.java.net/projects/code-tools/jmh/), [OpenJDK 11](https://adoptopenjdk.net/) and [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html).
+Other topics we are currently investigating include [JMH](https://openjdk.java.net/projects/code-tools/jmh/), [OpenJDK](https://adoptopenjdk.net/) and [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html).
 
 
 ## Project dependencies
@@ -39,7 +40,7 @@ C:\opt\dotty-0-12.0-RC1\
 C:\opt\Git-2.20.1\
 </pre>
 
-> **:mag_right:** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
+> **:mag_right:** [Git for Windows](https://git-scm.com/) provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
 
 
 ## Directory structure
@@ -282,6 +283,7 @@ We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/t
 >   W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar
 > </pre>
 
+
 ## Dotty example
 
 Source file [**`src\main\scala\Main.scala`**](cdsexamples/DottyExample/src/main/scala/Main.scala) is the main program of our [Dotty](http://dotty.epfl.ch/) code example:
@@ -429,7 +431,7 @@ Classes per package (874):
 Finally we can check the contents of the output directory **`target\`**:
 
 <pre style="font-size:80%;">
-> tree /a /f target | findstr /v "^[A-Z]"
+<b>&gt; tree /a /f target | findstr /v "^[A-Z]"</b>
 |   DottyExample.classlist
 |   DottyExample.jar
 |   DottyExample.jsa
@@ -466,7 +468,7 @@ Note the following about the generated files:
 
 ## Batch command `sharedata`
 
-Command [**`sharedata`**](bin/sharedata.bat) ...*tbd*...
+Command [**`sharedata`**](bin/sharedata.bat) creates and (un-)installs Java shared archives for both **`dotc`** and **`dotr`**:
 
 <pre style="font-size:80%;">
 <b>&gt; sharedata help</b>
@@ -580,38 +582,38 @@ Classes per package (888):
 </pre>
 
 
-> **&#9755;** ***Data Sharing and Hotspot OpenJDK 11*** <br/>
+> **&#9755;** ***Data Sharing and Oracle OpenJDK 11*** <br/>
 > The [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot) installation contains the file **`<install_dir>\lib\classlist`**. Let's check if data sharing is enabled:
 > 
-> 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last displayed line ends with  **`(build 11.0.2+7, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.2+7, mixed mode)`** otherwise.
+> 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last displayed line ends with  **`(build 11.0.2+9, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.2+9, mixed mode)`** otherwise.
 > 2. Command **`java.exe -Xshare:dump`** generates the 17.3 Mb Java shared archive **`<install_dir>\bin\server\classes.jsa`** from file **`<install_dir>\lib\classlist`**.
 > 3. Repeat command from point 1. 
 > 
 > <pre style="font-size:80%;">
 > <b>&gt; c:\opt\jdk-11.0.2\bin\java -version</b>
-> openjdk version "11.0.2" 2018-10-16
-> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.2+7)
-> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.2+7, mixed mode)
+> openjdk version "11.0.2" 2019-01-15
+> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.2+9)
+> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.2+9, mixed mode)
 > &nbsp;
-> <b>&gt; java -Xshare:dump</b>
+> <b>&gt; c:\opt\jdk-11.0.2\bin\java -Xshare:dump</b>
 > [...]
 > Number of classes 1272
 > [...]
 > mc  space:      8416 [  0.0% of total] [...]
 > rw  space:   4022976 [ 22.2% of total] [...]
-> ro  space:   7305208 [ 40.4% of total] [...]
+> ro  space:   7305216 [ 40.4% of total] [...]
 > md  space:      2560 [  0.0% of total] [...]
 > od  space:   6534648 [ 36.1% of total] [...]
-> total    :  17873808 [100.0% of total] [...]
+> total    :  17873816 [100.0% of total] [...]
 > &nbsp;
 > <b>&gt; dir /b c:\opt\jdk-11.0.2\bin\server</b>
 > classes.jsa
 > jvm.dll
 > &nbsp;
 > <b>&gt; c:\opt\jdk-11.0.2\bin\java -version</b>
-> openjdk version "11.0.2" 2018-10-16
-> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.2+7)
-> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.2+7, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
+> openjdk version "11.0.2" 2019-01-15
+> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.2+9)
+> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.2+9, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
 > </pre>
 
 ## Usage example

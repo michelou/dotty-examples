@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;max-width:120px;">
-    <a href="http://dotty.epfl.ch/"><img src="docs/dotty.png" width="120"/></a>
+    <a href="http://dotty.epfl.ch/"><img style="border:0;width:120px;" src="docs/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     <a href="http://openjdk.java.net/faq/">OpenJDK</a> is an open-source project initiated by Oracle in 2010. Java 8 is the first LTS version of Java to be released <i>both</i> as a commercial product (<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Oracle Java SE 8 </a>) and as an open-source product (<a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">Oracle OpenJDK 8</a>).<br/>In the following we focus on OpenJDK 11, the current LTS version of Java.
@@ -30,7 +30,7 @@ This project depends on several external software for the **Microsoft Windows** 
 - [RedHat OpenJDK 11](https://developers.redhat.com/products/openjdk/download/) from [RedHat](https://www.redhat.com/).
 - [SapMachine OpenJDK 11](https://sap.github.io/SapMachine/) from [SAP](https://www.sap.com/).
 - [Zulu OpenJDK 11](https://www.azul.com/downloads/zulu/zulu-windows) from [Azul Systems](https://www.azul.com/).
-- *(to come)* [Corretto OpenJDK](https://aws.amazon.com/corretto/) from [Amazon](https://aws.amazon.com/) (only version 8, version 11 planned for April 2019)
+- [Corretto OpenJDK 11](https://aws.amazon.com/corretto/) from [Amazon](https://aws.amazon.com/) *(first released on February 12, 2019)*.
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
@@ -40,6 +40,7 @@ For instance our development environment looks as follows (*February 2019*):
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.2\
 C:\opt\jdk-bellsoft-11.0.2\
+C:\opt\jdk-corretto-11.0.2\
 C:\opt\jdk-dcevm-11.0.1\
 C:\opt\jdk-openj9-11.0.2\
 C:\opt\jdk-redhat-11.0.2\
@@ -47,9 +48,10 @@ C:\opt\jdk-sapmachine-11.0.2\
 C:\opt\jdk-zulu-11.0.2\
 </pre>
 
+
 ## Data sharing
 
-This section supplements my writing [Data Sharing and Dotty on Windows](CDS.md).
+This section supplements my writing from page [Data Sharing and Dotty on Windows](CDS.md).
 
 An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For instance we proceed as follows to check if data sharing is enabled in Oracle OpenJDK 11:
 
@@ -76,6 +78,30 @@ openjdk version "11.0.2-BellSoft" 2018-10-16
 OpenJDK Runtime Environment (build 11.0.2-BellSoft+7)
 OpenJDK 64-Bit Server VM (build 11.0.2-BellSoft+7, mixed mode, sharing)
 </pre>
+
+
+### Corretto OpenJDK 11
+
+<pre style="font-size:80%;">
+<b>&gt; c:\opt\jdk-corretto-11.0.2_9\bin\java -version</b>
+openjdk version "11.0.2" 2019-01-15 LTS
+OpenJDK Runtime Environment Corretto-11.0.2.9.1 (build 11.0.2+9-LTS)
+OpenJDK 64-Bit Server VM Corretto-11.0.2.9.1 (build 11.0.2+9-LTS, mixed mode)
+
+<b>&gt; c:\opt\jdk-corretto-11.0.2_9\bin\java -Xshare:dump</b>
+[...]
+Number of classes 1257
+[...]
+<b>&gt; dir c:\opt\jdk-corretto-11.0.2_9\bin\server | findstr jsa</b>
+15.02.2019  12:17        17 956 864 classes.jsa
+
+<b>&gt; c:\opt\jdk-corretto-11.0.2_9\bin\java -version</b>
+openjdk version "11.0.2" 2019-01-15 LTS
+OpenJDK Runtime Environment Corretto-11.0.2.9.1 (build 11.0.2+9-LTS)
+OpenJDK 64-Bit Server VM Corretto-11.0.2.9.1 (build 11.0.2+9-LTS, mixed mode, sharing)
+</pre>
+
+> **:mag_right:** Amazon provides online documentation specific to Corretto 11, e.g. [Change Log](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html) and [Patches](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/patches.html).
 
 
 ### DCEVM OpenJDK 11
@@ -124,6 +150,7 @@ JCL      - 50b45cd160 based on jdk-11.0.2+8)
 [XXXXXXXXXX -Xshareclasses:name=<name> ##########]
 </pre>
 
+
 ### Oracle OpenJDK 11
 
 Oracle OpenJDK is the [reference implementation](https://openjdk.java.net/projects/jdk/11/); the other OpenJDK distributions are derived from it.
@@ -134,6 +161,8 @@ Java(TM) SE Runtime Environment 18.9 (build 11.0.2+9-LTS)
 Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode)
 
 <b>&gt; c:\opt\jdk-11.0.2\bin\java -Xshare:dump</b>
+[...]
+Number of classes 1272
 [...]
 <b>&gt; dir c:\opt\jdk-11.0.2\bin\server | findstr jsa</b>
 17.12.2018  13:03        18 153 472 classes.jsa
@@ -177,6 +206,8 @@ OpenJDK 64-Bit Server VM (build 11.0.2+0-LTS-sapmachine, mixed mode)
 &nbsp;
 <b>&gt; c:\opt\jdk-sapmachine-11.0.2\bin\java -Xshare:dump</b>
 [...]
+Number of classes 1257
+[...]
 <b>&gt; dir c:\opt\jdk-sapmachine-11.0.2\bin\server | findstr jsa</b>
 02.01.2019  11:53        17 956 864 classes.jsa
 &nbsp;
@@ -196,6 +227,8 @@ OpenJDK Runtime Environment Zulu11.29+3-CA (build 11.0.2+7-LTS)
 OpenJDK 64-Bit Server VM Zulu11.29+3-CA (build 11.0.2+7-LTS, mixed mode)
 &nbsp;
 <b>&gt; c:\opt\jdk-zulu-11.0.2\bin\java -Xshare:dump</b>
+[...]
+Number of classes 1271
 [...]
 <b>&gt; dir c:\opt\jdk-zulu11.2.3-11.0.1\bin\server | findstr jsa</b>
 24.12.2018  18:01        18 153 472 classes.jsa

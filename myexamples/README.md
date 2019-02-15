@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="http://dotty.epfl.ch/"><img src="../docs/dotty.png" width="120"/></a>
+    <a href="http://dotty.epfl.ch/"><img style="border:0;width:120px;" src="../docs/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>myexamples\</code></strong> contains <a href="http://dotty.epfl.ch/" alt="Dotty">Dotty</a> code examples written by myself.

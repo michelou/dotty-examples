@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="http://dotty.epfl.ch/"><img src="../docs/dotty.png" width="120"/></a>
+    <a href="http://dotty.epfl.ch/"><img style="border:0;width:120px;" src="../docs/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>examples\</code></strong> contains <a href="http://dotty.epfl.ch/" alt="Dotty">Dotty</a> examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a>.
@@ -14,6 +14,7 @@
 We can build/run each example in directory [**`examples\`**](.) using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to the **`build`** batch command.
 
 In the following we explain in more detail the build tools available in the [**`enum-Planet\`**](enum-Planet/) example (and also in other examples from directory [**`examples\`**](./)):
+
 
 ## Command `build`
 

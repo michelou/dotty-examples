@@ -10,6 +10,7 @@ lazy val root = project
     scalaVersion := dottyVersion,
     scalacOptions ++= Seq(
       "-deprecation",
+	  "-feature",
       "-encoding", "UTF-8"
     )
   )

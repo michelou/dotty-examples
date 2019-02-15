@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;max-width:120px;">
-    <a href="http://dotty.epfl.ch/"><img src="docs/dotty.png" width="120"/></a>
+    <a href="http://dotty.epfl.ch/"><img style="border:0;width:120px;" src="docs/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed by the <a href="https://drone.io/">Drone platform</a> running on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This page describes changes we made to the source code of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps locally on a Windows machine.
@@ -18,7 +18,7 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 - [Data Sharing and Dotty on Windows](CDS.md)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-Other topics we are currently investigating [JMH](https://openjdk.java.net/projects/code-tools/jmh/), [OpenJDK 11](https://adoptopenjdk.net/) and [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html).
+Other topics we are currently investigating [JMH](https://openjdk.java.net/projects/code-tools/jmh/), [OpenJDK](https://adoptopenjdk.net/) and [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html).
 
 > **&#9755;** ***Continuous Integration/Delivery*** (CI/CD)<br/>
 > (steps: Checkout **&rarr;** Compile **&rarr;** Test **&rarr;** Deploy)
@@ -122,7 +122,7 @@ We distinguish different sets of batch commands:
 1. [**`setenv.bat`**](https://github.com/michelou/dotty/tree/batch-files/setenv.bat) - This batch command makes external tools such as [**`java.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt (see section [**Project dependencies**](#section_01)).
 
     <pre style="font-size:80%;">
-    > setenv help
+    <b>&gt; setenv help</b>
     Usage: setenv { options | subcommands }
       Options:
         -verbose         display environment settings
@@ -161,7 +161,7 @@ We distinguish different sets of batch commands:
         cleanall               clean project (sbt+git) and quit
         clone                  update submodules
         compile                generate+test 1st stage compiler (after clone)
-        community              test community-build (after bootstrap)
+        community              test community-build
         doc[umentation]        generate documentation (after bootstrap)
         help                   display this help message
         sbt                    test sbt-dotty (after bootstrap)
@@ -169,7 +169,6 @@ We distinguish different sets of batch commands:
         arch[ives]-only        generate ONLY gz/zip archives
         boot[strap]-only       generate+test ONLY bootstrapped compiler
         compile-only           generate+test ONLY 1st stage compiler
-        community-only         test ONLY community-build
         doc[umentation]-only   generate ONLY documentation
         sbt-only               test ONLY sbt-dotty
     </pre>
@@ -238,7 +237,7 @@ We have come across several Windows related issues while executing subcommands o
 > <ul><li><a href="https://github.com/lampepfl/dotty/pull/5560">#5560</a> Fix Windows path (<a href="https://github.com/lampepfl/dotty/commit/67c86783ff48723ae96fedeb51c50db62f375042">merged</a>).</li>
 > <li><a href="https://github.com/lampepfl/dotty/pull/5531">#5531</a> Test AppVeyor integration (<a href="https://github.com/lampepfl/dotty/pull/5531#issuecomment-446505630">closed</a>).</li></ul>
 
-Below we summarize additions/changes we made to the [source code](https://github.com/lampepfl/dotty/) of the [Dotty project](http://dotty.epfl.ch/):
+Below we summarize changes we made to the [source code](https://github.com/lampepfl/dotty/) of the [Dotty project](http://dotty.epfl.ch/):
 
 - Unspecified character encoding in some file operations<br/>*Example*: [**`Source.fromFile(f)`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html) **&rarr;** **`Source.fromFile(f, "UTF-8")`**.
 - Platform-specific new lines<br/>*Example*: **`"\n"`** **&rarr;** [**`System.lineSeparator`**](https://docs.oracle.com/javase/8/docs/api/java/lang/System.html#lineSeparator).
@@ -380,6 +379,13 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
 
     <pre style="font-size:80%;">
     <b>&gt; build bootstrap</b>
+    [...]
+    </pre>
+
+- **`community`** - Subcommand **`community`** generates subprojects from **`community-build\community-projects\`**: 
+
+    <pre style="font-size:80%;">
+    <b>&gt; build community</b>
     [...]
     </pre>
 
