@@ -2,8 +2,8 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;max-width:120px;">
-    <a href="http://dotty.epfl.ch/"><img style="border:0;width:120px;" src="docs/dotty.png" /></a>
+  <td style="border:0;padding:0 10px 0 0;max-width:80px;">
+    <a href="http://dotty.epfl.ch/"><img style="border:0;width:80px;" src="docs/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     <a href="http://openjdk.java.net/faq/">OpenJDK</a> is an open-source project initiated by Oracle in 2010. Java 8 is the first LTS version of Java to be released <i>both</i> as a commercial product (<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Oracle Java SE 8 </a>) and as an open-source product (<a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">Oracle OpenJDK 8</a>).<br/>In the following we focus on OpenJDK 11, the current LTS version of Java.
@@ -23,14 +23,14 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 
 This project depends on several external software for the **Microsoft Windows** platform:
 
-- [BellSoft OpenJDK 11](https://bell-sw.com/pages/java-11.0.2/) from [BellSoft](https://bell-sw.com/pages/about).
-- [DCEVM OpenJDK 11](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm) from [Travis](https://travis-ci.com/).
-- [OpenJ9 OpenJDK 11](https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9) from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html).
-- [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot) from [Oracle](https://www.oracle.com/).
-- [RedHat OpenJDK 11](https://developers.redhat.com/products/openjdk/download/) from [RedHat](https://www.redhat.com/).
-- [SapMachine OpenJDK 11](https://sap.github.io/SapMachine/) from [SAP](https://www.sap.com/).
-- [Zulu OpenJDK 11](https://www.azul.com/downloads/zulu/zulu-windows) from [Azul Systems](https://www.azul.com/).
-- [Corretto OpenJDK 11](https://aws.amazon.com/corretto/) from [Amazon](https://aws.amazon.com/) *(first released on February 12, 2019)*.
+- [BellSoft OpenJDK 11](https://bell-sw.com/pages/java-11.0.2/) from [BellSoft](https://bell-sw.com/pages/about). <!-- build 11.0.2-BellSoft+7 -->
+- [Corretto OpenJDK 11](https://aws.amazon.com/corretto/) from [Amazon](https://aws.amazon.com/). <!-- build 11.0.2+9-LTS -->
+- [DCEVM OpenJDK 11](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm) from [Travis](https://travis-ci.com/). <!-- build 8, 2019-02-11 -->
+- [OpenJ9 OpenJDK 11](https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9) from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html). <!-- build 11.0.2+9 -->
+- [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot) from [Oracle](https://www.oracle.com/). <!-- build 11.0.2+9 -->
+- [RedHat OpenJDK 11](https://developers.redhat.com/products/openjdk/download/) from [RedHat](https://www.redhat.com/). <!-- build 11.0.2-redhat+7-LTS -->
+- [SapMachine OpenJDK 11](https://sap.github.io/SapMachine/) from [SAP](https://www.sap.com/). <!-- build 11.0.2+0-LTS-sapmachine -->
+- [Zulu OpenJDK 11](https://www.azul.com/downloads/zulu/zulu-windows) from [Azul Systems](https://www.azul.com/). <!-- build 11.0.2+7-LTS -->
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
@@ -62,6 +62,8 @@ An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For
 
 ### BellSoft OpenJDK 11
 
+[BellSoft OpenJDK 11](https://bell-sw.com/pages/java-11.0.2/) (alias Liberica JDK) is available both as a *"regular"* and as a *"lite"* version (no JavaFX modules, compressed modules). In the following we work with the "lite" version of BellSoft OpenJDK 11.
+
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\jdk-bellsoft-11.0.2-lite\bin\java -version</b>
 openjdk version "11.0.2-BellSoft" 2018-10-16
@@ -69,6 +71,8 @@ OpenJDK Runtime Environment (build 11.0.2-BellSoft+7)
 OpenJDK 64-Bit Server VM (build 11.0.2-BellSoft+7, mixed mode)
 
 <b>&gt; c:\opt\jdk-bellsoft-11.0.2-lite\bin\java -Xshare:dump</b>
+[...]
+Number of classes 1270
 [...]
 <b>&gt; dir c:\opt\jdk-11.0.2\bin\server | findstr jsa</b>
 25.01.2019  23:27        18 153 472 classes.jsa
