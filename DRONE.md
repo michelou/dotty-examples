@@ -2,8 +2,8 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;max-width:120px;">
-    <a href="http://dotty.epfl.ch/"><img style="border:0;width:120px;" src="docs/dotty.png" /></a>
+  <td style="border:0;padding:0 10px 0 0;max-width:80px;">
+    <a href="http://dotty.epfl.ch/"><img style="border:0;width:80px;" src="docs/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed by the <a href="https://drone.io/">Drone platform</a> running on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This page describes changes we made to the source code of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps locally on a Windows machine.
