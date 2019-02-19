@@ -20,8 +20,8 @@
     </dependencies>
 
     <properties>
-	    <mainClass>Planet</mainClass>
-	</properties>
+        <mainClass>Planet</mainClass>
+    </properties>
 
     <build>
         <sourceDirectory>src/main</sourceDirectory>

@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;max-width:80px;">
-    <a href="http://dotty.epfl.ch/"><img style="border:0;width:80px;" src="docs/dotty.png" /></a>
+    <a href="http://dotty.epfl.ch/"><img style="border:0;width:80px;" src="docs/dotty.png" width="80" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This repository gathers code examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a> - or written by myself.<br/>
@@ -139,8 +139,8 @@ We distinguish different sets of batch commands:
     > **NB.** Prior to version 0.9-RC1 the [**`dotr`**](bin/0.9/dotr.bat) command did hang on Windows due to implementation issues with the Dotty [REPL](https://en.wikipedia.org/wiki/Read–eval–print_loop). This [issue](https://github.com/lampepfl/dotty/pull/4680) has been fixed by using [JLine 3](https://github.com/jline/jline3) in the REPL.
 -->
 
-4. [**`build.bat`**](examples/dotty-example-project/build.bat) - Finally each example can be built/run using the **`build`** command.<br/>
-    > **&#9755;** We prefer command **`build`** here since our code examples are simple and don't require the [**`sbt`** ](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html)machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
+4. [**`build.bat`**](examples/dotty-example-project/build.bat) - Finally each example can be built/run using the [**`build`**](examples/dotty-example-project/build.bat) command.<br/>
+    > **&#9755;** We prefer command [**`build`**](examples/dotty-example-project/build.bat) here since our code examples are simple and don't require the [**`sbt`** ](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html)machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
 
     <pre style="font-size:80%;">
     <b>&gt; build</b>
@@ -305,25 +305,26 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; getnightly</b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar
-dotty-doc_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar
-dotty-language-server_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar
-dotty-library_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar
-dotty-sbt-bridge-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar
-dotty_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar
+dotty-compiler_0.13-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar
+dotty-doc_0.13-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar
+dotty-language-server_0.13-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar
+dotty-library_0.13-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar
+dotty-sbt-bridge-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar
+dotty_0.13-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar
 </pre>
 
 Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
 <pre style="font-size:80%">
 <b>&gt; getnightly -verbose</b>
-Downloading file dotty-compiler_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar ... 10.9 Mb
-Downloading file dotty_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-language-server_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar ... 146 Kb
-Downloading file dotty-doc_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar ... 1 Mb
-Downloading file dotty-library_0.13-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar ... 819.6 Kb
-Downloading file dotty-sbt-bridge-0.13.0-bin-20190213-d7090ab-NIGHTLY.jar ... 13.3 Kb
-Finished to download 6 files to directory W:\DOTTY-~1\out\nightly-jars
+Downloading file dotty-compiler_0.13-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar ... 10.9 Mb
+Downloading file dotty-language-server_0.13-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar ... 145.4 Kb
+Downloading file dotty-doc_0.13-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar ... 1 Mb
+Downloading file dotty_0.13-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-library_0.13-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar ... 823.1 Kb
+Downloading file dotty-sbt-bridge-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar ... 13.3 Kb
+Downloading file dotty-interfaces-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar ... 3.4 Kb
+Finished to download 7 files to directory W:\DOTTY-~1\out\nightly-jars
 </pre>
 
 We can now replace the library files from the original [Dotty distribution](https://github.com/lampepfl/dotty/releases) (installed in directory **`C:\opt\dotty-0.12.0-RC1\`** in our case) with library files from the latest nightly build.
@@ -333,10 +334,10 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 <pre style="font-size:80%;">
 <b>&gt; getnightly activate</b>
 Finished to download 6 files to directory W:\DOTTY-~1\out\nightly-jars
-Activate nightly build libraries: 0.13.0-bin-20190120-e873908-NIGHTLY
+Activate nightly build libraries: 0.13.0-bin-20190217-2b0e4a1-NIGHTLY
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.13.0-bin-20190120-e873908-NIGHTLY-git-e873908 -- Copyright 2002-2019, LAMP/EPFL
+Dotty compiler version 0.13.0-bin-20190217-2b0e4a1-NIGHTLY-git-2b0e4a1 -- Copyright 2002-2019, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
 Activate default Dotty libraries: 0.12.0-RC1
@@ -359,13 +360,13 @@ lib\0.12.0-RC1\
 &nbsp;&nbsp;dotty-doc_0.12-0.12.0-RC1.jar
 &nbsp;&nbsp;dotty-interfaces-0.12.0-RC1.jar
 &nbsp;&nbsp;dotty-library_0.12-0.12.0-RC1.jar
-lib\0.13.0-bin-20190120-e873908-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.13.0-bin-20190120-e873908-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.13-0.13.0-bin-20190120-e873908-NIGHTLY.jar
+lib\13-0.13.0-bin-20190217-2b0e4a1-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.13-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.13-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.13-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.13-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.13-0.13.0-bin-20190217-2b0e4a1-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original Dotty installation respectively from the latest nightly build.

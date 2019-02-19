@@ -221,6 +221,8 @@ OpenJDK Runtime Environment (build 11.0.2+0-LTS-sapmachine)
 OpenJDK 64-Bit Server VM (build 11.0.2+0-LTS-sapmachine, mixed mode, sharing)
 </pre>
 
+> **:mag_right:** SAP provides [online documentation](https://github.com/SAP/SapMachine/wiki) specific to SapMachine 11, e.g. [Differences between SapMachine and OpenJDK](https://github.com/SAP/SapMachine/wiki/Differences-between-SapMachine-and-OpenJDK).
+
 
 ### Zulu OpenJDK 11
 

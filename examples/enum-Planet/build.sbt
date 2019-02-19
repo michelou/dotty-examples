@@ -13,6 +13,16 @@ lazy val root = project
       "-feature"
     ),
 
+    // resolvers += "Maven Central Server" at "http://central.maven.org/maven2",
+
     // https://mvnrepository.com/artifact/com.novocode/junit-interface
-    libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % "test"
+    libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % Test,
+    // https://mvnrepository.com/artifact/org.scalacheck/scalacheck
+    libraryDependencies += "org.scalacheck" % "scalacheck_2.12" % "1.14.0" % Test,
+
+    testOptions ++= Seq(
+      Tests.Setup(() => println("Setup")),
+      Tests.Cleanup(() => println("Cleanup")),
+      Tests.Filter(s => s.endsWith("Test"))
+    )
   )

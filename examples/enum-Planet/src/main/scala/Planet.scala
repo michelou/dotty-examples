@@ -18,7 +18,7 @@ enum Planet(mass: Double, radius: Double) {
 object Planet {
   def main(args: Array[String]) = {
     val earthWeight = args(0).toDouble
-    val mass = earthWeight/EARTH.surfaceGravity
+    val mass = earthWeight / EARTH.surfaceGravity
     for (p <- enumValues)
       println(s"Your weight on $p is ${p.surfaceWeight(mass)}")
   }

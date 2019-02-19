@@ -19,7 +19,7 @@ if defined _HELP call :help & exit /b %_EXITCODE%
 
 set _PS1_FILE=%_ROOT_DIR%\bin\%_BASENAME%.ps1
 if not exist "%_PS1_FILE%" (
-    echo Error: PS1 file %_PS1_FILE% not found 1>&2
+    echo [91mError[0m: PS1 file %_PS1_FILE% not found 1>&2
     set _EXITCODE=1
     goto end
 )
@@ -82,9 +82,9 @@ if /i "%__ARG%"=="help" ( set _HELP=1& goto :eof
     set _ACTIVATE_NIGHTLY=
 ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
 ) else (
-    echo Error: Unknown subcommand %__ARG% 1>&2
+    echo [91mError[0m: Unknown subcommand %__ARG% 1>&2
     set _EXITCODE=1
-    goto :eof
+    goto :args_done
 )
 shift
 goto args_loop
@@ -110,7 +110,7 @@ rem output parameters: _DOTTY_HOME, _DOTTY_VERSION, _NIGHTLY_VERSION
 :init
 where /q dotc.bat
 if not %ERRORLEVEL%==0 (
-    echo Error: dotc command not found ^(run setenv.bat^) 1>&2
+    echo [91mError[0m: dotc command not found ^(run setenv.bat^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -118,12 +118,12 @@ for /f %%i in ('where dotc.bat') do (
     for %%f in ("%%~dpi..") do set _DOTTY_HOME=%%~sf
 )
 if not exist "%_DOTTY_HOME%\lib\" (
-    echo Error: Dotty library directory not found ^(run setenv.bat^) 1>&2
+    echo [91mError[0m: Dotty library directory not found ^(run setenv.bat^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
 if not exist "%_DOTTY_HOME%\VERSION" (
-    echo Error: Dotty version file not found ^(run setenv.bat^) 1>&2
+    echo [91mError[0m: Dotty version file not found ^(run setenv.bat^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -158,7 +158,7 @@ set _FILE_SIZE=0
 if %_DEBUG%==1 echo [%_BASENAME%] powershell -C "..."
 for /f "delims=" %%i in ('powershell -C "%__PS1_SCRIPT%"') do set _FILE_SIZE=%%i
 if not %ERRORLEVEL%==0 (
-    echo Error: Execution of ps1 cmdlet failed 1>&2
+    echo [91mError[0m: Execution of ps1 cmdlet failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -177,7 +177,7 @@ for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%"
     for %%f in ("%%i") do set __FILE_BASENAME=%%~nxf
     if defined _NIGHTLY_VERSION if not "!__FILE_BASENAME:%_NIGHTLY_VERSION%=!"=="!__FILE_BASENAME!" (
         echo Nightly build files already present locally
-        echo ^(see directory %_DOTTY_HOME%\%_NIGHTLY_VERSION%^)
+        echo ^(see directory %_DOTTY_HOME%\lib\%_NIGHTLY_VERSION%^)
         goto :eof
     )
     if %_VERBOSE%==1 <NUL set /p=Downloading file !__FILE_BASENAME! ... 
@@ -186,7 +186,7 @@ for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%"
     powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri !__URL! -Outfile !__JAR_FILE!"
     if not !ERRORLEVEL!==0 (
         echo.
-        echo Error: Failed to download file !__JAR_FILE! 1>&2
+        echo [91mError[0m: Failed to download file !__JAR_FILE! 1>&2
         set _EXITCODE=1
         goto :eof
     )
@@ -197,22 +197,24 @@ for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%"
     set /a __N+=1
 )
 echo Finished to download %__N% files to directory %_OUTPUT_DIR%
-for /f %%i in ('dir /b "%_OUTPUT_DIR%\dotty-interfaces-*.jar" 2^>NUL') do (
+for /f %%i in ('dir /b "%_OUTPUT_DIR%\dotty-compiler_*.jar" 2^>NUL') do (
     set _NIGHTLY_VERSION=%%~ni
-    set _NIGHTLY_VERSION=!_NIGHTLY_VERSION:~17!
+    set _NIGHTLY_VERSION=!_NIGHTLY_VERSION:~20!
 )
+if %_DEBUG%==1 echo [%_BASENAME%] Nightly version is %_NIGHTLY_VERSION%
 goto :eof
 
 rem global variable: _DOTTY_HOME
 :backup_dotty
 set __DOTTY_BAK_DIR=%_DOTTY_HOME%\lib\%_DOTTY_VERSION%
 if not exist "%__DOTTY_BAK_DIR%\" (
+    if %_DEBUG%==1 echo [%_BASENAME%] mkdir "%__DOTTY_BAK_DIR%"
     mkdir "%__DOTTY_BAK_DIR%"
     for %%i in (%_DOTTY_HOME%\lib\^*%_DOTTY_VERSION%.jar) do (
         if %_DEBUG%==1 echo [%_BASENAME%] copy %%i "%__DOTTY_BAK_DIR%\" 1^>NUL
         copy %%i "%__DOTTY_BAK_DIR%\" 1>NUL
         if not !ERRORLEVEL!==0 (
-            echo Error: Failed to backup file %%i 1>&2
+            echo [91mError[0m: Failed to backup file %%i 1>&2
             set _EXITCODE=1
         )
     )
@@ -225,9 +227,11 @@ rem output parameter: _NIGHTLY_VERSION
 set __OLD_NIGHTLY_VERSION=unknown
 if exist "%_DOTTY_HOME%\VERSION-NIGHTLY" (
     set /p __OLD_NIGHTLY_VERSION=<%_DOTTY_HOME%\VERSION-NIGHTLY
+    if "%__OLD_NIGHTLY_VERSION%"=="%_NIGHTLY_VERSION%" (
+        if %_DEBUG%==1 echo [%_BASENAME%] Nightly version and old version are equal ^(%_NIGHTLY_VERSION%^)
+        goto :eof
+    )
 )
-if "%__OLD_NIGHTLY_VERSION%"=="%_NIGHTLY_VERSION%" goto :eof
-
 echo Local nightly version has changed from %__OLD_NIGHTLY_VERSION% to %_NIGHTLY_VERSION%
 echo %_NIGHTLY_VERSION%>%_DOTTY_HOME%\VERSION-NIGHTLY
 
@@ -238,7 +242,7 @@ if not exist "%__NIGHTLY_BAK_DIR%\" (
         if %_DEBUG%==1 echo [%_BASENAME%] copy %%i "%__NIGHTLY_BAK_DIR%\" 1^>NUL
         copy %%i "%__NIGHTLY_BAK_DIR%\" 1>NUL
         if not !ERRORLEVEL!==0 (
-            echo Error: Failed to backup file %%i 1>&2
+            echo [91mError[0m: Failed to backup file %%i 1>&2
             set _EXITCODE=1
         )
     )
@@ -257,7 +261,7 @@ del %__TO_DIR%\*%__OLD_VERSION%.jar 1>NUL 2>&1
 if %_DEBUG%==1 echo [%_BASENAME%] copy "%__FROM_DIR%\*.jar" "%__TO_DIR%\" 1^>NUL
 copy "%__FROM_DIR%\*.jar" "%__TO_DIR%\" 1>NUL
 if not %ERRORLEVEL%==0 (
-    echo Error: Failed to copy files from %__FROM_DIR%\ 1>&2
+    echo [91mError[0m: Failed to copy files from %__FROM_DIR%\ 1>&2
     set _EXITCODE=1
     goto :eof
 )
