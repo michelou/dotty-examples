@@ -66,7 +66,7 @@ We further recommand using an advanced console emulator such as [ComEmu](https:/
 This project is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
-bin\0.12\*.bat
+bin\0.13\*.bat
 bin\cfr-0.139.zip
 docs\
 examples\{dotty-example-project, ..}
@@ -78,7 +78,7 @@ setenv.bat
 where
 
 - directory [**`bin\`**](bin/) provides several utility batch commands.
-- directory [**`bin\0.12\`**](bin/0.12/) contains the batch commands for Dotty 0.12.
+- directory [**`bin\0.13\`**](bin/0.13/) contains the batch commands for Dotty 0.13.
 - file [**`bin\cfr-0.139.zip`**](bin/cfr-0.139.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
 - directory [**`examples\`**](examples/) contains Dotty examples grabbed from various websites.

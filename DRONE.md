@@ -181,7 +181,7 @@ We distinguish different sets of batch commands:
     | `clone` &rarr; &empty; | &lt;1 min | &nbsp; |
     | `compile` &rarr; `clone` | ~24 min | `compiler\target\`<br/>`library\target`<br/>`sbt-bridge\target\` |
     | `bootstrap` &rarr; `compile` | ~45 min | &nbsp; |
-    | `community` &rarr; `bootstrap` | &nbsp; | &nbsp; |
+    | `community` &rarr; &empty; | &nbsp; | &nbsp; |
     | `archives` &rarr; `bootstrap` | &nbsp; | `dist-bootstrapped\target\*.gz,*.zip` |
     | `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
     | `sbt` &rarr; `bootstrap` | &nbsp; | &nbsp; |
@@ -194,7 +194,6 @@ We distinguish different sets of batch commands:
     > | :------------ | :------------: | :------------ |
     > | `compile-only` | ~24 min | &nbsp; |
     > | `bootstrap-only` | ~26 min | &nbsp; |
-    > | `community-only` | &nbsp; | &nbsp; |
     > | `archives-only`| &lt;1 min | `dist-bootstrapped\target\*.gz,*.zip` |
     > | `documentation-only` | &lt;3 min | `docs\_site\*.html`<br/>`docs\docs\*.md` |
     > | `sbt-only` | &nbsp; | &nbsp; |
@@ -205,7 +204,6 @@ We distinguish different sets of batch commands:
     > | :------ | :----------------- |
     > | **`build compile`** | **`build clone compile-only`** |
     > | **`build bootstrap`** | **`build compile bootstrap-only`** |
-    > | **`build community`** | **`build bootstrap community-only`** |
     > | **`build archives`** | **`build bootstrap archives-only`** |
     > | **`build documentation`** | **`build bootstrap documentation-only`** |
     > | **`build sbt`** | **`build bootstrap sbt-only`** |
@@ -396,8 +394,8 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     [...]
     &nbsp;
     <b>&gt; dir /a-d /b dist-bootstrapped\target</b>
-    dotty-0.12.0-bin-SNAPSHOT.tar.gz
-    dotty-0.12.0-bin-SNAPSHOT.zip
+    dotty-0.14.0-bin-SNAPSHOT.tar.gz
+    dotty-0.14.0-bin-SNAPSHOT.zip
     </pre>
 
 - **`documentation`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Dotty website](https://dotty.epfl.ch/) and the online [Dotty documentation](https://dotty.epfl.ch/docs/).<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
@@ -406,7 +404,7 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     <b>&gt; build -timer doc-only</b>
     Working directory: W:\dotty
     [...]
-    [info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 0.12.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
+    [info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 0.14.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
     Compiling (1/406): AlternateConstructorsPhase.scala
     [...]
     Compiling (406/406): package.scala
