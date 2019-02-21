@@ -466,6 +466,7 @@ rem ## Cleanups
 
 :end
 endlocal & (
+    if not defined ANT_HOME set ANT_HOME=%_ANT_HOME%
     if not defined JAVA_HOME set JAVA_HOME=%_JDK_HOME%
     if not defined SCALA_HOME set SCALA_HOME=%_SCALA_HOME%
     if not defined DOTTY_HOME set DOTTY_HOME=%_DOTTY_HOME%

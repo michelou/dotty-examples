@@ -3,7 +3,7 @@ enum HLst {
   case HNil
 }
 
-object Test {
+object Main {
   import HLst._
   def length(hl: HLst): Int = hl match {
     case HCons(_, tl) => 1 + length(tl)

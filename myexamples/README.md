@@ -2,8 +2,8 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="http://dotty.epfl.ch/"><img style="border:0;width:120px;" src="../docs/dotty.png" /></a>
+  <td style="border:0;padding:0 10px 0 0;min-width:100px;">
+    <a href="http://dotty.epfl.ch/"><img style="border:0;width:100px;" src="../docs/dotty.png" width="100" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>myexamples\</code></strong> contains <a href="http://dotty.epfl.ch/" alt="Dotty">Dotty</a> code examples written by myself.
@@ -114,8 +114,6 @@ Command [**`gradle`**](http://www.gradle.org/) is the official build tool for An
 The configuration file [**`build.gradle`**](HelloWorld/build.gradle) for [**`HelloWorld\`**](HelloWorld/) looks as follows:
 
 <pre style="font-size:80%;">
-apply plugin: <span style="color:#990000;">'java'</span>
-apply plugin: <span style="color:#990000;">'application'</span>
 apply from: <span style="color:#990000;">'../common.gradle'</span>
 &nbsp;
 group = <span style="color:#990000;">'dotty.examples'</span>
@@ -136,6 +134,9 @@ We note that [**`build.gradle`**](HelloWorld/build.gradle)<ul><li>imports the tw
 The parent file [**`common.gradle`**](common.gradle) defines the task **`compileDotty`** and manages the task dependencies.
 
 <pre style="font-size:80%;">
+apply plugin: <span style="color:#990000;">'java'</span>
+apply plugin: <span style="color:#990000;">'application'</span>
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 &nbsp;
@@ -186,7 +187,7 @@ Command [**`sbt`**](https://www.scala-sbt.org/) is a Scala-based build tool for 
 The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is a standalone file written in [Scala](https://www.scala-lang.org/) and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
 <pre style="font-size:80%;">
-<b>val</b> dottyVersion = <span style="color:#990000;">"0.12.0-RC1"</span>
+<b>val</b> dottyVersion = <span style="color:#990000;">"0.13.0-RC1"</span>
 &nbsp;
 <b>lazy val</b> root = project
   .in(file(<span style="color:#990000;">"."</span>))
@@ -220,7 +221,7 @@ The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone fil
 <b>import</b> mill._, scalalib._
 &nbsp;
 <b>object</b> go <b>extends</b> ScalaModule {
-  <b>def</b> scalaVersion = <span style="color:#990000;">"0.12.0-RC1"</span>  // "2.12.18"
+  <b>def</b> scalaVersion = <span style="color:#990000;">"0.13.0-RC1"</span>  // "2.12.18"
   <b>def</b> scalacOptions = Seq(<span style="color:#990000;">"-deprecation"</span>, <span style="color:#990000;">"-feature"</span>)
   <b>def</b> forkArgs = Seq(<span style="color:#990000;">"-Xmx1g"</span>)
   <b>def</b> mainClass = Some(<span style="color:#990000;">"Main"</span>)
@@ -303,7 +304,7 @@ Buildfile: W:\dotty-examples\myexamples\HelloWorld\build.xml
    [delete] Deleting directory W:\dotty-examples\myexamples\HelloWorld\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] DOTTY_HOME=C:\opt\dotty-0.12.0-RC1
+     [echo] DOTTY_HOME=C:\opt\dotty-0.13.0-RC1
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -375,16 +376,16 @@ Running command **`mvn clean test`** with option **`-debug`** produces additiona
 <pre>
 <b>&gt; mvn -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.12.0-RC1 \
- -cp C:\opt\dotty-0.12.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.13.0-RC1 \
+ -cp C:\opt\dotty-0.13.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.12.0-RC1 [...]
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.13.0-RC1 [...]
 [DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.12.0-RC1\lib\*.jar;\
+ -Xms64m -Xmx1024m -cp C:\opt\dotty-0.13.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -413,10 +414,38 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 [INFO] Total time:  5.635 s
 [INFO] Finished at: 2019-01-31T13:53:22+01:00
 [INFO] ------------------------------------------------------------------------
+</pre>
 
-<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.12.0-RC1\lib\dotty-library_0.12-0.12.0-RC1.jar;c:\opt\dotty-0.12.0-RC1\lib\scala-library-2.12.8.jar -jar target\HelloWorld-0.1-SNAPSHOT.jar
+Finally can check the Java manifest in **`HelloWorld-0.1-SNAPSHOT.jar`**:
+
+<pre style="font-size:80%;">
+<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.13.0-RC1\lib\dotty-library_0.13-0.13.0-RC1.jar;^
+c:\opt\dotty-0.13.0-RC1\lib\scala-library-2.12.8.jar ^
+-jar target\HelloWorld-0.1-SNAPSHOT.jar
 Hello world!
 </pre>
+
+> **:mag_right:** We can use batch script [**`searchjars`**](../bin/searchjars.bat) in case some class is missing in the specified classpath, e.g.
+> <pre>
+> <b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.13.0-RC1\lib\dotty-library_0.13-0.13.0-RC1.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
+> Exception in thread "main" java.lang.NoClassDefFoundError: scala/Serializable
+>         [...]
+>         at Main.main(Main.scala)
+> Caused by: java.lang.ClassNotFoundException: scala.Serializable
+>         [...]
+>         ... 13 more
+> 
+> <b>&gt; searchjars Serializable</b>
+> Searching for class Serializable in library files C:\opt\DOTTY-~1.0-R\lib\*.jar
+>   jackson-core-2.9.8.jar:com/fasterxml/jackson/core/SerializableString.class
+>   [...]
+>   scala-library-2.12.8.jar:scala/Serializable.class
+> Searching for class Serializable in library files C:\opt\SCALA-~1.8\lib\*.jar
+>   scala-library.jar:scala/Serializable.class
+> Searching for class Serializable in library files C:\opt\JDK-18~1.0_2\lib\*.jar
+>   tools.jar:com/sun/tools/internal/xjc/reader/xmlschema/bindinfo/BISerializable.class
+> </pre>
+> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.13.0-RC1\lib\scala-library-2.12.8.jar`**, so let us add it to our classpath !
 
 
 ## Footnotes

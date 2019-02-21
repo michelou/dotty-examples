@@ -5,7 +5,7 @@
     <property name="scala-source.dir" value="${basedir}/src/main/scala" />
     <property name="target.dir" value="${basedir}/target" />
     <property name="build.dir" value="${target.dir}/classes" />
-    <property name="main.class" value="Test" />
+    <property name="main.class" value="Main" />
 
     <!-- task 'init' and macro 'dotc' are defined in parent build.xml -->
     <import file="../build.xml" />

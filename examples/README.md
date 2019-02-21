@@ -134,7 +134,7 @@ Finally, running command [**`build`**](enum-Planet/build.bat) with option **`-de
 [build] del /s /q W:\dotty\examples\ENUM-P~1\target\classes\*.class W:\dotty\examples\ENUM-P~1\target\classes\*.hasTasty W:\dotty\examples\ENUM-P~1\target\classes\.latest-build
 [build] 20180322224754 W:\dotty\examples\ENUM-P~1\src\main\scala\Planet.scala
 [build] 00000000000000 W:\dotty\examples\ENUM-P~1\target\classes\.latest-build
-[build] dotc  -classpath W:\dotty\examples\ENUM-P~1\target\classes -d C:\dotty\examples\ENUM-P~1\target\classes  W:\dotty\examples\ENUM-P~1\src\main\scala\Planet.scala
+[build] dotc  -classpath W:\dotty\examples\ENUM-P~1\target\classes -d W:\dotty\examples\ENUM-P~1\target\classes  W:\dotty\examples\ENUM-P~1\src\main\scala\Planet.scala
 [build] dot -classpath W:\dotty\examples\ENUM-P~1\target\classes Planet 1
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
@@ -182,8 +182,6 @@ Command [**`gradle`**](http://www.gradle.org/) is the official build tool for An
 The configuration file [**`build.gradle`**](enum-Planet/build.gradle) for [**`enum-Planet\`**](enum-Planet/) looks as follows:
 
 <pre style="font-size:80%;">
-apply plugin: <span style="color:#990000;">'java'</span>
-apply plugin: <span style="color:#990000;">'application'</span>
 apply from: <span style="color:#990000;">'../common.gradle'</span>
 &nbsp;
 group = <span style="color:#990000;">'dotty.examples'</span>
@@ -204,6 +202,9 @@ We note that [**`build.gradle`**](enum-Planet/build.gradle)<ul><li>imports the t
 The parent file [**`common.gradle`**](common.gradle) defines the task **`compileDotty`** and manages the task dependencies.
 
 <pre style="font-size:80%;">
+apply plugin: <span style="color:#990000;">'java'</span>
+apply plugin: <span style="color:#990000;">'application'</span>
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 &nbsp;
@@ -261,7 +262,7 @@ Command [**`sbt`**](https://www.scala-sbt.org/) is a Scala-based build tool for 
 The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is a standalone file written in [Scala](https://www.scala-lang.org/) and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
 <pre style="font-size:80%;">
-<b>val</b> dottyVersion = <span style="color:#990000;">"0.12.0-RC1"</span>
+<b>val</b> dottyVersion = <span style="color:#990000;">"0.13.0-RC1"</span>
 &nbsp;
 <b>lazy val</b> root = project
   .in(file("."))
@@ -303,7 +304,7 @@ The configuration file [**`build.sc`**](enum-Planet/build.sc) is a standalone fi
 <b>import</b> mill._, scalalib._
 &nbsp;
 <b>object</b> go <b>extends</b> ScalaModule {
-  <b>def</b> scalaVersion = <span style="color:#990000;">"0.12.0-RC1"</span>  // "2.12.18"
+  <b>def</b> scalaVersion = <span style="color:#990000;">"0.13.0-RC1"</span>  // "2.12.18"
   <b>def</b> scalacOptions = Seq(<span style="color:#990000;">"-deprecation"</span>, <span style="color:#990000;">"-feature"</span>)
   <b>def</b> forkArgs = Seq(<span style="color:#990000;">"-Xmx1g"</span>)
   <b>def</b> mainClass = Some(<span style="color:#990000;">"Planet"</span>)
@@ -479,16 +480,16 @@ Running command **` mvn compile test`** with option **`-debug`** produces additi
 <pre>
 <b>&gt; mvn -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.12.0-RC1 \
- -cp C:\opt\dotty-0.11.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.13.0-RC1 \
+ -cp C:\opt\dotty-0.13.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.12.0-RC1 [...]
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.13.0-RC1 [...]
 [DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.12.0-RC1\lib\*.jar;\
+ -Xms64m -Xmx1024m -cp C:\opt\dotty-0.13.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -523,7 +524,7 @@ Your weight on JUPITER is 2.5305575254957406
 <b>&gt; java -version 2>&1 | findstr version</b>
 openjdk version "11.0.2" 2018-10-16
 
-<b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.12.0-RC1\lib\dotty-library_0.12-0.12.0-RC1.jar;c:\opt\dotty-0.12.0-RC1\lib\scala-library-2.12.8.jar -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
+<b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.13.0-RC1\lib\dotty-library_0.13-0.13.0-RC1.jar;c:\opt\dotty-0.13.0-RC1\lib\scala-library-2.12.8.jar -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -534,4 +535,4 @@ Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406
 </pre>
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/January 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/February 2019* [**&#9650;**](#top)
