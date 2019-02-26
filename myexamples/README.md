@@ -290,7 +290,7 @@ Total time: 3 seconds
 > **&#9755;** **Apache Ivy**<br/>
 > The [Ivy](http://ant.apache.org/ivy/) Java archive must be added to the Ant installation directory as displayed by task **`init.ivy`** in the above output. In our case we work with version 2.5.0-rc1 of the Apache Ivy library.
 > <pre style="font-size:80%;">
-> <b>&gt; dir /b c:\opt\apache-ant-1.10.5\lib\ivy</b>
+> <b>&gt; dir /b c:\opt\apache-ant-1.10.5\lib\ivy&#42;</b>
 > ivy-2.5.0-rc1.jar
 > </pre>
 
@@ -329,32 +329,32 @@ Command [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) i
 The configuration file [**`pom.xml`**](HelloWorld/pom.xml) in directory [**`HelloWorld\`**](HelloWorld/) depends on the parent file [**`pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
 
 <pre style="font-size:80%;">
-&lt;?xml version="1.0" encoding="UTF-8"?>
+<b>&lt;?xml</b> version="1.0" encoding="UTF-8"?>
 <b>&lt;project</b> xmlns=<span style="color:#990000;">"http://maven.apache.org/POM/4.0.0"</span> ...>
     ...
     <b>&lt;artifactId&gt;</b>HelloWorld<b>&lt;/artifactId&gt;</b>
     ...
     <b>&lt;parent&gt;</b>
         ...
-        &lt;relativePath>../pom.xml&lt;/relativePath>
+        <b>&lt;relativePath&gt;</b>../pom.xml&lt;/relativePath>
     <b>&lt;/parent&gt;</b>
     <b>&lt;dependencies&gt;</b>
         &lt;!-- see parent pom.xml -->
     <b>&lt;/dependencies&gt;</b>
     <b>&lt;build&gt;</b>
-        &lt;sourceDirectory>src/main&lt;/sourceDirectory>
-        &lt;testSourceDirectory>src/test&lt;/testSourceDirectory>
-        &lt;outputDirectory>target/classes&lt;/outputDirectory>
+        <b>&lt;sourceDirectory&gt;</b>src/main<b>&lt;/sourceDirectory&gt;</b>
+        <b>&lt;testSourceDirectory&gt;</b>src/test<b>&lt;/testSourceDirectory&gt;</b>
+        <b>&lt;outputDirectory&gt;</b>target/classes<b>&lt;/outputDirectory&gt;</b>
         <b>&lt;plugins&gt;</b>
             <b>&lt;plugin&gt;</b>
-                &lt;groupId>org.apache.maven.plugins&lt;/groupId>
-                &lt;artifactId>maven-compiler-plugin&lt;/artifactId>
+                <b>&lt;groupId&gt;</b>org.apache.maven.plugins&lt;/groupId>
+                <b>&lt;artifactId&gt;</b>maven-compiler-plugin&lt;/artifactId>
                 ...
                 <b>&lt;configuration&gt;</b>
                     ...
-                    &lt;includes>
+                    <b>&lt;includes&gt;</b>
                         &lt;include>java/**/*.java&lt;/include>
-                    &lt;/includes>
+                    <b>&lt;/includes&gt;</b>
                 <b>&lt;/configuration&gt;</b>
             <b>&lt;/plugin&gt;</b>
             <b>&lt;plugin&gt;</b>
@@ -392,7 +392,7 @@ W:\dotty-examples\examples\hello-scala\target\classes hello
 Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output (option **`--quiet`** tells Maven not to display anything other than **`ERROR`** level messages):
 
 <pre style="font-size:80%;">
-<b>&gt;</b> mvn --quiet clean test
+<b>&gt; mvn --quiet clean test</b>
 Hello world!
 </pre>
 
