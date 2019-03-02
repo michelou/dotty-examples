@@ -39,7 +39,7 @@ Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three 
 
 - [Oracle OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot)<sup id="anchor_02">[[1]](#footnote_01)</sup> ([*release notes*](https://wiki.openjdk.java.net/display/jdk8u/JDK+8u202))
 - [SBT 1.2.8](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
-- [Git 2.20](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.20.1.txt))
+- [Git 2.21](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.21.0.txt))
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
@@ -49,7 +49,7 @@ For instance our development environment looks as follows (*February 2019*):
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_202-b08\
 C:\opt\sbt-1.2.8\
-C:\opt\Git-2.20.1\
+C:\opt\Git-2.21.0\
 </pre>
 
 > **:mag_right:** [Git for Windows](https://git-scm.com/) provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
@@ -254,7 +254,7 @@ Command **`setenv`** is executed once to setup our development environment; it m
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_202, java 1.8.0_202,
-   sbt 1.2.8/2.12.8, git 2.20.1.windows.1, diff 3.6
+   sbt 1.2.8/2.12.8, git 2.21.0.windows.1, diff 3.6
 
 <b>&gt; where sbt</b>
 C:\opt\sbt-1.2.8\bin\sbt
@@ -267,15 +267,15 @@ Command **`setenv -verbose`** also displays the tool paths and the current Git b
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_202, java 1.8.0_202,
-   sbt 1.2.8/2.12.8, git 2.20.1.windows.1, diff 3.6
+   sbt 1.2.8/2.12.8, git 2.21.0.windows.1, diff 3.6
 Tool paths:
    C:\opt\jdk-1.8.0_202-b08\bin\javac.exe
    C:\opt\jdk-1.8.0_202-b08\bin\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\opt\sbt-1.2.8\bin\sbt.bat
-   C:\opt\Git-2.20.1\bin\git.exe
-   C:\opt\Git-2.20.1\usr\bin\diff.exe
+   C:\opt\Git-2.21.0\bin\git.exe
+   C:\opt\Git-2.21.0\usr\bin\diff.exe
 Current Git branch:
    master
 </pre>
@@ -318,7 +318,7 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     <pre style="font-size:80%;">
     <b>&gt; build -verbose cleanall</b>
     Tool paths
-      GIT_CMD=C:\opt\Git-2.20.1\bin\git.exe
+      GIT_CMD=C:\opt\Git-2.21.0\bin\git.exe
       JAVA_CMD=C:\opt\jdk-1.8.0_202-b08\bin\java.exe
       SBT_CMD=C:\opt\sbt-1.2.8\bin\sbt.bat
     Tool options

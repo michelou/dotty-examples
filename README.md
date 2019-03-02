@@ -37,7 +37,7 @@ Optionally you may also install the following software:
 - [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([requires Java 7](http://maven.apache.org/docs/history.html))  ([*release notes*](http://maven.apache.org/docs/3.6.0/release-notes.html))
 - [Mill 0.3](https://www.lihaoyi.com/mill/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
 - [CFR 0.13](http://www.benf.org/other/cfr/) (Java decompiler)
-- [Git 2.20](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.20.1.txt))
+- [Git 2.21](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.21.0.txt))
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
@@ -50,7 +50,7 @@ C:\opt\apache-ant-1.10.5\
 C:\opt\apache-maven-3.6.0\
 C:\opt\cfr-0.139\
 C:\opt\dotty-0.13.0-RC1\
-C:\opt\Git-2.20.1\
+C:\opt\Git-2.21.0\
 C:\opt\gradle-5.2.1\
 C:\opt\Mill-0.3.6\
 C:\opt\sbt-1.2.8\
@@ -243,7 +243,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 Tool versions:
    javac 1.8.0_202, java 1.8.0_202, scalac 2.12.8, dotc 0.13.0-RC1,
    ant 1.10.5, gradle 5.2.1, mill 0.3.6, mvn 3.6.0, sbt 1.2.8/2.12.8,
-   cfr 0.139, git 2.20.1.windows.1, diff 3.6
+   cfr 0.139, git 2.21.0.windows.1, diff 3.6
 
 <b>&gt; where sbt</b>
 C:\opt\sbt-1.2.8\bin\sbt
@@ -257,7 +257,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 Tool versions:
    javac 1.8.0_202, java 1.8.0_202, scalac 2.12.8, dotc 0.13.0-RC1,
    ant 1.10.5, gradle 5.2.1, mill 0.3.6, mvn 3.6.0, sbt 1.2.8/2.12.8,
-   cfr 0.139, git 2.20.1.windows.1, diff 3.6
+   cfr 0.139, git 2.21.0.windows.1, diff 3.6
 Tool paths:
    C:\opt\jdk-1.8.0_202-b08\bin\javac.exe
    C:\opt\jdk-1.8.0_202-b08\bin\java.exe
@@ -271,8 +271,8 @@ Tool paths:
    C:\opt\apache-maven-3.6.0\bin\mvn.cmd
    C:\opt\sbt-1.2.8\bin\sbt.bat
    C:\opt\cfr-0.139\bin\cfr.bat
-   C:\opt\Git-2.20.1\bin\git.exe
-   C:\opt\Git-2.20.1\usr\bin\diff.exe
+   C:\opt\Git-2.21.0\bin\git.exe
+   C:\opt\Git-2.21.0\usr\bin\diff.exe
 </pre>
 
 #### `cleanup.bat`

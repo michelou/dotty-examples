@@ -35,9 +35,9 @@ This project depends on several external software for the **Microsoft Windows** 
 The above implementations of OpenJDK[&trade;](http://openjdk.java.net/legal/openjdk-trademark-notice.html) differ in several ways:
 
 
-- they are certified for [JCK](https://openjdk.java.net/groups/conformance/JckAccess/) <sup id="anchor_01">[[1]](#footnote_01)</sup> (aka. TCK for Java SE) compliance (eg. [SapMachine 11](https://sap.github.io/SapMachine/) , [Zulu 11](https://www.azul.com/why-would-you-risk-your-apps-on-an-uncertified-jvm/)) or not.
-- they include different backports of fixes from OpenJDK 12 or newer (eg. [Corretto](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/patches.html)).
-- they include additional modules (eg. Device IO API on Linux ARMv7) or integrate special tools (eg. HotswapAgent in [Trava 11](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm)).
+- they are certified for [JCK](https://openjdk.java.net/groups/conformance/JckAccess/) <sup id="anchor_01">[[1]](#footnote_01)</sup> compliance (eg. [SapMachine](https://sap.github.io/SapMachine/) , [Zulu](https://www.azul.com/why-would-you-risk-your-apps-on-an-uncertified-jvm/)) or not.
+- they include different [backports](https://builds.shipilev.net/backports-monitor/) of fixes from OpenJDK 12 or newer (eg. [Corretto](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/patches.html)).
+- they include additional modules (eg. Device IO API on Linux ARMv7) or integrate special tools (eg. HotswapAgent in [Trava](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm)).
 - they support different sets of platform architectures.
 
 
@@ -170,7 +170,7 @@ OpenJDK 64-Bit Server VM (build 11.0.2-redhat+7-LTS, mixed mode)
 [...]
 Number of classes 1270
 [...]
-<b>&gt;</b> dir c:\opt\jdk-redhat-11.0.2\bin\server | findstr jsa
+<b>&gt; dir c:\opt\jdk-redhat-11.0.2\bin\server | findstr jsa</b>
 07.02.2019  22:51        18 153 472 classes.jsa
 
 <b>&gt; c:\opt\jdk-redhat-11.0.2\bin\java -version</b>

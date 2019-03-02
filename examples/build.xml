@@ -42,10 +42,9 @@
         </condition>
         <property name="ivy.cache" value="${user.home}/.ivy2/cache/" />
         <path id="dotty.classpath">
-            <fileset dir="${ivy.cache}" includes="**/dotty-library*.jar" />
-            <fileset dir="${ivy.cache}" includes="**/scala-library*.jar" />
+            <fileset dir="${ivy.cache}/ch.epfl.lamp" includes="**/dotty-library*.jar" />
+            <fileset dir="${ivy.cache}/ch.epfl.lamp" includes="**/scala-library*.jar" />
         </path>
-
     </target>
 
     <target name="init" depends="init.local, init.ivy">
@@ -55,6 +54,9 @@
         </path>
         <path id="basedir.ref">
             <pathelement location="${basedir}"/>
+        </path>
+        <path id="test.classpath">
+            <fileset dir="../../lib/junit5" includes="*.jar" />
         </path>
     </target>
 
