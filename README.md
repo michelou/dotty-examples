@@ -36,7 +36,7 @@ Optionally you may also install the following software:
 - [Gradle 5.2](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.2.1/release-notes.html))
 - [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([requires Java 7](http://maven.apache.org/docs/history.html))  ([*release notes*](http://maven.apache.org/docs/3.6.0/release-notes.html))
 - [Mill 0.3](https://www.lihaoyi.com/mill/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
-- [CFR 0.13](http://www.benf.org/other/cfr/) (Java decompiler)
+- [CFR 0.14](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.21](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.21.0.txt))
 
 > **&#9755;** ***Installation policy***<br/>
@@ -48,7 +48,7 @@ For instance our development environment looks as follows (*February 2019*):
 C:\opt\jdk-1.8.0_202-b08\
 C:\opt\apache-ant-1.10.5\
 C:\opt\apache-maven-3.6.0\
-C:\opt\cfr-0.139\
+C:\opt\cfr-0.140\
 C:\opt\dotty-0.13.0-RC1\
 C:\opt\Git-2.21.0\
 C:\opt\gradle-5.2.1\
@@ -67,7 +67,7 @@ This project is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
 bin\0.13\*.bat
-bin\cfr-0.139.zip
+bin\cfr-0.140.zip
 docs\
 examples\{dotty-example-project, ..}
 myexamples\{00_AutoParamTupling, ..}
@@ -79,7 +79,7 @@ where
 
 - directory [**`bin\`**](bin/) provides several utility batch commands.
 - directory [**`bin\0.13\`**](bin/0.13/) contains the batch commands for Dotty 0.13.
-- file [**`bin\cfr-0.139.zip`**](bin/cfr-0.139.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
+- file [**`bin\cfr-0.140.zip`**](bin/cfr-0.140.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
 - directory [**`examples\`**](examples/) contains Dotty examples grabbed from various websites.
 - directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
@@ -101,7 +101,7 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`scalac.bat`**](https://docs.scala-lang.org/overviews/compiler-options/index.html), [**`dotc.bat`**](bin/0.12/dotc.bat), etc. directly available from the command prompt (see section [**Project dependencies**](#section_01)).
+1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`scalac.bat`**](https://docs.scala-lang.org/overviews/compiler-options/index.html), [**`dotc.bat`**](bin/0.13/dotc.bat), etc. directly available from the command prompt (see section [**Project dependencies**](#section_01)).
 
     <pre style="font-size:80%;">
     <b>&gt; setenv help</b>
@@ -120,7 +120,7 @@ We distinguish different sets of batch commands:
    - [**`timeit.bat <cmd_1> { & <cmd_2> }`**](bin/timeit.bat) prints the execution time of the specified commands.
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory [**`bin\0.12\`**](bin/0.12/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.13.0-RC1\bin\`**) in order to use the [**`dotc`**](bin/0.12/dotc.bat), [**`dotd`**](bin/0.12/dotd.bat) and [**`dotr`**](bin/0.12/dotr.bat) commands on **Microsoft Windows**.
+3. Directory [**`bin\0.13\`**](bin/0.13/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.13.0-RC1\bin\`**) in order to use the [**`dotc`**](bin/0.13/dotc.bat), [**`dotd`**](bin/0.13/dotd.bat) and [**`dotr`**](bin/0.13/dotr.bat) commands on **Microsoft Windows**.
     > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Dotty distribution](https://github.com/lampepfl/dotty/releases). We also have submitted pull request [#5444](https://github.com/lampepfl/dotty/pull/5444) to add them to the Scala distribution.
 
     <pre style="font-size:80%;">
@@ -183,13 +183,17 @@ We distinguish different sets of batch commands:
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.139.zip`**](bin/cfr-0.139.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
+    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.140.zip`**](bin/cfr-0.140.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
 
     <pre style="font-size:80%;">
-    <b>&gt; cfr myexamples\00_AutoParamTupling\target\classes\Main.class</b>
+    <b>&gt; cfr myexamples\00_AutoParamTupling\target\classes\myexamples\Main.class</b>
     /*
-     * Decompiled with CFR 0.139.
+     * Decompiled with CFR 0.140.
      */
+    package myexamples;
+    
+    import myexamples.Main$;
+    
     public final class Main {
         public static void test01() {
             Main$.MODULE$.test01();
@@ -208,26 +212,26 @@ We distinguish different sets of batch commands:
     Here is the console output from command [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) with option **`-c`** for the same class file:
 
     <pre style="font-size:80%;">
-    <b>&gt; javap -c myexamples\00_AutoParamTupling\target\classes\Main.class</b>
+    <b>&gt; javap -c myexamples\00_AutoParamTupling\target\classes\myexamples\Main.class</b>
     Compiled from "Main.scala"
-    public final class Main {
-      public static void test01();
-        Code:
-           0: getstatic     #13                 // Field Main$.MODULE$:LMain$;
-           3: invokevirtual #15                 // Method Main$.test01:()V
-           6: return
-    
+    public final class myexamples.Main {
       public static void main(java.lang.String[]);
         Code:
-           0: getstatic     #13                 // Field Main$.MODULE$:LMain$;
+           0: getstatic     #13                 // Field myexamples/Main$.MODULE$:Lmyexamples/Main$;
            3: aload_0
-           4: invokevirtual #19                 // Method Main$.main:([Ljava/lang/String;)V
+           4: invokevirtual #15                 // Method myexamples/Main$.main:([Ljava/lang/String;)V
            7: return
     
       public static void test02();
         Code:
-           0: getstatic     #13                 // Field Main$.MODULE$:LMain$;
-           3: invokevirtual #22                 // Method Main$.test02:()V
+           0: getstatic     #13                 // Field myexamples/Main$.MODULE$:Lmyexamples/Main$;
+           3: invokevirtual #19                 // Method myexamples/Main$.test02:()V
+           6: return
+    
+      public static void test01();
+        Code:
+           0: getstatic     #13                 // Field myexamples/Main$.MODULE$:Lmyexamples/Main$;
+           3: invokevirtual #22                 // Method myexamples/Main$.test01:()V
            6: return
     }
     </pre>
@@ -243,7 +247,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 Tool versions:
    javac 1.8.0_202, java 1.8.0_202, scalac 2.12.8, dotc 0.13.0-RC1,
    ant 1.10.5, gradle 5.2.1, mill 0.3.6, mvn 3.6.0, sbt 1.2.8/2.12.8,
-   cfr 0.139, git 2.21.0.windows.1, diff 3.6
+   cfr 0.140, git 2.21.0.windows.1, diff 3.6
 
 <b>&gt; where sbt</b>
 C:\opt\sbt-1.2.8\bin\sbt
@@ -257,7 +261,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 Tool versions:
    javac 1.8.0_202, java 1.8.0_202, scalac 2.12.8, dotc 0.13.0-RC1,
    ant 1.10.5, gradle 5.2.1, mill 0.3.6, mvn 3.6.0, sbt 1.2.8/2.12.8,
-   cfr 0.139, git 2.21.0.windows.1, diff 3.6
+   cfr 0.140, git 2.21.0.windows.1, diff 3.6
 Tool paths:
    C:\opt\jdk-1.8.0_202-b08\bin\javac.exe
    C:\opt\jdk-1.8.0_202-b08\bin\java.exe
@@ -270,7 +274,7 @@ Tool paths:
    C:\opt\Mill-0.3.6\mill.bat
    C:\opt\apache-maven-3.6.0\bin\mvn.cmd
    C:\opt\sbt-1.2.8\bin\sbt.bat
-   C:\opt\cfr-0.139\bin\cfr.bat
+   C:\opt\cfr-0.140\bin\cfr.bat
    C:\opt\Git-2.21.0\bin\git.exe
    C:\opt\Git-2.21.0\usr\bin\diff.exe
 </pre>
@@ -305,26 +309,26 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; getnightly</b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.14-0.14.0-bin-20190219-38189b5-NIGHTLY.jar
-dotty-doc_0.14-0.14.0-bin-20190219-38189b5-NIGHTLY.jar
-dotty-interfaces-0.14.0-bin-20190219-38189b5-NIGHTLY.jar
-dotty-language-server_0.14-0.14.0-bin-20190219-38189b5-NIGHTLY.jar
-dotty-library_0.14-0.14.0-bin-20190219-38189b5-NIGHTLY.jar
-dotty-sbt-bridge-0.14.0-bin-20190219-38189b5-NIGHTLY.jar
-dotty_0.14-0.14.0-bin-20190219-38189b5-NIGHTLY.jar
+dotty-compiler_0.14-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar
+dotty-doc_0.14-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar
+dotty-interfaces-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar
+dotty-language-server_0.14-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar
+dotty-library_0.14-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar
+dotty-sbt-bridge-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar
+dotty_0.14-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar
 </pre>
 
 Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
 <pre style="font-size:80%">
 <b>&gt; getnightly -verbose</b>
-Downloading file dotty-compiler_0.14-0.14.0-bin-20190219-38189b5-NIGHTLY.jar ... 10.9 Mb
-Downloading file dotty-language-server_0.14-0.14.0-bin-20190219-38189b5-NIGHTLY.jar ... 145.4 Kb
-Downloading file dotty-doc_0.14-0.14.0-bin-20190219-38189b5-NIGHTLY.jar ... 1 Mb
-Downloading file dotty_0.14-0.14.0-bin-20190219-38189b5-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-library_0.14-0.14.0-bin-20190219-38189b5-NIGHTLY.jar ... 818 Kb
-Downloading file dotty-sbt-bridge-0.14.0-bin-20190219-38189b5-NIGHTLY.jar ... 13.3 Kb
-Downloading file dotty-interfaces-0.14.0-bin-20190219-38189b5-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty_0.14-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-language-server_0.14-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar ... 145.8 Kb
+Downloading file dotty-doc_0.14-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar ... 1 Mb
+Downloading file dotty-compiler_0.14-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar ... 10.5 Mb
+Downloading file dotty-sbt-bridge-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar ... 13.3 Kb
+Downloading file dotty-library_0.14-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar ... 1015.9 Kb
+Downloading file dotty-interfaces-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar ... 3.4 Kb
 Finished to download 7 files to directory W:\DOTTY-~1\out\nightly-jars
 </pre>
 
@@ -335,10 +339,10 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 <pre style="font-size:80%;">
 <b>&gt; getnightly activate</b>
 Finished to download 7 files to directory W:\DOTTY-~1\out\nightly-jars
-Activate nightly build libraries: 0.14.0-bin-20190219-38189b5-NIGHTLY
+Activate nightly build libraries: 0.14.0-bin-20190308-8d09c11-NIGHTLY
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.14.0-bin-20190219-38189b5-NIGHTLY-git-38189b5 -- Copyright 2002-2019, LAMP/EPFL
+Dotty compiler version 0.14.0-bin-220190308-8d09c11-NIGHTLY-git-8d09c11 -- Copyright 2002-2019, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
 Activate default Dotty libraries: 0.13.0-RC1
@@ -502,7 +506,7 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 | :----------- | :------: | :------ |
 | `build.sbt` | `dottyVersion` | `0.12.0-RC1` &rarr; `0.13.0-RC1`|
 | `project\build.properties` | `sbt.version` | `1.2.7` &rarr; `1.2.8` |
-| `project\plugins.sbt` | `sbt-dotty` | `0.2.4` &rarr; `0.2.6` |
+| `project\plugins.sbt` | `sbt-dotty` | `0.2.6` &rarr; `0.3.0` |
 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
 
@@ -548,7 +552,7 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 
 [Dotty REPL](https://docs.scala-lang.org/overviews/repl/overview.html) is an interactive tool for evaluating Scala expressions. Internally, it executes a source script by wrapping it in a template and then compiling and executing the resulting program.
 
-   > **:warning:** Batch file [**`dotr.bat`**](bin/0.12/dotr.bat) is based on the bash script [**`dotr`**](https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr) available from the standard [Dotty distribution](https://github.com/lampepfl/dotty/releases). We also have submitted pull request [#5444](https://github.com/lampepfl/dotty/pull/5444) to add that batch file to the Scala distribution.
+   > **:warning:** Batch file [**`dotr.bat`**](bin/0.13/dotr.bat) is based on the bash script [**`dotr`**](https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr) available from the standard [Dotty distribution](https://github.com/lampepfl/dotty/releases). We also have submitted pull request [#5444](https://github.com/lampepfl/dotty/pull/5444) to add that batch file to the Scala distribution.
 
 <pre style="font-size:80%;">
 <b>&gt; where dotr</b>

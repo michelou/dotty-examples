@@ -32,7 +32,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 
 > **:mag_right:** [Scala 2.12](https://www.scala-lang.org/download/) is a software product announced to require Java 8. In contrast [Scala 2.13](https://www.scala-lang.org/news/roadmap-2.13.html) and [Dotty](http://dotty.epfl.ch/) (aka [Scala 3](https://www.scala-lang.org/blog/2018/04/19/scala-3.html)) are still in development and also support Java 9+. In the following we choose to work with [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot), the 2<sup>nd</sup> [LTS](https://www.oracle.com/technetwork/java/java-se-support-roadmap.html) version after Java 8.
 
-For instance our development environment looks as follows (*January 2019*):
+For instance our development environment looks as follows (*February 2019*):
 
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.2\
