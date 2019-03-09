@@ -365,14 +365,14 @@ lib\0.13.0-RC1\
 &nbsp;&nbsp;dotty-doc_0.13-0.13.0-RC1.jar
 &nbsp;&nbsp;dotty-interfaces-0.13.0-RC1.jar
 &nbsp;&nbsp;dotty-library_0.13-0.13.0-RC1.jar
-lib\0.14.0-bin-20190219-38189b5-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.14-0.14.0-bin-20190219-38189b5-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.14-0.14.0-bin-20190219-38189b5-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.14.0-bin-20190219-38189b5-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.14-0.14.0-bin-20190219-38189b5-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.14-0.14.0-bin-20190219-38189b5-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.14.0-bin-20190219-38189b5-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.14-0.14.0-bin-20190219-38189b5-NIGHTLY.jar
+lib\0.14.0-bin-20190308-8d09c11-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.14-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.14-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.14-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.14-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.14-0.14.0-bin-20190308-8d09c11-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original Dotty installation respectively from the latest nightly build.
