@@ -42,8 +42,8 @@
         </condition>
         <property name="ivy.cache" value="${user.home}/.ivy2/cache/" />
         <path id="dotty.classpath">
-            <fileset dir="${ivy.cache}/ch.epfl.lamp" includes="**/dotty-library*.jar" />
-            <fileset dir="${ivy.cache}/ch.epfl.lamp" includes="**/scala-library*.jar" />
+            <fileset dir="${ivy.cache}/ch.epfl.lamp" includes="**/dotty-library*jar" />
+            <fileset dir="${ivy.cache}/org.scala-lang" includes="**/scala-library*.jar" />
         </path>
     </target>
 
@@ -78,6 +78,9 @@
                 <arg value="Compiling ${n} source file${s} to @{destdir}" />
             </exec>
             <pathconvert property="classpath" refid="@{classpathref}" />
+			<condition property="quoted" value="&quot;" else="">
+			    <contains string="${classpath}" substring=" " />
+			</condition>
             <java fork="true" classname="dotty.tools.dotc.Main" classpathref="dotc.classpath">
                 <jvmarg value="-Xmx768m" />
                 <jvmarg value="-Xms768m" />
@@ -86,7 +89,7 @@
                 <arg value="-d" />
                 <arg value="@{destdir}" />
                 <arg value="-classpath" />
-                <arg value="&quot;${classpath}&quot;" />
+                <arg value="${quoted}${classpath}${quoted}" />
                 <arg line="${scala.sources}" />
             </java>
         </sequential>
