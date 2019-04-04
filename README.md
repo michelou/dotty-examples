@@ -26,14 +26,14 @@ Other topics we are currently investigating include [JMH](https://openjdk.java.n
 This project depends on two external software for the **Microsoft Windows** platform:
 
 - [Oracle OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot)<sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*](https://wiki.openjdk.java.net/display/jdk8u/JDK+8u202))
-- [Dotty 0.13](https://github.com/lampepfl/dotty/releases) (Java 9+ supported since 0.10) 
+- [Dotty 0.13](https://github.com/lampepfl/dotty/releases) 
 
 Optionally you may also install the following software:
 
 - [Scala 2.12](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.12.8))
 - [SBT 1.2.8](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.5.html))
-- [Gradle 5.2](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.2.1/release-notes.html))
+- [Gradle 5.3](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.3/release-notes.html))
 - [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([requires Java 7](http://maven.apache.org/docs/history.html))  ([*release notes*](http://maven.apache.org/docs/3.6.0/release-notes.html))
 - [Mill 0.3](https://www.lihaoyi.com/mill/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
 - [CFR 0.14](http://www.benf.org/other/cfr/) (Java decompiler)
@@ -42,16 +42,16 @@ Optionally you may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*February 2019*):
+For instance our development environment looks as follows (*March 2019*):
 
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_202-b08\
 C:\opt\apache-ant-1.10.5\
 C:\opt\apache-maven-3.6.0\
-C:\opt\cfr-0.140\
+C:\opt\cfr-0.141\
 C:\opt\dotty-0.13.0-RC1\
 C:\opt\Git-2.21.0\
-C:\opt\gradle-5.2.1\
+C:\opt\gradle-5.3.1\
 C:\opt\Mill-0.3.6\
 C:\opt\sbt-1.2.8\
 C:\opt\scala-2.12.8\
@@ -67,7 +67,7 @@ This project is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
 bin\0.13\*.bat
-bin\cfr-0.140.zip
+bin\cfr-0.141.zip
 docs\
 examples\{dotty-example-project, ..}
 myexamples\{00_AutoParamTupling, ..}
@@ -79,7 +79,7 @@ where
 
 - directory [**`bin\`**](bin/) provides several utility batch commands.
 - directory [**`bin\0.13\`**](bin/0.13/) contains the batch commands for Dotty 0.13.
-- file [**`bin\cfr-0.140.zip`**](bin/cfr-0.140.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
+- file [**`bin\cfr-0.141.zip`**](bin/cfr-0.141.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
 - directory [**`examples\`**](examples/) contains Dotty examples grabbed from various websites.
 - directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
@@ -183,12 +183,12 @@ We distinguish different sets of batch commands:
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.140.zip`**](bin/cfr-0.140.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
+    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.141.zip`**](bin/cfr-0.141.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
 
     <pre style="font-size:80%;">
     <b>&gt; cfr myexamples\00_AutoParamTupling\target\classes\myexamples\Main.class</b>
     /*
-     * Decompiled with CFR 0.140.
+     * Decompiled with CFR 0.141.
      */
     package myexamples;
     
@@ -246,8 +246,8 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_202, java 1.8.0_202, scalac 2.12.8, dotc 0.13.0-RC1,
-   ant 1.10.5, gradle 5.2.1, mill 0.3.6, mvn 3.6.0, sbt 1.2.8/2.12.8,
-   cfr 0.140, git 2.21.0.windows.1, diff 3.6
+   ant 1.10.5, gradle 5.3.1, mill 0.3.6, mvn 3.6.0, sbt 1.2.8/2.12.8,
+   cfr 0.141, git 2.21.0.windows.1, diff 3.6
 
 <b>&gt; where sbt</b>
 C:\opt\sbt-1.2.8\bin\sbt
@@ -260,8 +260,8 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_202, java 1.8.0_202, scalac 2.12.8, dotc 0.13.0-RC1,
-   ant 1.10.5, gradle 5.2.1, mill 0.3.6, mvn 3.6.0, sbt 1.2.8/2.12.8,
-   cfr 0.140, git 2.21.0.windows.1, diff 3.6
+   ant 1.10.5, gradle 5.3.1, mill 0.3.6, mvn 3.6.0, sbt 1.2.8/2.12.8,
+   cfr 0.141, git 2.21.0.windows.1, diff 3.6
 Tool paths:
    C:\opt\jdk-1.8.0_202-b08\bin\javac.exe
    C:\opt\jdk-1.8.0_202-b08\bin\java.exe
@@ -270,11 +270,11 @@ Tool paths:
    C:\opt\scala-2.12.8\bin\scalac.bat
    C:\opt\dotty-0.13.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.5\bin\ant.bat
-   C:\opt\gradle-5.2.1\bin\gradle.bat
+   C:\opt\gradle-5.3.1\bin\gradle.bat
    C:\opt\Mill-0.3.6\mill.bat
    C:\opt\apache-maven-3.6.0\bin\mvn.cmd
    C:\opt\sbt-1.2.8\bin\sbt.bat
-   C:\opt\cfr-0.140\bin\cfr.bat
+   C:\opt\cfr-0.141\bin\cfr.bat
    C:\opt\Git-2.21.0\bin\git.exe
    C:\opt\Git-2.21.0\usr\bin\diff.exe
 </pre>
@@ -642,5 +642,5 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/February 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/March 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>

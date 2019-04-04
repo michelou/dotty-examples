@@ -27,9 +27,9 @@ This project depends on several external software for the **Microsoft Windows** 
 - [Corretto OpenJDK 11](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html) from [Amazon](https://aws.amazon.com/) ([*release notes*](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html)). <!-- build 11.0.2+9-LTS -->
 - [OpenJ9 OpenJDK 11](https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9) from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html). <!-- build 11.0.2+9 -->
 - [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot) from [Oracle](https://www.oracle.com/). <!-- build 11.0.2+9 -->
-- [RedHat OpenJDK 11](https://developers.redhat.com/products/openjdk/download/) from [RedHat](https://www.redhat.com/). <!-- build 11.0.2-redhat+7-LTS -->
+- [RedHat OpenJDK 11](https://developers.redhat.com/products/openjdk/download/) from [RedHat](https://www.redhat.com/). <!-- build 11.0.2-redhat+7-LTS (2019-02-07) -->
 - [SapMachine OpenJDK 11](https://sap.github.io/SapMachine/) from [SAP](https://www.sap.com/). <!-- build 11.0.2+0-LTS-sapmachine -->
-- [Trava OpenJDK 11](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm) from [Travis](https://travis-ci.com/). <!-- build 8, 2019-02-11 -->
+- [Trava OpenJDK 11](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm) from [Travis](https://travis-ci.com/) ([*release notes*](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases)). <!-- 11.0.1+8 (2019-03-16) -->
 - [Zulu OpenJDK 11](https://www.azul.com/downloads/zulu/zulu-windows) from [Azul Systems](https://www.azul.com/) ([*release notes*](https://docs.azul.com/zulu/zulurelnotes/index.htm#ZuluReleaseNotes/ReleaseDetails1129-834-726.htm)). <!-- build 11.0.2+7-LTS -->
 
 The above implementations of OpenJDK[&trade;](http://openjdk.java.net/legal/openjdk-trademark-notice.html) differ in several ways:
@@ -38,13 +38,13 @@ The above implementations of OpenJDK[&trade;](http://openjdk.java.net/legal/open
 - they are certified for [JCK](https://openjdk.java.net/groups/conformance/JckAccess/) <sup id="anchor_01">[[1]](#footnote_01)</sup> compliance (eg. [SapMachine](https://sap.github.io/SapMachine/) , [Zulu](https://www.azul.com/why-would-you-risk-your-apps-on-an-uncertified-jvm/)) or not.
 - they include different [backports](https://builds.shipilev.net/backports-monitor/) of fixes from OpenJDK 12 or newer (eg. [Corretto](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/patches.html)).
 - they include additional modules (eg. Device IO API on Linux ARMv7) or integrate special tools (eg. HotswapAgent in [Trava](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm)).
-- they support different sets of platform architectures.
+- they support different sets of platform architectures (eg. [SapMachine](https://sap.github.io/SapMachine/) x64 only).
 
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*February 2019*):
+For instance our development environment looks as follows (*March 2019*):
 
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.2\
@@ -71,7 +71,9 @@ An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For
 
 ### BellSoft OpenJDK 11
 
-[BellSoft OpenJDK 11](https://bell-sw.com/pages/java-11.0.2/) (aka Liberica JDK) is available both as a *"regular"* and as a *"lite"* version (no JavaFX modules, compressed modules). In the following we work with the "lite" version of BellSoft OpenJDK 11.
+[BellSoft OpenJDK 11](https://bell-sw.com/pages/java-11.0.2/) (aka Liberica JDK) is available both as a *"regular"* and as a *"lite"* version (no JavaFX modules, compressed modules). BellSoft currently provides binaries suitable for different hardware and OS combinations, eg. Windows x86_64 and Windows x86.
+
+In the following we work with the *"lite"* version of BellSoft OpenJDK 11.
 
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\jdk-bellsoft-11.0.2-lite\bin\java -version</b>
@@ -212,24 +214,24 @@ Starting HotswapAgent 'c:\opt\jdk-trava-11.0.1\lib\hotswap\hotswap-agent.jar'
 HOTSWAP AGENT: 17:59:08.070 INFO [...]
 HOTSWAP AGENT: 17:59:08.304 INFO [...]
 openjdk version "11.0.1.6" 2018-12-16
-OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.1.6+8-201902100759)
-Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.1.6+8-201902100759, mixed mode)
+OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.1.6+8-201903160759)
+Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.1.6+8-201903160759, mixed mode)
 
 <b>&gt; c:\opt\jdk-trava-11.0.1\bin\java -Xshare:dump</b>
 [...]
-Number of classes 1821
+Number of classes 1268
 [...]
-total    :  18142064 [100.0% of total] out of  18415616 bytes [ 98.5% used]
+total    :  18142072 [100.0% of total] out of  18415616 bytes [ 98.5% used]
 <b>&gt; dir c:\opt\jdk-trava-11.0.1\bin\server | findstr jsa</b>
-10.02.2019  17:59        18 481 152 classes.jsa
+20.03.2019  16:17        18 481 152 classes.jsa
 
 <b>&gt; c:\opt\jdk-trava-11.0.1\bin\java -version</b>
 Starting HotswapAgent 'c:\opt\jdk-trava-11.0.1\lib\hotswap\hotswap-agent.jar'
 HOTSWAP AGENT: 18:01:52.543 INFO [...]
 HOTSWAP AGENT: 18:01:52.765 INFO [...]
 openjdk version "11.0.1.6" 2018-12-16
-OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.1.6+8-201902100759)
-Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.1.6+8-201902100759, mixed mode, sharing)
+OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.1.6+8-201903160759)
+Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.1.6+8-201903160759, mixed mode, sharing)
 </pre>
 
 
