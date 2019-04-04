@@ -34,11 +34,10 @@ This project depends on several external software for the **Microsoft Windows** 
 
 The above implementations of OpenJDK[&trade;](http://openjdk.java.net/legal/openjdk-trademark-notice.html) differ in several ways:
 
-
-- they are certified for [JCK](https://openjdk.java.net/groups/conformance/JckAccess/) <sup id="anchor_01">[[1]](#footnote_01)</sup> compliance (eg. [SapMachine](https://sap.github.io/SapMachine/) , [Zulu](https://www.azul.com/why-would-you-risk-your-apps-on-an-uncertified-jvm/)) or not.
+- they are tested and certified for [JCK](https://openjdk.java.net/groups/conformance/JckAccess/) <sup id="anchor_01">[[1]](#footnote_01)</sup> compliance excepted for Trava OpenJDK.
 - they include different [backports](https://builds.shipilev.net/backports-monitor/) of fixes from OpenJDK 12 or newer (eg. [Corretto](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/patches.html)).
 - they include additional modules (eg. Device IO API on Linux ARMv7) or integrate special tools (eg. HotswapAgent in [Trava](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm)).
-- they support different sets of platform architectures (eg. [SapMachine](https://sap.github.io/SapMachine/) x64 only).
+- they support different sets of platform architectures (eg. [SapMachine](https://sap.github.io/SapMachine/) x64 only, [BellSoft](https://bell-sw.com/pages/liberica-release-notes-11.0.2) also Raspberry Pi 2 &amp; 3).
 
 
 > **&#9755;** ***Installation policy***<br/>
@@ -100,8 +99,8 @@ OpenJDK 64-Bit Server VM (build 11.0.2-BellSoft+7, mixed mode, sharing)
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\jdk-corretto-11.0.2_9\bin\java -version</b>
 openjdk version "11.0.2" 2019-01-15 LTS
-OpenJDK Runtime Environment Corretto-11.0.2.9.1 (build 11.0.2+9-LTS)
-OpenJDK 64-Bit Server VM Corretto-11.0.2.9.1 (build 11.0.2+9-LTS, mixed mode)
+OpenJDK Runtime Environment Corretto-11.0.2.9.3 (build 11.0.2+9-LTS)
+OpenJDK 64-Bit Server VM Corretto-11.0.2.9.3 (build 11.0.2+9-LTS, mixed mode)
 
 <b>&gt; c:\opt\jdk-corretto-11.0.2_9\bin\java -Xshare:dump</b>
 [...]
@@ -112,8 +111,8 @@ Number of classes 1257
 
 <b>&gt; c:\opt\jdk-corretto-11.0.2_9\bin\java -version</b>
 openjdk version "11.0.2" 2019-01-15 LTS
-OpenJDK Runtime Environment Corretto-11.0.2.9.1 (build 11.0.2+9-LTS)
-OpenJDK 64-Bit Server VM Corretto-11.0.2.9.1 (build 11.0.2+9-LTS, mixed mode, sharing)
+OpenJDK Runtime Environment Corretto-11.0.2.9.3 (build 11.0.2+9-LTS)
+OpenJDK 64-Bit Server VM Corretto-11.0.2.9.3 (build 11.0.2+9-LTS, mixed mode, sharing)
 </pre>
 
 > **:mag_right:** Amazon provides online documentation specific to Corretto 11 (eg. [change Log](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html), [patches](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/patches.html)) as well as Youtube videos (eg. Devoxx keynotes by [Arun Gupta](https://www.youtube.com/watch?v=RLKC5nsiZXU) and [James Gosling](https://www.youtube.com/watch?v=WuZk23O76Zk)).
@@ -233,6 +232,17 @@ openjdk version "11.0.1.6" 2018-12-16
 OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.1.6+8-201903160759)
 Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.1.6+8-201903160759, mixed mode, sharing)
 </pre>
+
+> **:mag_right:** [Trava OpenJDK](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases) is *not intended* to be used as 'main' JDK, since the integrated HotswapAgent is enabled by default and it uses serial GC by default. The default behaviour can be changed as follows:
+> <pre>
+> <b>&gt; java -XX:+DisableHotswapAgent -XX:+UseConcMarkSweepGC -version</b>
+> Dynamic Code Evolution 64-Bit Server VM warning: Option UseConcMarkSweepGC\
+>  was deprecated in version 9.0 and will likely be removed in a future release.
+> openjdk version "11.0.1.6" 2018-12-16
+> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.1.6+8-201903160759)
+> Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.1.6+8-201903160759, mixed mode, sharing)
+> </pre>
+> Trava OpenJDK only supports the [serial and CMS garbage collectors](http://karunsubramanian.com/websphere/how-to-choose-the-correct-garbage-collector-java-generational-heap-and-garbage-collection-explained/) (ie. options `-XX:+UseParallelGC` and `-XX:+UseG1GC` are not supported).
 
 
 ### Zulu OpenJDK 11
