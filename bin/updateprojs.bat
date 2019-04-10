@@ -22,8 +22,8 @@ set _SBT_VERSION_OLD=sbt.version=1.2.7
 set _SBT_VERSION_NEW=sbt.version=1.2.8
 
 rem file project\plugins.sbt
-set _SBT_DOTTY_VERSION_OLD="0.2.6"
-set _SBT_DOTTY_VERSION_NEW="0.3.0"
+set _SBT_DOTTY_VERSION_OLD="0.3.0"
+set _SBT_DOTTY_VERSION_NEW="0.3.1"
 
 rem file build.sc
 set _MILL_DOTTY_VERSION_OLD="0.12.0-RC1"
