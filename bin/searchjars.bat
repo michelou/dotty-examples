@@ -148,7 +148,7 @@ if not exist "%_SCALA_HOME%\lib\" (
 )
 goto :eof
 
-rem input parameter: %1=lib directory
+rem input parameter: %1=lib directory, %2=traverse recursively
 :search
 set __LIB_DIR=%~1
 set __RECURSIVE=%~2

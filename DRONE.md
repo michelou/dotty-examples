@@ -44,10 +44,10 @@ Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*February 2019*):
+For instance our development environment looks as follows (*April 2019*):
 
 <pre style="font-size:80%;">
-C:\opt\jdk-1.8.0_202-b08\
+C:\opt\jdk-1.8.0_212-b03\
 C:\opt\sbt-1.2.8\
 C:\opt\Git-2.21.0\
 </pre>
@@ -253,7 +253,7 @@ Command **`setenv`** is executed once to setup our development environment; it m
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
 Tool versions:
-   javac 1.8.0_202, java 1.8.0_202,
+   javac 1.8.0_212, java 1.8.0_212,
    sbt 1.2.8/2.12.8, git 2.21.0.windows.1, diff 3.6
 
 <b>&gt; where sbt</b>
@@ -266,11 +266,11 @@ Command **`setenv -verbose`** also displays the tool paths and the current Git b
 <pre style="font-size:80%;">
 <b>&gt; setenv -verbose</b>
 Tool versions:
-   javac 1.8.0_202, java 1.8.0_202,
+   javac 1.8.0_212, java 1.8.0_212,
    sbt 1.2.8/2.12.8, git 2.21.0.windows.1, diff 3.6
 Tool paths:
-   C:\opt\jdk-1.8.0_202-b08\bin\javac.exe
-   C:\opt\jdk-1.8.0_202-b08\bin\java.exe
+   C:\opt\jdk-1.8.0_212-b03\bin\javac.exe
+   C:\opt\jdk-1.8.0_212-b03\bin\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\opt\sbt-1.2.8\bin\sbt.bat
@@ -319,7 +319,7 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     <b>&gt; build -verbose cleanall</b>
     Tool paths
       GIT_CMD=C:\opt\Git-2.21.0\bin\git.exe
-      JAVA_CMD=C:\opt\jdk-1.8.0_202-b08\bin\java.exe
+      JAVA_CMD=C:\opt\jdk-1.8.0_212-b03\bin\java.exe
       SBT_CMD=C:\opt\sbt-1.2.8\bin\sbt.bat
     Tool options
       JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
@@ -394,8 +394,8 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     [...]
     &nbsp;
     <b>&gt; dir /a-d /b dist-bootstrapped\target</b>
-    dotty-0.14.0-bin-SNAPSHOT.tar.gz
-    dotty-0.14.0-bin-SNAPSHOT.zip
+    dotty-0.15.0-bin-SNAPSHOT.tar.gz
+    dotty-0.15.0-bin-SNAPSHOT.zip
     </pre>
 
 - **`documentation`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Dotty website](https://dotty.epfl.ch/) and the online [Dotty documentation](https://dotty.epfl.ch/docs/).<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
@@ -404,7 +404,7 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     <b>&gt; build -timer doc-only</b>
     Working directory: W:\dotty
     [...]
-    [info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 0.14.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
+    [info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 0.15.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
     Compiling (1/406): AlternateConstructorsPhase.scala
     [...]
     Compiling (406/406): package.scala
@@ -518,8 +518,8 @@ Command [**`project\scripts\bootstrapCmdTests`**](https://github.com/michelou/do
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.21
-# VM version: JDK 1.8.0_202, VM 25.202-b08
-# VM invoker: C:\opt\jdk-1.8.0_202-b08\bin\java.exe
+# VM version: JDK 1.8.0_212, VM 25.212-b03
+# VM invoker: C:\opt\jdk-1.8.0_212-b03\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -548,8 +548,8 @@ Worker.compile  avgt       533.625          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.21
-# VM version: JDK 1.8.0_202, VM 25.202-b08
-# VM invoker: C:\opt\jdk-1.8.0_202-b08\bin\java.exe
+# VM version: JDK 1.8.0_212, VM 25.212-b03
+# VM invoker: C:\opt\jdk-1.8.0_212-b03\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -576,8 +576,8 @@ Worker.compile  avgt       361.619          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
 # JMH version: 1.21
-# VM version: JDK 1.8.0_202, VM 25.202-b08
-# VM invoker: C:\opt\jdk-1.8.0_202-b08\bin\java.exe
+# VM version: JDK 1.8.0_212, VM 25.202-b03
+# VM invoker: C:\opt\jdk-1.8.0_212-b03\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -656,5 +656,5 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/February 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/April 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
