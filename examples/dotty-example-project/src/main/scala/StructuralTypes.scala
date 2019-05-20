@@ -1,6 +1,6 @@
 
 /**
-  * Structural Types: http://dotty.epfl.ch/docs/reference/changed/structural-types.html
+  * Structural Types: https://dotty.epfl.ch/docs/reference/other-new-features/trait-parameters.html
   */
 object StructuralTypes {
 

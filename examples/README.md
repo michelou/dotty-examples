@@ -262,7 +262,7 @@ Command [**`sbt`**](https://www.scala-sbt.org/) is a Scala-based build tool for 
 The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is a standalone file written in [Scala](https://www.scala-lang.org/) and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
 <pre style="font-size:80%;">
-<b>val</b> dottyVersion = <span style="color:#990000;">"0.13.0-RC1"</span>
+<b>val</b> dottyVersion = <span style="color:#990000;">"0.14.0-RC1"</span>
 &nbsp;
 <b>lazy val</b> root = project
   .in(file("."))
@@ -304,7 +304,7 @@ The configuration file [**`build.sc`**](enum-Planet/build.sc) is a standalone fi
 <b>import</b> mill._, scalalib._
 &nbsp;
 <b>object</b> go <b>extends</b> ScalaModule {
-  <b>def</b> scalaVersion = <span style="color:#990000;">"0.13.0-RC1"</span>  // "2.12.18"
+  <b>def</b> scalaVersion = <span style="color:#990000;">"0.14.0-RC1"</span>  // "2.12.18"
   <b>def</b> scalacOptions = Seq(<span style="color:#990000;">"-deprecation"</span>, <span style="color:#990000;">"-feature"</span>)
   <b>def</b> forkArgs = Seq(<span style="color:#990000;">"-Xmx1g"</span>)
   <b>def</b> mainClass = Some(<span style="color:#990000;">"Planet"</span>)
@@ -339,7 +339,7 @@ Command [**`ant`**](https://ant.apache.org/) (["Another Neat Tool"](https://ant.
 The configuration file [**`build.xml`**](enum-Planet/build.xml) in directory [**`enum-Planet\`**](enum-Planet/) depends on the parent file [**`build.xml`**](build.xml) which provides the macro definition **`dotc`** to compile the Scala source files.
 
 <pre style="font-size:80%;">
-&lt;?xml version="1.0" encoding="UTF-8"?>
+<b>&lt;?xml</b> version="1.0" encoding="UTF-8"<b>?&gt;</b>
 <b>&lt;project</b> name=<span style="color:#990000;">"enum-Planet"</span> default=<span style="color:#990000;">"compile"</span> basedir=<span style="color:#990000;">"."</span>&gt;
     ...
     <b>&lt;import</b> file=<span style="color:#990000;">"../build.xml"</span> /&gt;
@@ -362,7 +362,7 @@ Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 [ivy:resolve] :: Apache Ivy 2.5.0-rc1 - 20180412005306 :: http://ant.apache.org/ivy/ ::
-[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.5/lib/ivy-2.5.0-rc1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.6/lib/ivy-2.5.0-rc1.jar!/org/apache/ivy/core/settings/ivysettings.xml
 
 <span style="font-weight:bold;color:#9966ff;">init:</span>
 
@@ -384,7 +384,7 @@ BUILD SUCCESSFUL
 Total time: 19 seconds
 </pre>
 
-> **&#9755;** ***Apache Ivy**<br/>
+> **&#9755;** **Apache Ivy**<br/>
 > The [Ivy](http://ant.apache.org/ivy/) Java archive must be added to the [Ant](https://ant.apache.org/) installation directory as displayed by task **`init.ivy`** in the above output. In our case we work with [version 2.5.0-rc1](http://ant.apache.org/ivy/history/2.5.0-rc1/release-notes.html) of the Apache Ivy library.
 > <pre style="font-size:80%;">
 > <b>&gt; dir /b c:\opt\apache-ant-1.10.5\lib\ivy</b>
@@ -401,7 +401,7 @@ Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
    [delete] Deleting directory W:\dotty-examples\examples\enum-Planet\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] DOTTY_HOME=C:\opt\dotty-0.12.0-RC1
+     [echo] DOTTY_HOME=C:\opt\dotty-0.14.0-RC1
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -433,7 +433,7 @@ Command [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) i
 The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enum-Planet\`**](enum-Planet/) depends on the parent file [**`pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
 
 <pre style="font-size:80%;">
-&lt;?xml version="1.0" encoding="UTF-8"?>
+<b>&lt;?xml</b> version="1.0" encoding="UTF-8"<b>?&gt;</b>
 <b>&lt;project</b> xmlns=<span style="color:#990000;">"http://maven.apache.org/POM/4.0.0"</span> ...&gt;
     ...
     <b>&lt;artifactId&gt;</b>enum-Planet<b>&lt;/artifactId&gt;</b>
@@ -479,17 +479,17 @@ Running command **` mvn compile test`** with option **`-debug`** produces additi
 
 <pre>
 <b>&gt; mvn -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.13.0-RC1 \
+[DEBUG] [execute] C:\opt\jdk-8.0_212-b03\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.14.0-RC1 \
  -cp C:\opt\dotty-0.13.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.13.0-RC1 [...]
-[DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.13.0-RC1\lib\*.jar;\
+[DEBUG] [execute] C:\opt\jdk-8.0_212-b03\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.14.0-RC1 [...]
+[DEBUG] [execute] C:\opt\jdk-8.0_212-b03\bin\java.exe \
+ -Xms64m -Xmx1024m -cp C:\opt\dotty-0.14.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -524,7 +524,7 @@ Your weight on JUPITER is 2.5305575254957406
 <b>&gt; java -version 2>&1 | findstr version</b>
 openjdk version "11.0.2" 2018-10-16
 
-<b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.13.0-RC1\lib\dotty-library_0.13-0.13.0-RC1.jar;c:\opt\dotty-0.13.0-RC1\lib\scala-library-2.12.8.jar -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
+<b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.14.0-RC1\lib\dotty-library_0.14-0.14.0-RC1.jar;c:\opt\dotty-0.14.0-RC1\lib\scala-library-2.12.8.jar -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -535,4 +535,4 @@ Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406
 </pre>
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/February 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/May 2019* [**&#9650;**](#top)

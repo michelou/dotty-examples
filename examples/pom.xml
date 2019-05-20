@@ -17,11 +17,11 @@
         <!-- Maven plugins -->
         <scala.maven.version>1.0-SNAPSHOT</scala.maven.version> <!-- Dec 2018 -->
         <maven.compiler.version>3.8.1</maven.compiler.version>  <!-- May 2019 -->
-		<maven.jar.version>3.1.1</maven.jar.version>            <!-- Dec 2018 -->
+        <maven.jar.version>3.1.1</maven.jar.version>            <!-- Dec 2018 -->
         <exec.maven.version>1.6.0</exec.maven.version>          <!-- Mar 2017 -->
-		<maven.surefire.version>2.22.2</maven.surefire.version> <!-- May 2019 -->
+        <maven.surefire.version>2.22.2</maven.surefire.version> <!-- May 2019 -->
         <jmh.version>1.21</jmh.version>                         <!-- May 2018, Oracle -->
-		<jupiter.version>5.4.2</jupiter.version>                <!-- Apr 2019 -->
+        <jupiter.version>5.4.2</jupiter.version>                <!-- Apr 2019 -->
     </properties>
 
     <dependencies>
@@ -48,11 +48,18 @@
             <artifactId>exec-maven-plugin</artifactId>
             <version>${exec.maven.version}</version>
         </dependency>
-		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest_2.12</artifactId>
+            <version>3.0.7</version>
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->

@@ -35,14 +35,14 @@ Optionally you may also install the following software:
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.6.html))
 - [Gradle 5.4](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.4.1/release-notes.html))
 - [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([requires Java 7](http://maven.apache.org/docs/history.html))  ([*release notes*](http://maven.apache.org/docs/3.6.1/release-notes.html))
-- [Mill 0.3](https://www.lihaoyi.com/mill/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
+- [Mill 0.4](https://www.lihaoyi.com/mill/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
 - [CFR 0.14](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.21](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.21.0.txt))
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*April 2019*):
+For instance our development environment looks as follows (*May 2019*):
 
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_212-b03\
@@ -52,7 +52,7 @@ C:\opt\cfr-0.144\
 C:\opt\dotty-0.14.0-RC1\
 C:\opt\Git-2.21.0\
 C:\opt\gradle-5.4.1\
-C:\opt\Mill-0.3.6\
+C:\opt\Mill-0.4.0\
 C:\opt\sbt-1.2.8\
 C:\opt\scala-2.13.0-RC1\
 </pre>
@@ -246,7 +246,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_212, java 1.8.0_212, scalac 2.13.0-RC1, dotc 0.14.0-RC1,
-   ant 1.10.6, gradle 5.4.1, mill 0.3.6, mvn 3.6.1, sbt 1.2.8/2.12.8,
+   ant 1.10.6, gradle 5.4.1, mill 0.4.0, mvn 3.6.1, sbt 1.2.8/2.12.8,
    cfr 0.144, git 2.21.0.windows.1, diff 3.7
 
 <b>&gt; where sbt</b>
@@ -260,7 +260,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_212, java 1.8.0_212, scalac 2.13.0-RC1, dotc 0.14.0-RC1,
-   ant 1.10.6, gradle 5.4.1, mill 0.3.6, mvn 3.6.1, sbt 1.2.8/2.12.8,
+   ant 1.10.6, gradle 5.4.1, mill 0.4.0, mvn 3.6.1, sbt 1.2.8/2.12.8,
    cfr 0.144, git 2.21.0.windows.1, diff 3.7
 Tool paths:
    C:\opt\jdk-1.8.0_212-b03\bin\javac.exe
@@ -271,7 +271,7 @@ Tool paths:
    C:\opt\dotty-0.14.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.6\bin\ant.bat
    C:\opt\gradle-5.4.1\bin\gradle.bat
-   C:\opt\Mill-0.3.6\mill.bat
+   C:\opt\Mill-0.4.0\mill.bat
    C:\opt\apache-maven-3.6.1\bin\mvn.cmd
    C:\opt\sbt-1.2.8\bin\sbt.bat
    C:\opt\cfr-0.144\bin\cfr.bat
@@ -643,5 +643,5 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/April 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/May 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
