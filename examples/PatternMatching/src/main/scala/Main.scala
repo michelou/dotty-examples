@@ -1,16 +1,20 @@
-// see http://dotty.epfl.ch/docs/reference/changed/pattern-matching.html
+// see http://dotty.epfl.ch/docs/reference/changed-features/pattern-matching.html
 object Main {
+
+  // Boolean Match
 
   object Even {
     def unapply(s: String): Boolean = s.size % 2 == 0
   }
 
-  def booleanPattern: Unit = {
+  def booleanMatch: Unit = {
     "even" match {
       case s @ Even() => println(s"$s has an even number of characters")
       case s          => println(s"$s has an odd number of characters")
     }
   }
+
+  // Product Match
 
   class FirstChars(s: String) extends Product {
     def _1 = s.charAt(0)
@@ -26,25 +30,14 @@ object Main {
     def unapply(s: String): FirstChars = new FirstChars(s)
   }
 
-  def productPattern: Unit = {
+  def productMatch: Unit = {
     "Hi!" match {
       case FirstChars(char1, char2) =>
         println(s"First: $char1; Second: $char2")
     }
   }
 
-  object CharList {
-    def unapplySeq(s: String): Option[Seq[Char]] = Some(s.toList)
-  }
-
-  def seqPattern: Unit = {
-    "example" match {
-      case CharList(c1, c2, c3, c4, _, _, _) =>
-        println(s"$c1,$c2,$c3,$c4")
-      case _ =>
-        println("Expected *exactly* 7 characters!")
-    }
-  }
+  // Single Match
 
   class Nat(val x: Int) {
     def get: Int = x
@@ -55,37 +48,50 @@ object Main {
     def unapply(x: Int): Nat = new Nat(x)
   }
 
-  def nameBasedPattern: Unit = {
+  def singleMatch: Unit = {
     5 match {
       case Nat(n) => println(s"$n is a natural number")
       case _      => ()
     }
   }
 
-  class Person(val name: String, val children: Person *)
+  // Named-based Match
 
-  object Person {
-    def unapply(p: Person) = Some((p.name, p.children))
+  object ProdEmpty {
+    def _1: Int = ???
+    def _2: String = ???
+    def isEmpty = true
+    def unapply(s: String): this.type = this
+    def get = this
   }
 
-  def childCount(p: Person) = p match {
-    case Person(_, ns : _*) => ns.length
+  def nameBasedMatch: Unit = {
+    "" match {
+      case ProdEmpty(_, _) => ???
+      case _ => ()
+    }
   }
 
-  def varargPattern: Unit = {
-    val xs = List(1, 2, 3, 4)
-    xs match {
-      case List(1, 2, xs: _*) => println(xs)    // binds xs
-      case List(1, _ : _*) =>                   // wildcard pattern
-      case ys => // for exhaustivity
+  // Sequence Match
+
+  object CharList {
+    def unapplySeq(s: String): Option[Seq[Char]] = Some(s.toList)
+  }
+  
+  def sequenceMatch: Unit = {
+    "example" match {
+      case CharList(c1, c2, c3, c4, _, _, _) =>
+        println(s"$c1,$c2,$c3,$c4")
+      case _ =>
+        println("Expected *exactly* 7 characters!")
     }
   }
 
   def main(args: Array[String]): Unit = {
-    booleanPattern
-    productPattern
-    seqPattern
-    nameBasedPattern
-    varargPattern
+    booleanMatch
+    productMatch
+    singleMatch
+    nameBasedMatch
+    sequenceMatch
   }
 }

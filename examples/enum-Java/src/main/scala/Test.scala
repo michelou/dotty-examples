@@ -1,4 +1,4 @@
-enum WeekDay {
+trait WeekDay {
   case A
 }
 enum WorkingDay extends WeekDay {

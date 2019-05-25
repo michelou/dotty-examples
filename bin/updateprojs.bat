@@ -14,8 +14,8 @@ set _EXITCODE=0
 for %%f in ("%~dp0..") do set _ROOT_DIR=%%~sf
 
 rem file build.sbt
-set _DOTTY_VERSION_OLD="0.13.0-RC1"
-set _DOTTY_VERSION_NEW="0.14.0-RC1"
+set _DOTTY_VERSION_OLD="0.14.0-RC1"
+set _DOTTY_VERSION_NEW="0.15.0-RC1"
 
 rem file project\build.properties
 set _SBT_VERSION_OLD=sbt.version=1.2.7
@@ -26,8 +26,8 @@ set _SBT_DOTTY_VERSION_OLD="0.3.0"
 set _SBT_DOTTY_VERSION_NEW="0.3.1"
 
 rem file build.sc
-set _MILL_DOTTY_VERSION_OLD="0.13.0-RC1"
-set _MILL_DOTTY_VERSION_NEW="0.14.0-RC1"
+set _MILL_DOTTY_VERSION_OLD="0.14.0-RC1"
+set _MILL_DOTTY_VERSION_NEW="0.15.0-RC1"
 
 rem ##########################################################################
 rem ## Main

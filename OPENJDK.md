@@ -23,9 +23,9 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 
 This project depends on several external software for the **Microsoft Windows** platform:
 
-- [BellSoft OpenJDK 11](https://bell-sw.com/pages/java-11.0.2/) from [BellSoft](https://bell-sw.com/pages/about) ([*release notes*](https://bell-sw.com/pages/liberica-release-notes-11.0.2)). <!-- build 11.0.2-BellSoft+7 -->
+- [BellSoft OpenJDK 11](https://bell-sw.com/pages/java-11.0.3/) from [BellSoft](https://bell-sw.com/pages/about) ([*release notes*](https://bell-sw.com/pages/liberica-release-notes-11.0.3)). <!-- build 11.0.3-BellSoft+12 -->
 - [Corretto OpenJDK 11](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html) from [Amazon](https://aws.amazon.com/) ([*release notes*](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html)). <!-- build 11.0.2+9-LTS -->
-- [OpenJ9 OpenJDK 11](https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9) from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html). <!-- build 11.0.2+9 -->
+- [OpenJ9 OpenJDK 11](https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9) from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html). <!-- build 11.0.3+7 -->
 - [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot) from [Oracle](https://www.oracle.com/). <!-- build 11.0.2+9 -->
 - [RedHat OpenJDK 11](https://developers.redhat.com/products/openjdk/download/) from [RedHat](https://www.redhat.com/). <!-- build 11.0.2-redhat+7-LTS (2019-02-07) -->
 - [SapMachine OpenJDK 11](https://sap.github.io/SapMachine/) from [SAP](https://www.sap.com/). <!-- build 11.0.2+0-LTS-sapmachine -->
@@ -43,17 +43,17 @@ The above implementations of OpenJDK[&trade;](http://openjdk.java.net/legal/open
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*March 2019*):
+For instance our development environment looks as follows (*May 2019*):
 
 <pre style="font-size:80%;">
-C:\opt\jdk-11.0.2\
-C:\opt\jdk-bellsoft-11.0.2\
-C:\opt\jdk-corretto-11.0.2\
-C:\opt\jdk-openj9-11.0.2\
-C:\opt\jdk-redhat-11.0.2\
-C:\opt\jdk-sapmachine-11.0.2\
+C:\opt\jdk-11.0.3\
+C:\opt\jdk-bellsoft-11.0.3-lite\
+C:\opt\jdk-corretto-11.0.3_7\
+C:\opt\jdk-openj9-11.0.3\
+C:\opt\jdk-redhat-11.0.3\
+C:\opt\jdk-sapmachine-11.0.3\
 C:\opt\jdk-trava-11.0.1\
-C:\opt\jdk-zulu-11.0.2\
+C:\opt\jdk-zulu-11.0.3\
 </pre>
 
 
@@ -70,49 +70,49 @@ An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For
 
 ### BellSoft OpenJDK 11
 
-[BellSoft OpenJDK 11](https://bell-sw.com/pages/java-11.0.2/) (aka Liberica JDK) is available both as a *"regular"* and as a *"lite"* version (no JavaFX modules, compressed modules). BellSoft currently provides binaries suitable for different hardware and OS combinations, eg. Windows x86_64 and Windows x86.
+[BellSoft OpenJDK 11](https://bell-sw.com/pages/java-11.0.3/) (aka Liberica JDK) is available both as a *"regular"* and as a *"lite"* version (no JavaFX modules, compressed modules). BellSoft currently provides binaries suitable for different hardware and OS combinations, eg. Windows x86_64 and Windows x86.
 
 In the following we work with the *"lite"* version of BellSoft OpenJDK 11.
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-bellsoft-11.0.2-lite\bin\java -version</b>
-openjdk version "11.0.2-BellSoft" 2018-10-16
-OpenJDK Runtime Environment (build 11.0.2-BellSoft+7)
-OpenJDK 64-Bit Server VM (build 11.0.2-BellSoft+7, mixed mode)
+<b>&gt; c:\opt\jdk-bellsoft-11.0.3-lite\bin\java -version</b>
+openjdk version "11.0.3-BellSoft" 2019-04-16
+LibericaJDK Runtime Environment (build 11.0.3-BellSoft+12)
+LibericaJDK 64-Bit Server VM (build 11.0.3-BellSoft+12, mixed mode)
 
-<b>&gt; c:\opt\jdk-bellsoft-11.0.2-lite\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-bellsoft-11.0.3-lite\bin\java -Xshare:dump</b>
 [...]
 Number of classes 1270
 [...]
-<b>&gt; dir c:\opt\jdk-11.0.2\bin\server | findstr jsa</b>
-25.01.2019  23:27        18 153 472 classes.jsa
+<b>&gt; dir c:\opt\jdk-bellsoft-11.0.3-lite\bin\server | findstr jsa</b>
+25.05.2019  23:27        18 153 472 classes.jsa
 
 <b>&gt; c:\opt\jdk-bellsoft-11.0.2-lite\bin\java -version</b>
-openjdk version "11.0.2-BellSoft" 2018-10-16
-OpenJDK Runtime Environment (build 11.0.2-BellSoft+7)
-OpenJDK 64-Bit Server VM (build 11.0.2-BellSoft+7, mixed mode, sharing)
+openjdk version "11.0.3-BellSoft" 2019-04-16
+LibericaJDK Runtime Environment (build 11.0.3-BellSoft+12)
+LibericaJDK 64-Bit Server VM (build 11.0.3-BellSoft+12, mixed mode, sharing)
 </pre>
 
 
 ### Corretto OpenJDK 11
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-corretto-11.0.2_9\bin\java -version</b>
-openjdk version "11.0.2" 2019-01-15 LTS
-OpenJDK Runtime Environment Corretto-11.0.2.9.3 (build 11.0.2+9-LTS)
-OpenJDK 64-Bit Server VM Corretto-11.0.2.9.3 (build 11.0.2+9-LTS, mixed mode)
+<b>&gt; c:\opt\jdk-corretto-11.0.3_7\bin\java -version</b>
+openjdk version "11.0.3" 2019-04-16 LTS
+OpenJDK Runtime Environment Corretto-11.0.3.7.1 (build 11.0.3+7-LTS)
+OpenJDK 64-Bit Server VM Corretto-11.0.3.7.1 (build 11.0.3+7-LTS, mixed mode)
 
-<b>&gt; c:\opt\jdk-corretto-11.0.2_9\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-corretto-11.0.3_7\bin\java -Xshare:dump</b>
 [...]
-Number of classes 1257
+Number of classes 1255
 [...]
-<b>&gt; dir c:\opt\jdk-corretto-11.0.2_9\bin\server | findstr jsa</b>
-15.02.2019  12:17        17 956 864 classes.jsa
+<b>&gt; dir c:\opt\jdk-corretto-11.0.3_7\bin\server | findstr jsa</b>
+25.05.2019  12:17        17 956 864 classes.jsa
 
-<b>&gt; c:\opt\jdk-corretto-11.0.2_9\bin\java -version</b>
-openjdk version "11.0.2" 2019-01-15 LTS
-OpenJDK Runtime Environment Corretto-11.0.2.9.3 (build 11.0.2+9-LTS)
-OpenJDK 64-Bit Server VM Corretto-11.0.2.9.3 (build 11.0.2+9-LTS, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-corretto-11.0.3_7\bin\java -version</b>
+openjdk version "11.0.3" 2019-04-16 LTS
+OpenJDK Runtime Environment Corretto-11.0.3.7.1 (build 11.0.3+7-LTS)
+OpenJDK 64-Bit Server VM Corretto-11.0.3.7.1 (build 11.0.3+7-LTS, mixed mode, sharing)
 </pre>
 
 > **:mag_right:** Amazon provides online documentation specific to Corretto 11 (eg. [change Log](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html), [patches](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/patches.html)) as well as Youtube videos (eg. Devoxx keynotes by [Arun Gupta](https://www.youtube.com/watch?v=RLKC5nsiZXU) and [James Gosling](https://www.youtube.com/watch?v=WuZk23O76Zk)).
@@ -124,13 +124,13 @@ Compared to the other OpenJDK distributions OpenJ9 JDK 11 provides advanced sett
 > **:mag_right:** Execute **`java -Xshareclasses:help`** to list the settings.
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-openj9-11.0.2\bin\java -version</b>
-openjdk version "11.0.2" 2019-01-15
-OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.2+9)
-Eclipse OpenJ9 VM AdoptOpenJDK (build openj9-0.12.0, JRE 11 Windows 10 amd64-64-Bit Compressed References 20190130_114 (JIT enabled, AOT enabled)
-OpenJ9   - 04890c300
-OMR      - d2f4534b
-JCL      - 50b45cd160 based on jdk-11.0.2+8)
+<b>&gt; c:\opt\jdk-openj9-11.0.3+7\bin\java -version</b>
+openjdk version "11.0.3" 2019-01-15
+OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.3+7)
+Eclipse OpenJ9 VM AdoptOpenJDK (build openj9-0.14.0, JRE 11 Windows 10 amd64-64-Bit Compressed References 20190417_198 (JIT enabled, AOT enabled)
+OpenJ9   - bad1d4d06
+OMR      - 4a4278e6
+JCL      - 5cc996a803 based on jdk-11.0.3+7)
 
 [XXXXXXXXXX -Xshareclasses:name=<name> ##########]
 </pre>
@@ -140,66 +140,66 @@ JCL      - 50b45cd160 based on jdk-11.0.2+8)
 
 Oracle OpenJDK is the [reference implementation](https://openjdk.java.net/projects/jdk/11/); the other OpenJDK distributions are derived from it.
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-11.0.2\bin\java -version</b>
-java version "11.0.2" 2019-01-15 LTS
-Java(TM) SE Runtime Environment 18.9 (build 11.0.2+9-LTS)
-Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode)
+<b>&gt; c:\opt\jdk-11.0.3\bin\java -version</b>
+openjdk version "11.0.3" 2019-04-16
+OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.3+7)
+OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.3+7, mixed mode)
 
-<b>&gt; c:\opt\jdk-11.0.2\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-11.0.3\bin\java -Xshare:dump</b>
 [...]
-Number of classes 1272
+Number of classes 1270
 [...]
-<b>&gt; dir c:\opt\jdk-11.0.2\bin\server | findstr jsa</b>
-17.12.2018  13:03        18 153 472 classes.jsa
+<b>&gt; dir c:\opt\jdk-11.0.3\bin\server | findstr jsa</b>
+25.05.2019  13:03        18 153 472 classes.jsa
 
-<b>&gt; c:\opt\jdk-11.0.2\bin\java -version</b>
-java version "11.0.2" 2019-01-15 LTS
-Java(TM) SE Runtime Environment 18.9 (build 11.0.2+9-LTS)
-Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-11.0.3\bin\java -version</b>
+openjdk version "11.0.3" 2019-04-16
+OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.3+7)
+OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.3+7, mixed mode, sharing)
 </pre>
 
 
 ### RedHat OpenJDK 11
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-redhat-11.0.2\bin\java -version</b>
-openjdk version "11.0.2-redhat" 2019-01-15 LTS
-OpenJDK Runtime Environment (build 11.0.2-redhat+7-LTS)
-OpenJDK 64-Bit Server VM (build 11.0.2-redhat+7-LTS, mixed mode)
+<b>&gt; c:\opt\jdk-redhat-11.0.3\bin\java -version</b>
+openjdk version "11.0.3-redhat" 2019-04-16 LTS
+OpenJDK Runtime Environment 18.9 (build 11.0.3-redhat+7-LTS)
+OpenJDK 64-Bit Server VM 18.9 (build 11.0.3-redhat+7-LTS, mixed mode)
 
-<b>&gt; c:\opt\jdk-redhat-11.0.2\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-redhat-11.0.3\bin\java -Xshare:dump</b>
 [...]
 Number of classes 1270
 [...]
-<b>&gt; dir c:\opt\jdk-redhat-11.0.2\bin\server | findstr jsa</b>
-07.02.2019  22:51        18 153 472 classes.jsa
+<b>&gt; dir c:\opt\jdk-redhat-11.0.3\bin\server | findstr jsa</b>
+25.05.2019  19:51        18 153 472 classes.jsa
 
-<b>&gt; c:\opt\jdk-redhat-11.0.2\bin\java -version</b>
-openjdk version "11.0.2-redhat" 2019-01-15 LTS
-OpenJDK Runtime Environment (build 11.0.2-redhat+7-LTS)
-OpenJDK 64-Bit Server VM (build 11.0.2-redhat+7-LTS, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-redhat-11.0.3\bin\java -version</b>
+openjdk version "11.0.3-redhat" 2019-04-16 LTS
+OpenJDK Runtime Environment 18.9 (build 11.0.3-redhat+7-LTS)
+OpenJDK 64-Bit Server VM 18.9 (build 11.0.3-redhat+7-LTS, mixed mode, sharing)
 </pre>
 
 
 ### SapMachine OpenJDK 11
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-sapmachine-11.0.2\bin\java -version</b>
-openjdk version "11.0.2" 2019-01-16 LTS
-OpenJDK Runtime Environment (build 11.0.2+0-LTS-sapmachine)
-OpenJDK 64-Bit Server VM (build 11.0.2+0-LTS-sapmachine, mixed mode)
+<b>&gt; c:\opt\jdk-sapmachine-11.0.3\bin\java -version</b>
+openjdk version "11.0.3" 2019-04-17 LTS
+OpenJDK Runtime Environment (build 11.0.3+7-LTS-sapmachine)
+OpenJDK 64-Bit Server VM (build 11.0.3+7-LTS-sapmachine, mixed mode)
 &nbsp;
-<b>&gt; c:\opt\jdk-sapmachine-11.0.2\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-sapmachine-11.0.3\bin\java -Xshare:dump</b>
 [...]
-Number of classes 1257
+Number of classes 1255
 [...]
-<b>&gt; dir c:\opt\jdk-sapmachine-11.0.2\bin\server | findstr jsa</b>
-02.01.2019  11:53        17 956 864 classes.jsa
+<b>&gt; dir c:\opt\jdk-sapmachine-11.0.3\bin\server | findstr jsa</b>
+25.05.2019  11:53        17 956 864 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-sapmachine-11.0.2\bin\java -version</b>
-openjdk version "11.0.2" 2019-01-16 LTS
-OpenJDK Runtime Environment (build 11.0.2+0-LTS-sapmachine)
-OpenJDK 64-Bit Server VM (build 11.0.2+0-LTS-sapmachine, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-sapmachine-11.0.3\bin\java -version</b>
+openjdk version "11.0.3" 2019-04-17 LTS
+OpenJDK Runtime Environment (build 11.0.3+7-LTS-sapmachine)
+OpenJDK 64-Bit Server VM (build 11.0.3+7-LTS-sapmachine, mixed mode, sharing)
 </pre>
 
 > **:mag_right:** SAP provides [online documentation](https://github.com/SAP/SapMachine/wiki) specific to SapMachine 11, e.g. [Differences between SapMachine and OpenJDK](https://github.com/SAP/SapMachine/wiki/Differences-between-SapMachine-and-OpenJDK).
@@ -248,22 +248,22 @@ Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.1.6+8-201903160
 ### Zulu OpenJDK 11
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-zulu-11.0.2\bin\java -version</b>
-openjdk version "11.0.2" 2019-01-15 LTS
-OpenJDK Runtime Environment Zulu11.29+3-CA (build 11.0.2+7-LTS)
-OpenJDK 64-Bit Server VM Zulu11.29+3-CA (build 11.0.2+7-LTS, mixed mode)
+<b>&gt; c:\opt\jdk-zulu-11.0.3\bin\java -version</b>
+openjdk version "11.0.3" 2019-04-16 LTS
+OpenJDK Runtime Environment Zulu11.31+11-CA (build 11.0.3+7-LTS)
+OpenJDK 64-Bit Server VM Zulu11.31+11-CA (build 11.0.3+7-LTS, mixed mode)
 &nbsp;
-<b>&gt; c:\opt\jdk-zulu-11.0.2\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-zulu-11.0.3\bin\java -Xshare:dump</b>
 [...]
-Number of classes 1271
+Number of classes 1269
 [...]
-<b>&gt; dir c:\opt\jdk-zulu11.2.3-11.0.1\bin\server | findstr jsa</b>
-24.12.2018  18:01        18 153 472 classes.jsa
+<b>&gt; dir c:\opt\jdk-zulu-11.0.3\bin\server | findstr jsa</b>
+25.05.2019  18:01        18 153 472 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-zulu-11.0.2\bin\java -version</b>
-openjdk version "11.0.2" 2019-01-15 LTS
-OpenJDK Runtime Environment Zulu11.29+3-CA (build 11.0.2+7-LTS)
-OpenJDK 64-Bit Server VM Zulu11.29+3-CA (build 11.0.2+7-LTS, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-zulu-11.0.3\bin\java -version</b>
+openjdk version "11.0.3" 2019-04-16 LTS
+OpenJDK Runtime Environment Zulu11.31+11-CA (build 11.0.3+7-LTS)
+OpenJDK 64-Bit Server VM Zulu11.31+11-CA (build 11.0.3+7-LTS, mixed mode, sharing)
 </pre>
 
 
@@ -301,5 +301,5 @@ The role of the JCK is not to determine <i>quality</i>, but rather to provide a 
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/February 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/May 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>

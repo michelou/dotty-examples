@@ -26,11 +26,11 @@ Other topics we are currently investigating include [JMH](https://openjdk.java.n
 This project depends on two external software for the **Microsoft Windows** platform:
 
 - [Oracle OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot)<sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*](https://wiki.openjdk.java.net/display/jdk8u/JDK+8u202))
-- [Dotty 0.14](https://github.com/lampepfl/dotty/releases) 
+- [Dotty 0.15](https://github.com/lampepfl/dotty/releases) 
 
 Optionally you may also install the following software:
 
-- [Scala 2.13](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.13.0-RC1))
+- [Scala 2.13](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://scala-lang.org/download/2.13.0-RC2.html))
 - [SBT 1.2.8](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.6.html))
 - [Gradle 5.4](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.4.1/release-notes.html))
@@ -49,12 +49,12 @@ C:\opt\jdk-1.8.0_212-b03\
 C:\opt\apache-ant-1.10.6\
 C:\opt\apache-maven-3.6.1\
 C:\opt\cfr-0.144\
-C:\opt\dotty-0.14.0-RC1\
+C:\opt\dotty-0.15.0-RC1\
 C:\opt\Git-2.21.0\
 C:\opt\gradle-5.4.1\
 C:\opt\Mill-0.4.0\
 C:\opt\sbt-1.2.8\
-C:\opt\scala-2.13.0-RC1\
+C:\opt\scala-2.13.0-RC2\
 </pre>
 
 > **:mag_right:** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
@@ -66,7 +66,7 @@ We further recommand using an advanced console emulator such as [ComEmu](https:/
 This project is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
-bin\0.14\*.bat
+bin\0.15\*.bat
 bin\cfr-0.144.zip
 docs\
 examples\{dotty-example-project, ..}
@@ -78,7 +78,7 @@ setenv.bat
 where
 
 - directory [**`bin\`**](bin/) provides several utility batch commands.
-- directory [**`bin\0.14\`**](bin/0.14/) contains the batch commands for Dotty 0.14.
+- directory [**`bin\0.15\`**](bin/0.15/) contains the batch commands for Dotty 0.15.
 - file [**`bin\cfr-0.144.zip`**](bin/cfr-0.144.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
 - directory [**`examples\`**](examples/) contains Dotty examples grabbed from various websites.
@@ -120,11 +120,11 @@ We distinguish different sets of batch commands:
    - [**`timeit.bat <cmd_1> { & <cmd_2> }`**](bin/timeit.bat) prints the execution time of the specified commands.
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory [**`bin\0.14\`**](bin/0.14/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.14.0-RC1\bin\`**) in order to use the [**`dotc`**](bin/0.14/dotc.bat), [**`dotd`**](bin/0.14/dotd.bat) and [**`dotr`**](bin/0.14/dotr.bat) commands on **Microsoft Windows**.
+3. Directory [**`bin\0.15\`**](bin/0.15/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.15.0-RC1\bin\`**) in order to use the [**`dotc`**](bin/0.14/dotc.bat), [**`dotd`**](bin/0.15/dotd.bat) and [**`dotr`**](bin/0.15/dotr.bat) commands on **Microsoft Windows**.
     > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Dotty distribution](https://github.com/lampepfl/dotty/releases). We also have submitted pull request [#5444](https://github.com/lampepfl/dotty/pull/5444) to add them to the Scala distribution.
 
     <pre style="font-size:80%;">
-    <b>&gt; dir /b c:\opt\dotty-0.14.0-RC1\bin</b>
+    <b>&gt; dir /b c:\opt\dotty-0.15.0-RC1\bin</b>
     common
     common.bat
     dotc
@@ -245,7 +245,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
 Tool versions:
-   javac 1.8.0_212, java 1.8.0_212, scalac 2.13.0-RC1, dotc 0.14.0-RC1,
+   javac 1.8.0_212, java 1.8.0_212, scalac 2.13.0-RC2, dotc 0.15.0-RC1,
    ant 1.10.6, gradle 5.4.1, mill 0.4.0, mvn 3.6.1, sbt 1.2.8/2.12.8,
    cfr 0.144, git 2.21.0.windows.1, diff 3.7
 
@@ -259,7 +259,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 <pre style="font-size:80%;">
 <b>&gt; setenv -verbose</b>
 Tool versions:
-   javac 1.8.0_212, java 1.8.0_212, scalac 2.13.0-RC1, dotc 0.14.0-RC1,
+   javac 1.8.0_212, java 1.8.0_212, scalac 2.13.0-RC2, dotc 0.15.0-RC1,
    ant 1.10.6, gradle 5.4.1, mill 0.4.0, mvn 3.6.1, sbt 1.2.8/2.12.8,
    cfr 0.144, git 2.21.0.windows.1, diff 3.7
 Tool paths:
@@ -267,7 +267,7 @@ Tool paths:
    C:\opt\jdk-1.8.0_212-b03\bin\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
-   C:\opt\scala-2.13.0-RC1\bin\scalac.bat
+   C:\opt\scala-2.13.0-RC2\bin\scalac.bat
    C:\opt\dotty-0.14.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.6\bin\ant.bat
    C:\opt\gradle-5.4.1\bin\gradle.bat
@@ -295,10 +295,10 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; dirsize examples myexamples c:\opt\dotty-0.14.0-RC1</b>
+<b>&gt; dirsize examples myexamples c:\opt\dotty-0.15.0-RC1</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
-Size of directory "c:\opt\dotty-0.14.0-RC1" is 24.6 Mb
+Size of directory "c:\opt\dotty-0.15.0-RC1" is 24.6 Mb
 </pre>
 
 #### `getnightly.bat`
@@ -332,7 +332,7 @@ Downloading file dotty-interfaces-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar ... 3.
 Finished to download 7 files to directory W:\DOTTY-~1\out\nightly-jars
 </pre>
 
-We can now replace the library files from the original [Dotty distribution](https://github.com/lampepfl/dotty/releases) (installed in directory **`C:\opt\dotty-0.14.0-RC1\`** in our case) with library files from the latest nightly build.
+We can now replace the library files from the original [Dotty distribution](https://github.com/lampepfl/dotty/releases) (installed in directory **`C:\opt\dotty-0.15.0-RC1\`** in our case) with library files from the latest nightly build.
 
 Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in the Dotty installation directory.
 
@@ -345,27 +345,27 @@ Activate nightly build libraries: 0.15.0-bin-20190510-cdd844f-NIGHTLY
 Dotty compiler version 0.15.0-bin-20190510-cdd844f-NIGHTLY-git-cdd844f -- Copyright 2002-2019, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
-Activate default Dotty libraries: 0.14.0-RC1
+Activate default Dotty libraries: 0.15.0-RC1
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.14.0-RC1 -- Copyright 2002-2019, LAMP/EPFL
+Dotty compiler version 0.15.0-RC1 -- Copyright 2002-2019, LAMP/EPFL
 </pre>
 
-> **:warning:** You need *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.14.0-RC1\`** in our case) in order to run the **`activate/reset`** subcommands.
+> **:warning:** You need *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.15.0-RC1\`** in our case) in order to run the **`activate/reset`** subcommands.
 
 Internally command [**`getnightly`**](bin/getnightly.bat) manages two sets of libraries files which are organized as follows:
 
 <pre style="font-size:80%;">
-<b>&gt; pushd c:\opt\dotty-0.14.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd</b>
+<b>&gt; pushd c:\opt\dotty-0.15.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd</b>
 VERSION
 VERSION-NIGHTLY
-lib\0.14.0-RC1\
-&nbsp;&nbsp;dist_0.14-0.14.0-RC1.jar
-&nbsp;&nbsp;dotty-compiler_0.14-0.14.0-RC1.jar
-&nbsp;&nbsp;dotty-doc_0.14-0.14.0-RC1.jar
-&nbsp;&nbsp;dotty-interfaces-0.14.0-RC1.jar
-&nbsp;&nbsp;dotty-library_0.14-0.14.0-RC1.jar
-lib\0.15.0-bin-20190510-cdd844f-NIGHTLY\
+lib\0.15.0-RC1\
+&nbsp;&nbsp;dist_0.15-0.15.0-RC1.jar
+&nbsp;&nbsp;dotty-compiler_0.15-0.15.0-RC1.jar
+&nbsp;&nbsp;dotty-doc_0.15-0.15.0-RC1.jar
+&nbsp;&nbsp;dotty-interfaces-0.15.0-RC1.jar
+&nbsp;&nbsp;dotty-library_0.15-0.15.0-RC1.jar
+lib\0.16.0-bin-20190510-cdd844f-NIGHTLY\
 &nbsp;&nbsp;dotty-compiler_0.15-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar
 &nbsp;&nbsp;dotty-doc_0.15-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar
 &nbsp;&nbsp;dotty-interfaces-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar
@@ -504,8 +504,8 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 
 | Project file | Variable | Example |
 | :----------- | :------: | :------ |
-| `build.sbt` | `dottyVersion` | `0.13.0-RC1` &rarr; `0.14.0-RC1`|
-| `build.sc` | `scalaVersion` | `0.13.0-RC1` &rarr; `0.14.0-RC1` |
+| `build.sbt` | `dottyVersion` | `0.14.0-RC1` &rarr; `0.15.0-RC1`|
+| `build.sc` | `scalaVersion` | `0.14.0-RC1` &rarr; `0.15.0-RC1` |
 | `project\build.properties` | `sbt.version` | `1.2.7` &rarr; `1.2.8` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.3.0` &rarr; `0.3.1` |
 
@@ -557,8 +557,8 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 
 <pre style="font-size:80%;">
 <b>&gt; where dotr</b>
-C:\opt\dotty-0.14.0-RC1\bin\dotr
-C:\opt\dotty-0.14.0-RC1\bin\dotr.bat
+C:\opt\dotty-0.15.0-RC1\bin\dotr
+C:\opt\dotty-0.15.0-RC1\bin\dotr.bat
 
 <b>&gt; dotr -version</b>
 openjdk version "1.8.0_212"
@@ -581,7 +581,7 @@ The REPL has several commands available:
 val res0: String = C:\opt\jdk-1.8.0_212-b03
 
 <b>scala&gt;</b> System.getenv().get("DOTTY_HOME")
-val res1: String = C:\opt\dotty-0.14.0-RC1
+val res1: String = C:\opt\dotty-0.15.0-RC1
 
 <b>scala&gt;</b> :load myexamples/HelloWorld/src/main/scala/HelloWorld.scala
 // defined object HelloWorld
@@ -605,7 +605,7 @@ Version 0.9 of the Dotty compiler is not compatible with versions 9 and 10 of <a
 <!--
 C:\opt\jdk-11.0.1\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.9.0\lib\scala-library-2.12.6.jar;C:\opt\dotty-0.9.0\lib\scala-xml_2.12-1.1.0.jar;C:\opt\dotty-0.9.0\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.9.0\lib\compiler-interface-1.1.6.jar;C:\opt\dotty-0.9.0\lib\dotty-interfaces-0.9.0.jar;C:\opt\dotty-0.9.0\lib\dotty-library_0.9-0.9.0.jar;C:\opt\dotty-0.9.0\lib\dotty-compiler_0.9-0.9.0.jar -Dscala.usejavacp=true dotty.tools.dotc.Main
 
-C:\opt\jdk-11.0.1\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.14.0-RC1\lib\scala-library-2.12.8.jar;C:\opt\dotty-0.14.0-RC1\lib\scala-xml_2.12-1.1.0.jar;C:\opt\dotty-0.14.0-RC1\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.14.0-RC1\lib\compiler-interface-1.2.2.jar;C:\opt\dotty-0.14.0-RC1\lib\dotty-interfaces-0.14.0-RC1.jar;C:\opt\dotty-0.14.0-RC1\lib\dotty-library_0.14-0.14.0-RC1.jar;C:\opt\dotty-0.14.0-RC1\lib\dotty-compiler_0.14-0.14.0-RC1.jar -Dscala.usejavacp=true dotty.tools.dotc.Main
+C:\opt\jdk-11.0.1\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.15.0-RC1\lib\scala-library-2.12.8.jar;C:\opt\dotty-0.15.0-RC1\lib\scala-xml_2.12-1.1.0.jar;C:\opt\dotty-0.14.0-RC1\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.15.0-RC1\lib\compiler-interface-1.2.2.jar;C:\opt\dotty-0.15.0-RC1\lib\dotty-interfaces-0.15.0-RC1.jar;C:\opt\dotty-0.15.0-RC1\lib\dotty-library_0.15-0.15.0-RC1.jar;C:\opt\dotty-0.15.0-RC1\lib\dotty-compiler_0.15-0.15.0-RC1.jar -Dscala.usejavacp=true dotty.tools.dotc.Main
 -->
 
 <!--
