@@ -254,7 +254,7 @@ Command **`setenv`** is executed once to setup our development environment; it m
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_212, java 1.8.0_212,
-   sbt 1.2.8/2.12.8, git 2.21.0.windows.1, diff 3.6
+   sbt 1.2.8/2.12.8, git 2.21.0.windows.1, diff 3.7
 
 <b>&gt; where sbt</b>
 C:\opt\sbt-1.2.8\bin\sbt
@@ -656,5 +656,5 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/April 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/June 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>

@@ -30,7 +30,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 
 Optionally you may also install the following software:
 
-- [Scala 2.13](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://scala-lang.org/download/2.13.0-RC2.html))
+- [Scala 2.13](https://www.scala-lang.org/download/) (requires Java 8) ([*release notes*](https://scala-lang.org/download/2.13.0-RC3.html))
 - [SBT 1.2.8](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.6.html))
 - [Gradle 5.4](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.4.1/release-notes.html))
@@ -42,19 +42,19 @@ Optionally you may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*May 2019*):
+For instance our development environment looks as follows (*June 2019*):
 
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_212-b03\
 C:\opt\apache-ant-1.10.6\
 C:\opt\apache-maven-3.6.1\
-C:\opt\cfr-0.144\
+C:\opt\cfr-0.145\
 C:\opt\dotty-0.15.0-RC1\
 C:\opt\Git-2.21.0\
 C:\opt\gradle-5.4.1\
 C:\opt\Mill-0.4.0\
 C:\opt\sbt-1.2.8\
-C:\opt\scala-2.13.0-RC2\
+C:\opt\scala-2.13.0-RC3\
 </pre>
 
 > **:mag_right:** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
@@ -67,7 +67,7 @@ This project is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
 bin\0.15\*.bat
-bin\cfr-0.144.zip
+bin\cfr-0.145.zip
 docs\
 examples\{dotty-example-project, ..}
 myexamples\{00_AutoParamTupling, ..}
@@ -79,7 +79,7 @@ where
 
 - directory [**`bin\`**](bin/) provides several utility batch commands.
 - directory [**`bin\0.15\`**](bin/0.15/) contains the batch commands for Dotty 0.15.
-- file [**`bin\cfr-0.144.zip`**](bin/cfr-0.144.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
+- file [**`bin\cfr-0.145.zip`**](bin/cfr-0.145.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
 - directory [**`examples\`**](examples/) contains Dotty examples grabbed from various websites.
 - directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
@@ -115,7 +115,8 @@ We distinguish different sets of batch commands:
 2. Directory [**`bin\`**](bin/) - This directory contains several utility batch files:
    - [**`cleanup.bat`**](bin/cleanup.bat) removes the generated class files from every example directory (both in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories).
    - [**`dirsize.bat <dir_path_1> ..`**](bin/dirsize.bat) prints the size in Kb/Mb/Gb of the specified directory paths.
-   - [**`getnightly.bat`**](bin/getnightly.bat) downloads/installs the library files from the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
+   - [**`
+   - .bat`**](bin/getnightly.bat) downloads/installs the library files from the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
    - [**`searchjars.bat <class_name>`**](bin/searchjars.bat) searches for the given class name into all Dotty/Scala JAR files.
    - [**`timeit.bat <cmd_1> { & <cmd_2> }`**](bin/timeit.bat) prints the execution time of the specified commands.
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
@@ -183,12 +184,12 @@ We distinguish different sets of batch commands:
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.144.zip`**](bin/cfr-0.144.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
+    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.145.zip`**](bin/cfr-0.145.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
 
     <pre style="font-size:80%;">
     <b>&gt; cfr myexamples\00_AutoParamTupling\target\classes\myexamples\Main.class</b>
     /*
-     * Decompiled with CFR 0.144.
+     * Decompiled with CFR 0.145.
      */
     package myexamples;
     
@@ -245,9 +246,9 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
 Tool versions:
-   javac 1.8.0_212, java 1.8.0_212, scalac 2.13.0-RC2, dotc 0.15.0-RC1,
+   javac 1.8.0_212, java 1.8.0_212, scalac 2.13.0-RC3, dotc 0.15.0-RC1,
    ant 1.10.6, gradle 5.4.1, mill 0.4.0, mvn 3.6.1, sbt 1.2.8/2.12.8,
-   cfr 0.144, git 2.21.0.windows.1, diff 3.7
+   cfr 0.145, git 2.21.0.windows.1, diff 3.7
 
 <b>&gt; where sbt</b>
 C:\opt\sbt-1.2.8\bin\sbt
@@ -259,22 +260,22 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 <pre style="font-size:80%;">
 <b>&gt; setenv -verbose</b>
 Tool versions:
-   javac 1.8.0_212, java 1.8.0_212, scalac 2.13.0-RC2, dotc 0.15.0-RC1,
+   javac 1.8.0_212, java 1.8.0_212, scalac 2.13.0-RC3, dotc 0.15.0-RC1,
    ant 1.10.6, gradle 5.4.1, mill 0.4.0, mvn 3.6.1, sbt 1.2.8/2.12.8,
-   cfr 0.144, git 2.21.0.windows.1, diff 3.7
+   cfr 0.145, git 2.21.0.windows.1, diff 3.7
 Tool paths:
    C:\opt\jdk-1.8.0_212-b03\bin\javac.exe
    C:\opt\jdk-1.8.0_212-b03\bin\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
-   C:\opt\scala-2.13.0-RC2\bin\scalac.bat
-   C:\opt\dotty-0.14.0-RC1\bin\dotc.bat
+   C:\opt\scala-2.13.0-RC3\bin\scalac.bat
+   C:\opt\dotty-0.15.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.6\bin\ant.bat
    C:\opt\gradle-5.4.1\bin\gradle.bat
    C:\opt\Mill-0.4.0\mill.bat
    C:\opt\apache-maven-3.6.1\bin\mvn.cmd
    C:\opt\sbt-1.2.8\bin\sbt.bat
-   C:\opt\cfr-0.144\bin\cfr.bat
+   C:\opt\cfr-0.145\bin\cfr.bat
    C:\opt\Git-2.21.0\bin\git.exe
    C:\opt\Git-2.21.0\usr\bin\diff.exe
 </pre>
@@ -309,26 +310,26 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; getnightly</b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.15-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar
-dotty-doc_0.15-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar
-dotty-interfaces-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar
-dotty-language-server_0.15-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar
-dotty-library_0.15-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar
-dotty-sbt-bridge-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar
-dotty_0.15-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar
+dotty-compiler_0.16-0.16.0-bin-20190602-bf89558-NIGHTLY.jar
+dotty-doc_0.16-0.16.0-bin-20190602-bf89558-NIGHTLY.jar
+dotty-interfaces-0.16.0-bin-20190602-bf89558-NIGHTLY.jar
+dotty-language-server_0.16-0.16.0-bin-20190602-bf89558-NIGHTLY.jar
+dotty-library_0.16-0.16.0-bin-20190602-bf89558-NIGHTLY.jar
+dotty-sbt-bridge-0.16.0-bin-20190602-bf89558-NIGHTLY.jar
+dotty_0.16-0.16.0-bin-20190602-bf89558-NIGHTLY.jar
 </pre>
 
 Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
 <pre style="font-size:80%">
 <b>&gt; getnightly -verbose</b>
-Downloading file dotty-compiler_0.15-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar ... 10.8 Mb
-Downloading file dotty-language-server_0.15-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar ... 146.4 Kb
-Downloading file dotty-doc_0.15-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar ... 1 Mb
-Downloading file dotty_0.15-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-library_0.15-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar ... 947.1 Kb
-Downloading file dotty-sbt-bridge-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar ... 13.3 Kb
-Downloading file dotty-interfaces-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-compiler_0.16-0.16.0-bin-20190602-bf89558-NIGHTLY.jar ... 10.9 Mb
+Downloading file dotty_0.16-0.16.0-bin-20190602-bf89558-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-language-server_0.16-0.16.0-bin-20190602-bf89558-NIGHTLY.jar ... 146.4 Kb
+Downloading file dotty-doc_0.16-0.16.0-bin-20190602-bf89558-NIGHTLY.jar ... 1 Mb
+Downloading file dotty-library_0.16-0.16.0-bin-20190602-bf89558-NIGHTLY.jar ... 993.7 Kb
+Downloading file dotty-sbt-bridge-0.16.0-bin-20190602-bf89558-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty-interfaces-0.16.0-bin-20190602-bf89558-NIGHTLY.jar ... 3.4 Kb
 Finished to download 7 files to directory W:\DOTTY-~1\out\nightly-jars
 </pre>
 
@@ -339,10 +340,10 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 <pre style="font-size:80%;">
 <b>&gt; getnightly activate</b>
 Finished to download 7 files to directory W:\DOTTY-~1\out\nightly-jars
-Activate nightly build libraries: 0.15.0-bin-20190510-cdd844f-NIGHTLY
+Activate nightly build libraries: 0.16.0-bin-20190602-bf89558-NIGHTLY
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.15.0-bin-20190510-cdd844f-NIGHTLY-git-cdd844f -- Copyright 2002-2019, LAMP/EPFL
+Dotty compiler version 0.16.0-bin-20190602-bf89558-NIGHTLY-git-bf89558 -- Copyright 2002-2019, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
 Activate default Dotty libraries: 0.15.0-RC1
@@ -365,14 +366,14 @@ lib\0.15.0-RC1\
 &nbsp;&nbsp;dotty-doc_0.15-0.15.0-RC1.jar
 &nbsp;&nbsp;dotty-interfaces-0.15.0-RC1.jar
 &nbsp;&nbsp;dotty-library_0.15-0.15.0-RC1.jar
-lib\0.16.0-bin-20190510-cdd844f-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.15-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.15-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.15-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.15-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.15-0.15.0-bin-20190510-cdd844f-NIGHTLY.jar
+lib\0.16.0-bin-20190602-bf89558-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.16-0.16.0-bin-20190602-bf89558-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.16-0.16.0-bin-20190602-bf89558-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.16.0-bin-20190602-bf89558-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.16-0.16.0-bin-20190602-bf89558-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.16-0.16.0-bin-20190602-bf89558-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.16.0-bin-20190602-bf89558-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.16-0.16.0-bin-20190602-bf89558-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original Dotty installation respectively from the latest nightly build.
@@ -643,5 +644,5 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/May 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/June 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
