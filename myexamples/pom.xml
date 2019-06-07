@@ -12,16 +12,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <!-- Scala settings -->
-        <scala.version>0.13.0-RC1</scala.version> <!-- eg. "2.12.18" or "0.12.0" -->
+        <scala.version>0.15.0-RC1</scala.version> <!-- eg. "2.12.18" or "0.12.0" -->
         <scala.local.install>true</scala.local.install>
         <!-- Maven plugins -->
         <scala.maven.version>1.0-SNAPSHOT</scala.maven.version> <!-- Dec 2018 -->
-        <maven.compiler.version>3.8.0</maven.compiler.version> <!-- Jul 2018 -->
+		<scalatest.version>3.0.7</scalatest.version>            <!-- Mar 2019 -->
+        <maven.compiler.version>3.8.1</maven.compiler.version>  <!-- May 2019 -->
         <!-- Note: JUnit 5 requires Surefire version 2.22.1 or higher -->
 		<maven.surefire.version>2.22.1</maven.surefire.version> <!-- Oct 2018 -->
-        <maven.jar.version>3.1.1</maven.jar.version> <!-- Dec 2018 -->
-        <exec.maven.version>1.6.0</exec.maven.version> <!-- Mar, 2017 -->
-        <jmh.version>1.21</jmh.version> <!-- Oracle, May 2018 -->
+        <maven.jar.version>3.1.2</maven.jar.version>            <!-- Dec 2018 -->
+        <exec.maven.version>1.6.0</exec.maven.version>          <!-- Mar 2017 -->
+        <jmh.version>1.21</jmh.version>                         <!-- May 2018, Oracle -->
     </properties>
 
     <dependencies>
