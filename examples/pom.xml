@@ -16,7 +16,7 @@
         <scala.local.install>true</scala.local.install>
         <!-- Maven plugins -->
         <scala.maven.version>1.0-SNAPSHOT</scala.maven.version> <!-- Dec 2018 -->
-		<scalatest.version>3.0.7</scalatest.version>            <!-- Mar 2019 -->
+        <scalatest.version>3.0.7</scalatest.version>            <!-- Mar 2019 -->
         <maven.compiler.version>3.8.1</maven.compiler.version>  <!-- May 2019 -->
         <maven.jar.version>3.1.2</maven.jar.version>            <!-- May 2019 -->
         <exec.maven.version>1.6.0</exec.maven.version>          <!-- Mar 2017 -->

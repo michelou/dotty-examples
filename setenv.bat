@@ -31,6 +31,8 @@ set _MILL_PATH=
 set _MVN_PATH=
 set _SBT_PATH=
 set _CFR_PATH=
+set _PYTHON_PATH=
+set _BLOOP_PATH=
 set _GIT_PATH=
 
 call :javac
@@ -68,6 +70,11 @@ rem if not %_EXITCODE%==0 goto end
 set _EXITCODE=0
 
 call :cfr
+rem optional
+rem if not %_EXITCODE%==0 goto end
+set _EXITCODE=0
+
+call :bloop
 rem optional
 rem if not %_EXITCODE%==0 goto end
 set _EXITCODE=0
@@ -336,6 +343,54 @@ if not exist "%_CFR_HOME%\bin\cfr.bat" (
 set "_CFR_PATH=;%_CFR_HOME%\bin"
 goto :eof
 
+:python
+where /q python.exe
+if %ERRORLEVEL%==0 goto :eof
+
+if defined PYTHON_HOME (
+    set _PYTHON_HOME=%PYTHON_HOME%
+    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable PYTHON_HOME
+) else (
+    set _PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!_PATH!\Python*" 2^>NUL') do set _PYTHON_HOME=!_PATH!\%%f
+    if defined _PYTHON_HOME (
+        if %_DEBUG%==1 echo [%_BASENAME%] Using default Python installation directory !_PYTHON_HOME!
+    )
+)
+if not exist "%_PYTHON_HOME%\python.exe" (
+    echo [91mError[0m: python executable not found ^(%_PYTHON_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_PYTHON_PATH=;%_PYTHON_HOME%"
+goto :eof
+
+:bloop
+rem bloop depends on python
+call :python
+if not %_EXITCODE%==0 goto :eof
+
+where /q bloop.cmd
+if %ERRORLEVEL%==0 goto :eof
+
+if defined BLOOP_HOME (
+    set _BLOOP_HOME=%BLOOP_HOME%
+    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable BLOOP_HOME
+) else (
+    set _PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!_PATH!\bloop*" 2^>NUL') do set _BLOOP_HOME=!_PATH!\%%f
+    if defined _BLOOP_HOME (
+        if %_DEBUG%==1 echo [%_BASENAME%] Using default Bloop installation directory !_BLOOP_HOME!
+    )
+)
+if not exist "%_BLOOP_HOME%\bloop.cmd" (
+    echo [91mError[0m: bloop executable not found ^(%_BLOOP_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_BLOOP_PATH=;%_BLOOP_HOME%"
+goto :eof
+
 :git
 where /q git.exe
 if %ERRORLEVEL%==0 goto :eof
@@ -440,6 +495,11 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('cfr.bat 2^>^&1 ^| findstr /b CFR') do set __VERSIONS_LINE3=%__VERSIONS_LINE3% cfr %%j,
     set __WHERE_ARGS=%__WHERE_ARGS% cfr.bat
 )
+where /q bloop.cmd
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,*" %%i in ('bloop.cmd about 2^>^&1 ^| findstr /b bloop') do set __VERSIONS_LINE3=%__VERSIONS_LINE3% bloop %%j,
+    set __WHERE_ARGS=%__WHERE_ARGS% bloop.cmd
+)
 where /q git.exe
 if %ERRORLEVEL%==0 (
    for /f "tokens=1,2,*" %%i in ('git.exe --version') do set __VERSIONS_LINE3=%__VERSIONS_LINE3% git %%k,
@@ -470,7 +530,7 @@ endlocal & (
     if not defined JAVA_HOME set JAVA_HOME=%_JDK_HOME%
     if not defined SCALA_HOME set SCALA_HOME=%_SCALA_HOME%
     if not defined DOTTY_HOME set DOTTY_HOME=%_DOTTY_HOME%
-    set "PATH=%_JDK_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MILL_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_GIT_PATH%;%~dp0bin"
+    set "PATH=%_JDK_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MILL_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_PYTHON_PATH%%_BLOOP_PATH%%_GIT_PATH%;%~dp0bin"
     if %_EXITCODE%==0 call :print_env %_VERBOSE%
     if %_DEBUG%==1 echo [%_BASENAME%] _EXITCODE=%_EXITCODE%
     for /f "delims==" %%i in ('set ^| findstr /b "_"') do set %%i=

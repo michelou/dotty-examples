@@ -14,20 +14,21 @@ set _EXITCODE=0
 for %%f in ("%~dp0..") do set _ROOT_DIR=%%~sf
 
 rem file build.sbt
-set _DOTTY_VERSION_OLD="0.14.0-RC1"
-set _DOTTY_VERSION_NEW="0.15.0-RC1"
+set _DOTTY_VERSION_OLD="0.15.0-RC1"
+set _DOTTY_VERSION_NEW="0.16.0-RC2"
 
 rem file project\build.properties
 set _SBT_VERSION_OLD=sbt.version=1.2.7
 set _SBT_VERSION_NEW=sbt.version=1.2.8
 
 rem file project\plugins.sbt
-set _SBT_DOTTY_VERSION_OLD="0.3.0"
-set _SBT_DOTTY_VERSION_NEW="0.3.1"
+rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/
+set _SBT_DOTTY_VERSION_OLD="0.3.1"
+set _SBT_DOTTY_VERSION_NEW="0.3.3"
 
 rem file build.sc
-set _MILL_DOTTY_VERSION_OLD="0.14.0-RC1"
-set _MILL_DOTTY_VERSION_NEW="0.15.0-RC1"
+set _MILL_DOTTY_VERSION_OLD="0.15.0-RC1"
+set _MILL_DOTTY_VERSION_NEW="0.16.0-RC2"
 
 rem ##########################################################################
 rem ## Main
