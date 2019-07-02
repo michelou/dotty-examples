@@ -35,7 +35,7 @@ Optionally you may also install the following software:
 - [Bloop 1.3](https://scalacenter.github.io/bloop/) (requires Java 8 and Python 2/3) ([*release notes*](https://github.com/scalacenter/bloop/releases/tag/v1.3.2))
 - [CFR 0.14](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.22](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.22.0.txt))
-- [Gradle 5.4](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.4.1/release-notes.html))
+- [Gradle 5.5](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.5/release-notes.html))
 - [Mill 0.4](https://www.lihaoyi.com/mill/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
 - [SBT 1.2.8](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
 - [Scala 2.13](https://www.scala-lang.org/files/archive/) (requires Java 8) ([*release notes*](https://scala-lang.org/download/2.13.0-RC3.html))
@@ -43,7 +43,7 @@ Optionally you may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*June 2019*):
+For instance our development environment looks as follows (*July 2019*):
 
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_212-b03\
@@ -53,8 +53,8 @@ C:\opt\bloop-1.3.2\
 C:\opt\cfr-0.145\
 C:\opt\dotty-0.16.0-RC3\
 C:\opt\Git-2.22.0\
-C:\opt\gradle-5.4.1\
-C:\opt\Mill-0.4.0\
+C:\opt\gradle-5.5\
+C:\opt\Mill-0.4.1\
 C:\opt\sbt-1.2.8\
 C:\opt\scala-2.13.0\
 </pre>
@@ -117,8 +117,7 @@ We distinguish different sets of batch commands:
 2. Directory [**`bin\`**](bin/) - This directory contains several utility batch files:
    - [**`cleanup.bat`**](bin/cleanup.bat) removes the generated class files from every example directory (both in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories).
    - [**`dirsize.bat <dir_path_1> ..`**](bin/dirsize.bat) prints the size in Kb/Mb/Gb of the specified directory paths.
-   - [**`
-   - .bat`**](bin/getnightly.bat) downloads/installs the library files from the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
+   - [**`getnightly.bat`**](bin/getnightly.bat) downloads/installs the library files from the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
    - [**`searchjars.bat <class_name>`**](bin/searchjars.bat) searches for the given class name into all Dotty/Scala JAR files.
    - [**`timeit.bat <cmd_1> { & <cmd_2> }`**](bin/timeit.bat) prints the execution time of the specified commands.
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
@@ -179,7 +178,7 @@ We distinguish different sets of batch commands:
     | **Build tool** | **Config file** | **Parent file** | **Usage example** |
     | :------------: | :-------------: | :-------------: | :---------------- |
     | [**`ant`**](https://ant.apache.org/manual/running.html) | [**`build.xml`**](examples/enum-Planet/build.xml) | [**`build.xml`**](examples/build.xml) | **`ant clean compile run`** |
-    | [**`bloop`**](https://www.scala-sbt.org/) | [**`build.sbt`**](examples/enum-Planet/build.sbt) | &empty; | **`sbt clean compile run`** |
+    | [**`bloop`**](https://www.scala-sbt.org/) | &empty; | &empty; | &empty; |
     | [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) | [**`build.gradle`**](examples/enum-Planet/build.gradle) | [**`common.gradle`**](examples/common.gradle) | **`gradle clean build run`** |
     | [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) | [**`build.sc`**](examples/enum-Planet/build.sc) | &empty; | **`mill -i go`** |
     | [**`mvn`**](http://maven.apache.org/ref/3.6.1/maven-embedder/cli.html) | [**`pom.xml`**](examples/enum-Planet/pom.xml) | [**`pom.xml`**](examples/pom.xml) | **`mvn clean compile test`** |
@@ -250,7 +249,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_212, java 1.8.0_212, scalac 2.13.0, dotc 0.16.0-RC3,
-   ant 1.10.6, gradle 5.4.1, mill 0.4.0, mvn 3.6.1, sbt 1.2.8/2.12.8,
+   ant 1.10.6, gradle 5.5, mill 0.4.1, mvn 3.6.1, sbt 1.2.8/2.12.8,
    cfr 0.145, bloop v1.3.2, git 2.22.0.windows.1, diff 3.7
 
 <b>&gt; where sbt</b>
@@ -264,7 +263,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_212, java 1.8.0_212, scalac 2.13.0, dotc 0.16.0-RC3,
-   ant 1.10.6, gradle 5.4.1, mill 0.4.0, mvn 3.6.1, sbt 1.2.8/2.12.8,
+   ant 1.10.6, gradle 5.5, mill 0.4.1, mvn 3.6.1, sbt 1.2.8/2.12.8,
    cfr 0.145, bloop v1.3.2, git 2.22.0.windows.1, diff 3.7
 Tool paths:
    C:\opt\jdk-1.8.0_212-b03\bin\javac.exe
@@ -274,8 +273,8 @@ Tool paths:
    C:\opt\scala-2.13.0\bin\scalac.bat
    C:\opt\dotty-0.16.0-RC3\bin\dotc.bat
    C:\opt\apache-ant-1.10.6\bin\ant.bat
-   C:\opt\gradle-5.4.1\bin\gradle.bat
-   C:\opt\Mill-0.4.0\mill.bat
+   C:\opt\gradle-5.5\bin\gradle.bat
+   C:\opt\Mill-0.4.1\mill.bat
    C:\opt\apache-maven-3.6.1\bin\mvn.cmd
    C:\opt\sbt-1.2.8\bin\sbt.bat
    C:\opt\cfr-0.145\bin\cfr.bat
@@ -314,26 +313,26 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; getnightly</b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.17-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar
-dotty-doc_0.17-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar
-dotty-interfaces-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar
-dotty-language-server_0.17-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar
-dotty-library_0.17-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar
-dotty-sbt-bridge-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar
-dotty_0.17-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar
+dotty-compiler_0.17-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar
+dotty-doc_0.17-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar
+dotty-interfaces-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar
+dotty-language-server_0.17-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar
+dotty-library_0.17-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar
+dotty-sbt-bridge-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar
+dotty_0.17-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar
 </pre>
 
 Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
 <pre style="font-size:80%">
 <b>&gt; getnightly -verbose</b>
-Downloading file dotty-compiler_0.17-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar ... 11 Mb
-Downloading file dotty-language-server_0.17-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar ... 148.1 Kb
-Downloading file dotty-doc_0.17-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar ... 1 Mb
-Downloading file dotty_0.17-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-library_0.17-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar ... 984.2 Kb
-Downloading file dotty-sbt-bridge-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar ... 13.4 Kb
-Downloading file dotty-interfaces-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-library_0.17-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar ... 1 Mb
+Downloading file dotty_0.17-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-language-server_0.17-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar ... 148.4 Kb
+Downloading file dotty-doc_0.17-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar ... 1 Mb
+Downloading file dotty-compiler_0.17-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar ... 11 Mb
+Downloading file dotty-sbt-bridge-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty-interfaces-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar ... 3.4 Kb
 Finished to download 7 files to directory W:\DOTTY-~1\out\nightly-jars
 </pre>
 
@@ -344,10 +343,10 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 <pre style="font-size:80%;">
 <b>&gt; getnightly activate</b>
 Finished to download 7 files to directory W:\DOTTY-~1\out\nightly-jars
-Activate nightly build libraries: 0.17.0-bin-20190609-74ec0ca-NIGHTLY
+Activate nightly build libraries: 0.17.0-bin-20190627-c3dbd50-NIGHTLY
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.17.0-bin-20190609-74ec0ca-NIGHTLY-git-74ec0ca -- Copyright 2002-2019, LAMP/EPFL
+Dotty compiler version 0.17.0-bin-20190627-c3dbd50-NIGHTLY-git-c3dbd50 -- Copyright 2002-2019, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
 Activate default Dotty libraries: 0.16.0-RC3
@@ -370,14 +369,14 @@ lib\0.16.0-RC3\
 &nbsp;&nbsp;dotty-doc_0.16-0.16.0-RC3.jar
 &nbsp;&nbsp;dotty-interfaces-0.16.0-RC3.jar
 &nbsp;&nbsp;dotty-library_0.16-0.16.0-RC3.jar
-lib\0.17.0-bin-20190609-74ec0ca-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.17-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.17-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.17-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.17-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.17-0.17.0-bin-20190609-74ec0ca-NIGHTLY.jar
+lib\0.17.0-bin-20190627-c3dbd50-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.17-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.17-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.17-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.17-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.17-0.17.0-bin-20190627-c3dbd50-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original Dotty installation respectively from the latest nightly build.
@@ -648,5 +647,5 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/June 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/July 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>

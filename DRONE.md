@@ -221,7 +221,7 @@ We have come across several Windows related issues while executing subcommands o
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :--------: | :--------: | :--------- |
-| [#6653](https://github.com/lampepfl/dotty/pull/6653) | *pending* | Batch commands |
+| [#6653](https://github.com/lampepfl/dotty/pull/6653) | [merged](https://github.com/lampepfl/dotty/commit/fe02bf4fdc14f648b5f42731e39448995963256c) | Batch commands |
 | [#5814](https://github.com/lampepfl/dotty/pull/5814) | [merged](https://github.com/lampepfl/dotty/commit/923fb06dc625e054e8b1833d4b7db49d369d91ad) | **`build compile`** |
 | [#5659](https://github.com/lampepfl/dotty/pull/5659) | [merged](https://github.com/lampepfl/dotty/commit/7b9ffbb56b2bd33efead1c0f38a71c057c31463e) | **`build bootstrap`** |
 | [#5587](https://github.com/lampepfl/dotty/pull/5587) | [merged](https://github.com/lampepfl/dotty/commit/172d6a0a1a3a4cbdb0a3ac4741b3f561d1221c40) | **`build bootstrap`** |
@@ -268,7 +268,7 @@ Command **`setenv -verbose`** also displays the tool paths and the current Git b
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_212, java 1.8.0_212,
-   sbt 1.2.8/2.12.8, git 2.22.0.windows.1, diff 3.6
+   sbt 1.2.8/2.12.8, git 2.22.0.windows.1, diff 3.7
 Tool paths:
    C:\opt\jdk-1.8.0_212-b03\bin\javac.exe
    C:\opt\jdk-1.8.0_212-b03\bin\java.exe
@@ -395,8 +395,8 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     [...]
     &nbsp;
     <b>&gt; dir /a-d /b dist-bootstrapped\target</b>
-    dotty-0.15.0-bin-SNAPSHOT.tar.gz
-    dotty-0.15.0-bin-SNAPSHOT.zip
+    dotty-0.17.0-bin-SNAPSHOT.tar.gz
+    dotty-0.17.0-bin-SNAPSHOT.zip
     </pre>
 
 - **`documentation`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Dotty website](https://dotty.epfl.ch/) and the online [Dotty documentation](https://dotty.epfl.ch/docs/).<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
