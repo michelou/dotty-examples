@@ -19,7 +19,7 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 - Data Sharing and Dotty on Windows [**&#9660;**](#bottom)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-Other topics we are currently investigating include [JMH](https://openjdk.java.net/projects/code-tools/jmh/), [OpenJDK](https://adoptopenjdk.net/) and [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html).
+[JMH](https://openjdk.java.net/projects/code-tools/jmh/) and [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html) are other topics we are currently investigating.
 
 
 ## Project dependencies
@@ -32,10 +32,10 @@ This project depends on two external software for the **Microsoft Windows** plat
 
 > **:mag_right:** [Scala 2.12](https://www.scala-lang.org/download/) is a software product announced to require Java 8. In contrast [Scala 2.13](https://www.scala-lang.org/news/roadmap-2.13.html) and [Dotty](http://dotty.epfl.ch/) (aka [Scala 3](https://www.scala-lang.org/blog/2018/04/19/scala-3.html)) are still in development and also support Java 9+. In the following we choose to work with [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot), the 2<sup>nd</sup> [LTS](https://www.oracle.com/technetwork/java/java-se-support-roadmap.html) version after Java 8.
 
-For instance our development environment looks as follows (*June 2019*):
+For instance our development environment looks as follows (*July 2019*):
 
 <pre style="font-size:80%;">
-C:\opt\jdk-11.0.3\
+C:\opt\jdk-11.0.4+11\
 C:\opt\dotty-0.16.0-RC3\
 C:\opt\Git-2.22.0\
 </pre>
@@ -563,7 +563,7 @@ Support files for Java class sharing:
    dotty-cds-compiler.jsa (55616 Kb)
    dotty-cds-repl.classlist (31 Kb)
    dotty-cds-repl.jsa (16640 Kb)
-   dotty-cds_0.15-0.15.0-RC1.jar (3 Kb)
+   dotty-cds_0.16-0.16.0-RC3.jar (3 Kb)
 Execution report:
    Share flag      : on
    Shared archive  : out\data-sharing\dotty-cds-repl.jsa
@@ -590,12 +590,12 @@ Classes per package (888):
 > 3. Repeat command from point 1. 
 > 
 > <pre style="font-size:80%;">
-> <b>&gt; c:\opt\jdk-11.0.3\bin\java -version</b>
-> openjdk version "11.0.3" 2019-04-18
-> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.3+7)
-> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.3+7, mixed mode)
+> <b>&gt; c:\opt\jdk-11.0.4+11\bin\java -version</b>
+> openjdk version "11.0.34" 2019-07-16
+> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.4+11)
+> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.4+11, mixed mode)
 > &nbsp;
-> <b>&gt; c:\opt\jdk-11.0.3\bin\java -Xshare:dump</b>
+> <b>&gt; c:\opt\jdk-11.0.4+11\bin\java -Xshare:dump</b>
 > [...]
 > Number of classes 1272
 > [...]
@@ -606,14 +606,14 @@ Classes per package (888):
 > od  space:   6534648 [ 36.1% of total] [...]
 > total    :  17873816 [100.0% of total] [...]
 > &nbsp;
-> <b>&gt; dir /b c:\opt\jdk-11.0.3\bin\server</b>
+> <b>&gt; dir /b c:\opt\jdk-11.0.4+11\bin\server</b>
 > classes.jsa
 > jvm.dll
 > &nbsp;
-> <b>&gt; c:\opt\jdk-11.0.3\bin\java -version</b>
-> openjdk version "11.0.3" 2019-04-18
-> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.3+7)
-> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.3+7, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
+> <b>&gt; c:\opt\jdk-11.0.4+11\bin\java -version</b>
+> openjdk version "11.0.4" 2019-07-16
+> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.4+11)
+> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.4+11, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
 > </pre>
 > Java 12 introduces default CDS archives ([JEP 341](http://openjdk.java.net/jeps/341))
 > to improve out-of-the-box startup time and to get rid of the need to run
@@ -713,5 +713,5 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/June 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/July 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>

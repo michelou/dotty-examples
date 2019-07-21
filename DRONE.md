@@ -18,7 +18,7 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 - [Data Sharing and Dotty on Windows](CDS.md)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-Other topics we are currently investigating [JMH](https://openjdk.java.net/projects/code-tools/jmh/), [OpenJDK](https://adoptopenjdk.net/) and [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html).
+[JMH](https://openjdk.java.net/projects/code-tools/jmh/) and [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html) are other topics we are currently investigating.
 
 > **&#9755;** ***Continuous Integration/Delivery*** (CI/CD)<br/>
 > (steps: Checkout **&rarr;** Compile **&rarr;** Test **&rarr;** Deploy)
@@ -44,10 +44,10 @@ Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*June 2019*):
+For instance our development environment looks as follows (*July 2019*):
 
 <pre style="font-size:80%;">
-C:\opt\jdk-1.8.0_212-b03\
+C:\opt\jdk-1.8.0_222-b10\
 C:\opt\sbt-1.2.8\
 C:\opt\Git-2.22.0\
 </pre>
@@ -254,7 +254,7 @@ Command **`setenv`** is executed once to setup our development environment; it m
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
 Tool versions:
-   javac 1.8.0_212, java 1.8.0_212,
+   javac 1.8.0_222, java 1.8.0_222,
    sbt 1.2.8/2.12.8, git 2.22.0.windows.1, diff 3.7
 
 <b>&gt; where sbt</b>
@@ -267,11 +267,11 @@ Command **`setenv -verbose`** also displays the tool paths and the current Git b
 <pre style="font-size:80%;">
 <b>&gt; setenv -verbose</b>
 Tool versions:
-   javac 1.8.0_212, java 1.8.0_212,
+   javac 1.8.0_222, java 1.8.0_222,
    sbt 1.2.8/2.12.8, git 2.22.0.windows.1, diff 3.7
 Tool paths:
-   C:\opt\jdk-1.8.0_212-b03\bin\javac.exe
-   C:\opt\jdk-1.8.0_212-b03\bin\java.exe
+   C:\opt\jdk-1.8.0_222-b10\bin\javac.exe
+   C:\opt\jdk-1.8.0_222-b10\bin\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\opt\sbt-1.2.8\bin\sbt.bat
@@ -320,7 +320,7 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     <b>&gt; build -verbose cleanall</b>
     Tool paths
       GIT_CMD=C:\opt\Git-2.22.0\bin\git.exe
-      JAVA_CMD=C:\opt\jdk-1.8.0_212-b03\bin\java.exe
+      JAVA_CMD=C:\opt\jdk-1.8.0_222-b10\bin\java.exe
       SBT_CMD=C:\opt\sbt-1.2.8\bin\sbt.bat
     Tool options
       JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
@@ -519,8 +519,8 @@ Command [**`project\scripts\bootstrapCmdTests`**](https://github.com/michelou/do
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.21
-# VM version: JDK 1.8.0_212, VM 25.212-b03
-# VM invoker: C:\opt\jdk-1.8.0_212-b03\bin\java.exe
+# VM version: JDK 1.8.0_222, VM 25.222-b10
+# VM invoker: C:\opt\jdk-1.8.0_222-b10\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -549,8 +549,8 @@ Worker.compile  avgt       533.625          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.21
-# VM version: JDK 1.8.0_212, VM 25.212-b03
-# VM invoker: C:\opt\jdk-1.8.0_212-b03\bin\java.exe
+# VM version: JDK 1.8.0_222, VM 25.222-b10
+# VM invoker: C:\opt\jdk-1.8.0_222-b10\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -577,8 +577,8 @@ Worker.compile  avgt       361.619          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
 # JMH version: 1.21
-# VM version: JDK 1.8.0_212, VM 25.202-b03
-# VM invoker: C:\opt\jdk-1.8.0_212-b03\bin\java.exe
+# VM version: JDK 1.8.0_222, VM 25.222-b10
+# VM invoker: C:\opt\jdk-1.8.0_222-b10\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -657,5 +657,5 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/June 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/July 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>

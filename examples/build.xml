@@ -74,13 +74,16 @@
             <condition property="s" value="s" else="">
                 <not><matches string="${n}" pattern="[0-1]" /></not>
             </condition>
+               <!--
             <exec executable="echo" taskname="scalac">
                 <arg value="Compiling ${n} source file${s} to @{destdir}" />
             </exec>
+            -->
+            <echo message="Compiling ${n} source file${s} to @{destdir}" />
             <pathconvert property="classpath" refid="@{classpathref}" />
-			<condition property="quoted" value="&quot;" else="">
-			    <contains string="${classpath}" substring=" " />
-			</condition>
+            <condition property="quoted" value="&quot;" else="">
+                <contains string="${classpath}" substring=" " />
+            </condition>
             <java fork="true" classname="dotty.tools.dotc.Main" classpathref="dotc.classpath">
                 <jvmarg value="-Xmx768m" />
                 <jvmarg value="-Xms768m" />

@@ -13,9 +13,12 @@ set _BASENAME=%~n0
 
 for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
 
-set _CLASSES_DIR=%_ROOT_DIR%target\classes
-set _TASTY_CLASSES_DIR=%_ROOT_DIR%target\classes-tasty
-set _DOCS_DIR=%_ROOT_DIR%target\docs
+set _SOURCE_DIR=%_ROOT_DIR%src
+set _TARGET_DIR=%_ROOT_DIR%target
+set _LIBS_DIR=%_TARGET_DIR%\libs
+set _CLASSES_DIR=%_TARGET_DIR%\classes
+set _TASTY_CLASSES_DIR=%_TARGET_DIR%\classes-tasty
+set _DOCS_DIR=%_ROOT_DIR%site-root\docs
 
 call :props
 if not %_EXITCODE%==0 goto end
@@ -42,6 +45,10 @@ if %_RUN%==1 (
     call :run
     if not !_EXITCODE!==0 goto end
 )
+if %_TEST%==1 (
+    call :test
+    if not !_EXITCODE!==0 goto end
+)
 goto end
 
 rem ##########################################################################
@@ -49,8 +56,8 @@ rem ## Subroutines
 
 rem output parameters: _COMPILE_CMD_DEFAULT, _DOC_CMD_DEFAULT, _MAIN_CLASS_DEFAULT
 :props
-set _COMPILE_CMD_DEFAULT=dotc
-set _DOC_CMD_DEFAULT=dotd
+set _COMPILE_CMD_DEFAULT=dotc.bat
+set _DOC_CMD_DEFAULT=dotd.bat
 set _MAIN_CLASS_DEFAULT=myexamples.Main
 set _MAIN_ARGS_DEFAULT=
 
@@ -85,6 +92,7 @@ set _MAIN_CLASS=%_MAIN_CLASS_DEFAULT%
 set _MAIN_ARGS=%_MAIN_ARGS_DEFAULT%
 set _RUN=0
 set _RUN_CMD=dotr
+set _TEST=0
 set _TASTY=0
 set _VERBOSE=0
 set __N=0
@@ -100,6 +108,7 @@ if /i "%__ARG%"=="clean" ( set _CLEAN=1
 ) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
 ) else if /i "%__ARG%"=="doc" ( set _DOC=1
 ) else if /i "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
+) else if /i "%__ARG%"=="test" ( set _COMPILE=1& set _TEST=1
 ) else if /i "%__ARG%"=="help" ( call :help & goto end
 ) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
 ) else if /i "%__ARG%"=="-explain" ( set _COMPILE_OPTS=!_COMPILE_OPTS! -explain
@@ -127,7 +136,7 @@ goto :args_loop
 :args_done
 if %_DEBUG%==1 (
     for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TOTAL_TIME_START=%%i
-    echo [%_BASENAME%] _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _COMPILE_CMD=%_COMPILE_CMD% _DOC=%_DOC% _RUN=%_RUN%
+    echo [%_BASENAME%] _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _COMPILE_CMD=%_COMPILE_CMD% _DOC=%_DOC% _RUN=%_RUN% _RUN_CMD=%_RUN_CMD%
 )
 goto :eof
 
@@ -148,6 +157,7 @@ echo     compile          compile source files ^(Java and Scala^)
 echo     doc              generate documentation
 echo     help             display this help message
 echo     run              execute main class
+echo     test             execute JUnit tests
 echo   Properties:
 echo   ^(to be defined in SBT configuration file project\build.properties^)
 echo     compiler.cmd     alternative to option -compiler
@@ -223,11 +233,14 @@ if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 set __TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build
 
 set __JAVA_SOURCE_FILES=
-for /f %%i in ('dir /s /b "%_ROOT_DIR%src\main\java\*.java" 2^>NUL') do (
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     set __JAVA_SOURCE_FILES=!__JAVA_SOURCE_FILES! %%i
 )
 set __SCALA_SOURCE_FILES=
-for /f %%i in ('dir /s /b "%_ROOT_DIR%src\main\scala\*.scala" 2^>NUL') do (
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
+    set __SCALA_SOURCE_FILES=!__SCALA_SOURCE_FILES! %%i
+)
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\test\scala\*.scala" 2^>NUL') do (
     set __SCALA_SOURCE_FILES=!__SCALA_SOURCE_FILES! %%i
 )
 
@@ -260,7 +273,7 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 rem see https://docs.scala-lang.org/overviews/compiler-options/index.html
-set __COMPILE_OPTS=%_COMPILE_OPTS% -classpath "%__PROJECT_JARS%%_CLASSES_DIR%" -d %_CLASSES_DIR%
+set __COMPILE_OPTS=%_COMPILE_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d %_CLASSES_DIR% -explain
 
 if %_DEBUG%==1 ( echo [%_BASENAME%] %_COMPILE_CMD% %__COMPILE_OPTS% %__SCALA_SOURCE_FILES%
 ) else if %_VERBOSE%==1 ( echo Compile Scala sources to !_CLASSES_DIR:%_ROOT_DIR%=!
@@ -357,14 +370,29 @@ goto :eof
 rem output parameter: _LIBS_CPATH
 :libs_cpath
 set _LIBS_CPATH=
-rem for /f %%i in ('where dotc.bat') do set __DOTTY_BIN_DIR=%%~dpi
-rem for /f %%f in ("!__DOTTY_BIN_DIR!..") do set __DOTTY_HOME=%%~sf
-rem for /f %%i in ('dir /b "!__DOTTY_HOME!\lib\dotty*.jar"') do (
-rem     set _LIBS_CPATH=!_LIBS_CPATH!!__DOTTY_HOME!\lib\%%i;
-rem )
-if exist "%_ROOT_DIR%\lib\" (
-    for /f %%i in ('dir /b "%_ROOT_DIR%\lib\*.jar" 2^>NUL') do (
-        set _LIBS_CPATH=!_LIBS_CPATH!%_ROOT_DIR%\lib\%%i;
+
+if not exist "%_LIBS_DIR%" mkdir "%_LIBS_DIR%"
+
+set __CURL_CMD=curl.exe
+set __CURL_OPTS=
+if not %_DEBUG%==1 set __CURL_OPTS=--silent
+
+:libs_standalone
+set __STANDALONE_JAR_NAME=junit-platform-console-standalone-1.5.0.jar
+set __STANDALONE_JAR_URL=https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.5.0/%__STANDALONE_JAR_NAME%
+set __STANDALONE_JAR_FILE=%_LIBS_DIR%\%__STANDALONE_JAR_NAME%
+if not exist "%__STANDALONE_JAR_FILE%" (
+    if %_DEBUG%==1 ( echo [%_BASENAME%] %__CURL_CMD% %__CURL_OPTS% --output %__STANDALONE_JAR_FILE% %__STANDALONE_JAR_URL%
+    ) else if %_VERBOSE%==1 ( echo Download dependency file %__STANDALONE_JAR_NAME% to directory !_LIBS_DIR:%_ROOT_DIR%=!
+    )
+    call %__CURL_CMD% %__CURL_OPTS% --output %__STANDALONE_JAR_FILE% %__STANDALONE_JAR_URL%
+    if not !ERRORLEVEL!==0 (
+        set _EXITCODE=1
+    )
+)
+if exist "%_LIBS_DIR%\" (
+    for /f %%i in ('dir /b "%_LIBS_DIR%\*.jar" 2^>NUL') do (
+        set _LIBS_CPATH=!_LIBS_CPATH!%_LIBS_DIR%\%%i;
     )
 )
 goto :eof
@@ -380,10 +408,10 @@ for /f %%i in ('dir /s /b "%_ROOT_DIR%src\main\scala\*.scala" 2^>NUL') do (
 )
 
 for %%i in ("%~dp0\.") do set __PROJECT=%%~ni
-set __DOC_OPTS=-siteroot %_DOCS_DIR% -project %__PROJECT% -project-version 0.1-SNAPSHOT
+set __DOC_OPTS=-siteroot %_ROOT_DIR%site-root -d %_DOCS_DIR% -project %__PROJECT% -project-version 0.1-SNAPSHOT
 
 if %_DEBUG%==1 ( echo [%_BASENAME%] %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES%
-) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into !_DOCS_DIR:%_ROOT_DIR%=!
+) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into directory !_DOCS_DIR:%_ROOT_DIR%=!
 )
 call %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
@@ -401,6 +429,8 @@ if not exist "%__MAIN_CLASS_FILE%" (
     goto :eof
 )
 call :libs_cpath
+if not %_EXITCODE%==0 goto :eof
+
 set __RUN_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%"
 
 if %_DEBUG%==1 ( echo [%_BASENAME%] %_RUN_CMD% %__RUN_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
@@ -408,7 +438,7 @@ if %_DEBUG%==1 ( echo [%_BASENAME%] %_RUN_CMD% %__RUN_OPTS% %_MAIN_CLASS% %_MAIN
 )
 call %_RUN_CMD% %__RUN_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo Error: Execution failed ^(%_MAIN_CLASS%^) 1>&2
+    echo Error: Program execution failed ^(%_MAIN_CLASS%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -425,10 +455,34 @@ if %_TASTY%==1 (
     )
     call %_RUN_CMD% !__RUN_OPTS! %_MAIN_CLASS% %_MAIN_ARGS%
     if not !ERRORLEVEL!==0 (
-        echo Error: Execution failed ^(%_MAIN_CLASS%^) 1>&2
+        echo Error: Program execution failed ^(%_MAIN_CLASS%^) 1>&2
         set _EXITCODE=1
         goto :eof
     )
+)
+goto :eof
+
+:test
+call :libs_cpath
+if not %_EXITCODE%==0 goto :eof
+
+set __RUN_CMD=java.exe
+set __RUN_OPTS=-classpath %_LIBS_CPATH%
+
+set __TEST_MAIN_CLASS=hello.Tests
+
+rem JUnit 4
+rem set __JUNIT_MAIN_CLASS=org.junit.runner.JUnitCore
+rem JUnit 5
+set __JUNIT_MAIN_CLASS=org.junit.platform.console.ConsoleLauncher
+set __JUNIT_MAIN_ARGS=--disable-banner --classpath %_CLASSES_DIR% --select-package=myexamples --include-classname=.*Tests
+
+if %_DEBUG%==1 echo [%_BASENAME%] %__RUN_CMD% %__RUN_OPTS% %__JUNIT_MAIN_CLASS% %__JUNIT_MAIN_ARGS%
+call %__RUN_CMD% %__RUN_OPTS% %__JUNIT_MAIN_CLASS% %__JUNIT_MAIN_ARGS%
+if not %ERRORLEVEL%==0 (
+    echo Error: Test execution failed ^(%__TEST_MAIN_CLASS%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 goto :eof
 
