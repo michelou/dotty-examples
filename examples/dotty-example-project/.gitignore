@@ -1,3 +1,5 @@
+.bloop/
 .gradle/
 .idea/
+.settings/
 target/

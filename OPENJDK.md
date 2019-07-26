@@ -18,7 +18,7 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 - [Data Sharing and Dotty on Windows](CDS.md)
 - OpenJDK and Dotty on Windows [**&#9660;**](#bottom)
 
-[JMH](https://openjdk.java.net/projects/code-tools/jmh/) and [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html) are other topics we are currently investigating.
+[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html) and [GraalVM](https://www.graalvm.org/) are other topics we are currently investigating.
 
 
 ## Project dependencies
