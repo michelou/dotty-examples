@@ -13,9 +13,10 @@ set _BASENAME=%~n0
 
 for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
 
-set _CLASSES_DIR=%_ROOT_DIR%target\classes
-set _TASTY_CLASSES_DIR=%_ROOT_DIR%target\classes-tasty
-set _DOCS_DIR=%_ROOT_DIR%target\docs
+set _TARGET_DIR=%_ROOT_DIR%target
+set _CLASSES_DIR=%_TARGET_DIR%\classes
+set _TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes
+set _DOCS_DIR=%_TARGET_DIR%\docs
 
 call :props
 if not %_EXITCODE%==0 goto end
@@ -200,16 +201,21 @@ set _MAIN_CLASS=%__ARG%
 goto :eof
 
 :clean
-for %%m in (out target) do (
-    if %_DEBUG%==1 echo [%_BASENAME%] forfiles /s /p %_ROOT_DIR% /m %%m /c "cmd /c echo @path" 2^>NUL
-    for /f %%i in ('forfiles /s /p %_ROOT_DIR% /m %%m /c "cmd /c if @isdir==TRUE echo @path" 2^>NUL') do (
-        if %_DEBUG%==1 echo [%_BASENAME%] rmdir /s /q %%i
-        rmdir /s /q %%i
-        if not !ERRORLEVEL!==0 (
-            echo Error: Failed to clean directory %%i 1>&2
-            set _EXITCODE=1
-        )
-    )
+call :rmdir "%_ROOT_DIR%out"
+call :rmdir "%_TARGET_DIR%"
+goto :eof
+
+rem input parameter(s): %1=directory path
+:rmdir
+set __DIR=%~1
+if not exist "%__DIR%\" goto :eof
+if %_DEBUG%==1 ( echo [%_BASENAME%] rmdir /s /q "%__DIR%"
+) else if %_VERBOSE%==1 ( echo Delete directory !__DIR:%_ROOT_DIR%=!
+)
+rmdir /s /q "%__DIR%"
+if not %ERRORLEVEL%==0 (
+    set _EXITCODE=1
+    goto :eof
 )
 goto :eof
 
@@ -248,11 +254,11 @@ set _JAVAC_CMD=javac.exe
 set _JAVAC_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d %_CLASSES_DIR%
 
 if %_DEBUG%==1 ( echo [%_BASENAME%] %_JAVAC_CMD% %_JAVAC_OPTS% %__JAVA_SOURCE_FILES%
-) else if %_VERBOSE%==1 ( echo Compile Java sources to !_CLASSES_DIR:%_ROOT_DIR%=!
+) else if %_VERBOSE%==1 ( echo Compile Java source files to directory !_CLASSES_DIR:%_ROOT_DIR%=!
 )
 %_JAVAC_CMD% %_JAVAC_OPTS% %__JAVA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-    echo Error: Java compilation failed 1>&2
+    echo Error: Compilation of Java source files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -266,11 +272,11 @@ if not %ERRORLEVEL%==0 (
 set __COMPILE_OPTS=%_COMPILE_OPTS% -classpath "%__PROJECT_JARS%%_CLASSES_DIR%" -d %_CLASSES_DIR%
 
 if %_DEBUG%==1 ( echo [%_BASENAME%] %_COMPILE_CMD% %__COMPILE_OPTS% %__SCALA_SOURCE_FILES%
-) else if %_VERBOSE%==1 ( echo Compile Scala sources to !_CLASSES_DIR:%_ROOT_DIR%=!
+) else if %_VERBOSE%==1 ( echo Compile Scala source files to directory !_CLASSES_DIR:%_ROOT_DIR%=!
 )
 call %_COMPILE_CMD% %__COMPILE_OPTS% %__SCALA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-    echo Error: Scala compilation failed 1>&2
+    echo Error: Compilation of Scala source files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -290,11 +296,11 @@ if %_TASTY%==1 (
 		set __CLASS_NAMES=!__CLASS_NAMES! !__CLASS_NAME:~0,-6!
     )
     if %_DEBUG%==1 ( echo [%_BASENAME%] %_COMPILE_CMD% -from-tasty !__CLASS_NAMES! -classpath %_CLASSES_DIR% -d %_TASTY_CLASSES_DIR%
-    ) else if %_VERBOSE%==1 ( echo Compile TASTy files to !_TASTY_CLASSES_DIR:%_ROOT_DIR%=!
+    ) else if %_VERBOSE%==1 ( echo Compile Scala TASTy files to directory !_TASTY_CLASSES_DIR:%_ROOT_DIR%=!
     )
     call %_COMPILE_CMD% -from-tasty !__CLASS_NAMES! -classpath %_CLASSES_DIR% -d %_TASTY_CLASSES_DIR%
     if not !ERRORLEVEL!==0 (
-        echo Error: Scala compilation from TASTy files failed 1>&2
+        echo Error: Compilation of Scala TASTy files failed 1>&2
         set _EXITCODE=1
     )
     if not !_EXITCODE!==0 goto :eof

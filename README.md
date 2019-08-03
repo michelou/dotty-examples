@@ -19,7 +19,7 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 - [Data Sharing and Dotty on Windows](CDS.md)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html) and [GraalVM](https://www.graalvm.org/) are other topics we are currently investigating.
+[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Scala Metaprogramming](http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html) (macros, TASTy) and [GraalVM](https://www.graalvm.org/) are other topics we are currently investigating.
 
 ## <span id="section_01">Project dependencies</span>
 
@@ -46,7 +46,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*July 2019*):
+For instance our development environment looks as follows (*August 2019*):
 
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_222-b10\
@@ -317,26 +317,26 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; getnightly</b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.18-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar
-dotty-doc_0.18-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar
-dotty-interfaces-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar
-dotty-language-server_0.18-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar
-dotty-library_0.18-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar
-dotty-sbt-bridge-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar
-dotty_0.18-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar
+dotty-compiler_0.18-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar
+dotty-doc_0.18-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar
+dotty-interfaces-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar
+dotty-language-server_0.18-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar
+dotty-library_0.18-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar
+dotty-sbt-bridge-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar
+dotty_0.18-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar
 </pre>
 
 Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
 <pre style="font-size:80%">
 <b>&gt; getnightly -verbose</b>
-Downloading file dotty-compiler_0.18-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar ... 11.1 Mb
-Downloading file dotty-language-server_0.18-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar ... 148.1 Kb
-Downloading file dotty-doc_0.18-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar ... 1 Mb
-Downloading file dotty_0.18-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-library_0.18-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar ... 1.2 Mb
-Downloading file dotty-sbt-bridge-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar ... 13.4 Kb
-Downloading file dotty-interfaces-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty_0.18-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-language-server_0.18-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar ... 148 Kb
+Downloading file dotty-doc_0.18-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar ... 1 Mb
+Downloading file dotty-compiler_0.18-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar ... 11.1 Mb
+Downloading file dotty-sbt-bridge-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty-library_0.18-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar ... 1.2 Mb
+Downloading file dotty-interfaces-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar ... 3.4 Kb
 Finished to download 7 files to directory W:\DOTTY-~1\out\nightly-jars
 </pre>
 
@@ -350,7 +350,7 @@ Finished to download 7 files to directory W:\DOTTY-~1\out\nightly-jars
 Activate nightly build libraries: 0.18.0-bin-20190726-232b3fa-NIGHTLY
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.18.0-bin-20190726-232b3fa-NIGHTLY-git-232b3fa -- Copyright 2002-2019, LAMP/EPFL
+Dotty compiler version 0.18.0-bin-20190726-232b3fa-NIGHTLY-git-232b3fa -- Copyright 2002-2019, LAMP/EPFLt 2002-2019, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
 Activate default Dotty libraries: 0.17.0-RC1
@@ -373,14 +373,14 @@ lib\0.17.0-RC1\
 &nbsp;&nbsp;dotty-doc_0.17-0.17.0-RC1.jar
 &nbsp;&nbsp;dotty-interfaces-0.17.0-RC1.jar
 &nbsp;&nbsp;dotty-library_0.17-0.17.0-RC1.jar
-lib\0.18.0-bin-20190726-232b3fa-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.18-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.18-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.18-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.18-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.18-0.18.0-bin-20190726-232b3fa-NIGHTLY.jar
+lib\0.18.0-bin-20190802-95ae77c-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.18-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.18-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.18-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.18-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.18-0.18.0-bin-20190802-95ae77c-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original Dotty installation respectively from the latest nightly build.
@@ -545,14 +545,14 @@ Running command [**`build`**](examples/enum-Planet/build.bat) with ***no*** opti
 
 <pre style="font-size:80%;">
 <b>&gt; build clean compile run</b>
-Your weight on MERCURY is 0.37775761520093526
-Your weight on SATURN is 1.0660155388115666
-Your weight on VENUS is 0.9049990998410455
-Your weight on URANUS is 0.9051271993894251
-Your weight on EARTH is 0.9999999999999999
-Your weight on NEPTUNE is 1.1383280724696578
-Your weight on MARS is 0.37873718403712886
-Your weight on JUPITER is 2.5305575254957406</pre>
+Your weight on MERCURY (0) is 0.37775761520093526
+Your weight on SATURN (5) is 1.0660155388115666
+Your weight on VENUS (1) is 0.9049990998410455
+Your weight on URANUS (6) is 0.9051271993894251
+Your weight on EARTH (2) is 0.9999999999999999
+Your weight on NEPTUNE (7) is 1.1383280724696578
+Your weight on MARS (3) is 0.37873718403712886
+Your weight on JUPITER (4) is 2.5305575254957406</pre>
 
 More usage examples are presented in [**`examples\README.md`**](examples/README.md) resp. [**`myexamples\README.md`**](myexamples/README.md)
 
@@ -651,5 +651,5 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/July 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/August 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>

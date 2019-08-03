@@ -80,6 +80,7 @@ if /i "%__ARG%"=="help" ( set _HELP=1& goto :eof
 ) else if /i "%__ARG%"=="reset" (
     set _DOWNLOAD_ONLY=
     set _ACTIVATE_NIGHTLY=
+) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
 ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
 ) else (
     echo [91mError[0m: Unknown subcommand %__ARG% 1>&2
@@ -98,6 +99,7 @@ goto :eof
 :help
 echo Usage: %_BASENAME% { options ^| subcommands }
 echo   Options:
+echo     -debug           show commands executed by this script
 echo     -verbose         display download progress
 echo   Subcommands:
 echo     activate         activate the nightly build library files

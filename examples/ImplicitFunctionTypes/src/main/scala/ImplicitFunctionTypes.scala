@@ -20,13 +20,13 @@ object ImplicitFunctionTypes {
 
   case class Cell(elem: String)
 
-  def table(init: implicit Table => Unit) = {
+  def table(init: given Table => Unit) = {
     implicit val t = new Table
     init
     t
   }
 
-  def row(init: implicit Row => Unit)(implicit t: Table) = {
+  def row(init: given Row => Unit)(implicit t: Table) = {
     implicit val r = new Row
     init
     t.add(r)
