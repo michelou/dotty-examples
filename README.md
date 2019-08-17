@@ -49,17 +49,17 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*August 2019*):
 
 <pre style="font-size:80%;">
-C:\opt\jdk-1.8.0_222-b10\
-C:\opt\apache-ant-1.10.6\
-C:\opt\apache-maven-3.6.1\
-C:\opt\bloop-1.3.2\
-C:\opt\cfr-0.146\
-C:\opt\dotty-0.17.0-RC1\
-C:\opt\Git-2.22.0\
-C:\opt\gradle-5.6\
-C:\opt\Mill-0.5.0\
-C:\opt\sbt-1.2.8\
-C:\opt\scala-2.13.0\
+C:\opt\jdk-1.8.0_222-b10\    <i>(184.0 MB)</i>
+C:\opt\apache-ant-1.10.6\    <i>( 41.2 MB)</i>
+C:\opt\apache-maven-3.6.1\   <i>( 10.2 MB)</i>
+C:\opt\bloop-1.3.2\          <i>(  0.1 MB)</i>
+C:\opt\cfr-0.146\            <i>(  1.7 MB)</i>
+C:\opt\dotty-0.17.0-RC1\     <i>( 65.0 MB)</i>
+C:\opt\Git-2.22.0\           <i>(271.0 MB)</i>
+C:\opt\gradle-5.6\           <i>(101.0 MB)</i>
+C:\opt\Mill-0.5.0\           <i>( 37.0 MB)</i>
+C:\opt\sbt-1.2.8\            <i>( 50.0 MB)</i>
+C:\opt\scala-2.13.0\         <i>( 19.7 MB)</i>
 </pre>
 
 > **:mag_right:** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
@@ -91,13 +91,13 @@ where
 - file [**`README.md`**](README.md) is the [Markdown](https://github.github.com/gfm/) document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch command for setting up our environment.
 
-> **:mag_right:** We use the portable version of [MarkdownPad 2](http://markdownpad.com/faq.html#portable) to edit our Markdown files (see article ["Mastering Markdown"](https://guides.github.com/features/mastering-markdown/) from [GitHub Guides](https://guides.github.com/)).
+> **:mag_right:** We use [VS Code](https://code.visualstudio.com/) with the extension [Markdown Preview Github Styling](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-preview-github-styles) to edit our Markdown files (see article ["Mastering Markdown"](https://guides.github.com/features/mastering-markdown/) from [GitHub Guides](https://guides.github.com/)).
 
 We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).
 > **:mag_right:** We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
-> <b>&gt; subst W: %USERPROFILE%\workspace</b>
+> <b>&gt; subst W: %USERPROFILE%\workspace\dotty-examples</b>
 > </pre>
 
 In the next section we give a brief description of the batch files present in this project.
@@ -317,26 +317,26 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; getnightly</b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.18-0.18.0-bin-20190808-259ee05-NIGHTLY.jar
-dotty-doc_0.18-0.18.0-bin-20190808-259ee05-NIGHTLY.jar
-dotty-interfaces-0.18.0-bin-20190808-259ee05-NIGHTLY.jar
-dotty-language-server_0.18-0.18.0-bin-20190808-259ee05-NIGHTLY.jar
-dotty-library_0.18-0.18.0-bin-20190808-259ee05-NIGHTLY.jar
-dotty-sbt-bridge-0.18.0-bin-20190808-259ee05-NIGHTLY.jar
-dotty_0.18-0.18.0-bin-20190808-259ee05-NIGHTLY.jar
+dotty-compiler_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar
+dotty-doc_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar
+dotty-interfaces-0.18.0-bin-20190816-ff43160-NIGHTLY.jar
+dotty-language-server_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar
+dotty-library_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar
+dotty-sbt-bridge-0.18.0-bin-20190816-ff43160-NIGHTLY.jar
+dotty_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar
 </pre>
 
 Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
 <pre style="font-size:80%">
 <b>&gt; getnightly -verbose</b>
-Downloading file dotty-language-server_0.18-0.18.0-bin-20190808-259ee05-NIGHTLY.jar ... 148.1 Kb
-Downloading file dotty-doc_0.18-0.18.0-bin-20190808-259ee05-NIGHTLY.jar ... 1 Mb
-Downloading file dotty-compiler_0.18-0.18.0-bin-20190808-259ee05-NIGHTLY.jar ... 11.1 Mb
-Downloading file dotty_0.18-0.18.0-bin-20190808-259ee05-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-library_0.18-0.18.0-bin-20190808-259ee05-NIGHTLY.jar ... 1.2 Mb
-Downloading file dotty-sbt-bridge-0.18.0-bin-20190808-259ee05-NIGHTLY.jar ... 13.4 Kb
-Downloading file dotty-interfaces-0.18.0-bin-20190808-259ee05-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-compiler_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar ... 11.1 Mb
+Downloading file dotty-language-server_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar ... 148 Kb
+Downloading file dotty-doc_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar ... 1 Mb
+Downloading file dotty_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-library_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar ... 1.2 Mb
+Downloading file dotty-sbt-bridge-0.18.0-bin-20190816-ff43160-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty-interfaces-0.18.0-bin-20190816-ff43160-NIGHTLY.jar ... 3.4 Kb
 Finished to download 7 files to directory W:\DOTTY-~1\out\nightly-jars
 </pre>
 
@@ -347,10 +347,10 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 <pre style="font-size:80%;">
 <b>&gt; getnightly activate</b>
 Finished to download 7 files to directory W:\DOTTY-~1\out\nightly-jars
-Activate nightly build libraries: 0.18.0-bin-20190808-259ee05-NIGHTLY
+Activate nightly build libraries: 0.18.0-bin-20190816-ff43160-NIGHTLY
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.18.0-bin-20190808-259ee05-NIGHTLY-git-259ee05 -- Copyright 2002-2019, LAMP/EPFLt 2002-2019, LAMP/EPFL
+Dotty compiler version 0.18.0-bin-20190816-ff43160-NIGHTLY-git-ff43160 -- Copyright 2002-2019, LAMP/EPFLt 2002-2019, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
 Activate default Dotty libraries: 0.17.0-RC1

@@ -9,7 +9,7 @@ with `sbt run`, `sbt console` will start a Dotty REPL.
 
 If compiling this example project fails, you probably have a global sbt plugin
 that does not work with dotty, try to disable all plugins in
-`~/.sbt/0.13/plugins` and `~/.sbt/0.13`.
+`~/.sbt/1.0/plugins` and `~/.sbt/1.0`.
 
 ### IDE support
 
@@ -27,15 +27,15 @@ You will need to make the following adjustments to your build:
 
 ### project/plugins.sbt
 ```scala
-addSbtPlugin("ch.epfl.lamp" % "sbt-dotty" % "0.1.7")
+addSbtPlugin("ch.epfl.lamp" % "sbt-dotty" % "0.3.3")
 ```
 
 ### project/build.properties
 ```scala
-sbt.version=0.13.15
+sbt.version=1.2.8
 ```
 
-Older versions of sbt are not supported, sbt 1.0 is not yet supported either.
+Older versions of sbt are not supported.
 
 
 ### build.sbt
@@ -43,13 +43,13 @@ Any version number that starts with `0.` is automatically recognized as Dotty by
 the `sbt-dotty` plugin, you don't need to set up anything:
 
 ```scala
-scalaVersion := "0.7.0-RC1"
+scalaVersion := "0.17.0-RC1"
 ```
 
 #### Nightly builds
 If the latest release of Dotty is missing a bugfix or feature you need, you may
 wish to use a nightly build. Look at the bottom of
-https://repo1.maven.org/maven2/ch/epfl/lamp/dotty_0.7/ to find the version
+https://repo1.maven.org/maven2/ch/epfl/lamp/dotty_0.18/ to find the version
 number for the latest nightly build. Alternatively, you can set `scalaVersion :=
 dottyLatestNightlyBuild.get` to always use the latest nightly build of dotty.
 
@@ -79,15 +79,18 @@ you may be able to get them to work on Dotty by replacing:
 by:
 
 ```scala
-    libraryDependencies += ("a" %% "b" % "c").withDottyCompat()
+    libraryDependencies += ("a" %% "b" % "c").withDottyCompat(scalaVersion.value)
 ```
 
 This will have no effect when compiling with Scala 2.x, but when compiling
 with Dotty this will change the cross-version to a Scala 2.x one. This
 works because Dotty is currently retro-compatible with Scala 2.x.
 
-**NOTE**: Dotty's retro-compatibility with Scala 2.x will be dropped before
-Dotty is released, you should not rely on it.
+Alternatively, to set this setting on all your dependencies, you can use:
+
+```scala
+    libraryDependencies := libraryDependencies.value.map(_.withDottyCompat(scalaVersion.value))
+```
 
 ## Discuss
 
