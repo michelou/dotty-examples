@@ -6,20 +6,20 @@
     <a href="http://dotty.epfl.ch/"><img style="border:0;" src="docs/dotty.png"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    This repository gathers code examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a> - or written by myself.<br/>
+    This repository gathers code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/">Dotty project</a> - or written by myself.<br/>
     In particular it includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a> for experimenting with the Dotty language (aka <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html">Scala 3</a>) on a Windows machine.
   </td>
   </tr>
 </table>
 
-This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/) on Windows:
+This page is part of a series of topics related to [Dotty](https://dotty.epfl.ch/) on Windows:
 
 - Running Dotty on Windows [**&#9660;**](#bottom)
 - [Building Dotty on Windows](DRONE.md)
 - [Data Sharing and Dotty on Windows](CDS.md)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Scala Metaprogramming](http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html) (macros, TASTy) and [GraalVM](https://www.graalvm.org/) are other topics we are currently investigating.
+[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Scala Metaprogramming](https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html) (macros, TASTy) and [GraalVM](https://www.graalvm.org/) are other topics we are currently investigating.
 
 ## <span id="section_01">Project dependencies</span>
 
@@ -37,7 +37,7 @@ Optionally one may also install the following software:
 - [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([requires Java 7](http://maven.apache.org/docs/history.html))  ([*release notes*](http://maven.apache.org/docs/3.6.1/release-notes.html))
 - [Bloop 1.3](https://scalacenter.github.io/bloop/) (requires Java 8 and Python 2/3) ([*release notes*](https://github.com/scalacenter/bloop/releases/tag/v1.3.2))
 - [CFR 0.14](http://www.benf.org/other/cfr/) (Java decompiler)
-- [Git 2.22](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.22.0.txt))
+- [Git 2.23](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.23.0.txt))
 - [Gradle 5.6](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.6/release-notes.html))
 - [Mill 0.5](https://github.com/lihaoyi/mill/releases/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
 - [SBT 1.2.8](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
@@ -54,8 +54,8 @@ C:\opt\apache-ant-1.10.6\    <i>( 41.2 MB)</i>
 C:\opt\apache-maven-3.6.1\   <i>( 10.2 MB)</i>
 C:\opt\bloop-1.3.2\          <i>(  0.1 MB)</i>
 C:\opt\cfr-0.146\            <i>(  1.7 MB)</i>
-C:\opt\dotty-0.17.0-RC1\     <i>( 65.0 MB)</i>
-C:\opt\Git-2.22.0\           <i>(271.0 MB)</i>
+C:\opt\dotty-0.17.0-RC1\     <i>( 24.5 MB)</i>
+C:\opt\Git-2.23.0\           <i>(271.0 MB)</i>
 C:\opt\gradle-5.6\           <i>(101.0 MB)</i>
 C:\opt\Mill-0.5.0\           <i>( 37.0 MB)</i>
 C:\opt\sbt-1.2.8\            <i>( 50.0 MB)</i>
@@ -85,7 +85,7 @@ where
 - directory [**`bin\`**](bin/) provides several utility batch commands.
 - directory [**`bin\0.17\`**](bin/0.17/) contains the batch commands for [Dotty 0.17](https://github.com/lampepfl/dotty/releases/tag/0.17.0-RC1).
 - file [**`bin\cfr-0.146.zip`**](bin/cfr-0.146.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
-- directory [**`docs\`**](docs/) contains several Dotty related papers/articles.
+- directory [**`docs\`**](docs/) contains several [Dotty](https://dotty.epfl.ch/) related papers/articles.
 - directory [**`examples\`**](examples/) contains Dotty examples grabbed from various websites.
 - directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
 - file [**`README.md`**](README.md) is the [Markdown](https://github.github.com/gfm/) document for this page.
@@ -253,7 +253,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 Tool versions:
    javac 1.8.0_222, java 1.8.0_222, scalac 2.13.0, dotc 0.17.0-RC1,
    ant 1.10.6, gradle 5.6, mill 0.5.0, mvn 3.6.1, sbt 1.2.8/2.12.8,
-   cfr 0.146, bloop v1.3.2, git 2.22.0.windows.1, diff 3.7
+   cfr 0.146, bloop v1.3.2, git 2.23.0.windows.1, diff 3.7
 
 <b>&gt; where sbt</b>
 C:\opt\sbt-1.2.8\bin\sbt
@@ -267,7 +267,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 Tool versions:
    javac 1.8.0_222, java 1.8.0_222, scalac 2.13.0, dotc 0.17.0-RC1,
    ant 1.10.6, gradle 5.6, mill 0.5.0, mvn 3.6.1, sbt 1.2.8/2.12.8,
-   cfr 0.146, bloop v1.3.2, git 2.22.0.windows.1, diff 3.7
+   cfr 0.146, bloop v1.3.2, git 2.23.0.windows.1, diff 3.7
 Tool paths:
    C:\opt\jdk-1.8.0_222-b10\bin\javac.exe
    C:\opt\jdk-1.8.0_222-b10\bin\java.exe
@@ -282,8 +282,8 @@ Tool paths:
    C:\opt\sbt-1.2.8\bin\sbt.bat
    C:\opt\cfr-0.146\bin\cfr.bat
    C:\opt\bloop-1.3.2\bloop.cmd
-   C:\opt\Git-2.22.0\bin\git.exe
-   C:\opt\Git-2.22.0\usr\bin\diff.exe
+   C:\opt\Git-2.23.0\bin\git.exe
+   C:\opt\Git-2.23.0\usr\bin\diff.exe
 </pre>
 
 #### `cleanup.bat`
