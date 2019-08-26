@@ -47,14 +47,14 @@ The above implementations of OpenJDK[&trade;](http://openjdk.java.net/legal/open
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*July 2019*):
+For instance our development environment looks as follows (*August 2019*):
 
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.4+11\
 C:\opt\jdk-bellsoft-11.0.4-lite\
 C:\opt\jdk-corretto-11.0.4_11\
 C:\opt\jdk-openj9-11.0.4+11\
-C:\opt\jdk-redhat-11.0.3\
+C:\opt\jdk-redhat-11.0.4.11\
 C:\opt\jdk-sapmachine-11.0.4\
 C:\opt\jdk-trava-11.0.1\
 C:\opt\jdk-zulu-11.0.4\
@@ -67,7 +67,7 @@ This section supplements my writing from page [Data Sharing and Dotty on Windows
 
 An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For instance we proceed as follows to check if data sharing is enabled in Oracle OpenJDK 11:
 
-1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, last displayed line ends with  **`(build 11.0.2+9-LTS, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.2+9-LTS, mixed mode)`** otherwise.
+1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, last displayed line ends with  **`(build 11.0.4+11-LTS, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.4+11-LTS, mixed mode)`** otherwise.
 2. Command **`java.exe -Xshare:dump`** generates the 17.3 Mb Java shared archive **`<install_dir>\bin\server\classes.jsa`** from file **`<install_dir>\lib\classlist`**.
 3. We repeat step 1 to verify that the **`sharing`** flag is present.
 
@@ -166,22 +166,22 @@ OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.4+11, mixed mode, sharing)
 ### RedHat OpenJDK 11
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-redhat-11.0.3\bin\java -version</b>
-openjdk version "11.0.3-redhat" 2019-04-16 LTS
-OpenJDK Runtime Environment 18.9 (build 11.0.3-redhat+7-LTS)
-OpenJDK 64-Bit Server VM 18.9 (build 11.0.3-redhat+7-LTS, mixed mode)
+<b>&gt; c:\opt\jdk-redhat-11.0.4.11\bin\java -version</b>
+openjdk version "11.0.4-redhat" 2019-07-16 LTS
+OpenJDK Runtime Environment 18.9 (build 11.0.4-redhat+11-LTS)
+OpenJDK 64-Bit Server VM 18.9 (build 11.0.4-redhat+11-LTS, mixed mode)
 
 <b>&gt; c:\opt\jdk-redhat-11.0.3\bin\java -Xshare:dump</b>
 [...]
-Number of classes 1270
+Number of classes 1269
 [...]
-<b>&gt; dir c:\opt\jdk-redhat-11.0.3\bin\server | findstr jsa</b>
-25.05.2019  19:51        18 153 472 classes.jsa
+<b>&gt; dir c:\opt\jdk-redhat-11.0.4.11\bin\server | findstr jsa</b>
+26.08.2019  11:50        18 153 472 classes.jsa
 
-<b>&gt; c:\opt\jdk-redhat-11.0.3\bin\java -version</b>
-openjdk version "11.0.3-redhat" 2019-04-16 LTS
-OpenJDK Runtime Environment 18.9 (build 11.0.3-redhat+7-LTS)
-OpenJDK 64-Bit Server VM 18.9 (build 11.0.3-redhat+7-LTS, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-redhat-11.0.4.11\bin\java -version</b>
+openjdk version "11.0.4-redhat" 2019-07-16 LTS
+OpenJDK Runtime Environment 18.9 (build 11.0.4-redhat+11-LTS)
+OpenJDK 64-Bit Server VM 18.9 (build 11.0.4-redhat+11-LTS, mixed mode, sharing)
 </pre>
 
 
@@ -271,12 +271,13 @@ OpenJDK 64-Bit Server VM Zulu11.33+15-CA (build 11.0.4+11-LTS, mixed mode, shari
 </pre>
 
 
-## Related reading
+## <span id="related">Related reading</span>
 
-### 2016
+### 2018
+
 <dl>
-  <dt><a href="https://www.slideshare.net/DanHeidinga/j9-under-the-hood-of-the-next-open-source-jvm">IBM</a>:<a name="ref_01">&nbsp;</a>OpenJ9: Under the hood of the next open source JVM</dt>
-  <dd><i>by Dan Heidinga (2016-09-21)</i><br/>Dan Heidinga gives a description of how bytecodes are loaded into the J9VM and how bytecode execution occurs, plus IBM's plans to open source J9.</dd>
+  <dt><a href="https://developer.ibm.com/tutorials/j-class-sharing-openj9/">IBM Developer</a>:<a name="ref_03">&nbsp;</a>Class sharing in Eclipse OpenJ9</dt>
+  <dd><i>by Ben Corrie, Hang Shao (2018-06-06)</i><br/>Reduce your memory footprint and improve startup performance with the shared class feature.</dd>
 </dl>
 
 ### 2017
@@ -286,11 +287,10 @@ OpenJDK 64-Bit Server VM Zulu11.33+15-CA (build 11.0.4+11-LTS, mixed mode, shari
   <dd><i>by Dan Heidinga (2017-10-10)</i><br/>Dan Heiding presents an updated version of my "OpenJ9: Under the hood of the next open source JVM" that covers where it was open sourced (github.com/eclipse/openj9), how to build it, and then deep dives into the ROM/RAM divide before touching on interpreter, JIT and AOT.</dd>
 </dl>
 
-### 2018
-
+### 2016
 <dl>
-  <dt><a href="https://developer.ibm.com/tutorials/j-class-sharing-openj9/">IBM Developer</a>:<a name="ref_03">&nbsp;</a>Class sharing in Eclipse OpenJ9</dt>
-  <dd><i>by Ben Corrie, Hang Shao (2018-06-06)</i><br/>Reduce your memory footprint and improve startup performance with the shared class feature.</dd>
+  <dt><a href="https://www.slideshare.net/DanHeidinga/j9-under-the-hood-of-the-next-open-source-jvm">IBM</a>:<a name="ref_01">&nbsp;</a>OpenJ9: Under the hood of the next open source JVM</dt>
+  <dd><i>by Dan Heidinga (2016-09-21)</i><br/>Dan Heidinga gives a description of how bytecodes are loaded into the J9VM and how bytecode execution occurs, plus IBM's plans to open source J9.</dd>
 </dl>
 
 

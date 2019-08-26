@@ -33,13 +33,13 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 > <sub><sup>**(1)**</sup> Written in [Go](https://github.com/drone/drone), <sup>**(2)**</sup> Written in [Java](https://www.oracle.com/technetwork/java/index.html), <sup>**(3)**</sup> Written in [Ruby](https://www.ruby-lang.org/en/).</sub>
 
 
-## <span id="section_01">Project dependencies</span>
+## <span id="proj_deps">Project dependencies</span>
 
 Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three external software for the **Microsoft Windows** platform:
 
 - [Oracle OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot)<sup id="anchor_02">[[1]](#footnote_01)</sup> ([*release notes*](https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html))
 - [SBT 1.2.8](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
-- [Git 2.22](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.22.0.txt))
+- [Git 2.23](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.23.0.txt))
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
@@ -49,7 +49,7 @@ For instance our development environment looks as follows (*July 2019*):
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_222-b10\
 C:\opt\sbt-1.2.8\
-C:\opt\Git-2.22.0\
+C:\opt\Git-2.23.0\
 </pre>
 
 > **:mag_right:** [Git for Windows](https://git-scm.com/) provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
@@ -115,11 +115,11 @@ We also define a virtual drive **`W:`** in our working environment in order to r
 
 In the next section we give a brief description of the batch files present in those directories.
 
-## Batch commands
+## <span id="batch_commands">Batch commands</span>
 
 We distinguish different sets of batch commands:
 
-1. [**`setenv.bat`**](https://github.com/michelou/dotty/tree/batch-files/setenv.bat) - This batch command makes external tools such as [**`java.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt (see section [**Project dependencies**](#section_01)).
+1. [**`setenv.bat`**](https://github.com/michelou/dotty/tree/batch-files/setenv.bat) - This batch command makes external tools such as [**`java.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
 
     <pre style="font-size:80%;">
     <b>&gt; setenv help</b>
@@ -208,14 +208,14 @@ We distinguish different sets of batch commands:
     > | **`build documentation`** | **`build bootstrap documentation-only`** |
     > | **`build sbt`** | **`build bootstrap sbt-only`** |
 
-5. [**`cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) - This batch command performs test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\cmdTests`**](project/scripts/cmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server (see console output in section [**Usage examples**](#section_05)).
+5. [**`cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) - This batch command performs test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\cmdTests`**](project/scripts/cmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server (see console output in section [**Usage examples**](#usage_examples)).
 
 6. [**`bootstrapCmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) - This batch command performs the test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\bootstrapCmdTests`**](project/scripts/bootstrapCmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
 7. [**`genDocs.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) - This batch command generates the Dotty documentation on a Windows machine in a similar manner to the shell script [**`project\script\genDocs`**](project/scripts/genDocs) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
 
-## Windows related issues
+## <span id="issues">Windows related issues</span>
 
 We have come across several Windows related issues while executing subcommands of [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat):
 
@@ -245,7 +245,7 @@ Below we summarize changes we made to the [source code](https://github.com/lampe
 - Transformation of URL addresses to file system paths<br/>*Example*: [**`url.getFile`**](https://docs.oracle.com/javase/8/docs/api/java/net/URL.html#getFile) **&rarr;** **`Paths.get(url.toURI).toString`**.
 - Unspecified character encoding when piping stdout<br/>*Example*: **`new InputStreamReader(process.getInputStream)`** **&rarr;** **`new InputStreamReader(process.getInputStream, "UTF-8")`**<br/>where **`process`** has type [**`ProcessBuilder`**](https://docs.oracle.com/javase/8/docs/api/java/lang/ProcessBuilder.html).
 
-## <span id="section_05">Usage examples</span>
+## <span id="usage_examples">Usage examples</span>
 
 #### `setenv.bat`
 
@@ -255,7 +255,7 @@ Command **`setenv`** is executed once to setup our development environment; it m
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_222, java 1.8.0_222,
-   sbt 1.2.8/2.12.8, git 2.22.0.windows.1, diff 3.7
+   sbt 1.2.8/2.12.8, git 2.23.0.windows.1, diff 3.7
 
 <b>&gt; where sbt</b>
 C:\opt\sbt-1.2.8\bin\sbt
@@ -268,15 +268,15 @@ Command **`setenv -verbose`** also displays the tool paths and the current Git b
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_222, java 1.8.0_222,
-   sbt 1.2.8/2.12.8, git 2.22.0.windows.1, diff 3.7
+   sbt 1.2.8/2.12.8, git 2.23.0.windows.1, diff 3.7
 Tool paths:
    C:\opt\jdk-1.8.0_222-b10\bin\javac.exe
    C:\opt\jdk-1.8.0_222-b10\bin\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\opt\sbt-1.2.8\bin\sbt.bat
-   C:\opt\Git-2.22.0\bin\git.exe
-   C:\opt\Git-2.22.0\usr\bin\diff.exe
+   C:\opt\Git-2.23.0\bin\git.exe
+   C:\opt\Git-2.23.0\usr\bin\diff.exe
 Current Git branch:
    master
 </pre>
@@ -319,7 +319,7 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     <pre style="font-size:80%;">
     <b>&gt; build -verbose cleanall</b>
     Tool paths
-      GIT_CMD=C:\opt\Git-2.22.0\bin\git.exe
+      GIT_CMD=C:\opt\Git-2.23.0\bin\git.exe
       JAVA_CMD=C:\opt\jdk-1.8.0_222-b10\bin\java.exe
       SBT_CMD=C:\opt\sbt-1.2.8\bin\sbt.bat
     Tool options
@@ -647,7 +647,7 @@ total warnings with regards to compilation and documentation: 29
 [success] Total time: 135 s, completed 3 déc. 2018 15:05:04
 </pre>
 
-## Footnotes
+## <span id="footnotes">Footnotes</span>
 
 <a name="footnote_01">[1]</a> ***2018-11-18*** [↩](#anchor_02)
 
@@ -657,5 +657,5 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/July 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/August 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
