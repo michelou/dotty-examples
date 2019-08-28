@@ -1,6 +1,14 @@
+param(
+  [ValidateRange(0,1)][int]$debug
+)
+$process=Get-Process -ID $PID
+$process.PriorityClass='High'
+
 # see https://search.maven.org/classic/#api
 # see https://blogs.technet.microsoft.com/heyscriptingguy/2015/10/08/playing-with-json-and-powershell/
 #
+
+#$progressPreference='silentlyContinue'
 $request='https://search.maven.org/solrsearch/select?q=g:"ch.epfl.lamp"%20AND%20p:"jar"&rows=1&wt=json'
 $latest=Invoke-WebRequest -UseBasicParsing -Uri $request |
 ConvertFrom-Json |
@@ -9,6 +17,8 @@ Select -expand docs |
 Where { $_.a -match "^dotty-compiler_0\.18.*" } |
 # for instance: 0.18.0-bin-20190802-95ae77c-NIGHTLY
 Foreach { $_.latestVersion }
+
+if ($debug -eq 1) { [Console]::Error.WriteLine("[getnightly] latest=$latest") }
 
 $request='https://search.maven.org/solrsearch/select?q=g:"ch.epfl.lamp"%20AND%20p:"jar"&rows=20&wt=json'
 Invoke-WebRequest -UseBasicParsing -Uri $request |

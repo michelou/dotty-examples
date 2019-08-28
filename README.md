@@ -317,26 +317,26 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; getnightly</b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar
-dotty-doc_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar
-dotty-interfaces-0.18.0-bin-20190816-ff43160-NIGHTLY.jar
-dotty-language-server_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar
-dotty-library_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar
-dotty-sbt-bridge-0.18.0-bin-20190816-ff43160-NIGHTLY.jar
-dotty_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar
+dotty-compiler_0.18-0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar
+dotty-doc_0.18-0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar
+dotty-interfaces-.jar
+dotty-language-server_0.18-0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar
+dotty-library_0.18-0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar
+dotty-sbt-bridge-0.18.1-bin-20190827-2bbfd10.18.1-bin-20190827-2bbfd17-NIGHTLY7-NIGHTLY.jar
+dotty_0.18-0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar
 </pre>
 
 Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
 <pre style="font-size:80%">
 <b>&gt; getnightly -verbose</b>
-Downloading file dotty-compiler_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar ... 11.1 Mb
-Downloading file dotty-language-server_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar ... 148 Kb
-Downloading file dotty-doc_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar ... 1 Mb
-Downloading file dotty_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-library_0.18-0.18.0-bin-20190816-ff43160-NIGHTLY.jar ... 1.2 Mb
-Downloading file dotty-sbt-bridge-0.18.0-bin-20190816-ff43160-NIGHTLY.jar ... 13.4 Kb
-Downloading file dotty-interfaces-0.18.0-bin-20190816-ff43160-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-compiler_0.18-0.0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar ... 11.1 Mb
+Downloading file dotty-language-server_0.18-0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar ... 148 Kb
+Downloading file dotty-doc_0.18-0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar ... 1 Mb
+Downloading file dotty_0.18-0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-library_0.18-0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar ... 1.2 Mb
+Downloading file dotty-sbt-bridge-0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty-interfaces-0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar ... 3.4 Kb
 Finished to download 7 files to directory W:\DOTTY-~1\out\nightly-jars
 </pre>
 
@@ -347,10 +347,10 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 <pre style="font-size:80%;">
 <b>&gt; getnightly activate</b>
 Finished to download 7 files to directory W:\DOTTY-~1\out\nightly-jars
-Activate nightly build libraries: 0.18.0-bin-20190816-ff43160-NIGHTLY
+Activate nightly build libraries: 0.18.1-bin-20190827-2bbfd17-NIGHTLY
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.18.0-bin-20190816-ff43160-NIGHTLY-git-ff43160 -- Copyright 2002-2019, LAMP/EPFLt 2002-2019, LAMP/EPFL
+Dotty compiler version 0.18.1-bin-20190827-2bbfd17-NIGHTLY-git-2bbfd17 -- Copyright 2002-2019, LAMP/EPFLt 2002-2019, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
 Activate default Dotty libraries: 0.17.0-RC1
@@ -373,17 +373,22 @@ lib\0.17.0-RC1\
 &nbsp;&nbsp;dotty-doc_0.17-0.17.0-RC1.jar
 &nbsp;&nbsp;dotty-interfaces-0.17.0-RC1.jar
 &nbsp;&nbsp;dotty-library_0.17-0.17.0-RC1.jar
-lib\0.18.0-bin-20190808-259ee05-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.18-0.18.0-bin-20190808-259ee05-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.18-0.18.0-bin-20190808-259ee05-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.18.0-bin-20190808-259ee05-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.18-0.18.0-bin-20190808-259ee05-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.18-0.18.0-bin-20190808-259ee05-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.18.0-bin-20190808-259ee05-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.18-0.18.0-bin-20190808-259ee05-NIGHTLY.jar
+&nbsp;&nbsp;scala-library-2.12.8.jar
+lib\0.18.1-bin-20190827-2bbfd17-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.18-0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.18-0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.18-0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.18-0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.18-0.18.1-bin-20190827-2bbfd17-NIGHTLY.jar
+&nbsp;&nbsp;scala-library-2.13.0.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original Dotty installation respectively from the latest nightly build.
+
+> **:warning:** Dotty versions up to `0.18.0` depend on **`scala-library-2.12.8.jar`**; Dotty versions `0.18.1` and newer depend on **`scala-library-2.13.0.jar`**.
+
 
 #### `searchjars.bat <class_name>`
 

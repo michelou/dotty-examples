@@ -1,5 +1,5 @@
 trait WeekDay {
-  case A
+  case class A()
 }
 enum WorkingDay extends WeekDay {
   case SUNDAY
@@ -14,7 +14,7 @@ enum WorkingDay extends WeekDay {
 object Test {
   def main(args: Array[String]): Unit = {
     println(Day.SUNDAY)
-    println(WeekDay.A)
+    // println(WeekDay.A)
     println(WorkingDay.SUNDAY)
   }
 }
