@@ -38,7 +38,7 @@ Optionally one may also install the following software:
 - [Bloop 1.3](https://scalacenter.github.io/bloop/) (requires Java 8 and Python 2/3) ([*release notes*](https://github.com/scalacenter/bloop/releases/tag/v1.3.2))
 - [CFR 0.14](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.23](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.23.0.txt))
-- [Gradle 5.6](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.6/release-notes.html))
+- [Gradle 5.6](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.6.1/release-notes.html))
 - [Mill 0.5](https://github.com/lihaoyi/mill/releases/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
 - [SBT 1.2.8](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
 - [Scala 2.13](https://www.scala-lang.org/files/archive/) (requires Java 8) ([*release notes*](https://scala-lang.org/download/2.13.0-RC3.html))
@@ -56,13 +56,13 @@ C:\opt\bloop-1.3.2\          <i>(  0.1 MB)</i>
 C:\opt\cfr-0.146\            <i>(  1.7 MB)</i>
 C:\opt\dotty-0.18.1-RC1\     <i>( 25.2 MB)</i>
 C:\opt\Git-2.23.0\           <i>(271.0 MB)</i>
-C:\opt\gradle-5.6\           <i>(101.0 MB)</i>
+C:\opt\gradle-5.6.1\         <i>(101.0 MB)</i>
 C:\opt\Mill-0.5.0\           <i>( 37.0 MB)</i>
 C:\opt\sbt-1.2.8\            <i>( 50.0 MB)</i>
 C:\opt\scala-2.13.0\         <i>( 19.7 MB)</i>
 </pre>
 
-> **:mag_right:** Git for Windows provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
+> **:mag_right:** [Git for Windows](https://gitforwindows.org/) provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
 
 We further recommand using an advanced console emulator such as [ComEmu](https://conemu.github.io/) (or [Cmdr](http://cmder.net/)) which features [Unicode support](https://conemu.github.io/en/UnicodeSupport.html).
 
@@ -86,7 +86,7 @@ where
 - directory [**`bin\0.18\`**](bin/0.18/) contains the batch commands for [Dotty 0.18](https://github.com/lampepfl/dotty/releases/tag/0.18.1-RC1).
 - file [**`bin\cfr-0.146.zip`**](bin/cfr-0.146.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several [Dotty](https://dotty.epfl.ch/) related papers/articles.
-- directory [**`examples\`**](examples/) contains Dotty examples grabbed from various websites.
+- directory [**`examples\`**](examples/) contains [Dotty](https://dotty.epfl.ch/) examples grabbed from various websites.
 - directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
 - file [**`README.md`**](README.md) is the [Markdown](https://github.github.com/gfm/) document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch command for setting up our environment.
@@ -125,8 +125,8 @@ We distinguish different sets of batch commands:
    - [**`timeit.bat <cmd_1> { & <cmd_2> }`**](bin/timeit.bat) prints the execution time of the specified commands.
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory [**`bin\0.18\`**](bin/0.18/) - This directory contains batch files to be copied to the **`bin\`** directory of the Dotty installation (eg. **`C:\opt\dotty-0.18.1-RC1\bin\`**) in order to use the [**`dotc`**](bin/0.18/dotc.bat), [**`dotd`**](bin/0.18/dotd.bat) and [**`dotr`**](bin/0.18/dotr.bat) commands on **Microsoft Windows**.
-    > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Dotty distribution](https://github.com/lampepfl/dotty/releases). We also have submitted pull request [#5444](https://github.com/lampepfl/dotty/pull/5444) to add them to the Scala distribution.
+3. Directory [**`bin\0.18\`**](bin/0.18/) - This directory contains batch files to be copied to the **`bin\`** directory of the [Dotty](https://dotty.epfl.ch/) installation (eg. **`C:\opt\dotty-0.18.1-RC1\bin\`**) in order to use the [**`dotc`**](bin/0.18/dotc.bat), [**`dotd`**](bin/0.18/dotd.bat) and [**`dotr`**](bin/0.18/dotr.bat) commands on **Microsoft Windows**.
+    > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Dotty distribution](https://github.com/lampepfl/dotty/releases). We also have submitted pull request [#5444](https://github.com/lampepfl/dotty/pull/5444) to add them to the Dotty distribution.
 
     <pre style="font-size:80%;">
     <b>&gt; dir /b c:\opt\dotty-0.18.1-RC1\bin</b>
@@ -252,7 +252,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_222, java 1.8.0_222, scalac 2.13.0, dotc 0.18.1-RC1,
-   ant 1.10.6, gradle 5.6, mill 0.5.0, mvn 3.6.1, sbt 1.2.8/2.12.8,
+   ant 1.10.6, gradle 5.6.1, mill 0.5.0, mvn 3.6.1, sbt 1.2.8/2.12.8,
    cfr 0.146, bloop v1.3.2, git 2.23.0.windows.1, diff 3.7
 
 <b>&gt; where sbt</b>
@@ -266,7 +266,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_222, java 1.8.0_222, scalac 2.13.0, dotc 0.18.1-RC1,
-   ant 1.10.6, gradle 5.6, mill 0.5.0, mvn 3.6.1, sbt 1.2.8/2.12.8,
+   ant 1.10.6, gradle 5.6.1, mill 0.5.0, mvn 3.6.1, sbt 1.2.8/2.12.8,
    cfr 0.146, bloop v1.3.2, git 2.23.0.windows.1, diff 3.7
 Tool paths:
    C:\opt\jdk-1.8.0_222-b10\bin\javac.exe
@@ -276,7 +276,7 @@ Tool paths:
    C:\opt\scala-2.13.0\bin\scalac.bat
    C:\opt\dotty-0.18.1-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.6\bin\ant.bat
-   C:\opt\gradle-5.6\bin\gradle.bat
+   C:\opt\gradle-5.6.1\bin\gradle.bat
    C:\opt\Mill-0.5.0\mill.bat
    C:\opt\apache-maven-3.6.1\bin\mvn.cmd
    C:\opt\sbt-1.2.8\bin\sbt.bat
