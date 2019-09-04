@@ -16,5 +16,8 @@ lazy val root = project
     mainClass in Compile := Some("hello.Hello"),
     logLevel := Level.Warn,
 
-    libraryDependencies += ("org.scala-lang.modules" %% "scala-xml" % "1.0.6").withDottyCompat(scalaVersion.value)
+    libraryDependencies ++= Seq(
+      //https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml_2.13
+      "org.scala-lang.modules" %% "scala-xml" % "1.2.0").withDottyCompat(scalaVersion.value
+    )
   )

@@ -1,0 +1,13 @@
+apply from: '../common.gradle'
+
+group = 'dotty.examples'
+version = '0.1-SNAPSHOT'
+
+description = """Example Gradle project that compiles using Dotty"""
+
+mainClassName = 'ImplicitDemo'
+
+run.doFirst {
+    main mainClassName
+    args ''
+}

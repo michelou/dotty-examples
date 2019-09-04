@@ -10,9 +10,12 @@ lazy val root = project
     scalaVersion := dottyVersion,
     scalacOptions ++= Seq(
       "-deprecation",
-	  "-feature"
+      "-encoding", "UTF-8",
+      "-feature"
     ),
 
-    // https://mvnrepository.com/artifact/com.novocode/junit-interface
-    libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % "test"
+    libraryDependencies ++= Seq(
+      // https://mvnrepository.com/artifact/com.novocode/junit-interface
+      "com.novocode" % "junit-interface" % "0.11" % "test"
+    )
   )

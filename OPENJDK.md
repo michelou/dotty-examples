@@ -27,8 +27,8 @@ This project depends on several external software for the **Microsoft Windows** 
 
 - [BellSoft OpenJDK 11](https://bell-sw.com/pages/java-11.0.4/) from [BellSoft](https://bell-sw.com/pages/about) ([*release notes*](https://bell-sw.com/pages/liberica-release-notes-11.0.4)). <!-- build 11.0.4-BellSoft+12 -->
 - [Corretto OpenJDK 11](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html) from [Amazon](https://aws.amazon.com/) ([*release notes*](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html)). <!-- build 11.0.2+9-LTS -->
-- [OpenJ9 OpenJDK 11](https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9) from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html). <!-- build 11.0.4+11 -->
-- [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot) from [Oracle](https://www.oracle.com/). <!-- build 11.0.4+11 -->
+- [OpenJ9 OpenJDK 11](https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9) from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html) ([*release notes*](https://adoptopenjdk.net/release_notes.html?variant=openjdk11&jvmVariant=openj9#jdk11_0_4)). <!-- build 11.0.4+11 -->
+- [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot) from [Oracle](https://www.oracle.com/) ([*release notes*](https://adoptopenjdk.net/release_notes.html?variant=openjdk11&jvmVariant=hotspot#jdk11_0_4)). <!-- build 11.0.4+11 -->
 - [RedHat OpenJDK 11](https://developers.redhat.com/products/openjdk/download/) from [RedHat](https://www.redhat.com/). <!-- build 11.0.2-redhat+7-LTS (2019-02-07) -->
 - [SapMachine OpenJDK 11](https://sap.github.io/SapMachine/) from [SAP](https://www.sap.com/). <!-- build 11.0.2+0-LTS-sapmachine -->
 - [Trava OpenJDK 11](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm) from [Travis](https://travis-ci.com/) ([*release notes*](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases)). <!-- 11.0.1+8 (2019-03-16) -->

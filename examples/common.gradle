@@ -10,11 +10,11 @@ ext {
     dotcLibraryFiles = dottyLibraryFiles.filter { File f ->
         f.name.startsWith("scala-library") ||
         f.name.startsWith("scala-xml") ||
-        f.name.startsWith("scala-asm") ||
         f.name.startsWith("compiler-interface") ||
         f.name.startsWith("dotty-interfaces") ||
         f.name.startsWith("dotty-library") ||
-        f.name.startsWith("dotty-compiler")
+        f.name.startsWith("dotty-compiler") ||
+        f.name.startsWith("dotty-staging")
     }
     scalaSourceTree = fileTree(dir: "/src/main/scala", include: "**/*.scala")
     //jarLibraryTree = fileTree(dir: "/lib", include: "**/*.jar")
