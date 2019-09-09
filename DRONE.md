@@ -38,7 +38,7 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three external software for the **Microsoft Windows** platform:
 
 - [Oracle OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot)<sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*](https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html))
-- [SBT 1.2.8](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
+- [SBT 1.3](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.3.0))
 - [Git 2.23](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.23.0.txt))
 
 > **&#9755;** ***Installation policy***<br/>
@@ -48,7 +48,7 @@ For instance our development environment looks as follows (*July 2019*):
 
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_222-b10\
-C:\opt\sbt-1.2.8\
+C:\opt\sbt-1.3.0\
 C:\opt\Git-2.23.0\
 </pre>
 
@@ -258,8 +258,8 @@ Tool versions:
    sbt 1.2.8/2.12.8, git 2.23.0.windows.1, diff 3.7
 
 <b>&gt; where sbt</b>
-C:\opt\sbt-1.2.8\bin\sbt
-C:\opt\sbt-1.2.8\bin\sbt.bat
+C:\opt\sbt-1.3.0\bin\sbt
+C:\opt\sbt-1.3.0\bin\sbt.bat
 </pre>
 
 Command **`setenv -verbose`** also displays the tool paths and the current Git branch:
@@ -274,7 +274,7 @@ Tool paths:
    C:\opt\jdk-1.8.0_222-b10\bin\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
-   C:\opt\sbt-1.2.8\bin\sbt.bat
+   C:\opt\sbt-1.3.0\bin\sbt.bat
    C:\opt\Git-2.23.0\bin\git.exe
    C:\opt\Git-2.23.0\usr\bin\diff.exe
 Current Git branch:
@@ -321,7 +321,7 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     Tool paths
       GIT_CMD=C:\opt\Git-2.23.0\bin\git.exe
       JAVA_CMD=C:\opt\jdk-1.8.0_222-b10\bin\java.exe
-      SBT_CMD=C:\opt\sbt-1.2.8\bin\sbt.bat
+      SBT_CMD=C:\opt\sbt-1.3.0\bin\sbt.bat
     Tool options
       JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
       SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -395,8 +395,8 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     [...]
     &nbsp;
     <b>&gt; dir /a-d /b dist-bootstrapped\target</b>
-    dotty-0.17.0-bin-SNAPSHOT.tar.gz
-    dotty-0.17.0-bin-SNAPSHOT.zip
+    dotty-0.19.1-bin-SNAPSHOT.tar.gz
+    dotty-0.19.1-bin-SNAPSHOT.zip
     </pre>
 
 - **`documentation`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Dotty website](https://dotty.epfl.ch/) and the online [Dotty documentation](https://dotty.epfl.ch/docs/).<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
@@ -651,13 +651,13 @@ total warnings with regards to compilation and documentation: 29
 
 <a name="footnote_01">[1]</a> ***2018-11-18*** [↩](#anchor_01)
 
-<div style="margin:0 0 1em 20px;">
+<p style="margin:0 0 1em 20px;">
 Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current LTS release.<br/>(see also <a href="https://www.slideshare.net/HendrikEbbers/java-11-omg">Java 11 keynote</a> from <a href="https://www.jvm-con.de/speakers/#/speaker/3461-hendrik-ebbers">Hendrik Ebbers</a> at <a href="https://www.jvm-con.de/ruckblick/">JVM-Con 2018</a>).
-</div>
+</p>
 
 <a name="footnote_02">[2]</a> ***Git settings*** [↩](#anchor_02)
 
-<div style="margin:0 0 1em 20px;">
+<p style="margin:0 0 1em 20px;">
 We mention here one issue when working with the <code>git</code> command on Windows, namely the error message <code>"Filename too long"</code>:
 <pre style="font-size:80%;">
 <b>&gt; git status</b>
@@ -670,7 +670,7 @@ We fixed our local Git settings as follows:
 <pre style="font-size:80%;">
 <b>&gt; git config --system core.longpaths true</b>
 </pre>
-</div>
+</p>
 
 ***
 
