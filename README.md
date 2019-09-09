@@ -256,8 +256,8 @@ Tool versions:
    cfr 0.146, bloop v1.3.2, git 2.23.0.windows.1, diff 3.7
 
 <b>&gt; where sbt</b>
-C:\opt\sbt-1.2.8\bin\sbt
-C:\opt\sbt-1.2.8\bin\sbt.bat
+C:\opt\sbt-1.3.0\bin\sbt
+C:\opt\sbt-1.3.0\bin\sbt.bat
 </pre>
 
 Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
@@ -266,7 +266,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_222, java 1.8.0_222, scalac 2.13.0, dotc 0.18.1-RC1,
-   ant 1.10.6, gradle 5.6.1, mill 0.5.1, mvn 3.6.2, sbt 1.2.8/2.12.8,
+   ant 1.10.7, gradle 5.6.1, mill 0.5.1, mvn 3.6.2, sbt 1.2.8/2.12.8,
    cfr 0.146, bloop v1.3.2, git 2.23.0.windows.1, diff 3.7
 Tool paths:
    C:\opt\jdk-1.8.0_222-b10\bin\javac.exe
@@ -302,7 +302,7 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; dirsize examples myexamples c:\opt\dotty-0.17.0-RC1 c:\opt\jdk-1.8.0_222-b10</b>
+<b>&gt; dirsize examples myexamples c:\opt\dotty-0.18.1-RC1 c:\opt\jdk-1.8.0_222-b10</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
 Size of directory "c:\opt\dotty-0.18.1-RC1" is 25.2 Mb
@@ -525,7 +525,7 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 | :----------- | :------: | :------ |
 | `build.sbt` | `dottyVersion` | `0.17.0-RC1` &rarr; `0.18.1-RC1`|
 | `build.sc` | `scalaVersion` | `0.17.0-RC1` &rarr; `0.18.1-RC1` |
-| `project\build.properties` | `sbt.version` | `1.2.7` &rarr; `1.2.8` |
+| `project\build.properties` | `sbt.version` | `1.2.8` &rarr; `1.3.0` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.3.3` &rarr; `0.3.4` |
 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
