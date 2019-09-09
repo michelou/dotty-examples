@@ -1,6 +1,6 @@
 enum HLst {
-  case HCons[+Hd, +Tl <: HLst](hd: Hd, tl: Tl)
-  case HNil
+  case HCons[+Hd, +Tl <: HLst](hd: Hd, tl: Tl) extends HLst
+  case HNil extends HLst
 }
 
 object Main {

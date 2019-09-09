@@ -13,28 +13,28 @@ set _EXITCODE=0
 
 for %%f in ("%~dp0..") do set _ROOT_DIR=%%~sf
 
-rem file build.sbt
+rem files build.sbt, build.sc and ivy.xml
 set _DOTTY_VERSION_OLD="0.17.0-RC1"
 set _DOTTY_VERSION_NEW="0.18.1-RC1"
 
-rem file project\build.properties
-set _SBT_VERSION_OLD=sbt.version=1.2.7
-set _SBT_VERSION_NEW=sbt.version=1.2.8
+rem files project\build.properties
+set _SBT_VERSION_OLD=sbt.version=1.2.8
+set _SBT_VERSION_NEW=sbt.version=1.3.0
 
-rem file project\plugins.sbt
+rem files project\plugins.sbt
 rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/
 set _SBT_DOTTY_VERSION_OLD="0.3.3"
 set _SBT_DOTTY_VERSION_NEW="0.3.4"
 
-rem file build.sc
-set _MILL_DOTTY_VERSION_OLD="0.17.0-RC1"
-set _MILL_DOTTY_VERSION_NEW="0.18.1-RC1"
+rem files ivy.xml (NB. PS regex)
+set _IVY_DOTTY_VERSION_OLD=^(dotty-[a-z]+^)_0.17
+set _IVY_DOTTY_VERSION_NEW=$1_0.18
 
 rem ##########################################################################
 rem ## Main
 
-for %%i in (examples myexamples) do (
-    if %_DEBUG%==1 echo [%_BASENAME%] call :update_project "%_ROOT_DIR%\%%i"
+for %%i in (examples) do (
+    if %_DEBUG%==1 echo [%_BASENAME%] call :update_project "%_ROOT_DIR%\%%i" 1>&2
     call :update_project "%_ROOT_DIR%\%%i"
 )
 goto end
@@ -49,10 +49,10 @@ set __PATTERN_TO=%~3
 
 set __PS1_SCRIPT= ^
 (Get-Content '%__FILE%') ^| ^
-Foreach { $_.Replace('%__PATTERN_FROM%', '%__PATTERN_TO%') } ^| ^
+Foreach { $_ -replace '%__PATTERN_FROM%','%__PATTERN_TO%' } ^| ^
 Set-Content '%__FILE%'
 
-if %_DEBUG%==1 echo [%_BASENAME%] powershell -C "%__PS1_SCRIPT%"
+if %_DEBUG%==1 echo [%_BASENAME%] powershell -C "%__PS1_SCRIPT%" 1>&2
 powershell -C "%__PS1_SCRIPT%"
 if not %ERRORLEVEL%==0 (
     echo Error: Execution of ps1 cmdlet failed 1>&2
@@ -67,11 +67,12 @@ set __N1=0
 set __N2=0
 set __N3=0
 set __N4=0
+set __N5=0
 echo Parent directory: %__PARENT_DIR%
 for /f %%i in ('dir /ad /b "%__PARENT_DIR%"') do (
     set __BUILD_SBT=%__PARENT_DIR%\%%i\build.sbt
     if exist "!__BUILD_SBT!" (
-        if %_DEBUG%==1 echo [%_BASENAME%] call :replace "!__BUILD_SBT!" "%_DOTTY_VERSION_OLD%" "%_DOTTY_VERSION_NEW%"
+        if %_DEBUG%==1 echo [%_BASENAME%] call :replace "!__BUILD_SBT!" "%_DOTTY_VERSION_OLD%" "%_DOTTY_VERSION_NEW%" 1>&2
         call :replace "!__BUILD_SBT!" "%_DOTTY_VERSION_OLD%" "%_DOTTY_VERSION_NEW%"
         set /a __N1+=1
     ) else (
@@ -79,7 +80,7 @@ for /f %%i in ('dir /ad /b "%__PARENT_DIR%"') do (
     )
     set __BUILD_PROPS=%__PARENT_DIR%\%%i\project\build.properties
     if exist "!__BUILD_PROPS!" (
-        if %_DEBUG%==1 echo [%_BASENAME%] call :replace "!__BUILD_PROPS!" "%_SBT_VERSION_OLD%" "%_SBT_VERSION_NEW%"
+        if %_DEBUG%==1 echo [%_BASENAME%] call :replace "!__BUILD_PROPS!" "%_SBT_VERSION_OLD%" "%_SBT_VERSION_NEW%" 1>&2
         call :replace "!__BUILD_PROPS!" "%_SBT_VERSION_OLD%" "%_SBT_VERSION_NEW%"
         set /a __N2+=1
     ) else (
@@ -87,7 +88,7 @@ for /f %%i in ('dir /ad /b "%__PARENT_DIR%"') do (
     )
     set __PLUGINS_SBT=%__PARENT_DIR%\%%i\project\plugins.sbt
     if exist "!__PLUGINS_SBT!" (
-        if %_DEBUG%==1 echo [%_BASENAME%] call :replace "!__PLUGINS_SBT!" "%_SBT_DOTTY_VERSION_OLD%" "%_SBT_DOTTY_VERSION_NEW%"
+        if %_DEBUG%==1 echo [%_BASENAME%] call :replace "!__PLUGINS_SBT!" "%_SBT_DOTTY_VERSION_OLD%" "%_SBT_DOTTY_VERSION_NEW%" 1>&2
         call :replace "!__PLUGINS_SBT!" "%_SBT_DOTTY_VERSION_OLD%" "%_SBT_DOTTY_VERSION_NEW%"
         set /a __N3+=1
     ) else (
@@ -95,23 +96,36 @@ for /f %%i in ('dir /ad /b "%__PARENT_DIR%"') do (
     )
 	set __BUILD_SC=%__PARENT_DIR%\%%i\build.sc
     if exist "!__BUILD_SC!" (
-        if %_DEBUG%==1 echo [%_BASENAME%] call :replace "!__BUILD_SC!" "%_MILL_DOTTY_VERSION_OLD%" "%_MILL_DOTTY_VERSION_NEW%"
-        call :replace "!__BUILD_SC!" "%_MILL_DOTTY_VERSION_OLD%" "%_MILL_DOTTY_VERSION_NEW%"
+        if %_DEBUG%==1 echo [%_BASENAME%] call :replace "!__BUILD_SC!" "%_DOTTY_VERSION_OLD%" "%_DOTTY_VERSION_NEW%" 1>&2
+        call :replace "!__BUILD_SC!" "%_DOTTY_VERSION_OLD%" "%_DOTTY_VERSION_NEW%"
         set /a __N4+=1
     ) else (
        echo    Warning: Could not find file %%i\build.sc 1>&2
     )
 )
+rem Configuration files common to all projects
+set __IVY_XML=%__PARENT_DIR%\ivy.xml
+if exist "%__IVY_XML%" (
+    if %_DEBUG%==1 echo [%_BASENAME%] call :replace "%__IVY_XML%" "%_DOTTY_VERSION_OLD%" "%_DOTTY_VERSION_NEW%" 1>&2
+    call :replace "%__IVY_XML%" "%_DOTTY_VERSION_OLD%" "%_DOTTY_VERSION_NEW%"
+    set /a __N5+=1
+	if %_DEBUG%==1 echo [%_BASENAME%] call :replace "%__IVY_XML%" "%_IVY_DOTTY_VERSION_OLD%" "%_IVY_DOTTY_VERSION_NEW%" 1>&2
+	call :replace "%__IVY_XML%" "%_IVY_DOTTY_VERSION_OLD%" "%_IVY_DOTTY_VERSION_NEW%"
+) else (
+   echo    Warning: Could not find file %__IVY_XML% 1>&2
+)
+
 echo    Updated %__N1% build.sbt files
 echo    Updated %__N2% project\build.properties files
 echo    Updated %__N3% project\plugins.sbt files
 echo    Updated %__N4% build.sc files
+echo    Updated %__N5% ivy.xml files
 goto :eof
 
 rem ##########################################################################
 rem ## Cleanups
 
 :end
-if %_DEBUG%==1 echo [%_BASENAME%] _EXITCODE=%_EXITCODE%
+if %_DEBUG%==1 echo [%_BASENAME%] _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%
 endlocal

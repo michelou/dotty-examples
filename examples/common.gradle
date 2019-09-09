@@ -9,7 +9,7 @@ ext {
     dottyLibraryFiles = files { dottyLibraryPath.listFiles() }
     dotcLibraryFiles = dottyLibraryFiles.filter { File f ->
         f.name.startsWith("scala-library") ||
-        f.name.startsWith("scala-xml") ||
+        f.name.startsWith("scala-asm") ||
         f.name.startsWith("compiler-interface") ||
         f.name.startsWith("dotty-interfaces") ||
         f.name.startsWith("dotty-library") ||

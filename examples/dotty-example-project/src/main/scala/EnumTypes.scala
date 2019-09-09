@@ -29,7 +29,7 @@ object EnumTypes {
     val emptyList = ListEnum.Empty
     val list = ListEnum.Cons(1, ListEnum.Cons(2, ListEnum.Cons(3, ListEnum.Empty)))
     println(emptyList)
-    println(list + "\n")
+    println(list.toString + "\n")
 
     def calculateEarthWeightOnPlanets(earthWeight: Double) = {
       val mass = earthWeight/Planet.EARTH.surfaceGravity

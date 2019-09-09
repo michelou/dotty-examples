@@ -33,15 +33,15 @@ This project depends on two external software for the **Microsoft Windows** plat
 -->
 Optionally one may also install the following software:
 
-- [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.6.html))
+- [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.7.html))
 - [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([requires Java 7](http://maven.apache.org/docs/history.html))  ([*release notes*](http://maven.apache.org/docs/3.6.1/release-notes.html))
 - [Bloop 1.3](https://scalacenter.github.io/bloop/) (requires Java 8 and Python 2/3) ([*release notes*](https://github.com/scalacenter/bloop/releases/tag/v1.3.2))
 - [CFR 0.14](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.23](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.23.0.txt))
-- [Gradle 5.6](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.6.1/release-notes.html))
+- [Gradle 5.6](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.6.2/release-notes.html))
 - [Mill 0.5](https://github.com/lihaoyi/mill/releases/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
-- [SBT 1.2.8](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.2.8))
-- [Scala 2.13](https://www.scala-lang.org/files/archive/) (requires Java 8) ([*release notes*](https://scala-lang.org/download/2.13.0-RC3.html))
+- [SBT 1.3](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.3.0))
+- [Scala 2.13](https://www.scala-lang.org/files/archive/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.13.0))
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
@@ -50,15 +50,15 @@ For instance our development environment looks as follows (*August 2019*):
 
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_222-b10\    <i>(184.0 MB)</i>
-C:\opt\apache-ant-1.10.6\    <i>( 41.2 MB)</i>
-C:\opt\apache-maven-3.6.1\   <i>( 10.2 MB)</i>
+C:\opt\apache-ant-1.10.7\    <i>( 39.9 MB)</i>
+C:\opt\apache-maven-3.6.2\   <i>( 10.1 MB)</i>
 C:\opt\bloop-1.3.2\          <i>(  0.1 MB)</i>
 C:\opt\cfr-0.146\            <i>(  1.7 MB)</i>
 C:\opt\dotty-0.18.1-RC1\     <i>( 25.2 MB)</i>
 C:\opt\Git-2.23.0\           <i>(271.0 MB)</i>
-C:\opt\gradle-5.6.1\         <i>(101.0 MB)</i>
-C:\opt\Mill-0.5.0\           <i>( 37.0 MB)</i>
-C:\opt\sbt-1.2.8\            <i>( 50.0 MB)</i>
+C:\opt\gradle-5.6.2\         <i>(101.0 MB)</i>
+C:\opt\Mill-0.5.1\           <i>( 37.0 MB)</i>
+C:\opt\sbt-1.3.0\            <i>( 54.8 MB)</i>
 C:\opt\scala-2.13.0\         <i>( 19.7 MB)</i>
 </pre>
 
@@ -252,7 +252,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_222, java 1.8.0_222, scalac 2.13.0, dotc 0.18.1-RC1,
-   ant 1.10.6, gradle 5.6.1, mill 0.5.0, mvn 3.6.1, sbt 1.2.8/2.12.8,
+   ant 1.10.7, gradle 5.6.2, mill 0.5.1, mvn 3.6.2, sbt 1.2.8/2.12.8,
    cfr 0.146, bloop v1.3.2, git 2.23.0.windows.1, diff 3.7
 
 <b>&gt; where sbt</b>
@@ -266,7 +266,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_222, java 1.8.0_222, scalac 2.13.0, dotc 0.18.1-RC1,
-   ant 1.10.6, gradle 5.6.1, mill 0.5.0, mvn 3.6.1, sbt 1.2.8/2.12.8,
+   ant 1.10.6, gradle 5.6.1, mill 0.5.1, mvn 3.6.2, sbt 1.2.8/2.12.8,
    cfr 0.146, bloop v1.3.2, git 2.23.0.windows.1, diff 3.7
 Tool paths:
    C:\opt\jdk-1.8.0_222-b10\bin\javac.exe
@@ -275,11 +275,11 @@ Tool paths:
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\opt\scala-2.13.0\bin\scalac.bat
    C:\opt\dotty-0.18.1-RC1\bin\dotc.bat
-   C:\opt\apache-ant-1.10.6\bin\ant.bat
-   C:\opt\gradle-5.6.1\bin\gradle.bat
-   C:\opt\Mill-0.5.0\mill.bat
-   C:\opt\apache-maven-3.6.1\bin\mvn.cmd
-   C:\opt\sbt-1.2.8\bin\sbt.bat
+   C:\opt\apache-ant-1.10.7\bin\ant.bat
+   C:\opt\gradle-5.6.2\bin\gradle.bat
+   C:\opt\Mill-0.5.1\mill.bat
+   C:\opt\apache-maven-3.6.2\bin\mvn.cmd
+   C:\opt\sbt-1.3.0\bin\sbt.bat
    C:\opt\cfr-0.146\bin\cfr.bat
    C:\opt\bloop-1.3.2\bloop.cmd
    C:\opt\Git-2.23.0\bin\git.exe

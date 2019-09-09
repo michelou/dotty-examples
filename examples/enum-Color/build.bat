@@ -17,7 +17,8 @@ set _TARGET_DIR=%_ROOT_DIR%target
 set _CLASSES_DIR=%_TARGET_DIR%\classes
 set _TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes
 set _TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes
-set _DOCS_DIR=%_TARGET_DIR%\docs
+set _TARGET_DOCS_DIR=%_TARGET_DIR%\docs
+set _TARGET_LIB_DIR=%_TARGET_DIR%\lib
 
 call :props
 if not %_EXITCODE%==0 goto end
@@ -374,28 +375,53 @@ set __INCLUDE_DOTTY=%~1
 
 set _LIBS_CPATH=
 
-if defined __INCLUDE_DOTTY if exist "%DOTTY_HOME%\lib\" (
-    for %%i in (%DOTTY_HOME%\lib\*.jar) do (
-        set _LIBS_CPATH=!_LIBS_CPATH!%%i;
-    )
-)
 for %%f in ("%~dp0\..") do set __PARENT_DIR=%%~sf
 if exist "%__PARENT_DIR%\lib\" (
     for %%i in (%__PARENT_DIR%\lib\*.jar) do (
-        set _LIBS_CPATH=!_LIBS_CPATH!%%i;
+        set "_LIBS_CPATH=!_LIBS_CPATH!%%i;"
     )
 )
-if exist "%_ROOT_DIR%\lib\" (
-    for %%i in (%_ROOT_DIR%\lib\*.jar) do (
-        set _LIBS_CPATH=!_LIBS_CPATH!%%i;
+set __SCALACTIC_VERSION=3.0.8
+set __SCALACTIC_NAME=scalactic_2.13-%__SCALACTIC_VERSION%.jar
+set __SCALACTIC_URL=https://repo1.maven.org/maven2/org/scalactic/scalactic_2.13/%__SCALACTIC_VERSION%/%__SCALACTIC_NAME%
+set __SCALACTIC_FILE=%_TARGET_LIB_DIR%\%__SCALACTIC_NAME%
+if not exist "%_TARGET_LIB_DIR%" mkdir "%_TARGET_LIB_DIR%"
+if not exist "%__SCALACTIC_FILE%" (
+    if %_DEBUG%==1 ( echo [%_BASENAME%] powershell -c "Invoke-WebRequest -Uri %__SCALACTIC_URL% -Outfile %__SCALACTIC_FILE%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Download file %__SCALACTIC_NAME% to directory !_TARGET_LIB_DIR:%_ROOT_DIR%=! 1>&2
+    )
+    powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri %__SCALACTIC_URL% -Outfile %__SCALACTIC_FILE%"
+    if not !ERRORLEVEL!==0 (
+        echo Error: Failed to download file %__SCALACTIC_NAME% 1>&2
+        set _EXITCODE=1
+	    goto :eof
     )
 )
+set "_LIBS_CPATH=%_LIBS_CPATH%%__SCALACTIC_FILE%;"
+
+set __SCALATEST_VERSION=3.0.8
+set __SCALATEST_NAME=scalatest_2.13-%__SCALATEST_VERSION%.jar
+set __SCALATEST_URL=https://repo1.maven.org/maven2/org/scalatest/scalatest_2.13/%__SCALATEST_VERSION%/%__SCALATEST_NAME%
+set __SCALATEST_FILE=%_TARGET_LIB_DIR%\%__SCALATEST_NAME%
+if not exist "%_TARGET_LIB_DIR%" mkdir "%_TARGET_LIB_DIR%"
+if not exist "%__SCALATEST_FILE%" (
+    if %_DEBUG%==1 ( echo [%_BASENAME%] powershell -c "Invoke-WebRequest -Uri %__SCALATEST_URL% -Outfile %__SCALATEST_FILE%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Download file %__SCALATEST_NAME% to directory !_TARGET_LIB_DIR:%_ROOT_DIR%=! 1>&2
+    )
+    powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri %__SCALATEST_URL% -Outfile %__SCALATEST_FILE%"
+    if not !ERRORLEVEL!==0 (
+        echo Error: Failed to download file %__SCALATEST_NAME% 1>&2
+        set _EXITCODE=1
+	    goto :eof
+    )
+)
+set "_LIBS_CPATH=%_LIBS_CPATH%%__SCALATEST_FILE%;"
 goto :eof
 
 :doc
-if not exist "%_DOCS_DIR%" mkdir "%_DOCS_DIR%" 1>NUL
+if not exist "%_TARGET_DOCS_DIR%" mkdir "%_TARGET_DOCS_DIR%" 1>NUL
 
-set __TIMESTAMP_FILE=%_DOCS_DIR%\.latest-build
+set __TIMESTAMP_FILE=%_TARGET_DOCS_DIR%\.latest-build
 
 set __SCALA_SOURCE_FILES=
 for %%i in (%_ROOT_DIR%src\main\scala\*.scala) do (
@@ -403,10 +429,10 @@ for %%i in (%_ROOT_DIR%src\main\scala\*.scala) do (
 )
 
 for %%i in ("%~dp0\.") do set __PROJECT=%%~ni
-set __DOC_OPTS=-siteroot %_DOCS_DIR% -project %__PROJECT% -project-version 0.1-SNAPSHOT
+set __DOC_OPTS=-siteroot %_TARGET_DOCS_DIR% -project %__PROJECT% -project-version 0.1-SNAPSHOT
 
 if %_DEBUG%==1 ( echo [%_BASENAME%] %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES%
-) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into !_DOCS_DIR:%_ROOT_DIR%=!
+) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into !_TARGET_DOCS_DIR:%_ROOT_DIR%=!
 )
 call %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
@@ -471,8 +497,8 @@ if %_COMPILE_REQUIRED%==0 goto :eof
 call :libs_cpath 1
 set __TEST_COMPILE_OPTS=%_COMPILE_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d %_TEST_CLASSES_DIR%
 
-if %_DEBUG%==1 ( echo [%_BASENAME%] %_COMPILE_CMD% %__TEST_COMPILE_OPTS% %__TEST_SOURCE_FILES%
-) else if %_VERBOSE%==1 ( echo Compile Scala test sources to !_TEST_CLASSES_DIR:%_ROOT_DIR%=!
+if %_DEBUG%==1 ( echo [%_BASENAME%] %_COMPILE_CMD% %__TEST_COMPILE_OPTS% %__TEST_SOURCE_FILES% 1>&2
+) else if %_VERBOSE%==1 ( echo Compile Scala test sources to !_TEST_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
 call %_COMPILE_CMD% %__TEST_COMPILE_OPTS% %__TEST_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (

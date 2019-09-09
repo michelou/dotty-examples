@@ -23,8 +23,8 @@ object Main {
     xs.map(f1)
     println
 
-    def f2(t: Triple[String, Int, Int]): Unit = {
-      val (s, i, j) = t; print(s"$i,$j: $s ")
+    def f2(triple: (String, Int, Int)): Unit = {
+      val (s, i, j) = triple; print(s"$i,$j: $s ")
     }
     xs.map(f2)
     println

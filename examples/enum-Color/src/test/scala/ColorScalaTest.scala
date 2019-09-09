@@ -4,6 +4,6 @@ import org.scalatest.FunSuite
 
 class ColorScalaTest extends FunSuite {
   test("Enumeration contains 3 colors") {
-    assert(Color.enumValues.size == 4)
+    assert(Color.values.size == 4)
   }
 }
