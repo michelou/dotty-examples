@@ -1,4 +1,4 @@
-# <span id="top">Building Dotty on Windows</span>
+# <span id="top">Building Dotty on Windows</span> <span style="size:30%;"><a href="README.md">↩</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -44,7 +44,7 @@ Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*July 2019*):
+For instance our development environment looks as follows (*August 2019*):
 
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_222-b10\
@@ -56,7 +56,7 @@ C:\opt\Git-2.23.0\
 
 ## Directory structure
 
-The directory structure of the [Dotty repository](https://github.com/lampepfl/dotty/) is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts).
+The directory structure of the [Dotty repository](https://github.com/lampepfl/dotty/)<sup id="anchor_02">[[2]](#footnote_02)</sup>  is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts).
 
 <pre style="font-size:80%;">
 <b>&gt; dir /ad /b</b>
@@ -105,12 +105,12 @@ project\scripts\genDocs.bat
 setenv.bat
 </pre>
 
-We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).
+We also define a virtual drive **`V:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).
 
 > **:mag_right:** We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
-> <b>&gt; subst W: %USERPROFILE%\workspace</b>
+> <b>&gt; subst V: %USERPROFILE%\workspace\dotty</b>
 > </pre>
 
 In the next section we give a brief description of the batch files present in those directories.
@@ -217,7 +217,7 @@ We distinguish different sets of batch commands:
 
 ## <span id="issues">Windows related issues</span>
 
-We have come across several Windows related issues<sup id="anchor_02">[[2]](#footnote_02)</sup> while executing subcommands of [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat):
+We have come across several Windows related issues<sup id="anchor_03">[[3]](#footnote_03)</sup> while executing subcommands of [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat):
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :--------: | :--------: | :--------- |
@@ -655,19 +655,40 @@ total warnings with regards to compilation and documentation: 29
 Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current LTS release.<br/>(see also <a href="https://www.slideshare.net/HendrikEbbers/java-11-omg">Java 11 keynote</a> from <a href="https://www.jvm-con.de/speakers/#/speaker/3461-hendrik-ebbers">Hendrik Ebbers</a> at <a href="https://www.jvm-con.de/ruckblick/">JVM-Con 2018</a>).
 </p>
 
-<a name="footnote_02">[2]</a> ***Git settings*** [↩](#anchor_02)
+<a name="footnote_02">[2]</a> ***Git master repository*** [↩](#anchor_02)
+
+<p style="margin:0 0 1em 20px;">
+Nowadays we have experienced two times the error <code>Server does not allow request for unadvertised object..</code> when synchronizing our fork with the <a href="https://github.com/lampepfl/dotty"><b><code>lampepfl/dotty</code></b></a> repository:
+</p>
+<pre style="margin:0 0 1em 20px;font-size:80%;">
+<b>&gt; git fetch upstream master</b>
+<b>&gt; git merge upstream/master</b>
+[...]
+Error: Server does not allow request for unadvertised object ...
+</pre>
+<p style="margin:0 0 1em 20px;">
+That error is caused by one of the subprojects in directory <b><code>community-build\community-projects\</code></b> and can be solved with the following commands:
+</p>
+<pre style="margin:0 0 1em 20px;font-size:80%;">
+<b>&gt; git submodule sync</b>
+<b>&gt; git submodule update --depth 50</b>
+</pre>
+
+<a name="footnote_03">[3]</a> ***Git settings*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
 We mention here one issue when working with the <code>git</code> command on Windows, namely the error message <code>"Filename too long"</code>:
-<pre style="font-size:80%;">
+<pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; git status</b>
 mainExamples/src/main/scala/examples/main/active/writing/toConsoleWriting/info/reading/argumentAndResultMultiplier/FactorialOfArgumentMultipliedByResultMultiplierMain.scala: Filename too long
    On branch batch-files
    Your branch is ahead of 'origin/batch-files' by 1106 commits.
       (use "git push" to publish your local commits)
 </pre>
+<p style="margin:0 0 1em 20px;">
 We fixed our local Git settings as follows:
-<pre style="font-size:80%;">
+</p>
+<pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; git config --system core.longpaths true</b>
 </pre>
 </p>

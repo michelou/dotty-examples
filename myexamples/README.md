@@ -1,4 +1,4 @@
-# <span id="top">Dotty examples</span>
+# <span id="top">Dotty examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -95,7 +95,7 @@ rem ## Cleanups</i>
 <b>exit</b> /b %_EXITCODE%
 </pre>
 
-Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
+Running command [**`build clean run`**](HelloWorld/build.bat) in project [**`HelloWorld\`**](HelloWorld/) produces the following output:
 
 <pre style="font-size:80%;">
 <b>&gt; build clean run</b>
@@ -167,7 +167,7 @@ run {
 ...
 </pre>
 
-Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
+Running command **`gradle clean run`** in project [**`HelloWorld\`**](HelloWorld/) produces the following output:
 
 <pre style="font-size:80%;">
 <b>&gt; gradle clean run</b>
@@ -187,7 +187,7 @@ Command [**`sbt`**](https://www.scala-sbt.org/) is a Scala-based build tool for 
 The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is a standalone file written in [Scala](https://www.scala-lang.org/) and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
 <pre style="font-size:80%;">
-<b>val</b> dottyVersion = <span style="color:#990000;">"0.13.0-RC1"</span>
+<b>val</b> dottyVersion = <span style="color:#990000;">"0.18.1-RC1"</span>
 &nbsp;
 <b>lazy val</b> root = project
   .in(file(<span style="color:#990000;">"."</span>))
@@ -203,7 +203,7 @@ The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is a standalone f
   )
 </pre>
 
-Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
+Running command **`sbt -warn clean run`** in project [**`HelloWorld\`**](HelloWorld/) produces the following output:
 
 <pre style="font-size:80%;">
 <b>&gt; sbt -warn clean run</b>
@@ -221,7 +221,7 @@ The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone fil
 <b>import</b> mill._, scalalib._
 &nbsp;
 <b>object</b> go <b>extends</b> ScalaModule {
-  <b>def</b> scalaVersion = <span style="color:#990000;">"0.13.0-RC1"</span>  // "2.12.18"
+  <b>def</b> scalaVersion = <span style="color:#990000;">"0.18.1-RC1"</span>  // "2.12.18"
   <b>def</b> scalacOptions = Seq(<span style="color:#990000;">"-deprecation"</span>, <span style="color:#990000;">"-feature"</span>)
   <b>def</b> forkArgs = Seq(<span style="color:#990000;">"-Xmx1g"</span>)
   <b>def</b> mainClass = Some(<span style="color:#990000;">"Main"</span>)
@@ -263,10 +263,10 @@ Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/m
 
 <pre style="font-size:80%;">
 <b>&gt; ant clean run</b>
-Buildfile: W:\dotty-examples\myexamples\HelloWorld\build.xml
+Buildfile: W:\myexamples\HelloWorld\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">clean:</span>
-   [delete] Deleting directory W:\dotty-examples\myexamples\HelloWorld\target
+   [delete] Deleting directory W:\myexamples\HelloWorld\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
 
@@ -277,8 +277,8 @@ Buildfile: W:\dotty-examples\myexamples\HelloWorld\build.xml
 <span style="font-weight:bold;color:#9966ff;">init:</span>
 
 <span style="font-weight:bold;color:#9966ff;">compile:</span>
-    [mkdir] Created dir: W:\dotty-examples\myexamples\HelloWorld\target\classes
-   [scalac] Compiling 1 source file to W:\dotty-examples\myexamples\HelloWorld/target/classes
+    [mkdir] Created dir: W:\myexamples\HelloWorld\target\classes
+   [scalac] Compiling 1 source file to W:\myexamples\HelloWorld/target/classes
 
 <span style="font-weight:bold;color:#9966ff;">run:</span>
      [java] Hello world!
@@ -298,21 +298,21 @@ We specify property **`-Duse.local=true`** to use Dotty local installation (*rem
 
 <pre style="font-size:80%;">
 <b>&gt;</b> ant -Duse.local=true clean run
-Buildfile: W:\dotty-examples\myexamples\HelloWorld\build.xml
+Buildfile: W:\myexamples\HelloWorld\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">clean:</span>
-   [delete] Deleting directory W:\dotty-examples\myexamples\HelloWorld\target
+   [delete] Deleting directory W:\myexamples\HelloWorld\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] DOTTY_HOME=C:\opt\dotty-0.13.0-RC1
+     [echo] DOTTY_HOME=C:\opt\dotty-0.18.1-RC1
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
 <span style="font-weight:bold;color:#9966ff;">init:</span>
 
 <span style="font-weight:bold;color:#9966ff;">compile:</span>
-    [mkdir] Created dir: W:\dotty-examples\myexamples\HelloWorld\target\classes
-   [scalac] Compiling 1 source file to W:\dotty-examples\myexamples\HelloWorld/target/classes
+    [mkdir] Created dir: W:\myexamples\HelloWorld\target\classes
+   [scalac] Compiling 1 source file to W:\myexamples\HelloWorld/target/classes
 
 <span style="font-weight:bold;color:#9966ff;">run:</span>
      [java] Hello world!
@@ -375,17 +375,17 @@ Running command **`mvn clean test`** with option **`-debug`** produces additiona
 
 <pre>
 <b>&gt; mvn -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.13.0-RC1 \
- -cp C:\opt\dotty-0.13.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
+[DEBUG] [execute] C:\opt\jdk-1.8.0_222-b10\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.18.1-RC1 \
+ -cp C:\opt\dotty-0.18.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.13.0-RC1 [...]
-[DEBUG] [execute] C:\opt\jdk-8.0_202\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.13.0-RC1\lib\*.jar;\
+[DEBUG] [execute] C:\opt\jdk-1.8.0_222-b10\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.18.1-RC1 [...]
+[DEBUG] [execute] C:\opt\jdk-1.8.0_222-b10\bin\java.exe \
+ -Xms64m -Xmx1024m -cp C:\opt\dotty-0.18.1-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -407,7 +407,7 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 [INFO] --------------------------------[ jar ]---------------------------------
 [..]
 [INFO] --- maven-jar-plugin:3.1.1:jar (default-jar) @ HelloWorld ---
-[INFO] Building jar: W:\dotty-examples\myexamples\HelloWorld\target\HelloWorld-0.1-SNAPSHOT.jar
+[INFO] Building jar: W:\myexamples\HelloWorld\target\HelloWorld-0.1-SNAPSHOT.jar
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
@@ -419,15 +419,15 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 Finally can check the Java manifest in **`HelloWorld-0.1-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.13.0-RC1\lib\dotty-library_0.13-0.13.0-RC1.jar;^
-c:\opt\dotty-0.13.0-RC1\lib\scala-library-2.12.8.jar ^
+<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.18.1-RC1\lib\dotty-library_0.18-0.18.1-RC1.jar;^
+c:\opt\dotty-0.18.1-RC1\lib\scala-library-2.13.0.jar ^
 -jar target\HelloWorld-0.1-SNAPSHOT.jar
 Hello world!
 </pre>
 
 > **:mag_right:** We can use batch script [**`searchjars`**](../bin/searchjars.bat) in case some class is missing in the specified classpath, e.g.
 > <pre>
-> <b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.13.0-RC1\lib\dotty-library_0.13-0.13.0-RC1.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
+> <b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.18.1-RC1\lib\dotty-library_0.18-0.18.1-RC1.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
 > Exception in thread "main" java.lang.NoClassDefFoundError: scala/Serializable
 >         [...]
 >         at Main.main(Main.scala)
@@ -445,17 +445,17 @@ Hello world!
 > Searching for class Serializable in library files C:\opt\JDK-18~1.0_2\lib\*.jar
 >   tools.jar:com/sun/tools/internal/xjc/reader/xmlschema/bindinfo/BISerializable.class
 > </pre>
-> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.13.0-RC1\lib\scala-library-2.12.8.jar`**, so let us add it to our classpath !
+> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.18.1-RC1\lib\scala-library-2.13.0.jar`**, so let us add it to our classpath !
 
 
 ## Footnotes
 
 <a name="footnote_01">[1]</a> <a href="https://github.com/lampepfl/dotty/issues/4272" style="font-weight:bold;">bug4272</a> ***2018-04-08*** [↩](#anchor_01)
 
-<div style="margin:0 0 1em 20px;">
+<p style="margin:0 0 1em 20px;">
 Executing command <a href="bug4272/build.bat" style="font-weight:bold;font-family:Courier;">build</a> in directory <a href="bug4272/" style="font-weight:bold;font-family:Courier;">bug4272\</a> produces a runtime exception with version 0.7 of the Dotty compiler (*was fixed in version 0.8*):
-
-<pre style="font-size:80%;">
+</p>
+<pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; build clean compile run</b>
 exception occurred while typechecking C:\dotty\MYEXAM~1\bug4272\src\main\scala\Main.scala
 exception occurred while compiling C:\dotty\MYEXAM~1\bug4272\src\main\scala\Main.scala
@@ -479,14 +479,13 @@ Exception in thread "main" java.lang.AssertionError: cannot merge Constraint(
         at dotty.tools.dotc.Driver.main(Driver.scala:135)
         at dotty.tools.dotc.Main.main(Main.scala)
 </pre>
-</div>
 
 <a name="footnote_02">[2]</a> <a href="https://github.com/lampepfl/dotty/issues/4356" style="font-weight:bold;">bug4356</a> ***2018-04-21*** [↩](#anchor_02)
 
-<div style="margin:0 0 1em 20px;">
-Executing <a href="bug4356/build.bat" style="font-weight:bold;font-family:Courier;">build</a> in directory <a href="bug4356/" style="font-weight:bold;font-family:Courier;">bug4272\</a> produces a runtime exception with version 0.7 of the Dotty compiler:
-
-<pre>
+<p style="margin:0 0 1em 20px;">
+Executing <a href="bug4356/build.bat" style="font-weight:bold;font-family:Courier;">build</a> in directory <a href="bug4356/" style="font-weight:bold;font-family:Courier;">bug4356\</a> produces a runtime exception with version 0.7 of the Dotty compiler:
+</p>
+<pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; build clean compile</b>
 Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> at index 72: C:\dotty\MYEXAM~1\bug4356\\lib\junit-4.12.jar:C:\dotty\MYEXAM~1\bug4356\target\dotty-0.7\classes
         at sun.nio.fs.WindowsPathParser.normalize(WindowsPathParser.java:182)
@@ -499,7 +498,7 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
         at dotty.tools.dotc.Driver.main(Driver.scala:135)
         at dotty.tools.dotc.Main.main(Main.scala)
 </pre>
-</div>
 
+***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/February 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/August 2019* [**&#9650;**](#top)

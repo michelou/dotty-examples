@@ -41,7 +41,7 @@ Optionally one may also install the following software:
 - [Gradle 5.6](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.6.2/release-notes.html))
 - [Mill 0.5](https://github.com/lihaoyi/mill/releases/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
 - [SBT 1.3](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.3.0))
-- [Scala 2.13](https://www.scala-lang.org/files/archive/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.13.0))
+- [Scala 2.13](https://www.scala-lang.org/files/archive/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.13.1))
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
@@ -59,7 +59,7 @@ C:\opt\Git-2.23.0\           <i>(271.0 MB)</i>
 C:\opt\gradle-5.6.2\         <i>(101.0 MB)</i>
 C:\opt\Mill-0.5.1\           <i>( 37.0 MB)</i>
 C:\opt\sbt-1.3.0\            <i>( 54.8 MB)</i>
-C:\opt\scala-2.13.0\         <i>( 19.7 MB)</i>
+C:\opt\scala-2.13.1\         <i>( 19.7 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows](https://gitforwindows.org/) provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
@@ -251,7 +251,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
 Tool versions:
-   javac 1.8.0_222, java 1.8.0_222, scalac 2.13.0, dotc 0.18.1-RC1,
+   javac 1.8.0_222, java 1.8.0_222, scalac 2.13.1, dotc 0.18.1-RC1,
    ant 1.10.7, gradle 5.6.2, mill 0.5.1, mvn 3.6.2, sbt 1.2.8/2.12.8,
    cfr 0.146, bloop v1.3.2, git 2.23.0.windows.1, diff 3.7
 
@@ -265,7 +265,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 <pre style="font-size:80%;">
 <b>&gt; setenv -verbose</b>
 Tool versions:
-   javac 1.8.0_222, java 1.8.0_222, scalac 2.13.0, dotc 0.18.1-RC1,
+   javac 1.8.0_222, java 1.8.0_222, scalac 2.13.1, dotc 0.18.1-RC1,
    ant 1.10.7, gradle 5.6.1, mill 0.5.1, mvn 3.6.2, sbt 1.2.8/2.12.8,
    cfr 0.146, bloop v1.3.2, git 2.23.0.windows.1, diff 3.7
 Tool paths:
@@ -273,7 +273,7 @@ Tool paths:
    C:\opt\jdk-1.8.0_222-b10\bin\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
-   C:\opt\scala-2.13.0\bin\scalac.bat
+   C:\opt\scala-2.13.1\bin\scalac.bat
    C:\opt\dotty-0.18.1-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.7\bin\ant.bat
    C:\opt\gradle-5.6.2\bin\gradle.bat
@@ -414,8 +414,8 @@ Passing argument **`System`** to command [**`searchjars`**](bin/searchjars.bat) 
 <pre style="font-size:80%;">
 <b>&gt; searchjars System</b>
 Searching for class System in library files C:\opt\DOTTY-~1.1-R\lib\*.jar
-  scala-library-2.13.0.jar:scala/sys/SystemProperties$.class
-  scala-library-2.13.0.jar:scala/sys/SystemProperties.class
+  scala-library-2.13.1.jar:scala/sys/SystemProperties$.class
+  scala-library-2.13.1.jar:scala/sys/SystemProperties.class
 Searching for class System in library files C:\opt\SCALA-~1.0\lib\*.jar
   scala-compiler.jar:scala/tools/util/SystemExit$.class
   scala-compiler.jar:scala/tools/util/SystemExit.class

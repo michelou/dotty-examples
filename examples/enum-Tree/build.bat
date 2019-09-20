@@ -128,7 +128,7 @@ goto :args_loop
 :args_done
 if %_DEBUG%==1 (
     for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TOTAL_TIME_START=%%i
-    echo [%_BASENAME%] _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _COMPILE_CMD=%_COMPILE_CMD% _DOC=%_DOC% _RUN=%_RUN%
+    echo [%_BASENAME%] _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _COMPILE_CMD=%_COMPILE_CMD% _DOC=%_DOC% _RUN=%_RUN% 1>&2
 )
 goto :eof
 
@@ -205,8 +205,8 @@ rem input parameter(s): %1=directory path
 :rmdir
 set __DIR=%~1
 if not exist "%__DIR%\" goto :eof
-if %_DEBUG%==1 ( echo [%_BASENAME%] rmdir /s /q "%__DIR%"
-) else if %_VERBOSE%==1 ( echo Delete directory !__DIR:%_ROOT_DIR%=!
+if %_DEBUG%==1 ( echo [%_BASENAME%] rmdir /s /q "%__DIR%" 1>&2
+) else if %_VERBOSE%==1 ( echo Delete directory !__DIR:%_ROOT_DIR%=! 1>&2
 )
 rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
@@ -249,8 +249,8 @@ if not defined __JAVA_SOURCE_FILES goto compile_scala
 set _JAVAC_CMD=javac.exe
 set _JAVAC_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d %_CLASSES_DIR%
 
-if %_DEBUG%==1 ( echo [%_BASENAME%] %_JAVAC_CMD% %_JAVAC_OPTS% %__JAVA_SOURCE_FILES%
-) else if %_VERBOSE%==1 ( echo Compile Java source files to directory !_CLASSES_DIR:%_ROOT_DIR%=!
+if %_DEBUG%==1 ( echo [%_BASENAME%] %_JAVAC_CMD% %_JAVAC_OPTS% %__JAVA_SOURCE_FILES% 1>&2
+) else if %_VERBOSE%==1 ( echo Compile Java source files to directory !_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
 %_JAVAC_CMD% %_JAVAC_OPTS% %__JAVA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
@@ -267,8 +267,8 @@ if not %ERRORLEVEL%==0 (
 )
 set __COMPILE_OPTS=%_COMPILE_OPTS% -classpath "%__PROJECT_JARS%%_CLASSES_DIR%" -d %_CLASSES_DIR%
 
-if %_DEBUG%==1 ( echo [%_BASENAME%] %_COMPILE_CMD% %__COMPILE_OPTS% %__SCALA_SOURCE_FILES%
-) else if %_VERBOSE%==1 ( echo Compile Scala source files to directory !_CLASSES_DIR:%_ROOT_DIR%=!
+if %_DEBUG%==1 ( echo [%_BASENAME%] %_COMPILE_CMD% %__COMPILE_OPTS% %__SCALA_SOURCE_FILES% 1>&2
+) else if %_VERBOSE%==1 ( echo Compile Scala source files to directory !_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
 call %_COMPILE_CMD% %__COMPILE_OPTS% %__SCALA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
@@ -291,8 +291,8 @@ if %_TASTY%==1 (
         set __CLASS_NAME=%%f
 		set __CLASS_NAMES=!__CLASS_NAMES! !__CLASS_NAME:~0,-6!
     )
-    if %_DEBUG%==1 ( echo [%_BASENAME%] %_COMPILE_CMD% -from-tasty !__CLASS_NAMES! -classpath %_CLASSES_DIR% -d %_TASTY_CLASSES_DIR%
-    ) else if %_VERBOSE%==1 ( echo Compile Scala TASTy files to directory !_TASTY_CLASSES_DIR:%_ROOT_DIR%=!
+    if %_DEBUG%==1 ( echo [%_BASENAME%] %_COMPILE_CMD% -from-tasty !__CLASS_NAMES! -classpath %_CLASSES_DIR% -d %_TASTY_CLASSES_DIR% 1>&2
+    ) else if %_VERBOSE%==1 ( echo Compile Scala TASTy files to directory !_TASTY_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
     )
     call %_COMPILE_CMD% -from-tasty !__CLASS_NAMES! -classpath %_CLASSES_DIR% -d %_TASTY_CLASSES_DIR%
     if not !ERRORLEVEL!==0 (
@@ -313,7 +313,7 @@ set __SOURCE_TIMESTAMP=00000000000000
 set __N=0
 for %%i in (%__SOURCE_FILES%) do (
     call :timestamp "%%i"
-    if %_DEBUG%==1 echo [%_BASENAME%] !_TIMESTAMP! %%i
+    if %_DEBUG%==1 echo [%_BASENAME%] !_TIMESTAMP! %%i 1>&2
     call :newer !_TIMESTAMP! !__SOURCE_TIMESTAMP!
     if !_NEWER!==1 set __SOURCE_TIMESTAMP=!_TIMESTAMP!
     set /a __N=!__N!+1
@@ -321,7 +321,7 @@ for %%i in (%__SOURCE_FILES%) do (
 if exist "%__TIMESTAMP_FILE%" ( set /p __CLASS_TIMESTAMP=<%__TIMESTAMP_FILE%
 ) else ( set __CLASS_TIMESTAMP=00000000000000
 )
-if %_DEBUG%==1 echo [%_BASENAME%] %__CLASS_TIMESTAMP% %__TIMESTAMP_FILE%
+if %_DEBUG%==1 echo [%_BASENAME%] %__CLASS_TIMESTAMP% %__TIMESTAMP_FILE% 1>&2
 
 call :newer %__SOURCE_TIMESTAMP% %__CLASS_TIMESTAMP%
 set _COMPILE_REQUIRED=%_NEWER%
@@ -387,8 +387,8 @@ for /f %%i in ('dir /s /b "%_ROOT_DIR%src\main\scala\*.scala" 2^>NUL') do (
 for %%i in ("%~dp0\.") do set __PROJECT=%%~ni
 set __DOC_OPTS=-siteroot %_DOCS_DIR% -project %__PROJECT% -project-version 0.1-SNAPSHOT
 
-if %_DEBUG%==1 ( echo [%_BASENAME%] %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES%
-) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into !_DOCS_DIR:%_ROOT_DIR%=!
+if %_DEBUG%==1 ( echo [%_BASENAME%] %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES% 1>&2
+) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into !_DOCS_DIR:%_ROOT_DIR%=! 1>&2
 )
 call %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
@@ -425,8 +425,8 @@ if %_TASTY%==1 (
     )
     set __RUN_OPTS=-classpath "%_LIBS_CPATH%%_TASTY_CLASSES_DIR%;%_CLASSES_DIR%"
 
-    if %_DEBUG%==1 ( echo [%_BASENAME%] %_RUN_CMD% !__RUN_OPTS! %_MAIN_CLASS% %_MAIN_ARGS%
-    ) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% ^(compiled from TASTy^)
+    if %_DEBUG%==1 ( echo [%_BASENAME%] %_RUN_CMD% !__RUN_OPTS! %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
+    ) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% ^(compiled from TASTy^) 1>&2
     )
     call %_RUN_CMD% !__RUN_OPTS! %_MAIN_CLASS% %_MAIN_ARGS%
     if not !ERRORLEVEL!==0 (
@@ -444,7 +444,7 @@ rem ## Cleanups
 if %_DEBUG%==1 (
     for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TOTAL_TIME_END=%%i
     call :duration "%_TOTAL_TIME_START%" "!_TOTAL_TIME_END!"
-    echo [%_BASENAME%] _EXITCODE=%_EXITCODE% _DURATION=!_DURATION!
+    echo [%_BASENAME%] _EXITCODE=%_EXITCODE% _DURATION=!_DURATION! 1>&2
 )
 exit /b %_EXITCODE%
 endlocal

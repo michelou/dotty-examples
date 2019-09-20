@@ -1,5 +1,6 @@
 .classpath
 .dotty-ide*
+.gradle/
 .idea
 .project
 .settings/

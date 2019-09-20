@@ -1,4 +1,4 @@
-# <span id="top">Dotty examples</span>
+# <span id="top">Dotty examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -18,84 +18,9 @@ In the following we explain in more detail the build tools available in the [**`
 
 ## Command `build`
 
-Command [**`build`**](enum-Planet/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
+Command [**`build`**](enum-Planet/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
 
-> **:mag_right:** The batch file for command [**`build`**](enum-Planet/build.bat) obeys the following coding conventions:
->
-> - We use at most 80 characters per line. In general we would say that 80 characters fit well with 4:3 screens and 100 characters fit well with 16:9 screens ([Google's convention](https://google.github.io/styleguide/javaguide.html#s4.4-column-limit) is 100 characters).
-> - We organize our code in 4 sections: `Environment setup`, `Main`, `Subroutines` and `Cleanups`.
-> - We write exactly ***one exit instruction*** (label **`end`** in section **`Cleanups`**).
-> - We adopt the following naming conventions: global variables start with character `_` (shell variables defined in the user environment start with a letter) and local variables (e.g. inside subroutines or  **`if/for`** constructs) start with `__` (two `_` characters).
-
-<pre style="font-size:80%;">
-<b>@echo off</b>
-<b>setlocal enabledelayedexpansion</b>
-...
-<i>rem ##########################################################################
-rem ## Environment setup</i>
-
-<b>set</b> _EXITCODE=0
-
-<b>for</b> %%f <b>in</b> ("%~dp0") <b>do set</b> _ROOT_DIR=%%~sf
-
-<b>call <span style="color:#9966ff;">:props</span></b>
-<b>if not</b> %_EXITCODE%==0 <b>goto <span style="color:#9966ff;">end</span></b>
-
-<b>call <span style="color:#9966ff;">:args</span> %*</b>
-<b>if not</b> %_EXITCODE%==0 <b>goto <span style="color:#9966ff;">end</span></b>
-
-<i>rem ##########################################################################
-rem ## Main</i>
-
-<b>if</b> %_CLEAN%==1 (
-    <b>call :clean</b>
-    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
-)
-<b>if</b> %_COMPILE%==1 (
-    <b>call <span style="color:#9966ff;">:compile</span></b>
-    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
-)
-<b>if</b> %_DOC%==1 (
-    <b>call <span style="color:#9966ff;">:doc</span></b>
-    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
-)
-<b>if</b> %_RUN%==1 (
-    <b>call <span style="color:#9966ff;">:run</span></b>
-    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
-)
-<b>goto <span style="color:#9966ff;">end</span></b>
-
-<i>rem ##########################################################################
-rem ## Subroutines</i>
-
-<span style="color:#9966ff;">:props</span>
-...
-<b>goto :eof</b>
-<span style="color:#9966ff;">:args</span>
-...
-<b>goto :eof</b>
-<span style="color:#9966ff;">:clean</span>
-...
-<b>goto :eof</b>
-<span style="color:#9966ff;">:compile</span>
-...
-<b>goto :eof</b>
-<span style="color:#9966ff;">:doc</span>
-...
-<b>goto :eof</b>
-<span style="color:#9966ff;">:run</span>
-...
-<b>goto :eof</b>
-
-<i>rem ##########################################################################
-rem ## Cleanups</i>
-
-<span style="color:#9966ff;">:end</span>
-...
-<b>exit</b> /b %_EXITCODE%
-</pre>
-
-Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
+Running command [**`build clean run`**](enum-Planet/build.bat) in project [enum-Planet\](enum-Planet/) produces the following output:
 
 <pre style="font-size:80%;">
 <b>&gt; build clean run</b>
@@ -110,10 +35,11 @@ Your weight on JUPITER is 2.5305575254957406
 </pre>
 
 
-Running command [**`build`**](enum-Planet/build.bat) with option **`-verbose`** in project [**`enum-Planet\`**](enum-Planet/) displays progress messages:
+Running command [**`build -verbose clean compile run`**](enum-Planet/build.bat) in project [**`enum-Planet\`**](enum-Planet/) displays progress messages:
 
 <pre style="font-size:80%;">
 <b>&gt; build -verbose clean compile run</b>
+Delete directory target
 Compile Scala sources to target\classes
 Execute Scala main class Planet
 Your weight on MERCURY is 0.37775761520093526
@@ -126,7 +52,7 @@ Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406
 </pre>
 
-Finally, running command [**`build`**](enum-Planet/build.bat) with option **`-debug`** in project [**`enum-Planet`**](enum-Planet/) also displays internal steps of the build process:
+Finally, running command [**`build -debug clean compile run`**](enum-Planet/build.bat) in project [**`enum-Planet\`**](enum-Planet/) also displays internal steps of the build process:
 
 <pre style="font-size:80%;">
 <b/>&gt; build -debug clean compile run</b>
@@ -144,7 +70,20 @@ Your weight on EARTH is 0.9999999999999999
 Your weight on NEPTUNE is 1.1383280724696578
 Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406
-[build] _EXITCODE=0</pre>
+[build] _EXITCODE=0 _DURATION=00:00:05</pre>
+
+> **:mag_right:** Output generated by options **`-verbose`** and **`-debug`** are redirected to [stderr](https://support.microsoft.com/en-us/help/110930/redirecting-error-messages-from-command-prompt-stderr-stdout) and can be discarded by adding **`2>NUL`**, e.g.:
+> <pre style="font-size:80%;">
+> <b>&gt; build clean run -debug 2>NUL</b>
+> Your weight on MERCURY (0) is 0.37775761520093526
+> Your weight on SATURN (5) is 1.0660155388115666
+> Your weight on VENUS (1) is 0.9049990998410455
+> Your weight on URANUS (6) is 0.9051271993894251
+> Your weight on EARTH (2) is 0.9999999999999999
+> Your weight on NEPTUNE (7) is 1.1383280724696578
+> Your weight on MARS (3) is 0.37873718403712886
+> Your weight on JUPITER (4) is 2.5305575254957406
+> </pre>
 
 Compilation of the Java/Scala source files is performed only if needed during the build process:
 
@@ -160,7 +99,7 @@ No compilation needed (1 source files)</pre>
 > For simplicity the [**`build`**](enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
 > <b>&gt; type project\build.properties</b>
-> sbt.version=1.2.8
+> sbt.version=1.3.0
 > main.class=Planet
 > main.args=1
 > </pre>
@@ -535,5 +474,88 @@ Your weight on NEPTUNE is 1.1383280724696578
 Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406
 </pre>
+
+## Footnotes
+
+<a name="footnote_01">[1]</a> ***Batch files and coding conventions*** [↩](#anchor_01)
+
+<p style="margin:0 0 1em 20px;">
+Batch files (e.g. <a href="enum-Planet/build.bat"><b><code>enum-Planet\build.bat</code></b></a>) obey the following coding conventions:
+
+- We use at most 80 characters per line. In general we would say that 80 characters fit well with 4:3 screens and 100 characters fit well with 16:9 screens ([Google's convention](https://google.github.io/styleguide/javaguide.html#s4.4-column-limit) is 100 characters).
+- We organize our code in 4 sections: `Environment setup`, `Main`, `Subroutines` and `Cleanups`.
+- We write exactly ***one exit instruction*** (label **`end`** in section **`Cleanups`**).
+- We adopt the following naming conventions: global variables start with character `_` (shell variables defined in the user environment start with a letter) and local variables (e.g. inside subroutines or  **`if/for`** constructs) start with `__` (two `_` characters).
+</p>
+
+<pre style="font-size:80%;">
+<b>@echo off</b>
+<b>setlocal enabledelayedexpansion</b>
+...
+<i>rem ##########################################################################
+rem ## Environment setup</i>
+
+<b>set</b> _EXITCODE=0
+
+<b>for</b> %%f <b>in</b> ("%~dp0") <b>do set</b> _ROOT_DIR=%%~sf
+
+<b>call <span style="color:#9966ff;">:props</span></b>
+<b>if not</b> %_EXITCODE%==0 <b>goto <span style="color:#9966ff;">end</span></b>
+
+<b>call <span style="color:#9966ff;">:args</span> %*</b>
+<b>if not</b> %_EXITCODE%==0 <b>goto <span style="color:#9966ff;">end</span></b>
+
+<i>rem ##########################################################################
+rem ## Main</i>
+
+<b>if</b> %_CLEAN%==1 (
+    <b>call :clean</b>
+    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
+)
+<b>if</b> %_COMPILE%==1 (
+    <b>call <span style="color:#9966ff;">:compile</span></b>
+    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
+)
+<b>if</b> %_DOC%==1 (
+    <b>call <span style="color:#9966ff;">:doc</span></b>
+    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
+)
+<b>if</b> %_RUN%==1 (
+    <b>call <span style="color:#9966ff;">:run</span></b>
+    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
+)
+<b>goto <span style="color:#9966ff;">end</span></b>
+
+<i>rem ##########################################################################
+rem ## Subroutines</i>
+
+<span style="color:#9966ff;">:props</span>
+...
+<b>goto :eof</b>
+<span style="color:#9966ff;">:args</span>
+...
+<b>goto :eof</b>
+<span style="color:#9966ff;">:clean</span>
+...
+<b>goto :eof</b>
+<span style="color:#9966ff;">:compile</span>
+...
+<b>goto :eof</b>
+<span style="color:#9966ff;">:doc</span>
+...
+<b>goto :eof</b>
+<span style="color:#9966ff;">:run</span>
+...
+<b>goto :eof</b>
+
+<i>rem ##########################################################################
+rem ## Cleanups</i>
+
+<span style="color:#9966ff;">:end</span>
+...
+<b>exit</b> /b %_EXITCODE%
+</pre>
+
+***
 
 *[mics](http://lampwww.epfl.ch/~michelou/)/August 2019* [**&#9650;**](#top)

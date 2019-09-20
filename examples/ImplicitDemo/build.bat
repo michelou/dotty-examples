@@ -132,7 +132,7 @@ if %_TASTY%==1 if not "%_COMPILE_CMD:~0,3%"=="dot" (
 )
 if %_DEBUG%==1 (
     for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TOTAL_TIME_START=%%i
-    echo [%_BASENAME%] _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _COMPILE_CMD=%_COMPILE_CMD% _DOC=%_DOC% _RUN=%_RUN%
+    echo [%_BASENAME%] _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _COMPILE_CMD=%_COMPILE_CMD% _DOC=%_DOC% _RUN=%_RUN% 1>&2
 )
 goto :eof
 
@@ -412,8 +412,8 @@ if not exist "%__MAIN_CLASS_FILE%" (
 call :libs_cpath
 set __RUN_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%"
 
-if %_DEBUG%==1 ( echo [%_BASENAME%] %_RUN_CMD% %__RUN_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
-) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS%
+if %_DEBUG%==1 ( echo [%_BASENAME%] %_RUN_CMD% %__RUN_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% 1>&2
 )
 call %_RUN_CMD% %__RUN_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (

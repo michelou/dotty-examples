@@ -313,7 +313,7 @@ set __SOURCE_TIMESTAMP=00000000000000
 set __N=0
 for %%i in (%__SOURCE_FILES%) do (
     call :timestamp "%%i"
-    if %_DEBUG%==1 echo [%_BASENAME%] !_TIMESTAMP! %%i
+    if %_DEBUG%==1 echo [%_BASENAME%] !_TIMESTAMP! %%i 1>&2
     call :newer !_TIMESTAMP! !__SOURCE_TIMESTAMP!
     if !_NEWER!==1 set __SOURCE_TIMESTAMP=!_TIMESTAMP!
     set /a __N=!__N!+1
@@ -321,7 +321,7 @@ for %%i in (%__SOURCE_FILES%) do (
 if exist "%__TIMESTAMP_FILE%" ( set /p __CLASS_TIMESTAMP=<%__TIMESTAMP_FILE%
 ) else ( set __CLASS_TIMESTAMP=00000000000000
 )
-if %_DEBUG%==1 echo [%_BASENAME%] %__CLASS_TIMESTAMP% %__TIMESTAMP_FILE%
+if %_DEBUG%==1 echo [%_BASENAME%] %__CLASS_TIMESTAMP% %__TIMESTAMP_FILE% 1>&2
 
 call :newer %__SOURCE_TIMESTAMP% %__CLASS_TIMESTAMP%
 set _COMPILE_REQUIRED=%_NEWER%
