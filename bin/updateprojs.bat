@@ -14,12 +14,12 @@ set _EXITCODE=0
 for %%f in ("%~dp0..") do set _ROOT_DIR=%%~sf
 
 rem files build.sbt, build.sc and ivy.xml
-set _DOTTY_VERSION_OLD="0.17.0-RC1"
-set _DOTTY_VERSION_NEW="0.18.1-RC1"
+set _DOTTY_VERSION_OLD="0.18.1-RC1"
+set _DOTTY_VERSION_NEW="0.19.0-RC1"
 
 rem files project\build.properties
-set _SBT_VERSION_OLD=sbt.version=1.2.8
-set _SBT_VERSION_NEW=sbt.version=1.3.0
+set _SBT_VERSION_OLD=sbt.version=1.3.0
+set _SBT_VERSION_NEW=sbt.version=1.3.2
 
 rem files project\plugins.sbt
 rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/

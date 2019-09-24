@@ -25,7 +25,7 @@ This page is part of a series of topics related to [Dotty](https://dotty.epfl.ch
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
-- [Dotty 0.18](https://github.com/lampepfl/dotty/releases) 
+- [Dotty 0.19](https://github.com/lampepfl/dotty/releases) 
 - [Oracle OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot)<sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*](http://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html))
 <!--
 8u212 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
@@ -40,13 +40,13 @@ Optionally one may also install the following software:
 - [Git 2.23](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.23.0.txt))
 - [Gradle 5.6](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.6.2/release-notes.html))
 - [Mill 0.5](https://github.com/lihaoyi/mill/releases/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
-- [SBT 1.3](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.3.0))
+- [SBT 1.3](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.3.2))
 - [Scala 2.13](https://www.scala-lang.org/files/archive/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.13.1))
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*August 2019*):
+For instance our development environment looks as follows (*September 2019*):
 
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_222-b10\    <i>(184.0 MB)</i>
@@ -54,11 +54,11 @@ C:\opt\apache-ant-1.10.7\    <i>( 39.9 MB)</i>
 C:\opt\apache-maven-3.6.2\   <i>( 10.1 MB)</i>
 C:\opt\bloop-1.3.2\          <i>(  0.1 MB)</i>
 C:\opt\cfr-0.146\            <i>(  1.7 MB)</i>
-C:\opt\dotty-0.18.1-RC1\     <i>( 25.2 MB)</i>
+C:\opt\dotty-0.19.0-RC1\     <i>( 25.2 MB)</i>
 C:\opt\Git-2.23.0\           <i>(271.0 MB)</i>
 C:\opt\gradle-5.6.2\         <i>(101.0 MB)</i>
 C:\opt\Mill-0.5.1\           <i>( 37.0 MB)</i>
-C:\opt\sbt-1.3.0\            <i>( 54.8 MB)</i>
+C:\opt\sbt-1.3.2\            <i>( 54.8 MB)</i>
 C:\opt\scala-2.13.1\         <i>( 19.7 MB)</i>
 </pre>
 
@@ -83,7 +83,7 @@ setenv.bat
 where
 
 - directory [**`bin\`**](bin/) provides several utility batch commands.
-- directory [**`bin\0.18\`**](bin/0.18/) contains the batch commands for [Dotty 0.18](https://github.com/lampepfl/dotty/releases/tag/0.18.1-RC1).
+- directory [**`bin\0.19\`**](bin/0.19/) contains the batch commands for [Dotty 0.19](https://github.com/lampepfl/dotty/releases/tag/0.19.0-RC1).
 - file [**`bin\cfr-0.146.zip`**](bin/cfr-0.146.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several [Dotty](https://dotty.epfl.ch/) related papers/articles.
 - directory [**`examples\`**](examples/) contains [Dotty](https://dotty.epfl.ch/) examples grabbed from various websites.
@@ -125,11 +125,11 @@ We distinguish different sets of batch commands:
    - [**`timeit.bat <cmd_1> { & <cmd_2> }`**](bin/timeit.bat) prints the execution time of the specified commands.
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory [**`bin\0.18\`**](bin/0.18/) - This directory contains batch files to be copied to the **`bin\`** directory of the [Dotty](https://dotty.epfl.ch/) installation (eg. **`C:\opt\dotty-0.18.1-RC1\bin\`**) in order to use the [**`dotc`**](bin/0.18/dotc.bat), [**`dotd`**](bin/0.18/dotd.bat) and [**`dotr`**](bin/0.18/dotr.bat) commands on **Microsoft Windows**.
+3. Directory [**`bin\0.19\`**](bin/0.19/) - This directory contains batch files to be copied to the **`bin\`** directory of the [Dotty](https://dotty.epfl.ch/) installation (eg. **`C:\opt\dotty-0.19.0-RC1\bin\`**) in order to use the [**`dotc`**](bin/0.19/dotc.bat), [**`dotd`**](bin/0.19/dotd.bat) and [**`dotr`**](bin/0.19/dotr.bat) commands on **Microsoft Windows**.
     > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Dotty distribution](https://github.com/lampepfl/dotty/releases). We also have submitted pull request [#5444](https://github.com/lampepfl/dotty/pull/5444) to add them to the Dotty distribution.
 
     <pre style="font-size:80%;">
-    <b>&gt; dir /b c:\opt\dotty-0.18.1-RC1\bin</b>
+    <b>&gt; dir /b c:\opt\dotty-0.19.0-RC1\bin</b>
     common
     common.bat
     dotc
@@ -184,7 +184,7 @@ We distinguish different sets of batch commands:
     | [**`bloop`**](https://www.scala-sbt.org/) | &empty; | &empty; | &empty; |
     | [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) | [**`build.gradle`**](examples/enum-Planet/build.gradle) | [**`common.gradle`**](examples/common.gradle) | **`gradle clean build run`** |
     | [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) | [**`build.sc`**](examples/enum-Planet/build.sc) | &empty; | **`mill -i go`** |
-    | [**`mvn`**](http://maven.apache.org/ref/3.6.1/maven-embedder/cli.html) | [**`pom.xml`**](examples/enum-Planet/pom.xml) | [**`pom.xml`**](examples/pom.xml) | **`mvn clean compile test`** |
+    | [**`mvn`**](https://maven.apache.org/ref/3.6.2/maven-embedder/cli.html) | [**`pom.xml`**](examples/enum-Planet/pom.xml) | [**`pom.xml`**](examples/pom.xml) | **`mvn clean compile test`** |
     | [**`sbt`**](https://www.scala-sbt.org/) | [**`build.sbt`**](examples/enum-Planet/build.sbt) | &empty; | **`sbt clean compile run`** |
 
 2. Decompiler tools
@@ -251,13 +251,13 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
 Tool versions:
-   javac 1.8.0_222, java 1.8.0_222, scalac 2.13.1, dotc 0.18.1-RC1,
+   javac 1.8.0_222, java 1.8.0_222, scalac 2.13.1, dotc 0.19.0-RC1,
    ant 1.10.7, gradle 5.6.2, mill 0.5.1, mvn 3.6.2, sbt 1.2.8/2.12.8,
    cfr 0.146, bloop v1.3.2, git 2.23.0.windows.1, diff 3.7
 
 <b>&gt; where sbt</b>
-C:\opt\sbt-1.3.0\bin\sbt
-C:\opt\sbt-1.3.0\bin\sbt.bat
+C:\opt\sbt-1.3.2\bin\sbt
+C:\opt\sbt-1.3.2\bin\sbt.bat
 </pre>
 
 Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
@@ -265,7 +265,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 <pre style="font-size:80%;">
 <b>&gt; setenv -verbose</b>
 Tool versions:
-   javac 1.8.0_222, java 1.8.0_222, scalac 2.13.1, dotc 0.18.1-RC1,
+   javac 1.8.0_222, java 1.8.0_222, scalac 2.13.1, dotc 0.19.0-RC1,
    ant 1.10.7, gradle 5.6.1, mill 0.5.1, mvn 3.6.2, sbt 1.2.8/2.12.8,
    cfr 0.146, bloop v1.3.2, git 2.23.0.windows.1, diff 3.7
 Tool paths:
@@ -274,12 +274,12 @@ Tool paths:
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\opt\scala-2.13.1\bin\scalac.bat
-   C:\opt\dotty-0.18.1-RC1\bin\dotc.bat
+   C:\opt\dotty-0.19.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.7\bin\ant.bat
    C:\opt\gradle-5.6.2\bin\gradle.bat
    C:\opt\Mill-0.5.1\mill.bat
    C:\opt\apache-maven-3.6.2\bin\mvn.cmd
-   C:\opt\sbt-1.3.0\bin\sbt.bat
+   C:\opt\sbt-1.3.2\bin\sbt.bat
    C:\opt\cfr-0.146\bin\cfr.bat
    C:\opt\bloop-1.3.2\bloop.cmd
    C:\opt\Git-2.23.0\bin\git.exe
@@ -302,10 +302,10 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; dirsize examples myexamples c:\opt\dotty-0.18.1-RC1 c:\opt\jdk-1.8.0_222-b10</b>
+<b>&gt; dirsize examples myexamples c:\opt\dotty-0.19.0-RC1 c:\opt\jdk-1.8.0_222-b10</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
-Size of directory "c:\opt\dotty-0.18.1-RC1" is 25.2 Mb
+Size of directory "c:\opt\dotty-0.19.0-RC1" is 25.2 Mb
 Size of directory "c:\opt\jdk-1.8.0_222-b10" is 184.1 Mb
 </pre>
 
@@ -317,74 +317,74 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; getnightly</b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.18-0.18.1-bin-20190828-78d043a-NIGHTLY.jar
-dotty-doc_0.18-0.18.1-bin-20190828-78d043a-NIGHTLY.jar
-dotty-interfaces-0.18.1-bin-20190828-78d043a-NIGHTLY.jar
-dotty-language-server_0.18-0.18.1-bin-20190828-78d043a-NIGHTLY.jar
-dotty-library_0.18-0.18.1-bin-20190828-78d043a-NIGHTLY.jar
-dotty-sbt-bridge-0.18.1-bin-20190828-78d043a-NIGHTLY.jar
-dotty-staging_0.18-0.18.1-RC1.jar
-dotty_0.18-0.18.1-bin-20190828-78d043a-NIGHTLY.jar
+dotty-compiler_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
+dotty-doc_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
+dotty-interfaces-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
+dotty-language-server_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
+dotty-library_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
+dotty-sbt-bridge-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
+dotty-staging_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
+dotty_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
 </pre>
 
 Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
 <pre style="font-size:80%">
 <b>&gt; getnightly -verbose</b>
-Downloading file dotty-staging_0.18-0.18.1-RC1.jar ... 36.6 Kb
-Downloading file dotty-compiler_0.18-0.18.1-bin-20190828-78d043a-NIGHTLY.jar ... 11.1 Mb
-Downloading file dotty-language-server_0.18-0.18.1-bin-20190828-78d043a-NIGHTLY.jar ... 146.6 Kb
-Downloading file dotty-doc_0.18-0.18.1-bin-20190828-78d043a-NIGHTLY.jar ... 1 Mb
-Downloading file dotty_0.18-0.18.1-bin-20190828-78d043a-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-library_0.18-0.18.1-bin-20190828-78d043a-NIGHTLY.jar ... 1.3 Mb
-Downloading file dotty-sbt-bridge-0.18.1-bin-20190828-78d043a-NIGHTLY.jar ... 13.4 Kb
-Downloading file dotty-interfaces-0.18.1-bin-20190828-78d043a-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-doc_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar ... 1 Mb
+Downloading file dotty-library_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar ... 1.3 Mb
+Downloading file dotty-sbt-bridge-0.20.0-bin-20190923-10091bd-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty-compiler_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar ... 11.1 Mb
+Downloading file dotty_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-language-server_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar ... 146.5 Kb
+Downloading file dotty-interfaces-0.20.0-bin-20190923-10091bd-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-staging_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar ... 36.6 Kb
 Finished to download 8 files to directory W:\DOTTY-~1\out\nightly-jars
 </pre>
 
-We can now replace the library files from the original [Dotty distribution](https://github.com/lampepfl/dotty/releases) (installed in directory **`C:\opt\dotty-0.18.1-RC1\`** in our case) with library files from the latest nightly build.
+We can now replace the library files from the original [Dotty distribution](https://github.com/lampepfl/dotty/releases) (installed in directory **`C:\opt\dotty-0.19.0-RC1\`** in our case) with library files from the latest nightly build.
 
 Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in the Dotty installation directory.
 
 <pre style="font-size:80%;">
 <b>&gt; getnightly activate</b>
 Finished to download 8 files to directory W:\out\nightly-jars
-Activate nightly build libraries: 0.18.1-bin-20190828-78d043a-NIGHTLY
+Activate nightly build libraries: 0.20.0-bin-20190923-10091bd-NIGHTLY
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.18.1-bin-20190828-78d043a-NIGHTLY-git-78d043a -- Copyright 2002-2019, LAMP/EPFLt 2002-2019, LAMP/EPFL
+Dotty compiler version 0.20.0-bin-20190923-10091bd-NIGHTLY-git-10091bd -- Copyright 2002-2019, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
-Activate default Dotty libraries: 0.18.1-RC1
+Activate default Dotty libraries: 0.19.0-RC1
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.18.1-RC1 -- Copyright 2002-2019, LAMP/EPFL
+Dotty compiler version 0.19.0-RC1 -- Copyright 2002-2019, LAMP/EPFL
 </pre>
 
-> **:warning:** You need *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.18.1-RC1\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
+> **:warning:** You need *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.19.0-RC1\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
 
 Internally command [**`getnightly`**](bin/getnightly.bat) manages two sets of libraries files which are organized as follows:
 
 <pre style="font-size:80%;">
-<b>&gt; pushd c:\opt\dotty-0.18.1-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd</b>
+<b>&gt; pushd c:\opt\dotty-0.19.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd</b>
 VERSION
 VERSION-NIGHTLY
-lib\0.18.1-RC1\
-&nbsp;&nbsp;dist_0.18-0.18.1-RC1.jar
-&nbsp;&nbsp;dotty-compiler_0.18-0.18.1-RC1.jar
-&nbsp;&nbsp;dotty-doc_0.18-0.18.1-RC1.jar
-&nbsp;&nbsp;dotty-interfaces-0.18.1-RC1.jar
-&nbsp;&nbsp;dotty-library_0.18-0.18.1-RC1.jar
-&nbsp;&nbsp;dotty-staging_0.18-0.18.1-RC1.jar
-lib\0.18.1-bin-20190828-78d043a-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.18-0.18.1-bin-20190828-78d043a-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.18-0.18.1-bin-20190828-78d043a-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.18.1-bin-20190828-78d043a-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.18-0.18.1-bin-20190828-78d043a-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.18-0.18.1-bin-20190828-78d043a-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.18.1-bin-20190828-78d043a-NIGHTLY.jar
-&nbsp;&nbsp;dotty-staging_0.18-0.18.1-RC1.jar
-&nbsp;&nbsp;dotty_0.18-0.18.1-bin-20190828-78d043a-NIGHTLY.jar
+lib\0.19.0-RC1\
+&nbsp;&nbsp;dist_0.19-0.19.0-RC1.jar
+&nbsp;&nbsp;dotty-compiler_0.19-0.19.0-RC1.jar
+&nbsp;&nbsp;dotty-doc_0.19-0.19.0-RC1.jar
+&nbsp;&nbsp;dotty-interfaces-0.19.0-RC1.jar
+&nbsp;&nbsp;dotty-library_0.19-0.19.0-RC1.jar
+&nbsp;&nbsp;dotty-staging_0.19-0.19.0-RC1.jar
+lib\0.20.0-bin-20190923-10091bd-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
+&nbsp;&nbsp;dotty-staging_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original Dotty installation respectively from the latest nightly build.
@@ -523,9 +523,9 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 
 | Project file | Variable | Example |
 | :----------- | :------: | :------ |
-| `build.sbt` | `dottyVersion` | `0.17.0-RC1` &rarr; `0.18.1-RC1`|
-| `build.sc` | `scalaVersion` | `0.17.0-RC1` &rarr; `0.18.1-RC1` |
-| `project\build.properties` | `sbt.version` | `1.2.8` &rarr; `1.3.0` |
+| `build.sbt` | `dottyVersion` | `0.18.1-RC1` &rarr; `0.19.0-RC1`|
+| `build.sc` | `scalaVersion` | `0.18.1-RC1` &rarr; `0.19.0-RC1` |
+| `project\build.properties` | `sbt.version` | `1.3.0` &rarr; `1.3.2` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.3.3` &rarr; `0.3.4` |
 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
@@ -576,8 +576,8 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 
 <pre style="font-size:80%;">
 <b>&gt; where dotr</b>
-C:\opt\dotty-0.18.1-RC1\bin\dotr
-C:\opt\dotty-0.18.1-RC1\bin\dotr.bat
+C:\opt\dotty-0.19.0-RC1\bin\dotr
+C:\opt\dotty-0.19.0-RC1\bin\dotr.bat
 
 <b>&gt; dotr -version</b>
 openjdk version "1.8.0_222"
@@ -600,7 +600,7 @@ The REPL has several commands available:
 val res0: String = C:\opt\jdk-1.8.0_222-b10
 
 <b>scala&gt;</b> System.getenv().get("DOTTY_HOME")
-val res1: String = C:\opt\dotty-0.18.1-RC1
+val res1: String = C:\opt\dotty-0.19.0-RC1
 
 <b>scala&gt;</b> :load myexamples/HelloWorld/src/main/scala/HelloWorld.scala
 // defined object HelloWorld
@@ -662,5 +662,5 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/August 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/September 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>

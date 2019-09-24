@@ -14,7 +14,7 @@ $latest=Invoke-WebRequest -UseBasicParsing -Uri $request |
 ConvertFrom-Json |
 Select -expand response |
 Select -expand docs |
-Where { $_.a -match "^dotty-compiler_0\.18.*" } |
+Where { $_.a -match "^dotty-compiler_0\.20.*" } |
 # for instance: 0.18.0-bin-20190802-95ae77c-NIGHTLY
 Foreach { $_.latestVersion }
 

@@ -10,17 +10,17 @@
         <!-- https://mvnrepository.com/artifact/log4j/log4j -->
         <dependency org="log4j" name="log4j" rev="1.2.17"/>
         
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-compiler_0.18 -->
-        <dependency org="ch.epfl.lamp" name="dotty-compiler_0.18" rev="0.18.1-RC1"/>
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-compiler_0.19 -->
+        <dependency org="ch.epfl.lamp" name="dotty-compiler_0.19" rev="0.19.0-RC1"/>
         <!-- dependencies -->
-        <dependency org="ch.epfl.lamp" name="dotty-interfaces" rev="0.18.1-RC1"/>
-        <dependency org="ch.epfl.lamp" name="dotty-library_0.18" rev="0.18.1-RC1"/>
-        <dependency org="ch.epfl.lamp" name="dotty-staging_0.18" rev="0.18.1-RC1"/>
+        <dependency org="ch.epfl.lamp" name="dotty-interfaces" rev="0.19.0-RC1"/>
+        <dependency org="ch.epfl.lamp" name="dotty-library_0.19" rev="0.19.0-RC1"/>
+        <dependency org="ch.epfl.lamp" name="dotty-staging_0.19" rev="0.19.0-RC1"/>
         <dependency org="org.jline" name="jline-reader" rev="3.9.0"/>
         <dependency org="org.jline" name="jline-terminal" rev="3.9.0"/>
         <dependency org="org.jline" name="jline-terminal-jna" rev="3.9.0"/>
         <dependency org="net.java.dev.jna" name="jna" rev="4.2.2"/>
-        <dependency org="org.scala-lang" name="scala-library" rev="2.13.0"/>
+        <dependency org="org.scala-lang" name="scala-library" rev="2.13.1"/>
         <dependency org="org.scala-lang.modules" name="scala-asm" rev="6.0.0-scala-1"/>
         <dependency org="org.scala-lang.modules" name="scala-xml_2.13" rev="1.2.0"/>
         <!-- <dependency org="org.scala-sbt" name="compiler-interface" rev="1.2.5"/> -->
