@@ -15,11 +15,11 @@
 This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/) on Windows:
 
 - [Running Dotty on Windows](README.md)
-- [Building Dotty on Windows](DRONE.md)
+- [Building Dotty on Windows](BUILD.md)
 - Data Sharing and Dotty on Windows [**&#9660;**](#bottom)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html) and [GraalVM](https://www.graalvm.org/) are other topics we are currently investigating.
+[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Metaprogramming](http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html), [GraalVM](https://www.graalvm.org/) and [LLVM](https://github.com/michelou/llvm-examples) are other topics we are currently investigating.
 
 
 ## <span id="proj_deps">Project dependencies</span>

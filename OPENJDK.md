@@ -14,11 +14,11 @@
 This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/) on Windows:
 
 - [Running Dotty on Windows](README.md)
-- [Building Dotty on Windows](DRONE.md)
+- [Building Dotty on Windows](BUILD.md)
 - [Data Sharing and Dotty on Windows](CDS.md)
 - OpenJDK and Dotty on Windows [**&#9660;**](#bottom)
 
-[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Tasty](https://www.scala-lang.org/blog/2018/04/30/in-a-nutshell.html) and [GraalVM](https://www.graalvm.org/) are other topics we are currently investigating.
+[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Metaprogramming](http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html), [GraalVM](https://www.graalvm.org/) and [LLVM](https://github.com/michelou/llvm-examples) are other topics we are currently investigating.
 
 
 ## Project dependencies
@@ -56,7 +56,7 @@ C:\opt\jdk-corretto-11.0.5_10\
 C:\opt\jdk-openj9-11.0.4+11\
 C:\opt\jdk-redhat-11.0.5.10\
 C:\opt\jdk-sapmachine-11.0.4\
-C:\opt\jdk-trava-11.0.1\
+C:\opt\jdk-trava-11.0.1\         <i>(outdated)</i>
 C:\opt\jdk-zulu-11.0.5\
 </pre>
 
@@ -69,7 +69,7 @@ An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For
 
 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, last displayed line ends with  **`(build 11.0.5+10-LTS, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.5+10-LTS, mixed mode)`** otherwise.
 2. Command **`java.exe -Xshare:dump`** generates the 17.3 Mb Java shared archive **`<install_dir>\bin\server\classes.jsa`** from file **`<install_dir>\lib\classlist`**.
-3. We repeat step 1 to verify that the **`sharing`** flag is present.
+3. We go back to step 1 to verify that flag  **`sharing`** is present.
 
 
 ### BellSoft OpenJDK 11

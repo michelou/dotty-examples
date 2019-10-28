@@ -18,7 +18,7 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 - [Data Sharing and Dotty on Windows](CDS.md)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Scala Metaprogramming](http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html) (macros, TASTy) and [GraalVM](https://www.graalvm.org/) are other topics we are currently investigating.
+[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Metaprogramming](http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html), [GraalVM](https://www.graalvm.org/) and [LLVM](https://github.com/michelou/llvm-examples) are other topics we are currently investigating.
 
 > **&#9755;** ***Continuous Integration/Delivery*** (CI/CD)<br/>
 > (steps: Checkout **&rarr;** Compile **&rarr;** Test **&rarr;** Deploy)
@@ -60,49 +60,32 @@ The directory structure of the [Dotty repository](https://github.com/lampepfl/do
 
 <pre style="font-size:80%;">
 <b>&gt; dir /ad /b</b>
-.git
-.vscode-template
-AUTHORS.md, CONTRIBUTING.md, LICENSE.md, README.md
-bench
-bin
-community-build
-compiler
-dist
-doc-tool
-docs
-interfaces
-language-server
-library
-project
-sandbox
-sbt-bridge
-sbt-dotty
-scalastyle-config.xml
-semanticdb
-tests
-vscode-dotty
+bin\dotty\build.bat
+dotty\     <i>Git submodule</i><sup id="anchor_02">[[2]](#footnote_02)</sup>
+dotty\[...]
+dotty\bin
+dotty\dist
+dotty\project
 </pre>
 
 <!-- 2019-02-13
 > **:mag_right:** Directories like [**`scala-backend\`**](https://github.com/lampepfl/scala/tree/sharing-backend), [**`scala2-library\`**](https://github.com/lampepfl/scala/tree/dotty-library2.12) and **`community-build`** subdirectories are actually Git submodules (see article ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/)). Their Git information (e.g. path, URL, branch) is stored in file [**`.gitmodules`**](https://github.com/michelou/dotty/blob/master/.gitmodules).
 -->
-Concretely directories [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin), [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts) and the root directory contain the following additions:
+Concretely directories [**`dotty\bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin), [**`dotty\dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) and [**`dotty\project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts) contain the following additions (see PR [#5444](https://github.com/lampepfl/dotty/pull/5444)):
 
 <pre style="font-size:80%;">
-bin\common.bat
-bin\dotc.bat
-bin\dotd.bat
-bin\dotr.bat
-dist\bin\common.bat
-dist\bin\dotc.bat
-dist\bin\dotd.bat
-dist\bin\dotr.bat
-project\scripts\bootstrapCmdTests.bat
-project\scripts\build.bat
-project\scripts\cmdTests.bat
-project\scripts\common.bat
-project\scripts\genDocs.bat
-setenv.bat
+dotty\bin\common.bat
+dotty\bin\dotc.bat
+dotty\bin\dotd.bat
+dotty\bin\dotr.bat
+dotty\dist\bin\common.bat
+dotty\dist\bin\dotc.bat
+dotty\dist\bin\dotd.bat
+dotty\dist\bin\dotr.bat
+dotty\project\scripts\bootstrapCmdTests.bat
+dotty\project\scripts\cmdTests.bat
+dotty\project\scripts\common.bat
+dotty\project\scripts\genDocs.bat
 </pre>
 
 We also define a virtual drive **`V:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).
@@ -119,19 +102,7 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. [**`setenv.bat`**](https://github.com/michelou/dotty/tree/batch-files/setenv.bat) - This batch command makes external tools such as [**`java.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
-
-    <pre style="font-size:80%;">
-    <b>&gt; setenv help</b>
-    Usage: setenv { options | subcommands }
-      Options:
-        -verbose         display environment settings
-      Subcommands:
-        help             display this help message
-        update           update repository from remote master
-    </pre>
-
-2. Directory [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin) - This directory contains batch files used internally during the build process (see the [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) command).
+1. Directory [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin) - This directory contains batch files used internally during the build process (see the [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) command).
 
 3. Directory [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software release](https://github.com/lampepfl/dotty/releases).
 
@@ -147,9 +118,18 @@ We distinguish different sets of batch commands:
     dotr.bat
     </pre>
 
-4. [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat) - This batch command performs on a Windows machine the same build/test steps as specified in file [**`.drone.yml`**](https://github.com/michelou/dotty/blob/master/.drone.yml) and executed on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
+4. [**`build.bat`**](bin/dotty/build.bat) - This batch command performs on a Windows machine the same build/test steps as specified in file [**`.drone.yml`**](dotty/.drone.yml) and executed on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
     <pre style="font-size:80%;">
+    <b>&gt; cp bin\dotty\build.bat dotty</b>
+    <b>&gt; cd dotty</b></pre>
+
+    Command [**`build.bat help`**](bin/dotty/build.bat) display the help message.
+
+    <pre style="font-size:80%;">
+    <b>&gt; cd</b>
+    V:\dotty
+    &nbsp;
     <b>&gt; build help</b>
     Usage: build { options | subcommands }
       Options:
@@ -208,11 +188,11 @@ We distinguish different sets of batch commands:
     > | **`build documentation`** | **`build bootstrap documentation-only`** |
     > | **`build sbt`** | **`build bootstrap sbt-only`** |
 
-5. [**`cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) - This batch command performs test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\cmdTests`**](project/scripts/cmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server (see console output in section [**Usage examples**](#usage_examples)).
+5. [**`project\scripts\cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) - This batch command performs test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\cmdTests`**](project/scripts/cmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server (see console output in section [**Usage examples**](#usage_examples)).
 
-6. [**`bootstrapCmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) - This batch command performs the test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\bootstrapCmdTests`**](project/scripts/bootstrapCmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
+6. [**`project\scripts\bootstrapCmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) - This batch command performs the test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\bootstrapCmdTests`**](project/scripts/bootstrapCmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
-7. [**`genDocs.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) - This batch command generates the Dotty documentation on a Windows machine in a similar manner to the shell script [**`project\script\genDocs`**](project/scripts/genDocs) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
+7. [**`project\scripts\genDocs.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) - This batch command generates the Dotty documentation on a Windows machine in a similar manner to the shell script [**`project\script\genDocs`**](project/scripts/genDocs) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
 
 ## <span id="issues">Windows related issues</span>
@@ -247,45 +227,11 @@ Below we summarize changes we made to the [source code](https://github.com/lampe
 
 ## <span id="usage_examples">Usage examples</span>
 
-#### `setenv.bat`
-
-Command **`setenv`** is executed once to setup our development environment; it makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt (see section [**Project dependencies**](#section_01)):
-
-<pre style="font-size:80%;">
-<b>&gt; setenv</b>
-Tool versions:
-   javac 1.8.0_232, java 1.8.0_232,
-   sbt 1.2.8/2.12.8, git 2.23.0.windows.1, diff 3.7
-
-<b>&gt; where sbt</b>
-C:\opt\sbt-1.3.3\bin\sbt
-C:\opt\sbt-1.3.3\bin\sbt.bat
-</pre>
-
-Command **`setenv -verbose`** also displays the tool paths and the current Git branch:
-
-<pre style="font-size:80%;">
-<b>&gt; setenv -verbose</b>
-Tool versions:
-   javac 1.8.0_232, java 1.8.0_232,
-   sbt 1.2.8/2.12.8, git 2.23.0.windows.1, diff 3.7
-Tool paths:
-   C:\opt\jdk-1.8.0_232-b09\bin\javac.exe
-   C:\opt\jdk-1.8.0_232-b09\bin\java.exe
-   C:\ProgramData\Oracle\Java\javapath\java.exe
-   C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
-   C:\opt\sbt-1.3.3\bin\sbt.bat
-   C:\opt\Git-2.23.0\bin\git.exe
-   C:\opt\Git-2.23.0\usr\bin\diff.exe
-Current Git branch:
-   master
-</pre>
-
-#### `build.bat`
-
 Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat) consists of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code and features the following subcommands:
 
-- **`cleanall`** - This subcommand removes all generated *and untracked* files/directories from our [**`Dotty fork`**](https://github.com/michelou/dotty/tree/master/).<br/>Internally, **`build cleanall`** executes the two commands **`sbt clean`** *and* [**`git clean -xdf`**](https://git-scm.com/docs/git-clean/) which removes all untracked directories/files, including build products.
+#### `build.bat cleanall`
+
+Command **`build.bat cleanall`** removes all generated *and untracked* files/directories from our [**`Dotty fork`**](https://github.com/michelou/dotty/tree/master/).<br/>Internally, **`build cleanall`** executes the two commands **`sbt clean`** *and* [**`git clean -xdf`**](https://git-scm.com/docs/git-clean/) which removes all untracked directories/files, including build products.
 
     <pre style="font-size:80%;">
     <b>&gt; build cleanall</b>
@@ -332,7 +278,9 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     [...(git)...]
     </pre>
 
-- **`compile`** - This subcommand generates the *"1st stage compiler"* for [Dotty](http://dotty.epfl.ch/) and executes the relevant test suites. 
+#### `build.bat compile`
+
+Command **`build.bat compile`** generates the *"1st stage compiler"* for [Dotty](http://dotty.epfl.ch/) and executes the relevant test suites. 
 
     <pre style="font-size:80%;">
     <b>&gt; build compile</b>
@@ -374,21 +322,27 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     [...]
     </pre>
 
-- **`bootstrap`** - ***If*** execution of the **`compile`** subcommand was successful the **`bootstrap`** subcommand generates the *"bootstrap compiler"* for Dotty and executes the relevant test suites.
+#### `build.bat bootstrap`
+
+Command **`build.bat bootstrap`** works as follows: ***if*** execution of the **`compile`** subcommand was successful the **`bootstrap`** subcommand generates the *"bootstrap compiler"* for Dotty and executes the relevant test suites.
 
     <pre style="font-size:80%;">
     <b>&gt; build bootstrap</b>
     [...]
     </pre>
 
-- **`community`** - Subcommand **`community`** generates subprojects from **`community-build\community-projects\`**: 
+#### `build.bat community`
+
+Command **`build.bat community`**  generates subprojects from **`community-build\community-projects\`**: 
 
     <pre style="font-size:80%;">
     <b>&gt; build community</b>
     [...]
     </pre>
 
-- **`archives`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`archives`** subcommand generates the gz/zip archives.<br/>Below we execute the **`arch-only`** subcommand for the sake of brievity (previous steps are *assumed* to be successful): 
+#### `build.bat archives`
+
+Command **`build.bat archives`** works as follows:  ***if*** execution of the **`bootstrap`** subcommand was successful the **`archives`** subcommand generates the gz/zip archives.<br/>Below we execute the **`arch-only`** subcommand for the sake of brievity (previous steps are *assumed* to be successful): 
 
     <pre style="font-size:80%;">
     <b>&gt; build arch-only</b>
@@ -399,7 +353,9 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     dotty-0.19.1-bin-SNAPSHOT.zip
     </pre>
 
-- **`documentation`** - ***If*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Dotty website](https://dotty.epfl.ch/) and the online [Dotty documentation](https://dotty.epfl.ch/docs/).<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
+#### `build.bat documentation`
+
+Command **`build.bat documentation`** works as follows: ***if*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Dotty website](https://dotty.epfl.ch/) and the online [Dotty documentation](https://dotty.epfl.ch/docs/).<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
     <pre style="font-size:80%;">
     <b>&gt; build -timer doc-only</b>
@@ -481,9 +437,9 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
 Total execution time: 00:20:25
 -->
 
-#### `cmdTests`
+#### `cmdTests.bat`
 
-Command [**`project\scripts\cmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) performs several tests running [Dotty](https://dotty.epfl.ch) commands from [**`sbt`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html). In the normal case, command [**`cmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) is called by command **`build compile`** but may also be called directly.
+Command [**`project\scripts\cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) performs several tests running [Dotty](https://dotty.epfl.ch) commands from [**`sbt`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html). In the normal case, command [**`cmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) is called by command **`build compile`** but may also be called directly.
 
 
 <pre style="font-size:80%;">
@@ -508,9 +464,9 @@ testing loading tasty from .tasty file in jar
   def main(args: scala.Array[scala.Predef.String]): scala.Unit = scala.Predef.println("hello world")
 </pre>
 
-#### `bootstrapCmdTests`
+#### `bootstrapCmdTests.bat`
 
-Command [**`project\scripts\bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) performs several benchmarks and generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program. In the normal case, command [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) is called by command **`build bootstrap`** but may also be called directly.
+Command [**`project\scripts\bootstrapCmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) performs several benchmarks and generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program. In the normal case, command [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) is called by command **`build bootstrap`** but may also be called directly.
 
 <pre style="font-size:80%;">
 <b>&gt; bootstrapCmdTests</b>
@@ -621,9 +577,9 @@ protected members with docstrings: 0
 private members with docstrings:   0
 </pre>
 
-#### `genDocs`
+#### `genDocs.bat`
 
-Command [**`genDocs`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program.
+Command [**`genDocs.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program.
 
 <pre style="font-size:80%;">
 <b>&gt; genDocs</b>

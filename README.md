@@ -15,21 +15,22 @@
 This page is part of a series of topics related to [Dotty](https://dotty.epfl.ch/) on Windows:
 
 - Running Dotty on Windows [**&#9660;**](#bottom)
-- [Building Dotty on Windows](DRONE.md)
+- [Building Dotty on Windows](BUILD.md)
 - [Data Sharing and Dotty on Windows](CDS.md)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Scala Metaprogramming](https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html) (macros, TASTy), [GraalVM](https://www.graalvm.org/) and [LLVM](https://github.com/michelou/llvm-examples) are other topics we are currently investigating.
+[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Metaprogramming](https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html), [GraalVM](https://www.graalvm.org/) and [LLVM](https://github.com/michelou/llvm-examples) are other topics we are currently investigating.
 
 ## <span id="section_01">Project dependencies</span>
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
 - [Dotty 0.19](https://github.com/lampepfl/dotty/releases) 
-- [Oracle OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot)<sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*](http://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html))
+- [Oracle OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot)<sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*](http://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html))
 <!--
 8u212 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
 8u222 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
+8u232 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
 -->
 Optionally one may also install the following software:
 
@@ -58,8 +59,8 @@ C:\opt\dotty-0.19.0-RC1\     <i>( 25.2 MB)</i>
 C:\opt\Git-2.23.0\           <i>(271.0 MB)</i>
 C:\opt\gradle-5.6.3\         <i>(101.0 MB)</i>
 C:\opt\Mill-0.5.2\           <i>( 49.0 MB)</i>
-C:\opt\sbt-1.3.3\            <i>( 54.8 MB)</i>
-C:\opt\scala-2.13.1\         <i>( 19.7 MB)</i>
+C:\opt\sbt-1.3.3\            <i>( 55.1 MB)</i>
+C:\opt\scala-2.13.1\         <i>( 20.1 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows](https://gitforwindows.org/) provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
@@ -69,11 +70,14 @@ We further recommand using an advanced console emulator such as [ComEmu](https:/
 ## Directory structure
 
 This project is organized as follows:
+
 <pre style="font-size:80%;">
 bin\*.bat
 bin\0.19\*.bat
 bin\cfr-0.147.zip
+bin\dotty\build.bat
 docs\
+dotty\     <i>Git submodule</i><sup id="anchor_02">[[2]](#footnote_02)</sup>
 examples\{dotty-example-project, ..}
 myexamples\{00_AutoParamTupling, ..}
 README.md
@@ -85,7 +89,9 @@ where
 - directory [**`bin\`**](bin/) provides several utility batch commands.
 - directory [**`bin\0.19\`**](bin/0.19/) contains the batch commands for [Dotty 0.19](https://github.com/lampepfl/dotty/releases/tag/0.19.0-RC1).
 - file [**`bin\cfr-0.147.zip`**](bin/cfr-0.147.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
+- file [**`bin\dotty\build.bat`**](bin/dotty/build.bat) is the batch script for building the [Dotty](https://dotty.epfl.ch/) software distribution on a Windows machine.
 - directory [**`docs\`**](docs/) contains several [Dotty](https://dotty.epfl.ch/) related papers/articles.
+- directory **`dotty\`** contains our fork of the [lampepfl/dotty](https://github.com/lampepfl/dotty) repository as a Github submodule.
 - directory [**`examples\`**](examples/) contains [Dotty](https://dotty.epfl.ch/) examples grabbed from various websites.
 - directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
 - file [**`README.md`**](README.md) is the [Markdown](https://github.github.com/gfm/) document for this page.
@@ -144,7 +150,9 @@ We distinguish different sets of batch commands:
     > **NB.** Prior to version 0.9-RC1 the [**`dotr`**](bin/0.9/dotr.bat) command did hang on Windows due to implementation issues with the Dotty [REPL](https://en.wikipedia.org/wiki/Read–eval–print_loop). This [issue](https://github.com/lampepfl/dotty/pull/4680) has been fixed by using [JLine 3](https://github.com/jline/jline3) in the REPL.
 -->
 
-4. [**`build.bat`**](examples/dotty-example-project/build.bat) - Finally each example can be built/run using the [**`build`**](examples/dotty-example-project/build.bat) command.<br/>
+4. File [**`bin\dotty\build.bat`**](bin/dotty/build.bat) - This batch command generates the [Dotty](https://dotty.epfl.ch) software distribution.
+
+5. File [**`examples\*\build.bat`**](examples/dotty-example-project/build.bat) - Finally each example can be built/run using the [**`build`**](examples/dotty-example-project/build.bat) command.<br/>
     > **&#9755;** We prefer command [**`build`**](examples/dotty-example-project/build.bat) here since our code examples are simple and don't require the [**`sbt`** ](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html)machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
 
     <pre style="font-size:80%;">
@@ -550,7 +558,7 @@ Parent directory: W:\dotty\myexamples
 
 #### `build.bat`
 
-Command [**`build`**](examples/enum-Planet/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_02">[[2]](#footnote_02)</sup>. 
+Command [**`build`**](examples/enum-Planet/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_03">[[3]](#footnote_03)</sup>.
 
 Running command [**`build`**](examples/enum-Planet/build.bat) with ***no*** option in project [**`examples\enum-Planet`**](examples/enum-Planet/) generates the following output:
 
@@ -654,7 +662,12 @@ Exception in thread "main" java.lang.IncompatibleClassChangeError: Method dotty.
 Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current LTS release.
 </p>
 
-<a name="footnote_02">[2]</a> ***PowerShell*** [↩](#anchor_02) <!-- 2018-05-09 -->
+<a name="footnote_02">[2]</a> ***PowerShell*** [↩](#anchor_02)
+
+<p style="margin:0 0 1em 20px;"> 
+</p>
+
+<a name="footnote_03">[3]</a> ***PowerShell*** [↩](#anchor_03) <!-- 2018-05-09 -->
 
 <p style="margin:0 0 1em 20px;"> 
 Command Prompt has been around for as long as we can remember, but starting with Windows 10 build 14971, Microsoft is trying to make <a href="https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6">PowerShell</a> the <a href="https://support.microsoft.com/en-us/help/4027690/windows-powershell-is-replacing-command-prompt">main command shell</a> in the operating system.

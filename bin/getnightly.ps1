@@ -15,7 +15,7 @@ ConvertFrom-Json |
 Select -expand response |
 Select -expand docs |
 Where { $_.a -match "^dotty-compiler_0\.20.*" } |
-# for instance: 0.18.0-bin-20190802-95ae77c-NIGHTLY
+# for instance: 0.20.0-bin-20191026-d2db509-NIGHTLY
 Foreach { $_.latestVersion }
 
 if ($debug -eq 1) { [Console]::Error.WriteLine("[getnightly] latest=$latest") }

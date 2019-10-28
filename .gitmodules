@@ -1,0 +1,3 @@
+[submodule "dotty"]
+	path = dotty
+	url = https://github.com/lampepfl/dotty.git
