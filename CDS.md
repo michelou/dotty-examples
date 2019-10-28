@@ -32,11 +32,11 @@ This project depends on two external software for the **Microsoft Windows** plat
 
 > **:mag_right:** [Scala 2.12](https://www.scala-lang.org/download/) is a software product announced to require Java 8. In contrast [Scala 2.13](https://www.scala-lang.org/news/roadmap-2.13.html) and [Dotty](http://dotty.epfl.ch/) (aka [Scala 3](https://www.scala-lang.org/blog/2018/04/19/scala-3.html)) are still in development and also support Java 9+. In the following we choose to work with [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot), the 2<sup>nd</sup> [LTS](https://www.oracle.com/technetwork/java/java-se-support-roadmap.html) version after Java 8.
 
-For instance our development environment looks as follows (*August 2019*):
+For instance our development environment looks as follows (*October 2019*):
 
 <pre style="font-size:80%;">
-C:\opt\jdk-11.0.4+11\
-C:\opt\dotty-0.18.1-RC1\
+C:\opt\jdk-11.0.5+11\
+C:\opt\dotty-0.19.0-RC1\
 C:\opt\Git-2.23.0\
 </pre>
 
@@ -461,7 +461,7 @@ Finally we can check the contents of the output directory **`target\`**:
 Note the following about the generated files:
 
 - File **`MANIFEST.MF`** is added to **`DottyExample.jar`** as usual.
-- Files **`classes\Main$.class`** and **`classes\Main.tasty`** (typed AST) are specific to the [Dotty](http://dotty.epfl.ch/) compiler.
+- Files **`classes\Main$.class`** and **`classes\Main.tasty`** ([typed AST](https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html)) are specific to the [Dotty](http://dotty.epfl.ch/) compiler.
 - Files **`logs\log_classlist.log`** and **`logs\log_dump.log`** are generated when option **`-verbose`** is passed to the **`compile`** subcommand; they contain the execution logs for the generation of **`DottyExample.classlist`** resp. **`DottyExample.jsa`**. 
 - File **`logs\log_share_off.log`** is generated when option **`-share:off`** is passed to the **`run`** subcommand.
 - File **`logs\log_share_on.log`** is generated when option **`-share:on`** is passed to the **`run`** subcommand.
@@ -495,16 +495,16 @@ Support files for Java class sharing:
    dotty-cds-compiler.jsa (55616 Kb)
    dotty-cds-repl.classlist (31 Kb)
    dotty-cds-repl.jsa (16640 Kb)
-   dotty-cds_0.18-0.18.1-RC1.jar (3 Kb)
+   dotty-cds_0.19-0.19.0-RC1.jar (3 Kb)
 </pre>
 
 <pre style="font-size:80%;">
-<b>&gt; dir /b c:\opt\dotty-0.18.1-RC1\lib\dotty-cds*</b>
+<b>&gt; dir /b c:\opt\dotty-0.19.0-RC1\lib\dotty-cds*</b>
 dotty-cds-compiler.classlist
 dotty-cds-compiler.jsa
 dotty-cds-repl.classlist
 dotty-cds-repl.jsa
-dotty-cds_0.18-0.18.1-RC1.jar
+dotty-cds_0.19-0.19.0-RC1.jar
 </pre>
 
 <pre style="font-size:80%;">
@@ -514,7 +514,7 @@ dotty-cds_0.18-0.18.1-RC1.jar
     println(<span style="color:#660000;">"Support files for Java class sharing:"</span>)
     <b>val</b> jarUrl = getClass().getProtectionDomain().getCodeSource().getLocation()
     <b>val</b> libDir = java.nio.file.Paths.get(jarUrl.toURI()).getParent().toFile()
-    <b>val</b> files = libDir.listFiles.filter(_.getName.startsWith("dotty-cds"))
+    <b>val</b> files = libDir.listFiles.filter(_.getName.startsWith(<span style="color:#660000;">"dotty-cds"</span>))
     files.foreach(f => println("   "+f.getName()+" ("+(f.length()/1024)+<span style="color:#660000;">" Kb)"</span>))
   }
 }
@@ -528,7 +528,7 @@ Support files for Java class sharing:
    dotty-cds-compiler.jsa (55616 Kb)
    dotty-cds-repl.classlist (31 Kb)
    dotty-cds-repl.jsa (16640 Kb)
-   dotty-cds_0.18-0.18.1-RC1.jar (3 Kb)
+   dotty-cds_0.19-0.19.0-RC1.jar (3 Kb)
 &nbsp;
 <b>&gt; sharedata -verbose test</b>
 Execute test application with Scala REPL <span style="background-color:#cc0000;color:white;">WITHOUT</span> Java shared archive
@@ -537,7 +537,7 @@ Support files for Java class sharing:
    dotty-cds-compiler.jsa (56832 Kb)
    dotty-cds-repl.classlist (31 Kb)
    dotty-cds-repl.jsa (16640 Kb)
-   dotty-cds_0.18-0.18.1-RC1.jar (4 Kb)
+   dotty-cds_0.19-0.19.0-RC1.jar (4 Kb)
 Execution report:
    Share flag      : off
    Shared archive  : out\data-sharing\dotty-cds-repl.jsa
@@ -563,7 +563,7 @@ Support files for Java class sharing:
    dotty-cds-compiler.jsa (55616 Kb)
    dotty-cds-repl.classlist (31 Kb)
    dotty-cds-repl.jsa (16640 Kb)
-   dotty-cds_0.18-0.18.1-RC1.jar (3 Kb)
+   dotty-cds_0.19-0.19.0-RC1.jar (3 Kb)
 Execution report:
    Share flag      : on
    Shared archive  : out\data-sharing\dotty-cds-repl.jsa
@@ -585,15 +585,15 @@ Classes per package (888):
 > **&#9755;** ***Data Sharing and Oracle OpenJDK 11*** <br/>
 > The [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot) installation contains the file **`<install_dir>\lib\classlist`**. Let's check if data sharing is enabled:
 > 
-> 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last displayed line ends with  **`(build 11.0.3+7, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.3+7, mixed mode)`** otherwise.
+> 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last displayed line ends with  **`(build 11.0.5+1o, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.5+10, mixed mode)`** otherwise.
 > 2. Command **`java.exe -Xshare:dump`** generates the 17.3 Mb Java shared archive **`<install_dir>\bin\server\classes.jsa`** from file **`<install_dir>\lib\classlist`**.
 > 3. Repeat command from point 1. 
 > 
 > <pre style="font-size:80%;">
-> <b>&gt; c:\opt\jdk-11.0.4+11\bin\java -version</b>
-> openjdk version "11.0.34" 2019-07-16
-> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.4+11)
-> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.4+11, mixed mode)
+> <b>&gt; c:\opt\jdk-11.0.5+10\bin\java -version</b>
+> openjdk version "11.0.5" 2019-10-15
+> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.5+10)
+> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.5+10, mixed mode)
 > &nbsp;
 > <b>&gt; c:\opt\jdk-11.0.4+11\bin\java -Xshare:dump</b>
 > [...]
@@ -610,10 +610,10 @@ Classes per package (888):
 > classes.jsa
 > jvm.dll
 > &nbsp;
-> <b>&gt; c:\opt\jdk-11.0.4+11\bin\java -version</b>
-> openjdk version "11.0.4" 2019-07-16
-> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.4+11)
-> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.4+11, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
+> <b>&gt; c:\opt\jdk-11.0.5+10\bin\java -version</b>
+> openjdk version "11.0.5" 2019-10-15
+> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.45+10)
+> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.5+10, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
 > </pre>
 > Java 12 introduces default CDS archives ([JEP 341](http://openjdk.java.net/jeps/341))
 > to improve out-of-the-box startup time and to get rid of the need to run
@@ -630,28 +630,28 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 
 <pre style="font-size:80%;">
 <b>&gt; findstr /c:"source: file" class-load.txt</b>
-[0.761s][info][class,load] dotty.tools.dotc.core.Comments$Comment$ source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar
-[0.766s][info][class,load] dotty.tools.dotc.ast.untpd$Mod$ source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar
-[0.766s][info][class,load] dotty.tools.dotc.ast.untpd$Mod$Enum$ source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar
-[0.771s][info][class,load] dotty.tools.dotc.ast.untpd$Mod$Private$ source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar
-[0.772s][info][class,load] dotty.tools.dotc.ast.untpd$Mod$Final$ source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar
-[0.782s][info][class,load] dotty.tools.dotc.parsing.xml.Utility$ source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar
-[0.783s][info][class,load] dotty.tools.dotc.ast.untpd$GenFrom$ source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar
+[0.761s][info][class,load] dotty.tools.dotc.core.Comments$Comment$ source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar
+[0.766s][info][class,load] dotty.tools.dotc.ast.untpd$Mod$ source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar
+[0.766s][info][class,load] dotty.tools.dotc.ast.untpd$Mod$Enum$ source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar
+[0.771s][info][class,load] dotty.tools.dotc.ast.untpd$Mod$Private$ source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar
+[0.772s][info][class,load] dotty.tools.dotc.ast.untpd$Mod$Final$ source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar
+[0.782s][info][class,load] dotty.tools.dotc.parsing.xml.Utility$ source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar
+[0.783s][info][class,load] dotty.tools.dotc.ast.untpd$GenFrom$ source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar
 
-[0.783s][info][class,load] dotty.tools.dotc.ast.untpd$ForDo$ source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar
-[0.784s][info][class,load] dotty.tools.dotc.ast.untpd$InterpolatedString$ source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar
-[0.979s][info][class,load] dotty.tools.dotc.ast.DesugarEnums$CaseKind$ source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar
-[0.988s][info][class,load] dotty.tools.dotc.typer.ProtoTypes$PolyProto$ source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar
-[1.101s][info][class,load] dotty.tools.dotc.core.Types$RecType$ source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar
-[1.349s][info][class,load] dotty.tools.dotc.ast.desugar$IdPattern$ source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar
-[1.407s][info][class,load] scala.collection.mutable.ListBuffer$$anon$1 source: file:/C:/opt/dotty-0.18.1-RC1/lib/scala-library-2.13.0.jar
-[1.464s][info][class,load] dotty.tools.dotc.ast.Trees$Import$ source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar [1.473s][info][class,load] dotty.tools.dotc.ast.Trees$Typed$ source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar
-[1.479s][info][class,load] dotty.tools.dotc.ast.Trees$SeqLiteral$ source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar
-[1.574s][info][class,load] scala.runtime.java8.JFunction1$mcZI$sp source: file:/C:/opt/dotty-0.18.1-RC1/lib/scala-library-2.13.0.jar
-[1.821s][info][class,load] dotty.tools.dotc.core.NameOps$TermNameDecorator$ source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar
-[1.842s][info][class,load] dotty.tools.dotc.ast.Trees$Assign$ source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar [1.928s][info][class,load] dotty.tools.backend.jvm.BCodeAsmCommon$EnclosingMethodEntry source: file:/C:/opt/dotty-0.18.1-RC1/lib/dotty-compiler_0.18-0.18.1-RC1.jar
-[2.075s][info][class,load] scala.transient source: file:/C:/opt/dotty-0.18.1-RC1/lib/scala-library-2.13.0.jar
-[2.076s][info][class,load] scala.volatile source: file:/C:/opt/dotty-0.18.1-RC1/lib/scala-library-2.13.0.jar
+[0.783s][info][class,load] dotty.tools.dotc.ast.untpd$ForDo$ source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar
+[0.784s][info][class,load] dotty.tools.dotc.ast.untpd$InterpolatedString$ source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar
+[0.979s][info][class,load] dotty.tools.dotc.ast.DesugarEnums$CaseKind$ source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar
+[0.988s][info][class,load] dotty.tools.dotc.typer.ProtoTypes$PolyProto$ source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar
+[1.101s][info][class,load] dotty.tools.dotc.core.Types$RecType$ source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar
+[1.349s][info][class,load] dotty.tools.dotc.ast.desugar$IdPattern$ source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar
+[1.407s][info][class,load] scala.collection.mutable.ListBuffer$$anon$1 source: file:/C:/opt/dotty-0.19.0-RC1/lib/scala-library-2.13.0.jar
+[1.464s][info][class,load] dotty.tools.dotc.ast.Trees$Import$ source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar [1.473s][info][class,load] dotty.tools.dotc.ast.Trees$Typed$ source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar
+[1.479s][info][class,load] dotty.tools.dotc.ast.Trees$SeqLiteral$ source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar
+[1.574s][info][class,load] scala.runtime.java8.JFunction1$mcZI$sp source: file:/C:/opt/dotty-0.19.0-RC1/lib/scala-library-2.13.0.jar
+[1.821s][info][class,load] dotty.tools.dotc.core.NameOps$TermNameDecorator$ source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar
+[1.842s][info][class,load] dotty.tools.dotc.ast.Trees$Assign$ source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar [1.928s][info][class,load] dotty.tools.backend.jvm.BCodeAsmCommon$EnclosingMethodEntry source: file:/C:/opt/dotty-0.19.0-RC1/lib/dotty-compiler_0.19-0.19.0-RC1.jar
+[2.075s][info][class,load] scala.transient source: file:/C:/opt/dotty-0.19.0-RC1/lib/scala-library-2.13.0.jar
+[2.076s][info][class,load] scala.volatile source: file:/C:/opt/dotty-0.19.0-RC1/lib/scala-library-2.13.0.jar
 </pre>
 
 
@@ -713,5 +713,5 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/August 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/October 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>

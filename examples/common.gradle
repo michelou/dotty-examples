@@ -22,8 +22,8 @@ ext {
     classesDir = file("${targetDir}/classes")
     //buildClasspath = files(dotcLibraryFiles, classesDir)
     //runtimeClasspath = files(dottyLibraryFiles, classesDir)
-    buildClasspath = file('ch.epfl.lamp:dotty-compiler_0.18:0.18.1-RC1') classesDir
-    runtimeClasspath = file('ch.epfl.lamp:dotty-library_0.18:0.18.1-RC1') classesDir
+    buildClasspath = file('ch.epfl.lamp:dotty-compiler_0.19:0.19.0-RC1') classesDir
+    runtimeClasspath = file('ch.epfl.lamp:dotty-library_0.19:0.19.0-RC1') classesDir
 }
 
 clean.doLast {
@@ -80,10 +80,10 @@ repositories {
 }
 
 dependencies {
-    compile 'ch.epfl.lamp:dotty-compiler_0.18:0.18.1-RC1'
-    //compile 'ch.epfl.lamp:dotty-doc_0.18:0.18.1-RC1'
-    //compile 'ch.epfl.lamp:dotty-interfaces:0.18.1-RC1'
-    //compile 'ch.epfl.lamp:dotty-library_0.18:0.18.1-RC1'
-    //compile 'ch.epfl.lamp:dotty-staging_0.18:0.18.1-RC1'
+    compile 'ch.epfl.lamp:dotty-compiler_0.19:0.19.0-RC1'
+    //compile 'ch.epfl.lamp:dotty-doc_0.19:0.19.0-RC1'
+    //compile 'ch.epfl.lamp:dotty-interfaces:0.19.0-RC1'
+    //compile 'ch.epfl.lamp:dotty-library_0.19:0.19.0-RC1'
+    //compile 'ch.epfl.lamp:dotty-staging_0.19:0.19.0-RC1'
     testCompile 'junit:junit:4.12'
 }

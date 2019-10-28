@@ -6,7 +6,7 @@
     <a href="http://dotty.epfl.ch/"><img style="border:0;width:80px;" src="docs/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed by the <a href="https://drone.io/">Drone platform</a> running on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This page describes changes we made to the source code of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps locally on a Windows machine.
+    Source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This page describes changes we made to the source code of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps locally on a Windows machine.
   </td>
   </tr>
 </table>
@@ -38,7 +38,7 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three external software for the **Microsoft Windows** platform:
 
 - [Oracle OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot)<sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*](https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html))
-- [SBT 1.3](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.3.0))
+- [SBT 1.3](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.3.3))
 - [Git 2.23](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.23.0.txt))
 
 > **&#9755;** ***Installation policy***<br/>
@@ -47,8 +47,8 @@ Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three 
 For instance our development environment looks as follows (*August 2019*):
 
 <pre style="font-size:80%;">
-C:\opt\jdk-1.8.0_222-b10\
-C:\opt\sbt-1.3.0\
+C:\opt\jdk-1.8.0_232-b09\
+C:\opt\sbt-1.3.3\
 C:\opt\Git-2.23.0\
 </pre>
 
@@ -136,7 +136,7 @@ We distinguish different sets of batch commands:
 3. Directory [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software release](https://github.com/lampepfl/dotty/releases).
 
     <pre style="font-size:80%;">
-    <b>&gt; dir /b .\dist\bin</b>
+    <b>&gt; dir /b dist\bin</b>
     common
     common.bat
     dotc
@@ -254,12 +254,12 @@ Command **`setenv`** is executed once to setup our development environment; it m
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
 Tool versions:
-   javac 1.8.0_222, java 1.8.0_222,
+   javac 1.8.0_232, java 1.8.0_232,
    sbt 1.2.8/2.12.8, git 2.23.0.windows.1, diff 3.7
 
 <b>&gt; where sbt</b>
-C:\opt\sbt-1.3.0\bin\sbt
-C:\opt\sbt-1.3.0\bin\sbt.bat
+C:\opt\sbt-1.3.3\bin\sbt
+C:\opt\sbt-1.3.3\bin\sbt.bat
 </pre>
 
 Command **`setenv -verbose`** also displays the tool paths and the current Git branch:
@@ -267,14 +267,14 @@ Command **`setenv -verbose`** also displays the tool paths and the current Git b
 <pre style="font-size:80%;">
 <b>&gt; setenv -verbose</b>
 Tool versions:
-   javac 1.8.0_222, java 1.8.0_222,
+   javac 1.8.0_232, java 1.8.0_232,
    sbt 1.2.8/2.12.8, git 2.23.0.windows.1, diff 3.7
 Tool paths:
-   C:\opt\jdk-1.8.0_222-b10\bin\javac.exe
-   C:\opt\jdk-1.8.0_222-b10\bin\java.exe
+   C:\opt\jdk-1.8.0_232-b09\bin\javac.exe
+   C:\opt\jdk-1.8.0_232-b09\bin\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
-   C:\opt\sbt-1.3.0\bin\sbt.bat
+   C:\opt\sbt-1.3.3\bin\sbt.bat
    C:\opt\Git-2.23.0\bin\git.exe
    C:\opt\Git-2.23.0\usr\bin\diff.exe
 Current Git branch:
@@ -320,8 +320,8 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
     <b>&gt; build -verbose cleanall</b>
     Tool paths
       GIT_CMD=C:\opt\Git-2.23.0\bin\git.exe
-      JAVA_CMD=C:\opt\jdk-1.8.0_222-b10\bin\java.exe
-      SBT_CMD=C:\opt\sbt-1.3.0\bin\sbt.bat
+      JAVA_CMD=C:\opt\jdk-1.8.0_232-b09\bin\java.exe
+      SBT_CMD=C:\opt\sbt-1.3.3\bin\sbt.bat
     Tool options
       JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
       SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -483,7 +483,7 @@ Total execution time: 00:20:25
 
 #### `cmdTests`
 
-Command [**`project\scripts\cmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) performs several tests running Dotty commands from [**`sbt`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html). In the normal case, command [**`cmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) is called by command **`build compile`** but may also be called directly.
+Command [**`project\scripts\cmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) performs several tests running [Dotty](https://dotty.epfl.ch) commands from [**`sbt`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html). In the normal case, command [**`cmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) is called by command **`build compile`** but may also be called directly.
 
 
 <pre style="font-size:80%;">
@@ -519,8 +519,8 @@ Command [**`project\scripts\bootstrapCmdTests`**](https://github.com/michelou/do
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.21
-# VM version: JDK 1.8.0_222, VM 25.222-b10
-# VM invoker: C:\opt\jdk-1.8.0_222-b10\bin\java.exe
+# VM version: JDK 1.8.0_232, VM 25.232-b09
+# VM invoker: C:\opt\jdk-1.8.0_232-b09\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -549,8 +549,8 @@ Worker.compile  avgt       533.625          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.21
-# VM version: JDK 1.8.0_222, VM 25.222-b10
-# VM invoker: C:\opt\jdk-1.8.0_222-b10\bin\java.exe
+# VM version: JDK 1.8.0_232, VM 25.232-b09
+# VM invoker: C:\opt\jdk-1.8.0_232-b09\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -577,8 +577,8 @@ Worker.compile  avgt       361.619          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
 # JMH version: 1.21
-# VM version: JDK 1.8.0_222, VM 25.222-b10
-# VM invoker: C:\opt\jdk-1.8.0_222-b10\bin\java.exe
+# VM version: JDK 1.8.0_232, VM 25.232-b09
+# VM invoker: C:\opt\jdk-1.8.0_232-b09\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -695,5 +695,5 @@ We fixed our local Git settings as follows:
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/August 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/October 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>

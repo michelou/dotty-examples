@@ -6,7 +6,7 @@
     <a href="http://dotty.epfl.ch/"><img style="border:0;" src="docs/dotty.png"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    This repository gathers code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/">Dotty project</a> - or written by myself.<br/>
+    This repository gathers <a href="https://dotty.epfl.ch/">Dotty</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/">Dotty</a> project - or written by myself.<br/>
     In particular it includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a> for experimenting with the Dotty language (aka <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html">Scala 3</a>) on a Windows machine.
   </td>
   </tr>
@@ -19,7 +19,7 @@ This page is part of a series of topics related to [Dotty](https://dotty.epfl.ch
 - [Data Sharing and Dotty on Windows](CDS.md)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Scala Metaprogramming](https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html) (macros, TASTy) and [GraalVM](https://www.graalvm.org/) are other topics we are currently investigating.
+[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Scala Metaprogramming](https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html) (macros, TASTy), [GraalVM](https://www.graalvm.org/) and [LLVM](https://github.com/michelou/llvm-examples) are other topics we are currently investigating.
 
 ## <span id="section_01">Project dependencies</span>
 
@@ -35,7 +35,7 @@ Optionally one may also install the following software:
 
 - [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.7.html))
 - [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([requires Java 7](http://maven.apache.org/docs/history.html))  ([*release notes*](http://maven.apache.org/docs/3.6.1/release-notes.html))
-- [Bloop 1.3](https://scalacenter.github.io/bloop/) (requires Java 8 and Python 2/3) ([*release notes*](https://github.com/scalacenter/bloop/releases/tag/v1.3.2))
+- [Bloop 1.3](https://scalacenter.github.io/bloop/) (requires Java 8 and Python 2/3) ([*release notes*](https://github.com/scalacenter/bloop/releases/tag/v1.3.4))
 - [CFR 0.14](http://www.benf.org/other/cfr/) (Java decompiler)
 - [Git 2.23](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.23.0.txt))
 - [Gradle 5.6](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.6.2/release-notes.html))
@@ -46,19 +46,19 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*September 2019*):
+For instance our development environment looks as follows (*October 2019*):
 
 <pre style="font-size:80%;">
-C:\opt\jdk-1.8.0_222-b10\    <i>(184.0 MB)</i>
+C:\opt\jdk-1.8.0_232-b09\    <i>(184.0 MB)</i>
 C:\opt\apache-ant-1.10.7\    <i>( 39.9 MB)</i>
 C:\opt\apache-maven-3.6.2\   <i>( 10.1 MB)</i>
-C:\opt\bloop-1.3.2\          <i>(  0.1 MB)</i>
-C:\opt\cfr-0.146\            <i>(  1.7 MB)</i>
+C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
+C:\opt\cfr-0.147\            <i>(  1.7 MB)</i>
 C:\opt\dotty-0.19.0-RC1\     <i>( 25.2 MB)</i>
 C:\opt\Git-2.23.0\           <i>(271.0 MB)</i>
-C:\opt\gradle-5.6.2\         <i>(101.0 MB)</i>
-C:\opt\Mill-0.5.1\           <i>( 37.0 MB)</i>
-C:\opt\sbt-1.3.2\            <i>( 54.8 MB)</i>
+C:\opt\gradle-5.6.3\         <i>(101.0 MB)</i>
+C:\opt\Mill-0.5.2\           <i>( 49.0 MB)</i>
+C:\opt\sbt-1.3.3\            <i>( 54.8 MB)</i>
 C:\opt\scala-2.13.1\         <i>( 19.7 MB)</i>
 </pre>
 
@@ -71,8 +71,8 @@ We further recommand using an advanced console emulator such as [ComEmu](https:/
 This project is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
-bin\0.18\*.bat
-bin\cfr-0.146.zip
+bin\0.19\*.bat
+bin\cfr-0.147.zip
 docs\
 examples\{dotty-example-project, ..}
 myexamples\{00_AutoParamTupling, ..}
@@ -84,7 +84,7 @@ where
 
 - directory [**`bin\`**](bin/) provides several utility batch commands.
 - directory [**`bin\0.19\`**](bin/0.19/) contains the batch commands for [Dotty 0.19](https://github.com/lampepfl/dotty/releases/tag/0.19.0-RC1).
-- file [**`bin\cfr-0.146.zip`**](bin/cfr-0.146.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
+- file [**`bin\cfr-0.147.zip`**](bin/cfr-0.147.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
 - directory [**`docs\`**](docs/) contains several [Dotty](https://dotty.epfl.ch/) related papers/articles.
 - directory [**`examples\`**](examples/) contains [Dotty](https://dotty.epfl.ch/) examples grabbed from various websites.
 - directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
@@ -189,12 +189,12 @@ We distinguish different sets of batch commands:
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.146.zip`**](bin/cfr-0.146.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
+    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.147.zip`**](bin/cfr-0.147.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
 
     <pre style="font-size:80%;">
     <b>&gt; cfr myexamples\00_AutoParamTupling\target\classes\myexamples\Main.class</b>
     /*
-     * Decompiled with CFR 0.146.
+     * Decompiled with CFR 0.147.
      */
     package myexamples;
     
@@ -251,13 +251,13 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
 Tool versions:
-   javac 1.8.0_222, java 1.8.0_222, scalac 2.13.1, dotc 0.19.0-RC1,
-   ant 1.10.7, gradle 5.6.2, mill 0.5.1, mvn 3.6.2, sbt 1.2.8/2.12.8,
-   cfr 0.146, bloop v1.3.2, git 2.23.0.windows.1, diff 3.7
+   javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.19.0-RC1,
+   ant 1.10.7, gradle 5.6.3, mill 0.5.2, mvn 3.6.2, sbt 1.3.3/2.12.8,
+   cfr 0.147, bloop v1.3.4, git 2.23.0.windows.1, diff 3.7
 
 <b>&gt; where sbt</b>
-C:\opt\sbt-1.3.2\bin\sbt
-C:\opt\sbt-1.3.2\bin\sbt.bat
+C:\opt\sbt-1.3.3\bin\sbt
+C:\opt\sbt-1.3.3\bin\sbt.bat
 </pre>
 
 Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
@@ -265,23 +265,23 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 <pre style="font-size:80%;">
 <b>&gt; setenv -verbose</b>
 Tool versions:
-   javac 1.8.0_222, java 1.8.0_222, scalac 2.13.1, dotc 0.19.0-RC1,
-   ant 1.10.7, gradle 5.6.1, mill 0.5.1, mvn 3.6.2, sbt 1.2.8/2.12.8,
-   cfr 0.146, bloop v1.3.2, git 2.23.0.windows.1, diff 3.7
+   javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.19.0-RC1,
+   ant 1.10.7, gradle 5.6.3, mill 0.5.2, mvn 3.6.2, sbt 1.3.3/2.12.8,
+   cfr 0.147, bloop v1.3.4, git 2.23.0.windows.1, diff 3.7
 Tool paths:
-   C:\opt\jdk-1.8.0_222-b10\bin\javac.exe
-   C:\opt\jdk-1.8.0_222-b10\bin\java.exe
+   C:\opt\jdk-1.8.0_232-b09\bin\javac.exe
+   C:\opt\jdk-1.8.0_232-b09\bin\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\opt\scala-2.13.1\bin\scalac.bat
    C:\opt\dotty-0.19.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.7\bin\ant.bat
-   C:\opt\gradle-5.6.2\bin\gradle.bat
-   C:\opt\Mill-0.5.1\mill.bat
+   C:\opt\gradle-5.6.3\bin\gradle.bat
+   C:\opt\Mill-0.5.2\mill.bat
    C:\opt\apache-maven-3.6.2\bin\mvn.cmd
-   C:\opt\sbt-1.3.2\bin\sbt.bat
-   C:\opt\cfr-0.146\bin\cfr.bat
-   C:\opt\bloop-1.3.2\bloop.cmd
+   C:\opt\sbt-1.3.3\bin\sbt.bat
+   C:\opt\cfr-0.147\bin\cfr.bat
+   C:\opt\bloop-1.3.4\bloop.cmd
    C:\opt\Git-2.23.0\bin\git.exe
    C:\opt\Git-2.23.0\usr\bin\diff.exe
 </pre>
@@ -302,57 +302,57 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; dirsize examples myexamples c:\opt\dotty-0.19.0-RC1 c:\opt\jdk-1.8.0_222-b10</b>
+<b>&gt; dirsize examples myexamples c:\opt\dotty-0.19.0-RC1 c:\opt\jdk-1.8.0_232-b09</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
 Size of directory "c:\opt\dotty-0.19.0-RC1" is 25.2 Mb
-Size of directory "c:\opt\jdk-1.8.0_222-b10" is 184.1 Mb
+Size of directory "c:\opt\jdk-1.8.0_232-b09" is 184.1 Mb
 </pre>
 
 #### `getnightly.bat`
 
-By default command [**`getnightly`**](bin/getnightly.bat) downloads the library files of the latest Dotty nightly build available from the [Maven Central Repository](https://search.maven.org/search?q=g:ch.epfl.lamp) and saves them into directory **`out\nightly-jars\`**.
+By default command [**`getnightly`**](bin/getnightly.bat) downloads the library files of the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp) available from the [Maven Central Repository](https://search.maven.org/search?q=g:ch.epfl.lamp) and saves them into directory **`out\nightly-jars\`**.
 
 <pre style="font-size:80%;">
 <b>&gt; getnightly</b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
-dotty-doc_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
-dotty-interfaces-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
-dotty-language-server_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
-dotty-library_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
-dotty-sbt-bridge-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
-dotty-staging_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
-dotty_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
+dotty-compiler_0.20-0.20.0-bin-20191026-d2db509-NIGHTLY.jar
+dotty-doc_0.20-0.20.0-bin-20191026-d2db509-NIGHTLY.jar
+dotty-interfaces-0.20.0-bin-20191026-d2db509-NIGHTLY.jar
+dotty-language-server_0.20-0.20.0-bin-20191026-d2db509-NIGHTLY.jar
+dotty-library_0.20-0.20.0-bin-20191026-d2db509-NIGHTLY.jar
+dotty-sbt-bridge-0.20.0-bin-20191026-d2db509-NIGHTLY.jar
+dotty-staging_0.20-0.20.0-bin-20191026-d2db509-NIGHTLY.jar
+dotty_0.20-0.20.0-bin-20191026-d2db509-NIGHTLY.jar
 </pre>
 
 Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
 <pre style="font-size:80%">
 <b>&gt; getnightly -verbose</b>
-Downloading file dotty-doc_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar ... 1 Mb
-Downloading file dotty-library_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar ... 1.3 Mb
-Downloading file dotty-sbt-bridge-0.20.0-bin-20190923-10091bd-NIGHTLY.jar ... 13.4 Kb
-Downloading file dotty-compiler_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar ... 11.1 Mb
-Downloading file dotty_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-language-server_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar ... 146.5 Kb
-Downloading file dotty-interfaces-0.20.0-bin-20190923-10091bd-NIGHTLY.jar ... 3.4 Kb
-Downloading file dotty-staging_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar ... 36.6 Kb
+Downloading file dotty-doc_0.20-0.20.0-bin-20191026-d2db509-NIGHTLY.jar ... 1 Mb
+Downloading file dotty-sbt-bridge-0.20.0-bin-20191026-d2db509-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty_0.20-0.20.0-bin-20191026-d2db509-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-interfaces-0.20.0-bin-20191026-d2db509-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-compiler_0.20-0.20.0-bin-20191026-d2db509-NIGHTLY.jar ... 11.1 Mb
+Downloading file dotty-library_0.20-0.20.0-bin-20191026-d2db509-NIGHTLY.jar ... 1.3 Mb
+Downloading file dotty-staging_0.20-0.20.0-bin-20191026-d2db509-NIGHTLY.jar ... 36.6 Kb
+Downloading file dotty-language-server_0.20-0.20.0-bin-20191026-d2db509-NIGHTLY.jar ... 146.2 Kb
 Finished to download 8 files to directory W:\DOTTY-~1\out\nightly-jars
 </pre>
 
 We can now replace the library files from the original [Dotty distribution](https://github.com/lampepfl/dotty/releases) (installed in directory **`C:\opt\dotty-0.19.0-RC1\`** in our case) with library files from the latest nightly build.
 
-Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in the Dotty installation directory.
+Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in the [Dotty](https://dotty.epfl.ch) installation directory.
 
 <pre style="font-size:80%;">
 <b>&gt; getnightly activate</b>
 Finished to download 8 files to directory W:\out\nightly-jars
-Activate nightly build libraries: 0.20.0-bin-20190923-10091bd-NIGHTLY
+Activate nightly build libraries: 0.20.0-bin-20191026-d2db509-NIGHTLY
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.20.0-bin-20190923-10091bd-NIGHTLY-git-10091bd -- Copyright 2002-2019, LAMP/EPFL
+Dotty compiler version 0.20.0-bin-20191026-d2db509-NIGHTLY-git-d2db509 -- Copyright 2002-2019, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
 Activate default Dotty libraries: 0.19.0-RC1
@@ -361,7 +361,7 @@ Activate default Dotty libraries: 0.19.0-RC1
 Dotty compiler version 0.19.0-RC1 -- Copyright 2002-2019, LAMP/EPFL
 </pre>
 
-> **:warning:** You need *write access* to the Dotty installation directory (e.g. **`C:\opt\dotty-0.19.0-RC1\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
+> **:warning:** You need *write access* to the [Dotty](https://dotty.epfl.ch) installation directory (e.g. **`C:\opt\dotty-0.19.0-RC1\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
 
 Internally command [**`getnightly`**](bin/getnightly.bat) manages two sets of libraries files which are organized as follows:
 
@@ -376,20 +376,20 @@ lib\0.19.0-RC1\
 &nbsp;&nbsp;dotty-interfaces-0.19.0-RC1.jar
 &nbsp;&nbsp;dotty-library_0.19-0.19.0-RC1.jar
 &nbsp;&nbsp;dotty-staging_0.19-0.19.0-RC1.jar
-lib\0.20.0-bin-20190923-10091bd-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
-&nbsp;&nbsp;dotty-staging_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.20-0.20.0-bin-20190923-10091bd-NIGHTLY.jar
+lib\0.20.0-bin-20191026-d2db509-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.20-0.20.0-bin-20191026-d2db509-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.20-0.20.0-bin-20191026-d2db509-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.20.0-bin-20191026-d2db509-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.20-0.20.0-bin-20191026-d2db509-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.20-0.20.0-bin-20191026-d2db509-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.20.0-bin-20191026-d2db509-NIGHTLY.jar
+&nbsp;&nbsp;dotty-staging_0.20-0.20.0-bin-20191026-d2db509-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.20-0.20.0-bin-20191026-d2db509-NIGHTLY.jar
 </pre>
 
-In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original Dotty installation respectively from the latest nightly build.
+In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original [Dotty](https://dotty.epfl.ch) installation respectively from the latest nightly build.
 
-> **:mag_right:** Dotty versions up to `0.18.0` depend on **`scala-library-2.12.8.jar`**; Dotty versions `0.18.1` and newer depend on **`scala-library-2.13.0.jar`**.
+> **:mag_right:** Dotty versions up to `0.18.0` depend on **`scala-library-2.12.8.jar`**; Dotty versions `0.18.1` and newer depend on **`scala-library-2.13.x.jar`**.
 
 
 #### `searchjars.bat <class_name>`
@@ -580,9 +580,9 @@ C:\opt\dotty-0.19.0-RC1\bin\dotr
 C:\opt\dotty-0.19.0-RC1\bin\dotr.bat
 
 <b>&gt; dotr -version</b>
-openjdk version "1.8.0_222"
-OpenJDK Runtime Environment (AdoptOpenJDK)(build 1.8.0_222-b10)
-OpenJDK 64-Bit Server VM (AdoptOpenJDK)(build 25.222-b10, mixed mode)
+openjdk version "1.8.0_232"
+OpenJDK Runtime Environment (AdoptOpenJDK)(build 1.8.0_232-b09)
+OpenJDK 64-Bit Server VM (AdoptOpenJDK)(build 25.232-b09, mixed mode)
 
 <b>&gt; dotr</b>
 Starting dotty REPL...
@@ -597,7 +597,7 @@ The REPL has several commands available:
 :reset                   reset the repl to its initial state, forgetting all session entries
 
 <b>scala&gt;</b> System.getenv().get("JAVA_HOME")
-val res0: String = C:\opt\jdk-1.8.0_222-b10
+val res0: String = C:\opt\jdk-1.8.0_232-b09
 
 <b>scala&gt;</b> System.getenv().get("DOTTY_HOME")
 val res1: String = C:\opt\dotty-0.19.0-RC1
@@ -648,19 +648,19 @@ Exception in thread "main" java.lang.IncompatibleClassChangeError: Method dotty.
 </pre>
 -->
 
-<a name="footnote_01">[1]</a> ***2018-11-18*** [↩](#anchor_01)
+<a name="footnote_01">[1]</a> ***Java LTS*** [↩](#anchor_01) <!-- 2018-11-18 -->
 
 <p style="margin:0 0 1em 20px;">
 Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current LTS release.
 </p>
 
-<a name="footnote_02">[2]</a> ***2018-05-09*** [↩](#anchor_02)
+<a name="footnote_02">[2]</a> ***PowerShell*** [↩](#anchor_02) <!-- 2018-05-09 -->
 
 <p style="margin:0 0 1em 20px;"> 
-Command Prompt has been around for as long as we can remember, but starting with Windows 10 build 14971, Microsoft is trying to make PowerShell the <a href="https://support.microsoft.com/en-us/help/4027690/windows-powershell-is-replacing-command-prompt">main command shell</a> in the operating system.
+Command Prompt has been around for as long as we can remember, but starting with Windows 10 build 14971, Microsoft is trying to make <a href="https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6">PowerShell</a> the <a href="https://support.microsoft.com/en-us/help/4027690/windows-powershell-is-replacing-command-prompt">main command shell</a> in the operating system.
 </p>
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/September 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/October 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
