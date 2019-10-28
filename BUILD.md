@@ -106,54 +106,54 @@ We distinguish different sets of batch commands:
 
 3. Directory [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software release](https://github.com/lampepfl/dotty/releases).
 
-    <pre style="font-size:80%;">
-    <b>&gt; dir /b dist\bin</b>
-    common
-    common.bat
-    dotc
-    dotc.bat
-    dotd
-    dotd.bat
-    dotr
-    dotr.bat
-    </pre>
+   <pre style="font-size:80%;">
+   <b>&gt; dir /b dist\bin</b>
+   common
+   common.bat
+   dotc
+   dotc.bat
+   dotd
+   dotd.bat
+   dotr
+   dotr.bat
+   </pre>
 
 4. [**`build.bat`**](bin/dotty/build.bat) - This batch command performs on a Windows machine the same build/test steps as specified in file [**`.drone.yml`**](dotty/.drone.yml) and executed on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
 
-    <pre style="font-size:80%;">
-    <b>&gt; cp bin\dotty\build.bat dotty</b>
-    <b>&gt; cd dotty</b></pre>
+   <pre style="font-size:80%;">
+   <b>&gt; cp bin\dotty\build.bat dotty</b>
+   <b>&gt; cd dotty</b></pre>
 
-    Command [**`build.bat help`**](bin/dotty/build.bat) display the help message.
+   Command [**`build.bat help`**](bin/dotty/build.bat) display the help message.
 
-    <pre style="font-size:80%;">
-    <b>&gt; cd</b>
-    V:\dotty
-    &nbsp;
-    <b>&gt; build help</b>
-    Usage: build { options | subcommands }
-      Options:
-        -timer                 display the total build time
-        -verbose               display environment settings
-      Subcommands:
-        arch[ives]             generate gz/zip archives (after bootstrap)
-        boot[strap]            generate+test bootstrapped compiler (after compile)
-        cleanall               clean project (sbt+git) and quit
-        clone                  update submodules
-        compile                generate+test 1st stage compiler (after clone)
-        community              test community-build
-        doc[umentation]        generate documentation (after bootstrap)
-        help                   display this help message
-        sbt                    test sbt-dotty (after bootstrap)
-      Advanced subcommands (no deps):
-        arch[ives]-only        generate ONLY gz/zip archives
-        boot[strap]-only       generate+test ONLY bootstrapped compiler
-        compile-only           generate+test ONLY 1st stage compiler
-        doc[umentation]-only   generate ONLY documentation
-        sbt-only               test ONLY sbt-dotty
-    </pre>
+   <pre style="font-size:80%;">
+   <b>&gt; cd</b>
+   V:\dotty
+   &nbsp;
+   <b>&gt; build help</b>
+   Usage: build { options | subcommands }
+     Options:
+       -timer                 display the total build time
+       -verbose               display environment settings
+     Subcommands:
+       arch[ives]             generate gz/zip archives (after bootstrap)
+       boot[strap]            generate+test bootstrapped compiler (after compile)
+       cleanall               clean project (sbt+git) and quit
+       clone                  update submodules
+       compile                generate+test 1st stage compiler (after clone)
+       community              test community-build
+       doc[umentation]        generate documentation (after bootstrap)
+       help                   display this help message
+       sbt                    test sbt-dotty (after bootstrap)
+     Advanced subcommands (no deps):
+       arch[ives]-only        generate ONLY gz/zip archives
+       boot[strap]-only       generate+test ONLY bootstrapped compiler
+       compile-only           generate+test ONLY 1st stage compiler
+       doc[umentation]-only   generate ONLY documentation
+       sbt-only               test ONLY sbt-dotty
+   </pre>
 
-    Subcommands obey the following dependency rules for their execution:
+   Subcommands obey the following dependency rules for their execution:
 
     | **A** depends on **B** | Execution time<sup>**(1)**</sup> | Output from **A** |
     | :------------ | :------------: | :------------ |
@@ -233,204 +233,204 @@ Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project
 
 Command **`build.bat cleanall`** removes all generated *and untracked* files/directories from our [**`Dotty fork`**](https://github.com/michelou/dotty/tree/master/).<br/>Internally, **`build cleanall`** executes the two commands **`sbt clean`** *and* [**`git clean -xdf`**](https://git-scm.com/docs/git-clean/) which removes all untracked directories/files, including build products.
 
-    <pre style="font-size:80%;">
-    <b>&gt; build cleanall</b>
-    [...(sbt)...]
-    Removing .vscode/
-    Removing HelloWorld$.class
-    Removing HelloWorld.class
-    Removing HelloWorld.tasty
-    Removing compiler/target/
-    Removing dist-bootstrapped/
-    Removing doc-tool/target/
-    Removing dotty-bootstrapped/
-    Removing interfaces/target/
-    Removing library/target/
-    Removing out/
-    Removing project/project/project/
-    Removing project/project/target/
-    Removing project/target/
-    Removing sbt-bridge/target/
-    Removing scala-compiler/
-    Removing scala-library/
-    Removing scala-reflect/
-    Removing scalap/
-    Removing setenv.bat
-    Removing target/
-    Removing testlogs/
-    </pre>
+<pre style="font-size:80%;">
+<b>&gt; build cleanall</b>
+[...(sbt)...]
+Removing .vscode/
+Removing HelloWorld$.class
+Removing HelloWorld.class
+Removing HelloWorld.tasty
+Removing compiler/target/
+Removing dist-bootstrapped/
+Removing doc-tool/target/
+Removing dotty-bootstrapped/
+Removing interfaces/target/
+Removing library/target/
+Removing out/
+Removing project/project/project/
+Removing project/project/target/
+Removing project/target/
+Removing sbt-bridge/target/
+Removing scala-compiler/
+Removing scala-library/
+Removing scala-reflect/
+Removing scalap/
+Removing setenv.bat
+Removing target/
+Removing testlogs/
+</pre>
 
-    Command **`build -verbose cleanall`** also displays the tool paths/options and the current Git branch:
+Command **`build -verbose cleanall`** also displays the tool paths/options and the current Git branch:
 
-    <pre style="font-size:80%;">
-    <b>&gt; build -verbose cleanall</b>
-    Tool paths
-      GIT_CMD=C:\opt\Git-2.23.0\bin\git.exe
-      JAVA_CMD=C:\opt\jdk-1.8.0_232-b09\bin\java.exe
-      SBT_CMD=C:\opt\sbt-1.3.3\bin\sbt.bat
-    Tool options
-      JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
-      SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
-    Current Git branch
-      master
-    &nbsp;
-    [...(sbt)...]
-    [...(git)...]
-    </pre>
+<pre style="font-size:80%;">
+<b>&gt; build -verbose cleanall</b>
+Tool paths
+   GIT_CMD=C:\opt\Git-2.23.0\bin\git.exe
+   JAVA_CMD=C:\opt\jdk-1.8.0_232-b09\bin\java.exe
+   SBT_CMD=C:\opt\sbt-1.3.3\bin\sbt.bat
+Tool options
+   JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
+   SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
+Current Git branch
+   master
+&nbsp;
+[...(sbt)...]
+[...(git)...]
+</pre>
 
 #### `build.bat compile`
 
 Command **`build.bat compile`** generates the *"1st stage compiler"* for [Dotty](http://dotty.epfl.ch/) and executes the relevant test suites. 
 
-    <pre style="font-size:80%;">
-    <b>&gt; build compile</b>
-    sbt compile and sbt test
-    [...]
-    [info] Done compiling.
-    [...]
-    [info] Done packaging.
-    [...]
-    [info] Test run started
-    [info] Test dotty.tools.dottydoc.TestWhitelistedCollections.arrayAndImmutableHasDocumentation started
-    [info] Test run finished: 0 failed, 0 ignored, 1 total, 21.918s
-    [info] Test run started
-    [...]
-    8 suites passed, 0 failed, 8 total
-    [...]
-    [info] Test run started
-    [...]
-    2 suites passed, 0 failed, 2 total
-    [...]
-    [info] Test run started
-    [...]
-    11 suites passed, 0 failed, 11 total
-    [...]
-    [info] Test run started
-    [...]
-    [info] Passed: Total 73, Failed 0, Errors 0, Passed 73
-    [info] Passed: Total 290, Failed 0, Errors 0, Passed 288, Skipped 2
-    [success] Total time: 1063 s, completed 16 nov. 2018 15:39:19
-    testing sbt dotc and dotr
-    hello world
-    testing sbt dotc -from-tasty and dotr -classpath
-    hello world
-    testing sbt dotc -decompile
-    [...]
-    testing sbt dotr with no -classpath
-    hello world
-    testing loading tasty from .tasty file in jar
-    [...]
-    </pre>
+<pre style="font-size:80%;">
+<b>&gt; build compile</b>
+sbt compile and sbt test
+[...]
+[info] Done compiling.
+[...]
+[info] Done packaging.
+[...]
+[info] Test run started
+[info] Test dotty.tools.dottydoc.TestWhitelistedCollections.arrayAndImmutableHasDocumentation started
+[info] Test run finished: 0 failed, 0 ignored, 1 total, 21.918s
+[info] Test run started
+[...]
+8 suites passed, 0 failed, 8 total
+[...]
+[info] Test run started
+[...]
+2 suites passed, 0 failed, 2 total
+[...]
+[info] Test run started
+[...]
+11 suites passed, 0 failed, 11 total
+[...]
+[info] Test run started
+[...]
+[info] Passed: Total 73, Failed 0, Errors 0, Passed 73
+[info] Passed: Total 290, Failed 0, Errors 0, Passed 288, Skipped 2
+[success] Total time: 1063 s, completed 16 nov. 2018 15:39:19
+testing sbt dotc and dotr
+hello world
+testing sbt dotc -from-tasty and dotr -classpath
+hello world
+testing sbt dotc -decompile
+[...]
+testing sbt dotr with no -classpath
+hello world
+testing loading tasty from .tasty file in jar
+[...]
+</pre>
 
 #### `build.bat bootstrap`
 
 Command **`build.bat bootstrap`** works as follows: ***if*** execution of the **`compile`** subcommand was successful the **`bootstrap`** subcommand generates the *"bootstrap compiler"* for Dotty and executes the relevant test suites.
 
-    <pre style="font-size:80%;">
-    <b>&gt; build bootstrap</b>
-    [...]
-    </pre>
+<pre style="font-size:80%;">
+<b>&gt; build bootstrap</b>
+[...]
+</pre>
 
 #### `build.bat community`
 
 Command **`build.bat community`**  generates subprojects from **`community-build\community-projects\`**: 
 
-    <pre style="font-size:80%;">
-    <b>&gt; build community</b>
-    [...]
-    </pre>
+<pre style="font-size:80%;">
+<b>&gt; build community</b>
+[...]
+</pre>
 
 #### `build.bat archives`
 
 Command **`build.bat archives`** works as follows:  ***if*** execution of the **`bootstrap`** subcommand was successful the **`archives`** subcommand generates the gz/zip archives.<br/>Below we execute the **`arch-only`** subcommand for the sake of brievity (previous steps are *assumed* to be successful): 
 
-    <pre style="font-size:80%;">
-    <b>&gt; build arch-only</b>
-    [...]
-    &nbsp;
-    <b>&gt; dir /a-d /b dist-bootstrapped\target</b>
-    dotty-0.19.1-bin-SNAPSHOT.tar.gz
-    dotty-0.19.1-bin-SNAPSHOT.zip
-    </pre>
+<pre style="font-size:80%;">
+<b>&gt; build arch-only</b>
+[...]
+&nbsp;
+<b>&gt; dir /a-d /b dist-bootstrapped\target</b>
+dotty-0.19.1-bin-SNAPSHOT.tar.gz
+dotty-0.19.1-bin-SNAPSHOT.zip
+</pre>
 
 #### `build.bat documentation`
 
 Command **`build.bat documentation`** works as follows: ***if*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Dotty website](https://dotty.epfl.ch/) and the online [Dotty documentation](https://dotty.epfl.ch/docs/).<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
-    <pre style="font-size:80%;">
-    <b>&gt; build -timer doc-only</b>
-    Working directory: W:\dotty
-    [...]
-    [info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 0.15.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
-    Compiling (1/406): AlternateConstructorsPhase.scala
-    [...]
-    Compiling (406/406): package.scala
-    [...]
-    28 warnings found
-    there were 3987 feature warning(s); re-run with -feature for details
-    [doc info] Generating doc page for: dotty.tools.dotc.plugins
-    [...]
-    [doc info] Generating doc page for: dotty.tools.dotc.core.unpickleScala2.Scala2Unpickler$.TempPolyType$
-    ================================================================================
-    Dottydoc summary report for project `Dotty`
-    ================================================================================
-    Documented members in public API:
-    [...]
-    Summary:
-    &nbsp;
-    public members with docstrings:    5181/14606 (35%)
-    protected members with docstrings: 164/537 (30%)
-    ================================================================================
-    &nbsp;
-    Documented members in internal API:
-    [...]
-    Summary internal API:
-    &nbsp;
-    public members with docstrings:    154/601 (25%)
-    protected members with docstrings: 6/60 (10%)
-    private members with docstrings:   464/2450 (18%)
-    total warnings with regards to compilation and documentation: 29
-    [success] Total time: 146 s, completed 29 nov. 2018 11:49:22
-    Total execution time: 00:02:36
-    </pre>
+<pre style="font-size:80%;">
+<b>&gt; build -timer doc-only</b>
+Working directory: W:\dotty
+[...]
+[info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 0.15.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
+Compiling (1/406): AlternateConstructorsPhase.scala
+[...]
+Compiling (406/406): package.scala
+[...]
+28 warnings found
+there were 3987 feature warning(s); re-run with -feature for details
+[doc info] Generating doc page for: dotty.tools.dotc.plugins
+[...]
+[doc info] Generating doc page for: dotty.tools.dotc.core.unpickleScala2.Scala2Unpickler$.TempPolyType$
+&equals;================================================================================
+Dottydoc summary report for project `Dotty`
+&equals;================================================================================
+Documented members in public API:
+[...]
+Summary:
+&nbsp;
+public members with docstrings:    5181/14606 (35%)
+protected members with docstrings: 164/537 (30%)
+&equals;================================================================================
+&nbsp;
+Documented members in internal API:
+[...]
+Summary internal API:
+&nbsp;
+public members with docstrings:    154/601 (25%)
+protected members with docstrings: 6/60 (10%)
+private members with docstrings:   464/2450 (18%)
+total warnings with regards to compilation and documentation: 29
+[success] Total time: 146 s, completed 29 nov. 2018 11:49:22
+Total execution time: 00:02:36
+</pre>
 
-    Output directory **`docs\_site\`** contains the files of the online [Dotty documentation](https://dotty.epfl.ch/docs/):
+Output directory **`docs\_site\`** contains the files of the online [Dotty documentation](https://dotty.epfl.ch/docs/):
 
-    <pre style="font-size:80%;">
-    <b>&gt; dir /b docs\_site</b>
-    .gitignore
-    api
-    blog
-    css
-    docs
-    images
-    index.html
-    js
-    sidebar.yml
-    versions
-    <b>&gt; dir /a-d /b /s docs\_site\*.html | wc -l</b>
-    2551
-    <b>&gt; dir /a-d /b /s docs\_site\*.jpg docs\_site\*.png docs\_site\*.svg | wc -l</b>
-    23
-    <b>&gt; dir /a-d /b /s docs\_site\*.js | wc -l</b>
-    9
-    </pre>
+<pre style="font-size:80%;">
+<b>&gt; dir /b docs\_site</b>
+.gitignore
+api
+blog
+css
+docs
+images
+index.html
+js
+sidebar.yml
+versions
+<b>&gt; dir /a-d /b /s docs\_site\*.html | wc -l</b>
+2551
+<b>&gt; dir /a-d /b /s docs\_site\*.jpg docs\_site\*.png docs\_site\*.svg | wc -l</b>
+23
+<b>&gt; dir /a-d /b /s docs\_site\*.js | wc -l</b>
+9
+</pre>
 
-    Output directory **`docs\docs\`** contains the Markdown files of the [Dotty website](https://dotty.epfl.ch/):
+Output directory **`docs\docs\`** contains the Markdown files of the [Dotty website](https://dotty.epfl.ch/):
 
-    <pre style="font-size:80%;">
-    <b>&gt; dir /b docs\docs</b>
-    contributing
-    index.md  
-    internals 
-    reference 
-    release-notes
-    resources   
-    typelevel.md
-    usage
-    <b>&gt; dir /a-d /b /s docs\docs\*.md | wc -l</b>
-    88 
-    </pre>
+<pre style="font-size:80%;">
+<b>&gt; dir /b docs\docs</b>
+contributing
+index.md  
+internals 
+reference 
+release-notes
+resources   
+typelevel.md
+usage
+<b>&gt; dir /a-d /b /s docs\docs\*.md | wc -l</b>
+88 
+</pre>
 
 <!--
 > build -timer compile-only
@@ -440,7 +440,6 @@ Total execution time: 00:20:25
 #### `cmdTests.bat`
 
 Command [**`project\scripts\cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) performs several tests running [Dotty](https://dotty.epfl.ch) commands from [**`sbt`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html). In the normal case, command [**`cmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) is called by command **`build compile`** but may also be called directly.
-
 
 <pre style="font-size:80%;">
 <b>&gt; cmdTests</b>
