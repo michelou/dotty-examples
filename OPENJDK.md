@@ -53,9 +53,9 @@ For instance our development environment looks as follows (*August 2019*):
 C:\opt\jdk-11.0.5+10\
 C:\opt\jdk-bellsoft-11.0.5-lite\
 C:\opt\jdk-corretto-11.0.5_10\
-C:\opt\jdk-openj9-11.0.4+11\
+C:\opt\jdk-openj9-11.0.5+10\
 C:\opt\jdk-redhat-11.0.5.10\
-C:\opt\jdk-sapmachine-11.0.4\
+C:\opt\jdk-sapmachine-11.0.5\
 C:\opt\jdk-trava-11.0.1\         <i>(outdated)</i>
 C:\opt\jdk-zulu-11.0.5\
 </pre>
@@ -67,7 +67,9 @@ This section supplements my writing from page [Data Sharing and Dotty on Windows
 
 An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For instance we proceed as follows to check if data sharing is enabled in Oracle OpenJDK 11:
 
-1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, last displayed line ends with  **`(build 11.0.5+10-LTS, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.5+10-LTS, mixed mode)`** otherwise.
+1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last output line ends with
+   - **`(build 11.0.5+10-LTS, mixed mode, sharing)`** if data sharing is enabled
+   - **`(build 11.0.5+10-LTS, mixed mode)`** otherwise.
 2. Command **`java.exe -Xshare:dump`** generates the 17.3 Mb Java shared archive **`<install_dir>\bin\server\classes.jsa`** from file **`<install_dir>\lib\classlist`**.
 3. We go back to step 1 to verify that flag  **`sharing`** is present.
 

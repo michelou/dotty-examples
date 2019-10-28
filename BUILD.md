@@ -6,12 +6,12 @@
     <a href="http://dotty.epfl.ch/"><img style="border:0;width:80px;" src="docs/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This page describes changes we made to the source code of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps locally on a Windows machine.
+    Source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This document describes changes we made to the source code of the <a href="https://github.com/lampepfl/dotty/">Dotty remote</a> in order to reproduce the same build/test steps locally on a Windows machine.
   </td>
   </tr>
 </table>
 
-This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/) on Windows:
+This document is part of a series of topics related to [Dotty](http://dotty.epfl.ch/) on Windows:
 
 - [Running Dotty on Windows](README.md)
 - Building Dotty on Windows [**&#9660;**](#bottom)
@@ -35,7 +35,7 @@ This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/
 
 ## <span id="proj_deps">Project dependencies</span>
 
-Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three external software for the **Microsoft Windows** platform:
+Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on the following external software for the **Microsoft Windows** platform:
 
 - [Oracle OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot)<sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*](https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html))
 - [SBT 1.3](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.3.3))
@@ -44,7 +44,7 @@ Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on three 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*August 2019*):
+For instance our development environment looks as follows (*October 2019*):
 
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_232-b09\
@@ -59,9 +59,8 @@ C:\opt\Git-2.23.0\
 The directory structure of the [Dotty repository](https://github.com/lampepfl/dotty/)<sup id="anchor_02">[[2]](#footnote_02)</sup>  is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts).
 
 <pre style="font-size:80%;">
-<b>&gt; dir /ad /b</b>
 bin\dotty\build.bat
-dotty\     <i>Git submodule</i><sup id="anchor_02">[[2]](#footnote_02)</sup>
+dotty\     <i>(Git submodule)</i><sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>
 dotty\[...]
 dotty\bin
 dotty\dist
@@ -197,7 +196,7 @@ We distinguish different sets of batch commands:
 
 ## <span id="issues">Windows related issues</span>
 
-We have come across several Windows related issues<sup id="anchor_03">[[3]](#footnote_03)</sup> while executing subcommands of [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat):
+We have come across several Windows related issues<sup id="anchor_04"><a href="#footnote_04">[4]</a></sup> while executing subcommands of [**`build.bat`**](bin/dotty/build.bat):
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :--------: | :--------: | :--------- |
@@ -629,10 +628,16 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 <b>&gt; git submodule update --depth 50</b>
 </pre>
 
-<a name="footnote_03">[3]</a> ***Git settings*** [↩](#anchor_03)
+<a name="footnote_03">[3]</a> ***Git submodule*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
-We mention here one issue when working with the <code>git</code> command on Windows, namely the error message <code>"Filename too long"</code>:
+Defining directory <b><code>dotty\</code></b> as a Github submodule allows us to make changes to this project independently from our fork of the <a href="https://github.com/lampepfl/dotty"><b><code>lampepfl/dotty</code></b></a> repository. 
+</p>
+
+<a name="footnote_04">[4]</a> ***Git configuration*** [↩](#anchor_04)
+
+<p style="margin:0 0 1em 20px;">
+We mention here one issue when working with the <a href="https://git-scm.com/docs/git-config"><b><code>git</code></b></a> command on Windows, namely the error message <code>"Filename too long"</code>:
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; git status</b>
 mainExamples/src/main/scala/examples/main/active/writing/toConsoleWriting/info/reading/argumentAndResultMultiplier/FactorialOfArgumentMultipliedByResultMultiplierMain.scala: Filename too long
