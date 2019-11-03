@@ -11,17 +11,17 @@
   </tr>
 </table>
 
-This page is part of a series of topics related to [Dotty](http://dotty.epfl.ch/) on Windows:
+This document is part of a series of topics related to [Dotty](http://dotty.epfl.ch/) on Windows:
 
 - [Running Dotty on Windows](README.md)
 - [Building Dotty on Windows](BUILD.md)
 - [Data Sharing and Dotty on Windows](CDS.md)
 - OpenJDK and Dotty on Windows [**&#9660;**](#bottom)
 
-[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Metaprogramming](http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html), [GraalVM](https://www.graalvm.org/) and [LLVM](https://github.com/michelou/llvm-examples) are other topics we are currently investigating.
+[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Metaprogramming](http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html), [GraalVM](https://github.com/michelou/graalvm-examples) and [LLVM](https://github.com/michelou/llvm-examples) are other topics we are currently investigating.
 
 
-## Project dependencies
+## <span id="proj_deps">Project dependencies</span>
 
 This project depends on several external software for the **Microsoft Windows** platform:
 
@@ -47,7 +47,7 @@ The above implementations of OpenJDK[&trade;](http://openjdk.java.net/legal/open
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*August 2019*):
+For instance our development environment looks as follows (*November 2019*) <sup id="anchor_02">[[1]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.5+10\
@@ -298,14 +298,29 @@ OpenJDK 64-Bit Server VM Zulu11.33+15-CA (build 11.0.5+10-LTS, mixed mode, shari
 
 ## Footnotes
 
-<a name="footnote_01">[1]</a> ***2018-04-06*** [↩](#anchor_01)
+<a name="footnote_01">[1]</a> ***JCK Compliance** (2018-04-06)* [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 The JCK is a proprietary test suite, <a href="http://openjdk.java.net/groups/conformance/JckAccess/index.html">accessible under license from Oracle</a>.<br/>
 The role of the JCK is not to determine <i>quality</i>, but rather to provide a binary indication of compatibility with the Java SE specification. As such, the JCK only tests functional behaviour, and only such functional behaviour that is given in the Java specification.<br/><i>(see <a href="https://github.com/AdoptOpenJDK/TSC/issues/19">issue 19</a> from <a href="https://github.com/AdoptOpenJDK/TSC">OpenJDK TSC</a>)</i>
 </p>
 
+<a name="footnote_02">[2]</a> ***Downloads*** [↩](#anchor_02)
+
+<p style="margin:0 0 1em 20px;">
+In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
+</p>
+<pre style="margin:0 0 1em 20px; font-size:80%;">
+<a href="https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html">amazon-corretto-11.0.5.10.1-windows-x64.zip</a>                    <i>(175 MB)</i>
+<a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.5.10-1.windows.redhat.x86_64.zip</a>          <i>(234 MB)</i>
+<a href="https://bell-sw.com/pages/java-11.0.5/">bellsoft-jdk11.0.5+11-windows-amd64-lite.zip</a>                   <i>( 69 MB)</i>
+<a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.5_10.zip</a>               <i>(190 MB)</i>
+<a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">OpenJDK11U-jdk_x64_windows_openj9_11.0.5_10_openj9-0.17.0.zip</a>  <i>(193 MB)</i>
+<a href="https://sap.github.io/SapMachine/">sapmachine-jdk-11.0.5_windows-x64_bin.zip</a>                      <i>(179 MB)</i>
+<a href="https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html">zulu11.35.13-ca-jdk11.0.5-win_x64.zip</a>                          <i>(188 MB)</i>
+</pre>
+
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/October 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/November 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>

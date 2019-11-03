@@ -14,8 +14,8 @@ set _EXITCODE=0
 for %%f in ("%~dp0..") do set _ROOT_DIR=%%~sf
 
 rem files build.sbt, build.sc and ivy.xml
-set _DOTTY_VERSION_OLD="0.18.1-RC1"
-set _DOTTY_VERSION_NEW="0.19.0-RC1"
+set _DOTTY_VERSION_OLD="0.19.0-RC1"
+set _DOTTY_VERSION_NEW="0.20.0-RC1"
 
 rem files project\build.properties
 set _SBT_VERSION_OLD=sbt.version=1.3.2
@@ -27,8 +27,8 @@ set _SBT_DOTTY_VERSION_OLD="0.3.3"
 set _SBT_DOTTY_VERSION_NEW="0.3.4"
 
 rem files ivy.xml (NB. PS regex)
-set _IVY_DOTTY_VERSION_OLD=^(dotty-[a-z]+^)_0.18
-set _IVY_DOTTY_VERSION_NEW=$1_0.19
+set _IVY_DOTTY_VERSION_OLD=^(dotty-[a-z]+^)_0.19
+set _IVY_DOTTY_VERSION_NEW=$1_0.20
 
 rem ##########################################################################
 rem ## Main

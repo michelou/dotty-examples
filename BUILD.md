@@ -18,7 +18,7 @@ This document is part of a series of topics related to [Dotty](http://dotty.epfl
 - [Data Sharing and Dotty on Windows](CDS.md)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Metaprogramming](http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html), [GraalVM](https://www.graalvm.org/) and [LLVM](https://github.com/michelou/llvm-examples) are other topics we are currently investigating.
+[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Metaprogramming](http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html), [GraalVM](https://github.com/michelou/graalvm-examples) and [LLVM](https://github.com/michelou/llvm-examples) are other topics we are currently investigating.
 
 > **&#9755;** ***Continuous Integration/Delivery*** (CI/CD)<br/>
 > (steps: Checkout **&rarr;** Compile **&rarr;** Test **&rarr;** Deploy)
@@ -37,14 +37,18 @@ This document is part of a series of topics related to [Dotty](http://dotty.epfl
 
 Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on the following external software for the **Microsoft Windows** platform:
 
-- [Oracle OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot)<sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*](https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html))
+- [Oracle OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot)<sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*](https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html))
 - [SBT 1.3](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.3.3))
 - [Git 2.23](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.23.0.txt))
-
+<!--
+8u212 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
+8u222 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
+8u232 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
+-->
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
 
-For instance our development environment looks as follows (*October 2019*):
+For instance our development environment looks as follows (*November 2019*):
 
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_232-b09\
@@ -60,11 +64,10 @@ The directory structure of the [Dotty repository](https://github.com/lampepfl/do
 
 <pre style="font-size:80%;">
 bin\dotty\build.bat
-dotty\     <i>(Git submodule)</i><sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>
-dotty\[...]
-dotty\bin
-dotty\dist
-dotty\project
+dotty\      <i>(Git submodule)</i><sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>
+dotty\bin\
+dotty\dist\
+dotty\project\
 </pre>
 
 <!-- 2019-02-13
@@ -87,12 +90,12 @@ dotty\project\scripts\common.bat
 dotty\project\scripts\genDocs.bat
 </pre>
 
-We also define a virtual drive **`V:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).
+We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).
 
 > **:mag_right:** We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
-> <b>&gt; subst V: %USERPROFILE%\workspace\dotty</b>
+> <b>&gt; subst V: %USERPROFILE%\workspace\dotty-examples</b>
 > </pre>
 
 In the next section we give a brief description of the batch files present in those directories.
@@ -655,5 +658,5 @@ We fixed our local Git settings as follows:
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/October 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/November 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
