@@ -1,3 +1,3 @@
 [submodule "dotty"]
 	path = dotty
-	url = https://github.com/lampepfl/dotty.git
+	url = https://github.com/michelou/dotty.git
