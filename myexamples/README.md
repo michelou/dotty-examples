@@ -16,84 +16,9 @@ We can build/run each example in directory [**`myexamples\`**](.) using [**`sbt`
 
 In the following we explain in more detail the build tools available in the [**`HelloWorld`**](HelloWorld) example (and also in other examples from directory [**`myexamples\`**](./)):
 
-## Command `build`
+## <span id="build">`build.bat` command</span>
 
-Command [**`build`**](dotty-example-project/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
-
-> **:mag_right:** The batch file for command [**`build`**](HelloWorld/build.bat) obeys the following coding conventions:
->
-> - We use at most 80 characters per line. In general we would say that 80 characters fit well with 4:3 screens and 100 characters fit well with 16:9 screens ([Google's convention](https://google.github.io/styleguide/javaguide.html#s4.4-column-limit) is 100 characters).
-> - We organize our code in 4 sections: `Environment setup`, `Main`, `Subroutines` and `Cleanups`.
-> - We write exactly ***one exit instruction*** (label **`end`** in section **`Cleanups`**).
-> - We adopt the following naming conventions: global variables start with character `_` (shell variables defined in the user environment start with a letter) and local variables (e.g. inside subroutines or  **`if/for`** constructs) start with `__` (two `_` characters).
-
-<pre style="font-size:80%;">
-<b>@echo off</b>
-<b>setlocal enabledelayedexpansion</b>
-...
-<i>rem ##########################################################################
-rem ## Environment setup</i>
-
-<b>set</b> _EXITCODE=0
-
-<b>for</b> %%f in ("%~dp0") <b>do set</b> _ROOT_DIR=%%~sf
-
-<b>call :props</b>
-<b>if not</b> %_EXITCODE%==0 <b>goto end</b>
-
-<b>call :args %*</b>
-<b>if not</b> %_EXITCODE%==0 <b>goto end</b>
-
-<i>rem ##########################################################################
-rem ## Main</i>
-
-<b>if</b> %_CLEAN%==1 (
-    <b>call <span style="color:#9966ff;">:clean</span></b>
-    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
-)
-<b>if</b> %_COMPILE%==1 (
-    <b>call <span style="color:#9966ff;">:compile</span></b>
-    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
-)
-<b>if</b> %_DOC%==1 (
-    <b>call <span style="color:#9966ff;">:doc</span></b>
-    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
-)
-<b>if</b> %_RUN%==1 (
-    <b>call <span style="color:#9966ff;">:run</span></b>
-    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
-)
-<b>goto end</b>
-
-<i>rem ##########################################################################
-rem ## Subroutines</i>
-
-<span style="color:#9966ff;">:props</span>
-...
-<b>goto :eof</b>
-<span style="color:#9966ff;">:args</span>
-...
-<b>goto :eof</b>
-<span style="color:#9966ff;">:clean</span>
-...
-<b>goto :eof</b>
-<span style="color:#9966ff;">:compile</span>
-...
-<b>goto :eof</b>
-<span style="color:#9966ff;">:doc</span>
-...
-<b>goto :eof</b>
-<span style="color:#9966ff;">:run</span>
-...
-<b>goto :eof</b>
-
-<i>rem ##########################################################################
-rem ## Cleanups</i>
-
-:end
-...
-<b>exit</b> /b %_EXITCODE%
-</pre>
+Command [**`build`**](dotty-example-project/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
 
 Running command [**`build clean run`**](HelloWorld/build.bat) in project [**`HelloWorld\`**](HelloWorld/) produces the following output:
 
@@ -187,7 +112,7 @@ Command [**`sbt`**](https://www.scala-sbt.org/) is a Scala-based build tool for 
 The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is a standalone file written in [Scala](https://www.scala-lang.org/) and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
 <pre style="font-size:80%;">
-<b>val</b> dottyVersion = <span style="color:#990000;">"0.18.1-RC1"</span>
+<b>val</b> dottyVersion = <span style="color:#990000;">"0.20.0-RC1"</span>
 &nbsp;
 <b>lazy val</b> root = project
   .in(file(<span style="color:#990000;">"."</span>))
@@ -221,7 +146,7 @@ The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone fil
 <b>import</b> mill._, scalalib._
 &nbsp;
 <b>object</b> go <b>extends</b> ScalaModule {
-  <b>def</b> scalaVersion = <span style="color:#990000;">"0.18.1-RC1"</span>  // "2.12.18"
+  <b>def</b> scalaVersion = <span style="color:#990000;">"0.20.0-RC1"</span>  // "2.12.18"
   <b>def</b> scalacOptions = Seq(<span style="color:#990000;">"-deprecation"</span>, <span style="color:#990000;">"-feature"</span>)
   <b>def</b> forkArgs = Seq(<span style="color:#990000;">"-Xmx1g"</span>)
   <b>def</b> mainClass = Some(<span style="color:#990000;">"Main"</span>)
@@ -290,7 +215,7 @@ Total time: 3 seconds
 > **&#9755;** **Apache Ivy**<br/>
 > The [Ivy](http://ant.apache.org/ivy/) Java archive must be added to the Ant installation directory as displayed by task **`init.ivy`** in the above output. In our case we work with version 2.5.0-rc1 of the Apache Ivy library.
 > <pre style="font-size:80%;">
-> <b>&gt; dir /b c:\opt\apache-ant-1.10.5\lib\ivy&#42;</b>
+> <b>&gt; dir /b c:\opt\apache-ant-1.10.7\lib\ivy&#42;</b>
 > ivy-2.5.0-rc1.jar
 > </pre>
 
@@ -304,7 +229,7 @@ Buildfile: W:\myexamples\HelloWorld\build.xml
    [delete] Deleting directory W:\myexamples\HelloWorld\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] DOTTY_HOME=C:\opt\dotty-0.18.1-RC1
+     [echo] DOTTY_HOME=C:\opt\dotty-0.20.0-RC1
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -375,17 +300,17 @@ Running command **`mvn clean test`** with option **`-debug`** produces additiona
 
 <pre>
 <b>&gt; mvn -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-1.8.0_222-b10\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.18.1-RC1 \
- -cp C:\opt\dotty-0.18.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
+[DEBUG] [execute] C:\opt\jdk-1.8.0_232-b09\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.20.0-RC1 \
+ -cp C:\opt\dotty-0.20.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\opt\jdk-1.8.0_222-b10\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.18.1-RC1 [...]
-[DEBUG] [execute] C:\opt\jdk-1.8.0_222-b10\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.18.1-RC1\lib\*.jar;\
+[DEBUG] [execute] C:\opt\jdk-1.8.0_232-b09\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.20.0-RC1 [...]
+[DEBUG] [execute] C:\opt\jdk-1.8.0_232-b09\bin\java.exe \
+ -Xms64m -Xmx1024m -cp C:\opt\dotty-0.20.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -419,15 +344,15 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 Finally can check the Java manifest in **`HelloWorld-0.1-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.18.1-RC1\lib\dotty-library_0.18-0.18.1-RC1.jar;^
-c:\opt\dotty-0.18.1-RC1\lib\scala-library-2.13.0.jar ^
+<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.20.0-RC1\lib\dotty-library_0.20-0.20.0-RC1.jar;^
+c:\opt\dotty-0.20.0-RC1\lib\scala-library-2.13.0.jar ^
 -jar target\HelloWorld-0.1-SNAPSHOT.jar
 Hello world!
 </pre>
 
 > **:mag_right:** We can use batch script [**`searchjars`**](../bin/searchjars.bat) in case some class is missing in the specified classpath, e.g.
 > <pre>
-> <b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.18.1-RC1\lib\dotty-library_0.18-0.18.1-RC1.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
+> <b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.20.0-RC1\lib\dotty-library_0.20-0.20.0-RC1.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
 > Exception in thread "main" java.lang.NoClassDefFoundError: scala/Serializable
 >         [...]
 >         at Main.main(Main.scala)
@@ -445,12 +370,91 @@ Hello world!
 > Searching for class Serializable in library files C:\opt\JDK-18~1.0_2\lib\*.jar
 >   tools.jar:com/sun/tools/internal/xjc/reader/xmlschema/bindinfo/BISerializable.class
 > </pre>
-> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.18.1-RC1\lib\scala-library-2.13.0.jar`**, so let us add it to our classpath !
+> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.20.0-RC1\lib\scala-library-2.13.0.jar`**, so let us add it to our classpath !
 
 
-## Footnotes
+## <span id="footnotes">Footnotes</span>
 
-<a name="footnote_01">[1]</a> <a href="https://github.com/lampepfl/dotty/issues/4272" style="font-weight:bold;">bug4272</a> ***2018-04-08*** [↩](#anchor_01)
+<a name="footnote_01">[1]</a> ***Batch files and coding conventions*** [↩](#anchor_01)
+
+<p style="margin:0 0 1em 20px;">
+Batch files (e.g. <a href="enum-Planet/build.bat"><b><code>enum-Planet\build.bat</code></b></a>) obey the following coding conventions:
+
+- We use at most 80 characters per line. In general we would say that 80 characters fit well with 4:3 screens and 100 characters fit well with 16:9 screens ([Google's convention](https://google.github.io/styleguide/javaguide.html#s4.4-column-limit) is 100 characters).
+- We organize our code in 4 sections: `Environment setup`, `Main`, `Subroutines` and `Cleanups`.
+- We write exactly ***one exit instruction*** (label **`end`** in section **`Cleanups`**).
+- We adopt the following naming conventions: global variables start with character `_` (shell variables defined in the user environment start with a letter) and local variables (e.g. inside subroutines or  **`if/for`** constructs) start with `__` (two `_` characters).
+</p>
+
+<pre style="font-size:80%;">
+<b>@echo off</b>
+<b>setlocal enabledelayedexpansion</b>
+...
+<i style="color:#66aa66;">rem ##########################################################################
+rem ## Environment setup</i>
+
+<b>set</b> _EXITCODE=0
+
+<b>for</b> %%f <b>in</b> ("%~dp0") <b>do set</b> _ROOT_DIR=%%~sf
+
+<b>call <span style="color:#9966ff;">:props</span></b>
+<b>if not</b> %_EXITCODE%==0 <b>goto <span style="color:#9966ff;">end</span></b>
+
+<b>call <span style="color:#9966ff;">:args</span> %*</b>
+<b>if not</b> %_EXITCODE%==0 <b>goto <span style="color:#9966ff;">end</span></b>
+
+<i style="color:#66aa66;">rem ##########################################################################
+rem ## Main</i>
+
+<b>if</b> %_CLEAN%==1 (
+    <b>call :clean</b>
+    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
+)
+<b>if</b> %_COMPILE%==1 (
+    <b>call <span style="color:#9966ff;">:compile</span></b>
+    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
+)
+<b>if</b> %_DOC%==1 (
+    <b>call <span style="color:#9966ff;">:doc</span></b>
+    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
+)
+<b>if</b> %_RUN%==1 (
+    <b>call <span style="color:#9966ff;">:run</span></b>
+    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
+)
+<b>goto <span style="color:#9966ff;">end</span></b>
+
+<i style="color:#66aa66;">rem ##########################################################################
+rem ## Subroutines</i>
+
+<span style="color:#9966ff;">:props</span>
+...
+<b>goto :eof</b>
+<span style="color:#9966ff;">:args</span>
+...
+<b>goto :eof</b>
+<span style="color:#9966ff;">:clean</span>
+...
+<b>goto :eof</b>
+<span style="color:#9966ff;">:compile</span>
+...
+<b>goto :eof</b>
+<span style="color:#9966ff;">:doc</span>
+...
+<b>goto :eof</b>
+<span style="color:#9966ff;">:run</span>
+...
+<b>goto :eof</b>
+
+<i style="color:#66aa66;">rem ##########################################################################
+rem ## Cleanups</i>
+
+<span style="color:#9966ff;">:end</span>
+...
+<b>exit</b> /b %_EXITCODE%
+</pre>
+
+<a name="footnote_02">[2]</a> <a href="https://github.com/lampepfl/dotty/issues/4272" style="font-weight:bold;">bug4272</a> ***2018-04-08*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 Executing command <a href="bug4272/build.bat" style="font-weight:bold;font-family:Courier;">build</a> in directory <a href="bug4272/" style="font-weight:bold;font-family:Courier;">bug4272\</a> produces a runtime exception with version 0.7 of the Dotty compiler (*was fixed in version 0.8*):
@@ -480,7 +484,7 @@ Exception in thread "main" java.lang.AssertionError: cannot merge Constraint(
         at dotty.tools.dotc.Main.main(Main.scala)
 </pre>
 
-<a name="footnote_02">[2]</a> <a href="https://github.com/lampepfl/dotty/issues/4356" style="font-weight:bold;">bug4356</a> ***2018-04-21*** [↩](#anchor_02)
+<a name="footnote_03">[3]</a> <a href="https://github.com/lampepfl/dotty/issues/4356" style="font-weight:bold;">bug4356</a> ***2018-04-21*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
 Executing <a href="bug4356/build.bat" style="font-weight:bold;font-family:Courier;">build</a> in directory <a href="bug4356/" style="font-weight:bold;font-family:Courier;">bug4356\</a> produces a runtime exception with version 0.7 of the Dotty compiler:
@@ -501,4 +505,5 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/August 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/November 2019* [**&#9650;**](#top)
+<span id="bottom">&nbsp;</span>

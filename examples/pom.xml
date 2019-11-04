@@ -13,26 +13,28 @@
         <java.version>1.8</java.version>
 
         <!-- Scala settings -->
-        <scala.version>0.19.0-RC1</scala.version> <!-- eg. "2.12.18" or "0.12.0" -->
+        <scala.version>0.20.0-RC1</scala.version> <!-- eg. "2.12.18" or "0.20.0" -->
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugins -->
         <scala.maven.version>1.0-SNAPSHOT</scala.maven.version> <!-- Dec 2018 -->
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
-        <scalatest.version>3.0.8</scalatest.version>            <!-- Mar 2019 -->
+        <scalatest.version>3.0.8</scalatest.version>            <!-- Jun 2019 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven.compiler.version>3.8.1</maven.compiler.version>  <!-- May 2019 -->
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+        <!-- Note: JUnit 5 requires Surefire version 2.22.1 or higher -->
+        <maven.surefire.version>2.22.2</maven.surefire.version> <!-- Oct 2018 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
         <maven.jar.version>3.1.2</maven.jar.version>            <!-- May 2019 -->
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
         <exec.maven.version>1.6.0</exec.maven.version>          <!-- Mar 2017 -->
-        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
-        <maven.surefire.version>2.22.2</maven.surefire.version> <!-- May 2019 -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
-        <jmh.version>1.21</jmh.version>                         <!-- May 2018, Oracle -->
+        <jmh.version>1.22</jmh.version>                         <!-- May 2018, Oracle -->
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <jupiter.version>5.5.1</jupiter.version>                <!-- Apr 2019 -->
+		<junit.platform.version>1.5.2</junit.platform.version>  <!-- Sep 2019 -->
+        <jupiter.version>5.5.2</jupiter.version>                <!-- Apr 2019 -->
     </properties>
 
     <dependencies>
@@ -51,11 +53,41 @@
             <artifactId>maven-jar-plugin</artifactId>
             <version>${maven.jar.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apiguardian/apiguardian-api -->
         <dependency>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <version>${exec.maven.version}</version>
+            <groupId>org.apiguardian</groupId>
+            <artifactId>apiguardian-api</artifactId>
+            <version>1.0.0</version>
+            <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.opentest4j/opentest4j -->
+        <dependency>
+            <groupId>org.opentest4j</groupId>
+            <artifactId>opentest4j</artifactId>
+            <version>1.1.1</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-commons -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-commons</artifactId>
+            <version>${junit.platform.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-runner -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-runner</artifactId>
+            <version>${junit.platform.version}</version>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -72,6 +104,11 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
             <version>${maven.surefire.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>${exec.maven.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjdk.jmh</groupId>

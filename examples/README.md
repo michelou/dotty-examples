@@ -6,7 +6,7 @@
     <a href="http://dotty.epfl.ch/"><img style="border:0;width:120px;" src="../docs/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>examples\</code></strong> contains <a href="http://dotty.epfl.ch/" alt="Dotty">Dotty</a> examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a>.
+    Directory <strong><code>examples\</code></strong> contains <a href="http://dotty.epfl.ch/" alt="Dotty">Dotty</a> code examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a>.
   </td>
   </tr>
 </table>
@@ -16,7 +16,7 @@ We can build/run each example in directory [**`examples\`**](.) using [**`sbt`**
 In the following we explain in more detail the build tools available in the [**`enum-Planet\`**](enum-Planet/) example (and also in other examples from directory [**`examples\`**](./)):
 
 
-## Command `build`
+## <span id="build">`build.bat` command</span>
 
 Command [**`build`**](enum-Planet/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
 
@@ -99,7 +99,7 @@ No compilation needed (1 source files)</pre>
 > For simplicity the [**`build`**](enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
 > <b>&gt; type project\build.properties</b>
-> sbt.version=1.3.0
+> sbt.version=1.3.3
 > main.class=Planet
 > main.args=1
 > </pre>
@@ -201,7 +201,7 @@ Command [**`sbt`**](https://www.scala-sbt.org/) is a Scala-based build tool for 
 The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is a standalone file written in [Scala](https://www.scala-lang.org/) and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
 <pre style="font-size:80%;">
-<b>val</b> dottyVersion = <span style="color:#990000;">"0.19.1-RC1"</span>
+<b>val</b> dottyVersion = <span style="color:#990000;">"0.20.0-RC1"</span>
 &nbsp;
 <b>lazy val</b> root = project
   .in(file("."))
@@ -244,7 +244,7 @@ The configuration file [**`build.sc`**](enum-Planet/build.sc) is a standalone fi
 <b>import</b> mill._, scalalib._
 &nbsp;
 <b>object</b> go <b>extends</b> ScalaModule {
-  <b>def</b> scalaVersion = <span style="color:#990000;">"0.19.1-RC1"</span>  // "2.12.18"
+  <b>def</b> scalaVersion = <span style="color:#990000;">"0.20.0-RC1"</span>  <span style="color:#009900;">// "2.12.18"</span>
   <b>def</b> scalacOptions = Seq(<span style="color:#990000;">"-deprecation"</span>, <span style="color:#990000;">"-feature"</span>)
   <b>def</b> forkArgs = Seq(<span style="color:#990000;">"-Xmx1g"</span>)
   <b>def</b> mainClass = Some(<span style="color:#990000;">"Planet"</span>)
@@ -253,6 +253,11 @@ The configuration file [**`build.sc`**](enum-Planet/build.sc) is a standalone fi
     val path = os.pwd / <span style="color:#990000;">"out"</span> / <span style="color:#990000;">"go"</span>
     os.walk(path, skip = _.last == <span style="color:#990000;">"clean"</span>).foreach(os.remove.all)
   }
+  <b>def</b> ivyDeps = Agg(
+    ivy<span style="color:#990000;">"org.junit.platform:junit-platform-commons:1.3.2"</span>,
+    ivy<span style="color:#990000;">"org.junit.platform:junit-platform-runner:1.3.2"</span>,
+    ivy<span style="color:#990000;">"org.junit.jupiter:junit-jupiter-engine:5.5.2"</span>
+  )
 }
 </pre>
 
@@ -283,7 +288,7 @@ The configuration file [**`build.xml`**](enum-Planet/build.xml) in directory [**
 <b>&lt;project</b> name=<span style="color:#990000;">"enum-Planet"</span> default=<span style="color:#990000;">"compile"</span> basedir=<span style="color:#990000;">"."</span>&gt;
     ...
     <b>&lt;import</b> file=<span style="color:#990000;">"../build.xml"</span> /&gt;
-    <b>&lt;target</b> name=<span style="color:#990000;">"compile"</span> depends="init"> ... <b>&lt;/target&gt;</b>
+    <b>&lt;target</b> name=<span style="color:#990000;">"compile"</span> depends=<span style="color:#990000;">"init"</span>&gt; ... <b>&lt;/target&gt;</b>
     <b>&lt;target</b> name=<span style="color:#990000;">"run"</span> depends=<span style="color:#990000;">"compile"</span>&gt; ... <b>&lt;/target&gt;</b>
     <b>&lt;target</b> name=<span style="color:#990000;">"clean"</span>&gt; ... <b>&lt;/target&gt;</b>
 <b>&lt;/project&gt;</b>
@@ -341,7 +346,7 @@ Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
    [delete] Deleting directory W:\dotty-examples\examples\enum-Planet\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] DOTTY_HOME=C:\opt\dotty-0.19.1-RC1
+     [echo] DOTTY_HOME=C:\opt\dotty-0.20.0-RC1
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -420,16 +425,16 @@ Running command **` mvn compile test`** with option **`-debug`** produces additi
 <pre>
 <b>&gt; mvn -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-8.0_232-b09\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.19.1-RC1 \
- -cp C:\opt\dotty-0.19.1-RC1\lib\*.jar -Dscala.usejavacp=true  \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.20.0-RC1 \
+ -cp C:\opt\dotty-0.20.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-8.0_232-b09\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.19.1-RC1 [...]
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.20.0-RC1 [...]
 [DEBUG] [execute] C:\opt\jdk-8.0_232-b09\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.19.1-RC1\lib\*.jar;\
+ -Xms64m -Xmx1024m -cp C:\opt\dotty-0.20.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -464,7 +469,7 @@ Your weight on JUPITER is 2.5305575254957406
 <b>&gt; java -version 2>&1 | findstr version</b>
 openjdk version "11.0.4" 2019-07-16
 
-<b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.19.1-RC1\lib\dotty-library_0.19-0.19.1-RC1.jar;c:\opt\dotty-0.19.1-RC1\lib\scala-library-2.13.0.jar -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
+<b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.20.0-RC1\lib\dotty-library_0.19-0.20.0-RC1.jar;c:\opt\dotty-0.20.0-RC1\lib\scala-library-2.13.1.jar -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -558,4 +563,5 @@ rem ## Cleanups</i>
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/October 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/November 2019* [**&#9650;**](#top)
+<span id="bottom">&nbsp;</span>

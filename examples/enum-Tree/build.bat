@@ -13,10 +13,8 @@ set _BASENAME=%~n0
 
 for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
 
-set _TARGET_DIR=%_ROOT_DIR%target
-set _CLASSES_DIR=%_TARGET_DIR%\classes
-set _TASTY_CLASSES_DIR=%_TARGET_DIR%\classes-tasty
-set _DOCS_DIR=%_TARGET_DIR%\docs
+call :env
+if not %_EXITCODE%==0 goto end
 
 call :props
 if not %_EXITCODE%==0 goto end
@@ -27,6 +25,10 @@ if not %_EXITCODE%==0 goto end
 rem ##########################################################################
 rem ## Main
 
+if %_HELP%==1 (
+    call :help
+    exit /b !_EXITCODE!
+)
 if %_CLEAN%==1 (
     call :clean
     if not !_EXITCODE!==0 goto end
@@ -47,6 +49,21 @@ goto end
 
 rem ##########################################################################
 rem ## Subroutines
+
+rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
+rem                    _TARGET_DIR, _CLASSES_DIR, _TASTY_CLASSES_DIR, _DOCS_DIR
+:env
+rem ANSI colors in standard Windows 10 shell
+rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+set _DEBUG_LABEL=[46m[%_BASENAME%][0m
+set _ERROR_LABEL=[91mError[0m:
+set _WARNING_LABEL=[93mWarning[0m:
+
+set _TARGET_DIR=%_ROOT_DIR%target
+set _CLASSES_DIR=%_TARGET_DIR%\classes
+set _TASTY_CLASSES_DIR=%_TARGET_DIR%\classes-tasty
+set _DOCS_DIR=%_TARGET_DIR%\docs
+goto :eof
 
 rem output parameters: _COMPILE_CMD_DEFAULT, _DOC_CMD_DEFAULT, _MAIN_CLASS_DEFAULT
 :props
@@ -82,6 +99,7 @@ set _COMPILE_OPTS=-deprecation -feature
 set _COMPILE_TIME=0
 set _DOC=0
 set _DOC_CMD=%_DOC_CMD_DEFAULT%
+set _HELP=0
 set _MAIN_CLASS=%_MAIN_CLASS_DEFAULT%
 set _MAIN_ARGS=%_MAIN_ARGS_DEFAULT%
 set _RUN=0
@@ -90,38 +108,47 @@ set _TASTY=0
 set _VERBOSE=0
 set __N=0
 :args_loop
-set __ARG=%~1
+set "__ARG=%~1"
 if not defined __ARG (
-    if !__N!==0 call :help
+    if !__N!==0 set _COMPILE=1
     goto args_done
-) else if not "%__ARG:~0,1%"=="-" (
-    set /a __N=!__N!+1
 )
-if /i "%__ARG%"=="clean" ( set _CLEAN=1
-) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
-) else if /i "%__ARG%"=="doc" ( set _DOC=1
-) else if /i "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
-) else if /i "%__ARG%"=="help" ( call :help & goto end
-) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
-) else if /i "%__ARG%"=="-explain" ( set _COMPILE_OPTS=!_COMPILE_OPTS! -explain
-) else if /i "%__ARG%"=="-explain-types" (
-  if "%_COMPILE_CMD:~0,3%"=="dot" ( set _COMPILE_OPTS=!_COMPILE_OPTS! -explain-types
-  ) else ( set _COMPILE_OPTS=!_COMPILE_OPTS! -explaintypes
-  )
-) else if /i "%__ARG%"=="-help" ( call :help & goto end
-) else if /i "%__ARG%"=="-tasty" ( set _TASTY=1
-) else if /i "%__ARG%"=="-timer" ( set _COMPILE_TIME=1
-) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
-) else if /i "%__ARG:~0,10%"=="-compiler:" (
-    call :set_compiler "!__ARG:~10!"
-    if not !_EXITCODE!== 0 goto :eof
-) else if /i "%__ARG:~0,6%"=="-main:" (
-    call :set_main "!__ARG:~6!"
-    if not !_EXITCODE!== 0 goto :eof
+if "%__ARG:~0,1%"=="-" (
+    rem option
+    if /i "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if /i "%__ARG%"=="-explain" ( set _COMPILE_OPTS=!_COMPILE_OPTS! -explain
+    ) else if /i "%__ARG%"=="-explain-types" (
+        if "%_COMPILE_CMD:~0,3%"=="dot" ( set _COMPILE_OPTS=!_COMPILE_OPTS! -explain-types
+        ) else ( set _COMPILE_OPTS=!_COMPILE_OPTS! -explaintypes
+        )
+    ) else if /i "%__ARG%"=="-help" ( set _HELP=1
+    ) else if /i "%__ARG%"=="-tasty" ( set _TASTY=1
+    ) else if /i "%__ARG%"=="-timer" ( set _COMPILE_TIME=1
+    ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
+    ) else if /i "%__ARG:~0,10%"=="-compiler:" (
+        call :set_compiler "!__ARG:~10!"
+        if not !_EXITCODE!== 0 goto :eof
+    ) else if /i "%__ARG:~0,6%"=="-main:" (
+        call :set_main "!__ARG:~6!"
+        if not !_EXITCODE!== 0 goto :eof
+    ) else (
+        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        set _EXITCODE=1
+        goto args_done
+    )
 ) else (
-    echo Error: Unknown subcommand %__ARG% 1>&2
-    set _EXITCODE=1
-    goto :eof
+    rem subcommand
+    if /i "%__ARG%"=="clean" ( set _CLEAN=1
+    ) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
+    ) else if /i "%__ARG%"=="doc" ( set _DOC=1
+    ) else if /i "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
+    ) else if /i "%__ARG%"=="help" ( set _HELP=1
+    ) else (
+        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        set _EXITCODE=1
+        goto args_done
+    )
+    set /a __N+=1
 )
 shift
 goto :args_loop
@@ -176,7 +203,7 @@ if /i "%__VALUE%"=="scala" (
     set _DOC_CMD=dotd.bat
     set _RUN_CMD=dotr.bat
 ) else (
-    echo Error: Unknown target %__VALUE% ^(scala^|scalac^|dotc^|dotty^) 1>&2
+    echo %_ERROR_LABEL% Unknown target %__VALUE% ^(scala^|scalac^|dotc^|dotty^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -189,7 +216,7 @@ set __VALID=0
 for /f %%i in ('powershell -C "$s='%__ARG%'; if($s -match '^[\w$]+(\.[\w$]+)*$'){1}else{0}"') do set __VALID=%%i
 rem if %_DEBUG%==1 echo [%_BASENAME%] __ARG=%__ARG% __VALID=%__VALID%
 if %__VALID%==0 (
-    echo Error: Invalid class name passed to option "-main" ^(%__ARG%^) 1>&2
+    echo %_ERROR_LABEL% Invalid class name passed to option "-main" ^(%__ARG%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -254,14 +281,14 @@ if %_DEBUG%==1 ( echo [%_BASENAME%] %_JAVAC_CMD% %_JAVAC_OPTS% %__JAVA_SOURCE_FI
 )
 %_JAVAC_CMD% %_JAVAC_OPTS% %__JAVA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-    echo Error: Compilation of Java source files failed 1>&2
+    echo %_ERROR_LABEL% Compilation of Java source files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
 :compile_scala
 where /q %_COMPILE_CMD%
 if not %ERRORLEVEL%==0 (
-    echo Error: %_COMPILE_CMD% compiler not found 1>&2
+    echo %_ERROR_LABEL% %_COMPILE_CMD% compiler not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -272,7 +299,7 @@ if %_DEBUG%==1 ( echo [%_BASENAME%] %_COMPILE_CMD% %__COMPILE_OPTS% %__SCALA_SOU
 )
 call %_COMPILE_CMD% %__COMPILE_OPTS% %__SCALA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-    echo Error: Compilation of Scala source files failed 1>&2
+    echo %_ERROR_LABEL% Compilation of Scala source files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -296,7 +323,7 @@ if %_TASTY%==1 (
     )
     call %_COMPILE_CMD% -from-tasty !__CLASS_NAMES! -classpath %_CLASSES_DIR% -d %_TASTY_CLASSES_DIR%
     if not !ERRORLEVEL!==0 (
-        echo Error: Compilation of Scala TASTy files failed 1>&2
+        echo %_ERROR_LABEL% Compilation of Scala TASTy files failed 1>&2
         set _EXITCODE=1
     )
     if not !_EXITCODE!==0 goto :eof
@@ -392,7 +419,7 @@ if %_DEBUG%==1 ( echo [%_BASENAME%] %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILE
 )
 call %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-    echo Error: Scala documentation generation failed 1>&2
+    echo %_ERROR_LABEL% Scala documentation generation failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -401,7 +428,7 @@ goto :eof
 :run
 set __MAIN_CLASS_FILE=%_CLASSES_DIR%\%_MAIN_CLASS:.=\%.class
 if not exist "%__MAIN_CLASS_FILE%" (
-    echo Error: Main class '%_MAIN_CLASS%' not found ^(%__MAIN_CLASS_FILE%^) 1>&2
+    echo %_ERROR_LABEL% Main class '%_MAIN_CLASS%' not found ^(%__MAIN_CLASS_FILE%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -413,7 +440,7 @@ if %_DEBUG%==1 ( echo [%_BASENAME%] %_RUN_CMD% %__RUN_OPTS% %_MAIN_CLASS% %_MAIN
 )
 call %_RUN_CMD% %__RUN_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo Error: Execution failed ^(%_MAIN_CLASS%^) 1>&2
+    echo %_ERROR_LABEL% Execution failed ^(%_MAIN_CLASS%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -430,7 +457,7 @@ if %_TASTY%==1 (
     )
     call %_RUN_CMD% !__RUN_OPTS! %_MAIN_CLASS% %_MAIN_ARGS%
     if not !ERRORLEVEL!==0 (
-        echo Error: Execution failed ^(%_MAIN_CLASS%^) 1>&2
+        echo %_ERROR_LABEL% Execution failed ^(%_MAIN_CLASS%^) 1>&2
         set _EXITCODE=1
         goto :eof
     )

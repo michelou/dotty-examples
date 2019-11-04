@@ -10,4 +10,9 @@ object go extends ScalaModule {
     val path = os.pwd / "out" / "go"
     os.walk(path, skip = _.last == "clean").foreach(os.remove.all)
   }
+  def ivyDeps = Agg(
+    ivy"org.junit.platform:junit-platform-commons:1.3.2",
+    ivy"org.junit.platform:junit-platform-runner:1.3.2",
+    ivy"org.junit.jupiter:junit-jupiter-engine:5.5.2"
+  )
 }

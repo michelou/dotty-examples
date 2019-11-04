@@ -107,14 +107,14 @@ set _TASTY=0
 set _VERBOSE=0
 set __N=0
 :args_loop
-set __ARG=%~1
+set "__ARG=%~1"
 if not defined __ARG (
     if !__N!==0 set _COMPILE=1
     goto args_done
 )
 if "%__ARG:~0,1%"=="-" (
     rem option
-	if /i "%__ARG%"=="-debug" ( set _DEBUG=1
+    if /i "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if /i "%__ARG%"=="-explain" ( set _COMPILE_OPTS=!_COMPILE_OPTS! -explain
     ) else if /i "%__ARG%"=="-explain-types" (
         if "%_COMPILE_CMD:~0,3%"=="dot" ( set _COMPILE_OPTS=!_COMPILE_OPTS! -explain-types
@@ -137,8 +137,7 @@ if "%__ARG:~0,1%"=="-" (
     )
 ) else (
     rem subcommand
-    set /a __N=+1
-	if /i "%__ARG%"=="clean" ( set _CLEAN=1
+    if /i "%__ARG%"=="clean" ( set _CLEAN=1
     ) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
     ) else if /i "%__ARG%"=="doc" ( set _DOC=1
     ) else if /i "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
@@ -148,12 +147,13 @@ if "%__ARG:~0,1%"=="-" (
         set _EXITCODE=1
         goto args_done
     )
+    set /a __N+=1
 )
 shift
 goto :args_loop
 :args_done
 if %_TASTY%==1 if not "%_COMPILE_CMD:~0,3%"=="dot" (
-    echo Warning: option '-tasty' not supported by %_COMPILE_CMD% 1>&2
+    echo %_WARNING_LABEL% option '-tasty' not supported by %_COMPILE_CMD% 1>&2
     set _TASTY=0
 )
 if %_DEBUG%==1 (
@@ -444,7 +444,7 @@ if not %ERRORLEVEL%==0 (
 )
 if %_TASTY%==1 (
     if not exist "%_TASTY_CLASSES_DIR%" (
-        echo Warning: TASTy output directory not found 1>&2
+        echo %_WARNING_LABEL% TASTy output directory not found 1>&2
         set _EXITCODE=1
         goto :eof
     )

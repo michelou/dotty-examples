@@ -57,7 +57,7 @@ C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
 C:\opt\cfr-0.148\            <i>(  1.7 MB)</i>
 C:\opt\dotty-0.20.0-RC1\     <i>( 25.2 MB)</i>
 C:\opt\Git-2.23.0\           <i>(271.0 MB)</i>
-C:\opt\gradle-5.6.3\         <i>(101.0 MB)</i>
+C:\opt\gradle-5.6.4\         <i>(101.0 MB)</i>
 C:\opt\Mill-0.5.2\           <i>( 49.0 MB)</i>
 C:\opt\sbt-1.3.3\            <i>( 55.1 MB)</i>
 C:\opt\scala-2.13.1\         <i>( 20.1 MB)</i>
@@ -258,7 +258,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.20.0-RC1,
-   ant 1.10.7, gradle 5.6.3, mill 0.5.2, mvn 3.6.2, sbt 1.3.3/2.12.8,
+   ant 1.10.7, gradle 5.6.4, mill 0.5.2, mvn 3.6.2, sbt 1.3.3/2.12.8,
    cfr 0.148, bloop v1.3.4, git 2.23.0.windows.1, diff 3.7
 
 <b>&gt; where sbt</b>
@@ -272,7 +272,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.20.0-RC1,
-   ant 1.10.7, gradle 5.6.3, mill 0.5.2, mvn 3.6.2, sbt 1.3.3/2.12.8,
+   ant 1.10.7, gradle 5.6.4, mill 0.5.2, mvn 3.6.2, sbt 1.3.3/2.12.8,
    cfr 0.148, bloop v1.3.4, git 2.23.0.windows.1, diff 3.7
 Tool paths:
    C:\opt\jdk-1.8.0_232-b09\bin\javac.exe
@@ -282,7 +282,7 @@ Tool paths:
    C:\opt\scala-2.13.1\bin\scalac.bat
    C:\opt\dotty-0.20.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.7\bin\ant.bat
-   C:\opt\gradle-5.6.3\bin\gradle.bat
+   C:\opt\gradle-5.6.4\bin\gradle.bat
    C:\opt\Mill-0.5.2\mill.bat
    C:\opt\apache-maven-3.6.2\bin\mvn.cmd
    C:\opt\sbt-1.3.3\bin\sbt.bat
