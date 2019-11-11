@@ -34,7 +34,10 @@ set _PYTHON_PATH=
 set _BLOOP_PATH=
 set _GIT_PATH=
 
-call :javac
+call :jdk
+if not %_EXITCODE%==0 goto end
+
+call :jdk11
 if not %_EXITCODE%==0 goto end
 
 call :scalac
@@ -145,7 +148,7 @@ echo   Subcommands:
 echo     help        display this help message
 goto :eof
 
-:javac
+:jdk
 where /q javac.exe
 if %ERRORLEVEL%==0 goto :eof
 
@@ -170,6 +173,55 @@ if not exist "%_JDK_HOME%\bin\javac.exe" (
 )
 rem variable _JDK_PATH is prepended to PATH, so path separator must appear as last character
 set "_JDK_PATH=%_JDK_HOME%\bin;"
+goto :eof
+
+rem output parameter(s): _JDK11_HOME
+:jdk11
+set _JDK11_HOME=
+
+set __JAVAC_CMD=
+for /f %%f in ('where javac.exe 2^>NUL') do set __JAVAC_CMD=%%f
+if defined __JAVAC_CMD (
+    call :is_java11 "%__JAVAC_CMD%"
+    if defined _IS_JAVA11 (
+        for %%i in ("%__JAVAC_CMD%") do set __BIN_DIR=%%~dpsi
+        for %%f in ("%__BIN_DIR%") do set _JDK11_HOME=%%~dpsi
+    )
+)
+if not defined _JDK11_HOME if defined JDK_HOME (
+    call :is_java11 "%JDK_HOME%\bin\javac.exe"
+    if defined _IS_JAVA11 (
+        set _JDK11_HOME=%JDK_HOME%
+        if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable JDK_HOME 1>&2
+    )
+)
+if not defined _JDK11_HOME (
+    set __PATH=C:\opt
+    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\jdk-11*" 2^>NUL') do set _JDK11_HOME=!__PATH!\%%f
+)
+if not defined _JDK11_HOME (
+    set __PATH=C:\Progra~1\Java
+    for /f %%f in ('dir /ad /b "!__PATH!\jdk-11*" 2^>NUL') do set _JDK11_HOME=!__PATH!\%%f
+)
+if not exist "%_JDK11_HOME%\bin\javac.exe" (
+    echo Error: javac executable not found ^(%_JDK11_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
+rem input parameter(s): %1 = javac file path
+rem output parameter(s): _IS_JAVA11
+:is_java11
+set _IS_JAVA11=
+
+set __JAVAC_CMD=%~1
+if not exist "%__JAVAC_CMD%" goto :eof
+
+set __JAVA_VERSION=
+for /f "tokens=1,*" %%i in ('%__JAVAC_CMD% -version 2^>^&1') do set __JAVA_VERSION=%%j
+if not "!__JAVA_VERSION:~0,2!"=="11" goto :eof
+set _IS_JAVA11=1
 goto :eof
 
 :scalac
@@ -325,26 +377,37 @@ if not exist "%_MVN_HOME%\bin\mvn.cmd" (
 set "_MVN_PATH=;%_MVN_HOME%\bin"
 goto :eof
 
+rem output parameter(s): _SBT_PATH
 :sbt
-where /q sbt.bat
-if %ERRORLEVEL%==0 goto :eof
+set _SBT_PATH=
 
-if defined SBT_HOME (
-    set _SBT_HOME=%SBT_HOME%
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SBT_HOME 1>&2
+set __SBT_HOME=
+set __SBT_CMD=
+for /f %%f in ('where sbt.bat 2^>NUL') do set __SBT_CMD=%%f
+if defined __SBT_CMD (
+    if %_DEBUG%==1 echo [%_BASENAME%] Using path of sbt executable found in PATH 1>&2
+    rem keep _SBT_PATH undefined since executable already in path
+    goto :eof
+) else if defined SBT_HOME (
+    set "__SBT_HOME=%SBT_HOME%"
+    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable SBT_HOME 1>&2
 ) else (
-    set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!_PATH!\%%f"
-    if defined _SBT_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default sbt installation directory !_SBT_HOME! 1>&2
+    set __PATH=C:\opt
+    if exist "!__PATH!\sbt\" ( set "__SBT_HOME=!__PATH!\sbt"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "__SBT_HOME=!__PATH!\%%f"
+        if not defined __SBT_HOME (
+            set __PATH=C:\Progra~1
+            for /f %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "__SBT_HOME=!__PATH!\%%f"
+        )
     )
 )
-if not exist "%_SBT_HOME%\bin\sbt.bat" (
-    echo %_ERROR_LABEL% sbt executable not found ^(%_SBT_HOME%^) 1>&2
+if not exist "%__SBT_HOME%\bin\sbt.bat" (
+    echo Error: sbt executable not found ^(%__SBT_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_SBT_PATH=;%_SBT_HOME%\bin"
+set "_SBT_PATH=;%__SBT_HOME%\bin"
 goto :eof
 
 rem http://www.benf.org/other/cfr/
@@ -418,33 +481,41 @@ if not exist "%_BLOOP_HOME%\bloop.cmd" (
 set "_BLOOP_PATH=;%_BLOOP_HOME%"
 goto :eof
 
+rem output parameter(s): _GIT_PATH
 :git
-where /q git.exe
-if %ERRORLEVEL%==0 goto :eof
+set _GIT_PATH=
 
-if defined GIT_HOME (
-    set _GIT_HOME=%GIT_HOME%
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GIT_HOME 1>&2
+set __GIT_HOME=
+set __GIT_EXE=
+for /f %%f in ('where git.exe 2^>NUL') do set __GIT_EXE=%%f
+if defined __GIT_EXE (
+    if %_DEBUG%==1 echo [%_BASENAME%] Using path of Git executable found in PATH 1>&2
+    rem keep _GIT_PATH undefined since executable already in path
+    goto :eof
+) else if defined GIT_HOME (
+    set "__GIT_HOME=%GIT_HOME%"
+    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable GIT_HOME
 ) else (
     set __PATH=C:\opt
-    if exist "!__PATH!\Git\" ( set _GIT_HOME=!__PATH!\Git
+    if exist "!__PATH!\Git\" ( set "__GIT_HOME=!__PATH!\Git"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
-        if not defined _GIT_HOME (
+        for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "__GIT_HOME=!__PATH!\%%f"
+        if not defined __GIT_HOME (
             set __PATH=C:\Progra~1
-            for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
+            for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "__GIT_HOME=!__PATH!\%%f"
         )
     )
-    if defined _GIT_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Git installation directory !_GIT_HOME! 1>&2
-    )
 )
-if not exist "%_GIT_HOME%\bin\git.exe" (
-    echo %_ERROR_LABEL% Git executable not found ^(%_GIT_HOME%^) 1>&2
+if not exist "%__GIT_HOME%\bin\git.exe" (
+    echo Error: Git executable not found ^(%__GIT_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_GIT_PATH=;%_GIT_HOME%\bin;%_GIT_HOME%\usr\bin"
+rem path name of installation directory may contain spaces
+for /f "delims=" %%f in ("%__GIT_HOME%") do set __GIT_HOME=%%~sf
+if %_DEBUG%==1 echo [%_BASENAME%] Using default Git installation directory %__GIT_HOME% 1>&2
+
+set "_GIT_PATH=;%__GIT_HOME%\bin;%__GIT_HOME%\usr\bin;%__GIT_HOME%\mingw64\bin"
 goto :eof
 
 :clean
@@ -555,6 +626,7 @@ rem ## Cleanups
 endlocal & (
     if not defined ANT_HOME set ANT_HOME=%_ANT_HOME%
     if not defined JAVA_HOME set JAVA_HOME=%_JDK_HOME%
+    if not defined JDK11_HOME set JDK11_HOME=%_JDK11_HOME%
     if not defined SCALA_HOME set SCALA_HOME=%_SCALA_HOME%
     if not defined DOTTY_HOME set DOTTY_HOME=%_DOTTY_HOME%
     set "PATH=%_JDK_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MILL_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_PYTHON_PATH%%_BLOOP_PATH%%_GIT_PATH%;%~dp0bin"

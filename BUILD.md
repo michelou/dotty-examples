@@ -67,14 +67,14 @@ bin\dotty\build.bat
 bin\dotty\project\
 dotty\      <i>(Git submodule)</i><sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>
 dotty\bin\
-dotty\dist\
-dotty\project\
+dotty\dist\bin
+dotty\project\scripts\
 </pre>
 
 <!-- 2019-02-13
 > **:mag_right:** Directories like [**`scala-backend\`**](https://github.com/lampepfl/scala/tree/sharing-backend), [**`scala2-library\`**](https://github.com/lampepfl/scala/tree/dotty-library2.12) and **`community-build`** subdirectories are actually Git submodules (see article ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/)). Their Git information (e.g. path, URL, branch) is stored in file [**`.gitmodules`**](https://github.com/michelou/dotty/blob/master/.gitmodules).
 -->
-Concretely directories [**`dotty\bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin), [**`dotty\dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) and [**`dotty\project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts) contain the following additions (see PR [#5444](https://github.com/lampepfl/dotty/pull/5444)):
+Concretely directories [**`dotty\bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin), [**`dotty\dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) and [**`dotty\project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts) contain the following additions:
 
 <pre style="font-size:80%;">
 dotty\bin\common.bat

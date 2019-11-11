@@ -107,8 +107,8 @@ Batch command  [**`build`**](cdsexamples/JavaExample/build.bat) has two new opti
 Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 &nbsp;
   Options:
-    -iter:1..99        set number of run iterations
-    -share[:(on|off)]  enable/disable data sharing (default:off)
+    -iter:&lt;1..99&gt;      set number of run iterations
+    -share[:&lt;on|off&gt;]  enable/disable data sharing (default:off)
     -verbose           display progress messages
 &nbsp;
   Subcommands:
@@ -116,7 +116,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
     compile            compile Java source files
     doc                generate Java documentation
     help               display this help message
-    run[:arg]          execute main class with 1 optional argument
+    run[:&lt;arg&gt;]        execute main class with 1 optional argument
 </pre>
 
 > **:mag_right:** Internally the **`compile`** subcommand generates a Java archive and a Java shared archive as a last step of the compilation phase.
@@ -476,9 +476,10 @@ Command [**`sharedata`**](bin/sharedata.bat) creates and (un-)installs Java shar
 
 <pre style="font-size:80%;">
 <b>&gt; sharedata help</b>
-Usage: sharedata { options | subcommands }
+Usage: sharedata { &lt;option&gt; | &lt;subcommand&gt; }
+&nbsp;
   Options:
-    -share[:(on|off)]  set the share flag (default:off)
+    -share[:&lt;on|off&gt;]  set the share flag (default:off)
     -verbose           display generation progress
   Subcommands:
     activate           install the Java shared archive

@@ -52,7 +52,7 @@ For instance our development environment looks as follows (*November 2019*)<sup 
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_232-b09\    <i>(184.0 MB)</i>
 C:\opt\apache-ant-1.10.7\    <i>( 39.9 MB)</i>
-C:\opt\apache-maven-3.6.2\   <i>( 10.1 MB)</i>s
+C:\opt\apache-maven-3.6.2\   <i>( 10.1 MB)</i>
 C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
 C:\opt\cfr-0.148\            <i>(  1.7 MB)</i>
 C:\opt\dotty-0.20.0-RC1\     <i>( 25.2 MB)</i>
@@ -71,8 +71,8 @@ This project is organized as follows:
 
 <pre style="font-size:80%;">
 bin\*.bat
-bin\0.20\*.bat
 bin\cfr-0.148.zip
+bin\0.20\*.bat
 bin\dotty\
 docs\
 dotty\     <i>(Git submodule)</i>
@@ -85,8 +85,8 @@ setenv.bat
 where
 
 - directory [**`bin\`**](bin/) provides several utility batch commands.
-- directory [**`bin\0.20\`**](bin/0.20/) contains the batch commands for [Dotty 0.20](https://github.com/lampepfl/dotty/releases/tag/0.20.0-RC1).
 - file [**`bin\cfr-0.148.zip`**](bin/cfr-0.148.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
+- directory [**`bin\0.20\`**](bin/0.20/) contains the batch commands for [Dotty 0.20](https://github.com/lampepfl/dotty/releases/tag/0.20.0-RC1).
 - directory [**`bin\dotty\`**](bin/dotty/project/scripts/) contains several batch scripts for building the [Dotty](https://dotty.epfl.ch/) software distribution on a Windows machine.. 
 - directory [**`docs\`**](docs/) contains [Dotty](https://dotty.epfl.ch/) related papers/articles.
 - directory **`dotty\`** contains our fork of the [lampepfl/dotty](https://github.com/lampepfl/dotty) repository as a [Github submodule](.gitmodules).

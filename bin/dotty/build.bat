@@ -22,11 +22,14 @@ if not %_EXITCODE%==0 goto end
 
 call :args %*
 if not %_EXITCODE%==0 goto end
-if defined _HELP call :help & exit /b %_EXITCODE%
 
 rem ##########################################################################
 rem ## Main
 
+if defined _HELP (
+    call :help
+	exit /b !_EXITCODE!
+)
 call :init
 if not %_EXITCODE%==0 goto end
 
@@ -42,6 +45,10 @@ if defined _COMPILE (
     call :test
     if not !_EXITCODE!==0 goto end
 )
+if defined _TEST_JAVA11 (
+    call :test_java11
+    if not !_EXITCODE!==0 goto end
+)
 if defined _BOOTSTRAP (
     call :test_bootstrapped
     rem if not !_EXITCODE!==0 goto end
@@ -55,7 +62,7 @@ if defined _COMMUNITY (
     call :community_build
     if not !_EXITCODE!==0 goto end
 )
-if defined _SBT (
+if defined _TEST_SBT (
     call :test_sbt
     if not !_EXITCODE!==0 goto end
 )
@@ -72,25 +79,24 @@ goto end
 rem ##########################################################################
 rem ## Subroutines
 
-rem output parameter(s): _SCRIPTS_DIR,
-rem                      _DRONE_BUILD_EVENT, _DRONE_REMOTE_URL, _DRONE_BRANCH
-rem                      _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
+rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL, _SCRIPTS_DIR,
+rem                    _DRONE_BUILD_EVENT, _DRONE_REMOTE_URL, _DRONE_BRANCH
 :env
-set _SCRIPTS_DIR=%_ROOT_DIR%\project\scripts
-
-call %_SCRIPTS_DIR%\common.bat
-if not %_EXITCODE%==0 goto end
-
-rem set _DRONE_BUILD_EVENT=pull_request
-set _DRONE_BUILD_EVENT=
-set _DRONE_REMOTE_URL=
-set _DRONE_BRANCH=
-
 rem ANSI colors in standard Windows 10 shell
 rem see https://gist.github.com/mlocati/#file-win10colors-cmd
 set _DEBUG_LABEL=[46m[%_BASENAME%][0m
 set _ERROR_LABEL=[91mError[0m:
 set _WARNING_LABEL=[93mWarning[0m:
+
+set _SCRIPTS_DIR=%_ROOT_DIR%\project\scripts
+
+call %_SCRIPTS_DIR%\common.bat
+if not %_EXITCODE%==0 goto :eof
+
+rem set _DRONE_BUILD_EVENT=pull_request
+set _DRONE_BUILD_EVENT=
+set _DRONE_REMOTE_URL=
+set _DRONE_BRANCH=
 goto :eof
 
 rem input parameter: %*
@@ -104,7 +110,8 @@ set _CLONE=
 set _COMMUNITY=
 set _DOCUMENTATION=
 set _HELP=
-set _SBT=
+set _TEST_JAVA11=
+set _TEST_SBT=
 set _TIMER=0
 set _VERBOSE=0
 
@@ -127,7 +134,7 @@ if "%__ARG:~0,1%"=="-" (
     )
 ) else (
     rem subcommand
-	set /a __N=+1
+	set /a __N+=1
     if /i "%__ARG:~0,4%"=="arch" (
         if not "%__ARG:~-5%"=="-only" set _CLONE=1& set _COMPILE=1& set _BOOTSTRAP=1
         set _ARCHIVES=1
@@ -146,10 +153,11 @@ if "%__ARG:~0,1%"=="-" (
         if not "%__ARG:~-5%"=="-only" set _CLONE=1& set _COMPILE=1& set _BOOTSTRAP=1
         set _DOCUMENTATION=1
     ) else if /i "%__ARG%"=="help" ( set _HELP=1
+	) else if /i "%__ARG%"=="java11" ( set _CLONE=1& set _TEST_JAVA11=1
     ) else if /i "%__ARG%"=="sbt" (
-        set _CLONE=1& set _COMPILE=1& set _BOOTSTRAP=1& set _SBT=1
+        set _CLONE=1& set _COMPILE=1& set _BOOTSTRAP=1& set _TEST_SBT=1
     ) else if /i "%__ARG%"=="sbt-only" (
-        set _SBT=1
+        set _TEST_SBT=1
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
         set _EXITCODE=1
@@ -159,26 +167,28 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto args_loop
 :args_done
-if %_TIMER%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
-)
+if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
 :help
-echo Usage: %_BASENAME% { options ^| subcommands }
+echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
+echo.
 echo   Options:
 echo     -timer                 display total execution time
 echo     -verbose               display environment settings
+echo.
 echo   Subcommands:
-echo     arch[ives]             generate gz/zip archives (after bootstrap)
-echo     boot[strap]            generate+test bootstrapped compiler (after compile)
-echo     cleanall               clean project (sbt+git) and quit
+echo     arch[ives]             generate gz/zip archives ^(after bootstrap^)
+echo     boot[strap]            generate+test bootstrapped compiler ^(after compile^)
+echo     cleanall               clean project ^(sbt+git) and quit
 echo     clone                  update submodules
-echo     compile                generate+test 1st stage compiler (after clone)
+echo     compile                generate+test 1st stage compiler ^(after clone^)
 echo     community              test community-build
-echo     doc[umentation]        generate documentation (after bootstrap)
+echo     doc[umentation]        generate documentation ^(after bootstrap^)
 echo     help                   display this help message
-echo     sbt                    test sbt-dotty (after bootstrap)
+echo     java11                 generate+test Dotty compiler with Java 11
+echo     sbt                    test sbt-dotty ^(after bootstrap^)
+echo.
 echo   Advanced subcommands (no deps):
 echo     arch[ives]-only        generate ONLY gz/zip archives
 echo     boot[strap]-only       generate+test ONLY bootstrapped compiler
@@ -213,14 +223,14 @@ goto :eof
 
 :clean_all
 echo run sbt clean and git clean -xdf --exclude=*.bat --exclude=*.ps1
-if %_DEBUG%==1 echo %_DEBUG_LABEL% call "%_SBT_CMD%" clean 1>&2
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" clean 1>&2
 call "%_SBT_CMD%" clean
 if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
 if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% clean -xdf --exclude=*.bat --exclude=*.ps1 1>&2
-%_GIT_CMD% clean -xdf --exclude=*.bat --exclude=*.ps1
+call "%_GIT_CMD%" clean -xdf --exclude=*.bat --exclude=*.ps1
 if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
@@ -233,8 +243,15 @@ if "%_DRONE_BUILD_EVENT%"=="pull_request" if defined _DRONE_REMOTE_URL (
     %_GIT_CMD% config user.name "Dotty CI"
     %_GIT_CMD% pull "%_DRONE_REMOTE_URL%" "%_DRONE_BRANCH%"
 )
-if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% submodule update --init --recursive --jobs 3 1>&2
-%_GIT_CMD% submodule update --init --recursive --jobs 3
+if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% submodule sync 1>&2
+call "%_GIT_CMD%" submodule sync
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to synchronize Git submodules 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% submodule update --init --recursive --jobs 7 1>&2
+call "%_GIT_CMD%" submodule update --init --recursive --jobs 7
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to update Git submodules 1>&2
     set _EXITCODE=1
@@ -244,10 +261,10 @@ goto :eof
 
 :test
 echo sbt compile and sbt test
-if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" "compile ;test" 1>&2
-call "%_SBT_CMD%" "compile ;test"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ;compile ;test 1>&2
+call "%_SBT_CMD%" ;compile ;test
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to run sbt command "compile ;test" 1>&2
+    echo %_ERROR_LABEL% Failed to run sbt command ";compile ;test" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -263,16 +280,17 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :test_bootstrapped
-if %_DEBUG%==1 echo %_DEBUG_LABEL% call "%_SBT_CMD%" ";dotty-bootstrapped/compile ;dotty-bootstrapped/test ;dotty-semanticdb/compile ;dotty-semanticdb/test ;sjsSandbox/run"
-call "%_SBT_CMD%" ";dotty-bootstrapped/compile ;dotty-bootstrapped/test ;dotty-semanticdb/compile ;dotty-semanticdb/test ;sjsSandbox/run" 1>&2
+echo sbt dotty-bootstrapped/compile and sbt dotty-bootstrapped/test
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ";dotty-bootstrapped/compile ;dotty-bootstrapped/test ;dotty-staging/test ;sjsSandbox/run;sjsSandbox/test;sjsJUnitTests/test"
+call "%_SBT_CMD%" ";dotty-bootstrapped/compile ;dotty-bootstrapped/test ;dotty-staging/test ;sjsSandbox/run;sjsSandbox/test;sjsJUnitTests/test" 1>&2
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to run sbt command ";dotty-bootstrapped/compile ;dotty-bootstrapped/test ;dotty-semanticdb/compile ;dotty-semanticdb/test ;sjsSandbox/run" 1>&2
+    echo %_ERROR_LABEL% Failed to run sbt command ";dotty-bootstrapped/compile ;dotty-bootstrapped/test ;dotty-staging/test ;sjsSandbox/run;sjsSandbox/test;sjsJUnitTests/test" 1>&2
     set _EXITCODE=1
     goto :eof
 )
 
 rem see shell script project/scripts/bootstrapCmdTests
-if %_DEBUG%==1 echo %_DEBUG_LABEL% call %_SCRIPTS_DIR%\bootstrapCmdTests.bat 1>&2
+if %_DEBUG%==1 echo %_DEBUG_LABEL% %_SCRIPTS_DIR%\bootstrapCmdTests.bat 1>&2
 call %_SCRIPTS_DIR%\bootstrapCmdTests.bat
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to run bootstrapCmdTests.bat 1>&2
@@ -282,15 +300,22 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :community_build
+echo sbt community-build/test
+if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% submodule sync 1>&2
+call "%_GIT_CMD%" submodule sync
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to synchronize Git submodules 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% submodule update --init --recursive --jobs 7 1>&2
-%_GIT_CMD% submodule update --init --recursive --jobs 7
+call "%_GIT_CMD%" submodule update --init --recursive --jobs 7
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to update Git submodules 1>&2
     set _EXITCODE=1
     goto :eof
 )
-echo sbt community-build/test
-if %_DEBUG%==1 echo %_DEBUG_LABEL% call "%_SBT_CMD%" "-Dsbt.cmd=%_SBT_CMD%" community-build/test 1>&2
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" "-Dsbt.cmd=%_SBT_CMD%" community-build/test 1>&2
 call "%_SBT_CMD%" "-Dsbt.cmd=%_SBT_CMD%" community-build/test
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to run sbt command community-build/test 1>&2
@@ -300,7 +325,7 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :test_sbt
-if %_DEBUG%==1 echo %_DEBUG_LABEL% call "%_SBT_CMD%" sbt-dotty/scripted 1>&2
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" sbt-dotty/scripted 1>&2
 call "%_SBT_CMD%" sbt-dotty/scripted
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to run sbt command sbt-dotty/scripted 1>&2
@@ -310,14 +335,14 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :test_java11
-set __PATH=C:\opt
-for /f "delims=" %%f in ('dir /ad /b "!__PATH!\jdk-11*" 2^>NUL') do set __JDK11_HOME=!__PATH!\%%f
-if not defined __JDK11_HOME (
-    set __PATH=C:\Progra~1\Java
-    for /f %%f in ('dir /ad /b "!__PATH!\jdk-11*" 2^>NUL') do set __JDK11_HOME=!__PATH!\%%f
+echo sbt compile and sbt test ^(Java 11^)
+if not defined JDK11_HOME (
+    echo %_ERROR_LABEL% Environment variable JDK11_HOME is undefined 1>&2
+    set _EXITCODE=1
+	goto :eof
 )
-if not defined __JDK11_HOME (
-    echo %_ERROR_LABEL% Java SDK 11 installation directory not found 1>&2
+if not exist "%JDK11_HOME%\bin\javac.exe" (
+    echo %_ERROR_LABEL% Java SDK 11 installation directory is invalid 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -325,9 +350,8 @@ setlocal
 rem export PATH="/usr/lib/jvm/java-11-openjdk-amd64/bin:$PATH"
 set "PATH=%__JDK11_HOME%\bin;%PATH%"
 rem ./project/scripts/sbt "compile ;test"
-echo sbt compile and sbt test (Java 11)
-if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" "compile ;test"
-call "%_SBT_CMD%" ";compile ;test"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ";compile ;test"
+call "%_SBT_CMD%" ;compile ;test
 if not %ERRORLEVEL%==0 (
     endlocal
     echo %_ERROR_LABEL% Failed to run sbt command ";compile ;test" 1>&2
@@ -339,7 +363,7 @@ goto :eof
 
 :documentation
 rem see shell script project/scripts/genDocs
-if %_DEBUG%==1 echo %_DEBUG_LABEL% call %_SCRIPTS_DIR%\genDocs.bat 1>&2
+if %_DEBUG%==1 echo %_DEBUG_LABEL% %_SCRIPTS_DIR%\genDocs.bat 1>&2
 call %_SCRIPTS_DIR%\genDocs.bat
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to run genDocs.bat 1>&2
@@ -349,7 +373,7 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :archives
-if %_DEBUG%==1 echo %_DEBUG_LABEL% call "%_SBT_CMD%" dist-bootstrapped/packArchive 1>&2
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" dist-bootstrapped/packArchive 1>&2
 call "%_SBT_CMD%" dist-bootstrapped/packArchive
 rem output directory for gz/zip archives
 set __TARGET_DIR=%_ROOT_DIR%\dist-bootstrapped\target

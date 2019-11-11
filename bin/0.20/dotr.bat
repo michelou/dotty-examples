@@ -86,6 +86,11 @@ if /i "%__ARG%"=="-repl" (
     if %_DEBUG%==1 echo [%_BASENAME%] __ARG=%~2
     set /a _CLASS_PATH_COUNT+=1
     shift
+) else if /i "%__ARG%"=="-cp" (
+    set _CLASS_PATH=%~2
+    if %_DEBUG%==1 echo [%_BASENAME%] __ARG=%~2
+    set /a _CLASS_PATH_COUNT+=1
+    shift
 ) else if /i "%__ARG%"=="-with-compiler" (
     set _WITH_COMPILER=1
 ) else if /i "%__ARG%"=="-d" (
