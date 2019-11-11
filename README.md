@@ -38,7 +38,7 @@ Optionally one may also install the following software:
 - [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([requires Java 7](http://maven.apache.org/docs/history.html))  ([*release notes*](http://maven.apache.org/docs/3.6.1/release-notes.html))
 - [Bloop 1.3](https://scalacenter.github.io/bloop/) (requires Java 8 and Python 2/3) ([*release notes*](https://github.com/scalacenter/bloop/releases/tag/v1.3.4))
 - [CFR 0.14](http://www.benf.org/other/cfr/) (Java decompiler)
-- [Git 2.23](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.23.0.txt))
+- [Git 2.24](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt))
 - [Gradle 5.6](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.6.2/release-notes.html))
 - [Mill 0.5](https://github.com/lihaoyi/mill/releases/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
 - [SBT 1.3](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.3.2))
@@ -52,11 +52,11 @@ For instance our development environment looks as follows (*November 2019*)<sup 
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_232-b09\    <i>(184.0 MB)</i>
 C:\opt\apache-ant-1.10.7\    <i>( 39.9 MB)</i>
-C:\opt\apache-maven-3.6.2\   <i>( 10.1 MB)</i>
+C:\opt\apache-maven-3.6.2\   <i>( 10.1 MB)</i>s
 C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
 C:\opt\cfr-0.148\            <i>(  1.7 MB)</i>
 C:\opt\dotty-0.20.0-RC1\     <i>( 25.2 MB)</i>
-C:\opt\Git-2.23.0\           <i>(271.0 MB)</i>
+C:\opt\Git-2.24.0\           <i>(271.0 MB)</i>
 C:\opt\gradle-5.6.4\         <i>(101.0 MB)</i>
 C:\opt\Mill-0.5.2\           <i>( 49.0 MB)</i>
 C:\opt\sbt-1.3.3\            <i>( 55.1 MB)</i>
@@ -73,7 +73,7 @@ This project is organized as follows:
 bin\*.bat
 bin\0.20\*.bat
 bin\cfr-0.148.zip
-bin\dotty\build.bat
+bin\dotty\
 docs\
 dotty\     <i>(Git submodule)</i>
 examples\{dotty-example-project, ..}
@@ -87,8 +87,8 @@ where
 - directory [**`bin\`**](bin/) provides several utility batch commands.
 - directory [**`bin\0.20\`**](bin/0.20/) contains the batch commands for [Dotty 0.20](https://github.com/lampepfl/dotty/releases/tag/0.20.0-RC1).
 - file [**`bin\cfr-0.148.zip`**](bin/cfr-0.148.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
-- file [**`bin\dotty\build.bat`**](bin/dotty/build.bat) is the batch script for building the [Dotty](https://dotty.epfl.ch/) software distribution on a Windows machine.
-- directory [**`docs\`**](docs/) contains several [Dotty](https://dotty.epfl.ch/) related papers/articles.
+- directory [**`bin\dotty\`**](bin/dotty/project/scripts/) contains several batch scripts for building the [Dotty](https://dotty.epfl.ch/) software distribution on a Windows machine.. 
+- directory [**`docs\`**](docs/) contains [Dotty](https://dotty.epfl.ch/) related papers/articles.
 - directory **`dotty\`** contains our fork of the [lampepfl/dotty](https://github.com/lampepfl/dotty) repository as a [Github submodule](.gitmodules).
 - directory [**`examples\`**](examples/) contains [Dotty](https://dotty.epfl.ch/) examples grabbed from various websites.
 - directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
@@ -112,14 +112,16 @@ We distinguish different sets of batch commands:
 
 1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`scalac.bat`**](https://docs.scala-lang.org/overviews/compiler-options/index.html), [**`dotc.bat`**](bin/0.17/dotc.bat), etc. directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
 
-    <pre style="font-size:80%;">
-    <b>&gt; setenv help</b>
-    Usage: setenv { options | subcommands }
-      Options:
-        -verbose         display environment settings
-      Subcommands:
-        help             display this help message
-    </pre>
+   <pre style="font-size:80%;">
+   <b>&gt; setenv help</b>
+   Usage: setenv { &lt;option&gt; | &lt;subcommand&gt; }
+   &nbsp;
+     Options:
+       -verbose         display environment settings
+   &nbsp;
+     Subcommands:
+       help             display this help message
+   </pre>
 
 2. Directory [**`bin\`**](bin/) - This directory contains several utility batch files:
    - [**`cleanup.bat`**](bin/cleanup.bat) removes the generated class files from every example directory (both in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories).
@@ -155,7 +157,8 @@ We distinguish different sets of batch commands:
 
     <pre style="font-size:80%;">
     <b>&gt; build</b>
-    Usage: build { options | subcommands }
+    Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
+    &nbsp;
       Options:
         -debug           show commands executed by this script
         -explain         set compiler option -explain
@@ -165,12 +168,14 @@ We distinguish different sets of batch commands:
         -tasty           compile both from source and TASTy files
         -timer           display the compile time
         -verbose         display progress messages
+    &nbsp;
       Subcommands:
         clean            delete generated class files
         compile          compile source files (Java and Scala)
         doc              generate documentation
         help             display this help message
         run              execute main class
+    &nbsp;
       Properties:
       (to be defined in SBT configuration file project\build.properties)
         compiler.cmd     alternative to option -compiler
@@ -259,7 +264,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 Tool versions:
    javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.20.0-RC1,
    ant 1.10.7, gradle 5.6.4, mill 0.5.2, mvn 3.6.2, sbt 1.3.3/2.12.8,
-   cfr 0.148, bloop v1.3.4, git 2.23.0.windows.1, diff 3.7
+   cfr 0.148, bloop v1.3.4, git 2.24.0.windows.1, diff 3.7
 
 <b>&gt; where sbt</b>
 C:\opt\sbt-1.3.3\bin\sbt
@@ -273,7 +278,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 Tool versions:
    javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.20.0-RC1,
    ant 1.10.7, gradle 5.6.4, mill 0.5.2, mvn 3.6.2, sbt 1.3.3/2.12.8,
-   cfr 0.148, bloop v1.3.4, git 2.23.0.windows.1, diff 3.7
+   cfr 0.148, bloop v1.3.4, git 2.24.0.windows.1, diff 3.7
 Tool paths:
    C:\opt\jdk-1.8.0_232-b09\bin\javac.exe
    C:\opt\jdk-1.8.0_232-b09\bin\java.exe
@@ -288,8 +293,8 @@ Tool paths:
    C:\opt\sbt-1.3.3\bin\sbt.bat
    C:\opt\cfr-0.148\bin\cfr.bat
    C:\opt\bloop-1.3.4\bloop.cmd
-   C:\opt\Git-2.23.0\bin\git.exe
-   C:\opt\Git-2.23.0\usr\bin\diff.exe
+   C:\opt\Git-2.24.0\bin\git.exe
+   C:\opt\Git-2.24.0\usr\bin\diff.exe
 </pre>
 
 #### `cleanup.bat`
@@ -404,13 +409,15 @@ Command **`searchjars`** helps us to search for class file names in the followin
 
 <pre style="font-size:80%;">
 <b>&gt; searchjars -help</b>
-Usage: searchjars { options | subcommands }
+Usage: searchjars { &lt;option&gt; | &lt;class_name&gt; }
+&nbsp;
   Options:
     -artifact        include ~\.ivy2 and ~\.m2 directories
     -help            display this help message
     -ivy             include ~\.ivy directory
     -maven           include ~\.m2 directory
     -verbose         display download progress
+&nbsp;
   Arguments:
     &lt;class_name&gt;     class name
 </pre>
@@ -668,7 +675,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.20.0-RC1">dotty-0.20.0-RC1.zip</a>                            <i>( 23 MB)</i>
 <a href="">OpenJDK8U-jdk_x64_windows_hotspot_8u232b09.zip</a>  <i>( 99 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.23.0-64-bit.7z.exe</a>                <i>( 41 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.24.0-64-bit.7z.exe</a>                <i>( 41 MB)</i>
 </pre>
 
 <a name="footnote_03">[3]</a> ***PowerShell*** [↩](#anchor_03) <!-- 2018-05-09 -->

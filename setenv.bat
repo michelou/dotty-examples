@@ -11,9 +11,8 @@ set _BASENAME=%~n0
 
 set _EXITCODE=0
 
-for /f "tokens=1,* delims=:" %%i in ('chcp') do set _CODE_PAGE_DEFAULT=%%j
-rem make sure we use UTF-8 encoding for console outputs
-chcp 65001 1>NUL
+call :env
+if not %_EXITCODE%==0 goto end
 
 call :args %*
 if not %_EXITCODE%==0 goto end
@@ -89,6 +88,19 @@ goto end
 rem ##########################################################################
 rem ## Subroutines
 
+rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
+:env
+rem ANSI colors in standard Windows 10 shell
+rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+set _DEBUG_LABEL=[46m[%_BASENAME%][0m
+set _ERROR_LABEL=[91mError[0m:
+set _WARNING_LABEL=[93mWarning[0m:
+
+for /f "tokens=1,* delims=:" %%i in ('chcp') do set _CODE_PAGE_DEFAULT=%%j
+rem make sure we use UTF-8 encoding for console outputs
+chcp 65001 1>NUL
+goto :eof
+
 rem input parameter: %*
 rem output parameter: _HELP, _VERBOSE
 :args
@@ -96,14 +108,26 @@ set _HELP=
 set _VERBOSE=0
 
 :args_loop
-set __ARG=%~1
+set "__ARG=%~1"
 if not defined __ARG goto args_done
-if /i "%__ARG%"=="help" ( set _HELP=1& goto :eof
-) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
+
+if "%__ARG:~0,1%"=="-" (
+    rem option
+	if /i "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
+    ) else (
+        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        set _EXITCODE=1
+        goto args_done
+    )
 ) else (
-    echo [91mError[0m: Unknown subcommand %__ARG% 1>&2
-    set _EXITCODE=1
-    goto args_done
+    rem subcommand
+	if /i "%__ARG%"=="help" ( set _HELP=1
+    ) else (
+        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        set _EXITCODE=1
+        goto args_done
+    )
 )
 shift
 goto args_loop
@@ -111,11 +135,14 @@ goto args_loop
 goto :eof
 
 :help
-echo Usage: %_BASENAME% { options ^| subcommands }
+echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
+echo.
 echo   Options:
-echo     -verbose         display environment settings
+echo     -debug      show commands executed by this script
+echo     -verbose    display environment settings
+echo.
 echo   Subcommands:
-echo     help             display this help message
+echo     help        display this help message
 goto :eof
 
 :javac
@@ -124,7 +151,7 @@ if %ERRORLEVEL%==0 goto :eof
 
 if defined JDK_HOME (
     set _JDK_HOME=%JDK_HOME%
-    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable JDK_HOME
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable JDK_HOME 1>&2
 ) else (
     set _PATH=C:\opt
     for /f "delims=" %%f in ('dir /ad /b "!_PATH!\jdk-1.8*" 2^>NUL') do set _JDK_HOME=!_PATH!\%%f
@@ -133,11 +160,11 @@ if defined JDK_HOME (
         for /f %%f in ('dir /ad /b "!_PATH!\jdk1.8*" 2^>NUL') do set _JDK_HOME=!_PATH!\%%f
     )
     if defined _JDK_HOME (
-        if %_DEBUG%==1 echo [%_BASENAME%] Using default Java SDK installation directory !_JDK_HOME!
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Java SDK installation directory !_JDK_HOME! 1>&2
     )
 )
 if not exist "%_JDK_HOME%\bin\javac.exe" (
-    echo [91mError[0m: javac executable not found ^(%_JDK_HOME%^) 1>&2
+    echo %_ERROR_LABEL% javac executable not found ^(%_JDK_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -151,16 +178,16 @@ if %ERRORLEVEL%==0 goto :eof
 
 if defined SCALA_HOME (
     set _SCALA_HOME=%SCALA_HOME%
-    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable SCALA_HOME
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SCALA_HOME 1>&2
 ) else (
     set _PATH=C:\opt
     for /f %%f in ('dir /ad /b "!_PATH!\scala-2*" 2^>NUL') do set _SCALA_HOME=!_PATH!\%%f
     if defined _SCALA_HOME (
-        if %_DEBUG%==1 echo [%_BASENAME%] Using default Scala installation directory !_SCALA_HOME!
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala installation directory !_SCALA_HOME!
     )
 )
 if not exist "%_SCALA_HOME%\bin\scalac.bat" (
-    echo [91mError[0m: Scala executable not found ^(%_SCALA_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Scala executable not found ^(%_SCALA_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -173,16 +200,16 @@ if %ERRORLEVEL%==0 goto :eof
 
 if defined DOTTY_HOME (
     set _DOTTY_HOME=%DOTTY_HOME%
-    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable DOTTY_HOME
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable DOTTY_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b /od "!_PATH!\dotty*" 2^>NUL') do set _DOTTY_HOME=!_PATH!\%%f
+    for /f %%f in ('dir /ad /b /od "!_PATH!\dotty*" 2^>NUL') do set "_DOTTY_HOME=!_PATH!\%%f"
     if defined _DOTTY_HOME (
-        if %_DEBUG%==1 echo [%_BASENAME%] Using default Dotty installation directory !_DOTTY_HOME!
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Dotty installation directory !_DOTTY_HOME! 1>&2
     )
 )
 if not exist "%_DOTTY_HOME%\bin\dotc.bat" (
-    echo [91mError[0m: Dotty executable not found ^(%_DOTTY_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Dotty executable not found ^(%_DOTTY_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -195,23 +222,23 @@ if %ERRORLEVEL%==0 goto :eof
 
 if defined ANT_HOME (
     set _ANT_HOME=%ANT_HOME%
-    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable ANT_HOME
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable ANT_HOME 1>&2
 ) else (
     set __PATH=C:\opt
     if exist "!__PATH!\apache-ant\" ( set _ANT_HOME=!__PATH!\apache-ant
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\apache-ant-*" 2^>NUL') do set _ANT_HOME=!__PATH!\%%f
+        for /f %%f in ('dir /ad /b "!__PATH!\apache-ant-*" 2^>NUL') do set "_ANT_HOME=!__PATH!\%%f"
         if not defined _ANT_HOME (
             set __PATH=C:\Progra~1
-            for /f %%f in ('dir /ad /b "!__PATH!\apache-ant-*" 2^>NUL') do set _ANT_HOME=!__PATH!\%%f
+            for /f %%f in ('dir /ad /b "!__PATH!\apache-ant-*" 2^>NUL') do set "_ANT_HOME=!__PATH!\%%f"
         )
     )
     if defined _ANT_HOME (
-        if %_DEBUG%==1 echo [%_BASENAME%] Using default Ant installation directory !_ANT_HOME!
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Ant installation directory !_ANT_HOME! 1>&2
     )
 )
 if not exist "%_ANT_HOME%\bin\ant.cmd" (
-    echo [91mError[0m: Ant executable not found ^(%_ANT_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Ant executable not found ^(%_ANT_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -224,23 +251,23 @@ if %ERRORLEVEL%==0 goto :eof
 
 if defined GRADLE_HOME (
     set _GRADLE_HOME=%GRADLE_HOME%
-    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable GRADLE_HOME
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GRADLE_HOME 1>&2
 ) else (
     set __PATH=C:\opt
     if exist "!__PATH!\gradle\" ( set _GRADLE_HOME=!__PATH!\gradle
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set _GRADLE_HOME=!__PATH!\%%f
+        for /f %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set "_GRADLE_HOME=!__PATH!\%%f"
         if not defined _GRADLE_HOME (
             set __PATH=C:\Progra~1
-            for /f %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set _GRADLE_HOME=!__PATH!\%%f
+            for /f %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set "_GRADLE_HOME=!__PATH!\%%f"
         )
     )
     if defined _GRADLE_HOME (
-        if %_DEBUG%==1 echo [%_BASENAME%] Using default Gradle installation directory !_GRADLE_HOME!
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Gradle installation directory !_GRADLE_HOME! 1>&2
     )
 )
 if not exist "%_GRADLE_HOME%\bin\gradle.bat" (
-    echo [91mError[0m: Gradle executable not found ^(%_GRADLE_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Gradle executable not found ^(%_GRADLE_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -253,23 +280,23 @@ if %ERRORLEVEL%==0 goto :eof
 
 if defined MILL_HOME (
     set _MILL_HOME=%MILL_HOME%
-    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable MILL_HOME
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MILL_HOME 1>&2
 ) else (
     set __PATH=C:\opt
     if exist "!__PATH!\mill\" ( set _MILL_HOME=!__PATH!\mill
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\mill-*" 2^>NUL') do set _MILL_HOME=!__PATH!\%%f
+        for /f %%f in ('dir /ad /b "!__PATH!\mill-*" 2^>NUL') do set "_MILL_HOME=!__PATH!\%%f"
         if not defined _MILL_HOME (
             set __PATH=C:\Progra~1
-            for /f %%f in ('dir /ad /b "!__PATH!\mill-*" 2^>NUL') do set _MILL_HOME=!__PATH!\%%f
+            for /f %%f in ('dir /ad /b "!__PATH!\mill-*" 2^>NUL') do set "_MILL_HOME=!__PATH!\%%f"
         )
     )
     if defined _MILL_HOME (
-        if %_DEBUG%==1 echo [%_BASENAME%] Using default Mill installation directory !_MILL_HOME!
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Mill installation directory !_MILL_HOME! 1>&2
     )
 )
 if not exist "%_MILL_HOME%\mill.bat" (
-    echo [91mError[0m: Mill executable not found ^(%_MILL_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Mill executable not found ^(%_MILL_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -282,16 +309,16 @@ if %ERRORLEVEL%==0 goto :eof
 
 if defined MAVEN_HOME (
     set _MVN_HOME=%MAVEN_HOME%
-    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable MAVEN_HOME
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MAVEN_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\apache-maven-*" 2^>NUL') do set _MVN_HOME=!_PATH!\%%f
+    for /f %%f in ('dir /ad /b "!_PATH!\apache-maven-*" 2^>NUL') do set "_MVN_HOME=!_PATH!\%%f"
     if defined _MVN_HOME (
-        if %_DEBUG%==1 echo [%_BASENAME%] Using default Maven installation directory !_MVN_HOME!
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Maven installation directory !_MVN_HOME! 1>&2
     )
 )
 if not exist "%_MVN_HOME%\bin\mvn.cmd" (
-    echo [91mError[0m: Maven executable not found ^(%_MVN_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Maven executable not found ^(%_MVN_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -304,16 +331,16 @@ if %ERRORLEVEL%==0 goto :eof
 
 if defined SBT_HOME (
     set _SBT_HOME=%SBT_HOME%
-    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable SBT_HOME
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SBT_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\sbt-1*" 2^>NUL') do set _SBT_HOME=!_PATH!\%%f
+    for /f %%f in ('dir /ad /b "!_PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!_PATH!\%%f"
     if defined _SBT_HOME (
-        if %_DEBUG%==1 echo [%_BASENAME%] Using default sbt installation directory !_SBT_HOME!
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default sbt installation directory !_SBT_HOME! 1>&2
     )
 )
 if not exist "%_SBT_HOME%\bin\sbt.bat" (
-    echo [91mError[0m: sbt executable not found ^(%_SBT_HOME%^) 1>&2
+    echo %_ERROR_LABEL% sbt executable not found ^(%_SBT_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -327,16 +354,16 @@ if %ERRORLEVEL%==0 goto :eof
 
 if defined CFR_HOME (
     set _CFR_HOME=%CFR_HOME%
-    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable CFR_HOME
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable CFR_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\cfr*" 2^>NUL') do set _CFR_HOME=!_PATH!\%%f
+    for /f %%f in ('dir /ad /b "!_PATH!\cfr*" 2^>NUL') do set "_CFR_HOME=!_PATH!\%%f"
     if defined _CFR_HOME (
-        if %_DEBUG%==1 echo [%_BASENAME%] Using default cfr installation directory !_CFR_HOME!
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default cfr installation directory !_CFR_HOME! 1>&2
     )
 )
 if not exist "%_CFR_HOME%\bin\cfr.bat" (
-    echo [91mError[0m: cfr executable not found ^(%_CFR_HOME%^) 1>&2
+    echo %_ERROR_LABEL% cfr executable not found ^(%_CFR_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -349,16 +376,16 @@ if %ERRORLEVEL%==0 goto :eof
 
 if defined PYTHON_HOME (
     set _PYTHON_HOME=%PYTHON_HOME%
-    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable PYTHON_HOME
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable PYTHON_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\Python*" 2^>NUL') do set _PYTHON_HOME=!_PATH!\%%f
+    for /f %%f in ('dir /ad /b "!_PATH!\Python*" 2^>NUL') do set "_PYTHON_HOME=!_PATH!\%%f"
     if defined _PYTHON_HOME (
-        if %_DEBUG%==1 echo [%_BASENAME%] Using default Python installation directory !_PYTHON_HOME!
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Python installation directory !_PYTHON_HOME! 1>&2
     )
 )
 if not exist "%_PYTHON_HOME%\python.exe" (
-    echo [91mError[0m: python executable not found ^(%_PYTHON_HOME%^) 1>&2
+    echo %_ERROR_LABEL% python executable not found ^(%_PYTHON_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -375,16 +402,16 @@ if %ERRORLEVEL%==0 goto :eof
 
 if defined BLOOP_HOME (
     set _BLOOP_HOME=%BLOOP_HOME%
-    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable BLOOP_HOME
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable BLOOP_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\bloop*" 2^>NUL') do set _BLOOP_HOME=!_PATH!\%%f
+    for /f %%f in ('dir /ad /b "!_PATH!\bloop*" 2^>NUL') do set "_BLOOP_HOME=!_PATH!\%%f"
     if defined _BLOOP_HOME (
-        if %_DEBUG%==1 echo [%_BASENAME%] Using default Bloop installation directory !_BLOOP_HOME!
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Bloop installation directory !_BLOOP_HOME! 1>&2
     )
 )
 if not exist "%_BLOOP_HOME%\bloop.cmd" (
-    echo [91mError[0m: bloop executable not found ^(%_BLOOP_HOME%^) 1>&2
+    echo %_ERROR_LABEL% bloop executable not found ^(%_BLOOP_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -397,23 +424,23 @@ if %ERRORLEVEL%==0 goto :eof
 
 if defined GIT_HOME (
     set _GIT_HOME=%GIT_HOME%
-    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable GIT_HOME
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GIT_HOME 1>&2
 ) else (
     set __PATH=C:\opt
     if exist "!__PATH!\Git\" ( set _GIT_HOME=!__PATH!\Git
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set _GIT_HOME=!__PATH!\%%f
+        for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         if not defined _GIT_HOME (
             set __PATH=C:\Progra~1
-            for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set _GIT_HOME=!__PATH!\%%f
+            for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         )
     )
     if defined _GIT_HOME (
-        if %_DEBUG%==1 echo [%_BASENAME%] Using default Git installation directory !_GIT_HOME!
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Git installation directory !_GIT_HOME! 1>&2
     )
 )
 if not exist "%_GIT_HOME%\bin\git.exe" (
-    echo [91mError[0m: Git executable not found ^(%_GIT_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Git executable not found ^(%_GIT_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -424,7 +451,7 @@ goto :eof
 for %%f in ("%~dp0") do set __ROOT_DIR=%%~sf
 for /f %%i in ('dir /ad /b "%__ROOT_DIR%\" 2^>NUL') do (
     for /f %%j in ('dir /ad /b "%%i\target\scala-*" 2^>NUL') do (
-        if %_DEBUG%==1 echo [%_BASENAME%] rmdir /s /q %__ROOT_DIR%%%i\target\%%j\classes 1^>NUL 2^>^&1
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% rmdir /s /q %__ROOT_DIR%%%i\target\%%j\classes 1^>NUL 2^>^&1 1>&2
         rmdir /s /q %__ROOT_DIR%%%i\target\%%j\classes 1>NUL 2>&1
     )
 )
@@ -515,9 +542,9 @@ echo   %__VERSIONS_LINE1%
 echo   %__VERSIONS_LINE2%
 echo   %__VERSIONS_LINE3%
 if %__VERBOSE%==1 (
-    rem if %_DEBUG%==1 echo [%_BASENAME%] where %__WHERE_ARGS%
-    echo Tool paths:
-    for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p
+    rem if %_DEBUG%==1 echo %_DEBUG_LABEL% where %__WHERE_ARGS%
+    echo Tool paths: 1>&2
+    for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p 1>&2
 )
 goto :eof
 
@@ -532,6 +559,6 @@ endlocal & (
     if not defined DOTTY_HOME set DOTTY_HOME=%_DOTTY_HOME%
     set "PATH=%_JDK_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MILL_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_PYTHON_PATH%%_BLOOP_PATH%%_GIT_PATH%;%~dp0bin"
     if %_EXITCODE%==0 call :print_env %_VERBOSE%
-    if %_DEBUG%==1 echo [%_BASENAME%] _EXITCODE=%_EXITCODE%
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
     for /f "delims==" %%i in ('set ^| findstr /b "_"') do set %%i=
 )

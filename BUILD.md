@@ -39,7 +39,7 @@ Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on the fo
 
 - [Oracle OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot) <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*](https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html))
 - [SBT 1.3](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.3.3))
-- [Git 2.23](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.23.0.txt))
+- [Git 2.24](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt))
 <!--
 8u212 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
 8u222 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
@@ -53,7 +53,7 @@ For instance our development environment looks as follows (*November 2019*):
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_232-b09\
 C:\opt\sbt-1.3.3\
-C:\opt\Git-2.23.0\
+C:\opt\Git-2.24.0\
 </pre>
 
 > **:mag_right:** [Git for Windows](https://git-scm.com/) provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
@@ -64,6 +64,7 @@ The directory structure of the [Dotty repository](https://github.com/lampepfl/do
 
 <pre style="font-size:80%;">
 bin\dotty\build.bat
+bin\dotty\project\
 dotty\      <i>(Git submodule)</i><sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>
 dotty\bin\
 dotty\dist\
@@ -84,10 +85,6 @@ dotty\dist\bin\common.bat
 dotty\dist\bin\dotc.bat
 dotty\dist\bin\dotd.bat
 dotty\dist\bin\dotr.bat
-dotty\project\scripts\bootstrapCmdTests.bat
-dotty\project\scripts\cmdTests.bat
-dotty\project\scripts\common.bat
-dotty\project\scripts\genDocs.bat
 </pre>
 
 We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).
@@ -124,6 +121,7 @@ We distinguish different sets of batch commands:
 
    <pre style="font-size:80%;">
    <b>&gt; cp bin\dotty\build.bat dotty</b>
+   <b>&gt; cp bin\dotty\project\scripts\*.bat dotty\project\scripts\</b>
    <b>&gt; cd dotty</b></pre>
 
    Command [**`build.bat help`**](bin/dotty/build.bat) display the help message.
@@ -133,10 +131,12 @@ We distinguish different sets of batch commands:
    V:\dotty
    &nbsp;
    <b>&gt; build help</b>
-   Usage: build { options | subcommands }
+   Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
+   &nbsp;
      Options:
        -timer                 display the total build time
        -verbose               display environment settings
+   &nbsp;
      Subcommands:
        arch[ives]             generate gz/zip archives (after bootstrap)
        boot[strap]            generate+test bootstrapped compiler (after compile)
@@ -147,6 +147,7 @@ We distinguish different sets of batch commands:
        doc[umentation]        generate documentation (after bootstrap)
        help                   display this help message
        sbt                    test sbt-dotty (after bootstrap)
+   &nbsp;
      Advanced subcommands (no deps):
        arch[ives]-only        generate ONLY gz/zip archives
        boot[strap]-only       generate+test ONLY bootstrapped compiler
@@ -267,7 +268,7 @@ Command **`build -verbose cleanall`** also displays the tool paths/options and t
 <pre style="font-size:80%;">
 <b>&gt; build -verbose cleanall</b>
 Tool paths
-   GIT_CMD=C:\opt\Git-2.23.0\bin\git.exe
+   GIT_CMD=C:\opt\Git-2.24.0\bin\git.exe
    JAVA_CMD=C:\opt\jdk-1.8.0_232-b09\bin\java.exe
    SBT_CMD=C:\opt\sbt-1.3.3\bin\sbt.bat
 Tool options

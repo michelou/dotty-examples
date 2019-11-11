@@ -28,7 +28,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 
 - [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot) ([*release notes*](https://jdk.java.net/11/release-notes))
 - [Dotty 0.20](https://github.com/lampepfl/dotty/releases) ([*release notes*](https://github.com/lampepfl/dotty/releases/tag/0.20.0-RC1))
-- [Git 2.23](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.23.0.txt))
+- [Git 2.24](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt))
 
 > **:mag_right:** [Scala 2.12](https://www.scala-lang.org/download/) is a software product announced to require Java 8. In contrast [Scala 2.13](https://www.scala-lang.org/news/roadmap-2.13.html) and [Dotty](http://dotty.epfl.ch/) (aka [Scala 3](https://www.scala-lang.org/blog/2018/04/19/scala-3.html)) are still in development and also support Java 9+. In the following we choose to work with [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot), the 2<sup>nd</sup> [LTS](https://www.oracle.com/technetwork/java/java-se-support-roadmap.html) version after Java 8.
 
@@ -37,7 +37,7 @@ For instance our development environment looks as follows (*November 2019*):
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.5+11\
 C:\opt\dotty-0.20.0-RC1\
-C:\opt\Git-2.23.0\
+C:\opt\Git-2.24.0\
 </pre>
 
 > **:mag_right:** [Git for Windows](https://git-scm.com/) provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
@@ -104,11 +104,13 @@ Batch command  [**`build`**](cdsexamples/JavaExample/build.bat) has two new opti
 
 <pre style="font-size:80%;">
 <b>&gt; build help</b>
-Usage: build { options | subcommands }
+Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
+&nbsp;
   Options:
     -iter:1..99        set number of run iterations
     -share[:(on|off)]  enable/disable data sharing (default:off)
     -verbose           display progress messages
+&nbsp;
   Subcommands:
     clean              delete generated files
     compile            compile Java source files
@@ -307,17 +309,19 @@ Batch command [**`build`**](cdsexamples/DottyExample/build.bat) has two new opti
 
 <pre style="font-size:80%;">
 <b>&gt; build help</b>
-Usage: build { options | subcommands }
+Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
+&nbsp;
   Options:
-    -iter:1..99        set number of run iterations
-    -share[:(on|off)]  enable/disable data sharing (default:off)
+    -iter:&lt;1..99&gt;      set number of run iterations
+    -share[:&lt;on|off&gt;]  enable/disable data sharing (default:off)
     -verbose           display progress messages
+&nbsp;
   Subcommands:
     clean              delete generated files
     compile            compile Scala source files
     doc                generate Scala documentation
     help               display this help message
-    run[:arg]          execute main class with 1 optional argument
+    run[:&lt;arg&gt;]        execute main class with 1 optional argument
 </pre>
 
 > **:mag_right:** Internally the **`compile`** subcommand generates a Java archive and a Java shared archive as a last step of the compilation phase.
