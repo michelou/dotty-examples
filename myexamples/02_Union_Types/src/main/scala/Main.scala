@@ -4,16 +4,16 @@ object Main {
   import scala.language.implicitConversions // otherwise warning starting with version 0.9.0
 
   private def testIntFloat: Unit = {
-    type IntFloat = Int | Float
+    type IntFloat = Integer | Float
     def printValue(value: IntFloat): Unit = {
       value match {
-        case i: Int => println(s"Int $i")
+        case i: Integer => println(s"Integer $i")
         case f: Float => println(s"Float $f")
       }
     }
 
     printValue(0.0f)  // Float 0.0
-    printValue(1 + 3) // Int 4
+    printValue(1 + 3) // Integer 4
   }
 
   // see https://www.typescriptlang.org/docs/handbook/advanced-types.html
@@ -24,7 +24,7 @@ object Main {
      * If 'padding' is a number, then that number of spaces is added to the left side.
      */
     def padLeft(value: String, padding: String | Int): String = padding match {
-      case s: String => padding + value
+      case s: String => s + value
       case i: Int => s"%${i}s".format(value)
     }
 
@@ -83,10 +83,10 @@ object Main {
     type JValue = String | Number | Boolean | JObject | JArray
 
     def stringify(json: JValue): String = json match {
-      case s: String => '"'+s+'"'
+      case s: String => s"""$s"""
       case i: Number => json.toString()
       case b: Boolean => json.toString()
-      case o: JObject => "{" + o.props.map((x, y) => x + ": " + stringify(y)).mkString(", ") + "}"
+      case o: JObject => "{" + o.props.keys.map(x => x + ": " + stringify(o.props(x))).mkString(", ") + "}"
       case a: JArray => "[" + a.elems.map(stringify).mkString(", ") + "]"
     }
 
