@@ -642,7 +642,7 @@ endlocal & (
     if %_EXITCODE%==0 (
 	    if not defined ANT_HOME set ANT_HOME=%_ANT_HOME%
         if not defined JAVA_HOME set JAVA_HOME=%_JDK_HOME%
-        if not defined JDK11_HOME set JDK11_HOME=%_JDK11_HOME%
+        if not defined JAVA11_HOME set JAVA11_HOME=%_JDK11_HOME%
         if not defined SCALA_HOME set SCALA_HOME=%_SCALA_HOME%
         if not defined DOTTY_HOME set DOTTY_HOME=%_DOTTY_HOME%
         set "PATH=%_JDK_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MILL_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_PYTHON_PATH%%_BLOOP_PATH%%_GIT_PATH%;%~dp0bin"

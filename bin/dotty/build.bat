@@ -340,19 +340,19 @@ goto :eof
 
 :test_java11
 echo %_COLOR_START%sbt compile and sbt test ^(Java 11^)%_COLOR_END%
-if not defined JDK11_HOME (
-    echo %_ERROR_LABEL% Environment variable JDK11_HOME is undefined 1>&2
+if not defined JAVA11_HOME (
+    echo %_ERROR_LABEL% Environment variable JAVA11_HOME is undefined 1>&2
     set _EXITCODE=1
 	goto :eof
 )
-if not exist "%JDK11_HOME%\bin\javac.exe" (
+if not exist "%JAVA11_HOME%\bin\javac.exe" (
     echo %_ERROR_LABEL% Java SDK 11 installation directory is invalid 1>&2
     set _EXITCODE=1
     goto :eof
 )
 setlocal
 rem export PATH="/usr/lib/jvm/java-11-openjdk-amd64/bin:$PATH"
-set "PATH=%__JDK11_HOME%\bin;%PATH%"
+set "PATH=%JAVA11_HOME_HOME%\bin;%PATH%"
 rem ./project/scripts/sbt "compile ;test"
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ";compile ;test" 1>&2
 call "%_SBT_CMD%" ;compile ;test

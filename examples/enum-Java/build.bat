@@ -133,7 +133,8 @@ if %_DEBUG%==1 (
 goto :eof
 
 :help
-echo Usage: %_BASENAME% { options ^| subcommands }
+echo Usage: %_BASENAME% { ^<option^> ^| subcommands }
+echo.
 echo   Options:
 echo     -debug           show commands executed by this script
 echo     -explain         set compiler option -explain

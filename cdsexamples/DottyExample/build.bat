@@ -13,19 +13,8 @@ set _EXITCODE=0
 
 for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
 
-set _SOURCE_DIR=%_ROOT_DIR%src
-set _TARGET_DIR=%_ROOT_DIR%target
-set _DOCS_DIR=%_TARGET_DIR%\docs
-set _LOG_DIR=%_TARGET_DIR%\logs
-
-set _MAIN_CLASS_NAME=Main
-set _MAIN_PKG_NAME=cdsexamples
-set _MAIN_CLASS=%_MAIN_PKG_NAME%.%_MAIN_CLASS_NAME%
-
-set _APP_NAME=DottyExample
-set _JAR_FILE=%_TARGET_DIR%\%_APP_NAME%.jar
-set _CLASSLIST_FILE=%_TARGET_DIR%\%_APP_NAME%.classlist
-set _JSA_FILE=%_TARGET_DIR%\%_APP_NAME%.jsa
+call :env
+if not %_EXITCODE%==0 goto end
 
 call :args %*
 if not %_EXITCODE%==0 goto end
@@ -33,9 +22,10 @@ if not %_EXITCODE%==0 goto end
 rem ##########################################################################
 rem ## Main
 
-call :init
-if not %_EXITCODE%==0 goto end
-
+if %_HELP%==1 (
+    call :help
+    exit /b !_EXITCODE!
+)
 if %_CLEAN%==1 (
     call :clean
     if not !_EXITCODE!==0 goto end
@@ -58,111 +48,55 @@ goto end
 rem ##########################################################################
 rem ## Subroutines
 
-rem input parameter: %*
-:args
-set _CLEAN=0
-set _COMPILE=0
-set _DOC=0
-set _RUN=0
-set _RUN_ARGS=
-set _RUN_ITER=1
-set _SHARE_FLAG=off
-set _VERBOSE=0
-set __N=0
-:args_loop
-set __ARG=%~1
-if not defined __ARG (
-    if !__N!==0 call :help
-    goto args_done
-) else if not "%__ARG:~0,1%"=="-" (
-    set /a __N=!__N!+1
-)
-if /i "%__ARG%"=="clean" ( set _CLEAN=1
-) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
-) else if /i "%__ARG%"=="doc" ( set _DOC=1
-) else if /i "%__ARG:~0,4%"=="run:" (
-    set _RUN_ARGS=%__ARG:~4%& set _COMPILE=1& set _RUN=1
-) else if /i "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
-) else if /i "%__ARG%"=="help" ( call :help & goto end
-) else if /i "%__ARG:~0,6%"=="-iter:" (
-    call :iter "%__ARG:~6%"
-    if not !_EXITCODE!==0 goto :eof
-) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
-) else if /i "%__ARG%"=="-share" ( set _SHARE_FLAG=on
-) else if /i "%__ARG%"=="-share:off" ( set _SHARE_FLAG=off
-) else if /i "%__ARG%"=="-share:on" ( set _SHARE_FLAG=on
-) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
-) else (
-    echo Error: Unknown subcommand %__ARG% 1>&2
+rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
+rem                    _COMPILE_CMD, _DOC_CMD, _JAR_CMD, _JAVA_CMD, _RUN_CMD
+:env
+rem ANSI colors in standard Windows 10 shell
+rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+set _DEBUG_LABEL=[46m[%_BASENAME%][0m
+set _ERROR_LABEL=[91mError[0m:
+set _WARNING_LABEL=[93mWarning[0m:
+
+set _SOURCE_DIR=%_ROOT_DIR%src
+set _TARGET_DIR=%_ROOT_DIR%target
+set _DOCS_DIR=%_TARGET_DIR%\docs
+set _LOG_DIR=%_TARGET_DIR%\logs
+
+set _MAIN_CLASS_NAME=Main
+set _MAIN_PKG_NAME=cdsexamples
+set _MAIN_CLASS=%_MAIN_PKG_NAME%.%_MAIN_CLASS_NAME%
+
+set _APP_NAME=DottyExample
+set _JAR_FILE=%_TARGET_DIR%\%_APP_NAME%.jar
+set _CLASSLIST_FILE=%_TARGET_DIR%\%_APP_NAME%.classlist
+set _JSA_FILE=%_TARGET_DIR%\%_APP_NAME%.jsa
+
+if not defined JAVA11_HOME (
+    echo %_ERROR_LABEL% Java 11 installation not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-shift
-goto :args_loop
-:args_done
-if %_DEBUG%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TOTAL_TIME_START=%%i
-    echo [%_BASENAME%] _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _RUN=%_RUN%
-)
-goto :eof
+set JAVA_HOME=%JAVA11_HOME%
 
-:help
-echo Usage: %_BASENAME% { options ^| subcommands }
-echo   Options:
-echo     -iter:1..99         set number of run iterations
-echo     -share[:(on^|off)]  enable/disable data sharing ^(default:off^)
-echo     -verbose            display progress messages
-echo   Subcommands:
-echo     clean               delete generated files
-echo     compile             compile Scala source files
-echo     doc                 generate Scala documentation
-echo     help                display this help message
-echo     run[:arg]           execute main class with 1 optional argument
-goto :eof
-
-:iter
-set /a __ITER=%~1
-if %__ITER% geq 100 set __ITER=0
-if %__ITER% lss 1 (
-    echo Error: Iteration value "%~1" is out of range ^(0..99^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set _RUN_ITER=%__ITER%
-goto :eof
-
-rem output parameters: _JAVAC_CMD, _JAR_CMD, _JAVA_CMD, _JAVA_VERSION
-:init
-where /q jar.exe
+where /q "%JAVA11_HOME%\bin":jar.exe
 if not %ERRORLEVEL%==0 (
-    echo Error: Java archiver not found ^(run setenv.bat^) 1>&2
+    echo %_ERROR_LABEL% Java archiver not found ^(run setenv.bat^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set _JAR_CMD=jar.exe
+set _JAR_CMD=%JAVA11_HOME%\bin\jar.exe
 
-where /q java.exe
+where /q "%JAVA11_HOME%\bin":java.exe
 if not %ERRORLEVEL%==0 (
-    echo Error: Java executable not found ^(run setenv.bat^) 1>&2
+    echo %_ERROR_LABEL% Java executable not found ^(run setenv.bat^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set _JAVA_CMD=java.exe
-
-set __JAVA_11=
-for /f "tokens=1,2,3,*" %%i in ('%_JAVA_CMD% -version 2^>^&1 ^| findstr version 2^>^&1') do (
-    set _JAVA_VERSION=%%~k
-    for /f %%j in ('echo %%~k ^| findstr "^1[1-9]\. ^1[1-9]-ea" 2^>NUL') do set __JAVA_11=1
-)
-if not defined __JAVA_11 (
-    echo Error: Java 11 LTS or newer is required ^(found %_JAVA_VERSION%^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
+set _JAVA_CMD=%JAVA11_HOME%\bin\java.exe
 
 where /q dotc.bat
 if not %ERRORLEVEL%==0 (
-    echo Error: Scala compiler not found ^(run setenv.bat^) 1>&2
+    echo %_ERROR_LABEL% Scala compiler not found ^(run setenv.bat^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -171,14 +105,99 @@ set _DOC_CMD=dotd.bat
 set _RUN_CMD=dotr.bat
 goto :eof
 
+rem input parameter: %*
+:args
+set _CLEAN=0
+set _COMPILE=0
+set _DOC=0
+set _HELP=0
+set _RUN=0
+set _RUN_ARGS=
+set _RUN_ITER=1
+set _SHARE_FLAG=off
+set _VERBOSE=0
+set __N=0
+:args_loop
+set "__ARG=%~1"
+if not defined __ARG (
+    if !__N!==0 set _HELP=1
+    goto args_done
+)
+if "%__ARG:~0,1%"=="-" (
+    rem options
+    if /i "%__ARG:~0,6%"=="-iter:" (
+        call :iter "%__ARG:~6%"
+        if not !_EXITCODE!==0 goto :eof
+    ) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if /i "%__ARG%"=="-share" ( set _SHARE_FLAG=on
+    ) else if /i "%__ARG%"=="-share:off" ( set _SHARE_FLAG=off
+    ) else if /i "%__ARG%"=="-share:on" ( set _SHARE_FLAG=on
+    ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
+    ) else (
+        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        set _EXITCODE=1
+        goto args_done
+    )
+) else (
+    rem subcommands
+    set /a __N+=1 
+    if /i "%__ARG%"=="clean" ( set _CLEAN=1
+    ) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
+    ) else if /i "%__ARG%"=="doc" ( set _DOC=1
+    ) else if /i "%__ARG%"=="help" ( set _HELP=1
+    ) else if /i "%__ARG:~0,4%"=="run:" (
+        set _RUN_ARGS=%__ARG:~4%& set _COMPILE=1& set _RUN=1
+    ) else if /i "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
+    ) else (
+        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        set _EXITCODE=1
+        goto args_done
+    )
+)
+shift
+goto :args_loop
+:args_done
+if %_DEBUG%==1 (
+    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TOTAL_TIME_START=%%i
+    echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _RUN=%_RUN%
+)
+goto :eof
+
+:help
+echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
+echo.
+echo   Options:
+echo     -iter:1..99        set number of run iterations
+echo     -share[:(on^|off)]  enable/disable data sharing ^(default:off^)
+echo     -verbose           display progress messages
+echo.
+echo   Subcommands:
+echo     clean              delete generated files
+echo     compile            compile Scala source files
+echo     doc                generate Scala documentation
+echo     help               display this help message
+echo     run[:arg]          execute main class with 1 optional argument
+goto :eof
+
+:iter
+set /a __ITER=%~1
+if %__ITER% geq 100 set __ITER=0
+if %__ITER% lss 1 (
+    echo %_ERROR_LABEL% Iteration value "%~1" is out of range ^(0..99^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set _RUN_ITER=%__ITER%
+goto :eof
+
 :clean
 if not exist "%_TARGET_DIR%\" goto :eof
-if %_DEBUG%==1 ( echo [%_BASENAME%] rmdir /s /q %_TARGET_DIR%
-) else if %_VERBOSE%==1 ( echo Delete output directory !_TARGET_DIR:%_ROOT_DIR%=!
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q %_TARGET_DIR% 1>&2
+) else if %_VERBOSE%==1 ( echo Delete output directory !_TARGET_DIR:%_ROOT_DIR%=! 1>&2
 )
 rmdir /s /q "%_TARGET_DIR%"
 if not %ERRORLEVEL%==0 (
-    echo Error: Failed to delete output directory %_TARGET_DIR% 1>&2
+    echo %_ERROR_LABEL% Failed to delete output directory %_TARGET_DIR% 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -187,7 +206,7 @@ goto :eof
 :compile
 set __SOURCE_FILE=%_SOURCE_DIR%\main\scala\%_MAIN_CLASS_NAME%.scala
 if not exist "%__SOURCE_FILE%" (
-    echo Error: Java source file not found ^(%__SOURCE_FILE%^) 1>&2
+    echo %_ERROR_LABEL% Scala source file not found ^(%__SOURCE_FILE%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -206,10 +225,12 @@ if %_COMPILE_REQUIRED%==0 goto :eof
 
 rem see https://docs.scala-lang.org/overviews/compiler-options/index.html
 set __COMPILE_OPTS=-deprecation -feature
-if %_DEBUG%==1 echo [%_BASENAME%] call %_COMPILE_CMD% %__COMPILE_OPTS% -d %__CLASSES_DIR% %__SCALA_SOURCE_FILES%
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_COMPILE_CMD% %__COMPILE_OPTS% -d %__CLASSES_DIR% %__SCALA_SOURCE_FILES% 1>&2
+) else if %_VERBOSE%==1 ( echo Compile Scala source files to directory !__CLASSES_DIR:%_ROOT_DIR%=! 1>&2
+)
 call %_COMPILE_CMD% %__COMPILE_OPTS% -d %__CLASSES_DIR% %__SCALA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-    echo Error: Failed to compile Scala source file %__SOURCE_FILE% 1>&2
+    echo %_ERROR_LABEL% Failed to compile Scala source file %__SOURCE_FILE% 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -225,12 +246,12 @@ set __MANIFEST_FILE=%_TARGET_DIR%\MANIFEST.MF
     echo Implementation-Version: 0.1-SNAPSHOT
     echo Main-Class: %_MAIN_CLASS%
 ) > %__MANIFEST_FILE%
-if %_DEBUG%==1 ( echo [%_BASENAME%] %_JAR_CMD% cfm %_JAR_FILE% %__MANIFEST_FILE% -C %__CLASSES_DIR% .
-) else if %_VERBOSE%==1 ( echo Create Java archive !_JAR_FILE:%_ROOT_DIR%=!
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAR_CMD% cfm %_JAR_FILE% %__MANIFEST_FILE% -C %__CLASSES_DIR% . 1>&2
+) else if %_VERBOSE%==1 ( echo Create Java archive !_JAR_FILE:%_ROOT_DIR%=! 1>&2
 )
 %_JAR_CMD% cfm %_JAR_FILE% %__MANIFEST_FILE% -C %__CLASSES_DIR% .
 if not %ERRORLEVEL%==0 (
-    echo Error: Failed to generate Java archive %_JAR_FILE% 1>&2
+    echo %_ERROR_LABEL% Failed to generate Java archive %_JAR_FILE% 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -251,12 +272,12 @@ if %_DEBUG%==1 (
 ) else (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -J-Xlog:disable
 )
-if %_DEBUG%==1 ( echo [%_BASENAME%] call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS%
-) else if %_VERBOSE%==1 ( echo Create class list file !_CLASSLIST_FILE:%_ROOT_DIR%=!
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% 1>&2
+) else if %_VERBOSE%==1 ( echo Create class list file !_CLASSLIST_FILE:%_ROOT_DIR%=! 1>&2
 )
 call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% %__REDIRECT_STDOUT%
 if not %ERRORLEVEL%==0 (
-    echo Error: Failed to create file %_CLASSLIST_FILE% 1>&2
+    echo %_ERROR_LABEL% Failed to create file %_CLASSLIST_FILE% 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -272,12 +293,12 @@ if %_DEBUG%==1 (
 ) else (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -J-Xlog:disable
 )
-if %_DEBUG%==1 ( echo [%_BASENAME%] call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS%
-) else if %_VERBOSE%==1 ( echo Create Java shared archive !_JSA_FILE:%_ROOT_DIR%=!
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% 1>&2
+) else if %_VERBOSE%==1 ( echo Create Java shared archive !_JSA_FILE:%_ROOT_DIR%=! 1>&2
 )
 call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% %__REDIRECT_STDOUT%
 if not %ERRORLEVEL%==0 (
-    echo Error: Failed to create shared archive %_JAR_FILE% 1>&2
+    echo %_ERROR_LABEL% Failed to create shared archive %_JAR_FILE% 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -296,7 +317,7 @@ set __SOURCE_TIMESTAMP=00000000000000
 set __N=0
 for %%i in (%__SOURCE_FILES%) do (
     call :timestamp "%%i"
-    if %_DEBUG%==1 echo [%_BASENAME%] !_TIMESTAMP! %%i
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% !_TIMESTAMP! %%i
     call :newer "!_TIMESTAMP!" "!__SOURCE_TIMESTAMP!"
     if !_NEWER!==1 set __SOURCE_TIMESTAMP=!_TIMESTAMP!
     set /a __N+=1
@@ -304,7 +325,7 @@ for %%i in (%__SOURCE_FILES%) do (
 if exist "%__TIMESTAMP_FILE%" ( set /p __CLASS_TIMESTAMP=<%__TIMESTAMP_FILE%
 ) else ( set __CLASS_TIMESTAMP=00000000000000
 )
-if %_DEBUG%==1 echo [%_BASENAME%] %__CLASS_TIMESTAMP% %__TIMESTAMP_FILE%
+if %_DEBUG%==1 echo %_DEBUG_LABEL% %__CLASS_TIMESTAMP% %__TIMESTAMP_FILE% 1>&2
 
 call :newer "%__SOURCE_TIMESTAMP%" "%__CLASS_TIMESTAMP%"
 set _COMPILE_REQUIRED=%_NEWER%
@@ -354,21 +375,21 @@ for %%i in ("%~dp0\.") do set __PROJECT=%%~ni
 set __DOC_OPTS=-siteroot %_DOCS_DIR% -project %__PROJECT% -project-version 0.1-SNAPSHOT
 
 set __REDIRECT_STDERR=
-if %_DEBUG%==1 ( echo [%_BASENAME%] %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES%
-) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into !_DOCS_DIR:%_ROOT_DIR%=!
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES% 1>&2
+) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into !_DOCS_DIR:%_ROOT_DIR%=! 1>&2
 ) else ( set __REDIRECT_STDERR=2^>NUL
 )
 call %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES% %__REDIRECT_STDERR%
 if not %ERRORLEVEL%==0 (
-    echo Error: Scala documentation generation failed 1>&2
+    echo %_ERROR_LABEL% Scala documentation generation failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
 goto :eof
 
 :run
-if %_DEBUG%==1 ( echo [%_BASENAME%] ^(#iterations=%_RUN_ITER%^) call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% %_RUN_ARGS%
-) else if %_VERBOSE%==1 ( echo Execute Java archive ^(#iterations=%_RUN_ITER%^) !_JAR_FILE:%_ROOT_DIR%=! %_RUN_ARGS%
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% ^(#iterations=%_RUN_ITER%^) %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% %_RUN_ARGS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Java archive ^(#iterations=%_RUN_ITER%^) !_JAR_FILE:%_ROOT_DIR%=! %_RUN_ARGS% 1>&2
 )
 set __N=1
 :run_iter
@@ -386,12 +407,12 @@ if %_DEBUG%==1 (
 )
 call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% %_RUN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo Error: Failed to execute class %_MAIN_CLASS% 1>&2
+    echo %_ERROR_LABEL% Failed to execute class %_MAIN_CLASS% 1>&2
     set _EXITCODE=1
     goto :eof
 )
 if %_VERBOSE%==1 (
-    if %_DEBUG%==1 echo [%_BASENAME%] call :report "%__SHARE_LOG_FILE%" "%__N%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% call :report "%__SHARE_LOG_FILE%" "%__N%" 1>&2
     call :report "%__SHARE_LOG_FILE%" "%__N%"
 )
 if %__N% lss %_RUN_ITER% (
@@ -405,19 +426,19 @@ rem input parameter: %1=share log file %2=n-th iteration
 set __SHARE_LOG_FILE=%~1
 set __N=%~2
 if not exist "%__SHARE_LOG_FILE%" (
-    echo Error: Share log file %__SHARE_LOG_FILE% not found 1>&2
+    echo %_ERROR_LABEL% Share log file %__SHARE_LOG_FILE% not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
 set __N_SHARED=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr shared "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr shared "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr shared "%__SHARE_LOG_FILE%"') do (
     set /a __N_SHARED+=1
     if %_DEBUG%==1 echo %%i
 )
 set __N_FILE=0
 set __FILE_URLS=
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"file:/" "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"file:/" "%__SHARE_LOG_FILE%" 1>&2
 for /f "tokens=1,*" %%i in ('findstr /c:"file:/" "%__SHARE_LOG_FILE%"') do (
     set /a __N_FILE+=1
     if %_DEBUG%==1 echo %%j
@@ -427,111 +448,111 @@ for /f "tokens=1,*" %%i in ('findstr /c:"file:/" "%__SHARE_LOG_FILE%"') do (
 )
 set __N_JRT=0
 set __JRT_URLS=
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"jrt:/" "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"jrt:/" "%__SHARE_LOG_FILE%" 1>&2
 for /f "tokens=1,*" %%i in ('findstr /c:"jrt:/" "%__SHARE_LOG_FILE%"') do (
     set /a __N_JRT+=1
-    if %_DEBUG%==1 echo %%j
+    if %_DEBUG%==1 echo %%j 1>&2
     if !__N_JRT! lss 2 ( set __JRT_URLS=!__JRT_URLS! %%j
     ) else if not "!__JRT_URLS:...=!"=="!__JRT_URLS!" ( set __JRT_URLS=!__JRT_URLS! ...
     )
 )
 
 set __N_MAIN=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] %_MAIN_PKG_NAME%." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] %_MAIN_PKG_NAME%." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] %_MAIN_PKG_NAME%." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: %_MAIN_PKG_NAME%."') do (
     set /a __N_MAIN+=1
 )
 
 rem Java libraries
 set __N_JAVA_IO=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] java.io." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] java.io." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] java.io." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: java.io."') do (
     set /a __N_JAVA_IO+=1
 )
 set __N_JAVA_LANG=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] java.lang." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] java.lang." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] java.lang." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: java.lang."') do (
     set /a __N_JAVA_LANG+=1
 )
 set __N_JAVA_MATH=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] java.math." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] java.math." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] java.math." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: java.math."') do (
     set /a __N_JAVA_MATH+=1
 )
 set __N_JAVA_NET=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] java.net." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] java.net." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] java.net." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: java.net."') do (
     set /a __N_JAVA_NET+=1
 )
 set __N_JAVA_NIO=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] java.nio." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] java.nio." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] java.nio." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: java.nio."') do (
     set /a __N_JAVA_NIO+=1
 )
 set __N_JAVA_SECURITY=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] java.security." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] java.security." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] java.security." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: java.security."') do (
     set /a __N_JAVA_SECURITY+=1
 )
 set __N_JAVA_UTIL=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] java.util." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] java.util." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] java.util." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: java.util."') do (
     set /a __N_JAVA_UTIL+=1
 )
 set __N_JDK=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] jdk." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] jdk." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] jdk." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: jdk."') do (
     set /a __N_JDK+=1
 )
 set __N_SUN=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] sun." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] sun." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] sun." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: sun."') do (
     set /a __N_SUN+=1
 )
 
 rem Scala libraries
 set __N_SCALA=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] scala." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] scala." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] scala." "%__SHARE_LOG_FILE%" ^| findstr /v "scala.collection scala.io scala.math scala.reflect scala.runtime scala.sys scala.util"') do (
     set /a __N_SCALA+=1
 )
 set __N_SCALA_COLLECTION=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] scala.collection." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] scala.collection." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] scala.collection." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: scala.collection."') do (
     set /a __N_SCALA_COLLECTION+=1
 )
 set __N_SCALA_COMPAT=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] scala.compat." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] scala.compat." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] scala.compat." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: scala.compat."') do (
     set /a __N_SCALA_COMPAT+=1
 )
 set __N_SCALA_IO=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] scala.io." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] scala.io." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] scala.io." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: scala.io."') do (
     set /a __N_SCALA_IO+=1
 )
 set __N_SCALA_MATH=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] scala.math." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] scala.math." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] scala.math." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: scala.math."') do (
     set /a __N_SCALA_MATH+=1
 )
 set __N_SCALA_REFLECT=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] scala.reflect." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] scala.reflect." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] scala.reflect." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: scala.reflect."') do (
     set /a __N_SCALA_REFLECT+=1
 )
 set __N_SCALA_RUNTIME=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] scala.runtime." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] scala.runtime." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] scala.runtime." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: scala.runtime."') do (
     set /a __N_SCALA_RUNTIME+=1
 )
 set __N_SCALA_SYS=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] scala.sys." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] scala.sys." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] scala.sys." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: scala.sys."') do (
     set /a __N_SCALA_SYS+=1
 )
 set __N_SCALA_UTIL=0
-if %_DEBUG%==1 echo [%_BASENAME%] findstr /c:"] scala.util." "%__SHARE_LOG_FILE%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] scala.util." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] scala.util." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: scala.util."') do (
     set /a __N_SCALA_UTIL+=1
 )
@@ -594,16 +615,16 @@ $avgObj=$array ^| Measure-Object -Average; ^
 [math]::Round($avgObj.Average,3)
 
 set _AVERAGE=0.000
-if %_DEBUG%==1 echo [%_BASENAME%] powershell -c "..."
+if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -c "..." 1>&2
 for /f %%i in ('powershell -c "%__PS1_SCRIPT%"') do set _AVERAGE=%%i
 set _AVERAGE=%_AVERAGE:,=.%
-if %_DEBUG%==1 echo [%_BASENAME%] __LIST=%__LIST% _AVERAGE=%_AVERAGE%
+if %_DEBUG%==1 echo %_DEBUG_LABEL% __LIST=%__LIST% _AVERAGE=%_AVERAGE% 1>&2
 goto :eof
 
 rem ##########################################################################
 rem ## Cleanups
 
 :end
-if %_DEBUG%==1 echo [%_BASENAME%] _EXITCODE=%_EXITCODE%
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%
 endlocal
