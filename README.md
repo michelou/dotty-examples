@@ -7,26 +7,26 @@
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This repository gathers <a href="https://dotty.epfl.ch/">Dotty</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/">Dotty</a> project - or written by myself.<br/>
-    In particular it includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a> for experimenting with the Dotty language (aka <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html">Scala 3</a>) on a Windows machine.
+    In particular it includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a>/<a href="https://www.gnu.org/software/bash/manual/bash.html">batch scripts</a> for experimenting with the Dotty language (aka <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html">Scala 3</a>) on a Windows machine.
   </td>
   </tr>
 </table>
 
-This document is part of a series of topics related to [Dotty](https://dotty.epfl.ch/) on Windows:
+This document is part of a series of topics related to [Dotty] on Windows:
 
 - Running Dotty on Windows [**&#9660;**](#bottom)
 - [Building Dotty on Windows](BUILD.md)
 - [Data Sharing and Dotty on Windows](CDS.md)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Metaprogramming](https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html), [GraalVM](https://github.com/michelou/graalvm-examples) and [LLVM](https://github.com/michelou/llvm-examples) are other topics we are currently investigating.
+[JMH], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples] and [LLVM][llvm_examples] are other topics we are currently investigating.
 
 ## <span id="proj_deps">Project dependencies</span>
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
-- [Dotty 0.20](https://github.com/lampepfl/dotty/releases) ([*release notes*](https://github.com/lampepfl/dotty/releases/tag/0.20.0-RC1))
-- [Oracle OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot)<sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*](http://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html))
+- [Dotty 0.20][dotty_releases] ([*release notes*][dotty_relnotes])
+- [Oracle OpenJDK 8][oracle_openjdk] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk_relnotes])
 <!--
 8u212 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
 8u222 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
@@ -34,36 +34,36 @@ This project depends on two external software for the **Microsoft Windows** plat
 -->
 Optionally one may also install the following software:
 
-- [Apache Ant 1.10](https://ant.apache.org/) (requires Java 8) ([*release notes*](https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.7.html))
-- [Apache Maven 3.6](http://maven.apache.org/download.cgi) ([requires Java 7](http://maven.apache.org/docs/history.html))  ([*release notes*](http://maven.apache.org/docs/3.6.1/release-notes.html))
-- [Bloop 1.3](https://scalacenter.github.io/bloop/) (requires Java 8 and Python 2/3) ([*release notes*](https://github.com/scalacenter/bloop/releases/tag/v1.3.4))
-- [CFR 0.14](http://www.benf.org/other/cfr/) (Java decompiler)
-- [Git 2.24](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt))
-- [Gradle 5.6](https://gradle.org/install/) ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*](https://docs.gradle.org/5.6.2/release-notes.html))
-- [Mill 0.5](https://github.com/lihaoyi/mill/releases/) ([*change log*](https://github.com/lihaoyi/mill#changelog))
-- [SBT 1.3](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.3.2))
-- [Scala 2.13](https://www.scala-lang.org/files/archive/) (requires Java 8) ([*release notes*](https://github.com/scala/scala/releases/tag/v2.13.1))
+- [Apache Ant 1.10][apache_ant] (requires Java 8) ([*release notes*][apache_ant_relnotes])
+- [Apache Maven 3.6][apache_maven] ([requires Java 7][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
+- [Bloop 1.3][bloop_releases] (requires Java 8 and Python 2/3) ([*release notes*][bloop_relnotes])
+- [CFR 0.14][cfr_releases] (Java decompiler)
+- [Git 2.24][git_releases] ([*release notes*][git_relnotes])
+- [Gradle 6.0][gradle_install] ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*][gradle_relnotes])
+- [Mill 0.5][mill_releases] ([*change log*][mill_changelog])
+- [SBT 1.3][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
+- [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
-> When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
+> When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*November 2019*)<sup id="anchor_02">[[2]](#footnote_02)</sup>:
+For instance our development environment looks as follows (*December 2019*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_232-b09\    <i>(184.0 MB)</i>
 C:\opt\apache-ant-1.10.7\    <i>( 39.9 MB)</i>
-C:\opt\apache-maven-3.6.2\   <i>( 10.1 MB)</i>
+C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
 C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
 C:\opt\cfr-0.148\            <i>(  1.7 MB)</i>
 C:\opt\dotty-0.20.0-RC1\     <i>( 25.2 MB)</i>
 C:\opt\Git-2.24.0\           <i>(271.0 MB)</i>
-C:\opt\gradle-5.6.4\         <i>(101.0 MB)</i>
+C:\opt\gradle-6.0.1\         <i>(103.0 MB)</i>
 C:\opt\Mill-0.5.2\           <i>( 49.0 MB)</i>
-C:\opt\sbt-1.3.3\            <i>( 55.1 MB)</i>
+C:\opt\sbt-1.3.4\            <i>( 55.1 MB)</i>
 C:\opt\scala-2.13.1\         <i>( 20.1 MB)</i>
 </pre>
 
-> **:mag_right:** [Git for Windows](https://gitforwindows.org/) provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
+> **:mag_right:** [Git for Windows](https://gitforwindows.org/) provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
 
 ## <span id="structure">Directory structure</span>
 
@@ -84,21 +84,21 @@ setenv.bat
 
 where
 
-- directory [**`bin\`**](bin/) provides several utility batch commands.
-- file [**`bin\cfr-0.148.zip`**](bin/cfr-0.148.zip) contains a zipped distribution of [CFR](http://www.benf.org/other/cfr/).
-- directory [**`bin\0.20\`**](bin/0.20/) contains the batch commands for [Dotty 0.20](https://github.com/lampepfl/dotty/releases/tag/0.20.0-RC1).
-- directory [**`bin\dotty\`**](bin/dotty/project/scripts/) contains several batch scripts for building the [Dotty](https://dotty.epfl.ch/) software distribution on a Windows machine.. 
-- directory [**`docs\`**](docs/) contains [Dotty](https://dotty.epfl.ch/) related papers/articles.
-- directory **`dotty\`** contains our fork of the [lampepfl/dotty](https://github.com/lampepfl/dotty) repository as a [Github submodule](.gitmodules).
-- directory [**`examples\`**](examples/) contains [Dotty](https://dotty.epfl.ch/) examples grabbed from various websites.
+- directory [**`bin\`**](bin/) provides several utility batch files.
+- file [**`bin\cfr-0.148.zip`**](bin/cfr-0.148.zip) contains a zipped distribution of [CFR][cfr_releases].
+- directory [**`bin\0.20\`**](bin/0.20/) contains the batch commands for [Dotty 0.20][dotty_relnotes].
+- directory [**`bin\dotty\`**](bin/dotty/project/scripts/) contains several [batch files][windows_batch_file]/[bash scripts][unix_bash_script] for building the [Dotty] software distribution on a Windows machine.. 
+- directory [**`docs\`**](docs/) contains [Dotty] related papers/articles.
+- directory **`dotty\`** contains our fork of the [lampepfl/dotty][github_lampepfl_dotty] repository as a [Github submodule](.gitmodules).
+- directory [**`examples\`**](examples/) contains [Dotty] examples grabbed from various websites.
 - directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
-- file [**`README.md`**](README.md) is the [Markdown](https://github.github.com/gfm/) document for this page.
+- file [**`README.md`**](README.md) is the [Markdown][github_markdown] document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch command for setting up our environment.
 
-> **:mag_right:** We use [VS Code](https://code.visualstudio.com/) with the extension [Markdown Preview Github Styling](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-preview-github-styles) to edit our Markdown files (see article ["Mastering Markdown"](https://guides.github.com/features/mastering-markdown/) from [GitHub Guides](https://guides.github.com/)).
+> **:mag_right:** We use [VS Code][microsoft_vscode] with the extension [Markdown Preview Github Styling](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-preview-github-styles) to edit our Markdown files (see article ["Mastering Markdown"](https://guides.github.com/features/mastering-markdown/) from [GitHub Guides][github_guides].
 
-We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).
-> **:mag_right:** We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance:
+We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
+> **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
 > <b>&gt; subst W: %USERPROFILE%\workspace\dotty-examples</b>
@@ -110,7 +110,7 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`scalac.bat`**](https://docs.scala-lang.org/overviews/compiler-options/index.html), [**`dotc.bat`**](bin/0.17/dotc.bat), etc. directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
+1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**][javac_cli], [**`scalac.bat`**][scalac_cli], [**`dotc.bat`**](bin/0.20/dotc.bat), etc. directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
 
    <pre style="font-size:80%;">
    <b>&gt; setenv help</b>
@@ -132,7 +132,7 @@ We distinguish different sets of batch commands:
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
 3. Directory [**`bin\0.20\`**](bin/0.20/) - This directory contains batch files to be copied to the **`bin\`** directory of the [Dotty](https://dotty.epfl.ch/) installation (eg. **`C:\opt\dotty-0.20.0-RC1\bin\`**) in order to use the [**`dotc`**](bin/0.20/dotc.bat), [**`dotd`**](bin/0.20/dotd.bat) and [**`dotr`**](bin/0.20/dotr.bat) commands on **Microsoft Windows**.
-    > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Dotty distribution](https://github.com/lampepfl/dotty/releases). We also have submitted pull request [#5444](https://github.com/lampepfl/dotty/pull/5444) to add them to the Dotty distribution.
+    > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Dotty distribution][dotty_releases]. We also have submitted pull request [#5444][github_PR5444] to add them to the Dotty distribution.
 
     <pre style="font-size:80%;">
     <b>&gt; dir /b c:\opt\dotty-0.20.0-RC1\bin</b>
@@ -153,7 +153,7 @@ We distinguish different sets of batch commands:
 4. File [**`bin\dotty\build.bat`**](bin/dotty/build.bat) - This batch command generates the [Dotty](https://dotty.epfl.ch) software distribution.
 
 5. File [**`examples\*\build.bat`**](examples/dotty-example-project/build.bat) - Finally each example can be built/run using the [**`build`**](examples/dotty-example-project/build.bat) command.<br/>
-    > **&#9755;** We prefer command [**`build`**](examples/dotty-example-project/build.bat) here since our code examples are simple and don't require the [**`sbt`** ](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html)machinery (eg. [library dependencies](https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html), [sbt server](https://www.scala-sbt.org/1.x/docs/sbt-server.html)).
+    > **&#9755;** We prefer command [**`build`**](examples/dotty-example-project/build.bat) here since our code examples are simple and don't require the [**`sbt`** ][sbt_cli] machinery (eg. [library dependencies][sbt_libs], [sbt server][sbt_server]).
 
     <pre style="font-size:80%;">
     <b>&gt; build</b>
@@ -191,16 +191,16 @@ We distinguish different sets of batch commands:
 
     | **Build tool** | **Config file** | **Parent file** | **Usage example** |
     | :------------: | :-------------: | :-------------: | :---------------- |
-    | [**`ant`**](https://ant.apache.org/manual/running.html) | [**`build.xml`**](examples/enum-Planet/build.xml) | [**`build.xml`**](examples/build.xml) | **`ant clean compile run`** |
+    | [**`ant`**][apache_ant_cli] | [**`build.xml`**](examples/enum-Planet/build.xml) | [**`build.xml`**](examples/build.xml) | **`ant clean compile run`** |
     | [**`bloop`**](https://www.scala-sbt.org/) | &empty; | &empty; | &empty; |
-    | [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html) | [**`build.gradle`**](examples/enum-Planet/build.gradle) | [**`common.gradle`**](examples/common.gradle) | **`gradle clean build run`** |
-    | [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) | [**`build.sc`**](examples/enum-Planet/build.sc) | &empty; | **`mill -i go`** |
-    | [**`mvn`**](https://maven.apache.org/ref/3.6.2/maven-embedder/cli.html) | [**`pom.xml`**](examples/enum-Planet/pom.xml) | [**`pom.xml`**](examples/pom.xml) | **`mvn clean compile test`** |
-    | [**`sbt`**](https://www.scala-sbt.org/) | [**`build.sbt`**](examples/enum-Planet/build.sbt) | &empty; | **`sbt clean compile run`** |
+    | [**`gradle`**][gradle_cli] | [**`build.gradle`**](examples/enum-Planet/build.gradle) | [**`common.gradle`**](examples/common.gradle) | **`gradle clean build run`** |
+    | [**`mill`**][mill_cli] | [**`build.sc`**](examples/enum-Planet/build.sc) | &empty; | **`mill -i go`** |
+    | [**`mvn`**][apache_maven_cli] | [**`pom.xml`**](examples/enum-Planet/pom.xml) | [**`pom.xml`**](examples/pom.xml) | **`mvn clean compile test`** |
+    | [**`sbt`**][sbt_cli] | [**`build.sbt`**](examples/enum-Planet/build.sbt) | &empty; | **`sbt clean compile run`** |
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.148.zip`**](bin/cfr-0.148.zip) to **`c:\opt\`**) which prints [Java source code](https://docs.oracle.com/javase/specs/jls/se8/html/index.html) instead of [Java bytecode](https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html):
+    As an alternative to the standard [**`javap`**][javap_cli] class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.148.zip`**](bin/cfr-0.148.zip) to **`c:\opt\`**) which prints [Java source code][java_jls] instead of [Java bytecode][java_bytecode]:
 
     <pre style="font-size:80%;">
     <b>&gt; cfr myexamples\00_AutoParamTupling\target\classes\myexamples\Main.class</b>
@@ -226,7 +226,7 @@ We distinguish different sets of batch commands:
     }
     </pre>
 
-    Here is the console output from command [**`javap`**](https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html) with option **`-c`** for the same class file:
+    Here is the console output from command [**`javap`**][javap_cli] with option **`-c`** for the same class file:
 
     <pre style="font-size:80%;">
     <b>&gt; javap -c myexamples\00_AutoParamTupling\target\classes\myexamples\Main.class</b>
@@ -257,18 +257,18 @@ We distinguish different sets of batch commands:
 
 #### `setenv.bat`
 
-Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`javac.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt:
+Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`javac.exe`**][javac_cli], [**`sbt.bat`**][sbt_cli] and [**`git.exe`**][git_cli] directly available from the command prompt:
 
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.20.0-RC1,
-   ant 1.10.7, gradle 5.6.4, mill 0.5.2, mvn 3.6.2, sbt 1.3.3/2.12.8,
+   ant 1.10.7, gradle 6.0, mill 0.5.2, mvn 3.6.2, sbt 1.3.4/2.12.10,
    cfr 0.148, bloop v1.3.4, git 2.24.0.windows.1, diff 3.7
 
 <b>&gt; where sbt</b>
-C:\opt\sbt-1.3.3\bin\sbt
-C:\opt\sbt-1.3.3\bin\sbt.bat
+C:\opt\sbt-1.3.4\bin\sbt
+C:\opt\sbt-1.3.4\bin\sbt.bat
 </pre>
 
 Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
@@ -277,7 +277,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.20.0-RC1,
-   ant 1.10.7, gradle 5.6.4, mill 0.5.2, mvn 3.6.2, sbt 1.3.3/2.12.8,
+   ant 1.10.7, gradle 6.0.1, mill 0.5.2, mvn 3.6.2, sbt 1.3.4/2.12.10,
    cfr 0.148, bloop v1.3.4, git 2.24.0.windows.1, diff 3.7
 Tool paths:
    C:\opt\jdk-1.8.0_232-b09\bin\javac.exe
@@ -287,10 +287,10 @@ Tool paths:
    C:\opt\scala-2.13.1\bin\scalac.bat
    C:\opt\dotty-0.20.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.7\bin\ant.bat
-   C:\opt\gradle-5.6.4\bin\gradle.bat
+   C:\opt\gradle-6.0.1\bin\gradle.bat
    C:\opt\Mill-0.5.2\mill.bat
    C:\opt\apache-maven-3.6.2\bin\mvn.cmd
-   C:\opt\sbt-1.3.3\bin\sbt.bat
+   C:\opt\sbt-1.3.4\bin\sbt.bat
    C:\opt\cfr-0.148\bin\cfr.bat
    C:\opt\bloop-1.3.4\bloop.cmd
    C:\opt\Git-2.24.0\bin\git.exe
@@ -322,48 +322,48 @@ Size of directory "c:\opt\jdk-1.8.0_232-b09" is 184.1 Mb
 
 #### `getnightly.bat`
 
-By default command [**`getnightly`**](bin/getnightly.bat) downloads the library files of the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp) available from the [Maven Central Repository](https://search.maven.org/search?q=g:ch.epfl.lamp) and saves them into directory **`out\nightly-jars\`**.
+By default command [**`getnightly`**](bin/getnightly.bat) downloads the library files of the latest [Dotty nightly build][dotty_nightly] available from the [Maven Central Repository][maven_lamp] and saves them into directory **`out\nightly-jars\`**.
 
 <pre style="font-size:80%;">
 <b>&gt; getnightly</b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.21-0.21.0-bin-20191101-3939747-NIGHTLY.jar
-dotty-doc_0.21-0.21.0-bin-20191101-3939747-NIGHTLY.jar
-dotty-interfaces-0.21.0-bin-20191101-3939747-NIGHTLY.jar
-dotty-language-server_0.21-0.21.0-bin-20191101-3939747-NIGHTLY.jar
-dotty-library_0.21-0.21.0-bin-20191101-3939747-NIGHTLY.jar
-dotty-sbt-bridge-0.21.0-bin-20191101-3939747-NIGHTLY.jar
-dotty-staging_0.21-0.21.0-bin-20191101-3939747-NIGHTLY.jar
-dotty_0.21-0.21.0-bin-20191101-3939747-NIGHTLY.jar
+dotty-compiler_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
+dotty-doc_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
+dotty-interfaces-0.21.0-bin-20191126-4237152-NIGHTLY.jar
+dotty-language-server_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
+dotty-library_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
+dotty-sbt-bridge-0.21.0-bin-20191126-4237152-NIGHTLY.jar
+dotty-staging_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
+dotty_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
 </pre>
 
 Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
 <pre style="font-size:80%">
 <b>&gt; getnightly -verbose</b>
-Downloading file dotty_0.21-0.21.0-bin-20191101-3939747-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-language-server_0.21-0.21.0-bin-20191101-3939747-NIGHTLY.jar ... 146.3 Kb
-Downloading file dotty-sbt-bridge-0.21.0-bin-20191101-3939747-NIGHTLY.jar ... 13.4 Kb
-Downloading file dotty-interfaces-0.21.0-bin-20191101-3939747-NIGHTLY.jar ... 3.4 Kb
-Downloading file dotty-library_0.21-0.21.0-bin-20191101-3939747-NIGHTLY.jar ... 1.3 Mb
-Downloading file dotty-compiler_0.21-0.21.0-bin-20191101-3939747-NIGHTLY.jar ... 11.2 Mb
-Downloading file dotty-staging_0.21-0.21.0-bin-20191101-3939747-NIGHTLY.jar ... 36.7 Kb
-Downloading file dotty-doc_0.21-0.21.0-bin-20191101-3939747-NIGHTLY.jar ... 1 Mb
+Downloading file dotty_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-language-server_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar ... 146.1 Kb
+Downloading file dotty-sbt-bridge-0.21.0-bin-20191126-4237152-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty-interfaces-0.21.0-bin-20191126-4237152-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-compiler_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar ... 11.4 Mb
+Downloading file dotty-library_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar ... 1.3 Mb
+Downloading file dotty-staging_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar ... 36.6 Kb
+Downloading file dotty-doc_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar ... 1 Mb
 Finished to download 8 files to directory W:\DOTTY-~1\out\nightly-jars
 </pre>
 
-We can now replace the library files from the original [Dotty distribution](https://github.com/lampepfl/dotty/releases) (installed in directory **`C:\opt\dotty-0.20.0-RC1\`** in our case) with library files from the latest nightly build.
+We can now replace the library files from the original [Dotty distribution][dotty_releases] (installed in directory **`C:\opt\dotty-0.20.0-RC1\`** in our case) with library files from the latest nightly build.
 
-Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in the [Dotty](https://dotty.epfl.ch) installation directory.
+Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in the [Dotty] installation directory.
 
 <pre style="font-size:80%;">
 <b>&gt; getnightly activate</b>
 Finished to download 8 files to directory W:\out\nightly-jars
-Activate nightly build libraries: 0.21.0-bin-20191101-3939747-NIGHTLY
+Activate nightly build libraries: 0.21.0-bin-20191126-4237152-NIGHTLY
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.21.0-bin-20191101-3939747-NIGHTLY-git-3939747 -- Copyright 2002-2019, LAMP/EPFL
+Dotty compiler version 0.21.0-bin-20191126-4237152-NIGHTLY-git-4237152 -- Copyright 2002-2019, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
 Activate default Dotty libraries: 0.20.0-RC1
@@ -372,7 +372,7 @@ Activate default Dotty libraries: 0.20.0-RC1
 Dotty compiler version 0.20.0-RC1 -- Copyright 2002-2019, LAMP/EPFL
 </pre>
 
-> **:warning:** You need *write access* to the [Dotty](https://dotty.epfl.ch) installation directory (e.g. **`C:\opt\dotty-0.20.0-RC1\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
+> **:warning:** You need *write access* to the [Dotty] installation directory (e.g. **`C:\opt\dotty-0.20.0-RC1\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
 
 Internally command [**`getnightly`**](bin/getnightly.bat) manages two sets of libraries files which are organized as follows:
 
@@ -387,18 +387,18 @@ lib\0.20.0-RC1\
 &nbsp;&nbsp;dotty-interfaces-0.20.0-RC1.jar
 &nbsp;&nbsp;dotty-library_0.20-0.20.0-RC1.jar
 &nbsp;&nbsp;dotty-staging_0.20-0.20.0-RC1.jar
-lib\0.21.0-bin-20191101-3939747-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.21-0.21.0-bin-20191101-3939747-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.21-0.21.0-bin-20191101-3939747-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.21.0-bin-20191101-3939747-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.21-0.21.0-bin-20191101-3939747-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.21-0.21.0-bin-20191101-3939747-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.21.0-bin-20191101-3939747-NIGHTLY.jar
-&nbsp;&nbsp;dotty-staging_0.21-0.21.0-bin-20191101-3939747-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.21-0.21.0-bin-20191101-3939747-NIGHTLY.jar
+lib\0.21.0-bin-20191126-4237152-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.21.0-bin-20191126-4237152-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.21.0-bin-20191126-4237152-NIGHTLY.jar
+&nbsp;&nbsp;dotty-staging_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
 </pre>
 
-In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original [Dotty](https://dotty.epfl.ch) installation respectively from the latest nightly build.
+In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original [Dotty] installation respectively from the latest nightly build.
 
 > **:mag_right:** Dotty versions up to `0.18.0` depend on **`scala-library-2.12.8.jar`**; Dotty versions `0.18.1` and newer depend on **`scala-library-2.13.x.jar`**.
 
@@ -422,7 +422,7 @@ Usage: searchjars { &lt;option&gt; | &lt;class_name&gt; }
     &lt;class_name&gt;     class name
 </pre>
 
-Passing argument **`System`** to command [**`searchjars`**](bin/searchjars.bat) prints the following output (class file names are printed with full path and are prefixed with their containing [JAR file](https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html)):
+Passing argument **`System`** to command [**`searchjars`**](bin/searchjars.bat) prints the following output (class file names are printed with full path and are prefixed with their containing [JAR file][jar_file]:
 
 <pre style="font-size:80%;">
 <b>&gt; searchjars System</b>
@@ -563,7 +563,7 @@ Parent directory: W:\dotty\myexamples
 
 #### `build.bat`
 
-Command [**`build`**](examples/enum-Planet/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_03">[[3]](#footnote_03)</sup>.
+Command [**`build`**](examples/enum-Planet/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_03">[[3]](#footnote_03)</sup>.
 
 Running command [**`build`**](examples/enum-Planet/build.bat) with ***no*** option in project [**`examples\enum-Planet`**](examples/enum-Planet/) generates the following output:
 
@@ -583,9 +583,9 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 
 #### `dotr.bat`
 
-[Dotty REPL](https://docs.scala-lang.org/overviews/repl/overview.html) is an interactive tool for evaluating Scala expressions. Internally, it executes a source script by wrapping it in a template and then compiling and executing the resulting program.
+[Dotty REPL][dotty_repl] is an interactive tool for evaluating Scala expressions. Internally, it executes a source script by wrapping it in a template and then compiling and executing the resulting program.
 
-   > **:warning:** Batch file [**`dotr.bat`**](bin/0.14/dotr.bat) is based on the bash script [**`dotr`**](https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr) available from the standard [Dotty distribution](https://github.com/lampepfl/dotty/releases). We also have submitted pull request [#5444](https://github.com/lampepfl/dotty/pull/5444) to add that batch file to the Scala distribution.
+   > **:warning:** Batch file [**`dotr.bat`**](bin/0.14/dotr.bat) is based on the bash script [**`dotr`**][github_dotr] available from the standard [Dotty distribution][dotty_releases]. We also have submitted pull request [#5444][github_PR5444] to add that batch file to the Scala distribution.
 
 <pre style="font-size:80%;">
 <b>&gt; where dotr</b>
@@ -673,8 +673,10 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
+<a href="http://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                      <i>(  9 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.20.0-RC1">dotty-0.20.0-RC1.zip</a>                            <i>( 23 MB)</i>
-<a href="">OpenJDK8U-jdk_x64_windows_hotspot_8u232b09.zip</a>  <i>( 99 MB)</i>
+<a href="https://gradle.org/install/">gradle-6.0.1-bin.zip</a><i>                            ( 90 MB)</i>
+<a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u232b09.zip</a>  <i>( 99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.24.0-64-bit.7z.exe</a>                <i>( 41 MB)</i>
 </pre>
 
@@ -686,5 +688,67 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/November 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/December 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
+
+<!-- link refs -->
+
+[apache_ant]: https://ant.apache.org/
+[apache_ant_cli]: https://ant.apache.org/manual/running.html
+[apache_ant_relnotes]: https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.7.html
+[apache_maven]: http://maven.apache.org/download.cgi
+[apache_maven_cli]: https://maven.apache.org/ref/3.6.2/maven-embedder/cli.html
+[apache_maven_history]: http://maven.apache.org/docs/history.html
+[apache_maven_relnotes]: http://maven.apache.org/docs/3.6.1/release-notes.html
+[bloop_releases]: https://scalacenter.github.io/bloop/
+[bloop_relnotes]: https://github.com/scalacenter/bloop/releases/tag/v1.3.4
+[cfr_releases]: http://www.benf.org/other/cfr/
+[dotty]: https://dotty.epfl.ch
+[dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
+[dotty_nightly]: https://search.maven.org/search?q=g:ch.epfl.lamp
+[dotty_releases]: https://github.com/lampepfl/dotty/releases
+[dotty_relnotes]: https://github.com/lampepfl/dotty/releases/tag/0.20.0-RC1
+[dotty_repl]: https://docs.scala-lang.org/overviews/repl/overview.html
+[github_dotr]: https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr
+[git_cli]: https://git-scm.com/docs/git
+[git_releases]: https://git-scm.com/download/win
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt
+[github_guides]: https://guides.github.com/
+[github_lampepfl_dotty]: https://github.com/lampepfl/dotty
+[github_markdown]: https://github.github.com/gfm/
+[github_PR5444]: https://github.com/lampepfl/dotty/pull/5444
+[graalvm_examples]: https://github.com/michelou/graalvm-examples
+[gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
+[gradle_install]: https://gradle.org/install/
+[gradle_relnotes]: https://docs.gradle.org/6.0/release-notes.html
+[jar_file]: https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html
+[java_bytecode]: https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html
+[java_jls]: https://docs.oracle.com/javase/specs/jls/se8/html/index.html
+[javac_cli]: https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html
+[javap_cli]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html
+[jmh]: https://openjdk.java.net/projects/code-tools/jmh/
+[kotlin_examples]: https://github.com/michelou/kotlin-examples
+[llvm_examples]: https://github.com/michelou/llvm-examples
+[man1_awk]: https://www.linux.org/docs/man1/awk.html
+[maven_lamp]: https://search.maven.org/search?q=g:ch.epfl.lamp
+[microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
+[microsoft_vscode]: https://code.visualstudio.com/
+[mill_changelog]: https://github.com/lihaoyi/mill#changelog
+[mill_cli]: http://www.lihaoyi.com/mill/#command-line-tools
+[mill_releases]: https://github.com/lihaoyi/mill/releases/
+[oracle_openjdk]: https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot
+[oracle_openjdk_relnotes]: http://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
+[sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
+[sbt_downloads]: https://www.scala-sbt.org/download.html
+[sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.4
+[sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
+[scala_releases]: https://www.scala-lang.org/files/archive/
+[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.1
+[scalac_cli]: https://docs.scala-lang.org/overviews/compiler-options/index.html
+[unix_bash_script]: https://www.gnu.org/software/bash/manual/bash.html
+[unix_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
+[windows_batch_file]: https://en.wikibooks.org/wiki/Windows_Batch_Scripting
+[windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
+[windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst
+[zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/

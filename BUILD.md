@@ -11,56 +11,56 @@
   </tr>
 </table>
 
-This document is part of a series of topics related to [Dotty](http://dotty.epfl.ch/) on Windows:
+This document is part of a series of topics related to [Dotty] on Windows:
 
 - [Running Dotty on Windows](README.md)
 - Building Dotty on Windows [**&#9660;**](#bottom)
 - [Data Sharing and Dotty on Windows](CDS.md)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Metaprogramming](http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html), [GraalVM](https://github.com/michelou/graalvm-examples) and [LLVM](https://github.com/michelou/llvm-examples) are other topics we are currently investigating.
+[JMH], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples] and [LLVM][llvm_examples] are other topics we are currently investigating.
 
 > **&#9755;** ***Continuous Integration/Delivery*** (CI/CD)<br/>
 > (steps: Checkout **&rarr;** Compile **&rarr;** Test **&rarr;** Deploy)
 > 
 > | Software | CI/CD&nbsp;service | Hosting |
 > | :------: | :------------ | :------ |
-> | [Dotty](http://dotty-ci.epfl.ch/lampepfl/dotty) | [Drone](https://drone.io/) <sup>**(1)**</sup> | [EPFL](http://dotty-ci.epfl.ch/lampepfl/dotty) in Lausanne, Switzerland |
+> | [Dotty][dotty_ci] | [Drone](https://drone.io/) <sup>**(1)**</sup> | [EPFL][dotty_ci] in Lausanne, Switzerland |
 > | [Scala](https://www.scala-lang.org/) | [Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup><br/>[Travis CI](https://docs.travis-ci.com/user/tutorial/) <sup>**(3)**</sup> | [Lightbend ](https://scala-ci.typesafe.com/) in San-Francisco, USA<br/>[Travis](https://travis-ci.org/scala/scala) in Berlin, Germany
 > | [Oracle&nbsp;OpenJDK](https://ci.adoptopenjdk.net/) | [Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup> | Oracle |
 > | [IBM OpenJ9](https://ci.eclipse.org/openj9/) | [Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup> | IBM |
 >
-> <sub><sup>**(1)**</sup> Written in [Go](https://github.com/drone/drone), <sup>**(2)**</sup> Written in [Java](https://www.oracle.com/technetwork/java/index.html), <sup>**(3)**</sup> Written in [Ruby](https://www.ruby-lang.org/en/).</sub>
+> <sub><sup>**(1)**</sup> Written in [Go](https://github.com/drone/drone), <sup>**(2)**</sup> Written in [Java][java_lang], <sup>**(3)**</sup> Written in [Ruby][ruby_lang].</sub>
 
 
 ## <span id="proj_deps">Project dependencies</span>
 
-Our <a href="https://github.com/michelou/dotty">Dotty fork</a> depends on the following external software for the **Microsoft Windows** platform:
+Our [**Dotty fork**][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
 
-- [Oracle OpenJDK 8](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot) <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*](https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html))
-- [SBT 1.3](https://www.scala-sbt.org/download.html) (requires Java 8) ([*release notes*](https://github.com/sbt/sbt/releases/tag/v1.3.3))
-- [Git 2.24](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt))
+- [Git 2.24][git_releases] ([*release notes*][git_relnotes])
+- [Oracle OpenJDK 8][openjdk_releases] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][openjdk_relnotes])
+- [SBT 1.3][sbt_releases] (requires Java 8) ([*release notes*][sbt_relnotes])
 <!--
 8u212 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
 8u222 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
 8u232 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
 -->
 > **&#9755;** ***Installation policy***<br/>
-> When possible we install software from a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
+> When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*November 2019*):
+For instance our development environment looks as follows (*December 2019*):
 
 <pre style="font-size:80%;">
-C:\opt\jdk-1.8.0_232-b09\
-C:\opt\sbt-1.3.3\
 C:\opt\Git-2.24.0\
+C:\opt\jdk-1.8.0_232-b09\
+C:\opt\sbt-1.3.4\
 </pre>
 
-> **:mag_right:** [Git for Windows](https://git-scm.com/) provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
+> **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
 ## Directory structure
 
-The directory structure of the [Dotty repository](https://github.com/lampepfl/dotty/)<sup id="anchor_02">[[2]](#footnote_02)</sup>  is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts).
+The directory structure of the [Dotty repository][github_dotty])<sup id="anchor_02">[[2]](#footnote_02)</sup>  is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts).
 
 <pre style="font-size:80%;">
 bin\dotty\build.bat
@@ -87,9 +87,9 @@ dotty\dist\bin\dotd.bat
 dotty\dist\bin\dotr.bat
 </pre>
 
-We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"](https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation) from Microsoft Support).
+We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
 
-> **:mag_right:** We use the Windows external command [**`subst`**](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst) to create virtual drives; for instance:
+> **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
 > <b>&gt; subst V: %USERPROFILE%\workspace\dotty-examples</b>
@@ -97,13 +97,13 @@ We also define a virtual drive **`W:`** in our working environment in order to r
 
 In the next section we give a brief description of the batch files present in those directories.
 
-## <span id="batch_commands">Batch commands</span>
+## <span id="batch_commands">Batch/Bash commands</span>
 
 We distinguish different sets of batch commands:
 
 1. Directory [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin) - This directory contains batch files used internally during the build process (see the [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) command).
 
-3. Directory [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software release](https://github.com/lampepfl/dotty/releases).
+3. Directory [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software release][dotty_releases].
 
    <pre style="font-size:80%;">
    <b>&gt; dir /b dist\bin</b>
@@ -117,7 +117,9 @@ We distinguish different sets of batch commands:
    dotr.bat
    </pre>
 
-4. [**`build.bat`**](bin/dotty/build.bat) - This batch command performs on a Windows machine the same build/test steps as specified in file [**`.drone.yml`**](dotty/.drone.yml) and executed on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
+4. [**`build.bat`**](bin/dotty/build.bat)/[**`build.sh`**](bin/dotty/build.sh) - Both commands perform on a Windows machine the same build/test steps as specified in file [**`.drone.yml`**](dotty/.drone.yml) and executed on the [Dotty CI][dotty_ci] server.
+
+   > **:mag_right:** We get the same behavior when working with command [**`./build.sh`**](bin/dotty/build.sh) as presented below with command [**`build.bat`**](bin/dotty/build.bat).
 
    <pre style="font-size:80%;">
    <b>&gt; cp bin\dotty\build.bat dotty</b>
@@ -191,11 +193,12 @@ We distinguish different sets of batch commands:
     > | **`build documentation`** | **`build bootstrap documentation-only`** |
     > | **`build sbt`** | **`build bootstrap sbt-only`** |
 
-5. [**`project\scripts\cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) - This batch command performs test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\cmdTests`**](project/scripts/cmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server (see console output in section [**Usage examples**](#usage_examples)).
-
-6. [**`project\scripts\bootstrapCmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) - This batch command performs the test steps on a Windows machine in a similar manner to the shell script [**`project\scripts\bootstrapCmdTests`**](project/scripts/bootstrapCmdTests) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
-
-7. [**`project\scripts\genDocs.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) - This batch command generates the Dotty documentation on a Windows machine in a similar manner to the shell script [**`project\script\genDocs`**](project/scripts/genDocs) on the [Dotty CI](http://dotty-ci.epfl.ch/lampepfl/dotty) server.
+5. [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/) - This directory contains bash files to performs test steps on a Windows machine in a similar manner to the shell scripts on the [Dotty CI][dotty_ci] server (see console output in section [**Usage examples**](#usage_examples)).
+   | Batch file (**`build.bat`**) | Bash script (**`./build.sh`**) |
+   | :--------- | :---------- |
+   | [**`cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) | [**`cmdTests`**](project/scripts/cmdTests) |
+   | [**`bootstrapCmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) | [**`bootstrapCmdTests`**](project/scripts/bootstrapCmdTests) |
+   | [**`genDocs.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) | [**`genDocs`**](project/scripts/genDocs)|
 
 
 ## <span id="issues">Windows related issues</span>
@@ -204,7 +207,7 @@ We have come across several Windows related issues<sup id="anchor_04"><a href="#
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :--------: | :--------: | :--------- |
-| [#6653](https://github.com/lampepfl/dotty/pull/6653) | [merged](https://github.com/lampepfl/dotty/commit/fe02bf4fdc14f648b5f42731e39448995963256c) | Batch commands |
+| [#6653][dotty_pr_6653] | [merged](https://github.com/lampepfl/dotty/commit/fe02bf4fdc14f648b5f42731e39448995963256c) | Batch commands |
 | [#5814](https://github.com/lampepfl/dotty/pull/5814) | [merged](https://github.com/lampepfl/dotty/commit/923fb06dc625e054e8b1833d4b7db49d369d91ad) | **`build compile`** |
 | [#5659](https://github.com/lampepfl/dotty/pull/5659) | [merged](https://github.com/lampepfl/dotty/commit/7b9ffbb56b2bd33efead1c0f38a71c057c31463e) | **`build bootstrap`** |
 | [#5587](https://github.com/lampepfl/dotty/pull/5587) | [merged](https://github.com/lampepfl/dotty/commit/172d6a0a1a3a4cbdb0a3ac4741b3f561d1221c40) | **`build bootstrap`** |
@@ -230,11 +233,11 @@ Below we summarize changes we made to the [source code](https://github.com/lampe
 
 ## <span id="usage_examples">Usage examples</span>
 
-Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat) consists of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code and features the following subcommands:
+Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat) consists of ~400 lines of batch/[Powershell ][microsoft_powershell] code and features the following subcommands:
 
 #### `build.bat cleanall`
 
-Command **`build.bat cleanall`** removes all generated *and untracked* files/directories from our [**`Dotty fork`**](https://github.com/michelou/dotty/tree/master/).<br/>Internally, **`build cleanall`** executes the two commands **`sbt clean`** *and* [**`git clean -xdf`**](https://git-scm.com/docs/git-clean/) which removes all untracked directories/files, including build products.
+Command **`build.bat cleanall`** removes all generated *and untracked* files/directories from our [**Dotty fork**][github_dotty_fork].<br/>Internally, **`build cleanall`** executes the two commands **`sbt clean`** *and* [**`git clean -xdf`**][git_clean] which removes all untracked directories/files, including build products.
 
 <pre style="font-size:80%;">
 <b>&gt; build cleanall</b>
@@ -270,7 +273,7 @@ Command **`build -verbose cleanall`** also displays the tool paths/options and t
 Tool paths
    GIT_CMD=C:\opt\Git-2.24.0\bin\git.exe
    JAVA_CMD=C:\opt\jdk-1.8.0_232-b09\bin\java.exe
-   SBT_CMD=C:\opt\sbt-1.3.3\bin\sbt.bat
+   SBT_CMD=C:\opt\sbt-1.3.4\bin\sbt.bat
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
    SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -283,7 +286,7 @@ Current Git branch
 
 #### `build.bat compile`
 
-Command **`build.bat compile`** generates the *"1st stage compiler"* for [Dotty](http://dotty.epfl.ch/) and executes the relevant test suites. 
+Command **`build.bat compile`** generates the *"1st stage compiler"* for [Dotty] and executes the relevant test suites. 
 
 <pre style="font-size:80%;">
 <b>&gt; build compile</b>
@@ -327,7 +330,7 @@ testing loading tasty from .tasty file in jar
 
 #### `build.bat bootstrap`
 
-Command **`build.bat bootstrap`** works as follows: ***if*** execution of the **`compile`** subcommand was successful the **`bootstrap`** subcommand generates the *"bootstrap compiler"* for [Dotty](https://dotty.epfl.ch) and executes the relevant test suites.
+Command **`build.bat bootstrap`** works as follows: ***if*** execution of the **`compile`** subcommand was successful the **`bootstrap`** subcommand generates the *"bootstrap compiler"* for [Dotty] and executes the relevant test suites.
 
 <pre style="font-size:80%;">
 <b>&gt; build bootstrap</b>
@@ -358,7 +361,7 @@ dotty-0.19.1-bin-SNAPSHOT.zip
 
 #### `build.bat documentation`
 
-Command **`build.bat documentation`** works as follows: ***if*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Dotty website](https://dotty.epfl.ch/) and the online [Dotty documentation](https://dotty.epfl.ch/docs/).<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
+Command **`build.bat documentation`** works as follows: ***if*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Dotty website][dotty] and the online [Dotty documentation][dotty_docs].<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
 <pre style="font-size:80%;">
 <b>&gt; build -timer doc-only</b>
@@ -397,7 +400,7 @@ total warnings with regards to compilation and documentation: 29
 Total execution time: 00:02:36
 </pre>
 
-Output directory **`docs\_site\`** contains the files of the online [Dotty documentation](https://dotty.epfl.ch/docs/):
+Output directory **`docs\_site\`** contains the files of the online [Dotty documentation][dotty_docs]:
 
 <pre style="font-size:80%;">
 <b>&gt; dir /b docs\_site</b>
@@ -419,7 +422,7 @@ versions
 9
 </pre>
 
-Output directory **`docs\docs\`** contains the Markdown files of the [Dotty website](https://dotty.epfl.ch/):
+Output directory **`docs\docs\`** contains the Markdown files of the [Dotty website][dotty]:
 
 <pre style="font-size:80%;">
 <b>&gt; dir /b docs\docs</b>
@@ -442,7 +445,7 @@ Total execution time: 00:20:25
 
 #### `cmdTests.bat`
 
-Command [**`project\scripts\cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) performs several tests running [Dotty](https://dotty.epfl.ch) commands from [**`sbt`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html). In the normal case, command [**`cmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) is called by command **`build compile`** but may also be called directly.
+Command [**`project\scripts\cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) performs several tests running [Dotty](https://dotty.epfl.ch) commands from [**`sbt`**][sbt_cli]. In the normal case, command [**`cmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) is called by command **`build compile`** but may also be called directly.
 
 <pre style="font-size:80%;">
 <b>&gt; cmdTests</b>
@@ -659,5 +662,46 @@ We fixed our local Git settings as follows:
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/November 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/December 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
+
+<!-- link refs -->
+
+[dotty]: https://dotty.epfl.ch/
+[dotty_ci]: http://dotty-ci.epfl.ch/lampepfl/dotty
+[dotty_docs]: https://dotty.epfl.ch/docs/
+[dotty_metaprogramming]: http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
+[dotty_pr_6653]: https://github.com/lampepfl/dotty/pull/6653
+[dotty_releases]: https://github.com/lampepfl/dotty/releases
+[git_clean]: https://git-scm.com/docs/git-clean/
+[git_cli]: https://git-scm.com/docs/git
+[git_releases]: https://git-scm.com/download/win
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt
+[git_win]: https://git-scm.com/
+[github_dotty]: https://github.com/lampepfl/dotty/
+[github_dotty_fork]: https://github.com/michelou/dotty/tree/master/
+[graalvm_examples]: https://github.com/michelou/graalvm-examples
+[java_lang]: https://www.oracle.com/technetwork/java/index.html
+[jmh]: https://openjdk.java.net/projects/code-tools/jmh/
+[kotlin_examples]: https://github.com/michelou/kotlin-examples
+[llvm_examples]: https://github.com/michelou/llvm-examples
+[man1_awk]: https://www.linux.org/docs/man1/awk.html
+[man1_diff]: https://www.linux.org/docs/man1/diff.html
+[man1_file]: https://www.linux.org/docs/man1/file.html
+[man1_grep]: https://www.linux.org/docs/man1/grep.html
+[man1_more]: https://www.linux.org/docs/man1/more.html
+[man1_mv]: https://www.linux.org/docs/man1/mv.html
+[man1_rmdir]: https://www.linux.org/docs/man1/rmdir.html
+[man1_sed]: https://www.linux.org/docs/man1/sed.html
+[man1_wc]: https://www.linux.org/docs/man1/wc.html
+[microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
+[openjdk_releases]: https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot
+[openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
+[ruby_lang]: https://www.ruby-lang.org/en/
+[sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
+[sbt_releases]: https://www.scala-sbt.org/download.html
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.4
+[unix_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
+[zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/
+[windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
+[windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst

@@ -108,6 +108,7 @@ rem input parameter: %*
 rem output parameter: _HELP, _VERBOSE
 :args
 set _HELP=
+set _BASH=0
 set _VERBOSE=0
 
 :args_loop
@@ -116,7 +117,8 @@ if not defined __ARG goto args_done
 
 if "%__ARG:~0,1%"=="-" (
     rem option
-	if /i "%__ARG%"=="-debug" ( set _DEBUG=1
+	if /i "%__ARG%"=="-bash" ( set _BASH=1
+	) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
@@ -141,6 +143,7 @@ goto :eof
 echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
 echo.
 echo   Options:
+echo     -bash       start Git bash shell instead of Windows command prompt
 echo     -debug      show commands executed by this script
 echo     -verbose    display environment settings
 echo.
@@ -481,41 +484,47 @@ if not exist "%_BLOOP_HOME%\bloop.cmd" (
 set "_BLOOP_PATH=;%_BLOOP_HOME%"
 goto :eof
 
-rem output parameter(s): _GIT_PATH
+rem output parameter(s): _GIT_HOME, _GIT_PATH
 :git
+set _GIT_HOME=
 set _GIT_PATH=
 
-set __GIT_HOME=
-set __GIT_EXE=
-for /f %%f in ('where git.exe 2^>NUL') do set __GIT_EXE=%%f
-if defined __GIT_EXE (
+set __GIT_CMD=
+for /f %%f in ('where git.exe 2^>NUL') do set __GIT_CMD=%%f
+if defined __GIT_CMD (
     if %_DEBUG%==1 echo [%_BASENAME%] Using path of Git executable found in PATH 1>&2
+	for %%i in ("%__GIT_CMD%") do set __GIT_BIN_DIR=%%~dpsi
+    for %%f in ("!__GIT_BIN_DIR!..") do set _GIT_HOME=%%~sf
+    rem Executable git.exe is present both in bin\ and \mingw64\bin\
+    if not "!_GIT_HOME:mingw=!"=="!_GIT_HOME!" (
+        for %%f in ("!_GIT_HOME!\..") do set _GIT_HOME=%%~sf
+    )
     rem keep _GIT_PATH undefined since executable already in path
     goto :eof
 ) else if defined GIT_HOME (
-    set "__GIT_HOME=%GIT_HOME%"
+    set "_GIT_HOME=%GIT_HOME%"
     if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable GIT_HOME
 ) else (
     set __PATH=C:\opt
-    if exist "!__PATH!\Git\" ( set "__GIT_HOME=!__PATH!\Git"
+    if exist "!__PATH!\Git\" ( set "_GIT_HOME=!__PATH!\Git"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "__GIT_HOME=!__PATH!\%%f"
-        if not defined __GIT_HOME (
+        for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
+        if not defined _GIT_HOME (
             set __PATH=C:\Progra~1
-            for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "__GIT_HOME=!__PATH!\%%f"
+            for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         )
     )
 )
-if not exist "%__GIT_HOME%\bin\git.exe" (
-    echo Error: Git executable not found ^(%__GIT_HOME%^) 1>&2
+if not exist "%_GIT_HOME%\bin\git.exe" (
+    echo Error: Git executable not found ^(%_GIT_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
 rem path name of installation directory may contain spaces
-for /f "delims=" %%f in ("%__GIT_HOME%") do set __GIT_HOME=%%~sf
-if %_DEBUG%==1 echo [%_BASENAME%] Using default Git installation directory %__GIT_HOME% 1>&2
+for /f "delims=" %%f in ("%_GIT_HOME%") do set _GIT_HOME=%%~sf
+if %_DEBUG%==1 echo [%_BASENAME%] Using default Git installation directory %_GIT_HOME% 1>&2
 
-set "_GIT_PATH=;%__GIT_HOME%\bin;%__GIT_HOME%\usr\bin;%__GIT_HOME%\mingw64\bin"
+set "_GIT_PATH=;%_GIT_HOME%\bin;%_GIT_HOME%\mingw64\bin;%_GIT_HOME%\usr\bin"
 goto :eof
 
 :clean
@@ -539,6 +548,7 @@ goto :eof
 
 :print_env
 set __VERBOSE=%1
+set __GIT_HOME=%~2
 set __VERSIONS_LINE1=
 set __VERSIONS_LINE2=
 set __VERSIONS_LINE3=
@@ -560,27 +570,27 @@ if %ERRORLEVEL%==0 (
 )
 where /q dotc.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,4,*" %%i in ('dotc.bat -version 2^>^&1') do set __VERSIONS_LINE1=%__VERSIONS_LINE1% dotc %%l,
+    for /f "tokens=1,2,3,4,*" %%i in ('dotc.bat -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% dotc %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% dotc.bat
 )
 where /q ant.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,4,*" %%i in ('ant.bat -version ^| findstr version') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% ant %%l,
+    for /f "tokens=1,2,3,4,*" %%i in ('ant.bat -version ^| findstr version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% ant %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% ant.bat
 )
 where /q gradle.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('gradle.bat -version ^| findstr Gradle') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j,
+    for /f "tokens=1,*" %%i in ('gradle.bat -version ^| findstr Gradle') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% gradle.bat
 )
 where /q mill.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=*" %%i in ('mill.bat -i version 2^>NUL') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% mill %%i,
+    for /f "tokens=*" %%i in ('mill.bat -i version 2^>NUL') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% mill %%i,"
     set __WHERE_ARGS=%__WHERE_ARGS% mill.bat
 )
 where /q mvn.cmd
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,*" %%i in ('mvn.cmd -version ^| findstr Apache') do set __VERSIONS_LINE2=%__VERSIONS_LINE2% mvn %%k,
+    for /f "tokens=1,2,3,*" %%i in ('mvn.cmd -version ^| findstr Apache') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% mvn %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% mvn.cmd
 )
 call :sbt_version
@@ -590,23 +600,28 @@ if defined _SBT_VERSION (
 )
 where /q cfr.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('cfr.bat 2^>^&1 ^| findstr /b CFR') do set __VERSIONS_LINE3=%__VERSIONS_LINE3% cfr %%j,
+    for /f "tokens=1,*" %%i in ('cfr.bat 2^>^&1 ^| findstr /b CFR') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% cfr %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% cfr.bat
 )
 where /q bloop.cmd
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('bloop.cmd about 2^>^&1 ^| findstr /b bloop') do set __VERSIONS_LINE3=%__VERSIONS_LINE3% bloop %%j,
+    for /f "tokens=1,*" %%i in ('bloop.cmd about 2^>^&1 ^| findstr /b bloop') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bloop %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% bloop.cmd
 )
 where /q git.exe
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1,2,*" %%i in ('git.exe --version') do set __VERSIONS_LINE3=%__VERSIONS_LINE3% git %%k,
+   for /f "tokens=1,2,*" %%i in ('git.exe --version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% git %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% git.exe
 )
 where /q diff.exe
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1-3,*" %%i in ('diff.exe --version ^| findstr diff') do set __VERSIONS_LINE3=%__VERSIONS_LINE3% diff %%l
+   for /f "tokens=1-3,*" %%i in ('diff.exe --version ^| findstr diff') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% diff %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% diff.exe
+)
+where /q "%__GIT_HOME%\bin":bash.exe
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1-3,4,*" %%i in ('"%__GIT_HOME%\bin\bash.exe" --version ^| findstr bash') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bash %%l"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%__GIT_HOME%\bin:bash.exe"
 )
 echo Tool versions:
 echo   %__VERSIONS_LINE1%
@@ -624,13 +639,19 @@ rem ## Cleanups
 
 :end
 endlocal & (
-    if not defined ANT_HOME set ANT_HOME=%_ANT_HOME%
-    if not defined JAVA_HOME set JAVA_HOME=%_JDK_HOME%
-    if not defined JDK11_HOME set JDK11_HOME=%_JDK11_HOME%
-    if not defined SCALA_HOME set SCALA_HOME=%_SCALA_HOME%
-    if not defined DOTTY_HOME set DOTTY_HOME=%_DOTTY_HOME%
-    set "PATH=%_JDK_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MILL_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_PYTHON_PATH%%_BLOOP_PATH%%_GIT_PATH%;%~dp0bin"
-    if %_EXITCODE%==0 call :print_env %_VERBOSE%
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
+    if %_EXITCODE%==0 (
+	    if not defined ANT_HOME set ANT_HOME=%_ANT_HOME%
+        if not defined JAVA_HOME set JAVA_HOME=%_JDK_HOME%
+        if not defined JDK11_HOME set JDK11_HOME=%_JDK11_HOME%
+        if not defined SCALA_HOME set SCALA_HOME=%_SCALA_HOME%
+        if not defined DOTTY_HOME set DOTTY_HOME=%_DOTTY_HOME%
+        set "PATH=%_JDK_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MILL_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_PYTHON_PATH%%_BLOOP_PATH%%_GIT_PATH%;%~dp0bin"
+        call :print_env %_VERBOSE% "%_GIT_HOME%"
+		if %_BASH%==1 (
+		    if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_HOME%\bin\bash.exe --login 1>&2
+            cmd.exe /c "%_GIT_HOME%\bin\bash.exe --login"
+		)
+    )
+	if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
     for /f "delims==" %%i in ('set ^| findstr /b "_"') do set %%i=
 )

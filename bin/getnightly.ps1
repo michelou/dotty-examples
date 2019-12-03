@@ -14,8 +14,9 @@ $latest=Invoke-WebRequest -UseBasicParsing -Uri $request |
 ConvertFrom-Json |
 Select -expand response |
 Select -expand docs |
-Where { $_.a -match "^dotty-compiler_0\.20.*" } |
-# for instance: 0.20.0-bin-20191026-d2db509-NIGHTLY
+# Where { $_.a -match "^dotty-compiler_0\.21.*" } |
+Select-Object -first 1 |
+# for instance: 0.21.0-bin-20191126-4237152-NIGHTLY
 Foreach { $_.latestVersion }
 
 if ($debug -eq 1) { [Console]::Error.WriteLine("[getnightly] latest=$latest") }

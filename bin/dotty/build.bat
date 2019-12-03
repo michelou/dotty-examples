@@ -84,6 +84,10 @@ rem                    _DRONE_BUILD_EVENT, _DRONE_REMOTE_URL, _DRONE_BRANCH
 :env
 rem ANSI colors in standard Windows 10 shell
 rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+rem background colors: 46m = Cyan (normal) 
+rem foreground colors: 32m = Green (normal),  91m = Red (strong), 93m = Yellow (strong)
+set _COLOR_START=[32m
+set _COLOR_END=[0m
 set _DEBUG_LABEL=[46m[%_BASENAME%][0m
 set _ERROR_LABEL=[91mError[0m:
 set _WARNING_LABEL=[93mWarning[0m:
@@ -222,7 +226,7 @@ if %_VERBOSE%==1 (
 goto :eof
 
 :clean_all
-echo run sbt clean and git clean -xdf --exclude=*.bat --exclude=*.ps1
+echo %_COLOR_START%run sbt clean and git clean -xdf --exclude=*.bat --exclude=*.ps1%_COLOR_END%
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" clean 1>&2
 call "%_SBT_CMD%" clean
 if not %ERRORLEVEL%==0 (
@@ -260,7 +264,7 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :test
-echo sbt compile and sbt test
+echo %_COLOR_START%sbt compile and sbt test%_COLOR_END%
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ;compile ;test 1>&2
 call "%_SBT_CMD%" ;compile ;test
 if not %ERRORLEVEL%==0 (
@@ -280,7 +284,7 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :test_bootstrapped
-echo sbt dotty-bootstrapped/compile and sbt dotty-bootstrapped/test
+echo %_COLOR_START%sbt dotty-bootstrapped/compile and sbt dotty-bootstrapped/test%_COLOR_END%
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ";dotty-bootstrapped/compile ;dotty-bootstrapped/test ;dotty-staging/test ;sjsSandbox/run;sjsSandbox/test;sjsJUnitTests/test"
 call "%_SBT_CMD%" ";dotty-bootstrapped/compile ;dotty-bootstrapped/test ;dotty-staging/test ;sjsSandbox/run;sjsSandbox/test;sjsJUnitTests/test" 1>&2
 if not %ERRORLEVEL%==0 (
@@ -300,7 +304,7 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :community_build
-echo sbt community-build/test
+echo %_COLOR_START%sbt community-build/test%_COLOR_END%
 if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% submodule sync 1>&2
 call "%_GIT_CMD%" submodule sync
 if not %ERRORLEVEL%==0 (
@@ -335,7 +339,7 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :test_java11
-echo sbt compile and sbt test ^(Java 11^)
+echo %_COLOR_START%sbt compile and sbt test ^(Java 11^)%_COLOR_END%
 if not defined JDK11_HOME (
     echo %_ERROR_LABEL% Environment variable JDK11_HOME is undefined 1>&2
     set _EXITCODE=1
@@ -350,7 +354,7 @@ setlocal
 rem export PATH="/usr/lib/jvm/java-11-openjdk-amd64/bin:$PATH"
 set "PATH=%__JDK11_HOME%\bin;%PATH%"
 rem ./project/scripts/sbt "compile ;test"
-if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ";compile ;test"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ";compile ;test" 1>&2
 call "%_SBT_CMD%" ;compile ;test
 if not %ERRORLEVEL%==0 (
     endlocal
@@ -383,8 +387,8 @@ if not exist "%__TARGET_DIR%\" (
     goto :eof
 )
 if %_DEBUG%==1 (
-    echo.
-    echo Output directory: %__TARGET_DIR%\
+    echo. 1>&2
+    echo Output directory: %__TARGET_DIR%\ 1>&2
     dir /b /a-d "%__TARGET_DIR%"
 )
 goto :eof

@@ -12,35 +12,35 @@
   </tr>
 </table>
 
-This document is part of a series of topics related to [Dotty](http://dotty.epfl.ch/) on Windows:
+This document is part of a series of topics related to [Dotty] on Windows:
 
 - [Running Dotty on Windows](README.md)
 - [Building Dotty on Windows](BUILD.md)
 - Data Sharing and Dotty on Windows [**&#9660;**](#bottom)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Metaprogramming](http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html), [GraalVM](https://github.com/michelou/graalvm-examples) and [LLVM](https://github.com/michelou/llvm-examples) are other topics we are currently investigating.
+[JMH][jmh_project], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples] and [LLVM][llvm_examples] are other topics we are currently investigating.
 
 
 ## <span id="proj_deps">Project dependencies</span>
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
-- [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot) ([*release notes*](https://jdk.java.net/11/release-notes))
-- [Dotty 0.20](https://github.com/lampepfl/dotty/releases) ([*release notes*](https://github.com/lampepfl/dotty/releases/tag/0.20.0-RC1))
-- [Git 2.24](https://git-scm.com/download/win) ([*release notes*](https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt))
+- [Git 2.24][git_downloads] ([*release notes*][git_relnotes])
+- [Oracle OpenJDK 11][openjdk_downloads] ([*release notes*][openjdk_relnotes])
+- [Dotty 0.20][dotty_releases] ([*release notes*][dotty_relnotes])
 
-> **:mag_right:** [Scala 2.12](https://www.scala-lang.org/download/) is a software product announced to require Java 8. In contrast [Scala 2.13](https://www.scala-lang.org/news/roadmap-2.13.html) and [Dotty](http://dotty.epfl.ch/) (aka [Scala 3](https://www.scala-lang.org/blog/2018/04/19/scala-3.html)) are still in development and also support Java 9+. In the following we choose to work with [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot), the 2<sup>nd</sup> [LTS](https://www.oracle.com/technetwork/java/java-se-support-roadmap.html) version after Java 8.
+> **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Dotty] (aka [Scala 3][dotty_scala_3]) are still in development and also support Java 9+. In the following we choose to work with [Oracle OpenJDK 11][openjdk_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
 
-For instance our development environment looks as follows (*November 2019*):
+For instance our development environment looks as follows (*December 2019*):
 
 <pre style="font-size:80%;">
+C:\opt\Git-2.24.0\
 C:\opt\jdk-11.0.5+11\
 C:\opt\dotty-0.20.0-RC1\
-C:\opt\Git-2.24.0\
 </pre>
 
-> **:mag_right:** [Git for Windows](https://git-scm.com/) provides a BASH emulation used to run [**`git`**](https://git-scm.com/docs/git) from the command line (as well as over 250 Unix commands like [**`awk`**](https://www.linux.org/docs/man1/awk.html), [**`diff`**](https://www.linux.org/docs/man1/diff.html), [**`file`**](https://www.linux.org/docs/man1/file.html), [**`grep`**](https://www.linux.org/docs/man1/grep.html), [**`more`**](https://www.linux.org/docs/man1/more.html), [**`mv`**](https://www.linux.org/docs/man1/mv.html), [**`rmdir`**](https://www.linux.org/docs/man1/rmdir.html), [**`sed`**](https://www.linux.org/docs/man1/sed.html) and [**`wc`**](https://www.linux.org/docs/man1/wc.html)).
+> **:mag_right:** [Git for Windows][git_downloads] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
 
 ## <span id="dir_struct">Directory structure</span>
@@ -59,7 +59,7 @@ where
 - file [**`bin\sharedata.bat`**](bin/sharedata.bat) creates/installs Java shared archives for the Dotty compiler/runner.
 - directory [**`cdsexamples\DottyExample\`**](cdsexamples/DottyExample/) contains a tiny Scala code example demonstrating data sharing.
 - directory [**`cdsexamples\JavaExample\`**](cdsexamples/JavaExample/) contains a tiny Java code example demonstrating data sharing.
-- file [**`CDS.md`**](CDS.md) is the [Markdown](https://github.github.com/gfm/) document for this page.
+- file [**`CDS.md`**](CDS.md) is the [Markdown][github_markdown] document for this page.
 
 In the next sections we present both examples and describe the usage of command [**`sharedata`**](bin/sharedata.bat).
 
@@ -68,7 +68,7 @@ In the next sections we present both examples and describe the usage of command 
 
 We distinguish different sets of batch commands:
 
-1. [**`setenv.bat`**](https://github.com/michelou/dotty/tree/batch-files/setenv.bat) - This batch command makes external tools such as [**`java.exe`**](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html), [**`sbt.bat`**](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) and [**`git.exe`**](https://git-scm.com/docs/git) directly available from the command prompt.
+1. [**`setenv.bat`**](https://github.com/michelou/dotty/tree/batch-files/setenv.bat) - This batch command makes external tools such as [**`java.exe`**][java_cli], [**`sbt.bat`**][sbt_cli] and [**`git.exe`**][git_cli] directly available from the command prompt.
 
     <pre style="font-size:80%;">
     <b>&gt; setenv help</b>
@@ -278,7 +278,7 @@ We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/t
 [0.112s][info][class,load] cdsexamples.Main source: file:/W:/dotty-examples/cdsexamples/JavaExample/target/Main.jar
 </pre>
 
-> **:warning:** The ***crucial point*** here is to use the correct path of **`JavaExample.jar`** together with the specified Java shared archive. Command [**`grep -a`**](https://www.linux.org/docs/man1/grep.html) (**`-a`** means "*process a binary file as if it were text*") helps us to extract that path from **`JavaExample.jsa`**.<br/>
+> **:warning:** The ***crucial point*** here is to use the correct path of **`JavaExample.jar`** together with the specified Java shared archive. Command [**`grep -a`**][man1_grep] (**`-a`** means "*process a binary file as if it were text*") helps us to extract that path from **`JavaExample.jsa`**.<br/>
 > <pre style="font-size:80%;">
 > <b>&gt; grep -aPo '.{0,40}JavaExample.jar{0,40}' target\JavaExample.jsa</b>
 >   W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar
@@ -288,7 +288,7 @@ We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/t
 
 ## <span id="dotty_example">Dotty example</span>
 
-Source file [**`src\main\scala\Main.scala`**](cdsexamples/DottyExample/src/main/scala/Main.scala) is the main program of our [Dotty](http://dotty.epfl.ch/) code example:
+Source file [**`src\main\scala\Main.scala`**](cdsexamples/DottyExample/src/main/scala/Main.scala) is the main program of our [Dotty] code example:
 
 <pre style="font-size:80%;">
 <b>package</b> cdsexamples
@@ -338,7 +338,7 @@ Create class list file target\DottyExample.classlist
 Create Java shared archive target\DottyExample.jsa
 </pre>
 
-We can now execute our [Dotty](http://dotty.epfl.ch/) example ***without data sharing*** (default settings: **`-share:off`**); option **`-verbose`** prints out the execution report:
+We can now execute our [Dotty] example ***without data sharing*** (default settings: **`-share:off`**); option **`-verbose`** prints out the execution report:
 
 <pre style="font-size:80%;">
 <b>&gt; build run</b>
@@ -394,7 +394,7 @@ Classes per package (874):
    scala.runtime.* (5), scala.sys.* (10), scala.util.* (14)
 </pre>
 
-Subcommand **`run`** with option **`-iter:<n>`** (**`n=1..99`**) executes **`n`** times the [Dotty](http://dotty.epfl.ch/) example:
+Subcommand **`run`** with option **`-iter:<n>`** (**`n=1..99`**) executes **`n`** times the [Dotty] example:
 
 <pre style="font-size:80%;">
 <b>&gt; build run -verbose -share -iter:4</b>
@@ -465,7 +465,7 @@ Finally we can check the contents of the output directory **`target\`**:
 Note the following about the generated files:
 
 - File **`MANIFEST.MF`** is added to **`DottyExample.jar`** as usual.
-- Files **`classes\Main$.class`** and **`classes\Main.tasty`** ([typed AST](https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html)) are specific to the [Dotty](http://dotty.epfl.ch/) compiler.
+- Files **`classes\Main$.class`** and **`classes\Main.tasty`** ([typed AST][dotty_tasty]) are specific to the [Dotty] compiler.
 - Files **`logs\log_classlist.log`** and **`logs\log_dump.log`** are generated when option **`-verbose`** is passed to the **`compile`** subcommand; they contain the execution logs for the generation of **`DottyExample.classlist`** resp. **`DottyExample.jsa`**. 
 - File **`logs\log_share_off.log`** is generated when option **`-share:off`** is passed to the **`run`** subcommand.
 - File **`logs\log_share_on.log`** is generated when option **`-share:on`** is passed to the **`run`** subcommand.
@@ -620,7 +620,7 @@ Classes per package (888):
 > OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.45+10)
 > OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.5+10, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
 > </pre>
-> Java 12 introduces default CDS archives ([JEP 341](http://openjdk.java.net/jeps/341))
+> Java 12 introduces default CDS archives ([JEP 341][java_jep_341])
 > to improve out-of-the-box startup time and to get rid of the need to run
 > **`-Xshare: dump`** to benefit from the CDS.
 
@@ -718,5 +718,39 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/November 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/December 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
+
+<!-- link refs -->
+
+[dotty]: http://dotty.epfl.ch/
+[dotty_metaprogramming]: http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
+[dotty_releases]: https://github.com/lampepfl/dotty/releases
+[dotty_relnotes]: https://github.com/lampepfl/dotty/releases/tag/0.20.0-RC1
+[dotty_scala_3]: https://www.scala-lang.org/blog/2018/04/19/scala-3.html
+[dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
+[git_cli]: https://git-scm.com/docs/git
+[git_downloads]: https://git-scm.com/download/win
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt
+[github_markdown]: https://github.github.com/gfm/
+[graalvm_examples]: https://github.com/michelou/graalvm-examples
+[java_cli]: https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html
+[java_jep_341]: http://openjdk.java.net/jeps/341
+[java_lts]: https://www.oracle.com/technetwork/java/java-se-support-roadmap.html
+[jmh_project]: https://openjdk.java.net/projects/code-tools/jmh/
+[kotlin_examples]: https://github.com/michelou/kotlin-examples
+[llvm_examples]: https://github.com/michelou/llvm-examples
+[man1_awk]: https://www.linux.org/docs/man1/awk.html
+[man1_diff]: https://www.linux.org/docs/man1/diff.html
+[man1_file]: https://www.linux.org/docs/man1/file.html
+[man1_grep]: https://www.linux.org/docs/man1/grep.html
+[man1_more]: https://www.linux.org/docs/man1/more.html
+[man1_mv]: https://www.linux.org/docs/man1/mv.html
+[man1_rmdir]: https://www.linux.org/docs/man1/rmdir.html
+[man1_sed]: https://www.linux.org/docs/man1/sed.html
+[man1_wc]: https://www.linux.org/docs/man1/wc.html
+[openjdk_downloads]: https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
+[openjdk_relnotes]: https://jdk.java.net/11/release-notes
+[sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
+[scala_2_13]: https://www.scala-lang.org/news/roadmap-2.13.html
+[scala_downloads]: https://www.scala-lang.org/download/
