@@ -11,28 +11,28 @@
   </tr>
 </table>
 
-This document is part of a series of topics related to [Dotty](http://dotty.epfl.ch/) on Windows:
+This document is part of a series of topics related to [Dotty] on Windows:
 
 - [Running Dotty on Windows](README.md)
 - [Building Dotty on Windows](BUILD.md)
 - [Data Sharing and Dotty on Windows](CDS.md)
 - OpenJDK and Dotty on Windows [**&#9660;**](#bottom)
 
-[JMH](https://openjdk.java.net/projects/code-tools/jmh/), [Metaprogramming](http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html), [GraalVM](https://github.com/michelou/graalvm-examples) and [LLVM](https://github.com/michelou/llvm-examples) are other topics we are currently investigating.
+[JMH][jmh_project], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples] and [LLVM][llvm_examples] are other topics we are currently investigating.
 
 
 ## <span id="proj_deps">Project dependencies</span>
 
 This project depends on several external software for the **Microsoft Windows** platform:
 
-- [BellSoft OpenJDK 11](https://bell-sw.com/pages/java-11.0.5/) from [BellSoft](https://bell-sw.com/pages/about) ([*release notes*](https://bell-sw.com/pages/liberica-release-notes-11.0.5)).
-- [Corretto OpenJDK 11](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html) from [Amazon](https://aws.amazon.com/) ([*release notes*](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html)). <!-- build 11.0.2+9-LTS -->
+- [BellSoft OpenJDK 11](https://bell-sw.com/pages/java-11.0.5/) from [BellSoft](https://bell-sw.com/pages/about) ([*release notes*][bellsoft_relnotes]).
+- [Corretto OpenJDK 11][amazon_corretto_downloads] from [Amazon](https://aws.amazon.com/) ([*release notes*][amazon_corretto_relnotes]). <!-- build 11.0.2+9-LTS -->
 - [OpenJ9 OpenJDK 11](https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9) from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html) ([*release notes*](https://adoptopenjdk.net/release_notes.html?variant=openjdk11&jvmVariant=openj9#jdk11_0_5)). <!-- build 11.0.5+10 -->
 - [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot) from [Oracle](https://www.oracle.com/) ([*release notes*](https://adoptopenjdk.net/release_notes.html?variant=openjdk11&jvmVariant=hotspot#jdk11_0_5)). <!-- build 11.0.5+10 -->
 - [RedHat OpenJDK 11](https://developers.redhat.com/products/openjdk/download/) from [RedHat](https://www.redhat.com/). <!-- build 11.0.5-redhat+7-LTS (2019-10-15) -->
 - [SapMachine OpenJDK 11](https://sap.github.io/SapMachine/) from [SAP](https://www.sap.com/). <!-- build 11.0.2+0-LTS-sapmachine -->
 - [Trava OpenJDK 11](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm) from [Travis](https://travis-ci.com/) ([*release notes*](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases)). <!-- 11.0.1+8 (2019-03-16) -->
-- [Zulu OpenJDK 11](https://www.azul.com/downloads/zulu/zulu-windows) from [Azul Systems](https://www.azul.com/) ([*release notes*](https://docs.azul.com/zulu/zulurelnotes/index.htm#ZuluReleaseNotes/ReleaseDetails1129-834-726.htm)). <!-- build 11.0.2+7-LTS -->
+- [Zulu OpenJDK 11][azul_downloads] from [Azul Systems][azul_systems] ([*release notes*][azul_relnotes]). <!-- build 11.0.2+7-LTS -->
 
 > **:mag_right:** [GraalVM](https://www.graalvm.org/downloads/) is based on the [OpenJDK 8](https://www.graalvm.org/docs/release-notes/#1911) and is available as [Community Edition](https://github.com/oracle/graal/) (free) and [Enterprise Edition](https://www.oracle.com/technetwork/graalvm/downloads/index.html) (commercial).
 
@@ -41,13 +41,13 @@ The above implementations of OpenJDK[&trade;](http://openjdk.java.net/legal/open
 - they are tested and certified for [JCK](https://openjdk.java.net/groups/conformance/JckAccess/) <sup id="anchor_01">[[1]](#footnote_01)</sup> compliance excepted for Trava OpenJDK.
 - they include different [backports](https://builds.shipilev.net/backports-monitor/) of fixes from OpenJDK 12 or newer (eg. [Corretto](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/patches.html)).
 - they include additional modules (eg. Device IO API on Linux ARMv7) or integrate special tools (eg. HotswapAgent in [Trava](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm)).
-- they support different sets of platform architectures (eg. [SapMachine](https://sap.github.io/SapMachine/) x64 only, [BellSoft](https://bell-sw.com/pages/liberica-release-notes-11.0.2) also Raspberry Pi 2 &amp; 3).
+- they support different sets of platform architectures (eg. [SapMachine](https://sap.github.io/SapMachine/) x64 only, [BellSoft][bellsoft_relnotes] also Raspberry Pi 2 &amp; 3).
 
 
 > **&#9755;** ***Installation policy***<br/>
-> When possible we install software from a a [Zip archive](https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/) rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**](http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html) directory on Unix).
+> When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*November 2019*) <sup id="anchor_02">[[1]](#footnote_02)</sup>:
+For instance our development environment looks as follows (*December 2019*) <sup id="anchor_02">[[1]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.5+10\
@@ -74,9 +74,9 @@ An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For
 3. We go back to step 1 to verify that flag  **`sharing`** is present.
 
 
-### BellSoft OpenJDK 11
+### <span id="bellsoft">BellSoft OpenJDK 11</span>
 
-[BellSoft OpenJDK 11](https://bell-sw.com/pages/java-11.0.5/) (aka Liberica JDK) is available both as a *"regular"* and as a *"lite"* version (no JavaFX modules, compressed modules). BellSoft currently provides binaries suitable for different hardware and OS combinations, eg. Windows x86_64 and Windows x86.
+[BellSoft OpenJDK 11][bellsoft_downloads] (aka Liberica JDK) is available both as a *"regular"* and as a *"lite"* version (no JavaFX modules, compressed modules). BellSoft currently provides binaries suitable for different hardware and OS combinations, eg. Windows x86_64 and Windows x86.
 
 In the following we work with the *"lite"* version of BellSoft OpenJDK 11.
 
@@ -100,7 +100,7 @@ LibericaJDK 64-Bit Server VM (build 11.0.5-BellSoft+11, mixed mode, sharing)
 </pre>
 
 
-### Corretto OpenJDK 11
+### <span id="corretto">Corretto OpenJDK 11</span>
 
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\jdk-corretto-11.0.5_10\bin\java -version</b>
@@ -165,7 +165,7 @@ OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.5+10, mixed mode, sharing)
 </pre>
 
 
-### RedHat OpenJDK 11
+### <span id="redhat">RedHat OpenJDK 11</span>
 
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\jdk-redhat-11.0.5.10\bin\java -version</b>
@@ -187,7 +187,7 @@ OpenJDK 64-Bit Server VM 18.9 (build 11.0.5+10-LTS, mixed mode, sharing)
 </pre>
 
 
-### SapMachine OpenJDK 11
+### <span id="sap">SapMachine OpenJDK 11</span>
 
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\jdk-sapmachine-11.0.5\bin\java -version</b>
@@ -211,7 +211,7 @@ OpenJDK 64-Bit Server VM (build 11.0.5+10-LTS-sapmachine, mixed mode, sharing)
 > **:mag_right:** SAP provides [online documentation](https://github.com/SAP/SapMachine/wiki) specific to SapMachine 11, e.g. [Differences between SapMachine and OpenJDK](https://github.com/SAP/SapMachine/wiki/Differences-between-SapMachine-and-OpenJDK).
 
 
-### Trava OpenJDK 11
+### <span id="trava">Trava OpenJDK 11</span>
 
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\jdk-trava-11.0.1_8\bin\java -version</b>
@@ -251,7 +251,7 @@ Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.1.6+8-201903160
 > Trava OpenJDK only supports the [serial and CMS garbage collectors](http://karunsubramanian.com/websphere/how-to-choose-the-correct-garbage-collector-java-generational-heap-and-garbage-collection-explained/) (ie. options `-XX:+UseParallelGC` and `-XX:+UseG1GC` are not supported).
 
 
-### Zulu OpenJDK 11
+### <span id="zulu">Zulu OpenJDK 11</span>
 
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\jdk-zulu-11.0.5\bin\java -version</b>
@@ -322,5 +322,23 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/November 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/December 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
+
+<!-- link refs -->
+
+[amazon_corretto_downloads]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html
+[amazon_corretto_relnotes]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html
+[azul_downloads]: https://www.azul.com/downloads/zulu/zulu-windows
+[azul_relnotes]: https://docs.azul.com/zulu/zulurelnotes/index.htm#ZuluReleaseNotes/ReleaseDetails1129-834-726.htm
+[azul_systems]: https://www.azul.com/
+[bellsoft_downloads]: https://bell-sw.com/pages/java-11.0.5/
+[bellsoft_relnotes]: https://bell-sw.com/pages/liberica-release-notes-11.0.5
+[dotty]: https://dotty.epfl.ch/
+[dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
+[graalvm_examples]: https://github.com/michelou/graalvm-examples
+[jmh_project]: https://openjdk.java.net/projects/code-tools/jmh/
+[kotlin_examples]: https://github.com/michelou/kotlin-examples
+[llvm_examples]: https://github.com/michelou/llvm-examples
+[unix_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
+[zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/
