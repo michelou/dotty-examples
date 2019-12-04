@@ -1,4 +1,4 @@
-# Dotty related documents
+# <span id="top">Dotty related documents</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -7,12 +7,11 @@
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     The <strong><code>docs\</code></strong> directory contains a selection of external links and PDF documents related to <a href="http://dotty.epfl.ch/" alt="Dotty">Dotty</a>.
-    <div style="margin: 8px 0 0 0; font-size:90%; color:gray;">
-      <b>Note</b>: Articles published on the Web have been converted to PDF format and do not necessarily reflect the actual state of the original publication.
-    </div>
   </td>
   </tr>
 </table>
+
+> **:mag_right:** Articles published on the Web have been converted to PDF format and do not necessarily reflect the actual state of the original publication.
 
 ### **Blogs**
 
@@ -28,16 +27,16 @@
 
 ### **Papers**
 
-- [[Link](http://guillaume.martres.me/ide_paper.pdf)] [[PDF](./2017_ide_paper.pdf)]<br/>"Interactive Development using the Dotty Compiler"], <span style="font-weight:bold; color:#DC143C;">2017</span> (4 pages).<br/>Guillaume Martres, [*LAMP - EPFL*](https://lamp.epfl.ch/).
+- [[Link](http://guillaume.martres.me/ide_paper.pdf)] [[PDF](./2017_ide_paper.pdf)]<br/>"Interactive Development using the Dotty Compiler"], <span style="font-weight:bold; color:#DC143C;">2017</span> (4 pages).<br/>Guillaume Martres, [*LAMP - EPFL*][epfl_lamp].
 
 - [[Link](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.1014.5167&q=Programming%20with%20intersection%20types)] [[PDF](./10.1.1.1014.5167.pdf)]<br/>"Programming with intersection types, uniion types and polymorphism", <span style="font-weight:bold; color:#DC143C;">1991</span> (39 pages).<br/>Benjamin C. Pierce, [*Canergie Mellon University*](https://www.cmu.edu/).
 
 
 ### **Presentations**
 
-- [[Link]](https://www.youtube.com/watch?v=iobC5yGRWoo)<br/>"From DOT to Dotty", <span style="font-weight:bold; color:#DC143C;">2017</span> (48 minutes).<br/>Martin Odersky, [*LAMP - EPFL*](https://lamp.epfl.ch/).
+- [[Link]](https://www.youtube.com/watch?v=iobC5yGRWoo)<br/>"From DOT to Dotty", <span style="font-weight:bold; color:#DC143C;">2017</span> (48 minutes).<br/>Martin Odersky, [*LAMP - EPFL*][epfl_lamp].
 
-- [[Link](http://wirth-symposium.ethz.ch/programme.html)] [[PDF]](./2014_The_Trouble_with_Types.pdf)<br/>"The Trouble with Types", <span style="font-weight:bold; color:#DC143C;">2014</span> (50 slides).<br/>Martin Odersky, [*LAMP - EPFL*](https://lamp.epfl.ch/).
+- [[Link](http://wirth-symposium.ethz.ch/programme.html)] [[PDF]](./2014_The_Trouble_with_Types.pdf)<br/>"The Trouble with Types", <span style="font-weight:bold; color:#DC143C;">2014</span> (50 slides).<br/>Martin Odersky, [*LAMP - EPFL*][epfl_lamp].
 
 
 ### **Proceedings**
@@ -46,10 +45,9 @@
 
 <hr style="margin:2em 0 0 0;" />
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/November 2018*
+*[mics](http://lampwww.epfl.ch/~michelou/)/December 2019* [**&#9650;**](#top)
+<span id="bottom">&nbsp;</span>
 
+<!-- link refs -->
 
-
-
-
-
+[epfl_lamp]: https://lamp.epfl.ch/

@@ -12,13 +12,13 @@
 </table>
 
 
-We can build/run each example in directory [**`myexamples\`**](.) using [**`sbt`**](https://www.scala-sbt.org/), [**`ant`**](https://ant.apache.org/manual/running.html), [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) as an alternative to the **`build`** batch command.
+We can build/run each example in directory [**`myexamples\`**](.) using [**`sbt`**][sbt_cli], [**`ant`**][apache_ant_cli], [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**][apache_maven_cli] as an alternative to the **`build`** batch command.
 
 In the following we explain in more detail the build tools available in the [**`HelloWorld`**](HelloWorld) example (and also in other examples from directory [**`myexamples\`**](./)):
 
 ## <span id="build">`build.bat` command</span>
 
-Command [**`build`**](dotty-example-project/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ](https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6) code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
+Command [**`build`**](dotty-example-project/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
 
 Running command [**`build clean run`**](HelloWorld/build.bat) in project [**`HelloWorld\`**](HelloWorld/) produces the following output:
 
@@ -30,11 +30,11 @@ Hello world!
 
 ## Gradle build tool
 
-Command [**`gradle`**](http://www.gradle.org/) is the official build tool for Android applications (tool created in 2007). It replaces XML-based build scripts with a [Groovy](http://www.groovy-lang.org/)-based DSL.
+Command [**`gradle`**][gradle_cli] is the official build tool for Android applications (tool created in 2007). It replaces XML-based build scripts with a [Groovy][gradle_groovy]-based DSL.
 
 > **&#9755;** ***Gradle Wrappers***<br/>
-> We don't rely on them even if using [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) is the  recommended way to execute a Gradle build.<br/>
-> Simply execute the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html).
+> We don't rely on them even if using [Gradle Wrapper][gradle_wrapper] is the  recommended way to execute a Gradle build.<br/>
+> Simply execute the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of [**`gradle`**][gradle_cli].
 
 The configuration file [**`build.gradle`**](HelloWorld/build.gradle) for [**`HelloWorld\`**](HelloWorld/) looks as follows:
 
@@ -54,7 +54,7 @@ run.doFirst {
 }
 </pre>
 
-We note that [**`build.gradle`**](HelloWorld/build.gradle)<ul><li>imports the two [Gradle plugins](https://docs.gradle.org/current/userguide/plugins.html): [**`java`**](https://docs.gradle.org/current/userguide/java_plugin.html) and [**`application`**](https://docs.gradle.org/current/userguide/application_plugin.html#header)</li><li>imports code from the parent file [**`common.gradle`**](common.gradle)</li><li>assigns property **`mainClassName`** to **`main`** and value **`''`** to **`args`** (no argument in this case) in **`run.doFirst`**</li></ul>
+We note that [**`build.gradle`**](HelloWorld/build.gradle)<ul><li>imports the two [Gradle plugins][gradle_plugins]: [**`java`**][gradle_java_plugin] and [**`application`**](https://docs.gradle.org/current/userguide/application_plugin.html#header)</li><li>imports code from the parent file [**`common.gradle`**](common.gradle)</li><li>assigns property **`mainClassName`** to **`main`** and value **`''`** to **`args`** (no argument in this case) in **`run.doFirst`**</li></ul>
 
 The parent file [**`common.gradle`**](common.gradle) defines the task **`compileDotty`** and manages the task dependencies.
 
@@ -107,9 +107,9 @@ BUILD SUCCESSFUL in 4s
 
 ## SBT build tool
 
-Command [**`sbt`**](https://www.scala-sbt.org/) is a Scala-based build tool for [**`Scala`**](https://www.scala-lang.org/) and Java.
+Command [**`sbt`**][sbt_cli] is a Scala-based build tool for [Scala] and Java.
 
-The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is a standalone file written in [Scala](https://www.scala-lang.org/) and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
+The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is a standalone file written in [Scala] and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
 <pre style="font-size:80%;">
 <b>val</b> dottyVersion = <span style="color:#990000;">"0.20.0-RC1"</span>
@@ -138,9 +138,9 @@ Hello world!
 
 ## Mill build tool
 
-Command [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
+Command [**`mill`**][mill_cli] is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
 
-The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone file written in Scala (with direct access to [OS-Lib](https://github.com/lihaoyi/os-lib)).
+The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone file written in Scala (with direct access to [OS-Lib][os_lib]).
 
 <pre style="font-size:80%;">
 <b>import</b> mill._, scalalib._
@@ -169,7 +169,7 @@ Hello world!
 
 ## Ant build tool
 
-Command [**`ant`**](https://ant.apache.org/) (["Another Neat Tool"](https://ant.apache.org/faq.html#ant-name)) is a Java-based build maintained by the [Apache Software Foundation](https://ant.apache.org/faq.html#history) (tool created in 2000). It works with XML-based configuration files.
+Command [**`ant`**][apache_ant_cli] (["Another Neat Tool"][apache_ant_faq]) is a Java-based build maintained by the [Apache Software Foundation][apache_ant_history] (tool created in 2000). It works with XML-based configuration files.
 
 The configuration file [**`build.xml`**](HelloWorld/build.xml) in directory [**`HelloWorld\`**](HelloWorld/) depends on the parent file [**`build.xml`**](myexamples/build.xml) which provides the macro definition **`dotc`** to compile the Scala source files.
 
@@ -184,7 +184,7 @@ The configuration file [**`build.xml`**](HelloWorld/build.xml) in directory [**`
 <b>&lt;/project&gt;</b>
 </pre>
 
-Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output ([Ivy](http://ant.apache.org/ivy/) support is enabled by default):
+Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output ([Ivy][apache_ant_ivy] support is enabled by default):
 
 <pre style="font-size:80%;">
 <b>&gt; ant clean run</b>
@@ -196,8 +196,8 @@ Buildfile: W:\myexamples\HelloWorld\build.xml
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
-[ivy:resolve] :: Apache Ivy 2.5.0-rc1 - 20180412005306 :: http://ant.apache.org/ivy/ ::
-[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.5/lib/ivy-2.5.0-rc1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+[ivy:resolve] :: Apache Ivy 2.5.0 - 20191020104435 :: https://ant.apache.org/ivy/ ::
+[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.7/lib/ivy-2.5.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
 
 <span style="font-weight:bold;color:#9966ff;">init:</span>
 
@@ -213,10 +213,13 @@ Total time: 3 seconds
 </pre>
 
 > **&#9755;** **Apache Ivy**<br/>
-> The [Ivy](http://ant.apache.org/ivy/) Java archive must be added to the Ant installation directory as displayed by task **`init.ivy`** in the above output. In our case we work with version 2.5.0-rc1 of the Apache Ivy library.
+> The [Ivy][apache_ant_ivy] Java archive must be added to the [Ant](https://ant.apache.org/) installation directory as displayed by task **`init.ivy`** in the above output. In our case we work with [version 2.5.0][apache_ant_ivy_relnotes] of the Apache Ivy library.
 > <pre style="font-size:80%;">
-> <b>&gt; dir /b c:\opt\apache-ant-1.10.7\lib\ivy&#42;</b>
-> ivy-2.5.0-rc1.jar
+> <b>&gt; curl -sL -o c:\Temp\apache-ivy-2.5.0.zip https://www-eu.apache.org/dist//ant/ivy/2.5.0/apache-ivy-2.5.0-bin.zip</b>
+> <b>&gt; unzip c:\temp\apache-ivy-2.5.0.zip -d c:\opt</b>
+> <b>&gt; copy c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.7\lib</b>
+> <b>&gt; dir c:\opt\apache-ant-1.10.7\lib | findstr ivy</b>
+> 20.10.2019  09:44         1 402 646 ivy-2.5.0.jar
 > </pre>
 
 We specify property **`-Duse.local=true`** to use Dotty local installation (*reminder*: variable **`DOTTY_HOME`** is set by command **`setenv`**):
@@ -249,7 +252,7 @@ Total time: 14 seconds
 
 ## Maven build tool
 
-Command [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) is a Java-based build tool maintained by the [Apache Software Foundation](https://maven.apache.org/docs/history.html) (tool created in 2002). It works with XML-based configuration files and provides a way to share JARs across several projects.
+Command [**`mvn`**][apache_maven_cli] is a Java-based build tool maintained by the [Apache Software Foundation][apache_maven_history] (tool created in 2002). It works with XML-based configuration files and provides a way to share JARs across several projects.
 
 The configuration file [**`pom.xml`**](HelloWorld/pom.xml) in directory [**`HelloWorld\`**](HelloWorld/) depends on the parent file [**`pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
 
@@ -397,6 +400,9 @@ rem ## Environment setup</i>
 
 <b>for</b> %%f <b>in</b> ("%~dp0") <b>do set</b> _ROOT_DIR=%%~sf
 
+<b>call <span style="color:#9966ff;">:env</span></b>
+<b>if not</b> %_EXITCODE%==0 <b>goto <span style="color:#9966ff;">end</span></b>
+
 <b>call <span style="color:#9966ff;">:props</span></b>
 <b>if not</b> %_EXITCODE%==0 <b>goto <span style="color:#9966ff;">end</span></b>
 
@@ -427,14 +433,17 @@ rem ## Main</i>
 <i style="color:#66aa66;">rem ##########################################################################
 rem ## Subroutines</i>
 
+<span style="color:#9966ff;">:env</span>
+...<i>(variable initialization, eg. directory paths)</i>...
+<b>goto :eof</b>
 <span style="color:#9966ff;">:props</span>
-...
+...<i>(read file build.properties if present)</i>...
 <b>goto :eof</b>
 <span style="color:#9966ff;">:args</span>
-...
+...<i>(command line options/subcommands)</i>...
 <b>goto :eof</b>
 <span style="color:#9966ff;">:clean</span>
-...
+...<i>(delete generated files/directories)</i>...
 <b>goto :eof</b>
 <span style="color:#9966ff;">:compile</span>
 ...
@@ -505,5 +514,25 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/November 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/December 2019* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
+
+<!-- link refs -->
+
+[apache_ant_cli]: https://ant.apache.org/manual/running.html
+[apache_ant_faq]: https://ant.apache.org/faq.html#ant-name
+[apache_ant_history]: https://ant.apache.org/faq.html#history
+[apache_ant_ivy]: http://ant.apache.org/ivy/
+[apache_ant_ivy_relnotes]: http://ant.apache.org/ivy/history/2.5.0/release-notes.html
+[apache_maven_cli]: http://maven.apache.org/ref/3.6.3/maven-embedder/cli.html
+[apache_maven_history]: https://maven.apache.org/docs/history.html
+[gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
+[gradle_groovy]: http://www.groovy-lang.org/
+[gradle_java_plugin]: https://docs.gradle.org/current/userguide/java_plugin.html
+[gradle_plugins]: https://docs.gradle.org/current/userguide/plugins.html
+[gradle_wrapper]: https://docs.gradle.org/current/userguide/gradle_wrapper.html
+[microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
+[mill_cli]: http://www.lihaoyi.com/mill/#command-line-tools
+[os_lib]: https://github.com/lihaoyi/os-lib
+[sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
+[scala]: https://www.scala-lang.org/

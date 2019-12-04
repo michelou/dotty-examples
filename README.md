@@ -39,7 +39,7 @@ Optionally one may also install the following software:
 - [Bloop 1.3][bloop_releases] (requires Java 8 and Python 2/3) ([*release notes*][bloop_relnotes])
 - [CFR 0.14][cfr_releases] (Java decompiler)
 - [Git 2.24][git_releases] ([*release notes*][git_relnotes])
-- [Gradle 6.0][gradle_install] ([requires Java 8 or newer](https://docs.gradle.org/current/release-notes.html#potential-breaking-changes)) ([*release notes*][gradle_relnotes])
+- [Gradle 6.0][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [Mill 0.5][mill_releases] ([*change log*][mill_changelog])
 - [SBT 1.3][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
@@ -87,15 +87,17 @@ where
 - directory [**`bin\`**](bin/) provides several utility batch files.
 - file [**`bin\cfr-0.148.zip`**](bin/cfr-0.148.zip) contains a zipped distribution of [CFR][cfr_releases].
 - directory [**`bin\0.20\`**](bin/0.20/) contains the batch commands for [Dotty 0.20][dotty_relnotes].
-- directory [**`bin\dotty\`**](bin/dotty/project/scripts/) contains several [batch files][windows_batch_file]/[bash scripts][unix_bash_script] for building the [Dotty] software distribution on a Windows machine.. 
+- directory [**`bin\dotty\`**](bin/dotty/) contains several [batch files][windows_batch_file]/[bash scripts][unix_bash_script] for building the [Dotty] software distribution on a Windows machine.. 
 - directory [**`docs\`**](docs/) contains [Dotty] related papers/articles.
 - directory **`dotty\`** contains our fork of the [lampepfl/dotty][github_lampepfl_dotty] repository as a [Github submodule](.gitmodules).
-- directory [**`examples\`**](examples/) contains [Dotty] examples grabbed from various websites.
-- directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples.
+- directory [**`examples\`**](examples/) contains [Dotty] examples grabbed from various websites (see file [**`examples\README.md`**](examples/README.md)).
+- directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples (see file [**`myexamples\README.md`**](myexamples/README.md)).
 - file [**`README.md`**](README.md) is the [Markdown][github_markdown] document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch command for setting up our environment.
 
+<!--
 > **:mag_right:** We use [VS Code][microsoft_vscode] with the extension [Markdown Preview Github Styling](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-preview-github-styles) to edit our Markdown files (see article ["Mastering Markdown"](https://guides.github.com/features/mastering-markdown/) from [GitHub Guides][github_guides].
+-->
 
 We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
 > **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
@@ -106,9 +108,9 @@ We also define a virtual drive **`W:`** in our working environment in order to r
 
 In the next section we give a brief description of the batch files present in this project.
 
-## <span id="commands">Batch commands</span>
+## <span id="commands">Batch/Bash commands</span>
 
-We distinguish different sets of batch commands:
+We distinguish different sets of batch/bash commands:
 
 1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**][javac_cli], [**`scalac.bat`**][scalac_cli], [**`dotc.bat`**](bin/0.20/dotc.bat), etc. directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
 
@@ -117,10 +119,12 @@ We distinguish different sets of batch commands:
    Usage: setenv { &lt;option&gt; | &lt;subcommand&gt; }
    &nbsp;
      Options:
-       -verbose         display environment settings
+       -bash       start Git bash shell instead of Windows command prompt
+       -debug      show commands executed by this script
+       -verbose    display environment settings
    &nbsp;
      Subcommands:
-       help             display this help message
+       help        display this help message
    </pre>
 
 2. Directory [**`bin\`**](bin/) - This directory contains several utility batch files:
@@ -150,9 +154,11 @@ We distinguish different sets of batch commands:
     > **NB.** Prior to version 0.9-RC1 the [**`dotr`**](bin/0.9/dotr.bat) command did hang on Windows due to implementation issues with the Dotty [REPL](https://en.wikipedia.org/wiki/Read–eval–print_loop). This [issue](https://github.com/lampepfl/dotty/pull/4680) has been fixed by using [JLine 3](https://github.com/jline/jline3) in the REPL.
 -->
 
-4. File [**`bin\dotty\build.bat`**](bin/dotty/build.bat) - This batch command generates the [Dotty](https://dotty.epfl.ch) software distribution.
+4. File [**`bin\dotty\build.bat`**](bin/dotty/build.bat) - This batch command generates the [Dotty] software distribution from the Windows command prompt.
 
-5. File [**`examples\*\build.bat`**](examples/dotty-example-project/build.bat) - Finally each example can be built/run using the [**`build`**](examples/dotty-example-project/build.bat) command.<br/>
+5. File [**`bin\dotty\build.sh`**](bin/dotty/build.sh) - This bash command generates the [Dotty] software distribution from the Git Bash command prompt.
+
+6. File [**`examples\*\build.bat`**](examples/dotty-example-project/build.bat) - Finally each example can be built/run using the [**`build`**](examples/dotty-example-project/build.bat) command.<br/>
     > **&#9755;** We prefer command [**`build`**](examples/dotty-example-project/build.bat) here since our code examples are simple and don't require the [**`sbt`** ][sbt_cli] machinery (eg. [library dependencies][sbt_libs], [sbt server][sbt_server]).
 
     <pre style="font-size:80%;">
@@ -187,7 +193,7 @@ We distinguish different sets of batch commands:
 
 1. Build tools
 
-    Code examples in directories [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built with the following tools as an alternative to the **`build`** command (see [**`examples\README`**](examples/README.md) and [**`myexamples\README`**](myexamples/README.md) for more details):
+    Code examples in directories [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built with the following tools as an alternative to the **`build`** command (see [**`examples\README.md`**](examples/README.md) and [**`myexamples\README.md`**](myexamples/README.md) for more details):
 
     | **Build tool** | **Config file** | **Parent file** | **Usage example** |
     | :------------: | :-------------: | :-------------: | :---------------- |
@@ -263,7 +269,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.20.0-RC1,
-   ant 1.10.7, gradle 6.0, mill 0.5.2, mvn 3.6.2, sbt 1.3.4/2.12.10,
+   ant 1.10.7, gradle 6.0, mill 0.5.2, mvn 3.6.3, sbt 1.3.4/2.12.10,
    cfr 0.148, bloop v1.3.4, git 2.24.0.windows.1, diff 3.7
 
 <b>&gt; where sbt</b>
@@ -277,7 +283,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.20.0-RC1,
-   ant 1.10.7, gradle 6.0.1, mill 0.5.2, mvn 3.6.2, sbt 1.3.4/2.12.10,
+   ant 1.10.7, gradle 6.0.1, mill 0.5.2, mvn 3.6.3, sbt 1.3.4/2.12.10,
    cfr 0.148, bloop v1.3.4, git 2.24.0.windows.1, diff 3.7
 Tool paths:
    C:\opt\jdk-1.8.0_232-b09\bin\javac.exe
@@ -289,7 +295,7 @@ Tool paths:
    C:\opt\apache-ant-1.10.7\bin\ant.bat
    C:\opt\gradle-6.0.1\bin\gradle.bat
    C:\opt\Mill-0.5.2\mill.bat
-   C:\opt\apache-maven-3.6.2\bin\mvn.cmd
+   C:\opt\apache-maven-3.6.3\bin\mvn.cmd
    C:\opt\sbt-1.3.4\bin\sbt.bat
    C:\opt\cfr-0.148\bin\cfr.bat
    C:\opt\bloop-1.3.4\bloop.cmd
@@ -328,28 +334,28 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; getnightly</b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
-dotty-doc_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
-dotty-interfaces-0.21.0-bin-20191126-4237152-NIGHTLY.jar
-dotty-language-server_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
-dotty-library_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
-dotty-sbt-bridge-0.21.0-bin-20191126-4237152-NIGHTLY.jar
-dotty-staging_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
-dotty_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
+dotty-compiler_0.21-0.21.0-bin-20191203-c900e88-NIGHTLY.jar
+dotty-doc_0.21-0.21.0-bin-20191203-c900e88-NIGHTLY.jar
+dotty-interfaces-0.21.0-bin-20191203-c900e88-NIGHTLY.jar
+dotty-language-server_0.21-0.21.0-bin-20191203-c900e88-NIGHTLY.jar
+dotty-library_0.21-0.21.0-bin-20191203-c900e88-NIGHTLY.jar
+dotty-sbt-bridge-0.21.0-bin-20191203-c900e88-NIGHTLY.jar
+dotty-staging_0.21-0.21.0-bin-20191203-c900e88-NIGHTLY.jar
+dotty_0.21-0.21.0-bin-20191203-c900e88-NIGHTLY.jar
 </pre>
 
 Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
 <pre style="font-size:80%">
 <b>&gt; getnightly -verbose</b>
-Downloading file dotty_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-language-server_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar ... 146.1 Kb
-Downloading file dotty-sbt-bridge-0.21.0-bin-20191126-4237152-NIGHTLY.jar ... 13.4 Kb
-Downloading file dotty-interfaces-0.21.0-bin-20191126-4237152-NIGHTLY.jar ... 3.4 Kb
-Downloading file dotty-compiler_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar ... 11.4 Mb
-Downloading file dotty-library_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar ... 1.3 Mb
-Downloading file dotty-staging_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar ... 36.6 Kb
-Downloading file dotty-doc_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar ... 1 Mb
+Downloading file dotty-doc_0.21-0.21.0-bin-20191203-c900e88-NIGHTLY.jar ... 1 Mb
+Downloading file dotty-language-server_0.21-0.21.0-bin-20191203-c900e88-NIGHTLY.jar ... 146 Kb
+Downloading file dotty-sbt-bridge-0.21.0-bin-20191203-c900e88-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty-staging_0.21-0.21.0-bin-20191203-c900e88-NIGHTLY.jar ... 36.8 Kb
+Downloading file dotty-compiler_0.21-0.21.0-bin-20191203-c900e88-NIGHTLY.jar ... 11.4 Mb
+Downloading file dotty-library_0.21-0.21.0-bin-20191203-c900e88-NIGHTLY.jar ... 1.3 Mb
+Downloading file dotty-interfaces-0.21.0-bin-20191203-c900e88-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty_0.21-0.21.0-bin-20191203-c900e88-NIGHTLY.jar ... 0.3 Kb
 Finished to download 8 files to directory W:\DOTTY-~1\out\nightly-jars
 </pre>
 
@@ -360,10 +366,10 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 <pre style="font-size:80%;">
 <b>&gt; getnightly activate</b>
 Finished to download 8 files to directory W:\out\nightly-jars
-Activate nightly build libraries: 0.21.0-bin-20191126-4237152-NIGHTLY
+Activate nightly build libraries: 0.21.0-bin-20191203-c900e88-NIGHTLY
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.21.0-bin-20191126-4237152-NIGHTLY-git-4237152 -- Copyright 2002-2019, LAMP/EPFL
+Dotty compiler version 0.21.0-bin-20191203-c900e88-NIGHTLY-git-c900e88 -- Copyright 2002-2019, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
 Activate default Dotty libraries: 0.20.0-RC1
@@ -387,15 +393,15 @@ lib\0.20.0-RC1\
 &nbsp;&nbsp;dotty-interfaces-0.20.0-RC1.jar
 &nbsp;&nbsp;dotty-library_0.20-0.20.0-RC1.jar
 &nbsp;&nbsp;dotty-staging_0.20-0.20.0-RC1.jar
-lib\0.21.0-bin-20191126-4237152-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.21.0-bin-20191126-4237152-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.21.0-bin-20191126-4237152-NIGHTLY.jar
-&nbsp;&nbsp;dotty-staging_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.21-0.21.0-bin-20191126-4237152-NIGHTLY.jar
+lib\0.21.0-bin-20191203-c900e88-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.21-0.21.0-bin-20191203-c900e88-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.21-0.21.0-bin-20191203-c900e88-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.21.0-bin-20191203-c900e88-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.21-0.21.0-bin-20191203-c900e88-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.21-0.21.0-bin-20191203-c900e88-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.21.0-bin-20191203-c900e88-NIGHTLY.jar
+&nbsp;&nbsp;dotty-staging_0.21-0.21.0-bin-20191203-c900e88-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.21-0.21.0-bin-20191203-c900e88-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original [Dotty] installation respectively from the latest nightly build.
@@ -697,9 +703,9 @@ Command Prompt has been around for as long as we can remember, but starting with
 [apache_ant_cli]: https://ant.apache.org/manual/running.html
 [apache_ant_relnotes]: https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.7.html
 [apache_maven]: http://maven.apache.org/download.cgi
-[apache_maven_cli]: https://maven.apache.org/ref/3.6.2/maven-embedder/cli.html
+[apache_maven_cli]: https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html
 [apache_maven_history]: http://maven.apache.org/docs/history.html
-[apache_maven_relnotes]: http://maven.apache.org/docs/3.6.1/release-notes.html
+[apache_maven_relnotes]: http://maven.apache.org/docs/3.6.3/release-notes.html
 [bloop_releases]: https://scalacenter.github.io/bloop/
 [bloop_relnotes]: https://github.com/scalacenter/bloop/releases/tag/v1.3.4
 [cfr_releases]: http://www.benf.org/other/cfr/
@@ -719,8 +725,9 @@ Command Prompt has been around for as long as we can remember, but starting with
 [github_PR5444]: https://github.com/lampepfl/dotty/pull/5444
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
+[gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 [gradle_install]: https://gradle.org/install/
-[gradle_relnotes]: https://docs.gradle.org/6.0/release-notes.html
+[gradle_relnotes]: https://docs.gradle.org/6.0.1/release-notes.html
 [jar_file]: https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html
 [java_bytecode]: https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html
 [java_jls]: https://docs.oracle.com/javase/specs/jls/se8/html/index.html
