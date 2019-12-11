@@ -101,9 +101,9 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. Directory [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin) - This directory contains batch files used internally during the build process (see the [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) command).
+1. Directory [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin/) - This directory contains batch files used internally during the build process (see the [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) command).
 
-3. Directory [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software release][dotty_releases].
+3. Directory [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin/) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software release][dotty_releases].
 
    <pre style="font-size:80%;">
    <b>&gt; dir /b dist\bin</b>

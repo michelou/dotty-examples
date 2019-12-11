@@ -1,9 +1,12 @@
+.bloop-config
 .classpath
 .dotty-ide*
+.bloop/
 .gradle/
 .idea
 .project
 .settings/
+.vscode/
 *_LOCAL/
 nightly-jars/
 out/

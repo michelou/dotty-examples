@@ -8,7 +8,7 @@ object Main {
 
   def test01: Unit = {
     def hk1[S, T >: S](x: S, g: S => T): Unit = {
-      type Y = [X] => (X, T)
+      type Y = [X] =>> (X, T)
       def f: Y[S] = (x, g(x))
       println("f="+f)
     }
@@ -19,7 +19,7 @@ object Main {
 
   def test02: Unit = {
     def hk2[S, T <: S](x: T, g: S => T): Unit = {
-      type Y = [X] => (X, T)
+      type Y = [X] =>> (X, T)
       def f: Y[S] = (x, g(x))
       println("f="+f)
     }

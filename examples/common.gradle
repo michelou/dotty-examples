@@ -1,41 +1,58 @@
-apply plugin: 'java'
-apply plugin: 'application'
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+    // overrides default "/build"
+    buildDir file("/target")
+}
 
 ext {
-    dottyLibraryPath = file(System.getenv("DOTTY_HOME") + "/lib")
-    dottyLibraryFiles = files { dottyLibraryPath.listFiles() }
-    dotcLibraryFiles = dottyLibraryFiles.filter { File f ->
-        f.name.startsWith("scala-library") ||
-        f.name.startsWith("scala-asm") ||
-        f.name.startsWith("compiler-interface") ||
-        f.name.startsWith("dotty-interfaces") ||
-        f.name.startsWith("dotty-library") ||
-        f.name.startsWith("dotty-compiler") ||
-        f.name.startsWith("dotty-staging")
-    }
+    // dottyLocal = true
+
     scalaSourceTree = fileTree(dir: "/src/main/scala", include: "**/*.scala")
-    //jarLibraryTree = fileTree(dir: "/lib", include: "**/*.jar")
-    targetDir = file("/target")
-    classesDir = file("${targetDir}/classes")
-    //buildClasspath = files(dotcLibraryFiles, classesDir)
-    //runtimeClasspath = files(dottyLibraryFiles, classesDir)
-    buildClasspath = file('ch.epfl.lamp:dotty-compiler_0.20:0.20.0-RC1') classesDir
-    runtimeClasspath = file('ch.epfl.lamp:dotty-library_0.20:0.20.0-RC1') classesDir
+    projectJars = fileTree(dir: "/lib", include: "**/*.jar")
+    classesDir = file("${buildDir}/classes")
+
+    if (dottyLocal?.toBoolean()) {
+        dottyHome = System.getenv("DOTTY_HOME")
+        print("DOTTY_HOME=$dottyHome")
+
+        dottyLibraryPath = file(dottyHome + "/lib")
+        dottyLibraryFiles = files { dottyLibraryPath.listFiles() }
+        dotcLibraryFiles = dottyLibraryFiles.filter { File f ->
+            f.name.matches("scala-library(.*)jar") ||
+            f.name.matches("scala-asm(.*)jar") ||
+            f.name.matches("compiler-interface(.*)jar") ||
+            f.name.matches("dotty-interfaces(.*)jar") ||
+            f.name.matches("dotty-library(.*)jar") ||
+            f.name.matches("dotty-compiler(.*)jar") ||
+            f.name.matches("tasty-core(.*)jar") ||
+            f.name.matches("dotty-staging(.*)jar")
+        }
+        scalaClasspath = files(dotcLibraryFiles, projectJars, sourceSets.main.output, classesDir)
+    } else {
+        scalaClasspath = files(sourceSets.main.runtimeClasspath, projectJars, classesDir)
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            buildDir classesDir
+        }
+    }
 }
 
 clean.doLast {
-    targetDir.deleteDir()
+    buildDir.deleteDir()
 }
 
 task compileDotty(type: JavaExec) {
     dependsOn compileJava
 
-	description "Compile Scala source files"
+    description "Compile Scala source files"
 
-    classpath buildClasspath
+    classpath sourceSets.main.runtimeClasspath
     String sources = scalaSourceTree.files.join("\" \"").replaceAll("\\\\", "/")
 
     main "dotty.tools.dotc.Main"
@@ -50,40 +67,29 @@ compileDotty.doFirst {
     if (!classesDir.exists()) classesDir.mkdirs()
 }
 
-sourceSets {
-    main {
-        java {
-            buildDir targetDir
-        }
-    }
-}
-
 build {
     dependsOn compileDotty
 }
 
-run {
+task run(type: JavaExec) {
     dependsOn build
 
-    classpath runtimeClasspath
+    classpath scalaClasspath
 
     jvmArgs "-Dfile.encoding=UTF-8"
 
-    main mainClassName
-    args ''
     //systemProperty "message" "Hello"
-}
 
+    // properties "main" and "args" are defined in build.gradle (main script)
+    if (! main?.trim()) main "Main"
+    if (args == null) args ""
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile 'ch.epfl.lamp:dotty-compiler_0.19:0.19.0-RC1'
-    //compile 'ch.epfl.lamp:dotty-doc_0.19:0.19.0-RC1'
-    //compile 'ch.epfl.lamp:dotty-interfaces:0.19.0-RC1'
-    //compile 'ch.epfl.lamp:dotty-library_0.19:0.19.0-RC1'
-    //compile 'ch.epfl.lamp:dotty-staging_0.19:0.19.0-RC1'
-    testCompile 'junit:junit:4.12'
+    implementation "ch.epfl.lamp:dotty-compiler_0.20:0.20.0-RC1"
+    testImplementation "junit:junit:4.12"
 }

@@ -1,3 +1,5 @@
+// see https://dotty.epfl.ch/docs/reference/contextual/multiversal-equality.html
+
 package myexamples
 
 object Main {
@@ -5,8 +7,8 @@ object Main {
   private def test1: Unit = {
     //import scala.language.strictEquality
 
-    implicit def eqStringChar: Eq[String, Char] = Eq
-    implicit def eqCharString: Eq[Char, String] = Eq
+    given eqStringChar: Eql[String, Char] = Eql.derived
+    given eqCharString: Eql[Char, String] = Eql.derived
     println("2" == '2')
     println('2' == "2")
   }
@@ -14,7 +16,7 @@ object Main {
   private def test2: Unit = {
     //import scala.language.strictEquality
 
-    implicit def eqStringChar: Eq[Char | String, Char | String] = Eq
+    given eqStringChar: Eql[Char | String, Char | String] = Eql.derived
     println("2" == '2')
     println('2' == "2")
   }

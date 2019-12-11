@@ -1,5 +1,5 @@
 /**
-  * Implicit Function Types: http://dotty.epfl.ch/docs/reference/implicit-function-types.html
+  * Implicit Function Types: https://dotty.epfl.ch/docs/reference/contextual/implicit-function-types.html
   */
   
 import scala.collection.mutable.ArrayBuffer
@@ -20,19 +20,19 @@ object ImplicitFunctionTypes {
 
   case class Cell(elem: String)
 
-  def table(init: given Table => Unit) = {
-    implicit val t = new Table
+  def table(init: (given Table) => Unit) = {
+    given t: Table
     init
     t
   }
 
-  def row(init: given Row => Unit)(implicit t: Table) = {
-    implicit val r = new Row
+  def row(init: (given Row) => Unit)(given t: Table) = {
+    given r: Row
     init
     t.add(r)
   }
 
-  def cell(str: String)(implicit r: Row) = 
+  def cell(str: String)(given r: Row) = 
     r.add(new Cell(str))
 
   def test: Unit = {

@@ -3,21 +3,21 @@ trait RichStrings[T] {
 }
 
 object StringDelegates {
-  delegate StringDelegate for RichStrings[String] {
+  given RichStrings[String] {
     def (value: String) underscorize: String = value.map(v => s"${v}_").foldLeft("")((a, b) => a + b)
   }
 }
 
 object AnotherStringDelegates {
-  delegate AnotherStringDelegate for RichStrings[String] {
-    def (value: String) underscorize: String = value.map(v => s"${v}_").foldLeft("")((a, b) => a + b)
+  given RichStrings[String] {
+    def (value: String) underscorize: String = value.map(v => s"${v}-").foldLeft("")((a, b) => a + b)
   }
 }
 
 object ImplicitDemo extends App {
-  import delegate StringDelegates._
+  import StringDelegates.given
 
-  delegate AnotherStringDelegate for RichStrings[String] {
+  given RichStrings[String] {
     def (value: String) underscorize: String = value.map(v => s"${v}*").foldLeft("")((a, b) => a + b)
   }
 

@@ -1,15 +1,15 @@
-apply plugin: 'java'
-apply plugin: 'application'
-apply from: '../common.gradle'
+plugins {
+    id "java"
+}
 
-group = 'dotty.examples'
-version = '0.1-SNAPSHOT'
+apply from: "../common.gradle"
 
-description = """Example Gradle project that compiles using Dotty"""
+group "$appGroup"
+version "$appVersion"
 
-mainClassName = 'hello.Hello'
+description """Gradle example project that compiles Scala 3 code"""
 
 run.doFirst {
-    main mainClassName
-    args '1'
+    main scalaMainClassName
+    args "1"
 }

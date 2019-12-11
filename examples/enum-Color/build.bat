@@ -144,6 +144,7 @@ if "%__ARG:~0,1%"=="-" (
     )
 ) else (
     rem subcommand
+    set /a __N+=1
     if /i "%__ARG%"=="clean" ( set _CLEAN=1
     ) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
     ) else if /i "%__ARG%"=="doc" ( set _DOC=1
@@ -155,7 +156,6 @@ if "%__ARG:~0,1%"=="-" (
         set _EXITCODE=1
         goto args_done
     )
-    set /a __N+=1
 )
 shift
 goto :args_loop
@@ -168,6 +168,7 @@ goto :eof
 
 :help
 echo Usage: %_BASENAME% { option ^| subcommand }
+echo.
 echo   Options:
 echo     -debug           show commands executed by this script
 echo     -explain         set compiler option -explain
@@ -177,6 +178,7 @@ echo     -main:^<name^>     define main class name
 echo     -tasty           compile both from source and TASTy files
 echo     -timer           display compile time
 echo     -verbose         display progress messages
+echo.
 echo   Subcommands:
 echo     clean            delete generated class files
 echo     compile          compile source files ^(Java and Scala^)
@@ -184,6 +186,7 @@ echo     doc              generate documentation
 echo     help             display this help message
 echo     run              execute main class
 echo     test             execute tests
+echo.
 echo   Properties:
 echo   ^(to be defined in SBT configuration file project\build.properties^)
 echo     compiler.cmd     alternative to option -compiler
@@ -407,10 +410,10 @@ if exist "%__PARENT_DIR%\lib\" (
         set "_LIBS_CPATH=!_LIBS_CPATH!%%i;"
     )
 )
-set __SCALACTIC_VERSION=3.0.8
+set __SCALACTIC_VERSION=3.1.0
 set __SCALACTIC_NAME=scalactic_2.13-%__SCALACTIC_VERSION%.jar
 set __SCALACTIC_URL=https://repo1.maven.org/maven2/org/scalactic/scalactic_2.13/%__SCALACTIC_VERSION%/%__SCALACTIC_NAME%
-set __SCALACTIC_FILE=%_TARGET_LIB_DIR%\%__SCALACTIC_NAME%
+set "__SCALACTIC_FILE=%_TARGET_LIB_DIR%\%__SCALACTIC_NAME%"
 if not exist "%_TARGET_LIB_DIR%" mkdir "%_TARGET_LIB_DIR%"
 if not exist "%__SCALACTIC_FILE%" (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri %__SCALACTIC_URL% -Outfile %__SCALACTIC_FILE%" 1>&2
@@ -425,10 +428,10 @@ if not exist "%__SCALACTIC_FILE%" (
 )
 set "_LIBS_CPATH=%_LIBS_CPATH%%__SCALACTIC_FILE%;"
 
-set __SCALATEST_VERSION=3.0.8
+set __SCALATEST_VERSION=3.1.0
 set __SCALATEST_NAME=scalatest_2.13-%__SCALATEST_VERSION%.jar
 set __SCALATEST_URL=https://repo1.maven.org/maven2/org/scalatest/scalatest_2.13/%__SCALATEST_VERSION%/%__SCALATEST_NAME%
-set __SCALATEST_FILE=%_TARGET_LIB_DIR%\%__SCALATEST_NAME%
+set "__SCALATEST_FILE=%_TARGET_LIB_DIR%\%__SCALATEST_NAME%"
 if not exist "%_TARGET_LIB_DIR%" mkdir "%_TARGET_LIB_DIR%"
 if not exist "%__SCALATEST_FILE%" (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri %__SCALATEST_URL% -Outfile %__SCALATEST_FILE%" 1>&2
