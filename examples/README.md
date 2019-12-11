@@ -121,55 +121,67 @@ Command [**`gradle`**][gradle_cli] is the official build tool for Android applic
 The configuration file [**`build.gradle`**](enum-Planet/build.gradle) for [**`enum-Planet\`**](enum-Planet/) looks as follows:
 
 <pre style="font-size:80%;">
-apply from: <span style="color:#990000;">'../common.gradle'</span>
+plugins {
+    id <span style="color:#990000;">"java"</span>
+}
 &nbsp;
-group = <span style="color:#990000;">'dotty.examples'</span>
-version = <span style="color:#990000;">'0.1-SNAPSHOT'</span>
+apply from: <span style="color:#990000;">"../common.gradle"</span>
 &nbsp;
-description = <span style="color:#990000;">"""Example Gradle project that compiles using Dotty"""</span>
+group <span style="color:#990000;">"$appGroup"</span>
+version <span style="color:#990000;">"$appGroup"</span>
 &nbsp;
-mainClassName = <span style="color:#990000;">'Planet'</span>
+description <span style="color:#990000;">"""Gradle example project that compiles Scala 3 code"""</span>
 &nbsp;
 run.doFirst {
-    main mainClassName
-    args ''
+    main scalaMainClassName
+    args <span style="color:#990000;">""</span>
 }
 </pre>
 
-We note that [**`build.gradle`**](enum-Planet/build.gradle)<ul><li>imports the two [Gradle plugins][gradle_plugins]: [**`java`**][gradle_java_plugin] and [**`application`**][gradle_app_plugin]</li><li>imports code from the parent file [**`common.gradle`**](common.gradle)</li><li>assigns property **`mainClassName`** to **`main`** and value **`''`** to **`args`** (no argument in this case) in **`run.doFirst`**</li></ul>
+We note that [**`build.gradle`**](enum-Planet/build.gradle)<ul><li>imports one [Gradle plugin][gradle_plugins]: [**`java`**][gradle_java_plugin]</li><li>imports a few properties from file [**`gradle.properties`**](enum-Planet/gradle.properties)</li><li>imports code from the parent file [**`common.gradle`**](common.gradle)</li><li>assigns property **`scalaMainClassName`** to **`main`** and value **`""`** to **`args`** (no argument in this example) in **`run.doFirst`**</li></ul>
 
 The parent file [**`common.gradle`**](common.gradle) defines the task **`compileDotty`** and manages the task dependencies.
 
 <pre style="font-size:80%;">
-apply plugin: <span style="color:#990000;">'java'</span>
-apply plugin: <span style="color:#990000;">'application'</span>
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    &nbsp;
+    <span style="color:#009900;">// overrides default "/build"</span>
+    buildDir file(<span style="color:#990000;">"/target"</span>)
+}
 &nbsp;
 ext {
-    dottyLibraryPath = file(System.getenv(<span style="color:#990000;">"DOTTY_HOME"</span>) + <span style="color:#990000;">"/lib"</span>)
     ...
-    targetDir = file(<span style="color:#990000;">"/target"</span>)
+    classesDir = file(<span style="color:#990000;">"${buildDir}/classes"</span>)
+    <b>if</b> (dottyLocal?.toBoolean()) {
+        dottyHome = System.getenv(<span style="color:#990000;">"DOTTY_HOME"</span>)
+        print(<span style="color:#990000;">"DOTTY_HOME=$dottyHome"</span>)
+        ...
+    }
 }
 clean.doLast {
-    targetDir.deleteDir()
+    buildDir.deleteDir()
 }
 <b>task</b> compileDotty(type: JavaExec) {
     dependsOn compileJava
     ...
     main <span style="color:#990000;">"dotty.tools.dotc.Main"</span>
+    ...
 }
 compileDotty.doFirst {
     <b>if</b> (!classesDir.exists()) classesDir.mkdirs()
 }
 build {
-    dependsOn compileDotty
+    <b>dependsOn</b> compileDotty
 }
-run {
-    dependsOn build
+<b>task</b> run(type: JavaExec) {
+    <b>dependsOn</b> build
+    classpath scalaClasspath
     ...
-    main mainClassName
+    <span style="color:#009900;">// properties "main" and "args" are defined in build.gradle (main script)</span>
+    <b>if</b> (! main?.trim()) main <span style="color:#990000;">"Main"</span>
+    if (args == null) args <span style="color:#990000;">""</span>
 }
 ...
 </pre>
