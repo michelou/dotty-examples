@@ -7,7 +7,7 @@ apply from: "../common.gradle"
 group "$appGroup"
 version "$appVersion"
 
-description """Example Gradle project that compiles using Dotty"""
+description """Gradle example project to build/run Scala 3 code"""
 
 run.doFirst {
     main javaMainClassName

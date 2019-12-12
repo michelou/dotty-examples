@@ -4,12 +4,13 @@ lazy val root = project
   .in(file("."))
   .settings(
     name := "ImplicitDemo",
-    description := "Example sbt project that compiles using Dotty",
+    description := "sbt example project to build/run Scala 3 code",
     version := "0.1.0",
 
     scalaVersion := dottyVersion,
     scalacOptions ++= Seq(
       "-deprecation",
+      "-encoding", "UTF-8",
       "-feature"
     ),
 

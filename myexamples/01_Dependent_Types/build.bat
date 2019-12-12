@@ -107,7 +107,7 @@ set _TASTY=0
 set _VERBOSE=0
 set __N=0
 :args_loop
-set __ARG=%~1
+set "__ARG=%~1"
 if not defined __ARG (
     if !__N!==0 set _HELP=1
     goto args_done
@@ -120,16 +120,16 @@ if "%__ARG:~0,1%"=="-" (
         if "%_COMPILE_CMD:~0,3%"=="dot" ( set _COMPILE_OPTS=!_COMPILE_OPTS! -explain-types
         ) else ( set _COMPILE_OPTS=!_COMPILE_OPTS! -explaintypes
         )
-    ) else if /i "%__ARG%"=="-help" ( call :help & goto end
+    ) else if /i "%__ARG%"=="-help" ( set _HELP=1
     ) else if /i "%__ARG%"=="-tasty" ( set _TASTY=1
     ) else if /i "%__ARG%"=="-timer" ( set _COMPILE_TIME=1
     ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else if /i "%__ARG:~0,10%"=="-compiler:" (
-    call :set_compiler "!__ARG:~10!"
-    if not !_EXITCODE!== 0 goto :eof
+        call :set_compiler "!__ARG:~10!"
+        if not !_EXITCODE!== 0 goto args_done
     ) else if /i "%__ARG:~0,6%"=="-main:" (
         call :set_main "!__ARG:~6!"
-        if not !_EXITCODE!== 0 goto :eof
+        if not !_EXITCODE!== 0 goto args_done
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
         set _EXITCODE=1

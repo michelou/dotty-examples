@@ -76,7 +76,7 @@ task run(type: JavaExec) {
 
     classpath scalaClasspath
 
-    jvmArgs "-Dfile.encoding=UTF-8"
+    jvmArgs "-Xms1024m", "-Xss2m"
 
     //systemProperty "message" "Hello"
 

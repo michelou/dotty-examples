@@ -128,9 +128,9 @@ plugins {
 apply from: <span style="color:#990000;">"../common.gradle"</span>
 &nbsp;
 group <span style="color:#990000;">"$appGroup"</span>
-version <span style="color:#990000;">"$appGroup"</span>
+version <span style="color:#990000;">"$appVersion"</span>
 &nbsp;
-description <span style="color:#990000;">"""Gradle example project that compiles Scala 3 code"""</span>
+description <span style="color:#990000;">"""Gradle example project to build/run Scala 3 code"""</span>
 &nbsp;
 run.doFirst {
     main scalaMainClassName
@@ -150,7 +150,6 @@ java {
     <span style="color:#009900;">// overrides default "/build"</span>
     buildDir file(<span style="color:#990000;">"/target"</span>)
 }
-&nbsp;
 ext {
     ...
     classesDir = file(<span style="color:#990000;">"${buildDir}/classes"</span>)
@@ -181,7 +180,7 @@ build {
     ...
     <span style="color:#009900;">// properties "main" and "args" are defined in build.gradle (main script)</span>
     <b>if</b> (! main?.trim()) main <span style="color:#990000;">"Main"</span>
-    if (args == null) args <span style="color:#990000;">""</span>
+    <b>if</b> (args == <b>null</b>) args <span style="color:#990000;">""</span>
 }
 ...
 </pre>
@@ -219,7 +218,7 @@ The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is a standalone 
   .in(file("."))
   .settings(
     name := <span style="color:#990000;">"enum-Planet"</span>,
-    description := <span style="color:#990000;">"Example sbt project that compiles using Dotty"</span>,
+    description := <span style="color:#990000;">"Sbt example project that compiles Scala 3 code"</span>,
     version := <span style="color:#990000;">"0.1.0"</span>,
     &nbsp;
     scalaVersion := dottyVersion,
@@ -291,7 +290,7 @@ Your weight on JUPITER is 2.5305575254957406
 
 ## Ant build tool
 
-Command [**`ant`**]([apache_ant_cli] (["Another Neat Tool"][apache_ant_faq]) is a Java-based build tool maintained by the [Apache Software Foundation][apache_history] (tool created in 2000). It works with XML-based configuration files.
+Command [**`ant`**][apache_ant_cli] (["Another Neat Tool"][apache_ant_faq]) is a Java-based build tool maintained by the [Apache Software Foundation][apache_history] (tool created in 2000). It works with XML-based configuration files.
 
 The configuration file [**`build.xml`**](enum-Planet/build.xml) in directory [**`enum-Planet\`**](enum-Planet/) depends on the parent file [**`build.xml`**](build.xml) which provides the macro definition **`dotc`** to compile the Scala source files.
 

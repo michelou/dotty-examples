@@ -4,7 +4,7 @@ lazy val root = project
   .in(file("."))
   .settings(
     name := "dotty-example-project",
-    description := "Example sbt project that compiles using Dotty",
+    description := "sbt example project to build/run Scala 3 code",
     version := "0.1.0",
 
     scalaVersion := dottyVersion,
