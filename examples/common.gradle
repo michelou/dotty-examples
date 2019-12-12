@@ -1,14 +1,12 @@
+// overrides default "/build"
+buildDir file("/target")
+
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
-
-    // overrides default "/build"
-    buildDir file("/target")
 }
 
 ext {
-    // dottyLocal = true
-
     scalaSourceTree = fileTree(dir: "/src/main/scala", include: "**/*.scala")
     projectJars = fileTree(dir: "/lib", include: "**/*.jar")
     classesDir = file("${buildDir}/classes")

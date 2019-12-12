@@ -168,7 +168,7 @@ echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
 echo.
 echo   Options:
 echo     -iter:1..99        set number of run iterations
-echo     -share[:(on^|off)]  enable/disable data sharing ^(default:off^)
+echo     -share[:^(on^|off^)]  enable/disable data sharing ^(default:off^)
 echo     -verbose           display progress messages
 echo.
 echo   Subcommands:

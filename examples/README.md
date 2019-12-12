@@ -18,7 +18,7 @@ In the following we explain in more detail the build tools available in the [**`
 
 ## <span id="build">`build.bat` command</span>
 
-Command [**`build`**](enum-Planet/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
+Command [**`build`**](enum-Planet/build.bat) is a basic build tool consisting of ~450 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
 
 Running command [**`build clean run`**](enum-Planet/build.bat) in project [**`enum-Planet\`**](enum-Planet/) produces the following output:
 
@@ -99,7 +99,7 @@ No compilation needed (1 source files)</pre>
 > For simplicity the [**`build`**](enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
 > <b>&gt; type project\build.properties</b>
-> sbt.version=1.3.3
+> sbt.version=1.3.4
 > main.class=Planet
 > main.args=1
 > </pre>
@@ -143,12 +143,12 @@ We note that [**`build.gradle`**](enum-Planet/build.gradle)<ul><li>imports one [
 The parent file [**`common.gradle`**](common.gradle) defines the task **`compileDotty`** and manages the task dependencies.
 
 <pre style="font-size:80%;">
+<span style="color:#009900;">// overrides default "/build"</span>
+buildDir file(<span style="color:#990000;">"/target"</span>)
+
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
-    &nbsp;
-    <span style="color:#009900;">// overrides default "/build"</span>
-    buildDir file(<span style="color:#990000;">"/target"</span>)
 }
 ext {
     ...
