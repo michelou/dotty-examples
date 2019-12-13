@@ -29,7 +29,7 @@
     </target>
 
     <target name="init.ivy" unless="use.local">
-        <!-- installed: C:/opt/apache-ant-1.10.7/lib/ivy-2.5.0-rc1.jar -->
+        <!-- installed: C:/opt/apache-ant-1.10.7/lib/ivy-2.5.0.jar -->
         <taskdef resource="org/apache/ivy/ant/antlib.xml"
             uri="antlib:org.apache.ivy.ant" />
         <ivy:resolve file="../ivy.xml" showprogress="false" log="download-only" />
@@ -43,10 +43,10 @@
         <property name="ivy.cache" value="${user.home}/.ivy2/cache/" />
         <path id="dotty.classpath">
             <fileset dir="${ivy.cache}/ch.epfl.lamp" includes="**/jars/dotty-library*.jar">
-                <filename regex="_0\.1[8-9]-0\.1[8-9]\.[0-9]+" />  <!-- e.g. _0.18-0.18.1 -->
+                <filename regex="_0\.[1-2][8-9]-0\.[1-2][8-9]\.[0-9]+" />  <!-- e.g. _0.20-0.20.x -->
             </fileset>
             <fileset dir="${ivy.cache}/org.scala-lang" includes="**/jars/scala-library*.jar">
-                <filename regex="-2\.1[3-9]\.[0-9]+" />  <!-- e.g. -2.13.0 -->
+                <filename regex="-2\.[1-2][3-9]\.[0-9]+" />  <!-- e.g. -2.13.x -->
             </fileset>
         </path>
         <pathconvert property="dotty.classpath.prop" refid="dotty.classpath"/>

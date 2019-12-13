@@ -56,7 +56,7 @@ C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
 C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
 C:\opt\cfr-0.148\            <i>(  1.7 MB)</i>
 C:\opt\dotty-0.20.0-RC1\     <i>( 25.2 MB)</i>
-C:\opt\Git-2.24.0\           <i>(271.0 MB)</i>
+C:\opt\Git-2.24.1\           <i>(277.0 MB)</i>
 C:\opt\gradle-6.0.1\         <i>(103.0 MB)</i>
 C:\opt\Mill-0.5.3\           <i>( 49.0 MB)</i>
 C:\opt\sbt-1.3.4\            <i>( 55.1 MB)</i>
@@ -270,7 +270,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 Tool versions:
    javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.20.0-RC1,
    ant 1.10.7, gradle 6.0, mill 0.5.3, mvn 3.6.3, sbt 1.3.4/2.12.10,
-   cfr 0.148, bloop v1.3.4, git 2.24.0.windows.1, diff 3.7
+   cfr 0.148, bloop v1.3.4, git 2.24.1.windows.2, diff 3.7
 
 <b>&gt; where sbt</b>
 C:\opt\sbt-1.3.4\bin\sbt
@@ -284,7 +284,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
 Tool versions:
    javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.20.0-RC1,
    ant 1.10.7, gradle 6.0.1, mill 0.5.3, mvn 3.6.3, sbt 1.3.4/2.12.10,
-   cfr 0.148, bloop v1.3.4, git 2.24.0.windows.1, diff 3.7
+   cfr 0.148, bloop v1.3.4, git 2.24.1.windows.2, diff 3.7
 Tool paths:
    C:\opt\jdk-1.8.0_232-b09\bin\javac.exe
    C:\opt\jdk-1.8.0_232-b09\bin\java.exe
@@ -299,8 +299,8 @@ Tool paths:
    C:\opt\sbt-1.3.4\bin\sbt.bat
    C:\opt\cfr-0.148\bin\cfr.bat
    C:\opt\bloop-1.3.4\bloop.cmd
-   C:\opt\Git-2.24.0\bin\git.exe
-   C:\opt\Git-2.24.0\usr\bin\diff.exe
+   C:\opt\Git-2.24.1\bin\git.exe
+   C:\opt\Git-2.24.1\usr\bin\diff.exe
 </pre>
 
 #### `cleanup.bat`
@@ -351,15 +351,15 @@ Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the downlo
 
 <pre style="font-size:80%">
 <b>&gt; getnightly -verbose</b>
-Downloading file dotty-doc_0.21-0.21.0-bin-20191211-731ee3c-NIGHTLY.jar ... 1 Mb
-Downloading file dotty-language-server_0.21-0.21.0-bin-20191211-731ee3c-NIGHTLY.jar ... 147.3 Kb
-Downloading file dotty-sbt-bridge-0.21.0-bin-20191211-731ee3c-NIGHTLY.jar ... 13.4 Kb
-Downloading file dotty-staging_0.21-0.21.0-bin-20191211-731ee3c-NIGHTLY.jar ... 36.8 Kb
-Downloading file tasty-core_0.21-0.21.0-bin-20191211-731ee3c-NIGHTLY.jar ... 52.7 Kb
-Downloading file dotty-compiler_0.21-0.21.0-bin-20191211-731ee3c-NIGHTLY.jar ... 11.4 Mb
-Downloading file dotty-interfaces-0.21.0-bin-20191211-731ee3c-NIGHTLY.jar ... 3.4 Kb
-Downloading file dotty-library_0.21-0.21.0-bin-20191211-731ee3c-NIGHTLY.jar ... 1.3 Mb
-Downloading file dotty_0.21-0.21.0-bin-20191211-731ee3c-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-language-server_0.21-0.21.0-bin-20191212-debe978-NIGHTLY.jar ... 147.3 Kb
+Downloading file dotty_0.21-0.21.0-bin-20191212-debe978-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-interfaces-0.21.0-bin-20191212-debe978-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-sbt-bridge-0.21.0-bin-20191212-debe978-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty-library_0.21-0.21.0-bin-20191212-debe978-NIGHTLY.jar ... 1.3 Mb
+Downloading file dotty-compiler_0.21-0.21.0-bin-20191212-debe978-NIGHTLY.jar ... 11.4 Mb
+Downloading file tasty-core_0.21-0.21.0-bin-20191212-debe978-NIGHTLY.jar ... 52.7 Kb
+Downloading file dotty-staging_0.21-0.21.0-bin-20191212-debe978-NIGHTLY.jar ... 36.8 Kb
+Downloading file dotty-doc_0.21-0.21.0-bin-20191212-debe978-NIGHTLY.jar ... 1 Mb
 Finished to download 9 files to directory W:\DOTTY-~1\out\nightly-jars
 </pre>
 
@@ -370,10 +370,10 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 <pre style="font-size:80%;">
 <b>&gt; getnightly activate</b>
 Finished to download 8 files to directory W:\out\nightly-jars
-Activate nightly build libraries: 0.21.0-bin-20191211-731ee3c-NIGHTLY
+Activate nightly build libraries: 0.21.0-bin-20191212-debe978-NIGHTLY
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.21.0-bin-20191211-731ee3c-NIGHTLY-git-731ee3c -- Copyright 2002-2019, LAMP/EPFL
+Dotty compiler version 0.21.0-bin-20191212-debe978-NIGHTLY-git-debe978 -- Copyright 2002-2019, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
 Activate default Dotty libraries: 0.20.0-RC1
@@ -688,7 +688,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.20.0-RC1">dotty-0.20.0-RC1.zip</a>                            <i>( 23 MB)</i>
 <a href="https://gradle.org/install/">gradle-6.0.1-bin.zip</a><i>                            ( 90 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u232b09.zip</a>  <i>( 99 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.24.0-64-bit.7z.exe</a>                <i>( 41 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.24.1-64-bit.7z.exe</a>                <i>( 41 MB)</i>
 </pre>
 
 <a name="footnote_03">[3]</a> ***PowerShell*** [↩](#anchor_03) <!-- 2018-05-09 -->
@@ -723,7 +723,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [github_dotr]: https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.1.txt
 [github_guides]: https://guides.github.com/
 [github_lampepfl_dotty]: https://github.com/lampepfl/dotty
 [github_markdown]: https://github.github.com/gfm/

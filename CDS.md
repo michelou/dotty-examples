@@ -35,7 +35,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 For instance our development environment looks as follows (*December 2019*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.24.0\
+C:\opt\Git-2.24.1\
 C:\opt\jdk-11.0.5+11\
 C:\opt\dotty-0.20.0-RC1\
 </pre>
@@ -520,7 +520,7 @@ dotty-cds_0.20-0.20.0-RC1.jar
     <b>val</b> jarUrl = getClass().getProtectionDomain().getCodeSource().getLocation()
     <b>val</b> libDir = java.nio.file.Paths.get(jarUrl.toURI()).getParent().toFile()
     <b>val</b> files = libDir.listFiles.filter(_.getName.startsWith(<span style="color:#660000;">"dotty-cds"</span>))
-    files.foreach(f => println("   "+f.getName()+" ("+(f.length()/1024)+<span style="color:#660000;">" Kb)"</span>))
+    files.foreach(f <b>=&gt;</b> println(<span style="color:#660000;">"   "</span>+f.getName()+" ("+(f.length()/1024)+<span style="color:#660000;">" Kb)"</span>))
   }
 }
 </pre>
@@ -731,7 +731,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [java_cli]: https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html

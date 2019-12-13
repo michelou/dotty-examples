@@ -51,7 +51,7 @@ Our [**Dotty fork**][github_dotty_fork] depends on the following external softwa
 For instance our development environment looks as follows (*December 2019*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.24.0\
+C:\opt\Git-2.24.1\
 C:\opt\jdk-1.8.0_232-b09\
 C:\opt\sbt-1.3.4\
 </pre>
@@ -201,9 +201,18 @@ We distinguish different sets of batch commands:
    | [**`genDocs.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) | [**`genDocs`**](project/scripts/genDocs)|
 
 
-## <span id="issues">Windows related issues</span>
+## <span id="contribs">Contributions</span>
 
-We have come across several Windows related issues<sup id="anchor_04"><a href="#footnote_04">[4]</a></sup> while executing subcommands of [**`build.bat`**](bin/dotty/build.bat):
+We have come across several issues <sup id="anchor_04"><a href="#footnote_04">[4]</a></sup> while executing Dotty commands on Windows:
+
+| [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Issue status&nbsp;&nbsp;&nbsp; | Context |
+| :--------: | :--------: | :--------- |
+| [#7720][dotty_issue_7720] | [fixed](https://github.com/lampepfl/dotty/pull/7691) | staging |
+| [#7148][dotty_issue_7146] | [fixed](https://github.com/dotty-staging/dotty/commit/2c529c6) | shell scripts |
+| [#6868][dotty_issue_6868] | [fixed](https://github.com/lampepfl/dotty/commit/0ea949a) | class file parser |
+| [#6367][dotty_issue_6367] | *open* | Dotty REPL |
+| [#4356][dotty_issue_4356] | [won't fix](https://github.com/lampepfl/dotty/issues/4356#event-2098905156) | Windows batch command |
+| [#4272][dotty_issue_4272] | [fixed](https://github.com/lampepfl/dotty/commit/9723748) | type constraints|
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :--------: | :--------: | :--------- |
@@ -271,7 +280,7 @@ Command **`build -verbose cleanall`** also displays the tool paths/options and t
 <pre style="font-size:80%;">
 <b>&gt; build -verbose cleanall</b>
 Tool paths
-   GIT_CMD=C:\opt\Git-2.24.0\bin\git.exe
+   GIT_CMD=C:\opt\Git-2.24.1\bin\git.exe
    JAVA_CMD=C:\opt\jdk-1.8.0_232-b09\bin\java.exe
    SBT_CMD=C:\opt\sbt-1.3.4\bin\sbt.bat
 Tool options
@@ -638,7 +647,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 <a name="footnote_03">[3]</a> ***Git submodule*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
-Defining directory <b><code>dotty\</code></b> as a Github submodule allows us to make changes to this project independently from our fork of the <a href="https://github.com/lampepfl/dotty"><b><code>lampepfl/dotty</code></b></a> repository. 
+Defining directory <b><code>dotty\</code></b> as a Github submodule allows us to make changes to this project independently from our fork of the <a href="https://github.com/lampepfl/dotty">lampepfl/dotty</a> repository. 
 </p>
 
 <a name="footnote_04">[4]</a> ***Git configuration*** [↩](#anchor_04)
@@ -669,6 +678,12 @@ We fixed our local Git settings as follows:
 
 [dotty]: https://dotty.epfl.ch/
 [dotty_ci]: http://dotty-ci.epfl.ch/lampepfl/dotty
+[dotty_issue_4272]: https://github.com/lampepfl/dotty/issues/4272
+[dotty_issue_4356]: https://github.com/lampepfl/dotty/issues/4356
+[dotty_issue_6367]: https://github.com/lampepfl/dotty/issues/6367
+[dotty_issue_6868]: https://github.com/lampepfl/dotty/issues/6868
+[dotty_issue_7146]: https://github.com/lampepfl/dotty/issues/7146
+[dotty_issue_7720]: https://github.com/lampepfl/dotty/issues/7720
 [dotty_docs]: https://dotty.epfl.ch/docs/
 [dotty_metaprogramming]: http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_pr_6653]: https://github.com/lampepfl/dotty/pull/6653
@@ -676,7 +691,7 @@ We fixed our local Git settings as follows:
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.1.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/

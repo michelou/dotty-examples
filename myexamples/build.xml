@@ -46,7 +46,7 @@
                 <filename regex="_0\.[1-2][8-9]-0\.[1-2][8-9]\.[0-9]+" />  <!-- e.g. _0.20-0.20.x -->
             </fileset>
             <fileset dir="${ivy.cache}/org.scala-lang" includes="**/jars/scala-library*.jar">
-                <filename regex="-2\.1[3-9]\.[0-9]+" />  <!-- e.g. -2.13.x -->
+                <filename regex="-2\.[1-2][3-9]\.[0-9]+" />  <!-- e.g. -2.13.x -->
             </fileset>
         </path>
         <pathconvert property="dotty.classpath.prop" refid="dotty.classpath"/>

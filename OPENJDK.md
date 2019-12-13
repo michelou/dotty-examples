@@ -25,21 +25,20 @@ This document is part of a series of topics related to [Dotty] on Windows:
 
 This project depends on several external software for the **Microsoft Windows** platform:
 
-- [BellSoft OpenJDK 11](https://bell-sw.com/pages/java-11.0.5/) from [BellSoft](https://bell-sw.com/pages/about) ([*release notes*][bellsoft_relnotes]).
+- [BellSoft OpenJDK 11][bellsoft_downloads] from [BellSoft][bellsoft_about] ([*release notes*][bellsoft_relnotes]).
 - [Corretto OpenJDK 11][amazon_corretto_downloads] from [Amazon](https://aws.amazon.com/) ([*release notes*][amazon_corretto_relnotes]). <!-- build 11.0.2+9-LTS -->
-- [OpenJ9 OpenJDK 11](https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9) from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html) ([*release notes*](https://adoptopenjdk.net/release_notes.html?variant=openjdk11&jvmVariant=openj9#jdk11_0_5)). <!-- build 11.0.5+10 -->
-- [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot) from [Oracle](https://www.oracle.com/) ([*release notes*](https://adoptopenjdk.net/release_notes.html?variant=openjdk11&jvmVariant=hotspot#jdk11_0_5)). <!-- build 11.0.5+10 -->
+- [GraalVM OpenJDK 11][graalvm_downloads] from [Oracle] ([*release notes*][graalvm_relnotes]).
+- [OpenJ9 OpenJDK 11][openj9_downloads] from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html) ([*release notes*][openj9_relnotes]). <!-- build 11.0.5+10 -->
+- [Oracle OpenJDK 11][oracle_openjdk_downloads] from [Oracle] ([*release notes*][oracle_openjdk_relnotes]). <!-- build 11.0.5+10 -->
 - [RedHat OpenJDK 11](https://developers.redhat.com/products/openjdk/download/) from [RedHat](https://www.redhat.com/). <!-- build 11.0.5-redhat+7-LTS (2019-10-15) -->
 - [SapMachine OpenJDK 11](https://sap.github.io/SapMachine/) from [SAP](https://www.sap.com/). <!-- build 11.0.2+0-LTS-sapmachine -->
-- [Trava OpenJDK 11](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm) from [Travis](https://travis-ci.com/) ([*release notes*](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases)). <!-- 11.0.1+8 (2019-03-16) -->
+- [Trava OpenJDK 11][trava_downloads] from [Travis](https://travis-ci.com/) ([*release notes*][trava_relnotes]). <!-- 11.0.1+8 (2019-03-16) -->
 - [Zulu OpenJDK 11][azul_downloads] from [Azul Systems][azul_systems] ([*release notes*][azul_relnotes]). <!-- build 11.0.2+7-LTS -->
-
-> **:mag_right:** [GraalVM](https://www.graalvm.org/downloads/) is based on the [OpenJDK 8](https://www.graalvm.org/docs/release-notes/#1911) and is available as [Community Edition](https://github.com/oracle/graal/) (free) and [Enterprise Edition](https://www.oracle.com/technetwork/graalvm/downloads/index.html) (commercial).
 
 The above implementations of OpenJDK[&trade;](http://openjdk.java.net/legal/openjdk-trademark-notice.html) differ in several ways:
 
 - they are tested and certified for [JCK](https://openjdk.java.net/groups/conformance/JckAccess/) <sup id="anchor_01">[[1]](#footnote_01)</sup> compliance excepted for Trava OpenJDK.
-- they include different [backports](https://builds.shipilev.net/backports-monitor/) of fixes from OpenJDK 12 or newer (eg. [Corretto](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/patches.html)).
+- they include different [backports](https://builds.shipilev.net/backports-monitor/) of fixes from OpenJDK 12 or newer (eg. [Corretto][corretto_patches]).
 - they include additional modules (eg. Device IO API on Linux ARMv7) or integrate special tools (eg. HotswapAgent in [Trava](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm)).
 - they support different sets of platform architectures (eg. [SapMachine](https://sap.github.io/SapMachine/) x64 only, [BellSoft][bellsoft_relnotes] also Raspberry Pi 2 &amp; 3).
 
@@ -99,6 +98,21 @@ LibericaJDK Runtime Environment (build 11.0.5-BellSoft+11)
 LibericaJDK 64-Bit Server VM (build 11.0.5-BellSoft+11, mixed mode, sharing)
 </pre>
 
+### <span id="graalvm">GraalVM OpenJDK 11</span>
+
+[GraalVM][graalvm_org] is a universal virtual machine supporting the *interaction* between JVM-based languages like Java, Scala, Groovy, Kotlin, Clojure and native languages like C, C++, JavaScript, Python, R, Ruby.
+
+<pre style="font-size:80%;">
+<b>&gt; c:\opt\jdk-graalvm-ce-java11-19.3.0\bin\java -version</b>
+openjdk version "11.0.5" 2019-10-15
+OpenJDK Runtime Environment (build 11.0.5+10-jvmci-19.3-b05-LTS)
+OpenJDK 64-Bit GraalVM CE 19.3.0 (build 11.0.5+10-jvmci-19.3-b05-LTS, mixed mode, sharing)
+&nbsp;
+<b>&gt; dir c:\opt\jdk-graalvm-ce-java11-19.3.0\bin\server | findstr jsa</b>
+13.12.2019  14:48        17 498 112 classes.jsa
+</pre>
+
+We observe that [GraalVM][graalvm_org] is the only OpenJDK implementation to come with class sharing *enabled by default*.
 
 ### <span id="corretto">Corretto OpenJDK 11</span>
 
@@ -121,7 +135,7 @@ OpenJDK Runtime Environment Corretto-11.0.5.10.1 (build 11.0.5+10-LTS)
 OpenJDK 64-Bit Server VM Corretto-11.0.5.10.1 (build 11.0.5+10-LTS, mixed mode, sharing)
 </pre>
 
-> **:mag_right:** Amazon provides online documentation specific to Corretto 11 (eg. [change Log](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html), [patches](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/patches.html)) as well as Youtube videos (eg. Devoxx keynotes by [Arun Gupta](https://www.youtube.com/watch?v=RLKC5nsiZXU) and [James Gosling](https://www.youtube.com/watch?v=WuZk23O76Zk)).
+> **:mag_right:** Amazon provides online documentation specific to Corretto 11 (eg. [change Log][corretto_changes], [patches][corretto_patches] as well as Youtube videos (eg. Devoxx keynotes by [Arun Gupta][corretto_gupta] and [James Gosling][corretto_gosling]).
 
 
 ### OpenJ9 OpenJDK 11
@@ -144,7 +158,7 @@ JCL      - fa49279450 based on jdk-11.0.5+10)
 
 ### Oracle OpenJDK 11
 
-Oracle OpenJDK is the [reference implementation](https://openjdk.java.net/projects/jdk/11/); the other OpenJDK distributions are derived from it.
+Oracle OpenJDK is the [reference implementation][oracle_openjdk_project]; the other OpenJDK distributions are derived from it.
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\jdk-11.0.5+10\bin\java -version</b>
 openjdk version "11.0.5" 2019-10-15
@@ -312,8 +326,9 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html">amazon-corretto-11.0.5.10.1-windows-x64.zip</a>                    <i>(175 MB)</i>
-<a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.5.10-1.windows.redhat.x86_64.zip</a>          <i>(234 MB)</i>
 <a href="https://bell-sw.com/pages/java-11.0.5/">bellsoft-jdk11.0.5+11-windows-amd64-lite.zip</a>                   <i>( 69 MB)</i>
+<a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-19.3.0">graalvm-ce-java11-windows-amd64-19.3.0.zip</a>                     <i>(231 MB)</i>
+<a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.5.10-1.windows.redhat.x86_64.zip</a>          <i>(234 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.5_10.zip</a>               <i>(190 MB)</i>
 <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">OpenJDK11U-jdk_x64_windows_openj9_11.0.5_10_openj9-0.17.0.zip</a>  <i>(193 MB)</i>
 <a href="https://sap.github.io/SapMachine/">sapmachine-jdk-11.0.5_windows-x64_bin.zip</a>                      <i>(179 MB)</i>
@@ -332,13 +347,29 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 [azul_downloads]: https://www.azul.com/downloads/zulu/zulu-windows
 [azul_relnotes]: https://docs.azul.com/zulu/zulurelnotes/index.htm#ZuluReleaseNotes/ReleaseDetails1129-834-726.htm
 [azul_systems]: https://www.azul.com/
+[bellsoft_about]: https://bell-sw.com/pages/about
 [bellsoft_downloads]: https://bell-sw.com/pages/java-11.0.5/
 [bellsoft_relnotes]: https://bell-sw.com/pages/liberica-release-notes-11.0.5
+[corretto_changes]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html
+[corretto_gosling]: https://www.youtube.com/watch?v=WuZk23O76Zk
+[corretto_gupta]: https://www.youtube.com/watch?v=RLKC5nsiZXU
+[corretto_patches]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/patches.html
 [dotty]: https://dotty.epfl.ch/
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
+[graalvm_downloads]: https://www.graalvm.org/downloads/
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
+[graalvm_org]: https://www.graalvm.org/
+[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/19_3/
 [jmh_project]: https://openjdk.java.net/projects/code-tools/jmh/
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
 [llvm_examples]: https://github.com/michelou/llvm-examples
+[openj9_downloads]: https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9
+[openj9_relnotes]: https://adoptopenjdk.net/release_notes.html?variant=openjdk11&jvmVariant=openj9#jdk11_0_5
+[oracle]: https://www.oracle.com/
+[oracle_openjdk_project]: https://openjdk.java.net/projects/jdk/11/
+[oracle_openjdk_downloads]: https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
+[oracle_openjdk_relnotes]: https://adoptopenjdk.net/release_notes.html?variant=openjdk11&jvmVariant=hotspot#jdk11_0_5
+[trava_downloads]: https://github.com/TravaOpenJDK/trava-jdk-11-dcevm
+[trava_relnotes]: https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases
 [unix_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/
