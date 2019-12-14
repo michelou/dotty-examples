@@ -28,13 +28,17 @@ rem ## Main
 
 if defined _HELP (
     call :help
-	exit /b !_EXITCODE!
+    exit /b !_EXITCODE!
 )
 call :init
 if not %_EXITCODE%==0 goto end
 
 if defined _CLEAN_ALL (
     call :clean_all
+    if not !_EXITCODE!==0 goto end
+)
+if defined _UPDATE (
+    call :update
     if not !_EXITCODE!==0 goto end
 )
 if defined _CLONE (
@@ -117,6 +121,7 @@ set _HELP=
 set _TEST_JAVA11=
 set _TEST_SBT=
 set _TIMER=0
+set _UPDATE=
 set _VERBOSE=0
 
 set __N=0
@@ -138,7 +143,7 @@ if "%__ARG:~0,1%"=="-" (
     )
 ) else (
     rem subcommand
-	set /a __N+=1
+    set /a __N+=1
     if /i "%__ARG:~0,4%"=="arch" (
         if not "%__ARG:~-5%"=="-only" set _CLONE=1& set _COMPILE=1& set _BOOTSTRAP=1
         set _ARCHIVES=1
@@ -157,11 +162,12 @@ if "%__ARG:~0,1%"=="-" (
         if not "%__ARG:~-5%"=="-only" set _CLONE=1& set _COMPILE=1& set _BOOTSTRAP=1
         set _DOCUMENTATION=1
     ) else if /i "%__ARG%"=="help" ( set _HELP=1
-	) else if /i "%__ARG%"=="java11" ( set _CLONE=1& set _TEST_JAVA11=1
+    ) else if /i "%__ARG%"=="java11" ( set _CLONE=1& set _TEST_JAVA11=1
     ) else if /i "%__ARG%"=="sbt" (
         set _CLONE=1& set _COMPILE=1& set _BOOTSTRAP=1& set _TEST_SBT=1
     ) else if /i "%__ARG%"=="sbt-only" (
         set _TEST_SBT=1
+    ) else if /i "%__ARG%"=="update" ( set _UPDATE=1
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
         set _EXITCODE=1
@@ -192,6 +198,7 @@ echo     doc[umentation]        generate documentation ^(after bootstrap^)
 echo     help                   display this help message
 echo     java11                 generate+test Dotty compiler with Java 11
 echo     sbt                    test sbt-dotty ^(after bootstrap^)
+echo     update                 fetch/merge upstream repository
 echo.
 echo   Advanced subcommands (no deps):
 echo     arch[ives]-only        generate ONLY gz/zip archives
@@ -236,6 +243,23 @@ if not %ERRORLEVEL%==0 (
 if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% clean -xdf --exclude=*.bat --exclude=*.ps1 1>&2
 call "%_GIT_CMD%" clean -xdf --exclude=*.bat --exclude=*.ps1
 if not %ERRORLEVEL%==0 (
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
+:update
+if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% fetch upstream master 1>&2
+call "%_GIT_CMD%" fetch upstream master
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to fetch changes from upstream repository 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% merge upstream/master 1>&2
+call "%_GIT_CMD%" merge upstream/master
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to merge changes from upstream repository 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -343,7 +367,7 @@ echo %_COLOR_START%sbt compile and sbt test ^(Java 11^)%_COLOR_END%
 if not defined JAVA11_HOME (
     echo %_ERROR_LABEL% Environment variable JAVA11_HOME is undefined 1>&2
     set _EXITCODE=1
-	goto :eof
+    goto :eof
 )
 if not exist "%JAVA11_HOME%\bin\javac.exe" (
     echo %_ERROR_LABEL% Java SDK 11 installation directory is invalid 1>&2
@@ -352,7 +376,7 @@ if not exist "%JAVA11_HOME%\bin\javac.exe" (
 )
 setlocal
 rem export PATH="/usr/lib/jvm/java-11-openjdk-amd64/bin:$PATH"
-set "PATH=%JAVA11_HOME_HOME%\bin;%PATH%"
+set "PATH=%__JAVA11_HOME%\bin;%PATH%"
 rem ./project/scripts/sbt "compile ;test"
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ";compile ;test" 1>&2
 call "%_SBT_CMD%" ;compile ;test

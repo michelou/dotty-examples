@@ -59,7 +59,7 @@ C:\opt\dotty-0.20.0-RC1\     <i>( 25.2 MB)</i>
 C:\opt\Git-2.24.1\           <i>(277.0 MB)</i>
 C:\opt\gradle-6.0.1\         <i>(103.0 MB)</i>
 C:\opt\Mill-0.5.3\           <i>( 49.0 MB)</i>
-C:\opt\sbt-1.3.4\            <i>( 55.1 MB)</i>
+C:\opt\sbt-1.3.5\            <i>( 55.1 MB)</i>
 C:\opt\scala-2.13.1\         <i>( 20.1 MB)</i>
 </pre>
 
@@ -112,7 +112,7 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch/bash commands:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**][javac_cli], [**`scalac.bat`**][scalac_cli], [**`dotc.bat`**](bin/0.20/dotc.bat), etc. directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
+1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**][javac_cli], [**`scalac.bat`**][scalac_cli] and [**`dotc.bat`**](bin/0.20/dotc.bat)directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
 
    <pre style="font-size:80%;">
    <b>&gt; setenv help</b>
@@ -269,21 +269,21 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.20.0-RC1,
-   ant 1.10.7, gradle 6.0, mill 0.5.3, mvn 3.6.3, sbt 1.3.4/2.12.10,
+   ant 1.10.7, gradle 6.0, mill 0.5.3, mvn 3.6.3, sbt 1.3.5/2.12.10,
    cfr 0.148, bloop v1.3.4, git 2.24.1.windows.2, diff 3.7
 
 <b>&gt; where sbt</b>
-C:\opt\sbt-1.3.4\bin\sbt
-C:\opt\sbt-1.3.4\bin\sbt.bat
+C:\opt\sbt-1.3.5\bin\sbt
+C:\opt\sbt-1.3.5\bin\sbt.bat
 </pre>
 
-Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths:
+Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and defined variables:
 
 <pre style="font-size:80%;">
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.20.0-RC1,
-   ant 1.10.7, gradle 6.0.1, mill 0.5.3, mvn 3.6.3, sbt 1.3.4/2.12.10,
+   ant 1.10.7, gradle 6.0.1, mill 0.5.3, mvn 3.6.3, sbt 1.3.5/2.12.10,
    cfr 0.148, bloop v1.3.4, git 2.24.1.windows.2, diff 3.7
 Tool paths:
    C:\opt\jdk-1.8.0_232-b09\bin\javac.exe
@@ -296,11 +296,17 @@ Tool paths:
    C:\opt\gradle-6.0.1\bin\gradle.bat
    C:\opt\Mill-0.5.3\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
-   C:\opt\sbt-1.3.4\bin\sbt.bat
+   C:\opt\sbt-1.3.5\bin\sbt.bat
    C:\opt\cfr-0.148\bin\cfr.bat
    C:\opt\bloop-1.3.4\bloop.cmd
    C:\opt\Git-2.24.1\bin\git.exe
    C:\opt\Git-2.24.1\usr\bin\diff.exe
+Environment variables:
+   ANT_HOME=C:\opt\apache-ant-1.10.7
+   DOTTY_HOME=C:\opt\dotty-0.20.0-RC1
+   JAVA_HOME=C:\opt\jdk-1.8.0_232-b09
+   JAVA11_HOME=C:\opt\jdk-11.0.5+10
+   SCALA_HOME=C:\opt\scala-2.13.1
 </pre>
 
 #### `cleanup.bat`

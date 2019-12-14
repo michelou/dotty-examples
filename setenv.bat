@@ -72,15 +72,17 @@ rem if not %_EXITCODE%==0 goto end
 set _EXITCODE=0
 
 call :cfr
-rem optional
-rem if not %_EXITCODE%==0 goto end
-set _EXITCODE=0
-
+if not %_EXITCODE%==0 (
+    rem optional
+    echo %_WARNING_LABEL% CFR installation not found 1>&2
+    set _EXITCODE=0
+)
 call :bloop
-rem optional
-rem if not %_EXITCODE%==0 goto end
-set _EXITCODE=0
-
+if not %_EXITCODE%==0 (
+    rem optional
+    echo %_WARNING_LABEL% Bloop installation not found 1>&2
+    set _EXITCODE=0
+)
 call :git
 if not %_EXITCODE%==0 goto end
 
@@ -117,8 +119,8 @@ if not defined __ARG goto args_done
 
 if "%__ARG:~0,1%"=="-" (
     rem option
-	if /i "%__ARG%"=="-bash" ( set _BASH=1
-	) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
+    if /i "%__ARG%"=="-bash" ( set _BASH=1
+    ) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
@@ -127,7 +129,7 @@ if "%__ARG:~0,1%"=="-" (
     )
 ) else (
     rem subcommand
-	if /i "%__ARG%"=="help" ( set _HELP=1
+    if /i "%__ARG%"=="help" ( set _HELP=1
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
         set _EXITCODE=1
@@ -386,14 +388,14 @@ set _SBT_PATH=
 
 set __SBT_HOME=
 set __SBT_CMD=
-for /f %%f in ('where sbt.bat 2^>NUL') do set __SBT_CMD=%%f
+for /f %%f in ('where sbt.bat 2^>NUL') do set "__SBT_CMD=%%f"
 if defined __SBT_CMD (
-    if %_DEBUG%==1 echo [%_BASENAME%] Using path of sbt executable found in PATH 1>&2
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of sbt executable found in PATH 1>&2
     rem keep _SBT_PATH undefined since executable already in path
     goto :eof
 ) else if defined SBT_HOME (
     set "__SBT_HOME=%SBT_HOME%"
-    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable SBT_HOME 1>&2
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SBT_HOME 1>&2
 ) else (
     set __PATH=C:\opt
     if exist "!__PATH!\sbt\" ( set "__SBT_HOME=!__PATH!\sbt"
@@ -406,7 +408,7 @@ if defined __SBT_CMD (
     )
 )
 if not exist "%__SBT_HOME%\bin\sbt.bat" (
-    echo Error: sbt executable not found ^(%__SBT_HOME%^) 1>&2
+    echo %_ERROR_LABEL% sbt executable not found ^(%__SBT_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -436,52 +438,66 @@ if not exist "%_CFR_HOME%\bin\cfr.bat" (
 set "_CFR_PATH=;%_CFR_HOME%\bin"
 goto :eof
 
+rem output parameter(s): _PYTHON_PATH
 :python
-where /q python.exe
-if %ERRORLEVEL%==0 goto :eof
+set _PYTHON_PATH=
 
-if defined PYTHON_HOME (
-    set _PYTHON_HOME=%PYTHON_HOME%
+set __PYTHON_HOME=
+set __PYTHON_CMD=
+for /f %%f in ('where python.exe 2^>NUL ^| findstr /v WindowsApps') do set "__PYTHON_CMD=%%f"
+if defined __PYTHON_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Python executable found in PATH 1>&2
+    rem keep _PYTHON_PATH undefined since executable already in path
+    goto :eof
+) else if defined PYTHON_HOME (
+    set __PYTHON_HOME=%PYTHON_HOME%
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable PYTHON_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\Python*" 2^>NUL') do set "_PYTHON_HOME=!_PATH!\%%f"
-    if defined _PYTHON_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Python installation directory !_PYTHON_HOME! 1>&2
+    for /f %%f in ('dir /ad /b "!_PATH!\Python*" 2^>NUL') do set "__PYTHON_HOME=!_PATH!\%%f"
+    if defined __PYTHON_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Python installation directory !__PYTHON_HOME! 1>&2
     )
 )
-if not exist "%_PYTHON_HOME%\python.exe" (
-    echo %_ERROR_LABEL% python executable not found ^(%_PYTHON_HOME%^) 1>&2
+if not exist "%__PYTHON_HOME%\python.exe" (
+    echo %_ERROR_LABEL% Python executable not found ^(%__PYTHON_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_PYTHON_PATH=;%_PYTHON_HOME%"
+set "_PYTHON_PATH=;%__PYTHON_HOME%"
 goto :eof
 
+rem output parameter(s): _BLOOP_PATH
 :bloop
+set _BLOOP_PATH=
+
 rem bloop depends on python
 call :python
 if not %_EXITCODE%==0 goto :eof
 
-where /q bloop.cmd
-if %ERRORLEVEL%==0 goto :eof
-
-if defined BLOOP_HOME (
-    set _BLOOP_HOME=%BLOOP_HOME%
+set __BLOOP_HOME=
+set __BLOOP_CMD=
+for /f %%f in ('where bloop.cmd 2^>NUL') do set "__BLOOP_CMD=%%f"
+if defined __BLOOP_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of bloop executable found in PATH 1>&2
+    rem keep _BLOOP_PATH undefined since executable already in path
+    goto :eof
+) else if defined BLOOP_HOME (
+    set __BLOOP_HOME=%BLOOP_HOME%
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable BLOOP_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\bloop*" 2^>NUL') do set "_BLOOP_HOME=!_PATH!\%%f"
-    if defined _BLOOP_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Bloop installation directory !_BLOOP_HOME! 1>&2
+    for /f %%f in ('dir /ad /b "!_PATH!\bloop*" 2^>NUL') do set "__BLOOP_HOME=!_PATH!\%%f"
+    if defined __BLOOP_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Bloop installation directory !__BLOOP_HOME! 1>&2
     )
 )
-if not exist "%_BLOOP_HOME%\bloop.cmd" (
-    echo %_ERROR_LABEL% bloop executable not found ^(%_BLOOP_HOME%^) 1>&2
+if not exist "%__BLOOP_HOME%\bloop.cmd" (
+    echo %_ERROR_LABEL% bloop executable not found ^(%__BLOOP_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_BLOOP_PATH=;%_BLOOP_HOME%"
+set "_BLOOP_PATH=;%__BLOOP_HOME%"
 goto :eof
 
 rem output parameter(s): _GIT_HOME, _GIT_PATH
@@ -490,20 +506,20 @@ set _GIT_HOME=
 set _GIT_PATH=
 
 set __GIT_CMD=
-for /f %%f in ('where git.exe 2^>NUL') do set __GIT_CMD=%%f
+for /f %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
 if defined __GIT_CMD (
-    if %_DEBUG%==1 echo [%_BASENAME%] Using path of Git executable found in PATH 1>&2
-	for %%i in ("%__GIT_CMD%") do set __GIT_BIN_DIR=%%~dpsi
-    for %%f in ("!__GIT_BIN_DIR!..") do set _GIT_HOME=%%~sf
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
+    for %%i in ("%__GIT_CMD%") do set __GIT_BIN_DIR=%%~dpsi
+    for %%f in ("!__GIT_BIN_DIR!..") do set "_GIT_HOME=%%f"
     rem Executable git.exe is present both in bin\ and \mingw64\bin\
     if not "!_GIT_HOME:mingw=!"=="!_GIT_HOME!" (
-        for %%f in ("!_GIT_HOME!\..") do set _GIT_HOME=%%~sf
+        for %%f in ("!_GIT_HOME!\..") do set "_GIT_HOME=%%f"
     )
     rem keep _GIT_PATH undefined since executable already in path
     goto :eof
 ) else if defined GIT_HOME (
     set "_GIT_HOME=%GIT_HOME%"
-    if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable GIT_HOME
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GIT_HOME
 ) else (
     set __PATH=C:\opt
     if exist "!__PATH!\Git\" ( set "_GIT_HOME=!__PATH!\Git"
@@ -514,16 +530,15 @@ if defined __GIT_CMD (
             for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         )
     )
+	if defined _GIT_HOME (
+	    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Git installation directory "!_GIT_HOME!" 1>&2
+	)
 )
 if not exist "%_GIT_HOME%\bin\git.exe" (
-    echo Error: Git executable not found ^(%_GIT_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Git executable not found ^(%_GIT_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-rem path name of installation directory may contain spaces
-for /f "delims=" %%f in ("%_GIT_HOME%") do set _GIT_HOME=%%~sf
-if %_DEBUG%==1 echo [%_BASENAME%] Using default Git installation directory %_GIT_HOME% 1>&2
-
 set "_GIT_PATH=;%_GIT_HOME%\bin;%_GIT_HOME%\mingw64\bin;%_GIT_HOME%\usr\bin"
 goto :eof
 
@@ -570,7 +585,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q dotc.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,4,*" %%i in ('dotc.bat -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% dotc %%l,"
+    for /f "tokens=1,2,3,4,*" %%i in ('dotc.bat -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% dotc %%l"
     set __WHERE_ARGS=%__WHERE_ARGS% dotc.bat
 )
 where /q ant.bat
@@ -628,9 +643,14 @@ echo   %__VERSIONS_LINE1%
 echo   %__VERSIONS_LINE2%
 echo   %__VERSIONS_LINE3%
 if %__VERBOSE%==1 (
-    rem if %_DEBUG%==1 echo %_DEBUG_LABEL% where %__WHERE_ARGS%
     echo Tool paths: 1>&2
     for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p 1>&2
+    echo Environment variables: 1>&2
+    if defined ANT_HOME echo    ANT_HOME=%ANT_HOME% 1>&2
+    if defined DOTTY_HOME echo    DOTTY_HOME=%DOTTY_HOME% 1>&2
+    if defined JAVA_HOME echo    JAVA_HOME=%JAVA_HOME% 1>&2
+    if defined JAVA11_HOME echo    JAVA11_HOME=%JAVA11_HOME% 1>&2
+    if defined SCALA_HOME echo    SCALA_HOME=%SCALA_HOME% 1>&2
 )
 goto :eof
 
@@ -640,19 +660,19 @@ rem ## Cleanups
 :end
 endlocal & (
     if %_EXITCODE%==0 (
-	    if not defined ANT_HOME set ANT_HOME=%_ANT_HOME%
+        if not defined ANT_HOME set ANT_HOME=%_ANT_HOME%
+        if not defined DOTTY_HOME set DOTTY_HOME=%_DOTTY_HOME%
         if not defined JAVA_HOME set JAVA_HOME=%_JDK_HOME%
         if not defined JAVA11_HOME set JAVA11_HOME=%_JDK11_HOME%
         if not defined SCALA_HOME set SCALA_HOME=%_SCALA_HOME%
-        if not defined DOTTY_HOME set DOTTY_HOME=%_DOTTY_HOME%
-        set "PATH=%_JDK_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MILL_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_PYTHON_PATH%%_BLOOP_PATH%%_GIT_PATH%;%~dp0bin"
+        set "PATH=%_JDK_PATH%%_PYTHON_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MILL_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_BLOOP_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE% "%_GIT_HOME%"
-		if %_BASH%==1 (
-		    remm see https://conemu.github.io/en/GitForWindows.html
-		    if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_HOME%\usr\bin\bash.exe --login 1>&2
+        if %_BASH%==1 (
+            remm see https://conemu.github.io/en/GitForWindows.html
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_HOME%\usr\bin\bash.exe --login 1>&2
             cmd.exe /c "%_GIT_HOME%\usr\bin\bash.exe --login"
-		)
+        )
     )
-	if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
     for /f "delims==" %%i in ('set ^| findstr /b "_"') do set %%i=
 )

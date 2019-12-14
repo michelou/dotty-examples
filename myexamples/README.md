@@ -39,22 +39,24 @@ Command [**`gradle`**][gradle_cli] is the official build tool for Android applic
 The configuration file [**`build.gradle`**](HelloWorld/build.gradle) for [**`HelloWorld\`**](HelloWorld/) looks as follows:
 
 <pre style="font-size:80%;">
-apply from: <span style="color:#990000;">'../common.gradle'</span>
+plugins {
+    id <span style="color:#990000;">"java"</span>
+}
 &nbsp;
-group = <span style="color:#990000;">'dotty.examples'</span>
-version = <span style="color:#990000;">'0.1-SNAPSHOT'</span>
+apply from: <span style="color:#990000;">"../common.gradle"</span>
 &nbsp;
-description = <span style="color:#990000;">"""Example Gradle project that compiles using Dotty"""</span>
+group <span style="color:#990000;">"$appGroup"</span>
+version <span style="color:#990000;">"$appVersion"</span>
 &nbsp;
-mainClassName = <span style="color:#990000;">'Main'</span>
+description <span style="color:#990000;">"""Gradle example project to build/run Scala 3 code"""</span>
 &nbsp;
 run.doFirst {
-    main mainClassName
-    args ''
+    main scalaMainClassName
+    args <span style="color:#990000;">""</span>
 }
 </pre>
 
-We note that [**`build.gradle`**](HelloWorld/build.gradle)<ul><li>imports the two [Gradle plugins][gradle_plugins]: [**`java`**][gradle_java_plugin] and [**`application`**](https://docs.gradle.org/current/userguide/application_plugin.html#header)</li><li>imports code from the parent file [**`common.gradle`**](common.gradle)</li><li>assigns property **`mainClassName`** to **`main`** and value **`''`** to **`args`** (no argument in this case) in **`run.doFirst`**</li></ul>
+We note that [**`build.gradle`**](HelloWorld/build.gradle)<ul><li>imports one [Gradle plugin][gradle_plugins]: [**`java`**][gradle_java_plugin]</li><li>imports a few properties from file [**`gradle.properties`**](HelloWorld/gradle.properties)</li><li>imports code from the parent file [**`common.gradle`**](common.gradle)</li><li>assigns property **`scalaMainClassName`** to **`main`** and value **`""`** to **`args`** (no argument in this example) in **`run.doFirst`**</li></ul>
 
 The parent file [**`common.gradle`**](common.gradle) defines the task **`compileDotty`** and manages the task dependencies.
 
@@ -348,7 +350,7 @@ Finally can check the Java manifest in **`HelloWorld-0.1-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
 <b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.20.0-RC1\lib\dotty-library_0.20-0.20.0-RC1.jar;^
-c:\opt\dotty-0.20.0-RC1\lib\scala-library-2.13.0.jar ^
+c:\opt\dotty-0.20.0-RC1\lib\scala-library-2.13.1.jar ^
 -jar target\HelloWorld-0.1-SNAPSHOT.jar
 Hello world!
 </pre>
@@ -373,7 +375,7 @@ Hello world!
 > Searching for class Serializable in library files C:\opt\JDK-18~1.0_2\lib\*.jar
 >   tools.jar:com/sun/tools/internal/xjc/reader/xmlschema/bindinfo/BISerializable.class
 > </pre>
-> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.20.0-RC1\lib\scala-library-2.13.0.jar`**, so let us add it to our classpath !
+> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.20.0-RC1\lib\scala-library-2.13.1.jar`**, so let us add it to our classpath !
 
 
 ## <span id="footnotes">Footnotes</span>
@@ -381,7 +383,7 @@ Hello world!
 <a name="footnote_01">[1]</a> ***Batch files and coding conventions*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-Batch files (e.g. <a href="enum-Planet/build.bat"><b><code>enum-Planet\build.bat</code></b></a>) obey the following coding conventions:
+Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</code></b></a>) obey the following coding conventions:
 
 - We use at most 80 characters per line. In general we would say that 80 characters fit well with 4:3 screens and 100 characters fit well with 16:9 screens ([Google's convention](https://google.github.io/styleguide/javaguide.html#s4.4-column-limit) is 100 characters).
 - We organize our code in 4 sections: `Environment setup`, `Main`, `Subroutines` and `Cleanups`.

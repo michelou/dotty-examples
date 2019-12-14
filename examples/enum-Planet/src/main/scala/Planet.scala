@@ -1,4 +1,4 @@
-// source: http://dotty.epfl.ch/docs/reference/enums/enums.html
+// source: https://dotty.epfl.ch/docs/reference/enums/enums.html
 
 enum Planet(mass: Double, radius: Double) {
   private final val G = 6.67300E-11

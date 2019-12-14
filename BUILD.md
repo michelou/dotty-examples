@@ -1,4 +1,4 @@
-# <span id="top">Building Dotty on Windows</span> <span style="size:30%;"><a href="README.md">↩</a></span>
+# <span id="top">Building Dotty on Windows</span> <span style="size:25%;"><a href="README.md">↩</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -18,7 +18,7 @@ This document is part of a series of topics related to [Dotty] on Windows:
 - [Data Sharing and Dotty on Windows](CDS.md)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-[JMH], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples] and [LLVM][llvm_examples] are other topics we are currently investigating.
+[JMH], [Metaprogramming][dotty_metaprogramming], [GraalSqueak][graalsqueak_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples] and [LLVM][llvm_examples] are other topics we are currently investigating.
 
 > **&#9755;** ***Continuous Integration/Delivery*** (CI/CD)<br/>
 > (steps: Checkout **&rarr;** Compile **&rarr;** Test **&rarr;** Deploy)
@@ -35,7 +35,7 @@ This document is part of a series of topics related to [Dotty] on Windows:
 
 ## <span id="proj_deps">Project dependencies</span>
 
-Our [**Dotty fork**][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
+Our [Dotty fork][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
 
 - [Git 2.24][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 8][openjdk_releases] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][openjdk_relnotes])
@@ -60,7 +60,7 @@ C:\opt\sbt-1.3.4\
 
 ## Directory structure
 
-The directory structure of the [Dotty repository][github_dotty])<sup id="anchor_02">[[2]](#footnote_02)</sup>  is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts).
+The directory structure of the [Dotty repository][github_dotty])<sup id="anchor_02">[[2]](#footnote_02)</sup>  is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin) and [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin).
 
 <pre style="font-size:80%;">
 bin\dotty\build.bat
@@ -68,13 +68,9 @@ bin\dotty\project\
 dotty\      <i>(Git submodule)</i><sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>
 dotty\bin\
 dotty\dist\bin
-dotty\project\scripts\
 </pre>
 
-<!-- 2019-02-13
-> **:mag_right:** Directories like [**`scala-backend\`**](https://github.com/lampepfl/scala/tree/sharing-backend), [**`scala2-library\`**](https://github.com/lampepfl/scala/tree/dotty-library2.12) and **`community-build`** subdirectories are actually Git submodules (see article ["Mastering Git Submodules"](https://delicious-insights.com/en/posts/mastering-git-submodules/) from [Delicious Insights](https://delicious-insights.com/en/)). Their Git information (e.g. path, URL, branch) is stored in file [**`.gitmodules`**](https://github.com/michelou/dotty/blob/master/.gitmodules).
--->
-Concretely directories [**`dotty\bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin), [**`dotty\dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) and [**`dotty\project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts) contain the following additions:
+Concretely directories [**`dotty\bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin)and [**`dotty\dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) contain the following additions:
 
 <pre style="font-size:80%;">
 dotty\bin\common.bat
@@ -103,7 +99,7 @@ We distinguish different sets of batch commands:
 
 1. Directory [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin/) - This directory contains batch files used internally during the build process (see the [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) command).
 
-3. Directory [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin/) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software release][dotty_releases].
+3. Directory [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin/) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software distribution][dotty_releases].
 
    <pre style="font-size:80%;">
    <b>&gt; dir /b dist\bin</b>
@@ -149,6 +145,7 @@ We distinguish different sets of batch commands:
        doc[umentation]        generate documentation (after bootstrap)
        help                   display this help message
        sbt                    test sbt-dotty (after bootstrap)
+       update                 fetch/merge upstream repository
    &nbsp;
      Advanced subcommands (no deps):
        arch[ives]-only        generate ONLY gz/zip archives
@@ -203,7 +200,7 @@ We distinguish different sets of batch commands:
 
 ## <span id="contribs">Contributions</span>
 
-We have come across several issues <sup id="anchor_04"><a href="#footnote_04">[4]</a></sup> while executing Dotty commands on Windows:
+We have come across several issues <sup id="anchor_04"><a href="#footnote_04">[4]</a></sup> while executing [Dotty] commands on Windows:
 
 | [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Issue status&nbsp;&nbsp;&nbsp; | Context |
 | :--------: | :--------: | :--------- |
@@ -231,7 +228,7 @@ We have come across several issues <sup id="anchor_04"><a href="#footnote_04">[4
 > <ul><li><a href="https://github.com/lampepfl/dotty/pull/5560">#5560</a> Fix Windows path (<a href="https://github.com/lampepfl/dotty/commit/67c86783ff48723ae96fedeb51c50db62f375042">merged</a>).</li>
 > <li><a href="https://github.com/lampepfl/dotty/pull/5531">#5531</a> Test AppVeyor integration (<a href="https://github.com/lampepfl/dotty/pull/5531#issuecomment-446505630">closed</a>).</li></ul>
 
-Below we summarize changes we made to the [source code](https://github.com/lampepfl/dotty/) of the [Dotty project](http://dotty.epfl.ch/):
+Below we summarize changes we made to the [source code](https://github.com/lampepfl/dotty/) of the [Dotty] project:
 
 - Unspecified character encoding in some file operations<br/>*Example*: [**`Source.fromFile(f)`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html) **&rarr;** **`Source.fromFile(f, "UTF-8")`**.
 - Platform-specific new lines<br/>*Example*: **`"\n"`** **&rarr;** [**`System.lineSeparator`**](https://docs.oracle.com/javase/8/docs/api/java/lang/System.html#lineSeparator).
@@ -242,7 +239,7 @@ Below we summarize changes we made to the [source code](https://github.com/lampe
 
 ## <span id="usage_examples">Usage examples</span>
 
-Command [**`build`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat) consists of ~400 lines of batch/[Powershell ][microsoft_powershell] code and features the following subcommands:
+Command [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat) consists of ~400 lines of batch/[Powershell ][microsoft_powershell] code and features the following subcommands:
 
 #### `build.bat cleanall`
 
@@ -488,7 +485,7 @@ Command [**`project\scripts\bootstrapCmdTests.bat`**](https://github.com/michelo
 [info] Updating dotty-bench...
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
-# JMH version: 1.21
+# JMH version: 1.22
 # VM version: JDK 1.8.0_232, VM 25.232-b09
 # VM invoker: C:\opt\jdk-1.8.0_232-b09\bin\java.exe
 # VM options: -Xms2G -Xmx2G
@@ -518,7 +515,7 @@ Worker.compile  avgt       533.625          ms/op
 [info] Updating dotty-bench-bootstrapped...
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
-# JMH version: 1.21
+# JMH version: 1.22
 # VM version: JDK 1.8.0_232, VM 25.232-b09
 # VM invoker: C:\opt\jdk-1.8.0_232-b09\bin\java.exe
 # VM options: -Xms2G -Xmx2G
@@ -546,7 +543,7 @@ Worker.compile  avgt       361.619          ms/op
 [success] Total time: 21 s, completed 3 déc. 2018 09:44:42
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
-# JMH version: 1.21
+# JMH version: 1.22
 # VM version: JDK 1.8.0_232, VM 25.232-b09
 # VM invoker: C:\opt\jdk-1.8.0_232-b09\bin\java.exe
 # VM options: -Xms2G -Xmx2G
@@ -593,7 +590,7 @@ private members with docstrings:   0
 
 #### `genDocs.bat`
 
-Command [**`genDocs.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program.
+Command [**`genDocs.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) generates the documentation page for program [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala).
 
 <pre style="font-size:80%;">
 <b>&gt; genDocs</b>
@@ -653,7 +650,7 @@ Defining directory <b><code>dotty\</code></b> as a Github submodule allows us to
 <a name="footnote_04">[4]</a> ***Git configuration*** [↩](#anchor_04)
 
 <p style="margin:0 0 1em 20px;">
-We mention here one issue when working with the <a href="https://git-scm.com/docs/git-config"><b><code>git</code></b></a> command on Windows, namely the error message <code>"Filename too long"</code>:
+We report here one issue we encountered when working with the <a href="https://git-scm.com/docs/git-config"><b><code>git</code></b></a> command on Windows, namely the error message <code>"Filename too long"</code>:
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; git status</b>
 mainExamples/src/main/scala/examples/main/active/writing/toConsoleWriting/info/reading/argumentAndResultMultiplier/FactorialOfArgumentMultipliedByResultMultiplierMain.scala: Filename too long
@@ -695,6 +692,7 @@ We fixed our local Git settings as follows:
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/
+[graalsqueak_examples]: https://github.com/michelou/graalsqueak-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [java_lang]: https://www.oracle.com/technetwork/java/index.html
 [jmh]: https://openjdk.java.net/projects/code-tools/jmh/

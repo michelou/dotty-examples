@@ -402,21 +402,21 @@ The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enu
         <b>&lt;relativePath&gt;</b>../pom.xml<b>&lt;/relativePath&gt;</b>
     <b>&lt;/parent&gt;</b>
     <b>&lt;dependencies&gt;</b>
-        <i>&lt;!-- see parent pom.xml --&gt;</i>
+        <i style="color:#66aa66;">&lt;!-- see parent pom.xml --&gt;</i>
     <b>&lt;/dependencies&gt;</b>
     <b>&lt;build&gt;</b>
         <b>&lt;sourceDirectory&gt;</b>src/main<b>&lt;/sourceDirectory&gt;</b>
-        &lt;testSourceDirectory>src/test&lt;/testSourceDirectory>
-        &lt;outputDirectory>target/classes&lt;/outputDirectory>
+        &lt;testSourceDirectory>src/test<b>&lt;/testSourceDirectory&gt;</b>
+        &lt;outputDirectory>target/classes<b>&lt;/outputDirectory&gt;</b>
         <b>&lt;plugins&gt;</b>
             <b>&lt;plugin&gt;</b>
-                &lt;groupId>org.apache.maven.plugins&lt;/groupId>
-                &lt;artifactId>maven-compiler-plugin&lt;/artifactId>
+                &lt;groupId>org.apache.maven.plugins<b>&lt;/groupId&gt;</b>
+                &lt;artifactId>maven-compiler-plugin<b>&lt;/artifactId&gt;</b>
                 ...
                 <b>&lt;configuration&gt;</b>
                     ...
                     <b>&lt;includes&gt;</b>
-                        &lt;include>java/**/*.java&lt;/include>
+                        <b>&lt;include&gt;</b>java/**/*.java<b>&lt;/include&gt;</b>
                     <b>&lt;/includes&gt;</b>
                 <b>&lt;/configuration&gt;</b>
             <b>&lt;/plugin&gt;</b>
@@ -471,7 +471,7 @@ Your weight on JUPITER is 2.5305575254957406
 <b>&gt; mvn clean compile package</b>
 ...
 [INFO]
-[INFO] --- maven-jar-plugin:3.1.1:jar (default-jar) @ enum-Planet ---
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ enum-Planet ---
 [INFO] Building jar: W:\dotty-examples\examples\enum-Planet\target\enum-Planet-0.1-SNAPSHOT.jar
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
@@ -481,9 +481,9 @@ Your weight on JUPITER is 2.5305575254957406
 [INFO] ------------------------------------------------------------------------
 
 <b>&gt; java -version 2>&1 | findstr version</b>
-openjdk version "11.0.4" 2019-07-16
+openjdk version "11.0.5" 2019-10-15
 
-<b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.20.0-RC1\lib\dotty-library_0.19-0.20.0-RC1.jar;c:\opt\dotty-0.20.0-RC1\lib\scala-library-2.13.1.jar -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
+<b>&gt; java -Xbootclasspath/a:"c:\opt\dotty-0.20.0-RC1\lib\dotty-library_0.20-0.20.0-RC1.jar;c:\opt\dotty-0.20.0-RC1\lib\scala-library-2.13.1.jar" -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455

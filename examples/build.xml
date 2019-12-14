@@ -21,6 +21,7 @@
             <fileset dir="${dotty.home}/lib" includes="dotty-*.jar" />
             <fileset dir="${dotty.home}/lib" includes="jline-*.jar" />
             <fileset dir="${dotty.home}/lib" includes="scala-*.jar" />
+            <fileset dir="${dotty.home}/lib" includes="tasty-*.jar" />
         </path>
         <path id="dotty.classpath">
             <fileset dir="${dotty.home}/lib" includes="dotty-library*.jar" />

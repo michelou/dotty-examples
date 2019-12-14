@@ -50,8 +50,8 @@ rem elif [ $execute_repl == true ] || [ ${#residual_args[@]} -ne 0 ]; then
         set _CP_ARG=!_CP_ARG!%_PSEP%%_DOTTY_COMP%%_PSEP%%_DOTTY_INTF%%_PSEP%%_SCALA_ASM%%_PSEP%%_DOTTY_STAGING%
     )
     set _JAVA_ARGS=%_JAVA_DEBUG% -classpath "!_CP_ARG!" %_JVM_OPTS% %_RESIDUAL_ARGS%
-    if %_DEBUG%==1 echo [%_BASENAME%] %_JAVACMD% !_JAVA_ARGS!
-    %_JAVACMD% !_JAVA_ARGS!
+    if %_DEBUG%==1 echo [%_BASENAME%] "%_JAVACMD%" !_JAVA_ARGS!
+    "%_JAVACMD%" !_JAVA_ARGS!
     if not !ERRORLEVEL!==0 ( set _EXITCODE=1& goto end )
 ) else (
     echo Warning: Command option is not correct. 1>&2
