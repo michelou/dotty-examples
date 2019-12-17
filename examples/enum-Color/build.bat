@@ -90,6 +90,7 @@ if exist "%__PROPS_FILE%" (
         )
     )
     if defined _compiler_cmd set _COMPILE_CMD_DEFAULT=!_compiler_cmd!
+    if defined _doc_cmd set _DOC_CMD_DEFAULT=!_doc_cmd!
     if defined _main_class set _MAIN_CLASS_DEFAULT=!_main_class!
     if defined _main_args set _MAIN_ARGS_DEFAULT=!_main_args!
 )
@@ -167,7 +168,7 @@ if %_DEBUG%==1 (
 goto :eof
 
 :help
-echo Usage: %_BASENAME% { option ^| subcommand }
+echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
 echo.
 echo   Options:
 echo     -debug           show commands executed by this script
@@ -292,7 +293,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVAC_CMD% %_JAVAC_OPTS% %__JAVA_SOURCE_F
 )
 %_JAVAC_CMD% %_JAVAC_OPTS% %__JAVA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of main Java sources failed 1>&2
+    echo %_ERROR_LABEL% Compilation of main Java source files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -310,7 +311,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_COMPILE_CMD% %__COMPILE_OPTS% %__SCALA_SO
 )
 call %_COMPILE_CMD% %__COMPILE_OPTS% %__SCALA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of main Scala sources failed 1>&2
+    echo %_ERROR_LABEL% Compilation of main Scala source files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )

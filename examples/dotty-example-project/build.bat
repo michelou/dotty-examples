@@ -61,7 +61,7 @@ set _WARNING_LABEL=[93mWarning[0m:
 
 set _TARGET_DIR=%_ROOT_DIR%target
 set _CLASSES_DIR=%_TARGET_DIR%\classes
-set _TASTY_CLASSES_DIR=%_TARGET_DIR%\classes-tasty
+set _TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes
 set _DOCS_DIR=%_TARGET_DIR%\docs
 goto :eof
 
@@ -85,6 +85,7 @@ if exist "%__PROPS_FILE%" (
         )
     )
     if defined _compiler_cmd set _COMPILE_CMD_DEFAULT=!_compiler_cmd!
+    if defined _doc_cmd set _DOC_CMD_DEFAULT=!_doc_cmd!
     if defined _main_class set _MAIN_CLASS_DEFAULT=!_main_class!
     if defined _main_args set _MAIN_ARGS_DEFAULT=!_main_args!
 )
@@ -138,7 +139,7 @@ if "%__ARG:~0,1%"=="-" (
     )
 ) else (
     rem subcommand
-    set /a __N=+1
+    set /a __N+=1
     if /i "%__ARG%"=="clean" ( set _CLEAN=1
     ) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
     ) else if /i "%__ARG%"=="doc" ( set _DOC=1
@@ -160,7 +161,8 @@ if %_DEBUG%==1 (
 goto :eof
 
 :help
-echo Usage: %_BASENAME% { options ^| subcommands }
+echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
+echo.
 echo   Options:
 echo     -debug           show commands executed by this script
 echo     -explain         set compiler option -explain
@@ -170,12 +172,14 @@ echo     -main:^<name^>     define main class name
 echo     -tasty           compile both from source and TASTy files
 echo     -timer           display compile time
 echo     -verbose         display progress messages
+echo.
 echo   Subcommands:
 echo     clean            delete generated class files
 echo     compile          compile source files ^(Java and Scala^)
 echo     doc              generate documentation
 echo     help             display this help message
 echo     run              execute main class
+echo.
 echo   Properties:
 echo   ^(to be defined in SBT configuration file project\build.properties^)
 echo     compiler.cmd     alternative to option -compiler
@@ -256,11 +260,11 @@ if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 set __TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build
 
 set __JAVA_SOURCE_FILES=
-for /f %%i in ('dir /s /b "%_ROOT_DIR%src\main\java\*.java" 2^>NUL') do (
+for %%i in (%_ROOT_DIR%src\main\java\*.java) do (
     set __JAVA_SOURCE_FILES=!__JAVA_SOURCE_FILES! %%i
 )
 set __SCALA_SOURCE_FILES=
-for /f %%i in ('dir /s /b "%_ROOT_DIR%src\main\scala\*.scala" 2^>NUL') do (
+for %%i in (%_ROOT_DIR%src\main\scala\*.scala) do (
     set __SCALA_SOURCE_FILES=!__SCALA_SOURCE_FILES! %%i
 )
 
@@ -277,11 +281,11 @@ set _JAVAC_CMD=javac.exe
 set _JAVAC_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d %_CLASSES_DIR%
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVAC_CMD% %_JAVAC_OPTS% %__JAVA_SOURCE_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Compile Java sources to !_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
+) else if %_VERBOSE%==1 ( echo Compile Java source files to directory !_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
 %_JAVAC_CMD% %_JAVAC_OPTS% %__JAVA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Java compilation failed 1>&2
+    echo %_ERROR_LABEL% Compilation of main Java source files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -295,11 +299,11 @@ if not %ERRORLEVEL%==0 (
 set __COMPILE_OPTS=%_COMPILE_OPTS% -classpath "%__PROJECT_JARS%%_CLASSES_DIR%" -d %_CLASSES_DIR%
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_COMPILE_CMD% %__COMPILE_OPTS% %__SCALA_SOURCE_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Compile Scala sources to !_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
+) else if %_VERBOSE%==1 ( echo Compile main Scala source files to directory !_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
 call %_COMPILE_CMD% %__COMPILE_OPTS% %__SCALA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Scala compilation failed 1>&2
+    echo %_ERROR_LABEL% Compilation of main Scala source files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -314,7 +318,7 @@ if %_COMPILE_TIME%==1 (
 if %_TASTY%==1 (
     if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
     set __CLASS_NAMES=
-    for /f %%f in ('dir /b "%_CLASSES_DIR%\*.tasty" 2^>NUL') do (
+    for %%f in (%_CLASSES_DIR%\*.tasty) do (
         set __CLASS_NAME=%%f
 		set __CLASS_NAMES=!__CLASS_NAMES! !__CLASS_NAME:~0,-6!
     )

@@ -41,10 +41,10 @@
             else="${env.HOME}">
             <os family="windows" />
         </condition>
-        <property name="ivy.cache" value="${user.home}/.ivy2/cache/" />
+        <property name="ivy.cache" value="${user.home}/.ivy2/cache" />
         <path id="dotty.classpath">
             <fileset dir="${ivy.cache}/ch.epfl.lamp" includes="**/jars/dotty-library*.jar">
-                <filename regex="_0\.[1-2][8-9]-0\.[1-2][8-9]\.[0-9]+" />  <!-- e.g. _0.20-0.20.x -->
+                <filename regex="_0\.(1[8-9]|2[0-9])-0\.(1[8-9]|2[0-9])\.[0-9]+" />  <!-- e.g. _0.20-0.20.x -->
             </fileset>
             <fileset dir="${ivy.cache}/org.scala-lang" includes="**/jars/scala-library*.jar">
                 <filename regex="-2\.[1-2][3-9]\.[0-9]+" />  <!-- e.g. -2.13.x -->
@@ -86,7 +86,7 @@
                 <arg value="Compiling ${n} source file${s} to @{destdir}" />
             </exec>
             -->
-            <echo message="Compiling ${n} source file${s} to @{destdir}" />
+            <echo message="Compiling ${n} source file${s} to @{destdir}" level="info" />
             <pathconvert property="classpath" refid="@{classpathref}" />
             <condition property="quoted" value="&quot;" else="">
                 <contains string="${classpath}" substring=" " />

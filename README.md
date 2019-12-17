@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:60px;max-width:100px;">
-    <a href="http://dotty.epfl.ch/"><img style="border:0;" src="docs/dotty.png"/></a>
+    <a href="https://dotty.epfl.ch/"><img style="border:0;" src="docs/dotty.png"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This repository gathers <a href="https://dotty.epfl.ch/">Dotty</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/">Dotty</a> project - or written by myself.<br/>
@@ -63,7 +63,7 @@ C:\opt\sbt-1.3.5\            <i>( 55.1 MB)</i>
 C:\opt\scala-2.13.1\         <i>( 20.1 MB)</i>
 </pre>
 
-> **:mag_right:** [Git for Windows][git_releases] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**]¨[man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
+> **:mag_right:** [Git for Windows][git_releases] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
 ## <span id="structure">Directory structure</span>
 

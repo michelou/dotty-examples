@@ -85,6 +85,7 @@ if exist "%__PROPS_FILE%" (
         )
     )
     if defined _compiler_cmd set _COMPILE_CMD_DEFAULT=!_compiler_cmd!
+    if defined _doc_cmd set _DOC_CMD_DEFAULT=!_doc_cmd!
     if defined _main_class set _MAIN_CLASS_DEFAULT=!_main_class!
     if defined _main_args set _MAIN_ARGS_DEFAULT=!_main_args!
 )
@@ -138,6 +139,7 @@ if "%__ARG:~0,1%"=="-" (
     )
 ) else (
     rem subcommand
+    set /a __N+=1
     if /i "%__ARG%"=="clean" ( set _CLEAN=1
     ) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
     ) else if /i "%__ARG%"=="doc" ( set _DOC=1
@@ -148,7 +150,6 @@ if "%__ARG:~0,1%"=="-" (
         set _EXITCODE=1
         goto args_done
     )
-    set /a __N+=1
 )
 shift
 goto :args_loop
