@@ -53,7 +53,7 @@ For instance our development environment looks as follows (*December 2019*):
 <pre style="font-size:80%;">
 C:\opt\Git-2.24.1\
 C:\opt\jdk-1.8.0_232-b09\
-C:\opt\sbt-1.3.4\
+C:\opt\sbt-1.3.5\
 </pre>
 
 > **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -190,12 +190,13 @@ We distinguish different sets of batch commands:
     > | **`build documentation`** | **`build bootstrap documentation-only`** |
     > | **`build sbt`** | **`build bootstrap sbt-only`** |
 
-5. [**`project\scripts\`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/) - This directory contains bash files to performs test steps on a Windows machine in a similar manner to the shell scripts on the [Dotty CI][dotty_ci] server (see console output in section [**Usage examples**](#usage_examples)).
+5. [**`project\scripts\`**](bin/dotty/project/scripts/) - This directory contains bash files to performs test steps on a Windows machine in a similar manner to the shell scripts on the [Dotty CI][dotty_ci] server (see console output in section [**Usage examples**](#usage_examples)).
+
    | Batch file (**`build.bat`**) | Bash script (**`./build.sh`**) |
    | :--------- | :---------- |
-   | [**`cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) | [**`cmdTests`**](project/scripts/cmdTests) |
-   | [**`bootstrapCmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) | [**`bootstrapCmdTests`**](project/scripts/bootstrapCmdTests) |
-   | [**`genDocs.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) | [**`genDocs`**](project/scripts/genDocs)|
+   | [**`cmdTests.bat`**](bin/dotty/project/scripts/cmdTests.bat) | [**`cmdTests`**](https://github.com/michelou/dotty/blob/master/project/scripts/cmdTests) |
+   | [**`bootstrapCmdTests.bat`**](bin/dotty/project/scripts/bootstrapCmdTests.bat) | [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/blob/master/project/scripts/bootstrapCmdTests) |
+   | [**`genDocs.bat`**](bin/dotty/project/scripts/genDocs.bat) | [**`genDocs`**](https://github.com/michelou/dotty/blob/master/project/scripts/genDocs)|
 
 
 ## <span id="contribs">Contributions</span>
@@ -221,7 +222,7 @@ We have come across several issues <sup id="anchor_04"><a href="#footnote_04">[4
 | [#5487](https://github.com/lampepfl/dotty/pull/5487) | [merged](https://github.com/lampepfl/dotty/commit/052c3b1) | **`build bootstrap`** |
 | [#5457](https://github.com/lampepfl/dotty/pull/5457) | [merged](https://github.com/lampepfl/dotty/commit/eb175cb) | **`build compile`** |
 | [#5452](https://github.com/lampepfl/dotty/pull/5452) | [merged](https://github.com/lampepfl/dotty/commit/7e093b15ff2a927212c7f40aa36b71d0a28f81b5) | Code review |
-| [#5444](https://github.com/lampepfl/dotty/pull/5444) | *pending* | Batch commands |
+| [#5444](https://github.com/lampepfl/dotty/pull/5444) | [closed](https://github.com/lampepfl/dotty/pull/5444#issuecomment-567178490) | Batch commands |
 | [#5430](https://github.com/lampepfl/dotty/pull/5430) | [merged](https://github.com/lampepfl/dotty/commit/81b30383800495c64f2c8cfd0979e69e504104bc) | **`build documentation`** |
 
 > **&#9755;** Related pull requests from other contributors include:<br/>
@@ -279,7 +280,7 @@ Command **`build -verbose cleanall`** also displays the tool paths/options and t
 Tool paths
    GIT_CMD=C:\opt\Git-2.24.1\bin\git.exe
    JAVA_CMD=C:\opt\jdk-1.8.0_232-b09\bin\java.exe
-   SBT_CMD=C:\opt\sbt-1.3.4\bin\sbt.bat
+   SBT_CMD=C:\opt\sbt-1.3.5\bin\sbt.bat
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
    SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -713,7 +714,7 @@ We fixed our local Git settings as follows:
 [ruby_lang]: https://www.ruby-lang.org/en/
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.4
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.5
 [unix_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation

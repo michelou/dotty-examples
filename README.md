@@ -25,7 +25,7 @@ This document is part of a series of topics related to [Dotty] on Windows:
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
-- [Dotty 0.20][dotty_releases] ([*release notes*][dotty_relnotes])
+- [Dotty 0.21][dotty_releases] ([*release notes*][dotty_relnotes])
 - [Oracle OpenJDK 8][oracle_openjdk] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk_relnotes])
 <!--
 8u212 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
@@ -41,6 +41,7 @@ Optionally one may also install the following software:
 - [Git 2.24][git_releases] ([*release notes*][git_relnotes])
 - [Gradle 6.0][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [Mill 0.5][mill_releases] ([*change log*][mill_changelog])
+- [Python 3.8][python_release] ([*change log*][python_changelog])
 - [SBT 1.3][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
 
@@ -55,7 +56,7 @@ C:\opt\apache-ant-1.10.7\    <i>( 39.9 MB)</i>
 C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
 C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
 C:\opt\cfr-0.148\            <i>(  1.7 MB)</i>
-C:\opt\dotty-0.20.0-RC1\     <i>( 25.2 MB)</i>
+C:\opt\dotty-0.21.0-RC1\     <i>( 25.2 MB)</i>
 C:\opt\Git-2.24.1\           <i>(277.0 MB)</i>
 C:\opt\gradle-6.0.1\         <i>(103.0 MB)</i>
 C:\opt\Mill-0.5.3\           <i>( 49.0 MB)</i>
@@ -72,7 +73,7 @@ This project is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
 bin\cfr-0.148.zip
-bin\0.20\*.bat
+bin\0.21\*.bat
 bin\dotty\
 docs\
 dotty\     <i>(Git submodule)</i>
@@ -86,7 +87,7 @@ where
 
 - directory [**`bin\`**](bin/) provides several utility batch files.
 - file [**`bin\cfr-0.148.zip`**](bin/cfr-0.148.zip) contains a zipped distribution of [CFR][cfr_releases].
-- directory [**`bin\0.20\`**](bin/0.20/) contains the batch commands for [Dotty 0.20][dotty_relnotes].
+- directory [**`bin\0.21\`**](bin/0.21/) contains the batch commands for [Dotty 0.21][dotty_relnotes].
 - directory [**`bin\dotty\`**](bin/dotty/) contains several [batch files][windows_batch_file]/[bash scripts][unix_bash_script] for building the [Dotty] software distribution on a Windows machine.. 
 - directory [**`docs\`**](docs/) contains [Dotty] related papers/articles.
 - directory **`dotty\`** contains our fork of the [lampepfl/dotty][github_lampepfl_dotty] repository as a [Github submodule](.gitmodules).
@@ -112,7 +113,7 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch/bash commands:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**][javac_cli], [**`scalac.bat`**][scalac_cli] and [**`dotc.bat`**](bin/0.20/dotc.bat)directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
+1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**][javac_cli], [**`scalac.bat`**][scalac_cli] and [**`dotc.bat`**](bin/0.21/dotc.bat)directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
 
    <pre style="font-size:80%;">
    <b>&gt; setenv help</b>
@@ -135,11 +136,11 @@ We distinguish different sets of batch/bash commands:
    - [**`timeit.bat <cmd_1> { & <cmd_2> }`**](bin/timeit.bat) prints the execution time of the specified commands.
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory [**`bin\0.20\`**](bin/0.20/) - This directory contains batch files to be copied to the **`bin\`** directory of the [Dotty] installation (eg. **`C:\opt\dotty-0.20.0-RC1\bin\`**) in order to use the [**`dotc`**](bin/0.20/dotc.bat), [**`dotd`**](bin/0.20/dotd.bat) and [**`dotr`**](bin/0.20/dotr.bat) commands on **Microsoft Windows**.
+3. Directory [**`bin\0.21\`**](bin/0.21/) - This directory contains batch files to be copied to the **`bin\`** directory of the [Dotty] installation (eg. **`C:\opt\dotty-0.21.0-RC1\bin\`**) in order to use the [**`dotc`**](bin/0.21/dotc.bat), [**`dotd`**](bin/0.21/dotd.bat) and [**`dotr`**](bin/0.21/dotr.bat) commands on **Microsoft Windows**.
     > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Dotty distribution][dotty_releases]. We also have submitted pull request [#5444][github_PR5444] to add them to the Dotty distribution.
 
     <pre style="font-size:80%;">
-    <b>&gt; dir /b c:\opt\dotty-0.20.0-RC1\bin</b>
+    <b>&gt; dir /b c:\opt\dotty-0.21.0-RC1\bin</b>
     common
     common.bat
     dotc
@@ -268,7 +269,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
 Tool versions:
-   javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.20.0-RC1,
+   javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.21.0-RC1,
    ant 1.10.7, gradle 6.0, mill 0.5.3, mvn 3.6.3, sbt 1.3.5/2.12.10,
    cfr 0.148, bloop v1.3.4, git 2.24.1.windows.2, diff 3.7
 
@@ -282,7 +283,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <pre style="font-size:80%;">
 <b>&gt; setenv -verbose</b>
 Tool versions:
-   javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.20.0-RC1,
+   javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.21.0-RC1,
    ant 1.10.7, gradle 6.0.1, mill 0.5.3, mvn 3.6.3, sbt 1.3.5/2.12.10,
    cfr 0.148, bloop v1.3.4, git 2.24.1.windows.2, diff 3.7
 Tool paths:
@@ -291,7 +292,7 @@ Tool paths:
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\Program Files (x86)\Common Files\Oracle\Java\javapath\java.exe
    C:\opt\scala-2.13.1\bin\scalac.bat
-   C:\opt\dotty-0.20.0-RC1\bin\dotc.bat
+   C:\opt\dotty-0.21.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.7\bin\ant.bat
    C:\opt\gradle-6.0.1\bin\gradle.bat
    C:\opt\Mill-0.5.3\mill.bat
@@ -303,7 +304,7 @@ Tool paths:
    C:\opt\Git-2.24.1\usr\bin\diff.exe
 Environment variables:
    ANT_HOME=C:\opt\apache-ant-1.10.7
-   DOTTY_HOME=C:\opt\dotty-0.20.0-RC1
+   DOTTY_HOME=C:\opt\dotty-0.21.0-RC1
    JAVA_HOME=C:\opt\jdk-1.8.0_232-b09
    JAVA11_HOME=C:\opt\jdk-11.0.5+10
    SCALA_HOME=C:\opt\scala-2.13.1
@@ -325,10 +326,10 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; dirsize examples myexamples c:\opt\dotty-0.20.0-RC1 c:\opt\jdk-1.8.0_232-b09</b>
+<b>&gt; dirsize examples myexamples c:\opt\dotty-0.21.0-RC1 c:\opt\jdk-1.8.0_232-b09</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
-Size of directory "c:\opt\dotty-0.20.0-RC1" is 25.2 Mb
+Size of directory "c:\opt\dotty-0.21.0-RC1" is 25.2 Mb
 Size of directory "c:\opt\jdk-1.8.0_232-b09" is 184.1 Mb
 </pre>
 
@@ -369,7 +370,7 @@ Downloading file dotty-doc_0.21-0.21.0-bin-20191212-debe978-NIGHTLY.jar ... 1 Mb
 Finished to download 9 files to directory W:\DOTTY-~1\out\nightly-jars
 </pre>
 
-We can now replace the library files from the original [Dotty distribution][dotty_releases] (installed in directory **`C:\opt\dotty-0.20.0-RC1\`** in our case) with library files from the latest nightly build.
+We can now replace the library files from the original [Dotty distribution][dotty_releases] (installed in directory **`C:\opt\dotty-0.21.0-RC1\`** in our case) with library files from the latest nightly build.
 
 Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in the [Dotty] installation directory.
 
@@ -382,27 +383,27 @@ Activate nightly build libraries: 0.21.0-bin-20191212-debe978-NIGHTLY
 Dotty compiler version 0.21.0-bin-20191212-debe978-NIGHTLY-git-debe978 -- Copyright 2002-2019, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
-Activate default Dotty libraries: 0.20.0-RC1
+Activate default Dotty libraries: 0.21.0-RC1
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.20.0-RC1 -- Copyright 2002-2019, LAMP/EPFL
+Dotty compiler version 0.21.0-RC1 -- Copyright 2002-2019, LAMP/EPFL
 </pre>
 
-> **:warning:** You need *write access* to the [Dotty] installation directory (e.g. **`C:\opt\dotty-0.20.0-RC1\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
+> **:warning:** You need *write access* to the [Dotty] installation directory (e.g. **`C:\opt\dotty-0.21.0-RC1\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
 
 Internally command [**`getnightly`**](bin/getnightly.bat) manages two sets of libraries files which are organized as follows:
 
 <pre style="font-size:80%;">
-<b>&gt; pushd c:\opt\dotty-0.20.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd</b>
+<b>&gt; pushd c:\opt\dotty-0.21.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd</b>
 VERSION
 VERSION-NIGHTLY
-lib\0.20.0-RC1\
-&nbsp;&nbsp;dist_0.20-0.20.0-RC1.jar
-&nbsp;&nbsp;dotty-compiler_0.20-0.20.0-RC1.jar
-&nbsp;&nbsp;dotty-doc_0.20-0.20.0-RC1.jar
-&nbsp;&nbsp;dotty-interfaces-0.20.0-RC1.jar
-&nbsp;&nbsp;dotty-library_0.20-0.20.0-RC1.jar
-&nbsp;&nbsp;dotty-staging_0.20-0.20.0-RC1.jar
+lib\0.21.0-RC1\
+&nbsp;&nbsp;dist_0.21-0.21.0-RC1.jar
+&nbsp;&nbsp;dotty-compiler_0.21-0.21.0-RC1.jar
+&nbsp;&nbsp;dotty-doc_0.21-0.21.0-RC1.jar
+&nbsp;&nbsp;dotty-interfaces-0.21.0-RC1.jar
+&nbsp;&nbsp;dotty-library_0.21-0.21.0-RC1.jar
+&nbsp;&nbsp;dotty-staging_0.21-0.21.0-RC1.jar
 lib\0.21.0-bin-20191211-731ee3c-NIGHTLY\
 &nbsp;&nbsp;dotty-compiler_0.21-0.21.0-bin-20191211-731ee3c-NIGHTLY.jar
 &nbsp;&nbsp;dotty-doc_0.21-0.21.0-bin-20191211-731ee3c-NIGHTLY.jar
@@ -553,8 +554,8 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 
 | Project file | Variable | Example |
 | :----------- | :------: | :------ |
-| `build.sbt` | `dottyVersion` | `0.18.1-RC1` &rarr; `0.20.0-RC1`|
-| `build.sc` | `scalaVersion` | `0.18.1-RC1` &rarr; `0.20.0-RC1` |
+| `build.sbt` | `dottyVersion` | `0.18.1-RC1` &rarr; `0.21.0-RC1`|
+| `build.sc` | `scalaVersion` | `0.18.1-RC1` &rarr; `0.21.0-RC1` |
 | `project\build.properties` | `sbt.version` | `1.3.0` &rarr; `1.3.2` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.3.3` &rarr; `0.3.4` |
 
@@ -606,8 +607,8 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 
 <pre style="font-size:80%;">
 <b>&gt; where dotr</b>
-C:\opt\dotty-0.20.0-RC1\bin\dotr
-C:\opt\dotty-0.20.0-RC1\bin\dotr.bat
+C:\opt\dotty-0.21.0-RC1\bin\dotr
+C:\opt\dotty-0.21.0-RC1\bin\dotr.bat
 
 <b>&gt; dotr -version</b>
 openjdk version "1.8.0_232"
@@ -630,7 +631,7 @@ The REPL has several commands available:
 val res0: String = C:\opt\jdk-1.8.0_232-b09
 
 <b>scala&gt;</b> System.getenv().get("DOTTY_HOME")
-val res1: String = C:\opt\dotty-0.20.0-RC1
+val res1: String = C:\opt\dotty-0.21.0-RC1
 
 <b>scala&gt;</b> :load myexamples/HelloWorld/src/main/scala/HelloWorld.scala
 // defined object HelloWorld
@@ -691,7 +692,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="http://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                      <i>(  9 MB)</i>
-<a href="https://github.com/lampepfl/dotty/releases/tag/0.20.0-RC1">dotty-0.20.0-RC1.zip</a>                            <i>( 23 MB)</i>
+<a href="https://github.com/lampepfl/dotty/releases/tag/0.21.0-RC1">dotty-0.21.0-RC1.zip</a>                            <i>( 23 MB)</i>
 <a href="https://gradle.org/install/">gradle-6.0.1-bin.zip</a><i>                            ( 90 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u232b09.zip</a>  <i>( 99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.24.1-64-bit.7z.exe</a>                <i>( 41 MB)</i>
@@ -724,7 +725,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_nightly]: https://search.maven.org/search?q=g:ch.epfl.lamp
 [dotty_releases]: https://github.com/lampepfl/dotty/releases
-[dotty_relnotes]: https://github.com/lampepfl/dotty/releases/tag/0.20.0-RC1
+[dotty_relnotes]: https://github.com/lampepfl/dotty/releases/tag/0.21.0-RC1
 [dotty_repl]: https://docs.scala-lang.org/overviews/repl/overview.html
 [github_dotr]: https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr
 [git_cli]: https://git-scm.com/docs/git
@@ -764,6 +765,8 @@ Command Prompt has been around for as long as we can remember, but starting with
 [mill_releases]: https://github.com/lihaoyi/mill/releases/
 [oracle_openjdk]: https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot
 [oracle_openjdk_relnotes]: http://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
+[python_changelog]: https://docs.python.org/3.8/whatsnew/changelog.html#python-3-8-0-final
+[python_release]: https://www.python.org/downloads/release/python-380/
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_downloads]: https://www.scala-sbt.org/download.html
 [sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html

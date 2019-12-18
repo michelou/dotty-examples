@@ -99,7 +99,7 @@ No compilation needed (1 source files)</pre>
 > For simplicity the [**`build`**](enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
 > <b>&gt; type project\build.properties</b>
-> sbt.version=1.3.4
+> sbt.version=1.3.5
 > main.class=Planet
 > main.args=1
 > </pre>
@@ -125,12 +125,12 @@ plugins {
     id <span style="color:#990000;">"java"</span>
 }
 &nbsp;
-apply from: <span style="color:#990000;">"../common.gradle"</span>
-&nbsp;
 group <span style="color:#990000;">"$appGroup"</span>
 version <span style="color:#990000;">"$appVersion"</span>
 &nbsp;
 description <span style="color:#990000;">"""Gradle example project to build/run Scala 3 code"""</span>
+&nbsp;
+apply from: <span style="color:#990000;">"../common.gradle"</span>
 &nbsp;
 run.doFirst {
     main scalaMainClassName
@@ -212,7 +212,7 @@ Command [**`sbt`**][sbt_cli] is a Scala-based build tool for [Scala] and Java.
 The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is a standalone file written in [Scala] and it obeys the [sbt build definitions][sbt_docs_defs].
 
 <pre style="font-size:80%;">
-<b>val</b> dottyVersion = <span style="color:#990000;">"0.20.0-RC1"</span>
+<b>val</b> dottyVersion = <span style="color:#990000;">"0.21.0-RC1"</span>
 &nbsp;
 <b>lazy val</b> root = project
   .in(file("."))
@@ -255,7 +255,7 @@ The configuration file [**`build.sc`**](enum-Planet/build.sc) is a standalone fi
 <b>import</b> mill._, scalalib._
 &nbsp;
 <b>object</b> go <b>extends</b> ScalaModule {
-  <b>def</b> scalaVersion = <span style="color:#990000;">"0.20.0-RC1"</span>  <span style="color:#009900;">// "2.12.18"</span>
+  <b>def</b> scalaVersion = <span style="color:#990000;">"0.21.0-RC1"</span>  <span style="color:#009900;">// "2.12.18"</span>
   <b>def</b> scalacOptions = Seq(<span style="color:#990000;">"-deprecation"</span>, <span style="color:#990000;">"-feature"</span>)
   <b>def</b> forkArgs = Seq(<span style="color:#990000;">"-Xmx1g"</span>)
   <b>def</b> mainClass = Some(<span style="color:#990000;">"Planet"</span>)
@@ -360,7 +360,7 @@ Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
    [delete] Deleting directory W:\dotty-examples\examples\enum-Planet\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] DOTTY_HOME=C:\opt\dotty-0.20.0-RC1
+     [echo] DOTTY_HOME=C:\opt\dotty-0.21.0-RC1
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -389,7 +389,7 @@ Total time: 14 seconds
 
 Command [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) is a Java-based build tool maintained by the [Apache Software Foundation](https://maven.apache.org/docs/history.html) (tool created in 2002). It works with XML-based configuration files and provides a way to share JARs across several projects.
 
-The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enum-Planet\`**](enum-Planet/) depends on the parent file [**`pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
+The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enum-Planet\`**](enum-Planet/) depends on the parent file [**`../pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
 
 <pre style="font-size:80%;">
 <b>&lt;?xml</b> version="1.0" encoding="UTF-8"<b>?&gt;</b>
@@ -406,12 +406,12 @@ The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enu
     <b>&lt;/dependencies&gt;</b>
     <b>&lt;build&gt;</b>
         <b>&lt;sourceDirectory&gt;</b>src/main<b>&lt;/sourceDirectory&gt;</b>
-        &lt;testSourceDirectory>src/test<b>&lt;/testSourceDirectory&gt;</b>
-        &lt;outputDirectory>target/classes<b>&lt;/outputDirectory&gt;</b>
+        <b>&lt;testSourceDirectory&gt;</b>src/test<b>&lt;/testSourceDirectory&gt;</b>
+        <b>&lt;outputDirectory&gt;</b>target/classes<b>&lt;/outputDirectory&gt;</b>
         <b>&lt;plugins&gt;</b>
             <b>&lt;plugin&gt;</b>
-                &lt;groupId>org.apache.maven.plugins<b>&lt;/groupId&gt;</b>
-                &lt;artifactId>maven-compiler-plugin<b>&lt;/artifactId&gt;</b>
+                <b>&lt;groupId&gt;</b>org.apache.maven.plugins<b>&lt;/groupId&gt;</b>
+                <b>&lt;artifactId&gt;</b>maven-compiler-plugin<b>&lt;/artifactId&gt;</b>
                 ...
                 <b>&lt;configuration&gt;</b>
                     ...
@@ -434,21 +434,67 @@ The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enu
 <b>&lt;/project&gt;</b>
 </pre>
 
+> **&#9755;** **Scala Maven Plugin**<br/>
+> We note in the above Maven configuration file the presence of the Maven plugin [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip). In fact the parent file [**`../pom.xml`**](pom.xml) depends on [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip), a Maven plugin we developed specifically for this project:
+>
+> <pre style="font-size:80%;">
+> <b>&gt; more ..\pom.xml</b>
+> &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+> ...
+>     <b>&lt;properties&gt;</b>
+>         <b>&lt;project.build.sourceEncoding&gt;</b>UTF-8<b>&lt;/project.build.sourceEncoding&gt;</b>
+>         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
+> &nbsp;
+>         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
+>         <b>&lt;scala.version&gt;</b>0.21.0-RC1<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
+> &nbsp;
+>         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
+>         <b>&lt;scala.maven.version&gt;</b>1.0-SNAPSHOT<b>&lt;/scala.maven.version&gt;</b>
+>         ...
+>     <b>&lt;/properties&gt;</b>
+>     <b>&lt;dependencies&gt;</b>
+>         <b>&lt;dependency&gt;</b>
+>             <b>&lt;groupId&gt;</b>ch.epfl.alumni<b>&lt;/groupId&gt;</b>
+>             <b>&lt;artifactId&gt;</b>scala-maven-plugin<b>&lt;/artifactId&gt;</b>
+>             <b>&lt;version&gt;</b>${scala.maven.version}<b>&lt;/version&gt;</b>
+>         <b>&lt;/dependency&gt;</b>
+>         ...
+>     <b>&lt;/dependencies&gt;</b>
+>
+> <b>&lt;/project&gt;</b>
+> </pre>
+> The plugin is available as [Zip archive][zip_archive] and its installation is deliberately very simple:
+> <pre style="font-size:80%;">
+> <b>&gt; unzip ..\bin\scala-maven-plugin-1.0.zip %USERPROFILE%\.m2\repository\</b>
+> <b>&gt; tree /a /f %USERPROFILE%\.m2\repository\ch\epfl\alumni | findstr /v "^[A-Z]"</b>
+> |   maven-metadata-local.xml
+> |
+> \---scala-maven-plugin
+>     |   maven-metadata-local.xml
+>     |
+>     \---1.0-SNAPSHOT
+>             maven-metadata-local.xml
+>             scala-maven-plugin-1.0-SNAPSHOT.jar
+>             scala-maven-plugin-1.0-SNAPSHOT.pom
+>             _remote.repositories
+> </pre>
+
 Running command **` mvn compile test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our Maven plugin **`scala-maven-plugin`**:
 
 <pre>
 <b>&gt; mvn -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-8.0_232-b09\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.20.0-RC1 \
- -cp C:\opt\dotty-0.20.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-1.0-RC1 \
+ -cp C:\opt\dotty-0.21.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-8.0_232-b09\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.20.0-RC1 [...]
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.21.0-RC1 [...]
 [DEBUG] [execute] C:\opt\jdk-8.0_232-b09\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.20.0-RC1\lib\*.jar;\
+ -Xms64m -Xmx1024m -cp C:\opt\dotty-0.21.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -483,7 +529,7 @@ Your weight on JUPITER is 2.5305575254957406
 <b>&gt; java -version 2>&1 | findstr version</b>
 openjdk version "11.0.5" 2019-10-15
 
-<b>&gt; java -Xbootclasspath/a:"c:\opt\dotty-0.20.0-RC1\lib\dotty-library_0.20-0.20.0-RC1.jar;c:\opt\dotty-0.20.0-RC1\lib\scala-library-2.13.1.jar" -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
+<b>&gt; java -Xbootclasspath/a:"c:\opt\dotty-0.21.0-RC1\lib\dotty-library_0.21-0.21.0-RC1.jar;c:\opt\dotty-0.21.0-RC1\lib\scala-library-2.13.1.jar" -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -516,35 +562,35 @@ rem ## Environment setup</i>
 
 <b>set</b> _EXITCODE=0
 
-<b>for</b> %%f <b>in</b> ("%~dp0") <b>do set</b> _ROOT_DIR=%%~sf
+<b>for</b> <span style="color:#ff3333;">%%f</span> <b>in</b> ("%~dp0") <b>do set</b> _ROOT_DIR=<span style="color:#ff3333;">%%~sf</span>
 
 <b>call <span style="color:#9966ff;">:env</span></b>
-<b>if not</b> %_EXITCODE%==0 <b>goto <span style="color:#9966ff;">end</span></b>
+<b>if not</b> <span style="color:#ff3333;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
 
 <b>call <span style="color:#9966ff;">:props</span></b>
-<b>if not</b> %_EXITCODE%==0 <b>goto <span style="color:#9966ff;">end</span></b>
+<b>if not</b> <span style="color:#ff3333;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
 
 <b>call <span style="color:#9966ff;">:args</span> %*</b>
-<b>if not</b> %_EXITCODE%==0 <b>goto <span style="color:#9966ff;">end</span></b>
+<b>if not</b> <span style="color:#ff3333;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
 
 <i style="color:#66aa66;">rem ##########################################################################
 rem ## Main</i>
 
-<b>if</b> %_CLEAN%==1 (
+<b>if</b> <span style="color:#ff3333;">%_CLEAN%</span>==1 (
     <b>call :clean</b>
-    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
+    <b>if not</b> <span style="color:#ff3333;">!_EXITCODE!</span>==0 <b>goto end</b>
 )
-<b>if</b> %_COMPILE%==1 (
+<b>if</b> <span style="color:#ff3333;">%_COMPILE%</span>==1 (
     <b>call <span style="color:#9966ff;">:compile</span></b>
-    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
+    <b>if not</b> <span style="color:#ff3333;">!_EXITCODE!</span>==0 <b>goto end</b>
 )
-<b>if</b> %_DOC%==1 (
+<b>if</b> <span style="color:#ff3333;">%_DOC%</span>==1 (
     <b>call <span style="color:#9966ff;">:doc</span></b>
-    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
+    <b>if not</b> <span style="color:#ff3333;">!_EXITCODE!</span>==0 <b>goto end</b>
 )
-<b>if</b> %_RUN%==1 (
+<b>if</b> <span style="color:#ff3333;">%_RUN%</span>==1 (
     <b>call <span style="color:#9966ff;">:run</span></b>
-    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
+    <b>if not</b> <span style="color:#ff3333;">!_EXITCODE!</span>==0 <b>goto end</b>
 )
 <b>goto <span style="color:#9966ff;">end</span></b>
 
@@ -578,7 +624,7 @@ rem ## Cleanups</i>
 
 <span style="color:#9966ff;">:end</span>
 ...
-<b>exit</b> /b %_EXITCODE%
+<b>exit</b> /b <span style="color:#ff3333;">%_EXITCODE%</span>
 </pre>
 
 ***
@@ -607,3 +653,4 @@ rem ## Cleanups</i>
 [sbt_docs_defs]: https://www.scala-sbt.org/1.0/docs/Basic-Def.html
 [scala]: https://www.scala-lang.org/
 [windows_stderr]: https://support.microsoft.com/en-us/help/110930/redirecting-error-messages-from-command-prompt-stderr-stdout
+[zip_archive]: https://www.howtogeek.com/178146/

@@ -464,7 +464,8 @@ if not exist "%__PYTHON_HOME%\python.exe" (
     set _EXITCODE=1
     goto :eof
 )
-set "_PYTHON_PATH=;%__PYTHON_HOME%"
+rem variable _PYTHON_PATH is prepended to PATH, so path separator must appear as last character
+set "_PYTHON_PATH=%__PYTHON_HOME%;"
 goto :eof
 
 rem output parameter(s): _BLOOP_PATH
@@ -567,6 +568,7 @@ set __GIT_HOME=%~2
 set __VERSIONS_LINE1=
 set __VERSIONS_LINE2=
 set __VERSIONS_LINE3=
+set __VERSIONS_LINE4=
 set __WHERE_ARGS=
 where /q javac.exe
 if %ERRORLEVEL%==0 (
@@ -618,30 +620,39 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('cfr.bat 2^>^&1 ^| findstr /b CFR') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% cfr %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% cfr.bat
 )
+where /q python.exe
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,*" %%i in ('python.exe --version 2^>^&1') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% python %%j,"
+    set __WHERE_ARGS=%__WHERE_ARGS% python.exe
+)
 where /q bloop.cmd
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('bloop.cmd about 2^>^&1 ^| findstr /b bloop') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bloop %%j,"
+    start /min "bloop_8212" bloop.cmd server
+	timeout /t 2 /nobreak 1>NUL
+    for /f "tokens=1,*" %%i in ('bloop.cmd about --version 2^>^&1 ^| findstr /b bloop') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bloop %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% bloop.cmd
+	taskkill.exe /fi "WindowTitle eq bloop_8212*" /t /f 1>NUL
 )
 where /q git.exe
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1,2,*" %%i in ('git.exe --version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% git %%k,"
+   for /f "tokens=1,2,*" %%i in ('git.exe --version') do set "__VERSIONS_LINE4=%__VERSIONS_LINE4% git %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% git.exe
 )
 where /q diff.exe
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1-3,*" %%i in ('diff.exe --version ^| findstr diff') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% diff %%l,"
+   for /f "tokens=1-3,*" %%i in ('diff.exe --version ^| findstr diff') do set "__VERSIONS_LINE4=%__VERSIONS_LINE4% diff %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% diff.exe
 )
 where /q "%__GIT_HOME%\bin":bash.exe
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-3,4,*" %%i in ('"%__GIT_HOME%\bin\bash.exe" --version ^| findstr bash') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bash %%l"
+    for /f "tokens=1-3,4,*" %%i in ('"%__GIT_HOME%\bin\bash.exe" --version ^| findstr bash') do set "__VERSIONS_LINE4=%__VERSIONS_LINE4% bash %%l"
     set __WHERE_ARGS=%__WHERE_ARGS% "%__GIT_HOME%\bin:bash.exe"
 )
 echo Tool versions:
 echo   %__VERSIONS_LINE1%
 echo   %__VERSIONS_LINE2%
 echo   %__VERSIONS_LINE3%
+echo   %__VERSIONS_LINE4%
 if %__VERBOSE%==1 (
     echo Tool paths: 1>&2
     for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p 1>&2
