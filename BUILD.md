@@ -6,7 +6,7 @@
     <a href="http://dotty.epfl.ch/"><img style="border:0;width:80px;" src="docs/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This document describes changes we made to the <a href="https://github.com/lampepfl/dotty/">lampepfl/dotty</a> repository in order to reproduce the same build/test steps locally on a Windows machine.
+    Source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server <sup id="anchor_00"><a href="#footnote_00">[0]</a></sup> from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This document describes changes we made to the <a href="https://github.com/lampepfl/dotty/">lampepfl/dotty</a> repository in order to reproduce the same build/test steps locally on a Windows machine.
   </td>
   </tr>
 </table>
@@ -19,19 +19,6 @@ This document is part of a series of topics related to [Dotty] on Windows:
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
 [JMH], [Metaprogramming][dotty_metaprogramming], [GraalSqueak][graalsqueak_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples] and [LLVM][llvm_examples] are other topics we are currently investigating.
-
-> **&#9755;** ***Continuous Integration/Delivery*** (CI/CD)<br/>
-> (steps: Checkout **&rarr;** Compile **&rarr;** Test **&rarr;** Deploy)
-> 
-> | Software | CI/CD&nbsp;service | Hosting |
-> | :------: | :------------ | :------ |
-> | [Dotty][dotty_ci] | [Drone](https://drone.io/) <sup>**(1)**</sup> | [EPFL][dotty_ci] in Lausanne, Switzerland |
-> | [Scala](https://www.scala-lang.org/) | [Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup><br/>[Travis CI](https://docs.travis-ci.com/user/tutorial/) <sup>**(3)**</sup> | [Lightbend ](https://scala-ci.typesafe.com/) in San-Francisco, USA<br/>[Travis](https://travis-ci.org/scala/scala) in Berlin, Germany
-> | [Oracle&nbsp;OpenJDK](https://ci.adoptopenjdk.net/) | [Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup> | Oracle |
-> | [IBM OpenJ9](https://ci.eclipse.org/openj9/) | [Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup> | IBM |
->
-> <sub><sup>**(1)**</sup> Written in [Go](https://github.com/drone/drone), <sup>**(2)**</sup> Written in [Java][java_lang], <sup>**(3)**</sup> Written in [Ruby][ruby_lang].</sub>
-
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -60,17 +47,20 @@ C:\opt\sbt-1.3.5\
 
 ## Directory structure
 
-The directory structure of the [Dotty repository][github_dotty])<sup id="anchor_02">[[2]](#footnote_02)</sup>  is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin) and [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin).
+The directory structure of the [Dotty repository][github_dotty] <sup id="anchor_02">[[2]](#footnote_02)</sup>  is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/master/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts).
 
 <pre style="font-size:80%;">
-bin\dotty\build.bat
+bin\0.21\
+bin\dotty\build.bat,build.sh
+bin\dotty\bin\
 bin\dotty\project\
 dotty\      <i>(Git submodule)</i><sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>
 dotty\bin\
-dotty\dist\bin
+dotty\dist\bin\
+dotty\project\scripts\
 </pre>
 
-Concretely directories [**`dotty\bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin)and [**`dotty\dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin) contain the following additions:
+Concretely directories [**`dotty\bin\`**](https://github.com/michelou/dotty/tree/master/bin), [**`dotty\dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin) and [**`dotty\project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts) are modified with the following additions:
 
 <pre style="font-size:80%;">
 dotty\bin\common.bat
@@ -81,6 +71,10 @@ dotty\dist\bin\common.bat
 dotty\dist\bin\dotc.bat
 dotty\dist\bin\dotd.bat
 dotty\dist\bin\dotr.bat
+dotty\project\scripts\bootstrapCmdTests.bat
+dotty\project\scripts\cmdTests.bat
+dotty\project\scripts\common.bat
+dotty\project\scripts\genDocs.bat
 </pre>
 
 We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
@@ -97,12 +91,11 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. Directory [**`bin\`**](https://github.com/michelou/dotty/tree/batch-files/bin/) - This directory contains batch files used internally during the build process (see the [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) command).
-
-3. Directory [**`dist\bin\`**](https://github.com/michelou/dotty/tree/batch-files/dist/bin/) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software distribution][dotty_releases].
+1. Directory [**`bin\0.21\`**](bin/0.21) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software distribution][dotty_releases].
 
    <pre style="font-size:80%;">
-   <b>&gt; dir /b dist\bin</b>
+   <b>&gt; cp bin\0.21\*.bat dotty\dist\bin</b>
+   <b>&gt; dir /b dotty\dist\bin</b>
    common
    common.bat
    dotc
@@ -113,7 +106,7 @@ We distinguish different sets of batch commands:
    dotr.bat
    </pre>
 
-4. [**`build.bat`**](bin/dotty/build.bat)/[**`build.sh`**](bin/dotty/build.sh) - Both commands perform on a Windows machine the same build/test steps as specified in file [**`.drone.yml`**](dotty/.drone.yml) and executed on the [Dotty CI][dotty_ci] server.
+2. [**`build.bat`**](bin/dotty/build.bat)/[**`build.sh`**](bin/dotty/build.sh) - Both commands perform on a Windows machine the same build/test steps as specified in file [**`.drone.yml`**](https://github.com/michelou/dotty/blob/master/.drone.yml) and executed on the [Dotty CI][dotty_ci] server.
 
    > **:mag_right:** We get the same behavior when working with command [**`./build.sh`**](bin/dotty/build.sh) as presented below with command [**`build.bat`**](bin/dotty/build.bat).
 
@@ -184,13 +177,27 @@ We distinguish different sets of batch commands:
     > 
     > | Command | Equivalent command |
     > | :------ | :----------------- |
-    > | **`build compile`** | **`build clone compile-only`** |
-    > | **`build bootstrap`** | **`build compile bootstrap-only`** |
-    > | **`build archives`** | **`build bootstrap archives-only`** |
-    > | **`build documentation`** | **`build bootstrap documentation-only`** |
-    > | **`build sbt`** | **`build bootstrap sbt-only`** |
+    > | `build compile` | `build clone compile-only` |
+    > | `build bootstrap` | `build compile bootstrap-only` |
+    > | `build archives` | `build bootstrap archives-only` |
+    > | `build documentation` | `build bootstrap documentation-only` |
+    > | `build sbt` | `build bootstrap sbt-only` |
 
-5. [**`project\scripts\`**](bin/dotty/project/scripts/) - This directory contains bash files to performs test steps on a Windows machine in a similar manner to the shell scripts on the [Dotty CI][dotty_ci] server (see console output in section [**Usage examples**](#usage_examples)).
+3. Directory [**`bin\dotty\bin\`**](bin/dotty/bin) - This directory contains batch files used internally during the build process (see the [**`bootstrapCmdTests.bat`**](bin/dotty/project/scripts/bootstrapCmdTests.bat) command).
+   <pre style="font-size:80%;">
+   <b>&gt; cp bin\dotty\bin\*.bat dotty\bin</b>
+   <b>&gt; dir /b dotty\bin</b>
+   common
+   common.bat
+   dotc
+   dotc.bat
+   dotd
+   dotd.bat
+   dotr
+   dotr.bat
+   </pre>
+
+4. [**`bin\dotty\project\scripts\`**](bin/dotty/project/scripts/) - This directory contains bash files to performs test steps on a Windows machine in a similar manner to the shell scripts on the [Dotty CI][dotty_ci] server (see console output in section [**Usage examples**](#usage_examples)).
 
    | Batch file (**`build.bat`**) | Bash script (**`./build.sh`**) |
    | :--------- | :---------- |
@@ -616,6 +623,22 @@ total warnings with regards to compilation and documentation: 29
 </pre>
 
 ## <span id="footnotes">Footnotes</span>
+
+<a name="footnote_00">[0]</a> ***Continuous Integration/Delivery*** (CI/CD) [↩](#anchor_00)
+
+<p style="margin:0 0 1em 20px;">
+Steps are: Checkout <b>&rarr;</b> Compile <b>&rarr;</b> Test <b>&rarr;</b> Deploy.
+</p>
+<table style="margin:0 0 1em 20px;">
+<tr><th>Software</th<th>CI/CD&nbsp;service</th<th>Hosting</th></tr>
+<tr><td>[Dotty][dotty_ci]</td><td>[Drone](https://drone.io/) <sup>**(1)**</sup></td><td>[EPFL][dotty_ci] in Lausanne, Switzerland</td></tr>
+<tr><td>[Scala](https://www.scala-lang.org/)</td><td>[Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup><br/>[Travis CI](https://docs.travis-ci.com/user/tutorial/) <sup>**(3)**</sup></td><td>[Lightbend ](https://scala-ci.typesafe.com/) in San-Francisco, USA<br/>[Travis](https://travis-ci.org/scala/scala) in Berlin, Germany</td></tr>
+<tr><td>[Oracle&nbsp;OpenJDK](https://ci.adoptopenjdk.net/)</td><td>[Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup></td><td>Oracle</td></tr>
+<tr><td>[IBM OpenJ9](https://ci.eclipse.org/openj9/)</td><td>[Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup></td><td>IBM</td></tr>
+</table>
+<div style="margin:0 0 1em 20px;">
+<sub><sup><b>(1)</b></sup> Written in [Go](https://github.com/drone/drone), <sup><b>(2)</b></sup> Written in [Java][java_lang], <sup><b>(3)</b></sup> Written in [Ruby][ruby_lang].</sub>
+</div>
 
 <a name="footnote_01">[1]</a> ***Java LTS** (2018-11-18)* [↩](#anchor_01)
 

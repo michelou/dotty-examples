@@ -1,15 +1,10 @@
 @echo off
 setlocal enabledelayedexpansion
 
-rem only for interactive debugging !
-set _DEBUG=0
-
 rem ##########################################################################
 rem ## Environment setup
 
 set _EXITCODE=0
-
-set _BASENAME=%~n0
 
 for %%f in ("%~dp0..") do set _PROG_HOME=%%~sf
 
@@ -35,7 +30,6 @@ if %_CASE_1%==1 (
     if defined _CLASS_PATH set _DOTC_ARGS=-classpath "%_CLASS_PATH%"
     set _DOTC_ARGS=!_DOTC_ARGS! %_JAVA_OPTS% -repl %_RESIDUAL_ARGS%
     echo Starting dotty REPL...
-    if %_DEBUG%==1 echo [%_BASENAME%] %_PROG_HOME%\bin\dotc.bat !_DOTC_ARGS!
     %_PROG_HOME%\bin\dotc.bat !_DOTC_ARGS!
 rem elif [ $execute_repl == true ] || [ ${#residual_args[@]} -ne 0 ]; then
 ) else if %_CASE_2%==1 (
@@ -50,7 +44,6 @@ rem elif [ $execute_repl == true ] || [ ${#residual_args[@]} -ne 0 ]; then
         set _CP_ARG=!_CP_ARG!%_PSEP%%_DOTTY_COMP%%_PSEP%%_DOTTY_INTF%%_PSEP%%_SCALA_ASM%%_PSEP%%_TASTY_CORE%%_PSEP%%_DOTTY_STAGING%
     )
     set _JAVA_ARGS=%_JAVA_DEBUG% -classpath "!_CP_ARG!" %_JVM_OPTS% %_RESIDUAL_ARGS%
-    if %_DEBUG%==1 echo [%_BASENAME%] "%_JAVACMD%" !_JAVA_ARGS!
     "%_JAVACMD%" !_JAVA_ARGS!
     if not !ERRORLEVEL!==0 ( set _EXITCODE=1& goto end )
 ) else (
@@ -76,19 +69,16 @@ set _JAVA_OPTS=
 :args_loop
 if "%~1"=="" goto args_done
 set "__ARG=%~1"
-if %_DEBUG%==1 echo [%_BASENAME%] __ARG=%__ARG%
 if /i "%__ARG%"=="-repl" (
     set _EXECUTE_REPL=1
 ) else if /i "%__ARG%"=="-run" (
     set _EXECUTE_RUN=1
 ) else if /i "%__ARG%"=="-classpath" (
     set _CLASS_PATH=%~2
-    if %_DEBUG%==1 echo [%_BASENAME%] __ARG=%~2
     set /a _CLASS_PATH_COUNT+=1
     shift
 ) else if /i "%__ARG%"=="-cp" (
     set _CLASS_PATH=%~2
-    if %_DEBUG%==1 echo [%_BASENAME%] __ARG=%~2
     set /a _CLASS_PATH_COUNT+=1
     shift
 ) else if /i "%__ARG%"=="-with-compiler" (
@@ -110,6 +100,5 @@ rem ##########################################################################
 rem ## Cleanups
 
 :end
-if %_DEBUG%==1 echo [%_BASENAME%] _EXITCODE=%_EXITCODE%
 exit /b %_EXITCODE%
 endlocal
