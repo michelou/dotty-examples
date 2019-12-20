@@ -251,16 +251,25 @@ if not exist "%_SCALA_HOME%\bin\scalac.bat" (
 set "_SCALA_PATH=;%_SCALA_HOME%\bin"
 goto :eof
 
+rem output parameter(s): _DOTTY_HOME, _DOTTY_PATH
 :dotc
-where /q dotc.bat
-if %ERRORLEVEL%==0 goto :eof
+set _DOTTY_HOME=
+set _DOTTY_PATH=
 
-if defined DOTTY_HOME (
+set __DOTC_CMD=
+for /f %%f in ('where dotc.bat 2^>NUL') do set "__DOTC_CMD=%%f"
+if defined __DOTC_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Dotty executable found in PATH 1>&2
+    for %%i in ("%__DOTC_CMD%") do set "__DOTTY_BIN_DIR=%%~dpi"
+    for %%f in ("!__DOTTY_BIN_DIR!..") do set "_DOTTY_HOME=%%f"
+    rem keep _DOTTY_PATH undefined since executable already in path
+    goto :eof
+) else if defined DOTTY_HOME (
     set _DOTTY_HOME=%DOTTY_HOME%
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable DOTTY_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b /od "!_PATH!\dotty*" 2^>NUL') do set "_DOTTY_HOME=!_PATH!\%%f"
+    for /f %%f in ('dir /ad /b "!_PATH!\dotty*" 2^>NUL') do set "_DOTTY_HOME=!_PATH!\%%f"
     if defined _DOTTY_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Dotty installation directory !_DOTTY_HOME! 1>&2
     )
@@ -273,11 +282,20 @@ if not exist "%_DOTTY_HOME%\bin\dotc.bat" (
 set "_DOTTY_PATH=;%_DOTTY_HOME%\bin"
 goto :eof
 
+rem output parameter(s): _ANT_HOME, _ANT_PATH
 :ant
-where /q ant.cmd
-if %ERRORLEVEL%==0 goto :eof
+set _ANT_HOME=
+set _ANT_PATH=
 
-if defined ANT_HOME (
+set __ANT_CMD=
+for /f %%f in ('where ant.bat 2^>NUL') do set "__ANT_CMD=%%f"
+if defined __ANT_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Ant executable found in PATH 1>&2
+    for %%i in ("%__ANT_CMD%") do set "__ANT_BIN_DIR=%%~dpi"
+    for %%f in ("!__ANT_BIN_DIR!..") do set "_ANT_HOME=%%f"
+    rem keep _ANT_PATH undefined since executable already in path
+    goto :eof
+) else if defined ANT_HOME (
     set _ANT_HOME=%ANT_HOME%
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable ANT_HOME 1>&2
 ) else (
@@ -531,9 +549,9 @@ if defined __GIT_CMD (
             for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         )
     )
-	if defined _GIT_HOME (
-	    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Git installation directory "!_GIT_HOME!" 1>&2
-	)
+    if defined _GIT_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Git installation directory "!_GIT_HOME!" 1>&2
+    )
 )
 if not exist "%_GIT_HOME%\bin\git.exe" (
     echo %_ERROR_LABEL% Git executable not found ^(%_GIT_HOME%^) 1>&2
@@ -628,10 +646,10 @@ if %ERRORLEVEL%==0 (
 where /q bloop.cmd
 if %ERRORLEVEL%==0 (
     start /min "bloop_8212" bloop.cmd server
-	timeout /t 2 /nobreak 1>NUL
+    timeout /t 2 /nobreak 1>NUL
     for /f "tokens=1,*" %%i in ('bloop.cmd about --version 2^>^&1 ^| findstr /b bloop') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bloop %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% bloop.cmd
-	taskkill.exe /fi "WindowTitle eq bloop_8212*" /t /f 1>NUL
+    taskkill.exe /fi "WindowTitle eq bloop_8212*" /t /f 1>NUL
 )
 where /q git.exe
 if %ERRORLEVEL%==0 (

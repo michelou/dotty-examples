@@ -3,7 +3,7 @@ val dottyVersion = "0.21.0-RC1"
 lazy val root = project
   .in(file("."))
   .settings(
-    name := "ImplicitDemo",
+    name := "cdsexamples.Main",
     description := "sbt example project to build/run Scala 3 code",
     version := "0.1.0",
 

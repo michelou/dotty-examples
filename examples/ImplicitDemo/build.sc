@@ -4,7 +4,7 @@ object go extends ScalaModule {
   def scalaVersion = "0.21.0-RC1"  // "2.12.18"
   def scalacOptions = Seq("-deprecation", "-feature")
   def forkArgs = Seq("-Xmx1g")
-  def mainClass = Some("hello")
+  def mainClass = Some("ImplicitDemo")
   def sources = T.sources { os.pwd / "src" }
   def clean() = T.command {
     val path = os.pwd / "out" / "go"

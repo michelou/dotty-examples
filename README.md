@@ -59,7 +59,7 @@ C:\opt\cfr-0.148\            <i>(  1.7 MB)</i>
 C:\opt\dotty-0.21.0-RC1\     <i>( 43.7 MB)</i><sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>
 C:\opt\Git-2.24.1\           <i>(277.0 MB)</i>
 C:\opt\gradle-6.0.1\         <i>(103.0 MB)</i>
-C:\opt\Mill-0.5.3\           <i>( 49.0 MB)</i>
+C:\opt\Mill-0.5.6\           <i>( 40.9 MB)</i>
 C:\opt\sbt-1.3.5\            <i>( 55.1 MB)</i>
 C:\opt\scala-2.13.1\         <i>( 20.1 MB)</i>
 </pre>
@@ -88,7 +88,7 @@ where
 - directory [**`bin\`**](bin/) provides several utility batch files.
 - file [**`bin\cfr-0.148.zip`**](bin/cfr-0.148.zip) contains a zipped distribution of [CFR][cfr_releases].
 - directory [**`bin\0.21\`**](bin/0.21/) contains the batch commands for [Dotty 0.21][dotty_relnotes].
-- directory [**`bin\dotty\`**](bin/dotty/) contains several [batch files][windows_batch_file]/[bash scripts][unix_bash_script] for building the [Dotty] software distribution on a Windows machine.. 
+- directory [**`bin\dotty\`**](bin/dotty/) contains several [batch files][windows_batch_file]/[bash scripts][unix_bash_script] for building the [Dotty] software distribution on a Windows machine.
 - directory [**`docs\`**](docs/) contains [Dotty] related papers/articles.
 - directory **`dotty\`** contains our fork of the [lampepfl/dotty][github_lampepfl_dotty] repository as a [Github submodule](.gitmodules).
 - directory [**`examples\`**](examples/) contains [Dotty] examples grabbed from various websites (see file [**`examples\README.md`**](examples/README.md)).
@@ -270,7 +270,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.21.0-RC1,
-   ant 1.10.7, gradle 6.0, mill 0.5.3, mvn 3.6.3, sbt 1.3.5/2.12.10,
+   ant 1.10.7, gradle 6.0, mill 0.5.6, mvn 3.6.3, sbt 1.3.5/2.12.10,
    cfr 0.148, bloop v1.3.4, git 2.24.1.windows.2, diff 3.7
 
 <b>&gt; where sbt</b>
@@ -284,7 +284,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.21.0-RC1,
-   ant 1.10.7, gradle 6.0.1, mill 0.5.3, mvn 3.6.3, sbt 1.3.5/2.12.10,
+   ant 1.10.7, gradle 6.0.1, mill 0.5.6, mvn 3.6.3, sbt 1.3.5/2.12.10,
    cfr 0.148, bloop v1.3.4, git 2.24.1.windows.2, diff 3.7
 Tool paths:
    C:\opt\jdk-1.8.0_232-b09\bin\javac.exe
@@ -295,7 +295,7 @@ Tool paths:
    C:\opt\dotty-0.21.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.7\bin\ant.bat
    C:\opt\gradle-6.0.1\bin\gradle.bat
-   C:\opt\Mill-0.5.3\mill.bat
+   C:\opt\Mill-0.5.6\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
    C:\opt\sbt-1.3.5\bin\sbt.bat
    C:\opt\cfr-0.148\bin\cfr.bat
