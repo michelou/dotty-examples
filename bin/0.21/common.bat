@@ -14,20 +14,18 @@ if defined JAVACMD (
         for /f "delims=" %%i in ('where /f java.exe') do (
             set __PATH=%%~dpsi
             rem we take first occurence and ignore Oracle path for java executable
-            if not defined __JAVA_BIN_DIR if "!__PATH!"=="!__PATH:javapath=!" set __JAVA_BIN_DIR=!__PATH!
+            if not defined __JAVA_BIN_DIR if "!__PATH!"=="!__PATH:javapath=!" set "__JAVA_BIN_DIR=!__PATH!"
         )
-        if defined __JAVA_BIN_DIR set _JAVACMD=!__JAVA_BIN_DIR!\java.exe
+        if defined __JAVA_BIN_DIR set "_JAVACMD=!__JAVA_BIN_DIR!\java.exe"
     )
     if not defined _JAVACMD (
         set _PATH=C:\Progra~1\Java
-        for /f %%f in ('dir /ad /b "!_PATH!\jre*" 2^>NUL') do set _JAVA_HOME=!_PATH!\%%f
+        for /f %%f in ('dir /ad /b "!_PATH!\jre*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f"
         if not defined _JAVA_HOME (
            set _PATH=C:\opt
-           for /f %%f in ('dir /ad /b "!_PATH!\jdk*" 2^>NUL') do set _JAVA_HOME=!_PATH!\%%f\jre
+           for /f %%f in ('dir /ad /b "!_PATH!\jdk*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f\jre"
         )
-        if defined _JAVA_HOME (
-            set _JAVACMD=!_JAVA_HOME!\bin\java.exe
-        )
+        if defined _JAVA_HOME set "_JAVACMD=!_JAVA_HOME!\bin\java.exe"
     )
 )
 if not exist "%_JAVACMD%" (
@@ -39,9 +37,7 @@ if not exist "%_JAVACMD%" (
 if defined DOTTY_HOME (
     set _LIB_DIR=%DOTTY_HOME%\lib
 ) else (
-    if not defined _PROG_HOME (
-        for %%f in ("%~dp0..") do set _PROG_HOME=%%~sf
-    )
+    if not defined _PROG_HOME for %%f in ("%~dp0..") do set _PROG_HOME=%%~sf
     set _LIB_DIR=!_PROG_HOME!\lib
 )
 

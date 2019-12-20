@@ -56,7 +56,7 @@ C:\opt\apache-ant-1.10.7\    <i>( 39.9 MB)</i>
 C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
 C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
 C:\opt\cfr-0.148\            <i>(  1.7 MB)</i>
-C:\opt\dotty-0.21.0-RC1\     <i>( 25.2 MB)</i>
+C:\opt\dotty-0.21.0-RC1\     <i>( 43.7 MB)</i><sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>
 C:\opt\Git-2.24.1\           <i>(277.0 MB)</i>
 C:\opt\gradle-6.0.1\         <i>(103.0 MB)</i>
 C:\opt\Mill-0.5.3\           <i>( 49.0 MB)</i>
@@ -581,7 +581,7 @@ Parent directory: W:\dotty\myexamples
 
 #### `build.bat`
 
-Command [**`build`**](examples/enum-Planet/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_03">[[3]](#footnote_03)</sup>.
+Command [**`build`**](examples/enum-Planet/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_04">[[4]](#footnote_04)</sup>.
 
 Running command [**`build`**](examples/enum-Planet/build.bat) with ***no*** option in project [**`examples\enum-Planet`**](examples/enum-Planet/) generates the following output:
 
@@ -698,7 +698,64 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://git-scm.com/download/win">PortableGit-2.24.1-64-bit.7z.exe</a>                <i>( 41 MB)</i>
 </pre>
 
-<a name="footnote_03">[3]</a> ***PowerShell*** [↩](#anchor_03) <!-- 2018-05-09 -->
+<a name="footnote_03">[3]</a> ***Dotty distribution size*** [↩](#anchor_03) <!-- 2019-12-20 -->
+
+<p style="margin:0 0 1em 20px;">
+Size of the <a href="https://dotty.epfl.ch/">Dotty</a> distribution has increased a lot between version 0.20 and 0.21, namely  <i>25.2 MB versus 43.7 MB</i> ! This is due to the inclusion of many new Java archive files in directory <b><code>lib\</code></b> of the distribution:
+</p>
+<pre style="margin:0 0 1em 20px; font-size:80%;">
+<b>&gt; dirsize.bat c:\opt\dotty-0.20.0-RC1\lib c:\opt\dotty-0.21.0-RC1\lib</b>
+Size of directory "c:\opt\dotty-0.20.0-RC1\lib" is 25.3 Mb
+Size of directory "c:\opt\dotty-0.21.0-RC1\lib" is 43.7 Mb
+</pre>
+<p style="margin:0 0 1em 20px;">
+We observe two important changes:
+</p>
+<ul style="margin:0 0 1em 20px;">
+<li><a href="https://github.com/vsch/flexmark-java">flexmark-java</a> - a CommonMark/Markdown Java parser - has been upgraded from version <a href="https://github.com/vsch/flexmark-java/releases/tag/0.28.32">0.28.32</a> (January 9, 2018) in Dotty 0.20 to version <a href="https://github.com/vsch/flexmark-java/releases/tag/0.42.12">0.42.12</a> (May 24, 2019) in Dotty 0.21.</li>
+<li><a href="http://site.icu-project.org/download/59">ICU 59</a> - a library for software  internationalization - has been added to the Dotty distribution; its size is over <i>11 MB</i>  !</li>
+</ul>
+<pre style="margin:0 0 1em 20px;">
+<b>&gt; libdiff.bat</b>
+c:\opt\dotty-0.21.0-RC1\lib\commons-logging-1.2.jar                                61829 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-all-0.42.12.jar                                2154 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-abbreviation-0.42.12.jar                  35259 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-admonition-0.42.12.jar                    34474 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-aside-0.42.12.jar                         16186 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-attributes-0.42.12.jar                    35726 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-definition-0.42.12.jar                    39846 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-enumerated-reference-0.42.12.jar          66414 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-escaped-character-0.42.12.jar             12789 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-footnotes-0.42.12.jar                     41056 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-gfm-issues-0.42.12.jar                    15638 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-gfm-users-0.42.12.jar                     15818 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-gitlab-0.42.12.jar                        42429 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-jekyll-front-matter-0.42.12.jar           18227 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-jekyll-tag-0.42.12.jar                    21131 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-macros-0.42.12.jar                        35051 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-media-tags-0.42.12.jar                    25060 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-toc-0.42.12.jar                           90605 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-typographic-0.42.12.jar                   22045 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-xwiki-macros-0.42.12.jar                  30921 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-youtube-embedded-0.42.12.jar              12544 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-html-parser-0.42.12.jar                       44425 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-pdf-converter-0.42.12.jar                      7029 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-profile-pegdown-0.42.12.jar                    6294 bytes
+c:\opt\dotty-0.21.0-RC1\lib\flexmark-youtrack-converter-0.42.12.jar                40903 bytes
+c:\opt\dotty-0.21.0-RC1\lib\fontbox-2.0.11.jar                                   1557078 bytes
+c:\opt\dotty-0.21.0-RC1\lib\graphics2d-0.15.jar                                    50534 bytes
+c:\opt\dotty-0.21.0-RC1\lib\icu4j-59.1.jar                                      <span style="font-weight:bold;color:#ff3333">11916846 bytes</span>
+c:\opt\dotty-0.21.0-RC1\lib\openhtmltopdf-core-0.0.1-RC15.jar                    1233228 bytes
+c:\opt\dotty-0.21.0-RC1\lib\openhtmltopdf-jsoup-dom-converter-0.0.1-RC15.jar       19965 bytes
+c:\opt\dotty-0.21.0-RC1\lib\openhtmltopdf-pdfbox-0.0.1-RC15.jar                   141312 bytes
+c:\opt\dotty-0.21.0-RC1\lib\openhtmltopdf-rtl-support-0.0.1-RC15.jar               24506 bytes
+c:\opt\dotty-0.21.0-RC1\lib\pdfbox-2.0.11.jar                                    2524580 bytes
+c:\opt\dotty-0.21.0-RC1\lib\tasty-core_0.21-0.21.0-RC1.jar                         54125 bytes
+c:\opt\dotty-0.21.0-RC1\lib\xmpbox-2.0.11.jar                                     131862 bytes
+Total size: 17 MB
+</pre>
+
+<a name="footnote_04">[4]</a> ***PowerShell*** [↩](#anchor_04) <!-- 2018-05-09 -->
 
 <p style="margin:0 0 1em 20px;"> 
 Command Prompt has been around for as long as we can remember, but starting with Windows 10 build 14971, Microsoft is trying to make <a href="https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6">PowerShell</a> the <a href="https://support.microsoft.com/en-us/help/4027690/windows-powershell-is-replacing-command-prompt">main command shell</a> in the operating system.
