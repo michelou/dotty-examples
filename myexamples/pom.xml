@@ -13,7 +13,7 @@
         <java.version>1.8</java.version>
 
         <!-- Scala settings -->
-        <scala.version>0.20.0-RC1</scala.version> <!-- eg. "2.12.18" or "0.20.0" -->
+        <scala.version>0.21.0-RC1</scala.version> <!-- eg. "2.12.18" or "0.20.0" -->
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugins -->
@@ -32,13 +32,37 @@
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
         <jmh.version>1.22</jmh.version>                         <!-- May 2018, Oracle -->
-		<!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
-		<junit.platform.version>1.5.2</junit.platform.version>  <!-- Sep 2019 -->
+        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
+        <junit.platform.version>1.5.2</junit.platform.version>  <!-- Sep 2019 -->
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
         <jupiter.version>5.5.2</jupiter.version>                <!-- Apr 2019 -->
     </properties>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-interfaces -->
+        <dependency>
+            <groupId>ch.epfl.lamp</groupId>
+            <artifactId>dotty-interfaces</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+		<!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.21 -->
+		<dependency>
+			<groupId>ch.epfl.lamp</groupId>
+			<artifactId>dotty-library_0.21</artifactId>
+			<version>${scala.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/ch.epfl.lamp/tasty-core_0.21 -->
+		<dependency>
+			<groupId>ch.epfl.lamp</groupId>
+			<artifactId>tasty-core_0.21</artifactId>
+			<version>${scala.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>2.13.1</version>
+		</dependency>
         <dependency>
             <groupId>ch.epfl.alumni</groupId>
             <artifactId>scala-maven-plugin</artifactId>
@@ -68,6 +92,13 @@
             <version>1.2.0</version>
             <scope>test</scope>
         </dependency>
+		<!-- https://mvnrepository.com/artifact/com.novocode/junit-interface -->
+		<dependency>
+			<groupId>com.novocode</groupId>
+			<artifactId>junit-interface</artifactId>
+			<version>0.11</version>
+			<scope>test</scope>
+		</dependency>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-commons -->
         <dependency>
             <groupId>org.junit.platform</groupId>
@@ -82,7 +113,7 @@
             <version>${junit.platform.version}</version>
             <scope>test</scope>
         </dependency>
-		<dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>${jupiter.version}</version>

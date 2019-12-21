@@ -20,9 +20,12 @@ In the following we explain in more detail the build tools available in the [**`
 
 Command [**`build`**](enum-Planet/build.bat) is a basic build tool consisting of ~450 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
 
-Running command [**`build clean run`**](enum-Planet/build.bat) in project [**`enum-Planet\`**](enum-Planet/) produces the following output:
+Command [**`build clean run`**](enum-Planet/build.bat) produces the following output:
 
 <pre style="font-size:80%;">
+<b>&gt; echo %cd%</b>
+W:\examples\enum-Plane
+&nbsp;
 <b>&gt; build clean run</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
@@ -35,7 +38,7 @@ Your weight on JUPITER is 2.5305575254957406
 </pre>
 
 
-Running command [**`build -verbose clean compile run`**](enum-Planet/build.bat) in project [**`enum-Planet\`**](enum-Planet/) displays progress messages:
+Command [**`build -verbose clean compile run`**](enum-Planet/build.bat) also displays progress messages:
 
 <pre style="font-size:80%;">
 <b>&gt; build -verbose clean compile run</b>
@@ -52,7 +55,7 @@ Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406
 </pre>
 
-Finally, running command [**`build -debug clean compile run`**](enum-Planet/build.bat) in project [**`enum-Planet\`**](enum-Planet/) also displays internal steps of the build process:
+Finally, command [**`build -debug clean compile run`**](enum-Planet/build.bat) also displays internal steps of the build process:
 
 <pre style="font-size:80%;">
 <b/>&gt; build -debug clean compile run</b>
@@ -118,7 +121,7 @@ Command [**`gradle`**][gradle_cli] is the official build tool for Android applic
 > We don't rely on them even if using [Gradle Wrapper][gradle_wrapper] is the  recommended way to execute a Gradle build.<br/>
 > Simply execute the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of [**`gradle`**][gradle_cli].
 
-The configuration file [**`build.gradle`**](enum-Planet/build.gradle) for [**`enum-Planet\`**](enum-Planet/) looks as follows:
+The configuration file [**`enum-Planet\build.gradle`**](enum-Planet/build.gradle) looks as follows:
 
 <pre style="font-size:80%;">
 plugins {
@@ -138,9 +141,9 @@ run.doFirst {
 }
 </pre>
 
-We note that [**`build.gradle`**](enum-Planet/build.gradle)<ul><li>imports one [Gradle plugin][gradle_plugins]: [**`java`**][gradle_java_plugin]</li><li>imports a few properties from file [**`gradle.properties`**](enum-Planet/gradle.properties)</li><li>imports code from the parent file [**`common.gradle`**](common.gradle)</li><li>assigns property **`scalaMainClassName`** to **`main`** and value **`""`** to **`args`** (no argument in this example) in **`run.doFirst`**</li></ul>
+We note that [**`build.gradle`**](enum-Planet/build.gradle)<ul><li>imports the [**`java`**][gradle_java_plugin] Gradle plugin.</li><li>loads properties from file [**`gradle.properties`**](enum-Planet/gradle.properties).</li><li>imports code from the parent file [**`examples\common.gradle`**](common.gradle).</li><li>assigns property **`scalaMainClassName`** to **`main`** and value **`""`** to **`args`** (no argument in this example) in **`run.doFirst`**.</li></ul>
 
-The parent file [**`common.gradle`**](common.gradle) defines the task **`compileDotty`** and manages the task dependencies.
+The parent file [**`examples\common.gradle`**](common.gradle) defines the task **`compileDotty`** and manages the task dependencies.
 
 <pre style="font-size:80%;">
 <span style="color:#009900;">// overrides default "/build"</span>
@@ -188,6 +191,9 @@ build {
 Execution of [**`Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
 
 <pre style="font-size:80%;">
+<b>&gt; echo %cd%</b>
+W:\examples\enum-Planet
+&nbsp;
 <b>&gt; gradle clean run</b>
 
 > Task :run
@@ -229,10 +235,12 @@ The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is a standalone 
   )
 </pre>
 
-
-Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) expects one argument and produces the following output:
+Command **`sbt -warn clean "run 1"`** produces the following output:
 
 <pre style="font-size:80%;">
+<b>&gt; echo %cd%</b>
+W:\examples\enum-Planet
+&nbsp;
 <b>&gt; sbt -warn clean "run 1"</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
@@ -272,9 +280,12 @@ The configuration file [**`build.sc`**](enum-Planet/build.sc) is a standalone fi
 }
 </pre>
 
-Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
+Command [**`mill -i go`**](enum-Planet/build.sc) produces the following output:
 
 <pre style="font-size:80%;">
+<b>&gt; echo %cd%</b>
+W:\examples\enum-Planet
+&nbsp;
 <b>&gt; mill -i go.run 1</b>
 [38/38] go.run
 Your weight on MERCURY is 0.37775761520093526
@@ -341,7 +352,7 @@ Total time: 19 seconds
 </pre>
 
 > **&#9755;** **Apache Ivy**<br/>
-> The [Ivy][apache_ant_ivy] Java archive must be added to the [Ant](https://ant.apache.org/) installation directory as displayed by task **`init.ivy`** in the above output. In our case we work with [version 2.5.0][apache_ant_ivy_relnotes] of the Apache Ivy library.
+> We observe from task **`init.ivy`** that the [Apache Ivy][apache_ant_ivy] library has been added to the [Ant](https://ant.apache.org/) installation directory. In our case we installed [version 2.5.0][apache_ant_ivy_relnotes] of the [Apache Ivy][apache_ant_ivy] library.
 > <pre style="font-size:80%;">
 > <b>&gt; curl -sL -o c:\Temp\apache-ivy-2.5.0.zip https://www-eu.apache.org/dist//ant/ivy/2.5.0/apache-ivy-2.5.0-bin.zip</b>
 > <b>&gt; unzip c:\temp\apache-ivy-2.5.0.zip -d c:\opt</b>
@@ -435,7 +446,7 @@ The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enu
 </pre>
 
 > **&#9755;** **Scala Maven Plugin**<br/>
-> We note in the above Maven configuration file the presence of the Maven plugin [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip). In fact the parent file [**`../pom.xml`**](pom.xml) depends on [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip), a Maven plugin we developed specifically for this project:
+> In the above Maven configuration file we note the presence of the Maven plugin [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip). In fact the parent file [**`examples\pom.xml`**](pom.xml) depends on [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip), a Maven plugin we developed specifically for this project:
 >
 > <pre style="font-size:80%;">
 > <b>&gt; more ..\pom.xml</b>
@@ -480,7 +491,7 @@ The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enu
 >             _remote.repositories
 > </pre>
 
-Running command **` mvn compile test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our Maven plugin **`scala-maven-plugin`**:
+Command **` mvn compile test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our Maven plugin **`scala-maven-plugin`**:
 
 <pre>
 <b>&gt; mvn -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
@@ -498,7 +509,7 @@ Running command **` mvn compile test`** with option **`-debug`** produces additi
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
-Execution of [**`Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
+Command [**`mvn --quiet clean test`**](enum-Planet/pom.xml) produces the following output:
 
 <pre style="font-size:80%;">
 <b>&gt; mvn --quiet clean test</b>
@@ -562,35 +573,35 @@ rem ## Environment setup</i>
 
 <b>set</b> _EXITCODE=0
 
-<b>for</b> <span style="color:#ff3333;">%%f</span> <b>in</b> ("%~dp0") <b>do set</b> _ROOT_DIR=<span style="color:#ff3333;">%%~sf</span>
+<b>for</b> <span style="color:#3333ff;">%%f</span> <b>in</b> ("%~dp0") <b>do set</b> _ROOT_DIR=<span style="color:#3333ff;">%%~sf</span>
 
 <b>call <span style="color:#9966ff;">:env</span></b>
-<b>if not</b> <span style="color:#ff3333;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
+<b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
 
 <b>call <span style="color:#9966ff;">:props</span></b>
-<b>if not</b> <span style="color:#ff3333;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
+<b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
 
 <b>call <span style="color:#9966ff;">:args</span> %*</b>
-<b>if not</b> <span style="color:#ff3333;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
+<b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
 
 <i style="color:#66aa66;">rem ##########################################################################
 rem ## Main</i>
 
-<b>if</b> <span style="color:#ff3333;">%_CLEAN%</span>==1 (
+<b>if</b> <span style="color:#3333ff;">%_CLEAN%</span>==1 (
     <b>call :clean</b>
-    <b>if not</b> <span style="color:#ff3333;">!_EXITCODE!</span>==0 <b>goto end</b>
+    <b>if not</b> <span style="color:#3333ff;">!_EXITCODE!</span>==0 <b>goto end</b>
 )
-<b>if</b> <span style="color:#ff3333;">%_COMPILE%</span>==1 (
+<b>if</b> <span style="color:#3333ff;">%_COMPILE%</span>==1 (
     <b>call <span style="color:#9966ff;">:compile</span></b>
-    <b>if not</b> <span style="color:#ff3333;">!_EXITCODE!</span>==0 <b>goto end</b>
+    <b>if not</b> <span style="color:#3333ff;">!_EXITCODE!</span>==0 <b>goto end</b>
 )
-<b>if</b> <span style="color:#ff3333;">%_DOC%</span>==1 (
+<b>if</b> <span style="color:#3333ff;">%_DOC%</span>==1 (
     <b>call <span style="color:#9966ff;">:doc</span></b>
-    <b>if not</b> <span style="color:#ff3333;">!_EXITCODE!</span>==0 <b>goto end</b>
+    <b>if not</b> <span style="color:#3333ff;">!_EXITCODE!</span>==0 <b>goto end</b>
 )
-<b>if</b> <span style="color:#ff3333;">%_RUN%</span>==1 (
+<b>if</b> <span style="color:#3333ff;">%_RUN%</span>==1 (
     <b>call <span style="color:#9966ff;">:run</span></b>
-    <b>if not</b> <span style="color:#ff3333;">!_EXITCODE!</span>==0 <b>goto end</b>
+    <b>if not</b> <span style="color:#3333ff;">!_EXITCODE!</span>==0 <b>goto end</b>
 )
 <b>goto <span style="color:#9966ff;">end</span></b>
 
@@ -624,7 +635,7 @@ rem ## Cleanups</i>
 
 <span style="color:#9966ff;">:end</span>
 ...
-<b>exit</b> /b <span style="color:#ff3333;">%_EXITCODE%</span>
+<b>exit</b> /b <span style="color:#3333ff;">%_EXITCODE%</span>
 </pre>
 
 ***

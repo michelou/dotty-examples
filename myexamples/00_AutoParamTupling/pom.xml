@@ -76,11 +76,11 @@
                                 <include>scala/**/*.scala</include>
                             </includes>
                             <additionalClasspathElements>
-                                <additionalClasspathElement>${m2.repository}/junit/junit/4.11/junit-4.11.jar</additionalClasspathElement> <!-- @withRun -->
-                                <additionalClasspathElement>${m2.repository}/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.repository}/org/junit/jupiter/junit-jupiter-api/5.3.2/junit-jupiter-api-5.3.2.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.repository}/org/junit/platform/junit-platform-commons/1.3.2/junit-platform-commons-1.3.2.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.repository}/org/junit/platform/junit-platform-runner/1.3.2/junit-platform-runner-1.3.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.repository}/junit/junit/4.12/junit-4.12.jar</additionalClasspathElement> <!-- @withRun -->
+                                <additionalClasspathElement>${m2.repository}/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.repository}/org/junit/jupiter/junit-jupiter-api/5.5.2/junit-jupiter-api-5.5.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.repository}/org/junit/platform/junit-platform-commons/1.5.2/junit-platform-commons-1.5.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.repository}/org/junit/platform/junit-platform-runner/1.5.2/junit-platform-runner-1.5.2.jar</additionalClasspathElement>
                                 <!--
                                 <additionalClasspathElement>${m2.repository}/org/junit/vintage/junit-vintage-engine/5.3.2/junit-vintage-engine-5.3.2.jar</additionalClasspathElement>
                                 -->
@@ -128,6 +128,27 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.version}</version>
+            </plugin>
+            <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec.maven.version}</version>
+                <executions>
+                    <execution>
+                        <phase>exec</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <executable>java</executable>
+                    <mainClass>${mainClass}</mainClass>
+                    <arguments>
+                        <argument></argument>
+                    </arguments>
+                </configuration>
             </plugin>
         </plugins>
     </build>

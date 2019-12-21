@@ -65,7 +65,7 @@
                         <configuration>
                             <additionalClasspathElements>
                                 <additionalClasspathElement>../lib/junit-4.12.jar</additionalClasspathElement>
-                                <additionalClasspathElement>../lib/scalatest_2.13-3.0.8.jar</additionalClasspathElement>
+                                <additionalClasspathElement>../lib/scalatest_2.13-3.1.0.jar</additionalClasspathElement>
                             </additionalClasspathElements>
                             <includes>
                                 <include>scala/**/*.scala</include>

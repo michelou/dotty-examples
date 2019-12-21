@@ -18,11 +18,14 @@ In the following we explain in more detail the build tools available in the [**`
 
 ## <span id="build">`build.bat` command</span>
 
-Command [**`build`**](dotty-example-project/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
+Command [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
 
-Running command [**`build clean run`**](HelloWorld/build.bat) in project [**`HelloWorld\`**](HelloWorld/) produces the following output:
+Command [**`build clean run`**](HelloWorld/build.bat) produces the following output:
 
 <pre style="font-size:80%;">
+<b>&gt; echo %cd%</b>
+W:\myexamples\HelloWorld
+&nbsp;
 <b>&gt; build clean run</b>
 Hello world!
 </pre>
@@ -36,19 +39,19 @@ Command [**`gradle`**][gradle_cli] is the official build tool for Android applic
 > We don't rely on them even if using [Gradle Wrapper][gradle_wrapper] is the  recommended way to execute a Gradle build.<br/>
 > Simply execute the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of [**`gradle`**][gradle_cli].
 
-The configuration file [**`build.gradle`**](HelloWorld/build.gradle) for [**`HelloWorld\`**](HelloWorld/) looks as follows:
+The configuration file [**`HelloWorld\build.gradle`**](HelloWorld/build.gradle) looks as follows:
 
 <pre style="font-size:80%;">
 plugins {
     id <span style="color:#990000;">"java"</span>
 }
 &nbsp;
-apply from: <span style="color:#990000;">"../common.gradle"</span>
-&nbsp;
 group <span style="color:#990000;">"$appGroup"</span>
 version <span style="color:#990000;">"$appVersion"</span>
 &nbsp;
 description <span style="color:#990000;">"""Gradle example project to build/run Scala 3 code"""</span>
+&nbsp;
+apply from: <span style="color:#990000;">"../common.gradle"</span>
 &nbsp;
 run.doFirst {
     main scalaMainClassName
@@ -56,21 +59,26 @@ run.doFirst {
 }
 </pre>
 
-We note that [**`build.gradle`**](HelloWorld/build.gradle)<ul><li>imports one [Gradle plugin][gradle_plugins]: [**`java`**][gradle_java_plugin]</li><li>imports a few properties from file [**`gradle.properties`**](HelloWorld/gradle.properties)</li><li>imports code from the parent file [**`common.gradle`**](common.gradle)</li><li>assigns property **`scalaMainClassName`** to **`main`** and value **`""`** to **`args`** (no argument in this example) in **`run.doFirst`**</li></ul>
+We note that [**`build.gradle`**](HelloWorld/build.gradle)<ul><li>imports the [**`java`**][gradle_java_plugin] Gradle plugin.</li><li>loads properties from file [**`gradle.properties`**](HelloWorld/gradle.properties).</li><li>imports code from parent file [**`myexamples\common.gradle`**](common.gradle).</li><li>assigns property **`scalaMainClassName`** to **`main`** and value **`""`** to **`args`** (no argument in this example) in **`run.doFirst`**.</li></ul>
 
-The parent file [**`common.gradle`**](common.gradle) defines the task **`compileDotty`** and manages the task dependencies.
+The parent file [**`myexamples\common.gradle`**](common.gradle) defines the task **`compileDotty`** and manages the task dependencies.
 
 <pre style="font-size:80%;">
-apply plugin: <span style="color:#990000;">'java'</span>
-apply plugin: <span style="color:#990000;">'application'</span>
+<i style="color:#009900;">// overrides default "/build"</i>
+buildDir file(<span style="color:#990000;">"/target"</span>)
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-&nbsp;
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
 ext {
-    dottyLibraryPath = file(System.getenv(<span style="color:#990000;">"DOTTY_HOME"</span>) + <span style="color:#990000;">"/lib"</span>)
     ...
-    targetDir = file(<span style="color:#990000;">"/target"</span>)
+    classesDir = file(<span style="color:#990000;">"${buildDir}/classes"</span>)
+    <b>if</b> (dottyLocal?.toBoolean()) {
+        dottyHome = System.getenv(<span style="color:#990000;">"DOTTY_HOME"</span>)
+        print(<span style="color:#990000;">"DOTTY_HOME=$dottyHome"</span>)
+        ...
+    }
 }
 clean.doLast {
     targetDir.deleteDir()
@@ -78,7 +86,7 @@ clean.doLast {
 <b>task</b> compileDotty(type: JavaExec) {
     dependsOn compileJava
     ...
-    main "dotty.tools.dotc.Main"
+    main <span style="color:#990000;">"dotty.tools.dotc.Main"</span>
 }
 compileDotty.doFirst {
     if (!classesDir.exists()) classesDir.mkdirs()
@@ -86,17 +94,22 @@ compileDotty.doFirst {
 build {
     dependsOn compileDotty
 }
-run {
+<b>task</b> run(type: JavaExec) {
     dependsOn build
     ...
-    main mainClassName
+    <i style="color:#009900;">// properties "main" and "args" are defined in build.gradle (main script)</i>
+    if (! main?.trim()) main <span style="color:#990000;">"Main"</span>
+    if (args == null) args <span style="color:#990000;">""</span>
 }
 ...
 </pre>
 
-Running command **`gradle clean run`** in project [**`HelloWorld\`**](HelloWorld/) produces the following output:
+Command **`gradle clean run`** produces the following output:
 
 <pre style="font-size:80%;">
+<b>&gt; echo %cd%</b>
+W:\myexamples\HelloWorld
+&nbsp;
 <b>&gt; gradle clean run</b>
 
 &gt; Task :run
@@ -114,25 +127,31 @@ Command [**`sbt`**][sbt_cli] is a Scala-based build tool for [Scala] and Java.
 The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is a standalone file written in [Scala] and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
 <pre style="font-size:80%;">
-<b>val</b> dottyVersion = <span style="color:#990000;">"0.20.0-RC1"</span>
+<b>val</b> dottyVersion = <span style="color:#990000;">"0.21.0-RC1"</span>
 &nbsp;
 <b>lazy val</b> root = project
   .in(file(<span style="color:#990000;">"."</span>))
   .settings(
     name := <span style="color:#990000;">"dotty-example-project"</span>,
-    description := <span style="color:#990000;">"Example sbt project that compiles using Dotty"</span>,
+    description := <span style="color:#990000;">"sbt example project to build/run Scala 3 code"</span>,
     version := <span style="color:#990000;">"0.1.0"</span>,
     &nbsp;
     scalaVersion := dottyVersion,
     scalacOptions ++= Seq(
-      <span style="color:#990000;">"-deprecation"</span>
-    )
+      <span style="color:#990000;">"-deprecation"</span>,
+      <span style="color:#990000;">"-encoding"</span>, <span style="color:#990000;">"UTF-8"</span>
+    ),
+    &nbsp;
+    libraryDependencies += <span style="color:#990000;">"com.novocode"</span> % <span style="color:#990000;">"junit-interface"</span> % <span style="color:#990000;">"0.11"</span> % <span style="color:#990000;">"test"</span>
   )
 </pre>
 
-Running command **`sbt -warn clean run`** in project [**`HelloWorld\`**](HelloWorld/) produces the following output:
+Command **`sbt -warn clean run`** produces the following output:
 
 <pre style="font-size:80%;">
+<b>&gt; echo %cd%</b>
+W:\myexamples\HelloWorld
+&nbsp;
 <b>&gt; sbt -warn clean run</b>
 Hello world!
 </pre>
@@ -148,7 +167,7 @@ The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone fil
 <b>import</b> mill._, scalalib._
 &nbsp;
 <b>object</b> go <b>extends</b> ScalaModule {
-  <b>def</b> scalaVersion = <span style="color:#990000;">"0.20.0-RC1"</span>  // "2.12.18"
+  <b>def</b> scalaVersion = <span style="color:#990000;">"0.21.0-RC1"</span>  <span style="color:#009900;">// "2.12.18"</span>
   <b>def</b> scalacOptions = Seq(<span style="color:#990000;">"-deprecation"</span>, <span style="color:#990000;">"-feature"</span>)
   <b>def</b> forkArgs = Seq(<span style="color:#990000;">"-Xmx1g"</span>)
   <b>def</b> mainClass = Some(<span style="color:#990000;">"Main"</span>)
@@ -160,9 +179,12 @@ The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone fil
 }
 </pre>
 
-Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output:
+Command [**`mill -i go`**](HelloWorld/build.sc) produces the following output:
 
 <pre style="font-size:80%;">
+<b>&gt; echo %cd%</b>
+W:\myexamples\HelloWorld
+&nbsp;
 <b>&gt; mill -i go</b>
 [38/38] go.run
 Hello world!
@@ -173,11 +195,11 @@ Hello world!
 
 Command [**`ant`**][apache_ant_cli] (["Another Neat Tool"][apache_ant_faq]) is a Java-based build maintained by the [Apache Software Foundation][apache_ant_history] (tool created in 2000). It works with XML-based configuration files.
 
-The configuration file [**`build.xml`**](HelloWorld/build.xml) in directory [**`HelloWorld\`**](HelloWorld/) depends on the parent file [**`build.xml`**](myexamples/build.xml) which provides the macro definition **`dotc`** to compile the Scala source files.
+The configuration file [**`HelloWorld\build.xml`**](HelloWorld/build.xml) depends on the parent file [**`myexamples\build.xml`**](build.xml) which provides the macro definition **`dotc`** to compile the Scala source files.
 
 <pre style="font-size:80%;">
-&lt;?xml version="1.0" encoding="UTF-8"?>
-<b>&lt;project</b> name=<span style="color:#990000;">"dotty-example-project"</span> default=<span style="color:#990000;">"compile"</span> basedir=<span style="color:#990000;">"."</span>&gt;
+&lt;?xml version=<span style="color:#990000;">"1.0"</span> encoding=<span style="color:#990000;">"UTF-8"</span>?&gt;
+<b>&lt;project</b> name=<span style="color:#990000;">"HelloWorld"</span> default=<span style="color:#990000;">"compile"</span> basedir=<span style="color:#990000;">"."</span>&gt;
     ...
     <b>&lt;import</b> file=<span style="color:#990000;">"../build.xml"</span> />
     <b>&lt;target</b> name=<span style="color:#990000;">"compile"</span> depends=<span style="color:#990000;">"init"</span>&gt; ... <b>&lt;/target&gt;</b>
@@ -215,7 +237,7 @@ Total time: 3 seconds
 </pre>
 
 > **&#9755;** **Apache Ivy**<br/>
-> The [Ivy][apache_ant_ivy] Java archive must be added to the [Ant](https://ant.apache.org/) installation directory as displayed by task **`init.ivy`** in the above output. In our case we work with [version 2.5.0][apache_ant_ivy_relnotes] of the Apache Ivy library.
+> We observe from task **`init.ivy`** that the [Apache Ivy][apache_ant_ivy] library has been added to the [Ant](https://ant.apache.org/) installation directory. In our case we installed [version 2.5.0][apache_ant_ivy_relnotes] of the [Apache Ivy][apache_ant_ivy] library.
 > <pre style="font-size:80%;">
 > <b>&gt; curl -sL -o c:\Temp\apache-ivy-2.5.0.zip https://www-eu.apache.org/dist//ant/ivy/2.5.0/apache-ivy-2.5.0-bin.zip</b>
 > <b>&gt; unzip c:\temp\apache-ivy-2.5.0.zip -d c:\opt</b>
@@ -234,7 +256,7 @@ Buildfile: W:\myexamples\HelloWorld\build.xml
    [delete] Deleting directory W:\myexamples\HelloWorld\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] DOTTY_HOME=C:\opt\dotty-0.20.0-RC1
+     [echo] DOTTY_HOME=C:\opt\dotty-0.21.0-RC1
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -256,7 +278,7 @@ Total time: 14 seconds
 
 Command [**`mvn`**][apache_maven_cli] is a Java-based build tool maintained by the [Apache Software Foundation][apache_maven_history] (tool created in 2002). It works with XML-based configuration files and provides a way to share JARs across several projects.
 
-The configuration file [**`pom.xml`**](HelloWorld/pom.xml) in directory [**`HelloWorld\`**](HelloWorld/) depends on the parent file [**`pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
+The configuration file [**`HelloWorld\pom.xml`**](HelloWorld/pom.xml) depends on the parent file [**`myexamples\pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
 
 <pre style="font-size:80%;">
 <b>&lt;?xml</b> version="1.0" encoding="UTF-8"?>
@@ -269,7 +291,7 @@ The configuration file [**`pom.xml`**](HelloWorld/pom.xml) in directory [**`Hell
         <b>&lt;relativePath&gt;</b>../pom.xml&lt;/relativePath>
     <b>&lt;/parent&gt;</b>
     <b>&lt;dependencies&gt;</b>
-        &lt;!-- see parent pom.xml -->
+        <span style="color:#009900;">&lt;!-- see parent pom.xml --&gt;</span>
     <b>&lt;/dependencies&gt;</b>
     <b>&lt;build&gt;</b>
         <b>&lt;sourceDirectory&gt;</b>src/main<b>&lt;/sourceDirectory&gt;</b>
@@ -277,19 +299,19 @@ The configuration file [**`pom.xml`**](HelloWorld/pom.xml) in directory [**`Hell
         <b>&lt;outputDirectory&gt;</b>target/classes<b>&lt;/outputDirectory&gt;</b>
         <b>&lt;plugins&gt;</b>
             <b>&lt;plugin&gt;</b>
-                <b>&lt;groupId&gt;</b>org.apache.maven.plugins&lt;/groupId>
-                <b>&lt;artifactId&gt;</b>maven-compiler-plugin&lt;/artifactId>
+                <b>&lt;groupId&gt;</b>org.apache.maven.plugins<b>&lt;/groupId&gt;</b>
+                <b>&lt;artifactId&gt;</b>maven-compiler-plugin<b>&lt;/artifactId&gt;</b>
                 ...
                 <b>&lt;configuration&gt;</b>
                     ...
                     <b>&lt;includes&gt;</b>
-                        &lt;include>java/**/*.java&lt;/include>
+                        <b>&lt;include&gt;</b>java/**/*.java<b>&lt;/include&gt;</b>
                     <b>&lt;/includes&gt;</b>
                 <b>&lt;/configuration&gt;</b>
             <b>&lt;/plugin&gt;</b>
             <b>&lt;plugin&gt;</b>
-                &lt;groupId>ch.epfl.alumni&lt;/groupId>
-                &lt;artifactId>scala-maven-plugin&lt;/artifactId>
+                <b>&lt;groupId&gt;</b>ch.epfl.alumni<b>&lt;/groupId&gt;</b>
+                <b>&lt;artifactId&gt;</b>scala-maven-plugin<b>&lt;/artifactId&gt;</b>
                 ...
                 <b>&lt;configuration&gt;</b>
                     <b>&lt;scalaVersion&gt;</b>${scala.version}<b>&lt;/scalaVersion&gt;</b>
@@ -301,21 +323,67 @@ The configuration file [**`pom.xml`**](HelloWorld/pom.xml) in directory [**`Hell
 <b>&lt;/project&gt;</b>
 </pre>
 
-Running command **`mvn clean test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our Maven plugin **`scala-maven-plugin`**:
+> **&#9755;** **Scala Maven Plugin**<br/>
+> In the above Maven configuration file we note the presence of the Maven plugin [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip). In fact the parent file [**`examples\pom.xml`**](pom.xml) depends on [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip), a Maven plugin we developed specifically for this project:
+>
+> <pre style="font-size:80%;">
+> <b>&gt; more ..\pom.xml</b>
+> &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+> ...
+>     <b>&lt;properties&gt;</b>
+>         <b>&lt;project.build.sourceEncoding&gt;</b>UTF-8<b>&lt;/project.build.sourceEncoding&gt;</b>
+>         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
+> &nbsp;
+>         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
+>         <b>&lt;scala.version&gt;</b>0.21.0-RC1<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
+> &nbsp;
+>         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
+>         <b>&lt;scala.maven.version&gt;</b>1.0-SNAPSHOT<b>&lt;/scala.maven.version&gt;</b>
+>         ...
+>     <b>&lt;/properties&gt;</b>
+>     <b>&lt;dependencies&gt;</b>
+>         <b>&lt;dependency&gt;</b>
+>             <b>&lt;groupId&gt;</b>ch.epfl.alumni<b>&lt;/groupId&gt;</b>
+>             <b>&lt;artifactId&gt;</b>scala-maven-plugin<b>&lt;/artifactId&gt;</b>
+>             <b>&lt;version&gt;</b>${scala.maven.version}<b>&lt;/version&gt;</b>
+>         <b>&lt;/dependency&gt;</b>
+>         ...
+>     <b>&lt;/dependencies&gt;</b>
+>
+> <b>&lt;/project&gt;</b>
+> </pre>
+> The plugin is available as [Zip archive][zip_archive] and its installation is deliberately very simple:
+> <pre style="font-size:80%;">
+> <b>&gt; unzip ..\bin\scala-maven-plugin-1.0.zip %USERPROFILE%\.m2\repository\</b>
+> <b>&gt; tree /a /f %USERPROFILE%\.m2\repository\ch\epfl\alumni | findstr /v "^[A-Z]"</b>
+> |   maven-metadata-local.xml
+> |
+> \---scala-maven-plugin
+>     |   maven-metadata-local.xml
+>     |
+>     \---1.0-SNAPSHOT
+>             maven-metadata-local.xml
+>             scala-maven-plugin-1.0-SNAPSHOT.jar
+>             scala-maven-plugin-1.0-SNAPSHOT.pom
+>             _remote.repositories
+> </pre>
+
+Command **`mvn clean test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our Maven plugin **`scala-maven-plugin`**:
 
 <pre>
 <b>&gt; mvn -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-1.8.0_232-b09\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.20.0-RC1 \
- -cp C:\opt\dotty-0.20.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.21.0-RC1 \
+ -cp C:\opt\dotty-0.21.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-1.8.0_232-b09\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.20.0-RC1 [...]
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.21.0-RC1 [...]
 [DEBUG] [execute] C:\opt\jdk-1.8.0_232-b09\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.20.0-RC1\lib\*.jar;\
+ -Xms64m -Xmx1024m -cp C:\opt\dotty-0.21.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -349,15 +417,15 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 Finally can check the Java manifest in **`HelloWorld-0.1-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.20.0-RC1\lib\dotty-library_0.20-0.20.0-RC1.jar;^
-c:\opt\dotty-0.20.0-RC1\lib\scala-library-2.13.1.jar ^
+<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.21.0-RC1\lib\dotty-library_0.21-0.21.0-RC1.jar;^
+c:\opt\dotty-0.21.0-RC1\lib\scala-library-2.13.1.jar ^
 -jar target\HelloWorld-0.1-SNAPSHOT.jar
 Hello world!
 </pre>
 
 > **:mag_right:** We can use batch script [**`searchjars`**](../bin/searchjars.bat) in case some class is missing in the specified classpath, e.g.
 > <pre>
-> <b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.20.0-RC1\lib\dotty-library_0.20-0.20.0-RC1.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
+> <b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.21.0-RC1\lib\dotty-library_0.21-0.21.0-RC1.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
 > Exception in thread "main" java.lang.NoClassDefFoundError: scala/Serializable
 >         [...]
 >         at Main.main(Main.scala)
@@ -375,7 +443,7 @@ Hello world!
 > Searching for class Serializable in library files C:\opt\JDK-18~1.0_2\lib\*.jar
 >   tools.jar:com/sun/tools/internal/xjc/reader/xmlschema/bindinfo/BISerializable.class
 > </pre>
-> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.20.0-RC1\lib\scala-library-2.13.1.jar`**, so let us add it to our classpath !
+> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.21.0-RC1\lib\scala-library-2.13.1.jar`**, so let us add it to our classpath !
 
 
 ## <span id="footnotes">Footnotes</span>
@@ -400,16 +468,16 @@ rem ## Environment setup</i>
 
 <b>set</b> _EXITCODE=0
 
-<b>for</b> %%f <b>in</b> ("%~dp0") <b>do set</b> _ROOT_DIR=%%~sf
+<b>for</b> %%f <b>in</b> ("%~dp0") <b>do set</b> _ROOT_DIR=<span style="color:#3333ff;">%%~sf</span>
 
 <b>call <span style="color:#9966ff;">:env</span></b>
-<b>if not</b> %_EXITCODE%==0 <b>goto <span style="color:#9966ff;">end</span></b>
+<b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
 
 <b>call <span style="color:#9966ff;">:props</span></b>
-<b>if not</b> %_EXITCODE%==0 <b>goto <span style="color:#9966ff;">end</span></b>
+<b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
 
 <b>call <span style="color:#9966ff;">:args</span> %*</b>
-<b>if not</b> %_EXITCODE%==0 <b>goto <span style="color:#9966ff;">end</span></b>
+<b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
 
 <i style="color:#66aa66;">rem ##########################################################################
 rem ## Main</i>
@@ -462,7 +530,7 @@ rem ## Cleanups</i>
 
 <span style="color:#9966ff;">:end</span>
 ...
-<b>exit</b> /b %_EXITCODE%
+<b>exit</b> /b <span style="color:#3333ff;">%_EXITCODE%</span>
 </pre>
 
 <a name="footnote_02">[2]</a> <a href="https://github.com/lampepfl/dotty/issues/4272" style="font-weight:bold;">bug4272</a> ***2018-04-08*** [↩](#anchor_02)
