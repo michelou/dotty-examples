@@ -15,6 +15,10 @@ We can build/run each example in directory [**`examples\`**](.) using [**`sbt`**
 
 In the following we explain in more detail the build tools available in the [**`enum-Planet\`**](enum-Planet/) example (and also in other examples from directory [**`examples\`**](./)):
 
+<pre style="font-size:80%;">
+<b>&gt; echo %cd%</b>
+W:\examples\enum-Planet
+</pre>
 
 ## <span id="build">`build.bat` command</span>
 
@@ -23,9 +27,6 @@ Command [**`build`**](enum-Planet/build.bat) is a basic build tool consisting of
 Command [**`build clean run`**](enum-Planet/build.bat) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; echo %cd%</b>
-W:\examples\enum-Plane
-&nbsp;
 <b>&gt; build clean run</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
@@ -191,9 +192,6 @@ build {
 Execution of [**`Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; echo %cd%</b>
-W:\examples\enum-Planet
-&nbsp;
 <b>&gt; gradle clean run</b>
 
 > Task :run
@@ -238,9 +236,6 @@ The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is a standalone 
 Command **`sbt -warn clean "run 1"`** produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; echo %cd%</b>
-W:\examples\enum-Planet
-&nbsp;
 <b>&gt; sbt -warn clean "run 1"</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
@@ -257,37 +252,44 @@ Your weight on JUPITER is 2.5305575254957406
 
 Command [**`mill`**][mill_cli] is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
 
-The configuration file [**`build.sc`**](enum-Planet/build.sc) is a standalone file written in Scala (with direct access to [OS-Lib][os_lib]).
+The configuration file [**`enum-Planet\build.sc`**](enum-Planet/build.sc) is a standalone file written in Scala (with direct access to [OS-Lib][os_lib]).
 
 <pre style="font-size:80%;">
 <b>import</b> mill._, scalalib._
+<b>import</b> $file.^.common
 &nbsp;
-<b>object</b> go <b>extends</b> ScalaModule {
-  <b>def</b> scalaVersion = <span style="color:#990000;">"0.21.0-RC1"</span>  <span style="color:#009900;">// "2.12.18"</span>
-  <b>def</b> scalacOptions = Seq(<span style="color:#990000;">"-deprecation"</span>, <span style="color:#990000;">"-feature"</span>)
-  <b>def</b> forkArgs = Seq(<span style="color:#990000;">"-Xmx1g"</span>)
+<b>object</b> app <b>extends</b> ScalaModule {
+  <b>def</b> scalaVersion = common.scalaVersion
+  <b>def</b> scalacOptions = common.scalacOptions
+  &nbsp;
+  <b>def</b> forkArgs = common.forkArgs
+  &nbsp;
   <b>def</b> mainClass = Some(<span style="color:#990000;">"Planet"</span>)
-  <b>def</b> sources = T.sources { os.pwd / <span style="color:#990000;">"src"</span> }
+  <b>def</b> sources = T.sources { common.scalaSourcePath }
   <b>def</b> clean() = T.command {
-    val path = os.pwd / <span style="color:#990000;">"out"</span> / <span style="color:#990000;">"go"</span>
+    val path = os.pwd / <span style="color:#990000;">"out"</span> / <span style="color:#990000;">"app"</span>
     os.walk(path, skip = _.last == <span style="color:#990000;">"clean"</span>).foreach(os.remove.all)
   }
-  <b>def</b> ivyDeps = Agg(
-    ivy<span style="color:#990000;">"org.junit.platform:junit-platform-commons:1.3.2"</span>,
-    ivy<span style="color:#990000;">"org.junit.platform:junit-platform-runner:1.3.2"</span>,
-    ivy<span style="color:#990000;">"org.junit.jupiter:junit-jupiter-engine:5.5.2"</span>
-  )
+  <b>object</b> test <b>extends</b> Tests {
+    <b>def</b> ivyDeps = Agg(
+      common.ivyJunitInterface,
+      common.ivyScalatest,
+      common.ivySpecs2
+    )
+    <b>def</b> testFrameworks = Seq(
+      <span style="color:#990000;">"com.novocode.junit.JUnitFramework"</span>,
+      <span style="color:#990000;">"org.scalatest.tools.Framework"</span>,
+      <span style="color:#990000;">"org.specs2.runner.JUnitRunner"</span> // org.specs2.Specs2Framework
+    )
+  }
 }
 </pre>
 
-Command [**`mill -i go`**](enum-Planet/build.sc) produces the following output:
+Command [**`mill -i app`**](enum-Planet/build.sc) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; echo %cd%</b>
-W:\examples\enum-Planet
-&nbsp;
-<b>&gt; mill -i go.run 1</b>
-[38/38] go.run
+<b>&gt; mill -i app.run 1</b>
+[38/38] app.run
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -303,7 +305,7 @@ Your weight on JUPITER is 2.5305575254957406
 
 Command [**`ant`**][apache_ant_cli] (["Another Neat Tool"][apache_ant_faq]) is a Java-based build tool maintained by the [Apache Software Foundation][apache_history] (tool created in 2000). It works with XML-based configuration files.
 
-The configuration file [**`build.xml`**](enum-Planet/build.xml) in directory [**`enum-Planet\`**](enum-Planet/) depends on the parent file [**`build.xml`**](build.xml) which provides the macro definition **`dotc`** to compile the Scala source files.
+The configuration file [**`enum-Planet\build.xml`**](enum-Planet/build.xml) depends on the parent file [**`examples\build.xml`**](build.xml) which provides the macro definition **`dotc`** to compile the Scala source files.
 
 <pre style="font-size:80%;">
 <b>&lt;?xml</b> version="1.0" encoding="UTF-8"<b>?&gt;</b>

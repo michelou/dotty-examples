@@ -1,13 +1,31 @@
 import mill._, scalalib._
+import $file.^.common
 
-object go extends ScalaModule {
-  def scalaVersion = "0.18.1-RC1"  // "2.12.18"
-  def scalacOptions = Seq("-deprecation", "-feature")
-  def forkArgs = Seq("-Xmx1g")
+object app extends ScalaModule {
+  def scalaVersion = common.scalaVersion
+  def scalacOptions = common.scalacOptions
+
+  def forkArgs = common.forkArgs
+
   def mainClass = Some("Main")
-  def sources = T.sources { os.pwd / "src" }
+  def sources = T.sources { common.scalaSourcePath }
+  // def resources = T.sources { os.pwd / "resources" }
+
   def clean() = T.command {
-    val path = os.pwd / "out" / "go"
+    val path = os.pwd / "out" / "app"
     os.walk(path, skip = _.last == "clean").foreach(os.remove.all)
+  }
+
+  object test extends Tests {
+    def ivyDeps = Agg(
+      common.ivyJunitInterface,
+      common.ivyScalatest,
+      common.ivySpecs2
+    )
+    def testFrameworks = Seq(
+      "com.novocode.junit.JUnitFramework",
+      "org.scalatest.tools.Framework",
+      "org.specs2.runner.JUnitRunner" // org.specs2.Specs2Framework
+    )
   }
 }

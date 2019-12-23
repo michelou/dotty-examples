@@ -8,6 +8,7 @@
 .settings/
 .vscode/
 *_LOCAL/
+lib/
 nightly-jars/
 out/
 /project/

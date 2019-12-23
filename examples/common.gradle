@@ -55,10 +55,9 @@ task compileDotty(type: JavaExec) {
 
     main "dotty.tools.dotc.Main"
 
-    jvmArgs "-Dscala.usejavacp=true", "-Dfile.encoding=UTF-8"
+    jvmArgs "-Dscala.usejavacp=true"
 
-    //args "-version"
-    args "-d", classesDir, sources
+    args "-deprecation", "-encoding", "UTF8", "-d", classesDir, sources
 }
 
 compileDotty.doFirst {

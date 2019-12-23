@@ -1,4 +1,4 @@
-package p
+package myexamples
 
 import org.apiguardian.api.API.Status
 

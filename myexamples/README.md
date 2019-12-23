@@ -16,6 +16,11 @@ We can build/run each example in directory [**`myexamples\`**](.) using [**`sbt`
 
 In the following we explain in more detail the build tools available in the [**`HelloWorld`**](HelloWorld) example (and also in other examples from directory [**`myexamples\`**](./)):
 
+<pre style="font-size:80%;">
+<b>&gt; echo %cd%</b>
+W:\myexamples\HelloWorld
+</pre>
+
 ## <span id="build">`build.bat` command</span>
 
 Command [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
@@ -23,9 +28,6 @@ Command [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of 
 Command [**`build clean run`**](HelloWorld/build.bat) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; echo %cd%</b>
-W:\myexamples\HelloWorld
-&nbsp;
 <b>&gt; build clean run</b>
 Hello world!
 </pre>
@@ -107,9 +109,6 @@ build {
 Command **`gradle clean run`** produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; echo %cd%</b>
-W:\myexamples\HelloWorld
-&nbsp;
 <b>&gt; gradle clean run</b>
 
 &gt; Task :run
@@ -149,9 +148,6 @@ The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is a standalone f
 Command **`sbt -warn clean run`** produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; echo %cd%</b>
-W:\myexamples\HelloWorld
-&nbsp;
 <b>&gt; sbt -warn clean run</b>
 Hello world!
 </pre>
@@ -182,9 +178,6 @@ The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone fil
 Command [**`mill -i go`**](HelloWorld/build.sc) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; echo %cd%</b>
-W:\myexamples\HelloWorld
-&nbsp;
 <b>&gt; mill -i go</b>
 [38/38] go.run
 Hello world!

@@ -201,7 +201,7 @@ We distinguish different sets of batch/bash commands:
     | [**`ant`**][apache_ant_cli] | [**`build.xml`**](examples/enum-Planet/build.xml) | [**`build.xml`**](examples/build.xml) | **`ant clean compile run`** |
     | [**`bloop`**](https://www.scala-sbt.org/) | &empty; | &empty; | &empty; |
     | [**`gradle`**][gradle_cli] | [**`build.gradle`**](examples/enum-Planet/build.gradle) | [**`common.gradle`**](examples/common.gradle) | **`gradle clean build run`** |
-    | [**`mill`**][mill_cli] | [**`build.sc`**](examples/enum-Planet/build.sc) | &empty; | **`mill -i go`** |
+    | [**`mill`**][mill_cli] | [**`build.sc`**](examples/enum-Planet/build.sc) | [**`common.sc`**](examples/common.sc) | **`mill -i app`** |
     | [**`mvn`**][apache_maven_cli] | [**`pom.xml`**](examples/enum-Planet/pom.xml) | [**`pom.xml`**](examples/pom.xml) | **`mvn clean compile test`** |
     | [**`sbt`**][sbt_cli] | [**`build.sbt`**](examples/enum-Planet/build.sbt) | &empty; | **`sbt clean compile run`** |
 
