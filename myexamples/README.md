@@ -161,25 +161,40 @@ The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone fil
 
 <pre style="font-size:80%;">
 <b>import</b> mill._, scalalib._
+<b>import</b> $file.^.common
 &nbsp;
-<b>object</b> go <b>extends</b> ScalaModule {
-  <b>def</b> scalaVersion = <span style="color:#990000;">"0.21.0-RC1"</span>  <span style="color:#009900;">// "2.12.18"</span>
-  <b>def</b> scalacOptions = Seq(<span style="color:#990000;">"-deprecation"</span>, <span style="color:#990000;">"-feature"</span>)
-  <b>def</b> forkArgs = Seq(<span style="color:#990000;">"-Xmx1g"</span>)
-  <b>def</b> mainClass = Some(<span style="color:#990000;">"Main"</span>)
-  <b>def</b> sources = T.sources { os.pwd / <span style="color:#990000;">"src"</span> }
+<b>object</b> app <b>extends</b> ScalaModule {
+  <b>def</b> scalaVersion = common.scalaVersion
+  <b>def</b> scalacOptions = common.scalacOptions
+  &nbsp;
+  <b>def</b> forkArgs = common.forkArgs
+  &nbsp;
+  <b>def</b> mainClass = Some(<span style="color:#990000;">"myexamples.HelloWorld"</span>)
+  <b>def</b> sources = T.sources { common.scalaSourcePath }
   <b>def</b> clean() = T.command {
-    val path = os.pwd / <span style="color:#990000;">"out"</span> / <span style="color:#990000;">"go"</span>
+    val path = os.pwd / <span style="color:#990000;">"out"</span> / <span style="color:#990000;">"app"</span>
     os.walk(path, skip = _.last == <span style="color:#990000;">"clean"</span>).foreach(os.remove.all)
+  }
+  <b>object</b> test <b>extends</b> Tests {
+    <b>def</b> ivyDeps = Agg(
+      common.ivyJunitInterface,
+      common.ivyScalatest,
+      common.ivySpecs2
+    )
+    <b>def</b> testFrameworks = Seq(
+      <span style="color:#990000;">"com.novocode.junit.JUnitFramework"</span>,
+      <span style="color:#990000;">"org.scalatest.tools.Framework"</span>,
+      <span style="color:#990000;">"org.specs2.runner.JUnitRunner"</span> // org.specs2.Specs2Framework
+    )
   }
 }
 </pre>
 
-Command [**`mill -i go`**](HelloWorld/build.sc) produces the following output:
+Command [**`mill -i app`**](HelloWorld/build.sc) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; mill -i go</b>
-[38/38] go.run
+<b>&gt; mill -i app</b>
+[38/38] app.run
 Hello world!
 </pre>
 
