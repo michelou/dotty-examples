@@ -41,6 +41,30 @@
     </properties>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-interfaces -->
+        <dependency>
+            <groupId>ch.epfl.lamp</groupId>
+            <artifactId>dotty-interfaces</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+		<!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.21 -->
+		<dependency>
+			<groupId>ch.epfl.lamp</groupId>
+			<artifactId>dotty-library_0.21</artifactId>
+			<version>${scala.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/ch.epfl.lamp/tasty-core_0.21 -->
+		<dependency>
+			<groupId>ch.epfl.lamp</groupId>
+			<artifactId>tasty-core_0.21</artifactId>
+			<version>${scala.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>2.13.1</version>
+		</dependency>
         <dependency>
             <groupId>ch.epfl.alumni</groupId>
             <artifactId>scala-maven-plugin</artifactId>
