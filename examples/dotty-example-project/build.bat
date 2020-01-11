@@ -51,7 +51,7 @@ rem ##########################################################################
 rem ## Subroutines
 
 rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-rem                    _CLASSES_DIR, _TASTY_CLASSES_DIR, _DOCS_DIR
+rem                    _CLASSES_DIR, _TASTY_CLASSES_DIR, _TARGET_DOCS_DIR
 :env
 rem ANSI colors in standard Windows 10 shell
 rem see https://gist.github.com/mlocati/#file-win10colors-cmd
@@ -59,10 +59,11 @@ set _DEBUG_LABEL=[46m[%_BASENAME%][0m
 set _ERROR_LABEL=[91mError[0m:
 set _WARNING_LABEL=[93mWarning[0m:
 
+set _SOURCE_DIR=%_ROOT_DIR%src
 set _TARGET_DIR=%_ROOT_DIR%target
 set _CLASSES_DIR=%_TARGET_DIR%\classes
 set _TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes
-set _DOCS_DIR=%_TARGET_DIR%\docs
+set _TARGET_DOCS_DIR=%_TARGET_DIR%\docs
 goto :eof
 
 rem output parameters: _COMPILE_CMD_DEFAULT, _DOC_CMD_DEFAULT, _MAIN_CLASS_DEFAULT
@@ -260,11 +261,11 @@ if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 set __TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build
 
 set __JAVA_SOURCE_FILES=
-for %%i in (%_ROOT_DIR%src\main\java\*.java) do (
+for %%i in (%_SOURCE_DIR%\main\java\*.java) do (
     set __JAVA_SOURCE_FILES=!__JAVA_SOURCE_FILES! %%i
 )
 set __SCALA_SOURCE_FILES=
-for %%i in (%_ROOT_DIR%src\main\scala\*.scala) do (
+for %%i in (%_SOURCE_DIR%\main\scala\*.scala) do (
     set __SCALA_SOURCE_FILES=!__SCALA_SOURCE_FILES! %%i
 )
 
@@ -406,20 +407,20 @@ if exist "%_ROOT_DIR%\lib\" (
 goto :eof
 
 :doc
-if not exist "%_DOCS_DIR%" mkdir "%_DOCS_DIR%" 1>NUL
+if not exist "%_TARGET_DOCS_DIR%" mkdir "%_TARGET_DOCS_DIR%" 1>NUL
 
-set __TIMESTAMP_FILE=%_DOCS_DIR%\.latest-build
+set __TIMESTAMP_FILE=%_TARGET_DOCS_DIR%\.latest-build
 
 set __SCALA_SOURCE_FILES=
-for /f %%i in ('dir /s /b "%_ROOT_DIR%src\main\scala\*.scala" 2^>NUL') do (
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     set __SCALA_SOURCE_FILES=!__SCALA_SOURCE_FILES! %%i
 )
 
 for %%i in ("%~dp0\.") do set __PROJECT=%%~ni
-set __DOC_OPTS=-siteroot %_DOCS_DIR% -project %__PROJECT% -project-version 0.1-SNAPSHOT
+set __DOC_OPTS=-siteroot %_TARGET_DOCS_DIR% -project %__PROJECT% -project-version 0.1-SNAPSHOT
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into directory !_DOCS_DIR:%_ROOT_DIR%=! 1>&2
+) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into directory !_TARGET_DOCS_DIR:%_ROOT_DIR%=! 1>&2
 )
 call %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (

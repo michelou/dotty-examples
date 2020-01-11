@@ -51,7 +51,7 @@ rem ##########################################################################
 rem ## Subroutines
 
 rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-rem                    _CLASSES_DIR, _TASTY_CLASSES_DIR, _DOCS_DIR
+rem                    _CLASSES_DIR, _TASTY_CLASSES_DIR, _TARGET_DOCS_DIR
 :env
 rem ANSI colors in standard Windows 10 shell
 rem see https://gist.github.com/mlocati/#file-win10colors-cmd
@@ -59,9 +59,11 @@ set _DEBUG_LABEL=[46m[%_BASENAME%][0m
 set _ERROR_LABEL=[91mError[0m:
 set _WARNING_LABEL=[93mWarning[0m:
 
-set _CLASSES_DIR=%_ROOT_DIR%target\classes
-set _TASTY_CLASSES_DIR=%_ROOT_DIR%target\classes-tasty
-set _DOCS_DIR=%_ROOT_DIR%target\docs
+set _SOURCE_DIR=%_ROOT_DIR%src
+set _TARGET_DIR=%_ROOT_DIR%target
+set _CLASSES_DIR=%_TARGET_DIR%\classes
+set _TASTY_CLASSES_DIR=%_TARGET_DIR%\classes-tasty
+set _TARGET_DOCS_DIR=%_TARGET_DIR%\docs
 goto :eof
 
 rem output parameters: _COMPILE_CMD_DEFAULT, _DOC_CMD_DEFAULT, _MAIN_CLASS_DEFAULT
@@ -163,7 +165,8 @@ if %_DEBUG%==1 (
 goto :eof
 
 :help
-echo Usage: %_BASENAME% { options ^| subcommands }
+echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
+echo.
 echo   Options:
 echo     -debug           show commands executed by this script
 echo     -explain         set compiler option -explain
@@ -173,12 +176,14 @@ echo     -main:^<name^>     define main class name
 echo     -tasty           compile both from source and TASTy files
 echo     -timer           display compile time
 echo     -verbose         display progress messages
+echo.
 echo   Subcommands:
 echo     clean            delete generated class files
 echo     compile          compile source files ^(Java and Scala^)
 echo     doc              generate documentation
 echo     help             display this help message
 echo     run              execute main class
+echo.
 echo   Properties:
 echo   ^(to be defined in SBT configuration file project\build.properties^)
 echo     compiler.cmd     alternative to option -compiler
@@ -227,16 +232,21 @@ set _MAIN_CLASS=%__ARG%
 goto :eof
 
 :clean
-for %%m in (out target) do (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% forfiles /s /p %_ROOT_DIR% /m %%m /c "cmd /c echo @path" 2^>NUL
-    for /f %%i in ('forfiles /s /p %_ROOT_DIR% /m %%m /c "cmd /c if @isdir==TRUE echo @path" 2^>NUL') do (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% rmdir /s /q %%i
-        rmdir /s /q %%i
-        if not !ERRORLEVEL!==0 (
-            echo %_ERROR_LABEL% Failed to clean directory %%i 1>&2
-            set _EXITCODE=1
-        )
-    )
+call :rmdir "%_ROOT_DIR%out"
+call :rmdir "%_TARGET_DIR%"
+goto :eof
+
+rem input parameter(s): %1=directory path
+:rmdir
+set __DIR=%~1
+if not exist "%__DIR%\" goto :eof
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
+) else if %_VERBOSE%==1 ( echo Delete directory !__DIR:%_ROOT_DIR%=! 1>&2
+)
+rmdir /s /q "%__DIR%"
+if not %ERRORLEVEL%==0 (
+    set _EXITCODE=1
+    goto :eof
 )
 goto :eof
 
@@ -254,11 +264,11 @@ if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 set __TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build
 
 set __JAVA_SOURCE_FILES=
-for /f %%i in ('dir /s /b "%_ROOT_DIR%src\main\java\*.java" 2^>NUL') do (
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     set __JAVA_SOURCE_FILES=!__JAVA_SOURCE_FILES! %%i
 )
 set __SCALA_SOURCE_FILES=
-for /f %%i in ('dir /s /b "%_ROOT_DIR%src\main\scala\*.scala" 2^>NUL') do (
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     set __SCALA_SOURCE_FILES=!__SCALA_SOURCE_FILES! %%i
 )
 
@@ -400,20 +410,20 @@ if exist "%_ROOT_DIR%\lib\" (
 goto :eof
 
 :doc
-if not exist "%_DOCS_DIR%" mkdir "%_DOCS_DIR%" 1>NUL
+if not exist "%_TARGET_DOCS_DIR%" mkdir "%_TARGET_DOCS_DIR%" 1>NUL
 
-set __TIMESTAMP_FILE=%_DOCS_DIR%\.latest-build
+set __TIMESTAMP_FILE=%_TARGET_DOCS_DIR%\.latest-build
 
 set __SCALA_SOURCE_FILES=
-for /f %%i in ('dir /s /b "%_ROOT_DIR%src\main\scala\*.scala" 2^>NUL') do (
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     set __SCALA_SOURCE_FILES=!__SCALA_SOURCE_FILES! %%i
 )
 
 for %%i in ("%~dp0\.") do set __PROJECT=%%~ni
-set __DOC_OPTS=-siteroot %_DOCS_DIR% -project %__PROJECT% -project-version 0.1-SNAPSHOT
+set __DOC_OPTS=-siteroot %_TARGET_DOCS_DIR% -project %__PROJECT% -project-version 0.1-SNAPSHOT
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into !_DOCS_DIR:%_ROOT_DIR%=! 1>&2
+) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into !_TARGET_DOCS_DIR:%_ROOT_DIR%=! 1>&2
 )
 call %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
