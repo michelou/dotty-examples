@@ -551,21 +551,22 @@ if not exist "%_TARGET_DOCS_DIR%" mkdir "%_TARGET_DOCS_DIR%" 1>NUL
 
 set __DOC_TIMESTAMP_FILE=%_TARGET_DOCS_DIR%\.latest-build
 
-call :compile_required "%__DOC_TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\java\*.java"
+call :compile_required "%__DOC_TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\scala\*.scala"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
-set __SCALA_SOURCE_FILES=
-for %%i in (%_SOURCE_DIR%\main\scala\*.scala) do (
-    set __SCALA_SOURCE_FILES=!__SCALA_SOURCE_FILES! %%i
+set "__DOC_LIST_FILE=%_TARGET_DIR%\doc_files.txt"
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
+    echo %%i>> "%__DOC_LIST_FILE%"
 )
 
-for %%i in ("%~dp0\.") do set __PROJECT=%%~ni
-set __SCALADOC_OPTS=-siteroot %_TARGET_DOCS_DIR% -project %__PROJECT% -project-version 0.1-SNAPSHOT
+for %%i in ("%~dp0\.") do set __PROJECT_NAME=%%~ni
+set __PROJECT_VERSION=0.1-SNAPSHOT
+set __SCALADOC_OPTS=-siteroot "%_TARGET_DOCS_DIR%" -project %__PROJECT_NAME% -project-version %__PROJECT_VERSION%
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALADOC_CMD% %__SCALADOC_OPTS% %__SCALA_SOURCE_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into !_TARGET_DOCS_DIR:%_ROOT_DIR%=! 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALADOC_CMD% %__SCALADOC_OPTS% "@%__DOC_LIST_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into directory !_TARGET_DOCS_DIR:%_ROOT_DIR%=! 1>&2
 )
-call %_SCALADOC_CMD% %__SCALADOC_OPTS% %__SCALA_SOURCE_FILES%
+call %_SCALADOC_CMD% %__SCALADOC_OPTS% "@%__DOC_LIST_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Scala documentation generation failed 1>&2
     set _EXITCODE=1
@@ -626,19 +627,19 @@ set "__TEST_TIMESTAMP_FILE=%_TEST_CLASSES_DIR%\.latest-build"
 call :compile_required "%__TEST_TIMESTAMP_FILE%" "%_SOURCE_DIR%\test\scala\*.scala"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
-set __LIST_FILE=%_TARGET_DIR%\scala_files.txt
-if exist "%__LIST_FILE%" del "%__LIST_FILE%" 1>NUL
+set __TEST_LIST_FILE=%_TARGET_DIR%\test_files.txt
+if exist "%__TEST_LIST_FILE%" del "%__TEST_LIST_FILE%" 1>NUL
 for %%i in (%_SOURCE_DIR%\test\scala\*.scala) do (
-    echo %%i >> "%__LIST_FILE%"
+    echo %%i >> "%__TEST_LIST_FILE%"
 )
 
 call :libs_cpath 1
 set __TEST_SCALAC_OPTS=%_SCALAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d %_TEST_CLASSES_DIR%
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% %__TEST_SCALAC_OPTS% @%__LIST_FILE% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% %__TEST_SCALAC_OPTS% @%__TEST_LIST_FILE% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Scala test sources to !_TEST_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
-call %_SCALAC_CMD% %__TEST_SCALAC_OPTS% @%__LIST_FILE%
+call %_SCALAC_CMD% %__TEST_SCALAC_OPTS% @%__TEST_LIST_FILE%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Compilation of test Scala sources failed 1>&2
     set _EXITCODE=1
