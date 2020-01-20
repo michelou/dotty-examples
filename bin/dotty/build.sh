@@ -18,59 +18,67 @@ getHome() {
     ( cd -P "$(dirname "$source")" && pwd )
 }
 
-# use variables DEBUG, EXITCODE, TIMER_START
+debug() {
+    local DEBUG_LABEL="[46m[DEBUG][0m"
+    $DEBUG && echo "$DEBUG_LABEL $1" 1>&2
+}
+
+error() {
+    local ERROR_LABEL="[91mError:[0m"
+    echo "$ERROR_LABEL $1" 1>&2
+}
+
+# use variables EXITCODE, TIMER_START
 cleanup() {
     [[ $1 =~ ^[0-1]$ ]] && EXITCODE=$1
 
-    if [[ $TIMER -eq 1 ]]; then
+    if $TIMER; then
         local TIMER_END=$(date +'%s')
         local duration=$((TIMER_END - TIMER_START))
         echo "Total elapsed time: $(date -d @$duration +'%H:%M:%S')" 1>&2
     fi
-    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL EXITCODE=$EXITCODE" 1>&2
+    debug "EXITCODE=$EXITCODE"
     exit $EXITCODE
 }
 
 args() {
-    [[ $# -eq 0 ]] && HELP=1 && return $EXITCODE
+    [[ $# -eq 0 ]] && HELP=true && return true
 
     for arg in "$@"; do
         case "$arg" in
         ## options
-        -debug)       DEBUG=1 ;;
-        -help)        HELP=1 ;;
-        -timer)       TIMER=1 ;;
+        -debug)        DEBUG=true ;;
+        -help)         HELP=true ;;
+        -timer)        TIMER=true ;;
         -*)
             echo "$ERROR_LABEL Unknown option $arg" 1>&2
-            EXITCODE=1 && return $EXITCODE
+            EXITCODE=1 && return false
             ;;
         ## subcommands
-        arch)         CLONE=1 & COMPILE=1 & BOOTSTRAPPED=1 & ARCHIVES=1 ;;
-        archives)     CLONE=1 & COMPILE=1 & BOOTSTRAPPED=1 & ARCHIVES=1 ;;
-        boot)         CLONE=1 & COMPILE=1 & BOOTSTRAPPED=1 ;;
-        bootstrap)    CLONE=1 & COMPILE=1 & BOOTSTRAPPED=1 ;;
-        clean)        CLEAN=1 ;;
-        clone)        CLONE=1 ;;
-        community)    COMMUNITY_BUILD=1 ;;
-        compile)      COMPILE=1 ;;
-        doc)          COMPILE=1 & BOOTSTRAPPED=1 & COMMUNITY_BUILD=1 & DOCUMENTATION=1 ;;
-        documenation) COMPILE=1 & BOOTSTRAPPED=1 & COMMUNITY_BUILD=1 & DOCUMENTATION=1 ;;
-        help)         HELP=1 ;;
-        java11)       CLONE=1 & JAVA11=1 ;;
+        arch[ives])    CLONE=true & COMPILE=true & BOOTSTRAPPED=true & ARCHIVES=true ;;
+        boot)          CLONE=true & COMPILE=true & BOOTSTRAPPED=true ;;
+        bootstrap)     CLONE=true & COMPILE=true & BOOTSTRAPPED=true ;;
+        clean)         CLEAN=true ;;
+        clone)         CLONE=true ;;
+        community)     COMMUNITY_BUILD=true ;;
+        compile)       COMPILE=true ;;
+        doc)           COMPILE=true & BOOTSTRAPPED=true & COMMUNITY_BUILD=true & DOCUMENTATION=true ;;
+        documentation) COMPILE=true & BOOTSTRAPPED=true & COMMUNITY_BUILD=true & DOCUMENTATION=true ;;
+        help)          HELP=true ;;
+        java11)        CLONE=true & JAVA11=true ;;
         *)
-            echo "$ERROR_LABEL Unknown subcommand $arg" 1>&2
-            EXITCODE=1 && return $EXITCODE
+            error "$ERROR_LABEL Unknown subcommand $arg"
+            EXITCODE=1 && return false
             ;;
         esac
     done
-    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL BOOTSTRAPPED=$BOOTSTRAPPED CLEAN=$CLEAN CLONE=$CLONE COMPILE=$COMPILE HELP=$HELP TIMER=$TIMER" 1>&2
+    debug "BOOTSTRAPPED=$BOOTSTRAPPED CLEAN=$CLEAN CLONE=$CLONE COMPILE=$COMPILE HELP=$HELP TIMER=$TIMER"
     # See http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
-    [[ $TIMER -eq 1 ]] && TIMER_START=$(date +"%s")
-    return $EXITCODE
+    $TIMER && TIMER_START=$(date +"%s")
 }
 
 help() {
-cat << EOS
+    cat << EOS
 Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
@@ -92,119 +100,105 @@ EOS
 }
 
 clone() {
-    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $GIT_CMD submodule sync" 1>&2
+    debug "$GIT_CMD submodule sync"
     $GIT_CMD submodule sync
-    [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 
-    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $GIT_CMD submodule update --init --recursive --jobs 7" 1>&2
+    debug "$GIT_CMD submodule update --init --recursive --jobs 7"
     $GIT_CMD submodule update --init --recursive --jobs 7
-    [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
-
-    return $EXITCODE
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 }
 
 clean() {
     echo "${COLOR_START}run sbt clean and git clean -xdf${COLOR_END}"
 
-    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $SCRIPTS_DIR/sbt clean" 1>&2
+    debug "$SCRIPTS_DIR/sbt clean"
     $SCRIPTS_DIR/sbt clean
-    [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 
-    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $GIT_CMD clean -xdf --exclude=*.bat --exclude=*.ps1" 1>&2
+    debug "$GIT_CMD clean -xdf --exclude=*.bat --exclude=*.ps1 --exclude=*.sh"
     $GIT_CMD clean -xdf --exclude=*.bat --exclude=*.ps1 --exclude=build.sh
-    [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
-
-    return $EXITCODE
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 }
 
 test_compiled() {
     echo "${COLOR_START}sbt compile and sbt test${COLOR_END}"
 
-    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $SCRIPTS_DIR/sbt \";compile ;test\"" 1>&2
+    debug "$SCRIPTS_DIR/sbt \";compile ;test\""
     $SCRIPTS_DIR/sbt ";compile ;test"
-    [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 
-    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $SCRIPTS_DIR/cmdTests" 1>&2
+    debug "$SCRIPTS_DIR/cmdTests"
     $SCRIPTS_DIR/cmdTests
-    [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
-
-    return $EXITCODE
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 }
 
 test_bootstrapped() {
     echo "${COLOR_START}sbt dotty-bootstrapped/compile and sbt dotty-bootstrapped/test${COLOR_END}"
 
-    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $SCRIPTS_DIR/sbt \";dotty-bootstrapped/compile ;dotty-bootstrapped/test\"" 1>&2
+    debug "$SCRIPTS_DIR/sbt \";dotty-bootstrapped/compile ;dotty-bootstrapped/test\""
     $SCRIPTS_DIR/sbt ";dotty-bootstrapped/compile ;dotty-bootstrapped/test ;dotty-staging/test ;sjsSandbox/run;sjsSandbox/test;sjsJUnitTests/test"
-    [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 
-    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $SCRIPTS_DIR/bootstrapCmdTests" 1>&2
+    debug "$SCRIPTS_DIR/bootstrapCmdTests"
     $SCRIPTS_DIR/bootstrapCmdTests
-    [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
-
-    return $EXITCODE
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 }
 
 community_build() {
     echo "${COLOR_START}sbt community-build/test${COLOR_END}"
 
-    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $GIT_CMD submodule sync" 1>&2
+    debug "$GIT_CMD submodule sync"
     $GIT_CMD submodule sync
-    [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 
-    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $GIT_CMD submodule update --init --recursive --jobs 7" 1>&2
+    debug "$GIT_CMD submodule update --init --recursive --jobs 7"
     $GIT_CMD submodule update --init --recursive --jobs 7
-    [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 
-    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $SCRIPTS_DIR/sbt community-build/test" 1>&2
+    debug "$SCRIPTS_DIR/sbt community-build/test"
     $SCRIPTS_DIR/sbt community-build/test
-    [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 
-    return $EXITCODE
+    return true
 }
 
 test_sbt() {
-    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $SCRIPTS_DIR/sbt sbt-dotty/scripted" 1>&2
+    debug "$SCRIPTS_DIR/sbt sbt-dotty/scripted"
     $SCRIPTS_DIR/sbt sbt-dotty/scripted
     [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
-
-    return $EXITCODE
 }
 
 test_java11() {
     echo "${COLOR_START}sbt compile and sbt test (Java 11)${COLOR_END}"
 
-    [[ -z "$JDK11_HOME" ]] && ( EXITCODE=1 && return $EXITCODE )
+    [[ -z "$JDK11_HOME" ]] && EXITCODE=1 && return 0
     local OLD_PATH=$PATH
     export PATH="$JDK11_HOME/bin:$PATH"
 
-    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $SCRIPTS_DIR/sbt \";compile ;test\"" 1>&2
+    debug "$SCRIPTS_DIR/sbt \";compile ;test\""
     $SCRIPTS_DIR/sbt ";compile ;test"
-    [[ $? -eq 0 ]] || ( EXITCODE=1 && PATH=$OLD_PATH && return $EXITCODE )
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && PATH=$OLD_PATH && return 0 )
 
     PATH=$OLD_PATH
-    return $EXITCODE
 }
 
 documentation() {
-    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $SCRIPTS_DIR/genDocs" 1>&2
+    debug "$SCRIPTS_DIR/genDocs"
     $SCRIPTS_DIR/genDocs
-    [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
-
-    return $EXITCODE
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 }
 
 archives() {
-    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $SCRIPTS_DIR/sbt dist-bootstrapped/packArchive" 1>&2
+    debug "$SCRIPTS_DIR/sbt dist-bootstrapped/packArchive"
     $SCRIPTS_DIR/sbt dist-bootstrapped/packArchive
-    [[ $? -eq 0 ]] || ( EXITCODE=1 && return $EXITCODE )
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 
-    if [[ $DEBUG -eq 1 ]]; then
+    if $DEBUG; then
         echo ""
         echo "Output directory: dist-bootstrapped\target" 1>&2
         ls "$TOOL_HOME/dist-bootstrapped/target"
     fi
-    return $EXITCODE
 }
 
 ##############################################################################
@@ -219,23 +213,21 @@ TOOL_HOME="$(getHome)"
 SCRIPTS_DIR=$TOOL_HOME/project/scripts
 [[ -d "$SCRIPTS_DIR" ]] || cleanup 1
 
-ARCHIVES=0
-BOOTSTRAPPED=0
-CLEAN=0
-CLONE=0
-COMMUNITY_BUILD=0
-COMPILE=0
-DEBUG=0
-DOCUMENTATION=0
-HELP=0
-SBT=0
-TIMER=0
+ARCHIVES=false
+BOOTSTRAPPED=false
+CLEAN=false
+CLONE=false
+COMMUNITY_BUILD=false
+COMPILE=false
+DEBUG=false
+DOCUMENTATION=false
+JAVA11=false
+HELP=false
+SBT=false
+TIMER=false
 
 COLOR_START="[32m"
 COLOR_END="[0m"
-
-DEBUG_LABEL="[46m[DEBUG][0m"
-ERROR_LABEL="[91mError:[0m"
 
 case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
     "msys"*|"cygwin"*|"mingw"*)
@@ -244,19 +236,19 @@ case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
         SBT_CMD="$(which sbt).bat"
         ;;
     *)
-        GIT_CMD="git"
-        JAVA_CMD="java"
-        SBT_CMD="sbt"
+        GIT_CMD="$(which git)"
+        JAVA_CMD="$(which java)"
+        SBT_CMD="$(which sbt)"
         ;;
 esac
 ## sbt build tool requires Java 8+ to be in PATH
 if [[ ! -x "$JAVA_CMD" ]]; then
-    echo "$ERROR_LABEL Java command not found" 1>&2
+    error "Java command not found"
     cleanup 1
 fi
 ## dotty is a sbt project
 if [[ ! -f "$SBT_CMD" ]]; then
-    echo "$ERROR_LABEL sbt build tool not found" 1>&2
+    error "sbt build tool not found"
     cleanup 1
 fi
 
@@ -266,43 +258,34 @@ args "$@"
 ##############################################################################
 ## Main
 
-[[ $HELP -eq 1 ]] && help && cleanup
+$HELP && help && cleanup
 
-if [[ $CLONE -eq 1 ]]; then
-    clone
-    [[ $EXITCODE -eq 0 ]] || cleanup 1
+if $CLONE; then
+    clone || cleanup 1
 fi
-if [[ $CLEAN -eq 1 ]]; then
-    clean
-    [[ $EXITCODE -eq 0 ]] || cleanup 1
+if $CLEAN; then
+    clean || cleanup 1
 fi
-if [[ $COMPILE -eq 1 ]]; then
-    test_compiled
-    [[ $EXITCODE -eq 0 ]] || cleanup 1
+if $COMPILE; then
+    test_compiled || cleanup 1
 fi
-if [[ $BOOTSTRAPPED -eq 1 ]]; then
-    test_bootstrapped
-    [[ $EXITCODE -eq 0 ]] || cleanup 1
+if $BOOTSTRAPPED; then
+    test_bootstrapped || cleanup 1
 fi
-if [[ $COMMUNITY_BUILD -eq 1 ]]; then
-    community_build
-    [[ $EXITCODE -eq 0 ]] || cleanup 1
+if $COMMUNITY_BUILD; then
+    community_build || cleanup 1
 fi
-if [[ $SBT -eq 1 ]]; then
-    test_sbt
-    [[ $EXITCODE -eq 0 ]] || cleanup 1
+if $SBT; then
+    test_sbt || cleanup 1
 fi
-if [[ $JAVA11 -eq 1 ]]; then
-    test_java11
-    [[ $EXITCODE -eq 0 ]] || cleanup 1
+if $JAVA11; then
+    test_java11 || cleanup 1
 fi
-if [[ $DOCUMENTATION -eq 1 ]]; then
-    dcoumentation
-    [[ $EXITCODE -eq 0 ]] || cleanup 1
+if $DOCUMENTATION; then
+    dcoumentation || cleanup 1
 fi
-if [[ $ARCHIVES -eq 1 ]]; then
-    archives
-    [[ $EXITCODE -eq 0 ]] || cleanup 1
+if $ARCHIVES; then
+    archives || cleanup 1
 fi
 
 ##############################################################################

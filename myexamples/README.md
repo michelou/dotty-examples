@@ -51,7 +51,7 @@ plugins {
 group <span style="color:#990000;">"$appGroup"</span>
 version <span style="color:#990000;">"$appVersion"</span>
 &nbsp;
-description <span style="color:#990000;">"""Gradle example project to build/run Scala 3 code"""</span>
+description <span style="color:#990000;">"""Gradle example project to build/run Scala 3 applications"""</span>
 &nbsp;
 apply from: <span style="color:#990000;">"../common.gradle"</span>
 &nbsp;
@@ -132,7 +132,7 @@ The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is a standalone f
   .in(file(<span style="color:#990000;">"."</span>))
   .settings(
     name := <span style="color:#990000;">"dotty-example-project"</span>,
-    description := <span style="color:#990000;">"sbt example project to build/run Scala 3 code"</span>,
+    description := <span style="color:#990000;">"sbt example project to build/run Scala 3 applications"</span>,
     version := <span style="color:#990000;">"0.1.0"</span>,
     &nbsp;
     scalaVersion := dottyVersion,
@@ -184,7 +184,7 @@ The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone fil
     <b>def</b> testFrameworks = Seq(
       <span style="color:#990000;">"com.novocode.junit.JUnitFramework"</span>,
       <span style="color:#990000;">"org.scalatest.tools.Framework"</span>,
-      <span style="color:#990000;">"org.specs2.runner.JUnitRunner"</span> // org.specs2.Specs2Framework
+      <span style="color:#990000;">"org.specs2.runner.JUnitRunner"</span> <i style="color:#009900;">// org.specs2.Specs2Framework</i>
     )
   }
 }
@@ -592,7 +592,7 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/December 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/January 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

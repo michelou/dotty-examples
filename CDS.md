@@ -26,17 +26,17 @@ This document is part of a series of topics related to [Dotty] on Windows:
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
-- [Git 2.24][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.25][git_downloads] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_downloads] ([*release notes*][openjdk_relnotes])
 - [Dotty 0.21][dotty_releases] ([*release notes*][dotty_relnotes])
 
 > **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Dotty] (aka [Scala 3][dotty_scala_3]) are still in development and also support Java 9+. In the following we choose to work with [Oracle OpenJDK 11][openjdk_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
 
-For instance our development environment looks as follows (*December 2019*):
+For instance our development environment looks as follows (*January 2020*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.24.1\
-C:\opt\jdk-11.0.5+11\
+C:\opt\Git-2.25.0\
+C:\opt\jdk-11.0.6+10\
 C:\opt\dotty-0.21.0-RC1\
 </pre>
 
@@ -258,7 +258,7 @@ Note the following about the generated files:
 For instance we can read from file **`logs\log_share_off.log`** that  source of **`cdsexamples.Main`** is **`file:/`** and that the total load time on the last line is **`0.124s`**:
 
 <pre style="font-size:80%;">
-[0.008s][info][class,load] opened: c:\opt\jdk-11.0.4+11\lib\modules
+[0.008s][info][class,load] opened: c:\opt\jdk-11.0.6+10\lib\modules
 [0.018s][info][class,load] java.lang.Object source: jrt:/java.base
 [...]
 [0.121s][info][class,load] cdsexamples.Main source: file:/&lt;project_path&gt;/target/JavaExample.jar
@@ -590,17 +590,17 @@ Classes per package (888):
 > **&#9755;** ***Data Sharing and Oracle OpenJDK 11*** <br/>
 > The [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot) installation contains the file **`<install_dir>\lib\classlist`**. Let's check if data sharing is enabled:
 > 
-> 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last displayed line ends with  **`(build 11.0.5+1o, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.5+10, mixed mode)`** otherwise.
+> 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last displayed line ends with  **`(build 11.0.5+1o, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.6+10, mixed mode)`** otherwise.
 > 2. Command **`java.exe -Xshare:dump`** generates the 17.3 Mb Java shared archive **`<install_dir>\bin\server\classes.jsa`** from file **`<install_dir>\lib\classlist`**.
 > 3. Repeat command from point 1. 
 > 
 > <pre style="font-size:80%;">
-> <b>&gt; c:\opt\jdk-11.0.5+10\bin\java -version</b>
-> openjdk version "11.0.5" 2019-10-15
-> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.5+10)
-> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.5+10, mixed mode)
+> <b>&gt; c:\opt\jdk-11.0.6+10\bin\java -version</b>
+> openjdk version "11.0.6" 2020-01-15
+> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.6+10)
+> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.6+10, mixed mode)
 > &nbsp;
-> <b>&gt; c:\opt\jdk-11.0.4+11\bin\java -Xshare:dump</b>
+> <b>&gt; c:\opt\jdk-11.0.6+10\bin\java -Xshare:dump</b>
 > [...]
 > Number of classes 1272
 > [...]
@@ -611,14 +611,14 @@ Classes per package (888):
 > od  space:   6534648 [ 36.1% of total] [...]
 > total    :  17873816 [100.0% of total] [...]
 > &nbsp;
-> <b>&gt; dir /b c:\opt\jdk-11.0.4+11\bin\server</b>
+> <b>&gt; dir /b c:\opt\jdk-11.0.6+10\bin\server</b>
 > classes.jsa
 > jvm.dll
 > &nbsp;
-> <b>&gt; c:\opt\jdk-11.0.5+10\bin\java -version</b>
-> openjdk version "11.0.5" 2019-10-15
-> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.45+10)
-> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.5+10, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
+> <b>&gt; c:\opt\jdk-11.0.6+10\bin\java -version</b>
+> openjdk version "11.0.6" 2020-01-15
+> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.6+10)
+> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.6+10, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
 > </pre>
 > Java 12 introduces default CDS archives ([JEP 341][java_jep_341])
 > to improve out-of-the-box startup time and to get rid of the need to run
@@ -718,7 +718,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/December 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/January 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -731,7 +731,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.25.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [java_cli]: https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html

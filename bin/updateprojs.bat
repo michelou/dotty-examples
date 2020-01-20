@@ -20,13 +20,13 @@ set _DOTTY_VERSION_OLD="0.20.0-RC1"
 set _DOTTY_VERSION_NEW="0.21.0-RC1"
 
 rem files project\build.properties
-set _SBT_VERSION_OLD=sbt.version=1.3.3
-set _SBT_VERSION_NEW=sbt.version=1.3.5
+set _SBT_VERSION_OLD=sbt.version=1.3.5
+set _SBT_VERSION_NEW=sbt.version=1.3.7
 
 rem files project\plugins.sbt
 rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/
-set _SBT_DOTTY_VERSION_OLD="0.3.3"
-set _SBT_DOTTY_VERSION_NEW="0.3.4"
+set _SBT_DOTTY_VERSION_OLD="0.3.4"
+set _SBT_DOTTY_VERSION_NEW="0.4.0"
 
 rem files ivy.xml (NB. PS regex)
 set _IVY_DOTTY_VERSION_OLD=^(dotty-[a-z]+^)_0.20

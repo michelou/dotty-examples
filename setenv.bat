@@ -605,7 +605,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q dotc.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,4,*" %%i in ('dotc.bat -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% dotc %%l"
+    for /f "tokens=1,2,3,4,*" %%i in ('dotc.bat -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% dotc %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% dotc.bat
 )
 where /q ant.bat
@@ -697,7 +697,7 @@ endlocal & (
         set "PATH=%_JDK_PATH%%_PYTHON_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MILL_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_BLOOP_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE% "%_GIT_HOME%"
         if %_BASH%==1 (
-            remm see https://conemu.github.io/en/GitForWindows.html
+            rem see https://conemu.github.io/en/GitForWindows.html
             if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_HOME%\usr\bin\bash.exe --login 1>&2
             cmd.exe /c "%_GIT_HOME%\usr\bin\bash.exe --login"
         )

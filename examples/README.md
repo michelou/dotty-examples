@@ -132,7 +132,7 @@ plugins {
 group <span style="color:#990000;">"$appGroup"</span>
 version <span style="color:#990000;">"$appVersion"</span>
 &nbsp;
-description <span style="color:#990000;">"""Gradle example project to build/run Scala 3 code"""</span>
+description <span style="color:#990000;">"""Gradle example project to build/run Scala 3 applications"""</span>
 &nbsp;
 apply from: <span style="color:#990000;">"../common.gradle"</span>
 &nbsp;
@@ -222,7 +222,7 @@ The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is a standalone 
   .in(file("."))
   .settings(
     name := <span style="color:#990000;">"enum-Planet"</span>,
-    description := <span style="color:#990000;">"Sbt example project that compiles Scala 3 code"</span>,
+    description := <span style="color:#990000;">"Sbt example project that compiles Scala 3 applications"</span>,
     version := <span style="color:#990000;">"0.1.0"</span>,
     &nbsp;
     scalaVersion := dottyVersion,
@@ -642,7 +642,7 @@ rem ## Cleanups</i>
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/December 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/January 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link regs -->

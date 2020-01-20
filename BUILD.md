@@ -24,7 +24,7 @@ This document is part of a series of topics related to [Dotty] on Windows:
 
 Our [Dotty fork][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.24][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.25][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 8][openjdk_releases] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][openjdk_relnotes])
 - [SBT 1.3][sbt_releases] (requires Java 8) ([*release notes*][sbt_relnotes])
 <!--
@@ -35,12 +35,12 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*December 2019*):
+For instance our development environment looks as follows (*January 2020*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.24.1\
+C:\opt\Git-2.25.0\
 C:\opt\jdk-1.8.0_232-b09\
-C:\opt\sbt-1.3.5\
+C:\opt\sbt-1.3.7\
 </pre>
 
 > **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -50,10 +50,6 @@ C:\opt\sbt-1.3.5\
 The directory structure of the [Dotty repository][github_dotty] <sup id="anchor_02">[[2]](#footnote_02)</sup>  is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/master/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts).
 
 <pre style="font-size:80%;">
-bin\0.21\
-bin\dotty\build.bat,build.sh
-bin\dotty\bin\
-bin\dotty\project\
 dotty\      <i>(Git submodule)</i><sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>
 dotty\bin\
 dotty\dist\bin\
@@ -285,9 +281,9 @@ Command **`build -verbose cleanall`** also displays the tool paths/options and t
 <pre style="font-size:80%;">
 <b>&gt; build -verbose cleanall</b>
 Tool paths
-   GIT_CMD=C:\opt\Git-2.24.1\bin\git.exe
+   GIT_CMD=C:\opt\Git-2.25.0\bin\git.exe
    JAVA_CMD=C:\opt\jdk-1.8.0_232-b09\bin\java.exe
-   SBT_CMD=C:\opt\sbt-1.3.5\bin\sbt.bat
+   SBT_CMD=C:\opt\sbt-1.3.7\bin\sbt.bat
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
    SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -631,10 +627,10 @@ Steps are: Checkout <b>&rarr;</b> Compile <b>&rarr;</b> Test <b>&rarr;</b> Deplo
 </p>
 <table style="margin:0 0 1em 20px;">
 <tr><th>Software</th<th>CI/CD&nbsp;service</th<th>Hosting</th></tr>
-<tr><td>[Dotty][dotty_ci]</td><td>[Drone](https://drone.io/) <sup>**(1)**</sup></td><td>[EPFL][dotty_ci] in Lausanne, Switzerland</td></tr>
+<tr><td><a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty</a></td><td>[Drone](https://drone.io/) <sup>**(1)**</sup></td><td>[EPFL][dotty_ci] in Lausanne, Switzerland</td></tr>
 <tr><td>[Scala](https://www.scala-lang.org/)</td><td>[Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup><br/>[Travis CI](https://docs.travis-ci.com/user/tutorial/) <sup>**(3)**</sup></td><td>[Lightbend ](https://scala-ci.typesafe.com/) in San-Francisco, USA<br/>[Travis](https://travis-ci.org/scala/scala) in Berlin, Germany</td></tr>
 <tr><td>[Oracle&nbsp;OpenJDK](https://ci.adoptopenjdk.net/)</td><td>[Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup></td><td>Oracle</td></tr>
-<tr><td>[IBM OpenJ9](https://ci.eclipse.org/openj9/)</td><td>[Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup></td><td>IBM</td></tr>
+<tr><td><a href="https://ci.eclipse.org/openj9/">IBM OpenJ9</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup><b>(2)</b></sup></td><td>IBM</td></tr>
 </table>
 <div style="margin:0 0 1em 20px;">
 <sub><sup><b>(1)</b></sup> Written in [Go](https://github.com/drone/drone), <sup><b>(2)</b></sup> Written in [Java][java_lang], <sup><b>(3)</b></sup> Written in [Ruby][ruby_lang].</sub>
@@ -692,7 +688,7 @@ We fixed our local Git settings as follows:
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/December 2019* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/January 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -712,7 +708,7 @@ We fixed our local Git settings as follows:
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.24.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.25.0.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/
@@ -737,7 +733,7 @@ We fixed our local Git settings as follows:
 [ruby_lang]: https://www.ruby-lang.org/en/
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.5
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.7
 [unix_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation

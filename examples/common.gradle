@@ -45,7 +45,13 @@ clean.doLast {
     buildDir.deleteDir()
 }
 
-task compileDotty(type: JavaExec) {
+tasks.withType(JavaCompile) {
+    // https://docs.gradle.org/current/dsl/org.gradle.api.tasks.compile.CompileOptions.html
+    options.deprecation true
+	options.encoding "UTF8"
+}
+
+task compileScala(type: JavaExec) {
     dependsOn compileJava
 
     description "Compile Scala source files"
@@ -60,12 +66,12 @@ task compileDotty(type: JavaExec) {
     args "-deprecation", "-encoding", "UTF8", "-d", classesDir, sources
 }
 
-compileDotty.doFirst {
+compileScala.doFirst {
     if (!classesDir.exists()) classesDir.mkdirs()
 }
 
 build {
-    dependsOn compileDotty
+    dependsOn compileScala
 }
 
 task run(type: JavaExec) {
@@ -75,7 +81,7 @@ task run(type: JavaExec) {
 
     jvmArgs "-Xms1024m", "-Xss2m"
 
-    //systemProperty "message" "Hello"
+    // systemProperty "message" "Hello"
 
     // properties "main" and "args" are defined in build.gradle (main script)
     if (! main?.trim()) main "Main"

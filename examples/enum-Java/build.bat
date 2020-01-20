@@ -25,6 +25,10 @@ if not %_EXITCODE%==0 goto end
 rem ##########################################################################
 rem ## Main
 
+if %_HELP%==1 (
+    call :help
+    exit /b !_EXITCODE!
+)
 if %_CLEAN%==1 (
     call :clean
     if not !_EXITCODE!==0 goto end
@@ -47,7 +51,7 @@ rem ##########################################################################
 rem ## Subroutines
 
 rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-rem                    _TARGET_DIR, _CLASSES_DIR, _TASTY_CLASSES_DIR
+rem                    _CLASSES_DIR, _TARGET_DIR, _TASTY_CLASSES_DIR
 :env
 rem ANSI colors in standard Windows 10 shell
 rem see https://gist.github.com/mlocati/#file-win10colors-cmd
@@ -88,7 +92,6 @@ rem input parameter: %*
 :args
 set _CLEAN=0
 set _COMPILE=0
-set _COMPILE_TIME=0
 set _DOC=0
 set _DOTTY=1
 set _HELP=0
@@ -99,6 +102,7 @@ set _SCALAC_OPTS=-deprecation -feature
 set _SCALAC_OPTS_EXPLAIN=0
 set _SCALAC_OPTS_EXPLAIN_TYPES=0
 set _TASTY=0
+set _TIMER=0
 set _VERBOSE=0
 set __N=0
 :args_loop
@@ -116,7 +120,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if /i "%__ARG%"=="-help" ( set _HELP=1
     ) else if /i "%__ARG%"=="-scala" ( set _DOTTY=0
     ) else if /i "%__ARG%"=="-tasty" ( set _TASTY=1
-    ) else if /i "%__ARG%"=="-timer" ( set _COMPILE_TIME=1
+    ) else if /i "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else if /i "%__ARG:~0,6%"=="-main:" (
         call :set_main "!__ARG:~6!"
@@ -149,10 +153,8 @@ if %_SCALAC_OPTS_EXPLAIN_TYPES%==1 (
     )
 )
 :args_done
-if %_DEBUG%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TOTAL_TIME_START=%%i
-    echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DOTTY=%_DOTTY% _RUN=%_RUN% 1>&2
-)
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DOTTY=%_DOTTY% _RUN=%_RUN% 1>&2
+if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
 :help
@@ -217,9 +219,6 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :compile
-if %_COMPILE_TIME%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __COMPILE_TIME_START=%%i
-)
 if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 
 set __TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build
@@ -236,11 +235,6 @@ if %_COMPILE_REQUIRED%==1 (
 )
 for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
     echo %%i> "%__TIMESTAMP_FILE%"
-)
-if %_COMPILE_TIME%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __COMPILE_TIME_END=%%i
-    call :duration "%__COMPILE_TIME_START%" "!__COMPILE_TIME_END!"
-    echo Compile time: !_DURATION! 1>&2
 )
 goto :eof
 
@@ -493,10 +487,11 @@ rem ##########################################################################
 rem ## Cleanups
 
 :end
-if %_DEBUG%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TOTAL_TIME_END=%%i
-    call :duration "%_TOTAL_TIME_START%" "!_TOTAL_TIME_END!"
-    echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% _DURATION=!_DURATION! 1>&2
+if %_TIMER%==1 (
+    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
+    call :duration "%_TIMER_START%" "!__TIMER_END!"
+    echo Elapsed time: !_DURATION! 1>&2
 )
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%
 endlocal
