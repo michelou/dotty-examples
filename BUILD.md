@@ -39,7 +39,7 @@ For instance our development environment looks as follows (*January 2020*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.25.0\
-C:\opt\jdk-1.8.0_232-b09\
+C:\opt\jdk-1.8.0_242-b08\
 C:\opt\sbt-1.3.7\
 </pre>
 
@@ -282,7 +282,7 @@ Command **`build -verbose cleanall`** also displays the tool paths/options and t
 <b>&gt; build -verbose cleanall</b>
 Tool paths
    GIT_CMD=C:\opt\Git-2.25.0\bin\git.exe
-   JAVA_CMD=C:\opt\jdk-1.8.0_232-b09\bin\java.exe
+   JAVA_CMD=C:\opt\jdk-1.8.0_242-b08\bin\java.exe
    SBT_CMD=C:\opt\sbt-1.3.7\bin\sbt.bat
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
@@ -490,8 +490,8 @@ Command [**`project\scripts\bootstrapCmdTests.bat`**](https://github.com/michelo
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.22
-# VM version: JDK 1.8.0_232, VM 25.232-b09
-# VM invoker: C:\opt\jdk-1.8.0_232-b09\bin\java.exe
+# VM version: JDK 1.8.0_242, VM 25.242-b08
+# VM invoker: C:\opt\jdk-1.8.0_242-b08\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -520,8 +520,8 @@ Worker.compile  avgt       533.625          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.22
-# VM version: JDK 1.8.0_232, VM 25.232-b09
-# VM invoker: C:\opt\jdk-1.8.0_232-b09\bin\java.exe
+# VM version: JDK 1.8.0_242, VM 25.242-b08
+# VM invoker: C:\opt\jdk-1.8.0_242-b08\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -548,8 +548,8 @@ Worker.compile  avgt       361.619          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
 # JMH version: 1.22
-# VM version: JDK 1.8.0_232, VM 25.232-b09
-# VM invoker: C:\opt\jdk-1.8.0_232-b09\bin\java.exe
+# VM version: JDK 1.8.0_242, VM 25.242-b08
+# VM invoker: C:\opt\jdk-1.8.0_242-b08\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each

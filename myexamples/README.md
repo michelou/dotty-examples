@@ -381,16 +381,16 @@ Command **`mvn clean test`** with option **`-debug`** produces additional debug 
 
 <pre>
 <b>&gt; mvn -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-1.8.0_232-b09\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-1.8.0_242-b08\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.21.0-RC1 \
  -cp C:\opt\dotty-0.21.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\opt\jdk-1.8.0_232-b09\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-1.8.0_242-b08\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.21.0-RC1 [...]
-[DEBUG] [execute] C:\opt\jdk-1.8.0_232-b09\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-1.8.0_242-b08\bin\java.exe \
  -Xms64m -Xmx1024m -cp C:\opt\dotty-0.21.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>

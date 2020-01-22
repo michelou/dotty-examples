@@ -41,7 +41,7 @@ Optionally one may also install the following software:
 - [Git 2.25][git_releases] ([*release notes*][git_relnotes])
 - [Gradle 6.1][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [Mill 0.6][mill_releases] ([*change log*][mill_changelog])
-- [Python 3.8][python_release] ([*change log*][python_changelog])
+<!-- - [Python 3.8][python_release] ([*change log*][python_changelog]) -->
 - [SBT 1.3][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
 
@@ -51,7 +51,7 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*January 2020*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\jdk-1.8.0_232-b09\    <i>(184.0 MB)</i>
+C:\opt\jdk-1.8.0_242-b08\    <i>(184.0 MB)</i>
 C:\opt\apache-ant-1.10.7\    <i>( 39.9 MB)</i>
 C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
 C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
@@ -269,7 +269,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
 Tool versions:
-   javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.21.0-RC1
+   javac 1.8.0_242, java 1.8.0_242, scalac 2.13.1, dotc 0.21.0-RC1
    ant 1.10.7, gradle 6.1, mill 0.6.0, mvn 3.6.3, sbt 1.3.7/2.12.10,
    cfr 0.148, python 3.8.0, bloop v1.3.4,
    git 2.25.0.windows.2, diff 3.7, bash 4.4.23(1)-release
@@ -284,13 +284,13 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <pre style="font-size:80%;">
 <b>&gt; setenv -verbose</b>
 Tool versions:
-   javac 1.8.0_232, java 1.8.0_232, scalac 2.13.1, dotc 0.21.0-RC1
+   javac 1.8.0_242, java 1.8.0_242, scalac 2.13.1, dotc 0.21.0-RC1
    ant 1.10.7, gradle 6.1, mill 0.6.0, mvn 3.6.3, sbt 1.3.7/2.12.10,
    cfr 0.148, python 3.8.0, bloop v1.3.4,
    git 2.25.0.windows.2, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
-   C:\opt\jdk-1.8.0_232-b09\bin\javac.exe
-   C:\opt\jdk-1.8.0_232-b09\bin\java.exe
+   C:\opt\jdk-1.8.0_242-b08\bin\javac.exe
+   C:\opt\jdk-1.8.0_242-b08\bin\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\opt\scala-2.13.1\bin\scalac.bat
    C:\opt\dotty-0.21.0-RC1\bin\dotc.bat
@@ -309,7 +309,7 @@ Tool paths:
 Environment variables:
    ANT_HOME=C:\opt\apache-ant-1.10.7
    DOTTY_HOME=C:\opt\dotty-0.21.0-RC1
-   JAVA_HOME=C:\opt\jdk-1.8.0_232-b09
+   JAVA_HOME=C:\opt\jdk-1.8.0_242-b08
    JAVA11_HOME=C:\opt\jdk-11.0.5+10
    SCALA_HOME=C:\opt\scala-2.13.1
 </pre>
@@ -330,11 +330,11 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; dirsize examples myexamples c:\opt\dotty-0.21.0-RC1 c:\opt\jdk-1.8.0_232-b09</b>
+<b>&gt; dirsize examples myexamples c:\opt\dotty-0.21.0-RC1 c:\opt\jdk-1.8.0_242-b08</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
 Size of directory "c:\opt\dotty-0.21.0-RC1" is 25.2 Mb
-Size of directory "c:\opt\jdk-1.8.0_232-b09" is 184.1 Mb
+Size of directory "c:\opt\jdk-1.8.0_242-b08" is 184.1 Mb
 </pre>
 
 #### `getnightly.bat`
@@ -615,9 +615,9 @@ C:\opt\dotty-0.21.0-RC1\bin\dotr
 C:\opt\dotty-0.21.0-RC1\bin\dotr.bat
 
 <b>&gt; dotr -version</b>
-openjdk version "1.8.0_232"
-OpenJDK Runtime Environment (AdoptOpenJDK)(build 1.8.0_232-b09)
-OpenJDK 64-Bit Server VM (AdoptOpenJDK)(build 25.232-b09, mixed mode)
+openjdk version "1.8.0_242"
+OpenJDK Runtime Environment (AdoptOpenJDK)(build 1.8.0_242-b08)
+OpenJDK 64-Bit Server VM (AdoptOpenJDK)(build 25.242-b08, mixed mode)
 
 <b>&gt; dotr</b>
 Starting dotty REPL...
@@ -632,7 +632,7 @@ The REPL has several commands available:
 :reset                   reset the repl to its initial state, forgetting all session entries
 
 <b>scala&gt;</b> System.getenv().get("JAVA_HOME")
-val res0: String = C:\opt\jdk-1.8.0_232-b09
+val res0: String = C:\opt\jdk-1.8.0_242-b08
 
 <b>scala&gt;</b> System.getenv().get("DOTTY_HOME")
 val res1: String = C:\opt\dotty-0.21.0-RC1
