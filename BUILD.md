@@ -40,7 +40,7 @@ For instance our development environment looks as follows (*February 2020*):
 <pre style="font-size:80%;">
 C:\opt\Git-2.25.0\
 C:\opt\jdk-1.8.0_242-b08\
-C:\opt\sbt-1.3.7\
+C:\opt\sbt-1.3.8\
 </pre>
 
 > **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -283,7 +283,7 @@ Command **`build -verbose cleanall`** also displays the tool paths/options and t
 Tool paths
    GIT_CMD=C:\opt\Git-2.25.0\bin\git.exe
    JAVA_CMD=C:\opt\jdk-1.8.0_242-b08\bin\java.exe
-   SBT_CMD=C:\opt\sbt-1.3.7\bin\sbt.bat
+   SBT_CMD=C:\opt\sbt-1.3.8\bin\sbt.bat
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
    SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -733,7 +733,7 @@ We fixed our local Git settings as follows:
 [ruby_lang]: https://www.ruby-lang.org/en/
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.7
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.8
 [unix_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
