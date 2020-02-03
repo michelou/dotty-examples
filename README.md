@@ -25,7 +25,7 @@ This document is part of a series of topics related to [Dotty] on Windows:
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
-- [Dotty 0.21][dotty_releases] ([*release notes*][dotty_relnotes])
+- [Dotty 0.22][dotty_releases] ([*release notes*][dotty_relnotes])
 - [Oracle OpenJDK 8][oracle_openjdk] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk_relnotes])
 <!--
 8u212 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
@@ -48,7 +48,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*January 2020*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
+For instance our development environment looks as follows (*February 2020*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_242-b08\    <i>(184.0 MB)</i>
@@ -56,7 +56,7 @@ C:\opt\apache-ant-1.10.7\    <i>( 39.9 MB)</i>
 C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
 C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
 C:\opt\cfr-0.148\            <i>(  1.7 MB)</i>
-C:\opt\dotty-0.21.0-RC1\     <i>( 43.7 MB)</i><sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>
+C:\opt\dotty-0.22.0-RC1\     <i>( 43.7 MB)</i><sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>
 C:\opt\Git-2.25.0\           <i>(268.0 MB)</i>
 C:\opt\gradle-6.1\           <i>(105.0 MB)</i>
 C:\opt\Mill-0.6.0\           <i>( 40.9 MB)</i>
@@ -73,7 +73,7 @@ This project is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
 bin\cfr-0.148.zip
-bin\0.21\*.bat
+bin\0.22\*.bat
 bin\dotty\
 docs\
 dotty\     <i>(Git submodule)</i>
@@ -87,7 +87,7 @@ where
 
 - directory [**`bin\`**](bin/) provides several utility batch files.
 - file [**`bin\cfr-0.148.zip`**](bin/cfr-0.148.zip) contains a zipped distribution of [CFR][cfr_releases].
-- directory [**`bin\0.21\`**](bin/0.21/) contains the batch commands for [Dotty 0.21][dotty_relnotes].
+- directory [**`bin\0.22\`**](bin/0.22/) contains the batch commands for [Dotty 0.22][dotty_relnotes].
 - directory [**`bin\dotty\`**](bin/dotty/) contains several [batch files][windows_batch_file]/[bash scripts][unix_bash_script] for building the [Dotty] software distribution on a Windows machine.
 - directory [**`docs\`**](docs/) contains [Dotty] related papers/articles.
 - directory **`dotty\`** contains our fork of the [lampepfl/dotty][github_lampepfl_dotty] repository as a [Github submodule](.gitmodules).
@@ -113,7 +113,7 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch/bash commands:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**][javac_cli], [**`scalac.bat`**][scalac_cli] and [**`dotc.bat`**](bin/0.21/dotc.bat)directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
+1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**][javac_cli], [**`scalac.bat`**][scalac_cli] and [**`dotc.bat`**](bin/0.22/dotc.bat)directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
 
    <pre style="font-size:80%;">
    <b>&gt; setenv help</b>
@@ -136,11 +136,11 @@ We distinguish different sets of batch/bash commands:
    - [**`timeit.bat <cmd_1> { & <cmd_2> }`**](bin/timeit.bat) prints the execution time of the specified commands.
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory [**`bin\0.21\`**](bin/0.21/) - This directory contains batch files to be copied to the **`bin\`** directory of the [Dotty] installation (eg. **`C:\opt\dotty-0.21.0-RC1\bin\`**) in order to use the [**`dotc`**](bin/0.21/dotc.bat), [**`dotd`**](bin/0.21/dotd.bat) and [**`dotr`**](bin/0.21/dotr.bat) commands on **Microsoft Windows**.
+3. Directory [**`bin\0.22\`**](bin/0.22/) - This directory contains batch files to be copied to the **`bin\`** directory of the [Dotty] installation (eg. **`C:\opt\dotty-0.22.0-RC1\bin\`**) in order to use the [**`dotc`**](bin/0.22/dotc.bat), [**`dotd`**](bin/0.22/dotd.bat) and [**`dotr`**](bin/0.22/dotr.bat) commands on **Microsoft Windows**.
     > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Dotty distribution][dotty_releases]. We also have submitted pull request [#5444][github_PR5444] to add them to the Dotty distribution.
 
     <pre style="font-size:80%;">
-    <b>&gt; dir /b c:\opt\dotty-0.21.0-RC1\bin</b>
+    <b>&gt; dir /b c:\opt\dotty-0.22.0-RC1\bin</b>
     common
     common.bat
     dotc
@@ -269,7 +269,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; setenv</b>
 Tool versions:
-   javac 1.8.0_242, java 1.8.0_242, scalac 2.13.1, dotc 0.21.0-RC1
+   javac 1.8.0_242, java 1.8.0_242, scalac 2.13.1, dotc 0.22.0-RC1
    ant 1.10.7, gradle 6.1, mill 0.6.0, mvn 3.6.3, sbt 1.3.7/2.12.10,
    cfr 0.148, python 3.8.0, bloop v1.3.4,
    git 2.25.0.windows.2, diff 3.7, bash 4.4.23(1)-release
@@ -284,7 +284,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <pre style="font-size:80%;">
 <b>&gt; setenv -verbose</b>
 Tool versions:
-   javac 1.8.0_242, java 1.8.0_242, scalac 2.13.1, dotc 0.21.0-RC1
+   javac 1.8.0_242, java 1.8.0_242, scalac 2.13.1, dotc 0.22.0-RC1
    ant 1.10.7, gradle 6.1, mill 0.6.0, mvn 3.6.3, sbt 1.3.7/2.12.10,
    cfr 0.148, python 3.8.0, bloop v1.3.4,
    git 2.25.0.windows.2, diff 3.7, bash 4.4.23(1)-release
@@ -293,7 +293,7 @@ Tool paths:
    C:\opt\jdk-1.8.0_242-b08\bin\java.exe
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\opt\scala-2.13.1\bin\scalac.bat
-   C:\opt\dotty-0.21.0-RC1\bin\dotc.bat
+   C:\opt\dotty-0.22.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.7\bin\ant.bat
    C:\opt\gradle-6.1\bin\gradle.bat
    C:\opt\Mill-0.6.0\mill.bat
@@ -308,7 +308,7 @@ Tool paths:
    C:\opt\Git-2.25.0\bin\bash.exe
 Environment variables:
    ANT_HOME=C:\opt\apache-ant-1.10.7
-   DOTTY_HOME=C:\opt\dotty-0.21.0-RC1
+   DOTTY_HOME=C:\opt\dotty-0.22.0-RC1
    JAVA_HOME=C:\opt\jdk-1.8.0_242-b08
    JAVA11_HOME=C:\opt\jdk-11.0.5+10
    SCALA_HOME=C:\opt\scala-2.13.1
@@ -330,10 +330,10 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; dirsize examples myexamples c:\opt\dotty-0.21.0-RC1 c:\opt\jdk-1.8.0_242-b08</b>
+<b>&gt; dirsize examples myexamples c:\opt\dotty-0.22.0-RC1 c:\opt\jdk-1.8.0_242-b08</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
-Size of directory "c:\opt\dotty-0.21.0-RC1" is 25.2 Mb
+Size of directory "c:\opt\dotty-0.22.0-RC1" is 25.2 Mb
 Size of directory "c:\opt\jdk-1.8.0_242-b08" is 184.1 Mb
 </pre>
 
@@ -356,7 +356,7 @@ dotty_0.22-0.22.0-bin-20200106-47b62c1-NIGHTLY.jar
 tasty-core_0.22-0.22.0-bin-20200106-47b62c1-NIGHTLY.jar
 </pre>
 
-> **:mag_right:** Starting with Dotty version `0.21.0` package **`dotty.tools.tasty`** is distributed separately (**`tast-core_<xxx>.jar`**).
+> **:mag_right:** Starting with Dotty version `0.22.0` package **`dotty.tools.tasty`** is distributed separately (**`tast-core_<xxx>.jar`**).
 
 Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
@@ -374,7 +374,7 @@ Downloading file dotty-language-server_0.22-0.22.0-bin-20200106-47b62c1-NIGHTLY.
 Finished to download 9 files to directory W:\out\nightly-jars
 </pre>
 
-We can now replace the library files from the original [Dotty distribution][dotty_releases] (installed in directory **`C:\opt\dotty-0.21.0-RC1\`** in our case) with library files from the latest nightly build.
+We can now replace the library files from the original [Dotty distribution][dotty_releases] (installed in directory **`C:\opt\dotty-0.22.0-RC1\`** in our case) with library files from the latest nightly build.
 
 Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in the [Dotty] installation directory.
 
@@ -387,27 +387,27 @@ Activate nightly build libraries: 0.22.0-bin-20200106-47b62c1-NIGHTLY
 Dotty compiler version 0.22.0-bin-20200106-47b62c1-NIGHTLY-git-47b62c1 -- Copyright 2002-2020, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
-Activate default Dotty libraries: 0.21.0-RC1
+Activate default Dotty libraries: 0.22.0-RC1
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.21.0-RC1 -- Copyright 2002-2019, LAMP/EPFL
+Dotty compiler version 0.22.0-RC1 -- Copyright 2002-2019, LAMP/EPFL
 </pre>
 
-> **:warning:** You need *write access* to the [Dotty] installation directory (e.g. **`C:\opt\dotty-0.21.0-RC1\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
+> **:warning:** You need *write access* to the [Dotty] installation directory (e.g. **`C:\opt\dotty-0.22.0-RC1\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
 
 Internally command [**`getnightly`**](bin/getnightly.bat) manages two sets of libraries files which are organized as follows:
 
 <pre style="font-size:80%;">
-<b>&gt; pushd c:\opt\dotty-0.21.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd</b>
+<b>&gt; pushd c:\opt\dotty-0.22.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd</b>
 VERSION
 VERSION-NIGHTLY
-lib\0.21.0-RC1\
-&nbsp;&nbsp;dist_0.21-0.21.0-RC1.jar
-&nbsp;&nbsp;dotty-compiler_0.21-0.21.0-RC1.jar
-&nbsp;&nbsp;dotty-doc_0.21-0.21.0-RC1.jar
-&nbsp;&nbsp;dotty-interfaces-0.21.0-RC1.jar
-&nbsp;&nbsp;dotty-library_0.21-0.21.0-RC1.jar
-&nbsp;&nbsp;dotty-staging_0.21-0.21.0-RC1.jar
+lib\0.22.0-RC1\
+&nbsp;&nbsp;dist_0.22-0.22.0-RC1.jar
+&nbsp;&nbsp;dotty-compiler_0.22-0.22.0-RC1.jar
+&nbsp;&nbsp;dotty-doc_0.22-0.22.0-RC1.jar
+&nbsp;&nbsp;dotty-interfaces-0.22.0-RC1.jar
+&nbsp;&nbsp;dotty-library_0.22-0.22.0-RC1.jar
+&nbsp;&nbsp;dotty-staging_0.22-0.22.0-RC1.jar
 lib\0.22.0-bin-20200106-47b62c1-NIGHTLY\
 &nbsp;&nbsp;dotty-compiler_0.22-0.22.0-bin-20200106-47b62c1-NIGHTLY.jar
 &nbsp;&nbsp;dotty-doc_0.22-0.22.0-bin-20200106-47b62c1-NIGHTLY.jar
@@ -558,10 +558,10 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 
 | Project file | Variable | Example |
 | :----------- | :------: | :------ |
-| `build.sbt` | `dottyVersion` | `0.18.1-RC1` &rarr; `0.21.0-RC1`|
-| `build.sc` | `scalaVersion` | `0.18.1-RC1` &rarr; `0.21.0-RC1` |
-| `project\build.properties` | `sbt.version` | `1.3.0` &rarr; `1.3.2` |
-| `project\plugins.sbt` | `sbt-dotty` | `0.3.3` &rarr; `0.3.4` |
+| `build.sbt` | `dottyVersion` | `0.21.0-RC1` &rarr; `0.22.0-RC1`|
+| `build.sc` | `scalaVersion` | `0.21.0-RC1` &rarr; `0.22.0-RC1` |
+| `project\build.properties` | `sbt.version` | `1.3.6` &rarr; `1.3.7` |
+| `project\plugins.sbt` | `sbt-dotty` | `0.3.4` &rarr; `0.4.0` |
 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
 
@@ -611,8 +611,8 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 
 <pre style="font-size:80%;">
 <b>&gt; where dotr</b>
-C:\opt\dotty-0.21.0-RC1\bin\dotr
-C:\opt\dotty-0.21.0-RC1\bin\dotr.bat
+C:\opt\dotty-0.22.0-RC1\bin\dotr
+C:\opt\dotty-0.22.0-RC1\bin\dotr.bat
 
 <b>&gt; dotr -version</b>
 openjdk version "1.8.0_242"
@@ -635,7 +635,7 @@ The REPL has several commands available:
 val res0: String = C:\opt\jdk-1.8.0_242-b08
 
 <b>scala&gt;</b> System.getenv().get("DOTTY_HOME")
-val res1: String = C:\opt\dotty-0.21.0-RC1
+val res1: String = C:\opt\dotty-0.22.0-RC1
 
 <b>scala&gt;</b> :load myexamples/HelloWorld/src/main/scala/HelloWorld.scala
 // defined object HelloWorld
@@ -696,7 +696,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="http://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                      <i>(  9 MB)</i>
-<a href="https://github.com/lampepfl/dotty/releases/tag/0.21.0-RC1">dotty-0.21.0-RC1.zip</a>                            <i>( 23 MB)</i>
+<a href="https://github.com/lampepfl/dotty/releases/tag/0.22.0-RC1">dotty-0.22.0-RC1.zip</a>                            <i>( 23 MB)</i>
 <a href="https://gradle.org/install/">gradle-6.1-bin.zip</a><i>                              ( 93 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u232b09.zip</a>  <i>( 99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.24.1-64-bit.7z.exe</a>                <i>( 41 MB)</i>
@@ -705,57 +705,57 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a name="footnote_03">[3]</a> ***Dotty distribution size*** [↩](#anchor_03) <!-- 2019-12-20 -->
 
 <p style="margin:0 0 1em 20px;">
-Size of the <a href="https://dotty.epfl.ch/">Dotty</a> distribution has increased a lot between version 0.20 and 0.21, namely  <i>25.2 MB versus 43.7 MB</i> ! This is due to the inclusion of many new Java archive files in directory <b><code>lib\</code></b> of the distribution:
+Size of the <a href="https://dotty.epfl.ch/">Dotty</a> distribution has increased a lot between version 0.20 and 0.22, namely  <i>25.2 MB versus 43.7 MB</i> ! This is due to the inclusion of many new Java archive files in directory <b><code>lib\</code></b> of the distribution:
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<b>&gt; dirsize.bat c:\opt\dotty-0.20.0-RC1\lib c:\opt\dotty-0.21.0-RC1\lib</b>
+<b>&gt; dirsize.bat c:\opt\dotty-0.20.0-RC1\lib c:\opt\dotty-0.22.0-RC1\lib</b>
 Size of directory "c:\opt\dotty-0.20.0-RC1\lib" is 25.3 Mb
-Size of directory "c:\opt\dotty-0.21.0-RC1\lib" is 43.7 Mb
+Size of directory "c:\opt\dotty-0.22.0-RC1\lib" is 43.7 Mb
 </pre>
 <p style="margin:0 0 1em 20px;">
 We observe two important changes:
 </p>
 <ul style="margin:0 0 1em 20px;">
-<li><a href="https://github.com/vsch/flexmark-java">flexmark-java</a> - a CommonMark/Markdown Java parser - has been upgraded from version <a href="https://github.com/vsch/flexmark-java/releases/tag/0.28.32">0.28.32</a> (January 9, 2018) in Dotty 0.20 to version <a href="https://github.com/vsch/flexmark-java/releases/tag/0.42.12">0.42.12</a> (May 24, 2019) in Dotty 0.21.</li>
+<li><a href="https://github.com/vsch/flexmark-java">flexmark-java</a> - a CommonMark/Markdown Java parser - has been upgraded from version <a href="https://github.com/vsch/flexmark-java/releases/tag/0.28.32">0.28.32</a> (January 9, 2018) in Dotty 0.20 to version <a href="https://github.com/vsch/flexmark-java/releases/tag/0.42.12">0.42.12</a> (May 24, 2019) in Dotty 0.22.</li>
 <li><a href="http://site.icu-project.org/download/59">ICU 59</a> - a library for software  internationalization - has been added to the Dotty distribution; its size is over <i>11 MB</i>  !</li>
 </ul>
 <pre style="margin:0 0 1em 20px;">
 <b>&gt; libdiff.bat</b>
-c:\opt\dotty-0.21.0-RC1\lib\commons-logging-1.2.jar                                61829 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-all-0.42.12.jar                                2154 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-abbreviation-0.42.12.jar                  35259 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-admonition-0.42.12.jar                    34474 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-aside-0.42.12.jar                         16186 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-attributes-0.42.12.jar                    35726 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-definition-0.42.12.jar                    39846 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-enumerated-reference-0.42.12.jar          66414 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-escaped-character-0.42.12.jar             12789 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-footnotes-0.42.12.jar                     41056 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-gfm-issues-0.42.12.jar                    15638 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-gfm-users-0.42.12.jar                     15818 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-gitlab-0.42.12.jar                        42429 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-jekyll-front-matter-0.42.12.jar           18227 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-jekyll-tag-0.42.12.jar                    21131 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-macros-0.42.12.jar                        35051 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-media-tags-0.42.12.jar                    25060 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-toc-0.42.12.jar                           90605 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-typographic-0.42.12.jar                   22045 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-xwiki-macros-0.42.12.jar                  30921 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-youtube-embedded-0.42.12.jar              12544 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-html-parser-0.42.12.jar                       44425 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-pdf-converter-0.42.12.jar                      7029 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-profile-pegdown-0.42.12.jar                    6294 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-youtrack-converter-0.42.12.jar                40903 bytes
-c:\opt\dotty-0.21.0-RC1\lib\fontbox-2.0.11.jar                                   1557078 bytes
-c:\opt\dotty-0.21.0-RC1\lib\graphics2d-0.15.jar                                    50534 bytes
-c:\opt\dotty-0.21.0-RC1\lib\icu4j-59.1.jar                                      <span style="font-weight:bold;color:#ff3333">11916846 bytes</span>
-c:\opt\dotty-0.21.0-RC1\lib\openhtmltopdf-core-0.0.1-RC15.jar                    1233228 bytes
-c:\opt\dotty-0.21.0-RC1\lib\openhtmltopdf-jsoup-dom-converter-0.0.1-RC15.jar       19965 bytes
-c:\opt\dotty-0.21.0-RC1\lib\openhtmltopdf-pdfbox-0.0.1-RC15.jar                   141312 bytes
-c:\opt\dotty-0.21.0-RC1\lib\openhtmltopdf-rtl-support-0.0.1-RC15.jar               24506 bytes
-c:\opt\dotty-0.21.0-RC1\lib\pdfbox-2.0.11.jar                                    2524580 bytes
-c:\opt\dotty-0.21.0-RC1\lib\tasty-core_0.21-0.21.0-RC1.jar                         54125 bytes
-c:\opt\dotty-0.21.0-RC1\lib\xmpbox-2.0.11.jar                                     131862 bytes
+c:\opt\dotty-0.22.0-RC1\lib\commons-logging-1.2.jar                                61829 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-all-0.42.12.jar                                2154 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-abbreviation-0.42.12.jar                  35259 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-admonition-0.42.12.jar                    34474 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-aside-0.42.12.jar                         16186 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-attributes-0.42.12.jar                    35726 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-definition-0.42.12.jar                    39846 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-enumerated-reference-0.42.12.jar          66414 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-escaped-character-0.42.12.jar             12789 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-footnotes-0.42.12.jar                     41056 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-gfm-issues-0.42.12.jar                    15638 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-gfm-users-0.42.12.jar                     15818 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-gitlab-0.42.12.jar                        42429 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-jekyll-front-matter-0.42.12.jar           18227 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-jekyll-tag-0.42.12.jar                    21131 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-macros-0.42.12.jar                        35051 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-media-tags-0.42.12.jar                    25060 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-toc-0.42.12.jar                           90605 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-typographic-0.42.12.jar                   22045 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-xwiki-macros-0.42.12.jar                  30921 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-ext-youtube-embedded-0.42.12.jar              12544 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-html-parser-0.42.12.jar                       44425 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-pdf-converter-0.42.12.jar                      7029 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-profile-pegdown-0.42.12.jar                    6294 bytes
+c:\opt\dotty-0.22.0-RC1\lib\flexmark-youtrack-converter-0.42.12.jar                40903 bytes
+c:\opt\dotty-0.22.0-RC1\lib\fontbox-2.0.11.jar                                   1557078 bytes
+c:\opt\dotty-0.22.0-RC1\lib\graphics2d-0.15.jar                                    50534 bytes
+c:\opt\dotty-0.22.0-RC1\lib\icu4j-59.1.jar                                      <span style="font-weight:bold;color:#ff3333">11916846 bytes</span>
+c:\opt\dotty-0.22.0-RC1\lib\openhtmltopdf-core-0.0.1-RC15.jar                    1233228 bytes
+c:\opt\dotty-0.22.0-RC1\lib\openhtmltopdf-jsoup-dom-converter-0.0.1-RC15.jar       19965 bytes
+c:\opt\dotty-0.22.0-RC1\lib\openhtmltopdf-pdfbox-0.0.1-RC15.jar                   141312 bytes
+c:\opt\dotty-0.22.0-RC1\lib\openhtmltopdf-rtl-support-0.0.1-RC15.jar               24506 bytes
+c:\opt\dotty-0.22.0-RC1\lib\pdfbox-2.0.11.jar                                    2524580 bytes
+c:\opt\dotty-0.22.0-RC1\lib\tasty-core_0.22-0.22.0-RC1.jar                         54125 bytes
+c:\opt\dotty-0.22.0-RC1\lib\xmpbox-2.0.11.jar                                     131862 bytes
 Total size: 17 MB
 </pre>
 
@@ -767,7 +767,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/January 2020* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/February 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -786,7 +786,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_nightly]: https://search.maven.org/search?q=g:ch.epfl.lamp
 [dotty_releases]: https://github.com/lampepfl/dotty/releases
-[dotty_relnotes]: https://github.com/lampepfl/dotty/releases/tag/0.21.0-RC1
+[dotty_relnotes]: https://github.com/lampepfl/dotty/releases/tag/0.22.0-RC1
 [dotty_repl]: https://docs.scala-lang.org/overviews/repl/overview.html
 [github_dotr]: https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr
 [git_cli]: https://git-scm.com/docs/git

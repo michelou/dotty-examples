@@ -46,10 +46,10 @@ The above implementations of OpenJDK[&trade;](http://openjdk.java.net/legal/open
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*January 2020*) <sup id="anchor_02">[[1]](#footnote_02)</sup>:
+For instance our development environment looks as follows (*February 2020*) <sup id="anchor_02">[[1]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\jdk-11.0.5+10\
+C:\opt\jdk-11.0.6+10\
 C:\opt\jdk-bellsoft-11.0.5-lite\
 C:\opt\jdk-corretto-11.0.5_10\
 C:\opt\jdk-openj9-11.0.5+10\
@@ -160,22 +160,22 @@ JCL      - fa49279450 based on jdk-11.0.5+10)
 
 Oracle OpenJDK is the [reference implementation][oracle_openjdk_project]; the other OpenJDK distributions are derived from it.
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-11.0.5+10\bin\java -version</b>
+<b>&gt; c:\opt\jdk-11.0.6+10\bin\java -version</b>
 openjdk version "11.0.5" 2019-10-15
 OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.5+10)
 OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.5+10, mixed mode)
 
-<b>&gt; c:\opt\jdk-11.0.5+10\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-11.0.6+10\bin\java -Xshare:dump</b>
 [...]
 Number of classes 1265
 [...]
-<b>&gt; dir c:\opt\jdk-11.0.5+10\bin\server | findstr jsa</b>
+<b>&gt; dir c:\opt\jdk-11.0.6+10\bin\server | findstr jsa</b>
 28.10.2019  11:48        18 022 400 classes.jsa
 
-<b>&gt; c:\opt\jdk-11.0.5+10\bin\java -version</b>
-openjdk version "11.0.5" 2019-10-15
-OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.5+10)
-OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.5+10, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-11.0.6+10\bin\java -version</b>
+openjdk version "11.0.5" 2020-01-14
+OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.6+10)
+OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.6+10, mixed mode, sharing)
 </pre>
 
 
@@ -337,7 +337,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/January 2020* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/February 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

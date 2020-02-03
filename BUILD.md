@@ -35,7 +35,7 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*January 2020*):
+For instance our development environment looks as follows (*February 2020*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.25.0\
@@ -87,10 +87,10 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. Directory [**`bin\0.21\`**](bin/0.21) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software distribution][dotty_releases].
+1. Directory [**`bin\0.22\`**](bin/0.22) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software distribution][dotty_releases].
 
    <pre style="font-size:80%;">
-   <b>&gt; cp bin\0.21\*.bat dotty\dist\bin</b>
+   <b>&gt; cp bin\0.22\*.bat dotty\dist\bin</b>
    <b>&gt; dir /b dotty\dist\bin</b>
    common
    common.bat
@@ -688,7 +688,7 @@ We fixed our local Git settings as follows:
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/January 2020* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/February 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

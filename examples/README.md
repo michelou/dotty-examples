@@ -216,7 +216,7 @@ Command [**`sbt`**][sbt_cli] is a Scala-based build tool for [Scala] and Java.
 The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is a standalone file written in [Scala] and it obeys the [sbt build definitions][sbt_docs_defs].
 
 <pre style="font-size:80%;">
-<b>val</b> dottyVersion = <span style="color:#990000;">"0.21.0-RC1"</span>
+<b>val</b> dottyVersion = <span style="color:#990000;">"0.22.0-RC1"</span>
 &nbsp;
 <b>lazy val</b> root = project
   .in(file("."))
@@ -373,7 +373,7 @@ Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
    [delete] Deleting directory W:\dotty-examples\examples\enum-Planet\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] DOTTY_HOME=C:\opt\dotty-0.21.0-RC1
+     [echo] DOTTY_HOME=C:\opt\dotty-0.22.0-RC1
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -459,7 +459,7 @@ The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enu
 >         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>0.21.0-RC1<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.version&gt;</b>0.22.0-RC1<b>&lt;/scala.version&gt;</b>
 >         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
@@ -499,15 +499,15 @@ Command **` mvn compile test`** with option **`-debug`** produces additional deb
 <b>&gt; mvn -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-8.0_242-b08\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-1.0-RC1 \
- -cp C:\opt\dotty-0.21.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
+ -cp C:\opt\dotty-0.22.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-8.0_242-b08\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.21.0-RC1 [...]
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.22.0-RC1 [...]
 [DEBUG] [execute] C:\opt\jdk-8.0_242-b08\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.21.0-RC1\lib\*.jar;\
+ -Xms64m -Xmx1024m -cp C:\opt\dotty-0.22.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -542,7 +542,7 @@ Your weight on JUPITER is 2.5305575254957406
 <b>&gt; java -version 2>&1 | findstr version</b>
 openjdk version "11.0.5" 2019-10-15
 
-<b>&gt; java -Xbootclasspath/a:"c:\opt\dotty-0.21.0-RC1\lib\dotty-library_0.21-0.21.0-RC1.jar;c:\opt\dotty-0.21.0-RC1\lib\scala-library-2.13.1.jar" -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
+<b>&gt; java -Xbootclasspath/a:"c:\opt\dotty-0.22.0-RC1\lib\dotty-library_0.22-0.22.0-RC1.jar;c:\opt\dotty-0.22.0-RC1\lib\scala-library-2.13.1.jar" -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -642,7 +642,7 @@ rem ## Cleanups</i>
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/January 2020* [**&#9650;**](#top)
+*[mics](http://lampwww.epfl.ch/~michelou/)/February 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link regs -->
