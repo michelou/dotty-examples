@@ -3,7 +3,7 @@ import mill._, scalalib._
 //////////////////////////////////////////////////////////////////////////////
 // Project properties
 
-val scalaVersion = "0.21.0-RC1"  // "2.12.18"
+val scalaVersion = "0.22.0-RC1"  // "2.12.18"
 val scalacOptions = Seq("-deprecation", "-encoding", "UTF8", "-feature")
 
 val forkArgs = Seq("-Xmx1g")

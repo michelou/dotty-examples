@@ -44,7 +44,7 @@
         <property name="ivy.cache" value="${user.home}/.ivy2/cache" />
         <path id="dotty.classpath">
             <fileset dir="${ivy.cache}/ch.epfl.lamp" includes="**/jars/dotty-library*.jar">
-                <filename regex="_0\.(1[8-9]|2[0-9])-0\.(1[8-9]|2[0-9])\.[0-9]+" />  <!-- e.g. _0.20-0.20.x -->
+                <filename regex="_0\.(1[8-9]|2[0-9])-0\.(1[8-9]|2[0-9])\.[0-9]+" />  <!-- e.g. _0.22-0.22.x -->
             </fileset>
             <fileset dir="${ivy.cache}/org.scala-lang" includes="**/jars/scala-library*.jar">
                 <filename regex="-2\.[1-2][3-9]\.[0-9]+" />  <!-- e.g. -2.13.x -->

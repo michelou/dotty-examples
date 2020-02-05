@@ -6,7 +6,7 @@
     <a href="http://dotty.epfl.ch/"><img style="border:0;width:80px;" src="docs/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server <sup id="anchor_00"><a href="#footnote_00">[0]</a></sup> from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This document describes changes we made to the <a href="https://github.com/lampepfl/dotty/">lampepfl/dotty</a> repository in order to reproduce the same build/test steps locally on a Windows machine.
+    Source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This document describes changes we made to the <a href="https://github.com/lampepfl/dotty/">lampepfl/dotty</a> repository in order to reproduce the same build/test steps locally on a Windows machine.
   </td>
   </tr>
 </table>
@@ -25,12 +25,13 @@ This document is part of a series of topics related to [Dotty] on Windows:
 Our [Dotty fork][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
 
 - [Git 2.25][git_releases] ([*release notes*][git_relnotes])
-- [Oracle OpenJDK 8][openjdk_releases] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][openjdk_relnotes])
-- [SBT 1.3][sbt_releases] (requires Java 8) ([*release notes*][sbt_relnotes])
+- [Oracle OpenJDK 8][openjdk_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
+- [SBT 1.3][sbt_releases] <sup id="anchor_03">[[3]](#footnote_03)</sup> (requires Java 8) ([*release notes*][sbt_relnotes])
 <!--
 8u212 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
 8u222 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
 8u232 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
+8u242 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
 -->
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
@@ -47,10 +48,10 @@ C:\opt\sbt-1.3.8\
 
 ## Directory structure
 
-The directory structure of the [Dotty repository][github_dotty] <sup id="anchor_02">[[2]](#footnote_02)</sup>  is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/master/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts).
+The directory structure of the [Dotty repository][github_dotty] <sup id="anchor_04">[[4]](#footnote_04)</sup> is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/master/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts).
 
 <pre style="font-size:80%;">
-dotty\      <i>(Git submodule)</i><sup id="anchor_03"><a href="#footnote_03">[3]</a></sup>
+dotty\      <i>(Git submodule)</i><sup id="anchor_05"><a href="#footnote_05">[5]</a></sup>
 dotty\bin\
 dotty\dist\bin\
 dotty\project\scripts\
@@ -204,7 +205,7 @@ We distinguish different sets of batch commands:
 
 ## <span id="contribs">Contributions</span>
 
-We have come across several issues <sup id="anchor_04"><a href="#footnote_04">[4]</a></sup> while executing [Dotty] commands on Windows:
+We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6]</a></sup> while executing [Dotty] commands on Windows:
 
 | [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Issue status&nbsp;&nbsp;&nbsp; | Context |
 | :--------: | :--------: | :--------- |
@@ -620,7 +621,7 @@ total warnings with regards to compilation and documentation: 29
 
 ## <span id="footnotes">Footnotes</span>
 
-<a name="footnote_00">[0]</a> ***Continuous Integration/Delivery*** (CI/CD) [↩](#anchor_00)
+<a name="footnote_01">[1]</a> ***Continuous Integration/Delivery*** (CI/CD) [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 Steps are: Checkout <b>&rarr;</b> Compile <b>&rarr;</b> Test <b>&rarr;</b> Deploy.
@@ -632,20 +633,32 @@ Steps are: Checkout <b>&rarr;</b> Compile <b>&rarr;</b> Test <b>&rarr;</b> Deplo
 <tr><td>[Oracle&nbsp;OpenJDK](https://ci.adoptopenjdk.net/)</td><td>[Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup></td><td>Oracle</td></tr>
 <tr><td><a href="https://ci.eclipse.org/openj9/">IBM OpenJ9</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup><b>(2)</b></sup></td><td>IBM</td></tr>
 </table>
-<div style="margin:0 0 1em 20px;">
-<sub><sup><b>(1)</b></sup> Written in [Go](https://github.com/drone/drone), <sup><b>(2)</b></sup> Written in [Java][java_lang], <sup><b>(3)</b></sup> Written in [Ruby][ruby_lang].</sub>
+<div style="margin:0 0 0 20px;">
+<sub><sup><b>(1)</b></sup> Written in <a href="https://github.com/drone/drone">Go</a>, <sup><b>(2)</b></sup> Written in <a href="https://www.oracle.com/technetwork/java/index.html">Java</a>, <sup><b>(3)</b></sup> Written in <a href="https://www.ruby-lang.org/en/">Ruby</a>.</sub>
 </div>
+<p>&nbsp;</p>
 
-<a name="footnote_01">[1]</a> ***Java LTS** (2018-11-18)* [↩](#anchor_01)
+<a name="footnote_02">[2]</a> ***Java LTS** (2018-11-18)* [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current LTS release.<br/>(see also <a href="https://www.slideshare.net/HendrikEbbers/java-11-omg">Java 11 keynote</a> from <a href="https://www.jvm-con.de/speakers/#/speaker/3461-hendrik-ebbers">Hendrik Ebbers</a> at <a href="https://www.jvm-con.de/ruckblick/">JVM-Con 2018</a>).
 </p>
 
-<a name="footnote_02">[2]</a> ***Git master repository*** [↩](#anchor_02)
+<a name="footnote_03">[3]</a> ***Sbt issue on Windows*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
-Nowadays we have experienced two times the error <code>Server does not allow request for unadvertised object..</code> when synchronizing our fork with the <a href="https://github.com/lampepfl/dotty"><b><code>lampepfl/dotty</code></b></a> repository:
+<a href="https://www.scala-sbt.org/download.html"><code>sbt</code></a> versions 1.3.6 and 1.3.7 are broken on Windows (see <a href="https://github.com/sbt/io/pull/283">pull 283</a> in project <a href="https://github.com/sbt/io"><code>sbt/io</code></a>).
+Make sure to have the correct <a href="https://www.scala-sbt.org/download.html"><code>sbt</code></a> version defined in project file <code>build.properties</code>:
+</p>
+<pre style="margin:0 0 1em 20px;font-size:80;">
+<b>&gt; cat project\build.properties</b>
+sbt.version=1.3.8
+</pre>
+
+<a name="footnote_04">[4]</a> ***Git master repository*** [↩](#anchor_04)
+
+<p style="margin:0 0 1em 20px;">
+Nowadays we have experienced two times the error <code>Server does not allow request for unadvertised object..</code> when synchronizing our fork with the <a href="https://github.com/lampepfl/dotty"><code>lampepfl/dotty</code></a> repository:
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; git fetch upstream master</b>
@@ -661,13 +674,13 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 <b>&gt; git submodule update --depth 50</b>
 </pre>
 
-<a name="footnote_03">[3]</a> ***Git submodule*** [↩](#anchor_03)
+<a name="footnote_05">[5]</a> ***Git submodule*** [↩](#anchor_05)
 
 <p style="margin:0 0 1em 20px;">
 Defining directory <b><code>dotty\</code></b> as a Github submodule allows us to make changes to this project independently from our fork of the <a href="https://github.com/lampepfl/dotty">lampepfl/dotty</a> repository. 
 </p>
 
-<a name="footnote_04">[4]</a> ***Git configuration*** [↩](#anchor_04)
+<a name="footnote_06">[6]</a> ***Git configuration*** [↩](#anchor_06)
 
 <p style="margin:0 0 1em 20px;">
 We report here one issue we encountered when working with the <a href="https://git-scm.com/docs/git-config"><b><code>git</code></b></a> command on Windows, namely the error message <code>"Filename too long"</code>:
@@ -714,7 +727,6 @@ We fixed our local Git settings as follows:
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/
 [graalsqueak_examples]: https://github.com/michelou/graalsqueak-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
-[java_lang]: https://www.oracle.com/technetwork/java/index.html
 [jmh]: https://openjdk.java.net/projects/code-tools/jmh/
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
 [llvm_examples]: https://github.com/michelou/llvm-examples
@@ -729,8 +741,9 @@ We fixed our local Git settings as follows:
 [man1_wc]: https://www.linux.org/docs/man1/wc.html
 [microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
 [openjdk_releases]: https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot
-[openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
-[ruby_lang]: https://www.ruby-lang.org/en/
+<!-- 8u232 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html -->
+<!-- 8u242 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html -->
+[openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
 [sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.8

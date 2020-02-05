@@ -829,7 +829,9 @@ Command Prompt has been around for as long as we can remember, but starting with
 [mill_cli]: http://www.lihaoyi.com/mill/#command-line-tools
 [mill_releases]: https://github.com/lihaoyi/mill/releases/
 [oracle_openjdk]: https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot
-[oracle_openjdk_relnotes]: http://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
+<!-- 8u232 [oracle_openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html -->
+<!-- 8u242 [oracle_openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html -->
+[oracle_openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
 [python_changelog]: https://docs.python.org/3.8/whatsnew/changelog.html#python-3-8-0-final
 [python_release]: https://www.python.org/downloads/release/python-380/
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
