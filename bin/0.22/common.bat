@@ -43,19 +43,19 @@ if defined DOTTY_HOME (
 
 set _PSEP=;
 
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*dotty-compiler*"')       do set _DOTTY_COMP=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*dotty-interfaces*"')     do set _DOTTY_INTF=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*dotty-library*"')        do set _DOTTY_LIB=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*dotty-staging*"')        do set _DOTTY_STAGING=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*dotty-consume-tasty*")   do set _DOTTY_CONSUME_TASTY=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*tasty-core*"')           do set _TASTY_CORE=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala-asm*"')            do set _SCALA_ASM=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala-library*"')        do set _SCALA_LIB=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*compiler-interface*"')   do set _SBT_INTF=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jline-reader-3*"')       do set _JLINE_READER=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jline-terminal-3*"')     do set _JLINE_TERMINAL=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jline-terminal-jna-3*"') do set _JLINE_TERMINAL_JNA=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jna-4*"')                do set _JNA=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*dotty-compiler*"')        do set _DOTTY_COMP=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*dotty-interfaces*"')      do set _DOTTY_INTF=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*dotty-library*"')         do set _DOTTY_LIB=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*dotty-staging*"')         do set _DOTTY_STAGING=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*dotty-tasty-inspector*"') do set _DOTTY_TASTY_INSPECTOR=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*tasty-core*"')            do set _TASTY_CORE=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala-asm*"')             do set _SCALA_ASM=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala-library*"')         do set _SCALA_LIB=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*compiler-interface*"')    do set _SBT_INTF=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jline-reader-3*"')        do set _JLINE_READER=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jline-terminal-3*"')      do set _JLINE_TERMINAL=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jline-terminal-jna-3*"')  do set _JLINE_TERMINAL_JNA=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jna-4*"')                 do set _JNA=%_LIB_DIR%\%%f
 
 rem debug
 set _DEBUG_STR=-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005
