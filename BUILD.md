@@ -209,7 +209,8 @@ We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6
 
 | [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Issue status&nbsp;&nbsp;&nbsp; | Context |
 | :--------: | :--------: | :--------- |
-| [#7720][dotty_issue_7720] | [fixed](https://github.com/lampepfl/dotty/pull/7691) | staging |
+| [#8218][dotty_issue_8218] | [fixed][dotty_pull_8224] | TASTy inspector|
+| [#7720][dotty_issue_7720] | [fixed][dotty_pull_7691] | staging |
 | [#7148][dotty_issue_7146] | [fixed](https://github.com/dotty-staging/dotty/commit/2c529c6) | shell scripts |
 | [#6868][dotty_issue_6868] | [fixed](https://github.com/lampepfl/dotty/commit/0ea949a) | class file parser |
 | [#6367][dotty_issue_6367] | *open* | Dotty REPL |
@@ -714,6 +715,9 @@ We fixed our local Git settings as follows:
 [dotty_issue_6868]: https://github.com/lampepfl/dotty/issues/6868
 [dotty_issue_7146]: https://github.com/lampepfl/dotty/issues/7146
 [dotty_issue_7720]: https://github.com/lampepfl/dotty/issues/7720
+[dotty_issue_8218]: https://github.com/lampepfl/dotty/issues/8218
+[dotty_pull_7691]: https://github.com/lampepfl/dotty/pull/7691
+[dotty_pull_8224]: https://github.com/lampepfl/dotty/pull/8224
 [dotty_docs]: https://dotty.epfl.ch/docs/
 [dotty_metaprogramming]: http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_pr_6653]: https://github.com/lampepfl/dotty/pull/6653
