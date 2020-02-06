@@ -42,33 +42,31 @@ cleanup() {
 }
 
 args() {
-    [[ $# -eq 0 ]] && HELP=true && return true
+    [[ $# -eq 0 ]] && HELP=true && return 1
 
     for arg in "$@"; do
         case "$arg" in
         ## options
-        -debug)        DEBUG=true ;;
-        -help)         HELP=true ;;
-        -timer)        TIMER=true ;;
+        -debug) DEBUG=true ;;
+        -help)  HELP=true ;;
+        -timer) TIMER=true ;;
         -*)
             echo "$ERROR_LABEL Unknown option $arg" 1>&2
-            EXITCODE=1 && return false
+            EXITCODE=1 && return 0
             ;;
         ## subcommands
-        arch[ives])    CLONE=true & COMPILE=true & BOOTSTRAPPED=true & ARCHIVES=true ;;
-        boot)          CLONE=true & COMPILE=true & BOOTSTRAPPED=true ;;
-        bootstrap)     CLONE=true & COMPILE=true & BOOTSTRAPPED=true ;;
-        clean)         CLEAN=true ;;
-        clone)         CLONE=true ;;
-        community)     COMMUNITY_BUILD=true ;;
-        compile)       COMPILE=true ;;
-        doc)           COMPILE=true & BOOTSTRAPPED=true & COMMUNITY_BUILD=true & DOCUMENTATION=true ;;
-        documentation) COMPILE=true & BOOTSTRAPPED=true & COMMUNITY_BUILD=true & DOCUMENTATION=true ;;
-        help)          HELP=true ;;
-        java11)        CLONE=true & JAVA11=true ;;
+        arch|archives)     CLONE=true & COMPILE=true & BOOTSTRAPPED=true & ARCHIVES=true ;;
+        boot|bootstrap)    CLONE=true & COMPILE=true & BOOTSTRAPPED=true ;;
+        clean)             CLEAN=true ;;
+        clone)             CLONE=true ;;
+        community)         COMMUNITY_BUILD=true ;;
+        compile)           COMPILE=true ;;
+        doc|documentation) COMPILE=true & BOOTSTRAPPED=true & COMMUNITY_BUILD=true & DOCUMENTATION=true ;;
+        help)              HELP=true ;;
+        java11)            CLONE=true & JAVA11=true ;;
         *)
             error "$ERROR_LABEL Unknown subcommand $arg"
-            EXITCODE=1 && return false
+            EXITCODE=1 && return 0
             ;;
         esac
     done
@@ -282,7 +280,7 @@ if $JAVA11; then
     test_java11 || cleanup 1
 fi
 if $DOCUMENTATION; then
-    dcoumentation || cleanup 1
+    documentation || cleanup 1
 fi
 if $ARCHIVES; then
     archives || cleanup 1
