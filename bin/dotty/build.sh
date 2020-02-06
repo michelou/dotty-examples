@@ -64,6 +64,7 @@ args() {
         doc|documentation) COMPILE=true & BOOTSTRAPPED=true & COMMUNITY_BUILD=true & DOCUMENTATION=true ;;
         help)              HELP=true ;;
         java11)            CLONE=true & JAVA11=true ;;
+        update)            UPDATE=true ;;
         *)
             error "$ERROR_LABEL Unknown subcommand $arg"
             EXITCODE=1 && return 0
@@ -94,6 +95,7 @@ Usage: $BASENAME { <option> | <subcommand> }
     help             display this help message
     java11           generate+test Dotty compiler with Java 11
     sbt              test sbt-dotty (after bootstrap)
+    update           fetch/merge upstream repository
 EOS
 }
 
@@ -104,6 +106,16 @@ clone() {
 
     debug "$GIT_CMD submodule update --init --recursive --jobs 7"
     $GIT_CMD submodule update --init --recursive --jobs 7
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
+}
+
+update() {
+    debug "$GIT_CMD fetch upstream master"
+    $GIT_CMD fetch upstream master
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
+
+    debug "$GIT_CMD merge upstream master"
+    $GIT_CMD merge upstream/master
     [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 }
 
@@ -195,7 +207,7 @@ archives() {
     if $DEBUG; then
         echo ""
         echo "Output directory: dist-bootstrapped\target" 1>&2
-        ls "$TOOL_HOME/dist-bootstrapped/target"
+        find "$TOOL_HOME/dist-bootstrapped/target" -maxdepth 1 -type f
     fi
 }
 
@@ -223,6 +235,7 @@ JAVA11=false
 HELP=false
 SBT=false
 TIMER=false
+UPDATE=false
 
 COLOR_START="[32m"
 COLOR_END="[0m"
@@ -260,6 +273,9 @@ $HELP && help && cleanup
 
 if $CLONE; then
     clone || cleanup 1
+fi
+if $UPDATE; then
+    update || cleanup 1
 fi
 if $CLEAN; then
     clean || cleanup 1
