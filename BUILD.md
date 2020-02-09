@@ -210,12 +210,13 @@ We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6
 | [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Issue status&nbsp;&nbsp;&nbsp; | Context |
 | :--------: | :--------: | :--------- |
 | [#8218][dotty_issue_8218] | [fixed][dotty_pull_8224] | TASTy inspector|
-| [#7720][dotty_issue_7720] | [fixed][dotty_pull_7691] | staging |
-| [#7148][dotty_issue_7146] | [fixed](https://github.com/dotty-staging/dotty/commit/2c529c6) | shell scripts |
-| [#6868][dotty_issue_6868] | [fixed](https://github.com/lampepfl/dotty/commit/0ea949a) | class file parser |
+| [#8124][dotty_issue_8124] | *open* | Compiler settings |
+| [#7720][dotty_issue_7720] | [fixed][dotty_pull_7691] | Staging |
+| [#7148][dotty_issue_7146] | [fixed](https://github.com/dotty-staging/dotty/commit/2c529c6) | Shell scripts |
+| [#6868][dotty_issue_6868] | [fixed](https://github.com/lampepfl/dotty/commit/0ea949a) | Class file parser |
 | [#6367][dotty_issue_6367] | *open* | Dotty REPL |
 | [#4356][dotty_issue_4356] | [won't fix](https://github.com/lampepfl/dotty/issues/4356#event-2098905156) | Windows batch command |
-| [#4272][dotty_issue_4272] | [fixed](https://github.com/lampepfl/dotty/commit/9723748) | type constraints|
+| [#4272][dotty_issue_4272] | [fixed](https://github.com/lampepfl/dotty/commit/9723748) | Type constraints|
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :--------: | :--------: | :--------- |
@@ -715,6 +716,7 @@ We fixed our local Git settings as follows:
 [dotty_issue_6868]: https://github.com/lampepfl/dotty/issues/6868
 [dotty_issue_7146]: https://github.com/lampepfl/dotty/issues/7146
 [dotty_issue_7720]: https://github.com/lampepfl/dotty/issues/7720
+[dotty_issue_8124]: https://github.com/lampepfl/dotty/issues/8124
 [dotty_issue_8218]: https://github.com/lampepfl/dotty/issues/8218
 [dotty_pull_7691]: https://github.com/lampepfl/dotty/pull/7691
 [dotty_pull_8224]: https://github.com/lampepfl/dotty/pull/8224
