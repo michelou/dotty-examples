@@ -33,8 +33,8 @@ if defined _HELP (
 call :init
 if not %_EXITCODE%==0 goto end
 
-if defined _CLEAN_ALL (
-    call :clean_all
+if defined _CLEAN (
+    call :clean
     if not !_EXITCODE!==0 goto end
 )
 if defined _UPDATE (
@@ -113,7 +113,7 @@ rem output parameters: _CLONE, _COMPILE, _DOCUMENTATION, _SBT, _TIMER, _VERBOSE
 set _ARCHIVES=
 set _BOOTSTRAP=
 set _COMPILE=
-set _CLEAN_ALL=
+set _CLEAN=
 set _CLONE=
 set _COMMUNITY=
 set _DOCUMENTATION=
@@ -150,7 +150,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if /i "%__ARG:~0,4%"=="boot" (
         if not "%__ARG:~-5%"=="-only" set _CLONE=1& set _COMPILE=1
         set _BOOTSTRAP=1
-    ) else if /i "%__ARG%"=="cleanall" ( set _CLEAN_ALL=1
+    ) else if /i "%__ARG%"=="clean" ( set _CLEAN=1
     ) else if /i "%__ARG%"=="clone" ( set _CLONE=1
     ) else if /i "%__ARG:~0,7%"=="compile" (
         if not "%__ARG:~-5%"=="-only" set _CLONE=1
@@ -184,28 +184,28 @@ goto :eof
 echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
 echo.
 echo   Options:
-echo     -timer                 display total execution time
-echo     -verbose               display environment settings
+echo     -timer                display total execution time
+echo     -verbose              display environment settings
 echo.
 echo   Subcommands:
-echo     arch[ives]             generate gz/zip archives ^(after bootstrap^)
-echo     boot[strap]            generate+test bootstrapped compiler ^(after compile^)
-echo     cleanall               clean project ^(sbt+git) and quit
-echo     clone                  update submodules
-echo     compile                generate+test 1st stage compiler ^(after clone^)
-echo     community              test community-build
-echo     doc[umentation]        generate documentation ^(after bootstrap^)
-echo     help                   display this help message
-echo     java11                 generate+test Dotty compiler with Java 11
-echo     sbt                    test sbt-dotty ^(after bootstrap^)
-echo     update                 fetch/merge upstream repository
+echo     arch[ives]            generate gz/zip archives ^(after bootstrap^)
+echo     boot[strap]           generate+test bootstrapped compiler ^(after compile^)
+echo     clean                 clean up project
+echo     clone                 update submodules
+echo     compile               generate+test 1st stage compiler ^(after clone^)
+echo     community             test community-build
+echo     doc[umentation]       generate documentation ^(after bootstrap^)
+echo     help                  display this help message
+echo     java11                generate+test Dotty compiler with Java 11
+echo     sbt                   test sbt-dotty ^(after bootstrap^)
+echo     update                fetch/merge upstream repository
 echo.
 echo   Advanced subcommands (no deps):
-echo     arch[ives]-only        generate ONLY gz/zip archives
-echo     boot[strap]-only       generate+test ONLY bootstrapped compiler
-echo     compile-only           generate+test ONLY 1st stage compiler
-echo     doc[umentation]-only]  generate ONLY documentation
-echo     sbt-only               test ONLY sbt-dotty
+echo     arch[ives]-only       generate ONLY gz/zip archives
+echo     boot[strap]-only      generate+test ONLY bootstrapped compiler
+echo     compile-only          generate+test ONLY 1st stage compiler
+echo     doc[umentation]-only  generate ONLY documentation
+echo     sbt-only              test ONLY sbt-dotty
 
 goto :eof
 
@@ -232,20 +232,20 @@ if %_VERBOSE%==1 (
 )
 goto :eof
 
-:clean_all
-echo %_COLOR_START%run sbt clean and git clean -xdf --exclude=*.bat --exclude=*.ps1%_COLOR_END%
+:clean
+echo %_COLOR_START%run sbt clean%_COLOR_END%
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" clean 1>&2
 call "%_SBT_CMD%" clean
 if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% clean -xdf --exclude=*.bat --exclude=*.ps1 1>&2
-call "%_GIT_CMD%" clean -xdf --exclude=*.bat --exclude=*.ps1
-if not %ERRORLEVEL%==0 (
-    set _EXITCODE=1
-    goto :eof
-)
+rem if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% clean -xdf --exclude=*.bat --exclude=*.ps1 1>&2
+rem call "%_GIT_CMD%" clean -xdf --exclude=*.bat --exclude=*.ps1
+rem if not %ERRORLEVEL%==0 (
+rem     set _EXITCODE=1
+rem     goto :eof
+rem )
 goto :eof
 
 :update
