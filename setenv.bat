@@ -153,10 +153,19 @@ echo   Subcommands:
 echo     help        display this help message
 goto :eof
 
+rem output parameter(s): _JDK_HOME
 :jdk
-where /q javac.exe
-if %ERRORLEVEL%==0 goto :eof
+set _JDK_HOME=
 
+set __JAVAC_CMD=
+for /f %%f in ('where javac.exe 2^>NUL') do set __JAVAC_CMD=%%f
+if defined __JAVAC_CMD (
+    call :is_java11 "%__JAVAC_CMD%"
+    if not defined _IS_JAVA11 (
+        for %%i in ("%__JAVAC_CMD%") do set __BIN_DIR=%%~dpsi
+        for %%f in ("%__BIN_DIR%") do set _JDK_HOME=%%~dpsi
+    )
+)
 if defined JDK_HOME (
     set _JDK_HOME=%JDK_HOME%
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable JDK_HOME 1>&2

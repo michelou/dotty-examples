@@ -58,7 +58,7 @@ C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
 C:\opt\cfr-0.148\            <i>(  1.7 MB)</i>
 C:\opt\dotty-0.22.0-RC1\     <i>( 26.3 MB)</i>
 C:\opt\Git-2.25.0\           <i>(268.0 MB)</i>
-C:\opt\gradle-6.1\           <i>(105.0 MB)</i>
+C:\opt\gradle-6.2\           <i>(105.0 MB)</i>
 C:\opt\Mill-0.6.0\           <i>( 40.9 MB)</i>
 C:\opt\sbt-1.3.8\            <i>( 61.0 MB)</i>
 C:\opt\scala-2.13.1\         <i>( 20.1 MB)</i>
@@ -271,7 +271,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_242, java 1.8.0_242, scalac 2.13.1, dotc 0.22.0-RC1
-   ant 1.10.7, gradle 6.1, mill 0.6.0, mvn 3.6.3, sbt 1.3.7/2.12.10,
+   ant 1.10.7, gradle 6.2, mill 0.6.0, mvn 3.6.3, sbt 1.3.8/2.12.10,
    cfr 0.148, python 3.8.0, bloop v1.3.4,
    git 2.25.0.windows.2, diff 3.7, bash 4.4.23(1)-release
 
@@ -286,7 +286,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_242, java 1.8.0_242, scalac 2.13.1, dotc 0.22.0-RC1
-   ant 1.10.7, gradle 6.1, mill 0.6.0, mvn 3.6.3, sbt 1.3.7/2.12.10,
+   ant 1.10.7, gradle 6.2, mill 0.6.0, mvn 3.6.3, sbt 1.3.8/2.12.10,
    cfr 0.148, python 3.8.0, bloop v1.3.4,
    git 2.25.0.windows.2, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
@@ -296,7 +296,7 @@ Tool paths:
    C:\opt\scala-2.13.1\bin\scalac.bat
    C:\opt\dotty-0.22.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.7\bin\ant.bat
-   C:\opt\gradle-6.1\bin\gradle.bat
+   C:\opt\gradle-6.2\bin\gradle.bat
    C:\opt\Mill-0.6.0\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
    C:\opt\sbt-1.3.8\bin\sbt.bat
@@ -561,7 +561,7 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 | :----------- | :------: | :------ |
 | `build.sbt` | `dottyVersion` | `0.21.0-RC1` &rarr; `0.22.0-RC1`|
 | `build.sc` | `scalaVersion` | `0.21.0-RC1` &rarr; `0.22.0-RC1` |
-| `project\build.properties` | `sbt.version` | `1.3.6` &rarr; `1.3.7` |
+| `project\build.properties` | `sbt.version` | `1.3.7` &rarr; `1.3.8` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.3.4` &rarr; `0.4.0` |
 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
@@ -698,7 +698,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="http://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                      <i>(  9 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.22.0-RC1">dotty-0.22.0-RC1.zip</a>                            <i>( 24 MB)</i>
-<a href="https://gradle.org/install/">gradle-6.1-bin.zip</a><i>                              ( 93 MB)</i>
+<a href="https://gradle.org/install/">gradle-6.2-bin.zip</a><i>                              ( 93 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u242b08.zip</a>  <i>( 99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.24.1-64-bit.7z.exe</a>                <i>( 41 MB)</i>
 <a href="https://www.scala-sbt.org/download.html">sbt-1.3.8.zip</a>                                   <i>( 55 MB)</i>
@@ -804,7 +804,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 [gradle_install]: https://gradle.org/install/
-[gradle_relnotes]: https://docs.gradle.org/6.1/release-notes.html
+[gradle_relnotes]: https://docs.gradle.org/6.2/release-notes.html
 [jar_file]: https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html
 [java_bytecode]: https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html
 [java_jls]: https://docs.oracle.com/javase/specs/jls/se8/html/index.html
