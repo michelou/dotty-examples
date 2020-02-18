@@ -120,15 +120,15 @@ update() {
 }
 
 clean() {
-    echo "${COLOR_START}run sbt clean and git clean -xdf${COLOR_END}"
+    echo "${COLOR_START}run sbt clean${COLOR_END}"
 
     debug "$SCRIPTS_DIR/sbt clean"
     $SCRIPTS_DIR/sbt clean
     [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 
-    debug "$GIT_CMD clean -xdf --exclude=*.bat --exclude=*.ps1 --exclude=*.sh"
-    $GIT_CMD clean -xdf --exclude=*.bat --exclude=*.ps1 --exclude=build.sh
-    [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
+    #debug "$GIT_CMD clean -xdf --exclude=*.bat --exclude=*.ps1 --exclude=*.sh"
+    #$GIT_CMD clean -xdf --exclude=*.bat --exclude=*.ps1 --exclude=build.sh
+    #[[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 }
 
 test_compiled() {

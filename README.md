@@ -39,7 +39,7 @@ Optionally one may also install the following software:
 - [Bloop 1.3][bloop_releases] (requires Java 8 and Python 2/3) ([*release notes*][bloop_relnotes])
 - [CFR 0.14][cfr_releases] (Java decompiler)
 - [Git 2.25][git_releases] ([*release notes*][git_relnotes])
-- [Gradle 6.1][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Gradle 6.2][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [Mill 0.6][mill_releases] ([*change log*][mill_changelog])
 <!-- - [Python 3.8][python_release] ([*change log*][python_changelog]) -->
 - [SBT 1.3][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
@@ -699,7 +699,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="http://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                      <i>(  9 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.22.0-RC1">dotty-0.22.0-RC1.zip</a>                            <i>( 24 MB)</i>
 <a href="https://gradle.org/install/">gradle-6.1-bin.zip</a><i>                              ( 93 MB)</i>
-<a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u232b09.zip</a>  <i>( 99 MB)</i>
+<a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u242b08.zip</a>  <i>( 99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.24.1-64-bit.7z.exe</a>                <i>( 41 MB)</i>
 <a href="https://www.scala-sbt.org/download.html">sbt-1.3.8.zip</a>                                   <i>( 55 MB)</i>
 </pre>

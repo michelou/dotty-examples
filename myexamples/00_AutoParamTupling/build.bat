@@ -417,14 +417,15 @@ set __CURL_OPTS=
 if not %_DEBUG%==1 set __CURL_OPTS=--silent
 
 :libs_standalone
-set __STANDALONE_JAR_NAME=junit-platform-console-standalone-1.5.0.jar
-set __STANDALONE_JAR_URL=https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.5.0/%__STANDALONE_JAR_NAME%
-set __STANDALONE_JAR_FILE=%_LIBS_DIR%\%__STANDALONE_JAR_NAME%
+set __STANDALONE_VERSION=1.6.0
+set __STANDALONE_JAR_NAME=junit-platform-console-standalone-%__STANDALONE_VERSION%.jar
+set __STANDALONE_JAR_URL=https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/%__STANDALONE_VERSION%/%__STANDALONE_JAR_NAME%
+set "__STANDALONE_JAR_FILE=%_LIBS_DIR%\%__STANDALONE_JAR_NAME%"
 if not exist "%__STANDALONE_JAR_FILE%" (
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %__CURL_CMD% %__CURL_OPTS% --output %__STANDALONE_JAR_FILE% %__STANDALONE_JAR_URL% 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %__CURL_CMD% %__CURL_OPTS% --output "%__STANDALONE_JAR_FILE%" %__STANDALONE_JAR_URL% 1>&2
     ) else if %_VERBOSE%==1 ( echo Download dependency file %__STANDALONE_JAR_NAME% to directory !_LIBS_DIR:%_ROOT_DIR%=! 1>&2
     )
-    call %__CURL_CMD% %__CURL_OPTS% --output %__STANDALONE_JAR_FILE% %__STANDALONE_JAR_URL%
+    call %__CURL_CMD% %__CURL_OPTS% --output "%__STANDALONE_JAR_FILE%" %__STANDALONE_JAR_URL%
     if not !ERRORLEVEL!==0 (
         set _EXITCODE=1
     )

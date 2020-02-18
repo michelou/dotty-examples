@@ -220,7 +220,8 @@ We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :--------: | :--------: | :--------- |
-| [#6653][dotty_pr_6653] | [merged](https://github.com/lampepfl/dotty/commit/fe02bf4fdc14f648b5f42731e39448995963256c) | Batch commands |
+| [#8330][dotty_pull_8330] | [merged](https://github.com/lampepfl/dotty/commit/5018a1285cf3d8c0f3a17f98f015589154b0fbbd) | test suite |
+| [#6653][dotty_pull_6653] | [merged](https://github.com/lampepfl/dotty/commit/fe02bf4fdc14f648b5f42731e39448995963256c) | Batch commands |
 | [#5814](https://github.com/lampepfl/dotty/pull/5814) | [merged](https://github.com/lampepfl/dotty/commit/923fb06dc625e054e8b1833d4b7db49d369d91ad) | **`build compile`** |
 | [#5659](https://github.com/lampepfl/dotty/pull/5659) | [merged](https://github.com/lampepfl/dotty/commit/7b9ffbb56b2bd33efead1c0f38a71c057c31463e) | **`build bootstrap`** |
 | [#5587](https://github.com/lampepfl/dotty/pull/5587) | [merged](https://github.com/lampepfl/dotty/commit/172d6a0a1a3a4cbdb0a3ac4741b3f561d1221c40) | **`build bootstrap`** |
@@ -718,11 +719,12 @@ We fixed our local Git settings as follows:
 [dotty_issue_7720]: https://github.com/lampepfl/dotty/issues/7720
 [dotty_issue_8124]: https://github.com/lampepfl/dotty/issues/8124
 [dotty_issue_8218]: https://github.com/lampepfl/dotty/issues/8218
+[dotty_pull_6653]: https://github.com/lampepfl/dotty/pull/6653
 [dotty_pull_7691]: https://github.com/lampepfl/dotty/pull/7691
 [dotty_pull_8224]: https://github.com/lampepfl/dotty/pull/8224
+[dotty_pull_8330]: https://github.com/lampepfl/dotty/pull/8330
 [dotty_docs]: https://dotty.epfl.ch/docs/
 [dotty_metaprogramming]: http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
-[dotty_pr_6653]: https://github.com/lampepfl/dotty/pull/6653
 [dotty_releases]: https://github.com/lampepfl/dotty/releases
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
