@@ -58,7 +58,7 @@ C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
 C:\opt\cfr-0.148\            <i>(  1.7 MB)</i>
 C:\opt\dotty-0.22.0-RC1\     <i>( 26.3 MB)</i>
 C:\opt\Git-2.25.0\           <i>(268.0 MB)</i>
-C:\opt\gradle-6.2\           <i>(105.0 MB)</i>
+C:\opt\gradle-6.2\           <i>(106.0 MB)</i>
 C:\opt\Mill-0.6.0\           <i>( 40.9 MB)</i>
 C:\opt\sbt-1.3.8\            <i>( 61.0 MB)</i>
 C:\opt\scala-2.13.1\         <i>( 20.1 MB)</i>

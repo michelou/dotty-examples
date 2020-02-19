@@ -79,7 +79,7 @@ We also define a virtual drive **`W:`** in our working environment in order to r
 > **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
-> <b>&gt; subst V: %USERPROFILE%\workspace\dotty-examples</b>
+> <b>&gt; subst W: %USERPROFILE%\workspace\dotty-examples</b>
 > </pre>
 
 In the next section we give a brief description of the batch files present in those directories.
@@ -116,7 +116,7 @@ We distinguish different sets of batch commands:
 
    <pre style="font-size:80%;">
    <b>&gt; cd</b>
-   V:\dotty
+   W:\dotty
    &nbsp;
    <b>&gt; build help</b>
    Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
@@ -128,7 +128,7 @@ We distinguish different sets of batch commands:
      Subcommands:
        arch[ives]             generate gz/zip archives (after bootstrap)
        boot[strap]            generate+test bootstrapped compiler (after compile)
-       cleanall               clean project (sbt+git) and quit
+       clean                  clean project
        clone                  update submodules
        compile                generate+test 1st stage compiler (after clone)
        community              test community-build
@@ -149,7 +149,7 @@ We distinguish different sets of batch commands:
 
     | **A** depends on **B** | Execution time<sup>**(1)**</sup> | Output from **A** |
     | :------------ | :------------: | :------------ |
-    | `cleanall` &rarr; &empty; | &lt;1 min | &nbsp; |
+    | `clean` &rarr; &empty; | &lt;1 min | &nbsp; |
     | `clone` &rarr; &empty; | &lt;1 min | &nbsp; |
     | `compile` &rarr; `clone` | ~24 min | `compiler\target\`<br/>`library\target`<br/>`sbt-bridge\target\` |
     | `bootstrap` &rarr; `compile` | ~45 min | &nbsp; |
@@ -210,7 +210,7 @@ We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6
 | [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Issue status&nbsp;&nbsp;&nbsp; | Context |
 | :--------: | :--------: | :--------- |
 | [#8218][dotty_issue_8218] | [fixed][dotty_pull_8224] | TASTy inspector|
-| [#8124][dotty_issue_8124] | *open* | Compiler settings |
+| [#8124][dotty_issue_8124] | [fixed][dotty_pull_8279] | Compiler settings |
 | [#7720][dotty_issue_7720] | [fixed][dotty_pull_7691] | Staging |
 | [#7148][dotty_issue_7146] | [fixed](https://github.com/dotty-staging/dotty/commit/2c529c6) | Shell scripts |
 | [#6868][dotty_issue_6868] | [fixed](https://github.com/lampepfl/dotty/commit/0ea949a) | Class file parser |
@@ -220,7 +220,8 @@ We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :--------: | :--------: | :--------- |
-| [#8330][dotty_pull_8330] | [merged](https://github.com/lampepfl/dotty/commit/5018a1285cf3d8c0f3a17f98f015589154b0fbbd) | test suite |
+| [#8330][dotty_pull_8330] | [merged](https://github.com/lampepfl/dotty/commit/5018a1285cf3d8c0f3a17f98f015589154b0fbbd) | Test suite |
+| [#8279][dotty_pull_8279] | [merged](https://github.com/lampepfl/dotty/commit/a5f1dae68202ba67ef99c39f243970ebd3530a65) | Compiler options |
 | [#6653][dotty_pull_6653] | [merged](https://github.com/lampepfl/dotty/commit/fe02bf4fdc14f648b5f42731e39448995963256c) | Batch commands |
 | [#5814](https://github.com/lampepfl/dotty/pull/5814) | [merged](https://github.com/lampepfl/dotty/commit/923fb06dc625e054e8b1833d4b7db49d369d91ad) | **`build compile`** |
 | [#5659](https://github.com/lampepfl/dotty/pull/5659) | [merged](https://github.com/lampepfl/dotty/commit/7b9ffbb56b2bd33efead1c0f38a71c057c31463e) | **`build bootstrap`** |
@@ -247,14 +248,14 @@ Below we summarize changes we made to the [source code](https://github.com/lampe
 
 ## <span id="usage_examples">Usage examples</span>
 
-Command [**`build.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/build.bat) consists of ~400 lines of batch/[Powershell ][microsoft_powershell] code and features the following subcommands:
+Command [**`build.bat`**](bin/dotty/build.bat) consists of ~400 lines of batch/[Powershell ][microsoft_powershell] code and features the following subcommands:
 
-#### `build.bat cleanall`
+#### `build.bat clean`
 
-Command **`build.bat cleanall`** removes all generated *and untracked* files/directories from our [**Dotty fork**][github_dotty_fork].<br/>Internally, **`build cleanall`** executes the two commands **`sbt clean`** *and* [**`git clean -xdf`**][git_clean] which removes all untracked directories/files, including build products.
+Command **`build.bat clean`** removes all generated *and untracked* files/directories from our [**Dotty fork**][github_dotty_fork].<br/>Internally, **`build clean`** executes the two commands **`sbt clean`** *and* [**`git clean -xdf`**][git_clean] which removes all untracked directories/files, including build products.
 
 <pre style="font-size:80%;">
-<b>&gt; build cleanall</b>
+<b>&gt; build clean</b>
 [...(sbt)...]
 Removing .vscode/
 Removing HelloWorld$.class
@@ -280,10 +281,10 @@ Removing target/
 Removing testlogs/
 </pre>
 
-Command **`build -verbose cleanall`** also displays the tool paths/options and the current Git branch:
+Command **`build -verbose clean`** also displays the tool paths/options and the current Git branch:
 
 <pre style="font-size:80%;">
-<b>&gt; build -verbose cleanall</b>
+<b>&gt; build -verbose clean</b>
 Tool paths
    GIT_CMD=C:\opt\Git-2.25.0\bin\git.exe
    JAVA_CMD=C:\opt\jdk-1.8.0_242-b08\bin\java.exe
@@ -295,7 +296,6 @@ Current Git branch
    master
 &nbsp;
 [...(sbt)...]
-[...(git)...]
 </pre>
 
 #### `build.bat compile`
@@ -695,7 +695,7 @@ mainExamples/src/main/scala/examples/main/active/writing/toConsoleWriting/info/r
       (use "git push" to publish your local commits)
 </pre>
 <p style="margin:0 0 1em 20px;">
-We fixed our local Git settings as follows:
+We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration">Git settings</a> as follows:
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; git config --system core.longpaths true</b>
@@ -722,6 +722,7 @@ We fixed our local Git settings as follows:
 [dotty_pull_6653]: https://github.com/lampepfl/dotty/pull/6653
 [dotty_pull_7691]: https://github.com/lampepfl/dotty/pull/7691
 [dotty_pull_8224]: https://github.com/lampepfl/dotty/pull/8224
+[dotty_pull_8279]: https://github.com/lampepfl/dotty/pull/8279
 [dotty_pull_8330]: https://github.com/lampepfl/dotty/pull/8330
 [dotty_docs]: https://dotty.epfl.ch/docs/
 [dotty_metaprogramming]: http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
