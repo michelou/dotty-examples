@@ -696,7 +696,7 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="http://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                      <i>(  9 MB)</i>
+<a href="https://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                      <i>(  9 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.22.0-RC1">dotty-0.22.0-RC1.zip</a>                            <i>( 24 MB)</i>
 <a href="https://gradle.org/install/">gradle-6.2-bin.zip</a><i>                              ( 93 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u242b08.zip</a>  <i>( 99 MB)</i>
@@ -771,7 +771,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/February 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -779,13 +779,13 @@ Command Prompt has been around for as long as we can remember, but starting with
 [apache_ant]: https://ant.apache.org/
 [apache_ant_cli]: https://ant.apache.org/manual/running.html
 [apache_ant_relnotes]: https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.7.html
-[apache_maven]: http://maven.apache.org/download.cgi
+[apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html
-[apache_maven_history]: http://maven.apache.org/docs/history.html
-[apache_maven_relnotes]: http://maven.apache.org/docs/3.6.3/release-notes.html
+[apache_maven_history]: https://maven.apache.org/docs/history.html
+[apache_maven_relnotes]: https://maven.apache.org/docs/3.6.3/release-notes.html
 [bloop_releases]: https://scalacenter.github.io/bloop/
 [bloop_relnotes]: https://github.com/scalacenter/bloop/releases/tag/v1.3.4
-[cfr_releases]: http://www.benf.org/other/cfr/
+[cfr_releases]: https://www.benf.org/other/cfr/
 [dotty]: https://dotty.epfl.ch
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_nightly]: https://search.maven.org/search?q=g:ch.epfl.lamp
@@ -826,7 +826,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
 [microsoft_vscode]: https://code.visualstudio.com/
 [mill_changelog]: https://github.com/lihaoyi/mill#changelog
-[mill_cli]: http://www.lihaoyi.com/mill/#command-line-tools
+[mill_cli]: https://www.lihaoyi.com/mill/#command-line-tools
 [mill_releases]: https://github.com/lihaoyi/mill/releases/
 [oracle_openjdk]: https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot
 <!-- 8u232 [oracle_openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html -->
@@ -843,7 +843,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.1
 [scalac_cli]: https://docs.scala-lang.org/overviews/compiler-options/index.html
 [unix_bash_script]: https://www.gnu.org/software/bash/manual/bash.html
-[unix_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
+[unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [windows_batch_file]: https://en.wikibooks.org/wiki/Windows_Batch_Scripting
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
 [windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst

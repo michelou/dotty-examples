@@ -3,10 +3,10 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;max-width:80px;">
-    <a href="http://dotty.epfl.ch/"><img style="border:0;width:80px;" src="docs/dotty.png" /></a>
+    <a href="https://dotty.epfl.ch/"><img style="border:0;width:80px;" src="docs/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Source code of the <a href="http://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed on the <a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This document describes changes we made to the <a href="https://github.com/lampepfl/dotty/">lampepfl/dotty</a> repository in order to reproduce the same build/test steps locally on a Windows machine.
+    Source code of the <a href="https://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed on the <a href="https://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This document describes changes we made to the <a href="https://github.com/lampepfl/dotty/">lampepfl/dotty</a> repository in order to reproduce the same build/test steps locally on a Windows machine.
   </td>
   </tr>
 </table>
@@ -252,7 +252,7 @@ Command [**`build.bat`**](bin/dotty/build.bat) consists of ~400 lines of batch/[
 
 #### `build.bat clean`
 
-Command **`build.bat clean`** removes all generated *and untracked* files/directories from our [**Dotty fork**][github_dotty_fork].<br/>Internally, **`build clean`** executes the two commands **`sbt clean`** *and* [**`git clean -xdf`**][git_clean] which removes all untracked directories/files, including build products.
+Command **`build.bat clean`** removes all generated *and untracked* files/directories from our [**Dotty fork**][github_dotty_fork].<br/>Internally, **`build clean`** executes the command **`sbt clean`** (one may use [**`git clean -xdf`**][git_clean] to remove all untracked directories/files, including build products).
 
 <pre style="font-size:80%;">
 <b>&gt; build clean</b>
@@ -631,9 +631,9 @@ Steps are: Checkout <b>&rarr;</b> Compile <b>&rarr;</b> Test <b>&rarr;</b> Deplo
 </p>
 <table style="margin:0 0 1em 20px;">
 <tr><th>Software</th<th>CI/CD&nbsp;service</th<th>Hosting</th></tr>
-<tr><td><a href="http://dotty-ci.epfl.ch/lampepfl/dotty">Dotty</a></td><td>[Drone](https://drone.io/) <sup>**(1)**</sup></td><td>[EPFL][dotty_ci] in Lausanne, Switzerland</td></tr>
-<tr><td>[Scala](https://www.scala-lang.org/)</td><td>[Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup><br/>[Travis CI](https://docs.travis-ci.com/user/tutorial/) <sup>**(3)**</sup></td><td>[Lightbend ](https://scala-ci.typesafe.com/) in San-Francisco, USA<br/>[Travis](https://travis-ci.org/scala/scala) in Berlin, Germany</td></tr>
-<tr><td>[Oracle&nbsp;OpenJDK](https://ci.adoptopenjdk.net/)</td><td>[Jenkins](https://jenkins.io/doc/) <sup>**(2)**</sup></td><td>Oracle</td></tr>
+<tr><td><a href="https://dotty-ci.epfl.ch/lampepfl/dotty">Dotty</a></td><td><a href="https://drone.io/">Drone</a> <sup>**(1)**</sup></td><td><a href="https://dotty-ci.epfl.ch/lampepfl/dotty">EPFL</a> in Lausanne, Switzerland</td></tr>
+<tr><td><a href="https://www.scala-lang.org/">Scala</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup>**(2)**</sup><br/><a href="https://docs.travis-ci.com/user/tutorial/">Travis CI</a> <sup>**(3)**</sup></td><td><a href="https://scala-ci.typesafe.com/">Lightbend</a> in San-Francisco, USA<br/><a href="https://travis-ci.org/scala/scala">Travis</a> in Berlin, Germany</td></tr>
+<tr><td><a href="https://ci.adoptopenjdk.net/">Oracle&nbsp;OpenJDK</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup>**(2)**</sup></td><td>Oracle</td></tr>
 <tr><td><a href="https://ci.eclipse.org/openj9/">IBM OpenJ9</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup><b>(2)</b></sup></td><td>IBM</td></tr>
 </table>
 <div style="margin:0 0 0 20px;">
@@ -650,7 +650,7 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 <a name="footnote_03">[3]</a> ***Sbt issue on Windows*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
-<a href="https://www.scala-sbt.org/download.html"><code>sbt</code></a> versions 1.3.6 and 1.3.7 are broken on Windows (see <a href="https://github.com/sbt/io/pull/283">pull 283</a> in project <a href="https://github.com/sbt/io"><code>sbt/io</code></a>).
+<a href="https://www.scala-sbt.org/download.html"><code>sbt</code></a> versions 1.3.6 and 1.3.7 are broken on Microsoft Windows (see <a href="https://github.com/sbt/io/pull/283">pull 283</a> in project <a href="https://github.com/sbt/io"><code>sbt/io</code></a>).
 Make sure to have the correct <a href="https://www.scala-sbt.org/download.html"><code>sbt</code></a> version defined in project file <code>build.properties</code>:
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80;">
@@ -704,13 +704,13 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/February 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
 [dotty]: https://dotty.epfl.ch/
-[dotty_ci]: http://dotty-ci.epfl.ch/lampepfl/dotty
+[dotty_ci]: https://dotty-ci.epfl.ch/lampepfl/dotty
 [dotty_issue_4272]: https://github.com/lampepfl/dotty/issues/4272
 [dotty_issue_4356]: https://github.com/lampepfl/dotty/issues/4356
 [dotty_issue_6367]: https://github.com/lampepfl/dotty/issues/6367
@@ -725,7 +725,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_pull_8279]: https://github.com/lampepfl/dotty/pull/8279
 [dotty_pull_8330]: https://github.com/lampepfl/dotty/pull/8330
 [dotty_docs]: https://dotty.epfl.ch/docs/
-[dotty_metaprogramming]: http://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
+[dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_releases]: https://github.com/lampepfl/dotty/releases
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
@@ -756,7 +756,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
 [sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.8
-[unix_opt]: http://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
+[unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
 [windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst
