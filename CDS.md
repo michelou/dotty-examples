@@ -35,7 +35,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 For instance our development environment looks as follows (*February 2020*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.25.0\
+C:\opt\Git-2.25.1\
 C:\opt\jdk-11.0.6+10\
 C:\opt\dotty-0.22.0-RC1\
 </pre>
@@ -731,7 +731,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.25.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.25.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [java_cli]: https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html

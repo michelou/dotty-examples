@@ -30,7 +30,7 @@ val ivyJunitJupiter = ivy"org.junit.jupiter:junit-jupiter-api:5.5.2"
 val ivyScalatest = ivy"org.scalatest:scalatest_2.13:3.1.0"
 
 // https://mvnrepository.com/artifact/org.scalactic/scalactic_0.17
-val ivyScalactic = "org.scalactic:scalactic_0.17:3.1.0"
+val ivyScalactic = ivy"org.scalactic:scalactic_0.17:3.1.0"
 
 // https://mvnrepository.com/artifact/org.specs2/specs2-core
 val ivySpecs2 = ivy"org.specs2:specs2-core_2.13:4.8.1"

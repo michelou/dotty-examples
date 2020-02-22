@@ -39,7 +39,7 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 For instance our development environment looks as follows (*February 2020*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.25.0\
+C:\opt\Git-2.25.1\
 C:\opt\jdk-1.8.0_242-b08\
 C:\opt\sbt-1.3.8\
 </pre>
@@ -209,7 +209,9 @@ We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6
 
 | [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Issue status&nbsp;&nbsp;&nbsp; | Context |
 | :--------: | :--------: | :--------- |
-| [#8218][dotty_issue_8218] | [fixed][dotty_pull_8224] | TASTy inspector|
+| [#8358][dotty_issue_8358] | *open* | Resource leak |
+| [#8355][dotty_issue_8355] | [fixed][dotty_pull_8356] | Test suite |
+| [#8218][dotty_issue_8218] | [fixed][dotty_pull_8224] | TASTy inspector |
 | [#8124][dotty_issue_8124] | [fixed][dotty_pull_8279] | Compiler settings |
 | [#7720][dotty_issue_7720] | [fixed][dotty_pull_7691] | Staging |
 | [#7148][dotty_issue_7146] | [fixed](https://github.com/dotty-staging/dotty/commit/2c529c6) | Shell scripts |
@@ -220,6 +222,7 @@ We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :--------: | :--------: | :--------- |
+| [#8356][dotty_pull_8356] | [merged](https://github.com/lampepfl/dotty/commit/f51bf1b701a17851224472849c131ce6de38e2a7) | Test suite |
 | [#8330][dotty_pull_8330] | [merged](https://github.com/lampepfl/dotty/commit/5018a1285cf3d8c0f3a17f98f015589154b0fbbd) | Test suite |
 | [#8279][dotty_pull_8279] | [merged](https://github.com/lampepfl/dotty/commit/a5f1dae68202ba67ef99c39f243970ebd3530a65) | Compiler options |
 | [#6653][dotty_pull_6653] | [merged](https://github.com/lampepfl/dotty/commit/fe02bf4fdc14f648b5f42731e39448995963256c) | Batch commands |
@@ -286,7 +289,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; build -verbose clean</b>
 Tool paths
-   GIT_CMD=C:\opt\Git-2.25.0\bin\git.exe
+   GIT_CMD=C:\opt\Git-2.25.1\bin\git.exe
    JAVA_CMD=C:\opt\jdk-1.8.0_242-b08\bin\java.exe
    SBT_CMD=C:\opt\sbt-1.3.8\bin\sbt.bat
 Tool options
@@ -631,9 +634,9 @@ Steps are: Checkout <b>&rarr;</b> Compile <b>&rarr;</b> Test <b>&rarr;</b> Deplo
 </p>
 <table style="margin:0 0 1em 20px;">
 <tr><th>Software</th<th>CI/CD&nbsp;service</th<th>Hosting</th></tr>
-<tr><td><a href="https://dotty-ci.epfl.ch/lampepfl/dotty">Dotty</a></td><td><a href="https://drone.io/">Drone</a> <sup>**(1)**</sup></td><td><a href="https://dotty-ci.epfl.ch/lampepfl/dotty">EPFL</a> in Lausanne, Switzerland</td></tr>
-<tr><td><a href="https://www.scala-lang.org/">Scala</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup>**(2)**</sup><br/><a href="https://docs.travis-ci.com/user/tutorial/">Travis CI</a> <sup>**(3)**</sup></td><td><a href="https://scala-ci.typesafe.com/">Lightbend</a> in San-Francisco, USA<br/><a href="https://travis-ci.org/scala/scala">Travis</a> in Berlin, Germany</td></tr>
-<tr><td><a href="https://ci.adoptopenjdk.net/">Oracle&nbsp;OpenJDK</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup>**(2)**</sup></td><td>Oracle</td></tr>
+<tr><td><a href="https://dotty-ci.epfl.ch/lampepfl/dotty">Dotty</a></td><td><a href="https://drone.io/">Drone</a> <sup><b>(1)</b></sup></td><td><a href="https://dotty-ci.epfl.ch/lampepfl/dotty">EPFL</a> in Lausanne, Switzerland</td></tr>
+<tr><td><a href="https://www.scala-lang.org/">Scala</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup><b>(2)</b></sup><br/><a href="https://docs.travis-ci.com/user/tutorial/">Travis CI</a> <sup><b>(3)</b></sup></td><td><a href="https://scala-ci.typesafe.com/">Lightbend</a> in San-Francisco, USA<br/><a href="https://travis-ci.org/scala/scala">Travis</a> in Berlin, Germany</td></tr>
+<tr><td><a href="https://ci.adoptopenjdk.net/">Oracle&nbsp;OpenJDK</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup><b>(2)</b></sup></td><td>Oracle</td></tr>
 <tr><td><a href="https://ci.eclipse.org/openj9/">IBM OpenJ9</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup><b>(2)</b></sup></td><td>IBM</td></tr>
 </table>
 <div style="margin:0 0 0 20px;">
@@ -719,18 +722,21 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_issue_7720]: https://github.com/lampepfl/dotty/issues/7720
 [dotty_issue_8124]: https://github.com/lampepfl/dotty/issues/8124
 [dotty_issue_8218]: https://github.com/lampepfl/dotty/issues/8218
+[dotty_issue_8355]: https://github.com/lampepfl/dotty/issues/8355
+[dotty_issue_8358]: https://github.com/lampepfl/dotty/issues/8358
 [dotty_pull_6653]: https://github.com/lampepfl/dotty/pull/6653
 [dotty_pull_7691]: https://github.com/lampepfl/dotty/pull/7691
 [dotty_pull_8224]: https://github.com/lampepfl/dotty/pull/8224
 [dotty_pull_8279]: https://github.com/lampepfl/dotty/pull/8279
 [dotty_pull_8330]: https://github.com/lampepfl/dotty/pull/8330
+[dotty_pull_8356]: https://github.com/lampepfl/dotty/pull/8356
 [dotty_docs]: https://dotty.epfl.ch/docs/
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_releases]: https://github.com/lampepfl/dotty/releases
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.25.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.25.1.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/
