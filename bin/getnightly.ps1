@@ -27,5 +27,5 @@ ConvertFrom-Json |
 Select -expand response |
 Select -expand docs |
 Where { $_.a -match "^dotty.*" -or $_.a -match "^tasty.*" -and $_.latestVersion -match "$latest" } |
-# http://central.maven.org/maven2/ch/epfl/lamp/dotty-compiler_0.21/0.21.0-bin-20191211-731ee3c-NIGHTLY/ dotty-compiler_0.21-0.21.0-bin-20191211-731ee3c-NIGHTLY.jar
+# http://repo.maven.apache.org/maven2/ch/epfl/lamp/dotty-compiler_0.23/0.23.0-bin-20200303-df0bb24-NIGHTLY/dotty-compiler_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
 Foreach { ($_.g -replace "\.", "/")+'/'+$_.a+'/'+$_.latestVersion+'/'+$_.a+'-'+$_.latestVersion+'.jar' }

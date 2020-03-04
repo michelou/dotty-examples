@@ -13,20 +13,20 @@
         <java.version>1.8</java.version>
 
         <!-- Scala settings -->
-        <scala.version>0.21.0-RC1</scala.version> <!-- eg. "2.12.18" or "0.20.0" -->
+        <scala.version>0.22.0-RC1</scala.version> <!-- eg. "2.12.18" or "0.20.0" -->
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugins -->
         <scala.maven.version>1.0-SNAPSHOT</scala.maven.version> <!-- Dec 2018 -->
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
-        <scalatest.version>3.1.0</scalatest.version>            <!-- Nov 2019 -->
+        <scalatest.version>3.1.1</scalatest.version>            <!-- Feb 2020 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven.compiler.version>3.8.1</maven.compiler.version>  <!-- May 2019 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
         <!-- Note: JUnit 5 requires Surefire version 2.22.1 or higher -->
         <maven.surefire.version>2.22.2</maven.surefire.version> <!-- Oct 2018 -->
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
-        <specs2.version>4.8.1</specs2.version>
+        <specs2.version>4.9.2</specs2.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
         <maven.jar.version>3.2.0</maven.jar.version>            <!-- May 2019 -->
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
@@ -37,7 +37,7 @@
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
         <junit.platform.version>1.5.2</junit.platform.version>  <!-- Sep 2019 -->
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <jupiter.version>5.5.2</jupiter.version>                <!-- Apr 2019 -->
+        <jupiter.version>5.6.0</jupiter.version>                <!-- Jan 2020 -->
     </properties>
 
     <dependencies>
@@ -47,16 +47,16 @@
             <artifactId>dotty-interfaces</artifactId>
             <version>${scala.version}</version>
         </dependency>
-		<!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.21 -->
+		<!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.22 -->
 		<dependency>
 			<groupId>ch.epfl.lamp</groupId>
-			<artifactId>dotty-library_0.21</artifactId>
+			<artifactId>dotty-library_0.22</artifactId>
 			<version>${scala.version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/ch.epfl.lamp/tasty-core_0.21 -->
+		<!-- https://mvnrepository.com/artifact/ch.epfl.lamp/tasty-core_0.22 -->
 		<dependency>
 			<groupId>ch.epfl.lamp</groupId>
-			<artifactId>tasty-core_0.21</artifactId>
+			<artifactId>tasty-core_0.22</artifactId>
 			<version>${scala.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->

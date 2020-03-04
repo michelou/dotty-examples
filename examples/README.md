@@ -3,10 +3,10 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="http://dotty.epfl.ch/"><img style="border:0;width:120px;" src="../docs/dotty.png" /></a>
+    <a href="https://dotty.epfl.ch/"><img style="border:0;width:120px;" src="../docs/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>examples\</code></strong> contains <a href="http://dotty.epfl.ch/" alt="Dotty">Dotty</a> code examples coming from various websites - mostly from the <a href="http://dotty.epfl.ch/">Dotty project</a>.
+    Directory <strong><code>examples\</code></strong> contains <a href="https://dotty.epfl.ch/" alt="Dotty">Dotty</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/">Dotty project</a>.
   </td>
   </tr>
 </table>
@@ -16,7 +16,7 @@ We can build/run each example in directory [**`examples\`**](.) using [**`sbt`**
 In the following we explain in more detail the build tools available in the [**`enum-Planet\`**](enum-Planet/) example (and also in other examples from directory [**`examples\`**](./)):
 
 <pre style="font-size:80%;">
-<b>&gt; echo %cd%</b>
+<b>&gt; cd</b>
 W:\examples\enum-Planet
 </pre>
 
@@ -400,7 +400,7 @@ Total time: 14 seconds
 
 ## Maven build tool
 
-Command [**`mvn`**](http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html) is a Java-based build tool maintained by the [Apache Software Foundation](https://maven.apache.org/docs/history.html) (tool created in 2002). It works with XML-based configuration files and provides a way to share JARs across several projects.
+Command [**`mvn`**][mvn_cli] is a Java-based build tool maintained by the [Apache Software Foundation][apache_foundation] (tool created in 2002). It works with XML-based configuration files and provides a way to share JARs across several projects.
 
 The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enum-Planet\`**](enum-Planet/) depends on the parent file [**`../pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
 
@@ -651,6 +651,7 @@ rem ## Cleanups</i>
 [apache_ant_faq]: https://ant.apache.org/faq.html#ant-name
 [apache_ant_ivy]: http://ant.apache.org/ivy/
 [apache_ant_ivy_relnotes]: http://ant.apache.org/ivy/history/2.5.0/release-notes.html
+[apache_foundation]: https://maven.apache.org/docs/history.html
 [apache_history]: https://ant.apache.org/faq.html#history
 [apache_maven_cli]: http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html
 [gradle_groovy]: http://www.groovy-lang.org/
@@ -660,7 +661,8 @@ rem ## Cleanups</i>
 [gradle_plugins]: https://docs.gradle.org/current/userguide/plugins.html
 [gradle_wrapper]: https://docs.gradle.org/current/userguide/gradle_wrapper.html
 [microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
-[mill_cli]: http://www.lihaoyi.com/mill/#command-line-tools
+[mill_cli]: https://www.lihaoyi.com/mill/#command-line-tools
+[mvn_cli]: https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html
 [os_lib]: https://github.com/lihaoyi/os-lib
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_docs_defs]: https://www.scala-sbt.org/1.0/docs/Basic-Def.html

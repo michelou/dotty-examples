@@ -32,6 +32,7 @@ set _SBT_PATH=
 set _CFR_PATH=
 set _PYTHON_PATH=
 set _BLOOP_PATH=
+set _VSCODE_PATH=
 set _GIT_PATH=
 
 call :jdk
@@ -83,6 +84,9 @@ if not %_EXITCODE%==0 (
     echo %_WARNING_LABEL% Bloop installation not found 1>&2
     set _EXITCODE=0
 )
+call :vscode
+if not %_EXITCODE%==0 goto end
+
 call :git
 if not %_EXITCODE%==0 goto end
 
@@ -528,6 +532,42 @@ if not exist "%__BLOOP_HOME%\bloop.cmd" (
 set "_BLOOP_PATH=;%__BLOOP_HOME%"
 goto :eof
 
+rem output parameter(s): _VSCODE_PATH
+:vscode
+set _VSCODE_PATH=
+
+set __VSCODE_HOME=
+set __CODE_CMD=
+for /f %%f in ('where code.exe 2^>NUL') do set "__CODE_CMD=%%f"
+if defined __CODE_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of VSCode executable found in PATH 1>&2
+    rem keep _VSCODE_PATH undefined since executable already in path
+    goto :eof
+) else if defined VSCODE_HOME (
+    set "__VSCODE_HOME=%VSCODE_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable VSCODE_HOME 1>&2
+) else (
+    set __PATH=C:\opt
+    if exist "!__PATH!\VSCode\" ( set "__VSCODE_HOME=!__PATH!\VSCode"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "__VSCODE_HOME=!__PATH!\%%f"
+        if not defined __VSCODE_HOME (
+            set __PATH=C:\Progra~1
+            for /f %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "__VSCODE_HOME=!__PATH!\%%f"
+        )
+    )
+)
+if not exist "%__VSCODE_HOME%\code.exe" (
+    echo %_ERROR_LABEL% VSCode executable not found ^(%__VSCODE_HOME%^) 1>&2
+    if exist "%__VSCODE_HOME%\Code - Insiders.exe" (
+        echo %_WARNING_LABEL% It looks like you've installed an Insider version of VSCode 1>&2
+    )
+    set _EXITCODE=1
+    goto :eof
+)
+set "_VSCODE_PATH=;%__VSCODE_HOME%"
+goto :eof
+
 rem output parameter(s): _GIT_HOME, _GIT_PATH
 :git
 set _GIT_HOME=
@@ -703,7 +743,7 @@ endlocal & (
         if not defined JAVA_HOME set JAVA_HOME=%_JDK_HOME%
         if not defined JAVA11_HOME set JAVA11_HOME=%_JDK11_HOME%
         if not defined SCALA_HOME set SCALA_HOME=%_SCALA_HOME%
-        set "PATH=%_JDK_PATH%%_PYTHON_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MILL_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_BLOOP_PATH%%_GIT_PATH%;%~dp0bin"
+        set "PATH=%_JDK_PATH%%_PYTHON_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MILL_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE% "%_GIT_HOME%"
         if %_BASH%==1 (
             rem see https://conemu.github.io/en/GitForWindows.html

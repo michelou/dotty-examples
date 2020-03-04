@@ -178,7 +178,8 @@ if not %ERRORLEVEL%==0 (
 set __N=0
 if %_DEBUG%==1 echo [%_BASENAME%] powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%" %_DEBUG% 1>&2
 for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%" %_DEBUG%') do (
-    set __URL=http://central.maven.org/maven2/%%i
+    rem set __URL=http://central.maven.org/maven2/%%i
+    set __URL=https://repo.maven.apache.org/maven2/%%i
     for %%f in ("%%i") do set __FILE_BASENAME=%%~nxf
     if defined _NIGHTLY_VERSION if not "!__FILE_BASENAME:%_NIGHTLY_VERSION%=!"=="!__FILE_BASENAME!" (
         echo Nightly build files already present locally
