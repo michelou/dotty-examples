@@ -20,7 +20,7 @@
     </dependencies>
 
     <properties>
-        <mainClass>Test</mainClass>
+        <mainClass>Main</mainClass>
     </properties>
 
     <build>

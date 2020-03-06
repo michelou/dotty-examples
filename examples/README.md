@@ -103,7 +103,7 @@ No compilation needed (1 source files)</pre>
 > For simplicity the [**`build`**](enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
 > <b>&gt; type project\build.properties</b>
-> sbt.version=1.3.5
+> sbt.version=1.3.8
 > main.class=Planet
 > main.args=1
 > </pre>
@@ -167,7 +167,7 @@ clean.doLast {
     buildDir.deleteDir()
 }
 <b>task</b> compileDotty(type: JavaExec) {
-    dependsOn compileJava
+    <b>dependsOn</b> compileJava
     ...
     main <span style="color:#990000;">"dotty.tools.dotc.Main"</span>
     ...
@@ -252,7 +252,7 @@ Your weight on JUPITER is 2.5305575254957406
 
 Command [**`mill`**][mill_cli] is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
 
-The configuration file [**`enum-Planet\build.sc`**](enum-Planet/build.sc) is a standalone file written in Scala (with direct access to [OS-Lib][os_lib]).
+The configuration file [**`enum-Planet\build.sc`**](enum-Planet/build.sc) is a standalone file written in [Scala] (with direct access to [OS-Lib][os_lib]).
 
 <pre style="font-size:80%;">
 <b>import</b> mill._, scalalib._
@@ -308,7 +308,7 @@ Command [**`ant`**][apache_ant_cli] (["Another Neat Tool"][apache_ant_faq]) is a
 The configuration file [**`enum-Planet\build.xml`**](enum-Planet/build.xml) depends on the parent file [**`examples\build.xml`**](build.xml) which provides the macro definition **`dotc`** to compile the Scala source files.
 
 <pre style="font-size:80%;">
-<b>&lt;?xml</b> version="1.0" encoding="UTF-8"<b>?&gt;</b>
+<b>&lt;?xml</b> version="1.0" encoding=<span style="color:#990000;">"UTF-8"</span><b>?&gt;</b>
 <b>&lt;project</b> name=<span style="color:#990000;">"enum-Planet"</span> default=<span style="color:#990000;">"compile"</span> basedir=<span style="color:#990000;">"."</span>&gt;
     ...
     <b>&lt;import</b> file=<span style="color:#990000;">"../build.xml"</span> /&gt;
@@ -448,7 +448,7 @@ The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enu
 </pre>
 
 > **&#9755;** **Scala Maven Plugin**<br/>
-> In the above Maven configuration file we note the presence of the Maven plugin [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip). In fact the parent file [**`examples\pom.xml`**](pom.xml) depends on [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip), a Maven plugin we developed specifically for this project:
+> In the above [Maven][apache_maven_about] configuration file we note the presence of the Maven plugin [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip). In fact the parent file [**`examples\pom.xml`**](pom.xml) depends on [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip), a Maven plugin we developed specifically for this project:
 >
 > <pre style="font-size:80%;">
 > <b>&gt; more ..\pom.xml</b>
@@ -642,19 +642,20 @@ rem ## Cleanups</i>
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/February 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link regs -->
 
 [apache_ant_cli]: https://ant.apache.org/manual/running.html
 [apache_ant_faq]: https://ant.apache.org/faq.html#ant-name
-[apache_ant_ivy]: http://ant.apache.org/ivy/
-[apache_ant_ivy_relnotes]: http://ant.apache.org/ivy/history/2.5.0/release-notes.html
+[apache_ant_ivy]: https://ant.apache.org/ivy/
+[apache_ant_ivy_relnotes]: https://ant.apache.org/ivy/history/2.5.0/release-notes.html
 [apache_foundation]: https://maven.apache.org/docs/history.html
 [apache_history]: https://ant.apache.org/faq.html#history
-[apache_maven_cli]: http://maven.apache.org/ref/3.6.0/maven-embedder/cli.html
-[gradle_groovy]: http://www.groovy-lang.org/
+[apache_maven_about]: https://maven.apache.org/what-is-maven.html
+[apache_maven_cli]: https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html
+[gradle_groovy]: https://www.groovy-lang.org/
 [gradle_app_plugin]: https://docs.gradle.org/current/userguide/application_plugin.html#header
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_java_plugin]: https://docs.gradle.org/current/userguide/java_plugin.html

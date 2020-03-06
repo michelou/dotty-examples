@@ -45,6 +45,10 @@ if %_RUN%==1 (
     call :run
     if not !_EXITCODE!==0 goto end
 )
+if %_TEST%==1 (
+    call :test
+    if not !_EXITCODE!==0 goto end
+)
 goto end
 
 rem ##########################################################################
@@ -59,9 +63,11 @@ set _DEBUG_LABEL=[46m[%_BASENAME%][0m
 set _ERROR_LABEL=[91mError[0m:
 set _WARNING_LABEL=[93mWarning[0m:
 
+set _SOURCE_DIR=%_ROOT_DIR%src
 set _TARGET_DIR=%_ROOT_DIR%target
 set _CLASSES_DIR=%_TARGET_DIR%\classes
-set _TASTY_CLASSES_DIR=%_TARGET_DIR%\classes-tasty
+set _TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes
+set _TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes
 set _DOCS_DIR=%_TARGET_DIR%\docs
 goto :eof
 
@@ -106,6 +112,7 @@ set _MAIN_ARGS=%_MAIN_ARGS_DEFAULT%
 set _RUN=0
 set _RUN_CMD=dotr
 set _TASTY=0
+set _TEST=0
 set _VERBOSE=0
 set __N=0
 :args_loop
@@ -143,8 +150,9 @@ if "%__ARG:~0,1%"=="-" (
     if /i "%__ARG%"=="clean" ( set _CLEAN=1
     ) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
     ) else if /i "%__ARG%"=="doc" ( set _DOC=1
-    ) else if /i "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
     ) else if /i "%__ARG%"=="help" ( set _HELP=1
+    ) else if /i "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
+    ) else if /i "%__ARG%"=="test" ( set _COMPILE=1& set _TEST=1
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
         set _EXITCODE=1
@@ -161,7 +169,8 @@ if %_DEBUG%==1 (
 goto :eof
 
 :help
-echo Usage: %_BASENAME% { options ^| subcommands }
+echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
+echo.
 echo   Options:
 echo     -debug           show commands executed by this script
 echo     -explain         set compiler option -explain
@@ -171,12 +180,15 @@ echo     -main:^<name^>     define main class name
 echo     -tasty           compile both from source and TASTy files
 echo     -timer           display compile time
 echo     -verbose         display progress messages
+echo.
 echo   Subcommands:
 echo     clean            delete generated class files
 echo     compile          compile source files ^(Java and Scala^)
 echo     doc              generate documentation
 echo     help             display this help message
 echo     run              execute main class
+echo     test             execute test
+echo.
 echo   Properties:
 echo   ^(to be defined in SBT configuration file project\build.properties^)
 echo     compiler.cmd     alternative to option -compiler
@@ -387,17 +399,177 @@ for /f %%i in ('powershell -C "(Get-ChildItem '%__FILE_PATH%').LastWriteTime | G
 )
 goto :eof
 
+
+rem input parameter: %1=include Dotty libs
 rem output parameter: _LIBS_CPATH
 :libs_cpath
+set __INCLUDE_DOTTY=%~1
+
+set __MAVEN_REPO=%USERPROFILE%\.m2\repository
+
+for %%f in ("%~dp0\..") do set __PARENT_DIR=%%~sf
+if not exist "%__PARENT_DIR%\lib" mkdir "%__PARENT_DIR%\lib"
+
 set _LIBS_CPATH=
-rem for /f %%i in ('where dotc.bat') do set __DOTTY_BIN_DIR=%%~dpi
-rem for /f %%f in ("!__DOTTY_BIN_DIR!..") do set __DOTTY_HOME=%%~sf
-rem for /f %%i in ('dir /b "!__DOTTY_HOME!\lib\dotty*.jar"') do (
-rem     set _LIBS_CPATH=!_LIBS_CPATH!!__DOTTY_HOME!\lib\%%i;
-rem )
-if exist "%_ROOT_DIR%\lib\" (
-    for /f %%i in ('dir /b "%_ROOT_DIR%\lib\*.jar" 2^>NUL') do (
-        set _LIBS_CPATH=!_LIBS_CPATH!%_ROOT_DIR%\lib\%%i;
+
+set __JUNIT_VERSION=4.12
+set __JUNIT_NAME=junit-%__JUNIT_VERSION%.jar
+set __JUNIT_PATH=junit\junit
+set __JUNIT_FILE=
+for /f %%f in ('where /r "%__MAVEN_REPO%\%__JUNIT_PATH%" %__JUNIT_NAME%') do (
+    set __JUNIT_FILE=%%f
+)
+if not exist "%__JUNIT_FILE%" (
+    echo %_ERROR_LABEL% Java archive file not found ^(%__JUNIT_NAME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_LIBS_CPATH=%_LIBS_CPATH%%__JUNIT_FILE%;"
+
+set __JUNIT_INTF_VERSION=0.11
+set __JUNIT_INTF_NAME=junit-interface-%__JUNIT_INTF_VERSION%.jar
+set __JUNIT_INTF_PATH=com\novocode
+set __JUNIT_INTF_FILE=
+for /f %%f in ('where /r "%__MAVEN_REPO%\%__JUNIT_INTF_PATH%" %__JUNIT_INTF_NAME% 2^>NUL') do (
+    set __JUNIT_INTF_FILE=%%f
+)
+if not exist "%__JUNIT_INTF_FILE%" (
+    set __JUNIT_INTF_URL=https://repo1.maven.org/maven2/com/novocode/junit-interface/%__JUNIT_INTF_VERSION%/%__JUNIT_INTF_NAME%
+    set __JUNIT_INTF_FILE=%__PARENT_DIR%\lib\%__JUNIT_INTF_NAME%
+    if not exist "!__JUNIT_INTF_FILE!" (
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri !__JUNIT_INTF_URL! -Outfile !__JUNIT_INTF_FILE!" 1>&2
+        ) else if %_VERBOSE%==1 ( echo Download file %__JUNIT_INTF_NAME% to directory !_TARGET_LIB_DIR:%_ROOT_DIR%=! 1>&2
+        )
+        powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri !__JUNIT_INTF_URL! -Outfile !__JUNIT_INTF_FILE!"
+        if not !ERRORLEVEL!==0 (
+            echo %_ERROR_LABEL% Failed to download file %__JUNIT_INTF_NAME% 1>&2
+            set _EXITCODE=1
+            goto :eof
+        )
+    )
+)
+set "_LIBS_CPATH=%_LIBS_CPATH%%__JUNIT_INTF_FILE%;"
+
+set __HAMCREST_VERSION=2.2
+set __HAMCREST_NAME=hamcrest-%__HAMCREST_VERSION%.jar
+set __HAMCREST_PATH=org\hamcrest\hamcrest
+set __HAMCREST_FILE=
+for /f %%f in ('where /r "%__MAVEN_REPO%\%__HAMCREST_PATH%" %__HAMCREST_NAME% 2^>NUL') do (
+    set __HAMCREST_FILE=%%f
+)
+if not exist "%__HAMCREST_FILE%" (
+    set __HAMCREST_URL=https://repo1.maven.org/maven2/org/hamcrest/hamcrest/%__HAMCREST_VERSION%/%__HAMCREST_NAME%
+    set __HAMCREST_FILE=%__PARENT_DIR%\lib\%__HAMCREST_NAME%
+    if not exist "!__HAMCREST_FILE!" (
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri !__HAMCREST_URL! -Outfile !__HAMCREST_FILE!" 1>&2
+        ) else if %_VERBOSE%==1 ( echo Download file %__HAMCREST_NAME% to directory !_TARGET_LIB_DIR:%_ROOT_DIR%=! 1>&2
+        )
+        powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri !__HAMCREST_URL! -Outfile !__HAMCREST_FILE!"
+        if not !ERRORLEVEL!==0 (
+            echo %_ERROR_LABEL% Failed to download file %__HAMCREST_NAME% 1>&2
+            set _EXITCODE=1
+            goto :eof
+        )
+    )
+)
+set "_LIBS_CPATH=%_LIBS_CPATH%%__HAMCREST_FILE%;"
+
+set __SCALATEST_VERSION=3.1.1
+set __SCALATEST_NAME=scalatest_2.13-%__SCALATEST_VERSION%.jar
+set __SCALATEST_PATH=org\scalatest\scalatest_2.13
+set __SCALATEST_FILE=
+for /f %%f in ('where /r "%__MAVEN_REPO%\%__SCALATEST_PATH%" %__SCALATEST_NAME% 2^>NUL') do (
+    set __SCALATEST_FILE=%%f
+)
+if not exist "%__SCALATEST_FILE%" (
+    echo %_ERROR_LABEL% Java archive file not found ^(%__SCALATEST_NAME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_LIBS_CPATH=%_LIBS_CPATH%%__SCALATEST_FILE%;"
+
+rem https://mvnrepository.com/artifact/org.scalactic
+set __SCALACTIC_VERSION=3.1.1
+set __SCALACTIC_NAME=scalactic_2.13-%__SCALACTIC_VERSION%.jar
+set __SCALACTIC_PATH=org\scalactic\scalactic_2.13
+set __SCALACTIC_FILE=
+for /f %%f in ('where /r "%__MAVEN_REPO%\%__SCALACTIC_PATH%" %__SCALACTIC_NAME% 2^>NUL') do (
+    set __SCALACTIC_FILE=%%f
+)
+if not exist "%__SCALACTIC_FILE%" (
+    set __SCALACTIC_URL=https://repo1.maven.org/maven2/org/scalactic/scalactic_2.13/%__SCALACTIC_VERSION%/%__SCALACTIC_NAME%
+    set __SCALACTIC_FILE=%__PARENT_DIR%\lib\%__SCALACTIC_NAME%
+    if not exist "!__SCALACTIC_FILE!" (
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri !__SCALACTIC_URL! -Outfile !__SCALACTIC_FILE!" 1>&2
+        ) else if %_VERBOSE%==1 ( echo Download file %__SCALACTIC_NAME% to directory !_TARGET_LIB_DIR:%_ROOT_DIR%=! 1>&2
+        )
+        powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri !__SCALACTIC_URL! -Outfile !__SCALACTIC_FILE!"
+        if not !ERRORLEVEL!==0 (
+            echo %_ERROR_LABEL% Failed to download file %__SCALACTIC_NAME% 1>&2
+            set _EXITCODE=1
+            goto :eof
+        )
+    )
+)
+set "_LIBS_CPATH=%_LIBS_CPATH%%__SCALACTIC_FILE%;"
+
+rem https://github.com/etorreborre/specs2/releases
+set __SPECS2_VERSION=4.9.2
+set __SPECS2_NAME=specs2-core_2.13-%__SPECS2_VERSION%.jar
+set __SPECS2_PATH=org\specs2
+set __SPECS2_FILE=
+for /f %%f in ('where /r "%__MAVEN_REPO%\%__SPECS2_PATH%" %__SPECS2_NAME% 2^>NUL') do (
+    set __SPECS2_FILE=%%f
+)
+if not exist "%__SPECS2_FILE%" (
+    set __SPECS2_URL=https://repo1.maven.org/maven2/org/specs2/specs2-core_2.13/%__SPECS2_VERSION%/%__SPECS2_NAME%
+    set __SPECS2_FILE=%__PARENT_DIR%\lib\%__SPECS2_NAME%
+    if not exist "!__SPECS2_FILE!" (
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri !__SPECS2_URL! -Outfile !__SPECS2_FILE!" 1>&2
+        ) else if %_VERBOSE%==1 ( echo Download file %__SPECS2_NAME% to directory !_TARGET_LIB_DIR:%_ROOT_DIR%=! 1>&2
+        )
+        powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri !__SPECS2_URL! -Outfile !__SPECS2_FILE!"
+        if not !ERRORLEVEL!==0 (
+            echo %_ERROR_LABEL% Failed to download file %__SPECS2_NAME% 1>&2
+            set _EXITCODE=1
+            goto :eof
+        )
+    )
+)
+set "_LIBS_CPATH=%_LIBS_CPATH%%__SPECS2_FILE%;"
+
+set __SPECS2_JUNIT_VERSION=4.8.1
+set __SPECS2_JUNIT_NAME=specs2-junit_2.13-%__SPECS2_JUNIT_VERSION%.jar
+set __SPECS2_JUNIT_PATH=org\specs2
+set __SPECS2_JUNIT_FILE=
+for /f %%f in ('where /r "%__MAVEN_REPO%\%__SPECS2_JUNIT_PATH%" %__SPECS2_JUNIT_NAME% 2^>NUL') do (
+    set __SPECS2_JUNIT_FILE=%%f
+)
+if not exist "%__SPECS2_JUNIT_FILE%" (
+    set __SPECS2_JUNIT_URL=https://repo1.maven.org/maven2/org/specs2/specs2-junit_2.13/%__SPECS2_JUNIT_VERSION%/%__SPECS2_JUNIT_NAME%
+    set __SPECS2_JUNIT_FILE=%__PARENT_DIR%\lib\%__SPECS2_JUNIT_NAME%
+    if not exist "!__SPECS2_JUNIT_FILE!" (
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri !__SPECS2_JUNIT_URL! -Outfile !__SPECS2_JUNIT_FILE!" 1>&2
+        ) else if %_VERBOSE%==1 ( echo Download file %__SPECS2_JUNIT_NAME% to directory !_TARGET_LIB_DIR:%_ROOT_DIR%=! 1>&2
+        )
+        powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri !__SPECS2_JUNIT_URL! -Outfile !__SPECS2_JUNIT_FILE!"
+        if not !ERRORLEVEL!==0 (
+            echo %_ERROR_LABEL% Failed to download file %__SPECS2_JUNIT_NAME% 1>&2
+            set _EXITCODE=1
+            goto :eof
+        )
+    )
+)
+set "_LIBS_CPATH=%_LIBS_CPATH%%__SPECS2_JUNIT_FILE%;"
+
+if %__INCLUDE_DOTTY%==1 (
+    if not defined DOTTY_HOME (
+        echo %_ERROR_LABEL% Variable DOTTY_HOME not defined 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+    for %%f in ("%DOTTY_HOME%\lib\*.jar") do (
+        set _LIBS_CPATH=!_LIBS_CPATH!%%f;
     )
 )
 goto :eof
@@ -459,6 +631,66 @@ if %_TASTY%==1 (
     call %_RUN_CMD% !__RUN_OPTS! %_MAIN_CLASS% %_MAIN_ARGS%
     if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Execution failed ^(%_MAIN_CLASS%^) 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+goto :eof
+
+:compile_test
+if not exist "%_TEST_CLASSES_DIR%" mkdir "%_TEST_CLASSES_DIR%" 1>NUL
+
+set "__TEST_TIMESTAMP_FILE=%_TEST_CLASSES_DIR%\.latest-build"
+
+call :compile_required "%__TEST_TIMESTAMP_FILE%" "%_SOURCE_DIR%\test\scala\*.scala"
+if %_COMPILE_REQUIRED%==0 goto :eof
+
+set __TEST_LIST_FILE=%_TARGET_DIR%\test_files.txt
+if exist "%__TEST_LIST_FILE%" del "%__TEST_LIST_FILE%" 1>NUL
+for %%i in (%_SOURCE_DIR%\test\scala\*.scala) do (
+    echo %%i >> "%__TEST_LIST_FILE%"
+)
+
+call :libs_cpath 1
+set __TEST_SCALAC_OPTS=%_SCALAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d %_TEST_CLASSES_DIR%
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_COMPILE_CMD% %__TEST_SCALAC_OPTS% @%__TEST_LIST_FILE% 1>&2
+) else if %_VERBOSE%==1 ( echo Compile Scala test sources to !_TEST_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
+)
+call %_COMPILE_CMD% %__TEST_SCALAC_OPTS% @%__TEST_LIST_FILE%
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Compilation of test Scala sources failed 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
+    echo %%i> "%__TEST_TIMESTAMP_FILE%"
+)
+goto :eof
+
+:test
+call :compile_test
+if not %_EXITCODE%==0 goto :eof
+
+where /q java.exe
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Java executable not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set __JAVA_CMD=java.exe
+
+call :libs_cpath 1
+set __TEST_RUN_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
+
+rem see https://github.com/junit-team/junit4/wiki/Getting-started
+for %%i in (%_TEST_CLASSES_DIR%\*Test.class) do (
+    set __MAIN_CLASS=%%~ni
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% java %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
+    ) else if %_VERBOSE%==1 ( echo Execute test !__MAIN_CLASS! 1>&2
+    )
+    %__JAVA_CMD% %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS!
+    if not !ERRORLEVEL!==0 (
         set _EXITCODE=1
         goto :eof
     )

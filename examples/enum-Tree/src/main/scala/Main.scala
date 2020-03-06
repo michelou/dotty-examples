@@ -8,7 +8,7 @@ enum Tree[T] {
   case If(cond: Tree[Boolean], thenp: Tree[T], elsep: Tree[T]) extends Tree[T]
 }
 
-object Test {
+object Main {
   import Tree._
 
   def eval[T](e: Tree[T]): T = e match {
