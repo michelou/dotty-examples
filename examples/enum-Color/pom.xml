@@ -63,9 +63,20 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
+                            <!-- TODO : add support for POM dependencies to Scala plugin -->
                             <additionalClasspathElements>
+                                <additionalClasspathElement>../lib/hamcrest-2.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>../lib/hamcrest-core-2.2.jar</additionalClasspathElement>
                                 <additionalClasspathElement>../lib/junit-4.12.jar</additionalClasspathElement>
-                                <additionalClasspathElement>../lib/scalatest_2.13-3.1.0.jar</additionalClasspathElement>
+                                <additionalClasspathElement>../lib/portable-scala-reflect_2.13-1.0.0.jar</additionalClasspathElement>
+                                <additionalClasspathElement>../lib/scalactic_2.13-3.1.1.jar</additionalClasspathElement>
+                                <additionalClasspathElement>../lib/scalatest_2.13-3.1.1.jar</additionalClasspathElement>
+                                <additionalClasspathElement>../lib/specs2-common_2.13-4.9.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>../lib/specs2-core_2.13-4.9.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>../lib/specs2-fp_2.13-4.9.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>../lib/specs2-junit_2.13-4.9.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>../lib/specs2-matcher_2.13-4.9.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>../lib/test-interface-1.0.jar</additionalClasspathElement>
                             </additionalClasspathElements>
                             <includes>
                                 <include>scala/**/*.scala</include>
@@ -130,14 +141,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <executable>java</executable>
+                    <mainClass>org.junit.runner.JUnitCore</mainClass>
                     <arguments>
-                        <argument>-classpath</argument>
-                        <classpath>
-                            <dependency>junit:junit</dependency>
-                        </classpath>
-                        <argument>org.junit.runner.JUnitCore</argument>
-                        <argument>${mainClass}Test</argument>
+                        <argument>ColorSpec2Test</argument>
                     </arguments>
                 </configuration>
             </plugin>

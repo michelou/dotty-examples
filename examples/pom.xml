@@ -132,19 +132,29 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <version>${maven.surefire.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.specs2/specs2-common -->
+        <dependency>
+            <groupId>org.specs2</groupId>
+            <artifactId>specs2-common_2.13</artifactId>
+            <version>${specs2.version}</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-core -->
         <dependency>
             <groupId>org.specs2</groupId>
             <artifactId>specs2-core_2.13</artifactId>
             <version>${specs2.version}</version>
-            <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
         <dependency>
             <groupId>org.specs2</groupId>
             <artifactId>specs2-junit_2.13</artifactId>
             <version>${specs2.version}</version>
-            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.specs2/specs2-matcher -->
+        <dependency>
+            <groupId>org.specs2</groupId>
+            <artifactId>specs2-matcher_2.13</artifactId>
+            <version>${specs2.version}</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.mojo</groupId>
