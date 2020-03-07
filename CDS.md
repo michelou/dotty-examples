@@ -19,7 +19,7 @@ This document is part of a series of topics related to [Dotty] on Windows:
 - Data Sharing and Dotty on Windows [**&#9660;**](#bottom)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-[JMH][jmh_project], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples] and [LLVM][llvm_examples] are other topics we are currently investigating.
+[JMH][jmh_project], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples] and [LLVM][llvm_examples] are other trending topics we are currently monitoring.
 
 
 ## <span id="proj_deps">Project dependencies</span>
@@ -32,7 +32,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 
 > **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Dotty] (aka [Scala 3][dotty_scala_3]) are still in development and also support Java 9+. In the following we choose to work with [Oracle OpenJDK 11][openjdk_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
 
-For instance our development environment looks as follows (*February 2020*):
+For instance our development environment looks as follows (*March 2020*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.25.1\
@@ -590,7 +590,7 @@ Classes per package (888):
 > **&#9755;** ***Data Sharing and Oracle OpenJDK 11*** <br/>
 > The [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot) installation contains the file **`<install_dir>\lib\classlist`**. Let's check if data sharing is enabled:
 > 
-> 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last displayed line ends with  **`(build 11.0.5+1o, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.6+10, mixed mode)`** otherwise.
+> 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last displayed line ends with  **`(build 11.0.6+1o, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.6+10, mixed mode)`** otherwise.
 > 2. Command **`java.exe -Xshare:dump`** generates the 17.3 Mb Java shared archive **`<install_dir>\bin\server\classes.jsa`** from file **`<install_dir>\lib\classlist`**.
 > 3. Repeat command from point 1. 
 > 
@@ -718,7 +718,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
