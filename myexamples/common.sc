@@ -18,7 +18,7 @@ val scalaSourcePath = os.pwd / "src" / "main" / "scala"
 //////////////////////////////////////////////////////////////////////////////
 // Ivy dependencies
 
-val ivyJunit = ivy"org.junit:org.junit:4.12"
+val ivyJunit = ivy"org.junit:org.junit:4.13"
 
 val ivyJunitInterface = ivy"com.novocode:junit-interface:0.11"
 
@@ -31,6 +31,9 @@ val ivyScalatest = ivy"org.scalatest:scalatest_2.13:3.1.1"
 
 // https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13
 val ivyScalactic = ivy"org.scalactic:scalactic_2.13:3.1.1"
+
+// https://mvnrepository.com/artifact/org.specs2/specs2-common
+val ivySpecs2Common = ivy"org.specs2:specs2-common_2.13:4.9.2"
 
 // https://mvnrepository.com/artifact/org.specs2/specs2-core
 val ivySpecs2 = ivy"org.specs2:specs2-core_2.13:4.9.2"

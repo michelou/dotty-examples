@@ -93,6 +93,6 @@ repositories {
 }
 
 dependencies {
-    implementation "ch.epfl.lamp:dotty-compiler_0.21:0.21.0-RC1"
-    testImplementation "junit:junit:4.12"
+    implementation "ch.epfl.lamp:dotty-compiler_0.22:0.22.0-RC1"
+    testImplementation "junit:junit:4.13"
 }

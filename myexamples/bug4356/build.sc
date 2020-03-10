@@ -25,7 +25,8 @@ object app extends ScalaModule {
     def ivyDeps = Agg(
       common.ivyJunitInterface,
       common.ivyScalatest,
-      common.ivySpecs2
+      common.ivySpecs2Common,
+      common.ivySpecs2Core
     )
     def testFrameworks = Seq(
       "com.novocode.junit.JUnitFramework",
