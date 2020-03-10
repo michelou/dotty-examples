@@ -158,7 +158,7 @@ We distinguish different sets of batch/bash commands:
 
 4. File [**`bin\dotty\build.bat`**](bin/dotty/build.bat) - This batch command generates the [Dotty] software distribution from the Windows command prompt.
 
-5. File [**`bin\dotty\build.sh`**](bin/dotty/build.sh) - This bash command generates the [Dotty] software distribution from the Git Bash command prompt.
+5. File [**`bin\dotty\build.sh`**](bin/dotty/build.sh) - This bash command generates the [Dotty] software distribution from the [Git Bash][git_bash] command prompt.
 
 6. File [**`examples\*\build.bat`**](examples/dotty-example-project/build.bat) - Finally each example can be built/run using the [**`build`**](examples/dotty-example-project/build.bat) command.<br/>
     > **&#9755;** We prefer command [**`build`**](examples/dotty-example-project/build.bat) here since our code examples are simple and don't require the [**`sbt`** ][sbt_cli] machinery (eg. [library dependencies][sbt_libs], [sbt server][sbt_server]).
@@ -346,18 +346,18 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; getnightly</b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-dotty-doc_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-dotty-interfaces-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-dotty-language-server_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-dotty-library_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-dotty-sbt-bridge-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-dotty-staging_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-dotty-tasty-inspector_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-dotty-tastydoc-input_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-dotty-tastydoc_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-dotty_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-tasty-core_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
+dotty-compiler_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+dotty-doc_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+dotty-interfaces-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+dotty-language-server_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+dotty-library_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+dotty-sbt-bridge-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+dotty-staging_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+dotty-tasty-inspector_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+dotty-tastydoc-input_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+dotty-tastydoc_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+dotty_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+tasty-core_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
 </pre>
 
 > **:mag_right:** Starting with Dotty version `0.22.0` package **`dotty.tools.tasty`** is distributed separately (**`tast-core_<xxx>.jar`**).
@@ -366,18 +366,18 @@ Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the downlo
 
 <pre style="font-size:80%">
 <b>&gt; getnightly -verbose</b>
-Downloading file dotty-library_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar ... 1.4 Mb
-Downloading file dotty-tastydoc_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar ... 435.9 Kb
-Downloading file dotty-compiler_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar ... 12.2 Mb
-Downloading file dotty-sbt-bridge-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar ... 13.4 Kb
-Downloading file dotty-tasty-inspector_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar ... 8 Kb
-Downloading file dotty-interfaces-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar ... 3.4 Kb
-Downloading file dotty_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-doc_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar ... 1023.2 Kb
-Downloading file dotty-tastydoc-input_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar ... 36.1 Kb
-Downloading file tasty-core_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar ... 52.8 Kb
-Downloading file dotty-language-server_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar ... 147.4 Kb
-Downloading file dotty-staging_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar ... 35.9 Kb
+Downloading file dotty-tasty-inspector_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar ... 8 Kb
+Downloading file dotty-tastydoc_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar ... 435.9 Kb
+Downloading file dotty-library_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar ... 1.4 Mb
+Downloading file dotty-sbt-bridge-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty-tastydoc-input_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar ... 36.1 Kb
+Downloading file dotty-doc_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar ... 1023.2 Kb
+Downloading file tasty-core_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar ... 52.9 Kb
+Downloading file dotty-language-server_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar ... 147.5 Kb
+Downloading file dotty-interfaces-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-staging_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar ... 36 Kb
+Downloading file dotty-compiler_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar ... 12.2 Mb
+Downloading file dotty_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar ... 0.3 Kb
 Finished to download 12 files to directory W:\out\nightly-jars
 </pre>
 
@@ -388,10 +388,10 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 <pre style="font-size:80%;">
 <b>&gt; getnightly activate</b>
 Finished to download 12 files to directory W:\out\nightly-jars
-Activate nightly build libraries: 0.23.0-bin-20200303-df0bb24-NIGHTLY
+Activate nightly build libraries: 0.23.0-bin-20200305-84f2e41-NIGHTLY
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.23.0-bin-20200303-df0bb24-NIGHTLY-git-df0bb24 -- Copyright 2002-2020, LAMP/EPFL
+Dotty compiler version 0.23.0-bin-20200305-84f2e41-NIGHTLY-git-84f2e41 -- Copyright 2002-2020, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
 Activate default Dotty libraries: 0.22.0-RC1
@@ -415,19 +415,19 @@ lib\0.22.0-RC1\
 &nbsp;&nbsp;dotty-interfaces-0.22.0-RC1.jar
 &nbsp;&nbsp;dotty-library_0.22-0.22.0-RC1.jar
 &nbsp;&nbsp;dotty-staging_0.22-0.22.0-RC1.jar
-lib\0.23.0-bin-20200303-df0bb24-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-&nbsp;&nbsp;dotty-staging_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tasty-inspector_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc-input_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
-&nbsp;&nbsp;tasty-core_0.23-0.23.0-bin-20200303-df0bb24-NIGHTLY.jar
+lib\0.23.0-bin-20200305-84f2e41-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+&nbsp;&nbsp;dotty-staging_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tasty-inspector_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc-input_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+&nbsp;&nbsp;tasty-core_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original [Dotty] installation respectively from the latest nightly build.
@@ -802,6 +802,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [dotty_relnotes]: https://github.com/lampepfl/dotty/releases/tag/0.22.0-RC1
 [dotty_repl]: https://docs.scala-lang.org/overviews/repl/overview.html
 [github_dotr]: https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr
+[git_bash]: https://www.atlassian.com/git/tutorials/git-bash
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
 [git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.25.1.txt

@@ -42,8 +42,8 @@ call "%_SBT_CMD%" "dotty-bench-bootstrapped/jmh:run 1 1 -with-compiler compiler/
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 
 echo testing scala.quoted.Expr.run from sbt dotr
-if %_DEBUG%==1 echo [%_BASENAME%] "%_SBT_CMD%" ";dotty-compiler-bootstrapped/dotc tests/run-with-compiler/quote-run.scala; dotty-compiler-bootstrapped/dotr -with-compiler Test" ^> "%_TMP_FILE%" 1>&2
-call "%_SBT_CMD%" ";dotty-compiler-bootstrapped/dotc tests/run-with-compiler/quote-run.scala; dotty-compiler-bootstrapped/dotr -with-compiler Test" > "%_TMP_FILE%"
+if %_DEBUG%==1 echo [%_BASENAME%] "%_SBT_CMD%" ";dotty-compiler-bootstrapped/dotc tests/run-staging/quote-run.scala; dotty-compiler-bootstrapped/dotr -with-compiler Test" ^> "%_TMP_FILE%" 1>&2
+call "%_SBT_CMD%" ";dotty-compiler-bootstrapped/dotc tests/run-staging/quote-run.scala; dotty-compiler-bootstrapped/dotr -with-compiler Test" > "%_TMP_FILE%"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 call :grep "val a: scala.Int = 3" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
