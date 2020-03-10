@@ -217,6 +217,8 @@ if %_VERBOSE%==1 (
     for /f "delims=" %%i in ('where java.exe') do (
         if not defined __JAVA_CMD1 set __JAVA_CMD1=%%i
     )
+    set __SBT_BUILD_VERSION=unknown
+    for /f %%i in ('findstr /c:"sbt.version" "%_ROOT_DIR%\project\build.properties"') do set __SBT_BUILD_VERSION=%%i
     set __BRANCH_NAME=unknown
     for /f %%i in ('!__GIT_CMD1! rev-parse --abbrev-ref HEAD') do set __BRANCH_NAME=%%i
     echo Tool paths
@@ -226,6 +228,8 @@ if %_VERBOSE%==1 (
     echo Tool options
     echo    JAVA_OPTS=%JAVA_OPTS%
     echo    SBT_OPTS=%SBT_OPTS%
+    echo Sbt build version ^(build.properties^):
+    echo    !__SBT_BUILD_VERSION!
     echo Current Git branch:
     echo    !__BRANCH_NAME!
     echo.
@@ -290,7 +294,7 @@ goto :eof
 :test
 echo %_COLOR_START%sbt compile and sbt test%_COLOR_END%
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ;compile ;test 1>&2
-call "%_SBT_CMD%" ;compile ;test
+call "%_SBT_CMD%" ";compile ;test"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to run sbt command ";compile ;test" 1>&2
     set _EXITCODE=1
