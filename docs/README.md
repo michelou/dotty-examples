@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="http://dotty.epfl.ch/"><img src="https://www.cakesolutions.net/hubfs/dotty.png" width="120"/></a>
+    <a href="http://dotty.epfl.ch/"><img src="../docs/dotty.png" width="120" alt="Dotty Logo"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     The <strong><code>docs\</code></strong> directory contains a selection of external links and PDF documents related to <a href="http://dotty.epfl.ch/" alt="Dotty">Dotty</a>.
@@ -15,6 +15,13 @@
 
 ### **Blogs**
 
+- "Types: Never commit too early"<br/>
+  <ul style="margin:-16px 0 -16px 0;">
+  <li><a href="">"Part 1: The Free Theorems"</a>, August <span style="font-weight:bold; color:#DC143C;">2018</span>.</li>
+  <li><a href="https://www.sderosiaux.com/articles/2018/08/15/types-never-commit-too-early-part2">"Part 2: How typeclasses save us"</a>, August 2018.</li>
+  <li><a href="https://www.sderosiaux.com/articles/2018/08/15/types-never-commit-too-early-part3">"Part 3: Stacking Monad Transformers without statck"</a>, August 2018.</li>
+  </ul>
+  <br/>Stéphane Derosiaux, <a href="https://www.sderosiaux.com/">personal website</a>.
 - [[Link](https://www.stephanboyer.com/post/115/higher-rank-and-higher-kinded-types)] [[PDF](./20160423_Boyer_Higher-rank_and_higher-kinded_types.pdf)]<br/>"Higher-rank and higher-kinded types", <span style="font-weight:bold; color:#DC143C;">2016</span> (7 pages).<br/>Stephan Boyer, [personal website](https://www.stephanboyer.com/).
 
 - [[Link](https://chadaustin.me/2015/07/sum-types/)] [[PDF](./20150709_Sum_Types_Are_Coming.pdf)]<br/>"Sum Types Are Coming: What You Should Know", <span style="font-weight:bold; color:#DC143C;">2015</span> (21 pages).<br/>Chad Austin, [personal website](https://chadaustin.me/).
@@ -26,6 +33,8 @@
 
 
 ### **Papers**
+
+- [[Link](https://typista.org/categories-in-dotty/)] [[PDF](./20191223_Mendez_Category_Theory_in_Scala_3.pdf)]<br/>"Notes on Category Theory in Scala 3", December <span style="font-weight:bold; color:#DC143C;">2019</span>.<br/>Juan Pablo Romero Méndez.
 
 - [[Link](http://guillaume.martres.me/ide_paper.pdf)] [[PDF](./2017_ide_paper.pdf)]<br/>"Interactive Development using the Dotty Compiler"], <span style="font-weight:bold; color:#DC143C;">2017</span> (4 pages).<br/>Guillaume Martres, [*LAMP - EPFL*][epfl_lamp].
 
@@ -45,7 +54,7 @@
 
 <hr style="margin:2em 0 0 0;" />
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/December 2019* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

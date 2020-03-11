@@ -97,15 +97,17 @@ if %_DEBUG%==1 (
 goto :eof
 
 :help
-echo Usage: %_BASENAME% { options ^| subcommands }
+echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
+echo.
 echo   Options:
-echo     -debug           show commands executed by this script
-echo     -verbose         display download progress
+echo     -debug      show commands executed by this script
+echo     -verbose    display download progress
+echo.
 echo   Subcommands:
-echo     activate         activate the nightly build library files
-echo     download         download nighty build files and quit (default)
-echo     help             display this help message
-echo     reset            restore the default Dotty library files
+echo     activate    activate the nightly build library files
+echo     download    download nighty build files and quit (default)
+echo     help        display this help message
+echo     reset       restore the default Dotty library files
 goto :eof
 
 rem output parameters: _DOTTY_HOME, _DOTTY_VERSION, _NIGHTLY_VERSION
