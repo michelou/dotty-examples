@@ -55,7 +55,7 @@ rem ##########################################################################
 rem ## Subroutines
 
 rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-rem                    _TARGET_DIR, _CLASSES_DIR, _TASTY_CLASSES_DIR
+rem                    _CLASSES_DIR, _TARGET_DIR, _TASTY_CLASSES_DIR
 :env
 rem ANSI colors in standard Windows 10 shell
 rem see https://gist.github.com/mlocati/#file-win10colors-cmd
@@ -97,7 +97,6 @@ rem input parameter: %*
 :args
 set _CLEAN=0
 set _COMPILE=0
-set _COMPILE_TIME=0
 set _DOC=0
 set _DOTTY=1
 set _HELP=0
@@ -109,6 +108,7 @@ set _SCALAC_OPTS_EXPLAIN=0
 set _SCALAC_OPTS_EXPLAIN_TYPES=0
 set _TASTY=0
 set _TEST=0
+set _TIMER=0
 set _VERBOSE=0
 set __N=0
 :args_loop
@@ -126,7 +126,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if /i "%__ARG%"=="-help" ( set _HELP=1
     ) else if /i "%__ARG%"=="-scala" ( set _DOTTY=0
     ) else if /i "%__ARG%"=="-tasty" ( set _TASTY=1
-    ) else if /i "%__ARG%"=="-timer" ( set _COMPILE_TIME=1
+    ) else if /i "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else if /i "%__ARG:~0,6%"=="-main:" (
         call :set_main "!__ARG:~6!"
@@ -160,10 +160,12 @@ if %_SCALAC_OPTS_EXPLAIN_TYPES%==1 (
     ) else ( set _SCALAC_OPTS=%_SCALAC_OPTS% -explaintypes
     )
 )
-if %_DEBUG%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TOTAL_TIME_START=%%i
-    echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DOTTY=%_DOTTY% _RUN=%_RUN% _TEST=%_TEST% 1>&2
+if %_TASTY%==1 if %_DOTTY%==0 (
+    echo %_WARNING_LABEL% option '-tasty' not supported by Scala 2 1>&2
+    set _TASTY=0
 )
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DOTTY=%_DOTTY% _RUN=%_RUN% _TEST=%_TEST% 1>&2
+if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
 :help
@@ -177,7 +179,7 @@ echo     -explain-types   set compiler option -explain-types
 echo     -main:^<name^>     define main class name
 echo     -scala           use Scala 2 tools
 echo     -tasty           compile both from source and TASTy files
-echo     -timer           display compile time
+echo     -timer           display total elapsed time
 echo     -verbose         display progress messages
 echo.
 echo   Subcommands:
@@ -186,11 +188,10 @@ echo     compile          compile source files ^(Java and Scala^)
 echo     doc              generate documentation
 echo     help             display this help message
 echo     run              execute main class
-echo     test             execute tests
+echo     test             execute unit tests
 echo.
 echo   Properties:
 echo   ^(to be defined in SBT configuration file project\build.properties^)
-echo     compiler.cmd     alternative to option -compiler
 echo     main.class       alternative to option -main
 echo     main.args        list of arguments to be passed to main class
 goto :eof
@@ -200,7 +201,7 @@ rem output parameter: _MAIN_CLASS
 set __ARG=%~1
 set __VALID=0
 for /f %%i in ('powershell -C "$s='%__ARG%'; if($s -match '^[\w$]+(\.[\w$]+)*$'){1}else{0}"') do set __VALID=%%i
-rem if %_DEBUG%==1 echo %_DEBUG_LABEL% __ARG=%__ARG% __VALID=%__VALID%
+rem if %_DEBUG%==1 echo %_DEBUG_LABEL% __ARG=%__ARG% __VALID=%__VALID% 1>&2
 if %__VALID%==0 (
     echo %_ERROR_LABEL% Invalid class name passed to option "-main" ^(%__ARG%^) 1>&2
     set _EXITCODE=1
@@ -229,9 +230,6 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :compile
-if %_COMPILE_TIME%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __COMPILE_TIME_START=%%i
-)
 if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 
 set "__TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build"
@@ -248,11 +246,6 @@ if %_COMPILE_REQUIRED%==1 (
 )
 for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
     echo %%i> "%__TIMESTAMP_FILE%"
-)
-if %_COMPILE_TIME%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __COMPILE_TIME_END=%%i
-    call :duration "%__COMPILE_TIME_START%" "!__COMPILE_TIME_END!"
-    echo Compile time: !_DURATION! 1>&2
 )
 goto :eof
 
@@ -403,27 +396,27 @@ if %__TIMESTAMP1_DATE% gtr %__TIMESTAMP2_DATE% ( set _NEWER=1
 )
 goto :eof
 
-rem input parameter: %1=include Dotty libs
+rem input parameter: %1=flag to add Dotty libs
 rem output parameter: _LIBS_CPATH
 :libs_cpath
-set __INCLUDE_DOTTY=%~1
+set __ADD_DOTTY_LIBS=%~1
 
-set _LIBS_CPATH=
+if not exist "..\cpath.bat" (
+    echo %_ERROR_LABEL% Batch file ..\cpath.bat not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+call ..\cpath.bat %_DEBUG%
+set _LIBS_CPATH=%_CPATH%
 
-if defined __INCLUDE_DOTTY if exist "%DOTTY_HOME%\lib\" (
-    for %%i in (%DOTTY_HOME%\lib\*.jar) do (
-        set _LIBS_CPATH=!_LIBS_CPATH!%%i;
+if defined __ADD_DOTTY_LIBS (
+    if not defined DOTTY_HOME (
+        echo %_ERROR_LABEL% Variable DOTTY_HOME not defined 1>&2
+        set _EXITCODE=1
+        goto :eof
     )
-)
-for %%f in ("%~dp0\..") do set __PARENT_DIR=%%~sf
-if exist "%__PARENT_DIR%\lib\" (
-    for %%i in (%__PARENT_DIR%\lib\*.jar) do (
-        set _LIBS_CPATH=!_LIBS_CPATH!%%i;
-    )
-)
-if exist "%_ROOT_DIR%\lib\" (
-    for %%i in (%_ROOT_DIR%\lib\*.jar) do (
-        set _LIBS_CPATH=!_LIBS_CPATH!%%i;
+    for %%f in ("%DOTTY_HOME%\lib\*.jar") do (
+        set _LIBS_CPATH=!_LIBS_CPATH!%%f;
     )
 )
 goto :eof
@@ -434,23 +427,24 @@ if not %_EXITCODE%==0 goto :eof
 
 if not exist "%_DOCS_DIR%" mkdir "%_DOCS_DIR%" 1>NUL
 
-set __DOC_TIMESTAMP_FILE=%_DOCS_DIR%\.latest-build
+set "__DOC_TIMESTAMP_FILE=%_DOCS_DIR%\.latest-build"
 
 call :compile_required "%__DOC_TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\scala\*.scala"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
-set __SCALA_SOURCE_FILES=
-for %%i in (%_SOURCE_DIR%\main\scala\*.scala) do (
-    set __SCALA_SOURCE_FILES=!__SCALA_SOURCE_FILES! %%i
+set "__DOC_LIST_FILE=%_TARGET_DIR%\doc_files.txt"
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
+    echo %%i>> "%__DOC_LIST_FILE%"
 )
 
-for %%i in ("%~dp0\.") do set __PROJECT=%%~ni
-set __SCALADOC_OPTS=-siteroot %_DOCS_DIR% -project %__PROJECT% -project-version 0.1-SNAPSHOT
+for %%i in ("%~dp0\.") do set __PROJECT_NAME=%%~ni
+set __PROJECT_VERSION=0.1-SNAPSHOT
+set __SCALADOC_OPTS=-siteroot %_DOCS_DIR% -project %__PROJECT_NAME% -project-version %_PROJECT_VERSION%
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALADOC_CMD% %__SCALADOC_OPTS% %__SCALA_SOURCE_FILES% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALADOC_CMD% %__SCALADOC_OPTS% "@%__DOC_LIST_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into directory !_DOCS_DIR:%_ROOT_DIR%=! 1>&2
 )
-call %_SCALADOC_CMD% %__SCALADOC_OPTS% %__SCALA_SOURCE_FILES%
+call %_SCALADOC_CMD% %__SCALADOC_OPTS% "@%__DOC_LIST_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Scala documentation generation failed 1>&2
     set _EXITCODE=1
@@ -471,8 +465,8 @@ if not exist "%__MAIN_CLASS_FILE%" (
     set _EXITCODE=1
     goto :eof
 )
-call :libs_cpath
-set __SCALA_OPTS=%_SCALA_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%"
+rem call :libs_cpath
+set __SCALA_OPTS=%_SCALA_OPTS% -classpath "%_CLASSES_DIR%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALA_CMD% %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% 1>&2
@@ -504,27 +498,31 @@ if %_TASTY%==1 (
 goto :eof
 
 :compile_test
+call :init_scala
+if not %_EXITCODE%==0 goto :eof
+
 if not exist "%_TEST_CLASSES_DIR%" mkdir "%_TEST_CLASSES_DIR%" 1>NUL
 
 set "__TEST_TIMESTAMP_FILE=%_TEST_CLASSES_DIR%\.latest-build"
 
-call :compile_required "%__TEST_TIMESTAMP_FILE%" "%__TEST_SOURCE_FILES%"
+call :compile_required "%__TEST_TIMESTAMP_FILE%" "%_SOURCE_DIR%\test\scala\*.scala"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
-set __TEST_SOURCE_FILES=
+set __TEST_LIST_FILE=%_TARGET_DIR%\test_files.txt
+if exist "%__TEST_LIST_FILE%" del "%__TEST_LIST_FILE%" 1>NUL
 for %%i in (%_SOURCE_DIR%\test\scala\*.scala) do (
-    set __TEST_SOURCE_FILES=!__TEST_SOURCE_FILES! %%i
+    echo %%i >> "%__TEST_LIST_FILE%"
 )
 
-call :libs_cpath 1
-set __TEST_SCALAC_OPTS=%_SCALAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d %_TEST_CLASSES_DIR%
+call :libs_cpath
+set __TEST_SCALAC_OPTS=%_SCALAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d "%_TEST_CLASSES_DIR%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% %__TEST_SCALAC_OPTS% %__TEST_SOURCE_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Compile Scala test sources to !_TEST_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% %__TEST_SCALAC_OPTS% @%__TEST_LIST_FILE% 1>&2
+) else if %_VERBOSE%==1 ( echo Compile Scala test source files to !_TEST_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
-call %_SCALAC_CMD% %__TEST_SCALAC_OPTS% %__TEST_SOURCE_FILES%
+call %_SCALAC_CMD% %__TEST_SCALAC_OPTS% @%__TEST_LIST_FILE%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of test Scala sources failed 1>&2
+    echo %_ERROR_LABEL% Compilation of test Scala source files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -574,10 +572,11 @@ rem ##########################################################################
 rem ## Cleanups
 
 :end
-if %_DEBUG%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TOTAL_TIME_END=%%i
-    call :duration "%_TOTAL_TIME_START%" "!_TOTAL_TIME_END!"
-    echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% _DURATION=!_DURATION! 1>&2
+if %_TIMER%==1 (
+    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
+    call :duration "%_TIMER_START%" "!__TIMER_END!"
+    echo Elapsed time: !_DURATION! 1>&2
 )
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%
 endlocal

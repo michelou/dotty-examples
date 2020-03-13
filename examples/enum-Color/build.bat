@@ -69,7 +69,6 @@ set _CLASSES_DIR=%_TARGET_DIR%\classes
 set _TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes
 set _TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes
 set _TARGET_DOCS_DIR=%_TARGET_DIR%\docs
-set _TARGET_LIB_DIR=%_TARGET_DIR%\lib
 goto :eof
 
 rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
@@ -174,7 +173,7 @@ echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
 echo.
 echo   Options:
 echo     -debug           show commands executed by this script
-echo     -dotty           use Scala 3 tools
+echo     -dotty           use Scala 3 tools ^(default^)
 echo     -explain         set compiler option -explain
 echo     -explain-types   set compiler option -explain-types
 echo     -main:^<name^>     define main class name
@@ -233,7 +232,7 @@ goto :eof
 :compile
 if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 
-set __TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build
+set "__TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build"
 
 call :compile_required "%__TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\java\*.java"
 if %_COMPILE_REQUIRED%==1 (
@@ -397,10 +396,10 @@ if %__TIMESTAMP1_DATE% gtr %__TIMESTAMP2_DATE% ( set _NEWER=1
 )
 goto :eof
 
-rem input parameter: %1=include Dotty libs
+rem input parameter: %1=flag to add Dotty libs
 rem output parameter: _LIBS_CPATH
 :libs_cpath
-set __INCLUDE_DOTTY=%~1
+set __ADD_DOTTY_LIBS=%~1
 
 if not exist "..\cpath.bat" (
     echo %_ERROR_LABEL% Batch file ..\cpath.bat not found 1>&2
@@ -410,7 +409,7 @@ if not exist "..\cpath.bat" (
 call ..\cpath.bat %_DEBUG%
 set _LIBS_CPATH=%_CPATH%
 
-if defined __INCLUDE_DOTTY (
+if defined __ADD_DOTTY_LIBS (
     if not defined DOTTY_HOME (
         echo %_ERROR_LABEL% Variable DOTTY_HOME not defined 1>&2
         set _EXITCODE=1
@@ -428,7 +427,7 @@ if not %_EXITCODE%==0 goto :eof
 
 if not exist "%_TARGET_DOCS_DIR%" mkdir "%_TARGET_DOCS_DIR%" 1>NUL
 
-set __DOC_TIMESTAMP_FILE=%_TARGET_DOCS_DIR%\.latest-build
+set "__DOC_TIMESTAMP_FILE=%_TARGET_DOCS_DIR%\.latest-build"
 
 call :compile_required "%__DOC_TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\scala\*.scala"
 if %_COMPILE_REQUIRED%==0 goto :eof
@@ -466,8 +465,8 @@ if not exist "%__MAIN_CLASS_FILE%" (
     set _EXITCODE=1
     goto :eof
 )
-call :libs_cpath
-set __SCALA_OPTS=%_SCALA_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%"
+rem call :libs_cpath
+set __SCALA_OPTS=%_SCALA_OPTS% -classpath "%_CLASSES_DIR%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALA_CMD% %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% 1>&2
@@ -515,15 +514,15 @@ for %%i in (%_SOURCE_DIR%\test\scala\*.scala) do (
     echo %%i >> "%__TEST_LIST_FILE%"
 )
 
-call :libs_cpath 1
+call :libs_cpath
 set __TEST_SCALAC_OPTS=%_SCALAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d %_TEST_CLASSES_DIR%
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% %__TEST_SCALAC_OPTS% @%__TEST_LIST_FILE% 1>&2
-) else if %_VERBOSE%==1 ( echo Compile Scala test sources to !_TEST_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
+) else if %_VERBOSE%==1 ( echo Compile Scala test source files to !_TEST_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
 call %_SCALAC_CMD% %__TEST_SCALAC_OPTS% @%__TEST_LIST_FILE%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of test Scala sources failed 1>&2
+    echo %_ERROR_LABEL% Compilation of test Scala source files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )

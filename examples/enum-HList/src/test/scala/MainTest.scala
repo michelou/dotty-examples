@@ -8,7 +8,7 @@ class MainTest {
   def test1(): Unit = {
     import HLst._
     val hl = HCons(1, HCons("A", HNil))
-    assertEquals("List h1 has length 2", Main.length(hl), 2)
+    assertEquals("List h1 has length 2", Main.length(hl).toLong, 2)
   }
 }
 
