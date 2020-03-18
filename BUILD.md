@@ -88,10 +88,10 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. Directory [**`bin\0.22\`**](bin/0.22) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software distribution][dotty_releases].
+1. Directory [**`bin\0.23\`**](bin/0.23) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software distribution][dotty_releases].
 
    <pre style="font-size:80%;">
-   <b>&gt; cp bin\0.22\*.bat dotty\dist\bin</b>
+   <b>&gt; cp bin\0.23\*.bat dotty\dist\bin</b>
    <b>&gt; dir /b dotty\dist\bin</b>
    common
    common.bat
@@ -707,7 +707,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

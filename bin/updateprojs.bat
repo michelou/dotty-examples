@@ -16,8 +16,8 @@ rem remove trailing backslash for virtual drives
 if "%_ROOT_DIR:~-2%"==":\" set "_ROOT_DIR=%_ROOT_DIR:~0,-1%"
 
 rem files build.sbt, build.sc and ivy.xml
-set _DOTTY_VERSION_OLD="0.21.0-RC1"
-set _DOTTY_VERSION_NEW="0.22.0-RC1"
+set _DOTTY_VERSION_OLD="0.22.0-RC1"
+set _DOTTY_VERSION_NEW="0.23.0-RC1"
 
 rem files project\build.properties
 set _SBT_VERSION_OLD=sbt.version=1.3.7
@@ -29,8 +29,8 @@ set _SBT_DOTTY_VERSION_OLD="0.3.4"
 set _SBT_DOTTY_VERSION_NEW="0.4.0"
 
 rem files ivy.xml (NB. PS regex)
-set _IVY_DOTTY_VERSION_OLD=^(dotty-[a-z]+^)_0.21
-set _IVY_DOTTY_VERSION_NEW=$1_0.22
+set _IVY_DOTTY_VERSION_OLD=^(dotty-[a-z]+^)_0.22
+set _IVY_DOTTY_VERSION_NEW=$1_0.23
 
 call :env
 if not %_EXITCODE%==0 goto end

@@ -3,16 +3,15 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:100px;">
-    <a href="http://dotty.epfl.ch/"><img style="border:0;width:100px;" src="../docs/dotty.png" width="100" /></a>
+    <a href="https://dotty.epfl.ch/"><img style="border:0;width:100px;" src="../docs/dotty.png" width="100" alt="Dotty Logo"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>myexamples\</code></strong> contains <a href="http://dotty.epfl.ch/" alt="Dotty">Dotty</a> code examples written by myself.
+    Directory <strong><code>myexamples\</code></strong> contains <a href="https://dotty.epfl.ch/" alt="Dotty">Dotty</a> code examples written by myself.
   </td>
   </tr>
 </table>
 
-
-We can build/run each example in directory [**`myexamples\`**](.) using [**`sbt`**][sbt_cli], [**`ant`**][apache_ant_cli], [**`gradle`**](https://docs.gradle.org/current/userguide/command_line_interface.html), [**`mill`**](http://www.lihaoyi.com/mill/#command-line-tools) or [**`mvn`**][apache_maven_cli] as an alternative to the **`build`** batch command.
+We can build/run each example in directory [**`myexamples\`**](.) using [**`sbt`**][sbt_cli], [**`ant`**][apache_ant_cli], [**`gradle`**][gradle_cli], [**`mill`**][mill_cli] or [**`mvn`**][apache_maven_cli] as an alternative to the **`build`** batch command.
 
 In the following we explain in more detail the build tools available in the [**`HelloWorld`**](HelloWorld) example (and also in other examples from directory [**`myexamples\`**](./)):
 
@@ -126,7 +125,7 @@ Command [**`sbt`**][sbt_cli] is a Scala-based build tool for [Scala] and Java.
 The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is a standalone file written in [Scala] and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
 <pre style="font-size:80%;">
-<b>val</b> dottyVersion = <span style="color:#990000;">"0.22.0-RC1"</span>
+<b>val</b> dottyVersion = <span style="color:#990000;">"0.23.0-RC1"</span>
 &nbsp;
 <b>lazy val</b> root = project
   .in(file(<span style="color:#990000;">"."</span>))
@@ -264,7 +263,7 @@ Buildfile: W:\myexamples\HelloWorld\build.xml
    [delete] Deleting directory W:\myexamples\HelloWorld\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] DOTTY_HOME=C:\opt\dotty-0.22.0-RC1
+     [echo] DOTTY_HOME=C:\opt\dotty-0.23.0-RC1
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -343,7 +342,7 @@ The configuration file [**`HelloWorld\pom.xml`**](HelloWorld/pom.xml) depends on
 >         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>0.22.0-RC1<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.version&gt;</b>0.23.0-RC1<b>&lt;/scala.version&gt;</b>
 >         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
@@ -382,16 +381,16 @@ Command **`mvn clean test`** with option **`-debug`** produces additional debug 
 <pre>
 <b>&gt; mvn -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-1.8.0_242-b08\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.22.0-RC1 \
- -cp C:\opt\dotty-0.22.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.23.0-RC1 \
+ -cp C:\opt\dotty-0.23.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-1.8.0_242-b08\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.22.0-RC1 [...]
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.23.0-RC1 [...]
 [DEBUG] [execute] C:\opt\jdk-1.8.0_242-b08\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.22.0-RC1\lib\*.jar;\
+ -Xms64m -Xmx1024m -cp C:\opt\dotty-0.23.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -425,15 +424,15 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 Finally can check the Java manifest in **`HelloWorld-0.1-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.22.0-RC1\lib\dotty-library_0.22-0.22.0-RC1.jar;^
-c:\opt\dotty-0.22.0-RC1\lib\scala-library-2.13.1.jar ^
+<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.23.0-RC1\lib\dotty-library_0.23-0.23.0-RC1.jar;^
+c:\opt\dotty-0.23.0-RC1\lib\scala-library-2.13.1.jar ^
 -jar target\HelloWorld-0.1-SNAPSHOT.jar
 Hello world!
 </pre>
 
 > **:mag_right:** We can use batch script [**`searchjars`**](../bin/searchjars.bat) in case some class is missing in the specified classpath, e.g.
 > <pre>
-> <b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.22.0-RC1\lib\dotty-library_0.22-0.22.0-RC1.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
+> <b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.23.0-RC1\lib\dotty-library_0.23-0.23.0-RC1.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
 > Exception in thread "main" java.lang.NoClassDefFoundError: scala/Serializable
 >         [...]
 >         at Main.main(Main.scala)
@@ -451,7 +450,7 @@ Hello world!
 > Searching for class Serializable in library files C:\opt\JDK-18~1.0_2\lib\*.jar
 >   tools.jar:com/sun/tools/internal/xjc/reader/xmlschema/bindinfo/BISerializable.class
 > </pre>
-> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.22.0-RC1\lib\scala-library-2.13.1.jar`**, so let us add it to our classpath !
+> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.23.0-RC1\lib\scala-library-2.13.1.jar`**, so let us add it to our classpath !
 
 
 ## <span id="footnotes">Footnotes</span>
@@ -592,7 +591,7 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
 
 ***
 
-*[mics](http://lampwww.epfl.ch/~michelou/)/February 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -600,17 +599,17 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
 [apache_ant_cli]: https://ant.apache.org/manual/running.html
 [apache_ant_faq]: https://ant.apache.org/faq.html#ant-name
 [apache_ant_history]: https://ant.apache.org/faq.html#history
-[apache_ant_ivy]: http://ant.apache.org/ivy/
-[apache_ant_ivy_relnotes]: http://ant.apache.org/ivy/history/2.5.0/release-notes.html
-[apache_maven_cli]: http://maven.apache.org/ref/3.6.3/maven-embedder/cli.html
+[apache_ant_ivy]: https://ant.apache.org/ivy/
+[apache_ant_ivy_relnotes]: https://ant.apache.org/ivy/history/2.5.0/release-notes.html
+[apache_maven_cli]: https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
-[gradle_groovy]: http://www.groovy-lang.org/
+[gradle_groovy]: https://www.groovy-lang.org/
 [gradle_java_plugin]: https://docs.gradle.org/current/userguide/java_plugin.html
 [gradle_plugins]: https://docs.gradle.org/current/userguide/plugins.html
 [gradle_wrapper]: https://docs.gradle.org/current/userguide/gradle_wrapper.html
 [microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
-[mill_cli]: http://www.lihaoyi.com/mill/#command-line-tools
+[mill_cli]: https://www.lihaoyi.com/mill/#command-line-tools
 [os_lib]: https://github.com/lihaoyi/os-lib
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [scala]: https://www.scala-lang.org/

@@ -25,6 +25,10 @@ if not %_EXITCODE%==0 goto end
 rem ##########################################################################
 rem ## Main
 
+if %_HELP%==1 (
+    call :help
+	exit /b !EXITCODE!
+)
 if %_CLEAN%==1 (
     call :clean
     if not !_EXITCODE!==0 goto end
@@ -51,7 +55,7 @@ rem ##########################################################################
 rem ## Subroutines
 
 rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-rem                    _TARGET_DIR, _CLASSES_DIR, _TASTY_CLASSES_DIR
+rem                    _CLASSES_DIR, _TARGET_DIR, _TASTY_CLASSES_DIR
 :env
 rem ANSI colors in standard Windows 10 shell
 rem see https://gist.github.com/mlocati/#file-win10colors-cmd
@@ -182,7 +186,7 @@ echo     compile          compile source files ^(Java and Scala^)
 echo     doc              generate documentation
 echo     help             display this help message
 echo     run              execute main class
-echo     test             execute tests
+echo     test             execute unit tests
 echo.
 echo   Properties:
 echo   ^(to be defined in SBT configuration file project\build.properties^)
@@ -275,18 +279,19 @@ goto :eof
 call :init_java
 if not %_EXITCODE%==0 goto :eof
 
-set __LIST_FILE=%_TARGET_DIR%\java_files.txt
+set "__LIST_FILE=%_TARGET_DIR%\java_files.txt"
 if exist "%__LIST_FILE%" del "%__LIST_FILE%" 1>NUL
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     echo %%i >> "%__LIST_FILE%"
 )
 call :libs_cpath
-set __JAVAC_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d %_CLASSES_DIR%
+set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
+echo %_JAVAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d "%_CLASSES_DIR%" > "%__OPTS_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVAC_CMD% %__JAVAC_OPTS% @"%__LIST_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVAC_CMD% "@%__OPTS_FILE%" "@%__LIST_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Java source files to directory !_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
-%_JAVAC_CMD% %__JAVAC_OPTS% @"%__LIST_FILE%"
+%_JAVAC_CMD% "@%__OPTS_FILE%" "@%__LIST_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Compilation of main Java source files failed 1>&2
     set _EXITCODE=1
@@ -324,17 +329,18 @@ goto :eof
 call :init_scala
 if not %_EXITCODE%==0 goto :eof
 
-set __LIST_FILE=%_TARGET_DIR%\scala_files.txt
+set "__LIST_FILE=%_TARGET_DIR%\scala_files.txt"
 if exist "%__LIST_FILE%" del "%__LIST_FILE%" 1>NUL
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i >> "%__LIST_FILE%"
 )
-set __SCALAC_OPTS=%_SCALAC_OPTS% -classpath "%_CLASSES_DIR%" -d %_CLASSES_DIR%
+set "__OPTS_FILE=%_TARGET_DIR%\scalac_opts.txt"
+echo %_SCALAC_OPTS% -classpath "%_CLASSES_DIR%" -d "%_CLASSES_DIR%" > "%__OPTS_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% %__SCALAC_OPTS% "@%__LIST_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__LIST_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Scala source files to directory !_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
-call %_SCALAC_CMD% %__SCALAC_OPTS% "@%__LIST_FILE%"
+call %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__LIST_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Compilation of Scala source files failed 1>&2
     set _EXITCODE=1
@@ -348,11 +354,11 @@ if %_TASTY%==1 (
         set __CLASS_NAMES=!__CLASS_NAMES! !__CLASS_NAME:~0,-6!
     )
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% -from-tasty !__CLASS_NAMES! -classpath %_CLASSES_DIR% -d %_TASTY_CLASSES_DIR% 1>&2
-    ) else if %_VERBOSE%==1 ( echo Compile TASTy files to !_TASTY_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
+    ) else if %_VERBOSE%==1 ( echo Compile TASTy files to directory !_TASTY_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
     )
     call %_SCALAC_CMD% -from-tasty !__CLASS_NAMES! -classpath %_CLASSES_DIR% -d %_TASTY_CLASSES_DIR%
     if not !ERRORLEVEL!==0 (
-        echo %_ERROR_LABEL% Scala compilation from TASTy files failed 1>&2
+        echo %_ERROR_LABEL% Compilation of Scala TASTy files failed 1>&2
         set _EXITCODE=1
     )
     if not !_EXITCODE!==0 goto :eof
