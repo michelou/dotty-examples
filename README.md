@@ -38,8 +38,8 @@ Optionally one may also install the following software:
 - [Apache Maven 3.6][apache_maven] ([requires Java 7][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
 - [Bloop 1.3][bloop_releases] (requires Java 8 and Python 2/3) ([*release notes*][bloop_relnotes])
 - [CFR 0.14][cfr_releases] (Java decompiler)
-- [Git 2.25][git_releases] ([*release notes*][git_relnotes])
-- [Gradle 6.2][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Git 2.26][git_releases] ([*release notes*][git_relnotes])
+- [Gradle 6.3][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [Mill 0.6][mill_releases] ([*change log*][mill_changelog])
 - [SBT 1.3][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
@@ -57,8 +57,8 @@ C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
 C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
 C:\opt\cfr-0.149\            <i>(  1.9 MB)</i>
 C:\opt\dotty-0.23.0-RC1\     <i>( 26.3 MB)</i>
-C:\opt\Git-2.25.1\           <i>(268.0 MB)</i>
-C:\opt\gradle-6.2.2\         <i>(106.0 MB)</i>
+C:\opt\Git-2.26.0\           <i>(269.0 MB)</i>
+C:\opt\gradle-6.3\           <i>(109.0 MB)</i>
 C:\opt\Mill-0.6.1\           <i>( 40.9 MB)</i>
 C:\opt\sbt-1.3.8\            <i>( 61.0 MB)</i>
 C:\opt\scala-2.13.1\         <i>( 20.1 MB)</i>
@@ -271,9 +271,9 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_242, java 1.8.0_242, scalac 2.13.1, dotc 0.23.0-RC1
-   ant 1.10.7, gradle 6.2.2, mill 0.6.1, mvn 3.6.3, sbt 1.3.8/2.12.10,
+   ant 1.10.7, gradle 6.3, mill 0.6.1, mvn 3.6.3, sbt 1.3.8/2.12.10,
    cfr 0.149, python 3.8.0, bloop v1.3.4,
-   git 2.25.1.windows.1, diff 3.7, bash 4.4.23(1)-release
+   git 2.26.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; where sbt</b>
 C:\opt\sbt-1.3.8\bin\sbt
@@ -286,9 +286,9 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_242, java 1.8.0_242, scalac 2.13.1, dotc 0.23.0-RC1
-   ant 1.10.7, gradle 6.2.2, mill 0.6.1, mvn 3.6.3, sbt 1.3.8/2.12.10,
+   ant 1.10.7, gradle 6.3, mill 0.6.1, mvn 3.6.3, sbt 1.3.8/2.12.10,
    cfr 0.149, python 3.8.0, bloop v1.3.4,
-   git 2.25.1.windows.1, diff 3.7, bash 4.4.23(1)-release
+   git 2.26.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-1.8.0_242-b08\bin\javac.exe
    C:\opt\jdk-1.8.0_242-b08\bin\java.exe
@@ -296,17 +296,17 @@ Tool paths:
    C:\opt\scala-2.13.1\bin\scalac.bat
    C:\opt\dotty-0.23.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.7\bin\ant.bat
-   C:\opt\gradle-6.2.2\bin\gradle.bat
+   C:\opt\gradle-6.3\bin\gradle.bat
    C:\opt\Mill-0.6.1\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
    C:\opt\sbt-1.3.8\bin\sbt.bat
    C:\opt\cfr-0.149\bin\cfr.bat
    C:\opt\Python-3.8.0\python.exe
    C:\opt\bloop-1.3.4\bloop.cmd
-   C:\opt\Git-2.25.1\bin\git.exe
-   C:\opt\Git-2.25.1\mingw64\bin\git.exe
-   C:\opt\Git-2.25.1\usr\bin\diff.exe
-   C:\opt\Git-2.25.1\bin\bash.exe
+   C:\opt\Git-2.26.0\bin\git.exe
+   C:\opt\Git-2.26.0\mingw64\bin\git.exe
+   C:\opt\Git-2.26.0\usr\bin\diff.exe
+   C:\opt\Git-2.26.0\bin\bash.exe
 Environment variables:
    ANT_HOME=C:\opt\apache-ant-1.10.7
    DOTTY_HOME=C:\opt\dotty-0.23.0-RC1
@@ -709,9 +709,9 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                      <i>(  9 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.23.0-RC1">dotty-0.23.0-RC1.zip</a>                            <i>( 24 MB)</i>
-<a href="https://gradle.org/install/">gradle-6.2.2-bin.zip</a><i>                            ( 93 MB)</i>
+<a href="https://gradle.org/install/">gradle-6.3-bin.zip</a><i>                            ( 97 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u242b08.zip</a>  <i>( 99 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.25.1-64-bit.7z.exe</a>                <i>( 41 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.26.0-64-bit.7z.exe</a>                <i>( 41 MB)</i>
 <a href="https://www.scala-sbt.org/download.html">sbt-1.3.8.zip</a>                                   <i>( 55 MB)</i>
 </pre>
 
@@ -807,7 +807,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [git_bash]: https://www.atlassian.com/git/tutorials/git-bash
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.25.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.26.0.txt
 [github_guides]: https://guides.github.com/
 [github_lampepfl_dotty]: https://github.com/lampepfl/dotty
 [github_markdown]: https://github.github.com/gfm/
@@ -816,7 +816,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 [gradle_install]: https://gradle.org/install/
-[gradle_relnotes]: https://docs.gradle.org/6.2.2/release-notes.html
+[gradle_relnotes]: https://docs.gradle.org/6.3/release-notes.html
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [jar_file]: https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html
 [java_bytecode]: https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html

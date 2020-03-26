@@ -378,7 +378,7 @@ The configuration file [**`HelloWorld\pom.xml`**](HelloWorld/pom.xml) depends on
 
 Command **`mvn clean test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our Maven plugin **`scala-maven-plugin`**:
 
-<pre>
+<pre style="font-size:80%;">
 <b>&gt; mvn -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-1.8.0_242-b08\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.23.0-RC1 \
@@ -431,7 +431,7 @@ Hello world!
 </pre>
 
 > **:mag_right:** We can use batch script [**`searchjars`**](../bin/searchjars.bat) in case some class is missing in the specified classpath, e.g.
-> <pre>
+> <pre style="font-size:80%;">
 > <b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.23.0-RC1\lib\dotty-library_0.23-0.23.0-RC1.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
 > Exception in thread "main" java.lang.NoClassDefFoundError: scala/Serializable
 >         [...]

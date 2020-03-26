@@ -39,7 +39,7 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 For instance our development environment looks as follows (*February 2020*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.25.1\
+C:\opt\Git-2.26.0\
 C:\opt\jdk-1.8.0_242-b08\
 C:\opt\sbt-1.3.8\
 </pre>
@@ -289,7 +289,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; build -verbose clean</b>
 Tool paths
-   GIT_CMD=C:\opt\Git-2.25.1\bin\git.exe
+   GIT_CMD=C:\opt\Git-2.26.0\bin\git.exe
    JAVA_CMD=C:\opt\jdk-1.8.0_242-b08\bin\java.exe
    SBT_CMD=C:\opt\sbt-1.3.8\bin\sbt.bat
 Tool options
@@ -736,7 +736,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.25.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.26.0.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/

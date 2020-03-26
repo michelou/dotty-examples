@@ -495,7 +495,7 @@ The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enu
 
 Command **` mvn compile test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our Maven plugin **`scala-maven-plugin`**:
 
-<pre>
+<pre style="font-size:80%;">
 <b>&gt; mvn -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-8.0_242-b08\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-1.0-RC1 \
