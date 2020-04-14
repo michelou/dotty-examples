@@ -44,6 +44,8 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
                     <includes>
                         <include>java/**/*.java</include>
                     </includes>
@@ -65,18 +67,18 @@
                         <configuration>
                             <!-- TODO : add support for POM dependencies to Scala plugin -->
                             <additionalClasspathElements>
-                                <additionalClasspathElement>../lib/hamcrest-2.2.jar</additionalClasspathElement>
-                                <additionalClasspathElement>../lib/hamcrest-core-2.2.jar</additionalClasspathElement>
-                                <additionalClasspathElement>../lib/junit-4.12.jar</additionalClasspathElement>
-                                <additionalClasspathElement>../lib/portable-scala-reflect_2.13-1.0.0.jar</additionalClasspathElement>
-                                <additionalClasspathElement>../lib/scalactic_2.13-3.1.1.jar</additionalClasspathElement>
-                                <additionalClasspathElement>../lib/scalatest_2.13-3.1.1.jar</additionalClasspathElement>
-                                <additionalClasspathElement>../lib/specs2-common_2.13-4.9.2.jar</additionalClasspathElement>
-                                <additionalClasspathElement>../lib/specs2-core_2.13-4.9.2.jar</additionalClasspathElement>
-                                <additionalClasspathElement>../lib/specs2-fp_2.13-4.9.2.jar</additionalClasspathElement>
-                                <additionalClasspathElement>../lib/specs2-junit_2.13-4.9.2.jar</additionalClasspathElement>
-                                <additionalClasspathElement>../lib/specs2-matcher_2.13-4.9.2.jar</additionalClasspathElement>
-                                <additionalClasspathElement>../lib/test-interface-1.0.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/hamcrest/hamcrest/2.2/hamcrest-core-2.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/junit/junit/4.13/junit-4.13.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/portable-scala/portable-scala-reflect_2.13/1.0.0/portable-scala-reflect_2.13-1.0.0.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/scalactic/scalactic_2.13/3.1.1/scalactic_2.13-3.1.1.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/scalatest/scalatest_2.13/3.1.1/scalatest_2.13-3.1.1.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/specs2/specs2-common_2.13/4.9.2/specs2-common_2.13-4.9.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/specs2/specs2-core_2.13/4.9.2/specs2-core_2.13-4.9.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/specs2/specs2-fp_2.13/4.9.2/specs2-fp_2.13-4.9.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/specs2/specs2-junit_2.13/4.9.2/specs2-junit_2.13-4.9.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/specs2/specs2-matcher_2.13/4.9.2/specs2-matcher_2.13-4.9.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/scala-sbt/test-interface/1.0/test-interface-1.0.jar</additionalClasspathElement>
                             </additionalClasspathElements>
                             <includes>
                                 <include>scala/**/*.scala</include>

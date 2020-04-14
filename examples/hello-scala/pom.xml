@@ -45,6 +45,8 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
                     <includes>
                         <include>java/**/*.java</include>
                     </includes>

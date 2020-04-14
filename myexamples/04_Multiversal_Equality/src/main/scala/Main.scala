@@ -7,8 +7,8 @@ object Main {
   private def test1: Unit = {
     //import scala.language.strictEquality
 
-    given eqStringChar: Eql[String, Char] = Eql.derived
-    given eqCharString: Eql[Char, String] = Eql.derived
+    given eqStringChar as Eql[String, Char] = Eql.derived
+    given eqCharString as Eql[Char, String] = Eql.derived
     println("2" == '2')
     println('2' == "2")
   }
@@ -16,7 +16,7 @@ object Main {
   private def test2: Unit = {
     //import scala.language.strictEquality
 
-    given eqStringChar: Eql[Char | String, Char | String] = Eql.derived
+    given eqStringChar as Eql[Char | String, Char | String] = Eql.derived
     println("2" == '2')
     println('2' == "2")
   }

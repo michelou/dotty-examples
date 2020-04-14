@@ -11,6 +11,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
+        <m2.directory>${user.home}/.m2/repository</m2.directory>
 
         <!-- Scala settings -->
         <scala.version>0.23.0-RC1</scala.version> <!-- eg. "2.12.18" or "0.22.0" -->
@@ -47,16 +48,16 @@
             <artifactId>dotty-interfaces</artifactId>
             <version>${scala.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.22 -->
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.23 -->
         <dependency>
             <groupId>ch.epfl.lamp</groupId>
-            <artifactId>dotty-library_0.22</artifactId>
+            <artifactId>dotty-library_0.23</artifactId>
             <version>${scala.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/tasty-core_0.22 -->
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/tasty-core_0.23 -->
         <dependency>
             <groupId>ch.epfl.lamp</groupId>
-            <artifactId>tasty-core_0.22</artifactId>
+            <artifactId>tasty-core_0.23</artifactId>
             <version>${scala.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->

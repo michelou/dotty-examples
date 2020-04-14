@@ -21,7 +21,6 @@
 
     <properties>
         <mainClass>myexamples.Main</mainClass>
-        <m2.repository>${user.home}\.m2\repository</m2.repository>
     </properties>
 
     <build>
@@ -53,6 +52,8 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
                     <includes>
                         <include>java/**/*.java</include>
                     </includes>

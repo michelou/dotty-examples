@@ -130,7 +130,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else if /i "%__ARG:~0,6%"=="-main:" (
         call :set_main "!__ARG:~6!"
-        if not !_EXITCODE!== 0 goto :eof
+        if not !_EXITCODE!== 0 goto args_done
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
         set _EXITCODE=1
@@ -440,9 +440,14 @@ for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
 )
 
 for %%i in ("%~dp0\.") do set __PROJECT_NAME=%%~ni
+set __PROJECT_URL=github.com/michelou/dotty-examples
 set __PROJECT_VERSION=0.1-SNAPSHOT
-set __SCALADOC_OPTS=-siteroot %_DOCS_DIR% -project %__PROJECT_NAME% -project-version %_PROJECT_VERSION%
-
+if %_DOTTY%==0 (
+    set __SCALADOC_OPTS=-d "%_DOCS_DIR%" -doc-title "%__PROJECT_NAME%" -doc-footer "%__PROJECT_URL%" -doc-version %__PROJECT_VERSION%
+) else (
+    set __SCALADOC_OPTS=-siteroot "%_SOURCE_DIR%\main\resources" -d "%_DOCS_DIR%" -project "%__PROJECT_NAME%" -project-url "%__PROJECT_URL%" -project-version %__PROJECT_VERSION%
+)
+set __REDIRECT_STDERR=
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALADOC_CMD% %__SCALADOC_OPTS% "@%__DOC_LIST_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into directory !_DOCS_DIR:%_ROOT_DIR%=! 1>&2
 )
@@ -467,15 +472,17 @@ if not exist "%__MAIN_CLASS_FILE%" (
     set _EXITCODE=1
     goto :eof
 )
-rem call :libs_cpath
-set __SCALA_OPTS=%_SCALA_OPTS% -classpath "%_CLASSES_DIR%"
+call :libs_cpath
+if not %_EXITCODE%==0 goto :eof
+
+set __SCALA_OPTS=%_SCALA_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALA_CMD% %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% 1>&2
 )
 call %_SCALA_CMD% %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Execution failed ^(%_MAIN_CLASS%^) 1>&2
+    echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -492,7 +499,7 @@ if %_TASTY%==1 (
     )
     call %_SCALA_CMD% !__SCALA_OPTS! %_MAIN_CLASS% %_MAIN_ARGS%
     if not !ERRORLEVEL!==0 (
-        echo %_ERROR_LABEL% Execution failed ^(%_MAIN_CLASS%^) 1>&2
+        echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
         set _EXITCODE=1
         goto :eof
     )
@@ -517,12 +524,13 @@ for %%i in (%_SOURCE_DIR%\test\scala\*.scala) do (
 )
 
 call :libs_cpath
-set __TEST_SCALAC_OPTS=%_SCALAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d "%_TEST_CLASSES_DIR%"
+set "__OPTS_FILE=%_TARGET_DIR%\test_scalac_opts.txt"
+echo %_SCALAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d "%_TEST_CLASSES_DIR%" > "%__OPTS_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% %__TEST_SCALAC_OPTS% @%__TEST_LIST_FILE% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__TEST_LIST_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Scala test source files to !_TEST_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
-call %_SCALAC_CMD% %__TEST_SCALAC_OPTS% @%__TEST_LIST_FILE%
+call %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__TEST_LIST_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Compilation of test Scala source files failed 1>&2
     set _EXITCODE=1

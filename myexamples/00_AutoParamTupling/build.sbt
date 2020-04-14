@@ -14,5 +14,6 @@ lazy val root = project
       "-feature"
     ),
 
+    // https://mvnrepository.com/artifact/com.novocode/junit-interface
     libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % "test"
   )

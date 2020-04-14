@@ -130,7 +130,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else if /i "%__ARG:~0,6%"=="-main:" (
         call :set_main "!__ARG:~6!"
-        if not !_EXITCODE!== 0 goto :eof
+        if not !_EXITCODE!== 0 goto args_done
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
         set _EXITCODE=1

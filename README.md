@@ -48,7 +48,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*March 2020*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
+For instance our development environment looks as follows (*April 2020*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_242-b08\    <i>(184.0 MB)</i>
@@ -60,10 +60,11 @@ C:\opt\dotty-0.23.0-RC1\     <i>( 26.3 MB)</i>
 C:\opt\Git-2.26.0\           <i>(269.0 MB)</i>
 C:\opt\gradle-6.3\           <i>(109.0 MB)</i>
 C:\opt\Mill-0.6.1\           <i>( 40.9 MB)</i>
-C:\opt\sbt-1.3.8\            <i>( 61.0 MB)</i>
+C:\opt\sbt-1.3.9\            <i>( 61.0 MB)</i>
 C:\opt\scala-2.13.1\         <i>( 20.1 MB)</i>
 </pre>
  <!-- sbt: 1.3.6 = 55.1 MB, 1.3.7 = 60.9 MB, 1.3.8 = 61.0 MB -->
+ <!-- sbt: 1.3.9 = 61.2 MB -->
 
 > **:mag_right:** [Git for Windows][git_releases] provides a Bash emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
@@ -271,13 +272,13 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_242, java 1.8.0_242, scalac 2.13.1, dotc 0.23.0-RC1
-   ant 1.10.7, gradle 6.3, mill 0.6.1, mvn 3.6.3, sbt 1.3.8/2.12.10,
+   ant 1.10.7, gradle 6.3, mill 0.6.1, mvn 3.6.3, sbt 1.3.9/2.12.10,
    cfr 0.149, python 3.8.0, bloop v1.3.4,
    git 2.26.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; where sbt</b>
-C:\opt\sbt-1.3.8\bin\sbt
-C:\opt\sbt-1.3.8\bin\sbt.bat
+C:\opt\sbt-1.3.9\bin\sbt
+C:\opt\sbt-1.3.9\bin\sbt.bat
 </pre>
 
 Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and defined variables:
@@ -286,7 +287,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_242, java 1.8.0_242, scalac 2.13.1, dotc 0.23.0-RC1
-   ant 1.10.7, gradle 6.3, mill 0.6.1, mvn 3.6.3, sbt 1.3.8/2.12.10,
+   ant 1.10.7, gradle 6.3, mill 0.6.1, mvn 3.6.3, sbt 1.3.9/2.12.10,
    cfr 0.149, python 3.8.0, bloop v1.3.4,
    git 2.26.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
@@ -299,7 +300,7 @@ Tool paths:
    C:\opt\gradle-6.3\bin\gradle.bat
    C:\opt\Mill-0.6.1\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
-   C:\opt\sbt-1.3.8\bin\sbt.bat
+   C:\opt\sbt-1.3.9\bin\sbt.bat
    C:\opt\cfr-0.149\bin\cfr.bat
    C:\opt\Python-3.8.0\python.exe
    C:\opt\bloop-1.3.4\bloop.cmd
@@ -346,18 +347,18 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; getnightly</b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-dotty-doc_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-dotty-interfaces-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-dotty-language-server_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-dotty-library_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-dotty-sbt-bridge-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-dotty-staging_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-dotty-tasty-inspector_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-dotty-tastydoc-input_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-dotty-tastydoc_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-dotty_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-tasty-core_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
+dotty-compiler_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+dotty-doc_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+dotty-interfaces-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+dotty-language-server_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+dotty-library_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+dotty-sbt-bridge-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+dotty-staging_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+dotty-tasty-inspector_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+dotty-tastydoc-input_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+dotty-tastydoc_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+dotty_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+tasty-core_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
 </pre>
 
 > **:mag_right:** Starting with Dotty version `0.22.0` package **`dotty.tools.tasty`** is distributed separately (**`tast-core_<xxx>.jar`**).
@@ -366,18 +367,18 @@ Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the downlo
 
 <pre style="font-size:80%">
 <b>&gt; getnightly -verbose</b>
-Downloading file dotty-sbt-bridge-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar ... 13.4 Kb
-Downloading file dotty-tastydoc_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar ... 435 Kb
-Downloading file tasty-core_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar ... 52.8 Kb
-Downloading file dotty_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-tasty-inspector_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar ... 8 Kb
-Downloading file dotty-library_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar ... 1.4 Mb
-Downloading file dotty-tastydoc-input_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar ... 36.1 Kb
-Downloading file dotty-compiler_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar ... 12.2 Mb
-Downloading file dotty-interfaces-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar ... 3.4 Kb
-Downloading file dotty-doc_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar ... 1021.8 Kb
-Downloading file dotty-language-server_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar ... 147 Kb
-Downloading file dotty-staging_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar ... 35.8 Kb
+Downloading file dotty-sbt-bridge-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty-tastydoc_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar ... 435.4 Kb
+Downloading file tasty-core_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar ... 51.6 Kb
+Downloading file dotty_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-tasty-inspector_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar ... 8 Kb
+Downloading file dotty-library_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar ... 1.4 Mb
+Downloading file dotty-tastydoc-input_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar ... 36.1 Kb
+Downloading file dotty-compiler_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar ... 11.9 Mb
+Downloading file dotty-interfaces-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-doc_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar ... 1021.5 Kb
+Downloading file dotty-language-server_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar ... 146.5 Kb
+Downloading file dotty-staging_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar ... 35.9 Kb
 Finished to download 12 files to directory W:\out\nightly-jars
 </pre>
 
@@ -388,10 +389,10 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 <pre style="font-size:80%;">
 <b>&gt; getnightly activate</b>
 Finished to download 12 files to directory W:\out\nightly-jars
-Activate nightly build libraries: 0.23.0-bin-20200305-84f2e41-NIGHTLY
+Activate nightly build libraries: 0.24.0-bin-20200412-bd1fff2-NIGHTLY
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.24.0-bin-20200318-d9df0a2-NIGHTLY-git-d9df0a2 -- Copyright 2002-2020, LAMP/EPFL
+Dotty compiler version 0.24.0-bin-20200412-bd1fff2-NIGHTLY-git-bd1fff2 -- Copyright 2002-2020, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
 Activate default Dotty libraries: 0.23.0-RC1
@@ -417,19 +418,19 @@ lib\0.23.0-RC1\
 &nbsp;&nbsp;dotty-staging_0.23-0.23.0-RC1.jar
 &nbsp;&nbsp;dotty-tasty-inspector_0.23-0.23.0-RC1.jar
 &nbsp;&nbsp;tasty-core_0.23-0.23.0-RC1.jar
-lib\0.24.0-bin-20200318-d9df0a2-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty-staging_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tasty-inspector_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc-input_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
-&nbsp;&nbsp;tasty-core_0.24-0.24.0-bin-20200318-d9df0a2-NIGHTLY.jar
+lib\0.24.0-bin-20200412-bd1fff2-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-staging_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tasty-inspector_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc-input_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
+&nbsp;&nbsp;tasty-core_0.24-0.24.0-bin-20200412-bd1fff2-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original [Dotty] installation respectively from the latest nightly build.
@@ -572,7 +573,7 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 | :----------- | :------: | :------ |
 | `build.sbt` | `dottyVersion` | `0.21.0-RC1` &rarr; `0.23.0-RC1`|
 | `build.sc` | `scalaVersion` | `0.21.0-RC1` &rarr; `0.23.0-RC1` |
-| `project\build.properties` | `sbt.version` | `1.3.7` &rarr; `1.3.8` |
+| `project\build.properties` | `sbt.version` | `1.3.8` &rarr; `1.3.9` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.3.4` &rarr; `0.4.0` |
 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
@@ -709,10 +710,10 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                      <i>(  9 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.23.0-RC1">dotty-0.23.0-RC1.zip</a>                            <i>( 24 MB)</i>
-<a href="https://gradle.org/install/">gradle-6.3-bin.zip</a><i>                            ( 97 MB)</i>
+<a href="https://gradle.org/install/">gradle-6.3-bin.zip</a><i>                              ( 97 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u242b08.zip</a>  <i>( 99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.26.0-64-bit.7z.exe</a>                <i>( 41 MB)</i>
-<a href="https://www.scala-sbt.org/download.html">sbt-1.3.8.zip</a>                                   <i>( 55 MB)</i>
+<a href="https://www.scala-sbt.org/download.html">sbt-1.3.9.zip</a>                                   <i>( 55 MB)</i>
 </pre>
 
 <!-- ## removed on 2020-02-03 ##
@@ -782,7 +783,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/April 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -850,7 +851,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_downloads]: https://www.scala-sbt.org/download.html
 [sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.8
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.9
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala_releases]: https://www.scala-lang.org/files/archive/
 [scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.1
