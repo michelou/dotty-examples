@@ -6,7 +6,7 @@ class PlanetTest {
 
   @Test
   def test1(): Unit = {
-    assertEquals("Enumeration contains 8 planets", Planet.values.size, 8)
+    assertEquals("Enumeration contains 8 planets", Planet.values.size.toLong, 8)
   }
 
   private case class MyPlanet(mass: Double, radius: Double) {

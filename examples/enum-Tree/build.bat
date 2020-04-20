@@ -256,9 +256,9 @@ if defined _JAVAC_CMD goto :eof
 set __JAVA_BIN_DIR=
 for /f %%i in ('where javac.exe 2^>NUL') do set "__JAVA_BIN_DIR=%%~dpi"
 if defined __JAVA_BIN_DIR (
-    set "_JAVA_CMD=%__JAVA_BIN_DIR%\java.exe"
-    set "_JAVAC_CMD=%__JAVA_BIN_DIR%\javac.exe"
-    set "_JAVADOC_CMD=%__JAVA_BIN_DIR%\javadoc.exe"
+    set "_JAVA_CMD=%__JAVA_BIN_DIR%java.exe"
+    set "_JAVAC_CMD=%__JAVA_BIN_DIR%javac.exe"
+    set "_JAVADOC_CMD=%__JAVA_BIN_DIR%javadoc.exe"
 ) else if defined JAVA_HOME (
     set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
     set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
@@ -305,9 +305,9 @@ set __SCALADOC[1]=dotd.bat
 set __SCALA_BIN_DIR=
 for /f %%i in ('where "!__SCALAC[%_DOTTY%]!" 2^>NUL') do set "__SCALA_BIN_DIR=%%~dpi"
 if defined __SCALA_BIN_DIR (
-    set "_SCALA_CMD=%__SCALA_BIN_DIR%\!__SCALA[%_DOTTY%]!"
-    set "_SCALAC_CMD=%__SCALA_BIN_DIR%\!__SCALAC[%_DOTTY%]!"
-    set "_SCALADOC_CMD=%__SCALA_BIN_DIR%\!__SCALADOC[%_DOTTY%]!"
+    set "_SCALA_CMD=%__SCALA_BIN_DIR%!__SCALA[%_DOTTY%]!"
+    set "_SCALAC_CMD=%__SCALA_BIN_DIR%!__SCALAC[%_DOTTY%]!"
+    set "_SCALADOC_CMD=%__SCALA_BIN_DIR%!__SCALADOC[%_DOTTY%]!"
 ) else if defined SCALA_HOME (
     set "_SCALA_CMD=%SCALA_HOME%\bin\!__SCALA[%_DOTTY%]!"
     set "_SCALAC_CMD=%SCALA_HOME%\bin\!__SCALAC[%_DOTTY%]!"
@@ -398,20 +398,22 @@ if %__TIMESTAMP1_DATE% gtr %__TIMESTAMP2_DATE% ( set _NEWER=1
 )
 goto :eof
 
-rem input parameter: %1=include Dotty libs
+rem input parameter: %1=flag to add Dotty libs
 rem output parameter: _LIBS_CPATH
 :libs_cpath
-set __INCLUDE_DOTTY=%~1
+set __ADD_DOTTY_LIBS=%~1
 
-if not exist "..\cpath.bat" (
-    echo %_ERROR_LABEL% Batch file ..\cpath.bat not found 1>&2
+for %%f in ("%~dp0..") do set "__BATCH_FILE=%%~sf\cpath.bat"
+if not exist "%__BATCH_FILE%" (
+    echo %_ERROR_LABEL% Batch file "%__BATCH_FILE%" not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-call ..\cpath.bat %_DEBUG%
+if %_DEBUG%==1 echo %_DEBUG_LABEL% call "%__BATCH_FILE%" %_DEBUG% 1>&2
+call "%__BATCH_FILE%" %_DEBUG%
 set _LIBS_CPATH=%_CPATH%
 
-if defined __INCLUDE_DOTTY (
+if defined __ADD_DOTTY_LIBS (
     if not defined DOTTY_HOME (
         echo %_ERROR_LABEL% Variable DOTTY_HOME not defined 1>&2
         set _EXITCODE=1
@@ -500,6 +502,9 @@ if %_TASTY%==1 (
 goto :eof
 
 :compile_test
+call :init_scala
+if not %_EXITCODE%==0 goto :eof
+
 if not exist "%_TEST_CLASSES_DIR%" mkdir "%_TEST_CLASSES_DIR%" 1>NUL
 
 set "__TEST_TIMESTAMP_FILE=%_TEST_CLASSES_DIR%\.latest-build"
@@ -514,12 +519,13 @@ for %%i in (%_SOURCE_DIR%\test\scala\*.scala) do (
 )
 
 call :libs_cpath 1
-set __TEST_SCALAC_OPTS=%_SCALAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d %_TEST_CLASSES_DIR%
+set "__OPTS_FILE=%_TARGET_DIR%\test_scalac_opts.txt"
+echo %_SCALAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d "%_TEST_CLASSES_DIR%" > "%__OPTS_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% %__TEST_SCALAC_OPTS% @%__TEST_LIST_FILE% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__TEST_LIST_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Scala test sources to !_TEST_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
-call %_SCALAC_CMD% %__TEST_SCALAC_OPTS% @%__TEST_LIST_FILE%
+call %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__TEST_LIST_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Compilation of test Scala sources failed 1>&2
     set _EXITCODE=1

@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;max-width:80px;">
-    <a href="https://dotty.epfl.ch/"><img style="border:0;width:80px;" src="docs/dotty.png" /></a>
+    <a href="https://dotty.epfl.ch/"><img style="border:0;width:80px;" src="docs/dotty.png" alt="Dotty logo"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Introduced in <a href="https://openjdk.java.net/groups/hotspot/docs/RuntimeOverview.html#Class%20Data%20Sharing|outline">J2SE 5.0</a>, <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/class-data-sharing.html">Java class data sharing</a> (CDS) helps reduce the startup time for Java applications as well as reduce their memory footprint.<br/>
@@ -19,14 +19,14 @@ This document is part of a series of topics related to [Dotty] on Windows:
 - Data Sharing and Dotty on Windows [**&#9660;**](#bottom)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-[JMH][jmh_project], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples] and [LLVM][llvm_examples] are other trending topics we are currently monitoring.
+[JMH][jmh_project], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples] and [Node.js][nodejs_examples] are other trending topics we are currently monitoring.
 
 
 ## <span id="proj_deps">Project dependencies</span>
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
-- [Git 2.25][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.26][git_downloads] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_downloads] ([*release notes*][openjdk_relnotes])
 - [Dotty 0.23][dotty_releases] ([*release notes*][dotty_relnotes])
 
@@ -35,8 +35,8 @@ This project depends on two external software for the **Microsoft Windows** plat
 For instance our development environment looks as follows (*April 2020*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.25.1\
-C:\opt\jdk-11.0.6+10\
+C:\opt\Git-2.26.0\
+C:\opt\jdk-11.0.7+10\
 C:\opt\dotty-0.23.0-RC1\
 </pre>
 
@@ -258,7 +258,7 @@ Note the following about the generated files:
 For instance we can read from file **`logs\log_share_off.log`** that  source of **`cdsexamples.Main`** is **`file:/`** and that the total load time on the last line is **`0.124s`**:
 
 <pre style="font-size:80%;">
-[0.008s][info][class,load] opened: c:\opt\jdk-11.0.6+10\lib\modules
+[0.008s][info][class,load] opened: c:\opt\jdk-11.0.7+10\lib\modules
 [0.018s][info][class,load] java.lang.Object source: jrt:/java.base
 [...]
 [0.121s][info][class,load] cdsexamples.Main source: file:/&lt;project_path&gt;/target/JavaExample.jar
@@ -590,17 +590,17 @@ Classes per package (888):
 > **&#9755;** ***Data Sharing and Oracle OpenJDK 11*** <br/>
 > The [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot) installation contains the file **`<install_dir>\lib\classlist`**. Let's check if data sharing is enabled:
 > 
-> 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last displayed line ends with  **`(build 11.0.6+1o, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.6+10, mixed mode)`** otherwise.
+> 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last displayed line ends with  **`(build 11.0.6+1o, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.7+10, mixed mode)`** otherwise.
 > 2. Command **`java.exe -Xshare:dump`** generates the 17.3 Mb Java shared archive **`<install_dir>\bin\server\classes.jsa`** from file **`<install_dir>\lib\classlist`**.
 > 3. Repeat command from point 1. 
 > 
 > <pre style="font-size:80%;">
-> <b>&gt; c:\opt\jdk-11.0.6+10\bin\java -version</b>
+> <b>&gt; c:\opt\jdk-11.0.7+10\bin\java -version</b>
 > openjdk version "11.0.6" 2020-01-15
-> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.6+10)
-> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.6+10, mixed mode)
+> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.7+10)
+> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.7+10, mixed mode)
 > &nbsp;
-> <b>&gt; c:\opt\jdk-11.0.6+10\bin\java -Xshare:dump</b>
+> <b>&gt; c:\opt\jdk-11.0.7+10\bin\java -Xshare:dump</b>
 > [...]
 > Number of classes 1272
 > [...]
@@ -611,14 +611,14 @@ Classes per package (888):
 > od  space:   6534648 [ 36.1% of total] [...]
 > total    :  17873816 [100.0% of total] [...]
 > &nbsp;
-> <b>&gt; dir /b c:\opt\jdk-11.0.6+10\bin\server</b>
+> <b>&gt; dir /b c:\opt\jdk-11.0.7+10\bin\server</b>
 > classes.jsa
 > jvm.dll
 > &nbsp;
-> <b>&gt; c:\opt\jdk-11.0.6+10\bin\java -version</b>
+> <b>&gt; c:\opt\jdk-11.0.7+10\bin\java -version</b>
 > openjdk version "11.0.6" 2020-01-15
-> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.6+10)
-> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.6+10, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
+> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.7+10)
+> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.7+10, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
 > </pre>
 > Java 12 introduces default CDS archives ([JEP 341][java_jep_341])
 > to improve out-of-the-box startup time and to get rid of the need to run
@@ -731,9 +731,10 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.25.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.26.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
+[haskell_examples]: https://github.com/michelou/haskell-examples
 [java_cli]: https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html
 [java_jep_341]: https://openjdk.java.net/jeps/341
 [java_lts]: https://www.oracle.com/technetwork/java/java-se-support-roadmap.html
@@ -749,6 +750,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [man1_rmdir]: https://www.linux.org/docs/man1/rmdir.html
 [man1_sed]: https://www.linux.org/docs/man1/sed.html
 [man1_wc]: https://www.linux.org/docs/man1/wc.html
+[nodejs_examples]: https://github.com/michelou/nodejs-examples
 [openjdk_downloads]: https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
 [openjdk_relnotes]: https://jdk.java.net/11/release-notes
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
