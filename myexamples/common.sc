@@ -3,7 +3,7 @@ import mill._, scalalib._
 //////////////////////////////////////////////////////////////////////////////
 // Project properties
 
-val scalaVersion = "0.22.0-RC1"  // "2.12.18"
+val scalaVersion = "0.24.0-RC1"  // "2.12.18"
 val scalacOptions = Seq("-deprecation", "-encoding", "UTF8", "-feature")
 
 val forkArgs = Seq("-Xmx1g")
@@ -33,7 +33,7 @@ val ivyScalatest = ivy"org.scalatest:scalatest_2.13:3.1.1"
 val ivyScalactic = ivy"org.scalactic:scalactic_2.13:3.1.1"
 
 // https://mvnrepository.com/artifact/org.specs2/specs2-common
-val ivySpecs2Common = ivy"org.specs2:specs2-common_2.13:4.9.2"
+val ivySpecs2Common = ivy"org.specs2:specs2-common_2.13:4.9.4"
 
 // https://mvnrepository.com/artifact/org.specs2/specs2-core
-val ivySpecs2 = ivy"org.specs2:specs2-core_2.13:4.9.2"
+val ivySpecs2 = ivy"org.specs2:specs2-core_2.13:4.9.4"

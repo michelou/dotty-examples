@@ -46,21 +46,19 @@ The above implementations of OpenJDK[&trade;](https://openjdk.java.net/legal/ope
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (April 2020*) <sup id="anchor_02">[[1]](#footnote_02)</sup>:
+For instance our development environment looks as follows (May 2020*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.7+10\                 <i>(297 MB)</i>
-C:\opt\jdk-bellsoft-11.0.7-lite\      <i>( 85 MB)</i>
+C:\opt\jdk-bellsoft-11.0.7-lite\      <i>(102 MB)</i>
 C:\opt\jdk-corretto-11.0.7_10\        <i>(289 MB)</i>
-C:\opt\jdk-graalvm-ce-java11-20.0.0\  <i>(764 M)</i>
+C:\opt\jdk-graalvm-ce-java11-20.0.0\  <i>(764 MB)</i>
 C:\opt\jdk-openj9-11.0.7+10\          <i>(300 MB)</i>
-C:\opt\jdk-redhat-11.0.5.10\          <i>(356 MB)</i>
-C:\opt\jdk-sapmachine-11.0.5\         <i>(288 MB)</i>
+C:\opt\jdk-redhat-11.0.7.10\          <i>( 63 MB)</i>
+C:\opt\jdk-sapmachine-11.0.7\         <i>(288 MB)</i>
 C:\opt\jdk-trava-11.0.1\              <i>(outdated)</i>
 C:\opt\jdk-zulu-11.0.7\               <i>(299 MB)</i>
 </pre>
-<!-- jdk: 11.0.6+10 = 302 MB, 11.0.7+10 = 297 MB -->
-<!-- corretto: 11.0.6_10 = 289 MB, 11.0.7_10 = MB -->
 
 ## Data sharing
 
@@ -184,22 +182,22 @@ OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.6+10, mixed mode, sharing)
 ### <span id="redhat">RedHat OpenJDK 11</span>
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-redhat-11.0.6.10\bin\java -version</b>
-openjdk version "11.0.6" 2020-01-14 LTS
-OpenJDK Runtime Environment 18.9 (build 11.0.6+10-LTS)
-OpenJDK 64-Bit Server VM 18.9 (build 11.0.6+10-LTS, mixed mode)
+<b>&gt; c:\opt\jdk-redhat-11.0.7.10\bin\java -version</b>
+openjdk version "11.0.7" 2020-04-14 LTS
+OpenJDK Runtime Environment 18.9 (build 11.0.7+10-LTS)
+OpenJDK 64-Bit Server VM 18.9 (build 11.0.7+10-LTS, mixed mode)
 
-<b>&gt; c:\opt\jdk-redhat-11.0.6.10\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-redhat-11.0.7.10\bin\java -Xshare:dump</b>
 [...]
-Number of classes 1263
+Number of classes 1265
 [...]
-<b>&gt; dir c:\opt\jdk-redhat-11.0.6.10\bin\server | findstr jsa</b>
-07.03.2020  22:03        18 022 400 classes.jsa
+<b>&gt; dir c:\opt\jdk-redhat-11.0.7.10\bin\server | findstr jsa</b>
+28.04.2020  16:21        15 073 280 classes.jsa
 
-<b>&gt; c:\opt\jdk-redhat-11.0.6.10\bin\java -version</b>
-openjdk version "11.0.6" 2020-01-14 LTS
-OpenJDK Runtime Environment 18.9 (build 11.0.6+10-LTS)
-OpenJDK 64-Bit Server VM 18.9 (build 11.0.6+10-LTS, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-redhat-11.0.7.10\bin\java -version</b>
+openjdk version "11.0.7" 2020-04-14 LTS
+OpenJDK Runtime Environment 18.9 (build 11.0.7+10-LTS)
+OpenJDK 64-Bit Server VM 18.9 (build 11.0.7+10-LTS, mixed mode, sharing)
 </pre>
 
 
@@ -339,7 +337,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

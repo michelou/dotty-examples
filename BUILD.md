@@ -32,16 +32,17 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 8u222 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
 8u232 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
 8u242 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
+8u252 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-April/011559.html
 -->
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*April 2020*):
+For instance our development environment looks as follows (*May 2020*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.26.0\
-C:\opt\jdk-1.8.0_242-b08\
-C:\opt\sbt-1.3.9\
+C:\opt\Git-2.26.2\
+C:\opt\jdk-1.8.0_252-b09\
+C:\opt\sbt-1.3.10\
 </pre>
 
 > **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -289,9 +290,9 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; build -verbose clean</b>
 Tool paths
-   GIT_CMD=C:\opt\Git-2.26.0\bin\git.exe
-   JAVA_CMD=C:\opt\jdk-1.8.0_242-b08\bin\java.exe
-   SBT_CMD=C:\opt\sbt-1.3.9\bin\sbt.bat
+   GIT_CMD=C:\opt\Git-2.26.2\bin\git.exe
+   JAVA_CMD=C:\opt\jdk-1.8.0_252-b09\bin\java.exe
+   SBT_CMD=C:\opt\sbt-1.3.10\bin\sbt.bat
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
    SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -497,8 +498,8 @@ Command [**`project\scripts\bootstrapCmdTests.bat`**](https://github.com/michelo
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.22
-# VM version: JDK 1.8.0_242, VM 25.242-b08
-# VM invoker: C:\opt\jdk-1.8.0_242-b08\bin\java.exe
+# VM version: JDK 1.8.0_242, VM 25.252-b09
+# VM invoker: C:\opt\jdk-1.8.0_252-b09\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -527,8 +528,8 @@ Worker.compile  avgt       533.625          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.22
-# VM version: JDK 1.8.0_242, VM 25.242-b08
-# VM invoker: C:\opt\jdk-1.8.0_242-b08\bin\java.exe
+# VM version: JDK 1.8.0_242, VM 25.252-b09
+# VM invoker: C:\opt\jdk-1.8.0_252-b09\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -555,8 +556,8 @@ Worker.compile  avgt       361.619          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
 # JMH version: 1.22
-# VM version: JDK 1.8.0_242, VM 25.242-b08
-# VM invoker: C:\opt\jdk-1.8.0_242-b08\bin\java.exe
+# VM version: JDK 1.8.0_242, VM 25.252-b09
+# VM invoker: C:\opt\jdk-1.8.0_252-b09\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -658,7 +659,7 @@ Make sure to have the correct <a href="https://www.scala-sbt.org/download.html">
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80;">
 <b>&gt; cat project\build.properties</b>
-sbt.version=1.3.9
+sbt.version=1.3.10
 </pre>
 
 <a name="footnote_04">[4]</a> ***Git master repository*** [↩](#anchor_04)
@@ -707,7 +708,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -736,7 +737,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.26.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.26.2.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/
@@ -761,7 +762,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.9
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.10
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation

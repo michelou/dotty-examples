@@ -22,7 +22,7 @@ W:\myexamples\HelloWorld
 
 ## <span id="build">`build.bat` command</span>
 
-Command [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~400 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
+Command [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~450 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
 
 Command [**`build clean run`**](HelloWorld/build.bat) produces the following output:
 
@@ -125,7 +125,7 @@ Command [**`sbt`**][sbt_cli] is a Scala-based build tool for [Scala] and Java.
 The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is a standalone file written in [Scala] and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
 <pre style="font-size:80%;">
-<b>val</b> dottyVersion = <span style="color:#990000;">"0.23.0-RC1"</span>
+<b>val</b> dottyVersion = <span style="color:#990000;">"0.24.0-RC1"</span>
 &nbsp;
 <b>lazy val</b> root = project
   .in(file(<span style="color:#990000;">"."</span>))
@@ -263,7 +263,7 @@ Buildfile: W:\myexamples\HelloWorld\build.xml
    [delete] Deleting directory W:\myexamples\HelloWorld\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] DOTTY_HOME=C:\opt\dotty-0.23.0-RC1
+     [echo] DOTTY_HOME=C:\opt\dotty-0.24.0-RC1
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -342,7 +342,7 @@ The configuration file [**`HelloWorld\pom.xml`**](HelloWorld/pom.xml) depends on
 >         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>0.23.0-RC1<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.version&gt;</b>0.24.0-RC1<b>&lt;/scala.version&gt;</b>
 >         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
@@ -380,17 +380,17 @@ Command **`mvn clean test`** with option **`-debug`** produces additional debug 
 
 <pre style="font-size:80%;">
 <b>&gt; mvn -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-1.8.0_242-b08\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.23.0-RC1 \
- -cp C:\opt\dotty-0.23.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
+[DEBUG] [execute] C:\opt\jdk-1.8.0_252-b09\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.24.0-RC1 \
+ -cp C:\opt\dotty-0.24.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-1.8.0_242-b08\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.23.0-RC1 [...]
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.24.0-RC1 [...]
 [DEBUG] [execute] C:\opt\jdk-1.8.0_242-b08\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.23.0-RC1\lib\*.jar;\
+ -Xms64m -Xmx1024m -cp C:\opt\dotty-0.24.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -424,15 +424,15 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 Finally can check the Java manifest in **`HelloWorld-0.1-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.23.0-RC1\lib\dotty-library_0.23-0.23.0-RC1.jar;^
-c:\opt\dotty-0.23.0-RC1\lib\scala-library-2.13.1.jar ^
+<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.24.0-RC1\lib\dotty-library_0.24-0.24.0-RC1.jar;^
+c:\opt\dotty-0.24.0-RC1\lib\scala-library-2.13.1.jar ^
 -jar target\HelloWorld-0.1-SNAPSHOT.jar
 Hello world!
 </pre>
 
 > **:mag_right:** We can use batch script [**`searchjars`**](../bin/searchjars.bat) in case some class is missing in the specified classpath, e.g.
 > <pre style="font-size:80%;">
-> <b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.23.0-RC1\lib\dotty-library_0.23-0.23.0-RC1.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
+> <b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.24.0-RC1\lib\dotty-library_0.24-0.24.0-RC1.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
 > Exception in thread "main" java.lang.NoClassDefFoundError: scala/Serializable
 >         [...]
 >         at Main.main(Main.scala)
@@ -450,7 +450,7 @@ Hello world!
 > Searching for class Serializable in library files C:\opt\JDK-18~1.0_2\lib\*.jar
 >   tools.jar:com/sun/tools/internal/xjc/reader/xmlschema/bindinfo/BISerializable.class
 > </pre>
-> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.23.0-RC1\lib\scala-library-2.13.1.jar`**, so let us add it to our classpath !
+> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.24.0-RC1\lib\scala-library-2.13.1.jar`**, so let us add it to our classpath !
 
 
 ## <span id="footnotes">Footnotes</span>
@@ -591,7 +591,7 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
