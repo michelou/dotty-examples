@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;max-width:80px;">
-    <a href="https://dotty.epfl.ch/"><img style="border:0;width:80px;" src="docs/dotty.png" /></a>
+    <a href="https://dotty.epfl.ch/"><img style="border:0;width:80px;" src="docs/dotty.png" alt="Dotty logo" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Source code of the <a href="https://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed on the <a href="https://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This document describes changes we made to the <a href="https://github.com/lampepfl/dotty/">lampepfl/dotty</a> repository in order to reproduce the same build/test steps locally on a Windows machine.
@@ -89,10 +89,10 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. Directory [**`bin\0.23\`**](bin/0.23) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software distribution][dotty_releases].
+1. Directory [**`bin\0.24\`**](bin/0.24) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software distribution][dotty_releases].
 
    <pre style="font-size:80%;">
-   <b>&gt; cp bin\0.23\*.bat dotty\dist\bin</b>
+   <b>&gt; cp bin\0.24\*.bat dotty\dist\bin</b>
    <b>&gt; dir /b dotty\dist\bin</b>
    common
    common.bat

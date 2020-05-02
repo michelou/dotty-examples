@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="IntersectionTypes" default="compile" basedir=".">
+<project name="IntersectionTypes" default="compile" basedir="."
+    xmlns:ivy="antlib:org.apache.ivy.ant">
 
     <property name="scala-source.dir" value="${basedir}/src/main/scala" />
     <property name="target.dir" value="${basedir}/target" />
@@ -27,6 +28,10 @@
 
     <target name="clean">
         <delete dir="${target.dir}"/>
+    </target>
+
+    <target name="cleanall" depends="clean">
+        <ivy:cleancache/>
     </target>
 
 </project>

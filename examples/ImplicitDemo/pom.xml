@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dotty.examples</groupId>
-    <artifactId>UnionTypes</artifactId>
+    <artifactId>ImplicitDemo</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -20,7 +20,7 @@
     </dependencies>
 
     <properties>
-        <mainClass>Main</mainClass>
+        <mainClass>ImplicitDemo</mainClass>
     </properties>
 
     <build>
@@ -44,8 +44,6 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <showDeprecation>true</showDeprecation>
-                    <showWarnings>true</showWarnings>
                     <includes>
                         <include>java/**/*.java</include>
                     </includes>
