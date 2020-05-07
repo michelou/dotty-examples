@@ -1,21 +1,21 @@
 @echo off
 
-rem ##########################################################################
-rem ## This batch file is based on configuration file .drone.yml
+@rem #########################################################################
+@rem ## This batch file is based on configuration file .drone.yml
 
 setlocal enabledelayedexpansion
 
-rem only for interactive debugging
+@rem only for interactive debugging
 set _DEBUG=0
 
-rem ##########################################################################
-rem ## Environment setup
+@rem #########################################################################
+@rem ## Environment setup
 
 set _BASENAME=%~n0
 
 set _EXITCODE=0
 
-for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
+for %%f in ("%~dp0") do set "_ROOT_DIR=%%~f"
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -23,8 +23,8 @@ if not %_EXITCODE%==0 goto end
 call :args %*
 if not %_EXITCODE%==0 goto end
 
-rem ##########################################################################
-rem ## Main
+@rem #########################################################################
+@rem ## Main
 
 if defined _HELP (
     call :help
@@ -55,7 +55,7 @@ if defined _TEST_JAVA11 (
 )
 if defined _BOOTSTRAP (
     call :test_bootstrapped
-    rem if not !_EXITCODE!==0 goto end
+    @rem if not !_EXITCODE!==0 goto end
     if not !_EXITCODE!==0 (
         if defined _IGNORE ( echo ###### Warning: _EXITCODE=!_EXITCODE! ####### 1>&2
         ) else ( goto end
@@ -80,35 +80,35 @@ if defined _ARCHIVES (
 )
 goto end
 
-rem ##########################################################################
-rem ## Subroutines
+@rem #########################################################################
+@rem ## Subroutines
 
-rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL, _SCRIPTS_DIR,
-rem                    _DRONE_BUILD_EVENT, _DRONE_REMOTE_URL, _DRONE_BRANCH
+@rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL, _SCRIPTS_DIR,
+@rem                    _DRONE_BUILD_EVENT, _DRONE_REMOTE_URL, _DRONE_BRANCH
 :env
-rem ANSI colors in standard Windows 10 shell
-rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-rem background colors: 46m = Cyan (normal) 
-rem foreground colors: 32m = Green (normal),  91m = Red (strong), 93m = Yellow (strong)
+@rem ANSI colors in standard Windows 10 shell
+@rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+@rem background colors: 46m = Cyan (normal) 
+@rem foreground colors: 32m = Green (normal),  91m = Red (strong), 93m = Yellow (strong)
 set _COLOR_START=[32m
 set _COLOR_END=[0m
 set _DEBUG_LABEL=[46m[%_BASENAME%][0m
 set _ERROR_LABEL=[91mError[0m:
 set _WARNING_LABEL=[93mWarning[0m:
 
-set _SCRIPTS_DIR=%_ROOT_DIR%\project\scripts
+set "_SCRIPTS_DIR=%_ROOT_DIR%\project\scripts"
 
 call %_SCRIPTS_DIR%\common.bat
 if not %_EXITCODE%==0 goto :eof
 
-rem set _DRONE_BUILD_EVENT=pull_request
+@rem set _DRONE_BUILD_EVENT=pull_request
 set _DRONE_BUILD_EVENT=
 set _DRONE_REMOTE_URL=
 set _DRONE_BRANCH=
 goto :eof
 
-rem input parameter: %*
-rem output parameters: _CLONE, _COMPILE, _DOCUMENTATION, _SBT, _TIMER, _VERBOSE
+@rem input parameter: %*
+@rem output parameters: _CLONE, _COMPILE, _DOCUMENTATION, _SBT, _TIMER, _VERBOSE
 :args
 set _ARCHIVES=
 set _BOOTSTRAP=
@@ -139,7 +139,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
         set _EXITCODE=1
-        goto :args_done
+        goto args_done
     )
 ) else (
     rem subcommand
@@ -171,7 +171,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
         set _EXITCODE=1
-        goto :args_done
+        goto args_done
     )
 )
 shift
@@ -206,7 +206,6 @@ echo     boot[strap]-only      generate+test ONLY bootstrapped compiler
 echo     compile-only          generate+test ONLY 1st stage compiler
 echo     doc[umentation]-only  generate ONLY documentation
 echo     sbt-only              test ONLY sbt-dotty
-
 goto :eof
 
 :init
@@ -294,7 +293,7 @@ goto :eof
 :test
 echo %_COLOR_START%sbt compile and sbt test%_COLOR_END%
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ;compile ;test 1>&2
-call "%_SBT_CMD%" ";compile ;test"
+call "%_SBT_CMD%" ;compile ;test
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to run sbt command ";compile ;test" 1>&2
     set _EXITCODE=1
@@ -408,7 +407,7 @@ goto :eof
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" dist-bootstrapped/packArchive 1>&2
 call "%_SBT_CMD%" dist-bootstrapped/packArchive
 rem output directory for gz/zip archives
-set __TARGET_DIR=%_ROOT_DIR%\dist-bootstrapped\target
+set "__TARGET_DIR=%_ROOT_DIR%\dist-bootstrapped\target"
 if not exist "%__TARGET_DIR%\" (
     echo %_ERROR_LABEL% Directory target not found 1>&2
     set _EXITCODE=1
