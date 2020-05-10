@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="https://dotty.epfl.ch/"><img style="border:0;width:120px;" src="../docs/dotty.png" /></a>
+    <a href="https://dotty.epfl.ch/"><img style="border:0;width:120px;" src="../docs/dotty.png" alt="Dotty logo" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>examples\</code></strong> contains <a href="https://dotty.epfl.ch/" alt="Dotty">Dotty</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/">Dotty project</a>.
@@ -11,7 +11,7 @@
   </tr>
 </table>
 
-We can build/run each example in directory [**`examples\`**](.) using [**`sbt`**][sbt_cli], [**`ant`**][apache_ant_cli], [**`gradle`**][gradle_cli], [**`mill`**][mill_cli] or [**`mvn`**][apache_maven_cli] as an alternative to the **`build`** batch command.
+We can build/run each example in directory [**`examples\`**](.) using [**`sbt`**][sbt_cli], [**`ant`**][apache_ant_cli], [**`gradle`**][gradle_cli], [**`mill`**][mill_cli] or [**`mvn`**][mvn_cli] as an alternative to the **`build`** batch command.
 
 In the following we explain in more detail the build tools available in the [**`enum-Planet\`**](enum-Planet/) example (and also in other examples from directory [**`examples\`**](./)):
 
@@ -645,7 +645,7 @@ rem ## Cleanups</i>
 *[mics](https://lampwww.epfl.ch/~michelou/)/May 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
-<!-- link regs -->
+<!-- link refs -->
 
 [apache_ant_cli]: https://ant.apache.org/manual/running.html
 [apache_ant_faq]: https://ant.apache.org/faq.html#ant-name
@@ -654,7 +654,6 @@ rem ## Cleanups</i>
 [apache_foundation]: https://maven.apache.org/docs/history.html
 [apache_history]: https://ant.apache.org/faq.html#history
 [apache_maven_about]: https://maven.apache.org/what-is-maven.html
-[apache_maven_cli]: https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html
 [gradle_groovy]: https://www.groovy-lang.org/
 [gradle_app_plugin]: https://docs.gradle.org/current/userguide/application_plugin.html#header
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html

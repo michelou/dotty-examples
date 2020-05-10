@@ -1,11 +1,11 @@
 @echo off
 setlocal enabledelayedexpansion
 
-rem only for interactive debugging !
+@rem only for interactive debugging !
 set _DEBUG=0
 
-rem ##########################################################################
-rem ## Environment setup
+@rem #########################################################################
+@rem ## Environment setup
 
 set _EXITCODE=0
 
@@ -22,8 +22,8 @@ if not %_EXITCODE%==0 goto end
 call :args %*
 if not %_EXITCODE%==0 goto end
 
-rem ##########################################################################
-rem ## Main
+@rem #########################################################################
+@rem ## Main
 
 if %_HELP%==1 (
     call :help
@@ -51,14 +51,14 @@ if %_TEST%==1 (
 )
 goto end
 
-rem ##########################################################################
-rem ## Subroutines
+@rem #########################################################################
+@rem ## Subroutines
 
-rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-rem                    _CLASSES_DIR, _TARGET_DIR, _TARGET_DOCS_DIR, _TASTY_CLASSES_DIR
+@rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
+@rem                    _CLASSES_DIR, _TARGET_DIR, _TARGET_DOCS_DIR, _TASTY_CLASSES_DIR
 :env
-rem ANSI colors in standard Windows 10 shell
-rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+@rem ANSI colors in standard Windows 10 shell
+@rem see https://gist.github.com/mlocati/#file-win10colors-cmd
 set _DEBUG_LABEL=[46m[%_BASENAME%][0m
 set _ERROR_LABEL=[91mError[0m:
 set _WARNING_LABEL=[93mWarning[0m:
@@ -71,7 +71,7 @@ set _TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes
 set _TARGET_DOCS_DIR=%_TARGET_DIR%\docs
 goto :eof
 
-rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
+@rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
 :props
 set _MAIN_CLASS_DEFAULT=Main
 set _MAIN_ARGS_DEFAULT=
@@ -93,7 +93,7 @@ if exist "%__PROPS_FILE%" (
 )
 goto :eof
 
-rem input parameter: %*
+@rem input parameter: %*
 :args
 set _CLEAN=0
 set _COMPILE=0
@@ -118,7 +118,7 @@ if not defined __ARG (
     goto args_done
 )
 if "%__ARG:~0,1%"=="-" (
-    rem option
+    @rem option
     if /i "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if /i "%__ARG%"=="-dotty" ( set _DOTTY=1
     ) else if /i "%__ARG%"=="-explain" ( set _SCALAC_OPTS_EXPLAIN=1
@@ -137,8 +137,7 @@ if "%__ARG:~0,1%"=="-" (
         goto args_done
     )
 ) else (
-    rem subcommand
-    set /a __N+=1
+    @rem subcommand
     if /i "%__ARG%"=="clean" ( set _CLEAN=1
     ) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
     ) else if /i "%__ARG%"=="doc" ( set _DOC=1
@@ -150,6 +149,7 @@ if "%__ARG:~0,1%"=="-" (
         set _EXITCODE=1
         goto args_done
     )
+    set /a __N+=1
 )
 shift
 goto :args_loop
@@ -161,10 +161,10 @@ if %_SCALAC_OPTS_EXPLAIN_TYPES%==1 (
     )
 )
 if %_TASTY%==1 if %_DOTTY%==0 (
-    echo %_WARNING_LABEL% option '-tasty' not supported by Scala 2 1>&2
+    echo %_WARNING_LABEL% Option '-tasty' only supported by Scala 3 1>&2
     set _TASTY=0
 )
-if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DOTTY=%_DOTTY% _RUN=%_RUN% _TEST=%_TEST% 1>&2
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DOTTY=%_DOTTY% _RUN=%_RUN% _TASTY=%_TASTY% _TEST=%_TEST% 1>&2
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
@@ -196,12 +196,12 @@ echo     main.class       alternative to option -main
 echo     main.args        list of arguments to be passed to main class
 goto :eof
 
-rem output parameter: _MAIN_CLASS
+@rem output parameter: _MAIN_CLASS
 :set_main
 set __ARG=%~1
 set __VALID=0
 for /f %%i in ('powershell -C "$s='%__ARG%'; if($s -match '^[\w$]+(\.[\w$]+)*$'){1}else{0}"') do set __VALID=%%i
-rem if %_DEBUG%==1 echo %_DEBUG_LABEL% __ARG=%__ARG% __VALID=%__VALID% 1>&2
+@rem if %_DEBUG%==1 echo %_DEBUG_LABEL% __ARG=%__ARG% __VALID=%__VALID% 1>&2
 if %__VALID%==0 (
     echo %_ERROR_LABEL% Invalid class name passed to option "-main" ^(%__ARG%^) 1>&2
     set _EXITCODE=1
@@ -215,7 +215,7 @@ call :rmdir "%_ROOT_DIR%out"
 call :rmdir "%_TARGET_DIR%"
 goto :eof
 
-rem input parameter(s): %1=directory path
+@rem input parameter(s): %1=directory path
 :rmdir
 set __DIR=%~1
 if not exist "%__DIR%\" goto :eof
@@ -272,7 +272,7 @@ goto :eof
 call :init_java
 if not %_EXITCODE%==0 goto :eof
 
-set __LIST_FILE=%_TARGET_DIR%\java_files.txt
+set "__LIST_FILE=%_TARGET_DIR%\java_files.txt"
 if exist "%__LIST_FILE%" del "%__LIST_FILE%" 1>NUL
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     echo %%i >> "%__LIST_FILE%"
@@ -322,7 +322,7 @@ goto :eof
 call :init_scala
 if not %_EXITCODE%==0 goto :eof
 
-set __LIST_FILE=%_TARGET_DIR%\scala_files.txt
+set "__LIST_FILE=%_TARGET_DIR%\scala_files.txt"
 if exist "%__LIST_FILE%" del "%__LIST_FILE%" 1>NUL
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i >> "%__LIST_FILE%"
@@ -341,25 +341,24 @@ if not %ERRORLEVEL%==0 (
 )
 if %_TASTY%==1 (
     if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
-    set __CLASS_NAMES=
+    set __SCALAC_OPTS=-from-tasty -classpath %_CLASSES_DIR% -d %_TASTY_CLASSES_DIR%
     for %%f in (%_CLASSES_DIR%\*.tasty) do (
         set __CLASS_NAME=%%f
-        set __CLASS_NAMES=!__CLASS_NAMES! !__CLASS_NAME:~0,-6!
-    )
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% -from-tasty !__CLASS_NAMES! -classpath %_CLASSES_DIR% -d %_TASTY_CLASSES_DIR% 1>&2
-    ) else if %_VERBOSE%==1 ( echo Compile TASTy files to !_TASTY_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
-    )
-    call %_SCALAC_CMD% -from-tasty !__CLASS_NAMES! -classpath %_CLASSES_DIR% -d %_TASTY_CLASSES_DIR%
-    if not !ERRORLEVEL!==0 (
-        echo %_ERROR_LABEL% Scala compilation from TASTy files failed 1>&2
-        set _EXITCODE=1
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% !__SCALAC_OPTS! !__CLASS_NAME! 1>&2
+        ) else if %_VERBOSE%==1 ( echo Compile TASTy files to !_TASTY_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
+        )
+        call %_SCALAC_CMD% !__SCALAC_OPTS! !__CLASS_NAME!
+        if not !ERRORLEVEL!==0 (
+            echo %_ERROR_LABEL% Scala compilation from TASTy files failed 1>&2
+            set _EXITCODE=1
+        )
     )
     if not !_EXITCODE!==0 goto :eof
 )
 goto :eof
 
-rem input parameter: 1=timestamp file 2=path (wildcards accepted)
-rem output parameter: _COMPILE_REQUIRED
+@rem input parameter: 1=timestamp file 2=path (wildcards accepted)
+@rem output parameter: _COMPILE_REQUIRED
 :compile_required
 set __TIMESTAMP_FILE=%~1
 set __PATH=%~2
@@ -380,7 +379,7 @@ if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
 )
 goto :eof
 
-rem output parameter: _NEWER
+@rem output parameter: _NEWER
 :newer
 set __TIMESTAMP1=%~1
 set __TIMESTAMP2=%~2
@@ -398,8 +397,8 @@ if %__TIMESTAMP1_DATE% gtr %__TIMESTAMP2_DATE% ( set _NEWER=1
 )
 goto :eof
 
-rem input parameter: %1=flag to add Dotty libs
-rem output parameter: _LIBS_CPATH
+@rem input parameter: %1=flag to add Dotty libs
+@rem output parameter: _LIBS_CPATH
 :libs_cpath
 set __ADD_DOTTY_LIBS=%~1
 
@@ -469,9 +468,9 @@ if not exist "%__MAIN_CLASS_FILE%" (
     set _EXITCODE=1
     goto :eof
 )
-rem call :libs_cpath
-rem if not %_EXITCODE%==0 goto :eof
-set __SCALA_OPTS=%_SCALA_OPTS% -classpath "%_CLASSES_DIR%"
+@rem call :libs_cpath
+@rem if not %_EXITCODE%==0 goto :eof
+set __SCALA_OPTS=-classpath "%_CLASSES_DIR%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALA_CMD% %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% 1>&2
@@ -519,13 +518,14 @@ for %%i in (%_SOURCE_DIR%\test\scala\*.scala) do (
     echo %%i >> "%__TEST_LIST_FILE%"
 )
 
-call :libs_cpath
-set __TEST_SCALAC_OPTS=%_SCALAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d "%_TEST_CLASSES_DIR%"
+call :libs_cpath 1
+set "__OPTS_FILE=%_TARGET_DIR%\test_scalac_opts.txt"
+echo %_SCALAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d "%_TEST_CLASSES_DIR%" > "%__OPTS_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% %__TEST_SCALAC_OPTS% @%__TEST_LIST_FILE% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__TEST_LIST_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Scala test source files to !_TEST_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
-call %_SCALAC_CMD% %__TEST_SCALAC_OPTS% @%__TEST_LIST_FILE%
+call %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__TEST_LIST_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Compilation of test Scala source files failed 1>&2
     set _EXITCODE=1
@@ -551,7 +551,7 @@ set __JAVA_CMD=java.exe
 call :libs_cpath 1
 set __TEST_RUN_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
 
-rem see https://github.com/junit-team/junit4/wiki/Getting-started
+@rem see https://github.com/junit-team/junit4/wiki/Getting-started
 for %%i in (%_TEST_CLASSES_DIR%\*JUnitTest.class) do (
     set __MAIN_CLASS=%%~ni
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% java %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
@@ -573,8 +573,8 @@ set __END=%~2
 for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
 goto :eof
 
-rem ##########################################################################
-rem ## Cleanups
+@rem #########################################################################
+@rem ## Cleanups
 
 :end
 if %_TIMER%==1 (

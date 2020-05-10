@@ -1,15 +1,15 @@
 @echo off
 
-rem ##########################################################################
-rem ## This batch file is based on configuration file .drone.yml
+@rem #########################################################################
+@rem ## This batch file is based on configuration file .drone.yml
 
 setlocal enabledelayedexpansion
 
-rem only for interactive debugging
+@rem only for interactive debugging
 set _DEBUG=0
 
-rem ##########################################################################
-rem ## Environment setup
+@rem #########################################################################
+@rem ## Environment setup
 
 set _BASENAME=%~n0
 
@@ -23,8 +23,8 @@ if not %_EXITCODE%==0 goto end
 call :args %*
 if not %_EXITCODE%==0 goto end
 
-rem ##########################################################################
-rem ## Main
+@rem #########################################################################
+@rem ## Main
 
 if defined _HELP (
     call :help
@@ -55,7 +55,7 @@ if defined _TEST_JAVA11 (
 )
 if defined _BOOTSTRAP (
     call :test_bootstrapped
-    rem if not !_EXITCODE!==0 goto end
+    @rem if not !_EXITCODE!==0 goto end
     if not !_EXITCODE!==0 (
         if defined _IGNORE ( echo ###### Warning: _EXITCODE=!_EXITCODE! ####### 1>&2
         ) else ( goto end
@@ -80,35 +80,39 @@ if defined _ARCHIVES (
 )
 goto end
 
-rem ##########################################################################
-rem ## Subroutines
+@rem #########################################################################
+@rem ## Subroutines
 
-rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL, _SCRIPTS_DIR,
-rem                    _DRONE_BUILD_EVENT, _DRONE_REMOTE_URL, _DRONE_BRANCH
+@rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL, _SCRIPTS_DIR,
+@rem                    _DRONE_BUILD_EVENT, _DRONE_REMOTE_URL, _DRONE_BRANCH
 :env
-rem ANSI colors in standard Windows 10 shell
-rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-rem background colors: 46m = Cyan (normal) 
-rem foreground colors: 32m = Green (normal),  91m = Red (strong), 93m = Yellow (strong)
+@rem ANSI colors in standard Windows 10 shell
+@rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+@rem background colors: 46m = Cyan (normal) 
+@rem foreground colors: 32m = Green (normal),  91m = Red (strong), 93m = Yellow (strong)
 set _COLOR_START=[32m
 set _COLOR_END=[0m
 set _DEBUG_LABEL=[46m[%_BASENAME%][0m
 set _ERROR_LABEL=[91mError[0m:
 set _WARNING_LABEL=[93mWarning[0m:
 
-set _SCRIPTS_DIR=%_ROOT_DIR%\project\scripts
-
-call %_SCRIPTS_DIR%\common.bat
+set "_SCRIPTS_DIR=%_ROOT_DIR%\project\scripts"
+if not exist "%_SCRIPTS_DIR%\cmdTestsCommon.inc.bat" (
+    echo %_ERROR_LABEL% Common batch file not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+call "%_SCRIPTS_DIR%\cmdTestsCommon.inc.bat"
 if not %_EXITCODE%==0 goto :eof
 
-rem set _DRONE_BUILD_EVENT=pull_request
+@rem set _DRONE_BUILD_EVENT=pull_request
 set _DRONE_BUILD_EVENT=
 set _DRONE_REMOTE_URL=
 set _DRONE_BRANCH=
 goto :eof
 
-rem input parameter: %*
-rem output parameters: _CLONE, _COMPILE, _DOCUMENTATION, _SBT, _TIMER, _VERBOSE
+@rem input parameter: %*
+@rem output parameters: _CLONE, _COMPILE, _DOCUMENTATION, _SBT, _TIMER, _VERBOSE
 :args
 set _ARCHIVES=
 set _BOOTSTRAP=
@@ -132,7 +136,7 @@ if not defined __ARG (
     goto args_done
 )
 if "%__ARG:~0,1%"=="-" (
-    rem option
+    @rem option
     if /i "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if /i "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
@@ -142,8 +146,7 @@ if "%__ARG:~0,1%"=="-" (
         goto :args_done
     )
 ) else (
-    rem subcommand
-    set /a __N+=1
+    @rem subcommand
     if /i "%__ARG:~0,4%"=="arch" (
         if not "%__ARG:~-5%"=="-only" set _CLONE=1& set _COMPILE=1& set _BOOTSTRAP=1
         set _ARCHIVES=1
@@ -173,6 +176,7 @@ if "%__ARG:~0,1%"=="-" (
         set _EXITCODE=1
         goto :args_done
     )
+    set /a __N+=1
 )
 shift
 goto args_loop
@@ -238,18 +242,18 @@ goto :eof
 
 :clean
 echo %_COLOR_START%run sbt clean%_COLOR_END%
-if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" clean 1>&2
-call "%_SBT_CMD%" clean
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ;clean ;dotty-bootstrapped/clean 1>&2
+call "%_SBT_CMD%" ;clean ;dotty-bootstrapped/clean
 if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-rem if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% clean -xdf --exclude=*.bat --exclude=*.ps1 1>&2
-rem call "%_GIT_CMD%" clean -xdf --exclude=*.bat --exclude=*.ps1
-rem if not %ERRORLEVEL%==0 (
-rem     set _EXITCODE=1
-rem     goto :eof
-rem )
+@rem if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% clean -xdf --exclude=*.bat --exclude=*.ps1 1>&2
+@rem call "%_GIT_CMD%" clean -xdf --exclude=*.bat --exclude=*.ps1
+@rem if not %ERRORLEVEL%==0 (
+@rem     set _EXITCODE=1
+@rem     goto :eof
+@rem )
 goto :eof
 
 :update
@@ -294,7 +298,7 @@ goto :eof
 :test
 echo %_COLOR_START%sbt compile and sbt test%_COLOR_END%
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ;compile ;test 1>&2
-call "%_SBT_CMD%" ";compile ;test"
+call "%_SBT_CMD%" ;compile ;test
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to run sbt command ";compile ;test" 1>&2
     set _EXITCODE=1
@@ -302,8 +306,8 @@ if not %ERRORLEVEL%==0 (
 )
 
 rem see shell script project/scripts/cmdTests
-if %_DEBUG%==1 echo %_DEBUG_LABEL% %_SCRIPTS_DIR%\cmdTests.bat 1>&2
-call %_SCRIPTS_DIR%\cmdTests.bat
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SCRIPTS_DIR%\cmdTests.bat" 1>&2
+call "%_SCRIPTS_DIR%\cmdTests.bat"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to run cmdTest.bat 1>&2
     set _EXITCODE=1
@@ -321,9 +325,9 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 
-rem see shell script project/scripts/bootstrapCmdTests
-if %_DEBUG%==1 echo %_DEBUG_LABEL% %_SCRIPTS_DIR%\bootstrapCmdTests.bat 1>&2
-call %_SCRIPTS_DIR%\bootstrapCmdTests.bat
+@rem see shell script project/scripts/bootstrapCmdTests
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SCRIPTS_DIR%\bootstrapCmdTests.bat" 1>&2
+call "%_SCRIPTS_DIR%\bootstrapCmdTests.bat"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to run bootstrapCmdTests.bat 1>&2
     set _EXITCODE=1
@@ -379,9 +383,9 @@ if not exist "%JAVA11_HOME%\bin\javac.exe" (
     goto :eof
 )
 setlocal
-rem export PATH="/usr/lib/jvm/java-11-openjdk-amd64/bin:$PATH"
+@rem export PATH="/usr/lib/jvm/java-11-openjdk-amd64/bin:$PATH"
 set "PATH=%__JAVA11_HOME%\bin;%PATH%"
-rem ./project/scripts/sbt "compile ;test"
+@rem ./project/scripts/sbt "compile ;test"
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ";compile ;test" 1>&2
 call "%_SBT_CMD%" ;compile ;test
 if not %ERRORLEVEL%==0 (
@@ -394,7 +398,7 @@ endlocal
 goto :eof
 
 :documentation
-rem see shell script project/scripts/genDocs
+@rem see shell script project/scripts/genDocs
 if %_DEBUG%==1 echo %_DEBUG_LABEL% %_SCRIPTS_DIR%\genDocs.bat 1>&2
 call %_SCRIPTS_DIR%\genDocs.bat
 if not %ERRORLEVEL%==0 (
@@ -407,7 +411,7 @@ goto :eof
 :archives
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" dist-bootstrapped/packArchive 1>&2
 call "%_SBT_CMD%" dist-bootstrapped/packArchive
-rem output directory for gz/zip archives
+@rem output directory for gz/zip archives
 set __TARGET_DIR=%_ROOT_DIR%\dist-bootstrapped\target
 if not exist "%__TARGET_DIR%\" (
     echo %_ERROR_LABEL% Directory target not found 1>&2
@@ -421,7 +425,7 @@ if %_DEBUG%==1 (
 )
 goto :eof
 
-rem output parameter: _DURATION
+@rem output parameter: _DURATION
 :duration
 set __START=%~1
 set __END=%~2
@@ -429,8 +433,8 @@ set __END=%~2
 for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
 goto :eof
 
-rem ##########################################################################
-rem ## Cleanups
+@rem #########################################################################
+@rem ## Cleanups
 
 :end
 if %_TIMER%==1 (

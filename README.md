@@ -19,7 +19,7 @@ This document is part of a series of topics related to [Dotty] on Windows:
 - [Data Sharing and Dotty on Windows](CDS.md)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-[JMH], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples] and [LLVM][llvm_examples] are other trending topics we are currently monitoring.
+[JMH], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples] and [Node.js][nodejs_examples] are other trending topics we are currently monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -41,7 +41,7 @@ Optionally one may also install the following software:
 - [Bloop 1.3][bloop_releases] (requires Java 8 and Python 2/3) ([*release notes*][bloop_relnotes])
 - [CFR 0.14][cfr_releases] (Java decompiler)
 - [Git 2.26][git_releases] ([*release notes*][git_relnotes])
-- [Gradle 6.3][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Gradle 6.4][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [Mill 0.6][mill_releases] ([*change log*][mill_changelog])
 - [SBT 1.3][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
@@ -60,8 +60,8 @@ C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
 C:\opt\cfr-0.149\            <i>(  1.9 MB)</i>
 C:\opt\dotty-0.24.0-RC1\     <i>( 26.3 MB)</i>
 C:\opt\Git-2.26.2\           <i>(271.0 MB)</i>
-C:\opt\gradle-6.3\           <i>(109.0 MB)</i>
-C:\opt\Mill-0.6.2\           <i>( 40.9 MB)</i>
+C:\opt\gradle-6.4\           <i>(109.0 MB)</i>
+C:\opt\Mill-0.6.3\           <i>( 40.9 MB)</i>
 C:\opt\sbt-1.3.10\           <i>( 61.0 MB)</i>
 C:\opt\scala-2.13.2\         <i>( 22.4 MB, 588 MB with API docs)</i>
 </pre>
@@ -276,7 +276,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_252, java 1.8.0_252, scalac 2.13.2, dotc 0.24.0-RC1
-   ant 1.10.7, gradle 6.3, mill 0.6.2, mvn 3.6.3, sbt 1.3.10/2.12.10,
+   ant 1.10.7, gradle 6.4, mill 0.6.3, mvn 3.6.3, sbt 1.3.10/2.12.10,
    cfr 0.149, python 3.8.0, bloop v1.3.4,
    git 2.26.2.windows.1, diff 3.7, bash 4.4.23(1)-release
 
@@ -291,7 +291,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_252, java 1.8.0_252, scalac 2.13.2, dotc 0.24.0-RC1
-   ant 1.10.7, gradle 6.3, mill 0.6.2, mvn 3.6.3, sbt 1.3.10/2.12.10,
+   ant 1.10.7, gradle 6.4, mill 0.6.3, mvn 3.6.3, sbt 1.3.10/2.12.10,
    cfr 0.149, python 3.8.0, bloop v1.3.4,
    git 2.26.2.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
@@ -301,8 +301,8 @@ Tool paths:
    C:\opt\scala-2.13.2\bin\scalac.bat
    C:\opt\dotty-0.24.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.7\bin\ant.bat
-   C:\opt\gradle-6.3\bin\gradle.bat
-   C:\opt\Mill-0.6.2\mill.bat
+   C:\opt\gradle-6.4\bin\gradle.bat
+   C:\opt\Mill-0.6.3\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
    C:\opt\sbt-1.3.10\bin\sbt.bat
    C:\opt\cfr-0.149\bin\cfr.bat
@@ -351,18 +351,18 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; getnightly</b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-dotty-doc_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-dotty-interfaces-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-dotty-language-server_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-dotty-library_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-dotty-sbt-bridge-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-dotty-staging_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-dotty-tasty-inspector_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-dotty-tastydoc-input_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-dotty-tastydoc_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-dotty_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-tasty-core_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
+dotty-compiler_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+dotty-doc_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+dotty-interfaces-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+dotty-language-server_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+dotty-library_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+dotty-sbt-bridge-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+dotty-staging_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+dotty-tasty-inspector_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+dotty-tastydoc-input_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+dotty-tastydoc_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+dotty_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+tasty-core_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
 </pre>
 
 > **:mag_right:** Starting with Dotty version `0.22.0` package **`dotty.tools.tasty`** is distributed separately in archive **`tast-core_<xxx>.jar`**.
@@ -371,18 +371,18 @@ Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the downlo
 
 <pre style="font-size:80%">
 <b>&gt; getnightly -verbose</b>
-Downloading file dotty-compiler_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar ... 12 Mb
-Downloading file dotty-tastydoc_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar ... 435.3 Kb
-Downloading file dotty-staging_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar ... 35.9 Kb
-Downloading file tasty-core_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar ... 51.6 Kb
-Downloading file dotty-doc_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar ... 1022 Kb
-Downloading file dotty-language-server_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar ... 146.5 Kb
-Downloading file dotty-sbt-bridge-0.25.0-bin-20200427-66f335c-NIGHTLY.jar ... 13.4 Kb
-Downloading file dotty-tasty-inspector_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar ... 8 Kb
-Downloading file dotty-interfaces-0.25.0-bin-20200427-66f335c-NIGHTLY.jar ... 3.4 Kb
-Downloading file dotty-tastydoc-input_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar ... 36.1 Kb
-Downloading file dotty-library_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar ... 1.4 Mb
-Downloading file dotty_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-compiler_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar ... 12 Mb
+Downloading file dotty-tastydoc_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar ... 435.2 Kb
+Downloading file dotty-staging_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar ... 35.9 Kb
+Downloading file dotty-language-server_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar ... 146.1 Kb
+Downloading file tasty-core_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar ... 47.9 Kb
+Downloading file dotty-doc_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar ... 1021.9 Kb
+Downloading file dotty-sbt-bridge-0.25.0-bin-20200510-5154641-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty-tasty-inspector_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar ... 8 Kb
+Downloading file dotty-interfaces-0.25.0-bin-20200510-5154641-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-library_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar ... 1.4 Mb
+Downloading file dotty-tastydoc-input_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar ... 36.1 Kb
+Downloading file dotty_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar ... 0.3 Kb
 Finished to download 12 files to directory W:\out\nightly-jars
 </pre>
 
@@ -396,7 +396,7 @@ Finished to download 12 files to directory W:\out\nightly-jars
 Activate nightly build libraries: 0.24.0-bin-20200412-bd1fff2-NIGHTLY
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.25.0-bin-20200427-66f335c-NIGHTLY-git-66f335c -- Copyright 2002-2020, LAMP/EPFL
+Dotty compiler version 0.25.0-bin-20200510-5154641-NIGHTLY-git-5154641 -- Copyright 2002-2020, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
 Activate default Dotty libraries: 0.24.0-RC1
@@ -422,19 +422,19 @@ lib\0.24.0-RC1\
 &nbsp;&nbsp;dotty-staging_0.24-0.24.0-RC1.jar
 &nbsp;&nbsp;dotty-tasty-inspector_0.24-0.24.0-RC1.jar
 &nbsp;&nbsp;tasty-core_0.24-0.24.0-RC1.jar
-lib\0.25.0-bin-20200427-66f335c-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-&nbsp;&nbsp;dotty-staging_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tasty-inspector_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc-input_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
-&nbsp;&nbsp;tasty-core_0.25-0.25.0-bin-20200427-66f335c-NIGHTLY.jar
+lib\0.25.0-bin-20200510-5154641-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+&nbsp;&nbsp;dotty-staging_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tasty-inspector_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc-input_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
+&nbsp;&nbsp;tasty-core_0.25-0.25.0-bin-20200510-5154641-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original [Dotty] installation respectively from the latest nightly build.
@@ -469,6 +469,8 @@ Searching for class System in library files C:\opt\DOTTY-~1.1-R\lib\*.jar
   scala-library-2.13.2.jar:scala/sys/SystemProperties$.class
   scala-library-2.13.2.jar:scala/sys/SystemProperties.class
 Searching for class System in library files C:\opt\SCALA-~1.0\lib\*.jar
+  jline-3.14.1.jar:org/jline/builtins/SystemRegistry.class
+  [...]
   scala-compiler.jar:scala/tools/util/SystemExit$.class
   scala-compiler.jar:scala/tools/util/SystemExit.class
   scala-library.jar:scala/sys/SystemProperties$.class
@@ -476,14 +478,15 @@ Searching for class System in library files C:\opt\SCALA-~1.0\lib\*.jar
 Searching for class System in library files C:\opt\JDK-18~1.0_2\lib\*.jar
   sa-jdi.jar:sun/jvm/hotspot/memory/SystemDictionary$1.class
   sa-jdi.jar:sun/jvm/hotspot/memory/SystemDictionary$2.class
-  sa-jdi.jar:sun/jvm/hotspot/memory/SystemDictionary$ClassAndLoaderVisitor.class
-  sa-jdi.jar:sun/jvm/hotspot/memory/SystemDictionary$ClassVisitor.class
-  sa-jdi.jar:sun/jvm/hotspot/memory/SystemDictionary.class
-  sa-jdi.jar:sun/jvm/hotspot/utilities/SystemDictionaryHelper$1.class
-  sa-jdi.jar:sun/jvm/hotspot/utilities/SystemDictionaryHelper$2.class
-  sa-jdi.jar:sun/jvm/hotspot/utilities/SystemDictionaryHelper$3.class
-  sa-jdi.jar:sun/jvm/hotspot/utilities/SystemDictionaryHelper.class
-Searching for class System in library files W:\lib\*.jar
+  [...]
+Searching for class System in library files C:\opt\JDK-18~1.0_2\jre\lib\*.jar
+  [...]
+  rt.jar:java/lang/SystemClassLoaderAction.class
+  rt.jar:java/lang/System$2.class
+  rt.jar:java/io/FileSystem.class
+  rt.jar:java/io/WinNTFileSystem.class
+  rt.jar:java/io/DefaultFileSystem.class
+  rt.jar:java/lang/System.class
 </pre>
 
 Searching for an unknown class - e.g. **`BinarySearch`** - produces the following output:
@@ -714,7 +717,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                      <i>( 9 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.24.0-RC1">dotty-0.24.0-RC1.zip</a>                            <i>(24 MB)</i>
-<a href="https://gradle.org/install/">gradle-6.3-bin.zip</a><i>                              (97 MB)</i>
+<a href="https://gradle.org/install/">gradle-6.4-bin.zip</a><i>                              (97 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u252b09.zip</a>  <i>(99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.26.2-64-bit.7z.exe</a>                <i>(41 MB)</i>
 <a href="https://www.scala-sbt.org/download.html">sbt-1.3.10.zip</a>                                  <i>(55 MB)</i>
@@ -822,7 +825,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 [gradle_install]: https://gradle.org/install/
-[gradle_relnotes]: https://docs.gradle.org/6.3/release-notes.html
+[gradle_relnotes]: https://docs.gradle.org/6.4/release-notes.html
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [jar_file]: https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html
 [java_bytecode]: https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html
@@ -847,6 +850,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [mill_changelog]: https://github.com/lihaoyi/mill#changelog
 [mill_cli]: https://www.lihaoyi.com/mill/#command-line-tools
 [mill_releases]: https://github.com/lihaoyi/mill/releases/
+[nodejs_examples]: https://github.com/michelou/nodejs-examples
 [oracle_openjdk]: https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot
 <!-- also: https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/tag/jdk8u252-b09 -->
 <!-- 8u232 [oracle_openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html -->

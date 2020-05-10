@@ -21,6 +21,9 @@
 
     <properties>
         <mainClass>Planet</mainClass>
+        <!-- TODO: remove once Maven plugin for Scala does support POM dependencies -->
+        <junit.version>4.13</junit.version>
+        <scalatest.version>3.1.1</scalatest.version>
     </properties>
 
     <build>
@@ -65,9 +68,10 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
+                            <!-- TODO : add support for POM dependencies to Scala plugin -->
                             <additionalClasspathElements>
-                                <additionalClasspathElement>${m2.directory}/junit/junit/4.13/junit-4.13.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/scalatest/scalatest_2.13/3.1.1/scalatest_2.13-3.1.1.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/junit/junit/${junit.version}/junit-${junit.version}.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/scalatest/scalatest_2.13/$scalatest.version}/scalatest_2.13-${scalatest.version}.jar</additionalClasspathElement>
                             </additionalClasspathElements>
                             <includes>
                                 <include>scala/**/*.scala</include>

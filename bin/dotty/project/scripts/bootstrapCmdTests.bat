@@ -1,39 +1,39 @@
 @echo off
 
-rem ##########################################################################
-rem ## This batch file is based on shell script project/scripts/bootstrapCmdTests
+@rem #########################################################################
+@rem ## Batch file based on shell script project/scripts/bootstrapCmdTests.
 
 setlocal enabledelayedexpansion
 
-rem only for interactive debugging
+@rem only for interactive debugging
 set _DEBUG=0
 
-rem ##########################################################################
-rem ## Environment setup
+@rem #########################################################################
+@rem ## Environment setup
 
 set _BASENAME=%~n0
 
 set _EXITCODE=0
 
-for %%f in ("%~dp0..\..") do set _ROOT_DIR=%%~sf
-set _SCRIPTS_DIR=%_ROOT_DIR%\project\scripts
-set _BIN_DIR=%_ROOT_DIR%\bin
+for %%f in ("%~dp0..\..") do set "_ROOT_DIR=%%~sf"
+set "_SCRIPTS_DIR=%_ROOT_DIR%\project\scripts"
+set "_BIN_DIR=%_ROOT_DIR%\bin"
 
 if not defined __COMMON__ (
-    if %_DEBUG%==1 echo [%_BASENAME%] call %_SCRIPTS_DIR%\common.bat
-    call %_SCRIPTS_DIR%\common.bat
+    if %_DEBUG%==1 echo [%_BASENAME%] "%_SCRIPTS_DIR%\cmdTestsCommon.inc.bat" 1>&2
+    call "%_SCRIPTS_DIR%\cmdTestsCommon.inc.bat"
     if not !_EXITCODE!==0 goto end
 )
 
-rem ##########################################################################
-rem ## Main
+@rem #########################################################################
+@rem ## Main
 
-rem # check that benchmarks can run
+@rem # check that benchmarks can run
 if %_DEBUG%==1 echo [%_BASENAME%] "%_SBT_CMD%" "dotty-bench/jmh:run 1 1 tests/pos/alias.scala" 1>&2
 call "%_SBT_CMD%" "dotty-bench/jmh:run 1 1 tests/pos/alias.scala"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 
-rem # The above is here as it relies on the bootstrapped library.
+@rem # The above is here as it relies on the bootstrapped library.
 if %_DEBUG%==1 echo [%_BASENAME%] "%_SBT_CMD%" "dotty-bench-bootstrapped/jmh:run 1 1 tests/pos/alias.scala" 1>&2
 call "%_SBT_CMD%" "dotty-bench-bootstrapped/jmh:run 1 1 tests/pos/alias.scala"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
@@ -48,12 +48,12 @@ if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 call :grep "val a: scala.Int = 3" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
 
-rem # setup for `dotc`/`dotr` script tests
+@rem # setup for `dotc`/`dotr` script tests
 if %_DEBUG%==1 echo [%_BASENAME%] "%_SBT_CMD%" dist-bootstrapped/pack 1>&2
-call "%_SBT_CMD%" dist-bootstrapped/pack
+call "%_SBT_CMD%" dist/pack
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 
-rem # check that `dotc` compiles and `dotr` runs it
+@rem # check that `dotc` compiles and `dotr` runs it
 echo testing ./bin/dotc and ./bin/dotr
 call :clear_out "%_OUT_DIR%"
 if %_DEBUG%==1 echo [%_BASENAME%] %_BIN_DIR%\dotc.bat "%_SOURCE%" -d "%_OUT_DIR%" 1>&2
@@ -66,7 +66,7 @@ if %_DEBUG%==1 echo [%_BASENAME%] call :test_pattern "%_EXPECTED_OUTPUT%" "%_TMP
 call :test_pattern "%_EXPECTED_OUTPUT%" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
 
-rem # check that `dotc` and `dotr` works for staging
+@rem # check that `dotc` and `dotr` works for staging
 call :clear_out "%_OUT_DIR%"
 call %_BIN_DIR%\dotc.bat tests/run-staging/i4044f.scala -d "%_OUT_DIR%"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
