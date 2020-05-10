@@ -15,7 +15,7 @@ set _BASENAME=%~n0
 
 set _EXITCODE=0
 
-for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
+for %%f in ("%~dp0") do set "_ROOT_DIR=%%~f"
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -143,7 +143,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
         set _EXITCODE=1
-        goto :args_done
+        goto args_done
     )
 ) else (
     @rem subcommand
@@ -174,7 +174,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
         set _EXITCODE=1
-        goto :args_done
+        goto args_done
     )
     set /a __N+=1
 )
@@ -210,7 +210,6 @@ echo     boot[strap]-only      generate+test ONLY bootstrapped compiler
 echo     compile-only          generate+test ONLY 1st stage compiler
 echo     doc[umentation]-only  generate ONLY documentation
 echo     sbt-only              test ONLY sbt-dotty
-
 goto :eof
 
 :init
@@ -412,7 +411,7 @@ goto :eof
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" dist-bootstrapped/packArchive 1>&2
 call "%_SBT_CMD%" dist-bootstrapped/packArchive
 @rem output directory for gz/zip archives
-set __TARGET_DIR=%_ROOT_DIR%\dist-bootstrapped\target
+set "__TARGET_DIR=%_ROOT_DIR%\dist-bootstrapped\target"
 if not exist "%__TARGET_DIR%\" (
     echo %_ERROR_LABEL% Directory target not found 1>&2
     set _EXITCODE=1
