@@ -54,7 +54,7 @@ For instance our development environment looks as follows (*May 2020*) <sup id="
 
 <pre style="font-size:80%;">
 C:\opt\jdk-1.8.0_252-b09\    <i>(181.0 MB)</i>
-C:\opt\apache-ant-1.10.7\    <i>( 39.9 MB)</i>
+C:\opt\apache-ant-1.10.8\    <i>( 39.7 MB)</i>
 C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
 C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
 C:\opt\cfr-0.149\            <i>(  1.9 MB)</i>
@@ -276,7 +276,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_252, java 1.8.0_252, scalac 2.13.2, dotc 0.24.0-RC1
-   ant 1.10.7, gradle 6.4, mill 0.6.3, mvn 3.6.3, sbt 1.3.10/2.12.10,
+   ant 1.10.8, gradle 6.4, mill 0.6.3, mvn 3.6.3, sbt 1.3.10/2.12.10,
    cfr 0.149, python 3.8.0, bloop v1.3.4,
    git 2.26.2.windows.1, diff 3.7, bash 4.4.23(1)-release
 
@@ -291,7 +291,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_252, java 1.8.0_252, scalac 2.13.2, dotc 0.24.0-RC1
-   ant 1.10.7, gradle 6.4, mill 0.6.3, mvn 3.6.3, sbt 1.3.10/2.12.10,
+   ant 1.10.8, gradle 6.4, mill 0.6.3, mvn 3.6.3, sbt 1.3.10/2.12.10,
    cfr 0.149, python 3.8.0, bloop v1.3.4,
    git 2.26.2.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
@@ -300,7 +300,7 @@ Tool paths:
    C:\ProgramData\Oracle\Java\javapath\java.exe
    C:\opt\scala-2.13.2\bin\scalac.bat
    C:\opt\dotty-0.24.0-RC1\bin\dotc.bat
-   C:\opt\apache-ant-1.10.7\bin\ant.bat
+   C:\opt\apache-ant-1.10.8\bin\ant.bat
    C:\opt\gradle-6.4\bin\gradle.bat
    C:\opt\Mill-0.6.3\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
@@ -313,7 +313,7 @@ Tool paths:
    C:\opt\Git-2.26.2\usr\bin\diff.exe
    C:\opt\Git-2.26.2\bin\bash.exe
 Environment variables:
-   ANT_HOME=C:\opt\apache-ant-1.10.7
+   ANT_HOME=C:\opt\apache-ant-1.10.8
    DOTTY_HOME=C:\opt\dotty-0.24.0-RC1
    JAVA_HOME=C:\opt\jdk-1.8.0_252-b09
    JAVA11_HOME=C:\opt\jdk-11.0.7+10
@@ -715,6 +715,7 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
+<a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.8-bin.zip</a>                       <i>( 9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                      <i>( 9 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.24.0-RC1">dotty-0.24.0-RC1.zip</a>                            <i>(24 MB)</i>
 <a href="https://gradle.org/install/">gradle-6.4-bin.zip</a><i>                              (97 MB)</i>
@@ -798,7 +799,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 [apache_ant]: https://ant.apache.org/
 [apache_ant_cli]: https://ant.apache.org/manual/running.html
-[apache_ant_relnotes]: https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.7.html
+[apache_ant_relnotes]: https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.8.html
 [apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html

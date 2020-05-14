@@ -463,7 +463,7 @@ Total execution time: 00:20:25
 
 #### `cmdTests.bat`
 
-Command [**`project\scripts\cmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) performs several tests running [Dotty](https://dotty.epfl.ch) commands from [**`sbt`**][sbt_cli]. In the normal case, command [**`cmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/cmdTests.bat) is called by command **`build compile`** but may also be called directly.
+Command [**`project\scripts\cmdTests.bat`**](bin/dotty/project/scripts/cmdTests.bat) performs several tests running [Dotty](https://dotty.epfl.ch) commands from [**`sbt`**][sbt_cli]. In the normal case, command [**`cmdTests`**](bin/dotty/project/scripts/cmdTests.bat) is called by command **`build compile`** but may also be called directly.
 
 <pre style="font-size:80%;">
 <b>&gt; cmdTests</b>
@@ -489,7 +489,7 @@ testing loading tasty from .tasty file in jar
 
 #### `bootstrapCmdTests.bat`
 
-Command [**`project\scripts\bootstrapCmdTests.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) performs several benchmarks and generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program. In the normal case, command [**`bootstrapCmdTests`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/bootstrapCmdTests.bat) is called by command **`build bootstrap`** but may also be called directly.
+Command [**`project\scripts\bootstrapCmdTests.bat`**](bin/dotty/project/scripts/bootstrapCmdTests.bat) performs several benchmarks and generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program. In the normal case, command [**`bootstrapCmdTests`**](bin/dotty/project/scripts/bootstrapCmdTests.bat) is called by command **`build bootstrap`** but may also be called directly.
 
 <pre style="font-size:80%;">
 <b>&gt; bootstrapCmdTests</b>
@@ -498,7 +498,7 @@ Command [**`project\scripts\bootstrapCmdTests.bat`**](https://github.com/michelo
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.22
-# VM version: JDK 1.8.0_242, VM 25.252-b09
+# VM version: JDK 1.8.0_252, VM 25.252-b09
 # VM invoker: C:\opt\jdk-1.8.0_252-b09\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
@@ -528,7 +528,7 @@ Worker.compile  avgt       533.625          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.22
-# VM version: JDK 1.8.0_242, VM 25.252-b09
+# VM version: JDK 1.8.0_252, VM 25.252-b09
 # VM invoker: C:\opt\jdk-1.8.0_252-b09\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
@@ -556,7 +556,7 @@ Worker.compile  avgt       361.619          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
 # JMH version: 1.22
-# VM version: JDK 1.8.0_242, VM 25.252-b09
+# VM version: JDK 1.8.0_252, VM 25.252-b09
 # VM invoker: C:\opt\jdk-1.8.0_252-b09\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
@@ -602,7 +602,7 @@ private members with docstrings:   0
 
 #### `genDocs.bat`
 
-Command [**`genDocs.bat`**](https://github.com/michelou/dotty/tree/batch-files/project/scripts/genDocs.bat) generates the documentation page for program [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala).
+Command [**`genDocs.bat`**](bin/dotty/project/scripts/genDocs.bat) generates the documentation page for program [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala).
 
 <pre style="font-size:80%;">
 <b>&gt; genDocs</b>

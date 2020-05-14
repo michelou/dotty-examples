@@ -77,14 +77,16 @@ build {
 task run(type: JavaExec) {
     dependsOn build
 
+    description "Execute Scala main class $mainClassName"
+
     classpath scalaClasspath
 
     jvmArgs "-Xms1024m", "-Xss2m"
 
     // systemProperty "message" "Hello"
 
-    // properties "main" and "args" are defined in build.gradle (main script)
-    if (! main?.trim()) main "Main"
+    if (mainClassName?.trim()) main mainClassName
+    else main "Main"
     if (args == null) args ""
 }
 

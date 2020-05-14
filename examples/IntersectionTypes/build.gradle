@@ -5,11 +5,6 @@ plugins {
 group "$appGroup"
 version "$appVersion"
 
-description """Gradle example project to build/run Scala 3 code"""
+description """Gradle example project to build/run Scala 3 applications"""
 
 apply from: "../common.gradle"
-
-run.doFirst {
-    main scalaMainClassName
-    args ""
-}

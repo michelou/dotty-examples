@@ -114,7 +114,7 @@ No compilation needed (1 source files)</pre>
 > </pre>
 > 
 
-## Gradle build tool
+## <span id="gradle">Gradle build tool</span>
 
 Command [**`gradle`**][gradle_cli] is the official build tool for Android applications (tool created in 2007). It replaces XML-based build scripts with a [Groovy][gradle_groovy]-based DSL.
 
@@ -209,7 +209,7 @@ BUILD SUCCESSFUL in 4s
 </pre>
 
 
-## SBT build tool
+## <span id="sbt">SBT build tool</span>
 
 Command [**`sbt`**][sbt_cli] is a Scala-based build tool for [Scala] and Java.
 
@@ -248,7 +248,7 @@ Your weight on JUPITER is 2.5305575254957406
 </pre>
 
 
-## Mill build tool
+## <span id="mill">Mill build tool</span>
 
 Command [**`mill`**][mill_cli] is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
 
@@ -301,7 +301,7 @@ Your weight on JUPITER is 2.5305575254957406
 </pre>
 
 
-## Ant build tool
+## <span id="ant">Ant build tool</span>
 
 Command [**`ant`**][apache_ant_cli] (["Another Neat Tool"][apache_ant_faq]) is a Java-based build tool maintained by the [Apache Software Foundation][apache_history] (tool created in 2000). It works with XML-based configuration files.
 
@@ -331,7 +331,7 @@ Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 [ivy:resolve] :: Apache Ivy 2.5.0 - 20191020104435 :: https://ant.apache.org/ivy/ ::
-[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.7/lib/ivy-2.5.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
+[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.8/lib/ivy-2.5.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
 
 <span style="font-weight:bold;color:#9966ff;">init:</span>
 
@@ -358,8 +358,8 @@ Total time: 19 seconds
 > <pre style="font-size:80%;">
 > <b>&gt; curl -sL -o c:\Temp\apache-ivy-2.5.0.zip https://www-eu.apache.org/dist//ant/ivy/2.5.0/apache-ivy-2.5.0-bin.zip</b>
 > <b>&gt; unzip c:\temp\apache-ivy-2.5.0.zip -d c:\opt</b>
-> <b>&gt; copy c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.7\lib</b>
-> <b>&gt; dir c:\opt\apache-ant-1.10.7\lib | findstr ivy</b>
+> <b>&gt; copy c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.8\lib</b>
+> <b>&gt; dir c:\opt\apache-ant-1.10.8\lib | findstr ivy</b>
 > 20.10.2019  09:44         1 402 646 ivy-2.5.0.jar
 > </pre>
 
@@ -381,24 +381,23 @@ Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">compile:</span>
     [mkdir] Created dir: W:\dotty-examples\examples\enum-Planet\target\classes
-   [scalac] Compiling 1 source file to W:\dotty-examples\examples\enum-Planet/target/classes
+    [scalac] Compiling 1 source file to W:\dotty-examples\examples\enum-Planet/target/classes
 
 <span style="font-weight:bold;color:#9966ff;">run:</span>
-     [java] Your weight on MERCURY is 0.37775761520093526
-     [java] Your weight on SATURN is 1.0660155388115666
-     [java] Your weight on VENUS is 0.9049990998410455
-     [java] Your weight on URANUS is 0.9051271993894251
-     [java] Your weight on EARTH is 0.9999999999999999
-     [java] Your weight on NEPTUNE is 1.1383280724696578
-     [java] Your weight on MARS is 0.37873718403712886
-     [java] Your weight on JUPITER is 2.5305575254957406
+    [java] Your weight on MERCURY is 0.37775761520093526
+    [java] Your weight on SATURN is 1.0660155388115666
+    [java] Your weight on VENUS is 0.9049990998410455
+    [java] Your weight on URANUS is 0.9051271993894251
+    [java] Your weight on EARTH is 0.9999999999999999
+    [java] Your weight on NEPTUNE is 1.1383280724696578
+    [java] Your weight on MARS is 0.37873718403712886
+    [java] Your weight on JUPITER is 2.5305575254957406
 
 BUILD SUCCESSFUL
 Total time: 14 seconds
 </pre>
 
-
-## Maven build tool
+## <span id="maven">Maven build tool</span>
 
 Command [**`mvn`**][mvn_cli] is a Java-based build tool maintained by the [Apache Software Foundation][apache_foundation] (tool created in 2002). It works with XML-based configuration files and provides a way to share JARs across several projects.
 
@@ -540,7 +539,7 @@ Your weight on JUPITER is 2.5305575254957406
 [INFO] ------------------------------------------------------------------------
 
 <b>&gt; java -version 2>&1 | findstr version</b>
-openjdk version "11.0.5" 2019-10-15
+openjdk version "11.0.7" 2019-10-15
 
 <b>&gt; java -Xbootclasspath/a:"c:\opt\dotty-0.24.0-RC1\lib\dotty-library_0.24-0.24.0-RC1.jar;c:\opt\dotty-0.24.0-RC1\lib\scala-library-2.13.2.jar" -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
 Your weight on MERCURY is 0.37775761520093526
@@ -553,7 +552,7 @@ Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406
 </pre>
 
-## Footnotes
+## <span id="footnotes">Footnotes</span>
 
 <a name="footnote_01">[1]</a> ***Batch files and coding conventions*** [↩](#anchor_01)
 
