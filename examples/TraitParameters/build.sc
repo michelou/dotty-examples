@@ -1,4 +1,4 @@
-import mill._, scalalib._
+import mill._, api._, scalalib._
 import $file.^.common
 
 object app extends ScalaModule {
@@ -7,7 +7,7 @@ object app extends ScalaModule {
 
   def forkArgs = common.forkArgs
 
-  def mainClass = Some(gradleProperties.getProperty("mainClassName", "Main"))
+  def mainClass = Some(getBuildProp("mainClassName", "Main"))
   def sources = T.sources { common.scalaSourcePath }
   // def resources = T.sources { os.pwd / "resources" }
 
@@ -26,24 +26,26 @@ object app extends ScalaModule {
     def testFrameworks = Seq(
       "com.novocode.junit.JUnitFramework",
       "org.scalatest.tools.Framework",
-      "org.specs2.runner.JUnitRunner" // org.specs2.Specs2Framework
+      // "org.specs2.runner.JUnitRunner",
+      // "org.specs2.Specs2Framework"
     )
   }
 
-  private lazy val gradleProperties: java.util.Properties = {
-    import java.nio.file._
-    val props = new java.util.Properties()
-    val path = Paths.get("gradle.properties")
-    if (Files.isRegularFile(path)) {
-      props.load(Files.newBufferedReader(path))
-      //val debugLog = ammonite.main.Cli.genericSignature.exists(_.name == "debug")
-      //System.out.println(s"debugLog=$debugLog")
-      //if (debugLog) {
-      //  System.out.println(s"Path: $path")
-      //  props.list(System.out)
-      //}
+  private var gradleProps: java.util.Properties = null
+  private def getBuildProp(name: String, defaultValue: String)(implicit ctx: Ctx): String = {
+    if (gradleProps == null) {
+      import java.nio.file._
+      gradleProps = new java.util.Properties()
+      val path = Paths.get("gradle.properties")
+      if (Files.isRegularFile(path)) {
+        gradleProps.load(Files.newBufferedReader(path))
+        ctx.log.debug(s"Path: $path")
+        val os = new java.io.ByteArrayOutputStream()
+        gradleProps.list(new java.io.PrintStream(os))
+        ctx.log.debug(os.toString("UTF8"))
+      }
     }
-    props
+    gradleProps.getProperty(name, defaultValue)
   }
 
 }
