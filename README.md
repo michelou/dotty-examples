@@ -19,7 +19,7 @@ This document is part of a series of topics related to [Dotty] on Windows:
 - [Data Sharing and Dotty on Windows](CDS.md)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-[JMH], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples] and [Node.js][nodejs_examples] are other trending topics we are currently monitoring.
+[JMH], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_example, [Node.js][nodejs_examples] are other trending topics we are currently monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -42,7 +42,7 @@ Optionally one may also install the following software:
 - [CFR 0.14][cfr_releases] (Java decompiler)
 - [Git 2.26][git_releases] ([*release notes*][git_relnotes])
 - [Gradle 6.4][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
-- [Mill 0.6][mill_releases] ([*change log*][mill_changelog])
+- [Mill 0.7][mill_releases] ([*change log*][mill_changelog])
 - [SBT 1.3][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
 <!-- - [Python 3.8][python_release] ([*change log*][python_changelog]) -->
@@ -61,7 +61,7 @@ C:\opt\cfr-0.149\            <i>(  1.9 MB)</i>
 C:\opt\dotty-0.24.0-RC1\     <i>( 26.3 MB)</i>
 C:\opt\Git-2.26.2\           <i>(271.0 MB)</i>
 C:\opt\gradle-6.4\           <i>(109.0 MB)</i>
-C:\opt\Mill-0.6.3\           <i>( 40.9 MB)</i>
+C:\opt\Mill-0.7.0\           <i>( 40.9 MB)</i>
 C:\opt\sbt-1.3.10\           <i>( 61.0 MB)</i>
 C:\opt\scala-2.13.2\         <i>( 22.4 MB, 588 MB with API docs)</i>
 </pre>
@@ -276,7 +276,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_252, java 1.8.0_252, scalac 2.13.2, dotc 0.24.0-RC1
-   ant 1.10.8, gradle 6.4, mill 0.6.3, mvn 3.6.3, sbt 1.3.10/2.12.10,
+   ant 1.10.8, gradle 6.4, mill 0.7.0, mvn 3.6.3, sbt 1.3.10/2.12.10,
    cfr 0.149, python 3.8.0, bloop v1.3.4,
    git 2.26.2.windows.1, diff 3.7, bash 4.4.23(1)-release
 
@@ -291,7 +291,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_252, java 1.8.0_252, scalac 2.13.2, dotc 0.24.0-RC1
-   ant 1.10.8, gradle 6.4, mill 0.6.3, mvn 3.6.3, sbt 1.3.10/2.12.10,
+   ant 1.10.8, gradle 6.4, mill 0.7.0, mvn 3.6.3, sbt 1.3.10/2.12.10,
    cfr 0.149, python 3.8.0, bloop v1.3.4,
    git 2.26.2.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
@@ -302,7 +302,7 @@ Tool paths:
    C:\opt\dotty-0.24.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.8\bin\ant.bat
    C:\opt\gradle-6.4\bin\gradle.bat
-   C:\opt\Mill-0.6.3\mill.bat
+   C:\opt\Mill-0.7.0\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
    C:\opt\sbt-1.3.10\bin\sbt.bat
    C:\opt\cfr-0.149\bin\cfr.bat

@@ -7,7 +7,7 @@ object app extends ScalaModule {
 
   def forkArgs = common.forkArgs
 
-  def mainClass = Some("Main")
+  def mainClass = Some(gradleProperties.getProperty("mainClassName", "Main"))
   def sources = T.sources { common.scalaSourcePath }
   // def resources = T.sources { os.pwd / "resources" }
 
@@ -29,4 +29,21 @@ object app extends ScalaModule {
       "org.specs2.runner.JUnitRunner" // org.specs2.Specs2Framework
     )
   }
+
+  private lazy val gradleProperties: java.util.Properties = {
+    import java.nio.file._
+    val props = new java.util.Properties()
+    val path = Paths.get("gradle.properties")
+    if (Files.isRegularFile(path)) {
+      props.load(Files.newBufferedReader(path))
+      //val debugLog = ammonite.main.Cli.genericSignature.exists(_.name == "debug")
+      //System.out.println(s"debugLog=$debugLog")
+      //if (debugLog) {
+      //  System.out.println(s"Path: $path")
+      //  props.list(System.out)
+      //}
+    }
+    props
+  }
+
 }

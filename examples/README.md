@@ -137,7 +137,6 @@ description <span style="color:#990000;">"""Gradle example project to build/run 
 apply from: <span style="color:#990000;">"../common.gradle"</span>
 &nbsp;
 run.doFirst {
-    main scalaMainClassName
     args <span style="color:#990000;">""</span>
 }
 </pre>
@@ -182,8 +181,8 @@ build {
     <b>dependsOn</b> build
     classpath scalaClasspath
     ...
-    <span style="color:#009900;">// properties "main" and "args" are defined in build.gradle (main script)</span>
-    <b>if</b> (! main?.trim()) main <span style="color:#990000;">"Main"</span>
+    <b>if</b> (mainClassName?.trim()) main mainClassName
+    <b>else</b> main <span style="color:#990000;">"Main"</span>
     <b>if</b> (args == <b>null</b>) args <span style="color:#990000;">""</span>
 }
 ...

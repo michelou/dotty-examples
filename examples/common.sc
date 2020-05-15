@@ -33,3 +33,6 @@ val ivySpecs2Common = ivy"org.specs2:specs2-common_2.13:4.9.4"
 
 // https://mvnrepository.com/artifact/org.specs2/specs2-core
 val ivySpecs2Core = ivy"org.specs2:specs2-core_2.13:4.9.4"
+
+// https://mvnrepository.com/artifact/org.specs2/specs2-junit_2.13
+val ivySpecs2JUnit = ivy"org.specs2:specs2-junit_2.13:4.9.4"
