@@ -1,4 +1,4 @@
-import mill._, api._, scalalib._
+import mill._, scalalib._
 import $file.^.common
 
 object app extends ScalaModule {
@@ -7,7 +7,10 @@ object app extends ScalaModule {
 
   def forkArgs = common.forkArgs
 
-  def mainClass = Some(getBuildProp("mainClassName", "Main"))
+  def mainClass = T.input {
+    Some(common.getBuildProp("mainClassName", "Main", T.ctx))
+  }
+
   def sources = T.sources { common.scalaSourcePath }
   // def resources = T.sources { os.pwd / "resources" }
 
@@ -30,22 +33,4 @@ object app extends ScalaModule {
       // "org.specs2.Specs2Framework"
     )
   }
-
-  private var gradleProps: java.util.Properties = null
-  private def getBuildProp(name: String, defaultValue: String)(implicit ctx: Ctx): String = {
-    if (gradleProps == null) {
-      import java.nio.file._
-      gradleProps = new java.util.Properties()
-      val path = Paths.get("gradle.properties")
-      if (Files.isRegularFile(path)) {
-        gradleProps.load(Files.newBufferedReader(path))
-        ctx.log.debug(s"Path: $path")
-        val os = new java.io.ByteArrayOutputStream()
-        gradleProps.list(new java.io.PrintStream(os))
-        ctx.log.debug(os.toString("UTF8"))
-      }
-    }
-    gradleProps.getProperty(name, defaultValue)
-  }
-
 }

@@ -1,11 +1,11 @@
 @echo off
 setlocal enabledelayedexpansion
 
-rem only for interactive debugging !
+@rem only for interactive debugging !
 set _DEBUG=0
 
-rem ##########################################################################
-rem ## Environment setup
+@rem #########################################################################
+@rem ## Environment setup
 
 set _BASENAME=%~n0
 
@@ -19,8 +19,8 @@ if not %_EXITCODE%==0 goto end
 call :args %*
 if not %_EXITCODE%==0 goto end
 
-rem ##########################################################################
-rem ## Main
+@rem #########################################################################
+@rem ## Main
 
 if %_HELP%==1 (
     call :help
@@ -45,31 +45,31 @@ if %_RUN%==1 (
 
 goto end
 
-rem ##########################################################################
-rem ## Subroutines
+@rem #########################################################################
+@rem ## Subroutines
 
-rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-rem                    _COMPILE_CMD, _DOC_CMD, _JAR_CMD, _JAVA_CMD, _RUN_CMD
+@rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
+@rem                    _COMPILE_CMD, _DOC_CMD, _JAR_CMD, _JAVA_CMD, _RUN_CMD
 :env
-rem ANSI colors in standard Windows 10 shell
-rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+@rem ANSI colors in standard Windows 10 shell
+@rem see https://gist.github.com/mlocati/#file-win10colors-cmd
 set _DEBUG_LABEL=[46m[%_BASENAME%][0m
 set _ERROR_LABEL=[91mError[0m:
 set _WARNING_LABEL=[93mWarning[0m:
 
-set _SOURCE_DIR=%_ROOT_DIR%src
-set _TARGET_DIR=%_ROOT_DIR%target
-set _DOCS_DIR=%_TARGET_DIR%\docs
-set _LOG_DIR=%_TARGET_DIR%\logs
+set "_SOURCE_DIR=%_ROOT_DIR%src"
+set "_TARGET_DIR=%_ROOT_DIR%target"
+set "_DOCS_DIR=%_TARGET_DIR%\docs"
+set "_LOG_DIR=%_TARGET_DIR%\logs"
 
 set _MAIN_CLASS_NAME=Main
 set _MAIN_PKG_NAME=cdsexamples
 set _MAIN_CLASS=%_MAIN_PKG_NAME%.%_MAIN_CLASS_NAME%
 
 set _APP_NAME=DottyExample
-set _JAR_FILE=%_TARGET_DIR%\%_APP_NAME%.jar
-set _CLASSLIST_FILE=%_TARGET_DIR%\%_APP_NAME%.classlist
-set _JSA_FILE=%_TARGET_DIR%\%_APP_NAME%.jsa
+set "_JAR_FILE=%_TARGET_DIR%\%_APP_NAME%.jar"
+set "_CLASSLIST_FILE=%_TARGET_DIR%\%_APP_NAME%.classlist"
+set "_JSA_FILE=%_TARGET_DIR%\%_APP_NAME%.jsa"
 
 if not defined JAVA11_HOME (
     echo %_ERROR_LABEL% Java 11 installation not found 1>&2
@@ -105,7 +105,7 @@ set _DOC_CMD=dotd.bat
 set _RUN_CMD=dotr.bat
 goto :eof
 
-rem input parameter: %*
+@rem input parameter: %*
 :args
 set _CLEAN=0
 set _COMPILE=0
@@ -124,7 +124,7 @@ if not defined __ARG (
     goto args_done
 )
 if "%__ARG:~0,1%"=="-" (
-    rem options
+    @rem options
     if /i "%__ARG:~0,6%"=="-iter:" (
         call :iter "%__ARG:~6%"
         if not !_EXITCODE!==0 goto :eof
@@ -139,8 +139,7 @@ if "%__ARG:~0,1%"=="-" (
         goto args_done
     )
 ) else (
-    rem subcommands
-    set /a __N+=1 
+    @rem subcommands
     if /i "%__ARG%"=="clean" ( set _CLEAN=1
     ) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
     ) else if /i "%__ARG%"=="doc" ( set _DOC=1
@@ -153,6 +152,7 @@ if "%__ARG:~0,1%"=="-" (
         set _EXITCODE=1
         goto args_done
     )
+    set /a __N+=1 
 )
 shift
 goto :args_loop
@@ -201,16 +201,16 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :compile
-set __SOURCE_FILE=%_SOURCE_DIR%\main\scala\%_MAIN_CLASS_NAME%.scala
+set "__SOURCE_FILE=%_SOURCE_DIR%\main\scala\%_MAIN_CLASS_NAME%.scala"
 if not exist "%__SOURCE_FILE%" (
     echo %_ERROR_LABEL% Scala source file not found ^(%__SOURCE_FILE%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set __CLASSES_DIR=%_TARGET_DIR%\classes
+set "__CLASSES_DIR=%_TARGET_DIR%\classes"
 if not exist "%__CLASSES_DIR%\" mkdir "%__CLASSES_DIR%" 1>NUL
 
-set __TIMESTAMP_FILE=%__CLASSES_DIR%\.latest-build
+set "__TIMESTAMP_FILE=%__CLASSES_DIR%\.latest-build"
 
 set __SCALA_SOURCE_FILES=
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
@@ -220,7 +220,7 @@ for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
 call :compile_required "%__TIMESTAMP_FILE%" "%__SCALA_SOURCE_FILES%"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
-rem see https://docs.scala-lang.org/overviews/compiler-options/index.html
+@rem see https://docs.scala-lang.org/overviews/compiler-options/index.html
 set __COMPILE_OPTS=-deprecation -feature
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_COMPILE_CMD% %__COMPILE_OPTS% -d %__CLASSES_DIR% %__SCALA_SOURCE_FILES% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Scala source files to directory !__CLASSES_DIR:%_ROOT_DIR%=! 1>&2
@@ -232,7 +232,7 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 
-set __MANIFEST_FILE=%_TARGET_DIR%\MANIFEST.MF
+set "__MANIFEST_FILE=%_TARGET_DIR%\MANIFEST.MF"
 (
     echo Manifest-Version: 1.0
     echo Built-By: %USERNAME%
@@ -257,14 +257,14 @@ if %_DEBUG%==1 ( set __REDIRECT_STDOUT=
 ) else ( set __REDIRECT_STDOUT=1^>NUL
 )
 
-rem Important: options containing an "=" character must be quoted
+@rem Important: options containing an "=" character must be quoted
 set __JAVA_TOOL_OPTS="-J-XX:DumpLoadedClassList=%_CLASSLIST_FILE%"
 if %_DEBUG%==1 (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-J-Xlog:class+path^=info"
 ) else if %_VERBOSE%==1 (
-    set __LOG_FILE=%_LOG_DIR%\log_classlist.log
+    set "__LOG_FILE=%_LOG_DIR%\log_classlist.log"
     if not exist "%_LOG_DIR%\" mkdir "%_LOG_DIR%" 1>NUL
-    rem !!! Ignore drive letter (temporary hack, see JDK-8215398)
+    @rem !!! Ignore drive letter (temporary hack, see JDK-8215398)
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-J-Xlog:class+path:file=!__LOG_FILE:~2!"
 ) else (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -J-Xlog:disable
@@ -285,7 +285,7 @@ if %_DEBUG%==1 (
 ) else if %_VERBOSE%==1 (
     set __LOG_FILE=%_LOG_DIR%\log_dump.log
     if not exist "%_LOG_DIR%\" mkdir "%_LOG_DIR%" 1>NUL
-    rem !!! Ignore drive letter (temporary hack, see JDK-8215398)
+    @rem !!! Ignore drive letter (temporary hack, see JDK-8215398)
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-J-Xlog:class+path:file=!__LOG_FILE:~2!"
 ) else (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -J-Xlog:disable
@@ -304,8 +304,8 @@ for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
 )
 goto :eof
 
-rem input parameter: 1=timestamp file 2=source files
-rem output parameter: _COMPILE_REQUIRED
+@rem input parameter: 1=timestamp file 2=source files
+@rem output parameter: _COMPILE_REQUIRED
 :compile_required
 set __TIMESTAMP_FILE=%~1
 set __SOURCE_FILES=%~2
@@ -331,7 +331,7 @@ if %_COMPILE_REQUIRED%==0 (
 )
 goto :eof
 
-rem output parameter: _NEWER
+@rem output parameter: _NEWER
 :newer
 set __TIMESTAMP1=%~1
 set __TIMESTAMP2=%~2
@@ -349,8 +349,8 @@ if %__TIMESTAMP1_DATE% gtr %__TIMESTAMP2_DATE% ( set _NEWER=1
 )
 goto :eof
 
-rem input parameter: 1=file path
-rem output parameter: _TIMESTAMP
+@rem input parameter: 1=file path
+@rem output parameter: _TIMESTAMP
 :timestamp
 set __FILE_PATH=%~1
 
@@ -391,13 +391,13 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% ^(#iterations=%_RUN_ITER%^) %_RUN_CMD% %__J
 set __N=1
 :run_iter
 set __SHARE_LOG_FILE=%_LOG_DIR%\log_share_%_SHARE_FLAG%.log
-rem Important: options containing an "=" character must be quoted
+@rem Important: options containing an "=" character must be quoted
 set __JAVA_TOOL_OPTS=-J-Xshare:%_SHARE_FLAG% "-J-XX:SharedArchiveFile=%_JSA_FILE%"
 if %_DEBUG%==1 (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-J-Xlog:class+load^=info"
 ) else if %_VERBOSE%==1 (
     if not exist "%_LOG_DIR%\" mkdir "%_LOG_DIR%" 1>NUL
-    rem !!! Ignore drive letter (temporary hack, see JDK-8215398)
+    @rem !!! Ignore drive letter (temporary hack, see JDK-8215398)
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-J-Xlog:class+load:file=!__SHARE_LOG_FILE:~2!"
 ) else (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -J-Xlog:disable
@@ -418,7 +418,7 @@ if %__N% lss %_RUN_ITER% (
 )
 goto :eof
 
-rem input parameter: %1=share log file %2=n-th iteration
+@rem input parameter: %1=share log file %2=n-th iteration
 :report
 set __SHARE_LOG_FILE=%~1
 set __N=%~2
@@ -460,7 +460,7 @@ for /f "delims=" %%i in ('findstr /c:"] %_MAIN_PKG_NAME%." "%__SHARE_LOG_FILE%" 
     set /a __N_MAIN+=1
 )
 
-rem Java libraries
+@rem Java libraries
 set __N_JAVA_IO=0
 if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] java.io." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] java.io." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: java.io."') do (
@@ -574,10 +574,10 @@ if %__N% equ %_RUN_ITER% (
         set __TIME_TEXT=Average load time: !_AVERAGE!s
     )
     set /a __N_PACKAGES=__N_MAIN
-    rem Java libraries
+    @rem Java libraries
     set /a __N_PACKAGES=__N_PACKAGES+__N_JAVA_IO+__N_JAVA_LANG+__N_JAVA_MATH+__N_JAVA_NET+__N_JAVA_NIO
     set /a __N_PACKAGES=__N_PACKAGES+__N_JAVA_SECURITY+__N_JAVA_UTIL+__N_JDK+__N_SUN
-    rem Scala libraries
+    @rem Scala libraries
     set /a __N_PACKAGES=__N_PACKAGES+__N_SCALA+__N_SCALA_COLLECTION+__N_SCALA_COMPAT
 	set /a __N_PACKAGES=__N_PACKAGES+__N_SCALA_IO+__N_SCALA_MATH
     set /a __N_PACKAGES=__N_PACKAGES+__N_SCALA_REFLECT+__N_SCALA_RUNTIME+__N_SCALA_SYS+__N_SCALA_UTIL
@@ -601,9 +601,9 @@ if %__N% equ %_RUN_ITER% (
 )
 goto :eof
 
-rem output parameter: _AVERAGE
+@rem output parameter: _AVERAGE
 :average
-rem we construct string __LIST to be passed into the ps1 script
+@rem we construct string __LIST to be passed into the ps1 script
 set __LIST=
 for /l %%i in (1, 1, %_RUN_ITER%) do set __LIST=!__LIST!,!__LOAD_TIME[%%i]!
 set __PS1_SCRIPT= ^
@@ -618,8 +618,8 @@ set _AVERAGE=%_AVERAGE:,=.%
 if %_DEBUG%==1 echo %_DEBUG_LABEL% __LIST=%__LIST% _AVERAGE=%_AVERAGE% 1>&2
 goto :eof
 
-rem ##########################################################################
-rem ## Cleanups
+@rem #########################################################################
+@rem ## Cleanups
 
 :end
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2

@@ -2,12 +2,16 @@ import mill._, scalalib._
 import $file.^.common
 
 object app extends ScalaModule {
+
   def scalaVersion = common.scalaVersion
   def scalacOptions = common.scalacOptions
 
   def forkArgs = common.forkArgs
 
-  def mainClass = Some("Main")
+  def mainClass = T.input {
+    Some(common.getBuildProp("mainClassName", "Main", T.ctx))
+  }
+
   def sources = T.sources { common.scalaSourcePath }
   // def resources = T.sources { os.pwd / "resources" }
 
@@ -29,4 +33,5 @@ object app extends ScalaModule {
       "org.specs2.runner.JUnitRunner" // org.specs2.Specs2Framework
     )
   }
+
 }

@@ -263,6 +263,10 @@ The configuration file [**`enum-Planet\build.sc`**](enum-Planet/build.sc) is a s
   &nbsp;
   <b>def</b> forkArgs = common.forkArgs
   &nbsp;
+  <b>def</b> mainClass = T.input {
+    Some(common.getBuildProp(<span style="color:#990000;">"mainClassName"</span>, <span style="color:#990000;">"Main"</span>, T.ctx))
+  }
+  &nbsp;
   <b>def</b> mainClass = Some(<span style="color:#990000;">"Planet"</span>)
   <b>def</b> sources = T.sources { common.scalaSourcePath }
   <b>def</b> clean() = T.command {

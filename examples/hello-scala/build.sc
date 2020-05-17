@@ -2,7 +2,9 @@ import mill._, scalalib._
 import $file.^.common
 
 object javaApp extends JavaModule {
-  def mainClass = Some("Main")
+  def mainClass = T.input {
+    Some(common.getBuildProp("mainClassName", "Main", T.ctx))
+  }
   def sources = T.sources { common.javaSourcePath }
 }
 
@@ -14,7 +16,10 @@ object app extends ScalaModule {
 
   def forkArgs = common.forkArgs
 
-  def mainClass = Some("hello")
+  def mainClass = T.input {
+    Some(common.getBuildProp("mainClassName", "hello", T.ctx))
+  }
+
   def sources = T.sources { common.scalaSourcePath }
   // def resources = T.sources { os.pwd / "resources" }
   // def runClasspath = super.runClasspath() ++ sources()

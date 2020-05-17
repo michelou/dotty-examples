@@ -63,12 +63,12 @@ set _DEBUG_LABEL=[46m[%_BASENAME%][0m
 set _ERROR_LABEL=[91mError[0m:
 set _WARNING_LABEL=[93mWarning[0m:
 
-set _SOURCE_DIR=%_ROOT_DIR%src
-set _TARGET_DIR=%_ROOT_DIR%target
-set _CLASSES_DIR=%_TARGET_DIR%\classes
-set _TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes
-set _TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes
-set _TARGET_DOCS_DIR=%_TARGET_DIR%\docs
+set "_SOURCE_DIR=%_ROOT_DIR%src"
+set "_TARGET_DIR=%_ROOT_DIR%target"
+set "_CLASSES_DIR=%_TARGET_DIR%\classes"
+set "_TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes"
+set "_TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes"
+set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
 goto :eof
 
 @rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
@@ -76,7 +76,7 @@ goto :eof
 set _MAIN_CLASS_DEFAULT=Main
 set _MAIN_ARGS_DEFAULT=
 
-set __PROPS_FILE=%_ROOT_DIR%project\build.properties
+set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
 if exist "%__PROPS_FILE%" (
     for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
         set _NAME=%%~i
@@ -564,7 +564,7 @@ for %%i in (%_TEST_CLASSES_DIR%\*Test.class) do (
 )
 goto :eof
 
-rem output parameter: _DURATION
+@rem output parameter: _DURATION
 :duration
 set __START=%~1
 set __END=%~2

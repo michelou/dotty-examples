@@ -19,7 +19,7 @@ This document is part of a series of topics related to [Dotty] on Windows:
 - [Data Sharing and Dotty on Windows](CDS.md)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-[JMH], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_example, [Node.js][nodejs_examples] are other trending topics we are currently monitoring.
+[JMH], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples] and [TruffleSqueak][trufflesqueak_examples] are other trending topics we are currently monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -60,8 +60,8 @@ C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
 C:\opt\cfr-0.149\            <i>(  1.9 MB)</i>
 C:\opt\dotty-0.24.0-RC1\     <i>( 26.3 MB)</i>
 C:\opt\Git-2.26.2\           <i>(271.0 MB)</i>
-C:\opt\gradle-6.4\           <i>(109.0 MB)</i>
-C:\opt\Mill-0.7.0\           <i>( 40.9 MB)</i>
+C:\opt\gradle-6.4.1\         <i>(109.0 MB)</i>
+C:\opt\Mill-0.7.1\           <i>( 40.9 MB)</i>
 C:\opt\sbt-1.3.10\           <i>( 61.0 MB)</i>
 C:\opt\scala-2.13.2\         <i>( 22.4 MB, 588 MB with API docs)</i>
 </pre>
@@ -276,7 +276,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_252, java 1.8.0_252, scalac 2.13.2, dotc 0.24.0-RC1
-   ant 1.10.8, gradle 6.4, mill 0.7.0, mvn 3.6.3, sbt 1.3.10/2.12.10,
+   ant 1.10.8, gradle 6.4.1, mill 0.7.1, mvn 3.6.3, sbt 1.3.10/2.12.10,
    cfr 0.149, python 3.8.0, bloop v1.3.4,
    git 2.26.2.windows.1, diff 3.7, bash 4.4.23(1)-release
 
@@ -291,7 +291,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_252, java 1.8.0_252, scalac 2.13.2, dotc 0.24.0-RC1
-   ant 1.10.8, gradle 6.4, mill 0.7.0, mvn 3.6.3, sbt 1.3.10/2.12.10,
+   ant 1.10.8, gradle 6.4.1, mill 0.7.1, mvn 3.6.3, sbt 1.3.10/2.12.10,
    cfr 0.149, python 3.8.0, bloop v1.3.4,
    git 2.26.2.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
@@ -301,8 +301,8 @@ Tool paths:
    C:\opt\scala-2.13.2\bin\scalac.bat
    C:\opt\dotty-0.24.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.8\bin\ant.bat
-   C:\opt\gradle-6.4\bin\gradle.bat
-   C:\opt\Mill-0.7.0\mill.bat
+   C:\opt\gradle-6.4.1\bin\gradle.bat
+   C:\opt\Mill-0.7.1\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
    C:\opt\sbt-1.3.10\bin\sbt.bat
    C:\opt\cfr-0.149\bin\cfr.bat
@@ -718,7 +718,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.8-bin.zip</a>                       <i>( 9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                      <i>( 9 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.24.0-RC1">dotty-0.24.0-RC1.zip</a>                            <i>(24 MB)</i>
-<a href="https://gradle.org/install/">gradle-6.4-bin.zip</a><i>                              (97 MB)</i>
+<a href="https://gradle.org/install/">gradle-6.4.1-bin.zip</a><i>                            (97 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u252b09.zip</a>  <i>(99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.26.2-64-bit.7z.exe</a>                <i>(41 MB)</i>
 <a href="https://www.scala-sbt.org/download.html">sbt-1.3.10.zip</a>                                  <i>(55 MB)</i>
@@ -826,7 +826,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 [gradle_install]: https://gradle.org/install/
-[gradle_relnotes]: https://docs.gradle.org/6.4/release-notes.html
+[gradle_relnotes]: https://docs.gradle.org/6.4.1/release-notes.html
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [jar_file]: https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html
 [java_bytecode]: https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html
@@ -868,6 +868,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [scala_releases]: https://www.scala-lang.org/files/archive/
 [scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.2
 [scalac_cli]: https://docs.scala-lang.org/overviews/compiler-options/index.html
+[trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_bash_script]: https://www.gnu.org/software/bash/manual/bash.html
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [windows_batch_file]: https://en.wikibooks.org/wiki/Windows_Batch_Scripting
