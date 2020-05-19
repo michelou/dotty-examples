@@ -1,11 +1,11 @@
 @echo off
 setlocal enabledelayedexpansion
 
-rem only for interactive debugging
+@rem only for interactive debugging
 set _DEBUG=0
 
-rem ##########################################################################
-rem ## Environment setup
+@rem #########################################################################
+@rem ## Environment setup
 
 set _BASENAME=%~n0
 
@@ -16,10 +16,14 @@ if not %_EXITCODE%==0 goto end
 
 call :args %*
 if not %_EXITCODE%==0 goto end
-if defined _HELP call :help & exit /b %_EXITCODE%
 
-rem ##########################################################################
-rem ## Main
+@rem #########################################################################
+@rem ## Main
+
+if defined _HELP (
+    call :help
+    exit /b !_EXITCODE!
+)
 
 set _JDK_PATH=
 set _SCALA_PATH=
@@ -48,39 +52,39 @@ call :dotc
 if not %_EXITCODE%==0 goto end
 
 call :ant
-rem optional
-rem if not %_EXITCODE%==0 goto end
+@rem optional
+@rem if not %_EXITCODE%==0 goto end
 set _EXITCODE=0
 
 call :gradle
-rem optional
-rem if not %_EXITCODE%==0 goto end
+@rem optional
+@rem if not %_EXITCODE%==0 goto end
 set _EXITCODE=0
 
 call :mill
-rem optional
-rem if not %_EXITCODE%==0 goto end
+@rem optional
+@rem if not %_EXITCODE%==0 goto end
 set _EXITCODE=0
 
 call :mvn
-rem optional
-rem if not %_EXITCODE%==0 goto end
+@rem optional
+@rem if not %_EXITCODE%==0 goto end
 set _EXITCODE=0
 
 call :sbt
-rem optional
-rem if not %_EXITCODE%==0 goto end
+@rem optional
+@rem if not %_EXITCODE%==0 goto end
 set _EXITCODE=0
 
 call :cfr
 if not %_EXITCODE%==0 (
-    rem optional
+    @rem optional
     echo %_WARNING_LABEL% CFR installation not found 1>&2
     set _EXITCODE=0
 )
 call :bloop
 if not %_EXITCODE%==0 (
-    rem optional
+    @rem optional
     echo %_WARNING_LABEL% Bloop installation not found 1>&2
     set _EXITCODE=0
 )
@@ -94,24 +98,24 @@ if "%~1"=="clean" call :clean
 
 goto end
 
-rem ##########################################################################
-rem ## Subroutines
+@rem #########################################################################
+@rem ## Subroutines
 
-rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
+@rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 :env
-rem ANSI colors in standard Windows 10 shell
-rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+@rem ANSI colors in standard Windows 10 shell
+@rem see https://gist.github.com/mlocati/#file-win10colors-cmd
 set _DEBUG_LABEL=[46m[%_BASENAME%][0m
 set _ERROR_LABEL=[91mError[0m:
 set _WARNING_LABEL=[93mWarning[0m:
 
 for /f "tokens=1,* delims=:" %%i in ('chcp') do set _CODE_PAGE_DEFAULT=%%j
-rem make sure we use UTF-8 encoding for console outputs
+@rem make sure we use UTF-8 encoding for console outputs
 chcp 65001 1>NUL
 goto :eof
 
-rem input parameter: %*
-rem output parameter: _HELP, _VERBOSE
+@rem input parameter: %*
+@rem output parameter: _HELP, _VERBOSE
 :args
 set _HELP=
 set _BASH=0
@@ -122,7 +126,7 @@ set "__ARG=%~1"
 if not defined __ARG goto args_done
 
 if "%__ARG:~0,1%"=="-" (
-    rem option
+    @rem option
     if /i "%__ARG%"=="-bash" ( set _BASH=1
     ) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
@@ -132,7 +136,7 @@ if "%__ARG:~0,1%"=="-" (
         goto args_done
     )
 ) else (
-    rem subcommand
+    @rem subcommand
     if /i "%__ARG%"=="help" ( set _HELP=1
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
@@ -157,7 +161,7 @@ echo   Subcommands:
 echo     help        display this help message
 goto :eof
 
-rem output parameter(s): _JDK_HOME
+@rem output parameter(s): _JDK_HOME
 :jdk
 set _JDK_HOME=
 
@@ -166,19 +170,19 @@ for /f %%f in ('where javac.exe 2^>NUL') do set __JAVAC_CMD=%%f
 if defined __JAVAC_CMD (
     call :is_java11 "%__JAVAC_CMD%"
     if not defined _IS_JAVA11 (
-        for %%i in ("%__JAVAC_CMD%") do set __BIN_DIR=%%~dpsi
-        for %%f in ("%__BIN_DIR%") do set _JDK_HOME=%%~dpsi
+        for %%i in ("%__JAVAC_CMD%") do set "__BIN_DIR=%%~dpsi"
+        for %%f in ("%__BIN_DIR%") do set "_JDK_HOME=%%~dpsi"
     )
 )
 if defined JDK_HOME (
-    set _JDK_HOME=%JDK_HOME%
+    set "_JDK_HOME=%JDK_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable JDK_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\jdk-1.8*" 2^>NUL') do set _JDK_HOME=!_PATH!\%%f
+    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\jdk-1.8*" 2^>NUL') do set "_JDK_HOME=!_PATH!\%%f"
     if not defined _JDK_HOME (
-        set _PATH=C:\Progra~1\Java
-        for /f %%f in ('dir /ad /b "!_PATH!\jdk1.8*" 2^>NUL') do set _JDK_HOME=!_PATH!\%%f
+        set "_PATH=%ProgramFiles%\Java"
+        for /f %%f in ('dir /ad /b "!_PATH!\jdk1.8*" 2^>NUL') do set "_JDK_HOME=!_PATH!\%%f"
     )
     if defined _JDK_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Java SDK installation directory !_JDK_HOME! 1>&2
@@ -189,11 +193,11 @@ if not exist "%_JDK_HOME%\bin\javac.exe" (
     set _EXITCODE=1
     goto :eof
 )
-rem variable _JDK_PATH is prepended to PATH, so path separator must appear as last character
+@rem variable _JDK_PATH is prepended to PATH, so path separator must appear as last character
 set "_JDK_PATH=%_JDK_HOME%\bin;"
 goto :eof
 
-rem output parameter(s): _JDK11_HOME
+@rem output parameter(s): _JDK11_HOME
 :jdk11
 set _JDK11_HOME=
 
@@ -209,17 +213,17 @@ if defined __JAVAC_CMD (
 if not defined _JDK11_HOME if defined JDK_HOME (
     call :is_java11 "%JDK_HOME%\bin\javac.exe"
     if defined _IS_JAVA11 (
-        set _JDK11_HOME=%JDK_HOME%
+        set "_JDK11_HOME=%JDK_HOME%"
         if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable JDK_HOME 1>&2
     )
 )
 if not defined _JDK11_HOME (
     set __PATH=C:\opt
-    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\jdk-11*" 2^>NUL') do set _JDK11_HOME=!__PATH!\%%f
+    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\jdk-11*" 2^>NUL') do set "_JDK11_HOME=!__PATH!\%%f"
 )
 if not defined _JDK11_HOME (
-    set __PATH=C:\Progra~1\Java
-    for /f %%f in ('dir /ad /b "!__PATH!\jdk-11*" 2^>NUL') do set _JDK11_HOME=!__PATH!\%%f
+    set "__PATH=%ProgramFiles%\Java"
+    for /f %%f in ('dir /ad /b "!__PATH!\jdk-11*" 2^>NUL') do set "_JDK11_HOME=!__PATH!\%%f"
 )
 if not exist "%_JDK11_HOME%\bin\javac.exe" (
     echo Error: javac executable not found ^(%_JDK11_HOME%^) 1>&2
@@ -228,8 +232,8 @@ if not exist "%_JDK11_HOME%\bin\javac.exe" (
 )
 goto :eof
 
-rem input parameter(s): %1 = javac file path
-rem output parameter(s): _IS_JAVA11
+@rem input parameter(s): %1 = javac file path
+@rem output parameter(s): _IS_JAVA11
 :is_java11
 set _IS_JAVA11=
 
@@ -247,7 +251,7 @@ where /q scalac.bat
 if %ERRORLEVEL%==0 goto :eof
 
 if defined SCALA_HOME (
-    set _SCALA_HOME=%SCALA_HOME%
+    set "_SCALA_HOME=%SCALA_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SCALA_HOME 1>&2
 ) else (
     set _PATH=C:\opt
@@ -264,7 +268,7 @@ if not exist "%_SCALA_HOME%\bin\scalac.bat" (
 set "_SCALA_PATH=;%_SCALA_HOME%\bin"
 goto :eof
 
-rem output parameter(s): _DOTTY_HOME, _DOTTY_PATH
+@rem output parameter(s): _DOTTY_HOME, _DOTTY_PATH
 :dotc
 set _DOTTY_HOME=
 set _DOTTY_PATH=
@@ -278,7 +282,7 @@ if defined __DOTC_CMD (
     rem keep _DOTTY_PATH undefined since executable already in path
     goto :eof
 ) else if defined DOTTY_HOME (
-    set _DOTTY_HOME=%DOTTY_HOME%
+    set "_DOTTY_HOME=%DOTTY_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable DOTTY_HOME 1>&2
 ) else (
     set _PATH=C:\opt
@@ -295,7 +299,7 @@ if not exist "%_DOTTY_HOME%\bin\dotc.bat" (
 set "_DOTTY_PATH=;%_DOTTY_HOME%\bin"
 goto :eof
 
-rem output parameter(s): _ANT_HOME, _ANT_PATH
+@rem output parameter(s): _ANT_HOME, _ANT_PATH
 :ant
 set _ANT_HOME=
 set _ANT_PATH=
@@ -309,7 +313,7 @@ if defined __ANT_CMD (
     rem keep _ANT_PATH undefined since executable already in path
     goto :eof
 ) else if defined ANT_HOME (
-    set _ANT_HOME=%ANT_HOME%
+    set "_ANT_HOME=%ANT_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable ANT_HOME 1>&2
 ) else (
     set __PATH=C:\opt
@@ -317,7 +321,7 @@ if defined __ANT_CMD (
     ) else (
         for /f %%f in ('dir /ad /b "!__PATH!\apache-ant-*" 2^>NUL') do set "_ANT_HOME=!__PATH!\%%f"
         if not defined _ANT_HOME (
-            set __PATH=C:\Progra~1
+            set "__PATH=%ProgramFiles%"
             for /f %%f in ('dir /ad /b "!__PATH!\apache-ant-*" 2^>NUL') do set "_ANT_HOME=!__PATH!\%%f"
         )
     )
@@ -346,7 +350,7 @@ if defined GRADLE_HOME (
     ) else (
         for /f %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set "_GRADLE_HOME=!__PATH!\%%f"
         if not defined _GRADLE_HOME (
-            set __PATH=C:\Progra~1
+            set "__PATH=%ProgramFiles%"
             for /f %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set "_GRADLE_HOME=!__PATH!\%%f"
         )
     )
@@ -375,7 +379,7 @@ if defined MILL_HOME (
     ) else (
         for /f %%f in ('dir /ad /b "!__PATH!\mill-*" 2^>NUL') do set "_MILL_HOME=!__PATH!\%%f"
         if not defined _MILL_HOME (
-            set __PATH=C:\Progra~1
+            set "__PATH=%ProgramFiles%"
             for /f %%f in ('dir /ad /b "!__PATH!\mill-*" 2^>NUL') do set "_MILL_HOME=!__PATH!\%%f"
         )
     )
@@ -396,7 +400,7 @@ where /q mvn.cmd
 if %ERRORLEVEL%==0 goto :eof
 
 if defined MAVEN_HOME (
-    set _MVN_HOME=%MAVEN_HOME%
+    set "_MVN_HOME=%MAVEN_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MAVEN_HOME 1>&2
 ) else (
     set _PATH=C:\opt
@@ -413,7 +417,7 @@ if not exist "%_MVN_HOME%\bin\mvn.cmd" (
 set "_MVN_PATH=;%_MVN_HOME%\bin"
 goto :eof
 
-rem output parameter(s): _SBT_PATH
+@rem output parameter(s): _SBT_PATH
 :sbt
 set _SBT_PATH=
 
@@ -433,7 +437,7 @@ if defined __SBT_CMD (
     ) else (
         for /f %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "__SBT_HOME=!__PATH!\%%f"
         if not defined __SBT_HOME (
-            set __PATH=C:\Progra~1
+            set "__PATH=%ProgramFiles%"
             for /f %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "__SBT_HOME=!__PATH!\%%f"
         )
     )
@@ -452,7 +456,7 @@ where /q cfr.bat
 if %ERRORLEVEL%==0 goto :eof
 
 if defined CFR_HOME (
-    set _CFR_HOME=%CFR_HOME%
+    set "_CFR_HOME=%CFR_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable CFR_HOME 1>&2
 ) else (
     set _PATH=C:\opt
@@ -481,7 +485,7 @@ if defined __PYTHON_CMD (
     rem keep _PYTHON_PATH undefined since executable already in path
     goto :eof
 ) else if defined PYTHON_HOME (
-    set __PYTHON_HOME=%PYTHON_HOME%
+    set "__PYTHON_HOME=%PYTHON_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable PYTHON_HOME 1>&2
 ) else (
     set _PATH=C:\opt
@@ -495,15 +499,15 @@ if not exist "%__PYTHON_HOME%\python.exe" (
     set _EXITCODE=1
     goto :eof
 )
-rem variable _PYTHON_PATH is prepended to PATH, so path separator must appear as last character
+@rem variable _PYTHON_PATH is prepended to PATH, so path separator must appear as last character
 set "_PYTHON_PATH=%__PYTHON_HOME%;"
 goto :eof
 
-rem output parameter(s): _BLOOP_PATH
+@rem output parameter(s): _BLOOP_PATH
 :bloop
 set _BLOOP_PATH=
 
-rem bloop depends on python
+@rem bloop depends on python
 call :python
 if not %_EXITCODE%==0 goto :eof
 
@@ -515,7 +519,7 @@ if defined __BLOOP_CMD (
     rem keep _BLOOP_PATH undefined since executable already in path
     goto :eof
 ) else if defined BLOOP_HOME (
-    set __BLOOP_HOME=%BLOOP_HOME%
+    set "__BLOOP_HOME=%BLOOP_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable BLOOP_HOME 1>&2
 ) else (
     set _PATH=C:\opt
@@ -532,7 +536,7 @@ if not exist "%__BLOOP_HOME%\bloop.cmd" (
 set "_BLOOP_PATH=;%__BLOOP_HOME%"
 goto :eof
 
-rem output parameter(s): _VSCODE_PATH
+@rem output parameter(s): _VSCODE_PATH
 :vscode
 set _VSCODE_PATH=
 
@@ -552,7 +556,7 @@ if defined __CODE_CMD (
     ) else (
         for /f %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "__VSCODE_HOME=!__PATH!\%%f"
         if not defined __VSCODE_HOME (
-            set __PATH=C:\Progra~1
+            set "__PATH=%ProgramFiles%"
             for /f %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "__VSCODE_HOME=!__PATH!\%%f"
         )
     )
@@ -568,7 +572,7 @@ if not exist "%__VSCODE_HOME%\code.exe" (
 set "_VSCODE_PATH=;%__VSCODE_HOME%"
 goto :eof
 
-rem output parameter(s): _GIT_HOME, _GIT_PATH
+@rem output parameter(s): _GIT_HOME, _GIT_PATH
 :git
 set _GIT_HOME=
 set _GIT_PATH=
@@ -587,14 +591,14 @@ if defined __GIT_CMD (
     goto :eof
 ) else if defined GIT_HOME (
     set "_GIT_HOME=%GIT_HOME%"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GIT_HOME
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GIT_HOME 1>&2
 ) else (
     set __PATH=C:\opt
     if exist "!__PATH!\Git\" ( set "_GIT_HOME=!__PATH!\Git"
     ) else (
         for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         if not defined _GIT_HOME (
-            set __PATH=C:\Progra~1
+            set "__PATH=%ProgramFiles%"
             for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         )
     )
@@ -615,13 +619,13 @@ for %%f in ("%~dp0") do set __ROOT_DIR=%%~sf
 for /f %%i in ('dir /ad /b "%__ROOT_DIR%\" 2^>NUL') do (
     for /f %%j in ('dir /ad /b "%%i\target\scala-*" 2^>NUL') do (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% rmdir /s /q %__ROOT_DIR%%%i\target\%%j\classes 1^>NUL 2^>^&1 1>&2
-        rmdir /s /q %__ROOT_DIR%%%i\target\%%j\classes 1>NUL 2>&1
+        rmdir /s /q "%__ROOT_DIR%%%i\target\%%j\classes" 1>NUL 2>&1
     )
 )
 goto :eof
 
-rem output parameter: _SBT_VERSION
-rem Note: SBT requires special handling to know its version (no comment)
+@rem output parameter: _SBT_VERSION
+@rem Note: SBT requires special handling to know its version (no comment)
 :sbt_version
 set _SBT_VERSION=
 for /f %%i in ('where sbt.bat') do for %%f in ("%%~dpi..") do set __SBT_LAUNCHER=%%~sf\bin\sbt-launch.jar
@@ -732,8 +736,8 @@ if %__VERBOSE%==1 (
 )
 goto :eof
 
-rem ##########################################################################
-rem ## Cleanups
+@rem #########################################################################
+@rem ## Cleanups
 
 :end
 endlocal & (
@@ -746,7 +750,7 @@ endlocal & (
         set "PATH=%_JDK_PATH%%_PYTHON_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MILL_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE% "%_GIT_HOME%"
         if %_BASH%==1 (
-            rem see https://conemu.github.io/en/GitForWindows.html
+            @rem see https://conemu.github.io/en/GitForWindows.html
             if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_HOME%\usr\bin\bash.exe --login 1>&2
             cmd.exe /c "%_GIT_HOME%\usr\bin\bash.exe --login"
         )

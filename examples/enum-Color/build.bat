@@ -284,7 +284,7 @@ echo %_JAVAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d "%_CLASSES_DIR%" 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVAC_CMD% "@%__OPTS_FILE%" "@%__LIST_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Java source files to directory !_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
-%_JAVAC_CMD% "@%__OPTS_FILE%" "@%__LIST_FILE%"
+call "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__LIST_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Compilation of main Java source files failed 1>&2
     set _EXITCODE=1

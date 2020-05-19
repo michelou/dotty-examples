@@ -11,7 +11,7 @@ set _BASENAME=%~n0
 
 set _EXITCODE=0
 
-for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
+for %%f in ("%~dp0") do set "_ROOT_DIR=%%~f"
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -49,7 +49,7 @@ goto end
 @rem ## Subroutines
 
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-@rem                    _COMPILE_CMD, _DOC_CMD, _JAR_CMD, _JAVA_CMD, _RUN_CMD
+@rem                    _SCALAC_CMD, _SCALADOC_CMD, _JAR_CMD, _JAVA_CMD, _RUN_CMD
 :env
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
@@ -84,7 +84,7 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-set _JAR_CMD=%JAVA11_HOME%\bin\jar.exe
+set "_JAR_CMD=%JAVA11_HOME%\bin\jar.exe"
 
 where /q "%JAVA11_HOME%\bin":java.exe
 if not %ERRORLEVEL%==0 (
@@ -92,7 +92,7 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-set _JAVA_CMD=%JAVA11_HOME%\bin\java.exe
+set "_JAVA_CMD=%JAVA11_HOME%\bin\java.exe"
 
 where /q dotc.bat
 if not %ERRORLEVEL%==0 (
@@ -100,8 +100,8 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-set _COMPILE_CMD=dotc.bat
-set _DOC_CMD=dotd.bat
+set _SCALAC_CMD=dotc.bat
+set _SCALADOC_CMD=dotd.bat
 set _RUN_CMD=dotr.bat
 goto :eof
 
@@ -127,7 +127,7 @@ if "%__ARG:~0,1%"=="-" (
     @rem options
     if /i "%__ARG:~0,6%"=="-iter:" (
         call :iter "%__ARG:~6%"
-        if not !_EXITCODE!==0 goto :eof
+        if not !_EXITCODE!==0 goto args_done
     ) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if /i "%__ARG%"=="-share" ( set _SHARE_FLAG=on
     ) else if /i "%__ARG%"=="-share:off" ( set _SHARE_FLAG=off
@@ -152,12 +152,12 @@ if "%__ARG:~0,1%"=="-" (
         set _EXITCODE=1
         goto args_done
     )
-    set /a __N+=1 
+    set /a __N+=1
 )
 shift
 goto :args_loop
 :args_done
-if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _RUN=%_RUN% _RUN_ARGS=%_RUN_ARGS%
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _RUN=%_RUN% _RUN_ARGS=%_RUN_ARGS%
 goto :eof
 
 :help
@@ -188,13 +188,18 @@ set _RUN_ITER=%__ITER%
 goto :eof
 
 :clean
-if not exist "%_TARGET_DIR%\" goto :eof
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q %_TARGET_DIR% 1>&2
-) else if %_VERBOSE%==1 ( echo Delete output directory !_TARGET_DIR:%_ROOT_DIR%=! 1>&2
+call :rmdir "%_TARGET_DIR%"
+goto :eof
+
+@rem input parameter(s): %1=directory path
+:rmdir
+set "__DIR=%~1"
+if not exist "%__DIR%\" goto :eof
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
+) else if %_VERBOSE%==1 ( echo Delete directory !__DIR:%_ROOT_DIR%=! 1>&2
 )
-rmdir /s /q "%_TARGET_DIR%"
+rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to delete output directory %_TARGET_DIR% 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -211,23 +216,24 @@ set "__CLASSES_DIR=%_TARGET_DIR%\classes"
 if not exist "%__CLASSES_DIR%\" mkdir "%__CLASSES_DIR%" 1>NUL
 
 set "__TIMESTAMP_FILE=%__CLASSES_DIR%\.latest-build"
-
-set __SCALA_SOURCE_FILES=
-for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
-    set __SCALA_SOURCE_FILES=!__SCALA_SOURCE_FILES! %%i
-)
-
-call :compile_required "%__TIMESTAMP_FILE%" "%__SCALA_SOURCE_FILES%"
+call :compile_required "%__TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\scala\*.scala"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
+set "__LIST_FILE=%_TARGET_DIR%\scala_files.txt"
+if exist "%__LIST_FILE%" del "%__LIST_FILE%" 1>NUL
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
+    echo %%i >> "%__LIST_FILE%"
+)
 @rem see https://docs.scala-lang.org/overviews/compiler-options/index.html
-set __COMPILE_OPTS=-deprecation -feature
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_COMPILE_CMD% %__COMPILE_OPTS% -d %__CLASSES_DIR% %__SCALA_SOURCE_FILES% 1>&2
+set "__OPTS_FILE=%_TARGET_DIR%\scalac_opts.txt"
+echo -deprecation -feature -d "%__CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__LIST_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Scala source files to directory !__CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
-call %_COMPILE_CMD% %__COMPILE_OPTS% -d %__CLASSES_DIR% %__SCALA_SOURCE_FILES%
+call %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__LIST_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to compile Scala source file %__SOURCE_FILE% 1>&2
+    echo %_ERROR_LABEL% Failed to compile Scala source files 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -242,11 +248,12 @@ set "__MANIFEST_FILE=%_TARGET_DIR%\MANIFEST.MF"
     echo Implementation-Title: %_MAIN_PKG_NAME%
     echo Implementation-Version: 0.1-SNAPSHOT
     echo Main-Class: %_MAIN_CLASS%
-) > %__MANIFEST_FILE%
+) > "%__MANIFEST_FILE%"
+^
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAR_CMD% cfm %_JAR_FILE% %__MANIFEST_FILE% -C %__CLASSES_DIR% . 1>&2
 ) else if %_VERBOSE%==1 ( echo Create Java archive !_JAR_FILE:%_ROOT_DIR%=! 1>&2
 )
-%_JAR_CMD% cfm %_JAR_FILE% %__MANIFEST_FILE% -C %__CLASSES_DIR% .
+call "%_JAR_CMD%" cfm "%_JAR_FILE%" "%__MANIFEST_FILE%" -C "%__CLASSES_DIR%" .
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to generate Java archive %_JAR_FILE% 1>&2
     set _EXITCODE=1
@@ -272,7 +279,7 @@ if %_DEBUG%==1 (
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Create class list file !_CLASSLIST_FILE:%_ROOT_DIR%=! 1>&2
 )
-call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% %__REDIRECT_STDOUT%
+call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath "%_JAR_FILE%" %_MAIN_CLASS% %__REDIRECT_STDOUT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to create file %_CLASSLIST_FILE% 1>&2
     set _EXITCODE=1
@@ -283,7 +290,7 @@ set __JAVA_TOOL_OPTS=-J-Xshare:dump "-J-XX:SharedClassListFile=%_CLASSLIST_FILE%
 if %_DEBUG%==1 (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-J-Xlog:class+path=info"
 ) else if %_VERBOSE%==1 (
-    set __LOG_FILE=%_LOG_DIR%\log_dump.log
+    set "__LOG_FILE=%_LOG_DIR%\log_dump.log"
     if not exist "%_LOG_DIR%\" mkdir "%_LOG_DIR%" 1>NUL
     @rem !!! Ignore drive letter (temporary hack, see JDK-8215398)
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-J-Xlog:class+path:file=!__LOG_FILE:~2!"
@@ -293,41 +300,36 @@ if %_DEBUG%==1 (
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Create Java shared archive !_JSA_FILE:%_ROOT_DIR%=! 1>&2
 )
-call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% %__REDIRECT_STDOUT%
+call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath "%_JAR_FILE%" %_MAIN_CLASS% %__REDIRECT_STDOUT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to create shared archive %_JAR_FILE% 1>&2
     set _EXITCODE=1
     goto :eof
 )
 for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
-    echo %%i> %__TIMESTAMP_FILE%
+    echo %%i> "%__TIMESTAMP_FILE%"
 )
 goto :eof
 
-@rem input parameter: 1=timestamp file 2=source files
+@rem input parameter: 1=timestamp file 2=path (wildcards accepted)
 @rem output parameter: _COMPILE_REQUIRED
 :compile_required
 set __TIMESTAMP_FILE=%~1
-set __SOURCE_FILES=%~2
+set __PATH=%~2
 
 set __SOURCE_TIMESTAMP=00000000000000
-set __N=0
-for %%i in (%__SOURCE_FILES%) do (
-    call :timestamp "%%i"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% !_TIMESTAMP! %%i
-    call :newer "!_TIMESTAMP!" "!__SOURCE_TIMESTAMP!"
-    if !_NEWER!==1 set __SOURCE_TIMESTAMP=!_TIMESTAMP!
-    set /a __N+=1
+for /f "usebackq" %%i in (`powershell -c "gci -recurse '%__PATH%' | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S"`) do (          
+    set __SOURCE_TIMESTAMP=%%i
 )
-if exist "%__TIMESTAMP_FILE%" ( set /p __CLASS_TIMESTAMP=<%__TIMESTAMP_FILE%
-) else ( set __CLASS_TIMESTAMP=00000000000000
+if exist "%__TIMESTAMP_FILE%" ( set /p __GENERATED_TIMESTAMP=<%__TIMESTAMP_FILE%
+) else ( set __GENERATED_TIMESTAMP=00000000000000
 )
-if %_DEBUG%==1 echo %_DEBUG_LABEL% %__CLASS_TIMESTAMP% %__TIMESTAMP_FILE% 1>&2
+if %_DEBUG%==1 echo %_DEBUG_LABEL% %__GENERATED_TIMESTAMP% %__TIMESTAMP_FILE% 1>&2
 
-call :newer "%__SOURCE_TIMESTAMP%" "%__CLASS_TIMESTAMP%"
+call :newer %__SOURCE_TIMESTAMP% %__GENERATED_TIMESTAMP%
 set _COMPILE_REQUIRED=%_NEWER%
-if %_COMPILE_REQUIRED%==0 (
-    if %_RUN%==0 echo No compilation needed ^(%__N% source files^)
+if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
+    echo No compilation needed ^("%__PATH%"^) 1>&2
 )
 goto :eof
 
@@ -372,11 +374,11 @@ for %%i in ("%~dp0\.") do set __PROJECT=%%~ni
 set __DOC_OPTS=-siteroot %_DOCS_DIR% -project %__PROJECT% -project-version 0.1-SNAPSHOT
 
 set __REDIRECT_STDERR=
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALADOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES% 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into !_DOCS_DIR:%_ROOT_DIR%=! 1>&2
 ) else ( set __REDIRECT_STDERR=2^>NUL
 )
-call %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES% %__REDIRECT_STDERR%
+call %_SCALADOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES% %__REDIRECT_STDERR%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Scala documentation generation failed 1>&2
     set _EXITCODE=1
@@ -385,12 +387,13 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :run
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% ^(#iterations=%_RUN_ITER%^) %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% %_RUN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute Java archive ^(#iterations=%_RUN_ITER%^) !_JAR_FILE:%_ROOT_DIR%=! %_RUN_ARGS% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% %_RUN_ARGS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Java archive !_JAR_FILE:%_ROOT_DIR%=! %_RUN_ARGS% 1>&2
 )
+echo #iterations=%_RUN_ITER%
 set __N=1
 :run_iter
-set __SHARE_LOG_FILE=%_LOG_DIR%\log_share_%_SHARE_FLAG%.log
+set "__SHARE_LOG_FILE=%_LOG_DIR%\log_share_%_SHARE_FLAG%.log"
 @rem Important: options containing an "=" character must be quoted
 set __JAVA_TOOL_OPTS=-J-Xshare:%_SHARE_FLAG% "-J-XX:SharedArchiveFile=%_JSA_FILE%"
 if %_DEBUG%==1 (
@@ -402,7 +405,7 @@ if %_DEBUG%==1 (
 ) else (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -J-Xlog:disable
 )
-call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %_MAIN_CLASS% %_RUN_ARGS%
+call %_RUN_CMD% %__JAVA_TOOL_OPTS% -classpath "%_JAR_FILE%" %_MAIN_CLASS% %_RUN_ARGS%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to execute class %_MAIN_CLASS% 1>&2
     set _EXITCODE=1
@@ -507,7 +510,7 @@ for /f "delims=" %%i in ('findstr /c:"] sun." "%__SHARE_LOG_FILE%" ^| findstr /v
     set /a __N_SUN+=1
 )
 
-rem Scala libraries
+@rem Scala libraries
 set __N_SCALA=0
 if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] scala." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] scala." "%__SHARE_LOG_FILE%" ^| findstr /v "scala.collection scala.io scala.math scala.reflect scala.runtime scala.sys scala.util"') do (

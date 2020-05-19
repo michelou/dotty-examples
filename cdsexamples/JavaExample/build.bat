@@ -11,7 +11,7 @@ set _BASENAME=%~n0
 
 set _EXITCODE=0
 
-for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
+for %%f in ("%~dp0") do set "_ROOT_DIR=%%~f"
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -49,7 +49,7 @@ goto end
 @rem ## Subroutines
 
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-@rem                    _COMPILE_CMD, _DOC_CMD, _JAR_CMD, _JAVA_CMD, _RUN_CMD
+@rem                    _SCALAC_CMD, _SCALADOC_CMD, _JAR_CMD, _JAVA_CMD, _RUN_CMD
 :env
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
@@ -84,9 +84,9 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-set _JAVAC_CMD=%JAVA11_HOME%\bin\javac.exe
-set _JAVADOC_CMD=%JAVA11_HOME%\bin\javadoc.exe
-set _JAR_CMD=%JAVA11_HOME%\bin\jar.exe
+set "_JAVAC_CMD=%JAVA11_HOME%\bin\javac.exe"
+set "_JAVADOC_CMD=%JAVA11_HOME%\bin\javadoc.exe"
+set "_JAR_CMD=%JAVA11_HOME%\bin\jar.exe"
 
 where /q "%JAVA11_HOME%\bin":java.exe
 if not %ERRORLEVEL%==0 (
@@ -94,7 +94,7 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-set _JAVA_CMD=%JAVA11_HOME%\bin\java.exe
+set "_JAVA_CMD=%JAVA11_HOME%\bin\java.exe"
 goto :eof
 
 @rem input parameter: %*
@@ -119,7 +119,7 @@ if "%__ARG:~0,1%"=="-" (
     @rem options
     if /i "%__ARG:~0,6%"=="-iter:" (
         call :iter "%__ARG:~6%"
-        if not !_EXITCODE!==0 goto :eof
+        if not !_EXITCODE!==0 goto args_done
     ) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if /i "%__ARG%"=="-share" ( set _SHARE_FLAG=on
     ) else if /i "%__ARG%"=="-share:off" ( set _SHARE_FLAG=off
@@ -149,7 +149,7 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto :args_loop
 :args_done
-if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _RUN=%_RUN% _RUN_ARGS=%_RUN_ARGS%
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _RUN=%_RUN% _RUN_ARGS=%_RUN_ARGS%
 goto :eof
 
 :help
@@ -180,13 +180,18 @@ set _RUN_ITER=%__ITER%
 goto :eof
 
 :clean
-if not exist "%_TARGET_DIR%\" goto :eof
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q %_TARGET_DIR% 1>&2
-) else if %_VERBOSE%==1 ( echo Delete output directory !_TARGET_DIR:%_ROOT_DIR%=! 1>&2
+call :rmdir "%_TARGET_DIR%"
+goto :eof
+
+@rem input parameter(s): %1=directory path
+:rmdir
+set "__DIR=%~1"
+if not exist "%__DIR%\" goto :eof
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
+) else if %_VERBOSE%==1 ( echo Delete directory !__DIR:%_ROOT_DIR%=! 1>&2
 )
-rmdir /s /q "%_TARGET_DIR%"
+rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to delete output directory %_TARGET_DIR% 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -203,20 +208,21 @@ set "__CLASSES_DIR=%_TARGET_DIR%\classes"
 if not exist "%__CLASSES_DIR%\" mkdir "%__CLASSES_DIR%" 1>NUL
 
 set "__TIMESTAMP_FILE=%__CLASSES_DIR%\.latest-build"
-
-set __JAVA_SOURCE_FILES=
-for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
-    set __JAVA_SOURCE_FILES=!__JAVA_SOURCE_FILES! %%i
-)
-
-call :compile_required "%__TIMESTAMP_FILE%" "%__JAVA_SOURCE_FILES%"
+call :compile_required "%__TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\java\*.java"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
-set __JAVAC_OPTS=-deprecation --release 8
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVAC_CMD% %__JAVAC_OPTS% -d %__CLASSES_DIR% %__JAVA_SOURCE_FILES% 1>&2
+set "__LIST_FILE=%_TARGET_DIR%\java_files.txt"
+if exist "%__LIST_FILE%" del "%__LIST_FILE%" 1>NUL
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
+    echo %%i >> "%__LIST_FILE%"
+)
+set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
+echo %_JAVAC_OPTS% -deprecation --release 8 -d "%__CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVAC_CMD% "@%__OPTS_FILE%" "@%__LIST_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Java source files to directory !__CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
-%_JAVAC_CMD% %__JAVAC_OPTS% -d %__CLASSES_DIR% %__JAVA_SOURCE_FILES%
+call "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__LIST_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile Java source files 1>&2
     set _EXITCODE=1
@@ -233,11 +239,11 @@ set "__MANIFEST_FILE=%_TARGET_DIR%\MANIFEST.MF"
     echo Implementation-Title: %_MAIN_PKG_NAME%
     echo Implementation-Version: 0.1-SNAPSHOT
     echo Main-Class: %_MAIN_CLASS%
-) > %__MANIFEST_FILE%
+) > "%__MANIFEST_FILE%"
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAR_CMD% cfm %_JAR_FILE% %__MANIFEST_FILE% -C %__CLASSES_DIR% . 1>&2
 ) else if %_VERBOSE%==1 ( echo Create Java archive !_JAR_FILE:%_ROOT_DIR%=! 1>&2
 )
-%_JAR_CMD% cfm %_JAR_FILE% %__MANIFEST_FILE% -C %__CLASSES_DIR% .
+call "%_JAR_CMD%" cfm "%_JAR_FILE%" "%__MANIFEST_FILE%" -C "%__CLASSES_DIR%" .
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to generate Java archive %_JAR_FILE% 1>&2
     set _EXITCODE=1
@@ -263,7 +269,7 @@ if %_DEBUG%==1 (
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVA_CMD% %__JAVA_TOOL_OPTS% -jar %_JAR_FILE% 1>&2
 ) else if %_VERBOSE%==1 ( echo Create class list file !_CLASSLIST_FILE:%_ROOT_DIR%=! 1>&2
 )
-%_JAVA_CMD% %__JAVA_TOOL_OPTS% -jar %_JAR_FILE% %__REDIRECT_STDOUT%
+call "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -jar "%_JAR_FILE%" %__REDIRECT_STDOUT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to create file %_CLASSLIST_FILE% 1>&2
     set _EXITCODE=1
@@ -284,41 +290,36 @@ if %_DEBUG%==1 (
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVA_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% 1>&2
 ) else if %_VERBOSE%==1 ( echo Create Java shared archive !_JSA_FILE:%_ROOT_DIR%=! 1>&2
 )
-%_JAVA_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% %__REDIRECT_STDOUT%
+call "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -classpath "%_JAR_FILE%" %__REDIRECT_STDOUT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to create shared archive %_JAR_FILE% 1>&2
     set _EXITCODE=1
     goto :eof
 )
 for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
-    echo %%i> %__TIMESTAMP_FILE%
+    echo %%i> "%__TIMESTAMP_FILE%"
 )
 goto :eof
 
-@rem input parameter: 1=timestamp file 2=source files
+@rem input parameter: 1=timestamp file 2=path (wildcards accepted)
 @rem output parameter: _COMPILE_REQUIRED
 :compile_required
 set __TIMESTAMP_FILE=%~1
-set __SOURCE_FILES=%~2
+set __PATH=%~2
 
 set __SOURCE_TIMESTAMP=00000000000000
-set __N=0
-for %%i in (%__SOURCE_FILES%) do (
-    call :timestamp "%%i"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% !_TIMESTAMP! %%i 1>&2
-    call :newer "!_TIMESTAMP!" "!__SOURCE_TIMESTAMP!"
-    if !_NEWER!==1 set __SOURCE_TIMESTAMP=!_TIMESTAMP!
-    set /a __N+=1
+for /f "usebackq" %%i in (`powershell -c "gci -recurse '%__PATH%' | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S"`) do (
+    set __SOURCE_TIMESTAMP=%%i
 )
-if exist "%__TIMESTAMP_FILE%" ( set /p __CLASS_TIMESTAMP=<%__TIMESTAMP_FILE%
-) else ( set __CLASS_TIMESTAMP=00000000000000
+if exist "%__TIMESTAMP_FILE%" ( set /p __GENERATED_TIMESTAMP=<%__TIMESTAMP_FILE%
+) else ( set __GENERATED_TIMESTAMP=00000000000000
 )
-if %_DEBUG%==1 echo %_DEBUG_LABEL% %__CLASS_TIMESTAMP% %__TIMESTAMP_FILE% 1>&2
+if %_DEBUG%==1 echo %_DEBUG_LABEL% %__GENERATED_TIMESTAMP% %__TIMESTAMP_FILE% 1>&2
 
-call :newer "%__SOURCE_TIMESTAMP%" "%__CLASS_TIMESTAMP%"
+call :newer %__SOURCE_TIMESTAMP% %__GENERATED_TIMESTAMP%
 set _COMPILE_REQUIRED=%_NEWER%
-if %_COMPILE_REQUIRED%==0 (
-    if %_RUN%==0 echo No compilation needed ^(%__N% source files^)
+if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
+    echo No compilation needed ^("%__PATH%"^) 1>&2
 )
 goto :eof
 
@@ -354,19 +355,21 @@ goto :eof
 :doc
 if not exist "%_DOCS_DIR%" mkdir "%_DOCS_DIR%" 1>NUL
 
-set __JAVA_SOURCE_FILES=
-for /f %%i in ('dir /s /b "%_ROOT_DIR%src\main\java\*.java" 2^>NUL') do (
-    set __JAVA_SOURCE_FILES=!__JAVA_SOURCE_FILES! %%i
+set "__LIST_FILE=%_TARGET_DIR%\java_files.txt"
+if exist "%__LIST_FILE%" del "%__LIST_FILE%" 1>NUL
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
+    echo %%i >> "%__LIST_FILE%"
 )
-
+set __OPTS_QUIET=
+if not %_DEBUG%==1 if not %_VERBOSE%==1 set __OPTS_QUIET=-quiet
 for %%i in ("%~dp0\.") do set __PROJECT=%%~ni
-set __JAVADOC_OPTS=-d %_DOCS_DIR% -windowtitle %__PROJECT% -doctitle "<h1>%__PROJECT%</h1>"
-if not %_DEBUG%==1 if not %_VERBOSE%==1 set __JAVADOC_OPTS=-quiet %__JAVADOC_OPTS%
+set "__OPTS_FILE=%_TARGET_DIR%\javadoc_opts.txt"
+echo %__OPTS_QUIET% -d "%_DOCS_DIR:\=\\%" -windowtitle %__PROJECT% -doctitle "<h1>%__PROJECT%</h1>" > "%__OPTS_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVADOC_CMD% %__JAVADOC_OPTS% %__JAVA_SOURCE_FILES% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVADOC_CMD% "@%__OPTS_FILE%" "@%__LIST_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate Java documentation into !_DOCS_DIR:%_ROOT_DIR%=! 1>&2
 )
-%_JAVADOC_CMD% %__JAVADOC_OPTS% %__JAVA_SOURCE_FILES%
+call "%_JAVADOC_CMD%" "@%__OPTS_FILE%" "@%__LIST_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to generate Java documentation 1>&2
     set _EXITCODE=1
@@ -375,9 +378,10 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :run
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% ^(#iterations=%_RUN_ITER%^) %_JAVA_CMD% %__JAVA_TOOL_OPTS% -jar %_JAR_FILE% %_RUN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute Java archive ^(#iterations=%_RUN_ITER%^) !_JAR_FILE:%_ROOT_DIR%=! %_RUN_ARGS% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVA_CMD% %__JAVA_TOOL_OPTS% -jar %_JAR_FILE% %_RUN_ARGS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Java archive !_JAR_FILE:%_ROOT_DIR%=! %_RUN_ARGS% 1>&2
 )
+echo #iterations=%_RUN_ITER%
 set __N=1
 :run_iter
 set __SHARE_LOG_FILE=%_LOG_DIR%\log_share_%_SHARE_FLAG%.log
@@ -392,7 +396,7 @@ if %_DEBUG%==1 (
 ) else (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -Xlog:disable
 )
-%_JAVA_CMD% %__JAVA_TOOL_OPTS% -jar %_JAR_FILE% %_RUN_ARGS%
+call "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -jar "%_JAR_FILE%" %_RUN_ARGS%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to execute class %_MAIN_CLASS% 1>&2
     set _EXITCODE=1
