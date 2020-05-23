@@ -8,10 +8,8 @@ set _DEBUG=0
 @rem ## Environment setup
 
 set _EXITCODE=0
-
 set _BASENAME=%~n0
-
-for %%f in ("%~dp0") do set _ROOT_DIR=%%~sf
+set "_ROOT_DIR=%~dp0"
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -63,13 +61,13 @@ set _DEBUG_LABEL=[46m[%_BASENAME%][0m
 set _ERROR_LABEL=[91mError[0m:
 set _WARNING_LABEL=[93mWarning[0m:
 
-set _SOURCE_DIR=%_ROOT_DIR%src
-set _TARGET_DIR=%_ROOT_DIR%target
-set _CLASSES_DIR=%_TARGET_DIR%\classes
-set _TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes
-set _TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes
-set _TARGET_DOCS_DIR=%_TARGET_DIR%\docs
-set _TARGET_LIB_DIR=%_TARGET_DIR%\lib
+set "_SOURCE_DIR=%_ROOT_DIR%src"
+set "_TARGET_DIR=%_ROOT_DIR%target"
+set "_CLASSES_DIR=%_TARGET_DIR%\classes"
+set "_TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes"
+set "_TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes"
+set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
+set "_TARGET_LIB_DIR=%_TARGET_DIR%\lib"
 goto :eof
 
 @rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
@@ -77,7 +75,7 @@ goto :eof
 set _MAIN_CLASS_DEFAULT=Main
 set _MAIN_ARGS_DEFAULT=
 
-set __PROPS_FILE=%_ROOT_DIR%project\build.properties
+set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
 if exist "%__PROPS_FILE%" (
     for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
         set _NAME=%%~i
@@ -218,7 +216,7 @@ goto :eof
 
 @rem input parameter(s): %1=directory path
 :rmdir
-set __DIR=%~1
+set "__DIR=%~1"
 if not exist "%__DIR%\" goto :eof
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Delete directory !__DIR:%_ROOT_DIR%=! 1>&2
@@ -233,7 +231,7 @@ goto :eof
 :compile
 if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 
-set __TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build
+set "__TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build"
 
 call :compile_required "%__TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\java\*.java"
 if %_COMPILE_REQUIRED%==1 (
@@ -273,7 +271,7 @@ goto :eof
 call :init_java
 if not %_EXITCODE%==0 goto :eof
 
-set __LIST_FILE=%_TARGET_DIR%\java_files.txt
+set "__LIST_FILE=%_TARGET_DIR%\java_files.txt"
 if exist "%__LIST_FILE%" del "%__LIST_FILE%" 1>NUL
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     echo %%i >> "%__LIST_FILE%"
@@ -322,7 +320,7 @@ goto :eof
 call :init_scala
 if not %_EXITCODE%==0 goto :eof
 
-set __LIST_FILE=%_TARGET_DIR%\scala_files.txt
+set "__LIST_FILE=%_TARGET_DIR%\scala_files.txt"
 if exist "%__LIST_FILE%" del "%__LIST_FILE%" 1>NUL
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i >> "%__LIST_FILE%"
@@ -429,7 +427,7 @@ if not %_EXITCODE%==0 goto :eof
 
 if not exist "%_TARGET_DOCS_DIR%" mkdir "%_TARGET_DOCS_DIR%" 1>NUL
 
-set __DOC_TIMESTAMP_FILE=%_TARGET_DOCS_DIR%\.latest-build
+set "__DOC_TIMESTAMP_FILE=%_TARGET_DOCS_DIR%\.latest-build"
 
 call :compile_required "%__DOC_TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\scala\*.scala"
 if %_COMPILE_REQUIRED%==0 goto :eof

@@ -7,11 +7,8 @@ set _DEBUG=0
 @rem #########################################################################
 @rem ## Environment setup
 
-set _BASENAME=%~n0
-
 set _EXITCODE=0
-
-for %%f in ("%~dp0") do set "_ROOT_DIR=%%~f"
+set "_ROOT_DIR=%~dp0"
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -51,6 +48,8 @@ goto end
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 @rem                    _SCALAC_CMD, _SCALADOC_CMD, _JAR_CMD, _JAVA_CMD, _RUN_CMD
 :env
+set _BASENAME=%~n0
+
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
 set _DEBUG_LABEL=[46m[%_BASENAME%][0m
@@ -115,6 +114,7 @@ set _RUN=0
 set _RUN_ARGS=
 set _RUN_ITER=1
 set _SHARE_FLAG=off
+set _TIMER=0
 set _VERBOSE=0
 set __N=0
 :args_loop
@@ -132,6 +132,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if /i "%__ARG%"=="-share" ( set _SHARE_FLAG=on
     ) else if /i "%__ARG%"=="-share:off" ( set _SHARE_FLAG=off
     ) else if /i "%__ARG%"=="-share:on" ( set _SHARE_FLAG=on
+    ) else if /i "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
@@ -157,7 +158,8 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto :args_loop
 :args_done
-if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _RUN=%_RUN% _RUN_ARGS=%_RUN_ARGS%
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _RUN=%_RUN% _RUN_ARGS=%_RUN_ARGS% _TIMER=%_TIMER% 1>%2
+if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
 :help
@@ -166,6 +168,7 @@ echo.
 echo   Options:
 echo     -iter:1..99        set number of run iterations
 echo     -share[:^(on^|off^)]  enable/disable data sharing ^(default:off^)
+echo     -timer             display total elapsed time
 echo     -verbose           display progress messages
 echo.
 echo   Subcommands:
@@ -625,6 +628,11 @@ goto :eof
 @rem ## Cleanups
 
 :end
+if %_TIMER%==1 (
+    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
+    call :duration "%_TIMER_START%" "!__TIMER_END!"
+    echo Total elapsed time: !_DURATION! 1>&2
+)
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%
 endlocal

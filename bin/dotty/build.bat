@@ -102,6 +102,7 @@ if not exist "%_SCRIPTS_DIR%\cmdTestsCommon.inc.bat" (
     set _EXITCODE=1
     goto :eof
 )
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SCRIPTS_DIR%\cmdTestsCommon.inc.bat" 1>&2
 call "%_SCRIPTS_DIR%\cmdTestsCommon.inc.bat"
 if not %_EXITCODE%==0 goto :eof
 
@@ -210,6 +211,7 @@ echo     boot[strap]-only      generate+test ONLY bootstrapped compiler
 echo     compile-only          generate+test ONLY 1st stage compiler
 echo     doc[umentation]-only  generate ONLY documentation
 echo     sbt-only              test ONLY sbt-dotty
+
 goto :eof
 
 :init
@@ -274,9 +276,9 @@ goto :eof
 
 :clone
 if "%_DRONE_BUILD_EVENT%"=="pull_request" if defined _DRONE_REMOTE_URL (
-    %_GIT_CMD% config user.email "dotty.bot@epfl.ch"
-    %_GIT_CMD% config user.name "Dotty CI"
-    %_GIT_CMD% pull "%_DRONE_REMOTE_URL%" "%_DRONE_BRANCH%"
+    call "%_GIT_CMD%" config user.email "dotty.bot@epfl.ch"
+    call "%_GIT_CMD%" config user.name "Dotty CI"
+    call "%_GIT_CMD%" pull "%_DRONE_REMOTE_URL%" "%_DRONE_BRANCH%"
 )
 if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% submodule sync 1>&2
 call "%_GIT_CMD%" submodule sync
@@ -399,7 +401,7 @@ goto :eof
 :documentation
 @rem see shell script project/scripts/genDocs
 if %_DEBUG%==1 echo %_DEBUG_LABEL% %_SCRIPTS_DIR%\genDocs.bat 1>&2
-call %_SCRIPTS_DIR%\genDocs.bat
+call "%_SCRIPTS_DIR%\genDocs.bat"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to run genDocs.bat 1>&2
     set _EXITCODE=1
@@ -419,7 +421,7 @@ if not exist "%__TARGET_DIR%\" (
 )
 if %_DEBUG%==1 (
     echo. 1>&2
-    echo Output directory: %__TARGET_DIR%\ 1>&2
+    echo Output directory: "%__TARGET_DIR%" 1>&2
     dir /b /a-d "%__TARGET_DIR%"
 )
 goto :eof

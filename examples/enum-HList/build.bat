@@ -8,10 +8,7 @@ set _DEBUG=0
 @rem ## Environment setup
 
 set _EXITCODE=0
-
-set _BASENAME=%~n0
-
-for %%f in ("%~dp0") do set "_ROOT_DIR=%%~f"
+set "_ROOT_DIR=%~dp0"
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -57,18 +54,20 @@ goto end
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 @rem                    _CLASSES_DIR, _TARGET_DIR, _TARGET_DOCS_DIR, _TASTY_CLASSES_DIR
 :env
+set _BASENAME=%~n0
+
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
 set _DEBUG_LABEL=[46m[%_BASENAME%][0m
 set _ERROR_LABEL=[91mError[0m:
 set _WARNING_LABEL=[93mWarning[0m:
 
-set _SOURCE_DIR=%_ROOT_DIR%src
-set _TARGET_DIR=%_ROOT_DIR%target
-set _CLASSES_DIR=%_TARGET_DIR%\classes
-set _TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes
-set _TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes
-set _TARGET_DOCS_DIR=%_TARGET_DIR%\docs
+set "_SOURCE_DIR=%_ROOT_DIR%src"
+set "_TARGET_DIR=%_ROOT_DIR%target"
+set "_CLASSES_DIR=%_TARGET_DIR%\classes"
+set "_TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes"
+set "_TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes"
+set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
 goto :eof
 
 @rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
@@ -76,14 +75,14 @@ goto :eof
 set _MAIN_CLASS_DEFAULT=Main
 set _MAIN_ARGS_DEFAULT=
 
-set __PROPS_FILE=%_ROOT_DIR%project\build.properties
+set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
 if exist "%__PROPS_FILE%" (
     for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
         set _NAME=%%~i
         set _VALUE=%%~j
         set _NAME=!_NAME:.=_!
         if not "!_NAME!"=="" (
-            rem trim value
+            @rem trim value
             for /f "tokens=*" %%v in ("!_VALUE!") do set _VALUE=%%v
             set _!_NAME: =!=!_VALUE!
         )
@@ -217,7 +216,7 @@ goto :eof
 
 @rem input parameter(s): %1=directory path
 :rmdir
-set __DIR=%~1
+set "__DIR=%~1"
 if not exist "%__DIR%\" goto :eof
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Delete directory !__DIR:%_ROOT_DIR%=! 1>&2
@@ -272,7 +271,7 @@ goto :eof
 call :init_java
 if not %_EXITCODE%==0 goto :eof
 
-set __LIST_FILE=%_TARGET_DIR%\java_files.txt
+set "__LIST_FILE=%_TARGET_DIR%\javac_sources.txt"
 if exist "%__LIST_FILE%" del "%__LIST_FILE%" 1>NUL
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     echo %%i >> "%__LIST_FILE%"
@@ -322,7 +321,7 @@ goto :eof
 call :init_scala
 if not %_EXITCODE%==0 goto :eof
 
-set __LIST_FILE=%_TARGET_DIR%\scala_files.txt
+set __LIST_FILE=%_TARGET_DIR%\scalac_sources.txt
 if exist "%__LIST_FILE%" del "%__LIST_FILE%" 1>NUL
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i >> "%__LIST_FILE%"
@@ -341,7 +340,7 @@ if not %ERRORLEVEL%==0 (
 )
 if %_TASTY%==1 (
     if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
-    set __SCALAC_OPTS=-from-tasty -classpath %_CLASSES_DIR% -d %_TASTY_CLASSES_DIR%
+    set __SCALAC_OPTS=-from-tasty -classpath "%_CLASSES_DIR%" -d "%_TASTY_CLASSES_DIR%"
     for %%f in (%_CLASSES_DIR%\*.tasty) do (
         set __CLASS_NAME=%%f
         if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% !__SCALAC_OPTS! !__CLASS_NAME! 1>&2
