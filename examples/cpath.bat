@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-rem output parameter: _CPATH
+@rem output parameter: _CPATH
 
 if not defined _DEBUG set _DEBUG=%~1
 if not defined _MVN_CMD set _MVN_CMD=mvn.cmd
@@ -59,13 +59,13 @@ call :add_jar "%__SPECS2_CORE_VERSION%" "specs2-fp_2.13" "org/specs2"
 
 goto end
 
-rem ##########################################################################
-rem ## Subroutines
+@rem #########################################################################
+@rem ## Subroutines
 
-rem input parameters: %1=version, %2=artifact ID, %3=group ID
-rem global variable: _LIBS_CPATH
+@rem input parameters: %1=version, %2=artifact ID, %3=group ID
+@rem global variable: _LIBS_CPATH
 :add_jar
-rem https://mvnrepository.com/artifact/org.portable-scala
+@rem https://mvnrepository.com/artifact/org.portable-scala
 set __VERSION=%~1
 set __ARTIFACT_ID=%~2
 set __GROUP_ID=%~3
@@ -98,8 +98,8 @@ if not exist "%__JAR_FILE%" (
 set "_LIBS_CPATH=%_LIBS_CPATH%%__JAR_FILE%;"
 goto :eof
 
-rem ##########################################################################
-rem ## Cleanups
+@rem #########################################################################
+@rem ## Cleanups
 
 :end
 endlocal & (
