@@ -271,19 +271,19 @@ goto :eof
 call :init_java
 if not %_EXITCODE%==0 goto :eof
 
-set "__LIST_FILE=%_TARGET_DIR%\javac_sources.txt"
-if exist "%__LIST_FILE%" del "%__LIST_FILE%" 1>NUL
+set "__SOURCES_FILE=%_TARGET_DIR%\javac_sources.txt"
+if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
-    echo %%i >> "%__LIST_FILE%"
+    echo %%i >> "%__SOURCES_FILE%"
 )
 call :libs_cpath
 set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
 echo %_JAVAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d "%_CLASSES_DIR%" > "%__OPTS_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVAC_CMD% "@%__OPTS_FILE%" "@%__LIST_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Java source files to directory !_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
-%_JAVAC_CMD% "@%__OPTS_FILE%" "@%__LIST_FILE%"
+%_JAVAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Compilation of main Java source files failed 1>&2
     set _EXITCODE=1
@@ -321,18 +321,18 @@ goto :eof
 call :init_scala
 if not %_EXITCODE%==0 goto :eof
 
-set "__LIST_FILE=%_TARGET_DIR%\scalac_sources.txt"
-if exist "%__LIST_FILE%" del "%__LIST_FILE%" 1>NUL
+set "__SOURCES_FILE=%_TARGET_DIR%\scalac_sources.txt"
+if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
-    echo %%i >> "%__LIST_FILE%"
+    echo %%i >> "%__SOURCES_FILE%"
 )
 set "__OPTS_FILE=%_TARGET_DIR%\scalac_opts.txt"
 echo %_SCALAC_OPTS% -classpath "%_CLASSES_DIR%" -d "%_CLASSES_DIR%" > "%__OPTS_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__LIST_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Scala source files to directory !_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
-call %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__LIST_FILE%"
+call %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Compilation of Scala source files failed 1>&2
     set _EXITCODE=1
@@ -340,7 +340,7 @@ if not %ERRORLEVEL%==0 (
 )
 if %_TASTY%==1 (
     if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
-    set __SCALAC_OPTS=-from-tasty -classpath %_CLASSES_DIR% -d %_TASTY_CLASSES_DIR%
+    set __SCALAC_OPTS=-from-tasty -classpath "%_CLASSES_DIR%" -d "%_TASTY_CLASSES_DIR%"
     for %%f in (%_CLASSES_DIR%\*.tasty) do (
         set __CLASS_NAME=%%f
         if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% !__SCALAC_OPTS! !__CLASS_NAME! 1>&2
@@ -549,7 +549,7 @@ set __JAVA_CMD=java.exe
 call :libs_cpath 1
 set __TEST_RUN_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
 
-rem see https://github.com/junit-team/junit4/wiki/Getting-started
+@rem see https://github.com/junit-team/junit4/wiki/Getting-started
 for %%i in (%_TEST_CLASSES_DIR%\*Test.class) do (
     set __MAIN_CLASS=%%~ni
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% java %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
@@ -563,7 +563,7 @@ for %%i in (%_TEST_CLASSES_DIR%\*Test.class) do (
 )
 goto :eof
 
-rem output parameter: _DURATION
+@rem output parameter: _DURATION
 :duration
 set __START=%~1
 set __END=%~2
@@ -571,8 +571,8 @@ set __END=%~2
 for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
 goto :eof
 
-rem ##########################################################################
-rem ## Cleanups
+@rem #########################################################################
+@rem ## Cleanups
 
 :end
 if %_TIMER%==1 (

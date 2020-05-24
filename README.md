@@ -39,7 +39,7 @@ Optionally one may also install the following software:
 - [Apache Ant 1.10][apache_ant] (requires Java 8) ([*release notes*][apache_ant_relnotes])
 - [Apache Maven 3.6][apache_maven] ([requires Java 7][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
 - [Bloop 1.3][bloop_releases] (requires Java 8 and Python 2/3) ([*release notes*][bloop_relnotes])
-- [CFR 0.14][cfr_releases] (Java decompiler)
+- [CFR 0.15][cfr_releases] (Java decompiler)
 - [Git 2.26][git_releases] ([*release notes*][git_relnotes])
 - [Gradle 6.4][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [Mill 0.7][mill_releases] ([*change log*][mill_changelog])
@@ -57,7 +57,7 @@ C:\opt\jdk-1.8.0_252-b09\    <i>(181.0 MB)</i>
 C:\opt\apache-ant-1.10.8\    <i>( 39.7 MB)</i>
 C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
 C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
-C:\opt\cfr-0.149\            <i>(  1.9 MB)</i>
+C:\opt\cfr-0.150\            <i>(  1.9 MB)</i>
 C:\opt\dotty-0.24.0-RC1\     <i>( 26.3 MB)</i>
 C:\opt\Git-2.26.2\           <i>(271.0 MB)</i>
 C:\opt\gradle-6.4.1\         <i>(109.0 MB)</i>
@@ -77,7 +77,7 @@ This project is organized as follows:
 
 <pre style="font-size:80%;">
 bin\*.bat
-bin\cfr-0.149.zip
+bin\cfr-0.150.zip
 bin\0.24\*.bat
 bin\dotty\
 docs\
@@ -91,7 +91,7 @@ setenv.bat
 where
 
 - directory [**`bin\`**](bin/) provides several utility [batch files][windows_batch_file].
-- file [**`bin\cfr-0.149.zip`**](bin/cfr-0.149.zip) contains a zipped distribution of [CFR][cfr_releases].
+- file [**`bin\cfr-0.150.zip`**](bin/cfr-0.150.zip) contains a zipped distribution of [CFR][cfr_releases].
 - directory [**`bin\0.24\`**](bin/0.24/) contains the batch commands for [Dotty 0.24][dotty_relnotes].
 - directory [**`bin\dotty\`**](bin/dotty/) contains several [batch files][windows_batch_file]/[bash scripts][unix_bash_script] for building the [Dotty] software distribution on a Windows machine.
 - directory [**`docs\`**](docs/) contains [Dotty] related papers/articles (see file [**`docs\README.md`**](docs/README.md)).
@@ -213,12 +213,12 @@ We distinguish different sets of batch/bash commands:
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**][javap_cli] class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.149.zip`**](bin/cfr-0.149.zip) to **`c:\opt\`**) which prints [Java source code][java_jls] instead of [Java bytecode][java_bytecode]:
+    As an alternative to the standard [**`javap`**][javap_cli] class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.150.zip`**](bin/cfr-0.150.zip) to **`c:\opt\`**) which prints [Java source code][java_jls] instead of [Java bytecode][java_bytecode]:
 
     <pre style="font-size:80%;">
     <b>&gt; cfr myexamples\00_AutoParamTupling\target\classes\myexamples\Main.class</b>
     /*
-     * Decompiled with CFR 0.149.
+     * Decompiled with CFR 0.150.
      */
     package myexamples;
     
@@ -277,7 +277,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 Tool versions:
    javac 1.8.0_252, java 1.8.0_252, scalac 2.13.2, dotc 0.24.0-RC1
    ant 1.10.8, gradle 6.4.1, mill 0.7.2, mvn 3.6.3, sbt 1.3.10/2.12.10,
-   cfr 0.149, python 3.7.4, bloop v1.3.4,
+   cfr 0.150, python 3.7.4, bloop v1.3.4,
    git 2.26.2.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; where sbt</b>
@@ -292,7 +292,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 Tool versions:
    javac 1.8.0_252, java 1.8.0_252, scalac 2.13.2, dotc 0.24.0-RC1
    ant 1.10.8, gradle 6.4.1, mill 0.7.2, mvn 3.6.3, sbt 1.3.10/2.12.10,
-   cfr 0.149, python 3.7.4, bloop v1.3.4,
+   cfr 0.150, python 3.7.4, bloop v1.3.4,
    git 2.26.2.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-1.8.0_252-b09\bin\javac.exe
@@ -305,7 +305,7 @@ Tool paths:
    C:\opt\Mill-0.7.2\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
    C:\opt\sbt-1.3.10\bin\sbt.bat
-   C:\opt\cfr-0.149\bin\cfr.bat
+   C:\opt\cfr-0.150\bin\cfr.bat
    C:\opt\Python-3.7.4\python.exe
    C:\opt\bloop-1.3.4\bloop.cmd
    C:\opt\Git-2.26.2\bin\git.exe

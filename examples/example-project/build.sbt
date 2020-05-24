@@ -4,7 +4,7 @@ lazy val root = project
   .in(file("."))
   .settings(
     name := "Hello",
-    description := "sbt example project to build/run Scala 3 code",
+    description := "sbt example project to build/run Scala 3 applications",
     version := "0.1.0",
 
     scalaVersion := dottyVersion,
@@ -18,6 +18,6 @@ lazy val root = project
 
     libraryDependencies ++= Seq(
       // https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml_2.13
-      "org.scala-lang.modules" %% "scala-xml" % "1.2.0").withDottyCompat(scalaVersion.value
-    )
+      "org.scala-lang.modules" %% "scala-xml" % "1.2.0"
+    ).withDottyCompat(scalaVersion.value)
   )

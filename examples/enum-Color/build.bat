@@ -518,6 +518,8 @@ for %%i in (%_SOURCE_DIR%\test\scala\*.scala) do (
 )
 
 call :libs_cpath 1
+if not %_EXITCODE%==0 goto :eof
+
 set "__OPTS_FILE=%_TARGET_DIR%\test_scalac_opts.txt"
 echo %_SCALAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d "%_TEST_CLASSES_DIR%" > "%__OPTS_FILE%"
 
