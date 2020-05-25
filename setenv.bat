@@ -7,8 +7,6 @@ set _DEBUG=0
 @rem #########################################################################
 @rem ## Environment setup
 
-set _BASENAME=%~n0
-
 set _EXITCODE=0
 
 call :env
@@ -103,6 +101,8 @@ goto end
 
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 :env
+set _BASENAME=%~n0
+
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
 set _DEBUG_LABEL=[46m[%_BASENAME%][0m
@@ -279,7 +279,7 @@ if defined __DOTC_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Dotty executable found in PATH 1>&2
     for %%i in ("%__DOTC_CMD%") do set "__DOTTY_BIN_DIR=%%~dpi"
     for %%f in ("!__DOTTY_BIN_DIR!..") do set "_DOTTY_HOME=%%f"
-    rem keep _DOTTY_PATH undefined since executable already in path
+    @rem keep _DOTTY_PATH undefined since executable already in path
     goto :eof
 ) else if defined DOTTY_HOME (
     set "_DOTTY_HOME=%DOTTY_HOME%"
@@ -371,7 +371,7 @@ where /q mill.bat
 if %ERRORLEVEL%==0 goto :eof
 
 if defined MILL_HOME (
-    set _MILL_HOME=%MILL_HOME%
+    set "_MILL_HOME=%MILL_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MILL_HOME 1>&2
 ) else (
     set __PATH=C:\opt
@@ -545,7 +545,7 @@ set __CODE_CMD=
 for /f %%f in ('where code.exe 2^>NUL') do set "__CODE_CMD=%%f"
 if defined __CODE_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of VSCode executable found in PATH 1>&2
-    rem keep _VSCODE_PATH undefined since executable already in path
+    @rem keep _VSCODE_PATH undefined since executable already in path
     goto :eof
 ) else if defined VSCODE_HOME (
     set "__VSCODE_HOME=%VSCODE_HOME%"
@@ -624,15 +624,6 @@ for /f %%i in ('dir /ad /b "%__ROOT_DIR%\" 2^>NUL') do (
 )
 goto :eof
 
-@rem output parameter: _SBT_VERSION
-@rem Note: SBT requires special handling to know its version (no comment)
-:sbt_version
-set _SBT_VERSION=
-for /f %%i in ('where sbt.bat') do for %%f in ("%%~dpi..") do set __SBT_LAUNCHER=%%~sf\bin\sbt-launch.jar
-for /f "tokens=1,*" %%i in ('java.exe -jar "%__SBT_LAUNCHER%" sbtVersion ^| findstr [0-9].[0-9]') do set _SBT_VERSION=%%j
-for /f "tokens=1,*" %%i in ('java.exe -jar "%__SBT_LAUNCHER%" scalaVersion ^| findstr [0-9].[0-9]') do set _SBT_VERSION=%_SBT_VERSION%/%%j
-goto :eof
-
 :print_env
 set __VERBOSE=%1
 set __GIT_HOME=%~2
@@ -681,9 +672,9 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,3,*" %%i in ('mvn.cmd -version ^| findstr Apache') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% mvn %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% mvn.cmd
 )
-call :sbt_version
-if defined _SBT_VERSION (
-    set __VERSIONS_LINE2=%__VERSIONS_LINE2% sbt %_SBT_VERSION%,
+where /q sbt.bat
+if %ERRORLEVEL%==0 (
+    for /f "delims=: tokens=1,*" %%i in ('sbt.bat -V ^| findstr version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% sbt%%~j,"
     set __WHERE_ARGS=%__WHERE_ARGS% sbt.bat
 )
 where /q cfr.bat
@@ -742,11 +733,11 @@ goto :eof
 :end
 endlocal & (
     if %_EXITCODE%==0 (
-        if not defined ANT_HOME set ANT_HOME=%_ANT_HOME%
-        if not defined DOTTY_HOME set DOTTY_HOME=%_DOTTY_HOME%
-        if not defined JAVA_HOME set JAVA_HOME=%_JDK_HOME%
-        if not defined JAVA11_HOME set JAVA11_HOME=%_JDK11_HOME%
-        if not defined SCALA_HOME set SCALA_HOME=%_SCALA_HOME%
+        if not defined ANT_HOME set "ANT_HOME=%_ANT_HOME%"
+        if not defined DOTTY_HOME set "DOTTY_HOME=%_DOTTY_HOME%"
+        if not defined JAVA_HOME set "JAVA_HOME=%_JDK_HOME%"
+        if not defined JAVA11_HOME set "JAVA11_HOME=%_JDK11_HOME%"
+        if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
         set "PATH=%_JDK_PATH%%_PYTHON_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_MILL_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE% "%_GIT_HOME%"
         if %_BASH%==1 (

@@ -82,7 +82,7 @@ if exist "%__PROPS_FILE%" (
         set _VALUE=%%~j
         set _NAME=!_NAME:.=_!
         if not "!_NAME!"=="" (
-            rem trim value
+            @rem trim value
             for /f "tokens=*" %%v in ("!_VALUE!") do set _VALUE=%%v
             set _!_NAME: =!=!_VALUE!
         )
@@ -283,7 +283,7 @@ echo %_JAVAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d "%_CLASSES_DIR%" 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Java source files to directory !_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
-%_JAVAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
+call "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Compilation of main Java source files failed 1>&2
     set _EXITCODE=1
@@ -434,7 +434,7 @@ set __DOC_TIMESTAMP_FILE=%_TARGET_DOCS_DIR%\.latest-build
 call :compile_required "%__DOC_TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\scala\*.scala"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
-set "__DOC_LIST_FILE=%_TARGET_DIR%\doc_sources.txt"
+set "__DOC_LIST_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i>> "%__DOC_LIST_FILE%"
 )
@@ -547,15 +547,17 @@ if not %ERRORLEVEL%==0 (
 set __JAVA_CMD=java.exe
 
 call :libs_cpath 1
+if not %_EXITCODE%==0 goto :eof
+
 set __TEST_RUN_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
 
 rem see https://github.com/junit-team/junit4/wiki/Getting-started
 for %%i in (%_TEST_CLASSES_DIR%\*Test.class) do (
-    set __MAIN_CLASS=%%~ni
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% java %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
+    set "__MAIN_CLASS=%%~ni"
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %__JAVA_CMD% %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
 	) else if %_VERBOSE%==1 ( echo Execute test !__MAIN_CLASS! 1>&2
 	)
-    %__JAVA_CMD% %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS!
+    call "%__JAVA_CMD%" %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS!
     if not !ERRORLEVEL!==0 (
         set _EXITCODE=1
         goto :eof

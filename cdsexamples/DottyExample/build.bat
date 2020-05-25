@@ -59,6 +59,7 @@ set _WARNING_LABEL=[93mWarning[0m:
 set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_DOCS_DIR=%_TARGET_DIR%\docs"
+set "_CLASSES_DIR=%_TARGET_DIR%\classes"
 set "_LOG_DIR=%_TARGET_DIR%\logs"
 
 set _MAIN_CLASS_NAME=Main
@@ -158,7 +159,7 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto :args_loop
 :args_done
-if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _RUN=%_RUN% _RUN_ARGS=%_RUN_ARGS% _TIMER=%_TIMER% 1>%2
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _RUN=%_RUN% _RUN_ARGS=%_RUN_ARGS% _TIMER=%_TIMER% 1>&2
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
@@ -209,30 +210,23 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :compile
-set "__SOURCE_FILE=%_SOURCE_DIR%\main\scala\%_MAIN_CLASS_NAME%.scala"
-if not exist "%__SOURCE_FILE%" (
-    echo %_ERROR_LABEL% Scala source file not found ^(%__SOURCE_FILE%^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set "__CLASSES_DIR=%_TARGET_DIR%\classes"
-if not exist "%__CLASSES_DIR%\" mkdir "%__CLASSES_DIR%" 1>NUL
+if not exist "%_CLASSES_DIR%\" mkdir "%_CLASSES_DIR%" 1>NUL
 
-set "__TIMESTAMP_FILE=%__CLASSES_DIR%\.latest-build"
+set "__TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build"
 call :compile_required "%__TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\scala\*.scala"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
-set "__LIST_FILE=%_TARGET_DIR%\scala_files.txt"
+set "__LIST_FILE=%_TARGET_DIR%\scalac_sources.txt"
 if exist "%__LIST_FILE%" del "%__LIST_FILE%" 1>NUL
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i >> "%__LIST_FILE%"
 )
 @rem see https://docs.scala-lang.org/overviews/compiler-options/index.html
 set "__OPTS_FILE=%_TARGET_DIR%\scalac_opts.txt"
-echo -deprecation -feature -d "%__CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
+echo -deprecation -feature -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__LIST_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile Scala source files to directory !__CLASSES_DIR:%_ROOT_DIR%=! 1>&2
+) else if %_VERBOSE%==1 ( echo Compile Scala source files to directory !_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
 call %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__LIST_FILE%"
 if not %ERRORLEVEL%==0 (
@@ -253,10 +247,10 @@ set "__MANIFEST_FILE=%_TARGET_DIR%\MANIFEST.MF"
     echo Main-Class: %_MAIN_CLASS%
 ) > "%__MANIFEST_FILE%"
 ^
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAR_CMD% cfm %_JAR_FILE% %__MANIFEST_FILE% -C %__CLASSES_DIR% . 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAR_CMD% cfm %_JAR_FILE% %__MANIFEST_FILE% -C %_CLASSES_DIR% . 1>&2
 ) else if %_VERBOSE%==1 ( echo Create Java archive !_JAR_FILE:%_ROOT_DIR%=! 1>&2
 )
-call "%_JAR_CMD%" cfm "%_JAR_FILE%" "%__MANIFEST_FILE%" -C "%__CLASSES_DIR%" .
+call "%_JAR_CMD%" cfm "%_JAR_FILE%" "%__MANIFEST_FILE%" -C "%_CLASSES_DIR%" .
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to generate Java archive %_JAR_FILE% 1>&2
     set _EXITCODE=1
