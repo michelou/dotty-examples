@@ -22,7 +22,7 @@ W:\myexamples\HelloWorld
 
 ## <span id="build">`build.bat` command</span>
 
-Command [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~450 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
+Command [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~600 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
 
 Command [**`build clean run`**](HelloWorld/build.bat) produces the following output:
 
@@ -55,7 +55,6 @@ description <span style="color:#990000;">"""Gradle example project to build/run 
 apply from: <span style="color:#990000;">"../common.gradle"</span>
 &nbsp;
 run.doFirst {
-    main scalaMainClassName
     args <span style="color:#990000;">""</span>
 }
 </pre>
@@ -98,8 +97,8 @@ build {
 <b>task</b> run(type: JavaExec) {
     dependsOn build
     ...
-    <i style="color:#009900;">// properties "main" and "args" are defined in build.gradle (main script)</i>
-    if (! main?.trim()) main <span style="color:#990000;">"Main"</span>
+    <b>if</b> (mainClassName?.trim()) main mainClassName
+    <b>else</b> main <span style="color:#990000;">"Main"</span>
     if (args == null) args <span style="color:#990000;">""</span>
 }
 ...
@@ -168,7 +167,10 @@ The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone fil
   &nbsp;
   <b>def</b> forkArgs = common.forkArgs
   &nbsp;
-  <b>def</b> mainClass = Some(<span style="color:#990000;">"myexamples.HelloWorld"</span>)
+  <b>def</b> mainClass = T.input {
+    Some(common.getBuildProp(<span style="color:#990000;">"mainClassName"</span>, <span style="color:#990000;">"myexamples.HelloWorld"</span>, T.ctx))
+  }
+  &nbsp;
   <b>def</b> sources = T.sources { common.scalaSourcePath }
   <b>def</b> clean() = T.command {
     val path = os.pwd / <span style="color:#990000;">"out"</span> / <span style="color:#990000;">"app"</span>
@@ -474,8 +476,7 @@ Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</
 rem ## Environment setup</i>
 
 <b>set</b> _EXITCODE=0
-
-<b>for</b> %%f <b>in</b> ("%~dp0") <b>do set</b> _ROOT_DIR=<span style="color:#3333ff;">%%~sf</span>
+<b>set</b> "_ROOT_DIR=<span style="color:#3333ff;">%~dp0"</span>
 
 <b>call <span style="color:#9966ff;">:env</span></b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>

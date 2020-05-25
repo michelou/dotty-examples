@@ -22,7 +22,7 @@ W:\examples\enum-Planet
 
 ## <span id="build">`build.bat` command</span>
 
-Command [**`build`**](enum-Planet/build.bat) is a basic build tool consisting of ~450 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
+Command [**`build`**](enum-Planet/build.bat) is a basic build tool consisting of ~600 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
 
 Command [**`build clean run`**](enum-Planet/build.bat) produces the following output:
 
@@ -60,7 +60,7 @@ Finally, command [**`build -debug clean compile run`**](enum-Planet/build.bat) a
 
 <pre style="font-size:80%;">
 <b/>&gt; build -debug clean compile run</b>
-[build] _CLEAN=1 _COMPILE=1 _COMPILE_CMD=dotc _RUN=1
+[build] _CLEAN=1 _COMPILE=1 _DECOMPILE=0 _DOC=0 _DOTTY=1 _RUN=1 _TASTY=0 _TEST=0
 [build] del /s /q W:\dotty\examples\ENUM-P~1\target\classes\*.class W:\dotty\examples\ENUM-P~1\target\classes\*.hasTasty W:\dotty\examples\ENUM-P~1\target\classes\.latest-build
 [build] 20180322224754 W:\dotty\examples\ENUM-P~1\src\main\scala\Planet.scala
 [build] 00000000000000 W:\dotty\examples\ENUM-P~1\target\classes\.latest-build
@@ -576,8 +576,7 @@ Batch files (e.g. <a href="enum-Planet/build.bat"><b><code>enum-Planet\build.bat
 rem ## Environment setup</i>
 
 <b>set</b> _EXITCODE=0
-
-<b>for</b> <span style="color:#3333ff;">%%f</span> <b>in</b> ("%~dp0") <b>do set</b> _ROOT_DIR=<span style="color:#3333ff;">%%~sf</span>
+<b>set</b> "_ROOT_DIR=<span style="color:#3333ff;">%~dp0"</span>
 
 <b>call <span style="color:#9966ff;">:env</span></b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>

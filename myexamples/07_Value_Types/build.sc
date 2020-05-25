@@ -7,10 +7,7 @@ object app extends ScalaModule {
 
   def forkArgs = common.forkArgs
 
-  def mainClass = T.input {
-    Some(common.getBuildProp("mainClassName", "myexamples.HelloWorld", T.ctx))
-  }
-
+  def mainClass = Some("myexamples.Main")
   def sources = T.sources { common.scalaSourcePath }
   // def resources = T.sources { os.pwd / "resources" }
 
@@ -33,4 +30,3 @@ object app extends ScalaModule {
     )
   }
 }
-
