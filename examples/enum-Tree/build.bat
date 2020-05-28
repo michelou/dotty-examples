@@ -34,6 +34,10 @@ if %_COMPILE%==1 (
     call :compile
     if not !_EXITCODE!==0 goto end
 )
+if %_DECOMPILE%==1 (
+    call :decompile
+    if not !_EXITCODE!==0 goto end
+)
 if %_DOC%==1 (
     call :doc
     if not !_EXITCODE!==0 goto end
@@ -52,7 +56,7 @@ goto end
 @rem ## Subroutines
 
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-@rem                    _CLASSES_DIR, _TARGET_DIR, _TASTY_CLASSES_DIR, _TARGET_DOCS_DIR
+@rem                    _CLASSES_DIR, _TARGET_DIR, _TARGET_DOCS_DIR, _TASTY_CLASSES_DIR
 :env
 set _BASENAME=%~n0
 
@@ -68,7 +72,6 @@ set "_CLASSES_DIR=%_TARGET_DIR%\classes"
 set "_TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes"
 set "_TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
-set "_TARGET_LIB_DIR=%_TARGET_DIR%\lib"
 goto :eof
 
 @rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
@@ -97,6 +100,7 @@ goto :eof
 :args
 set _CLEAN=0
 set _COMPILE=0
+set _DECOMPILE=0
 set _DOC=0
 set _DOTTY=1
 set _HELP=0
@@ -140,6 +144,7 @@ if "%__ARG:~0,1%"=="-" (
     @rem subcommand
     if /i "%__ARG%"=="clean" ( set _CLEAN=1
     ) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
+    ) else if /i "%__ARG%"=="decompile" ( set _COMPILE=1& set _DECOMPILE=1
     ) else if /i "%__ARG%"=="doc" ( set _DOC=1
     ) else if /i "%__ARG%"=="help" ( set _HELP=1
     ) else if /i "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
@@ -164,7 +169,7 @@ if %_TASTY%==1 if %_DOTTY%==0 (
     echo %_WARNING_LABEL% Option '-tasty' only supported by Scala 3 1>&2
     set _TASTY=0
 )
-if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _DOTTY=%_DOTTY% _RUN=%_RUN% _TASTY=%_TASTY% _TEST=%_TEST% 1>&2
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _DOTTY=%_DOTTY% _RUN=%_RUN% _TASTY=%_TASTY% _TEST=%_TEST% 1>&2
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
@@ -173,7 +178,7 @@ echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
 echo.
 echo   Options:
 echo     -debug           show commands executed by this script
-echo     -dotty           use Scala 3 tools
+echo     -dotty           use Scala 3 tools ^(default^)
 echo     -explain         set compiler option -explain
 echo     -explain-types   set compiler option -explain-types
 echo     -main:^<name^>     define main class name
@@ -185,10 +190,11 @@ echo.
 echo   Subcommands:
 echo     clean            delete generated class files
 echo     compile          compile source files ^(Java and Scala^)
+echo     decompile        decompile generated code with CFR
 echo     doc              generate documentation
 echo     help             display this help message
 echo     run              execute main class
-echo     test             execute tests
+echo     test             execute unit tests
 echo.
 echo   Properties:
 echo   ^(to be defined in SBT configuration file project\build.properties^)
@@ -201,7 +207,7 @@ goto :eof
 set __ARG=%~1
 set __VALID=0
 for /f %%i in ('powershell -C "$s='%__ARG%'; if($s -match '^[\w$]+(\.[\w$]+)*$'){1}else{0}"') do set __VALID=%%i
-@rem if %_DEBUG%==1 echo %_DEBUG_LABEL% __ARG=%__ARG% __VALID=%__VALID%
+@rem if %_DEBUG%==1 echo %_DEBUG_LABEL% __ARG=%__ARG% __VALID=%__VALID% 1>&2
 if %__VALID%==0 (
     echo %_ERROR_LABEL% Invalid class name passed to option "-main" ^(%__ARG%^) 1>&2
     set _EXITCODE=1
@@ -272,21 +278,21 @@ goto :eof
 call :init_java
 if not %_EXITCODE%==0 goto :eof
 
+call :libs_cpath
+if not %_EXITCODE%==0 goto :eof
+
 set "__SOURCES_FILE=%_TARGET_DIR%\javac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     echo %%i >> "%__SOURCES_FILE%"
 )
-call :libs_cpath
-if not %_EXITCODE%==0 goto :eof
-
 set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
 echo -classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVAC_CMD% "@%__OPTS_FILE%" @"%__SOURCES_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Java source files to directory !_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
-call "%_JAVAC_CMD%" "@%__OPTS_FILE%" @"%__SOURCES_FILE%"
+call "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Compilation of main Java source files failed 1>&2
     set _EXITCODE=1
@@ -342,20 +348,30 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 if %_TASTY%==1 (
-    if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
-    set __SCALAC_OPTS=-from-tasty -classpath "%_CLASSES_DIR%" -d "%_TASTY_CLASSES_DIR%"
-    for %%f in (%_CLASSES_DIR%\*.tasty) do (
-        set __CLASS_NAME=%%f
-        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% !__SCALAC_OPTS! !__CLASS_NAME! 1>&2
-        ) else if %_VERBOSE%==1 ( echo Compile TASTy files to !_TASTY_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
-        )
-        call %_SCALAC_CMD% !__SCALAC_OPTS! !__CLASS_NAME!
-        if not !ERRORLEVEL!==0 (
-            echo %_ERROR_LABEL% Scala compilation from TASTy files failed 1>&2
-            set _EXITCODE=1
-        )
-    )
+    call :compile_tasty
     if not !_EXITCODE!==0 goto :eof
+)
+goto :eof
+
+:compile_tasty
+if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
+
+set "__OPTS_FILE=%_TARGET_DIR%\tasty_scalac_opts.txt"
+echo -from-tasty -classpath "%_CLASSES_DIR%" -d "%_TASTY_CLASSES_DIR%" > "%__OPTS_FILE%"
+
+set "__SOURCES_FILE=%_TARGET_DIR%\tasty_scalac_sources.txt"
+if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
+for %%f in (%_CLASSES_DIR%\*.tasty) do (
+    echo %%f >> "%__SOURCES_FILE%"
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile TASTy files to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
+if not !ERRORLEVEL!==0 (
+    echo %_ERROR_LABEL% Compilation from TASTy files failed 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 goto :eof
 
@@ -442,14 +458,14 @@ for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i>> "%__DOC_LIST_FILE%"
 )
 
-for %%i in ("%~dp0\.") do set __PROJECT_NAME=%%~ni
+for %%i in ("%~dp0\.") do set "__PROJECT_NAME=%%~ni"
 set __PROJECT_VERSION=0.1-SNAPSHOT
-set __SCALADOC_OPTS=-siteroot "%_TARGET_DOCS_DIR%" -project %__PROJECT_NAME% -project-version %__PROJECT_VERSION%
+set __SCALADOC_OPTS=-siteroot "%_TARGET_DOCS_DIR%" -project %__PROJECT_NAME% -project-version "%__PROJECT_VERSION%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALADOC_CMD% %__SCALADOC_OPTS% "@%__DOC_LIST_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into directory !_TARGET_DOCS_DIR:%_ROOT_DIR%=! 1>&2
 )
-call %_SCALADOC_CMD% %__SCALADOC_OPTS% "@%__DOC_LIST_FILE%"
+call "%_SCALADOC_CMD%" %__SCALADOC_OPTS% "@%__DOC_LIST_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Scala documentation generation failed 1>&2
     set _EXITCODE=1
@@ -471,34 +487,41 @@ if not exist "%__MAIN_CLASS_FILE%" (
     goto :eof
 )
 call :libs_cpath
+if not %_EXITCODE%==0 goto :eof
+
 set __SCALA_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALA_CMD% %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% 1>&2
 )
-call %_SCALA_CMD% %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
+call "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Execution failed ^(%_MAIN_CLASS%^) 1>&2
+    echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
 if %_TASTY%==1 (
-    if not exist "%_TASTY_CLASSES_DIR%" (
-        echo %_WARNING_LABEL% TASTy output directory not found 1>&2
-        set _EXITCODE=1
-        goto :eof
-    )
-    set __SCALA_OPTS=-classpath "%_LIBS_CPATH%%_TASTY_CLASSES_DIR%;%_CLASSES_DIR%"
+    call :run_tasty
+    if not !_EXITCODE!==0 goto :eof
+)
+goto :eof
 
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALA_CMD% !__SCALA_OPTS! %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
-    ) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% ^(compiled from TASTy^) 1>&2
-    )
-    call %_SCALA_CMD% !__SCALA_OPTS! %_MAIN_CLASS% %_MAIN_ARGS%
-    if not !ERRORLEVEL!==0 (
-        echo %_ERROR_LABEL% Execution failed ^(%_MAIN_CLASS%^) 1>&2
-        set _EXITCODE=1
-        goto :eof
-    )
+:run_tasty
+if not exist "%_TASTY_CLASSES_DIR%" (
+    echo %_WARNING_LABEL% TASTy output directory not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set __SCALA_OPTS=-classpath "%_LIBS_CPATH%%_TASTY_CLASSES_DIR%"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALA_CMD% %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% ^(compiled from TASTy^) 1>&2
+)
+call "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
+if not !ERRORLEVEL!==0 (
+    echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 goto :eof
 
@@ -526,11 +549,11 @@ set "__OPTS_FILE=%_TARGET_DIR%\test_scalac_opts.txt"
 echo %_SCALAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d "%_TEST_CLASSES_DIR%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__TEST_LIST_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile Scala test sources to !_TEST_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
+) else if %_VERBOSE%==1 ( echo Compile Scala test source files to !_TEST_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
 )
-call %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__TEST_LIST_FILE%"
+call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__TEST_LIST_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of test Scala sources failed 1>&2
+    echo %_ERROR_LABEL% Compilation of test Scala source files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -560,7 +583,7 @@ for %%i in (%_TEST_CLASSES_DIR%\*Test.class) do (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% java %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
     ) else if %_VERBOSE%==1 ( echo Execute test !__MAIN_CLASS! 1>&2
     )
-    call %__JAVA_CMD% %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS!
+    call "%__JAVA_CMD%" %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS!
     if not !ERRORLEVEL!==0 (
         set _EXITCODE=1
         goto :eof

@@ -287,7 +287,7 @@ call :libs_cpath
 if not %_EXITCODE%==0 goto :eof
 
 set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
-echo %_JAVAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d "%_CLASSES_DIR%" > "%__OPTS_FILE%"
+echo %_JAVAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Java source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
@@ -348,20 +348,31 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 if %_TASTY%==1 (
-    if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
-    set __SCALAC_OPTS=-from-tasty -classpath "%_CLASSES_DIR%" -d "%_TASTY_CLASSES_DIR%"
-    for %%f in (%_CLASSES_DIR%\*.tasty) do (
-        set "__CLASS_NAME=%%f"
-        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% !__SCALAC_OPTS! !__CLASS_NAME! 1>&2
-        ) else if %_VERBOSE%==1 ( echo Compile TASTy files to !_TASTY_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
-        )
-        call "%_SCALAC_CMD%" !__SCALAC_OPTS! !__CLASS_NAME!
-        if not !ERRORLEVEL!==0 (
-            echo %_ERROR_LABEL% Scala compilation from TASTy files failed 1>&2
-            set _EXITCODE=1
-        )
-    )
+    call :compile_tasty
     if not !_EXITCODE!==0 goto :eof
+)
+goto :eof
+
+:compile_tasty
+if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
+
+set "__OPTS_FILE=%_TARGET_DIR%\tasty_scalac_opts.txt"
+echo -from-tasty -classpath "%_CLASSES_DIR%" -d "%_TASTY_CLASSES_DIR%" > "%__OPTS_FILE%"
+
+set "__SOURCES_FILE=%_TARGET_DIR%\tasty_scalac_sources.txt"
+if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
+for %%f in (%_CLASSES_DIR%\*.tasty) do (
+    echo %%f >> "%__SOURCES_FILE%"
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile TASTy files to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
+if not !ERRORLEVEL!==0 (
+    echo %_ERROR_LABEL% Compilation from TASTy files failed 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 )
 goto :eof
 
@@ -383,7 +394,7 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% %__GENERATED_TIMESTAMP% %__TIMESTAMP_FILE% 1>
 call :newer %__SOURCE_TIMESTAMP% %__GENERATED_TIMESTAMP%
 set _COMPILE_REQUIRED=%_NEWER%
 if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
-    echo No compilation needed ^("%__PATH%"^) 1>&2
+    echo No compilation needed ^("!__PATH:%_ROOT_DIR%=!"^) 1>&2
 )
 goto :eof
 
@@ -444,14 +455,14 @@ if not exist "%__OUTPUT_DIR%" mkdir "%__OUTPUT_DIR%"
 set __CFR_CMD=cfr.bat
 set __CFR_OPTS=--extraclasspath "%__EXTRA_CPATH%" --outputdir "%__OUTPUT_DIR%"
 
-set "__CLASS_FILES=%_CLASSES_DIR%\*.class"
+set "__CLASS_DIRS=%_CLASSES_DIR%"
 for /f "delims=" %%f in ('dir /b /s /ad "%_CLASSES_DIR%" 2^>NUL') do (
-    set "__CLASS_FILES=!__CLASS_FILES! %%f\*.class"
+    set __CLASS_DIRS=!__CLASS_DIRS! "%%f"
 )
-if %_VERBOSE%==1 echo Decompile code to directory "!__OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
-for %%i in (%__CLASS_FILES%) do (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% %__CFR_CMD% %__CFR_OPTS% %%i 1>&2
-    call %__CFR_CMD% %__CFR_OPTS% %%i
+if %_VERBOSE%==1 echo Decompile bytecode to directory "!__OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
+for %%i in (%__CLASS_DIRS%) do (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% %__CFR_CMD% %__CFR_OPTS% "%%i\*.class" 1>&2
+    call %__CFR_CMD% %__CFR_OPTS% "%%i"\*.class
     if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Failed to decompile generated code in directory "%%i" 1>&2
         set _EXITCODE=1
@@ -481,20 +492,20 @@ set "__DOC_TIMESTAMP_FILE=%_TARGET_DOCS_DIR%\.latest-build"
 call :compile_required "%__DOC_TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\scala\*.scala"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
-set "__DOC_LIST_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
+set "__SOURCES_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
-    echo %%i>> "%__DOC_LIST_FILE%"
+    echo %%i>> "%__SOURCES_FILE%"
 )
 
-for %%i in ("%~dp0\.") do set __PROJECT_NAME=%%~ni
+for %%i in ("%~dp0\.") do set "__PROJECT_NAME=%%~ni"
 set __PROJECT_URL=github.com/michelou/dotty-examples
 set __PROJECT_VERSION=0.1-SNAPSHOT
-set __SCALADOC_OPTS=-siteroot "%_TARGET_DOCS_DIR%" -project "%__PROJECT_NAME%" -project-url "%__PROJECT_URL%" -project-version %__PROJECT_VERSION%
+set __SCALADOC_OPTS=-siteroot "%_TARGET_DOCS_DIR%" -project "%__PROJECT_NAME%" -project-url "%__PROJECT_URL%" -project-version "%__PROJECT_VERSION%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALADOC_CMD% %__SCALADOC_OPTS% "@%__DOC_LIST_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALADOC_CMD% %__SCALADOC_OPTS% "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into directory !_TARGET_DOCS_DIR:%_ROOT_DIR%=! 1>&2
 )
-call "%_SCALADOC_CMD%" %__SCALADOC_OPTS% "@%__DOC_LIST_FILE%"
+call "%_SCALADOC_CMD%" %__SCALADOC_OPTS% "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Scala documentation generation failed 1>&2
     set _EXITCODE=1
@@ -517,6 +528,7 @@ if not exist "%__MAIN_CLASS_FILE%" (
 )
 @rem call :libs_cpath
 @rem if not %_EXITCODE%==0 goto :eof
+
 set __SCALA_OPTS=%_SCALA_OPTS% -classpath "%_CLASSES_DIR%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALA_CMD% %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
@@ -559,7 +571,7 @@ set "__TEST_TIMESTAMP_FILE=%_TEST_CLASSES_DIR%\.latest-build"
 call :compile_required "%__TEST_TIMESTAMP_FILE%" "%_SOURCE_DIR%\test\scala\*.scala"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
-set "__TEST_LIST_FILE=%_TARGET_DIR%\test_salac_sources.txt"
+set "__TEST_LIST_FILE=%_TARGET_DIR%\test_scalac_sources.txt"
 if exist "%__TEST_LIST_FILE%" del "%__TEST_LIST_FILE%" 1>NUL
 for %%i in (%_SOURCE_DIR%\test\scala\*.scala) do (
     echo %%i >> "%__TEST_LIST_FILE%"

@@ -411,6 +411,44 @@ if exist "%_ROOT_DIR%\lib\" (
 )
 goto :eof
 
+:decompile
+if %_DOTTY%==1 ( set "__LIB_PATH=%DOTTY_HOME%\lib"
+) else ( set "__LIB_PATH=%SCALA_HOME%\lib"
+)
+set __EXTRA_CPATH=
+for %%f in (%__LIB_PATH%\*.jar) do set "__EXTRA_CPATH=!__EXTRA_CPATH!%%f;"
+set "__OUTPUT_DIR=%_TARGET_DIR%\cfr-sources"
+if not exist "%__OUTPUT_DIR%" mkdir "%__OUTPUT_DIR%"
+
+set __CFR_CMD=cfr.bat
+set __CFR_OPTS=--extraclasspath "%__EXTRA_CPATH%" --outputdir "%__OUTPUT_DIR%"
+
+set "__CLASS_DIRS=%_CLASSES_DIR%"
+for /f "delims=" %%f in ('dir /b /s /ad "%_CLASSES_DIR%" 2^>NUL') do (
+    set __CLASS_DIRS=!__CLASS_DIRS! "%%f"
+)
+if %_VERBOSE%==1 echo Decompile bytecode to directory "!__OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
+for %%i in (%__CLASS_DIRS%) do (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% %__CFR_CMD% %__CFR_OPTS% "%%i\*.class" 1>&2
+    call %__CFR_CMD% %__CFR_OPTS% "%%i"\*.class
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to decompile generated code in directory "%%i" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+set "__OUTPUT_FILE=%_TARGET_DIR%\cfr-sources.java"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% type "%__OUTPUT_DIR%\*.java" ^>^> "%__OUTPUT_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Copy decompiled Java source files to "!__OUTPUT_FILE:%_ROOT_DIR%=!" 1>&2
+)
+set __JAVA_FILES=
+for /f "delims=" %%f in ('dir /b /s "%__OUTPUT_DIR%\*.java" 2^>NUL') do (
+    set __JAVA_FILES=!__JAVA_FILES! "%%f"
+)
+if defined __JAVA_FILES type %__JAVA_FILES% > "%__OUTPUT_FILE%" 2>NUL
+goto :eof
+
 :doc
 call :init_scala
 if not %_EXITCODE%==0 goto :eof
