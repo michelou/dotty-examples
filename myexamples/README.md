@@ -16,7 +16,7 @@ We can build/run each example in directory [**`myexamples\`**](.) using [**`sbt`
 In the following we explain in more detail the build tools available in the [**`HelloWorld`**](HelloWorld) example (and also in other examples from directory [**`myexamples\`**](./)):
 
 <pre style="font-size:80%;">
-<b>&gt; echo %cd%</b>
+<b>&gt; cd</b>
 W:\myexamples\HelloWorld
 </pre>
 

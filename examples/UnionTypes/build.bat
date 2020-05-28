@@ -361,7 +361,7 @@ echo -from-tasty -classpath "%_CLASSES_DIR%" -d "%_TASTY_CLASSES_DIR%" > "%__OPT
 
 set "__SOURCES_FILE=%_TARGET_DIR%\tasty_scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
-for %%f in (%_CLASSES_DIR%\*.tasty) do (
+for /f %%f in ('dir /s /b "%_CLASSES_DIR%\*.tasty" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
@@ -369,7 +369,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not !ERRORLEVEL!==0 (
-    echo %_ERROR_LABEL% Compilation from TASTy files failed 1>&2
+    echo %_ERROR_LABEL% Compilation of TASTy files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )

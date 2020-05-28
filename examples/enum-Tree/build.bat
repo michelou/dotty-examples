@@ -361,7 +361,7 @@ echo -from-tasty -classpath "%_CLASSES_DIR%" -d "%_TASTY_CLASSES_DIR%" > "%__OPT
 
 set "__SOURCES_FILE=%_TARGET_DIR%\tasty_scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
-for %%f in (%_CLASSES_DIR%\*.tasty) do (
+for /f %%f in ('dir /s /b "%_CLASSES_DIR%\*.tasty" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
@@ -369,7 +369,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not !ERRORLEVEL!==0 (
-    echo %_ERROR_LABEL% Compilation from TASTy files failed 1>&2
+    echo %_ERROR_LABEL% Compilation of TASTy files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -393,7 +393,7 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% %__GENERATED_TIMESTAMP% %__TIMESTAMP_FILE% 1>
 call :newer %__SOURCE_TIMESTAMP% %__GENERATED_TIMESTAMP%
 set _COMPILE_REQUIRED=%_NEWER%
 if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
-    echo No compilation needed ^("%__PATH%"^) 1>&2
+    echo No compilation needed ^("!__PATH:%_ROOT_DIR%=!"^) 1>&2
 )
 goto :eof
 
@@ -442,6 +442,44 @@ if defined __ADD_DOTTY_LIBS (
 )
 goto :eof
 
+:decompile
+if %_DOTTY%==1 ( set "__LIB_PATH=%DOTTY_HOME%\lib"
+) else ( set "__LIB_PATH=%SCALA_HOME%\lib"
+)
+set __EXTRA_CPATH=
+for %%f in (%__LIB_PATH%\*.jar) do set "__EXTRA_CPATH=!__EXTRA_CPATH!%%f;"
+set "__OUTPUT_DIR=%_TARGET_DIR%\cfr-sources"
+if not exist "%__OUTPUT_DIR%" mkdir "%__OUTPUT_DIR%"
+
+set __CFR_CMD=cfr.bat
+set __CFR_OPTS=--extraclasspath "%__EXTRA_CPATH%" --outputdir "%__OUTPUT_DIR%"
+
+set "__CLASS_FILES=%_CLASSES_DIR%\*.class"
+for /f "delims=" %%f in ('dir /b /s /ad "%_CLASSES_DIR%" 2^>NUL') do (
+    set "__CLASS_FILES=!__CLASS_FILES! %%f\*.class"
+)
+if %_VERBOSE%==1 echo Decompile code to directory "!__OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
+for %%i in (%__CLASS_FILES%) do (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% %__CFR_CMD% %__CFR_OPTS% %%i 1>&2
+    call %__CFR_CMD% %__CFR_OPTS% %%i
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to decompile generated code in directory "%%i" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+set "__OUTPUT_FILE=%_TARGET_DIR%\cfr-sources.java"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% type "%__OUTPUT_DIR%\*.java" ^>^> "%__OUTPUT_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Copy decompiled Java source files to "!__OUTPUT_FILE:%_ROOT_DIR%=!" 1>&2
+)
+set __JAVA_FILES=
+for /f "delims=" %%f in ('dir /b /s "%__OUTPUT_DIR%\*.java" 2^>NUL') do (
+    set __JAVA_FILES=!__JAVA_FILES! "%%f"
+)
+if defined __JAVA_FILES type %__JAVA_FILES% > "%__OUTPUT_FILE%" 2>NUL
+goto :eof
+
 :doc
 call :init_scala
 if not %_EXITCODE%==0 goto :eof
@@ -459,8 +497,9 @@ for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
 )
 
 for %%i in ("%~dp0\.") do set "__PROJECT_NAME=%%~ni"
+set __PROJECT_URL=github.com/michelou/dotty-examples
 set __PROJECT_VERSION=0.1-SNAPSHOT
-set __SCALADOC_OPTS=-siteroot "%_TARGET_DOCS_DIR%" -project %__PROJECT_NAME% -project-version "%__PROJECT_VERSION%"
+set __SCALADOC_OPTS=-siteroot "%_TARGET_DOCS_DIR%" -project "%__PROJECT_NAME%" -project-url "%__PROJECT_URL%" -project-version "%__PROJECT_VERSION%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALADOC_CMD% %__SCALADOC_OPTS% "@%__DOC_LIST_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into directory !_TARGET_DOCS_DIR:%_ROOT_DIR%=! 1>&2
@@ -536,9 +575,9 @@ set "__TEST_TIMESTAMP_FILE=%_TEST_CLASSES_DIR%\.latest-build"
 call :compile_required "%__TEST_TIMESTAMP_FILE%" "%_SOURCE_DIR%\test\scala\*.scala"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
-set __TEST_LIST_FILE=%_TARGET_DIR%\test_scalac_sources.txt
+set "__TEST_LIST_FILE=%_TARGET_DIR%\test_scalac_sources.txt"
 if exist "%__TEST_LIST_FILE%" del "%__TEST_LIST_FILE%" 1>NUL
-for %%i in (%_SOURCE_DIR%\test\scala\*.scala) do (
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\test\scala\*.scala" 2^>NUL') do (
     echo %%i >> "%__TEST_LIST_FILE%"
 )
 
@@ -579,7 +618,7 @@ set __TEST_RUN_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
 
 @rem see https://github.com/junit-team/junit4/wiki/Getting-started
 for %%i in (%_TEST_CLASSES_DIR%\*Test.class) do (
-    set __MAIN_CLASS=%%~ni
+    set "__MAIN_CLASS=%%~ni"
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% java %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
     ) else if %_VERBOSE%==1 ( echo Execute test !__MAIN_CLASS! 1>&2
     )

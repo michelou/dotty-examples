@@ -368,7 +368,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES
 ) else if %_VERBOSE%==1 ( echo Compile TASTy files to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
-if not !ERRORLEVEL!==0 (
+if not !ERRORLEVEL!==0 (of
     echo %_ERROR_LABEL% Compilation from TASTy files failed 1>&2
     set _EXITCODE=1
     goto :eof
@@ -393,7 +393,7 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% %__GENERATED_TIMESTAMP% %__TIMESTAMP_FILE% 1>
 call :newer %__SOURCE_TIMESTAMP% %__GENERATED_TIMESTAMP%
 set _COMPILE_REQUIRED=%_NEWER%
 if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
-    echo No compilation needed ^("%__PATH%"^) 1>&2
+    echo No compilation needed ^("!__PATH:%_ROOT_DIR%=!"^) 1>&2
 )
 goto :eof
 
