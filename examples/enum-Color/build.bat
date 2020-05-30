@@ -281,16 +281,16 @@ goto :eof
 call :init_java
 if not %_EXITCODE%==0 goto :eof
 
+call :libs_cpath
+if not %_EXITCODE%==0 goto :eof
+
 set "__SOURCES_FILE=%_TARGET_DIR%\javac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     echo %%i >> "%__SOURCES_FILE%"
 )
-call :libs_cpath
-if not %_EXITCODE%==0 goto :eof
-
 set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
-echo %_JAVAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
+echo -classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Java source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
@@ -339,7 +339,7 @@ for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i >> "%__SOURCES_FILE%"
 )
 set "__OPTS_FILE=%_TARGET_DIR%\scalac_opts.txt"
-echo %_SCALAC_OPTS% -classpath "%_CLASSES_DIR%" -d "%_CLASSES_DIR%" > "%__OPTS_FILE%"
+echo %_SCALAC_OPTS% -classpath "%_CLASSES_DIR:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Scala source files to directory !_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
@@ -429,7 +429,7 @@ if not exist "%__BATCH_FILE%" (
     set _EXITCODE=1
     goto :eof
 )
-if %_DEBUG%==1 echo %_DEBUG_LABEL% call "%__BATCH_FILE%" %_DEBUG% 1>&2
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__BATCH_FILE%" %_DEBUG% 1>&2
 call "%__BATCH_FILE%" %_DEBUG%
 set _LIBS_CPATH=%_CPATH%
 
@@ -446,8 +446,16 @@ if defined __ADD_DOTTY_LIBS (
 goto :eof
 
 :decompile
-if %_DOTTY%==1 ( set "__LIB_PATH=%DOTTY_HOME%\lib"
-) else ( set "__LIB_PATH=%SCALA_HOME%\lib"
+if %_DOTTY%==1 (
+    set "__LIB_PATH=%DOTTY_HOME%\lib"
+    for /f "tokens=1,2,3,4,*" %%i in ('%DOTTY_HOME%\bin\dotc.bat -version 2^>^&1') do (
+        set "__VERSION_STRING=_scala3_%%l"
+    )
+) else (
+    set "__LIB_PATH=%SCALA_HOME%\lib"
+    for /f "tokens=1,2,3,4,*" %%i in ('%SCALA_HOME%\bin\scalac.bat -version') do (
+        set "__VERSION_STRING=_scala2_%%l"
+    )
 )
 set __EXTRA_CPATH=
 for %%f in (%__LIB_PATH%\*.jar) do set "__EXTRA_CPATH=!__EXTRA_CPATH!%%f;"
@@ -471,16 +479,32 @@ for %%i in (%__CLASS_DIRS%) do (
         goto :eof
     )
 )
-set "__OUTPUT_FILE=%_TARGET_DIR%\cfr-sources.java"
+set "__OUTPUT_FILE=%_TARGET_DIR%\cfr-sources%__VERSION_STRING%.java"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% type "%__OUTPUT_DIR%\*.java" ^>^> "%__OUTPUT_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Copy decompiled Java source files to "!__OUTPUT_FILE:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Save decompiled Java source files to "!__OUTPUT_FILE:%_ROOT_DIR%=!" 1>&2
 )
 set __JAVA_FILES=
 for /f "delims=" %%f in ('dir /b /s "%__OUTPUT_DIR%\*.java" 2^>NUL') do (
     set __JAVA_FILES=!__JAVA_FILES! "%%f"
 )
 if defined __JAVA_FILES type %__JAVA_FILES% > "%__OUTPUT_FILE%" 2>NUL
+
+set __DIFF_CMD=diff.exe
+set __DIFF_OPTS=
+
+set "__CHECK_FILE=%_SOURCE_DIR%\build\cfr-sources%__VERSION_STRING%.java"
+if exist "%__CHECK_FILE%" (
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__DIFF_CMD%" "%__OUTPUT_FILE%" "%__CHECK_FILE%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Compare output file with check file "!__CHECK_FILE:%_ROOT_DIR%=!" 1>&2
+    )
+    call "%__DIFF_CMD%" "%__OUTPUT_FILE%" "%__CHECK_FILE%"
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Output file and check file differ 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
 goto :eof
 
 :doc
@@ -509,7 +533,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALADOC_CMD% %__SCALADOC_OPTS% "@%__SOUR
 )
 call "%_SCALADOC_CMD%" %__SCALADOC_OPTS% "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Generation of Scala documentation failed 1>&2
+    echo %_ERROR_LABEL% Generation of HTML documentation failed 1>&2
     set _EXITCODE=1
     goto :eof
 )

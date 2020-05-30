@@ -334,7 +334,7 @@ for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i >> "%__SOURCES_FILE%"
 )
 set "__OPTS_FILE=%_TARGET_DIR%\scalac_opts.txt"
-echo %_SCALAC_OPTS% -classpath "%_CLASSES_DIR:\=\\%" -d "%_CLASSES_DIR%" > "%__OPTS_FILE%"
+echo %_SCALAC_OPTS% -classpath "%_CLASSES_DIR:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Scala source files to directory !_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
@@ -575,7 +575,7 @@ if %_COMPILE_REQUIRED%==0 goto :eof
 
 set "__TEST_LIST_FILE=%_TARGET_DIR%\test_scalac_sources.txt"
 if exist "%__TEST_LIST_FILE%" del "%__TEST_LIST_FILE%" 1>NUL
-for %%i in (%_SOURCE_DIR%\test\scala\*.scala) do (
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\test\scala\*.scala" 2^>NUL') do (
     echo %%i >> "%__TEST_LIST_FILE%"
 )
 
@@ -619,7 +619,7 @@ set __TEST_RUN_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
 @rem see https://github.com/junit-team/junit4/wiki/Getting-started
 for %%i in (%_TEST_CLASSES_DIR%\*Test.class) do (
     set "__MAIN_CLASS=%%~ni"
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %__JAVA_CMD% %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__JAVA_CMD%" %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
     ) else if %_VERBOSE%==1 ( echo Execute test !__MAIN_CLASS! 1>&2
     )
     call "%__JAVA_CMD%" %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS!

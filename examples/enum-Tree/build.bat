@@ -86,7 +86,7 @@ if exist "%__PROPS_FILE%" (
         set _VALUE=%%~j
         set _NAME=!_NAME:.=_!
         if not "!_NAME!"=="" (
-            rem trim value
+            @rem trim value
             for /f "tokens=*" %%v in ("!_VALUE!") do set _VALUE=%%v
             set _!_NAME: =!=!_VALUE!
         )
@@ -426,7 +426,7 @@ if not exist "%__BATCH_FILE%" (
     set _EXITCODE=1
     goto :eof
 )
-if %_DEBUG%==1 echo %_DEBUG_LABEL% call "%__BATCH_FILE%" %_DEBUG% 1>&2
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__BATCH_FILE%" %_DEBUG% 1>&2
 call "%__BATCH_FILE%" %_DEBUG%
 set _LIBS_CPATH=%_CPATH%
 
@@ -454,14 +454,14 @@ if not exist "%__OUTPUT_DIR%" mkdir "%__OUTPUT_DIR%"
 set __CFR_CMD=cfr.bat
 set __CFR_OPTS=--extraclasspath "%__EXTRA_CPATH%" --outputdir "%__OUTPUT_DIR%"
 
-set "__CLASS_FILES=%_CLASSES_DIR%\*.class"
+set "__CLASS_DIRS=%_CLASSES_DIR%"
 for /f "delims=" %%f in ('dir /b /s /ad "%_CLASSES_DIR%" 2^>NUL') do (
-    set "__CLASS_FILES=!__CLASS_FILES! %%f\*.class"
+    set __CLASS_DIRS=!__CLASS_DIRS! "%%f"
 )
-if %_VERBOSE%==1 echo Decompile code to directory "!__OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
-for %%i in (%__CLASS_FILES%) do (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% %__CFR_CMD% %__CFR_OPTS% %%i 1>&2
-    call %__CFR_CMD% %__CFR_OPTS% %%i
+if %_VERBOSE%==1 echo Decompile bytecode to directory "!__OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
+for %%i in (%__CLASS_DIRS%) do (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% %__CFR_CMD% %__CFR_OPTS% "%%i\*.class" 1>&2
+    call %__CFR_CMD% %__CFR_OPTS% "%%i"\*.class
     if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Failed to decompile generated code in directory "%%i" 1>&2
         set _EXITCODE=1
@@ -614,12 +614,13 @@ if not %ERRORLEVEL%==0 (
 set __JAVA_CMD=java.exe
 
 call :libs_cpath 1
+if not %_EXITCODE%==0 goto :eof
 set __TEST_RUN_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
 
 @rem see https://github.com/junit-team/junit4/wiki/Getting-started
 for %%i in (%_TEST_CLASSES_DIR%\*Test.class) do (
     set "__MAIN_CLASS=%%~ni"
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% java %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
     ) else if %_VERBOSE%==1 ( echo Execute test !__MAIN_CLASS! 1>&2
     )
     call "%__JAVA_CMD%" %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS!
