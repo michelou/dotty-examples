@@ -1,6 +1,8 @@
 BEGIN {
     if (DEBUG) print "BEGIN";
     PRINT = 1;
+    onclick_id = 0;
+    saved_id = 0;
     output_file = "";
 }
 
@@ -8,6 +10,9 @@ BEGIN {
     if (PRINT) {
         input_file = FILENAME;
         output_file = FILENAME".tmp";
+        match(FILENAME, /\\[A-Za-z0-9$-.]*\\[A-Za-z0-9$-.]*.html$/);
+        basename = substr(FILENAME, RSTART+1);
+        sub(/\\/, "/", basename);
         parent_dir = FILENAME;
         sub(/\\[A-Za-z0-9$-.]*.html$/, "", parent_dir);
         if (DEBUG) {
@@ -25,6 +30,7 @@ BEGIN {
         i = n; while (i > 0) { prefix = "../"prefix; --i }
         PRINT = 0;
     }
+    if (match($0, /class="leaf"/) > 0 && (index($0, basename) > 0)) saved_id = onclick_id;
 }
 
 /href="\/api\// {
@@ -87,6 +93,20 @@ BEGIN {
     if (DEBUG) print "Line     : "$0;
     sub(/src="\/js\//, "src=\""prefix"js/");
     if (DEBUG) print "Line("n") : "$0;
+    print $0 > output_file;
+    next;
+}
+
+/onclick=/ {
+    onclick_id += 1;
+    sub(/onclick=/, "id=\"section_"onclick_id"\" onclick=");
+    print $0 > output_file;
+    next;
+}
+
+/<\/body>/ {
+    print "        <!-- basename="basename", saved_id="saved_id" -->" > output_file;
+    print "        <script>document.getElementById(\"section_"saved_id"\").click();</script>" > output_file;
     print $0 > output_file;
     next;
 }

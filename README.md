@@ -62,12 +62,12 @@ C:\opt\dotty-0.24.0-RC1\     <i>( 26.3 MB)</i>
 C:\opt\Git-2.26.2\           <i>(271.0 MB)</i>
 C:\opt\gradle-6.4.1\         <i>(109.0 MB)</i>
 C:\opt\Mill-0.7.3\           <i>( 53.6 MB)</i>
-C:\opt\sbt-1.3.10\           <i>( 61.0 MB)</i>
+C:\opt\sbt-1.3.11\           <i>( 61.3 MB)</i>
 C:\opt\scala-2.13.2\         <i>( 22.4 MB, 588 MB with API docs)</i>
 </pre>
  <!-- jdk: 242-b08 = 184 MB, 252-b09 = 181 MB -->
  <!-- sbt: 1.3.6 = 55.1 MB, 1.3.7 = 60.9 MB, 1.3.8 = 61.0 MB -->
- <!-- sbt: 1.3.9 = 61.2 MB, 1.3.10 = 61.2 MB -->
+ <!-- sbt: 1.3.9 = 61.2 MB, 1.3.10 = 61.2 MB, 1.3.11 = 61.3 MB -->
 
 > **:mag_right:** [Git for Windows][git_releases] provides a Bash emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
@@ -277,13 +277,13 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; setenv</b>
 Tool versions:
    javac 1.8.0_252, java 1.8.0_252, scalac 2.13.2, dotc 0.24.0-RC1
-   ant 1.10.8, gradle 6.4.1, mill 0.7.3, mvn 3.6.3, sbt 1.3.10/2.12.10,
+   ant 1.10.8, gradle 6.4.1, mill 0.7.3, mvn 3.6.3, sbt 1.3.11/2.12.10,
    cfr 0.150, python 3.7.4, bloop v1.3.4,
    git 2.26.2.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; where sbt</b>
-C:\opt\sbt-1.3.10\bin\sbt
-C:\opt\sbt-1.3.10\bin\sbt.bat
+C:\opt\sbt-1.3.11\bin\sbt
+C:\opt\sbt-1.3.11\bin\sbt.bat
 </pre>
 
 Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and defined variables:
@@ -292,7 +292,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_252, java 1.8.0_252, scalac 2.13.2, dotc 0.24.0-RC1
-   ant 1.10.8, gradle 6.4.1, mill 0.7.3, mvn 3.6.3, sbt 1.3.10/2.12.10,
+   ant 1.10.8, gradle 6.4.1, mill 0.7.3, mvn 3.6.3, sbt 1.3.11/2.12.10,
    cfr 0.150, python 3.7.4, bloop v1.3.4,
    git 2.26.2.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
@@ -305,7 +305,7 @@ Tool paths:
    C:\opt\gradle-6.4.1\bin\gradle.bat
    C:\opt\Mill-0.7.3\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
-   C:\opt\sbt-1.3.10\bin\sbt.bat
+   C:\opt\sbt-1.3.11\bin\sbt.bat
    C:\opt\cfr-0.150\bin\cfr.bat
    C:\opt\Python-3.7.4\python.exe
    C:\opt\bloop-1.3.4\bloop.cmd
@@ -581,7 +581,7 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 | :----------- | :------: | :------ |
 | `build.sbt` | `dottyVersion` | `0.23.0-RC1` &rarr; `0.24.0-RC1`|
 | `build.sc` | `scalaVersion` | `0.23.0-RC1` &rarr; `0.24.0-RC1` |
-| `project\build.properties` | `sbt.version` | `1.3.8` &rarr; `1.3.10` |
+| `project\build.properties` | `sbt.version` | `1.3.10` &rarr; `1.3.11` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.3.4` &rarr; `0.4.0` |
 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
@@ -722,7 +722,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://gradle.org/install/">gradle-6.4.1-bin.zip</a><i>                            (97 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u252b09.zip</a>  <i>(99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.26.2-64-bit.7z.exe</a>                <i>(41 MB)</i>
-<a href="https://www.scala-sbt.org/download.html">sbt-1.3.10.zip</a>                                  <i>(55 MB)</i>
+<a href="https://github.com/sbt/sbt/releases">sbt-1.3.11.zip</a>                                  <i>(55 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.2.zip</a>                                <i>(21 MB)</i>
 </pre>
 
@@ -862,9 +862,9 @@ Command Prompt has been around for as long as we can remember, but starting with
 [python_changelog]: https://docs.python.org/3.8/whatsnew/changelog.html#python-3-8-0-final
 [python_release]: https://www.python.org/downloads/release/python-380/
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
-[sbt_downloads]: https://www.scala-sbt.org/download.html
+[sbt_downloads]: https://github.com/sbt/sbt/releases
 [sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.10
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.11
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala_releases]: https://www.scala-lang.org/files/archive/
 [scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.2
