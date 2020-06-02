@@ -82,13 +82,12 @@ set _MAIN_ARGS_DEFAULT=
 set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
 if exist "%__PROPS_FILE%" (
     for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
-        set _NAME=%%~i
-        set _VALUE=%%~j
-        set _NAME=!_NAME:.=_!
-        if not "!_NAME!"=="" (
+        for /f "delims= " %%n in ("%%i") do set __NAME=%%n
+        @rem line comments start with "#"
+        if not "!__NAME!"=="" if not "!__NAME:~0,1!"=="#" (
             @rem trim value
-            for /f "tokens=*" %%v in ("!_VALUE!") do set _VALUE=%%v
-            set _!_NAME: =!=!_VALUE!
+            for /f "tokens=*" %%v in ("%%~j") do set __VALUE=%%v
+            set "_!__NAME:.=_!=!__VALUE!"
         )
     )
     if defined _main_class set _MAIN_CLASS_DEFAULT=!_main_class!
@@ -604,7 +603,7 @@ if %_COMPILE_REQUIRED%==0 goto :eof
 
 set "__TEST_LIST_FILE=%_TARGET_DIR%\test_scalac_sources.txt"
 if exist "%__TEST_LIST_FILE%" del "%__TEST_LIST_FILE%" 1>NUL
-for %%i in (%_SOURCE_DIR%\test\scala\*.scala) do (
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\test\scala\*.scala" 2^>NUL') do (
     echo %%i >> "%__TEST_LIST_FILE%"
 )
 
