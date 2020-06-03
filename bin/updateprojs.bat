@@ -18,8 +18,8 @@ set _DOTTY_VERSION_OLD="0.23.0-RC1"
 set _DOTTY_VERSION_NEW="0.24.0-RC1"
 
 @rem files project\build.properties
-set _SBT_VERSION_OLD=sbt.version=1.3.10
-set _SBT_VERSION_NEW=sbt.version=1.3.11
+set _SBT_VERSION_OLD=sbt.version=1.3.11
+set _SBT_VERSION_NEW=sbt.version=1.3.12
 
 @rem files project\plugins.sbt
 @rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/
@@ -36,7 +36,7 @@ if not %_EXITCODE%==0 goto end
 @rem #########################################################################
 @rem ## Main
 
-for %%i in (examples myexamples cdsexamples) do (
+for %%i in (cdsexamples examples metaexamples myexamples) do (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% call :update_project "%_ROOT_DIR%\%%i" 1>&2
     call :update_project "%_ROOT_DIR%\%%i"
 )

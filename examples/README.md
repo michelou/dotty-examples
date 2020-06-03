@@ -117,7 +117,7 @@ W:\examples\enum-Planet\target\cfr-sources\Planet.java
 > For simplicity the [**`build`**](enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
 > <b>&gt; type project\build.properties</b>
-> sbt.version=1.3.9
+> sbt.version=1.3.12
 > main.class=Planet
 > main.args=1
 > </pre>
@@ -276,10 +276,9 @@ The configuration file [**`enum-Planet\build.sc`**](enum-Planet/build.sc) depend
   <b>def</b> forkArgs = common.forkArgs
   &nbsp;
   <b>def</b> mainClass = T.input {
-    Some(common.getBuildProp(<span style="color:#990000;">"mainClassName"</span>, <span style="color:#990000;">"Main"</span>, T.ctx))
+    Some(common.getBuildProp(<span style="color:#990000;">"mainClassName"</span>, <span style="color:#990000;">"Planet"</span>, T.ctx))
   }
   &nbsp;
-  <b>def</b> mainClass = Some(<span style="color:#990000;">"Planet"</span>)
   <b>def</b> sources = T.sources { common.scalaSourcePath }
   <b>def</b> clean() = T.command {
     val path = os.pwd / <span style="color:#990000;">"out"</span> / <span style="color:#990000;">"app"</span>

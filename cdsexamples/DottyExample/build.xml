@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="DottyExample" default="compile" basedir=".">
+<project name="enum-Color" default="compile" basedir=".">
 
     <property name="scala-source.dir" value="${basedir}/src/main/scala" />
     <property name="target.dir" value="${basedir}/target" />
-    <property name="build.dir" value="${target.dir}/classes" />
+    <property name="build.dir" value="${target.dir}/main/classes" />
     <property name="main.class" value="cdsexamples.Main" />
+
+    <property name="test-source.dir" value="${basedir}/src/test/scala" />
+    <property name="test-build.dir" value="${target.dir}/test/classes" />
+    <property name="test-report.dir" value="${target.dir}/test/reports" />
 
     <!-- task 'init' and macro 'dotc' are defined in parent build.xml -->
     <import file="../build.xml" />
@@ -18,11 +22,43 @@
 
     <target name="run" depends="compile">
         <java classname="${main.class}">
+            <!-- <arg value="1" /> -->
             <classpath>
                 <path refid="dotty.classpath" />
                 <path refid="build.classpath" />
             </classpath>
         </java>
+    </target>
+
+    <target name="test-compile" depends="init, compile">
+        <mkdir dir="${test-build.dir}" />
+        <pathconvert property="test.classpath" refid="test.classpath" />
+        <pathconvert property="test.sources" pathsep=" ">
+            <fileset dir="${test-source.dir}/" includes="**/*.scala" />
+        </pathconvert>
+        <dotc srcdir="${test-source.dir}"
+              destdir="${test-build.dir}"
+              classpathref="test.classpath" />
+    </target>
+
+    <target name="test" depends="compile, test-compile">
+        <!--
+        see https://junit.org/junit5/docs/snapshot/user-guide/#running-tests-console-launcher-options
+        -->
+        <java classpathref="test.classpath"
+              classname="org.junit.platform.console.ConsoleLauncher"
+              fork="true" failonerror="true">
+            <jvmarg value="-Dfile.encoding=UTF-8"/>
+            <arg value="&quot;--select-directory=${test-build.dir}&quot;"/>
+            <arg line="--reports-dir &quot;${test-report.dir}&quot;"/> <!-- created if not found -->
+            <arg value="--fail-if-no-tests"/>
+        </java>
+        <junitreport todir="${test-report.dir}">
+            <fileset dir="${test-report.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${test-report.dir}/html"/>
+        </junitreport>
     </target>
 
     <target name="clean">

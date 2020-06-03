@@ -526,7 +526,7 @@ for %%i in ("%~dp0\.") do set "__PROJECT_NAME=%%~ni"
 set __PROJECT_URL=github.com/michelou/dotty-examples
 set __PROJECT_VERSION=0.1-SNAPSHOT
 if %_DOTTY%==0 (
-    set __SCALADOC_OPTS=-d "%_TARGET_DOCS_DIR%" -doc-title "%__PROJECT_NAME%" -doc-footer "%__PROJECT_URL%" -doc-version %__PROJECT_VERSION%
+    set __SCALADOC_OPTS=-d "%_TARGET_DOCS_DIR%" -doc-title "%__PROJECT_NAME%" -doc-footer "%__PROJECT_URL%" -doc-version "%__PROJECT_VERSION%"
 ) else (
     set __SCALADOC_OPTS=-siteroot "%_TARGET_DOCS_DIR%" -project "%__PROJECT_NAME%" -project-url "%__PROJECT_URL%" -project-version %__PROJECT_VERSION%
 )

@@ -62,7 +62,7 @@ C:\opt\dotty-0.24.0-RC1\     <i>( 26.3 MB)</i>
 C:\opt\Git-2.27.0\           <i>(278.0 MB)</i>
 C:\opt\gradle-6.5\           <i>(110.0 MB)</i>
 C:\opt\Mill-0.7.3\           <i>( 53.6 MB)</i>
-C:\opt\sbt-1.3.11\           <i>( 61.3 MB)</i>
+C:\opt\sbt-1.3.12\           <i>( 61.3 MB)</i>
 C:\opt\scala-2.13.2\         <i>( 22.4 MB, 588 MB with API docs)</i>
 </pre>
  <!-- jdk: 242-b08 = 184 MB, 252-b09 = 181 MB -->
@@ -85,7 +85,7 @@ dotty\     <i>(Git submodule)</i>
 examples\{dotty-example-project, ..}
 myexamples\{00_AutoParamTupling, ..}
 README.md
-setenv.bat
+<a href="setenv.bat">setenv.bat</a>
 </pre>
 
 where
@@ -274,16 +274,16 @@ We distinguish different sets of batch/bash commands:
 Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`javac.exe`**][javac_cli], [**`sbt.bat`**][sbt_cli] and [**`git.exe`**][git_cli] directly available from the command prompt:
 
 <pre style="font-size:80%;">
-<b>&gt; setenv</b>
+<b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 1.8.0_252, java 1.8.0_252, scalac 2.13.2, dotc 0.24.0-RC1
-   ant 1.10.8, gradle 6.5, mill 0.7.3, mvn 3.6.3, sbt 1.3.11/2.12.10,
+   ant 1.10.8, gradle 6.5, mill 0.7.3, mvn 3.6.3, sbt 1.3.12/2.12.10,
    cfr 0.150, python 3.7.4, bloop v1.3.4,
    git 2.27.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; where sbt</b>
-C:\opt\sbt-1.3.11\bin\sbt
-C:\opt\sbt-1.3.11\bin\sbt.bat
+C:\opt\sbt-1.3.12\bin\sbt
+C:\opt\sbt-1.3.12\bin\sbt.bat
 </pre>
 
 Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and defined variables:
@@ -292,7 +292,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; setenv -verbose</b>
 Tool versions:
    javac 1.8.0_252, java 1.8.0_252, scalac 2.13.2, dotc 0.24.0-RC1
-   ant 1.10.8, gradle 6.5, mill 0.7.3, mvn 3.6.3, sbt 1.3.11/2.12.10,
+   ant 1.10.8, gradle 6.5, mill 0.7.3, mvn 3.6.3, sbt 1.3.12/2.12.10,
    cfr 0.150, python 3.7.4, bloop v1.3.4,
    git 2.27.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
@@ -305,7 +305,7 @@ Tool paths:
    C:\opt\gradle-6.5\bin\gradle.bat
    C:\opt\Mill-0.7.3\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
-   C:\opt\sbt-1.3.11\bin\sbt.bat
+   C:\opt\sbt-1.3.12\bin\sbt.bat
    C:\opt\cfr-0.150\bin\cfr.bat
    C:\opt\Python-3.7.4\python.exe
    C:\opt\bloop-1.3.4\bloop.cmd
@@ -326,7 +326,7 @@ Environment variables:
 Command [**`cleanup`**](bin/cleanup.bat) removes the output directories (ie. **`target\`**) from the example projects: 
 
 <pre style="font-size:80%;">
-<b>&gt; cleanup</b>
+<b>&gt; <a href="bin/cleanup.bat">cleanup</a></b>
 Finished to clean up 2 subdirectories in W:\dotty\cdsexamples
 Finished to clean up 16 subdirectories in W:\dotty\examples
 Finished to clean up 12 subdirectories in W:\dotty\myexamples
@@ -349,7 +349,7 @@ Size of directory "c:\opt\jdk-1.8.0_252-b09" is 184.2 Mb
 By default command [**`getnightly`**](bin/getnightly.bat) downloads the library files of the latest [Dotty nightly build][dotty_nightly] available from the [Maven Central Repository][maven_lamp] and saves them into directory **`out\nightly-jars\`**.
 
 <pre style="font-size:80%;">
-<b>&gt; getnightly</b>
+<b>&gt; <a href="bin/getnightly.bat">getnightly</a></b>
 
 <b>&gt; dir /b out\nightly-jars</b>
 dotty-compiler_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
@@ -445,7 +445,7 @@ In the above output file **`VERSION-NIGHTLY`** contains the signature of the man
 
 #### `searchjars.bat <class_name>`
 
-Command **`searchjars`** helps us to search for class file names in the following directories: project's **`lib\`** directory (*if present*), Dotty's **`lib\`** directory, Java's **`lib\`** directory and Ivy/Maven default directories.
+Command [**`searchjars`**](bin/searchjars.bat) helps us to search for class file names in the following directories: project's **`lib\`** directory (*if present*), Dotty's **`lib\`** directory, Java's **`lib\`** directory and Ivy/Maven default directories.
 
 <pre style="font-size:80%;">
 <b>&gt; searchjars -help</b>
@@ -536,7 +536,7 @@ Searching for class FileSystem in library files %USERPROFILE%\.m2\repository\*.j
 Command [**`timeit`**](bin/timeit.bat) prints the execution time (`hh:MM:ss` format) of the specified command (possibly given with options and parameters):
 
 <pre style="font-size:80%;">
-<b>&gt; timeit dir /b</b>
+<b>&gt; <a href="bin/timeit.bat">timeit</a> dir /b</b>
 .gitignore
 .gradle
 build.bat
@@ -581,7 +581,7 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 | :----------- | :------: | :------ |
 | `build.sbt` | `dottyVersion` | `0.23.0-RC1` &rarr; `0.24.0-RC1`|
 | `build.sc` | `scalaVersion` | `0.23.0-RC1` &rarr; `0.24.0-RC1` |
-| `project\build.properties` | `sbt.version` | `1.3.10` &rarr; `1.3.11` |
+| `project\build.properties` | `sbt.version` | `1.3.10` &rarr; `1.3.12` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.3.4` &rarr; `0.4.0` |
 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
@@ -722,7 +722,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://gradle.org/install/">gradle-6.5-bin.zip</a><i>                            (97 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u252b09.zip</a>  <i>(99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.27.0-64-bit.7z.exe</a>                <i>(41 MB)</i>
-<a href="https://github.com/sbt/sbt/releases">sbt-1.3.11.zip</a>                                  <i>(55 MB)</i>
+<a href="https://github.com/sbt/sbt/releases">sbt-1.3.12.zip</a>                                  <i>(55 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.2.zip</a>                                <i>(21 MB)</i>
 </pre>
 
@@ -864,7 +864,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_downloads]: https://github.com/sbt/sbt/releases
 [sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.11
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.12
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala_releases]: https://www.scala-lang.org/files/archive/
 [scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.2
