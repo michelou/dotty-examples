@@ -168,7 +168,7 @@ We distinguish different sets of batch/bash commands:
     > **&#9755;** We prefer command [**`build`**](examples/dotty-example-project/build.bat) here since our code examples are simple and don't require the [**`sbt`** ][sbt_cli] machinery (eg. [library dependencies][sbt_libs], [sbt server][sbt_server]).
 
     <pre style="font-size:80%;">
-    <b>&gt; build</b>
+    <b>&gt; <a href="examples/dotty-example-project/build.bat">build</a></b>
     Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
     &nbsp;
       Options:
@@ -337,7 +337,7 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; dirsize examples myexamples c:\opt\dotty-0.24.0-RC1 c:\opt\jdk-1.8.0_252-b09</b>
+<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\dotty-0.24.0-RC1 c:\opt\jdk-1.8.0_252-b09</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
 Size of directory "c:\opt\dotty-0.24.0-RC1" is 26.7 Mb
@@ -352,18 +352,18 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a></b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-dotty-doc_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-dotty-interfaces-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-dotty-language-server_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-dotty-library_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-dotty-sbt-bridge-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-dotty-staging_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-dotty-tasty-inspector_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-dotty-tastydoc-input_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-dotty-tastydoc_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-dotty_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-tasty-core_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
+dotty-compiler_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+dotty-doc_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+dotty-interfaces-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+dotty-language-server_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+dotty-library_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+dotty-sbt-bridge-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+dotty-staging_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+dotty-tasty-inspector_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+dotty-tastydoc-input_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+dotty-tastydoc_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+dotty_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+tasty-core_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
 </pre>
 
 > **:mag_right:** Starting with Dotty version `0.22.0` package **`dotty.tools.tasty`** is distributed separately in archive **`tast-core_<xxx>.jar`**.
@@ -371,19 +371,20 @@ tasty-core_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
 Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
 
 <pre style="font-size:80%">
-<b>&gt; getnightly -verbose</b>
-Downloading file dotty-compiler_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar ... 12 Mb
-Downloading file dotty-tastydoc_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar ... 435.2 Kb
-Downloading file dotty-staging_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar ... 35.9 Kb
-Downloading file dotty-doc_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar ... 1021.9 Kb
-Downloading file dotty-language-server_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar ... 146.1 Kb
-Downloading file tasty-core_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar ... 47.9 Kb
-Downloading file dotty-sbt-bridge-0.25.0-bin-20200523-5358651-NIGHTLY.jar ... 13.4 Kb
-Downloading file dotty-tasty-inspector_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar ... 8 Kb
-Downloading file dotty-interfaces-0.25.0-bin-20200523-5358651-NIGHTLY.jar ... 3.4 Kb
-Downloading file dotty-tastydoc-input_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar ... 36.1 Kb
-Downloading file dotty-library_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar ... 1.4 Mb
-Downloading file dotty_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar ... 0.3 Kb
+<b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose</b>
+Check for nightly files on Maven repository
+Downloading file dotty-compiler_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 12 Mb
+Downloading file dotty-tastydoc_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 433.8 Kb
+Downloading file dotty-staging_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 35.6 Kb
+Downloading file tasty-core_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 47.8 Kb
+Downloading file dotty-language-server_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 145.6 Kb
+Downloading file dotty-doc_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 1018.5 Kb
+Downloading file dotty-sbt-bridge-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty-tasty-inspector_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 7.9 Kb
+Downloading file dotty-tastydoc-input_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 36 Kb
+Downloading file dotty-interfaces-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-library_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 1.4 Mb
+Downloading file dotty_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 0.3 Kb
 Finished to download 12 files to directory W:\out\nightly-jars
 </pre>
 
@@ -393,11 +394,11 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 
 <pre style="font-size:80%;">
 <b>&gt; getnightly activate</b>
-Finished to download 12 files to directory W:\out\nightly-jars
-Activate nightly build libraries: 0.25.0-bin-20200523-5358651-NIGHTLY
+Local nightly version has changed from unknown to 0.25.0-bin-20200603-cc8d6c3-NIGHTLY
+Activate nightly build libraries: 0.25.0-bin-20200603-cc8d6c3-NIGHTLY
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.25.0-bin-20200523-5358651-NIGHTLY-git-5358651 -- Copyright 2002-2020, LAMP/EPFL
+Dotty compiler version 0.25.0-bin-20200603-cc8d6c3-NIGHTLY-git-cc8d6c3 -- Copyright 2002-2020, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
 Activate default Dotty libraries: 0.24.0-RC1
@@ -423,19 +424,19 @@ lib\0.24.0-RC1\
 &nbsp;&nbsp;dotty-staging_0.24-0.24.0-RC1.jar
 &nbsp;&nbsp;dotty-tasty-inspector_0.24-0.24.0-RC1.jar
 &nbsp;&nbsp;tasty-core_0.24-0.24.0-RC1.jar
-lib\0.25.0-bin-20200523-5358651-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-&nbsp;&nbsp;dotty-staging_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tasty-inspector_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc-input_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
-&nbsp;&nbsp;tasty-core_0.25-0.25.0-bin-20200523-5358651-NIGHTLY.jar
+lib\0.25.0-bin-20200603-cc8d6c3-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+&nbsp;&nbsp;dotty-staging_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tasty-inspector_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc-input_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+&nbsp;&nbsp;tasty-core_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original [Dotty] installation respectively from the latest nightly build.
@@ -448,7 +449,7 @@ In the above output file **`VERSION-NIGHTLY`** contains the signature of the man
 Command [**`searchjars`**](bin/searchjars.bat) helps us to search for class file names in the following directories: project's **`lib\`** directory (*if present*), Dotty's **`lib\`** directory, Java's **`lib\`** directory and Ivy/Maven default directories.
 
 <pre style="font-size:80%;">
-<b>&gt; searchjars -help</b>
+<b>&gt; <a href="bin/searchjars.bat">searchjars</a> -help</b>
 Usage: searchjars { &lt;option&gt; | &lt;class_name&gt; }
 &nbsp;
   Options:
@@ -611,7 +612,7 @@ Command [**`build`**](examples/enum-Planet/build.bat) is a basic build tool cons
 Running command [**`build`**](examples/enum-Planet/build.bat) with ***no*** option in project [**`examples\enum-Planet`**](examples/enum-Planet/) generates the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; build clean compile run</b>
+<b>&gt; <a href="examples/enum-Planet/build.bat">build</a> clean compile run</b>
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on SATURN (5) is 1.0660155388115666
 Your weight on VENUS (1) is 0.9049990998410455
