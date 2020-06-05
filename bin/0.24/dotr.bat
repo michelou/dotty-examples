@@ -6,9 +6,10 @@ rem ## Environment setup
 
 set _EXITCODE=0
 
-for %%f in ("%~dp0..") do set _PROG_HOME=%%~sf
-
-call %_PROG_HOME%\bin\common.bat
+if not "%~dp0"=="%CD%\" ( set "_PROG_HOME=%~dp0"
+) else ( for /f %%f in ('where "%0"') do set "_PROG_HOME=%%~dpf"
+)
+call "%_PROG_HOME%\common.bat"
 if not %_EXITCODE%==0 goto end
 
 call :args %*
@@ -30,7 +31,7 @@ if %_CASE_1%==1 (
     if defined _CLASS_PATH set _DOTC_ARGS=-classpath "%_CLASS_PATH%"
     set _DOTC_ARGS=!_DOTC_ARGS! %_JAVA_OPTS% -repl %_RESIDUAL_ARGS%
     echo Starting dotty REPL...
-    %_PROG_HOME%\bin\dotc.bat !_DOTC_ARGS!
+    call "%_PROG_HOME%\dotc.bat" !_DOTC_ARGS!
 rem elif [ $execute_repl == true ] || [ ${#residual_args[@]} -ne 0 ]; then
 ) else if %_CASE_2%==1 (
     set _CP_ARG=%_DOTTY_LIB%%_PSEP%%_SCALA_LIB%
@@ -44,7 +45,7 @@ rem elif [ $execute_repl == true ] || [ ${#residual_args[@]} -ne 0 ]; then
         set _CP_ARG=!_CP_ARG!%_PSEP%%_DOTTY_COMP%%_PSEP%%_DOTTY_INTF%%_PSEP%%_SCALA_ASM%%_PSEP%%_TASTY_CORE%%_PSEP%%_DOTTY_STAGING%%_PSEP%%_DOTTY_TASTY_INSPECTOR%
     )
     set _JAVA_ARGS=%_JAVA_DEBUG% -classpath "!_CP_ARG!" %_JVM_OPTS% %_RESIDUAL_ARGS%
-    "%_JAVACMD%" !_JAVA_ARGS!
+    call "%_JAVACMD%" !_JAVA_ARGS!
     if not !ERRORLEVEL!==0 ( set _EXITCODE=1& goto end )
 ) else (
     echo Warning: Command option is not correct. 1>&2

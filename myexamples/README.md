@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:100px;">
-    <a href="https://dotty.epfl.ch/"><img style="border:0;width:100px;" src="../docs/dotty.png" width="100" alt="Dotty Logo"/></a>
+    <a href="https://dotty.epfl.ch/"><img style="border:0;width:100px;" src="../docs/dotty.png" width="100" alt="Dotty logo"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>myexamples\</code></strong> contains <a href="https://dotty.epfl.ch/" alt="Dotty">Dotty</a> code examples written by myself.
@@ -592,7 +592,7 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

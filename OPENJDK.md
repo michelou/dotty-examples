@@ -46,13 +46,13 @@ The above implementations of OpenJDK[&trade;](https://openjdk.java.net/legal/ope
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*May 2020*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
+For instance our development environment looks as follows (*June 2020*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.7+10\                 <i>(297 MB)</i>
 C:\opt\jdk-bellsoft-11.0.7-lite\      <i>(102 MB)</i>
 C:\opt\jdk-corretto-11.0.7_10\        <i>(289 MB)</i>
-C:\opt\jdk-graalvm-ce-java11-20.0.0\  <i>(764 MB)</i>
+C:\opt\jdk-graalvm-ce-java11-20.1.0\  <i>(721 MB)</i>
 C:\opt\jdk-openj9-11.0.7+10\          <i>(300 MB)</i>
 C:\opt\jdk-redhat-11.0.7.10\          <i>( 63 MB)</i>
 C:\opt\jdk-sapmachine-11.0.7\         <i>(288 MB)</i>
@@ -156,7 +156,7 @@ JCL      - da35e0c380 based on jdk-11.0.7+10)
 </pre>
 
 
-### Oracle OpenJDK 11
+### <span id="oracle">Oracle OpenJDK 11</span>
 
 Oracle OpenJDK is the [reference implementation][oracle_openjdk_project]; the other OpenJDK distributions are derived from it.
 <pre style="font-size:80%;">
@@ -310,7 +310,7 @@ OpenJDK 64-Bit Server VM Zulu11.39+15-CA (build 11.0.7+10-LTS, mixed mode, shari
 </dl>
 
 
-## Footnotes
+## <span id="footnotes">Footnotes</span>
 
 <a name="footnote_01">[1]</a> ***JCK Compliance** (2018-04-06)* [↩](#anchor_01)
 
@@ -326,18 +326,18 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html">amazon-corretto-11.0.7.10.1-windows-x64-jdk.zip</a>                <i>(176 MB)</i>
-<a href="https://bell-sw.com/pages/java-11.0.5/">bellsoft-jdk11.0.6+10-windows-amd64-lite.zip</a>                   <i>( 69 MB)</i>
-<a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-19.3.0">graalvm-ce-java11-windows-amd64-20.0.0.zip</a>                     <i>(360 MB)</i>
-<a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.6.10-2.windows.redhat.x86_64.zip</a>          <i>(235 MB)</i>
+<a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.6+10-windows-amd64-lite.zip</a>                   <i>( 69 MB)</i>
+<a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.1.0">graalvm-ce-java11-windows-amd64-20.1.0.zip</a>                     <i>(360 MB)</i>
+<a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.7.10-1.windows.redhat.x86_64.zip</a>          <i>(235 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.6_10.zip</a>               <i>(190 MB)</i>
 <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">OpenJDK11U-jdk_x64_windows_openj9_11.0.7_10_openj9-0.20.0.zip</a>  <i>(193 MB)</i>
-<a href="https://sap.github.io/SapMachine/">sapmachine-jdk-11.0.6.0.1_windows-x64_bin.zip</a>                  <i>(180 MB)</i>
+<a href="https://sap.github.io/SapMachine/">sapmachine-jdk-11.0.7_windows-x64_bin.zip</a>                  <i>(180 MB)</i>
 <a href="https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html">zulu11.37.17-ca-jdk11.0.6-win_x64.zip</a>                          <i>(188 MB)</i>
 </pre>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

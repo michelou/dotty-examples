@@ -6,9 +6,10 @@ rem ## Environment setup
 
 set _EXITCODE=0
 
-for %%f in ("%~dp0..") do set _PROG_HOME=%%~sf
-
-call %_PROG_HOME%\bin\common.bat
+if not "%~dp0"=="%CD%\" ( set "_PROG_HOME=%~dp0"
+) else ( for /f %%f in ('where "%0"') do set "_PROG_HOME=%%~dpf"
+)
+call "%_PROG_HOME%\common.bat"
 if not %_EXITCODE%==0 goto end
 
 rem ##########################################################################

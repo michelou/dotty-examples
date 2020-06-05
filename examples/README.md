@@ -103,10 +103,10 @@ Finally, command [**`build -verbose decompile`**](enum-Planet/build.bat) decompi
 <pre style="font-size:80%;">
 <b>&gt; build -verbose decompile</b>
 No compilation needed ("src\main\scala\*.scala")
-Decompile bytecode to directory "target\cfr-sources"
+Decompile Java bytecode to directory "target\cfr-sources"
 Processing Planet$
 Processing Planet
-Copy decompiled Java source files to "target\cfr-sources.java"
+Save decompiled Java source files to "target\cfr-sources.java"
 &nbsp;
 <b>&gt; dir /s /b target\cfr-sources\*.java</b>
 W:\examples\enum-Planet\target\cfr-sources\Planet$.java
@@ -654,7 +654,7 @@ rem ## Cleanups</i>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -6,9 +6,10 @@ rem ## Environment setup
 
 set _EXITCODE=0
 
-for %%f in ("%~dp0..") do set _PROG_HOME=%%~sf
-
-call %_PROG_HOME%\bin\common.bat
+if not "%~dp0"=="%CD%\" ( set "_PROG_HOME=%~dp0"
+) else ( for /f %%f in ('where "%0"') do set "_PROG_HOME=%%~dpf"
+)
+call "%_PROG_HOME%\common.bat"
 if not %_EXITCODE%==0 goto end
 
 set _COMPILER_MAIN=dotty.tools.dotc.Main
@@ -27,7 +28,7 @@ call :classpathArgs
 if defined JAVA_OPTS ( set _JAVA_OPTS=%JAVA_OPTS%
 ) else ( set _JAVA_OPTS=-Xmx768m -Xms768m
 )
-"%_JAVACMD%" %_JAVA_OPTS% %_JAVA_DEBUG% %_JAVA_ARGS% %_JVM_CP_ARGS% ^
+call "%_JAVACMD%" %_JAVA_OPTS% %_JAVA_DEBUG% %_JAVA_ARGS% %_JVM_CP_ARGS% ^
 -Dscala.usejavacp=true ^
 %_PROG_NAME% %_SCALA_ARGS% %_RESIDUAL_ARGS%
 if not %ERRORLEVEL%==0 (

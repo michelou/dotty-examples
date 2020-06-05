@@ -1,17 +1,14 @@
 @echo off
 setlocal enabledelayedexpansion
 
-rem only for interactive debugging !
+@rem only for interactive debugging !
 set _DEBUG=0
 
-rem ##########################################################################
-rem ## Environment setup
-
-set _BASENAME=%~n0
+@rem #########################################################################
+@rem ## Environment setup
 
 set _EXITCODE=0
-
-for %%f in ("%~dp0..") do set _ROOT_DIR=%%~sf
+for %%f in ("%~dp0..") do set "_ROOT_DIR=%%~dpf"
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -19,8 +16,8 @@ if not %_EXITCODE%==0 goto end
 call :args %*
 if not %_EXITCODE%==0 goto end
 
-rem ##########################################################################
-rem ## Main
+@rem #########################################################################
+@rem ## Main
 
 if defined _HELP (
     call :help
@@ -42,8 +39,7 @@ if exist "%_JAVA_HOME%\jre\lib\" (
     call :search "%_JAVA_HOME%\jre\lib"
     if not !_EXITCODE!==0 goto end
 )
-for /f %%f in ('cd') do set _CWD=%%~sf
-if exist "%_CWD%\lib\*" (
+if exist "%CD%\lib\*" (
     call :search "%_CWD%\lib" 1
     if not !_EXITCODE!==0 goto end
 )
@@ -58,14 +54,16 @@ if defined _MAVEN if exist "%USERPROFILE%\.m2\" (
 
 goto end
 
-rem ##########################################################################
-rem ## Subroutines
+@rem #########################################################################
+@rem ## Subroutines
 
-rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-rem                    _JAR_CMD, _JAVA_HOME, _DOTTY_HOME, _SCALA_HOME
+@rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
+@rem                    _JAR_CMD, _JAVA_HOME, _DOTTY_HOME, _SCALA_HOME
 :env
-rem ANSI colors in standard Windows 10 shell
-rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+set _BASENAME=%~n0
+
+@rem ANSI colors in standard Windows 10 shell
+@rem see https://gist.github.com/mlocati/#file-win10colors-cmd
 set _DEBUG_LABEL=[46m[%_BASENAME%][0m
 set _ERROR_LABEL=[91mError[0m:
 set _WARNING_LABEL=[93mWarning[0m:
@@ -87,7 +85,7 @@ if not exist "%_JAVA_HOME%\lib\" (
     goto :eof
 )
 
-rem determine location of Dotty installation directory
+@rem determine location of Dotty installation directory
 where /q dotc.bat
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% dotc command not found ^(check your PATH variable^) 1>&2
@@ -103,7 +101,7 @@ if not exist "%_DOTTY_HOME%\lib\" (
     goto :eof
 )
 
-rem determine location of Scala installation directory
+@rem determine location of Scala installation directory
 where /q scalac.bat
 if not %ERRORLEVEL%==0 (
     echo Error: scalac command not found ^(check your PATH variable^) 1>&2
@@ -120,8 +118,8 @@ if not exist "%_SCALA_HOME%\lib\" (
 )
 goto :eof
 
-rem input parameter: %*
-rem output parameter: _HELP, _VERBOSE
+@rem input parameter: %*
+@rem output parameter: _HELP, _VERBOSE
 :args
 set _CLASS_NAME=
 set _IVY=
@@ -135,7 +133,7 @@ set "__ARG=%~1"
 if not defined __ARG goto args_done
 
 if "%__ARG:~0,1%"=="-" (
-    rem option
+    @rem option
     if /i "%__ARG%"=="-artifact" ( set _IVY=1& set _MAVEN=1
     ) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if /i "%__ARG%"=="-ivy" ( set _IVY=1
@@ -176,7 +174,7 @@ echo   Arguments:
 echo     ^<class_name^>     class name
 goto :eof
 
-rem input parameter: %1=lib directory, %2=traverse recursively
+@rem input parameter: %1=lib directory, %2=traverse recursively
 :search
 set __LIB_DIR=%~1
 set __RECURSIVE=%~2
@@ -186,8 +184,8 @@ if defined __RECURSIVE ( set __DIR_OPTS=/s /b
 )
 echo Searching for class %_CLASS_NAME% in library files !__LIB_DIR:%USERPROFILE%=%%USERPROFILE%%!\*.jar
 for /f %%i in ('dir %__DIR_OPTS% "%__LIB_DIR%\*.jar" 2^>NUL') do (
-    if defined __RECURSIVE ( set __JAR_FILE=%%i
-    ) else ( set __JAR_FILE=%__LIB_DIR%\%%i
+    if defined __RECURSIVE ( set "__JAR_FILE=%%i"
+    ) else ( set "__JAR_FILE=%__LIB_DIR%\%%i"
     )
     for %%f in (!__JAR_FILE!) do set _JAR_FILENAME=%%~nxf
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAR_CMD% -tvf "!__JAR_FILE!" ^| findstr ".*%_CLASS_NAME%.*\.class$" 1>&2
@@ -211,8 +209,8 @@ for /f %%i in ('dir %__DIR_OPTS% "%__LIB_DIR%\*.jar" 2^>NUL') do (
 )
 goto :eof
 
-rem ##########################################################################
-rem ## Cleanups
+@rem #########################################################################
+@rem ## Cleanups
 
 :end
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2

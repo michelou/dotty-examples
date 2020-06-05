@@ -26,16 +26,16 @@ This document is part of a series of topics related to [Dotty] on Windows:
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
-- [Git 2.26][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.27][git_downloads] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_downloads] ([*release notes*][openjdk_relnotes])
 - [Dotty 0.24][dotty_releases] ([*release notes*][dotty_relnotes])
 
 > **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Dotty] (aka [Scala 3][dotty_scala_3]) also support Java 9+. In the following we choose to work with [Oracle OpenJDK 11][openjdk_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
 
-For instance our development environment looks as follows (*May 2020*):
+For instance our development environment looks as follows (*June 2020*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.26.2\
+C:\opt\Git-2.27.0\
 C:\opt\jdk-11.0.7+10\
 C:\opt\dotty-0.24.0-RC1\
 </pre>
@@ -51,7 +51,7 @@ This project is organized as follows:
 bin\sharedata.bat
 cdsexamples\DottyExample,JavaExample
 CDS.md
-setenv.bat
+<a href="setenv.bat">setenv.bat</a>
 </pre>
 
 where
@@ -703,7 +703,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -716,7 +716,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.26.2.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.27.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [haskell_examples]: https://github.com/michelou/haskell-examples
