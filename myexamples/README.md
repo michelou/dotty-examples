@@ -27,7 +27,7 @@ Command [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of 
 Command [**`build clean run`**](HelloWorld/build.bat) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; build clean run</b>
+<b>&gt; <a href="HelloWorld/build.bat">build</a> clean run</b>
 Hello world!
 </pre>
 
@@ -200,7 +200,7 @@ Hello world!
 </pre>
 
 
-## Ant build tool
+## <span id="ant">Ant build tool</span>
 
 Command [**`ant`**][apache_ant_cli] (["Another Neat Tool"][apache_ant_faq]) is a Java-based build maintained by the [Apache Software Foundation][apache_ant_history] (tool created in 2000). It works with XML-based configuration files.
 

@@ -8,7 +8,6 @@ set _DEBUG=0
 @rem ## Environment setup
 
 set _EXITCODE=0
-set "_ROOT_DIR=%~dp0"
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -59,6 +58,7 @@ goto end
 @rem                    _CLASSES_DIR, _TARGET_DIR, _TARGET_DOCS_DIR, _TASTY_CLASSES_DIR
 :env
 set _BASENAME=%~n0
+set "_ROOT_DIR=%~dp0"
 
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
@@ -75,9 +75,14 @@ set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
 goto :eof
 
 @rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
+@rem                    _PROJECT_NAME, _PROJECT_URL, _PROJECT_VERSION
 :props
 set _MAIN_CLASS_DEFAULT=Main
 set _MAIN_ARGS_DEFAULT=
+
+for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
+set _PROJECT_URL=github.com/%USERNAME%
+set _PROJECT_VERSION=0.1-SNAPSHOT
 
 set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
 if exist "%__PROPS_FILE%" (
@@ -92,6 +97,9 @@ if exist "%__PROPS_FILE%" (
     )
     if defined _main_class set _MAIN_CLASS_DEFAULT=!_main_class!
     if defined _main_args set _MAIN_ARGS_DEFAULT=!_main_args!
+    if defined _project.name set _PROJECT_NAME=!_project_name!
+    if defined _project.url set _PROJECT_URL=!_project_url!
+    if defined _project.version set _PROJECT_VERSION=!_project_version!
 )
 goto :eof
 
@@ -521,14 +529,10 @@ set "__SOURCES_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i>> "%__SOURCES_FILE%"
 )
-
-for %%i in ("%~dp0\.") do set "__PROJECT_NAME=%%~ni"
-set __PROJECT_URL=github.com/michelou/dotty-examples
-set __PROJECT_VERSION=0.1-SNAPSHOT
 if %_DOTTY%==0 (
-    set __SCALADOC_OPTS=-d "%_TARGET_DOCS_DIR%" -doc-title "%__PROJECT_NAME%" -doc-footer "%__PROJECT_URL%" -doc-version %__PROJECT_VERSION%
+    set __SCALADOC_OPTS=-d "%_TARGET_DOCS_DIR%" -doc-title "%_PROJECT_NAME%" -doc-footer "%_PROJECT_URL%" -doc-version "%_PROJECT_VERSION%"
 ) else (
-    set __SCALADOC_OPTS=-siteroot "%_SOURCE_DIR%\main\resources" -d "%_TARGET_DOCS_DIR%" -project "%__PROJECT_NAME%" -project-url "%__PROJECT_URL%" -project-version %__PROJECT_VERSION%
+    set __SCALADOC_OPTS=-siteroot "%_SOURCE_DIR%\main\resources" -d "%_TARGET_DOCS_DIR%" -project "%_PROJECT_NAME%" -project-url "%_PROJECT_URL%" -project-version "%_PROJECT_VERSION%"
 )
 set __REDIRECT_STDERR=
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALADOC_CMD% %__SCALADOC_OPTS% "@%__SOURCES_FILE%" 1>&2
@@ -643,13 +647,15 @@ if not %ERRORLEVEL%==0 (
 )
 set __JAVA_CMD=java.exe
 
-call :libs_cpath 1
+call :libs_cpath includeScalaLibs
+if not %_EXITCODE%==0 goto :eof
+
 set __TEST_RUN_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
 
 @rem see https://github.com/junit-team/junit4/wiki/Getting-started
 for %%i in (%_TEST_CLASSES_DIR%\*Test.class) do (
     set "__MAIN_CLASS=%%~ni"
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% java %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__JAVA_CMD%" %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
     ) else if %_VERBOSE%==1 ( echo Execute test !__MAIN_CLASS! 1>&2
     )
     call "%__JAVA_CMD%" %__TEST_RUN_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS!

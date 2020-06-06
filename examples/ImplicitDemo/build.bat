@@ -8,7 +8,6 @@ set _DEBUG=0
 @rem ## Environment setup
 
 set _EXITCODE=0
-set "_ROOT_DIR=%~dp0"
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -59,6 +58,7 @@ goto end
 @rem                    _CLASSES_DIR, _TARGET_DIR, _TARGET_DOCS_DIR, _TASTY_CLASSES_DIR
 :env
 set _BASENAME=%~n0
+set "_ROOT_DIR=%~dp0"
 
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
@@ -79,6 +79,10 @@ goto :eof
 set _MAIN_CLASS_DEFAULT=Main
 set _MAIN_ARGS_DEFAULT=
 
+for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
+set _PROJECT_URL=github.com/%USERNAME%
+set _PROJECT_VERSION=0.1-SNAPSHOT
+
 set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
 if exist "%__PROPS_FILE%" (
     for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
@@ -92,6 +96,9 @@ if exist "%__PROPS_FILE%" (
     )
     if defined _main_class set _MAIN_CLASS_DEFAULT=!_main_class!
     if defined _main_args set _MAIN_ARGS_DEFAULT=!_main_args!
+    if defined _project.name set _PROJECT_NAME=!_project_name!
+    if defined _project.url set _PROJECT_URL=!_project_url!
+    if defined _project.version set _PROJECT_VERSION=!_project_version!
 )
 goto :eof
 
@@ -157,7 +164,7 @@ if "%__ARG:~0,1%"=="-" (
 )
 shift
 goto :args_loop
-:args_doneargs_done
+:args_done
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
@@ -521,16 +528,13 @@ set "__SOURCES_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i>> "%__SOURCES_FILE%"
 )
+set "__OPTS_FILE=%_TARGET_DIR%\scaladoc_opts.txt"
+echo -siteroot "%_TARGET_DOCS_DIR%" -project "%_PROJECT_NAME%" -project-url "%_PROJECT_URL%" -project-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
 
-for %%i in ("%~dp0\.") do set "__PROJECT_NAME=%%~ni"
-set __PROJECT_URL=github.com/michelou/dotty-examples
-set __PROJECT_VERSION=0.1-SNAPSHOT
-set __SCALADOC_OPTS=-siteroot "%_TARGET_DOCS_DIR%" -project "%__PROJECT_NAME%" -project-url "%__PROJECT_URL%" -project-version "%__PROJECT_VERSION%"
-
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALADOC_CMD% %__SCALADOC_OPTS% "@%__SOURCES_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALADOC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into directory !_TARGET_DOCS_DIR:%_ROOT_DIR%=! 1>&2
 )
-call "%_SCALADOC_CMD%" %__SCALADOC_OPTS% "@%__SOURCES_FILE%"
+call "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Generation of HTML documentation failed 1>&2
     set _EXITCODE=1
