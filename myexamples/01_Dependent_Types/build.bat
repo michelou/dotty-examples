@@ -8,7 +8,6 @@ set _DEBUG=0
 @rem ## Environment setup
 
 set _EXITCODE=0
-set "_ROOT_DIR=%~dp0"
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -59,6 +58,7 @@ goto end
 @rem                    _CLASSES_DIR, _TARGET_DIR, _TARGET_DOCS_DIR, _TASTY_CLASSES_DIR
 :env
 set _BASENAME=%~n0
+set "_ROOT_DIR=%~dp0"
 
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
@@ -75,9 +75,14 @@ set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
 goto :eof
 
 @rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
+@rem                    _PROJECT_NAME, _PROJECT_URL, _PROJECT_VERSION
 :props
 set _MAIN_CLASS_DEFAULT=myexamples.Main
 set _MAIN_ARGS_DEFAULT=
+
+for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
+set _PROJECT_URL=github.com/%USERNAME%
+set _PROJECT_VERSION=0.1-SNAPSHOT
 
 set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
 if exist "%__PROPS_FILE%" (
@@ -92,6 +97,9 @@ if exist "%__PROPS_FILE%" (
     )
     if defined _main_class set _MAIN_CLASS_DEFAULT=!_main_class!
     if defined _main_args set _MAIN_ARGS_DEFAULT=!_main_args!
+    if defined _project.name set _PROJECT_NAME=!_project_name!
+    if defined _project.url set _PROJECT_URL=!_project_url!
+    if defined _project.version set _PROJECT_VERSION=!_project_version!
 )
 goto :eof
 
@@ -171,7 +179,7 @@ if %_TASTY%==1 if %_DOTTY%==0 (
     echo %_WARNING_LABEL% Option '-tasty' only supported by Scala 3 1>&2
     set _TASTY=0
 )
-if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _DOTTY=%_DOTTY% _RUN=%_RUN% _TASTY=%_TASTY% _TEST=%_TEST% _TIMER=%_TIMER% 1>&2
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _DOTTY=%_DOTTY% _RUN=%_RUN% _TASTY=%_TASTY% _TEST=%_TEST% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
@@ -478,8 +486,8 @@ for /f "delims=" %%f in ('dir /b /s /ad "%_CLASSES_DIR%" 2^>NUL') do (
 )
 if %_VERBOSE%==1 echo Decompile Java bytecode to directory "!__OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
 for %%i in (%__CLASS_DIRS%) do (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% %__CFR_CMD% %__CFR_OPTS% "%%i\*.class" 1>&2
-    call %__CFR_CMD% %__CFR_OPTS% "%%i"\*.class %_STDERR_REDIRECT%
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__CFR_CMD%" %__CFR_OPTS% "%%i\*.class" 1>&2
+    call "%__CFR_CMD%" %__CFR_OPTS% "%%i"\*.class %_STDERR_REDIRECT%
     if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Failed to decompile generated code in directory "%%i" 1>&2
         set _EXITCODE=1
@@ -531,16 +539,13 @@ set "__SOURCES_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i>> "%__SOURCES_FILE%"
 )
+set "__OPTS_FILE=%_TARGET_DIR%\scaladoc_opts.txt"
+echo -siteroot "%_TARGET_DOCS_DIR%" -project "%_PROJECT_NAME%" -project-url "%_PROJECT_URL%" -project-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
 
-for %%i in ("%~dp0\.") do set "__PROJECT_NAME=%%~ni"
-set __PROJECT_URL=github.com/michelou/dotty-examples
-set __PROJECT_VERSION=0.1-SNAPSHOT
-set __SCALADOC_OPTS=-siteroot "%_TARGET_DOCS_DIR%" -project "%__PROJECT_NAME%" -project-url "%__PROJECT_URL%" -project-version "%__PROJECT_VERSION%"
-
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALADOC_CMD% %__SCALADOC_OPTS% "@%__SOURCES_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into directory !_TARGET_DOCS_DIR:%_ROOT_DIR%=! 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%_SCALADOC_CMD%" %__SCALADOC_OPTS% "@%__SOURCES_FILE%"
+call "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Generation of HTML documentation failed 1>&2
     set _EXITCODE=1
@@ -617,7 +622,7 @@ for /f %%i in ('dir /s /b "%_SOURCE_DIR%\test\scala\*.scala" 2^>NUL') do (
     echo %%i >> "%__TEST_LIST_FILE%"
 )
 
-call :libs_cpath 1
+call :libs_cpath includeScalaLibs
 if not %_EXITCODE%==0 goto :eof
 
 set "__OPTS_FILE=%_TARGET_DIR%\test_scalac_opts.txt"
@@ -649,7 +654,7 @@ if not %ERRORLEVEL%==0 (
 )
 set __JAVA_CMD=java.exe
 
-call :libs_cpath 1
+call :libs_cpath includeScalaLibs
 if not %_EXITCODE%==0 goto :eof
 
 set __TEST_RUN_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"

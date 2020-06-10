@@ -20,17 +20,20 @@ val scalaSourcePath = os.pwd / "src" / "main" / "scala"
 
 val ivyJunit = ivy"org.junit:org.junit:4.13"
 
+// https://mvnrepository.com/artifact/com.novocode/junit-interface
 val ivyJunitInterface = ivy"com.novocode:junit-interface:0.11"
 
+// https://mvnrepository.com/artifact/org.apiguardian/apiguardian-api
 val ivyApiGuardian = ivy"org.apiguardian:apiguardian-api:1.1.0"
 
+// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
 val ivyJunitJupiter = ivy"org.junit.jupiter:junit-jupiter-api:5.6.2"
 
 // https://mvnrepository.com/artifact/org.scalatest/scalatest
-val ivyScalatest = ivy"org.scalatest:scalatest_2.13:3.1.1"
+val ivyScalatest = ivy"org.scalatest:scalatest_2.13:3.1.2"
 
 // https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13
-val ivyScalactic = ivy"org.scalactic:scalactic_2.13:3.1.1"
+val ivyScalactic = ivy"org.scalactic:scalactic_2.13:3.1.2"
 
 // https://mvnrepository.com/artifact/org.specs2/specs2-common
 val ivySpecs2Common = ivy"org.specs2:specs2-common_2.13:4.9.4"

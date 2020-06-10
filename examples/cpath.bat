@@ -74,7 +74,7 @@ set __JAR_NAME=%__ARTIFACT_ID%-%__VERSION%.jar
 set __JAR_PATH=%__GROUP_ID:/=\%\%__ARTIFACT_ID:/=\%
 set __JAR_FILE=
 for /f %%f in ('where /r "%__LOCAL_REPO%\%__JAR_PATH%" %__JAR_NAME% 2^>NUL') do (
-    set __JAR_FILE=%%f
+    set "__JAR_FILE=%%f"
 )
 if not exist "%__JAR_FILE%" (
     set __JAR_URL=%__CENTRAL_REPO%/%__GROUP_ID%/%__ARTIFACT_ID%/%__VERSION%/%__JAR_NAME%

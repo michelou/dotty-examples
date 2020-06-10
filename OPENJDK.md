@@ -3,10 +3,10 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;max-width:80px;">
-    <a href="https://dotty.epfl.ch/"><img style="border:0;width:80px;" src="docs/dotty.png" /></a>
+    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:80px;" src="docs/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    <a href="https://openjdk.java.net/faq/">OpenJDK</a> is an open-source project initiated by Oracle in 2010. Java 8 is the first LTS version of Java to be released <i>both</i> as a commercial product (<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Oracle Java SE 8 </a>) and as an open-source product (<a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">Oracle OpenJDK 8</a>).<br/>In the following we focus on <a href="https://jdk.java.net/11/">OpenJDK 11</a>, the current LTS version of Java.
+    <a href="https://openjdk.java.net/faq/">OpenJDK</a> is an open-source project initiated by Oracle in 2010. Java 8 is the first LTS version of Java to be released <i>both</i> as a commercial product (<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Oracle Java SE 8 </a>) and as an open-source product (<a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">Oracle OpenJDK 8</a>).<br/>In the following we focus on <a href="https://jdk.java.net/11/" rel="external">OpenJDK 11</a>, the current LTS version of Java.
   </td>
   </tr>
 </table>
@@ -18,7 +18,7 @@ This document is part of a series of topics related to [Dotty] on Windows:
 - [Data Sharing and Dotty on Windows](CDS.md)
 - OpenJDK and Dotty on Windows [**&#9660;**](#bottom)
 
-[JMH][jmh_project], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples] and [LLVM][llvm_examples] are other trending topics we are currently monitoring.
+[JMH][jmh_project], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples] and [TruffleSqueak][trufflesqueak_examples] are other trending topics we are currently monitoring.
 
 
 ## <span id="proj_deps">Project dependencies</span>
@@ -35,9 +35,9 @@ This project depends on several external software for the **Microsoft Windows** 
 - [Trava OpenJDK 11][trava_downloads] from [Travis](https://travis-ci.com/) ([*release notes*][trava_relnotes]). <!-- 11.0.1+8 (2019-03-16) -->
 - [Zulu OpenJDK 11][azul_downloads] from [Azul Systems][azul_systems] ([*release notes*][azul_relnotes]). <!-- build 11.0.2+7-LTS -->
 
-The above implementations of OpenJDK[&trade;](https://openjdk.java.net/legal/openjdk-trademark-notice.html) differ in several ways:
+The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in several ways:
 
-- they are tested and certified for [JCK](https://openjdk.java.net/groups/conformance/JckAccess/) <sup id="anchor_01">[[1]](#footnote_01)</sup> compliance excepted for Trava OpenJDK.
+- they are tested and certified for [JCK][openjdk_jck] <sup id="anchor_01">[[1]](#footnote_01)</sup> compliance excepted for Trava OpenJDK.
 - they include different [backports](https://builds.shipilev.net/backports-monitor/) of fixes from OpenJDK 12 or newer (eg. [Corretto][corretto_patches]).
 - they include additional modules (eg. Device IO API on Linux ARMv7) or integrate special tools (eg. HotswapAgent in [Trava](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm)).
 - they support different sets of platform architectures (eg. [SapMachine](https://sap.github.io/SapMachine/) x64 only, [BellSoft][bellsoft_relnotes] also Raspberry Pi 2 &amp; 3).
@@ -56,7 +56,7 @@ C:\opt\jdk-graalvm-ce-java11-20.1.0\  <i>(721 MB)</i>
 C:\opt\jdk-openj9-11.0.7+10\          <i>(300 MB)</i>
 C:\opt\jdk-redhat-11.0.7.10\          <i>( 63 MB)</i>
 C:\opt\jdk-sapmachine-11.0.7\         <i>(288 MB)</i>
-C:\opt\jdk-trava-11.0.1\              <i>(outdated)</i>
+C:\opt\jdk-trava-11.0.1\              <i><b>(outdated)</b></i>
 C:\opt\jdk-zulu-11.0.7\               <i>(299 MB)</i>
 </pre>
 
@@ -73,7 +73,7 @@ An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For
 3. We go back to step 1 to verify that flag  **`sharing`** is present.
 
 
-### <span id="bellsoft">BellSoft OpenJDK 11</span>
+### <span id="bellsoft">BellSoft OpenJDK 11</span> [**&#9650;**](#top)
 
 [BellSoft OpenJDK 11][bellsoft_downloads] (aka Liberica JDK) is available both as a *"regular"* and as a *"lite"* version (no JavaFX modules, compressed modules). BellSoft currently provides binaries suitable for different hardware and OS combinations, eg. Windows x86_64 and Windows x86.
 
@@ -98,7 +98,7 @@ OpenJDK Runtime Environment (build 11.0.7+10-LTS)
 OpenJDK 64-Bit Server VM (build 11.0.7+10-LTS, mixed mode, sharing)
 </pre>
 
-### <span id="graalvm">GraalVM OpenJDK 11</span>
+### <span id="graalvm">GraalVM OpenJDK 11</span> [**&#9650;**](#top)
 
 [GraalVM][graalvm_org] is a universal virtual machine supporting the *interaction* between JVM-based languages like Java, Scala, Groovy, Kotlin, Clojure and native languages like C, C++, JavaScript, Python, R, Ruby.
 
@@ -114,7 +114,7 @@ OpenJDK 64-Bit Server VM GraalVM CE 20.0.0 (build 11.0.6+9-jvmci-20.0-b02, mixed
 
 We observe that [GraalVM][graalvm_org] is the only OpenJDK implementation to come with class sharing *enabled by default*.
 
-### <span id="corretto">Corretto OpenJDK 11</span>
+### <span id="corretto">Corretto OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\jdk-corretto-11.0.7_10\bin\java -version</b>
@@ -156,7 +156,7 @@ JCL      - da35e0c380 based on jdk-11.0.7+10)
 </pre>
 
 
-### <span id="oracle">Oracle OpenJDK 11</span>
+### <span id="oracle">Oracle OpenJDK 11</span> [**&#9650;**](#top)
 
 Oracle OpenJDK is the [reference implementation][oracle_openjdk_project]; the other OpenJDK distributions are derived from it.
 <pre style="font-size:80%;">
@@ -179,7 +179,7 @@ OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.6+10, mixed mode, sharing)
 </pre>
 
 
-### <span id="redhat">RedHat OpenJDK 11</span>
+### <span id="redhat">RedHat OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\jdk-redhat-11.0.7.10\bin\java -version</b>
@@ -201,7 +201,7 @@ OpenJDK 64-Bit Server VM 18.9 (build 11.0.7+10-LTS, mixed mode, sharing)
 </pre>
 
 
-### <span id="sap">SapMachine OpenJDK 11</span>
+### <span id="sap">SapMachine OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\jdk-sapmachine-11.0.7\bin\java -version</b>
@@ -225,7 +225,7 @@ OpenJDK 64-Bit Server VM (build 11.0.7+10-LTS-sapmachine, mixed mode, sharing)
 > **:mag_right:** SAP provides [online documentation](https://github.com/SAP/SapMachine/wiki) specific to SapMachine 11, e.g. [Differences between SapMachine and OpenJDK](https://github.com/SAP/SapMachine/wiki/Differences-between-SapMachine-and-OpenJDK).
 
 
-### <span id="trava">Trava OpenJDK 11</span>
+### <span id="trava">Trava OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\jdk-trava-11.0.1_8\bin\java -version</b>
@@ -265,7 +265,7 @@ Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.1.6+8-201903160
 > Trava OpenJDK only supports the [serial and CMS garbage collectors](http://karunsubramanian.com/websphere/how-to-choose-the-correct-garbage-collector-java-generational-heap-and-garbage-collection-explained/) (ie. options `-XX:+UseParallelGC` and `-XX:+UseG1GC` are not supported).
 
 
-### <span id="zulu">Zulu OpenJDK 11</span>
+### <span id="zulu">Zulu OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\jdk-zulu-11.0.7\bin\java -version</b>
@@ -287,7 +287,7 @@ OpenJDK 64-Bit Server VM Zulu11.39+15-CA (build 11.0.7+10-LTS, mixed mode, shari
 </pre>
 
 
-## <span id="related">Related reading</span>
+## <span id="related">Related reading</span> [**&#9650;**](#top)
 
 ### 2018
 
@@ -305,17 +305,17 @@ OpenJDK 64-Bit Server VM Zulu11.39+15-CA (build 11.0.7+10-LTS, mixed mode, shari
 
 ### 2016
 <dl>
-  <dt><a href="https://www.slideshare.net/DanHeidinga/j9-under-the-hood-of-the-next-open-source-jvm">IBM</a>:<a name="ref_01">&nbsp;</a>OpenJ9: Under the hood of the next open source JVM</dt>
+  <dt><a href="https://www.slideshare.net/DanHeidinga/j9-under-the-hood-of-the-next-open-source-jvm" rel="external">IBM</a>:<a name="ref_01">&nbsp;</a>OpenJ9: Under the hood of the next open source JVM</dt>
   <dd><i>by Dan Heidinga (2016-09-21)</i><br/>Dan Heidinga gives a description of how bytecodes are loaded into the J9VM and how bytecode execution occurs, plus IBM's plans to open source J9.</dd>
 </dl>
 
 
-## <span id="footnotes">Footnotes</span>
+## <span id="footnotes">Footnotes</span> [**&#9650;**](#top)
 
-<a name="footnote_01">[1]</a> ***JCK Compliance** (2018-04-06)* [↩](#anchor_01)
+<a name="footnote_01" tooltip="[1]">[1]</a> ***JCK Compliance** (2018-04-06)* [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
-The JCK is a proprietary test suite, <a href="https://openjdk.java.net/groups/conformance/JckAccess/index.html">accessible under license from Oracle</a>.<br/>
+The JCK is a proprietary test suite, <a href="https://openjdk.java.net/groups/conformance/JckAccess/index.html" rel="external">accessible under license from Oracle</a>.<br/>
 The role of the JCK is not to determine <i>quality</i>, but rather to provide a binary indication of compatibility with the Java SE specification. As such, the JCK only tests functional behaviour, and only such functional behaviour that is given in the Java specification.<br/><i>(see <a href="https://github.com/AdoptOpenJDK/TSC/issues/19">issue 19</a> from <a href="https://github.com/AdoptOpenJDK/TSC">OpenJDK TSC</a>)</i>
 </p>
 
@@ -325,14 +325,14 @@ The role of the JCK is not to determine <i>quality</i>, but rather to provide a 
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html">amazon-corretto-11.0.7.10.1-windows-x64-jdk.zip</a>                <i>(176 MB)</i>
+<a href="https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html" rel="external">amazon-corretto-11.0.7.10.1-windows-x64-jdk.zip</a>                <i>(176 MB)</i>
 <a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.6+10-windows-amd64-lite.zip</a>                   <i>( 69 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.1.0">graalvm-ce-java11-windows-amd64-20.1.0.zip</a>                     <i>(360 MB)</i>
 <a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.7.10-1.windows.redhat.x86_64.zip</a>          <i>(235 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.6_10.zip</a>               <i>(190 MB)</i>
 <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">OpenJDK11U-jdk_x64_windows_openj9_11.0.7_10_openj9-0.20.0.zip</a>  <i>(193 MB)</i>
-<a href="https://sap.github.io/SapMachine/">sapmachine-jdk-11.0.7_windows-x64_bin.zip</a>                  <i>(180 MB)</i>
-<a href="https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html">zulu11.37.17-ca-jdk11.0.6-win_x64.zip</a>                          <i>(188 MB)</i>
+<a href="https://sap.github.io/SapMachine/" rel="external">sapmachine-jdk-11.0.7_windows-x64_bin.zip</a>                      <i>(180 MB)</i>
+<a href="https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html" rel="external">zulu11.37.17-ca-jdk11.0.6-win_x64.zip</a>                          <i>(188 MB)</i>
 </pre>
 
 ***
@@ -360,17 +360,22 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [graalvm_org]: https://www.graalvm.org/
 [graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_0/
+[haskell_examples]: https://github.com/michelou/haskell-examples
 [jmh_project]: https://openjdk.java.net/projects/code-tools/jmh/
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
 [llvm_examples]: https://github.com/michelou/llvm-examples
+[nodejs_examples]: https://github.com/michelou/nodejs-examples
 [openj9_downloads]: https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9
 [openj9_news]: https://www.eclipse.org/openj9/oj9_whatsnew.html
 [openj9_relnotes]: https://github.com/eclipse/openj9/releases/
+[openjdk_jck]: https://openjdk.java.net/groups/conformance/JckAccess/
+[openjdk_trademark]: https://openjdk.java.net/legal/openjdk-trademark-notice.html
 [oracle]: https://www.oracle.com/
 [oracle_openjdk_project]: https://openjdk.java.net/projects/jdk/11/
 [oracle_openjdk_downloads]: https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
 [oracle_openjdk_relnotes]: https://adoptopenjdk.net/release_notes.html?variant=openjdk11&jvmVariant=hotspot#jdk11_0_6
 [trava_downloads]: https://github.com/TravaOpenJDK/trava-jdk-11-dcevm
 [trava_relnotes]: https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases
+[trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/

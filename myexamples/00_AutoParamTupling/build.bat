@@ -179,7 +179,7 @@ if %_TASTY%==1 if %_DOTTY%==0 (
     echo %_WARNING_LABEL% Option '-tasty' only supported by Scala 3 1>&2
     set _TASTY=0
 )
-if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _DOTTY=%_DOTTY% _RUN=%_RUN% _TASTY=%_TASTY% _TEST=%_TEST% _TIMER=%_TIMER% 1>&2
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _DOTTY=%_DOTTY% _RUN=%_RUN% _TASTY=%_TASTY% _TEST=%_TEST% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
@@ -486,8 +486,8 @@ for /f "delims=" %%f in ('dir /b /s /ad "%_CLASSES_DIR%" 2^>NUL') do (
 )
 if %_VERBOSE%==1 echo Decompile Java bytecode to directory "!__OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
 for %%i in (%__CLASS_DIRS%) do (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% %__CFR_CMD% %__CFR_OPTS% "%%i\*.class" 1>&2
-    call %__CFR_CMD% %__CFR_OPTS% "%%i"\*.class %_STDERR_REDIRECT%
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__CFR_CMD%" %__CFR_OPTS% "%%i\*.class" 1>&2
+    call "%__CFR_CMD%" %__CFR_OPTS% "%%i"\*.class %_STDERR_REDIRECT%
     if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Failed to decompile generated code in directory "%%i" 1>&2
         set _EXITCODE=1

@@ -32,7 +32,7 @@ set _GRADLE_PATH=
 set _JDK_PATH=
 set _JMC_PATH=
 set _MILL_PATH=
-set _MVN_PATH=
+set _MAVEN_PATH=
 set _PYTHON_PATH=
 set _SBT_PATH=
 set _SCALA_PATH=
@@ -89,7 +89,7 @@ if not %_EXITCODE%==0 (
     echo %_WARNING_LABEL% Mill installation not found 1>&2
     set _EXITCODE=0
 )
-call :mvn
+call :maven
 if not %_EXITCODE%==0 (
     @rem optional
     echo %_WARNING_LABEL% Maven installation not found 1>&2
@@ -170,9 +170,10 @@ echo   Subcommands:
 echo     help        display this help message
 goto :eof
 
-@rem output parameter(s): _JDK_HOME
+@rem output parameter(s): _JDK_HOME, _JDK_PATH
 :jdk
 set _JDK_HOME=
+set _JDK_PATH=
 
 set __JAVAC_CMD=
 for /f %%f in ('where javac.exe 2^>NUL') do set __JAVAC_CMD=%%f
@@ -317,7 +318,7 @@ set __SBT_CMD=
 for /f %%f in ('where sbt.bat 2^>NUL') do set "__SBT_CMD=%%f"
 if defined __SBT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of sbt executable found in PATH 1>&2
-    rem keep _SBT_PATH undefined since executable already in path
+    @rem keep _SBT_PATH undefined since executable already in path
     goto :eof
 ) else if defined SBT_HOME (
     set "__SBT_HOME=%SBT_HOME%"
@@ -352,7 +353,7 @@ if defined __ANT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Ant executable found in PATH 1>&2
     for %%i in ("%__ANT_CMD%") do set "__ANT_BIN_DIR=%%~dpi"
     for %%f in ("!__ANT_BIN_DIR!..") do set "_ANT_HOME=%%f"
-    rem keep _ANT_PATH undefined since executable already in path
+    @rem keep _ANT_PATH undefined since executable already in path
     goto :eof
 ) else if defined ANT_HOME (
     set "_ANT_HOME=%ANT_HOME%"
@@ -407,11 +408,11 @@ where /q gradle.bat
 if %ERRORLEVEL%==0 goto :eof
 
 if defined GRADLE_HOME (
-    set _GRADLE_HOME=%GRADLE_HOME%
+    set "_GRADLE_HOME=%GRADLE_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GRADLE_HOME 1>&2
 ) else (
     set __PATH=C:\opt
-    if exist "!__PATH!\gradle\" ( set _GRADLE_HOME=!__PATH!\gradle
+    if exist "!__PATH!\gradle\" ( set "_GRADLE_HOME=!__PATH!\gradle"
     ) else (
         for /f %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set "_GRADLE_HOME=!__PATH!\%%f"
         if not defined _GRADLE_HOME (
@@ -442,7 +443,7 @@ if defined __JMC_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of JMC executable found in PATH 1>&2
     for %%i in ("%__JMC_CMD%") do set "__JMC_BIN_DIR=%%~dpi"
     for %%f in ("!__JMC_JMC_DIR!..") do set "_JMC_HOME=%%f"
-    rem keep _JMC_PATH undefined since executable already in path
+    @rem keep _JMC_PATH undefined since executable already in path
     goto :eof
 ) else if defined JMC_HOME (
     set "_JMC_HOME=%JMC_HOME%"
@@ -498,29 +499,30 @@ if not exist "%_MILL_HOME%\mill.bat" (
 set "_MILL_PATH=;%_MILL_HOME%"
 goto :eof
 
-:mvn
+@rem output parameter(s): _MAVEN_PATH
+:maven
 where /q mvn.cmd
 if %ERRORLEVEL%==0 goto :eof
 
 if defined MAVEN_HOME (
-    set "_MVN_HOME=%MAVEN_HOME%"
+    set "_MAVEN_HOME=%MAVEN_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MAVEN_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\apache-maven-*" 2^>NUL') do set "_MVN_HOME=!_PATH!\%%f"
-    if defined _MVN_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Maven installation directory !_MVN_HOME! 1>&2
+    for /f %%f in ('dir /ad /b "!_PATH!\apache-maven-*" 2^>NUL') do set "_MAVEN_HOME=!_PATH!\%%f"
+    if defined _MAVEN_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Maven installation directory !_MAVEN_HOME! 1>&2
     )
 )
-if not exist "%_MVN_HOME%\bin\mvn.cmd" (
-    echo %_ERROR_LABEL% Maven executable not found ^(%_MVN_HOME%^) 1>&2
+if not exist "%_MAVEN_HOME%\bin\mvn.cmd" (
+    echo %_ERROR_LABEL% Maven executable not found ^(%_MAVEN_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_MVN_PATH=;%_MVN_HOME%\bin"
+set "_MAVEN_PATH=;%_MAVEN_HOME%\bin"
 goto :eof
 
-rem output parameter(s): _PYTHON_PATH
+@rem output parameter(s): _PYTHON_PATH
 :python
 set _PYTHON_PATH=
 
@@ -563,7 +565,7 @@ set __BLOOP_CMD=
 for /f %%f in ('where bloop.cmd 2^>NUL') do set "__BLOOP_CMD=%%f"
 if defined __BLOOP_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of bloop executable found in PATH 1>&2
-    rem keep _BLOOP_PATH undefined since executable already in path
+    @rem keep _BLOOP_PATH undefined since executable already in path
     goto :eof
 ) else if defined BLOOP_HOME (
     set "__BLOOP_HOME=%BLOOP_HOME%"
@@ -630,11 +632,11 @@ if defined __GIT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
     for %%i in ("%__GIT_CMD%") do set __GIT_BIN_DIR=%%~dpsi
     for %%f in ("!__GIT_BIN_DIR!..") do set "_GIT_HOME=%%f"
-    rem Executable git.exe is present both in bin\ and \mingw64\bin\
+    @rem Executable git.exe is present both in bin\ and \mingw64\bin\
     if not "!_GIT_HOME:mingw=!"=="!_GIT_HOME!" (
         for %%f in ("!_GIT_HOME!\..") do set "_GIT_HOME=%%f"
     )
-    rem keep _GIT_PATH undefined since executable already in path
+    @rem keep _GIT_PATH undefined since executable already in path
     goto :eof
 ) else if defined GIT_HOME (
     set "_GIT_HOME=%GIT_HOME%"
@@ -785,7 +787,7 @@ endlocal & (
         if not defined JAVA_HOME set "JAVA_HOME=%_JDK_HOME%"
         if not defined JAVA11_HOME set "JAVA11_HOME=%_JDK11_HOME%"
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
-        set "PATH=%_JDK_PATH%%_PYTHON_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MILL_PATH%%_MVN_PATH%%_SBT_PATH%%_CFR_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
+        set "PATH=%_JDK_PATH%%_PYTHON_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MILL_PATH%%_MAVEN_PATH%%_SBT_PATH%%_CFR_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE% "%_GIT_HOME%"
         if %_BASH%==1 (
             @rem see https://conemu.github.io/en/GitForWindows.html

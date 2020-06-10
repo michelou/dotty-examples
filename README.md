@@ -352,18 +352,18 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a></b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-dotty-doc_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-dotty-interfaces-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-dotty-language-server_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-dotty-library_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-dotty-sbt-bridge-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-dotty-staging_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-dotty-tasty-inspector_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-dotty-tastydoc-input_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-dotty-tastydoc_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-dotty_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-tasty-core_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+dotty-compiler_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+dotty-doc_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+dotty-interfaces-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+dotty-language-server_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+dotty-library_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+dotty-sbt-bridge-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+dotty-staging_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+dotty-tasty-inspector_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+dotty-tastydoc-input_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+dotty-tastydoc_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+dotty_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+tasty-core_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
 </pre>
 
 > **:mag_right:** Starting with Dotty version `0.22.0` package **`dotty.tools.tasty`** is distributed separately in archive **`tast-core_<xxx>.jar`**.
@@ -373,18 +373,18 @@ Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the downlo
 <pre style="font-size:80%">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose</b>
 Check for nightly files on Maven repository
-Downloading file dotty-compiler_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 12 Mb
-Downloading file dotty-tastydoc_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 433.8 Kb
-Downloading file dotty-staging_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 35.6 Kb
-Downloading file tasty-core_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 47.8 Kb
-Downloading file dotty-language-server_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 145.6 Kb
-Downloading file dotty-doc_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 1018.5 Kb
-Downloading file dotty-sbt-bridge-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 13.4 Kb
-Downloading file dotty-tasty-inspector_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 7.9 Kb
-Downloading file dotty-tastydoc-input_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 36 Kb
-Downloading file dotty-interfaces-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 3.4 Kb
-Downloading file dotty-library_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 1.4 Mb
-Downloading file dotty_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-compiler_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar ... 11.9 Mb
+Downloading file dotty-tastydoc_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar ... 433.8 Kb
+Downloading file dotty-staging_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar ... 35.6 Kb
+Downloading file tasty-core_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar ... 47.9 Kb
+Downloading file dotty-doc_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar ... 1018.5 Kb
+Downloading file dotty-language-server_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar ... 145.6 Kb
+Downloading file dotty-sbt-bridge-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty-tasty-inspector_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar ... 7.9 Kb
+Downloading file dotty-tastydoc-input_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar ... 36 Kb
+Downloading file dotty-interfaces-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-library_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar ... 1.4 Mb
+Downloading file dotty_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar ... 0.3 Kb
 Finished to download 12 files to directory W:\out\nightly-jars
 </pre>
 
@@ -398,7 +398,7 @@ Local nightly version has changed from unknown to 0.25.0-bin-20200603-cc8d6c3-NI
 Activate nightly build libraries: 0.25.0-bin-20200603-cc8d6c3-NIGHTLY
 
 <b>&gt; dotc -version</b>
-Dotty compiler version 0.25.0-bin-20200603-cc8d6c3-NIGHTLY-git-cc8d6c3 -- Copyright 2002-2020, LAMP/EPFL
+Dotty compiler version 0.25.0-bin-20200609-a3b417b-NIGHTLY-git-a3b417b-- Copyright 2002-2020, LAMP/EPFL
 
 <b>&gt; getnightly reset</b>
 Activate default Dotty libraries: 0.24.0-RC1
@@ -424,19 +424,19 @@ lib\0.24.0-RC1\
 &nbsp;&nbsp;dotty-staging_0.24-0.24.0-RC1.jar
 &nbsp;&nbsp;dotty-tasty-inspector_0.24-0.24.0-RC1.jar
 &nbsp;&nbsp;tasty-core_0.24-0.24.0-RC1.jar
-lib\0.25.0-bin-20200603-cc8d6c3-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-&nbsp;&nbsp;dotty-staging_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tasty-inspector_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc-input_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
-&nbsp;&nbsp;tasty-core_0.25-0.25.0-bin-20200603-cc8d6c3-NIGHTLY.jar
+lib\0.25.0-bin-20200609-a3b417b-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-staging_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tasty-inspector_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc-input_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
+&nbsp;&nbsp;tasty-core_0.25-0.25.0-bin-20200609-a3b417b-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original [Dotty] installation respectively from the latest nightly build.
@@ -466,7 +466,7 @@ Usage: searchjars { &lt;option&gt; | &lt;class_name&gt; }
 Passing argument **`System`** to command [**`searchjars`**](bin/searchjars.bat) prints the following output (class file names are printed with full path and are prefixed with their containing [JAR file][jar_file]:
 
 <pre style="font-size:80%;">
-<b>&gt; searchjars System</b>
+<b>&gt; <a href="bin/searchjars.bat">searchjars</a> System</b>
 Searching for class System in library files C:\opt\DOTTY-~1.1-R\lib\*.jar
   scala-library-2.13.2.jar:scala/sys/SystemProperties$.class
   scala-library-2.13.2.jar:scala/sys/SystemProperties.class
@@ -494,7 +494,7 @@ Searching for class System in library files C:\opt\JDK-18~1.0_2\jre\lib\*.jar
 Searching for an unknown class - e.g. **`BinarySearch`** - produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; searchjars BinarySearch</b>
+<b>&gt; <a href="bin/searchjars.bat">searchjars</a> BinarySearch</b>
 Searching for class BinarySearch in library files C:\opt\DOTTY-~1.1-R\lib\*.jar
 Searching for class BinarySearch in library files C:\opt\SCALA-~1.0\lib\*.jar
 Searching for class BinarySearch in library files C:\opt\JDK-18~1.0_2\lib\*.jar
@@ -504,7 +504,7 @@ Searching for class BinarySearch in library files W:\lib\*.jar
 Searching for **`FileSystem`** with option **`-artifact`** produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; searchjars FileSystem -artifact</b>
+<b>&gt; <a href="bin/searchjars.bat">searchjars</a> FileSystem -artifact</b>
 Searching for class FileSystem in library files C:\opt\DOTTY-~1.1-R\lib\*.jar
 Searching for class FileSystem in library files C:\opt\SCALA-~1.0\lib\*.jar
 Searching for class FileSystem in library files C:\opt\JDK-18~1.0_2\lib\*.jar
@@ -558,10 +558,10 @@ Execution time: 00:00:08
 Chaining of commands is also possible. Note that the command separator (either **`&&`** or **`&`**) must be escaped if the command chain is not quoted. For instance:
 
 <pre style="font-size:80%;">
-<b>&gt; timeit build clean compile ^&^& ant run</b>
+<b>&gt; <a href="bin/timeit.bat">timeit</a> build clean compile ^&^& ant run</b>
 ...
 Execution time: 00:00:11
-<b>&gt; timeit "build clean compile && ant run"</b>
+<b>&gt; <a href="bin/timeit.bat">timeit</a> "build clean compile && ant run"</b>
 ...
 Execution time: 00:00:11
 </pre>
@@ -636,12 +636,12 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 C:\opt\dotty-0.24.0-RC1\bin\dotr
 C:\opt\dotty-0.24.0-RC1\bin\dotr.bat
 
-<b>&gt; dotr -version</b>
+<b>&gt; <a href="bin/dotty/bin/dotr.bat">dotr</a> -version</b>
 openjdk version "1.8.0_252"
 OpenJDK Runtime Environment (AdoptOpenJDK)(build 1.8.0_252-b09)
 OpenJDK 64-Bit Server VM (AdoptOpenJDK)(build 25.252-b09, mixed mode)
 
-<b>&gt; dotr</b>
+<b>&gt; <a href="bin/dotty/bin/dotr.bat">dotr</a></b>
 Starting dotty REPL...
 scala> :help
 The REPL has several commands available:
