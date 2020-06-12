@@ -8,7 +8,6 @@ set _DEBUG=0
 @rem ## Environment setup
 
 set _EXITCODE=0
-set "_ROOT_DIR=%~dp0"
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -49,12 +48,12 @@ goto end
 @rem                    _SCALAC_CMD, _SCALADOC_CMD, _JAR_CMD, _JAVA_CMD, _RUN_CMD
 :env
 set _BASENAME=%~n0
+set "_ROOT_DIR=%~dp0"
 
-@rem ANSI colors in standard Windows 10 shell
-@rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-set _DEBUG_LABEL=[46m[%_BASENAME%][0m
-set _ERROR_LABEL=[91mError[0m:
-set _WARNING_LABEL=[93mWarning[0m:
+call :env_colors
+set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
+set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
+set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_TARGET_DIR=%_ROOT_DIR%target"
@@ -95,6 +94,52 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 set "_JAVA_CMD=%JAVA11_HOME%\bin\java.exe"
+goto :eof
+
+:env_colors
+@rem ANSI colors in standard Windows 10 shell
+@rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+set _RESET=[0m
+set _BOLD=[1m
+set _UNDERSCORE=[4m
+set _INVERSE=[7m
+
+@rem normal foreground colors
+set _NORMAL_FG_BLACK=[30m
+set _NORMAL_FG_RED=[31m
+set _NORMAL_FG_GREEN=[32m
+set _NORMAL_FG_YELLOW=[33m
+set _NORMAL_FG_BLUE=[34m
+set _NORMAL_FG_MAGENTA=[35m
+set _NORMAL_FG_CYAN=[36m
+set _NORMAL_FG_WHITE=[37m
+
+@rem normal background colors
+set _NORMAL_BG_BLACK=[40m
+set _NORMAL_BG_RED=[41m
+set _NORMAL_BG_GREEN=[42m
+set _NORMAL_BG_YELLOW=[43m
+set _NORMAL_BG_BLUE=[44m
+set _NORMAL_BG_MAGENTA=[45m
+set _NORMAL_BG_CYAN=[46m
+set _NORMAL_BG_WHITE=[47m
+
+@rem strong foreground colors
+set _STRONG_FG_BLACK=[90m
+set _STRONG_FG_RED=[91m
+set _STRONG_FG_GREEN=[92m
+set _STRONG_FG_YELLOW=[93m
+set _STRONG_FG_BLUE=[94m
+set _STRONG_FG_MAGENTA=[95m
+set _STRONG_FG_CYAN=[96m
+set _STRONG_FG_WHITE=[97m
+
+@rem strong background colors
+set _STRONG_BG_BLACK=[100m
+set _STRONG_BG_RED=[101m
+set _STRONG_BG_GREEN=[102m
+set _STRONG_BG_YELLOW=[103m
+set _STRONG_BG_BLUE=[104m
 goto :eof
 
 @rem input parameter: %*
@@ -156,20 +201,31 @@ if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TI
 goto :eof
 
 :help
-echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
+if %_VERBOSE%==1 (
+    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __BEG_O=%_STRONG_FG_GREEN%
+    set __BEG_N=%_NORMAL_FG_YELLOW%
+    set __END=%_RESET%
+) else (
+    set __BEG_P=
+    set __BEG_O=
+    set __BEG_N=
+    set __END=
+)
+echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
-echo   Options:
-echo     -iter:1..99        set number of run iterations
-echo     -share[:^(on^|off^)]  enable/disable data sharing ^(default:off^)
-echo     -timer             display total elapsed time
-echo     -verbose           display progress messages
+echo   %__BEG_P%Options:%__END%
+echo     %__BEG_O%-iter:1..99%__END%        set number of run iterations
+echo     %__BEG_O%-share[:^(on^|off^)]%__END%  enable/disable data sharing ^(default:off^)
+echo     %__BEG_O%-timer%__END%             display total elapsed time
+echo     %__BEG_O%-verbose%__END%           display progress messages
 echo.
-echo   Subcommands:
-echo     clean              delete generated files
-echo     compile            compile Java source files
-echo     doc                generate Java documentation
-echo     help               display this help message
-echo     run[:arg]          execute main class with 1 optional argument
+echo   %__BEG_P%Subcommands:%__END%
+echo     %__BEG_O%clean%__END%              delete generated files
+echo     %__BEG_O%compile%__END%            compile Java source files
+echo     %__BEG_O%doc%__END%                generate Java documentation
+echo     %__BEG_O%help%__END%               display this help message
+echo     %__BEG_O%run[:arg]%__END%          execute main class with 1 optional argument
 goto :eof
 
 :iter

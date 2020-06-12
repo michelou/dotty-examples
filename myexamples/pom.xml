@@ -48,16 +48,16 @@
             <artifactId>dotty-interfaces</artifactId>
             <version>${scala.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.24 -->
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.25 -->
         <dependency>
             <groupId>ch.epfl.lamp</groupId>
-            <artifactId>dotty-library_0.24</artifactId>
+            <artifactId>dotty-library_0.25</artifactId>
             <version>${scala.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/tasty-core_0.24 -->
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/tasty-core_0.25 -->
         <dependency>
             <groupId>ch.epfl.lamp</groupId>
-            <artifactId>tasty-core_0.24</artifactId>
+            <artifactId>tasty-core_0.25</artifactId>
             <version>${scala.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->

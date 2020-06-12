@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="http://dotty.epfl.ch/"><img src="../docs/dotty.png" width="120" alt="Dotty logo"/></a>
+    <a href="http://dotty.epfl.ch/" rel="external"><img src="../docs/dotty.png" width="120" alt="Dotty logo"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     The <strong><code>docs\</code></strong> directory contains a selection of external links and PDF documents related to <a href="http://dotty.epfl.ch/" alt="Dotty">Dotty</a>.
@@ -54,7 +54,7 @@
 
 <hr style="margin:2em 0 0 0;" />
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

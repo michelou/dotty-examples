@@ -1,10 +1,10 @@
-val dottyVersion = "0.24.0-RC1"
+val dottyVersion = "0.25.0-RC1"
 
 lazy val root = project
   .in(file("."))
   .settings(
     name := "enum-Tree",
-    description := "sbt example project to build/run Scala 3 code",
+    description := "sbt example project to build/run Scala 3 applications",
     version := "0.1.0",
 
     scalaVersion := dottyVersion,

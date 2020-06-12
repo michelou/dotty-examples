@@ -3,10 +3,10 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;max-width:80px;">
-    <a href="https://dotty.epfl.ch/"><img style="border:0;width:80px;" src="docs/dotty.png" alt="Dotty logo" /></a>
+    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:80px;" src="docs/dotty.png" alt="Dotty logo" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Source code of the <a href="https://dotty.epfl.ch/">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed on the <a href="https://dotty-ci.epfl.ch/lampepfl/dotty">Dotty CI</a> server <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This document describes changes we made to the <a href="https://github.com/lampepfl/dotty/">lampepfl/dotty</a> repository in order to reproduce the same build/test steps locally on a Windows machine.
+    Source code of the <a href="https://dotty.epfl.ch/" rel="external">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed on the <a href="https://dotty-ci.epfl.ch/lampepfl/dotty" rel="external">Dotty CI</a> server <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This document describes changes we made to the <a href="https://github.com/lampepfl/dotty/" rel="external">lampepfl/dotty</a> repository in order to reproduce the same build/test steps locally on a Windows machine.
   </td>
   </tr>
 </table>

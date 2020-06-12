@@ -14,7 +14,7 @@
         <m2.directory>${user.home}/.m2/repository</m2.directory>
 
         <!-- Scala settings -->
-        <scala.version>0.24.0-RC1</scala.version> <!-- eg. "2.12.18" or "0.22.0" -->
+        <scala.version>0.25.0-RC1</scala.version> <!-- eg. "2.12.18" or "0.22.0" -->
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugins -->
@@ -48,16 +48,16 @@
             <artifactId>dotty-interfaces</artifactId>
             <version>${scala.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.24 -->
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.25 -->
         <dependency>
             <groupId>ch.epfl.lamp</groupId>
-            <artifactId>dotty-library_0.24</artifactId>
+            <artifactId>dotty-library_0.25</artifactId>
             <version>${scala.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/tasty-core_0.24 -->
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/tasty-core_0.25 -->
         <dependency>
             <groupId>ch.epfl.lamp</groupId>
-            <artifactId>tasty-core_0.24</artifactId>
+            <artifactId>tasty-core_0.25</artifactId>
             <version>${scala.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->

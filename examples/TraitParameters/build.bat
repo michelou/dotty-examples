@@ -8,7 +8,6 @@ set _DEBUG=0
 @rem ## Environment setup
 
 set _EXITCODE=0
-set "_ROOT_DIR=%~dp0"
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -59,6 +58,7 @@ goto end
 @rem                    _CLASSES_DIR, _TARGET_DIR, _TARGET_DOCS_DIR, _TASTY_CLASSES_DIR
 :env
 set _BASENAME=%~n0
+set "_ROOT_DIR=%~dp0"
 
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
@@ -82,13 +82,12 @@ set _MAIN_ARGS_DEFAULT=
 set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
 if exist "%__PROPS_FILE%" (
     for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
-        set _NAME=%%~i
-        set _VALUE=%%~j
-        set _NAME=!_NAME:.=_!
-        if not "!_NAME!"=="" (
+        for /f "delims= " %%n in ("%%i") do set __NAME=%%n
+        @rem line comments start with "#"
+        if not "!__NAME!"=="" if not "!__NAME:~0,1!"=="#" (
             @rem trim value
-            for /f "tokens=*" %%v in ("!_VALUE!") do set _VALUE=%%v
-            set _!_NAME: =!=!_VALUE!
+            for /f "tokens=*" %%v in ("%%~j") do set __VALUE=%%v
+            set "_!__NAME:.=_!=!__VALUE!"
         )
     )
     if defined _main_class set _MAIN_CLASS_DEFAULT=!_main_class!

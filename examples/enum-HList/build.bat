@@ -60,11 +60,10 @@ goto end
 set _BASENAME=%~n0
 set "_ROOT_DIR=%~dp0"
 
-@rem ANSI colors in standard Windows 10 shell
-@rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-set _DEBUG_LABEL=[46m[%_BASENAME%][0m
-set _ERROR_LABEL=[91mError[0m:
-set _WARNING_LABEL=[93mWarning[0m:
+call :env_colors
+set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
+set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
+set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_TARGET_DIR=%_ROOT_DIR%target"
@@ -72,6 +71,52 @@ set "_CLASSES_DIR=%_TARGET_DIR%\classes"
 set "_TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes"
 set "_TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
+goto :eof
+
+:env_colors
+@rem ANSI colors in standard Windows 10 shell
+@rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+set _RESET=[0m
+set _BOLD=[1m
+set _UNDERSCORE=[4m
+set _INVERSE=[7m
+
+@rem normal foreground colors
+set _NORMAL_FG_BLACK=[30m
+set _NORMAL_FG_RED=[31m
+set _NORMAL_FG_GREEN=[32m
+set _NORMAL_FG_YELLOW=[33m
+set _NORMAL_FG_BLUE=[34m
+set _NORMAL_FG_MAGENTA=[35m
+set _NORMAL_FG_CYAN=[36m
+set _NORMAL_FG_WHITE=[37m
+
+@rem normal background colors
+set _NORMAL_BG_BLACK=[40m
+set _NORMAL_BG_RED=[41m
+set _NORMAL_BG_GREEN=[42m
+set _NORMAL_BG_YELLOW=[43m
+set _NORMAL_BG_BLUE=[44m
+set _NORMAL_BG_MAGENTA=[45m
+set _NORMAL_BG_CYAN=[46m
+set _NORMAL_BG_WHITE=[47m
+
+@rem strong foreground colors
+set _STRONG_FG_BLACK=[90m
+set _STRONG_FG_RED=[91m
+set _STRONG_FG_GREEN=[92m
+set _STRONG_FG_YELLOW=[93m
+set _STRONG_FG_BLUE=[94m
+set _STRONG_FG_MAGENTA=[95m
+set _STRONG_FG_CYAN=[96m
+set _STRONG_FG_WHITE=[97m
+
+@rem strong background colors
+set _STRONG_BG_BLACK=[100m
+set _STRONG_BG_RED=[101m
+set _STRONG_BG_GREEN=[102m
+set _STRONG_BG_YELLOW=[103m
+set _STRONG_BG_BLUE=[104m
 goto :eof
 
 @rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
@@ -184,32 +229,43 @@ if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TI
 goto :eof
 
 :help
-echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
+if %_VERBOSE%==1 (
+    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __BEG_O=%_STRONG_FG_GREEN%
+    set __BEG_N=%_NORMAL_FG_YELLOW%
+    set __END=%_RESET%
+) else (
+    set __BEG_P=
+    set __BEG_O=
+    set __BEG_N=
+    set __END=
+)
+echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
-echo   Options:
-echo     -debug           show commands executed by this script
-echo     -dotty           use Scala 3 tools ^(default^)
-echo     -explain         set compiler option -explain
-echo     -explain-types   set compiler option -explain-types
-echo     -main:^<name^>     define main class name
-echo     -scala           use Scala 2 tools
-echo     -tasty           compile both from source and TASTy files
-echo     -timer           display total elapsed time
-echo     -verbose         display progress messages
+echo   %__BEG_P%Options:%__END%
+echo     %__BEG_O%-debug%__END%           show commands executed by this script
+echo     %__BEG_O%-dotty%__END%           use Scala 3 tools ^(default^)
+echo     %__BEG_O%-explain%__END%         set compiler option -explain
+echo     %__BEG_O%-explain-types%__END%   set compiler option -explain-types
+echo     %__BEG_O%-main:^<name^>%__END%     define main class name
+echo     %__BEG_O%-scala%__END%           use Scala 2 tools
+echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
+echo     %__BEG_O%-timer%__END%           display total elapsed time
+echo     %__BEG_O%-verbose%__END%         display progress messages
 echo.
-echo   Subcommands:
-echo     clean            delete generated class files
-echo     compile          compile source files ^(Java and Scala^)
-echo     decompile        decompile generated code with CFR
-echo     doc              generate documentation
-echo     help             display this help message
-echo     run              execute main class
-echo     test             execute unit tests
+echo   %__BEG_P%Subcommands:%__END%
+echo     %__BEG_O%clean%__END%            delete generated class files
+echo     %__BEG_O%compile%__END%          compile source files ^(Java and Scala^)
+echo     %__BEG_O%decompile%__END%        decompile generated code with %__BEG_N%CFR%__END%
+echo     %__BEG_O%doc%__END%              generate documentation
+echo     %__BEG_O%help%__END%             display this help message
+echo     %__BEG_O%run%__END%              execute main class
+echo     %__BEG_O%test%__END%             execute unit tests
 echo.
-echo   Properties:
+echo   %__BEG_P%Properties:%__END%
 echo   ^(to be defined in SBT configuration file project\build.properties^)
-echo     main.class       alternative to option -main
-echo     main.args        list of arguments to be passed to main class
+echo     %__BEG_O%main.class%__END%       alternative to option -main
+echo     %__BEG_O%main.args%__END%        list of arguments to be passed to main class
 goto :eof
 
 @rem output parameter: _MAIN_CLASS

@@ -14,8 +14,8 @@ for %%f in ("%~dp0..") do set _ROOT_DIR=%%~sf
 if "%_ROOT_DIR:~-2%"==":\" set "_ROOT_DIR=%_ROOT_DIR:~0,-1%"
 
 @rem files build.sbt, build.sc and ivy.xml
-set _DOTTY_VERSION_OLD="0.23.0-RC1"
-set _DOTTY_VERSION_NEW="0.24.0-RC1"
+set _DOTTY_VERSION_OLD="0.24.0-RC1"
+set _DOTTY_VERSION_NEW="0.25.0-RC1"
 
 @rem files project\build.properties
 set _SBT_VERSION_OLD=sbt.version=1.3.11
@@ -27,8 +27,15 @@ set _SBT_DOTTY_VERSION_OLD="0.4.0"
 set _SBT_DOTTY_VERSION_NEW="0.4.1"
 
 @rem files ivy.xml (NB. PS regex)
-set _IVY_DOTTY_VERSION_OLD=^(dotty-[a-z]+^)_0.23
-set _IVY_DOTTY_VERSION_NEW=$1_0.24
+set _IVY_DOTTY_VERSION_OLD=^(dotty-[a-z]+^)_0.24
+set _IVY_DOTTY_VERSION_NEW=$1_0.25
+
+set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_0.24
+set _IVY_TASTY_VERSION_NEW=$1_0.25
+
+@rem files pom.xml (NB. PS regex)
+set _POM_DOTTY_VERSION_OLD=scala.version^>0.24.0-RC1
+set _POM_DOTTY_VERSION_NEW=scala.version^>0.25.0-RC1
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -36,7 +43,7 @@ if not %_EXITCODE%==0 goto end
 @rem #########################################################################
 @rem ## Main
 
-for %%i in (cdsexamples examples metaexamples myexamples) do (
+for %%i in (cdsexamples examples meta-examples myexamples) do (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% call :update_project "%_ROOT_DIR%\%%i" 1>&2
     call :update_project "%_ROOT_DIR%\%%i"
 )
@@ -82,6 +89,7 @@ set __N2=0
 set __N3=0
 set __N4=0
 set __N5=0
+set __N6=0
 echo Parent directory: %__PARENT_DIR%
 for /f %%i in ('dir /ad /b "%__PARENT_DIR%" ^| findstr /v /c:"lib"') do (
     set "__BUILD_SBT=%__PARENT_DIR%\%%i\build.sbt"
@@ -128,12 +136,27 @@ if exist "%__IVY_XML%" (
 ) else (
    echo    %_WARNING_LABEL% Could not find file %__IVY_XML% 1>&2
 )
+set "__POM_XML=%__PARENT_DIR%\pom.xml"
+if exist "%__POM_XML%" (
+	if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "%__POM_XML%" "%_POM_DOTTY_VERSION_OLD%" "%_POM_DOTTY_VERSION_NEW%" 1>&2
+	call :replace "%__POM_XML%" "%_POM_DOTTY_VERSION_OLD%" "%_POM_DOTTY_VERSION_NEW%"
+    set /a __N6+=1
+    @rem e.g. dotty-library_0.25
+	if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "%__POM_XML%" "%_IVY_DOTTY_VERSION_OLD%" "%_IVY_DOTTY_VERSION_NEW%" 1>&2
+	call :replace "%__POM_XML%" "%_IVY_DOTTY_VERSION_OLD%" "%_IVY_DOTTY_VERSION_NEW%"
+    @rem e.g. tasty-core_0.25
+	if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "%__POM_XML%" "%_IVY_TASTY_VERSION_OLD%" "%_IVY_TASTY_VERSION_NEW%" 1>&2
+	call :replace "%__POM_XML%" "%_IVY_TASTY_VERSION_OLD%" "%_IVY_TASTY_VERSION_NEW%"
+) else (
+   echo    %_WARNING_LABEL% Could not find file %__POM_XML% 1>&2
+)
 
 call :message %__N1% "build.sbt"
 call :message %__N2% "project\build.properties"
 call :message %__N3% "project\plugins.sbt"
 call :message %__N4% "build.sc"
 call :message %__N5% "ivy.xml"
+call :message %__N6% "pom.xml"
 goto :eof
 
 @rem input parameters: %1=nr of updates, %2=file name
