@@ -245,8 +245,8 @@ echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%           show commands executed by this script
 echo     %__BEG_O%-dotty%__END%           use Scala 3 tools ^(default^)
-echo     %__BEG_O%-explain%__END%         set compiler option -explain
-echo     %__BEG_O%-explain-types%__END%   set compiler option -explain-types
+echo     %__BEG_O%-explain%__END%         set compiler option %__BEG_O%-explain%__END%
+echo     %__BEG_O%-explain-types%__END%   set compiler option %__BEG_O%-explain-types%__END%
 echo     %__BEG_O%-main:^<name^>%__END%     define main class name
 echo     %__BEG_O%-scala%__END%           use Scala 2 tools
 echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
@@ -263,8 +263,8 @@ echo     %__BEG_O%run%__END%              execute main class
 echo     %__BEG_O%test%__END%             execute unit tests
 echo.
 echo   %__BEG_P%Properties:%__END%
-echo   ^(to be defined in SBT configuration file project\build.properties^)
-echo     %__BEG_O%main.class%__END%       alternative to option -main
+echo   ^(to be defined in SBT configuration file %__BEG_O%project\build.properties%__END%^)
+echo     %__BEG_O%main.class%__END%       alternative to option %__BEG_O%-main%__END%
 echo     %__BEG_O%main.args%__END%        list of arguments to be passed to main class
 goto :eof
 
