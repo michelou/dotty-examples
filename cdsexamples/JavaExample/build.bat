@@ -216,7 +216,7 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-iter:1..99%__END%        set number of run iterations
-echo     %__BEG_O%-share[:^(on^|off^)]%__END%  enable/disable data sharing ^(default:off^)
+echo     %__BEG_O%-share[:^(on^|off^)]%__END%  enable/disable data sharing ^(default:%__BEG_O%off%__END%^)
 echo     %__BEG_O%-timer%__END%             display total elapsed time
 echo     %__BEG_O%-verbose%__END%           display progress messages
 echo.
