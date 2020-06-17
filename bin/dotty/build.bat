@@ -11,11 +11,7 @@ set _DEBUG=0
 @rem #########################################################################
 @rem ## Environment setup
 
-set _BASENAME=%~n0
-
 set _EXITCODE=0
-
-for %%f in ("%~dp0") do set "_ROOT_DIR=%%~f"
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -86,15 +82,15 @@ goto end
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL, _SCRIPTS_DIR,
 @rem                    _DRONE_BUILD_EVENT, _DRONE_REMOTE_URL, _DRONE_BRANCH
 :env
-@rem ANSI colors in standard Windows 10 shell
-@rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-@rem background colors: 46m = Cyan (normal) 
-@rem foreground colors: 32m = Green (normal),  91m = Red (strong), 93m = Yellow (strong)
-set _COLOR_START=[32m
-set _COLOR_END=[0m
-set _DEBUG_LABEL=[46m[%_BASENAME%][0m
-set _ERROR_LABEL=[91mError[0m:
-set _WARNING_LABEL=[93mWarning[0m:
+set _BASENAME=%~n0
+set "_ROOT_DIR=%~dp0"
+
+call :env_colors
+set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
+set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
+set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
+set _COLOR_START=%_NORMAL_FG_GREEN%
+set _COLOR_END=%_RESET%
 
 set "_SCRIPTS_DIR=%_ROOT_DIR%\project\scripts"
 if not exist "%_SCRIPTS_DIR%\cmdTestsCommon.inc.bat" (
@@ -110,6 +106,52 @@ if not %_EXITCODE%==0 goto :eof
 set _DRONE_BUILD_EVENT=
 set _DRONE_REMOTE_URL=
 set _DRONE_BRANCH=
+goto :eof
+
+:env_colors
+@rem ANSI colors in standard Windows 10 shell
+@rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+set _RESET=[0m
+set _BOLD=[1m
+set _UNDERSCORE=[4m
+set _INVERSE=[7m
+
+@rem normal foreground colors
+set _NORMAL_FG_BLACK=[30m
+set _NORMAL_FG_RED=[31m
+set _NORMAL_FG_GREEN=[32m
+set _NORMAL_FG_YELLOW=[33m
+set _NORMAL_FG_BLUE=[34m
+set _NORMAL_FG_MAGENTA=[35m
+set _NORMAL_FG_CYAN=[36m
+set _NORMAL_FG_WHITE=[37m
+
+@rem normal background colors
+set _NORMAL_BG_BLACK=[40m
+set _NORMAL_BG_RED=[41m
+set _NORMAL_BG_GREEN=[42m
+set _NORMAL_BG_YELLOW=[43m
+set _NORMAL_BG_BLUE=[44m
+set _NORMAL_BG_MAGENTA=[45m
+set _NORMAL_BG_CYAN=[46m
+set _NORMAL_BG_WHITE=[47m
+
+@rem strong foreground colors
+set _STRONG_FG_BLACK=[90m
+set _STRONG_FG_RED=[91m
+set _STRONG_FG_GREEN=[92m
+set _STRONG_FG_YELLOW=[93m
+set _STRONG_FG_BLUE=[94m
+set _STRONG_FG_MAGENTA=[95m
+set _STRONG_FG_CYAN=[96m
+set _STRONG_FG_WHITE=[97m
+
+@rem strong background colors
+set _STRONG_BG_BLACK=[100m
+set _STRONG_BG_RED=[101m
+set _STRONG_BG_GREEN=[102m
+set _STRONG_BG_YELLOW=[103m
+set _STRONG_BG_BLUE=[104m
 goto :eof
 
 @rem input parameter: %*
@@ -186,31 +228,42 @@ if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TI
 goto :eof
 
 :help
-echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
+if %_VERBOSE%==1 (
+    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __BEG_O=%_STRONG_FG_GREEN%
+    set __BEG_N=%_NORMAL_FG_YELLOW%
+    set __END=%_RESET%
+) else (
+    set __BEG_P=
+    set __BEG_O=
+    set __BEG_N=
+    set __END=
+)
+echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
-echo   Options:
-echo     -timer                display total execution time
-echo     -verbose              display environment settings
+echo   %__BEG_P%Options:%__END%
+echo     %__BEG_O%-timer%__END%                display total execution time
+echo     %__BEG_O%-verbose%__END%              display environment settings
 echo.
-echo   Subcommands:
-echo     arch[ives]            generate gz/zip archives ^(after bootstrap^)
-echo     boot[strap]           generate+test bootstrapped compiler ^(after compile^)
-echo     clean                 clean up project
-echo     clone                 update submodules
-echo     compile               generate+test 1st stage compiler ^(after clone^)
-echo     community             test community-build
-echo     doc[umentation]       generate documentation ^(after bootstrap^)
-echo     help                  display this help message
-echo     java11                generate+test Dotty compiler with Java 11
-echo     sbt                   test sbt-dotty ^(after bootstrap^)
-echo     update                fetch/merge upstream repository
+echo   %__BEG_P%Subcommands:%__END%
+echo     %__BEG_O%arch[ives]%__END%            generate gz/zip archives ^(after bootstrap^)
+echo     %__BEG_O%boot[strap]%__END%           generate+test bootstrapped compiler ^(after compile^)
+echo     %__BEG_O%clean%__END%                 clean up project
+echo     %__BEG_O%clone%__END%                 update submodules
+echo     %__BEG_O%compile%__END%               generate+test 1st stage compiler ^(after clone^)
+echo     %__BEG_O%community%__END%             test community-build
+echo     %__BEG_O%doc[umentation]%__END%       generate documentation ^(after bootstrap^)
+echo     %__BEG_O%help%__END%                  display this help message
+echo     %__BEG_O%java11%__END%                generate+test Dotty compiler with Java 11
+echo     %__BEG_O%sbt%__END%                   test sbt-dotty ^(after bootstrap^)
+echo     %__BEG_O%update%__END%                fetch/merge upstream repository
 echo.
-echo   Advanced subcommands (no deps):
-echo     arch[ives]-only       generate ONLY gz/zip archives
-echo     boot[strap]-only      generate+test ONLY bootstrapped compiler
-echo     compile-only          generate+test ONLY 1st stage compiler
-echo     doc[umentation]-only  generate ONLY documentation
-echo     sbt-only              test ONLY sbt-dotty
+echo   %__BEG_P%Advanced subcommands (no deps):%__END%
+echo     %__BEG_O%arch[ives]-only%__END%       generate ONLY gz/zip archives
+echo     %__BEG_O%boot[strap]-only%__END%      generate+test ONLY bootstrapped compiler
+echo     %__BEG_O%compile-only%__END%          generate+test ONLY 1st stage compiler
+echo     %__BEG_O%doc[umentation]-only%__END%  generate ONLY documentation
+echo     %__BEG_O%sbt-only%__END%              test ONLY sbt-dotty
 
 goto :eof
 
@@ -243,8 +296,8 @@ goto :eof
 
 :clean
 echo %_COLOR_START%run sbt clean%_COLOR_END%
-if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ;clean ;dotty-bootstrapped/clean 1>&2
-call "%_SBT_CMD%" ;clean ;dotty-bootstrapped/clean
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ";clean ;dotty-bootstrapped/clean" 1>&2
+call "%_SBT_CMD%" ";clean ;dotty-bootstrapped/clean"
 if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
@@ -410,10 +463,10 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :archives
-if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" dist-bootstrapped/packArchive 1>&2
-call "%_SBT_CMD%" dist-bootstrapped/packArchive
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" dist/packArchive 1>&2
+call "%_SBT_CMD%" dist/packArchive
 @rem output directory for gz/zip archives
-set "__TARGET_DIR=%_ROOT_DIR%\dist-bootstrapped\target"
+set "__TARGET_DIR=%_ROOT_DIR%dist\target"
 if not exist "%__TARGET_DIR%\" (
     echo %_ERROR_LABEL% Directory target not found 1>&2
     set _EXITCODE=1

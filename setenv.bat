@@ -18,7 +18,7 @@ if not %_EXITCODE%==0 goto end
 @rem #########################################################################
 @rem ## Main
 
-if defined _HELP (
+if %_HELP%==1 (
     call :help
     exit /b !_EXITCODE!
 )
@@ -167,7 +167,7 @@ goto :eof
 @rem input parameter: %*
 @rem output parameter: _HELP, _VERBOSE
 :args
-set _HELP=
+set _HELP=0
 set _BASH=0
 set _VERBOSE=0
 
