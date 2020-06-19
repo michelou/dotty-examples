@@ -14,7 +14,7 @@
         <m2.directory>${user.home}/.m2/repository</m2.directory>
 
         <!-- Scala settings -->
-        <scala.version>0.25.0-RC1</scala.version> <!-- eg. "2.12.18" or "0.22.0" -->
+        <scala.version>0.25.0-RC2</scala.version> <!-- eg. "2.12.18" or "0.22.0" -->
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugins -->
