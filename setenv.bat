@@ -432,7 +432,7 @@ if not exist "%_ANT_HOME%\bin\ant.cmd" (
 set "_ANT_PATH=;%_ANT_HOME%\bin"
 goto :eof
 
-rem http://www.benf.org/other/cfr/
+@rem http://www.benf.org/other/cfr/
 :cfr
 where /q cfr.bat
 if %ERRORLEVEL%==0 goto :eof

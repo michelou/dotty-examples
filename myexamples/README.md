@@ -3,202 +3,32 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:100px;">
-    <a href="https://dotty.epfl.ch/"><img style="border:0;width:100px;" src="../docs/dotty.png" width="100" alt="Dotty logo"/></a>
+    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:100px;" src="../docs/dotty.png" width="100" alt="Dotty logo"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>myexamples\</code></strong> contains <a href="https://dotty.epfl.ch/" alt="Dotty">Dotty</a> code examples written by myself.
+    Directory <strong><code>myexamples\</code></strong> contains <a href="https://dotty.epfl.ch/" rel="external" title="Dotty">Dotty</a> code examples written by myself.
   </td>
   </tr>
 </table>
 
-We can build/run each example in directory [**`myexamples\`**](.) using [**`sbt`**][sbt_cli], [**`ant`**][apache_ant_cli], [**`gradle`**][gradle_cli], [**`mill`**][mill_cli] or [**`mvn`**][apache_maven_cli] as an alternative to the **`build`** batch command.
+We present several ways to build/run each example in directory [**`myexamples\`**](.):
 
-In the following we explain in more detail the build tools available in the [**`HelloWorld`**](HelloWorld) example (and also in other examples from directory [**`myexamples\`**](./)):
+| Console command                   | Configuration file |  Parent file    |
+|-----------------------------------|--------------------|-----------------|
+| [**`ant.bat`**][apache_ant_cli]   | `build.xml`        | `build.xml`     |
+| **`build.bat`**                   | `build.properties` | n.a.            |
+| [**`gradle.bat`**][gradle_cli]    | `build.gradle`     | `common.gradle` |
+| [**`make.exe`**][gmake_cli]       | `Makefile`         | `Makefile.inc`  |
+| [**`mill.bat`**][mill_cli]        | `build.sc`         | `common.sc`     |
+| [**`mvn.cmd`**][apache_maven_cli] | `pom.xml`          | `pom.xml`       |
+| [**`sbt.bat`**][sbt_cli]          | `build.sbt`        | n.a.            |
+
+Let's choose the [**`HelloWorld`**](HelloWorld) example to demonstrate the usage of the above build tools:
 
 <pre style="font-size:80%;">
 <b>&gt; cd</b>
 W:\myexamples\HelloWorld
 </pre>
-
-## <span id="build">`build.bat` command</span>
-
-Command [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~600 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
-
-Command [**`build clean run`**](HelloWorld/build.bat) produces the following output:
-
-<pre style="font-size:80%;">
-<b>&gt; <a href="HelloWorld/build.bat">build</a> clean run</b>
-Hello world!
-</pre>
-
-
-## Gradle build tool
-
-Command [**`gradle`**][gradle_cli] is the official build tool for Android applications (tool created in 2007). It replaces XML-based build scripts with a [Groovy][gradle_groovy]-based DSL.
-
-> **&#9755;** ***Gradle Wrappers***<br/>
-> We don't rely on them even if using [Gradle Wrapper][gradle_wrapper] is the  recommended way to execute a Gradle build.<br/>
-> Simply execute the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of [**`gradle`**][gradle_cli].
-
-The configuration file [**`HelloWorld\build.gradle`**](HelloWorld/build.gradle) looks as follows:
-
-<pre style="font-size:80%;">
-plugins {
-    id <span style="color:#990000;">"java"</span>
-}
-&nbsp;
-group <span style="color:#990000;">"$appGroup"</span>
-version <span style="color:#990000;">"$appVersion"</span>
-&nbsp;
-description <span style="color:#990000;">"""Gradle example project to build/run Scala 3 applications"""</span>
-&nbsp;
-apply from: <span style="color:#990000;">"../common.gradle"</span>
-&nbsp;
-run.doFirst {
-    args <span style="color:#990000;">""</span>
-}
-</pre>
-
-We note that [**`build.gradle`**](HelloWorld/build.gradle)<ul><li>imports the [**`java`**][gradle_java_plugin] Gradle plugin.</li><li>loads properties from file [**`gradle.properties`**](HelloWorld/gradle.properties).</li><li>imports code from parent file [**`myexamples\common.gradle`**](common.gradle).</li><li>assigns property **`scalaMainClassName`** to **`main`** and value **`""`** to **`args`** (no argument in this example) in **`run.doFirst`**.</li></ul>
-
-The parent file [**`myexamples\common.gradle`**](common.gradle) defines the task **`compileDotty`** and manages the task dependencies.
-
-<pre style="font-size:80%;">
-<i style="color:#009900;">// overrides default "/build"</i>
-buildDir file(<span style="color:#990000;">"/target"</span>)
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-}
-ext {
-    ...
-    classesDir = file(<span style="color:#990000;">"${buildDir}/classes"</span>)
-    <b>if</b> (dottyLocal?.toBoolean()) {
-        dottyHome = System.getenv(<span style="color:#990000;">"DOTTY_HOME"</span>)
-        print(<span style="color:#990000;">"DOTTY_HOME=$dottyHome"</span>)
-        ...
-    }
-}
-clean.doLast {
-    targetDir.deleteDir()
-}
-<b>task</b> compileDotty(type: JavaExec) {
-    dependsOn compileJava
-    ...
-    main <span style="color:#990000;">"dotty.tools.dotc.Main"</span>
-}
-compileDotty.doFirst {
-    if (!classesDir.exists()) classesDir.mkdirs()
-}
-build {
-    dependsOn compileDotty
-}
-<b>task</b> run(type: JavaExec) {
-    dependsOn build
-    ...
-    <b>if</b> (mainClassName?.trim()) main mainClassName
-    <b>else</b> main <span style="color:#990000;">"Main"</span>
-    if (args == null) args <span style="color:#990000;">""</span>
-}
-...
-</pre>
-
-Command **`gradle clean run`** produces the following output:
-
-<pre style="font-size:80%;">
-<b>&gt; gradle clean run</b>
-
-&gt; Task :run
-Hello world!
-
-BUILD SUCCESSFUL in 4s
-7 actionable tasks: 7 executed
-</pre>
-
-
-## SBT build tool
-
-Command [**`sbt`**][sbt_cli] is a Scala-based build tool for [Scala] and Java.
-
-The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is a standalone file written in [Scala] and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
-
-<pre style="font-size:80%;">
-<b>val</b> dottyVersion = <span style="color:#990000;">"0.24.0-RC1"</span>
-&nbsp;
-<b>lazy val</b> root = project
-  .in(file(<span style="color:#990000;">"."</span>))
-  .settings(
-    name := <span style="color:#990000;">"dotty-example-project"</span>,
-    description := <span style="color:#990000;">"sbt example project to build/run Scala 3 applications"</span>,
-    version := <span style="color:#990000;">"0.1.0"</span>,
-    &nbsp;
-    scalaVersion := dottyVersion,
-    scalacOptions ++= Seq(
-      <span style="color:#990000;">"-deprecation"</span>,
-      <span style="color:#990000;">"-encoding"</span>, <span style="color:#990000;">"UTF-8"</span>
-    ),
-    &nbsp;
-    libraryDependencies += <span style="color:#990000;">"com.novocode"</span> % <span style="color:#990000;">"junit-interface"</span> % <span style="color:#990000;">"0.11"</span> % <span style="color:#990000;">"test"</span>
-  )
-</pre>
-
-Command **`sbt -warn clean run`** produces the following output:
-
-<pre style="font-size:80%;">
-<b>&gt; sbt -warn clean run</b>
-Hello world!
-</pre>
-
-
-## Mill build tool
-
-Command [**`mill`**][mill_cli] is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
-
-The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone file written in Scala (with direct access to [OS-Lib][os_lib]).
-
-<pre style="font-size:80%;">
-<b>import</b> mill._, scalalib._
-<b>import</b> $file.^.common
-&nbsp;
-<b>object</b> app <b>extends</b> ScalaModule {
-  <b>def</b> scalaVersion = common.scalaVersion
-  <b>def</b> scalacOptions = common.scalacOptions
-  &nbsp;
-  <b>def</b> forkArgs = common.forkArgs
-  &nbsp;
-  <b>def</b> mainClass = T.input {
-    Some(common.getBuildProp(<span style="color:#990000;">"mainClassName"</span>, <span style="color:#990000;">"myexamples.HelloWorld"</span>, T.ctx))
-  }
-  &nbsp;
-  <b>def</b> sources = T.sources { common.scalaSourcePath }
-  <b>def</b> clean() = T.command {
-    val path = os.pwd / <span style="color:#990000;">"out"</span> / <span style="color:#990000;">"app"</span>
-    os.walk(path, skip = _.last == <span style="color:#990000;">"clean"</span>).foreach(os.remove.all)
-  }
-  <b>object</b> test <b>extends</b> Tests {
-    <b>def</b> ivyDeps = Agg(
-      common.ivyJunitInterface,
-      common.ivyScalatest,
-      common.ivySpecs2
-    )
-    <b>def</b> testFrameworks = Seq(
-      <span style="color:#990000;">"com.novocode.junit.JUnitFramework"</span>,
-      <span style="color:#990000;">"org.scalatest.tools.Framework"</span>,
-      <span style="color:#990000;">"org.specs2.runner.JUnitRunner"</span> <i style="color:#009900;">// org.specs2.Specs2Framework</i>
-    )
-  }
-}
-</pre>
-
-Command [**`mill -i app`**](HelloWorld/build.sc) produces the following output:
-
-<pre style="font-size:80%;">
-<b>&gt; mill -i app</b>
-[38/38] app.run
-Hello world!
-</pre>
-
 
 ## <span id="ant">Ant build tool</span>
 
@@ -265,7 +95,7 @@ Buildfile: W:\myexamples\HelloWorld\build.xml
    [delete] Deleting directory W:\myexamples\HelloWorld\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] DOTTY_HOME=C:\opt\dotty-0.24.0-RC1
+     [echo] DOTTY_HOME=C:\opt\dotty-0.25.0-RC2
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -280,6 +110,175 @@ Buildfile: W:\myexamples\HelloWorld\build.xml
 
 BUILD SUCCESSFUL
 Total time: 14 seconds
+</pre>
+
+
+## <span id="build">`build.bat` command</span>
+
+Command [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~600 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
+
+Command [**`build clean run`**](HelloWorld/build.bat) produces the following output:
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="HelloWorld/build.bat">build</a> clean run</b>
+Hello world!
+</pre>
+
+
+## <span id="gradle">Gradle build tool</span>
+
+Command [**`gradle`**][gradle_cli] is the official build tool for Android applications (tool created in 2007). It replaces XML-based build scripts with a [Groovy][gradle_groovy]-based DSL.
+
+> **&#9755;** ***Gradle Wrappers***<br/>
+> We don't rely on them even if using [Gradle Wrapper][gradle_wrapper] is the  recommended way to execute a Gradle build.<br/>
+> Simply execute the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of [**`gradle`**][gradle_cli].
+
+The configuration file [**`HelloWorld\build.gradle`**](HelloWorld/build.gradle) looks as follows:
+
+<pre style="font-size:80%;">
+plugins {
+    id <span style="color:#990000;">"java"</span>
+}
+&nbsp;
+group <span style="color:#990000;">"$appGroup"</span>
+version <span style="color:#990000;">"$appVersion"</span>
+&nbsp;
+description <span style="color:#990000;">"""Gradle example project to build/run Scala 3 applications"""</span>
+&nbsp;
+apply from: <span style="color:#990000;">"../common.gradle"</span>
+&nbsp;
+run.doFirst {
+    args <span style="color:#990000;">""</span>
+}
+</pre>
+
+[**`build.gradle`**](HelloWorld/build.gradle) loads properties from file [**`gradle.properties`**](HelloWorld/gradle.properties) and imports code from parent file [**`myexamples\common.gradle`**](common.gradle).
+
+The parent file [**`myexamples\common.gradle`**](common.gradle) defines the task **`compileDotty`** and manages the task dependencies.
+
+<pre style="font-size:80%;">
+<i style="color:#009900;">// overrides default "/build"</i>
+buildDir file(<span style="color:#990000;">"/target"</span>)
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+ext {
+    ...
+    classesDir = file(<span style="color:#990000;">"${buildDir}/classes"</span>)
+    <b>if</b> (dottyLocal?.toBoolean()) {
+        dottyHome = System.getenv(<span style="color:#990000;">"DOTTY_HOME"</span>)
+        print(<span style="color:#990000;">"DOTTY_HOME=$dottyHome"</span>)
+        ...
+    }
+}
+clean.doLast {
+    targetDir.deleteDir()
+}
+<b>task</b> compileDotty(type: JavaExec) {
+    dependsOn compileJava
+    ...
+    main <span style="color:#990000;">"dotty.tools.dotc.Main"</span>
+}
+compileDotty.doFirst {
+    if (!classesDir.exists()) classesDir.mkdirs()
+}
+build {
+    dependsOn compileDotty
+}
+<b>task</b> run(type: JavaExec) {
+    dependsOn build
+    ...
+    <b>if</b> (mainClassName?.trim()) main mainClassName
+    <b>else</b> main <span style="color:#990000;">"Main"</span>
+    if (args == null) args <span style="color:#990000;">""</span>
+}
+...
+</pre>
+
+Command **`gradle clean run`** produces the following output:
+
+<pre style="font-size:80%;">
+<b>&gt; gradle clean run</b>
+
+&gt; Task :run
+Hello world!
+
+BUILD SUCCESSFUL in 4s
+7 actionable tasks: 7 executed
+</pre>
+
+## <span id="gmake">Make build tool</span>
+
+<pre style="font-size:80%;">
+<b>&gt; make clean run</b>
+rm -rf "target"
+[ -d "target/classes" ] || mkdir -p "target/classes"
+dotc.bat "@target/scalac_opts.txt" "@target/scalac_sources.txt"
+dotr.bat -classpath "target/classes" myexamples.HelloWorld 2
+Hello world!
+</pre>
+
+<pre style="font-size:80%;">
+$ make test
+[ -d "target/test-classes" ] || mkdir -p "target/test-classes"
+dotc.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_0.25/0.25.0-RC2/dotty-library_0.25-0.25.0-RC2.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13/junit-4.13.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.1.2/scalatest_2.13-3.1.2.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.1.2/scalactic_2.13-3.1.2.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.9.4/specs2-core_2.13-4.9.4.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.9.4/specs2-junit_2.13-4.9.4.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.9.4/specs2-matcher_2.13-4.9.4.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
+JUnit version 4.13
+.
+Time: 0.201
+
+OK (1 test)
+</pre>
+
+
+## <span id="mill">Mill build tool</span>
+
+Command [**`mill`**][mill_cli] is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
+
+The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone file written in Scala (with direct access to [OS-Lib][os_lib]).
+
+<pre style="font-size:80%;">
+<b>import</b> mill._, scalalib._
+<b>import</b> $file.^.common
+&nbsp;
+<b>object</b> app <b>extends</b> ScalaModule {
+  <b>def</b> scalaVersion = common.scalaVersion
+  <b>def</b> scalacOptions = common.scalacOptions
+  &nbsp;
+  <b>def</b> forkArgs = common.forkArgs
+  &nbsp;
+  <b>def</b> mainClass = T.input {
+    Some(common.getBuildProp(<span style="color:#990000;">"mainClassName"</span>, <span style="color:#990000;">"myexamples.HelloWorld"</span>, T.ctx))
+  }
+  &nbsp;
+  <b>def</b> sources = T.sources { common.scalaSourcePath }
+  <b>def</b> clean() = T.command {
+    val path = os.pwd / <span style="color:#990000;">"out"</span> / <span style="color:#990000;">"app"</span>
+    os.walk(path, skip = _.last == <span style="color:#990000;">"clean"</span>).foreach(os.remove.all)
+  }
+  <b>object</b> test <b>extends</b> Tests {
+    <b>def</b> ivyDeps = Agg(
+      common.ivyJunitInterface,
+      common.ivyScalatest,
+      common.ivySpecs2
+    )
+    <b>def</b> testFrameworks = Seq(
+      <span style="color:#990000;">"com.novocode.junit.JUnitFramework"</span>,
+      <span style="color:#990000;">"org.scalatest.tools.Framework"</span>,
+      <span style="color:#990000;">"org.specs2.runner.JUnitRunner"</span> <i style="color:#009900;">// org.specs2.Specs2Framework</i>
+    )
+  }
+}
+</pre>
+
+Command [**`mill -i app`**](HelloWorld/build.sc) produces the following output:
+
+<pre style="font-size:80%;">
+<b>&gt; mill -i app</b>
+[38/38] app.run
+Hello world!
 </pre>
 
 
@@ -344,7 +343,7 @@ The configuration file [**`HelloWorld\pom.xml`**](HelloWorld/pom.xml) depends on
 >         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>0.24.0-RC1<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.version&gt;</b>0.25.0-RC2<b>&lt;/scala.version&gt;</b>
 >         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
@@ -383,16 +382,16 @@ Command **`mvn clean test`** with option **`-debug`** produces additional debug 
 <pre style="font-size:80%;">
 <b>&gt; mvn -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-1.8.0_252-b09\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.24.0-RC1 \
- -cp C:\opt\dotty-0.24.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.25.0-RC2 \
+ -cp C:\opt\dotty-0.25.0-RC2\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-1.8.0_242-b08\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.24.0-RC1 [...]
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.25.0-RC2 [...]
 [DEBUG] [execute] C:\opt\jdk-1.8.0_242-b08\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.24.0-RC1\lib\*.jar;\
+ -Xms64m -Xmx1024m -cp C:\opt\dotty-0.25.0-RC2\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -426,15 +425,15 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 Finally can check the Java manifest in **`HelloWorld-0.1-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.24.0-RC1\lib\dotty-library_0.24-0.24.0-RC1.jar;^
-c:\opt\dotty-0.24.0-RC1\lib\scala-library-2.13.1.jar ^
+<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.25.0-RC2\lib\dotty-library_0.25-0.25.0-RC2.jar;^
+c:\opt\dotty-0.25.0-RC2\lib\scala-library-2.13.1.jar ^
 -jar target\HelloWorld-0.1-SNAPSHOT.jar
 Hello world!
 </pre>
 
 > **:mag_right:** We can use batch script [**`searchjars`**](../bin/searchjars.bat) in case some class is missing in the specified classpath, e.g.
 > <pre style="font-size:80%;">
-> <b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.24.0-RC1\lib\dotty-library_0.24-0.24.0-RC1.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
+> <b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.25.0-RC2\lib\dotty-library_0.25-0.25.0-RC2.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
 > Exception in thread "main" java.lang.NoClassDefFoundError: scala/Serializable
 >         [...]
 >         at Main.main(Main.scala)
@@ -452,8 +451,41 @@ Hello world!
 > Searching for class Serializable in library files C:\opt\JDK-18~1.0_2\lib\*.jar
 >   tools.jar:com/sun/tools/internal/xjc/reader/xmlschema/bindinfo/BISerializable.class
 > </pre>
-> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.24.0-RC1\lib\scala-library-2.13.1.jar`**, so let us add it to our classpath !
+> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.25.0-RC2\lib\scala-library-2.13.1.jar`**, so let us add it to our classpath !
 
+
+## <span id="sbt">SBT build tool</span>
+
+Command [**`sbt`**][sbt_cli] is a Scala-based build tool for [Scala] and Java.
+
+The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is a standalone file written in [Scala] and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
+
+<pre style="font-size:80%;">
+<b>val</b> dottyVersion = <span style="color:#990000;">"0.25.0-RC2"</span>
+&nbsp;
+<b>lazy val</b> root = project
+  .in(file(<span style="color:#990000;">"."</span>))
+  .settings(
+    name := <span style="color:#990000;">"dotty-example-project"</span>,
+    description := <span style="color:#990000;">"sbt example project to build/run Scala 3 applications"</span>,
+    version := <span style="color:#990000;">"0.1.0"</span>,
+    &nbsp;
+    scalaVersion := dottyVersion,
+    scalacOptions ++= Seq(
+      <span style="color:#990000;">"-deprecation"</span>,
+      <span style="color:#990000;">"-encoding"</span>, <span style="color:#990000;">"UTF-8"</span>
+    ),
+    &nbsp;
+    libraryDependencies += <span style="color:#990000;">"com.novocode"</span> % <span style="color:#990000;">"junit-interface"</span> % <span style="color:#990000;">"0.11"</span> % <span style="color:#990000;">"test"</span>
+  )
+</pre>
+
+Command **`sbt -warn clean run`** produces the following output:
+
+<pre style="font-size:80%;">
+<b>&gt; sbt -warn clean run</b>
+Hello world!
+</pre>
 
 ## <span id="footnotes">Footnotes</span>
 
@@ -604,6 +636,7 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
 [apache_ant_ivy_relnotes]: https://ant.apache.org/ivy/history/2.5.0/release-notes.html
 [apache_maven_cli]: https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
+[gmake_cli]: http://www.glue.umd.edu/lsf-docs/man/gmake.html
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_groovy]: https://www.groovy-lang.org/
 [gradle_java_plugin]: https://docs.gradle.org/current/userguide/java_plugin.html

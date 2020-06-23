@@ -18,57 +18,57 @@ if not exist "%__TEMP_DIR%" mkdir "%__TEMP_DIR%"
 set _LIBS_CPATH=
 
 @rem https://mvnrepository.com/artifact/org.portable-scala
-call :add_jar "1.0.0" "portable-scala-reflect_2.13" "org/portable-scala"
+call :add_jar "org/portable-scala" "portable-scala-reflect_2.13" "1.0.0"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-call :add_jar "1.2.0" "scala-xml_2.13" "org/scala-lang/modules"
+call :add_jar "org/scala-lang/modules" "scala-xml_2.13" "1.2.0"
 
 @rem https://mvnrepository.com/artifact/junit/junit
-call :add_jar "4.13" "junit" "junit"
+call :add_jar "junit" "junit" "4.13"
 
 @rem https://mvnrepository.com/artifact/com.novocode/junit-interface
-call :add_jar "0.11" "junit-interface" "com/novocode"
+call :add_jar "com/novocode" "junit-interface" "0.11"
 
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest
-call :add_jar "2.2" "hamcrest" "org/hamcrest"
+call :add_jar "org/hamcrest" "hamcrest" "2.2"
 
 set __SCALATEST_VERSION=3.1.2
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest
-call :add_jar "%__SCALATEST_VERSION%" "scalatest_2.13" "org/scalatest"
+call :add_jar "org/scalatest" "scalatest_2.13" "%__SCALATEST_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scalactic
-call :add_jar "%__SCALATEST_VERSION%" "scalactic_2.13" "org/scalactic"
+call :add_jar "org/scalactic" "scalactic_2.13" "%__SCALATEST_VERSION%"
 
 set __SPECS2_CORE_VERSION=4.9.4
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-core
-call :add_jar "%__SPECS2_CORE_VERSION%" "specs2-core_2.13" "org/specs2"
+call :add_jar "org/specs2" "specs2-core_2.13" "%__SPECS2_CORE_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-common
-call :add_jar "%__SPECS2_CORE_VERSION%" "specs2-common_2.13" "org/specs2"
+call :add_jar "org/specs2" "specs2-common_2.13" "%__SPECS2_CORE_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-junit
-call :add_jar "%__SPECS2_CORE_VERSION%" "specs2-junit_2.13" "org/specs2"
+call :add_jar "org/specs2" "specs2-junit_2.13" "%__SPECS2_CORE_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-junit
-call :add_jar "%__SPECS2_CORE_VERSION%" "specs2-matcher_2.13" "org/specs2"
+call :add_jar "org/specs2" "specs2-matcher_2.13" "%__SPECS2_CORE_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-fp
-call :add_jar "%__SPECS2_CORE_VERSION%" "specs2-fp_2.13" "org/specs2"
+call :add_jar "org/specs2" "specs2-fp_2.13" "%__SPECS2_CORE_VERSION%"
 
 goto end
 
 @rem #########################################################################
 @rem ## Subroutines
 
-@rem input parameters: %1=version, %2=artifact ID, %3=group ID
+@rem input parameters: %1=group ID, %2=artifact ID, %3=version
 @rem global variable: _LIBS_CPATH
 :add_jar
 @rem https://mvnrepository.com/artifact/org.portable-scala
-set __VERSION=%~1
+set __GROUP_ID=%~1
 set __ARTIFACT_ID=%~2
-set __GROUP_ID=%~3
+set __VERSION=%~3
 
 set __JAR_NAME=%__ARTIFACT_ID%-%__VERSION%.jar
 set __JAR_PATH=%__GROUP_ID:/=\%\%__ARTIFACT_ID:/=\%
