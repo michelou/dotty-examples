@@ -2,6 +2,7 @@ ifeq ($(OS),Windows_NT)
 JAVAC      = javac.exe
 JAVA       = java.exe
 SCALAC     = dotc.bat
+SCALADOC   = dotd.bat
 SCALA      = dotr.bat
 LOCAL_REPO = $(subst \,/,$(USERPROFILE)/.m2/repository)
 PSEP       = ;
@@ -9,6 +10,7 @@ else
 JAVAC      = javac
 JAVA       = java
 SCALAC     = dotc
+SCALADOC   = dotd
 SCALA      = dotr
 LOCAL_REPO = $(HOME)/.m2/repository
 PSEP       = :

@@ -362,7 +362,7 @@ Command **`make test`** execute the test suite [`PlanetTest.scala`](enum-Planet/
 <b>&gt; make test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 dotc.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "C:/Users/michelou/.m2/repository/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar;C:/Users/michelou/.m2/repository/ch/epfl/lamp/dotty-library_0.25/0.25.0-RC2/dotty-library_0.25-0.25.0-RC2.jar;C:/Users/michelou/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;C:/Users/michelou/.m2/repository/junit/junit/4.13/junit-4.13.jar;C:/Users/michelou/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_0.25/0.25.0-RC2/dotty-library_0.25-0.25.0-RC2.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13/junit-4.13.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
 JUnit version 4.13
 ..
 Time: 0.239

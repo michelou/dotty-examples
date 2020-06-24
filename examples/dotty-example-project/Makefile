@@ -13,6 +13,9 @@ SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 SOURCES    = $(shell find $(SOURCE_DIR)/main -name *.scala)
 TARGET     = $(TARGET_DIR)/.latest-build
 
+OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
+SOURCES_FILE = $(TARGET_DIR)/scalac_sources.txt
+
 MAIN_CLASS = Main
 MAIN_ARGS ?= 
 
@@ -22,16 +25,39 @@ build: $(TARGET)
 
 $(TARGET): $(SOURCES)
 	[ -d "$(CLASSES_DIR)" ] || mkdir -p "$(CLASSES_DIR)"
-	@echo "$(SCALAC_FLAGS) -d \"$(CLASSES_DIR)\"" > "$(TARGET_DIR)/scalac_opts.txt"
-	@echo "$(SOURCES)" > "$(TARGET_DIR)/scalac_sources.txt"
-	$(SCALAC) "@$(TARGET_DIR)/scalac_opts.txt" "@$(TARGET_DIR)/scalac_sources.txt"
+	@echo "$(SCALAC_FLAGS) -d \"$(CLASSES_DIR)\"" > "$(OPTS_FILE)"
+	@echo "$(SOURCES)" > "$(SOURCES_FILE)"
+	$(SCALAC) "@$(OPTS_FILE)" "@$(SOURCES_FILE)"
 	@echo "" > "$(TARGET)"
 
 clean:
 	rm -rf "$(TARGET_DIR)"
 
+
 run: build
 	$(SCALA) $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
+
+##############################################################################
+## doc rules
+
+DOC_TARGET_DIR = $(TARGET_DIR)/docs
+DOC_TARGET     = $(DOC_TARGET_DIR)/.latest-build
+
+PROJECT_NAME    ?= $(shell basename $(CURDIR))
+PROJECT_URL     ?= https://github.com/$(USERNAME)/dotty-examples
+PROJECT_VERSION ?= 1.0.0
+
+DOC_OPTS_FILE    = $(TARGET_DIR)/scaladoc_opts.txt
+DOC_SOURCES_FILE = $(TARGET_DIR)/scaladoc_sources.txt
+
+$(DOC_TARGET): $(SOURCES)
+	[ -d "$(DOC_TARGET_DIR)" ] || mkdir -p "$(DOC_TARGET_DIR)"
+	@echo -siteroot \"$(DOC_TARGET_DIR)\" -project \"$(PROJECT_NAME)\" -project-url \"$(PROJECT_URL)\" -project-version \"$(PROJECT_VERSION)\" > "$(DOC_OPTS_FILE)"
+	@echo "$(SOURCES)" > "$(DOC_SOURCES_FILE)"
+	$(SCALADOC) "@$(DOC_OPTS_FILE)" "@$(DOC_SOURCES_FILE)"
+	@echo "" > "$(DOC_TARGET)"
+
+doc: $(DOC_TARGET)
 
 ##############################################################################
 ## test rules
@@ -56,4 +82,4 @@ test: build $(TEST_TARGET)
 ##############################################################################
 ## phony
 
-.PHONY: all build clean run test
+.PHONY: all build clean doc run test
