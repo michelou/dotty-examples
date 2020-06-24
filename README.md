@@ -6,7 +6,7 @@
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;" src="docs/dotty.png" alt="Dotty logo"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    This repository gathers <a href="https://dotty.epfl.ch/">Dotty</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/" rel="external">Dotty</a> project - or written by myself.<br/>
+    This repository gathers <a href="https://dotty.epfl.ch/" rel="external">Dotty</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/" rel="external">Dotty</a> project - or written by myself.<br/>
     In particular it includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a>/<a href="https://www.gnu.org/software/bash/manual/bash.html">bash scripts</a> for experimenting with the Dotty language (aka <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html" rel="external">Scala 3</a>) on a Windows machine.
   </td>
   </tr>
@@ -118,10 +118,10 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch/bash commands:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**][javac_cli], [**`scalac.bat`**][scalac_cli] and [**`dotc.bat`**](bin/0.22/dotc.bat)directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
+1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**][javac_cli], [**`scalac.bat`**][scalac_cli] and [**`dotc.bat`**](bin/0.25/dotc.bat)directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
 
    <pre style="font-size:80%;">
-   <b>&gt; setenv help</b>
+   <b>&gt; <a href="setenv.bat">setenv</a> help</b>
    Usage: setenv { &lt;option&gt; | &lt;subcommand&gt; }
    &nbsp;
      Options:
@@ -146,14 +146,14 @@ We distinguish different sets of batch/bash commands:
 
     <pre style="font-size:80%;">
     <b>&gt; dir /b c:\opt\dotty-0.25.0-RC2\bin</b>
-    common
-    common.bat
-    dotc
-    dotc.bat
-    dotd
-    dotd.bat
-    dotr
-    dotr.bat
+    <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/common">common</a>
+    <a href="bin/0.25/common.bat">common.bat</a>
+    <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/dotc">dotc</a>
+    <a href="bin/0.25/dotc.bat">dotc.bat</a>
+    <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/dotd">dotd</a>
+    <a href="bin/0.25/dotd.bat">dotd.bat</a>
+    <a herf="https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr">dotr</a>
+    <a href="bin/0.25/dotr.bat">dotr.bat</a>
     </pre>
 
 <!-- ## removed on 2018-10-05 ##
@@ -203,14 +203,15 @@ We distinguish different sets of batch/bash commands:
 
     Code examples in directories [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built with the following tools as an alternative to the **`build`** command (see [**`examples\README.md`**](examples/README.md) and [**`myexamples\README.md`**](myexamples/README.md) for more details):
 
-    | **Build tool** | **Config file** | **Parent file** | **Usage example** |
-    | :------------: | :-------------: | :-------------: | :---------------- |
+    | **Build tool** | **Configuration file** | **Parent file** | **Usage example** |
+    | :------------- | :--------------------- | :-------------- | :---------------- |
     | [**`ant`**][apache_ant_cli] | [**`build.xml`**](examples/enum-Planet/build.xml) | [**`build.xml`**](examples/build.xml) | **`ant clean compile run`** |
-    | [**`bloop`**](https://www.scala-sbt.org/) | &empty; | &empty; | &empty; |
+    | [**`build`**](examples/enum-Planet/build.bat) | **`build.properties`** | n.a. | **`build clean run`** |
     | [**`gradle`**][gradle_cli] | [**`build.gradle`**](examples/enum-Planet/build.gradle) | [**`common.gradle`**](examples/common.gradle) | **`gradle clean build run`** |
+    | [**`make`**][gmake_cli] | [**`Makefile`**](examples/enum-Planet/Makefile) | [**`Makefile.inc`**](examples/Makefile.inc) | **`make clean run`** |
     | [**`mill`**][mill_cli] | [**`build.sc`**](examples/enum-Planet/build.sc) | [**`common.sc`**](examples/common.sc) | **`mill -i app`** |
     | [**`mvn`**][apache_maven_cli] | [**`pom.xml`**](examples/enum-Planet/pom.xml) | [**`pom.xml`**](examples/pom.xml) | **`mvn clean compile test`** |
-    | [**`sbt`**][sbt_cli] | [**`build.sbt`**](examples/enum-Planet/build.sbt) | &empty; | **`sbt clean compile run`** |
+    | [**`sbt`**][sbt_cli] | [**`build.sbt`**](examples/enum-Planet/build.sbt) | n.a. | **`sbt clean compile run`** |
 
 2. Decompiler tools
 
@@ -824,6 +825,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [github_lampepfl_dotty]: https://github.com/lampepfl/dotty
 [github_markdown]: https://github.github.com/gfm/
 [github_PR5444]: https://github.com/lampepfl/dotty/pull/5444
+[gmake_cli]: http://www.glue.umd.edu/lsf-docs/man/gmake.html
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions

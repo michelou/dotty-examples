@@ -2,7 +2,6 @@ include ../Makefile.inc
 
 SOURCE_DIR  = src
 TARGET_DIR  = target
-CLASSES_DIR = $(TARGET_DIR)/classes
 
 SCALAC_FLAGS = -deprecation -feature
 SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
@@ -10,15 +9,16 @@ SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 ##############################################################################
 ## main rules
 
-SOURCES    = $(shell find $(SOURCE_DIR)/main -name *.scala)
-TARGET     = $(TARGET_DIR)/.latest-build
-
 MAIN_CLASS = Main
 MAIN_ARGS ?= 
 
+SOURCES     = $(shell find $(SOURCE_DIR)/main -name *.scala)
+TARGET      = $(TARGET_DIR)/.latest-build
+CLASSES_DIR = $(TARGET_DIR)/classes
+
 all: build
 
-build: $(TARGET)
+build: $(JAVA_TARGET) $(TARGET)
 
 $(TARGET): $(SOURCES)
 	[ -d "$(CLASSES_DIR)" ] || mkdir -p "$(CLASSES_DIR)"
@@ -31,17 +31,17 @@ clean:
 	rm -rf "$(TARGET_DIR)"
 
 run: build
-	$(SCALA) $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS) $(MAIN_ARGS)
+	$(SCALA) $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
 
 ##############################################################################
 ## test rules
 
-TEST_SOURCES = $(shell find $(SOURCE_DIR)/test -name *.scala)
-TEST_TARGET  = $(TARGET_DIR)/.latest-test-build
+TEST_MAIN_CLASS  = IntersectionTypesTest
 
-TEST_MAIN_CLASS  = ColorJUnitTest
+TEST_CPATH       = $(SCALA_LIB_JAR)$(PSEP)$(DOTTY_LIB_JAR)$(PSEP)$(HAMCREST_JAR)$(PSEP)$(JUNIT_JAR)$(PSEP)$(JUNIT_INTF_JAR)$(PSEP)$(CLASSES_DIR)
+TEST_SOURCES     = $(shell find $(SOURCE_DIR)/test -name *.scala)
+TEST_TARGET      = $(TARGET_DIR)/.latest-test-build
 TEST_CLASSES_DIR = $(TARGET_DIR)/test-classes
-TEST_CPATH       = $(SCALA_LIB_JAR)$(PSEP)$(DOTTY_LIB_JAR)$(PSEP)$(HAMCREST_JAR)$(PSEP)$(JUNIT_JAR)$(PSEP)$(JUNIT_INTF_JAR)$(PSEP)$(SCALATEST_JAR)$(PSEP)$(SCALACTIC_JAR)$(PSEP)$(SPECS2_CORE_JAR)$(PSEP)$(SPECS2_JUNIT_JAR)$(PSEP)$(SPECS2_MATCHER_JAR)$(PSEP)$(CLASSES_DIR)$(PSEP)$(TEST_CLASSES_DIR)
 
 $(TEST_TARGET): $(TEST_SOURCES)
 	[ -d "$(TEST_CLASSES_DIR)" ] || mkdir -p "$(TEST_CLASSES_DIR)"
@@ -51,6 +51,9 @@ $(TEST_TARGET): $(TEST_SOURCES)
 	@echo "" > "$(TEST_TARGET)"
 
 test: build $(TEST_TARGET)
-	$(JAVA) -classpath "$(TEST_CPATH)" org.junit.runner.JUnitCore $(TEST_MAIN_CLASS)
+	$(JAVA) -classpath "$(TEST_CPATH)$(PSEP)$(TEST_CLASSES_DIR)" org.junit.runner.JUnitCore $(TEST_MAIN_CLASS)
+
+##############################################################################
+## phony
 
 .PHONY: all build clean run test

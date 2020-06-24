@@ -11,14 +11,122 @@
   </tr>
 </table>
 
-We can build/run each example in directory [**`examples\`**](.) using [**`sbt`**][sbt_cli], [**`ant`**][apache_ant_cli], [**`gradle`**][gradle_cli], [**`mill`**][mill_cli] or [**`mvn`**][mvn_cli] as an alternative to the **`build`** batch command.
+We present several ways to build, run and test each example in directory [**`examples\`**](.):
 
-In the following we explain in more detail the build tools available in the [**`enum-Planet\`**](enum-Planet/) example (and also in other examples from directory [**`examples\`**](./)):
+| Build tool                    | Configuration file     | Parent file         |
+|-------------------------------|------------------------|---------------------|
+| [**`ant`**][apache_ant_cli]   | **`build.xml`**        | **`build.xml`**     |
+| **`build`**                   | **`build.properties`** | n.a.                |
+| [**`gradle`**][gradle_cli]    | **`build.gradle`**     | **`common.gradle`** |
+| [**`make`**][gmake_cli]       | **`Makefile`**         | **`Makefile.inc`**  |
+| [**`mill`**][mill_cli]        | **`build.sc`**         | **`common.sc`**     |
+| [**`mvn`**][apache_maven_cli] | **`pom.xml`**          | **`pom.xml`**       |
+| [**`sbt`**][sbt_cli]          | **`build.sbt`**        | n.a.                |
+
+Let's choose the [**`enum-Planet`**](enum-Planet) example to demonstrate the usage of the above build tools:
 
 <pre style="font-size:80%;">
 <b>&gt; cd</b>
 W:\examples\enum-Planet
 </pre>
+
+
+## <span id="ant">Ant build tool</span>
+
+Command [**`ant`**][apache_ant_cli] (["Another Neat Tool"][apache_ant_faq]) is a Java-based build tool maintained by the [Apache Software Foundation][apache_history] (tool created in 2000). It works with XML-based configuration files.
+
+The configuration file [**`enum-Planet\build.xml`**](enum-Planet/build.xml) depends on the parent file [**`examples\build.xml`**](build.xml) which provides the macro definition **`dotc`** to compile the Scala source files.
+
+<pre style="font-size:80%;">
+<b>&lt;?xml</b> version="1.0" encoding=<span style="color:#990000;">"UTF-8"</span><b>?&gt;</b>
+<b>&lt;project</b> name=<span style="color:#990000;">"enum-Planet"</span> default=<span style="color:#990000;">"compile"</span> basedir=<span style="color:#990000;">"."</span>&gt;
+    ...
+    <b>&lt;import</b> file=<span style="color:#990000;">"../build.xml"</span> /&gt;
+    <b>&lt;target</b> name=<span style="color:#990000;">"compile"</span> depends=<span style="color:#990000;">"init"</span>&gt; ... <b>&lt;/target&gt;</b>
+    <b>&lt;target</b> name=<span style="color:#990000;">"run"</span> depends=<span style="color:#990000;">"compile"</span>&gt; ... <b>&lt;/target&gt;</b>
+    <b>&lt;target</b> name=<span style="color:#990000;">"clean"</span>&gt; ... <b>&lt;/target&gt;</b>
+<b>&lt;/project&gt;</b>
+</pre>
+
+Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output ([Ivy][apache_ant_ivy] support is enabled by default):
+
+<pre style="font-size:80%;">
+<b>&gt; ant clean run</b>
+Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
+
+<span style="font-weight:bold;color:#9966ff;">clean:</span>
+   [delete] Deleting directory W:\dotty-examples\examples\enum-Planet\target
+
+<span style="font-weight:bold;color:#9966ff;">init.local:</span>
+
+<span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
+[ivy:resolve] :: Apache Ivy 2.5.0 - 20191020104435 :: https://ant.apache.org/ivy/ ::
+[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.8/lib/ivy-2.5.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
+
+<span style="font-weight:bold;color:#9966ff;">init:</span>
+
+<span style="font-weight:bold;color:#9966ff;">compile:</span>
+    [mkdir] Created dir: W:\dotty-examples\examples\enum-Planet\target\classes
+   [scalac] Compiling 1 source file to W:\dotty-examples\examples\enum-Planet/target/classes
+
+<span style="font-weight:bold;color:#9966ff;">run:</span>
+     [java] Your weight on MERCURY is 0.37775761520093526
+     [java] Your weight on SATURN is 1.0660155388115666
+     [java] Your weight on VENUS is 0.9049990998410455
+     [java] Your weight on URANUS is 0.9051271993894251
+     [java] Your weight on EARTH is 0.9999999999999999
+     [java] Your weight on NEPTUNE is 1.1383280724696578
+     [java] Your weight on MARS is 0.37873718403712886
+     [java] Your weight on JUPITER is 2.5305575254957406
+
+BUILD SUCCESSFUL
+Total time: 19 seconds
+</pre>
+
+> **&#9755;** **Apache Ivy**<br/>
+> We observe from task **`init.ivy`** that the [Apache Ivy][apache_ant_ivy] library has been added to the [Ant](https://ant.apache.org/) installation directory. In our case we installed [version 2.5.0][apache_ant_ivy_relnotes] of the [Apache Ivy][apache_ant_ivy] library.
+> <pre style="font-size:80%;">
+> <b>&gt; curl -sL -o c:\Temp\apache-ivy-2.5.0.zip https://www-eu.apache.org/dist//ant/ivy/2.5.0/apache-ivy-2.5.0-bin.zip</b>
+> <b>&gt; unzip c:\temp\apache-ivy-2.5.0.zip -d c:\opt</b>
+> <b>&gt; copy c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.8\lib</b>
+> <b>&gt; dir c:\opt\apache-ant-1.10.8\lib | findstr ivy</b>
+> 20.10.2019  09:44         1 402 646 ivy-2.5.0.jar
+> </pre>
+
+We specify property **`-Duse.local=true`** to use [Dotty] local installation (*reminder*: environment variable **`DOTTY_HOME`** is set by command **`setenv`**):
+
+<pre style="font-size:80%;">
+<b>&gt; ant -Duse.local=true clean run</b>
+Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
+
+<span style="font-weight:bold;color:#9966ff;">clean:</span>
+   [delete] Deleting directory W:\dotty-examples\examples\enum-Planet\target
+
+<span style="font-weight:bold;color:#9966ff;">init.local:</span>
+     [echo] DOTTY_HOME=C:\opt\dotty-0.25.0.-RC2
+
+<span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
+
+<span style="font-weight:bold;color:#9966ff;">init:</span>
+
+<span style="font-weight:bold;color:#9966ff;">compile:</span>
+    [mkdir] Created dir: W:\dotty-examples\examples\enum-Planet\target\classes
+    [scalac] Compiling 1 source file to W:\dotty-examples\examples\enum-Planet/target/classes
+
+<span style="font-weight:bold;color:#9966ff;">run:</span>
+    [java] Your weight on MERCURY is 0.37775761520093526
+    [java] Your weight on SATURN is 1.0660155388115666
+    [java] Your weight on VENUS is 0.9049990998410455
+    [java] Your weight on URANUS is 0.9051271993894251
+    [java] Your weight on EARTH is 0.9999999999999999
+    [java] Your weight on NEPTUNE is 1.1383280724696578
+    [java] Your weight on MARS is 0.37873718403712886
+    [java] Your weight on JUPITER is 2.5305575254957406
+
+BUILD SUCCESSFUL
+Total time: 14 seconds
+</pre>
+
 
 ## <span id="build">`build.bat` command</span>
 
@@ -68,7 +176,7 @@ Your weight on JUPITER is 2.5305575254957406
 Command [**`build -debug clean compile run`**](enum-Planet/build.bat) also displays internal steps of the build process:
 
 <pre style="font-size:80%;">
-<b/>&gt; build -debug clean compile run</b>
+<b/>&gt; <a href="enum-Planet/build.bat">build</a> -debug clean compile run</b>
 [build] _CLEAN=1 _COMPILE=1 _DECOMPILE=0 _DOC=0 _DOTTY=1 _RUN=1 _TASTY=0 _TEST=0
 [build] del /s /q W:\dotty\examples\ENUM-P~1\target\classes\*.class W:\dotty\examples\ENUM-P~1\target\classes\*.hasTasty W:\dotty\examples\ENUM-P~1\target\classes\.latest-build
 [build] 20180322224754 W:\dotty\examples\ENUM-P~1\src\main\scala\Planet.scala
@@ -96,7 +204,7 @@ Your weight on JUPITER is 2.5305575254957406
 
 > **:mag_right:** Output generated by options **`-verbose`** and **`-debug`** are redirected to [stderr][windows_stderr] and can be discarded by adding **`2>NUL`**, e.g.:
 > <pre style="font-size:80%;">
-> <b>&gt; build clean run -debug 2>NUL</b>
+> <b>&gt; <a href="enum-Planet/build.bat">build</a> clean run -debug 2>NUL</b>
 > Your weight on MERCURY (0) is 0.37775761520093526
 > Your weight on SATURN (5) is 1.0660155388115666
 > Your weight on VENUS (1) is 0.9049990998410455
@@ -115,10 +223,10 @@ No compilation needed ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
 Processing Planet$
 Processing Planet
-Save decompiled Java source files to "target\cfr-sources_scala3_0.25.0-RC1.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_0.25.0.-RC2.java"
 &nbsp;
 <b>&gt; dir /b /s target\*.java</b>
-W:\examples\enum-Planet\target\cfr-sources_scala3_0.25.0-RC1.java
+W:\examples\enum-Planet\target\cfr-sources_scala3_0.25.0.-RC2.java
 W:\examples\enum-Planet\target\cfr-sources\Planet$.java
 W:\examples\enum-Planet\target\cfr-sources\Planet.java
 </pre>
@@ -128,14 +236,14 @@ If the two Java source files `src\build\cfr-sources_scala<n>_<version>.txt` (*ch
 <pre style="font-size:80%;">
 <b>&gt; dir /b src\build</b>
 cfr-sources_scala3_0.24.0-RC1.java
-cfr-sources_scala3_0.25.0-RC1.java
+cfr-sources_scala3_0.25.0.-RC2.java
 cfr-sources_scala3_0.26.0-NIGHTLY.java
 &nbsp;
 <b>&gt; build -verbose decompile</b>
 No compilation needed ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
-Save decompiled Java source files to "target\cfr-sources_scala3_0.25.0-RC1.java"
-Compare output file with check file "src\build\cfr-sources_scala3_0.25.0-RC1.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_0.25.0.-RC2.java"
+Compare output file with check file "src\build\cfr-sources_scala3_0.25.0.-RC2.java"
 </pre>
 
 ## <span id="gradle">Gradle build tool</span>
@@ -230,34 +338,183 @@ BUILD SUCCESSFUL in 4s
 </pre>
 
 
-## <span id="sbt">SBT build tool</span>
-
-Command [**`sbt`**][sbt_cli] is a Scala-based build tool for [Scala] and Java.
-
-The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is a standalone file written in [Scala] and it obeys the [sbt build definitions][sbt_docs_defs].
+## <span id="gmake">Make build tool</span>
 
 <pre style="font-size:80%;">
-<b>val</b> dottyVersion = <span style="color:#990000;">"0.25.0-RC1"</span>
-&nbsp;
-<b>lazy val</b> root = project
-  .in(file("."))
-  .settings(
-    name := <span style="color:#990000;">"enum-Planet"</span>,
-    description := <span style="color:#990000;">"Sbt example project that compiles Scala 3 applications"</span>,
-    version := <span style="color:#990000;">"0.1.0"</span>,
-    &nbsp;
-    scalaVersion := dottyVersion,
-    scalacOptions ++= Seq(
-      <span style="color:#990000;">"-deprecation"</span>,
-      <span style="color:#990000;">"-encoding"</span>, <span style="color:#990000;">"UTF-8"</span>
-    )
-  )
+<b>&gt; make clean run</b>
+rm -rf "target"
+[ -d "target/classes" ] || mkdir -p "target/classes"
+dotc.bat "@target/scalac_opts.txt" "@target/scalac_sources.txt"
+dotr.bat -classpath "target/classes" Planet 1
+Your weight on MERCURY (0) is 0.37775761520093526
+Your weight on SATURN (5) is 1.0660155388115666
+Your weight on VENUS (1) is 0.9049990998410455
+Your weight on URANUS (6) is 0.9051271993894251
+Your weight on EARTH (2) is 0.9999999999999999
+Your weight on NEPTUNE (7) is 1.1383280724696578
+Your weight on MARS (3) is 0.37873718403712886
+Your weight on JUPITER (4) is 2.5305575254957406
 </pre>
 
-Command **`sbt -warn clean "run 1"`** produces the following output:
+Command **`make test`** execute the test suite [`PlanetTest.scala`](enum-Planet/src/test/scala/PlanetTest.scala) for program [`Planet.scala`](enum-Planet/src/main/scala/Planet.scala).
 
 <pre style="font-size:80%;">
-<b>&gt; sbt -warn clean "run 1"</b>
+<b>&gt; make test</b>
+[ -d "target/test-classes" ] || mkdir -p "target/test-classes"
+dotc.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
+java.exe -classpath "C:/Users/michelou/.m2/repository/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar;C:/Users/michelou/.m2/repository/ch/epfl/lamp/dotty-library_0.25/0.25.0-RC2/dotty-library_0.25-0.25.0-RC2.jar;C:/Users/michelou/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;C:/Users/michelou/.m2/repository/junit/junit/4.13/junit-4.13.jar;C:/Users/michelou/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
+JUnit version 4.13
+..
+Time: 0.239
+
+OK (2 tests)
+</pre>
+
+
+## <span id="maven">Maven build tool</span>
+
+Command [**`mvn`**][mvn_cli] is a Java-based build tool maintained by the [Apache Software Foundation][apache_foundation] (tool created in 2002). It works with XML-based configuration files and provides a way to share JARs across several projects.
+
+The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enum-Planet\`**](enum-Planet/) depends on the parent file [**`../pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
+
+<pre style="font-size:80%;">
+<b>&lt;?xml</b> version="1.0" encoding="UTF-8"<b>?&gt;</b>
+<b>&lt;project</b> xmlns=<span style="color:#990000;">"http://maven.apache.org/POM/4.0.0"</span> ...&gt;
+    ...
+    <b>&lt;artifactId&gt;</b>enum-Planet<b>&lt;/artifactId&gt;</b>
+    ...
+    <b>&lt;parent&gt;</b>
+        ...
+        <b>&lt;relativePath&gt;</b>../pom.xml<b>&lt;/relativePath&gt;</b>
+    <b>&lt;/parent&gt;</b>
+    <b>&lt;dependencies&gt;</b>
+        <i style="color:#66aa66;">&lt;!-- see parent pom.xml --&gt;</i>
+    <b>&lt;/dependencies&gt;</b>
+    <b>&lt;build&gt;</b>
+        <b>&lt;sourceDirectory&gt;</b>src/main<b>&lt;/sourceDirectory&gt;</b>
+        <b>&lt;testSourceDirectory&gt;</b>src/test<b>&lt;/testSourceDirectory&gt;</b>
+        <b>&lt;outputDirectory&gt;</b>target/classes<b>&lt;/outputDirectory&gt;</b>
+        <b>&lt;plugins&gt;</b>
+            <b>&lt;plugin&gt;</b>
+                <b>&lt;groupId&gt;</b>org.apache.maven.plugins<b>&lt;/groupId&gt;</b>
+                <b>&lt;artifactId&gt;</b>maven-compiler-plugin<b>&lt;/artifactId&gt;</b>
+                ...
+                <b>&lt;configuration&gt;</b>
+                    ...
+                    <b>&lt;includes&gt;</b>
+                        <b>&lt;include&gt;</b>java/**/*.java<b>&lt;/include&gt;</b>
+                    <b>&lt;/includes&gt;</b>
+                <b>&lt;/configuration&gt;</b>
+            <b>&lt;/plugin&gt;</b>
+            <b>&lt;plugin&gt;</b>
+                <b>&lt;groupId&gt;</b>ch.epfl.alumni<b>&lt;/groupId&gt;</b>
+                <b>&lt;artifactId&gt;</b>scala-maven-plugin<b>&lt;/artifactId&gt;</b>
+                ...
+                <b>&lt;configuration&gt;</b>
+                    <b>&lt;scalaVersion&gt;</b>${scala.version}<b>&lt;/scalaVersion&gt;</b>
+                    ...
+                <b>&lt;/configuration&gt;</b>
+            <b>&lt;/plugin&gt;</b>
+        <b>&lt;/plugins&gt;</b>
+    <b>&lt;/build&gt;</b>
+<b>&lt;/project&gt;</b>
+</pre>
+
+> **&#9755;** **Scala Maven Plugin**<br/>
+> In the above [Maven][apache_maven_about] configuration file we note the presence of the Maven plugin [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip). In fact the parent file [**`examples\pom.xml`**](pom.xml) depends on [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip), a Maven plugin we developed specifically for this project:
+>
+> <pre style="font-size:80%;">
+> <b>&gt; more ..\pom.xml</b>
+> &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+> ...
+>     <b>&lt;properties&gt;</b>
+>         <b>&lt;project.build.sourceEncoding&gt;</b>UTF-8<b>&lt;/project.build.sourceEncoding&gt;</b>
+>         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
+> &nbsp;
+>         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
+>         <b>&lt;scala.version&gt;</b>0.25.0.-RC2<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
+> &nbsp;
+>         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
+>         <b>&lt;scala.maven.version&gt;</b>1.0-SNAPSHOT<b>&lt;/scala.maven.version&gt;</b>
+>         ...
+>     <b>&lt;/properties&gt;</b>
+>     <b>&lt;dependencies&gt;</b>
+>         <b>&lt;dependency&gt;</b>
+>             <b>&lt;groupId&gt;</b>ch.epfl.alumni<b>&lt;/groupId&gt;</b>
+>             <b>&lt;artifactId&gt;</b>scala-maven-plugin<b>&lt;/artifactId&gt;</b>
+>             <b>&lt;version&gt;</b>${scala.maven.version}<b>&lt;/version&gt;</b>
+>         <b>&lt;/dependency&gt;</b>
+>         ...
+>     <b>&lt;/dependencies&gt;</b>
+>
+> <b>&lt;/project&gt;</b>
+> </pre>
+> The plugin is available as [Zip archive][zip_archive] and its installation is deliberately very simple:
+> <pre style="font-size:80%;">
+> <b>&gt; unzip ..\bin\scala-maven-plugin-1.0.zip %USERPROFILE%\.m2\repository\</b>
+> <b>&gt; tree /a /f %USERPROFILE%\.m2\repository\ch\epfl\alumni | findstr /v "^[A-Z]"</b>
+> |   maven-metadata-local.xml
+> |
+> \---scala-maven-plugin
+>     |   maven-metadata-local.xml
+>     |
+>     \---1.0-SNAPSHOT
+>             maven-metadata-local.xml
+>             scala-maven-plugin-1.0-SNAPSHOT.jar
+>             scala-maven-plugin-1.0-SNAPSHOT.pom
+>             _remote.repositories
+> </pre>
+
+Command **` mvn compile test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our Maven plugin **`scala-maven-plugin`**:
+
+<pre style="font-size:80%;">
+<b>&gt; mvn -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
+[DEBUG] [execute] C:\opt\jdk-1.8.0_252-b09\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.25.0.-RC2 \
+ -cp C:\opt\dotty-0.25.0.-RC2\lib\*.jar -Dscala.usejavacp=true  \
+ dotty.tools.dotc.Main \
+ -classpath W:\dotty-examples\examples\hello-scala\target\classes \
+ -d W:\dotty-examples\examples\hello-scala\target\classes \
+ W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
+[DEBUG] [execute] C:\opt\jdk-1.8.0_252-b09\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.25.0.-RC2 [...]
+[DEBUG] [execute] C:\opt\jdk-1.8.0_252-b09\bin\java.exe \
+ -Xms64m -Xmx1024m -cp C:\opt\dotty-0.25.0.-RC2\lib\*.jar;\
+W:\dotty-examples\examples\hello-scala\target\classes hello
+</pre>
+
+Command [**`mvn --quiet clean test`**](enum-Planet/pom.xml) produces the following output:
+
+<pre style="font-size:80%;">
+<b>&gt; mvn --quiet clean test</b>
+Your weight on MERCURY is 0.37775761520093526
+Your weight on SATURN is 1.0660155388115666
+Your weight on VENUS is 0.9049990998410455
+Your weight on URANUS is 0.9051271993894251
+Your weight on EARTH is 0.9999999999999999
+Your weight on NEPTUNE is 1.1383280724696578
+Your weight on MARS is 0.37873718403712886
+Your weight on JUPITER is 2.5305575254957406
+</pre>
+
+<pre style="font-size:80%;">
+<b>&gt; mvn clean compile package</b>
+...
+[INFO]
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ enum-Planet ---
+[INFO] Building jar: W:\dotty-examples\examples\enum-Planet\target\enum-Planet-0.1-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  9.468 s
+[INFO] Finished at: 2019-07-27T19:53:09+01:00
+[INFO] ------------------------------------------------------------------------
+
+<b>&gt; java -version 2>&1 | findstr version</b>
+openjdk version "11.0.7" 2019-10-15
+
+<b>&gt; java -Xbootclasspath/a:"c:\opt\dotty-0.25.0.-RC2\lib\dotty-library_0.25-0.25.0.-RC2.jar;c:\opt\dotty-0.25.0.-RC2\lib\scala-library-2.13.2.jar" -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -325,219 +582,34 @@ Your weight on JUPITER is 2.5305575254957406
 </pre>
 
 
-## <span id="ant">Ant build tool</span>
+## <span id="sbt">SBT build tool</span>
 
-Command [**`ant`**][apache_ant_cli] (["Another Neat Tool"][apache_ant_faq]) is a Java-based build tool maintained by the [Apache Software Foundation][apache_history] (tool created in 2000). It works with XML-based configuration files.
+Command [**`sbt`**][sbt_cli] is a Scala-based build tool for [Scala] and Java.
 
-The configuration file [**`enum-Planet\build.xml`**](enum-Planet/build.xml) depends on the parent file [**`examples\build.xml`**](build.xml) which provides the macro definition **`dotc`** to compile the Scala source files.
+The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is written in [Scala] and obeys the [sbt build definitions][sbt_docs_defs].
 
 <pre style="font-size:80%;">
-<b>&lt;?xml</b> version="1.0" encoding=<span style="color:#990000;">"UTF-8"</span><b>?&gt;</b>
-<b>&lt;project</b> name=<span style="color:#990000;">"enum-Planet"</span> default=<span style="color:#990000;">"compile"</span> basedir=<span style="color:#990000;">"."</span>&gt;
-    ...
-    <b>&lt;import</b> file=<span style="color:#990000;">"../build.xml"</span> /&gt;
-    <b>&lt;target</b> name=<span style="color:#990000;">"compile"</span> depends=<span style="color:#990000;">"init"</span>&gt; ... <b>&lt;/target&gt;</b>
-    <b>&lt;target</b> name=<span style="color:#990000;">"run"</span> depends=<span style="color:#990000;">"compile"</span>&gt; ... <b>&lt;/target&gt;</b>
-    <b>&lt;target</b> name=<span style="color:#990000;">"clean"</span>&gt; ... <b>&lt;/target&gt;</b>
-<b>&lt;/project&gt;</b>
+<b>val</b> dottyVersion = <span style="color:#990000;">"0.25.0.-RC2"</span>
+&nbsp;
+<b>lazy val</b> root = project
+  .in(file("."))
+  .settings(
+    name := <span style="color:#990000;">"enum-Planet"</span>,
+    description := <span style="color:#990000;">"Sbt example project that compiles Scala 3 applications"</span>,
+    version := <span style="color:#990000;">"0.1.0"</span>,
+    &nbsp;
+    scalaVersion := dottyVersion,
+    scalacOptions ++= Seq(
+      <span style="color:#990000;">"-deprecation"</span>,
+      <span style="color:#990000;">"-encoding"</span>, <span style="color:#990000;">"UTF-8"</span>
+    )
+  )
 </pre>
 
-Execution of [**`enum-Planet\src\main\scala\Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output ([Ivy][apache_ant_ivy] support is enabled by default):
+Command **`sbt -warn clean "run 1"`** produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; ant clean run</b>
-Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
-
-<span style="font-weight:bold;color:#9966ff;">clean:</span>
-   [delete] Deleting directory W:\dotty-examples\examples\enum-Planet\target
-
-<span style="font-weight:bold;color:#9966ff;">init.local:</span>
-
-<span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
-[ivy:resolve] :: Apache Ivy 2.5.0 - 20191020104435 :: https://ant.apache.org/ivy/ ::
-[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.8/lib/ivy-2.5.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
-
-<span style="font-weight:bold;color:#9966ff;">init:</span>
-
-<span style="font-weight:bold;color:#9966ff;">compile:</span>
-    [mkdir] Created dir: W:\dotty-examples\examples\enum-Planet\target\classes
-   [scalac] Compiling 1 source file to W:\dotty-examples\examples\enum-Planet/target/classes
-
-<span style="font-weight:bold;color:#9966ff;">run:</span>
-     [java] Your weight on MERCURY is 0.37775761520093526
-     [java] Your weight on SATURN is 1.0660155388115666
-     [java] Your weight on VENUS is 0.9049990998410455
-     [java] Your weight on URANUS is 0.9051271993894251
-     [java] Your weight on EARTH is 0.9999999999999999
-     [java] Your weight on NEPTUNE is 1.1383280724696578
-     [java] Your weight on MARS is 0.37873718403712886
-     [java] Your weight on JUPITER is 2.5305575254957406
-
-BUILD SUCCESSFUL
-Total time: 19 seconds
-</pre>
-
-> **&#9755;** **Apache Ivy**<br/>
-> We observe from task **`init.ivy`** that the [Apache Ivy][apache_ant_ivy] library has been added to the [Ant](https://ant.apache.org/) installation directory. In our case we installed [version 2.5.0][apache_ant_ivy_relnotes] of the [Apache Ivy][apache_ant_ivy] library.
-> <pre style="font-size:80%;">
-> <b>&gt; curl -sL -o c:\Temp\apache-ivy-2.5.0.zip https://www-eu.apache.org/dist//ant/ivy/2.5.0/apache-ivy-2.5.0-bin.zip</b>
-> <b>&gt; unzip c:\temp\apache-ivy-2.5.0.zip -d c:\opt</b>
-> <b>&gt; copy c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.8\lib</b>
-> <b>&gt; dir c:\opt\apache-ant-1.10.8\lib | findstr ivy</b>
-> 20.10.2019  09:44         1 402 646 ivy-2.5.0.jar
-> </pre>
-
-We specify property **`-Duse.local=true`** to use [Dotty] local installation (*reminder*: environment variable **`DOTTY_HOME`** is set by command **`setenv`**):
-
-<pre style="font-size:80%;">
-<b>&gt; ant -Duse.local=true clean run</b>
-Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
-
-<span style="font-weight:bold;color:#9966ff;">clean:</span>
-   [delete] Deleting directory W:\dotty-examples\examples\enum-Planet\target
-
-<span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] DOTTY_HOME=C:\opt\dotty-0.25.0-RC1
-
-<span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
-
-<span style="font-weight:bold;color:#9966ff;">init:</span>
-
-<span style="font-weight:bold;color:#9966ff;">compile:</span>
-    [mkdir] Created dir: W:\dotty-examples\examples\enum-Planet\target\classes
-    [scalac] Compiling 1 source file to W:\dotty-examples\examples\enum-Planet/target/classes
-
-<span style="font-weight:bold;color:#9966ff;">run:</span>
-    [java] Your weight on MERCURY is 0.37775761520093526
-    [java] Your weight on SATURN is 1.0660155388115666
-    [java] Your weight on VENUS is 0.9049990998410455
-    [java] Your weight on URANUS is 0.9051271993894251
-    [java] Your weight on EARTH is 0.9999999999999999
-    [java] Your weight on NEPTUNE is 1.1383280724696578
-    [java] Your weight on MARS is 0.37873718403712886
-    [java] Your weight on JUPITER is 2.5305575254957406
-
-BUILD SUCCESSFUL
-Total time: 14 seconds
-</pre>
-
-## <span id="maven">Maven build tool</span>
-
-Command [**`mvn`**][mvn_cli] is a Java-based build tool maintained by the [Apache Software Foundation][apache_foundation] (tool created in 2002). It works with XML-based configuration files and provides a way to share JARs across several projects.
-
-The configuration file [**`pom.xml`**](enum-Planet/pom.xml) in directory [**`enum-Planet\`**](enum-Planet/) depends on the parent file [**`../pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
-
-<pre style="font-size:80%;">
-<b>&lt;?xml</b> version="1.0" encoding="UTF-8"<b>?&gt;</b>
-<b>&lt;project</b> xmlns=<span style="color:#990000;">"http://maven.apache.org/POM/4.0.0"</span> ...&gt;
-    ...
-    <b>&lt;artifactId&gt;</b>enum-Planet<b>&lt;/artifactId&gt;</b>
-    ...
-    <b>&lt;parent&gt;</b>
-        ...
-        <b>&lt;relativePath&gt;</b>../pom.xml<b>&lt;/relativePath&gt;</b>
-    <b>&lt;/parent&gt;</b>
-    <b>&lt;dependencies&gt;</b>
-        <i style="color:#66aa66;">&lt;!-- see parent pom.xml --&gt;</i>
-    <b>&lt;/dependencies&gt;</b>
-    <b>&lt;build&gt;</b>
-        <b>&lt;sourceDirectory&gt;</b>src/main<b>&lt;/sourceDirectory&gt;</b>
-        <b>&lt;testSourceDirectory&gt;</b>src/test<b>&lt;/testSourceDirectory&gt;</b>
-        <b>&lt;outputDirectory&gt;</b>target/classes<b>&lt;/outputDirectory&gt;</b>
-        <b>&lt;plugins&gt;</b>
-            <b>&lt;plugin&gt;</b>
-                <b>&lt;groupId&gt;</b>org.apache.maven.plugins<b>&lt;/groupId&gt;</b>
-                <b>&lt;artifactId&gt;</b>maven-compiler-plugin<b>&lt;/artifactId&gt;</b>
-                ...
-                <b>&lt;configuration&gt;</b>
-                    ...
-                    <b>&lt;includes&gt;</b>
-                        <b>&lt;include&gt;</b>java/**/*.java<b>&lt;/include&gt;</b>
-                    <b>&lt;/includes&gt;</b>
-                <b>&lt;/configuration&gt;</b>
-            <b>&lt;/plugin&gt;</b>
-            <b>&lt;plugin&gt;</b>
-                <b>&lt;groupId&gt;</b>ch.epfl.alumni<b>&lt;/groupId&gt;</b>
-                <b>&lt;artifactId&gt;</b>scala-maven-plugin<b>&lt;/artifactId&gt;</b>
-                ...
-                <b>&lt;configuration&gt;</b>
-                    <b>&lt;scalaVersion&gt;</b>${scala.version}<b>&lt;/scalaVersion&gt;</b>
-                    ...
-                <b>&lt;/configuration&gt;</b>
-            <b>&lt;/plugin&gt;</b>
-        <b>&lt;/plugins&gt;</b>
-    <b>&lt;/build&gt;</b>
-<b>&lt;/project&gt;</b>
-</pre>
-
-> **&#9755;** **Scala Maven Plugin**<br/>
-> In the above [Maven][apache_maven_about] configuration file we note the presence of the Maven plugin [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip). In fact the parent file [**`examples\pom.xml`**](pom.xml) depends on [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip), a Maven plugin we developed specifically for this project:
->
-> <pre style="font-size:80%;">
-> <b>&gt; more ..\pom.xml</b>
-> &lt;?xml version="1.0" encoding="UTF-8"?&gt;
-> ...
->     <b>&lt;properties&gt;</b>
->         <b>&lt;project.build.sourceEncoding&gt;</b>UTF-8<b>&lt;/project.build.sourceEncoding&gt;</b>
->         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
-> &nbsp;
->         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>0.25.0-RC1<b>&lt;/scala.version&gt;</b>
->         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
-> &nbsp;
->         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
->         <b>&lt;scala.maven.version&gt;</b>1.0-SNAPSHOT<b>&lt;/scala.maven.version&gt;</b>
->         ...
->     <b>&lt;/properties&gt;</b>
->     <b>&lt;dependencies&gt;</b>
->         <b>&lt;dependency&gt;</b>
->             <b>&lt;groupId&gt;</b>ch.epfl.alumni<b>&lt;/groupId&gt;</b>
->             <b>&lt;artifactId&gt;</b>scala-maven-plugin<b>&lt;/artifactId&gt;</b>
->             <b>&lt;version&gt;</b>${scala.maven.version}<b>&lt;/version&gt;</b>
->         <b>&lt;/dependency&gt;</b>
->         ...
->     <b>&lt;/dependencies&gt;</b>
->
-> <b>&lt;/project&gt;</b>
-> </pre>
-> The plugin is available as [Zip archive][zip_archive] and its installation is deliberately very simple:
-> <pre style="font-size:80%;">
-> <b>&gt; unzip ..\bin\scala-maven-plugin-1.0.zip %USERPROFILE%\.m2\repository\</b>
-> <b>&gt; tree /a /f %USERPROFILE%\.m2\repository\ch\epfl\alumni | findstr /v "^[A-Z]"</b>
-> |   maven-metadata-local.xml
-> |
-> \---scala-maven-plugin
->     |   maven-metadata-local.xml
->     |
->     \---1.0-SNAPSHOT
->             maven-metadata-local.xml
->             scala-maven-plugin-1.0-SNAPSHOT.jar
->             scala-maven-plugin-1.0-SNAPSHOT.pom
->             _remote.repositories
-> </pre>
-
-Command **` mvn compile test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our Maven plugin **`scala-maven-plugin`**:
-
-<pre style="font-size:80%;">
-<b>&gt; mvn -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-1.8.0_252-b09\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.25.0-RC1 \
- -cp C:\opt\dotty-0.25.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
- dotty.tools.dotc.Main \
- -classpath W:\dotty-examples\examples\hello-scala\target\classes \
- -d W:\dotty-examples\examples\hello-scala\target\classes \
- W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\opt\jdk-1.8.0_252-b09\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.25.0-RC1 [...]
-[DEBUG] [execute] C:\opt\jdk-1.8.0_252-b09\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.25.0-RC1\lib\*.jar;\
-W:\dotty-examples\examples\hello-scala\target\classes hello
-</pre>
-
-Command [**`mvn --quiet clean test`**](enum-Planet/pom.xml) produces the following output:
-
-<pre style="font-size:80%;">
-<b>&gt; mvn --quiet clean test</b>
+<b>&gt; sbt -warn clean "run 1"</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -548,33 +620,6 @@ Your weight on MARS is 0.37873718403712886
 Your weight on JUPITER is 2.5305575254957406
 </pre>
 
-
-<pre style="font-size:80%;">
-<b>&gt; mvn clean compile package</b>
-...
-[INFO]
-[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ enum-Planet ---
-[INFO] Building jar: W:\dotty-examples\examples\enum-Planet\target\enum-Planet-0.1-SNAPSHOT.jar
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time:  9.468 s
-[INFO] Finished at: 2019-07-27T19:53:09+01:00
-[INFO] ------------------------------------------------------------------------
-
-<b>&gt; java -version 2>&1 | findstr version</b>
-openjdk version "11.0.7" 2019-10-15
-
-<b>&gt; java -Xbootclasspath/a:"c:\opt\dotty-0.25.0-RC1\lib\dotty-library_0.25-0.25.0-RC1.jar;c:\opt\dotty-0.25.0-RC1\lib\scala-library-2.13.2.jar" -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
-Your weight on MERCURY is 0.37775761520093526
-Your weight on SATURN is 1.0660155388115666
-Your weight on VENUS is 0.9049990998410455
-Your weight on URANUS is 0.9051271993894251
-Your weight on EARTH is 0.9999999999999999
-Your weight on NEPTUNE is 1.1383280724696578
-Your weight on MARS is 0.37873718403712886
-Your weight on JUPITER is 2.5305575254957406
-</pre>
 
 ## <span id="footnotes">Footnotes</span>
 
@@ -597,7 +642,6 @@ Batch files (e.g. <a href="enum-Planet/build.bat"><b><code>enum-Planet\build.bat
 rem ## Environment setup</i>
 
 <b>set</b> _EXITCODE=0
-<b>set</b> "_ROOT_DIR=<span style="color:#3333ff;">%~dp0"</span>
 
 <b>call <span style="color:#9966ff;">:env</span></b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
@@ -676,7 +720,9 @@ rem ## Cleanups</i>
 [apache_foundation]: https://maven.apache.org/docs/history.html
 [apache_history]: https://ant.apache.org/faq.html#history
 [apache_maven_about]: https://maven.apache.org/what-is-maven.html
+[apache_maven_cli]: https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html
 [cfr_releases]: https://www.benf.org/other/cfr/
+[gmake_cli]: http://www.glue.umd.edu/lsf-docs/man/gmake.html
 [gradle_groovy]: https://www.groovy-lang.org/
 [gradle_app_plugin]: https://docs.gradle.org/current/userguide/application_plugin.html#header
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html

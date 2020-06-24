@@ -11,17 +11,17 @@
   </tr>
 </table>
 
-We present several ways to build/run each example in directory [**`myexamples\`**](.):
+We present several ways to build, run and test each example in directory [**`myexamples\`**](.):
 
-| Console command                   | Configuration file |  Parent file    |
-|-----------------------------------|--------------------|-----------------|
-| [**`ant.bat`**][apache_ant_cli]   | `build.xml`        | `build.xml`     |
-| **`build.bat`**                   | `build.properties` | n.a.            |
-| [**`gradle.bat`**][gradle_cli]    | `build.gradle`     | `common.gradle` |
-| [**`make.exe`**][gmake_cli]       | `Makefile`         | `Makefile.inc`  |
-| [**`mill.bat`**][mill_cli]        | `build.sc`         | `common.sc`     |
-| [**`mvn.cmd`**][apache_maven_cli] | `pom.xml`          | `pom.xml`       |
-| [**`sbt.bat`**][sbt_cli]          | `build.sbt`        | n.a.            |
+| Build tool                    | Configuration file     | Parent file         |
+|-------------------------------|------------------------|---------------------|
+| [**`ant`**][apache_ant_cli]   | **`build.xml`**        | **`build.xml`**     |
+| **`build`**                   | **`build.properties`** | n.a.                |
+| [**`gradle`**][gradle_cli]    | **`build.gradle`**     | **`common.gradle`** |
+| [**`make`**][gmake_cli]       | **`Makefile`**         | **`Makefile.inc`**  |
+| [**`mill`**][mill_cli]        | **`build.sc`**         | **`common.sc`**     |
+| [**`mvn`**][apache_maven_cli] | **`pom.xml`**          | **`pom.xml`**       |
+| [**`sbt`**][sbt_cli]          | **`build.sbt`**        | n.a.                |
 
 Let's choose the [**`HelloWorld`**](HelloWorld) example to demonstrate the usage of the above build tools:
 
@@ -220,6 +220,8 @@ dotr.bat -classpath "target/classes" myexamples.HelloWorld 2
 Hello world!
 </pre>
 
+Command **`make test`** execute the test suite [`HelloWorldTest.scala`](HelloWorld/src/test/scala/HelloWorldTest.scala) for program [`HelloWorld.scala`](HelloWorld/src/main/scala/HelloWorld.scala).
+
 <pre style="font-size:80%;">
 $ make test
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
@@ -230,55 +232,6 @@ JUnit version 4.13
 Time: 0.201
 
 OK (1 test)
-</pre>
-
-
-## <span id="mill">Mill build tool</span>
-
-Command [**`mill`**][mill_cli] is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
-
-The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone file written in Scala (with direct access to [OS-Lib][os_lib]).
-
-<pre style="font-size:80%;">
-<b>import</b> mill._, scalalib._
-<b>import</b> $file.^.common
-&nbsp;
-<b>object</b> app <b>extends</b> ScalaModule {
-  <b>def</b> scalaVersion = common.scalaVersion
-  <b>def</b> scalacOptions = common.scalacOptions
-  &nbsp;
-  <b>def</b> forkArgs = common.forkArgs
-  &nbsp;
-  <b>def</b> mainClass = T.input {
-    Some(common.getBuildProp(<span style="color:#990000;">"mainClassName"</span>, <span style="color:#990000;">"myexamples.HelloWorld"</span>, T.ctx))
-  }
-  &nbsp;
-  <b>def</b> sources = T.sources { common.scalaSourcePath }
-  <b>def</b> clean() = T.command {
-    val path = os.pwd / <span style="color:#990000;">"out"</span> / <span style="color:#990000;">"app"</span>
-    os.walk(path, skip = _.last == <span style="color:#990000;">"clean"</span>).foreach(os.remove.all)
-  }
-  <b>object</b> test <b>extends</b> Tests {
-    <b>def</b> ivyDeps = Agg(
-      common.ivyJunitInterface,
-      common.ivyScalatest,
-      common.ivySpecs2
-    )
-    <b>def</b> testFrameworks = Seq(
-      <span style="color:#990000;">"com.novocode.junit.JUnitFramework"</span>,
-      <span style="color:#990000;">"org.scalatest.tools.Framework"</span>,
-      <span style="color:#990000;">"org.specs2.runner.JUnitRunner"</span> <i style="color:#009900;">// org.specs2.Specs2Framework</i>
-    )
-  }
-}
-</pre>
-
-Command [**`mill -i app`**](HelloWorld/build.sc) produces the following output:
-
-<pre style="font-size:80%;">
-<b>&gt; mill -i app</b>
-[38/38] app.run
-Hello world!
 </pre>
 
 
@@ -454,6 +407,55 @@ Hello world!
 > Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.25.0-RC2\lib\scala-library-2.13.1.jar`**, so let us add it to our classpath !
 
 
+## <span id="mill">Mill build tool</span>
+
+Command [**`mill`**][mill_cli] is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
+
+The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone file written in Scala (with direct access to [OS-Lib][os_lib]).
+
+<pre style="font-size:80%;">
+<b>import</b> mill._, scalalib._
+<b>import</b> $file.^.common
+&nbsp;
+<b>object</b> app <b>extends</b> ScalaModule {
+  <b>def</b> scalaVersion = common.scalaVersion
+  <b>def</b> scalacOptions = common.scalacOptions
+  &nbsp;
+  <b>def</b> forkArgs = common.forkArgs
+  &nbsp;
+  <b>def</b> mainClass = T.input {
+    Some(common.getBuildProp(<span style="color:#990000;">"mainClassName"</span>, <span style="color:#990000;">"myexamples.HelloWorld"</span>, T.ctx))
+  }
+  &nbsp;
+  <b>def</b> sources = T.sources { common.scalaSourcePath }
+  <b>def</b> clean() = T.command {
+    val path = os.pwd / <span style="color:#990000;">"out"</span> / <span style="color:#990000;">"app"</span>
+    os.walk(path, skip = _.last == <span style="color:#990000;">"clean"</span>).foreach(os.remove.all)
+  }
+  <b>object</b> test <b>extends</b> Tests {
+    <b>def</b> ivyDeps = Agg(
+      common.ivyJunitInterface,
+      common.ivyScalatest,
+      common.ivySpecs2
+    )
+    <b>def</b> testFrameworks = Seq(
+      <span style="color:#990000;">"com.novocode.junit.JUnitFramework"</span>,
+      <span style="color:#990000;">"org.scalatest.tools.Framework"</span>,
+      <span style="color:#990000;">"org.specs2.runner.JUnitRunner"</span> <i style="color:#009900;">// org.specs2.Specs2Framework</i>
+    )
+  }
+}
+</pre>
+
+Command [**`mill -i app`**](HelloWorld/build.sc) produces the following output:
+
+<pre style="font-size:80%;">
+<b>&gt; mill -i app</b>
+[38/38] app.run
+Hello world!
+</pre>
+
+
 ## <span id="sbt">SBT build tool</span>
 
 Command [**`sbt`**][sbt_cli] is a Scala-based build tool for [Scala] and Java.
@@ -508,7 +510,6 @@ Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</
 rem ## Environment setup</i>
 
 <b>set</b> _EXITCODE=0
-<b>set</b> "_ROOT_DIR=<span style="color:#3333ff;">%~dp0"</span>
 
 <b>call <span style="color:#9966ff;">:env</span></b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
