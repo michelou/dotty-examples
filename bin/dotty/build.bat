@@ -184,7 +184,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if /i "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown option %_STRONG_FG_GREEN%%__ARG%%__END% 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -215,7 +215,7 @@ if "%__ARG:~0,1%"=="-" (
         set _TEST_SBT=1
     ) else if /i "%__ARG%"=="update" ( set _UPDATE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown subcommand %_STRONG_FG_GREEN%%__ARG%%__END% 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -247,12 +247,12 @@ echo     %__BEG_O%-verbose%__END%              display environment settings
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%arch[ives]%__END%            generate gz/zip archives ^(after bootstrap^)
-echo     %__BEG_O%boot[strap]%__END%           generate+test bootstrapped compiler ^(after compile^)
+echo     %__BEG_O%boot[strap]%__END%           generate+test bootstrapped compiler ^(after %__BEG_O%compile%__END%^)
 echo     %__BEG_O%clean%__END%                 clean up project
 echo     %__BEG_O%clone%__END%                 update submodules
-echo     %__BEG_O%compile%__END%               generate+test 1st stage compiler ^(after clone^)
+echo     %__BEG_O%compile%__END%               generate+test 1st stage compiler ^(after %__BEG_O%clone%__END%^)
 echo     %__BEG_O%community%__END%             test community-build
-echo     %__BEG_O%doc[umentation]%__END%       generate documentation ^(after bootstrap^)
+echo     %__BEG_O%doc[umentation]%__END%       generate documentation ^(after %__BEG_O%bootstrap%__END%^)
 echo     %__BEG_O%help%__END%                  display this help message
 echo     %__BEG_O%java11%__END%                generate+test Dotty compiler with Java 11
 echo     %__BEG_O%sbt%__END%                   test sbt-dotty ^(after bootstrap^)
@@ -280,9 +280,9 @@ if %_VERBOSE%==1 (
     set __BRANCH_NAME=unknown
     for /f %%i in ('!__GIT_CMD1! rev-parse --abbrev-ref HEAD') do set __BRANCH_NAME=%%i
     echo Tool paths
-    echo    GIT_CMD=!__GIT_CMD1!
-    echo    JAVA_CMD=!__JAVA_CMD1!
-    echo    SBT_CMD=%_SBT_CMD%
+    echo    GIT_CMD="!__GIT_CMD1!"
+    echo    JAVA_CMD="!__JAVA_CMD1!"
+    echo    SBT_CMD="%_SBT_CMD%"
     echo Tool options
     echo    JAVA_OPTS=%JAVA_OPTS%
     echo    SBT_OPTS=%SBT_OPTS%

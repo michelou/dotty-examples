@@ -26,13 +26,14 @@ This document is part of a series of topics related to [Dotty] on Windows:
 This project depends on two external software for the **Microsoft Windows** platform:
 
 - [Dotty 0.25][dotty_releases] ([*release notes*][dotty_relnotes])
-- [Oracle OpenJDK 8][oracle_openjdk] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk_relnotes])
+- [Oracle OpenJDK 11][oracle_openjdk] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk_relnotes])
 <!--
-8u212 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
-8u222 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
-8u232 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
-8u242 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
-8u252 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-April/011559.html
+8u212  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
+8u222  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
+8u232  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
+8u242  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
+8u252  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-April/011559.html
+11.0.7 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
 -->
 Optionally one may also install the following software:
 
@@ -53,7 +54,7 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*June 2020*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\jdk-1.8.0_252-b09\    <i>(181.0 MB)</i>
+C:\opt\jdk-11.0.7+10\        <i>(181.0 MB)</i>
 C:\opt\apache-ant-1.10.8\    <i>( 39.7 MB)</i>
 C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
 C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
@@ -63,7 +64,7 @@ C:\opt\Git-2.27.0\           <i>(278.0 MB)</i>
 C:\opt\gradle-6.5\           <i>(110.0 MB)</i>
 C:\opt\Mill-0.7.3\           <i>( 53.6 MB)</i>
 C:\opt\sbt-1.3.12\           <i>( 61.3 MB)</i>
-C:\opt\scala-2.13.2\         <i>( 22.4 MB, 588 MB with API docs)</i>
+C:\opt\scala-2.13.3\         <i>( 22.8 MB, 588 MB with API docs)</i>
 </pre>
  <!-- jdk: 242-b08 = 184 MB, 252-b09 = 181 MB -->
  <!-- sbt: 1.3.6 = 55.1 MB, 1.3.7 = 60.9 MB, 1.3.8 = 61.0 MB -->
@@ -152,7 +153,7 @@ We distinguish different sets of batch/bash commands:
     <a href="bin/0.25/dotc.bat">dotc.bat</a>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/dotd">dotd</a>
     <a href="bin/0.25/dotd.bat">dotd.bat</a>
-    <a herf="https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr">dotr</a>
+    <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr">dotr</a>
     <a href="bin/0.25/dotr.bat">dotr.bat</a>
     </pre>
 
@@ -277,7 +278,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   javac 1.8.0_252, java 1.8.0_252, scalac 2.13.2, dotc 0.25.0-RC2
+   javac 11.0.7, java 11.0.7, scalac 2.13.3, dotc 0.25.0-RC2
    ant 1.10.8, gradle 6.5, mill 0.7.3, mvn 3.6.3, sbt 1.3.12/2.12.10,
    cfr 0.150, python 3.7.4, bloop v1.3.4,
    git 2.27.0.windows.1, diff 3.7, bash 4.4.23(1)-release
@@ -290,17 +291,16 @@ C:\opt\sbt-1.3.12\bin\sbt.bat
 Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and defined variables:
 
 <pre style="font-size:80%;">
-<b>&gt; setenv -verbose</b>
+<b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   javac 1.8.0_252, java 1.8.0_252, scalac 2.13.2, dotc 0.25.0-RC2
+   javac 11.0.7, java 11.0.7, scalac 2.13.3, dotc 0.25.0-RC2
    ant 1.10.8, gradle 6.5, mill 0.7.3, mvn 3.6.3, sbt 1.3.12/2.12.10,
    cfr 0.150, python 3.7.4, bloop v1.3.4,
    git 2.27.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
-   C:\opt\jdk-1.8.0_252-b09\bin\javac.exe
-   C:\opt\jdk-1.8.0_252-b09\bin\java.exe
-   C:\ProgramData\Oracle\Java\javapath\java.exe
-   C:\opt\scala-2.13.2\bin\scalac.bat
+   C:\opt\jdk-11.0.7+10\bin\javac.exe
+   C:\opt\jdk-11.0.7+10\bin\java.exe
+   C:\opt\scala-2.13.3\bin\scalac.bat
    C:\opt\dotty-0.25.0-RC2\bin\dotc.bat
    C:\opt\apache-ant-1.10.8\bin\ant.bat
    C:\opt\gradle-6.5\bin\gradle.bat
@@ -317,9 +317,9 @@ Tool paths:
 Environment variables:
    ANT_HOME=C:\opt\apache-ant-1.10.8
    DOTTY_HOME=C:\opt\dotty-0.25.0-RC2
-   JAVA_HOME=C:\opt\jdk-1.8.0_252-b09
+   JAVA_HOME=C:\opt\jdk-11.0.7+10
    JAVA11_HOME=C:\opt\jdk-11.0.7+10
-   SCALA_HOME=C:\opt\scala-2.13.2
+   SCALA_HOME=C:\opt\scala-2.13.3
 </pre>
 
 #### `cleanup.bat`
@@ -338,11 +338,11 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\dotty-0.25.0-RC2 c:\opt\jdk-1.8.0_252-b09</b>
+<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\dotty-0.25.0-RC2 c:\opt\jdk-11.0.7+10</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
 Size of directory "c:\opt\dotty-0.25.0-RC2" is 26.7 Mb
-Size of directory "c:\opt\jdk-1.8.0_252-b09" is 184.2 Mb
+Size of directory "c:\opt\jdk-11.0.7+10" is 184.2 Mb
 </pre>
 
 #### `getnightly.bat`
@@ -374,18 +374,18 @@ Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the downlo
 <pre style="font-size:80%">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose</b>
 Check for nightly files on Maven repository
-Downloading file dotty-tastydoc-input_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar ... 36.1 Kb
-Downloading file dotty-doc_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar ... 1019 Kb
-Downloading file dotty-language-server_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar ... 145.7 Kb
-Downloading file dotty_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-sbt-bridge-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar ... 13.4 Kb
-Downloading file tasty-core_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar ... 48 Kb
-Downloading file dotty-staging_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar ... 35.7 Kb
-Downloading file dotty-library_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar ... 1.4 Mb
-Downloading file dotty-compiler_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar ... 11.9 Mb
-Downloading file dotty-interfaces-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar ... 3.4 Kb
-Downloading file dotty-tasty-inspector_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar ... 7.9 Kb
-Downloading file dotty-tastydoc_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar ... 434 Kb
+Downloading file dotty-doc_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 1018.9 Kb
+Downloading file dotty-tastydoc-input_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 36.1 Kb
+Downloading file dotty-language-server_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 145.7 Kb
+Downloading file dotty_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-sbt-bridge-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 13.4 Kb
+Downloading file tasty-core_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 47.9 Kb
+Downloading file dotty-staging_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 35.7 Kb
+Downloading file dotty-compiler_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 11.9 Mb
+Downloading file dotty-library_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 1.4 Mb
+Downloading file dotty-interfaces-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-tasty-inspector_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 7.9 Kb
+Downloading file dotty-tastydoc_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 433.9 Kb
 Finished to download 12 files to directory W:\out\nightly-jars
 </pre>
 
@@ -394,14 +394,14 @@ We can now replace the library files from the original [Dotty distribution][dott
 Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in the [Dotty] installation directory.
 
 <pre style="font-size:80%;">
-<b>&gt; getnightly activate</b>
-Local nightly version has changed from 0.25.0-RC2 to 0.26.0-bin-20200615-a8c27ee-NIGHTLY
-Activate nightly build libraries: 0.26.0-bin-20200615-a8c27ee-NIGHTLY
+<b>&gt; <a href="bin/getnightly.bat">getnightly</a> activate</b>
+Local nightly version has changed from 0.25.0-RC2 to 0.26.0-bin-20200625-3112800-NIGHTLY
+Activate nightly build libraries: 0.26.0-bin-20200625-3112800-NIGHTLY
 
-<b>&gt; dotc -version</b>
-Dotty compiler version 0.26.0-bin-20200615-a8c27ee-NIGHTLY-git-a8c27ee -- Copyright 2002-2020, LAMP/EPFL
+<b>&gt; <a href="bin/0.25/dotc.bat">dotc -version</b>
+Dotty compiler version 0.26.0-bin-20200625-3112800-NIGHTLY-git-3112800 -- Copyright 2002-2020, LAMP/EPFL
 
-<b>&gt; getnightly reset</b>
+<b>&gt; <a href="bin/getnightly.bat">getnightly</a> reset</b>
 Activate default Dotty libraries: 0.25.0-RC2
 
 <b>&gt; dotc -version</b>
@@ -425,19 +425,19 @@ lib\0.25.0-RC2\
 &nbsp;&nbsp;dotty-staging_0.25-0.25.0-RC2.jar
 &nbsp;&nbsp;dotty-tasty-inspector_0.25-0.25.0-RC2.jar
 &nbsp;&nbsp;tasty-core_0.25-0.25.0-RC2.jar
-lib\0.26.0-bin-20200615-a8c27ee-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar
-&nbsp;&nbsp;dotty-staging_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tasty-inspector_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc-input_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar
-&nbsp;&nbsp;tasty-core_0.26-0.26.0-bin-20200615-a8c27ee-NIGHTLY.jar
+lib\0.26.0-bin-20200625-3112800-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.26.0-bin-20200625-3112800-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.26.0-bin-20200625-3112800-NIGHTLY.jar
+&nbsp;&nbsp;dotty-staging_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tasty-inspector_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc-input_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
+&nbsp;&nbsp;tasty-core_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original [Dotty] installation respectively from the latest nightly build.
@@ -469,8 +469,8 @@ Passing argument **`System`** to command [**`searchjars`**](bin/searchjars.bat) 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> System</b>
 Searching for class System in library files C:\opt\DOTTY-~1.1-R\lib\*.jar
-  scala-library-2.13.2.jar:scala/sys/SystemProperties$.class
-  scala-library-2.13.2.jar:scala/sys/SystemProperties.class
+  scala-library-2.13.3.jar:scala/sys/SystemProperties$.class
+  scala-library-2.13.3.jar:scala/sys/SystemProperties.class
 Searching for class System in library files C:\opt\SCALA-~1.0\lib\*.jar
   jline-3.14.1.jar:org/jline/builtins/SystemRegistry.class
   [...]
@@ -552,7 +552,7 @@ settings.gradle
 src
 target
 Execution time: 00:00:01
-<b>&gt; timeit build clean compile</b>
+<b>&gt; <a href="bin/timeit.bat">timeit</a> build clean compile</b>
 Execution time: 00:00:08
 </pre>
 
@@ -630,7 +630,7 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 
 [Dotty REPL][dotty_repl] is an interactive tool for evaluating Scala expressions. Internally, it executes a source script by wrapping it in a template and then compiling and executing the resulting program.
 
-   > **:warning:** Batch file [**`dotr.bat`**](bin/0.14/dotr.bat) is based on the bash script [**`dotr`**][github_dotr] available from the standard [Dotty distribution][dotty_releases]. We also have submitted pull request [#5444][github_PR5444] to add that batch file to the Dotty distribution.
+   > **:warning:** Batch file [**`dotr.bat`**](bin/0.25/dotr.bat) is based on the bash script [**`dotr`**][github_dotr] available from the standard [Dotty distribution][dotty_releases]. We also have submitted pull request [#5444][github_PR5444] to add that batch file to the Dotty distribution.
 
 <pre style="font-size:80%;">
 <b>&gt; where dotr</b>
@@ -638,8 +638,8 @@ C:\opt\dotty-0.25.0-RC2\bin\dotr
 C:\opt\dotty-0.25.0-RC2\bin\dotr.bat
 
 <b>&gt; <a href="bin/dotty/bin/dotr.bat">dotr</a> -version</b>
-openjdk version "1.8.0_252"
-OpenJDK Runtime Environment (AdoptOpenJDK)(build 1.8.0_252-b09)
+openjdk version "11.0.7"
+OpenJDK Runtime Environment (AdoptOpenJDK)(build 11.0.7+10)
 OpenJDK 64-Bit Server VM (AdoptOpenJDK)(build 25.252-b09, mixed mode)
 
 <b>&gt; <a href="bin/dotty/bin/dotr.bat">dotr</a></b>
@@ -655,7 +655,7 @@ The REPL has several commands available:
 :reset                   reset the repl to its initial state, forgetting all session entries
 
 <b>scala&gt;</b> System.getenv().get("JAVA_HOME")
-val res0: String = C:\opt\jdk-1.8.0_252-b09
+val res0: String = C:\opt\jdk-11.0.7+10
 
 <b>scala&gt;</b> System.getenv().get("DOTTY_HOME")
 val res1: String = C:\opt\dotty-0.25.0-RC2
@@ -725,7 +725,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u252b09.zip</a>  <i>(99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.27.0-64-bit.7z.exe</a>                <i>(41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.3.12.zip</a>                                  <i>(55 MB)</i>
-<a href="https://www.scala-lang.org/files/archive/">scala-2.13.2.zip</a>                                <i>(21 MB)</i>
+<a href="https://www.scala-lang.org/files/archive/">scala-2.13.3.zip</a>                                <i>(21 MB)</i>
 </pre>
 
 <!-- ## removed on 2020-02-03 ##
@@ -856,12 +856,9 @@ Command Prompt has been around for as long as we can remember, but starting with
 [mill_cli]: https://www.lihaoyi.com/mill/#command-line-tools
 [mill_releases]: https://github.com/lihaoyi/mill/releases/
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
-[oracle_openjdk]: https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot
+[oracle_openjdk]: https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
 <!-- also: https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/tag/jdk8u252-b09 -->
-<!-- 8u232 [oracle_openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html -->
-<!-- 8u242 [oracle_openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html -->
-<!-- 8u252 [oracle_openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-April/011559.html -->
-[oracle_openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-April/011559.html
+[oracle_openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
 <!--
 [python_changelog]: https://docs.python.org/3.8/whatsnew/changelog.html#python-3-8-0-final
 [python_release]: https://www.python.org/downloads/release/python-380/
@@ -872,7 +869,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.12
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala_releases]: https://www.scala-lang.org/files/archive/
-[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.2
+[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.3
 [scalac_cli]: https://docs.scala-lang.org/overviews/compiler-options/index.html
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_bash_script]: https://www.gnu.org/software/bash/manual/bash.html

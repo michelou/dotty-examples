@@ -7,7 +7,7 @@
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Introduced in <a href="https://openjdk.java.net/groups/hotspot/docs/RuntimeOverview.html#Class%20Data%20Sharing|outline">J2SE 5.0</a>, <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/class-data-sharing.html">Java class data sharing</a> (CDS) helps reduce the startup time for Java applications as well as reduce their memory footprint.<br/>
-    This page presents findings from our experiments with <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/class-data-sharing.html">CDS</a> and <a href="https://dotty.epfl.ch/">Dotty</a> on the Windows platform. 
+    This page presents findings from our experiments with <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/class-data-sharing.html">CDS</a> and <a href="https://dotty.epfl.ch/" rel="external">Dotty</a> on the Windows platform. 
   </td>
   </tr>
 </table>

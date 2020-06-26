@@ -38,10 +38,9 @@ set _SBT_PATH=
 set _SCALA_PATH=
 set _VSCODE_PATH=
 
-call :jdk
-if not %_EXITCODE%==0 goto end
-
-call :jdk11
+@rem %1=vendor
+@rem eg. "" (Oracle), bellsoft, corretto, bellsoft, openj9, redhat, sapmachine, zulu
+call :jdk "" 11
 if not %_EXITCODE%==0 goto end
 
 call :scalac
@@ -178,8 +177,8 @@ if not defined __ARG goto args_done
 if "%__ARG:~0,1%"=="-" (
     @rem option
     if /i "%__ARG%"=="-bash" ( set _BASH=1
-    ) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
-    ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
+    ) else if "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
         set _EXITCODE=1
@@ -222,18 +221,28 @@ echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%help%__END%        display this help message
 goto :eof
 
+@rem input parameter: %1=vendor %1^=required version
 @rem output parameter(s): _JDK_HOME, _JDK_PATH
 :jdk
 set _JDK_HOME=
 set _JDK_PATH=
 
+set __VENDOR=%~1
+set __VERSION=%~2
+if not defined __VENDOR ( set __JDK_NAME=jdk-%__VERSION%
+) else ( set __JDK_NAME=jdk-%__VENDOR%-%__VERSION%
+)
 set __JAVAC_CMD=
-for /f %%f in ('where javac.exe 2^>NUL') do set __JAVAC_CMD=%%f
+for /f %%f in ('where javac.exe 2^>NUL') do set "__JAVAC_CMD=%%f"
 if defined __JAVAC_CMD (
-    call :is_java11 "%__JAVAC_CMD%"
-    if not defined _IS_JAVA11 (
-        for %%i in ("%__JAVAC_CMD%") do set "__BIN_DIR=%%~dpsi"
-        for %%f in ("%__BIN_DIR%") do set "_JDK_HOME=%%~dpsi"
+    call :jdk_version "%__JAVAC_CMD%"
+    if !_JDK_VERSION!==%__VERSION% (
+        for %%i in ("%__JAVAC_CMD%") do set "__BIN_DIR=%%~dpi"
+        for %%f in ("%__BIN_DIR%") do set "_JDK_HOME=%%~dpf"
+    ) else (
+        echo %_ERROR_LABEL% Required JDK installation not found ^(%__JDK_NAME%^) 1>&2
+        set _EXITCODE=1
+        goto :eof
     )
 )
 if defined JDK_HOME (
@@ -241,17 +250,17 @@ if defined JDK_HOME (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable JDK_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\jdk-1.8*" 2^>NUL') do set "_JDK_HOME=!_PATH!\%%f"
+    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JDK_HOME=!_PATH!\%%f"
     if not defined _JDK_HOME (
         set "_PATH=%ProgramFiles%\Java"
-        for /f %%f in ('dir /ad /b "!_PATH!\jdk1.8*" 2^>NUL') do set "_JDK_HOME=!_PATH!\%%f"
+        for /f %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JDK_HOME=!_PATH!\%%f"
     )
     if defined _JDK_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Java SDK installation directory !_JDK_HOME! 1>&2
     )
 )
 if not exist "%_JDK_HOME%\bin\javac.exe" (
-    echo %_ERROR_LABEL% javac executable not found ^(%_JDK_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Executable javac.exe not found ^(%_JDK_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -259,53 +268,27 @@ if not exist "%_JDK_HOME%\bin\javac.exe" (
 set "_JDK_PATH=%_JDK_HOME%\bin;"
 goto :eof
 
-@rem output parameter(s): _JDK11_HOME
-:jdk11
-set _JDK11_HOME=
-
-set __JAVAC_CMD=
-for /f %%f in ('where javac.exe 2^>NUL') do set __JAVAC_CMD=%%f
-if defined __JAVAC_CMD (
-    call :is_java11 "%__JAVAC_CMD%"
-    if defined _IS_JAVA11 (
-        for %%i in ("%__JAVAC_CMD%") do set __BIN_DIR=%%~dpsi
-        for %%f in ("%__BIN_DIR%") do set _JDK11_HOME=%%~dpsi
-    )
-)
-if not defined _JDK11_HOME if defined JDK_HOME (
-    call :is_java11 "%JDK_HOME%\bin\javac.exe"
-    if defined _IS_JAVA11 (
-        set "_JDK11_HOME=%JDK_HOME%"
-        if %_DEBUG%==1 echo [%_BASENAME%] Using environment variable JDK_HOME 1>&2
-    )
-)
-if not defined _JDK11_HOME (
-    set __PATH=C:\opt
-    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\jdk-11*" 2^>NUL') do set "_JDK11_HOME=!__PATH!\%%f"
-)
-if not defined _JDK11_HOME (
-    set "__PATH=%ProgramFiles%\Java"
-    for /f %%f in ('dir /ad /b "!__PATH!\jdk-11*" 2^>NUL') do set "_JDK11_HOME=!__PATH!\%%f"
-)
-if not exist "%_JDK11_HOME%\bin\javac.exe" (
-    echo Error: javac executable not found ^(%_JDK11_HOME%^) 1>&2
+@rem input parameter(s): %1=javac file path
+@rem output parameter(s): _JDK_VERSION
+:jdk_version
+set "__JAVAC_CMD=%~1"
+if not exist "%__JAVAC_CMD%" (
+    echo %_ERROR_LABEL% Command javac.exe not found ^("%__JAVAC_CMD%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-goto :eof
-
-@rem input parameter(s): %1 = javac file path
-@rem output parameter(s): _IS_JAVA11
-:is_java11
-set _IS_JAVA11=
-
-set __JAVAC_CMD=%~1
-if not exist "%__JAVAC_CMD%" goto :eof
-
-set __JAVA_VERSION=
-for /f "tokens=1,*" %%i in ('%__JAVAC_CMD% -version 2^>^&1') do set __JAVA_VERSION=%%j
-if not "!__JAVA_VERSION:~0,2!"=="11" goto :eof
-set _IS_JAVA11=1
+set __JAVAC_VERSION=
+for /f "usebackq tokens=1,*" %%i in (`"%__JAVAC_CMD%" -version 2^>^&1`) do set __JAVAC_VERSION=%%j
+if "!__JAVAC_VERSION:~0,2!"=="14" ( set _JDK_VERSION=14
+) else if "!__JAVAC_VERSION:~0,2!"=="11" ( set _JDK_VERSION=11
+) else if "!__JAVAC_VERSION:~0,3!"=="1.8" ( set _JDK_VERSION=8
+) else if "!__JAVAC_VERSION:~0,3!"=="1.7" ( set _JDK_VERSION=7
+) else (
+    set _JDK_VERSION=
+    echo %_ERROR_LABEL% Unsupported JDK version %__JAVAC_VERSION% 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 goto :eof
 
 :scalac

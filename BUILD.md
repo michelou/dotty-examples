@@ -6,7 +6,7 @@
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:80px;" src="docs/dotty.png" alt="Dotty logo" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Source code of the <a href="https://dotty.epfl.ch/" rel="external">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed on the <a href="https://dotty-ci.epfl.ch/lampepfl/dotty" rel="external">Dotty CI</a> server <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> from <a href="https://lamp.epfl.ch/">LAMP/EPFL</a>.</br>This document describes changes we made to the <a href="https://github.com/lampepfl/dotty/" rel="external">lampepfl/dotty</a> repository in order to reproduce the same build/test steps locally on a Windows machine.
+    Source code of the <a href="https://dotty.epfl.ch/" rel="external">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed on the <a href="https://dotty-ci.epfl.ch/lampepfl/dotty" rel="external">Dotty CI</a> server <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> from <a href="https://lamp.epfl.ch/" rel="external">LAMP/EPFL</a>.</br>This document describes changes we made to the <a href="https://github.com/lampepfl/dotty/" rel="external">lampepfl/dotty</a> repository in order to reproduce the same build/test steps locally on a Windows machine.
   </td>
   </tr>
 </table>
@@ -25,14 +25,15 @@ This document is part of a series of topics related to [Dotty] on Windows:
 Our [Dotty fork][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
 
 - [Git 2.27][git_releases] ([*release notes*][git_relnotes])
-- [Oracle OpenJDK 8][openjdk_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
+- [Oracle OpenJDK 11][openjdk_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
 - [SBT 1.3][sbt_releases] <sup id="anchor_03">[[3]](#footnote_03)</sup> (requires Java 8) ([*release notes*][sbt_relnotes])
 <!--
-8u212 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
-8u222 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
-8u232 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
-8u242 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
-8u252 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-April/011559.html
+8u212  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
+8u222  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
+8u232  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
+8u242  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
+8u252  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-April/011559.html
+11.0.7 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
 -->
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
@@ -41,7 +42,7 @@ For instance our development environment looks as follows (*June 2020*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.27.0\
-C:\opt\jdk-1.8.0_252-b09\
+C:\opt\jdk-11.0.7+10\
 C:\opt\sbt-1.3.12\
 </pre>
 
@@ -291,7 +292,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <b>&gt; build -verbose clean</b>
 Tool paths
    GIT_CMD=C:\opt\Git-2.27.0\bin\git.exe
-   JAVA_CMD=C:\opt\jdk-1.8.0_252-b09\bin\java.exe
+   JAVA_CMD=C:\opt\jdk-11.0.7+10\bin\java.exe
    SBT_CMD=C:\opt\sbt-1.3.12\bin\sbt.bat
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
@@ -492,14 +493,14 @@ testing loading tasty from .tasty file in jar
 Command [**`project\scripts\bootstrapCmdTests.bat`**](bin/dotty/project/scripts/bootstrapCmdTests.bat) performs several benchmarks and generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program. In the normal case, command [**`bootstrapCmdTests`**](bin/dotty/project/scripts/bootstrapCmdTests.bat) is called by command **`build bootstrap`** but may also be called directly.
 
 <pre style="font-size:80%;">
-<b>&gt; bootstrapCmdTests</b>
+<b>&gt; <a href="bin/dotty/project/scripts/bootstrapCmdTests.bat">bootstrapCmdTests</a></b>
 [...]
 [info] Updating dotty-bench...
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.22
-# VM version: JDK 1.8.0_252, VM 25.252-b09
-# VM invoker: C:\opt\jdk-1.8.0_252-b09\bin\java.exe
+# VM version: JDK 11.0.7, VM 11.0.7+10
+# VM invoker: C:\opt\jdk-11.0.7+10\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -528,8 +529,8 @@ Worker.compile  avgt       533.625          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.22
-# VM version: JDK 1.8.0_252, VM 25.252-b09
-# VM invoker: C:\opt\jdk-1.8.0_252-b09\bin\java.exe
+# VM version: JDK 11.0.7, VM 11.0.7+10
+# VM invoker: C:\opt\jdk-11.0.7+10\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -556,8 +557,8 @@ Worker.compile  avgt       361.619          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
 # JMH version: 1.22
-# VM version: JDK 1.8.0_252, VM 25.252-b09
-# VM invoker: C:\opt\jdk-1.8.0_252-b09\bin\java.exe
+# VM version: JDK 11.0.7, VM 11.0.7+10
+# VM invoker: C:\opt\jdk-11.0.7+10\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -605,7 +606,7 @@ private members with docstrings:   0
 Command [**`genDocs.bat`**](bin/dotty/project/scripts/genDocs.bat) generates the documentation page for program [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala).
 
 <pre style="font-size:80%;">
-<b>&gt; genDocs</b>
+<b>&gt; <a href="bin/dotty/project/scripts/genDocs.bat">genDocs</a></b>
 Working directory: W:\dotty
 [..(sbt)..]       
 [info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 
@@ -643,12 +644,12 @@ Steps are: Checkout <b>&rarr;</b> Compile <b>&rarr;</b> Test <b>&rarr;</b> Deplo
 <div style="margin:0 0 0 20px;">
 <sub><sup><b>(1)</b></sup> Written in <a href="https://github.com/drone/drone">Go</a>, <sup><b>(2)</b></sup> Written in <a href="https://www.oracle.com/technetwork/java/index.html">Java</a>, <sup><b>(3)</b></sup> Written in <a href="https://www.ruby-lang.org/en/">Ruby</a>.</sub>
 </div>
-<p>&nbsp;</p>
+<div>&nbsp;</div>
 
 <a name="footnote_02">[2]</a> ***Java LTS** (2018-11-18)* [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
-Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current LTS release.<br/>(see also <a href="https://www.slideshare.net/HendrikEbbers/java-11-omg">Java 11 keynote</a> from <a href="https://www.jvm-con.de/speakers/#/speaker/3461-hendrik-ebbers">Hendrik Ebbers</a> at <a href="https://www.jvm-con.de/ruckblick/">JVM-Con 2018</a>).
+Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html" rel="external">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current LTS release.<br/>(see also <a href="https://www.slideshare.net/HendrikEbbers/java-11-omg">Java 11 keynote</a> from <a href="https://www.jvm-con.de/speakers/#/speaker/3461-hendrik-ebbers">Hendrik Ebbers</a> at <a href="https://www.jvm-con.de/ruckblick/">JVM-Con 2018</a>).
 </p>
 
 <a name="footnote_03">[3]</a> ***Sbt issue on Windows*** [↩](#anchor_03)
@@ -699,7 +700,7 @@ mainExamples/src/main/scala/examples/main/active/writing/toConsoleWriting/info/r
       (use "git push" to publish your local commits)
 </pre>
 <p style="margin:0 0 1em 20px;">
-We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration">Git settings</a> as follows:
+We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration" rel="external">Git settings</a> as follows:
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; git config --system core.longpaths true</b>
@@ -756,10 +757,10 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [man1_sed]: https://www.linux.org/docs/man1/sed.html
 [man1_wc]: https://www.linux.org/docs/man1/wc.html
 [microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
-[openjdk_releases]: https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot
+[openjdk_releases]: https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
 <!-- 8u232 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html -->
 <!-- 8u242 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html -->
-[openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
+[openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
 [sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.12
