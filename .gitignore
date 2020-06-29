@@ -8,6 +8,7 @@
 .settings/
 .vscode/
 *_LOCAL/
+bazel-*/
 lib/
 nightly-jars/
 out/

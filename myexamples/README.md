@@ -11,43 +11,34 @@
   </tr>
 </table>
 
-We present several ways to build, run and test each example in directory [**`myexamples\`**](.):
-
-| Build tool                    | Configuration file     | Parent file         |
-|-------------------------------|------------------------|---------------------|
-| [**`ant`**][apache_ant_cli]   | **`build.xml`**        | **`build.xml`**     |
-| **`build`**                   | **`build.properties`** | n.a.                |
-| [**`gradle`**][gradle_cli]    | **`build.gradle`**     | **`common.gradle`** |
-| [**`make`**][gmake_cli]       | **`Makefile`**         | **`Makefile.inc`**  |
-| [**`mill`**][mill_cli]        | **`build.sc`**         | **`common.sc`**     |
-| [**`mvn`**][apache_maven_cli] | **`pom.xml`**          | **`pom.xml`**       |
-| [**`sbt`**][sbt_cli]          | **`build.sbt`**        | n.a.                |
-
-Let's choose the [**`HelloWorld`**](HelloWorld) example to demonstrate the usage of the above build tools:
+Let's choose example [**`myexamples\HelloWorld`**](HelloWorld) to demonstrate the usage of the build tools we do support:
 
 <pre style="font-size:80%;">
 <b>&gt; cd</b>
 W:\myexamples\HelloWorld
 </pre>
 
-## <span id="ant">Ant build tool</span>
+The build tools we support to build, run, test (and more) example [**`HelloWorld`**](HelloWorld) are the following:
 
-Command [**`ant`**][apache_ant_cli] (["Another Neat Tool"][apache_ant_faq]) is a Java-based build maintained by the [Apache Software Foundation][apache_ant_history] (tool created in 2000). It works with XML-based configuration files.
+| Build tool                    | Configuration file           | Parent file         |
+|-------------------------------|------------------------------|---------------------|
+| [**`ant`**][apache_ant_cli]   | [**`build.xml`**](HelloWorld/build.xml) | [**`build.xml`**](build.xml) |
+| [**`bazel`**][bazel_cli]      | **`BUILD`**, **`WORKSPACE`** | n.a.                |
+| **`build`**                   | **`build.properties`**       | n.a.                |
+| [**`gradle`**][gradle_cli]    | **`build.gradle`**           | **`common.gradle`** |
+| [**`make`**][gmake_cli]       | **`Makefile`**               | **`Makefile.inc`**  |
+| [**`mill`**][mill_cli]        | **`build.sc`**               | **`common.sc`**     |
+| [**`mvn`**][apache_maven_cli] | [**`pom.xml`**](HelloWorld/pom.xml)     | **`pom.xml`**       |
+| [**`sbt`**][sbt_cli]          | [**`build.sbt`**](HelloWorld/build.sbt) | n.a.                |
+
+
+## <span id="ant">Ant build tool</span>
 
 The configuration file [**`HelloWorld\build.xml`**](HelloWorld/build.xml) depends on the parent file [**`myexamples\build.xml`**](build.xml) which provides the macro definition **`dotc`** to compile the Scala source files.
 
-<pre style="font-size:80%;">
-&lt;?xml version=<span style="color:#990000;">"1.0"</span> encoding=<span style="color:#990000;">"UTF-8"</span>?&gt;
-<b>&lt;project</b> name=<span style="color:#990000;">"HelloWorld"</span> default=<span style="color:#990000;">"compile"</span> basedir=<span style="color:#990000;">"."</span>&gt;
-    ...
-    <b>&lt;import</b> file=<span style="color:#990000;">"../build.xml"</span> />
-    <b>&lt;target</b> name=<span style="color:#990000;">"compile"</span> depends=<span style="color:#990000;">"init"</span>&gt; ... <b>&lt;/target&gt;</b>
-    <b>&lt;target</b> name=<span style="color:#990000;">"run"</span> depends=<span style="color:#990000;">"compile"</span>&gt; ... <b>&lt;/target&gt;</b>
-    <b>&lt;target</b> name=<span style="color:#990000;">"clean"</span>&gt; ... <b>&lt;/target&gt;</b>
-<b>&lt;/project&gt;</b>
-</pre>
+> **:mag_right:** Command [**`ant`**][apache_ant_cli] (["Another Neat Tool"][apache_ant_faq]) is a Java-based build maintained by the [Apache Software Foundation][apache_ant_history] (tool created in 2000). It works with XML-based configuration files.
 
-Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output ([Ivy][apache_ant_ivy] support is enabled by default):
+Execution of [**`HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output ([Ivy][apache_ant_ivy] support is enabled by default):
 
 <pre style="font-size:80%;">
 <b>&gt; ant clean run</b>
@@ -85,7 +76,7 @@ Total time: 3 seconds
 > 20.10.2019  09:44         1 402 646 ivy-2.5.0.jar
 > </pre>
 
-We specify property **`-Duse.local=true`** to use Dotty local installation (*reminder*: variable **`DOTTY_HOME`** is set by command **`setenv`**):
+We can set property **`-Duse.local=true`** to use Dotty local installation (*reminder*: variable **`DOTTY_HOME`** is set by command **`setenv`**):
 
 <pre style="font-size:80%;">
 <b>&gt;</b> ant -Duse.local=true clean run
@@ -211,6 +202,12 @@ BUILD SUCCESSFUL in 4s
 
 ## <span id="gmake">Make build tool</span>
 
+The configuration file [**`HelloWorld\Makefile`**](HelloWorld/Makefile) depends on the parent file [**`myexamples\Makefile.inc`**](Makefile.inc) which defines common settings (i.e. tool and library paths).
+
+> **:mag_right:** Command [**`make`**][gmake_cli] is a build tool that automatically builds executable programs and libraries from source code by reading files called Makefiles which specify how to derive the target program. [Make] was originally created by Stuart Feldman in April 1976 at Bell Labs.
+
+Command **`make clean run`** produces the following output ([**`HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala)):
+
 <pre style="font-size:80%;">
 <b>&gt; make clean run</b>
 rm -rf "target"
@@ -220,7 +217,7 @@ dotr.bat -classpath "target/classes" myexamples.HelloWorld 2
 Hello world!
 </pre>
 
-Command **`make test`** execute the test suite [`HelloWorldTest.scala`](HelloWorld/src/test/scala/HelloWorldTest.scala) for program [`HelloWorld.scala`](HelloWorld/src/main/scala/HelloWorld.scala).
+Command **`make test`** executes the test suite [**`HelloWorldTest.scala`**](HelloWorld/src/test/scala/HelloWorldTest.scala) for program [**`HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala).
 
 <pre style="font-size:80%;">
 $ make test
@@ -234,101 +231,28 @@ Time: 0.201
 OK (1 test)
 </pre>
 
+Command **`make test`** generates the HTML documentation for program [**`HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala):
+
+<pre style="font-size:80%;">
+<b>&gt; make doc</b>
+[ -d "target/docs" ] || mkdir -p "target/docs"
+dotd.bat "@target/scaladoc_opts.txt" "@target/scaladoc_sources.txt"
+Compiling (1/1): HelloWorld.scala
+[doc info] Generating doc page for: myexamples
+[doc info] Generating doc page for: myexamples.HelloWorld$
+[doc info] Generating doc page for: myexamples.HelloWorld$
+[...]
+public members with docstrings:    0
+protected members with docstrings: 0
+private members with docstrings:   0
+</pre>
+
 
 ## Maven build tool
 
-Command [**`mvn`**][apache_maven_cli] is a Java-based build tool maintained by the [Apache Software Foundation][apache_maven_history] (tool created in 2002). It works with XML-based configuration files and provides a way to share JARs across several projects.
+The configuration file [**`HelloWorld\pom.xml`**](HelloWorld/pom.xml) depends on the parent file [**`myexamples\pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**).
 
-The configuration file [**`HelloWorld\pom.xml`**](HelloWorld/pom.xml) depends on the parent file [**`myexamples\pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**):
-
-<pre style="font-size:80%;">
-<b>&lt;?xml</b> version="1.0" encoding="UTF-8"?>
-<b>&lt;project</b> xmlns=<span style="color:#990000;">"http://maven.apache.org/POM/4.0.0"</span> ...>
-    ...
-    <b>&lt;artifactId&gt;</b>HelloWorld<b>&lt;/artifactId&gt;</b>
-    ...
-    <b>&lt;parent&gt;</b>
-        ...
-        <b>&lt;relativePath&gt;</b>../pom.xml&lt;/relativePath>
-    <b>&lt;/parent&gt;</b>
-    <b>&lt;dependencies&gt;</b>
-        <span style="color:#009900;">&lt;!-- see parent pom.xml --&gt;</span>
-    <b>&lt;/dependencies&gt;</b>
-    <b>&lt;build&gt;</b>
-        <b>&lt;sourceDirectory&gt;</b>src/main<b>&lt;/sourceDirectory&gt;</b>
-        <b>&lt;testSourceDirectory&gt;</b>src/test<b>&lt;/testSourceDirectory&gt;</b>
-        <b>&lt;outputDirectory&gt;</b>target/classes<b>&lt;/outputDirectory&gt;</b>
-        <b>&lt;plugins&gt;</b>
-            <b>&lt;plugin&gt;</b>
-                <b>&lt;groupId&gt;</b>org.apache.maven.plugins<b>&lt;/groupId&gt;</b>
-                <b>&lt;artifactId&gt;</b>maven-compiler-plugin<b>&lt;/artifactId&gt;</b>
-                ...
-                <b>&lt;configuration&gt;</b>
-                    ...
-                    <b>&lt;includes&gt;</b>
-                        <b>&lt;include&gt;</b>java/**/*.java<b>&lt;/include&gt;</b>
-                    <b>&lt;/includes&gt;</b>
-                <b>&lt;/configuration&gt;</b>
-            <b>&lt;/plugin&gt;</b>
-            <b>&lt;plugin&gt;</b>
-                <b>&lt;groupId&gt;</b>ch.epfl.alumni<b>&lt;/groupId&gt;</b>
-                <b>&lt;artifactId&gt;</b>scala-maven-plugin<b>&lt;/artifactId&gt;</b>
-                ...
-                <b>&lt;configuration&gt;</b>
-                    <b>&lt;scalaVersion&gt;</b>${scala.version}<b>&lt;/scalaVersion&gt;</b>
-                    ...
-                <b>&lt;/configuration&gt;</b>
-            <b>&lt;/plugin&gt;</b>
-        <b>&lt;/plugins&gt;</b>
-    <b>&lt;/build&gt;</b>
-<b>&lt;/project&gt;</b>
-</pre>
-
-> **&#9755;** **Scala Maven Plugin**<br/>
-> In the above Maven configuration file we note the presence of the Maven plugin [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip). In fact the parent file [**`examples\pom.xml`**](pom.xml) depends on [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip), a Maven plugin we developed specifically for this project:
->
-> <pre style="font-size:80%;">
-> <b>&gt; more ..\pom.xml</b>
-> &lt;?xml version="1.0" encoding="UTF-8"?&gt;
-> ...
->     <b>&lt;properties&gt;</b>
->         <b>&lt;project.build.sourceEncoding&gt;</b>UTF-8<b>&lt;/project.build.sourceEncoding&gt;</b>
->         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
-> &nbsp;
->         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>0.25.0-RC2<b>&lt;/scala.version&gt;</b>
->         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
-> &nbsp;
->         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
->         <b>&lt;scala.maven.version&gt;</b>1.0-SNAPSHOT<b>&lt;/scala.maven.version&gt;</b>
->         ...
->     <b>&lt;/properties&gt;</b>
->     <b>&lt;dependencies&gt;</b>
->         <b>&lt;dependency&gt;</b>
->             <b>&lt;groupId&gt;</b>ch.epfl.alumni<b>&lt;/groupId&gt;</b>
->             <b>&lt;artifactId&gt;</b>scala-maven-plugin<b>&lt;/artifactId&gt;</b>
->             <b>&lt;version&gt;</b>${scala.maven.version}<b>&lt;/version&gt;</b>
->         <b>&lt;/dependency&gt;</b>
->         ...
->     <b>&lt;/dependencies&gt;</b>
->
-> <b>&lt;/project&gt;</b>
-> </pre>
-> The plugin is available as [Zip archive][zip_archive] and its installation is deliberately very simple:
-> <pre style="font-size:80%;">
-> <b>&gt; unzip ..\bin\scala-maven-plugin-1.0.zip %USERPROFILE%\.m2\repository\</b>
-> <b>&gt; tree /a /f %USERPROFILE%\.m2\repository\ch\epfl\alumni | findstr /v "^[A-Z]"</b>
-> |   maven-metadata-local.xml
-> |
-> \---scala-maven-plugin
->     |   maven-metadata-local.xml
->     |
->     \---1.0-SNAPSHOT
->             maven-metadata-local.xml
->             scala-maven-plugin-1.0-SNAPSHOT.jar
->             scala-maven-plugin-1.0-SNAPSHOT.pom
->             _remote.repositories
-> </pre>
+> **:mag_right:** Command [**`mvn`**][apache_maven_cli] is a Java-based build tool maintained by the [Apache Software Foundation][apache_maven_history] (tool created in 2002). It works with XML-based configuration files and provides a way to share JARs across several projects.
 
 Command **`mvn clean test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our Maven plugin **`scala-maven-plugin`**:
 
@@ -375,6 +299,52 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 [INFO] ------------------------------------------------------------------------
 </pre>
 
+> **&#9755;** **Scala Maven Plugin**<br/>
+> In the Maven configuration file we note the presence of the Maven plugin [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip). In fact the parent file [**`examples\pom.xml`**](pom.xml) depends on [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip), a Maven plugin we developed specifically for this project:
+>
+> <pre style="font-size:80%;">
+> <b>&gt; more ..\pom.xml</b>
+> &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+> ...
+>     <b>&lt;properties&gt;</b>
+>         <b>&lt;project.build.sourceEncoding&gt;</b>UTF-8<b>&lt;/project.build.sourceEncoding&gt;</b>
+>         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
+> &nbsp;
+>         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
+>         <b>&lt;scala.version&gt;</b>0.25.0-RC2<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
+> &nbsp;
+>         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
+>         <b>&lt;scala.maven.version&gt;</b>1.0-SNAPSHOT<b>&lt;/scala.maven.version&gt;</b>
+>         ...
+>     <b>&lt;/properties&gt;</b>
+>     <b>&lt;dependencies&gt;</b>
+>         <b>&lt;dependency&gt;</b>
+>             <b>&lt;groupId&gt;</b>ch.epfl.alumni<b>&lt;/groupId&gt;</b>
+>             <b>&lt;artifactId&gt;</b>scala-maven-plugin<b>&lt;/artifactId&gt;</b>
+>             <b>&lt;version&gt;</b>${scala.maven.version}<b>&lt;/version&gt;</b>
+>         <b>&lt;/dependency&gt;</b>
+>         ...
+>     <b>&lt;/dependencies&gt;</b>
+>
+> <b>&lt;/project&gt;</b>
+> </pre>
+> The plugin is available as [Zip archive][zip_archive] and its installation is deliberately very simple:
+> <pre style="font-size:80%;">
+> <b>&gt; unzip ..\bin\scala-maven-plugin-1.0.zip %USERPROFILE%\.m2\repository\</b>
+> <b>&gt; tree /a /f %USERPROFILE%\.m2\repository\ch\epfl\alumni | findstr /v "^[A-Z]"</b>
+> |   maven-metadata-local.xml
+> |
+> \---scala-maven-plugin
+>     |   maven-metadata-local.xml
+>     |
+>     \---1.0-SNAPSHOT
+>             maven-metadata-local.xml
+>             scala-maven-plugin-1.0-SNAPSHOT.jar
+>             scala-maven-plugin-1.0-SNAPSHOT.pom
+>             _remote.repositories
+> </pre>
+
 Finally can check the Java manifest in **`HelloWorld-0.1-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
@@ -409,43 +379,10 @@ Hello world!
 
 ## <span id="mill">Mill build tool</span>
 
-Command [**`mill`**][mill_cli] is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
+The configuration file [**`build.sc`**](HelloWorld/build.sc) depends on the parent file [**`myexamples\common.sc`**](common.sc) which defines the common settings.
+It is a standalone file written in Scala (with direct access to [OS-Lib][os_lib]).
 
-The configuration file [**`build.sc`**](HelloWorld/build.sc) is a standalone file written in Scala (with direct access to [OS-Lib][os_lib]).
-
-<pre style="font-size:80%;">
-<b>import</b> mill._, scalalib._
-<b>import</b> $file.^.common
-&nbsp;
-<b>object</b> app <b>extends</b> ScalaModule {
-  <b>def</b> scalaVersion = common.scalaVersion
-  <b>def</b> scalacOptions = common.scalacOptions
-  &nbsp;
-  <b>def</b> forkArgs = common.forkArgs
-  &nbsp;
-  <b>def</b> mainClass = T.input {
-    Some(common.getBuildProp(<span style="color:#990000;">"mainClassName"</span>, <span style="color:#990000;">"myexamples.HelloWorld"</span>, T.ctx))
-  }
-  &nbsp;
-  <b>def</b> sources = T.sources { common.scalaSourcePath }
-  <b>def</b> clean() = T.command {
-    val path = os.pwd / <span style="color:#990000;">"out"</span> / <span style="color:#990000;">"app"</span>
-    os.walk(path, skip = _.last == <span style="color:#990000;">"clean"</span>).foreach(os.remove.all)
-  }
-  <b>object</b> test <b>extends</b> Tests {
-    <b>def</b> ivyDeps = Agg(
-      common.ivyJunitInterface,
-      common.ivyScalatest,
-      common.ivySpecs2
-    )
-    <b>def</b> testFrameworks = Seq(
-      <span style="color:#990000;">"com.novocode.junit.JUnitFramework"</span>,
-      <span style="color:#990000;">"org.scalatest.tools.Framework"</span>,
-      <span style="color:#990000;">"org.specs2.runner.JUnitRunner"</span> <i style="color:#009900;">// org.specs2.Specs2Framework</i>
-    )
-  }
-}
-</pre>
+> **:mag_right:** Command [**`mill`**][mill_cli] is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
 
 Command [**`mill -i app`**](HelloWorld/build.sc) produces the following output:
 
@@ -458,29 +395,9 @@ Hello world!
 
 ## <span id="sbt">SBT build tool</span>
 
-Command [**`sbt`**][sbt_cli] is a Scala-based build tool for [Scala] and Java.
+The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is written in [Scala] and obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
-The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is a standalone file written in [Scala] and it obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
-
-<pre style="font-size:80%;">
-<b>val</b> dottyVersion = <span style="color:#990000;">"0.25.0-RC2"</span>
-&nbsp;
-<b>lazy val</b> root = project
-  .in(file(<span style="color:#990000;">"."</span>))
-  .settings(
-    name := <span style="color:#990000;">"dotty-example-project"</span>,
-    description := <span style="color:#990000;">"sbt example project to build/run Scala 3 applications"</span>,
-    version := <span style="color:#990000;">"0.1.0"</span>,
-    &nbsp;
-    scalaVersion := dottyVersion,
-    scalacOptions ++= Seq(
-      <span style="color:#990000;">"-deprecation"</span>,
-      <span style="color:#990000;">"-encoding"</span>, <span style="color:#990000;">"UTF-8"</span>
-    ),
-    &nbsp;
-    libraryDependencies += <span style="color:#990000;">"com.novocode"</span> % <span style="color:#990000;">"junit-interface"</span> % <span style="color:#990000;">"0.11"</span> % <span style="color:#990000;">"test"</span>
-  )
-</pre>
+> **:mag_right:** [Lightbend] provides commercial support for the [**`sbt`**][sbt_cli] build tool.
 
 Command **`sbt -warn clean run`** produces the following output:
 
@@ -637,12 +554,14 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
 [apache_ant_ivy_relnotes]: https://ant.apache.org/ivy/history/2.5.0/release-notes.html
 [apache_maven_cli]: https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
+[bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [gmake_cli]: http://www.glue.umd.edu/lsf-docs/man/gmake.html
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_groovy]: https://www.groovy-lang.org/
 [gradle_java_plugin]: https://docs.gradle.org/current/userguide/java_plugin.html
 [gradle_plugins]: https://docs.gradle.org/current/userguide/plugins.html
 [gradle_wrapper]: https://docs.gradle.org/current/userguide/gradle_wrapper.html
+[lightbend]: https://www.lightbend.com/
 [microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
 [mill_cli]: https://www.lihaoyi.com/mill/#command-line-tools
 [os_lib]: https://github.com/lihaoyi/os-lib

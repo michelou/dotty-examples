@@ -16,14 +16,16 @@
         <dependency org="ch.epfl.lamp" name="dotty-interfaces" rev="0.25.0-RC2"/>
         <dependency org="ch.epfl.lamp" name="dotty-library_0.25" rev="0.25.0-RC2"/>
         <dependency org="ch.epfl.lamp" name="dotty-staging_0.25" rev="0.25.0-RC2"/>
-        <dependency org="org.jline" name="jline-reader" rev="3.9.0"/>
-        <dependency org="org.jline" name="jline-terminal" rev="3.9.0"/>
-        <dependency org="org.jline" name="jline-terminal-jna" rev="3.9.0"/>
+        <dependency org="org.jline" name="jline-reader" rev="3.15.0"/>
+        <dependency org="org.jline" name="jline-terminal" rev="3.15.0"/>
+        <dependency org="org.jline" name="jline-terminal-jna" rev="3.15.0"/>
         <!-- see note on https://github.com/retronym/jline3#jansi-vs-jna -->
-        <dependency org="net.java.dev.jna" name="jna" rev="4.2.2"/>
+        <dependency org="net.java.dev.jna" name="jna" rev="5.3.1"/>
         <dependency org="org.scala-lang" name="scala-library" rev="2.13.2"/>
         <dependency org="org.scala-lang.modules" name="scala-asm" rev="7.3.1-scala-1"/>
+        <!--
         <dependency org="org.scala-lang.modules" name="scala-xml_2.13" rev="1.2.0"/>
-        <!-- <dependency org="org.scala-sbt" name="compiler-interface" rev="1.2.5"/> -->
+        <dependency org="org.scala-sbt" name="compiler-interface" rev="1.2.5"/>
+        -->
     </dependencies>
 </ivy-module>

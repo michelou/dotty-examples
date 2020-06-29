@@ -1,0 +1,47 @@
+## see https://github.com/bazelbuild/rules_scala#getting-started
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+##############################################################################
+## see https://github.com/bazelbuild/bazel-skylib/releases
+
+skylib_version = "1.0.2"
+
+http_archive(
+    name = "bazel_skylib",
+    type = "tar.gz",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/{}/bazel-skylib-{}.tar.gz".format (skylib_version, skylib_version),
+        "https://github.com/bazelbuild/bazel-skylib/releases/download/{}/bazel-skylib-{}.tar.gz".format (skylib_version, skylib_version),
+    ],
+    sha256 = "97e70364e9249702246c0e9444bccdc4b847bed1eb03c5a3ece4f83dfe6abc44",
+)
+load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
+bazel_skylib_workspace()
+
+##############################################################################
+## see https://github.com/bazelbuild/rules_scala
+
+rules_scala_version="a2f5852902f5b9f0302c727eead52ca2c7b6c3e2" # update this as needed
+
+http_archive(
+    name = "io_bazel_rules_scala",
+    strip_prefix = "rules_scala-%s" % rules_scala_version,
+    type = "zip",
+    url = "https://github.com/bazelbuild/rules_scala/archive/%s.zip" % rules_scala_version,
+    sha256 = "8c48283aeb70e7165af48191b0e39b7434b0368718709d1bced5c3781787d8e7",
+)
+
+load("@io_bazel_rules_scala//scala:toolchains.bzl", "scala_register_toolchains")
+scala_register_toolchains()
+
+## see https://github.com/bazelbuild/rules_scala/issues/703
+load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
+scala_repositories((
+    "2.13.3",
+    {
+        "scala_compiler": "",
+        "scala_library": "",
+        "scala_reflect": "",
+    }
+))

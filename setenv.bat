@@ -24,6 +24,7 @@ if %_HELP%==1 (
 )
 
 set _ANT_PATH=
+set _BAZEL_PATH=
 set _BLOOP_PATH=
 set _CFR_PATH=
 set _DOTTY_PATH=
@@ -31,14 +32,15 @@ set _GIT_PATH=
 set _GRADLE_PATH=
 set _JDK_PATH=
 set _JMC_PATH=
-set _MILL_PATH=
+set _MAKE_PATH=
 set _MAVEN_PATH=
+set _MILL_PATH=
 set _PYTHON_PATH=
 set _SBT_PATH=
 set _SCALA_PATH=
 set _VSCODE_PATH=
 
-@rem %1=vendor
+@rem %1=vendor, %2=version
 @rem eg. "" (Oracle), bellsoft, corretto, bellsoft, openj9, redhat, sapmachine, zulu
 call :jdk "" 11
 if not %_EXITCODE%==0 goto end
@@ -53,11 +55,11 @@ call :sbt
 if not %_EXITCODE%==0 goto end
 
 call :ant
-if not %_EXITCODE%==0 (
-    @rem optional
-    echo %_WARNING_LABEL% Ant installation not found 1>&2
-    set _EXITCODE=0
-)
+if not %_EXITCODE%==0 goto end
+
+call :bazel
+if not %_EXITCODE%==0 goto end
+
 call :bloop
 if not %_EXITCODE%==0 (
     @rem optional
@@ -65,35 +67,26 @@ if not %_EXITCODE%==0 (
     set _EXITCODE=0
 )
 call :cfr
-if not %_EXITCODE%==0 (
-    @rem optional
-    echo %_WARNING_LABEL% CFR installation not found 1>&2
-    set _EXITCODE=0
-)
+if not %_EXITCODE%==0 goto end
+
 call :gradle
-if not %_EXITCODE%==0 (
-    @rem optional
-    echo %_WARNING_LABEL% Gradle installation not found 1>&2
-    set _EXITCODE=0
-)
+if not %_EXITCODE%==0 goto end
+
 call :jmc
 if not %_EXITCODE%==0 (
     @rem optional
     echo %_WARNING_LABEL% Java Mission Control installation not found 1>&2
     set _EXITCODE=0
 )
-call :mill
-if not %_EXITCODE%==0 (
-    @rem optional
-    echo %_WARNING_LABEL% Mill installation not found 1>&2
-    set _EXITCODE=0
-)
+call :make
+if not %_EXITCODE%==0 goto end
+
 call :maven
-if not %_EXITCODE%==0 (
-    @rem optional
-    echo %_WARNING_LABEL% Maven installation not found 1>&2
-    set _EXITCODE=0
-)
+if not %_EXITCODE%==0 goto end
+
+call :mill
+if not %_EXITCODE%==0 goto end
+
 call :vscode
 if not %_EXITCODE%==0 goto end
 
@@ -219,6 +212,39 @@ echo     %__BEG_O%-verbose%__END%    display environment settings
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%help%__END%        display this help message
+goto :eof
+
+@rem output parameter(s): _BLOOP_PATH
+:bloop
+set _BLOOP_PATH=
+
+@rem bloop depends on python
+call :python
+if not %_EXITCODE%==0 goto :eof
+
+set __BLOOP_HOME=
+set __BLOOP_CMD=
+for /f %%f in ('where bloop.cmd 2^>NUL') do set "__BLOOP_CMD=%%f"
+if defined __BLOOP_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of bloop executable found in PATH 1>&2
+    @rem keep _BLOOP_PATH undefined since executable already in path
+    goto :eof
+) else if defined BLOOP_HOME (
+    set "__BLOOP_HOME=%BLOOP_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable BLOOP_HOME 1>&2
+) else (
+    set _PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!_PATH!\bloop*" 2^>NUL') do set "__BLOOP_HOME=!_PATH!\%%f"
+    if defined __BLOOP_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Bloop installation directory !__BLOOP_HOME! 1>&2
+    )
+)
+if not exist "%__BLOOP_HOME%\bloop.cmd" (
+    echo %_ERROR_LABEL% bloop executable not found ^(%__BLOOP_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_BLOOP_PATH=;%__BLOOP_HOME%"
 goto :eof
 
 @rem input parameter: %1=vendor %1^=required version
@@ -415,6 +441,37 @@ if not exist "%_ANT_HOME%\bin\ant.cmd" (
 set "_ANT_PATH=;%_ANT_HOME%\bin"
 goto :eof
 
+@rem output parameter(s): _BAZEL_PATH
+:bazel
+set _BAZEL_PATH=
+
+set __BAZEL_HOME=
+set __BAZEL_CMD=
+for /f %%f in ('where bazel.exe 2^>NUL') do set "__BAZEL_CMD=%%f"
+if defined __BAZEL_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Bazel executable found in PATH 1>&2
+    for /f "delims=" %%i in ("%__BAZEL_CMD%") do set "__BAZEL_HOME=%%~dpi"
+    @rem keep _BAZEL_PATH undefined since executable already in path
+    goto :eof
+) else if defined BAZEL_HOME (
+    set "__BAZEL_HOME=%BAZEL_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable BAZEL_HOME 1>&2
+) else (
+    set "__PATH=%ProgramFiles%"
+    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "__BAZEL_HOME=!__PATH!\%%f"
+    if not defined __BAZEL_HOME (
+        set __PATH=C:\opt
+        for /f %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "__BAZEL_HOME=!__PATH!\%%f"
+    )
+)
+if not exist "%__BAZEL_HOME%\bazel.exe" (
+    echo %_ERROR_LABEL% Bazel executable not found ^("%__BAZEL_HOME%"^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_BAZEL_PATH=;%__BAZEL_HOME%"
+goto :eof
+
 @rem http://www.benf.org/other/cfr/
 :cfr
 where /q cfr.bat
@@ -505,6 +562,58 @@ if not exist "%_JMC_HOME%\bin\jmc.exe" (
 set "_JMC_PATH=;%_JMC_HOME%\bin"
 goto :eof
 
+@rem output parameter(s): _MAKE_PATH
+:make
+set _MAKE_PATH=
+
+set __MAKE_HOME=
+set __MAKE_CMD=
+for /f %%f in ('where make.exe 2^>NUL') do set "__MAKE_CMD=%%f"
+if defined __MAKE_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Make executable found in PATH 1>&2
+    rem keep _MAKE_PATH undefined since executable already in path
+    goto :eof
+) else if defined MAKE_HOME (
+    set "__MAKE_HOME=%MAKE_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MAKE_HOME 1>&2
+) else (
+    set _PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!_PATH!\make-3*" 2^>NUL') do set "__MAKE_HOME=!_PATH!\%%f"
+    if defined __MAKE_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Make installation directory !__MAKE_HOME! 1>&2
+    )
+)
+if not exist "%__MAKE_HOME%\bin\make.exe" (
+    echo %_ERROR_LABEL% Make executable not found ^(%__MAKE_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_MAKE_PATH=;%__MAKE_HOME%\bin"
+goto :eof
+
+@rem output parameter(s): _MAVEN_PATH
+:maven
+where /q mvn.cmd
+if %ERRORLEVEL%==0 goto :eof
+
+if defined MAVEN_HOME (
+    set "_MAVEN_HOME=%MAVEN_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MAVEN_HOME 1>&2
+) else (
+    set _PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!_PATH!\apache-maven-*" 2^>NUL') do set "_MAVEN_HOME=!_PATH!\%%f"
+    if defined _MAVEN_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Maven installation directory !_MAVEN_HOME! 1>&2
+    )
+)
+if not exist "%_MAVEN_HOME%\bin\mvn.cmd" (
+    echo %_ERROR_LABEL% Maven executable not found ^(%_MAVEN_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_MAVEN_PATH=;%_MAVEN_HOME%\bin"
+goto :eof
+
 :mill
 where /q mill.bat
 if %ERRORLEVEL%==0 goto :eof
@@ -532,29 +641,6 @@ if not exist "%_MILL_HOME%\mill.bat" (
     goto :eof
 )
 set "_MILL_PATH=;%_MILL_HOME%"
-goto :eof
-
-@rem output parameter(s): _MAVEN_PATH
-:maven
-where /q mvn.cmd
-if %ERRORLEVEL%==0 goto :eof
-
-if defined MAVEN_HOME (
-    set "_MAVEN_HOME=%MAVEN_HOME%"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MAVEN_HOME 1>&2
-) else (
-    set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\apache-maven-*" 2^>NUL') do set "_MAVEN_HOME=!_PATH!\%%f"
-    if defined _MAVEN_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Maven installation directory !_MAVEN_HOME! 1>&2
-    )
-)
-if not exist "%_MAVEN_HOME%\bin\mvn.cmd" (
-    echo %_ERROR_LABEL% Maven executable not found ^(%_MAVEN_HOME%^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set "_MAVEN_PATH=;%_MAVEN_HOME%\bin"
 goto :eof
 
 @rem output parameter(s): _PYTHON_PATH
@@ -585,39 +671,6 @@ if not exist "%__PYTHON_HOME%\python.exe" (
 )
 @rem variable _PYTHON_PATH is prepended to PATH, so path separator must appear as last character
 set "_PYTHON_PATH=%__PYTHON_HOME%;"
-goto :eof
-
-@rem output parameter(s): _BLOOP_PATH
-:bloop
-set _BLOOP_PATH=
-
-@rem bloop depends on python
-call :python
-if not %_EXITCODE%==0 goto :eof
-
-set __BLOOP_HOME=
-set __BLOOP_CMD=
-for /f %%f in ('where bloop.cmd 2^>NUL') do set "__BLOOP_CMD=%%f"
-if defined __BLOOP_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of bloop executable found in PATH 1>&2
-    @rem keep _BLOOP_PATH undefined since executable already in path
-    goto :eof
-) else if defined BLOOP_HOME (
-    set "__BLOOP_HOME=%BLOOP_HOME%"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable BLOOP_HOME 1>&2
-) else (
-    set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\bloop*" 2^>NUL') do set "__BLOOP_HOME=!_PATH!\%%f"
-    if defined __BLOOP_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Bloop installation directory !__BLOOP_HOME! 1>&2
-    )
-)
-if not exist "%__BLOOP_HOME%\bloop.cmd" (
-    echo %_ERROR_LABEL% bloop executable not found ^(%__BLOOP_HOME%^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set "_BLOOP_PATH=;%__BLOOP_HOME%"
 goto :eof
 
 @rem output parameter(s): _VSCODE_PATH
@@ -761,15 +814,10 @@ if %ERRORLEVEL%==0 (
     for /f "delims=: tokens=1,*" %%i in ('sbt.bat -V ^| findstr version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% sbt%%~j,"
     set __WHERE_ARGS=%__WHERE_ARGS% sbt.bat
 )
-where /q cfr.bat
+where /q bazel.exe
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('cfr.bat 2^>^&1 ^| findstr /b CFR') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% cfr %%j,"
-    set __WHERE_ARGS=%__WHERE_ARGS% cfr.bat
-)
-where /q python.exe
-if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('python.exe --version 2^>^&1') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% python %%j,"
-    set __WHERE_ARGS=%__WHERE_ARGS% python.exe
+    for /f "tokens=1,*" %%i in ('bazel.exe --version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bazel %%j,"
+    set __WHERE_ARGS=%__WHERE_ARGS% bazel.exe
 )
 where /q bloop.cmd
 if %ERRORLEVEL%==0 (
@@ -778,6 +826,21 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('bloop.cmd about --version 2^>^&1 ^| findstr /b bloop') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bloop %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% bloop.cmd
     taskkill.exe /fi "WindowTitle eq bloop_8212*" /t /f 1>NUL
+)
+where /q cfr.bat
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,*" %%i in ('cfr.bat 2^>^&1 ^| findstr /b CFR') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% cfr %%j,"
+    set __WHERE_ARGS=%__WHERE_ARGS% cfr.bat
+)
+where /q make.exe
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,2,*" %%i in ('make.exe --version 2^>^&1 ^| findstr Make') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% make %%k,"
+    set __WHERE_ARGS=%__WHERE_ARGS% make.exe
+)
+where /q python.exe
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,*" %%i in ('python.exe --version 2^>^&1') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% python %%j,"
+    set __WHERE_ARGS=%__WHERE_ARGS% python.exe
 )
 where /q git.exe
 if %ERRORLEVEL%==0 (
@@ -822,7 +885,7 @@ endlocal & (
         if not defined JAVA_HOME set "JAVA_HOME=%_JDK_HOME%"
         if not defined JAVA11_HOME set "JAVA11_HOME=%_JDK11_HOME%"
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
-        set "PATH=%_JDK_PATH%%_PYTHON_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MILL_PATH%%_MAVEN_PATH%%_SBT_PATH%%_CFR_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
+        set "PATH=%_JDK_PATH%%_PYTHON_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_BAZEL_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_CFR_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE% "%_GIT_HOME%"
         if %_BASH%==1 (
             @rem see https://conemu.github.io/en/GitForWindows.html

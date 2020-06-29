@@ -10,8 +10,8 @@ SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 ##############################################################################
 ## main rules
 
-SOURCES    = $(shell find $(SOURCE_DIR)/main -name *.scala)
-TARGET     = $(TARGET_DIR)/.latest-build
+SOURCES = $(shell find $(SOURCE_DIR)/main -name *.scala)
+TARGET  = $(TARGET_DIR)/.latest-build
 
 MAIN_CLASS = Main
 MAIN_ARGS ?= 
@@ -74,5 +74,8 @@ $(TEST_TARGET): $(TEST_SOURCES)
 
 test: build $(TEST_TARGET)
 	$(JAVA) -classpath "$(TEST_CPATH)" org.junit.runner.JUnitCore $(TEST_MAIN_CLASS)
+
+##############################################################################
+## phony
 
 .PHONY: all build clean doc run test

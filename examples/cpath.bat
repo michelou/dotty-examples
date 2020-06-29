@@ -32,7 +32,7 @@ call :add_jar "com/novocode" "junit-interface" "0.11"
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest
 call :add_jar "org/hamcrest" "hamcrest" "2.2"
 
-set __SCALATEST_VERSION=3.1.2
+set __SCALATEST_VERSION=3.2.0
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest
 call :add_jar "org/scalatest" "scalatest_2.13" "%__SCALATEST_VERSION%"
@@ -40,7 +40,7 @@ call :add_jar "org/scalatest" "scalatest_2.13" "%__SCALATEST_VERSION%"
 @rem https://mvnrepository.com/artifact/org.scalactic
 call :add_jar "org/scalactic" "scalactic_2.13" "%__SCALATEST_VERSION%"
 
-set __SPECS2_CORE_VERSION=4.9.4
+set __SPECS2_CORE_VERSION=4.10.0
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-core
 call :add_jar "org/specs2" "specs2-core_2.13" "%__SPECS2_CORE_VERSION%"
@@ -89,11 +89,11 @@ if not exist "%__JAR_FILE%" (
             set _EXITCODE=1
             goto :eof
         )
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_MVN_CMD% install:install-file -Dfile="!__JAR_FILE!" -DgroupId="%__GROUP_ID:/=.%" -DartifactId=%__ARTIFACT_ID% -Dversion=%__VERSION% 1>&2
+        ) else if %_VERBOSE%==1 ( echo Install Maven archive into directory "!__LOCAL_REPO:%USERPROFILE%=!\%__SCALA_XML_PATH%" 1>&2
+        )
+        call "%_MVN_CMD%" %_MVN_OPTS% install:install-file -Dfile="!__JAR_FILE!" -DgroupId="%__GROUP_ID:/=.%" -DartifactId=%__ARTIFACT_ID% -Dversion=%__VERSION% -Dpackaging=jar
     )
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_MVN_CMD% install:install-file -Dfile="!__JAR_FILE!" -DgroupId="%__GROUP_ID:/=.%" -DartifactId=%__ARTIFACT_ID% -Dversion=%__VERSION% 1>&2
-    ) else if %_VERBOSE%==1 ( echo Install Maven archive into directory "!__LOCAL_REPO:%USERPROFILE%=!\%__SCALA_XML_PATH%" 1>&2
-    )
-    call "%_MVN_CMD%" %_MVN_OPTS% install:install-file -Dfile="!__JAR_FILE!" -DgroupId="%__GROUP_ID:/=.%" -DartifactId=%__ARTIFACT_ID% -Dversion=%__VERSION% -Dpackaging=jar
 )
 set "_LIBS_CPATH=%_LIBS_CPATH%%__JAR_FILE%;"
 goto :eof

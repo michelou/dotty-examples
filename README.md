@@ -7,7 +7,7 @@
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This repository gathers <a href="https://dotty.epfl.ch/" rel="external">Dotty</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/" rel="external">Dotty</a> project - or written by myself.<br/>
-    In particular it includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a>/<a href="https://www.gnu.org/software/bash/manual/bash.html">bash scripts</a> for experimenting with the Dotty language (aka <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html" rel="external">Scala 3</a>) on a Windows machine.
+    In particular it includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting">batch files</a>/<a href="https://www.gnu.org/software/bash/manual/bash.html" rel="external">bash scripts</a> for experimenting with the Dotty language (aka <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html" rel="external">Scala 3</a>) on a Windows machine.
   </td>
   </tr>
 </table>
@@ -39,31 +39,34 @@ Optionally one may also install the following software:
 
 - [Apache Ant 1.10][apache_ant] (requires Java 8) ([*release notes*][apache_ant_relnotes])
 - [Apache Maven 3.6][apache_maven] ([requires Java 7][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
-- [Bloop 1.3][bloop_releases] (requires Java 8 and Python 2/3) ([*release notes*][bloop_relnotes])
+- [Bazel 3.3][bazel_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
 - [Git 2.27][git_releases] ([*release notes*][git_relnotes])
 - [Gradle 6.5][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [Mill 0.7][mill_releases] ([*change log*][mill_changelog])
 - [SBT 1.3][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
-<!-- - [Python 3.8][python_release] ([*change log*][python_changelog]) -->
+<!--
+- [Bloop 1.3][bloop_releases] (requires Java 8 and Python 2/3) ([*release notes*][bloop_relnotes])
+- [Python 3.8][python_release] ([*change log*][python_changelog])
+-->
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*June 2020*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
+For instance our development environment looks as follows (*June 2020*) <sup id="anchor_03">[[3]](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.7+10\        <i>(181.0 MB)</i>
 C:\opt\apache-ant-1.10.8\    <i>( 39.7 MB)</i>
 C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
-C:\opt\bloop-1.3.4\          <i>(  0.1 MB)</i>
+C:\opt\bazel-3.3.0\          <i>( 40.0 MB)</i>
 C:\opt\cfr-0.150\            <i>(  1.9 MB)</i>
 C:\opt\dotty-0.25.0-RC2\     <i>( 26.9 MB)</i>
 C:\opt\Git-2.27.0\           <i>(278.0 MB)</i>
 C:\opt\gradle-6.5\           <i>(110.0 MB)</i>
 C:\opt\Mill-0.7.3\           <i>( 53.6 MB)</i>
-C:\opt\sbt-1.3.12\           <i>( 61.3 MB)</i>
+C:\opt\sbt-1.3.13\           <i>( 61.3 MB)</i>
 C:\opt\scala-2.13.3\         <i>( 22.8 MB, 588 MB with API docs)</i>
 </pre>
  <!-- jdk: 242-b08 = 184 MB, 252-b09 = 181 MB -->
@@ -179,14 +182,14 @@ We distinguish different sets of batch/bash commands:
         -explain-types   set compiler option -explain-types
         -main:&lt;name&gt;     define main class name
         -scala           use Scala 2 tools
-        -tasty           compile both from source and TASTy files
+        -tasty           compile both from source and <a href="https://github.com/lampepfl/dotty/blob/master/tasty/src/dotty/tools/tasty/TastyFormat.scala">TASTy files</a>
         -timer           display the compile time
         -verbose         display progress messages
     &nbsp;
       Subcommands:
         clean            delete generated class files
-        compile          compile source files (Java and Scala)
-        decompile        decompile generated code with CFR
+        compile          compile Java/Scala source files
+        decompile        decompile generated code with <a href="https://www.benf.org/other/cfr/"><b>CFR</b></a>
         doc              generate documentation
         help             display this help message
         run              execute main class
@@ -207,6 +210,7 @@ We distinguish different sets of batch/bash commands:
     | **Build tool** | **Configuration file** | **Parent file** | **Usage example** |
     | :------------- | :--------------------- | :-------------- | :---------------- |
     | [**`ant`**][apache_ant_cli] | [**`build.xml`**](examples/enum-Planet/build.xml) | [**`build.xml`**](examples/build.xml) | **`ant clean compile run`** |
+    | [**`bazel`**][bazel_cli] | [**`BUILD`**](examples/enum-Planet/BUILD) | n.a. | **`bazel run :enum-Planet`** |
     | [**`build`**](examples/enum-Planet/build.bat) | **`build.properties`** | n.a. | **`build clean run`** |
     | [**`gradle`**][gradle_cli] | [**`build.gradle`**](examples/enum-Planet/build.gradle) | [**`common.gradle`**](examples/common.gradle) | **`gradle clean build run`** |
     | [**`make`**][gmake_cli] | [**`Makefile`**](examples/enum-Planet/Makefile) | [**`Makefile.inc`**](examples/Makefile.inc) | **`make clean run`** |
@@ -278,14 +282,14 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   javac 11.0.7, java 11.0.7, scalac 2.13.3, dotc 0.25.0-RC2
-   ant 1.10.8, gradle 6.5, mill 0.7.3, mvn 3.6.3, sbt 1.3.12/2.12.10,
-   cfr 0.150, python 3.7.4, bloop v1.3.4,
+   javac 11.0.7, java 11.0.7, scalac 2.13.3, dotc 0.25.0-RC2,
+   ant 1.10.8, gradle 6.5, mill 0.7.3, mvn 3.6.3, sbt 1.3.13,
+   bazel 3.3.0, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.3,
    git 2.27.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; where sbt</b>
-C:\opt\sbt-1.3.12\bin\sbt
-C:\opt\sbt-1.3.12\bin\sbt.bat
+C:\opt\sbt-1.3.13\bin\sbt
+C:\opt\sbt-1.3.13\bin\sbt.bat
 </pre>
 
 Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and defined variables:
@@ -293,9 +297,9 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   javac 11.0.7, java 11.0.7, scalac 2.13.3, dotc 0.25.0-RC2
-   ant 1.10.8, gradle 6.5, mill 0.7.3, mvn 3.6.3, sbt 1.3.12/2.12.10,
-   cfr 0.150, python 3.7.4, bloop v1.3.4,
+   javac 11.0.7, java 11.0.7, scalac 2.13.3, dotc 0.25.0-RC2,
+   ant 1.10.8, gradle 6.5, mill 0.7.3, mvn 3.6.3, sbt 1.3.13,
+   bazel 3.3.0, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.3,
    git 2.27.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-11.0.7+10\bin\javac.exe
@@ -306,10 +310,12 @@ Tool paths:
    C:\opt\gradle-6.5\bin\gradle.bat
    C:\opt\Mill-0.7.3\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
-   C:\opt\sbt-1.3.12\bin\sbt.bat
-   C:\opt\cfr-0.150\bin\cfr.bat
-   C:\opt\Python-3.7.4\python.exe
+   C:\opt\sbt-1.3.13\bin\sbt.bat
+   C:\opt\bazel-3.3.0\bazel.exe
    C:\opt\bloop-1.3.4\bloop.cmd
+   C:\opt\cfr-0.150\bin\cfr.bat
+   C:\opt\make-3.8.1\bin\make.exe
+   C:\opt\Python-3.7.4\python.exe
    C:\opt\Git-2.27.0\bin\git.exe
    C:\opt\Git-2.27.0\mingw64\bin\git.exe
    C:\opt\Git-2.27.0\usr\bin\diff.exe
@@ -353,18 +359,18 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a></b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.26-0.26.0-bin-20200611-eb34c6c-NIGHTLY.jar
-dotty-doc_0.26-0.26.0-bin-20200611-eb34c6c-NIGHTLY.jar
-dotty-interfaces-0.26.0-bin-20200611-eb34c6c-NIGHTLY.jar
-dotty-language-server_0.26-0.26.0-bin-20200611-eb34c6c-NIGHTLY.jar
-dotty-library_0.26-0.26.0-bin-20200611-eb34c6c-NIGHTLY.jar
-dotty-sbt-bridge-0.26.0-bin-20200611-eb34c6c-NIGHTLY.jar
-dotty-staging_0.26-0.26.0-bin-20200611-eb34c6c-NIGHTLY.jar
-dotty-tasty-inspector_0.26-0.26.0-bin-20200611-eb34c6c-NIGHTLY.jar
-dotty-tastydoc-input_0.26-0.26.0-bin-20200611-eb34c6c-NIGHTLY.jar
-dotty-tastydoc_0.26-0.26.0-bin-20200611-eb34c6c-NIGHTLY.jar
-dotty_0.26-0.26.0-bin-20200611-eb34c6c-NIGHTLY.jar
-tasty-core_0.26-0.26.0-bin-20200611-eb34c6c-NIGHTLY.jar
+dotty-compiler_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+dotty-doc_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+dotty-interfaces-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+dotty-language-server_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+dotty-library_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+dotty-sbt-bridge-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+dotty-staging_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+dotty-tasty-inspector_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+dotty-tastydoc-input_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+dotty-tastydoc_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+dotty_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+tasty-core_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
 </pre>
 
 > **:mag_right:** Starting with Dotty version `0.22.0` package **`dotty.tools.tasty`** is distributed separately in archive **`tast-core_<xxx>.jar`**.
@@ -374,18 +380,18 @@ Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the downlo
 <pre style="font-size:80%">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose</b>
 Check for nightly files on Maven repository
-Downloading file dotty-doc_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 1018.9 Kb
-Downloading file dotty-tastydoc-input_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 36.1 Kb
-Downloading file dotty-language-server_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 145.7 Kb
-Downloading file dotty_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-sbt-bridge-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 13.4 Kb
-Downloading file tasty-core_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 47.9 Kb
-Downloading file dotty-staging_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 35.7 Kb
-Downloading file dotty-compiler_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 11.9 Mb
-Downloading file dotty-library_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 1.4 Mb
-Downloading file dotty-interfaces-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 3.4 Kb
-Downloading file dotty-tasty-inspector_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 7.9 Kb
-Downloading file dotty-tastydoc_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar ... 433.9 Kb
+Downloading file dotty-tastydoc-input_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar ... 36.1 Kb
+Downloading file dotty-doc_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar ... 1018.9 Kb
+Downloading file dotty-language-server_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar ... 145.7 Kb
+Downloading file dotty-sbt-bridge-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar ... 0.3 Kb
+Downloading file tasty-core_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar ... 47.9 Kb
+Downloading file dotty-staging_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar ... 35.7 Kb
+Downloading file dotty-library_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar ... 1.4 Mb
+Downloading file dotty-compiler_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar ... 11.9 Mb
+Downloading file dotty-interfaces-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-tasty-inspector_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar ... 7.9 Kb
+Downloading file dotty-tastydoc_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar ... 433.9 Kb
 Finished to download 12 files to directory W:\out\nightly-jars
 </pre>
 
@@ -396,10 +402,10 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> activate</b>
 Local nightly version has changed from 0.25.0-RC2 to 0.26.0-bin-20200625-3112800-NIGHTLY
-Activate nightly build libraries: 0.26.0-bin-20200625-3112800-NIGHTLY
+Activate nightly build libraries: 0.26.0-bin-20200627-50df4d2-NIGHTLY
 
-<b>&gt; <a href="bin/0.25/dotc.bat">dotc -version</b>
-Dotty compiler version 0.26.0-bin-20200625-3112800-NIGHTLY-git-3112800 -- Copyright 2002-2020, LAMP/EPFL
+<b>&gt; <a href="bin/0.25/dotc.bat">dotc</a> -version</b>
+Dotty compiler version 0.26.0-bin-20200627-50df4d2-NIGHTLY-git-50df4d2 -- Copyright 2002-2020, LAMP/EPFL
 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> reset</b>
 Activate default Dotty libraries: 0.25.0-RC2
@@ -425,19 +431,19 @@ lib\0.25.0-RC2\
 &nbsp;&nbsp;dotty-staging_0.25-0.25.0-RC2.jar
 &nbsp;&nbsp;dotty-tasty-inspector_0.25-0.25.0-RC2.jar
 &nbsp;&nbsp;tasty-core_0.25-0.25.0-RC2.jar
-lib\0.26.0-bin-20200625-3112800-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.26.0-bin-20200625-3112800-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.26.0-bin-20200625-3112800-NIGHTLY.jar
-&nbsp;&nbsp;dotty-staging_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tasty-inspector_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc-input_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
-&nbsp;&nbsp;tasty-core_0.26-0.26.0-bin-20200625-3112800-NIGHTLY.jar
+lib\0.26.0-bin-20200627-50df4d2-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-staging_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tasty-inspector_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc-input_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
+&nbsp;&nbsp;tasty-core_0.26-0.26.0-bin-20200627-50df4d2-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original [Dotty] installation respectively from the latest nightly build.
@@ -581,15 +587,15 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 
 | Project file | Variable | Example |
 | :----------- | :------: | :------ |
-| `build.sbt` | `dottyVersion` | `0.24.0-RC1` &rarr; `0.25.0-RC2`|
-| `build.sc` | `scalaVersion` | `0.24.0-RC1` &rarr; `0.25.0-RC2` |
-| `project\build.properties` | `sbt.version` | `1.3.10` &rarr; `1.3.12` |
+| `build.sbt` | `dottyVersion` | `0.25.0-RC1` &rarr; `0.25.0-RC2`|
+| `build.sc` | `scalaVersion` | `0.25.0-RC1` &rarr; `0.25.0-RC2` |
+| `project\build.properties` | `sbt.version` | `1.3.12` &rarr; `1.3.13` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.3.4` &rarr; `0.4.0` |
 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
-<b>&gt; updateprojs</b>
+<b>&gt; <a href="bin/updateprojs.bat">updateprojs</a></b>
 Parent directory: W:\dotty\examples
    Warning: Could not find file hello-scala\project\plugins.sbt
    Warning: Could not find file UnionTypes_0.4\project\plugins.sbt
@@ -608,7 +614,7 @@ Parent directory: W:\dotty\myexamples
 
 #### `build.bat`
 
-Command [**`build`**](examples/enum-Planet/build.bat) is a basic build tool consisting of ~500 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_03">[[3]](#footnote_03)</sup>.
+Command [**`build`**](examples/enum-Planet/build.bat) is a basic build tool consisting of ~500 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_04">[[4]](#footnote_04)</sup>.
 
 Running command [**`build`**](examples/enum-Planet/build.bat) with ***no*** option in project [**`examples\enum-Planet`**](examples/enum-Planet/) generates the following output:
 
@@ -706,13 +712,25 @@ Exception in thread "main" java.lang.IncompatibleClassChangeError: Method dotty.
 </pre>
 -->
 
-<a name="footnote_01">[1]</a> ***Java LTS*** [↩](#anchor_01) <!-- 2018-11-18 -->
+<b name="footnote_01">[1]</b> ***Java LTS*** [↩](#anchor_01) <!-- 2018-11-18 -->
 
 <p style="margin:0 0 1em 20px;">
 Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current LTS release.
 </p>
 
-<a name="footnote_02">[2]</a> ***Downloads*** [↩](#anchor_02)
+<b name="footnote_02">[2]</b> ***Using Bazel on Windows*** [↩](#anchor_02)
+
+<p style="margin:0 0 1em 20px;">
+Read the page <a href="https://docs.bazel.build/versions/master/windows.html#build-on-windows" rel="external">Builds on Windows</a> of the <a href="https://www.bazel.build/" rel="external">Bazel website</a> for tips to build with MSVC, Clang, Java or Python on a Windows machine.
+</p>
+<p style="margin:0 0 1em 20px;">
+For instance, for Visual Studio 2019, we set variable <b><code>BAZEL_VC</code></b> to the Visual C++ Build Tools installation directory:
+</p>
+<pre style="margin:0 0 1em 20px;font-size:80%;">
+<b>set</b> BAZEL_VC=C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC
+</pre>
+
+<b name="footnote_03">[3]</b> ***Downloads*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
@@ -721,15 +739,15 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.8-bin.zip</a>                       <i>( 9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                      <i>( 9 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.25.0-RC2">dotty-0.25.0-RC2.zip</a>                            <i>(24 MB)</i>
-<a href="https://gradle.org/install/">gradle-6.5-bin.zip</a><i>                            (97 MB)</i>
+<a href="https://gradle.org/install/">gradle-6.5-bin.zip</a><i>                              (97 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u252b09.zip</a>  <i>(99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.27.0-64-bit.7z.exe</a>                <i>(41 MB)</i>
-<a href="https://github.com/sbt/sbt/releases">sbt-1.3.12.zip</a>                                  <i>(55 MB)</i>
+<a href="https://github.com/sbt/sbt/releases">sbt-1.3.13.zip</a>                                  <i>(55 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.3.zip</a>                                <i>(21 MB)</i>
 </pre>
 
 <!-- ## removed on 2020-02-03 ##
-<a name="footnote_03">[3]</a> ***Dotty distribution size*** [↩](#anchor_03) <!-- 2019-12-20 -- >
+<b name="footnote_04">[4]</b ***Dotty distribution size*** [↩](#anchor_04) <!-- 2019-12-20 -- >
 
 <p style="margin:0 0 1em 20px;">
 Size of the <a href="https://dotty.epfl.ch/">Dotty</a> distribution has increased a lot between version 0.20 and 0.21, namely  <i>25.2 MB versus 43.7 MB</i> ! This is due to the inclusion of many new Java archive files in directory <b><code>lib\</code></b> of the distribution:
@@ -787,7 +805,7 @@ Total size: 17 MB
 </pre>
 -->
 
-<a name="footnote_03">[3]</a> ***PowerShell*** [↩](#anchor_03) <!-- 2018-05-09 -->
+<b name="footnote_04">[4]</b> ***PowerShell*** [↩](#anchor_04) <!-- 2018-05-09 -->
 
 <p style="margin:0 0 1em 20px;"> 
 Command Prompt has been around for as long as we can remember, but starting with Windows 10 build 14971, Microsoft is trying to make <a href="https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6">PowerShell</a> the <a href="https://support.microsoft.com/en-us/help/4027690/windows-powershell-is-replacing-command-prompt">main command shell</a> in the operating system.
@@ -807,6 +825,9 @@ Command Prompt has been around for as long as we can remember, but starting with
 [apache_maven_cli]: https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
 [apache_maven_relnotes]: https://maven.apache.org/docs/3.6.3/release-notes.html
+[bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
+[bazel_releases]: https://github.com/bazelbuild/bazel/releases
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/3.3.0
 [bloop_releases]: https://scalacenter.github.io/bloop/
 [bloop_relnotes]: https://github.com/scalacenter/bloop/releases/tag/v1.3.4
 [cfr_releases]: https://www.benf.org/other/cfr/
@@ -866,7 +887,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_downloads]: https://github.com/sbt/sbt/releases
 [sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.12
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.13
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala_releases]: https://www.scala-lang.org/files/archive/
 [scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.3

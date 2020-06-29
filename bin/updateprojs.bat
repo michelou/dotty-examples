@@ -43,9 +43,14 @@ if not %_EXITCODE%==0 goto end
 @rem #########################################################################
 @rem ## Main
 
-for %%i in (cdsexamples examples meta-examples myexamples) do (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% call :update_project "%_ROOT_DIR%\%%i" 1>&2
-    call :update_project "%_ROOT_DIR%\%%i"
+for %%i in (cdsexamples examples meta-examples myexamples plugin-examples) do (
+    set "__PROJECT_DIR=%_ROOT_DIR%\%%i"
+    if exist "!__PROJECT_DIR!\" (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% call :update_project "!__PROJECT_DIR!" 1>&2
+        call :update_project "!__PROJECT_DIR!"
+    ) else (
+        echo %_WARNING_LABEL% Project directory not found ^(!__PROJECT_DIR!^) 1>&2
+    )
 )
 goto end
 
