@@ -18,8 +18,8 @@ set _DOTTY_VERSION_OLD="0.25.0-RC1"
 set _DOTTY_VERSION_NEW="0.25.0-RC2"
 
 @rem files project\build.properties
-set _SBT_VERSION_OLD=sbt.version=1.3.11
-set _SBT_VERSION_NEW=sbt.version=1.3.12
+set _SBT_VERSION_OLD=sbt.version=1.3.12
+set _SBT_VERSION_NEW=sbt.version=1.3.13
 
 @rem files project\plugins.sbt
 @rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/

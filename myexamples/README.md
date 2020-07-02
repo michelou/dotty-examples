@@ -27,7 +27,7 @@ The build tools we support to build, run, test (and more) example [**`HelloWorld
 | **`build`**                   | **`build.properties`**       | n.a.                |
 | [**`gradle`**][gradle_cli]    | **`build.gradle`**           | **`common.gradle`** |
 | [**`make`**][gmake_cli]       | **`Makefile`**               | **`Makefile.inc`**  |
-| [**`mill`**][mill_cli]        | **`build.sc`**               | **`common.sc`**     |
+| [**`mill`**][mill_cli]        | [**`build.sc`**](HelloWorld/build.sc)               | **`common.sc`**     |
 | [**`mvn`**][apache_maven_cli] | [**`pom.xml`**](HelloWorld/pom.xml)     | **`pom.xml`**       |
 | [**`sbt`**][sbt_cli]          | [**`build.sbt`**](HelloWorld/build.sbt) | n.a.                |
 
@@ -542,7 +542,7 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

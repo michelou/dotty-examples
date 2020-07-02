@@ -22,7 +22,7 @@ The build tools we support to build, run, test (and more) example [**`enum-Plane
 
 | Build tool                    | Configuration file           | Parent file         |
 |-------------------------------|------------------------------|---------------------|
-| [**`ant`**][apache_ant_cli]   | **`build.xml`**              | **`build.xml`**     |
+| [**`ant`**][apache_ant_cli]   | [**`build.xml`**](enum-Planet/build.xml)              | **`build.xml`**     |
 | [**`bazel`**][bazel_cli]      | **`BUILD`**, **`WORKSPACE`** | n.a.                |
 | **`build`**                   | **`build.properties`**       | n.a.                |
 | [**`gradle`**][gradle_cli]    | **`build.gradle`**           | **`common.gradle`** |
@@ -301,7 +301,7 @@ Time: 0.239
 OK (2 tests)
 </pre>
 
-Command **`make test`** generates the HTML documentation for program [**`enum-Planet..scala`**](enum-Planet./src/main/scala/enum-Planet.scala):
+Command **`make doc`** generates the HTML documentation for program [**`enum-Planet.scala`**](enum-Planet./src/main/scala/enum-Planet.scala):
 
 <pre style="font-size:80%;">
 <b>&gt; make doc</b>
@@ -562,7 +562,7 @@ rem ## Cleanups</i>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -54,17 +54,17 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*June 2020*) <sup id="anchor_03">[[3]](#footnote_03)</sup>:
+For instance our development environment looks as follows (*July 2020*) <sup id="anchor_03">[[3]](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.7+10\        <i>(181.0 MB)</i>
 C:\opt\apache-ant-1.10.8\    <i>( 39.7 MB)</i>
 C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
-C:\opt\bazel-3.3.0\          <i>( 40.0 MB)</i>
+C:\opt\bazel-3.3.1\          <i>( 40.0 MB)</i>
 C:\opt\cfr-0.150\            <i>(  1.9 MB)</i>
 C:\opt\dotty-0.25.0-RC2\     <i>( 26.9 MB)</i>
 C:\opt\Git-2.27.0\           <i>(278.0 MB)</i>
-C:\opt\gradle-6.5\           <i>(110.0 MB)</i>
+C:\opt\gradle-6.5.1\         <i>(112.0 MB)</i>
 C:\opt\Mill-0.7.3\           <i>( 53.6 MB)</i>
 C:\opt\sbt-1.3.13\           <i>( 61.3 MB)</i>
 C:\opt\scala-2.13.3\         <i>( 22.8 MB, 588 MB with API docs)</i>
@@ -283,8 +283,8 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.7, java 11.0.7, scalac 2.13.3, dotc 0.25.0-RC2,
-   ant 1.10.8, gradle 6.5, mill 0.7.3, mvn 3.6.3, sbt 1.3.13,
-   bazel 3.3.0, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.3,
+   ant 1.10.8, gradle 6.5.1, mill 0.7.3, mvn 3.6.3, sbt 1.3.13,
+   bazel 3.3.1, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.3,
    git 2.27.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; where sbt</b>
@@ -298,8 +298,8 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.7, java 11.0.7, scalac 2.13.3, dotc 0.25.0-RC2,
-   ant 1.10.8, gradle 6.5, mill 0.7.3, mvn 3.6.3, sbt 1.3.13,
-   bazel 3.3.0, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.3,
+   ant 1.10.8, gradle 6.5.1, mill 0.7.3, mvn 3.6.3, sbt 1.3.13,
+   bazel 3.3.1, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.3,
    git 2.27.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-11.0.7+10\bin\javac.exe
@@ -307,11 +307,11 @@ Tool paths:
    C:\opt\scala-2.13.3\bin\scalac.bat
    C:\opt\dotty-0.25.0-RC2\bin\dotc.bat
    C:\opt\apache-ant-1.10.8\bin\ant.bat
-   C:\opt\gradle-6.5\bin\gradle.bat
+   C:\opt\gradle-6.5.1\bin\gradle.bat
    C:\opt\Mill-0.7.3\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
    C:\opt\sbt-1.3.13\bin\sbt.bat
-   C:\opt\bazel-3.3.0\bazel.exe
+   C:\opt\bazel-3.3.1\bazel.exe
    C:\opt\bloop-1.3.4\bloop.cmd
    C:\opt\cfr-0.150\bin\cfr.bat
    C:\opt\make-3.8.1\bin\make.exe
@@ -739,7 +739,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.8-bin.zip</a>                       <i>( 9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                      <i>( 9 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.25.0-RC2">dotty-0.25.0-RC2.zip</a>                            <i>(24 MB)</i>
-<a href="https://gradle.org/install/">gradle-6.5-bin.zip</a><i>                              (97 MB)</i>
+<a href="https://gradle.org/install/">gradle-6.5.1-bin.zip</a><i>                              (97 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u252b09.zip</a>  <i>(99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.27.0-64-bit.7z.exe</a>                <i>(41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.3.13.zip</a>                                  <i>(55 MB)</i>
@@ -813,7 +813,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -827,7 +827,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [apache_maven_relnotes]: https://maven.apache.org/docs/3.6.3/release-notes.html
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [bazel_releases]: https://github.com/bazelbuild/bazel/releases
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/3.3.0
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/3.3.1
 [bloop_releases]: https://scalacenter.github.io/bloop/
 [bloop_relnotes]: https://github.com/scalacenter/bloop/releases/tag/v1.3.4
 [cfr_releases]: https://www.benf.org/other/cfr/
