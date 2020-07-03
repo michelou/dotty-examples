@@ -17,11 +17,13 @@ if not exist "%__TEMP_DIR%" mkdir "%__TEMP_DIR%"
 
 set _LIBS_CPATH=
 
+set __SCALALIB_VERSION=2.13
+
 @rem https://mvnrepository.com/artifact/org.portable-scala
-call :add_jar "org/portable-scala" "portable-scala-reflect_2.13" "1.0.0"
+call :add_jar "org/portable-scala" "portable-scala-reflect_%__SCALALIB_VERSION%" "1.0.0"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-call :add_jar "org/scala-lang/modules" "scala-xml_2.13" "1.2.0"
+call :add_jar "org/scala-lang/modules" "scala-xml_%__SCALALIB_VERSION%" "1.2.0"
 
 @rem https://mvnrepository.com/artifact/junit/junit
 call :add_jar "junit" "junit" "4.13"
@@ -34,28 +36,40 @@ call :add_jar "org/hamcrest" "hamcrest" "2.2"
 
 set __SCALATEST_VERSION=3.2.0
 
+@rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
+call :add_jar "org/scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
+
+@rem https://mvnrepository.com/artifact/org.scalatest/scalatest-core
+call :add_jar "org/scalatest" "scalatest-core_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
+
+@rem https://mvnrepository.com/artifact/org.scalatest/scalatest-funsuite
+call :add_jar "org/scalatest" "scalatest-funsuite_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
+
+@rem https://mvnrepository.com/artifact/org.scalatest/scalatest-funspec
+call :add_jar "org/scalatest" "scalatest-funspec_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
+
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest
-call :add_jar "org/scalatest" "scalatest_2.13" "%__SCALATEST_VERSION%"
+call :add_jar "org/scalatest" "scalatest_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scalactic
-call :add_jar "org/scalactic" "scalactic_2.13" "%__SCALATEST_VERSION%"
+call :add_jar "org/scalactic" "scalactic_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
 
 set __SPECS2_CORE_VERSION=4.10.0
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-core
-call :add_jar "org/specs2" "specs2-core_2.13" "%__SPECS2_CORE_VERSION%"
+call :add_jar "org/specs2" "specs2-core_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-common
-call :add_jar "org/specs2" "specs2-common_2.13" "%__SPECS2_CORE_VERSION%"
+call :add_jar "org/specs2" "specs2-common_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-junit
-call :add_jar "org/specs2" "specs2-junit_2.13" "%__SPECS2_CORE_VERSION%"
+call :add_jar "org/specs2" "specs2-junit_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-junit
-call :add_jar "org/specs2" "specs2-matcher_2.13" "%__SPECS2_CORE_VERSION%"
+call :add_jar "org/specs2" "specs2-matcher_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-fp
-call :add_jar "org/specs2" "specs2-fp_2.13" "%__SPECS2_CORE_VERSION%"
+call :add_jar "org/specs2" "specs2-fp_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
 
 goto end
 
@@ -73,7 +87,7 @@ set __VERSION=%~3
 set __JAR_NAME=%__ARTIFACT_ID%-%__VERSION%.jar
 set __JAR_PATH=%__GROUP_ID:/=\%\%__ARTIFACT_ID:/=\%
 set __JAR_FILE=
-for /f %%f in ('where /r "%__LOCAL_REPO%\%__JAR_PATH%" %__JAR_NAME% 2^>NUL') do (
+for /f "usebackq delims=" %%f in (`where /r "%__LOCAL_REPO%\%__JAR_PATH%" %__JAR_NAME% 2^>NUL`) do (
     set "__JAR_FILE=%%f"
 )
 if not exist "%__JAR_FILE%" (

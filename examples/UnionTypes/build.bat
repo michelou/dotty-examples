@@ -126,7 +126,7 @@ set _MAIN_CLASS_DEFAULT=Main
 set _MAIN_ARGS_DEFAULT=
 
 for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
-set _PROJECT_URL=github.com/%USERNAME%
+set _PROJECT_URL=github.com/%USERNAME%/dotty-examples
 set _PROJECT_VERSION=0.1-SNAPSHOT
 
 set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
@@ -142,9 +142,9 @@ if exist "%__PROPS_FILE%" (
     )
     if defined _main_class set _MAIN_CLASS_DEFAULT=!_main_class!
     if defined _main_args set _MAIN_ARGS_DEFAULT=!_main_args!
-    if defined _project.name set _PROJECT_NAME=!_project_name!
-    if defined _project.url set _PROJECT_URL=!_project_url!
-    if defined _project.version set _PROJECT_VERSION=!_project_version!
+    if defined _project_name set _PROJECT_NAME=!_project_name!
+    if defined _project_url set _PROJECT_URL=!_project_url!
+    if defined _project_version set _PROJECT_VERSION=!_project_version!
 )
 goto :eof
 

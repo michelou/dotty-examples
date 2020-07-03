@@ -60,11 +60,10 @@ goto end
 set _BASENAME=%~n0
 set "_ROOT_DIR=%~dp0"
 
-@rem ANSI colors in standard Windows 10 shell
-@rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-set _DEBUG_LABEL=[46m[%_BASENAME%][0m
-set _ERROR_LABEL=[91mError[0m:
-set _WARNING_LABEL=[93mWarning[0m:
+call :env_colors
+set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
+set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
+set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_TARGET_DIR=%_ROOT_DIR%target"
@@ -74,10 +73,60 @@ set "_TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
 goto :eof
 
+:env_colors
+@rem ANSI colors in standard Windows 10 shell
+@rem see https://gist.github.com/mlocati/#file-win10colors-cmd
+set _RESET=[0m
+set _BOLD=[1m
+set _UNDERSCORE=[4m
+set _INVERSE=[7m
+
+@rem normal foreground colors
+set _NORMAL_FG_BLACK=[30m
+set _NORMAL_FG_RED=[31m
+set _NORMAL_FG_GREEN=[32m
+set _NORMAL_FG_YELLOW=[33m
+set _NORMAL_FG_BLUE=[34m
+set _NORMAL_FG_MAGENTA=[35m
+set _NORMAL_FG_CYAN=[36m
+set _NORMAL_FG_WHITE=[37m
+
+@rem normal background colors
+set _NORMAL_BG_BLACK=[40m
+set _NORMAL_BG_RED=[41m
+set _NORMAL_BG_GREEN=[42m
+set _NORMAL_BG_YELLOW=[43m
+set _NORMAL_BG_BLUE=[44m
+set _NORMAL_BG_MAGENTA=[45m
+set _NORMAL_BG_CYAN=[46m
+set _NORMAL_BG_WHITE=[47m
+
+@rem strong foreground colors
+set _STRONG_FG_BLACK=[90m
+set _STRONG_FG_RED=[91m
+set _STRONG_FG_GREEN=[92m
+set _STRONG_FG_YELLOW=[93m
+set _STRONG_FG_BLUE=[94m
+set _STRONG_FG_MAGENTA=[95m
+set _STRONG_FG_CYAN=[96m
+set _STRONG_FG_WHITE=[97m
+
+@rem strong background colors
+set _STRONG_BG_BLACK=[100m
+set _STRONG_BG_RED=[101m
+set _STRONG_BG_GREEN=[102m
+set _STRONG_BG_YELLOW=[103m
+set _STRONG_BG_BLUE=[104m
+goto :eof
+
 @rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
 :props
 set _MAIN_CLASS_DEFAULT=Main
 set _MAIN_ARGS_DEFAULT=
+
+for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
+set _PROJECT_URL=github.com/%USERNAME%/dotty-examples
+set _PROJECT_VERSION=0.1-SNAPSHOT
 
 set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
 if exist "%__PROPS_FILE%" (
@@ -92,6 +141,9 @@ if exist "%__PROPS_FILE%" (
     )
     if defined _main_class set _MAIN_CLASS_DEFAULT=!_main_class!
     if defined _main_args set _MAIN_ARGS_DEFAULT=!_main_args!
+    if defined _project_name set _PROJECT_NAME=!_project_name!
+    if defined _project_url set _PROJECT_URL=!_project_url!
+    if defined _project_version set _PROJECT_VERSION=!_project_version!
 )
 goto :eof
 
@@ -122,16 +174,16 @@ if not defined __ARG (
 )
 if "%__ARG:~0,1%"=="-" (
     @rem option
-    if /i "%__ARG%"=="-debug" ( set _DEBUG=1
-    ) else if /i "%__ARG%"=="-dotty" ( set _DOTTY=1
-    ) else if /i "%__ARG%"=="-explain" ( set _SCALAC_OPTS_EXPLAIN=1
-    ) else if /i "%__ARG%"=="-explain-types" ( set _SCALAC_OPTS_EXPLAIN_TYPES=1
-    ) else if /i "%__ARG%"=="-help" ( set _HELP=1
-    ) else if /i "%__ARG%"=="-scala" ( set _DOTTY=0
-    ) else if /i "%__ARG%"=="-tasty" ( set _TASTY=1
-    ) else if /i "%__ARG%"=="-timer" ( set _TIMER=1
-    ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
-    ) else if /i "%__ARG:~0,6%"=="-main:" (
+    if "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if "%__ARG%"=="-dotty" ( set _DOTTY=1
+    ) else if "%__ARG%"=="-explain" ( set _SCALAC_OPTS_EXPLAIN=1
+    ) else if "%__ARG%"=="-explain-types" ( set _SCALAC_OPTS_EXPLAIN_TYPES=1
+    ) else if "%__ARG%"=="-help" ( set _HELP=1
+    ) else if "%__ARG%"=="-scala" ( set _DOTTY=0
+    ) else if "%__ARG%"=="-tasty" ( set _TASTY=1
+    ) else if "%__ARG%"=="-timer" ( set _TIMER=1
+    ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
+    ) else if "%__ARG:~0,6%"=="-main:" (
         call :set_main "!__ARG:~6!"
         if not !_EXITCODE!== 0 goto args_done
     ) else (
@@ -141,13 +193,13 @@ if "%__ARG:~0,1%"=="-" (
     )
 ) else (
     @rem subcommand
-    if /i "%__ARG%"=="clean" ( set _CLEAN=1
-    ) else if /i "%__ARG%"=="compile" ( set _COMPILE=1
-    ) else if /i "%__ARG%"=="decompile" ( set _COMPILE=1& set _DECOMPILE=1
-    ) else if /i "%__ARG%"=="doc" ( set _DOC=1
-    ) else if /i "%__ARG%"=="help" ( set _HELP=1
-    ) else if /i "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
-    ) else if /i "%__ARG%"=="test" ( set _COMPILE=1& set _TEST=1
+    if "%__ARG%"=="clean" ( set _CLEAN=1
+    ) else if "%__ARG%"=="compile" ( set _COMPILE=1
+    ) else if "%__ARG%"=="decompile" ( set _COMPILE=1& set _DECOMPILE=1
+    ) else if "%__ARG%"=="doc" ( set _DOC=1
+    ) else if "%__ARG%"=="help" ( set _HELP=1
+    ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
+    ) else if "%__ARG%"=="test" ( set _COMPILE=1& set _TEST=1
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
         set _EXITCODE=1
@@ -173,32 +225,43 @@ if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TI
 goto :eof
 
 :help
-echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
+if %_VERBOSE%==1 (
+    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __BEG_O=%_STRONG_FG_GREEN%
+    set __BEG_N=%_NORMAL_FG_YELLOW%
+    set __END=%_RESET%
+) else (
+    set __BEG_P=
+    set __BEG_O=
+    set __BEG_N=
+    set __END=
+)
+echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
-echo   Options:
-echo     -debug           show commands executed by this script
-echo     -dotty           use Scala 3 tools ^(default^)
-echo     -explain         set compiler option -explain
-echo     -explain-types   set compiler option -explain-types
-echo     -main:^<name^>     define main class name
-echo     -scala           use Scala 2 tools
-echo     -tasty           compile both from source and TASTy files
-echo     -timer           display total elapsed time
-echo     -verbose         display progress messages
+echo   %__BEG_P%Options:%__END%
+echo     %__BEG_O%-debug%__END%           show commands executed by this script
+echo     %__BEG_O%-dotty%__END%           use Scala 3 tools ^(default^)
+echo     %__BEG_O%-explain%__END%         set compiler option %__BEG_O%-explain%__END%
+echo     %__BEG_O%-explain-types%__END%   set compiler option %__BEG_O%-explain-types%__END%
+echo     %__BEG_O%-main:^<name^>%__END%     define main class name
+echo     %__BEG_O%-scala%__END%           use Scala 2 tools
+echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
+echo     %__BEG_O%-timer%__END%           display total elapsed time
+echo     %__BEG_O%-verbose%__END%         display progress messages
 echo.
-echo   Subcommands:
-echo     clean            delete generated class files
-echo     compile          compile source files ^(Java and Scala^)
-echo     decompile        decompile generated code with CFR
-echo     doc              generate documentation
-echo     help             display this help message
-echo     run              execute main class
-echo     test             execute unit tests
+echo   %__BEG_P%Subcommands:%__END%
+echo     %__BEG_O%clean%__END%            delete generated class files
+echo     %__BEG_O%compile%__END%          compile Java/Scala source files
+echo     %__BEG_O%decompile%__END%        decompile generated code with %__BEG_N%CFR%__END%
+echo     %__BEG_O%doc%__END%              generate documentation
+echo     %__BEG_O%help%__END%             display this help message
+echo     %__BEG_O%run%__END%              execute main class
+echo     %__BEG_O%test%__END%             execute unit tests
 echo.
-echo   Properties:
-echo   ^(to be defined in SBT configuration file project\build.properties^)
-echo     main.class       alternative to option -main
-echo     main.args        list of arguments to be passed to main class
+echo   %__BEG_P%Properties:%__END%
+echo   ^(to be defined in SBT configuration file %__BEG_O%project\build.properties%__END%^)
+echo     %__BEG_O%main.class%__END%       alternative to option %__BEG_O%-main%__END%
+echo     %__BEG_O%main.args%__END%        list of arguments to be passed to main class
 goto :eof
 
 @rem output parameter: _MAIN_CLASS
@@ -494,16 +557,16 @@ set "__SOURCES_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i>> "%__SOURCES_FILE%"
 )
-
-for %%i in ("%~dp0\.") do set "__PROJECT_NAME=%%~ni"
-set __PROJECT_URL=github.com/michelou/dotty-examples
-set __PROJECT_VERSION=0.1-SNAPSHOT
-set __SCALADOC_OPTS=-siteroot "%_TARGET_DOCS_DIR%" -project "%__PROJECT_NAME%" -project-url "%__PROJECT_URL%" -project-version "%__PROJECT_VERSION%"
-
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALADOC_CMD% %__SCALADOC_OPTS% "@%__SOURCES_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into directory !_TARGET_DOCS_DIR:%_ROOT_DIR%=! 1>&2
+set "__OPTS_FILE=%_TARGET_DIR%\scaladoc_opts.txt"
+if %_DOTTY%==0 (
+    echo -d "%_TARGET_DOCS_DIR%" -doc-title "%_PROJECT_NAME%" -doc-footer "%_PROJECT_URL%" -doc-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
+) else (
+    echo -siteroot "%_TARGET_DOCS_DIR%" -project "%_PROJECT_NAME%" -project-url "%_PROJECT_URL%" -project-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
 )
-call "%_SCALADOC_CMD%" %__SCALADOC_OPTS% "@%__SOURCES_FILE%"
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Scala documentation generation failed 1>&2
     set _EXITCODE=1

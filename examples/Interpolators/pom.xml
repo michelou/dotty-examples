@@ -63,6 +63,10 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
+                            <!-- TODO : add support for POM dependencies to Scala plugin -->
+                            <additionalClasspathElements>
+                                <additionalClasspathElement>${m2.directory}/junit/junit/4.13/junit-4.13.jar</additionalClasspathElement>
+                            </additionalClasspathElements>
                             <includes>
                                 <include>scala/**/*.scala</include>
                             </includes>
@@ -122,6 +126,17 @@
                         </systemProperty>
                     </systemProperties>
                     -->
+                </configuration>
+            </plugin>
+            <!-- https://winterbe.com/posts/2018/08/29/migrate-maven-projects-to-java-11-jigsaw/ -->
+            <!-- This plugin helps finding the latest plugin or dependency versions for your modules -->
+            <!-- Command prompt: mvn versions:display-plugin-updates -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <generateBackupPoms>false</generateBackupPoms>
                 </configuration>
             </plugin>
         </plugins>
