@@ -11,25 +11,25 @@
   </tr>
 </table>
 
-Let's choose example [**`examples\enum-Planet`**](enum-Planet) to demonstrate the usage of the build tools we do support:
+Let's choose example [**`enum-Planet`**](enum-Planet) to demonstrate the usage of the build tools we do support:
 
 <pre style="font-size:80%;">
 <b>&gt; cd</b>
 W:\examples\enum-Planet
 </pre>
 
-The build tools we support to build, run, test (and more) example [**`enum-Planet`**](enum-Planet) are the following:
+Build tools rely on one or more configuration files to achieve their tasks. In our case we created the following configuration files for [**`enum-Planet`**](enum-Planet):
 
-| Build tool                    | Configuration file           | Parent file         |
-|-------------------------------|------------------------------|---------------------|
-| [**`ant`**][apache_ant_cli]   | [**`build.xml`**](enum-Planet/build.xml)              | **`build.xml`**     |
-| [**`bazel`**][bazel_cli]      | **`BUILD`**, **`WORKSPACE`** | n.a.                |
-| **`build`**                   | **`build.properties`**       | n.a.                |
-| [**`gradle`**][gradle_cli]    | **`build.gradle`**           | **`common.gradle`** |
-| [**`make`**][gmake_cli]       | **`Makefile`**               | **`Makefile.inc`**  |
-| [**`mill`**][mill_cli]        | **`build.sc`**               | **`common.sc`**     |
-| [**`mvn`**][apache_maven_cli] | **`pom.xml`**                | **`pom.xml`**       |
-| [**`sbt`**][sbt_cli]          | **`build.sbt`**              | n.a.                |
+| Build tool                    | Configuration file                       | Parent file                                  |
+|-------------------------------|------------------------------------------|----------------------------------------------|
+| [**`ant`**][apache_ant_cli]   | [**`build.xml`**](enum-Planet/build.xml) | [**`build.xml`**](./build.xml)               |
+| [**`bazel`**][bazel_cli]      | [**`BUILD`**](enum-Planet/BUILD), **`WORKSPACE`** | n.a.                                |
+| **`build`**                   | **`build.properties`**                   | n.a.                |
+| [**`gradle`**][gradle_cli]    | [**`build.gradle`**](enum-Planet/build.gradle) | [**`common.gradle`**](./common.gradle) |
+| [**`make`**][gmake_cli]       | [**`Makefile`**](enum-Planet/Makefile)   | [**`Makefile.inc`**](./Makefile.inc)         |
+| [**`mill`**][mill_cli]        | [**`build.sc`**](enum-Planet/build.sc)   | [**`common.sc`**](./common.sc)               |
+| [**`mvn`**][apache_maven_cli] | [**`pom.xml`**](enum-Planet/pom.xml)     | [**`pom.xml`**](./pom.xml)                   |
+| [**`sbt`**][sbt_cli]          | [**`build.sbt`**](enum-Planet/build.sbt) | n.a.                                         |
 
 
 
@@ -491,9 +491,9 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 <pre style="font-size:80%;">
 <b>@echo off</b>
 <b>setlocal enabledelayedexpansion</b>
-...
-<i style="color:#66aa66;">rem ##########################################################################
-rem ## Environment setup</i>
+
+<i style="color:#66aa66;">@rem ##########################################################################
+@rem ## Environment setup</i>
 
 <b>set</b> _EXITCODE=0
 
@@ -506,8 +506,8 @@ rem ## Environment setup</i>
 <b>call <span style="color:#9966ff;">:args</span> %*</b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
 
-<i style="color:#66aa66;">rem ##########################################################################
-rem ## Main</i>
+<i style="color:#66aa66;">@rem ##########################################################################
+@rem ## Main</i>
 
 <b>if</b> <span style="color:#3333ff;">%_CLEAN%</span>==1 (
     <b>call :clean</b>
@@ -527,8 +527,8 @@ rem ## Main</i>
 )
 <b>goto <span style="color:#9966ff;">end</span></b>
 
-<i style="color:#66aa66;">rem ##########################################################################
-rem ## Subroutines</i>
+<i style="color:#66aa66;">@rem ##########################################################################
+@rem ## Subroutines</i>
 
 <span style="color:#9966ff;">:env</span>
 ...<i>(variable initialization, eg. directory paths)</i>...
@@ -552,8 +552,8 @@ rem ## Subroutines</i>
 ...
 <b>goto :eof</b>
 
-<i style="color:#66aa66;">rem ##########################################################################
-rem ## Cleanups</i>
+<i style="color:#66aa66;">@rem ##########################################################################
+@rem ## Cleanups</i>
 
 <span style="color:#9966ff;">:end</span>
 ...
