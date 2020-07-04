@@ -561,7 +561,7 @@ set "__OUTPUT_FILE=%_TARGET_DIR%\cfr-sources%__VERSION_SUFFIX%.java"
 echo // Compiled with %__VERSION_STRING% > "%__OUTPUT_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% type "%__OUTPUT_DIR%\*.java" ^>^> "%__OUTPUT_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Save decompiled Java source files to "!__OUTPUT_FILE:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Save generated Java source files to file "!__OUTPUT_FILE:%_ROOT_DIR%=!" 1>&2
 )
 set __JAVA_FILES=
 for /f "delims=" %%f in ('dir /b /s "%__OUTPUT_DIR%\*.java" 2^>NUL') do (
@@ -693,7 +693,7 @@ if not %_EXITCODE%==0 goto :eof
 set "__OPTS_FILE=%_TARGET_DIR%\test_scalac_opts.txt"
 echo %_SCALAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d "%_TEST_CLASSES_DIR%" > "%__OPTS_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% Scala test source files to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"

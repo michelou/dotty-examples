@@ -4,10 +4,13 @@ package myexamples
 import org.junit.Assert._
 import org.junit.Test
 
-class MainTest {
+class MainJUnitTest {
+  import Main._
 
   @Test
   def test1(): Unit = {
+    val m = HMap.empty.add(width)(120)
+    assertEquals("Map contains 1 element", m.toString, "HashMap(width -> 120)")
   }
 
 }

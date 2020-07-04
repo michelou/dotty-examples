@@ -77,6 +77,9 @@
                             <includes>
                                 <include>scala/**/*.scala</include>
                             </includes>
+                            <additionalClasspathElements>
+                                <additionalClasspathElement>${m2.directory}/junit/junit/4.13/junit-4.13.jar</additionalClasspathElement>
+                            </additionalClasspathElements>
                         </configuration>
                     </execution>
                     <execution>

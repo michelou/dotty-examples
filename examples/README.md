@@ -20,17 +20,16 @@ W:\examples\enum-Planet
 
 Build tools rely on one or more configuration files to achieve their tasks. In our case we created the following configuration files for [**`enum-Planet`**](enum-Planet):
 
-| Build tool                    | Configuration file                       | Parent file                                  |
+| Build tool                    | Configuration file(s)                    | Parent file(s)                               |
 |-------------------------------|------------------------------------------|----------------------------------------------|
-| [**`ant`**][apache_ant_cli]   | [**`build.xml`**](enum-Planet/build.xml) | [**`build.xml`**](./build.xml)               |
+| [**`ant`**][apache_ant_cli]   | [**`build.xml`**](enum-Planet/build.xml) | [**`build.xml`**](./build.xml), [**`ivy.xml`**](ivy.xml) |
 | [**`bazel`**][bazel_cli]      | [**`BUILD`**](enum-Planet/BUILD), **`WORKSPACE`** | n.a.                                |
-| **`build`**                   | **`build.properties`**                   | n.a.                |
+| **`build`**                   | [**`build.properties`**](enum-Planet/project/build.properties) | n.a.                   |
 | [**`gradle`**][gradle_cli]    | [**`build.gradle`**](enum-Planet/build.gradle) | [**`common.gradle`**](./common.gradle) |
 | [**`make`**][gmake_cli]       | [**`Makefile`**](enum-Planet/Makefile)   | [**`Makefile.inc`**](./Makefile.inc)         |
 | [**`mill`**][mill_cli]        | [**`build.sc`**](enum-Planet/build.sc)   | [**`common.sc`**](./common.sc)               |
 | [**`mvn`**][apache_maven_cli] | [**`pom.xml`**](enum-Planet/pom.xml)     | [**`pom.xml`**](./pom.xml)                   |
 | [**`sbt`**][sbt_cli]          | [**`build.sbt`**](enum-Planet/build.sbt) | n.a.                                         |
-
 
 
 ## <span id="ant">Ant build tool</span>
@@ -140,7 +139,7 @@ Your weight on JUPITER is 2.5305575254957406
 > **:mag_right:** Compilation of the Java/Scala source files is performed only if needed during the build process:
 >
 > <pre style="font-size:80%;">
-> <b>&gt; build clean</b>
+> <b>&gt; <a href="enum-Planet/build.bat">build</a> clean</b>
 > &nbsp;
 > <b>&gt; build compile</b>
 > &nbsp;
@@ -187,8 +186,8 @@ Your weight on JUPITER is 2.5305575254957406
 > **:mag_right:** The above `enum-Planet` example expects 1 argument at execution time.<br/>
 > For simplicity the [**`build`**](enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
-> <b>&gt; type project\build.properties</b>
-> sbt.version=1.3.12
+> <b>&gt; type <a href="enum-Planet/project/build.properties">project\build.properties</a></b>
+> sbt.version=1.3.13
 > main.class=Planet
 > main.args=1
 > </pre>

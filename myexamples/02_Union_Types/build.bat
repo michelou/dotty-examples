@@ -224,7 +224,10 @@ if %_TASTY%==1 if %_DOTTY%==0 (
     echo %_WARNING_LABEL% Option '-tasty' only supported by Scala 3 1>&2
     set _TASTY=0
 )
-if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _DOTTY=%_DOTTY% _RUN=%_RUN% _TASTY=%_TASTY% _TEST=%_TEST% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _RUN=%_RUN% _TEST=%_TEST% 1>&2
+    echo %_DEBUG_LABEL% Options    : _DOTTY=%_DOTTY% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+)
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
@@ -557,7 +560,7 @@ set "__OUTPUT_FILE=%_TARGET_DIR%\cfr-sources%__VERSION_SUFFIX%.java"
 echo // Compiled with %__VERSION_STRING% > "%__OUTPUT_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% type "%__OUTPUT_DIR%\*.java" ^>^> "%__OUTPUT_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Save decompiled Java source files to "!__OUTPUT_FILE:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Save generated Java source files to file "!__OUTPUT_FILE:%_ROOT_DIR%=!" 1>&2
 )
 set __JAVA_FILES=
 for /f "delims=" %%f in ('dir /b /s "%__OUTPUT_DIR%\*.java" 2^>NUL') do (

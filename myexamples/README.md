@@ -18,18 +18,18 @@ Let's choose example [**`myexamples\HelloWorld`**](HelloWorld) to demonstrate th
 W:\myexamples\HelloWorld
 </pre>
 
-The build tools we support to build, run, test (and more) example [**`HelloWorld`**](HelloWorld) are the following:
+Build tools rely on one or more configuration files to achieve their tasks. In our case we created the following configuration files for [**`HelloWorld`**](HelloWorld):
 
-| Build tool                    | Configuration file           | Parent file         |
-|-------------------------------|------------------------------|---------------------|
-| [**`ant`**][apache_ant_cli]   | [**`build.xml`**](HelloWorld/build.xml) | [**`build.xml`**](build.xml) |
-| [**`bazel`**][bazel_cli]      | **`BUILD`**, **`WORKSPACE`** | n.a.                |
-| **`build`**                   | **`build.properties`**       | n.a.                |
-| [**`gradle`**][gradle_cli]    | **`build.gradle`**           | **`common.gradle`** |
-| [**`make`**][gmake_cli]       | **`Makefile`**               | **`Makefile.inc`**  |
-| [**`mill`**][mill_cli]        | [**`build.sc`**](HelloWorld/build.sc)               | **`common.sc`**     |
-| [**`mvn`**][apache_maven_cli] | [**`pom.xml`**](HelloWorld/pom.xml)     | **`pom.xml`**       |
-| [**`sbt`**][sbt_cli]          | [**`build.sbt`**](HelloWorld/build.sbt) | n.a.                |
+| Build tool                    | Configuration file(s)                                   | Parent file(s)                       |
+|-------------------------------|---------------------------------------------------------|--------------------------------------|
+| [**`ant`**][apache_ant_cli]   | [**`build.xml`**](HelloWorld/build.xml)                 | [**`build.xml`**](build.xml), [**`ivy.xml`**](ivy.xml) |
+| [**`bazel`**][bazel_cli]      | [**`BUILD`**](HelloWorld/BUILD), **`WORKSPACE`**        | n.a.                                 |
+| **`build`**                   | [**`build.properties`**](HelloWorld/project/build.properties) | n.a.                           |
+| [**`gradle`**][gradle_cli]    | [**`build.gradle`**](HelloWorld/build.gradle)           | [**`common.gradle`**](common.gradle) |
+| [**`make`**][gmake_cli]       | [**`Makefile`**](HelloWorld/Makefile)                   | [**`Makefile.inc`**](Makefile.inc)   |
+| [**`mill`**][mill_cli]        | [**`build.sc`**](HelloWorld/build.sc)                   | [**`common.sc`**](common.sc)         |
+| [**`mvn`**][apache_maven_cli] | [**`pom.xml`**](HelloWorld/pom.xml)                     | [**`pom.xml`**](pom.xml)             |
+| [**`sbt`**][sbt_cli]          | [**`build.sbt`**](HelloWorld/build.sbt)                 | n.a.                                 |
 
 
 ## <span id="ant">Ant build tool</span>
@@ -423,8 +423,8 @@ Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</
 <b>@echo off</b>
 <b>setlocal enabledelayedexpansion</b>
 ...
-<i style="color:#66aa66;">rem ##########################################################################
-rem ## Environment setup</i>
+<i style="color:#66aa66;">@rem ##########################################################################
+@rem ## Environment setup</i>
 
 <b>set</b> _EXITCODE=0
 
@@ -437,8 +437,8 @@ rem ## Environment setup</i>
 <b>call <span style="color:#9966ff;">:args</span> %*</b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
 
-<i style="color:#66aa66;">rem ##########################################################################
-rem ## Main</i>
+<i style="color:#66aa66;">@rem ##########################################################################
+@rem ## Main</i>
 
 <b>if</b> %_CLEAN%==1 (
     <b>call :clean</b>
@@ -458,8 +458,8 @@ rem ## Main</i>
 )
 <b>goto <span style="color:#9966ff;">end</span></b>
 
-<i style="color:#66aa66;">rem ##########################################################################
-rem ## Subroutines</i>
+<i style="color:#66aa66;">@rem ##########################################################################
+@rem ## Subroutines</i>
 
 <span style="color:#9966ff;">:env</span>
 ...<i>(variable initialization, eg. directory paths)</i>...
@@ -483,8 +483,8 @@ rem ## Subroutines</i>
 ...
 <b>goto :eof</b>
 
-<i style="color:#66aa66;">rem ##########################################################################
-rem ## Cleanups</i>
+<i style="color:#66aa66;">@rem ##########################################################################
+@rem ## Cleanups</i>
 
 <span style="color:#9966ff;">:end</span>
 ...

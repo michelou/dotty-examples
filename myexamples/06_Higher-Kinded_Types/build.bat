@@ -561,7 +561,7 @@ set "__OUTPUT_FILE=%_TARGET_DIR%\cfr-sources%__VERSION_SUFFIX%.java"
 echo // Compiled with %__VERSION_STRING% > "%__OUTPUT_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% type "%__OUTPUT_DIR%\*.java" ^>^> "%__OUTPUT_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Save decompiled Java source files to "!__OUTPUT_FILE:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Save generated Java source files to file "!__OUTPUT_FILE:%_ROOT_DIR%=!" 1>&2
 )
 set __JAVA_FILES=
 for /f "delims=" %%f in ('dir /b /s "%__OUTPUT_DIR%\*.java" 2^>NUL') do (
