@@ -4,7 +4,7 @@ package myexamples
 import org.junit.Assert._
 import org.junit.Test
 
-class MainTest {
+class MainJUnitTest {
 
   @Test
   def test1(): Unit = {

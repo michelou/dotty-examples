@@ -1,13 +1,14 @@
-package myexamples
-
 // http://junit.sourceforge.net/javadoc/org/junit/Assert.html
+
 import org.junit.Assert._
 import org.junit.Test
 
-class MainTest {
+class ImplicitDemoJUnitTest {
+  import StringDelegates.stringOps
 
   @Test
   def test1(): Unit = {
+    assertEquals("Underscorized string", "Harry".underscorize, "H_a_r_r_y_")
   }
 
 }

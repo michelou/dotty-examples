@@ -68,6 +68,10 @@
                             <includes>
                                 <include>scala/**/*.scala</include>
                             </includes>
+                            <!-- TODO : add support for POM dependencies to Scala plugin -->
+                            <additionalClasspathElements>
+                                <additionalClasspathElement>${m2.directory}/junit/junit/4.13/junit-4.13.jar</additionalClasspathElement>
+                            </additionalClasspathElements>
                         </configuration>
                     </execution>
                     <execution>
@@ -87,6 +91,7 @@
                 <configuration>
                     <scalaVersion>${scala.version}</scalaVersion>
                     <localInstall>${scala.local.install}</localInstall>
+                    <!-- <debug>true</debug> -->
                     <jvmArgs>
                         <jvmArg>-Xms64m</jvmArg>
                         <jvmArg>-Xmx1024m</jvmArg>
@@ -104,6 +109,27 @@
                             <mainClass>${mainClass}</mainClass>
                         </manifest>
                     </archive>
+                </configuration>
+            </plugin>
+            <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec.maven.version}</version>
+                <executions>
+                    <execution>
+                        <id>junit</id>
+                        <phase>exec</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>org.junit.runner.JUnitCore</mainClass>
+                    <arguments>
+                        <argument>EnumTreeJUnitTest</argument>
+                    </arguments>
                 </configuration>
             </plugin>
         </plugins>

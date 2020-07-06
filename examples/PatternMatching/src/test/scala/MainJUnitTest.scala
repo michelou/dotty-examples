@@ -1,21 +1,19 @@
-package hello
-
 // http://junit.sourceforge.net/javadoc/org/junit/Assert.html
 import org.junit.Assert._
 import org.junit.Test
 
-class HelloTest {
-  import HelloTest._
+class MainJUnitTest {
+  import MainJUnitTest._
 
   @Test
   def test1(): Unit = {
-    val stdout = captureStdout { Hello.main(Array("Bob")) }
-    assertEquals("Hello message", stdout, s"Hello dotty!$eol")
+    val stdout = captureStdout { Main.booleanMatch }
+    assertEquals("booleanMatch output", stdout, s"even has an even number of characters$eol")
   }
 
 }
 
-object HelloTest {
+object MainJUnitTest {
   import java.io._
 
   private val eol = System.getProperty("line.separator")

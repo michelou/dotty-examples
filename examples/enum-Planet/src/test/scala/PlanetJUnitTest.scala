@@ -2,7 +2,7 @@
 import org.junit.Assert._
 import org.junit.Test
 
-class PlanetTest {
+class PlanetJUnitTest {
 
   @Test
   def test1(): Unit = {

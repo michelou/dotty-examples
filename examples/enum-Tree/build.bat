@@ -126,7 +126,7 @@ set _MAIN_CLASS_DEFAULT=Main
 set _MAIN_ARGS_DEFAULT=
 
 for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
-set _PROJECT_URL=github.com/%USERNAME%
+set _PROJECT_URL=github.com/%USERNAME%/dotty-examples
 set _PROJECT_VERSION=0.1-SNAPSHOT
 
 set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
@@ -224,7 +224,10 @@ if %_TASTY%==1 if %_DOTTY%==0 (
     echo %_WARNING_LABEL% Option '-tasty' only supported by Scala 3 1>&2
     set _TASTY=0
 )
-if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _DOTTY=%_DOTTY% _RUN=%_RUN% _TASTY=%_TASTY% _TEST=%_TEST% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% Options    : _DOTTY=%_DOTTY% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _RUN=%_RUN% _TEST=%_TEST% 1>&2
+)
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
@@ -257,7 +260,7 @@ echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%            delete generated class files
 echo     %__BEG_O%compile%__END%          compile Java/Scala source files
 echo     %__BEG_O%decompile%__END%        decompile generated code with %__BEG_N%CFR%__END%
-echo     %__BEG_O%doc%__END%              generate documentation
+echo     %__BEG_O%doc%__END%              generate HTML documentation
 echo     %__BEG_O%help%__END%             display this help message
 echo     %__BEG_O%run%__END%              execute main class
 echo     %__BEG_O%test%__END%             execute unit tests
@@ -316,9 +319,7 @@ if %_COMPILE_REQUIRED%==1 (
     call :compile_scala
     if not !_EXITCODE!==0 goto :eof
 )
-for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
-    echo %%i> "%__TIMESTAMP_FILE%"
-)
+echo. > "%__TIMESTAMP_FILE%"
 goto :eof
 
 :init_java
@@ -447,24 +448,27 @@ if not !ERRORLEVEL!==0 (
 )
 goto :eof
 
-@rem input parameter: 1=timestamp file 2=path (wildcards accepted)
+@rem input parameter: 1=target file 2=path (wildcards accepted)
 @rem output parameter: _COMPILE_REQUIRED
 :compile_required
-set __TIMESTAMP_FILE=%~1
+set __TARGET_FILE=%~1
 set __PATH=%~2
 
+set __TARGET_TIMESTAMP=00000000000000
+for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+     set __TARGET_TIMESTAMP=%%i
+)
 set __SOURCE_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -recurse '%__PATH%' | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S"`) do (
+for /f "usebackq" %%i in (`powershell -c "gci -recurse -path '%__PATH%' -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
     set __SOURCE_TIMESTAMP=%%i
 )
-if exist "%__TIMESTAMP_FILE%" ( set /p __GENERATED_TIMESTAMP=<%__TIMESTAMP_FILE%
-) else ( set __GENERATED_TIMESTAMP=00000000000000
-)
-if %_DEBUG%==1 echo %_DEBUG_LABEL% %__GENERATED_TIMESTAMP% %__TIMESTAMP_FILE% 1>&2
-
-call :newer %__SOURCE_TIMESTAMP% %__GENERATED_TIMESTAMP%
+call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
 set _COMPILE_REQUIRED=%_NEWER%
-if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% "%__TARGET_FILE%" 1>&2
+    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% "%__PATH%" 1>&2
+    echo %_DEBUG_LABEL% _COMPILE_REQUIRED=%_COMPILE_REQUIRED% 1>&2
+) else if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
     echo No compilation needed ^("!__PATH:%_ROOT_DIR%=!"^) 1>&2
 )
 goto :eof
@@ -492,7 +496,7 @@ goto :eof
 :libs_cpath
 set __ADD_DOTTY_LIBS=%~1
 
-for %%f in ("%~dp0..") do set "__BATCH_FILE=%%~sf\cpath.bat"
+for %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
 if not exist "%__BATCH_FILE%" (
     echo %_ERROR_LABEL% Batch file "%__BATCH_FILE%" not found 1>&2
     set _EXITCODE=1
@@ -561,7 +565,7 @@ set "__OUTPUT_FILE=%_TARGET_DIR%\cfr-sources%__VERSION_SUFFIX%.java"
 echo // Compiled with %__VERSION_STRING% > "%__OUTPUT_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% type "%__OUTPUT_DIR%\*.java" ^>^> "%__OUTPUT_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Save decompiled Java source files to "!__OUTPUT_FILE:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Save generated Java source files to directory "!__OUTPUT_FILE:%_ROOT_DIR%=!" 1>&2
 )
 set __JAVA_FILES=
 for /f "delims=" %%f in ('dir /b /s "%__OUTPUT_DIR%\*.java" 2^>NUL') do (
@@ -616,9 +620,7 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
-    echo %%i> "%__DOC_TIMESTAMP_FILE%"
-)
+echo. > "%__DOC_TIMESTAMP_FILE%"
 goto :eof
 
 :run
@@ -695,18 +697,16 @@ if not %_EXITCODE%==0 goto :eof
 set "__OPTS_FILE=%_TARGET_DIR%\test_scalac_opts.txt"
 echo %_SCALAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d "%_TEST_CLASSES_DIR%" > "%__OPTS_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__TEST_LIST_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__TEST_LIST_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% Scala test source files to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__TEST_LIST_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of test Scala source files failed 1>&2
+    echo %_ERROR_LABEL% Compilation of Scala test source files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
-for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
-    echo %%i> "%__TEST_TIMESTAMP_FILE%"
-)
+echo. > "%__TEST_TIMESTAMP_FILE%"
 goto :eof
 
 :test
@@ -727,7 +727,7 @@ if not %_EXITCODE%==0 goto :eof
 set __TEST_JAVA_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
 
 @rem see https://github.com/junit-team/junit4/wiki/Getting-started
-for %%i in (%_TEST_CLASSES_DIR%\*Test.class) do (
+for %%i in (%_TEST_CLASSES_DIR%\*JUnitTest.class) do (
     set "__MAIN_CLASS=%%~ni"
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
     ) else if %_VERBOSE%==1 ( echo Execute test !__MAIN_CLASS! 1>&2
