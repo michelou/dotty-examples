@@ -19,6 +19,12 @@ set _LIBS_CPATH=
 
 set __SCALALIB_VERSION=2.13
 
+@rem https://mvnrepository.com/artifact/org.apiguardian/apiguardian-api
+call :add_jar "org/apiguardian" "apiguardian-api" "1.1.0"
+
+@rem https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+call :add_jar "org/junit/jupiter" "junit-jupiter-api" "5.6.2"
+
 @rem https://mvnrepository.com/artifact/org.portable-scala
 call :add_jar "org/portable-scala" "portable-scala-reflect_%__SCALALIB_VERSION%" "1.0.0"
 

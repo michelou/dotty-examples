@@ -71,6 +71,15 @@ set "_CLASSES_DIR=%_TARGET_DIR%\classes"
 set "_TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes"
 set "_TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
+
+if not defined JAVA_HOME (
+   echo %_ERROR_LABEL% Java SDK not found 1>&2
+   set _EXITCODE=1
+   goto :eof
+)
+set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
+set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
+set "_JAVADOC_CMD=%JAVA_HOME%\bin\javadoc.exe"
 goto :eof
 
 :env_colors
@@ -322,29 +331,7 @@ if %_COMPILE_REQUIRED%==1 (
 echo. > "%__TIMESTAMP_FILE%"
 goto :eof
 
-:init_java
-if defined _JAVAC_CMD goto :eof
-set __JAVA_BIN_DIR=
-for /f %%i in ('where javac.exe 2^>NUL') do set "__JAVA_BIN_DIR=%%~dpi"
-if defined __JAVA_BIN_DIR (
-    set "_JAVA_CMD=%__JAVA_BIN_DIR%java.exe"
-    set "_JAVAC_CMD=%__JAVA_BIN_DIR%javac.exe"
-    set "_JAVADOC_CMD=%__JAVA_BIN_DIR%javadoc.exe"
-) else if defined JAVA_HOME (
-    set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
-    set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
-    set "_JAVADOC_CMD=%JAVA_HOME%\bin\javadoc.exe"
-) else (
-   echo %_ERROR_LABEL% Command javac.exe not found 1>&2
-   set _EXITCODE=1
-   goto :eof
-)
-goto :eof
-
 :compile_java
-call :init_java
-if not %_EXITCODE%==0 goto :eof
-
 call :libs_cpath
 if not %_EXITCODE%==0 goto :eof
 

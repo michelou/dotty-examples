@@ -9,10 +9,6 @@ set _DEBUG=0
 
 set _EXITCODE=0
 
-for %%f in ("%~dp0\.") do set "_ROOT_DIR=%%~dpf"
-@rem remove trailing backslash for virtual drives
-if "%_ROOT_DIR:~-2%"==":\" set "_ROOT_DIR=%_ROOT_DIR:~0,-1%"
-
 @rem files build.sbt, build.sc and ivy.xml
 set _DOTTY_VERSION_OLD="0.25.0-RC1"
 set _DOTTY_VERSION_NEW="0.25.0-RC2"
@@ -25,6 +21,9 @@ set _SBT_VERSION_NEW=sbt.version=1.3.13
 @rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/
 set _SBT_DOTTY_VERSION_OLD="0.4.0"
 set _SBT_DOTTY_VERSION_NEW="0.4.1"
+
+set _SCALATEST_VERSION_OLD=^(\"scalatest_2.13\"^)^(.+\"3.1.1\"^)
+set _SCALATEST_VERSION_NEW=$1 %%%% \"3.2.0\"
 
 @rem files ivy.xml (NB. PS regex)
 set _IVY_DOTTY_VERSION_OLD=^(dotty-[a-z]+^)_0.24
@@ -40,18 +39,21 @@ set _POM_DOTTY_VERSION_NEW=scala.version^>0.25.0-RC2
 call :env
 if not %_EXITCODE%==0 goto end
 
+call :args %*
+if not %_EXITCODE%==0 goto end
+
 @rem #########################################################################
 @rem ## Main
 
-for %%i in (cdsexamples examples meta-examples myexamples plugin-examples) do (
-    set "__PROJECT_DIR=%_ROOT_DIR%\%%i"
-    if exist "!__PROJECT_DIR!\" (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% call :update_project "!__PROJECT_DIR!" 1>&2
-        call :update_project "!__PROJECT_DIR!"
-    ) else (
-        echo %_WARNING_LABEL% Project directory not found ^(!__PROJECT_DIR!^) 1>&2
-    )
+if %_HELP%==1 (
+    call :help
+    exit /b !_EXITCODE!
 )
+if %_RUN%==1 (
+    call :run
+    if not !_EXITCODE!==0 goto end
+)
+
 goto end
 
 @rem #########################################################################
@@ -60,6 +62,9 @@ goto end
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 :env
 set _BASENAME=%~n0
+for %%f in ("%~dp0\.") do set "_ROOT_DIR=%%~dpf"
+@rem remove trailing backslash for virtual drives
+if "%_ROOT_DIR:~-2%"==":\" set "_ROOT_DIR=%_ROOT_DIR:~0,-1%"
 
 call :env_colors
 set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
@@ -113,11 +118,88 @@ set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
 goto :eof
 
+@rem input parameter: %*
+:args
+set _HELP=0
+set _RUN=1
+set _TIMER=0
+set _VERBOSE=0
+set __N=0
+:args_loop
+set "__ARG=%~1"
+if not defined __ARG goto args_done
+
+if "%__ARG:~0,1%"=="-" (
+    @rem option
+    if /i "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if /i "%__ARG%"=="-help" ( set _HELP=1
+    ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
+    ) else (
+        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        set _EXITCODE=1
+        goto args_done
+    )
+) else (
+    @rem subcommand
+    if /i "%__ARG%"=="help" ( set _HELP=1
+    ) else if /i "%__ARG%"=="run" ( set _RUN=1
+    ) else (
+        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        set _EXITCODE=1
+        goto args_done
+    )
+    set /a __N+=1
+)
+shift
+goto :args_loop
+:args_done
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Subcommands: _HELP=%_HELP% _RUN=%_RUN%  1>&2
+)
+if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
+goto :eof
+
+:help
+if %_VERBOSE%==1 (
+    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __BEG_O=%_STRONG_FG_GREEN%
+    set __BEG_N=%_NORMAL_FG_YELLOW%
+    set __END=%_RESET%
+) else (
+    set __BEG_P=
+    set __BEG_O=
+    set __BEG_N=
+    set __END=
+)
+echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
+echo.
+echo   %__BEG_P%Options:%__END%
+echo     %__BEG_O%-debug%__END%           show commands executed by this script
+echo     %__BEG_O%-timer%__END%           display total elapsed time
+echo     %__BEG_O%-verbose%__END%         display progress messages
+echo.
+echo   %__BEG_P%Subcommands:%__END%
+echo     %__BEG_O%help%__END%             display this help message
+echo     %__BEG_O%run%__END%              execute main class
+goto :eof
+
+:run
+for %%i in (cdsexamples examples meta-examples myexamples plugin-examples) do (
+    set "__PROJECT_DIR=%_ROOT_DIR%\%%i"
+    if exist "!__PROJECT_DIR!\" (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% call :update_project "!__PROJECT_DIR!" 1>&2
+        call :update_project "!__PROJECT_DIR!"
+    ) else (
+        echo %_WARNING_LABEL% Project directory not found ^(!__PROJECT_DIR!^) 1>&2
+    )
+)
+goto :eof
+
 :replace
 set __FILE=%~1
 set __PATTERN_FROM=%~2
 set __PATTERN_TO=%~3
-
 set __PS1_SCRIPT= ^
 (Get-Content '%__FILE%') ^| ^
 Foreach { $_ -replace '%__PATTERN_FROM%','%__PATTERN_TO%' } ^| ^
@@ -146,6 +228,9 @@ for /f %%i in ('dir /ad /b "%__PARENT_DIR%" ^| findstr /v /c:"lib"') do (
     if exist "!__BUILD_SBT!" (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "!__BUILD_SBT!" "%_DOTTY_VERSION_OLD%" "%_DOTTY_VERSION_NEW%" 1>&2
         call :replace "!__BUILD_SBT!" "%_DOTTY_VERSION_OLD%" "%_DOTTY_VERSION_NEW%"
+        set /a __N1+=1
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "!__BUILD_SBT!" "%_SCALATEST_VERSION_OLD%" "%_SCALATEST_VERSION_NEW%" 1>&2
+        call :replace "!__BUILD_SBT!" "%_SCALATEST_VERSION_OLD%" "%_SCALATEST_VERSION_NEW%"
         set /a __N1+=1
     ) else (
        echo    %_WARNING_LABEL% Could not find file %%i\build.sbt 1>&2
@@ -217,10 +302,23 @@ if %__N% gtr 1 ( set __STR=files ) else ( set __STR=file )
 echo    Updated %__N% %__FILE_NAME% %__STR%
 goto :eof
 
+@rem output parameter: _DURATION
+:duration
+set __START=%~1
+set __END=%~2
+
+for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
+goto :eof
+
 @rem #########################################################################
 @rem ## Cleanups
 
 :end
+if %_TIMER%==1 (
+    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
+    call :duration "%_TIMER_START%" "!__TIMER_END!"
+    echo Total elapsed time: !_DURATION! 1>&2
+)
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%
 endlocal

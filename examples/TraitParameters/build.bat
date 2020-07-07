@@ -666,9 +666,7 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
-    echo %%i> "%__TEST_TIMESTAMP_FILE%"
-)
+echo. > "%__TEST_TIMESTAMP_FILE%"
 goto :eof
 
 :test

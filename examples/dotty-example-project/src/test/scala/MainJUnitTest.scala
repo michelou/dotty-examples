@@ -2,10 +2,13 @@
 import org.junit.Assert._
 import org.junit.Test
 
-class MainTest {
+class MainJUnitTest {
+  import EnumTypes._
 
   @Test
   def test1(): Unit = {
+    val planet = Planet.VENUS
+    assertEquals("Planet Venus", planet.surfaceGravity, 1.1)
   }
 
 }

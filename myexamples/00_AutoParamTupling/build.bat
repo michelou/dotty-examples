@@ -71,6 +71,15 @@ set "_CLASSES_DIR=%_TARGET_DIR%\classes"
 set "_TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes"
 set "_TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
+
+if not defined JAVA_HOME (
+   echo %_ERROR_LABEL% Java SDK not found 1>&2
+   set _EXITCODE=1
+   goto :eof
+)
+set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
+set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
+set "_JAVADOC_CMD=%JAVA_HOME%\bin\javadoc.exe"
 goto :eof
 
 :env_colors
@@ -322,29 +331,7 @@ if %_COMPILE_REQUIRED%==1 (
 echo. > "%__TIMESTAMP_FILE%"
 goto :eof
 
-:init_java
-if defined _JAVAC_CMD goto :eof
-set __JAVA_BIN_DIR=
-for /f %%i in ('where javac.exe 2^>NUL') do set "__JAVA_BIN_DIR=%%~dpi"
-if defined __JAVA_BIN_DIR (
-    set "_JAVA_CMD=%__JAVA_BIN_DIR%java.exe"
-    set "_JAVAC_CMD=%__JAVA_BIN_DIR%javac.exe"
-    set "_JAVADOC_CMD=%__JAVA_BIN_DIR%javadoc.exe"
-) else if defined JAVA_HOME (
-    set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
-    set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
-    set "_JAVADOC_CMD=%JAVA_HOME%\bin\javadoc.exe"
-) else (
-   echo %_ERROR_LABEL% Command javac.exe not found 1>&2
-   set _EXITCODE=1
-   goto :eof
-)
-goto :eof
-
 :compile_java
-call :init_java
-if not %_EXITCODE%==0 goto :eof
-
 call :libs_cpath
 if not %_EXITCODE%==0 goto :eof
 
@@ -356,7 +343,7 @@ for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     set /a __N+=1
 )
 set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
-echo -classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
+echo -classpath "%_LIBS_CPATH:\=\\%%_CLASSES_DIR:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% Java source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
@@ -714,26 +701,20 @@ goto :eof
 call :compile_test
 if not %_EXITCODE%==0 goto :eof
 
-where /q java.exe
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Java executable not found 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set __JAVA_CMD=java.exe
-
 call :libs_cpath includeScalaLibs
 if not %_EXITCODE%==0 goto :eof
 
 set __TEST_JAVA_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
 
 @rem see https://github.com/junit-team/junit4/wiki/Getting-started
-for %%i in (%_TEST_CLASSES_DIR%\*Test.class) do (
-    set "__MAIN_CLASS=%%~ni"
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
+for /f "usebackq" %%f in (`dir /s /b "%_TEST_CLASSES_DIR%\*Test.class" 2^>NUL`) do (
+    for %%i in (%%~dpf) do set __PKG_NAME=%%i
+    set __PKG_NAME=!__PKG_NAME:%_TEST_CLASSES_DIR%\=!
+    set "__MAIN_CLASS=!__PKG_NAME:\=.!%%~nf"
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
     ) else if %_VERBOSE%==1 ( echo Execute test !__MAIN_CLASS! 1>&2
     )
-    call "%__JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS!
+    call "%_JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS!
     if not !ERRORLEVEL!==0 (
         set _EXITCODE=1
         goto :eof

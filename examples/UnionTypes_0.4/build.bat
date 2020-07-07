@@ -23,7 +23,7 @@ if not %_EXITCODE%==0 goto end
 
 if %_HELP%==1 (
     call :help
-	exit /b !EXITCODE!
+    exit /b !_EXITCODE!
 )
 if %_CLEAN%==1 (
     call :clean
@@ -31,6 +31,10 @@ if %_CLEAN%==1 (
 )
 if %_COMPILE%==1 (
     call :compile
+    if not !_EXITCODE!==0 goto end
+)
+if %_DECOMPILE%==1 (
+    call :decompile
     if not !_EXITCODE!==0 goto end
 )
 if %_DOC%==1 (
@@ -41,12 +45,17 @@ if %_RUN%==1 (
     call :run
     if not !_EXITCODE!==0 goto end
 )
+if %_TEST%==1 (
+    call :test
+    if not !_EXITCODE!==0 goto end
+)
 goto end
 
 @rem #########################################################################
 @rem ## Subroutines
 
 rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
+@rem                    _CLASSES_DIR, _TARGET_DIR, _TARGET_DOCS_DIR, _TASTY_CLASSES_DIR
 :env
 set _BASENAME=%~n0
 set "_ROOT_DIR=%~dp0"
@@ -56,10 +65,21 @@ set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
 set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
-set _TARGET_DIR=%_ROOT_DIR%target
-set _CLASSES_DIR=%_TARGET_DIR%\classes
-set _TASTY_CLASSES_DIR=%_TARGET_DIR%\classes-tasty
-set _DOCS_DIR=%_TARGET_DIR%\docs
+set "_SOURCE_DIR=%_ROOT_DIR%src"
+set "_TARGET_DIR=%_ROOT_DIR%target"
+set "_CLASSES_DIR=%_TARGET_DIR%\classes"
+set "_TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes"
+set "_TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes"
+set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
+
+if not defined JAVA_HOME (
+   echo %_ERROR_LABEL% Java SDK not found 1>&2
+   set _EXITCODE=1
+   goto :eof
+)
+set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
+set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
+set "_JAVADOC_CMD=%JAVA_HOME%\bin\javadoc.exe"
 goto :eof
 
 :env_colors
@@ -108,7 +128,7 @@ set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
 goto :eof
 
-@rem output parameters: _SCALAC_CMD_DEFAULT, _DOC_CMD_DEFAULT, _MAIN_CLASS_DEFAULT
+@rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
 :props
 set _MAIN_CLASS_DEFAULT=Main
 set _MAIN_ARGS_DEFAULT=
@@ -128,7 +148,6 @@ if exist "%__PROPS_FILE%" (
             set "_!__NAME:.=_!=!__VALUE!"
         )
     )
-    if defined _compiler_cmd set _SCALAC_CMD_DEFAULT=!_compiler_cmd!
     if defined _main_class set _MAIN_CLASS_DEFAULT=!_main_class!
     if defined _main_args set _MAIN_ARGS_DEFAULT=!_main_args!
     if defined _project_name set _PROJECT_NAME=!_project_name!
@@ -164,12 +183,14 @@ if not defined __ARG (
 )
 if "%__ARG:~0,1%"=="-" (
     @rem option
-	if "%__ARG%"=="-debug" ( set _DEBUG=1
+    if "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if "%__ARG%"=="-dotty" ( set _DOTTY=1
     ) else if "%__ARG%"=="-explain" ( set _SCALAC_OPTS_EXPLAIN=1
     ) else if "%__ARG%"=="-explain-types" ( set _SCALAC_OPTS_EXPLAIN_TYPES=1
-    ) else if "%__ARG%"=="-help" ( call :help & goto end
+    ) else if "%__ARG%"=="-help" ( set _HELP=1
+    ) else if "%__ARG%"=="-scala" ( set _DOTTY=0
     ) else if "%__ARG%"=="-tasty" ( set _TASTY=1
-    ) else if "%__ARG%"=="-timer" ( set _COMPILE_TIME=1
+    ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else if "%__ARG:~0,6%"=="-main:" (
         call :set_main "!__ARG:~6!"
@@ -181,11 +202,13 @@ if "%__ARG:~0,1%"=="-" (
     )
 ) else (
     @rem subcommand
-	if "%__ARG%"=="clean" ( set _CLEAN=1
+    if "%__ARG%"=="clean" ( set _CLEAN=1
     ) else if "%__ARG%"=="compile" ( set _COMPILE=1
+    ) else if "%__ARG%"=="decompile" ( set _COMPILE=1& set _DECOMPILE=1
     ) else if "%__ARG%"=="doc" ( set _DOC=1
     ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
     ) else if "%__ARG%"=="help" ( set _HELP=1
+    ) else if "%__ARG%"=="test" ( set _COMPILE=1& set _TEST=1
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
         set _EXITCODE=1
@@ -196,11 +219,23 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto :args_loop
 :args_done
-if %_TASTY%==1 if not "%_SCALAC_CMD:~0,3%"=="dot" (
-    echo %_WARNING_LABEL% option '-tasty' not supported by %_SCALAC_CMD% 1>&2
+set _STDERR_REDIRECT=2^>NUL
+if %_DEBUG%==1 set _STDERR_REDIRECT=
+
+if %_SCALAC_OPTS_EXPLAIN%==1 set _SCALAC_OPTS=%_SCALAC_OPTS% -explain
+if %_SCALAC_OPTS_EXPLAIN_TYPES%==1 (
+    if !_DOTTY!==1 ( set _SCALAC_OPTS=%_SCALAC_OPTS% -explain-types
+    ) else ( set _SCALAC_OPTS=%_SCALAC_OPTS% -explaintypes
+    )
+)
+if %_TASTY%==1 if %_DOTTY%==0 (
+    echo %_WARNING_LABEL% Option '-tasty' only supported by Scala 3 1>&2
     set _TASTY=0
 )
-if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _RUN=%_RUN% _TEST=%_TEST% _VERBOSE=%_VERBOSE% 1>&2
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% Options    : _DOTTY=%_DOTTY% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _RUN=%_RUN% _TEST=%_TEST% 1>&2
+)
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
@@ -282,109 +317,149 @@ if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 
 set "__TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build"
 
-set __JAVA_SOURCE_FILES=
-for /f %%i in ('dir /s /b "%_ROOT_DIR%src\main\java\*.java" 2^>NUL') do (
-    set __JAVA_SOURCE_FILES=!__JAVA_SOURCE_FILES! %%i
+call :compile_required "%__TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\java\*.java"
+if %_COMPILE_REQUIRED%==1 (
+    call :compile_java
+    if not !_EXITCODE!==0 goto :eof
 )
-set __SCALA_SOURCE_FILES=
-for /f %%i in ('dir /s /b "%_ROOT_DIR%src\main\scala\*.scala" 2^>NUL') do (
-    set __SCALA_SOURCE_FILES=!__SCALA_SOURCE_FILES! %%i
+call :compile_required "%__TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\scala\*.scala"
+if %_COMPILE_REQUIRED%==1 (
+    call :compile_scala
+    if not !_EXITCODE!==0 goto :eof
 )
+echo. > "%__TIMESTAMP_FILE%"
+goto :eof
 
-call :compile_required "%__TIMESTAMP_FILE%" "%__JAVA_SOURCE_FILES% %__SCALA_SOURCE_FILES%"
-if %_COMPILE_REQUIRED%==0 goto :eof
-
-if %_COMPILE_TIME%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __COMPILE_TIME_START=%%i
-)
+:compile_java
 call :libs_cpath
+if not %_EXITCODE%==0 goto :eof
 
-if not defined __JAVA_SOURCE_FILES goto compile_scala
-set _JAVAC_CMD=javac.exe
-set _JAVAC_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d %_CLASSES_DIR%
-
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" %_JAVAC_OPTS% %__JAVA_SOURCE_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Compile Java source files to directory !_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
+set "__SOURCES_FILE=%_TARGET_DIR%\javac_sources.txt"
+if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
+set __N=0
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
+    echo %%i >> "%__SOURCES_FILE%"
+    set /a __N+=1
 )
-call "%_JAVAC_CMD%" %_JAVAC_OPTS% %__JAVA_SOURCE_FILES%
+set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
+echo -classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N% Java source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Compilation of Java source files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
-:compile_scala
-where /q %_SCALAC_CMD%
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% %_SCALAC_CMD% compiler not found 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set _SCALAC_OPTS=%_COMPILE_OPTS% -classpath "%__PROJECT_JARS%%_CLASSES_DIR%" -d "%_CLASSES_DIR%"
+goto :eof
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" %_SCALAC_OPTS% %__SCALA_SOURCE_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Compile Scala source files to directory !_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
+:init_scala
+if defined _SCALAC_CMD goto :eof
+set __SCALA[0]=scala.bat
+set __SCALA[1]=dotr.bat
+set __SCALAC[0]=scalac.bat
+set __SCALAC[1]=dotc.bat
+set __SCALADOC[0]=scaladoc.bat
+set __SCALADOC[1]=dotd.bat
+
+set __SCALA_BIN_DIR=
+for /f %%i in ('where "!__SCALAC[%_DOTTY%]!" 2^>NUL') do set "__SCALA_BIN_DIR=%%~dpi"
+if defined __SCALA_BIN_DIR (
+    set "_SCALA_CMD=%__SCALA_BIN_DIR%!__SCALA[%_DOTTY%]!"
+    set "_SCALAC_CMD=%__SCALA_BIN_DIR%!__SCALAC[%_DOTTY%]!"
+    set "_SCALADOC_CMD=%__SCALA_BIN_DIR%!__SCALADOC[%_DOTTY%]!"
+) else if defined SCALA_HOME (
+    set "_SCALA_CMD=%SCALA_HOME%\bin\!__SCALA[%_DOTTY%]!"
+    set "_SCALAC_CMD=%SCALA_HOME%\bin\!__SCALAC[%_DOTTY%]!"
+    set "_SCALADOC_CMD=%SCALA_HOME%\bin\!__SCALADOC[%_DOTTY%]!"
+) else (
+   echo %_ERROR_LABEL% Command !__SCALAC[%_DOTTY%]! not found 1>&2
+   set _EXITCODE=1
+   goto :eof
 )
-call "%_SCALAC_CMD%" %_SCALAC_OPTS% %__SCALA_SOURCE_FILES%
+goto :eof
+
+:compile_scala
+call :init_scala
+if not %_EXITCODE%==0 goto :eof
+
+set "__SOURCES_FILE=%_TARGET_DIR%\scalac_sources.txt"
+if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
+set __N=0
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
+    echo %%i >> "%__SOURCES_FILE%"
+    set /a __N+=1
+)
+set "__OPTS_FILE=%_TARGET_DIR%\scalac_opts.txt"
+echo %_SCALAC_OPTS% -classpath "%_CLASSES_DIR:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N% Scala source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Compilation of Scala source files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
-for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
-    echo %%i> %__TIMESTAMP_FILE%
-)
-if %_COMPILE_TIME%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __COMPILE_TIME_END=%%i
-    call :duration "%__COMPILE_TIME_START%" "!__COMPILE_TIME_END!"
-    echo Compile time: !_DURATION! 1>&2
-)
 if %_TASTY%==1 (
-    if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
-    set __CLASS_NAMES=
-    for /f %%f in ('dir /b "%_CLASSES_DIR%\*.tasty" 2^>NUL') do (
-        set __CLASS_NAME=%%f
-        set __CLASS_NAMES=!__CLASS_NAMES! !__CLASS_NAME:~0,-6!
-    )
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% -from-tasty !__CLASS_NAMES! -classpath %_CLASSES_DIR% -d %_TASTY_CLASSES_DIR% 1>&2
-    ) else if %_VERBOSE%==1 ( echo Compile Scala TASTy files to directory !_TASTY_CLASSES_DIR:%_ROOT_DIR%=! 1>&2
-    )
-    call %_SCALAC_CMD% -from-tasty !__CLASS_NAMES! -classpath %_CLASSES_DIR% -d %_TASTY_CLASSES_DIR%
-    if not !ERRORLEVEL!==0 (
-        echo %_ERROR_LABEL% Compilation of Scala TASTy files failed 1>&2
-        set _EXITCODE=1
-    )
+    call :compile_tasty
     if not !_EXITCODE!==0 goto :eof
 )
 goto :eof
 
-rem input parameter: 1=timestamp file 2=source files
-rem output parameter: _COMPILE_REQUIRED
-:compile_required
-set __TIMESTAMP_FILE=%~1
-set __SOURCE_FILES=%~2
+:compile_tasty
+if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
 
-set __SOURCE_TIMESTAMP=00000000000000
+set "__OPTS_FILE=%_TARGET_DIR%\tasty_scalac_opts.txt"
+echo -from-tasty -classpath "%_CLASSES_DIR%" -d "%_TASTY_CLASSES_DIR%" > "%__OPTS_FILE%"
+
+set "__SOURCES_FILE=%_TARGET_DIR%\tasty_scalac_sources.txt"
+if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
-for %%i in (%__SOURCE_FILES%) do (
-    call :timestamp "%%i"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% !_TIMESTAMP! %%i 1>&2
-    call :newer !_TIMESTAMP! !__SOURCE_TIMESTAMP!
-    if !_NEWER!==1 set __SOURCE_TIMESTAMP=!_TIMESTAMP!
-    set /a __N=!__N!+1
+for /f %%f in ('dir /s /b "%_CLASSES_DIR%\*.tasty" 2^>NUL') do (
+    echo %%f >> "%__SOURCES_FILE%"
+    set /a __N+=1
 )
-if exist "%__TIMESTAMP_FILE%" ( set /p __CLASS_TIMESTAMP=<%__TIMESTAMP_FILE%
-) else ( set __CLASS_TIMESTAMP=00000000000000
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N% TASTy files to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
-if %_DEBUG%==1 echo %_DEBUG_LABEL% %__CLASS_TIMESTAMP% %__TIMESTAMP_FILE% 1>&2
-
-call :newer %__SOURCE_TIMESTAMP% %__CLASS_TIMESTAMP%
-set _COMPILE_REQUIRED=%_NEWER%
-if %_COMPILE_REQUIRED%==0 (
-    if %_RUN%==0 echo No compilation needed ^(%__N% source files^)
+call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
+if not !ERRORLEVEL!==0 (
+    echo %_ERROR_LABEL% Compilation from TASTy files failed 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 goto :eof
 
-rem output parameter: _NEWER
+@rem input parameter: 1=target file 2=path (wildcards accepted)
+@rem output parameter: _COMPILE_REQUIRED
+:compile_required
+set __TARGET_FILE=%~1
+set __PATH=%~2
+
+set __TARGET_TIMESTAMP=00000000000000
+for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+     set __TARGET_TIMESTAMP=%%i
+)
+set __SOURCE_TIMESTAMP=00000000000000
+for /f "usebackq" %%i in (`powershell -c "gci -recurse -path '%__PATH%' -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+    set __SOURCE_TIMESTAMP=%%i
+)
+call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
+set _COMPILE_REQUIRED=%_NEWER%
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% "%__TARGET_FILE%" 1>&2
+    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% "%__PATH%" 1>&2
+    echo %_DEBUG_LABEL% _COMPILE_REQUIRED=%_COMPILE_REQUIRED% 1>&2
+) else if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
+    echo No compilation needed ^("!__PATH:%_ROOT_DIR%=!"^) 1>&2
+)
+goto :eof
+
+@rem output parameter: _NEWER
 :newer
 set __TIMESTAMP1=%~1
 set __TIMESTAMP2=%~2
@@ -428,28 +503,110 @@ if exist "%_ROOT_DIR%\lib\" (
 )
 goto :eof
 
+:decompile
+if %_DOTTY%==1 (
+    set "__LIB_PATH=%DOTTY_HOME%\lib"
+    for /f "tokens=1,2,3,4,*" %%i in ('%DOTTY_HOME%\bin\dotc.bat -version 2^>^&1') do (
+        set "__VERSION_STRING=scala3_%%l"
+    )
+) else (
+    set "__LIB_PATH=%SCALA_HOME%\lib"
+    for /f "tokens=1,2,3,4,*" %%i in ('%SCALA_HOME%\bin\scalac.bat -version') do (
+        set "__VERSION_STRING=scala2_%%l"
+    )
+)
+@rem keep only "-NIGHTLY" in version suffix when compiling with a nightly build 
+if "%__VERSION_STRING:NIGHTLY=%"=="%__VERSION_STRING%" (
+    set __VERSION_SUFFIX=_%__VERSION_STRING%
+) else (
+    for /f "usebackq" %%i in (`powershell -c "$s='%__VERSION_STRING%';$i=$s.indexOf('-bin',0); $s.substring(0, $i)"`) do (
+        set __VERSION_SUFFIX=_%%i-NIGHTLY
+    )
+)
+set __EXTRA_CPATH=
+for %%f in (%__LIB_PATH%\*.jar) do set "__EXTRA_CPATH=!__EXTRA_CPATH!%%f;"
+set "__OUTPUT_DIR=%_TARGET_DIR%\cfr-sources"
+if not exist "%__OUTPUT_DIR%" mkdir "%__OUTPUT_DIR%"
+
+set __CFR_CMD=cfr.bat
+set __CFR_OPTS=--extraclasspath "%__EXTRA_CPATH%" --outputdir "%__OUTPUT_DIR%"
+
+set "__CLASS_DIRS=%_CLASSES_DIR%"
+for /f "delims=" %%f in ('dir /b /s /ad "%_CLASSES_DIR%" 2^>NUL') do (
+    set __CLASS_DIRS=!__CLASS_DIRS! "%%f"
+)
+if %_VERBOSE%==1 echo Decompile Java bytecode to directory "!__OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
+for %%i in (%__CLASS_DIRS%) do (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__CFR_CMD%" %__CFR_OPTS% "%%i\*.class" 1>&2
+    call "%__CFR_CMD%" %__CFR_OPTS% "%%i"\*.class %_STDERR_REDIRECT%
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to decompile generated code in directory "%%i" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+@rem output file contains Scala and CFR headers
+set "__OUTPUT_FILE=%_TARGET_DIR%\cfr-sources%__VERSION_SUFFIX%.java"
+echo // Compiled with %__VERSION_STRING% > "%__OUTPUT_FILE%"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% type "%__OUTPUT_DIR%\*.java" ^>^> "%__OUTPUT_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Save generated Java source files to file "!__OUTPUT_FILE:%_ROOT_DIR%=!" 1>&2
+)
+set __JAVA_FILES=
+for /f "delims=" %%f in ('dir /b /s "%__OUTPUT_DIR%\*.java" 2^>NUL') do (
+    set __JAVA_FILES=!__JAVA_FILES! "%%f"
+)
+if defined __JAVA_FILES type %__JAVA_FILES% >> "%__OUTPUT_FILE%" 2>NUL
+
+set __DIFF_CMD=diff.exe
+set __DIFF_OPTS=--strip-trailing-cr
+
+set "__CHECK_FILE=%_SOURCE_DIR%\build\cfr-sources%__VERSION_SUFFIX%.java"
+if exist "%__CHECK_FILE%" (
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__DIFF_CMD%" %__DIFF_OPTS% "%__OUTPUT_FILE%" "%__CHECK_FILE%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Compare output file with check file "!__CHECK_FILE:%_ROOT_DIR%=!" 1>&2
+    )
+    call "%__DIFF_CMD%" %__DIFF_OPTS% "%__OUTPUT_FILE%" "%__CHECK_FILE%"
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Output file and check file differ 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+goto :eof
+
 :doc
-if not exist "%_DOCS_DIR%" mkdir "%_DOCS_DIR%" 1>NUL
+call :init_scala
+if not %_EXITCODE%==0 goto :eof
+
+if not exist "%_TARGET_DOCS_DIR%" mkdir "%_TARGET_DOCS_DIR%" 1>NUL
 
 set __TIMESTAMP_FILE=%_DOCS_DIR%\.latest-build
 
-set __SCALA_SOURCE_FILES=
-for /f %%i in ('dir /s /b "%_ROOT_DIR%src\main\scala\*.scala" 2^>NUL') do (
-    set __SCALA_SOURCE_FILES=!__SCALA_SOURCE_FILES! %%i
-)
+call :compile_required "%__DOC_TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\scala\*.scala"
+if %_COMPILE_REQUIRED%==0 goto :eof
 
-for %%i in ("%~dp0\.") do set __PROJECT=%%~ni
-set __DOC_OPTS=-siteroot %_DOCS_DIR% -project %__PROJECT% -project-version 0.1-SNAPSHOT
-
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Generate Dotty documentation into !_DOCS_DIR:%_ROOT_DIR%=! 1>&2
+set "__SOURCES_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
+if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%"
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
+    echo %%i>> "%__SOURCES_FILE%"
 )
-call %_DOC_CMD% %__DOC_OPTS% %__SCALA_SOURCE_FILES%
+set "__OPTS_FILE=%_TARGET_DIR%\scaladoc_opts.txt"
+if %_DOTTY%==0 (
+    echo -d "%_TARGET_DOCS_DIR%" -doc-title "%_PROJECT_NAME%" -doc-footer "%_PROJECT_URL%" -doc-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
+) else (
+    echo -siteroot "%_TARGET_DOCS_DIR%" -project "%_PROJECT_NAME%" -project-url "%_PROJECT_URL%" -project-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate HTML documentation into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Scala documentation generation failed 1>&2
+    echo %_ERROR_LABEL% Generation of HTML documentation failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
+echo. > "%__TIMESTAMP_FILE%"
 goto :eof
 
 :run
@@ -460,12 +617,12 @@ if not exist "%__MAIN_CLASS_FILE%" (
     goto :eof
 )
 call :libs_cpath
-set __RUN_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%"
+set __SCALA_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_RUN_CMD% %__RUN_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% 1>&2
 )
-call %_RUN_CMD% %__RUN_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
+call %_SCALA_CMD% %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Execution failed ^(%_MAIN_CLASS%^) 1>&2
     set _EXITCODE=1
@@ -477,12 +634,12 @@ if %_TASTY%==1 (
         set _EXITCODE=1
         goto :eof
     )
-    set __RUN_OPTS=-classpath "%_LIBS_CPATH%%_TASTY_CLASSES_DIR%;%_CLASSES_DIR%"
+    set __SCALA_OPTS=-classpath "%_LIBS_CPATH%%_TASTY_CLASSES_DIR%;%_CLASSES_DIR%"
 
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_RUN_CMD% !__RUN_OPTS! %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" !__SCALA_OPTS! %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
     ) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% ^(compiled from TASTy^) 1>&2
     )
-    call %_RUN_CMD% !__RUN_OPTS! %_MAIN_CLASS% %_MAIN_ARGS%
+    call %_SCALA_CMD% !__SCALA_OPTS! %_MAIN_CLASS% %_MAIN_ARGS%
     if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Execution failed ^(%_MAIN_CLASS%^) 1>&2
         set _EXITCODE=1

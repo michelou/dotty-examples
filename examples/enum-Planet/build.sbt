@@ -4,7 +4,7 @@ lazy val root = project
   .in(file("."))
   .settings(
     name := "enum-Planet",
-    description := "sbt example project to build/run Scala 3 code",
+    description := "sbt example project to build/run Scala 3 applications",
     version := "0.1.0",
 
     scalaVersion := dottyVersion,
@@ -22,7 +22,7 @@ lazy val root = project
       // https://mvnrepository.com/artifact/org.scalacheck/scalacheck
       "org.scalacheck" % "scalacheck_2.13" % "1.14.3" % Test,
       // https://mvnrepository.com/artifact/org.scalatest/scalatest
-      "org.scalatest" % "scalatest_2.13" % "3.1.1" % "test"
+      "org.scalatest" % "scalatest_2.13" % "3.2.0" % "test"
     ),
 
     testOptions ++= Seq(

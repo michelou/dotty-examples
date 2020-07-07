@@ -77,8 +77,8 @@
                                 <additionalClasspathElement>${m2.directory}/org/hamcrest/hamcrest/2.2/hamcrest-core-2.2.jar</additionalClasspathElement>
                                 <additionalClasspathElement>${m2.directory}/junit/junit/4.13/junit-4.13.jar</additionalClasspathElement>
                                 <additionalClasspathElement>${m2.directory}/org/portable-scala/portable-scala-reflect_2.13/1.0.0/portable-scala-reflect_2.13-1.0.0.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/scalactic/scalactic_2.13/3.1.1/scalactic_2.13-3.1.1.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/scalatest/scalatest_2.13/3.1.1/scalatest_2.13-3.1.1.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/scalactic/scalactic_2.13/3.1.1/scalactic_2.13-3.2.0.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/scalatest/scalatest_2.13/3.1.1/scalatest_2.13-3.2.0.jar</additionalClasspathElement>
                                 <additionalClasspathElement>${specs2-common.jar}</additionalClasspathElement>
                                 <additionalClasspathElement>${specs2-core.jar}</additionalClasspathElement>
                                 <additionalClasspathElement>${specs2-fp.jar}</additionalClasspathElement>
