@@ -7,11 +7,12 @@
 *.cpp text
 *.h text
 *.hpp text
-*.java text
+*.java text linguist-language=Java
 *.json text
 *.js text
+*.md text linguist-documentation=true
 *.sbt text
-*.scala text
+*.scala text linguist-language=Scala
 *.txt text
 *.xml text
 *.yaml text
@@ -35,3 +36,5 @@
 *.pdf binary
 *.png binary
 *.zip binary
+
+docs/* linguist-documentation

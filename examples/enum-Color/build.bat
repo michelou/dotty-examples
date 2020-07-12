@@ -71,6 +71,33 @@ set "_CLASSES_DIR=%_TARGET_DIR%\classes"
 set "_TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes"
 set "_TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
+
+if not defined JAVA_HOME (
+   echo %_ERROR_LABEL% Java SDK not found 1>&2
+   set _EXITCODE=1
+   goto :eof
+)
+set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
+set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
+set "_JAVADOC_CMD=%JAVA_HOME%\bin\javadoc.exe"
+
+if not defined SCALA_HOME (
+   echo %_ERROR_LABEL% Scala 2 SDK not found 1>&2
+   set _EXITCODE=1
+   goto :eof
+)
+set "_SCALA[0]=%SCALA_HOME%\bin\scala.bat"
+set "_SCALAC[0]=%SCALA_HOME%\bin\scalac.bat"
+set "_SCALADOC[0]=%SCALA_HOME%\bin\scaladoc.bat"
+
+if not defined DOTTY_HOME (
+   echo %_ERROR_LABEL% Scala 3 SDK not found 1>&2
+   set _EXITCODE=1
+   goto :eof
+)
+set "_SCALA[1]=%DOTTY_HOME%\bin\dotr.bat"
+set "_SCALAC[1]=%DOTTY_HOME%\bin\dotc.bat"
+set "_SCALADOC[1]=%DOTTY_HOME%\bin\dotd.bat"
 goto :eof
 
 :env_colors
@@ -214,6 +241,10 @@ goto :args_loop
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
+set "_SCALA_CMD=!_SCALA[%_DOTTY%]!"
+set "_SCALAC_CMD=!_SCALAC[%_DOTTY%]!"
+set "_SCALADOC_CMD=!_SCALADOC[%_DOTTY%]!"
+
 if %_SCALAC_OPTS_EXPLAIN%==1 set _SCALAC_OPTS=%_SCALAC_OPTS% -explain
 if %_SCALAC_OPTS_EXPLAIN_TYPES%==1 (
     if !_DOTTY!==1 ( set _SCALAC_OPTS=%_SCALAC_OPTS% -explain-types
@@ -227,6 +258,7 @@ if %_TASTY%==1 if %_DOTTY%==0 (
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _DOTTY=%_DOTTY% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _RUN=%_RUN% _TEST=%_TEST% 1>&2
+    echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% SCALA_HOME=%SCALA_HOME% DOTTY_HOME=%DOTTY_HOME% 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
@@ -295,7 +327,7 @@ goto :eof
 set "__DIR=%~1"
 if not exist "%__DIR%\" goto :eof
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
-) else if %_VERBOSE%==1 ( echo Delete directory !__DIR:%_ROOT_DIR%=! 1>&2
+) else if %_VERBOSE%==1 ( echo Delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
 )
 rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
@@ -322,29 +354,7 @@ if %_COMPILE_REQUIRED%==1 (
 echo. > "%__TIMESTAMP_FILE%"
 goto :eof
 
-:init_java
-if defined _JAVAC_CMD goto :eof
-set __JAVA_BIN_DIR=
-for /f %%i in ('where javac.exe 2^>NUL') do set "__JAVA_BIN_DIR=%%~dpi"
-if defined __JAVA_BIN_DIR (
-    set "_JAVA_CMD=%__JAVA_BIN_DIR%java.exe"
-    set "_JAVAC_CMD=%__JAVA_BIN_DIR%javac.exe"
-    set "_JAVADOC_CMD=%__JAVA_BIN_DIR%javadoc.exe"
-) else if defined JAVA_HOME (
-    set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
-    set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
-    set "_JAVADOC_CMD=%JAVA_HOME%\bin\javadoc.exe"
-) else (
-   echo %_ERROR_LABEL% Command javac.exe not found 1>&2
-   set _EXITCODE=1
-   goto :eof
-)
-goto :eof
-
 :compile_java
-call :init_java
-if not %_EXITCODE%==0 goto :eof
-
 call :libs_cpath
 if not %_EXITCODE%==0 goto :eof
 
@@ -369,36 +379,7 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-:init_scala
-if defined _SCALAC_CMD goto :eof
-set __SCALA[0]=scala.bat
-set __SCALA[1]=dotr.bat
-set __SCALAC[0]=scalac.bat
-set __SCALAC[1]=dotc.bat
-set __SCALADOC[0]=scaladoc.bat
-set __SCALADOC[1]=dotd.bat
-
-set __SCALA_BIN_DIR=
-for /f %%i in ('where "!__SCALAC[%_DOTTY%]!" 2^>NUL') do set "__SCALA_BIN_DIR=%%~dpi"
-if defined __SCALA_BIN_DIR (
-    set "_SCALA_CMD=%__SCALA_BIN_DIR%!__SCALA[%_DOTTY%]!"
-    set "_SCALAC_CMD=%__SCALA_BIN_DIR%!__SCALAC[%_DOTTY%]!"
-    set "_SCALADOC_CMD=%__SCALA_BIN_DIR%!__SCALADOC[%_DOTTY%]!"
-) else if defined SCALA_HOME (
-    set "_SCALA_CMD=%SCALA_HOME%\bin\!__SCALA[%_DOTTY%]!"
-    set "_SCALAC_CMD=%SCALA_HOME%\bin\!__SCALAC[%_DOTTY%]!"
-    set "_SCALADOC_CMD=%SCALA_HOME%\bin\!__SCALADOC[%_DOTTY%]!"
-) else (
-   echo %_ERROR_LABEL% Command !__SCALAC[%_DOTTY%]! not found 1>&2
-   set _EXITCODE=1
-   goto :eof
-)
-goto :eof
-
 :compile_scala
-call :init_scala
-if not %_EXITCODE%==0 goto :eof
-
 set "__SOURCES_FILE=%_TARGET_DIR%\scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
@@ -437,7 +418,7 @@ for /f %%f in ('dir /s /b "%_CLASSES_DIR%\*.tasty" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% TASTy files to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
@@ -448,30 +429,38 @@ if not !ERRORLEVEL!==0 (
 )
 goto :eof
 
-@rem input parameter: 1=target file 2=path (wildcards accepted)
+@rem input parameter: 1=target file 2,3,..=path (wildcards accepted)
 @rem output parameter: _COMPILE_REQUIRED
 :compile_required
-set __TARGET_FILE=%~1
-set __PATH=%~2
+set "__TARGET_FILE=%~1"
 
-if exist "%__TARGET_FILE%" (
-    for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S"`) do (
-        set __TARGET_TIMESTAMP=%%i
-    )
-) else ( set __TARGET_TIMESTAMP=00000000000000
-)
-if exist "%__PATH%" (
-    for /f "usebackq" %%i in (`powershell -c "gci -recurse -path '%__PATH%' | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S"`) do (
-        set __SOURCE_TIMESTAMP=%%i
-    )
-) else ( set __SOURCE_TIMESTAMP=00000000000000
-)
-if %_DEBUG%==1 echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% %__TARGET_FILE% 1>&2
+set __PATH_ARRAY=
+set __PATH_ARRAY1=
+:compile_path
+shift
+set __PATH=%~1
+if not defined __PATH goto :compile_next
+set __PATH_ARRAY=%__PATH_ARRAY%,'%__PATH%'
+set __PATH_ARRAY1=%__PATH_ARRAY1%,'!__PATH:%_ROOT_DIR%=!'
+goto :compile_path
 
+:compile_next
+set __TARGET_TIMESTAMP=00000000000000
+for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+     set __TARGET_TIMESTAMP=%%i
+)
+set __SOURCE_TIMESTAMP=00000000000000
+for /f "usebackq" %%i in (`powershell -c "gci -recurse -path %__PATH_ARRAY:~1% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+    set __SOURCE_TIMESTAMP=%%i
+)
 call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
 set _COMPILE_REQUIRED=%_NEWER%
-if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
-    echo No compilation needed ^("!__PATH:%_ROOT_DIR%=!"^) 1>&2
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% '%__TARGET_FILE%' 1>&2
+    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% %__PATH_ARRAY:~1% 1>&2
+    echo %_DEBUG_LABEL% _COMPILE_REQUIRED=%_COMPILE_REQUIRED% 1>&2
+) else if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
+    echo No compilation needed ^(%__PATH_ARRAY1:~1%^) 1>&2
 )
 goto :eof
 
@@ -567,7 +556,7 @@ set "__OUTPUT_FILE=%_TARGET_DIR%\cfr-sources%__VERSION_SUFFIX%.java"
 echo // Compiled with %__VERSION_STRING% > "%__OUTPUT_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% type "%__OUTPUT_DIR%\*.java" ^>^> "%__OUTPUT_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Save generated Java source files to directory "!__OUTPUT_FILE:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Save generated Java source files to file "!__OUTPUT_FILE:%_ROOT_DIR%=!" 1>&2
 )
 set __JAVA_FILES=
 for /f "delims=" %%f in ('dir /b /s "%__OUTPUT_DIR%\*.java" 2^>NUL') do (
@@ -593,9 +582,6 @@ if exist "%__CHECK_FILE%" (
 goto :eof
 
 :doc
-call :init_scala
-if not %_EXITCODE%==0 goto :eof
-
 if not exist "%_TARGET_DOCS_DIR%" mkdir "%_TARGET_DOCS_DIR%" 1>NUL
 
 set "__DOC_TIMESTAMP_FILE=%_TARGET_DOCS_DIR%\.latest-build"
@@ -627,9 +613,6 @@ echo. > "%__DOC_TIMESTAMP_FILE%"
 goto :eof
 
 :run
-call :init_scala
-if not %_EXITCODE%==0 goto :eof
-
 set "__MAIN_CLASS_FILE=%_CLASSES_DIR%\%_MAIN_CLASS:.=\%.class"
 if not exist "%__MAIN_CLASS_FILE%" (
     echo %_ERROR_LABEL% Main class '%_MAIN_CLASS%' not found ^(%__MAIN_CLASS_FILE%^) 1>&2
@@ -641,7 +624,7 @@ if not exist "%__MAIN_CLASS_FILE%" (
 
 set __SCALA_OPTS=-classpath "%_CLASSES_DIR%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALA_CMD% %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% 1>&2
 )
 call "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
@@ -665,7 +648,7 @@ if not exist "%_TASTY_CLASSES_DIR%" (
 @rem we append _CLASSES_DIR to also include classes generated from Java source files
 set __SCALA_OPTS=-classpath "%_LIBS_CPATH%%_TASTY_CLASSES_DIR%;%_CLASSES_DIR%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALA_CMD% %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% ^(compiled from TASTy^) 1>&2
 )
 call "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
@@ -677,9 +660,6 @@ if not !ERRORLEVEL!==0 (
 goto :eof
 
 :compile_test
-call :init_scala
-if not %_EXITCODE%==0 goto :eof
-
 if not exist "%_TEST_CLASSES_DIR%" mkdir "%_TEST_CLASSES_DIR%" 1>NUL
 
 set "__TEST_TIMESTAMP_FILE=%_TEST_CLASSES_DIR%\.latest-build"
@@ -717,26 +697,22 @@ goto :eof
 call :compile_test
 if not %_EXITCODE%==0 goto :eof
 
-where /q java.exe
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Java executable not found 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set __JAVA_CMD=java.exe
-
 call :libs_cpath includeScalaLibs
 if not %_EXITCODE%==0 goto :eof
 
 set __TEST_JAVA_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
 
 @rem see https://github.com/junit-team/junit4/wiki/Getting-started
-for %%i in (%_TEST_CLASSES_DIR%\*JUnitTest.class) do (
-    set "__MAIN_CLASS=%%~ni"
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
+for /f "usebackq" %%f in (`dir /s /b "%_TEST_CLASSES_DIR%\*JUnitTest.class" 2^>NUL`) do (
+    for %%i in (%%~dpf) do set __PKG_NAME=%%i
+    set __PKG_NAME=!__PKG_NAME:%_TEST_CLASSES_DIR%\=!
+    if defined __PKG_NAME ( set "__MAIN_CLASS=!__PKG_NAME:\=.!%%~nf"
+    ) else ( set "__MAIN_CLASS=%%~nf"
+    )
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
     ) else if %_VERBOSE%==1 ( echo Execute test !__MAIN_CLASS! 1>&2
     )
-    call "%__JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS!
+    call "%_JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS!
     if not !ERRORLEVEL!==0 (
         set _EXITCODE=1
         goto :eof

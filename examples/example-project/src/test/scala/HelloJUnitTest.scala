@@ -4,8 +4,8 @@ package hello
 import org.junit.Assert._
 import org.junit.Test
 
-class HelloTest {
-  import HelloTest._
+class HelloJUnitTest {
+  import HelloJUnitTest._
 
   @Test
   def test1(): Unit = {
@@ -15,7 +15,7 @@ class HelloTest {
 
 }
 
-object HelloTest {
+object HelloJUnitTest {
   import java.io._
 
   private val eol = System.getProperty("line.separator")

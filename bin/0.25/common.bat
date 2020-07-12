@@ -34,12 +34,8 @@ if not exist "%_JAVACMD%" (
    goto :eof
 )
 
-if defined DOTTY_HOME (
-    set _LIB_DIR=%DOTTY_HOME%\lib
-) else (
-    if not defined _PROG_HOME for %%f in ("%~dp0..") do set _PROG_HOME=%%~sf
-    set _LIB_DIR=!_PROG_HOME!\lib
-)
+if not defined _PROG_HOME set "_PROG_HOME=%~dp0"
+for /f %%f in ("%_PROG_HOME%\.") do set "_LIB_DIR=%%~dpflib"
 
 set _PSEP=;
 

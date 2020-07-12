@@ -259,7 +259,6 @@ for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%"
     set __URL=https://repo.maven.apache.org/maven2/%%i
     for %%f in ("%%i") do set "__FILE_BASENAME=%%~nxf"
     if defined _NIGHTLY_VERSION if not "!__FILE_BASENAME:%_NIGHTLY_VERSION%=!"=="!__FILE_BASENAME!" (
-        set _NIGHTLY_UPTODATE=1
         echo Nightly build files already present locally
         echo ^(directory %_DOTTY_HOME%\lib\%_NIGHTLY_VERSION%^)
         goto :eof
@@ -288,6 +287,7 @@ for /f %%i in ('dir /b "%_OUTPUT_DIR%\dotty-compiler_*.jar" 2^>NUL') do (
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Nightly version is %_NIGHTLY_VERSION% 1>&2
 ) else if %_VERBOSE%==1 ( echo Nightly version is %_NIGHTLY_VERSION% 1>&2
 )
+set _NIGHTLY_UPTODATE=1
 goto :eof
 
 @rem global variable: _DOTTY_HOME

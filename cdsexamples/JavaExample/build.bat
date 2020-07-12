@@ -78,17 +78,10 @@ if not defined JAVA_HOME (
     set _EXITCODE=1
     goto :eof
 )
-set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
-set _JAVAC_OPTS=
-
-set "_JAVADOC_CMD=%JAVA_HOME%\bin\javadoc.exe"
-set _JAVADOC_OPTS=
-
 set "_JAR_CMD=%JAVA_HOME%\bin\jar.exe"
-set _JAR_OPTS=
-
 set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
-set _JAVA_OPTS=
+set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
+set "_JAVADOC_CMD=%JAVA_HOME%\bin\javadoc.exe"
 goto :eof
 
 :env_colors

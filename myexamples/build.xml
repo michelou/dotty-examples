@@ -4,6 +4,13 @@
     <!-- set dotty.home -->
     <property environment="env" />
 
+    <condition property="user.home"
+        value="${env.USERPROFILE}"
+        else="${env.HOME}">
+        <os family="windows" />
+    </condition>
+    <property name="ivy.cache" value="${user.home}/.ivy2/cache" />
+
     <target name="init.local" if="use.local">
         <property name="dotty.home" value="${env.DOTTY_HOME}" />
         <condition property="dotc.executable"
@@ -36,15 +43,9 @@
         <ivy:resolve file="../ivy.xml" showprogress="false" log="download-only" />
         <ivy:cachepath pathid="dotc.classpath" conf="default"/>
 
-        <condition property="user.home"
-            value="${env.USERPROFILE}"
-            else="${env.HOME}">
-            <os family="windows" />
-        </condition>
-        <property name="ivy.cache" value="${user.home}/.ivy2/cache" />
         <path id="dotty.classpath">
             <fileset dir="${ivy.cache}/ch.epfl.lamp" includes="**/jars/dotty-library*.jar">
-                <filename regex="_0\.(1[8-9]|2[0-9])-0\.(1[8-9]|2[0-9])\.[0-9]+" />  <!-- e.g. _0.22-0.22.x -->
+                <filename regex="_0\.(1[8-9]|2[0-9])-0\.(1[8-9]|2[0-9])\.[0-9]+" />  <!-- e.g. _0.25-0.25.x -->
             </fileset>
             <fileset dir="${ivy.cache}/org.scala-lang" includes="**/jars/scala-library*.jar">
                 <filename regex="-2\.[1-2][3-9]\.[0-9]+" />  <!-- e.g. -2.13.x -->
@@ -56,14 +57,16 @@
 
     <target name="init" depends="init.local, init.ivy">
         <path id="build.classpath">
-            <fileset dir="${basedir}" includes="lib/*.jar" />
             <pathelement location="${build.dir}" />
         </path>
         <path id="basedir.ref">
             <pathelement location="${basedir}"/>
         </path>
         <path id="test.classpath">
-            <fileset dir="../../lib/junit5" includes="*.jar" />
+            <fileset dir="${ivy.cache}/junit" includes="**/jars/junit-4.13.jar" />
+            <fileset dir="${ivy.cache}/org.hamcrest" includes="**/jars/hamcrest-2.2.jar" />
+            <path refid="build.classpath" />
+            <pathelement location="${test-build.dir}" />
         </path>
     </target>
 
@@ -72,6 +75,13 @@
         <attribute name="destdir" default="." />
         <attribute name="classpathref" default="basedir.ref" />
         <sequential>
+            <!-- local properties -->
+            <local name="classpath"/>
+            <local name="n"/>
+            <local name="quoted"/>
+            <local name="s"/>
+            <local name="scala.sources"/>
+
             <pathconvert property="scala.sources" pathsep=" ">
                 <fileset dir="@{srcdir}" includes="**/*.scala" />
             </pathconvert>
@@ -86,7 +96,7 @@
                 <arg value="Compiling ${n} source file${s} to @{destdir}" />
             </exec>
             -->
-            <echo message="Compiling ${n} source file${s} to @{destdir}" />
+            <echo message="Compiling ${n} source file${s} to @{destdir}" level="info" />
             <pathconvert property="classpath" refid="@{classpathref}" />
             <condition property="quoted" value="&quot;" else="">
                 <contains string="${classpath}" substring=" " />
@@ -104,34 +114,17 @@
             </java>
         </sequential>
     </macrodef>
-    <!--
-    <macrodef name="dotc.local" >
-        <attribute name="srcdir" default="." />
-        <attribute name="destdir" default="." />
-        <attribute name="classpathref" default="basedir.ref" />
-        <sequential>
-            <pathconvert property="scala.sources" pathsep=" ">
-                <fileset dir="@{srcdir}" includes="**/*.scala" />
-            </pathconvert>
-            <resourcecount property="n">
-                <fileset dir="@{srcdir}" includes="**/*.scala" />
-            </resourcecount>
-            <condition property="s" value="s" else="">
-                <not><matches string="${n}" pattern="[0-1]" /></not>
-            </condition>
-            <exec executable="echo" taskname="scalac">
-                <arg value="Compiling ${n} source file${s} to @{destdir}" />
-            </exec>
-            <pathconvert property="classpath" refid="@{classpathref}" />
-            <exec executable="${dotc.executable}">
-                <arg value="-d" />
-                <arg value="@{destdir}" />
-                <arg value="-classpath" />
-                <arg value="&quot;${classpath}&quot;" />
-                <arg value="-deprecation" />
-                <arg line="${scala.sources}" />
-            </exec>
-        </sequential>
-    </macrodef>
-    -->
+
+    <target name="test.install">
+        <ivy:resolve file="../ivy-test.xml" showprogress="false" log="download-only" />
+        <ivy:install
+            organisation="junit" module="junit" revision="4.13"
+            transitive="true" overwrite="false" from="public" to="local"
+        />
+        <ivy:install
+            organisation="org.hamcrest" module="hamcrest" revision="2.2"
+            transitive="true" overwrite="false" from="public" to="local"
+        />
+    </target>
+
 </project>
