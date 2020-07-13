@@ -106,7 +106,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 We first execute command **`build clean compile`**; the same command with option **`-verbose`** prints out the progress messages:
 
 <pre style="font-size:80%;">
-<b>&gt; build clean compile</b>
+<b>&gt; <a href="cdsexamples/JavaExample/build.bat">build</a> clean compile</b>
 &nbsp;
 <b>&gt; build -verbose clean compile</b>
 Delete output directory target
@@ -118,7 +118,7 @@ Create Java shared archive target\JavaExample.jsa
 We can now execute our Java example ***without data sharing***; the same command with option **`-verbose`** prints out the execution report:
 
 <pre style="font-size:80%;">
-<b>&gt; build run</b>
+<b>&gt; <a href="cdsexamples/JavaExample/build.bat">build</a> run</b>
 Hello from Java !
 &nbsp;
 <b>&gt; build run -verbose</b>
@@ -159,7 +159,7 @@ Classes per package (600):
 For comparison here is the console output ***with data sharing***; option **`-verbose`** prints out the execution report:
 
 <pre style="font-size:80%;">
-<b>&gt; build run -share</b>
+<b>&gt; <a href="cdsexamples/JavaExample/build.bat">build</a> run -share</b>
 Hello from Java !
 &nbsp;
 <b>&gt; build run -verbose -share</b>
@@ -184,7 +184,7 @@ Classes per package (590):
 Subcommand **`run`** with option **`-iter:<n>`** (where **`n=1..99`**) executes the Java program **`n`** times:
 
 <pre style="font-size:80%;">
-<b>&gt; build run -verbose -share -iter:4</b>
+<b>&gt; <a href="cdsexamples/JavaExample/build.bat">build</a> run -verbose -share -iter:4</b>
 Execute Java archive (#iterations=4) target\JavaExample.jar
 Hello from Java !
 Hello from Java !

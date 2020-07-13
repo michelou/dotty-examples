@@ -43,6 +43,7 @@ Optionally one may also install the following software:
 - [CFR 0.15][cfr_releases] (Java decompiler)
 - [Git 2.27][git_releases] ([*release notes*][git_relnotes])
 - [Gradle 6.5][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [JaCoCo 0.8][jacoco_downloads] ([*change log*][jacoco_changelog])
 - [Mill 0.7][mill_releases] ([*change log*][mill_changelog])
 - [SBT 1.3][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
@@ -65,6 +66,7 @@ C:\opt\cfr-0.150\            <i>(  1.9 MB)</i>
 C:\opt\dotty-0.25.0-RC2\     <i>( 26.9 MB)</i>
 C:\opt\Git-2.27.0\           <i>(278.0 MB)</i>
 C:\opt\gradle-6.5.1\         <i>(112.0 MB)</i>
+C:\opt\jacoco-0.8.5\         <i>( 10.6 MB)</i>
 C:\opt\Mill-0.7.4\           <i>( 53.7 MB)</i>
 C:\opt\sbt-1.3.13\           <i>( 61.3 MB)</i>
 C:\opt\scala-2.13.3\         <i>( 22.8 MB, 588 MB with API docs)</i>
@@ -739,7 +741,8 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.8-bin.zip</a>                       <i>( 9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                      <i>( 9 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.25.0-RC2">dotty-0.25.0-RC2.zip</a>                            <i>(24 MB)</i>
-<a href="https://gradle.org/install/">gradle-6.5.1-bin.zip</a><i>                              (97 MB)</i>
+<a href="https://gradle.org/install/">gradle-6.5.1-bin.zip</a><i>                            (97 MB)</i>
+<a href="https://www.eclemma.org/jacoco/">jacoco-0.8.5.zip</a>                                <i>( 4 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u252b09.zip</a>  <i>(99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.27.0-64-bit.7z.exe</a>                <i>(41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.3.13.zip</a>                                  <i>(55 MB)</i>
@@ -853,6 +856,8 @@ Command Prompt has been around for as long as we can remember, but starting with
 [gradle_install]: https://gradle.org/install/
 [gradle_relnotes]: https://docs.gradle.org/6.5/release-notes.html
 [haskell_examples]: https://github.com/michelou/haskell-examples
+[jacoco_changelog]: https://www.jacoco.org/jacoco/trunk/doc/changes.html
+[jacoco_downloads]: https://www.eclemma.org/jacoco/
 [jar_file]: https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html
 [java_bytecode]: https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html
 [java_jls]: https://docs.oracle.com/javase/specs/jls/se8/html/index.html

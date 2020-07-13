@@ -72,6 +72,12 @@ if not %_EXITCODE%==0 goto end
 call :gradle
 if not %_EXITCODE%==0 goto end
 
+call :jacoco
+if not %_EXITCODE%==0 (
+    @rem optional
+    echo %_WARNING_LABEL% JaCoCo installation not found 1>&2
+    set _EXITCODE=0
+)
 call :jmc
 if not %_EXITCODE%==0 (
     @rem optional
@@ -524,6 +530,35 @@ if not exist "%_GRADLE_HOME%\bin\gradle.bat" (
 set "_GRADLE_PATH=;%_GRADLE_HOME%\bin"
 goto :eof
 
+
+@rem output parameter(s): _JACOCO_HOME
+:jacoco
+set _JACOCO_HOME=
+
+if defined JACOCO_HOME (
+    set "_JACOCO_HOME=%JACOCO_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable JACOCO_HOME 1>&2
+) else (
+    set __PATH=C:\opt
+    if exist "!__PATH!\jacoco\" ( set "_JACOCO_HOME=!__PATH!\jmc"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\jacoco-*" 2^>NUL') do set "_JACOCO_HOME=!__PATH!\%%f"
+        if not defined _JACOCO_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f %%f in ('dir /ad /b "!__PATH!\jacoco-*" 2^>NUL') do set "_JACOCO_HOME=!__PATH!\%%f"
+        )
+    )
+    if defined _JACOCO_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default JaCoCo installation directory !_JACOCO_HOME! 1>&2
+    )
+)
+if not exist "%_JACOCO_HOME%\lib\jacococli.jar" (
+    echo %_ERROR_LABEL% JaCoCo library not found ^(%_JACOCO_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
 @rem output parameter(s): _JMC_HOME, _JMC_PATH
 :jmc
 set _JMC_HOME=
@@ -882,6 +917,7 @@ endlocal & (
     if %_EXITCODE%==0 (
         if not defined ANT_HOME set "ANT_HOME=%_ANT_HOME%"
         if not defined DOTTY_HOME set "DOTTY_HOME=%_DOTTY_HOME%"
+        if not defined JACOCO_HOME set "JACOCO_HOME=%_JACOCO_HOME%"
         if not defined JAVA_HOME set "JAVA_HOME=%_JDK_HOME%"
         if not defined JAVA11_HOME set "JAVA11_HOME=%_JDK11_HOME%"
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
