@@ -1,4 +1,4 @@
-@echo off
+rem @echo off
 setlocal enabledelayedexpansion
 
 @rem only for interactive debugging !
@@ -12,9 +12,16 @@ set _EXITCODE=0
 call :env
 if not %_EXITCODE%==0 goto end
 
+call :args %*
+if not %_EXITCODE%==0 goto end
+
 @rem #########################################################################
 @rem ## Main
 
+if %_HELP%==1 (
+    call :help
+    exit /b !_EXITCODE!
+)
 for %%i in (examples myexamples) do (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% call :run "%_ROOT_DIR%%%i" 1>&2
     call :run "%_ROOT_DIR%%%i"
@@ -81,31 +88,105 @@ set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
 goto :eof
 
-:run
-set __PARENT_DIR=%~1
+@rem input parameter: %*
+@rem output parameter(s): _DEBUG, _TIMER, _VERBOSE
+:args
+set _HELP=0
+set _TIMER=0
+set _VERBOSE=0
 set __N=0
-for /f %%i in ('dir /ad /b "%__PARENT_DIR%" ^| findstr -v bin') do (
+:args_loop
+set "__ARG=%~1"
+if not defined __ARG goto args_done
+
+if "%__ARG:~0,1%"=="-" (
+    @rem option
+    if "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if "%__ARG%"=="-timer" ( set _TIMER=1
+    ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
+    ) else (
+        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        set _EXITCODE=1
+        goto args_done
+   )
+) else (
+    @rem subcommand
+    if "%__ARG%"=="help" ( set _HELP=1
+    ) else (
+        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        set _EXITCODE=1
+        goto args_done
+    )
+    set /a __N+=1
+)
+shift
+goto :args_loop
+:args_done
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLEAN=%_CLEAN% _GENERATE=%_GENERATE% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
+goto :eof
+
+:help
+if %_VERBOSE%==1 (
+    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __BEG_O=%_STRONG_FG_GREEN%
+    set __BEG_N=%_NORMAL_FG_YELLOW%
+    set __END=%_RESET%
+) else (
+    set __BEG_P=
+    set __BEG_O=
+    set __BEG_N=
+    set __END=
+)
+echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
+echo.
+echo   %__BEG_P%Options:%__END%
+echo     %__BEG_O%-debug%__END%      show commands executed by this script
+echo     %__BEG_O%-timer%__END%      display total elapsed time
+echo     %__BEG_O%-verbose%__END%    display environment settings
+echo.
+echo   %__BEG_P%Subcommands:%__END%
+echo     %__BEG_O%help%__END%        display this help message
+goto :eof
+
+:run
+set "__PARENT_DIR=%~1"
+set __N=0
+for /f %%i in ('dir /ad /b "%__PARENT_DIR%" ^| findstr -v bin 2^>NUL') do (
     echo Running example %%i
     set "__BUILD_FILE=%__PARENT_DIR%\%%i\build.bat"
     if exist "!__BUILD_FILE!" (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% "!__BUILD_FILE!" clean run 1>&2
         call "!__BUILD_FILE!" clean run >NUL
         if not !ERRORLEVEL!==0 (
-            if %_DEBUG%==1 echo %_DEBUG_LABEL% Failed to run directory %__PARENT_DIR%\%%i 1>&2
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% Failed to run directory "%__PARENT_DIR%\%%i" 1>&2
             set _EXITCODE=1
         )
         set /a __N+=1
     ) else (
-       if %_DEBUG%==1 echo %_DEBUG_LABEL% File !__BUILD_FILE! not found 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% File !__BUILD_FILE! not found 1>&2
     )
 )
-echo Finished to run %__N% examples in directory %__PARENT_DIR%
+echo Finished to run %__N% examples in directory "%__PARENT_DIR%"
+goto :eof
+
+@rem output parameter: _DURATION
+:duration
+set __START=%~1
+set __END=%~2
+
+for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
 goto :eof
 
 @rem #########################################################################
 @rem ## Cleanups
 
 :end
+if %_TIMER%==1 (
+    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
+    call :duration "%_TIMER_START%" "!__TIMER_END!"
+    echo Total elapsed time: !_DURATION! 1>&2
+)
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%
 endlocal

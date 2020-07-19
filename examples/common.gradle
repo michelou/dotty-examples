@@ -7,9 +7,11 @@ java {
 }
 
 ext {
-    scalaSourceTree = fileTree(dir: "/src/main/scala", include: "**/*.scala")
-    projectJars = fileTree(dir: "/lib", include: "**/*.jar")
+    mainSourceTree = fileTree(dir: "/src/main/scala", include: "**/*.scala")
+    testSourceTree = fileTree(dir: "/src/test/scala", include: "**/*.scala")
+
     classesDir = file("${buildDir}/classes")
+    testClassesDir = file("${buildDir}/test-classes")
 
     if (dottyLocal?.toBoolean()) {
         dottyHome = System.getenv("DOTTY_HOME")
@@ -27,18 +29,14 @@ ext {
             f.name.matches("tasty-core(.*)jar") ||
             f.name.matches("dotty-staging(.*)jar")
         }
-        scalaClasspath = files(dotcLibraryFiles, projectJars, sourceSets.main.output, classesDir)
+        scalaClasspath = files(dotcLibraryFiles, classesDir)
     } else {
-        scalaClasspath = files(sourceSets.main.runtimeClasspath, projectJars, classesDir)
+        scalaClasspath = files(sourceSets.main.runtimeClasspath, classesDir)
     }
-}
-
-sourceSets {
-    main {
-        java {
-            buildDir classesDir
-        }
-    }
+    testLibsTree = fileTree(dir: "${project.gradle.userHomeDir}/.m2/repository", include: "**/junit-4.13.jar")
+    print("\n00000000000000 user.home   =${project.gradle.userHomeDir}")
+    print("\n11111111111111 testLibsTree=${testLibsTree}")
+    testClasspath = files(testLibsTree, scalaClasspath, testClassesDir)
 }
 
 clean.doLast {
@@ -56,13 +54,13 @@ task compileScala(type: JavaExec) {
 
     description "Compile Scala source files"
 
-    classpath sourceSets.main.runtimeClasspath
-    String sources = scalaSourceTree.files.join("\" \"").replaceAll("\\\\", "/")
-
-    main "dotty.tools.dotc.Main"
+    classpath scalaClasspath
 
     jvmArgs "-Dscala.usejavacp=true"
 
+    main "dotty.tools.dotc.Main"
+
+    String sources = mainSourceTree.files.join("\" \"").replaceAll("\\\\", "/")
     args "-deprecation", "-encoding", "UTF8", "-d", classesDir, sources
 }
 
@@ -90,11 +88,34 @@ task run(type: JavaExec) {
     if (args == null) args ""
 }
 
+task compileTest(type: JavaExec) {
+    dependsOn compileScala
+
+    description "Compile Scala test source files"
+
+    classpath testClasspath
+
+    jvmArgs "-Dscala.usejavacp=true"
+
+    main "dotty.tools.dotc.Main"
+
+    String sources = testSourceTree.files.join("\" \"").replaceAll("\\\\", "/")
+    args "-deprecation", "-encoding", "UTF8", "-d", testClassesDir, sources
+}
+
+compileTest.doFirst {
+    if (!testClassesDir.exists()) testClassesDir.mkdirs()
+}
+
+test {
+    dependsOn compileTest
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation "ch.epfl.lamp:dotty-compiler_0.24:0.24.0-RC1"
+    implementation "ch.epfl.lamp:dotty-compiler_0.25:0.25.0-RC2"
     testImplementation "junit:junit:4.13"
 }

@@ -7,9 +7,7 @@ set _DEBUG=0
 @rem #########################################################################
 @rem ## Environment setup
 
-set _BASENAME=%~n0
 set _EXITCODE=0
-for %%f in ("%~dp0..") do set "_ROOT_DIR=%%~dpf"
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -39,6 +37,9 @@ goto end
 
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 :env
+set _BASENAME=%~n0
+for %%f in ("%~dp0..") do set "_ROOT_DIR=%%~dpf"
+
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
 set _DEBUG_LABEL=[46m[%_BASENAME%][0m

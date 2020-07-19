@@ -307,6 +307,7 @@ echo   %__BEG_P%Properties:%__END%
 echo   ^(to be defined in SBT configuration file %__BEG_O%project\build.properties%__END%^)
 echo     %__BEG_O%main.class%__END%       alternative to option %__BEG_O%-main%__END%
 echo     %__BEG_O%main.args%__END%        list of arguments to be passed to main class
+echo.
 goto :eof
 
 @rem output parameter: _MAIN_CLASS
