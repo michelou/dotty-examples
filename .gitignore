@@ -3,7 +3,7 @@
 .dotty-ide*
 .bloop/
 .gradle/
-.idea
+.idea/
 .project
 .settings/
 .vscode/

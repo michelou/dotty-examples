@@ -29,6 +29,10 @@ if %_CLEAN%==1 (
     call :clean
     if not !_EXITCODE!==0 goto end
 )
+if %_LINT%==1 (
+    call :lint
+    if not !_EXITCODE!==0 goto end
+)
 if %_COMPILE%==1 (
     call :compile
     if not !_EXITCODE!==0 goto end
@@ -72,8 +76,8 @@ set "_TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes"
 set "_TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
 
-if not defined JAVA_HOME (
-   echo %_ERROR_LABEL% Java SDK not found 1>&2
+if not exist "%JAVA_HOME%\bin\javac.exe" (
+   echo %_ERROR_LABEL% Java SDK installation not found 1>&2
    set _EXITCODE=1
    goto :eof
 )
@@ -81,8 +85,8 @@ set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
 set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
 set "_JAVADOC_CMD=%JAVA_HOME%\bin\javadoc.exe"
 
-if not defined SCALA_HOME (
-   echo %_ERROR_LABEL% Scala 2 SDK not found 1>&2
+if not exist "%SCALA_HOME%\bin\scalac.bat" (
+   echo %_ERROR_LABEL% Scala 2 installation not found 1>&2
    set _EXITCODE=1
    goto :eof
 )
@@ -90,14 +94,21 @@ set "_SCALA[0]=%SCALA_HOME%\bin\scala.bat"
 set "_SCALAC[0]=%SCALA_HOME%\bin\scalac.bat"
 set "_SCALADOC[0]=%SCALA_HOME%\bin\scaladoc.bat"
 
-if not defined DOTTY_HOME (
-   echo %_ERROR_LABEL% Scala 3 SDK not found 1>&2
+if not exist "%DOTTY_HOME%\bin\dotc.bat" (
+   echo %_ERROR_LABEL% Scala 3 installation not found 1>&2
    set _EXITCODE=1
    goto :eof
 )
 set "_SCALA[1]=%DOTTY_HOME%\bin\dotr.bat"
 set "_SCALAC[1]=%DOTTY_HOME%\bin\dotc.bat"
 set "_SCALADOC[1]=%DOTTY_HOME%\bin\dotd.bat"
+
+if not exist "%SCALAFMT_HOME%\bin\scalafmt.bat" (
+   echo %_ERROR_LABEL% Scalafmt installation not found 1>&2
+   set _EXITCODE=1
+   goto :eof
+)
+set "_SCALAFMT_CMD=%SCALAFMT_HOME%\bin\scalafmt.bat"
 goto :eof
 
 :env_colors
@@ -330,6 +341,20 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
 )
 rmdir /s /q "%__DIR%"
+if not %ERRORLEVEL%==0 (
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
+:lint
+set __SCALAFMT_OPTS=--test
+if %_DEBUG%==1 set __SCALAFMT_OPTS=--debug %__SCALAFMT_OPTS%
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_SOURCE_DIR%\main\scala\" 1>&2
+) else if %_VERBOSE%==1 ( echo Analyze %__N% Scala source files with Scalafmt 1>&2
+)
+call "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% %_SOURCE_DIR%\main\scala\
 if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof

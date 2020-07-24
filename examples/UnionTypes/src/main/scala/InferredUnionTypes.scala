@@ -13,14 +13,15 @@ object InferredUnionTypes {
   def test: Unit = {
     val x = ListBuffer(Right("foo"), Left(0))
     val y: ListBuffer[T] = x
-    println("y="+y)
+    println("y=" + y)
 
     val x2 = ArrayBuffer(Some(0), Some("hello"), None)
     val y2: ArrayBuffer[U] = x2
-    println("y2="+y2)
+    println("y2=" + y2)
 
     val x3 = Array(List("-deprecation", "-feature"), List(true))
     val y3: A[String] = x3
-    println("y3="+y3)
+    println("y3=" + y3)
   }
+
 }

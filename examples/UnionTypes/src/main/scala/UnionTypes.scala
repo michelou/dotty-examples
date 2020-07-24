@@ -7,14 +7,14 @@ object UnionTypes {
   type Admin = String
   type Hash = Long | String
 
-  class UserData {
-  }
+  class UserData {}
 
   case class UserName(name: String) {
     def lookup(admin: Admin): UserData = {
       return new UserData
     }
   }
+
   case class Password(hash: Hash) {
     def lookup(admin: Admin): UserData = {
       return new UserData
@@ -41,6 +41,7 @@ object UnionTypes {
     val password = Password(123)
     val name = UserName("Eve")
     val either: Password | UserName = if (true) name else password
-    println("either="+either)
+    println(s"either=$either")
   }
+
 }

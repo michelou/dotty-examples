@@ -7,6 +7,10 @@ class ColorJUnitTest {
 
   @Test
   def test1(): Unit = {
-    assertEquals("Enumeration contains 3 colors", Color.values.size, Integer.valueOf(3))
+    assertEquals(
+      "Enumeration contains 3 colors",
+      Color.values.size,
+      Integer.valueOf(3)
+    )
   }
 }

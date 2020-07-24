@@ -165,9 +165,9 @@ if not defined __ARG goto args_done
 
 if "%__ARG:~0,1%"=="-" (
     @rem option
-    if /i "%__ARG%"=="-debug" ( set _DEBUG=1
-    ) else if /i "%__ARG%"=="-timer" ( set _TIMER=1
-    ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
+    if "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if "%__ARG%"=="-timer" ( set _TIMER=1
+    ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
         set _EXITCODE=1
@@ -175,12 +175,12 @@ if "%__ARG:~0,1%"=="-" (
     )
 ) else (
     @rem subcommand
-    if /i "%__ARG%"=="help" ( set _HELP=1
-    ) else if /i "%__ARG%"=="download" ( set _DOWNLOAD_ONLY=1
-    ) else if /i "%__ARG%"=="activate" (
+    if "%__ARG%"=="help" ( set _HELP=1
+    ) else if "%__ARG%"=="download" ( set _DOWNLOAD_ONLY=1
+    ) else if "%__ARG%"=="activate" (
         set _DOWNLOAD_ONLY=0
         set _ACTIVATE_NIGHTLY=1
-    ) else if /i "%__ARG%"=="reset" (
+    ) else if "%__ARG%"=="reset" (
         set _DOWNLOAD_ONLY=0
         set _ACTIVATE_NIGHTLY=0
     ) else (
@@ -192,23 +192,37 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto args_loop
 :args_done
-if %_DEBUG%==1 echo %_DEBUG_LABEL% _DOWNLOAD_ONLY=%_DOWNLOAD_ONLY% _ACTIVATE_NIGHTLY=%_ACTIVATE_NIGHTLY% _NIGHTLY_VERSION=%_NIGHTLY_VERSION% 1>&2
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Subcommands: _DOWNLOAD_ONLY=%_DOWNLOAD_ONLY% _ACTIVATE_NIGHTLY=%_ACTIVATE_NIGHTLY% _NIGHTLY_VERSION=%_NIGHTLY_VERSION% 1>&2
+)
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
 :help
-echo Usage: %_BASENAME% { ^<option^> ^| ^<subcommand^> }
+if %_VERBOSE%==1 (
+    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __BEG_O=%_STRONG_FG_GREEN%
+    set __BEG_N=%_NORMAL_FG_YELLOW%
+    set __END=%_RESET%
+) else (
+    set __BEG_P=
+    set __BEG_O=
+    set __BEG_N=
+    set __END=
+)
+echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
-echo   Options:
-echo     -debug      show commands executed by this script
-echo     -timer      display total elapsed time
-echo     -verbose    display download progress
+echo   %__BEG_P%Options:%__END%
+echo     %__BEG_O%-debug%__END%      show commands executed by this script
+echo     %__BEG_O%-timer%__END%      display total elapsed time
+echo     %__BEG_O%-verbose%__END%    display download progress
 echo.
-echo   Subcommands:
-echo     activate    activate the nightly build library files
-echo     download    download nighty build files and quit (default)
-echo     help        display this help message
-echo     reset       restore the default Dotty library files
+echo   %__BEG_P%Subcommands:%__END%
+echo     %__BEG_O%activate%__END%    activate the nightly build library files
+echo     %__BEG_O%download%__END%    download nighty build files and quit (default)
+echo     %__BEG_O%help%__END%        display this help message
+echo     %__BEG_O%reset%__END%       restore the default Dotty library files
 goto :eof
 
 @rem input parameter: 1=file path
@@ -341,15 +355,18 @@ goto :eof
 :activate_version
 set __OLD_VERSION=%~1
 set __NEW_VERSION=%~2
+echo Activate nightly build libraries: %__NEW_VERSION%
 
 set "__FROM_DIR=%_DOTTY_HOME%\lib\%__NEW_VERSION%"
 set "__TO_DIR=%_DOTTY_HOME%\lib"
 if %_DEBUG%==1 echo %_DEBUG_LABEL% del %__TO_DIR%\*%__OLD_VERSION%.jar 1>&2 
-del %__TO_DIR%\*%__OLD_VERSION%.jar 1>NUL 2>&1
-if %_DEBUG%==1 echo %_DEBUG_LABEL% copy "%__FROM_DIR%\*.jar" "%__TO_DIR%\" 1>&2
+del "%__TO_DIR%\*%__OLD_VERSION%.jar" 1>NUL 2>&1
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% copy "%__FROM_DIR%\*.jar" "%__TO_DIR%\" 1>&2
+) else if %_VERBOSE%==1 ( echo Copy "!__FROM_DIR:%_DOTTY_HOME%\=!\*.jar" "!__TO_DIR:%_DOTTY_HOME%\=!\" 1>&2
+)
 copy "%__FROM_DIR%\*.jar" "%__TO_DIR%\" 1>NUL
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to copy files from %__FROM_DIR%\ 1>&2
+    echo %_ERROR_LABEL% Failed to copy files from "%__FROM_DIR%\" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -357,24 +374,20 @@ goto :eof
 
 @rem global variables: _DOTTY_VERSION, _NIGHTLY_VERSION
 :activate_nightly
-<NUL set /p=Activate nightly build libraries
 call :activate_version "%_DOTTY_VERSION%" "%_NIGHTLY_VERSION%"
 if not !_EXITCODE!==0 (
     echo.
     goto :eof
 )
-echo : %_NIGHTLY_VERSION%
 goto :eof
 
 @rem global variables: _DOTTY_VERSION, _NIGHTLY_VERSION
 :activate_dotty
-<NUL set /p=Activate default Dotty libraries
 call :activate_version "%_NIGHTLY_VERSION%" "%_DOTTY_VERSION%"
 if not !_EXITCODE!==0 (
     echo.
     goto :eof
 )
-echo : %_DOTTY_VERSION%
 goto :eof
 
 @rem output parameter: _DURATION

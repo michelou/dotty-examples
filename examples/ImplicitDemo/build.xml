@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="ImplicitDemo" default="compile" basedir=".">
 
-    <property name="scala-source.dir" value="${basedir}/src/main/scala" />
+    <property name="main-source.dir" value="${basedir}/src/main/scala" />
     <property name="target.dir" value="${basedir}/target" />
     <property name="build.dir" value="${target.dir}/classes" />
     <property name="main.class" value="ImplicitDemo" />
+
+    <property name="test-source.dir" value="${basedir}/src/test/scala" />
+    <property name="test-build.dir" value="${target.dir}/test-classes" />
 
     <!-- task 'init' and macro 'dotc' are defined in parent build.xml -->
     <import file="../build.xml" />
 
     <target name="compile" depends="init">
         <mkdir dir="${build.dir}" />
-        <dotc srcdir="${scala-source.dir}"
+        <dotc srcdir="${main-source.dir}"
               destdir="${build.dir}"
               classpathref="build.classpath" />
     </target>
@@ -24,6 +27,24 @@
                 <path refid="build.classpath" />
             </classpath>
         </java>
+    </target>
+
+    <target name="-test-compile" depends="init">
+        <mkdir dir="${test-build.dir}" />
+        <dotc srcdir="${test-source.dir}"
+              destdir="${test-build.dir}"
+              classpathref="build.classpath" />
+    </target>
+
+    <target name="test" depends="compile, -test-compile">
+        <junit printsummary="yes" haltonfailure="yes">
+            <!-- <jvmarg line="" /> -->
+            <classpath>
+                <path refid="test.classpath" />
+            </classpath>
+            <formatter type="plain"/>
+            <test name="${main.class}JUnitTest" />
+        </junit>
     </target>
 
     <target name="clean">
