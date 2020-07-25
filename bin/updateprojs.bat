@@ -10,8 +10,8 @@ set _DEBUG=0
 set _EXITCODE=0
 
 @rem files build.sbt, build.sc and ivy.xml
-set _DOTTY_VERSION_OLD="0.25.0-RC1"
-set _DOTTY_VERSION_NEW="0.25.0-RC2"
+set _DOTTY_VERSION_OLD="0.25.0-RC2"
+set _DOTTY_VERSION_NEW="0.26.0-RC1"
 
 @rem files project\build.properties
 set _SBT_VERSION_OLD=sbt.version=1.3.12
@@ -26,15 +26,15 @@ set _SCALATEST_VERSION_OLD=^(\"scalatest_2.13\"^)^(.+\"3.1.1\"^)
 set _SCALATEST_VERSION_NEW=$1 %%%% \"3.2.0\"
 
 @rem files ivy.xml (NB. PS regex)
-set _IVY_DOTTY_VERSION_OLD=^(dotty-[a-z]+^)_0.24
-set _IVY_DOTTY_VERSION_NEW=$1_0.25
+set _IVY_DOTTY_VERSION_OLD=^(dotty-[a-z]+^)_0.25
+set _IVY_DOTTY_VERSION_NEW=$1_0.26
 
-set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_0.24
-set _IVY_TASTY_VERSION_NEW=$1_0.25
+set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_0.25
+set _IVY_TASTY_VERSION_NEW=$1_0.26
 
 @rem files pom.xml (NB. PS regex)
-set _POM_DOTTY_VERSION_OLD=scala.version^>0.25.0-RC1
-set _POM_DOTTY_VERSION_NEW=scala.version^>0.25.0-RC2
+set _POM_DOTTY_VERSION_OLD=scala.version^>0.25.0-RC2
+set _POM_DOTTY_VERSION_NEW=scala.version^>0.26.0-RC1
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -131,9 +131,9 @@ if not defined __ARG goto args_done
 
 if "%__ARG:~0,1%"=="-" (
     @rem option
-    if /i "%__ARG%"=="-debug" ( set _DEBUG=1
-    ) else if /i "%__ARG%"=="-help" ( set _HELP=1
-    ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
+    if "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if "%__ARG%"=="-help" ( set _HELP=1
+    ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
         set _EXITCODE=1
@@ -141,8 +141,8 @@ if "%__ARG:~0,1%"=="-" (
     )
 ) else (
     @rem subcommand
-    if /i "%__ARG%"=="help" ( set _HELP=1
-    ) else if /i "%__ARG%"=="run" ( set _RUN=1
+    if "%__ARG%"=="help" ( set _HELP=1
+    ) else if "%__ARG%"=="run" ( set _RUN=1
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
         set _EXITCODE=1

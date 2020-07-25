@@ -77,7 +77,7 @@ object Main {
   object CharList {
     def unapplySeq(s: String): Option[Seq[Char]] = Some(s.toList)
   }
-  
+
   def sequenceMatch: Unit = {
     "example" match {
       case CharList(c1, c2, c3, c4, _, _, _) =>
@@ -94,4 +94,5 @@ object Main {
     nameBasedMatch
     sequenceMatch
   }
+
 }

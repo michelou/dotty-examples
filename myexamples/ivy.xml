@@ -10,12 +10,12 @@
         <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
         <dependency org="org.apache.logging.log4j" name="log4j-core" rev="2.13.3"/>
         
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-compiler_0.25 -->
-        <dependency org="ch.epfl.lamp" name="dotty-compiler_0.25" rev="0.25.0-RC2"/>
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-compiler_0.26 -->
+        <dependency org="ch.epfl.lamp" name="dotty-compiler_0.26" rev="0.26.0-RC1"/>
         <!-- dependencies -->
-        <dependency org="ch.epfl.lamp" name="dotty-interfaces" rev="0.25.0-RC2"/>
-        <dependency org="ch.epfl.lamp" name="dotty-library_0.25" rev="0.25.0-RC2"/>
-        <dependency org="ch.epfl.lamp" name="dotty-staging_0.25" rev="0.25.0-RC2"/>
+        <dependency org="ch.epfl.lamp" name="dotty-interfaces" rev="0.26.0-RC1"/>
+        <dependency org="ch.epfl.lamp" name="dotty-library_0.26" rev="0.26.0-RC1"/>
+        <dependency org="ch.epfl.lamp" name="dotty-staging_0.26" rev="0.26.0-RC1"/>
         <dependency org="org.jline" name="jline-reader" rev="3.15.0"/>
         <dependency org="org.jline" name="jline-terminal" rev="3.15.0"/>
         <dependency org="org.jline" name="jline-terminal-jna" rev="3.15.0"/>

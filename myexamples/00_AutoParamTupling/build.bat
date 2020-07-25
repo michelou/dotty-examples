@@ -104,12 +104,16 @@ set "_SCALA[1]=%DOTTY_HOME%\bin\dotr.bat"
 set "_SCALAC[1]=%DOTTY_HOME%\bin\dotc.bat"
 set "_SCALADOC[1]=%DOTTY_HOME%\bin\dotd.bat"
 
+set _SCALAFMT_CMD=
 if not exist "%SCALAFMT_HOME%\bin\scalafmt.bat" (
-   echo %_ERROR_LABEL% Scalafmt installation not found ^(check variable SCALAFMT_HOME^) 1>&2
-   set _EXITCODE=1
+   @rem echo %_ERROR_LABEL% Scalafmt installation not found ^(check variable SCALAFMT_HOME^) 1>&2
+   @rem set _EXITCODE=1
    goto :eof
 )
 set "_SCALAFMT_CMD=%SCALAFMT_HOME%\bin\scalafmt.bat"
+
+set _SCALAFMT_CONFIG_FILE=
+for %%f in ("%~dp0\.") do set "_SCALAFMT_CONFIG_FILE=%%~dpf.scalafmt.conf"
 goto :eof
 
 :env_colors
@@ -257,6 +261,15 @@ goto :args_loop
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
+if %_LINT%==1 (
+    if not defined _SCALAFMT_CMD (
+        echo %_WARNING_LABEL% Scalafmt installation not found 1>&2
+        set _LINT=0
+    ) else if not defined _SCALAFMT_CONFIG_FILE (
+        echo %_WARNING_LABEL% Scalafmt configuration file not found 1>&2
+        set _LINT=0
+    )
+)
 if defined _INSTRUMENTED if not exist "%JACOCO_HOME%\lib\jacococli.jar" (
    echo %_WARNING_LABEL% JaCoCo installation not found 1>&2
    set _INSTRUMENTED=
@@ -282,6 +295,7 @@ if %_DEBUG%==1 (
     if %_DOTTY%==0 ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% SCALA_HOME=%SCALA_HOME% 1>&2
     ) else ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% DOTTY_HOME=%DOTTY_HOME% 1>&2
     )
+    echo %_DEBUG_LABEL% _MAIN_CLASS=%_MAIN_CLASS% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
@@ -305,7 +319,7 @@ echo     %__BEG_O%-debug%__END%           show commands executed by this script
 echo     %__BEG_O%-dotty%__END%           use Scala 3 tools ^(default^)
 echo     %__BEG_O%-explain%__END%         set compiler option %__BEG_O%-explain%__END%
 echo     %__BEG_O%-explain-types%__END%   set compiler option %__BEG_O%-explain-types%__END%
-echo     %__BEG_O%-main:^<name^>%__END%     define main class name
+echo     %__BEG_O%-main:^<name^>%__END%     define main class name ^(default: %__BEG_O%Main%__END%^)
 echo     %__BEG_O%-scala%__END%           use Scala 2 tools
 echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
 echo     %__BEG_O%-timer%__END%           display total elapsed time
@@ -319,7 +333,7 @@ echo     %__BEG_O%doc%__END%              generate documentation
 echo     %__BEG_O%help%__END%             display this help message
 echo     %__BEG_O%lint%__END%             analyze Scala source files with %__BEG_N%Scalafmt%__END%
 echo     %__BEG_O%run[:i]%__END%          execute main class ^(instrumented execution: %__BEG_O%:i%__END%^)
-echo     %__BEG_O%test%__END%             execute unit tests
+echo     %__BEG_O%test%__END%             execute unit tests with %__BEG_N%JUnit%__END%
 echo.
 echo   %__BEG_P%Properties:%__END%
 echo   ^(to be defined in SBT configuration file %__BEG_O%project\build.properties%__END%^)
@@ -361,7 +375,7 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :lint
-set __SCALAFMT_OPTS=--test
+set __SCALAFMT_OPTS=--test --config "%_SCALAFMT_CONFIG_FILE%"
 if %_DEBUG%==1 set __SCALAFMT_OPTS=--debug %__SCALAFMT_OPTS%
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_SOURCE_DIR%\main\scala\" 1>&2
@@ -785,6 +799,9 @@ echo. > "%__TEST_TIMESTAMP_FILE%"
 goto :eof
 
 :test
+call :compile_test
+if not %_EXITCODE%==0 goto :eof
+
 call :libs_cpath includeScalaLibs
 if not %_EXITCODE%==0 goto :eof
 
@@ -792,6 +809,7 @@ set __TEST_JAVA_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%
 
 @rem see https://github.com/junit-team/junit4/wiki/Getting-started
 for /f "usebackq" %%f in (`dir /s /b "%_TEST_CLASSES_DIR%\*Test.class" 2^>NUL`) do (
+    echo 333333333333333 %%f
     for %%i in (%%~dpf) do set __PKG_NAME=%%i
     set __PKG_NAME=!__PKG_NAME:%_TEST_CLASSES_DIR%\=!
     set "__MAIN_CLASS=!__PKG_NAME:\=.!%%~nf"

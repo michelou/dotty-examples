@@ -8,7 +8,6 @@ set _DEBUG=0
 @rem ## Environment setup
 
 set _EXITCODE=0
-for %%f in ("%~dp0..") do set "_ROOT_DIR=%%~dpf"
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -23,20 +22,20 @@ if defined _HELP (
     call :help
     exit /b !_EXITCODE!
 )
-if exist "%_DOTTY_HOME%\lib\" (
-    call :search "%_DOTTY_HOME%\lib" 1
+if exist "%DOTTY_HOME%\lib\" (
+    call :search "%DOTTY_HOME%\lib" 1
     if not !_EXITCODE!==0 goto end
 )
-if exist "%_SCALA_HOME%\lib\" (
-    call :search "%_SCALA_HOME%\lib" 1
+if exist "%SCALA_HOME%\lib\" (
+    call :search "%SCALA_HOME%\lib" 1
     if not !_EXITCODE!==0 goto end
 )
-if exist "%_JAVA_HOME%\lib\" (
-    call :search "%_JAVA_HOME%\lib"
+if exist "%JAVA_HOME%\lib\" (
+    call :search "%JAVA_HOME%\lib"
     if not !_EXITCODE!==0 goto end
 )
-if exist "%_JAVA_HOME%\jre\lib\" (
-    call :search "%_JAVA_HOME%\jre\lib"
+if exist "%JAVA_HOME%\jre\lib\" (
+    call :search "%JAVA_HOME%\jre\lib"
     if not !_EXITCODE!==0 goto end
 )
 if exist "%CD%\lib\*" (
@@ -51,7 +50,6 @@ if defined _MAVEN if exist "%USERPROFILE%\.m2\" (
     call :search "%USERPROFILE%\.m2\repository" 1
     if not !_EXITCODE!==0 goto end
 )
-
 goto end
 
 @rem #########################################################################
@@ -61,61 +59,77 @@ goto end
 @rem                    _JAR_CMD, _JAVA_HOME, _DOTTY_HOME, _SCALA_HOME
 :env
 set _BASENAME=%~n0
+for %%f in ("%~dp0..") do set "_ROOT_DIR=%%~dpf"
 
+call :env_colors
+set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
+set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
+set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
+
+if not exist "%JAVA_HOME%\bin\jar.exe" (
+    echo %_ERROR_LABEL% Java SDK installation not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_JAR_CMD=%JAVA_HOME%\bin\jar.exe"
+set "_JAVAP_CMD=%JAVA_HOME%\bin\javap.exe"
+
+if not exist "%DOTTY_HOME%\lib\dotty-library_*.jar" (
+    echo %_ERROR_LABEL% Scala 3 installation not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+if not exist "%SCALA_HOME%\lib\scala-library.jar" (
+    echo %_ERROR_LABEL% Scala 2 installation not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
+:env_colors
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-set _DEBUG_LABEL=[46m[%_BASENAME%][0m
-set _ERROR_LABEL=[91mError[0m:
-set _WARNING_LABEL=[93mWarning[0m:
+set _RESET=[0m
+set _BOLD=[1m
+set _UNDERSCORE=[4m
+set _INVERSE=[7m
 
-where /q jar.exe
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% jar command not found ^(check your PATH variable^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set _JAR_CMD=jar.exe
-set _JAVAP_CMD=javap.exe
-for /f "delims=" %%i in ('where "%_JAR_CMD%"') do (
-    for %%f in ("%%~dpi..") do set _JAVA_HOME=%%~sf
-)
-if not exist "%_JAVA_HOME%\lib\" (
-    echo %_ERROR_LABEL% Java library directory not found ^(check your PATH variable^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
+@rem normal foreground colors
+set _NORMAL_FG_BLACK=[30m
+set _NORMAL_FG_RED=[31m
+set _NORMAL_FG_GREEN=[32m
+set _NORMAL_FG_YELLOW=[33m
+set _NORMAL_FG_BLUE=[34m
+set _NORMAL_FG_MAGENTA=[35m
+set _NORMAL_FG_CYAN=[36m
+set _NORMAL_FG_WHITE=[37m
 
-@rem determine location of Dotty installation directory
-where /q dotc.bat
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% dotc command not found ^(check your PATH variable^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-for /f "delims=" %%i in ('where dotc.bat') do (
-    for %%f in ("%%~dpi..") do set _DOTTY_HOME=%%~sf
-)
-if not exist "%_DOTTY_HOME%\lib\" (
-    echo %_ERROR_LABEL% Dotty library directory not found ^(check your PATH variable^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
+@rem normal background colors
+set _NORMAL_BG_BLACK=[40m
+set _NORMAL_BG_RED=[41m
+set _NORMAL_BG_GREEN=[42m
+set _NORMAL_BG_YELLOW=[43m
+set _NORMAL_BG_BLUE=[44m
+set _NORMAL_BG_MAGENTA=[45m
+set _NORMAL_BG_CYAN=[46m
+set _NORMAL_BG_WHITE=[47m
 
-@rem determine location of Scala installation directory
-where /q scalac.bat
-if not %ERRORLEVEL%==0 (
-    echo Error: scalac command not found ^(check your PATH variable^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-for /f "delims=" %%i in ('where scalac.bat') do (
-    for %%f in ("%%~dpi..") do set _SCALA_HOME=%%~sf
-)
-if not exist "%_SCALA_HOME%\lib\" (
-    echo %_ERROR_LABEL% Scala library directory not found ^(check your PATH variable^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
+@rem strong foreground colors
+set _STRONG_FG_BLACK=[90m
+set _STRONG_FG_RED=[91m
+set _STRONG_FG_GREEN=[92m
+set _STRONG_FG_YELLOW=[93m
+set _STRONG_FG_BLUE=[94m
+set _STRONG_FG_MAGENTA=[95m
+set _STRONG_FG_CYAN=[96m
+set _STRONG_FG_WHITE=[97m
+
+@rem strong background colors
+set _STRONG_BG_BLACK=[100m
+set _STRONG_BG_RED=[101m
+set _STRONG_BG_GREEN=[102m
+set _STRONG_BG_YELLOW=[103m
+set _STRONG_BG_BLUE=[104m
 goto :eof
 
 @rem input parameter: %*
@@ -134,12 +148,12 @@ if not defined __ARG goto args_done
 
 if "%__ARG:~0,1%"=="-" (
     @rem option
-    if /i "%__ARG%"=="-artifact" ( set _IVY=1& set _MAVEN=1
-    ) else if /i "%__ARG%"=="-debug" ( set _DEBUG=1
-    ) else if /i "%__ARG%"=="-ivy" ( set _IVY=1
-    ) else if /i "%__ARG%"=="-help" ( set _HELP=1
-    ) else if /i "%__ARG%"=="-maven" ( set _MAVEN=1
-    ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
+    if "%__ARG%"=="-artifact" ( set _IVY=1& set _MAVEN=1
+    ) else if "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if "%__ARG%"=="-ivy" ( set _IVY=1
+    ) else if "%__ARG%"=="-help" ( set _HELP=1
+    ) else if "%__ARG%"=="-maven" ( set _MAVEN=1
+    ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
         set _EXITCODE=1
@@ -161,17 +175,29 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLASS_NAME=%_CLASS_NAME% _METH_NAME=%_METH_N
 goto :eof
 
 :help
-echo Usage: %_BASENAME% { ^<option^> } ^<class_name^> [ ^<meth_name^> ]
+if %_VERBOSE%==1 (
+    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __BEG_O=%_STRONG_FG_GREEN%
+    set __BEG_N=%_NORMAL_FG_YELLOW%
+    set __END=%_RESET%
+) else (
+    set __BEG_P=
+    set __BEG_O=
+    set __BEG_N=
+    set __END=
+)
+echo Usage: %__BEG_O%%_BASENAME% { ^<option^> } ^<class_name^> [ ^<meth_name^> ]%__END%
 echo.
-echo   Options:
-echo     -artifact        include ~\.ivy2 and ~\.m2 directories
-echo     -help            display this help message
-echo     -ivy             include ~\.ivy directory
-echo     -maven           include ~\.m2 directory
-echo     -verbose         display download progress
+echo   %__BEG_P%Options:%__END%
+echo     %__BEG_O%-artifact%__END%        include %__BEG_O%~\.ivy2%__END% and %__BEG_O%~\.m2%__END% directories
+echo     %__BEG_O%-debug%__END%           show commands executed by this script
+echo     %__BEG_O%-help%__END%            display this help message
+echo     %__BEG_O%-ivy%__END%             include %__BEG_O%~\.ivy%__END% directory
+echo     %__BEG_O%-maven%__END%           include %__BEG_O%~\.m2%__END% directory
+echo     %__BEG_O%-verbose%__END%         display download progress
 echo.
-echo   Arguments:
-echo     ^<class_name^>     class name
+echo   %__BEG_P%Arguments:%__END%
+echo     %__BEG_O%^<class_name^>%__END%     class name
 goto :eof
 
 @rem input parameter: %1=lib directory, %2=traverse recursively

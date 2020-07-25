@@ -77,7 +77,7 @@ set "_TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
 
 if not exist "%JAVA_HOME%\bin\javac.exe" (
-   echo %_ERROR_LABEL% Java SDK not found 1>&2
+   echo %_ERROR_LABEL% Java SDK installation not found 1>&2
    set _EXITCODE=1
    goto :eof
 )
@@ -103,9 +103,10 @@ set "_SCALA[1]=%DOTTY_HOME%\bin\dotr.bat"
 set "_SCALAC[1]=%DOTTY_HOME%\bin\dotc.bat"
 set "_SCALADOC[1]=%DOTTY_HOME%\bin\dotd.bat"
 
+set _SCALAFMT_CMD=
 if not exist "%SCALAFMT_HOME%\bin\scalafmt.bat" (
-   echo %_ERROR_LABEL% Scalafmt installation not found 1>&2
-   set _EXITCODE=1
+   @rem echo %_ERROR_LABEL% Scalafmt installation not found 1>&2
+   @rem set _EXITCODE=1
    goto :eof
 )
 set "_SCALAFMT_CMD=%SCALAFMT_HOME%\bin\scalafmt.bat"
@@ -256,6 +257,10 @@ goto :args_loop
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
+if %_LINT%==1 if not defined _SCALAFMT_CMD (
+   echo %_WARNING_LABEL% Scalafmt installation not found 1>&2
+   set _LINT=0
+)
 if defined _INSTRUMENTED if not exist "%JACOCO_HOME%\lib\jacococli.jar" (
    echo %_WARNING_LABEL% JaCoCo installation not found 1>&2
    set _INSTRUMENTED=
@@ -275,7 +280,8 @@ if %_TASTY%==1 if %_DOTTY%==0 (
     set _TASTY=0
 )
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Options    : _DOTTY=%_DOTTY% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% _PROJECT_VERSION=%_PROJECT_VERSION% 1>&2
+    echo %_DEBUG_LABEL% Options    : _DOTTY=%_DOTTY% _INSTRUMENTED=%_INSTRUMENTED% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
     if %_DOTTY%==0 ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% SCALA_HOME=%SCALA_HOME% 1>&2
     ) else ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% DOTTY_HOME=%DOTTY_HOME% 1>&2
@@ -317,7 +323,7 @@ echo     %__BEG_O%doc%__END%              generate documentation
 echo     %__BEG_O%help%__END%             display this help message
 echo     %__BEG_O%lint%__END%             analyze Scala source files with %__BEG_N%Scalafmt%__END%
 echo     %__BEG_O%run[:i]%__END%          execute main class ^(instrumented execution: %__BEG_O%:i%__END%^)
-echo     %__BEG_O%test%__END%             execute unit tests
+echo     %__BEG_O%test%__END%             execute unit tests with %__BEG_N%JUnit%__END%
 echo.
 echo   %__BEG_P%Properties:%__END%
 echo   ^(to be defined in SBT configuration file %__BEG_O%project\build.properties%__END%^)
@@ -745,6 +751,7 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+echo JaCoCo instrumentation report: "!__TARGET_HTML_DIR:%_ROOT_DIR%=!\index.html" 1>&2
 goto :eof
 
 :compile_test

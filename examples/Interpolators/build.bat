@@ -103,9 +103,10 @@ set "_SCALA[1]=%DOTTY_HOME%\bin\dotr.bat"
 set "_SCALAC[1]=%DOTTY_HOME%\bin\dotc.bat"
 set "_SCALADOC[1]=%DOTTY_HOME%\bin\dotd.bat"
 
+set _SCALAFMT_CMD=
 if not exist "%SCALAFMT_HOME%\bin\scalafmt.bat" (
-   echo %_ERROR_LABEL% Scalafmt installation not found 1>&2
-   set _EXITCODE=1
+   @rem echo %_ERROR_LABEL% Scalafmt installation not found 1>&2
+   @rem set _EXITCODE=1
    goto :eof
 )
 set "_SCALAFMT_CMD=%SCALAFMT_HOME%\bin\scalafmt.bat"
@@ -256,6 +257,10 @@ goto :args_loop
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
+if %_LINT%==1 if not defined _SCALAFMT_CMD (
+   echo %_WARNING_LABEL% Scalafmt installation not found 1>&2
+   set _LINT=0
+)
 if defined _INSTRUMENTED if not exist "%JACOCO_HOME%\lib\jacococli.jar" (
    echo %_WARNING_LABEL% JaCoCo installation not found 1>&2
    set _INSTRUMENTED=
@@ -303,7 +308,7 @@ echo     %__BEG_O%-debug%__END%           show commands executed by this script
 echo     %__BEG_O%-dotty%__END%           use Scala 3 tools ^(default^)
 echo     %__BEG_O%-explain%__END%         set compiler option %__BEG_O%-explain%__END%
 echo     %__BEG_O%-explain-types%__END%   set compiler option %__BEG_O%-explain-types%__END%
-echo     %__BEG_O%-main:^<name^>%__END%     define main class name
+echo     %__BEG_O%-main:^<name^>%__END%     define main class name ^(default: %__BEG_O%Main%__END%^)
 echo     %__BEG_O%-scala%__END%           use Scala 2 tools
 echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
 echo     %__BEG_O%-timer%__END%           display total elapsed time
@@ -317,7 +322,7 @@ echo     %__BEG_O%doc%__END%              generate documentation
 echo     %__BEG_O%help%__END%             display this help message
 echo     %__BEG_O%lint%__END%             analyze Scala source files with %__BEG_N%Scalafmt%__END%
 echo     %__BEG_O%run[:i]%__END%          execute main class ^(instrumented execution: %__BEG_O%:i%__END%^)
-echo     %__BEG_O%test%__END%             execute unit tests
+echo     %__BEG_O%test%__END%             execute unit tests with %__BEG_N%JUnit%__END%
 echo.
 echo   %__BEG_P%Properties:%__END%
 echo   ^(to be defined in SBT configuration file %__BEG_O%project\build.properties%__END%^)

@@ -84,7 +84,7 @@ object testMessage {
       case Request(method, data) => data
       case Response(code, data) => data
     }
-  
+
   def run: Unit = {
     println("testMessage example:")
     val data = handleMessage(Request(GET, new java.net.URL("https://www.google.com")))
@@ -95,7 +95,7 @@ object testMessage {
     }
     println()
   }
-  
+
 }
 
 // see https://stackoverflow.com/questions/5653678/union-types-and-intersection-types
@@ -145,7 +145,7 @@ object testShape {
     case s: Square => s.size * s.size
     case r: Rectangle => r.width * r.height
   }
-    
+
   def run: Unit = {
     println("testShape example:")
     val s = new Square {}

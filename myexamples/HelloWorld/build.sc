@@ -7,30 +7,33 @@ object app extends ScalaModule {
 
   def forkArgs = common.forkArgs
 
-  def mainClass = T.input {
-    Some(common.getBuildProp("mainClassName", "myexamples.HelloWorld", T.ctx))
-  }
+  def mainClass =
+    T.input {
+      Some(common.getBuildProp("mainClassName", "myexamples.HelloWorld", T.ctx))
+    }
 
   def sources = T.sources { common.scalaSourcePath }
   // def resources = T.sources { os.pwd / "resources" }
 
-  def clean() = T.command {
-    val path = os.pwd / "out" / "app"
-    os.walk(path, skip = _.last == "clean").foreach(os.remove.all)
-  }
+  def clean() =
+    T.command {
+      val path = os.pwd / "out" / "app"
+      os.walk(path, skip = _.last == "clean").foreach(os.remove.all)
+    }
 
   object test extends Tests {
-    def ivyDeps = Agg(
-      common.ivyJunitInterface,
-      common.ivyScalatest,
-      common.ivySpecs2Common,
-      common.ivySpecs2Core
-    )
-    def testFrameworks = Seq(
-      "com.novocode.junit.JUnitFramework",
-      "org.scalatest.tools.Framework",
-      "org.specs2.runner.JUnitRunner" // org.specs2.Specs2Framework
-    )
+    def ivyDeps =
+      Agg(
+        common.ivyJunitInterface,
+        common.ivyScalatest,
+        common.ivySpecs2Common,
+        common.ivySpecs2Core
+      )
+    def testFrameworks =
+      Seq(
+        "com.novocode.junit.JUnitFramework",
+        "org.scalatest.tools.Framework",
+        "org.specs2.runner.JUnitRunner" // org.specs2.Specs2Framework
+      )
   }
 }
-

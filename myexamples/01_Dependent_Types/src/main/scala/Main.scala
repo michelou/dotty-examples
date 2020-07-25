@@ -17,6 +17,7 @@ object Main {
     }
     override def toString: String = m.toString()
   }
+
   object HMap {
     def empty: HMap = new HMap
   }
