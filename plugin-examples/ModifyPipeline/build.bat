@@ -294,9 +294,7 @@ if %_COMPILE_REQUIRED%==1 (
     call :compile_scala
     if not !_EXITCODE!==0 goto :eof
 )
-for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
-    echo %%i> "%__TIMESTAMP_FILE%"
-)
+echo. > "%__TIMESTAMP_FILE%"
 goto :eof
 
 :compile_scala
@@ -321,25 +319,38 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-@rem input parameter: 1=timestamp file 2=path (wildcards accepted)
+@rem input parameter: 1=target file 2,3,..=path (wildcards accepted)
 @rem output parameter: _COMPILE_REQUIRED
 :compile_required
-set __TIMESTAMP_FILE=%~1
-set __PATH=%~2
+set "__TARGET_FILE=%~1"
 
+set __PATH_ARRAY=
+set __PATH_ARRAY1=
+:compile_path
+shift
+set __PATH=%~1
+if not defined __PATH goto :compile_next
+set __PATH_ARRAY=%__PATH_ARRAY%,'%__PATH%'
+set __PATH_ARRAY1=%__PATH_ARRAY1%,'!__PATH:%_ROOT_DIR%=!'
+goto :compile_path
+
+:compile_next
+set __TARGET_TIMESTAMP=00000000000000
+for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+     set __TARGET_TIMESTAMP=%%i
+)
 set __SOURCE_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -recurse '%__PATH%' | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S"`) do (
+for /f "usebackq" %%i in (`powershell -c "gci -recurse -path %__PATH_ARRAY:~1% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
     set __SOURCE_TIMESTAMP=%%i
 )
-if exist "%__TIMESTAMP_FILE%" ( set /p __GENERATED_TIMESTAMP=<%__TIMESTAMP_FILE%
-) else ( set __GENERATED_TIMESTAMP=00000000000000
-)
-if %_DEBUG%==1 echo %_DEBUG_LABEL% %__GENERATED_TIMESTAMP% %__TIMESTAMP_FILE% 1>&2
-
-call :newer %__SOURCE_TIMESTAMP% %__GENERATED_TIMESTAMP%
+call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
 set _COMPILE_REQUIRED=%_NEWER%
-if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
-    echo No compilation needed ^("!__PATH:%_ROOT_DIR%=!"^) 1>&2
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% Target : '%__TARGET_FILE%' 1>&2
+    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: %__PATH_ARRAY:~1% 1>&2
+    echo %_DEBUG_LABEL% _COMPILE_REQUIRED=%_COMPILE_REQUIRED% 1>&2
+) else if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
+    echo No compilation needed ^(%__PATH_ARRAY1:~1%^) 1>&2
 )
 goto :eof
 
@@ -348,15 +359,15 @@ goto :eof
 set __TIMESTAMP1=%~1
 set __TIMESTAMP2=%~2
 
-set __TIMESTAMP1_DATE=%__TIMESTAMP1:~0,8%
-set __TIMESTAMP1_TIME=%__TIMESTAMP1:~-6%
+set __DATE1=%__TIMESTAMP1:~0,8%
+set __TIME1=%__TIMESTAMP1:~-6%
 
-set __TIMESTAMP2_DATE=%__TIMESTAMP2:~0,8%
-set __TIMESTAMP2_TIME=%__TIMESTAMP2:~-6%
+set __DATE2=%__TIMESTAMP2:~0,8%
+set __TIME2=%__TIMESTAMP2:~-6%
 
-if %__TIMESTAMP1_DATE% gtr %__TIMESTAMP2_DATE% ( set _NEWER=1
-) else if %__TIMESTAMP1_DATE% lss %__TIMESTAMP2_DATE% ( set _NEWER=0
-) else if %__TIMESTAMP1_TIME% gtr %__TIMESTAMP2_TIME% ( set _NEWER=1
+if %__DATE1% gtr %__DATE2% ( set _NEWER=1
+) else if %__DATE1% lss %__DATE2% ( set _NEWER=0
+) else if %__TIME1% gtr %__TIME2% ( set _NEWER=1
 ) else ( set _NEWER=0
 )
 goto :eof
@@ -412,51 +423,12 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
-    echo %%i> "%__DOC_TIMESTAMP_FILE%"
-)
-goto :eof
-
-@rem output parameter: _MANIFEST_FILE
-:pack_manifest
-set "_MANIFEST_FILE=%_TARGET_DIR%\Manifest.txt"
-echo Manifest-Version: 1.0> "%_MANIFEST_FILE%"
-
-set "__JAVA_CMD=%JAVA_HOME%\bin\java.exe"
-set "__JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
-for /f "usebackq tokens=1,*" %%i in (`"%__JAVAC_CMD%" -version 2^>^&1`) do set __JAVAC_VERSION=%%j
-@rem Starting with Java 11 java.exe accepts a single Java source file
-@rem (Java versions prior to version 11 contain a dot in position 1)
-if not "!__JAVAC_VERSION:~1,1!"=="." set __JAVAC_CMD=
-
-set "__JAVA_FILE=%_SOURCE_DIR%\build\Manifest.java"
-if not exist "%__JAVA_FILE%" (
-    echo %_ERROR_LABEL% Java file "!__JAVA_FILE:%_ROOT_DIR%=!" not found 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-if defined __JAVAC_CMD (
-    set "__TMP_DIR=%_TARGET_DIR%\tmp"
-    if not exist "!_TMP_DIR!" mkdir "!_TMP_DIR!"
-    call "%__JAVAC_CMD%" -d "!_TMP_DIR!" "%__JAVA_FILE%"
-    for /f "usebackq delims=" %%i in (`call "%__JAVA_CMD%" -cp "!_TMP_DIR!" Manifest`) do (
-        echo %%i>> "%_MANIFEST_FILE%"
-    )
-) else (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__JAVA_CMD%" "%__JAVA_FILE%" 1>&2
-    for /f "usebackq delims=" %%i in (`call "%__JAVA_CMD%" "%__JAVA_FILE%"`) do (
-        echo %%i>> "%_MANIFEST_FILE%"
-    )
-)
-for /f "tokens=1,2,3,4,*" %%i in ('call "%_SCALAC_CMD%" -version 2^>^&1') do set __SCALA_VERSION=%%l
-echo Scala-Version: %__SCALA_VERSION%>> "%_MANIFEST_FILE%"
+echo. > "%__DOC_TIMESTAMP_FILE%"
 goto :eof
 
 @rem https://docs.oracle.com/javase/7/docs/technotes/tools/windows/jar.html
 :pack
-set "__PACK_TIMESTAMP_FILE=%_TARGET_DIR%\.latest-pack"
-
-call :compile_required "%__PACK_TIMESTAMP_FILE%" "%_CLASSES_DIR%\*.class"
+call :compile_required "%_PLUGIN_JAR_FILE%" "%_CLASSES_DIR%\*.class"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
 set __JAR_OPTS=cfm
@@ -484,9 +456,39 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
-    echo %%i> "%__PACK_TIMESTAMP_FILE%"
+goto :eof
+
+@rem output parameter: _MANIFEST_FILE
+:pack_manifest
+set "_MANIFEST_FILE=%_TARGET_DIR%\Manifest.txt"
+echo Manifest-Version: 1.0> "%_MANIFEST_FILE%"
+
+for /f "usebackq tokens=1,*" %%i in (`"%_JAVAC_CMD%" -version 2^>^&1`) do set __JAVAC_VERSION=%%j
+@rem Starting with Java 11 java.exe accepts a single Java source file
+@rem (Java versions prior to version 11 contain a dot in position 1)
+if not "!__JAVAC_VERSION:~1,1!"=="." set _JAVAC_CMD=
+
+set "__JAVA_FILE=%_SOURCE_DIR%\build\Manifest.java"
+if not exist "%__JAVA_FILE%" (
+    echo %_ERROR_LABEL% Java file "!__JAVA_FILE:%_ROOT_DIR%=!" not found 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
+if defined _JAVAC_CMD (
+    set "__TMP_DIR=%_TARGET_DIR%\tmp"
+    if not exist "!_TMP_DIR!" mkdir "!_TMP_DIR!"
+    call "%_JAVAC_CMD%" -d "!_TMP_DIR!" "%__JAVA_FILE%"
+    for /f "usebackq delims=" %%i in (`call "%_JAVA_CMD%" -cp "!_TMP_DIR!" Manifest`) do (
+        echo %%i>> "%_MANIFEST_FILE%"
+    )
+) else (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_JAVA_CMD%" "%__JAVA_FILE%" 1>&2
+    for /f "usebackq delims=" %%i in (`call "%_JAVA_CMD%" "%__JAVA_FILE%"`) do (
+        echo %%i>> "%_MANIFEST_FILE%"
+    )
+)
+for /f "tokens=1,2,3,4,*" %%i in ('call "%_SCALAC_CMD%" -version 2^>^&1') do set __SCALA_VERSION=%%l
+echo Scala-Version: %__SCALA_VERSION%>> "%_MANIFEST_FILE%"
 goto :eof
 
 :compile_test
@@ -520,9 +522,7 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-@rem for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
-@rem     echo %%i> "%__TEST_TIMESTAMP_FILE%"
-@rem )
+@rem echo. > "%__TEST_TIMESTAMP_FILE%"
 goto :eof
 
 :test

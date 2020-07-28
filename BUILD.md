@@ -18,13 +18,13 @@ This document is part of a series of topics related to [Dotty] on Windows:
 - [Data Sharing and Dotty on Windows](CDS.md)
 - [OpenJDK and Dotty on Windows](OPENJDK.md)
 
-[JMH], [Metaprogramming][dotty_metaprogramming], [GraalSqueak][graalsqueak_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples] and [LLVM][llvm_examples] are other topics we are currently investigating.
+[JMH], [Metaprogramming][dotty_metaprogramming], [GraalSqueak][graalsqueak_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodes_examples] and [TruffleSqueak][trufflesqueak_examples] are other topics we are currently investigating.
 
 ## <span id="proj_deps">Project dependencies</span>
 
 Our [Dotty fork][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.27][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.28][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
 - [SBT 1.3][sbt_releases] <sup id="anchor_03">[[3]](#footnote_03)</sup> (requires Java 8) ([*release notes*][sbt_relnotes])
 <!--
@@ -41,8 +41,8 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 For instance our development environment looks as follows (*July 2020*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.27.0\
-C:\opt\jdk-11.0.7+10\
+C:\opt\Git-2.28.0\
+C:\opt\jdk-11.0.8+10\
 C:\opt\sbt-1.3.13\
 </pre>
 
@@ -291,8 +291,8 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; build -verbose clean</b>
 Tool paths
-   GIT_CMD=C:\opt\Git-2.27.0\bin\git.exe
-   JAVA_CMD=C:\opt\jdk-11.0.7+10\bin\java.exe
+   GIT_CMD=C:\opt\Git-2.28.0\bin\git.exe
+   JAVA_CMD=C:\opt\jdk-11.0.8+10\bin\java.exe
    SBT_CMD=C:\opt\sbt-1.3.13\bin\sbt.bat
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
@@ -499,8 +499,8 @@ Command [**`project\scripts\bootstrapCmdTests.bat`**](bin/dotty/project/scripts/
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.22
-# VM version: JDK 11.0.7, VM 11.0.7+10
-# VM invoker: C:\opt\jdk-11.0.7+10\bin\java.exe
+# VM version: JDK 11.0.7, VM 11.0.8+10
+# VM invoker: C:\opt\jdk-11.0.8+10\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -529,8 +529,8 @@ Worker.compile  avgt       533.625          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.22
-# VM version: JDK 11.0.7, VM 11.0.7+10
-# VM invoker: C:\opt\jdk-11.0.7+10\bin\java.exe
+# VM version: JDK 11.0.7, VM 11.0.8+10
+# VM invoker: C:\opt\jdk-11.0.8+10\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -557,8 +557,8 @@ Worker.compile  avgt       361.619          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
 # JMH version: 1.22
-# VM version: JDK 11.0.7, VM 11.0.7+10
-# VM invoker: C:\opt\jdk-11.0.7+10\bin\java.exe
+# VM version: JDK 11.0.7, VM 11.0.8+10
+# VM invoker: C:\opt\jdk-11.0.8+10\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -629,7 +629,7 @@ total warnings with regards to compilation and documentation: 29
 
 ## <span id="footnotes">Footnotes</span>
 
-<a name="footnote_01">[1]</a> ***Continuous Integration/Delivery*** (CI/CD) [↩](#anchor_01)
+<b name="footnote_01">[1]</b> ***Continuous Integration/Delivery*** (CI/CD) [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 Steps are: Checkout <b>&rarr;</b> Compile <b>&rarr;</b> Test <b>&rarr;</b> Deploy.
@@ -646,13 +646,13 @@ Steps are: Checkout <b>&rarr;</b> Compile <b>&rarr;</b> Test <b>&rarr;</b> Deplo
 </div>
 <div>&nbsp;</div>
 
-<a name="footnote_02">[2]</a> ***Java LTS** (2018-11-18)* [↩](#anchor_02)
+<b name="footnote_02">[2]</b> ***Java LTS** (2018-11-18)* [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html" rel="external">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current LTS release.<br/>(see also <a href="https://www.slideshare.net/HendrikEbbers/java-11-omg">Java 11 keynote</a> from <a href="https://www.jvm-con.de/speakers/#/speaker/3461-hendrik-ebbers">Hendrik Ebbers</a> at <a href="https://www.jvm-con.de/ruckblick/">JVM-Con 2018</a>).
 </p>
 
-<a name="footnote_03">[3]</a> ***Sbt issue on Windows*** [↩](#anchor_03)
+<b name="footnote_03">[3]</b> ***Sbt issue on Windows*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
 <a href="https://www.scala-sbt.org/download.html"><code>sbt</code></a> versions 1.3.6 and 1.3.7 are broken on Microsoft Windows (see <a href="https://github.com/sbt/io/pull/283">pull 283</a> in project <a href="https://github.com/sbt/io"><code>sbt/io</code></a>).
@@ -663,7 +663,7 @@ Make sure to have the correct <a href="https://www.scala-sbt.org/download.html">
 sbt.version=1.3.13
 </pre>
 
-<a name="footnote_04">[4]</a> ***Git master repository*** [↩](#anchor_04)
+<b name="footnote_04">[4]</b> ***Git master repository*** [↩](#anchor_04)
 
 <p style="margin:0 0 1em 20px;">
 Nowadays we have experienced two times the error <code>Server does not allow request for unadvertised object..</code> when synchronizing our fork with the <a href="https://github.com/lampepfl/dotty"><code>lampepfl/dotty</code></a> repository:
@@ -682,13 +682,13 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 <b>&gt; git submodule update --depth 50</b>
 </pre>
 
-<a name="footnote_05">[5]</a> ***Git submodule*** [↩](#anchor_05)
+<b name="footnote_05">[5]</b> ***Git submodule*** [↩](#anchor_05)
 
 <p style="margin:0 0 1em 20px;">
 Defining directory <b><code>dotty\</code></b> as a Github submodule allows us to make changes to this project independently from our fork of the <a href="https://github.com/lampepfl/dotty">lampepfl/dotty</a> repository. 
 </p>
 
-<a name="footnote_06">[6]</a> ***Git configuration*** [↩](#anchor_06)
+<b name="footnote_06">[6]</b> ***Git configuration*** [↩](#anchor_06)
 
 <p style="margin:0 0 1em 20px;">
 We report here one issue we encountered when working with the <a href="https://git-scm.com/docs/git-config"><b><code>git</code></b></a> command on Windows, namely the error message <code>"Filename too long"</code>:
@@ -738,7 +738,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.27.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.28.0.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/
@@ -757,6 +757,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [man1_sed]: https://www.linux.org/docs/man1/sed.html
 [man1_wc]: https://www.linux.org/docs/man1/wc.html
 [microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
+[nodes_examples]: https://github.com/michelou/nodejs-examples
 [openjdk_releases]: https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
 <!-- 8u232 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html -->
 <!-- 8u242 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html -->
@@ -764,6 +765,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
 [sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.13
+[trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation

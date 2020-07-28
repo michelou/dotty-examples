@@ -294,9 +294,7 @@ if %_COMPILE_REQUIRED%==1 (
     call :compile_scala
     if not !_EXITCODE!==0 goto :eof
 )
-for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
-    echo %%i> "%__TIMESTAMP_FILE%"
-)
+echo. > "%__TIMESTAMP_FILE%"
 goto :eof
 
 :compile_scala
@@ -321,26 +319,39 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-@rem input parameter: 1=timestamp file 2=path (wildcards accepted)
+@rem input parameter: 1=target file 2,3,..=path (wildcards accepted)
 @rem output parameter: _COMPILE_REQUIRED
 :compile_required
-set __TIMESTAMP_FILE=%~1
-set __PATH=%~2
+set "__TARGET_FILE=%~1"
 
+set __PATH_ARRAY=
+set __PATH_ARRAY1=
+:compile_path
+shift
+set __PATH=%~1
+if not defined __PATH goto :compile_next
+set __PATH_ARRAY=%__PATH_ARRAY%,'%__PATH%'
+set __PATH_ARRAY1=%__PATH_ARRAY1%,'!__PATH:%_ROOT_DIR%=!'
+goto :compile_path
+
+:compile_next
+set __TARGET_TIMESTAMP=00000000000000
+for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+     set __TARGET_TIMESTAMP=%%i
+)
 set __SOURCE_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -recurse '%__PATH%' | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S"`) do (
+for /f "usebackq" %%i in (`powershell -c "gci -recurse -path %__PATH_ARRAY:~1% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
     set __SOURCE_TIMESTAMP=%%i
 )
-if exist "%__TIMESTAMP_FILE%" ( set /p __GENERATED_TIMESTAMP=<%__TIMESTAMP_FILE%
-) else ( set __GENERATED_TIMESTAMP=00000000000000
-)
-if %_DEBUG%==1 echo %_DEBUG_LABEL% %__GENERATED_TIMESTAMP% %__TIMESTAMP_FILE% 1>&2
-
-call :newer %__SOURCE_TIMESTAMP% %__GENERATED_TIMESTAMP%
-if %_VERBOSE%==1 if %_NEWER%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
-    echo No compilation needed ^("!__PATH:%_ROOT_DIR%=!"^) 1>&2
-)
+call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
 set _COMPILE_REQUIRED=%_NEWER%
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% Target : '%__TARGET_FILE%' 1>&2
+    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: %__PATH_ARRAY:~1% 1>&2
+    echo %_DEBUG_LABEL% _COMPILE_REQUIRED=%_COMPILE_REQUIRED% 1>&2
+) else if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
+    echo No compilation needed ^(%__PATH_ARRAY1:~1%^) 1>&2
+)
 goto :eof
 
 @rem output parameter: _NEWER
@@ -348,15 +359,15 @@ goto :eof
 set __TIMESTAMP1=%~1
 set __TIMESTAMP2=%~2
 
-set __TIMESTAMP1_DATE=%__TIMESTAMP1:~0,8%
-set __TIMESTAMP1_TIME=%__TIMESTAMP1:~-6%
+set __DATE1=%__TIMESTAMP1:~0,8%
+set __TIME1=%__TIMESTAMP1:~-6%
 
-set __TIMESTAMP2_DATE=%__TIMESTAMP2:~0,8%
-set __TIMESTAMP2_TIME=%__TIMESTAMP2:~-6%
+set __DATE2=%__TIMESTAMP2:~0,8%
+set __TIME2=%__TIMESTAMP2:~-6%
 
-if %__TIMESTAMP1_DATE% gtr %__TIMESTAMP2_DATE% ( set _NEWER=1
-) else if %__TIMESTAMP1_DATE% lss %__TIMESTAMP2_DATE% ( set _NEWER=0
-) else if %__TIMESTAMP1_TIME% gtr %__TIMESTAMP2_TIME% ( set _NEWER=1
+if %__DATE1% gtr %__DATE2% ( set _NEWER=1
+) else if %__DATE1% lss %__DATE2% ( set _NEWER=0
+) else if %__TIME1% gtr %__TIME2% ( set _NEWER=1
 ) else ( set _NEWER=0
 )
 goto :eof
@@ -412,16 +423,12 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
-    echo %%i> "%__DOC_TIMESTAMP_FILE%"
-)
+echo. > "%__DOC_TIMESTAMP_FILE%"
 goto :eof
 
 @rem https://docs.oracle.com/javase/7/docs/technotes/tools/windows/jar.html
 :pack
-set "__PACK_TIMESTAMP_FILE=%_TARGET_DIR%\.latest-pack"
-
-call :compile_required "%__PACK_TIMESTAMP_FILE%" "%_CLASSES_DIR%\*.class"
+call :compile_required "%_PLUGIN_JAR_FILE%" "%_CLASSES_DIR%\*.class"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
 set __JAR_OPTS=cfm
@@ -433,27 +440,55 @@ set "__PROP_FILEPATH=%_TARGET_DIR%\%__PROP_FILENAME%"
     echo pluginClass=%_PLUGIN_CLASS_NAME%
 ) > "%__PROP_FILEPATH%"
 
-for /f "tokens=1,2,3,4,*" %%i in ('call "%_SCALAC_CMD%" -version 2^>^&1') do set __SCALA_VERSION=%%l
-set "__MANIFEST_FILE=%_TARGET_DIR%\manifest.txt"
-(
-    echo Scala-Version: %__SCALA_VERSION%
-) > "%__MANIFEST_FILE%"
+call :pack_manifest
+if not %_EXITCODE%==0 goto :eof
+
 set __FILES=-C "%_TARGET_DIR%" "%__PROP_FILENAME%"
 for /f %%f in ('dir /s /b "%_CLASSES_DIR%\*.class" 2^>NUL') do (
     set "__CLASS_FILE=%%f"
     set __FILES=!__FILES! -C "%_CLASSES_DIR%" "!__CLASS_FILE:%_CLASSES_DIR%\=!"
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" %__JAR_OPTS% "%_PLUGIN_JAR_FILE%" "%__MANIFEST_FILE%" %__FILES% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" %__JAR_OPTS% "%_PLUGIN_JAR_FILE%" "%_MANIFEST_FILE%" %__FILES% 1>&2
 ) else if %_VERBOSE%==1 ( echo Create Java archive "!_PLUGIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
 )
-call "%_JAR_CMD%" %__JAR_OPTS% "%_PLUGIN_JAR_FILE%" "%__MANIFEST_FILE%" %__FILES% %_STDOUT_REDIRECT%
+call "%_JAR_CMD%" %__JAR_OPTS% "%_PLUGIN_JAR_FILE%" "%_MANIFEST_FILE%" %__FILES% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
-    echo %%i> "%__PACK_TIMESTAMP_FILE%"
+goto :eof
+
+@rem output parameter: _MANIFEST_FILE
+:pack_manifest
+set "_MANIFEST_FILE=%_TARGET_DIR%\Manifest.txt"
+echo Manifest-Version: 1.0> "%_MANIFEST_FILE%"
+
+for /f "usebackq tokens=1,*" %%i in (`"%_JAVAC_CMD%" -version 2^>^&1`) do set __JAVAC_VERSION=%%j
+@rem Starting with Java 11 java.exe accepts a single Java source file
+@rem (Java versions prior to version 11 contain a dot in position 1)
+if not "!__JAVAC_VERSION:~1,1!"=="." set _JAVAC_CMD=
+
+set "__JAVA_FILE=%_SOURCE_DIR%\build\Manifest.java"
+if not exist "%__JAVA_FILE%" (
+    echo %_ERROR_LABEL% Java file "!__JAVA_FILE:%_ROOT_DIR%=!" not found 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
+if defined _JAVAC_CMD (
+    set "__TMP_DIR=%_TARGET_DIR%\tmp"
+    if not exist "!_TMP_DIR!" mkdir "!_TMP_DIR!"
+    call "%__JAVAC_CMD%" -d "!_TMP_DIR!" "%__JAVA_FILE%"
+    for /f "usebackq delims=" %%i in (`call "%_JAVA_CMD%" -cp "!_TMP_DIR!" Manifest`) do (
+        echo %%i>> "%_MANIFEST_FILE%"
+    )
+) else (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_JAVA_CMD%" "%__JAVA_FILE%" 1>&2
+    for /f "usebackq delims=" %%i in (`call "%_JAVA_CMD%" "%__JAVA_FILE%"`) do (
+        echo %%i>> "%_MANIFEST_FILE%"
+    )
+)
+for /f "tokens=1,2,3,4,*" %%i in ('call "%_SCALAC_CMD%" -version 2^>^&1') do set __SCALA_VERSION=%%l
+echo Scala-Version: %__SCALA_VERSION%>> "%_MANIFEST_FILE%"
 goto :eof
 
 :compile_test
@@ -487,9 +522,72 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-@rem for /f %%i in ('powershell -C "Get-Date -uformat %%Y%%m%%d%%H%%M%%S"') do (
-@rem     echo %%i> "%__TEST_TIMESTAMP_FILE%"
-@rem )
+@rem echo. > "%__TEST_TIMESTAMP_FILE%"
+goto :eof
+
+:decompile_test
+set "__LIB_PATH=%DOTTY_HOME%\lib"
+for /f "tokens=1,2,3,4,*" %%i in ('%DOTTY_HOME%\bin\dotc.bat -version 2^>^&1') do (
+    set "__VERSION_STRING=scala3_%%l"
+)
+@rem keep only "-NIGHTLY" in version suffix when compiling with a nightly build 
+if "%__VERSION_STRING:NIGHTLY=%"=="%__VERSION_STRING%" (
+    set __VERSION_SUFFIX=_%__VERSION_STRING%
+) else (
+    for /f "usebackq" %%i in (`powershell -c "$s='%__VERSION_STRING%';$i=$s.indexOf('-bin',0); $s.substring(0, $i)"`) do (
+        set __VERSION_SUFFIX=_%%i-NIGHTLY
+    )
+)
+set __EXTRA_CPATH=
+for %%f in (%__LIB_PATH%\*.jar) do set "__EXTRA_CPATH=!__EXTRA_CPATH!%%f;"
+set "__OUTPUT_DIR=%_TARGET_DIR%\cfr-sources"
+if not exist "%__OUTPUT_DIR%" mkdir "%__OUTPUT_DIR%"
+
+set __CFR_CMD=cfr.bat
+set __CFR_OPTS=--extraclasspath "%__EXTRA_CPATH%" --outputdir "%__OUTPUT_DIR%"
+
+set "__CLASS_DIRS=%_TEST_CLASSES_DIR%"
+for /f "delims=" %%f in ('dir /b /s /ad "%_TEST_CLASSES_DIR%" 2^>NUL') do (
+    set __CLASS_DIRS=!__CLASS_DIRS! "%%f"
+)
+if %_VERBOSE%==1 echo Decompile Java bytecode to directory "!__OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
+for %%i in (%__CLASS_DIRS%) do (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__CFR_CMD%" %__CFR_OPTS% "%%i\*.class" 1>&2
+    call "%__CFR_CMD%" %__CFR_OPTS% "%%i"\*.class %_STDERR_REDIRECT%
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to decompile generated code in directory "%%i" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+@rem output file contains Scala and CFR headers
+set "__OUTPUT_FILE=%_TARGET_DIR%\cfr-sources%__VERSION_SUFFIX%.java"
+echo // Compiled with %__VERSION_STRING% > "%__OUTPUT_FILE%"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% type "%__OUTPUT_DIR%\*.java" ^>^> "%__OUTPUT_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Save generated Java source files to directory "!__OUTPUT_FILE:%_ROOT_DIR%=!" 1>&2
+)
+set __JAVA_FILES=
+for /f "delims=" %%f in ('dir /b /s "%__OUTPUT_DIR%\*.java" 2^>NUL') do (
+    set __JAVA_FILES=!__JAVA_FILES! "%%f"
+)
+if defined __JAVA_FILES type %__JAVA_FILES% >> "%__OUTPUT_FILE%" 2>NUL
+
+set __DIFF_CMD=diff.exe
+set __DIFF_OPTS=--strip-trailing-cr
+
+set "__CHECK_FILE=%_SOURCE_DIR%\build\cfr-sources%__VERSION_SUFFIX%.java"
+if exist "%__CHECK_FILE%" (
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__DIFF_CMD%" %__DIFF_OPTS% "%__OUTPUT_FILE%" "%__CHECK_FILE%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Compare output file with check file "!__CHECK_FILE:%_ROOT_DIR%=!" 1>&2
+    )
+    call "%__DIFF_CMD%" %__DIFF_OPTS% "%__OUTPUT_FILE%" "%__CHECK_FILE%"
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Output file and check file differ 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
 goto :eof
 
 :test
@@ -498,6 +596,7 @@ if not %_EXITCODE%==0 goto :eof
 
 set __TEST_SCALA_OPTS=-classpath "%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
 
+@rem see https://github.com/junit-team/junit4/wiki/Getting-started
 for %%i in (%_TEST_CLASSES_DIR%\*Test.class) do (
     set "__MAIN_CLASS=%%~ni"
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__TEST_SCALA_OPTS% !__MAIN_CLASS! 1>&2
@@ -509,6 +608,8 @@ for %%i in (%_TEST_CLASSES_DIR%\*Test.class) do (
         goto :eof
     )
 )
+call :decompile_test
+if not %_EXITCODE%==0 goto :eof
 goto :eof
 
 @rem output parameter: _DURATION

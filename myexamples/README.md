@@ -86,7 +86,7 @@ Buildfile: W:\myexamples\HelloWorld\build.xml
    [delete] Deleting directory W:\myexamples\HelloWorld\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] DOTTY_HOME=C:\opt\dotty-0.25.0-RC2
+     [echo] DOTTY_HOME=C:\opt\dotty-0.26.0-RC1
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -223,7 +223,7 @@ Command **`make test`** executes the test suite [**`HelloWorldTest.scala`**](Hel
 $ make test
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 dotc.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_0.25/0.25.0-RC2/dotty-library_0.25-0.25.0-RC2.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13/junit-4.13.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.1.2/scalatest_2.13-3.1.2.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.1.2/scalactic_2.13-3.1.2.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.9.4/specs2-core_2.13-4.9.4.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.9.4/specs2-junit_2.13-4.9.4.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.9.4/specs2-matcher_2.13-4.9.4.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_0.26/0.26.0-RC1/dotty-library_0.26-0.26.0-RC1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13/junit-4.13.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.0/scalatest_2.13-3.2.0.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.0/scalactic_2.13-3.2.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.10.1/specs2-core_2.13-4.10.1.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.10.1/specs2-junit_2.13-4.10.1.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.10.1/specs2-matcher_2.13-4.10.1.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
 JUnit version 4.13
 .
 Time: 0.201
@@ -258,17 +258,17 @@ Command **`mvn clean test`** with option **`-debug`** produces additional debug 
 
 <pre style="font-size:80%;">
 <b>&gt; mvn -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-1.8.0_252-b09\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.25.0-RC2 \
- -cp C:\opt\dotty-0.25.0-RC2\lib\*.jar -Dscala.usejavacp=true  \
+[DEBUG] [execute] C:\opt\jdk-11.0.8+10\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.26.0-RC1 \
+ -cp C:\opt\dotty-0.26.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\opt\jdk-1.8.0_242-b08\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.25.0-RC2 [...]
-[DEBUG] [execute] C:\opt\jdk-1.8.0_242-b08\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.25.0-RC2\lib\*.jar;\
+[DEBUG] [execute] C:\opt\jdk-11.0.8+10\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.26.0-RC1 [...]
+[DEBUG] [execute] C:\opt\jdk-11.0.8+10\bin\java.exe \
+ -Xms64m -Xmx1024m -cp C:\opt\dotty-0.26.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -311,7 +311,7 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 >         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>0.25.0-RC2<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.version&gt;</b>0.26.0-RC1<b>&lt;/scala.version&gt;</b>
 >         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
@@ -348,15 +348,15 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 Finally can check the Java manifest in **`HelloWorld-0.1-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.25.0-RC2\lib\dotty-library_0.25-0.25.0-RC2.jar;^
-c:\opt\dotty-0.25.0-RC2\lib\scala-library-2.13.1.jar ^
+<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.26.0-RC1\lib\dotty-library_0.26-0.26.0-RC1.jar;^
+c:\opt\dotty-0.26.0-RC1\lib\scala-library-2.13.1.jar ^
 -jar target\HelloWorld-0.1-SNAPSHOT.jar
 Hello world!
 </pre>
 
 > **:mag_right:** We can use batch script [**`searchjars`**](../bin/searchjars.bat) in case some class is missing in the specified classpath, e.g.
 > <pre style="font-size:80%;">
-> <b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.25.0-RC2\lib\dotty-library_0.25-0.25.0-RC2.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
+> <b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.26.0-RC1\lib\dotty-library_0.26-0.26.0-RC1.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
 > Exception in thread "main" java.lang.NoClassDefFoundError: scala/Serializable
 >         [...]
 >         at Main.main(Main.scala)
@@ -374,7 +374,7 @@ Hello world!
 > Searching for class Serializable in library files C:\opt\JDK-18~1.0_2\lib\*.jar
 >   tools.jar:com/sun/tools/internal/xjc/reader/xmlschema/bindinfo/BISerializable.class
 > </pre>
-> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.25.0-RC2\lib\scala-library-2.13.1.jar`**, so let us add it to our classpath !
+> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.26.0-RC1\lib\scala-library-2.13.1.jar`**, so let us add it to our classpath !
 
 
 ## <span id="mill">Mill build tool</span>

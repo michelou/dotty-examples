@@ -11,9 +11,39 @@
   </tr>
 </table>
 
+We present how to write/execute [Dotty] plugins in the following code examples:
+
+- [**`DivideZero`**](#dividezero) generates an error message when the plugin detects a division by zero.
+- [**`ModifyPipeline`**](#modifypipeline)
+- [**`MultiplyOne`**](#multiplyone) removes a multiply operation when the plugin detects that one of the operands is `1`.
+
 ## <span id="dividezero">DivideZero</span>
 
-Command [**`build clean test`**](DivideZero/build.bat) generates the [Dotty] plugin **`DivideZero.jar`** and executes the test [`DivideZeroTest`](DivideZero/src/test/scala/DivideZero.scala):
+Command  with no parameter displays the help message:
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="DivideZero/build.bat">build</a></b>
+Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
+
+  Options:
+    -debug           show commands executed by this script
+    -explain         set compiler option -explain
+    -explain-types   set compiler option -explain-types
+    -tasty           compile both from source and TASTy files
+    -timer           display total elapsed time
+    -verbose         display progress messages
+
+  Subcommands:
+    clean            delete generated class files
+    compile          compile Scala source files
+    doc              generate documentation
+    help             display this help message
+    pack             create Java archive file
+    test             execute unit tests
+    test:noplugin    execute unit tests with NO plugin
+</pre>
+
+Command [**`build test`**](DivideZero/build.bat) generates the [Dotty] plugin **`DivideZero.jar`** from source file [**`DivideZero.scala`**](DivideZero/src/main/scala/DivideZero.scala) and tests the plugin with source file [**`DivideZeroTest.scala`**](DivideZero/src/test/scala/DivideZeroTest.scala):
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="DivideZero/build.bat">build</a> clean test</b>
@@ -53,13 +83,30 @@ Command [**`build clean test`**](DivideZero/build.bat) generates the [Dotty] plu
 Error: Compilation of test Scala source files failed
 </pre>
 
+> **:mag_right:** We give two argument files to the [Dotty] compiler: **`target\test_scalac_opts.txt`** (compiler options) and **`target\test_scalac_sources.txt`** (source files):
+> &nbsp;
+> <pre style="font-size:80%;">
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/type" rel="external">type</a> target\test_scala*.txt</b>
+> &nbsp;
+> target\test_scalac_opts.txt
+> &nbsp;
+> &nbsp;
+>-deprecation -feature -nowarn -Xplugin:"W:\plugin-examples\DivideZero\target\divideZero.jar" -Xplugin-require:divideZero -P:"divideZero:opt1=1" -classpath "W:\plugin-examples\DivideZero\target\classes;W:\plugin-examples\DivideZero\target\test-classes" -d "W:\plugin-examples\DivideZero\target\test-classes"
+> &nbsp;
+> target\test_scalac_sources.txt
+> &nbsp;
+> &nbsp;
+> W:\plugin-examples\DivideZero\src\test\scala\DivideZeroTest.scala
+> </pre>
+> In particular we observe the usage of the two plugin options **`-Xplugin:<plugin_jar_file>`** and **`-Xplugin-require:<plugin_name> -P:"divideZero:opt1=1"`**.
+
 
 ## <span id="modifypipeline">ModifyPipeline</span>
 
-Command [**`build clean test`**](ModifyPipeline/build.bat) generates the [Dotty] plugin **`ModifyPipeline.jar`** and executes the test [`ModifyPipelineTest`](ModifyPipeline/src/test/scala/ModifyPipelineTest.scala):
+Command [**`build test`**](ModifyPipeline/build.bat) generates the [Dotty] plugin **`ModifyPipeline.jar`** from source file [**`ModifyPipeline.scala`**](ModifyPipeline/src/main/scala/ModifyPipeline.scala) and tests the plugin with source file [**`ModifyPipelineTest.scala`**](ModifyPipeline/src/test/scala/ModifyPipelineTest.scala):
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="DivModifyPipelineideZero/build.bat">build</a> clean test</b>
+<b>&gt; <a href="ModifyPipeline/build.bat">build</a> clean test</b>
 5
 5
 </pre>
@@ -67,7 +114,7 @@ Command [**`build clean test`**](ModifyPipeline/build.bat) generates the [Dotty]
 
 ## <span id="multiplyone">MultiplyOne</span>
 
-Command [**`build clean test`**](MultiplyOne/build.bat) generates the [Dotty] plugin **`MultiplyOne.jar`** and executes the test [`MultiplyOneTest`](MultiplyOne/src/test/scala/MultiplyOneTest.scala):
+Command [**`build clean test`**](MultiplyOne/build.bat) generates the [Dotty] plugin **`MultiplyOne.jar`** from source file [**`MultiplyOne.scala`**](MultiplyOne/src/main/scala/MultiplyOne.scala) and tests the plugin with source file [**`MultiplyOneTest.scala`**](MultiplyOne/src/test/scala/MultiplyOneTest.scala):
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="MultiplyOne/build.bat">build</a> clean test</b>

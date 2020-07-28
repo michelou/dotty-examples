@@ -41,7 +41,7 @@ Optionally one may also install the following software:
 - [Apache Maven 3.6][apache_maven] ([requires Java 7][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
 - [Bazel 3.4][bazel_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
-- [Git 2.27][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.28][git_releases] ([*release notes*][git_relnotes])
 - [Gradle 6.5][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [JaCoCo 0.8][jacoco_downloads] ([*change log*][jacoco_changelog])
 - [Mill 0.8][mill_releases] ([*change log*][mill_changelog])
@@ -64,7 +64,7 @@ C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
 C:\opt\bazel-3.4.1\          <i>( 40.0 MB)</i>
 C:\opt\cfr-0.150\            <i>(  1.9 MB)</i>
 C:\opt\dotty-0.26.0-RC1\     <i>( 27.3 MB)</i>
-C:\opt\Git-2.27.0\           <i>(278.0 MB)</i>
+C:\opt\Git-2.28.0\           <i>(290.0 MB)</i>
 C:\opt\gradle-6.5.1\         <i>(112.0 MB)</i>
 C:\opt\jacoco-0.8.5\         <i>( 10.6 MB)</i>
 C:\opt\Mill-0.8.0\           <i>( 53.7 MB)</i>
@@ -290,7 +290,7 @@ Tool versions:
    javac 11.0.8, java 11.0.8, scalac 2.13.3, dotc 0.26.0-RC1,
    ant 1.10.8, gradle 6.5.1, mill 0.8.0, mvn 3.6.3, sbt 1.3.13,
    bazel 3.4.1, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.3,
-   git 2.27.0.windows.1, diff 3.7, bash 4.4.23(1)-release
+   git 2.28.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
 C:\opt\sbt-1.3.13\bin\sbt
@@ -305,7 +305,7 @@ Tool versions:
    javac 11.0.8, java 11.0.8, scalac 2.13.3, dotc 0.26.0-RC1,
    ant 1.10.8, gradle 6.5.1, mill 0.8.0, mvn 3.6.3, sbt 1.3.13,
    bazel 3.4.1, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.3,
-   git 2.27.0.windows.1, diff 3.7, bash 4.4.23(1)-release
+   git 2.28.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-11.0.8+10\bin\javac.exe
    C:\opt\jdk-11.0.8+10\bin\java.exe
@@ -321,10 +321,10 @@ Tool paths:
    C:\opt\cfr-0.150\bin\cfr.bat
    C:\opt\make-3.8.1\bin\make.exe
    C:\opt\Python-3.7.4\python.exe
-   C:\opt\Git-2.27.0\bin\git.exe
-   C:\opt\Git-2.27.0\mingw64\bin\git.exe
-   C:\opt\Git-2.27.0\usr\bin\diff.exe
-   C:\opt\Git-2.27.0\bin\bash.exe
+   C:\opt\Git-2.28.0\bin\git.exe
+   C:\opt\Git-2.28.0\mingw64\bin\git.exe
+   C:\opt\Git-2.28.0\usr\bin\diff.exe
+   C:\opt\Git-2.28.0\bin\bash.exe
 Environment variables:
    ANT_HOME=C:\opt\apache-ant-1.10.8
    DOTTY_HOME=C:\opt\dotty-0.26.0-RC1
@@ -748,7 +748,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://gradle.org/install/">gradle-6.5.1-bin.zip</a>                             <i>(97 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.5.zip</a>                                 <i>( 4 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.8_10.zip</a> <i>(99 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.27.0-64-bit.7z.exe</a>                 <i>(41 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.28.0-64-bit.7z.exe</a>                 <i>(41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.3.13.zip</a>                                   <i>(55 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.3.zip</a>                                 <i>(21 MB)</i>
 </pre>
@@ -848,7 +848,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [git_bash]: https://www.atlassian.com/git/tutorials/git-bash
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.27.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.28.0.txt
 [github_guides]: https://guides.github.com/
 [github_lampepfl_dotty]: https://github.com/lampepfl/dotty
 [github_markdown]: https://github.github.com/gfm/
