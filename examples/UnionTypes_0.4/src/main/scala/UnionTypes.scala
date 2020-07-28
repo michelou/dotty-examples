@@ -1,6 +1,6 @@
 /**
-  * Union Types: http://dotty.epfl.ch/docs/reference/union-types.html
-  */
+ * Union Types: http://dotty.epfl.ch/docs/reference/union-types.html
+ */
 object UnionTypes {
 
   sealed trait Division
@@ -42,4 +42,5 @@ object UnionTypes {
     println(emptyList)
 
   }
+
 }

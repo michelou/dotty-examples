@@ -110,6 +110,9 @@ if not exist "%SCALAFMT_HOME%\bin\scalafmt.bat" (
    goto :eof
 )
 set "_SCALAFMT_CMD=%SCALAFMT_HOME%\bin\scalafmt.bat"
+
+set _SCALAFMT_CONFIG_FILE=
+for %%f in ("%~dp0\.") do set "_SCALAFMT_CONFIG_FILE=%%~dpf.scalafmt.conf"
 goto :eof
 
 :env_colors
@@ -257,9 +260,14 @@ goto :args_loop
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
-if %_LINT%==1 if not defined _SCALAFMT_CMD (
-   echo %_WARNING_LABEL% Scalafmt installation not found 1>&2
-   set _LINT=0
+if %_LINT%==1 (
+    if not defined _SCALAFMT_CMD (
+        echo %_WARNING_LABEL% Scalafmt installation not found 1>&2
+        set _LINT=0
+    ) else if not defined _SCALAFMT_CONFIG_FILE (
+        echo %_WARNING_LABEL% Scalafmt configuration file not found 1>&2
+        set _LINT=0
+    )
 )
 if defined _INSTRUMENTED if not exist "%JACOCO_HOME%\lib\jacococli.jar" (
    echo %_WARNING_LABEL% JaCoCo installation not found 1>&2
@@ -309,7 +317,7 @@ echo     %__BEG_O%-debug%__END%           show commands executed by this script
 echo     %__BEG_O%-dotty%__END%           use Scala 3 tools ^(default^)
 echo     %__BEG_O%-explain%__END%         set compiler option %__BEG_O%-explain%__END%
 echo     %__BEG_O%-explain-types%__END%   set compiler option %__BEG_O%-explain-types%__END%
-echo     %__BEG_O%-main:^<name^>%__END%     define main class name
+echo     %__BEG_O%-main:^<name^>%__END%     define main class name ^(default: %__BEG_O%Main%__END%^)
 echo     %__BEG_O%-scala%__END%           use Scala 2 tools
 echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
 echo     %__BEG_O%-timer%__END%           display total elapsed time
@@ -365,7 +373,7 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :lint
-set __SCALAFMT_OPTS=--test
+set __SCALAFMT_OPTS=--test --config "%_SCALAFMT_CONFIG_FILE%"
 if %_DEBUG%==1 set __SCALAFMT_OPTS=--debug %__SCALAFMT_OPTS%
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_SOURCE_DIR%\main\scala\" 1>&2

@@ -6,10 +6,12 @@ object Main {
     def legsCount: Int
     override def toString: String = "animal"
   }
+
   class Cat extends Animal {
     def legsCount = 4
     override def toString: String = "cat"
   }
+
   class Bird extends Animal {
     def legsCount = 2
     override def toString: String = "bird"
@@ -104,4 +106,5 @@ object Main {
     nameBasedPattern
     varargPattern
   }
+
 }

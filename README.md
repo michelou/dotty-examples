@@ -90,6 +90,7 @@ docs\
 dotty\     <i>(Git submodule)</i>
 examples\{<a href="examples/README.md">README.md</a>, dotty-example-project, ..}
 myexamples\{<a href="myexamples/README.md">README.md</a>, 00_AutoParamTupling, ..}
+plugin-examples\{<a href="plugin-examples/README.md">README.md</a>, DivideZero, ..}
 README.md
 <a href="setenv.bat">setenv.bat</a>
 </pre>
@@ -103,7 +104,8 @@ where
 - directory [**`docs\`**](docs/) contains [Dotty] related papers/articles (see file [**`docs\README.md`**](docs/README.md)).
 - directory **`dotty\`** contains our fork of the [lampepfl/dotty][github_lampepfl_dotty] repository as a [Github submodule](.gitmodules).
 - directory [**`examples\`**](examples/) contains [Dotty] examples grabbed from various websites (see file [**`examples\README.md`**](examples/README.md)).
-- directory [**`myexamples\`**](myexamples/) contains self-written Dotty examples (see file [**`myexamples\README.md`**](myexamples/README.md)).
+- directory [**`myexamples\`**](myexamples/) contains self-written [Dotty] examples (see file [**`myexamples\README.md`**](myexamples/README.md)).
+- directory [**`plugin-examples\`**](plugin-examples/) contains [Dotty] plugin examples (see file [**`plugin-examples\README.md`**](plugin-examples/README.md)).
 - file [**`README.md`**](README.md) is the [Markdown][github_markdown] document for this page.
 - file [**`setenv.bat`**](setenv.bat) is the batch command for setting up our environment.
 
