@@ -29,6 +29,10 @@ if %_CLEAN%==1 (
     call :clean
     if not !_EXITCODE!==0 goto end
 )
+if %_LINT%==1 (
+    call :lint
+    if not !_EXITCODE!==0 goto end
+)
 if %_COMPILE%==1 (
     call :compile
     if not !_EXITCODE!==0 goto end
@@ -71,6 +75,44 @@ set "_CLASSES_DIR=%_TARGET_DIR%\classes"
 set "_TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes"
 set "_TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
+
+if not exist "%JAVA_HOME%\bin\javac.exe" (
+   echo %_ERROR_LABEL% Java SDK installation not found 1>&2
+   set _EXITCODE=1
+   goto :eof
+)
+set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
+set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
+set "_JAVADOC_CMD=%JAVA_HOME%\bin\javadoc.exe"
+
+if not exist "%SCALA_HOME%\bin\scalac.bat" (
+   echo %_ERROR_LABEL% Scala 2 installation not found 1>&2
+   set _EXITCODE=1
+   goto :eof
+)
+set "_SCALA[0]=%SCALA_HOME%\bin\scala.bat"
+set "_SCALAC[0]=%SCALA_HOME%\bin\scalac.bat"
+set "_SCALADOC[0]=%SCALA_HOME%\bin\scaladoc.bat"
+
+if not exist "%DOTTY_HOME%\bin\dotc.bat" (
+   echo %_ERROR_LABEL% Scala 3 installation not found 1>&2
+   set _EXITCODE=1
+   goto :eof
+)
+set "_SCALA[1]=%DOTTY_HOME%\bin\dotr.bat"
+set "_SCALAC[1]=%DOTTY_HOME%\bin\dotc.bat"
+set "_SCALADOC[1]=%DOTTY_HOME%\bin\dotd.bat"
+
+set _SCALAFMT_CMD=
+if not exist "%SCALAFMT_HOME%\bin\scalafmt.bat" (
+   @rem echo %_ERROR_LABEL% Scalafmt installation not found ^(check variable SCALAFMT_HOME^) 1>&2
+   @rem set _EXITCODE=1
+   goto :eof
+)
+set "_SCALAFMT_CMD=%SCALAFMT_HOME%\bin\scalafmt.bat"
+
+set _SCALAFMT_CONFIG_FILE=
+for %%f in ("%~dp0\.") do set "_SCALAFMT_CONFIG_FILE=%%~dpf.scalafmt.conf"
 goto :eof
 
 :env_colors
@@ -157,6 +199,8 @@ set _DECOMPILE=0
 set _DOC=0
 set _DOTTY=1
 set _HELP=0
+set _INSTRUMENTED=
+set _LINT=0
 set _MAIN_CLASS=%_MAIN_CLASS_DEFAULT%
 set _MAIN_ARGS=%_MAIN_ARGS_DEFAULT%
 set _RUN=0
@@ -200,7 +244,9 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="decompile" ( set _COMPILE=1& set _DECOMPILE=1
     ) else if "%__ARG%"=="doc" ( set _DOC=1
     ) else if "%__ARG%"=="help" ( set _HELP=1
+    ) else if "%__ARG%"=="lint" ( set _LINT=1
     ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
+    ) else if "%__ARG%"=="run:i" ( set _COMPILE=1& set _RUN=1& set _INSTRUMENTED=_instrumented
     ) else if "%__ARG%"=="test" ( set _COMPILE=1& set _TEST=1
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
@@ -212,6 +258,26 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto :args_loop
 :args_done
+set _STDERR_REDIRECT=2^>NUL
+if %_DEBUG%==1 set _STDERR_REDIRECT=
+
+if %_LINT%==1 (
+    if not defined _SCALAFMT_CMD (
+        echo %_WARNING_LABEL% Scalafmt installation not found 1>&2
+        set _LINT=0
+    ) else if not defined _SCALAFMT_CONFIG_FILE (
+        echo %_WARNING_LABEL% Scalafmt configuration file not found 1>&2
+        set _LINT=0
+    )
+)
+if defined _INSTRUMENTED if not exist "%JACOCO_HOME%\lib\jacococli.jar" (
+   echo %_WARNING_LABEL% JaCoCo installation not found 1>&2
+   set _INSTRUMENTED=
+)
+set "_SCALA_CMD=!_SCALA[%_DOTTY%]!"
+set "_SCALAC_CMD=!_SCALAC[%_DOTTY%]!"
+set "_SCALADOC_CMD=!_SCALADOC[%_DOTTY%]!"
+
 if %_SCALAC_OPTS_EXPLAIN%==1 set _SCALAC_OPTS=%_SCALAC_OPTS% -explain
 if %_SCALAC_OPTS_EXPLAIN_TYPES%==1 (
     if !_DOTTY!==1 ( set _SCALAC_OPTS=%_SCALAC_OPTS% -explain-types
@@ -225,6 +291,10 @@ if %_TASTY%==1 if %_DOTTY%==0 (
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _DOTTY=%_DOTTY% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _RUN=%_RUN% _TEST=%_TEST% 1>&2
+    if %_DOTTY%==0 ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% SCALA_HOME=%SCALA_HOME% 1>&2
+    ) else ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% DOTTY_HOME=%DOTTY_HOME% 1>&2
+    )
+    echo %_DEBUG_LABEL% _MAIN_CLASS=%_MAIN_CLASS% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
@@ -248,7 +318,7 @@ echo     %__BEG_O%-debug%__END%           show commands executed by this script
 echo     %__BEG_O%-dotty%__END%           use Scala 3 tools ^(default^)
 echo     %__BEG_O%-explain%__END%         set compiler option %__BEG_O%-explain%__END%
 echo     %__BEG_O%-explain-types%__END%   set compiler option %__BEG_O%-explain-types%__END%
-echo     %__BEG_O%-main:^<name^>%__END%     define main class name
+echo     %__BEG_O%-main:^<name^>%__END%     define main class name ^(default: %__BEG_O%Main%__END%^)
 echo     %__BEG_O%-scala%__END%           use Scala 2 tools
 echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
 echo     %__BEG_O%-timer%__END%           display total elapsed time
@@ -260,8 +330,9 @@ echo     %__BEG_O%compile%__END%          compile Java/Scala source files
 echo     %__BEG_O%decompile%__END%        decompile generated code with %__BEG_N%CFR%__END%
 echo     %__BEG_O%doc%__END%              generate documentation
 echo     %__BEG_O%help%__END%             display this help message
-echo     %__BEG_O%run%__END%              execute main class
-echo     %__BEG_O%test%__END%             execute unit tests
+echo     %__BEG_O%lint%__END%             analyze Scala source files with %__BEG_N%Scalafmt%__END%
+echo     %__BEG_O%run[:i]%__END%          execute main class ^(instrumented execution: %__BEG_O%:i%__END%^)
+echo     %__BEG_O%test%__END%             execute unit tests with %__BEG_N%JUnit%__END%
 echo.
 echo   %__BEG_P%Properties:%__END%
 echo   ^(to be defined in SBT configuration file %__BEG_O%project\build.properties%__END%^)
@@ -293,9 +364,23 @@ goto :eof
 set "__DIR=%~1"
 if not exist "%__DIR%\" goto :eof
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
-) else if %_VERBOSE%==1 ( echo Delete directory !__DIR:%_ROOT_DIR%=! 1>&2
+) else if %_VERBOSE%==1 ( echo Delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
 )
 rmdir /s /q "%__DIR%"
+if not %ERRORLEVEL%==0 (
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
+:lint
+set __SCALAFMT_OPTS=--test --config "%_SCALAFMT_CONFIG_FILE%"
+if %_DEBUG%==1 set __SCALAFMT_OPTS=--debug %__SCALAFMT_OPTS%
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_SOURCE_DIR%\main\scala\" 1>&2
+) else if %_VERBOSE%==1 ( echo Analyze %__N% Scala source files with Scalafmt 1>&2
+)
+call "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% %_SOURCE_DIR%\main\scala\
 if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
@@ -320,27 +405,8 @@ if %_COMPILE_REQUIRED%==1 (
 echo. > "%__TIMESTAMP_FILE%"
 goto :eof
 
-:init_java
-if defined _JAVAC_CMD goto :eof
-set __JAVA_BIN_DIR=
-for /f %%i in ('where javac.exe 2^>NUL') do set "__JAVA_BIN_DIR=%%~dpi"
-if defined __JAVA_BIN_DIR (
-    set "_JAVA_CMD=%__JAVA_BIN_DIR%java.exe"
-    set "_JAVAC_CMD=%__JAVA_BIN_DIR%javac.exe"
-    set "_JAVADOC_CMD=%__JAVA_BIN_DIR%javadoc.exe"
-) else if defined JAVA_HOME (
-    set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
-    set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
-    set "_JAVADOC_CMD=%JAVA_HOME%\bin\javadoc.exe"
-) else (
-   echo %_ERROR_LABEL% Command javac.exe not found 1>&2
-   set _EXITCODE=1
-   goto :eof
-)
-goto :eof
-
 :compile_java
-call :init_java
+call :libs_cpath
 if not %_EXITCODE%==0 goto :eof
 
 set "__SOURCES_FILE=%_TARGET_DIR%\javac_sources.txt"
@@ -350,11 +416,8 @@ for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     echo %%i >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
-call :libs_cpath
-if not %_EXITCODE%==0 goto :eof
-
 set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
-echo %_JAVAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%" -d "%_CLASSES_DIR%" > "%__OPTS_FILE%"
+echo -classpath "%_LIBS_CPATH%%_CLASSES_DIR:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% Java source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
@@ -367,36 +430,7 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-:init_scala
-if defined _SCALAC_CMD goto :eof
-set __SCALA[0]=scala.bat
-set __SCALA[1]=dotr.bat
-set __SCALAC[0]=scalac.bat
-set __SCALAC[1]=dotc.bat
-set __SCALADOC[0]=scaladoc.bat
-set __SCALADOC[1]=dotd.bat
-
-set __SCALA_BIN_DIR=
-for /f %%i in ('where "!__SCALAC[%_DOTTY%]!" 2^>NUL') do set "__SCALA_BIN_DIR=%%~dpi"
-if defined __SCALA_BIN_DIR (
-    set "_SCALA_CMD=%__SCALA_BIN_DIR%!__SCALA[%_DOTTY%]!"
-    set "_SCALAC_CMD=%__SCALA_BIN_DIR%!__SCALAC[%_DOTTY%]!"
-    set "_SCALADOC_CMD=%__SCALA_BIN_DIR%!__SCALADOC[%_DOTTY%]!"
-) else if defined SCALA_HOME (
-    set "_SCALA_CMD=%SCALA_HOME%\bin\!__SCALA[%_DOTTY%]!"
-    set "_SCALAC_CMD=%SCALA_HOME%\bin\!__SCALAC[%_DOTTY%]!"
-    set "_SCALADOC_CMD=%SCALA_HOME%\bin\!__SCALADOC[%_DOTTY%]!"
-) else (
-   echo %_ERROR_LABEL% Command !__SCALAC[%_DOTTY%]! not found 1>&2
-   set _EXITCODE=1
-   goto :eof
-)
-goto :eof
-
 :compile_scala
-call :init_scala
-if not %_EXITCODE%==0 goto :eof
-
 set "__SOURCES_FILE=%_TARGET_DIR%\scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
@@ -405,7 +439,7 @@ for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     set /a __N+=1
 )
 set "__OPTS_FILE=%_TARGET_DIR%\scalac_opts.txt"
-echo %_SCALAC_OPTS% -classpath "%_CLASSES_DIR%" -d "%_CLASSES_DIR%" > "%__OPTS_FILE%"
+echo %_SCALAC_OPTS% -classpath "%_CLASSES_DIR:\=\\%" -d "%_CLASSES_DIR%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% Scala source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
@@ -554,9 +588,6 @@ for /f "delims=" %%f in ('dir /b /s "%__OUTPUT_DIR%\*.java" 2^>NUL') do (
 goto :eof
 
 :doc
-call :init_scala
-if not %_EXITCODE%==0 goto :eof
-
 if not exist "%_TARGET_DOCS_DIR%" mkdir "%_TARGET_DOCS_DIR%" 1>NUL
 
 set "__DOC_TIMESTAMP_FILE=%_TARGET_DOCS_DIR%\.latest-build"
@@ -584,9 +615,6 @@ echo. > "%__DOC_TIMESTAMP_FILE%"
 goto :eof
 
 :run
-call :init_scala
-if not %_EXITCODE%==0 goto :eof
-
 set "__MAIN_CLASS_FILE=%_CLASSES_DIR%\%_MAIN_CLASS:.=\%.class"
 if not exist "%__MAIN_CLASS_FILE%" (
     echo %_ERROR_LABEL% Main class '%_MAIN_CLASS%' not found ^(%__MAIN_CLASS_FILE%^) 1>&2
@@ -627,9 +655,6 @@ if %_TASTY%==1 (
 goto :eof
 
 :compile_test
-call :init_scala
-if not %_EXITCODE%==0 goto :eof
-
 if not exist "%_TEST_CLASSES_DIR%" mkdir "%_TEST_CLASSES_DIR%" 1>NUL
 
 set "__TEST_TIMESTAMP_FILE=%_TEST_CLASSES_DIR%\.latest-build"
@@ -637,11 +662,11 @@ set "__TEST_TIMESTAMP_FILE=%_TEST_CLASSES_DIR%\.latest-build"
 call :compile_required "%__TEST_TIMESTAMP_FILE%" "%_SOURCE_DIR%\test\scala\*.scala"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
-set "__TEST_LIST_FILE=%_TARGET_DIR%\test_scalac_sources.txt"
-if exist "%__TEST_LIST_FILE%" del "%__TEST_LIST_FILE%" 1>NUL
+set "__SOURCES_FILE=%_TARGET_DIR%\test_scalac_sources.txt"
+if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\test\scala\*.scala" 2^>NUL') do (
-    echo %%i >> "%__TEST_LIST_FILE%"
+    echo %%i >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
 
@@ -651,10 +676,10 @@ if not %_EXITCODE%==0 goto :eof
 set "__OPTS_FILE=%_TARGET_DIR%\test_scalac_opts.txt"
 echo %_SCALAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d "%_TEST_CLASSES_DIR%" > "%__OPTS_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__TEST_LIST_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% Scala test source files to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__TEST_LIST_FILE%"
+call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Compilation of test Scala source files failed 1>&2
     set _EXITCODE=1
