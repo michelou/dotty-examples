@@ -73,7 +73,15 @@ set "_JAR_FILE=%_TARGET_DIR%\%_APP_NAME%.jar"
 set "_CLASSLIST_FILE=%_TARGET_DIR%\%_APP_NAME%.classlist"
 set "_JSA_FILE=%_TARGET_DIR%\%_APP_NAME%.jsa"
 
-if not defined DOTTY_HOME (
+if not exist "%JAVA_HOME%\bin\java.exe" (
+    echo %_ERROR_LABEL% Java SDK installation not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_JAR_CMD=%JAVA_HOME%\bin\jar.exe"
+set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
+
+if not exist "%DOTTY_HOME%\bin\dotc.bat"" (
     echo %_ERROR_LABEL% Scala 3 installation not found 1>&2
     set _EXITCODE=1
     goto :eof
@@ -81,14 +89,6 @@ if not defined DOTTY_HOME (
 set "_SCALA_CMD=%DOTTY_HOME%\bin\dotr.bat"
 set "_SCALAC_CMD=%DOTTY_HOME%\bin\dotc.bat"
 set "_SCALADOC_CMD=%DOTTY_HOME%\bin\dotd.bat"
-
-if not defined JAVA_HOME (
-    echo %_ERROR_LABEL% Java SDK installation not found 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set "_JAR_CMD=%JAVA_HOME%\bin\jar.exe"
-set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
 goto :eof
 
 :env_colors
@@ -201,6 +201,7 @@ if %_DEBUG%==1 ( set _REDIRECT_STDOUT=
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _ITER=%_RUN_ITER% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _RUN=%_RUN% _RUN_ARGS=%_RUN_ARGS% 1>&2
+    echo %_DEBUG_LABEL% Variables  : DOTTY_HOME=%DOTTY_HOME% JAVA_HOME=%JAVA_HOME% 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
@@ -286,7 +287,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURC
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to compile Scala source files 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N% Scala source files 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -349,7 +350,7 @@ if %_DEBUG%==1 (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -Xlog:disable
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -classpath "%_JAR_FILE%" %_MAIN_CLASS% 1>&2
-) else if %_VERBOSE%==1 ( echo Create Java shared archive !_JSA_FILE:%_ROOT_DIR%=! 1>&2
+) else if %_VERBOSE%==1 ( echo Create Java shared archive "!_JSA_FILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -classpath "%_JAR_FILE%" %_MAIN_CLASS% %_REDIRECT_STDOUT%
 if not %ERRORLEVEL%==0 (
@@ -403,15 +404,15 @@ goto :eof
 set __TIMESTAMP1=%~1
 set __TIMESTAMP2=%~2
 
-set __TIMESTAMP1_DATE=%__TIMESTAMP1:~0,8%
-set __TIMESTAMP1_TIME=%__TIMESTAMP1:~-6%
+set __DATE1=%__TIMESTAMP1:~0,8%
+set __TIME1=%__TIMESTAMP1:~-6%
 
-set __TIMESTAMP2_DATE=%__TIMESTAMP2:~0,8%
-set __TIMESTAMP2_TIME=%__TIMESTAMP2:~-6%
+set __DATE2=%__TIMESTAMP2:~0,8%
+set __TIME2=%__TIMESTAMP2:~-6%
 
-if %__TIMESTAMP1_DATE% gtr %__TIMESTAMP2_DATE% ( set _NEWER=1
-) else if %__TIMESTAMP1_DATE% lss %__TIMESTAMP2_DATE% ( set _NEWER=0
-) else if %__TIMESTAMP1_TIME% gtr %__TIMESTAMP2_TIME% ( set _NEWER=1
+if %__DATE1% gtr %__DATE2% ( set _NEWER=1
+) else if %__DATE1% lss %__DATE2% ( set _NEWER=0
+) else if %__TIME1% gtr %__TIME2% ( set _NEWER=1
 ) else ( set _NEWER=0
 )
 goto :eof

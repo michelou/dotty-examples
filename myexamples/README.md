@@ -41,7 +41,7 @@ The configuration file [**`HelloWorld\build.xml`**](HelloWorld/build.xml) depend
 Execution of [**`HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output ([Ivy][apache_ant_ivy] support is enabled by default):
 
 <pre style="font-size:80%;">
-<b>&gt; ant clean run</b>
+<b>&gt; <a href="https://ant.apache.org/manual/running.html#commandline">ant</a> clean run</b>
 Buildfile: W:\myexamples\HelloWorld\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">clean:</span>
@@ -69,7 +69,7 @@ Total time: 3 seconds
 > **&#9755;** **Apache Ivy**<br/>
 > We observe from task **`init.ivy`** that the [Apache Ivy][apache_ant_ivy] library has been added to the [Ant](https://ant.apache.org/) installation directory. In our case we installed [version 2.5.0][apache_ant_ivy_relnotes] of the [Apache Ivy][apache_ant_ivy] library.
 > <pre style="font-size:80%;">
-> <b>&gt; curl -sL -o c:\Temp\apache-ivy-2.5.0.zip https://www-eu.apache.org/dist//ant/ivy/2.5.0/apache-ivy-2.5.0-bin.zip</b>
+> <b>&gt; <a href="https://curl.haxx.se/docs/manual.html">curl</a> -sL -o c:\Temp\apache-ivy-2.5.0.zip https://www-eu.apache.org/dist//ant/ivy/2.5.0/apache-ivy-2.5.0-bin.zip</b>
 > <b>&gt; unzip c:\temp\apache-ivy-2.5.0.zip -d c:\opt</b>
 > <b>&gt; copy c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.7\lib</b>
 > <b>&gt; dir c:\opt\apache-ant-1.10.7\lib | findstr ivy</b>
@@ -191,7 +191,7 @@ build {
 Command **`gradle clean run`** produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; gradle clean run</b>
+<b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html">gradle</a> clean run</b>
 
 &gt; Task :run
 Hello world!
@@ -209,7 +209,7 @@ The configuration file [**`HelloWorld\Makefile`**](HelloWorld/Makefile) depends 
 Command **`make clean run`** produces the following output ([**`HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala)):
 
 <pre style="font-size:80%;">
-<b>&gt; make clean run</b>
+<b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> clean run</b>
 rm -rf "target"
 [ -d "target/classes" ] || mkdir -p "target/classes"
 dotc.bat "@target/scalac_opts.txt" "@target/scalac_sources.txt"
@@ -220,7 +220,7 @@ Hello world!
 Command **`make test`** executes the test suite [**`HelloWorldTest.scala`**](HelloWorld/src/test/scala/HelloWorldTest.scala) for program [**`HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala).
 
 <pre style="font-size:80%;">
-$ make test
+<b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 dotc.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
 java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_0.26/0.26.0-RC1/dotty-library_0.26-0.26.0-RC1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13/junit-4.13.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.0/scalatest_2.13-3.2.0.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.0/scalactic_2.13-3.2.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.10.1/specs2-core_2.13-4.10.1.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.10.1/specs2-junit_2.13-4.10.1.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.10.1/specs2-matcher_2.13-4.10.1.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
@@ -234,7 +234,7 @@ OK (1 test)
 Command **`make test`** generates the HTML documentation for program [**`HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala):
 
 <pre style="font-size:80%;">
-<b>&gt; make doc</b>
+<b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> doc</b>
 [ -d "target/docs" ] || mkdir -p "target/docs"
 dotd.bat "@target/scaladoc_opts.txt" "@target/scaladoc_sources.txt"
 Compiling (1/1): HelloWorld.scala
@@ -257,7 +257,7 @@ The configuration file [**`HelloWorld\pom.xml`**](HelloWorld/pom.xml) depends on
 Command **`mvn clean test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our Maven plugin **`scala-maven-plugin`**:
 
 <pre style="font-size:80%;">
-<b>&gt; mvn -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
+<b>&gt; <a href="https://maven.apache.org/run.html">mvn</a> -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-11.0.8+10\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.26.0-RC1 \
  -cp C:\opt\dotty-0.26.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
@@ -282,7 +282,7 @@ Hello world!
 We can also specify phase **`package`** to generate (and maybe execute) the **`HelloWorld`** Java archive:
 
 <pre style="font-size:80%;">
-<b>&gt; mvn clean package</b>
+<b>&gt; <a href="https://maven.apache.org/run.html">mvn</a> clean package</b>
 [INFO] Scanning for projects...
 [INFO]
 [INFO] --------------------< dotty.myexamples:HelloWorld >---------------------

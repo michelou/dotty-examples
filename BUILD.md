@@ -34,16 +34,17 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 8u242  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
 8u252  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-April/011559.html
 11.0.7 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
+11.0.8 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-July/003498.html
 -->
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*July 2020*):
+For instance our development environment looks as follows (*August 2020*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.28.0\
-C:\opt\jdk-11.0.8+10\
-C:\opt\sbt-1.3.13\
+C:\opt\Git-2.28.0\     <i>(290 MB)</i>
+C:\opt\jdk-11.0.8+10\  <i>(314 MB)</i>
+C:\opt\sbt-1.3.13\     <i>(  1 MB, no local-preloaded libraries)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -90,10 +91,10 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. Directory [**`bin\0.24\`**](bin/0.24) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software distribution][dotty_releases].
+1. Directory [**`bin\0.26\`**](bin/0.26) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software distribution][dotty_releases].
 
    <pre style="font-size:80%;">
-   <b>&gt; cp bin\0.24\*.bat dotty\dist\bin</b>
+   <b>&gt; cp bin\0.26\*.bat dotty\dist\bin</b>
    <b>&gt; dir /b dotty\dist\bin</b>
    common
    common.bat
@@ -120,7 +121,7 @@ We distinguish different sets of batch commands:
    <b>&gt; cd</b>
    W:\dotty
    &nbsp;
-   <b>&gt; build help</b>
+   <b>&gt; <a href="bin/dotty/build.bat">build</a> help</b>
    Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
    &nbsp;
      Options:
@@ -656,7 +657,7 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 
 <p style="margin:0 0 1em 20px;">
 <a href="https://www.scala-sbt.org/download.html"><code>sbt</code></a> versions 1.3.6 and 1.3.7 are broken on Microsoft Windows (see <a href="https://github.com/sbt/io/pull/283">pull 283</a> in project <a href="https://github.com/sbt/io"><code>sbt/io</code></a>).
-Make sure to have the correct <a href="https://www.scala-sbt.org/download.html"><code>sbt</code></a> version defined in project file <code>build.properties</code>:
+Make sure to have a more recent <a href="https://www.scala-sbt.org/download.html"><code>sbt</code></a> version defined in project file <code>build.properties</code>:
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; cat project\build.properties</b>
@@ -709,7 +710,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

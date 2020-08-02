@@ -41,7 +41,7 @@ The configuration file [**`enum-Planet\build.xml`**](enum-Planet/build.xml) depe
 Execution of [**`Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output ([Ivy][apache_ant_ivy] support is enabled by default):
 
 <pre style="font-size:80%;">
-<b>&gt; ant clean run</b>
+<b>&gt; <a href="https://ant.apache.org/manual/running.html">ant</a> clean run</b>
 Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">clean:</span>
@@ -86,7 +86,7 @@ Total time: 19 seconds
 We can set property **`-Duse.local=true`** to use [Dotty] local installation (*reminder*: environment variable **`DOTTY_HOME`** is set by command **`setenv`**):
 
 <pre style="font-size:80%;">
-<b>&gt; ant -Duse.local=true clean run</b>
+<b>&gt; <a href="https://ant.apache.org/manual/running.html">ant</a> -Duse.local=true clean run</b>
 Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">clean:</span>
@@ -271,7 +271,7 @@ The configuration file [**`enum-Planet\Makefile`**](enum-Planet/Makefile) depend
 Command **`make clean run`** produces the following output ([**`Planet.scala`**](enum-Planet/src/main/scala/Planet.scala)):
 
 <pre style="font-size:80%;">
-<b>&gt; make clean run</b>
+<b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> clean run</b>
 rm -rf "target"
 [ -d "target/classes" ] || mkdir -p "target/classes"
 dotc.bat "@target/scalac_opts.txt" "@target/scalac_sources.txt"
@@ -289,7 +289,7 @@ Your weight on JUPITER (4) is 2.5305575254957406
 Command **`make test`** executes the test suite [**`PlanetTest.scala`**](enum-Planet/src/test/scala/PlanetTest.scala) for program [**`Planet.scala`**](enum-Planet/src/main/scala/Planet.scala).
 
 <pre style="font-size:80%;">
-<b>&gt; make test</b>
+<b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 dotc.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
 java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_0.25/0.26.0-RC1/dotty-library_0.25-0.26.0-RC1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13/junit-4.13.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
@@ -303,7 +303,7 @@ OK (2 tests)
 Command **`make doc`** generates the HTML documentation for program [**`enum-Planet.scala`**](enum-Planet./src/main/scala/enum-Planet.scala):
 
 <pre style="font-size:80%;">
-<b>&gt; make doc</b>
+<b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> doc</b>
 [ -d "target/docs" ] || mkdir -p "target/docs"
 dotd.bat "@target/scaladoc_opts.txt" "@target/scaladoc_sources.txt"
 Compiling (1/1): Planet.scala
@@ -561,7 +561,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
