@@ -408,9 +408,10 @@ Hello world!
 
 ## <span id="footnotes">Footnotes</span>
 
-<a name="footnote_01">[1]</a> ***Batch files and coding conventions*** [↩](#anchor_01)
-
-<p style="margin:0 0 1em 20px;">
+<dl>
+<dt><b name="footnote_01">&nbsp;&nbsp;[1]&nbsp;&nbsp; <i>Batch files and coding conventions</i></b> <a href="#anchor_01">↩</a></dt>
+<dd>
+<p>
 Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</code></b></a>) obey the following coding conventions:
 
 - We use at most 80 characters per line. In general we would say that 80 characters fit well with 4:3 screens and 100 characters fit well with 16:9 screens ([Google's convention](https://google.github.io/styleguide/javaguide.html#s4.4-column-limit) is 100 characters).
@@ -490,13 +491,14 @@ Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</
 ...
 <b>exit</b> /b <span style="color:#3333ff;">%_EXITCODE%</span>
 </pre>
+</dd>
 
-<a name="footnote_02">[2]</a> <a href="https://github.com/lampepfl/dotty/issues/4272" style="font-weight:bold;">bug4272</a> ***2018-04-08*** [↩](#anchor_02)
-
-<p style="margin:0 0 1em 20px;">
+<dt><b name="footnote_02">&nbsp;&nbsp;[2]&nbsp;&nbsp; <a href="https://github.com/lampepfl/dotty/issues/4272" style="font-weight:bold;">bug4272</a> <i>2018-04-08</i></b> <a href="#anchor_02">↩</a></dt>
+<dd>
+<p>
 Executing command <a href="bug4272/build.bat" style="font-weight:bold;font-family:Courier;">build</a> in directory <a href="bug4272/" style="font-weight:bold;font-family:Courier;">bug4272\</a> produces a runtime exception with version 0.7 of the Dotty compiler (*was fixed in version 0.8*):
 </p>
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+<pre style="font-size:80%;">
 <b>&gt; build clean compile run</b>
 exception occurred while typechecking C:\dotty\MYEXAM~1\bug4272\src\main\scala\Main.scala
 exception occurred while compiling C:\dotty\MYEXAM~1\bug4272\src\main\scala\Main.scala
@@ -520,13 +522,14 @@ Exception in thread "main" java.lang.AssertionError: cannot merge Constraint(
         at dotty.tools.dotc.Driver.main(Driver.scala:135)
         at dotty.tools.dotc.Main.main(Main.scala)
 </pre>
+</dd>
 
-<a name="footnote_03">[3]</a> <a href="https://github.com/lampepfl/dotty/issues/4356" style="font-weight:bold;">bug4356</a> ***2018-04-21*** [↩](#anchor_03)
-
-<p style="margin:0 0 1em 20px;">
+<dt><b name="footnote_03">&nbsp;&nbsp;[3]&nbsp;&nbsp; <a href="https://github.com/lampepfl/dotty/issues/4356" style="font-weight:bold;">bug4356</a> 2018-04-21</i></b> <a href="#anchor_03">↩</a></dt>
+<dd>
+<p>
 Executing <a href="bug4356/build.bat" style="font-weight:bold;font-family:Courier;">build</a> in directory <a href="bug4356/" style="font-weight:bold;font-family:Courier;">bug4356\</a> produces a runtime exception with version 0.7 of the Dotty compiler:
 </p>
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+<pre style="font-size:80%;">
 <b>&gt; build clean compile</b>
 Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> at index 72: C:\dotty\MYEXAM~1\bug4356\\lib\junit-4.12.jar:C:\dotty\MYEXAM~1\bug4356\target\dotty-0.7\classes
         at sun.nio.fs.WindowsPathParser.normalize(WindowsPathParser.java:182)
@@ -539,10 +542,12 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
         at dotty.tools.dotc.Driver.main(Driver.scala:135)
         at dotty.tools.dotc.Main.main(Main.scala)
 </pre>
+</dd>
+</dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -31,15 +31,21 @@ if exist "%SCALA_HOME%\lib\" (
     if not !_EXITCODE!==0 goto end
 )
 if exist "%JAVA_HOME%\lib\" (
-    call :search "%JAVA_HOME%\lib"
+    @rem let's remove double quotes if any
+    for %%i in (%JAVA_HOME%) do set "__JAVA_HOME=%%~i"
+    call :search "!__JAVA_HOME!\lib"
     if not !_EXITCODE!==0 goto end
 )
 if exist "%JAVA_HOME%\jre\lib\" (
     call :search "%JAVA_HOME%\jre\lib"
     if not !_EXITCODE!==0 goto end
 )
+if exist "%JAVAFX_HOME%\lib\" (
+    call :search "%JAVAFX_HOME%\lib"
+    if not !_EXITCODE!==0 goto end
+)
 if exist "%CD%\lib\*" (
-    call :search "%_CWD%\lib" 1
+    call :search "%CD%\lib" 1
     if not !_EXITCODE!==0 goto end
 )
 if defined _IVY if exist "%USERPROFILE%\.ivy2\" (
@@ -208,7 +214,7 @@ set __RECURSIVE=%~2
 if defined __RECURSIVE ( set __DIR_OPTS=/s /b
 ) else ( set __DIR_OPTS=/b
 )
-echo Searching for class %_CLASS_NAME% in library files !__LIB_DIR:%USERPROFILE%=%%USERPROFILE%%!\*.jar
+echo Searching for class name %_CLASS_NAME% in archive files !__LIB_DIR:%USERPROFILE%=%%USERPROFILE%%!\*.jar
 for /f %%i in ('dir %__DIR_OPTS% "%__LIB_DIR%\*.jar" 2^>NUL') do (
     if defined __RECURSIVE ( set "__JAR_FILE=%%i"
     ) else ( set "__JAR_FILE=%__LIB_DIR%\%%i"

@@ -34,6 +34,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 8u242  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
 8u252  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-April/011559.html
 11.0.8 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
+11.0.8 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-July/003498.html
 -->
 Optionally one may also install the following software:
 
@@ -478,62 +479,57 @@ Passing argument **`System`** to command [**`searchjars`**](bin/searchjars.bat) 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> System</b>
-Searching for class System in library files C:\opt\DOTTY-~1.1-R\lib\*.jar
+Searching for class name System in archive files C:\opt\opt\dotty-0.26.0-RC1\lib\*.jar
+  jline-reader-3.15.0.jar:org/jline/reader/impl/completer/SystemCompleter.class
   scala-library-2.13.3.jar:scala/sys/SystemProperties$.class
   scala-library-2.13.3.jar:scala/sys/SystemProperties.class
-Searching for class System in library files C:\opt\SCALA-~1.0\lib\*.jar
-  jline-3.14.1.jar:org/jline/builtins/SystemRegistry.class
+Searching for class name System in archive files C:\opt\scala-2.13.3\lib\*.jar
+  jline-3.15.0.jar:org/jline/builtins/SystemRegistryImpl$CommandOutputStream.class
   [...]
-  scala-compiler.jar:scala/tools/util/SystemExit$.class
-  scala-compiler.jar:scala/tools/util/SystemExit.class
   scala-library.jar:scala/sys/SystemProperties$.class
   scala-library.jar:scala/sys/SystemProperties.class
-Searching for class System in library files C:\opt\JDK-18~1.0_2\lib\*.jar
-  sa-jdi.jar:sun/jvm/hotspot/memory/SystemDictionary$1.class
-  sa-jdi.jar:sun/jvm/hotspot/memory/SystemDictionary$2.class
+Searching for class name System in archive files C:\opt\jdk-11.0.8+10\lib\*.jar
+  jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   [...]
-Searching for class System in library files C:\opt\JDK-18~1.0_2\jre\lib\*.jar
+  jrt-fs.jar:jdk/internal/jrtfs/SystemImage$2.class
+  jrt-fs.jar:jdk/internal/jrtfs/SystemImage.class
+Searching for class name System in archive files c:\opt\javafx-sdk-11.0.2\lib\*.jar
+  javafx.graphics.jar:com/sun/glass/ui/SystemClipboard.class
   [...]
-  rt.jar:java/lang/SystemClassLoaderAction.class
-  rt.jar:java/lang/System$2.class
-  rt.jar:java/io/FileSystem.class
-  rt.jar:java/io/WinNTFileSystem.class
-  rt.jar:java/io/DefaultFileSystem.class
-  rt.jar:java/lang/System.class
+  javafx.graphics.jar:com/sun/javafx/tk/TKSystemMenu.class
+  javafx.web.jar:com/sun/webkit/FileSystem.class
 </pre>
 
-Searching for an unknown class - e.g. **`BinarySearch`** - produces the following output:
+Searching for an unknown class name - e.g. **`BinarySearch`** - produces the following output:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> BinarySearch</b>
-Searching for class BinarySearch in library files C:\opt\DOTTY-~1.1-R\lib\*.jar
-Searching for class BinarySearch in library files C:\opt\SCALA-~1.0\lib\*.jar
-Searching for class BinarySearch in library files C:\opt\JDK-18~1.0_2\lib\*.jar
-Searching for class BinarySearch in library files W:\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\dotty-0.26.0-RC1\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\scala-2.13.3\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\jdk-11.0.8+10\lib\*.jar
 </pre>
 
 Searching for **`FileSystem`** with option **`-artifact`** produces the following output:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> FileSystem -artifact</b>
-Searching for class FileSystem in library files C:\opt\DOTTY-~1.1-R\lib\*.jar
-Searching for class FileSystem in library files C:\opt\SCALA-~1.0\lib\*.jar
-Searching for class FileSystem in library files C:\opt\JDK-18~1.0_2\lib\*.jar
-Searching for class FileSystem in library files W:\\lib\*.jar
-Searching for class FileSystem in library files %USERPROFILE%\.ivy2\cache\*.jar
-  jimfs-1.1.jar:com/google/common/jimfs/FileSystemState.class
-  jimfs-1.1.jar:com/google/common/jimfs/FileSystemView$1.class
-  [...]
-  okhttp-3.7.0.jar:okhttp3/internal/io/FileSystem$1.class
-  okhttp-3.7.0.jar:okhttp3/internal/io/FileSystem.class
-  org.eclipse.lsp4j-0.5.0.jar:org/eclipse/lsp4j/FileSystemWatcher.class
-  org.eclipse.xtend.lib.macro-2.16.0.jar:org/eclipse/xtend/lib/macro/file/FileSystemSupport.class
-  org.eclipse.xtend.lib.macro-2.16.0.jar:org/eclipse/xtend/lib/macro/file/MutableFileSystemSupport.class
-  jmh-core-1.19.jar:org/openjdk/jmh/generators/core/FileSystemDestination.class
-  jmh-core-1.21.jar:org/openjdk/jmh/generators/core/FileSystemDestination.class
-  ivy-2.3.0-sbt-b18f59ea3bc914a297bb6f1a4f7fb0ace399e310.jar:org/apache/ivy/plugins/resolver/FileSystemResolver.class
-  ivy-2.3.0-sbt-cb9cc189e9f3af519f9f102e6c5d446488ff6832.jar:org/apache/ivy/plugins/resolver/FileSystemResolver.class
-Searching for class FileSystem in library files %USERPROFILE%\.m2\repository\*.jar
+Searching for class name FileSystem in archive files C:\opt\dotty-0.26.0-RC1\lib\*.jar
+Searching for class name FileSystem in archive files C:\opt\scala-2.13.3\lib\*.jar
+Searching for class name FileSystem in archive files c:\opt\jdk-11.0.8+10\lib\*.jar
+  jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
+  jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem.class
+  jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystemProvider$1.class
+  jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystemProvider$JrtFsLoader.class
+  jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystemProvider.class
+Searching for class name FileSystem in archive files c:\opt\javafx-sdk-11.0.2\lib\*.jar
+  javafx.web.jar:com/sun/webkit/FileSystem.class
+Searching for class name FileSystem in archive files %USERPROFILE%\.ivy2\cache\*.jar
+  okhttp-3.14.2.jar:okhttp3/internal/io/FileSystem$1.class
+  okhttp-3.14.2.jar:okhttp3/internal/io/FileSystem.class
+  ivy-2.3.0-sbt-839fad1cdc07cf6fc81364d74c323867230432ad.jar:org/apache/ivy/plugins/resolver/FileSystemResolver.class
+  ivy-2.3.0-sbt-88d6a93d15f9b029958c1c289a8859e8dfe31a19.jar:org/apache/ivy/plugins/resolver/FileSystemResolver.class
+  ivy-2.3.0-sbt-fa726854dd30be842ff9e6d2093df6adfe3871f5.jar:org/apache/ivy/plugins/resolver/FileSystemResolver.class
+Searching for class name FileSystem in archive files %USERPROFILE%\.m2\repository\*.jar
   commons-io-2.2.jar:org/apache/commons/io/FileSystemUtils.class
   commons-io-2.5.jar:org/apache/commons/io/FileSystemUtils.class
   commons-io-2.6.jar:org/apache/commons/io/FileSystemUtils.class
@@ -682,41 +678,6 @@ Hello world!
 
 ## <span id="footnotes">Footnotes</span>
 
-<!-- ## removed on 2018-11-23 ##
-<a name="footnote_01">[1]</a> ***2018-07-07*** [↩](#anchor_02)
-
-<div style="margin:0 0 0 20px;">
-Version 0.9 of the Dotty compiler is not compatible with versions 9 and 10 of <a href="https://docs.oracle.com/javase/9/install/overview-jdk-9-and-jre-9-installation.htm">Java JRE</a>; a <strong><code>java.lang.IncompatibleClassChangeError</code></strong> exception is thrown when starting the <strong><code>dotc</code></strong> command:
-</div>
--->
-
-<!--
-C:\opt\jdk-11.0.1\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.9.0\lib\scala-library-2.12.6.jar;C:\opt\dotty-0.9.0\lib\scala-xml_2.12-1.1.0.jar;C:\opt\dotty-0.9.0\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.9.0\lib\compiler-interface-1.1.6.jar;C:\opt\dotty-0.9.0\lib\dotty-interfaces-0.9.0.jar;C:\opt\dotty-0.9.0\lib\dotty-library_0.9-0.9.0.jar;C:\opt\dotty-0.9.0\lib\dotty-compiler_0.9-0.9.0.jar -Dscala.usejavacp=true dotty.tools.dotc.Main
-
-C:\opt\jdk-11.0.1\bin\java.exe -Xmx768m -Xms768m -classpath C:\opt\dotty-0.17.0-RC1\lib\scala-library-2.12.8.jar;C:\opt\dotty-0.17.0-RC1\lib\scala-xml_2.12-1.1.0.jar;C:\opt\dotty-0.14.0-RC1\lib\scala-asm-6.0.0-scala-1.jar;C:\opt\dotty-0.17.0-RC1\lib\compiler-interface-1.2.2.jar;C:\opt\dotty-0.17.0-RC1\lib\dotty-interfaces-0.17.0-RC1.jar;C:\opt\dotty-0.17.0-RC1\lib\dotty-library_0.17-0.17.0-RC1.jar;C:\opt\dotty-0.17.0-RC1\lib\dotty-compiler_0.17-0.17.0-RC1.jar -Dscala.usejavacp=true dotty.tools.dotc.Main
--->
-
-<!--
-<pre style="font-size:80%;">
-<b>&gt;</b> C:\Progra~1\Java\jre-10.0.2\bin\java.exe -Xmx768m -Xms768m \
--classpath C:\opt\dotty-0.9.0\lib\scala-library-2.12.6.jar; \
-C:\opt\dotty-0.9.0\lib\scala-xml_2.12-1.1.0.jar; \
-C:\opt\dotty-0.9.0\lib\scala-asm-6.0.0-scala-1.jar; \
-C:\opt\dotty-0.9.0\lib\compiler-interface-1.1.6.jar; \
-C:\opt\dotty-0.9.0\lib\dotty-interfaces-0.9.0.jar; \
-C:\opt\dotty-0.9.0\lib\dotty-library_0.9-0.9.0.jar; \
-C:\opt\dotty-0.9.0\lib\dotty-compiler_0.9-0.9.0.jar \
--Dscala.usejavacp=true dotty.tools.dotc.Main
-Exception in thread "main" java.lang.IncompatibleClassChangeError: Method dotty.tools.dotc.core.Phases$PhasesBase.dotty$tools$dotc$core$Phases$PhasesBase$$initial$myTyperPhase()Ldotty/tools/dotc/core/Phases$Phase; must be InterfaceMethodref constant
-        at dotty.tools.dotc.core.Contexts$ContextBase.<init>(Contexts.scala:544)
-        at dotty.tools.dotc.Driver.initCtx(Driver.scala:41)
-        at dotty.tools.dotc.Driver.process(Driver.scala:98)
-        at dotty.tools.dotc.Driver.process(Driver.scala:115)
-        at dotty.tools.dotc.Driver.main(Driver.scala:142)
-        at dotty.tools.dotc.Main.main(Main.scala)
-</pre>
--->
-
 <b name="footnote_01">[1]</b> ***Java LTS*** [↩](#anchor_01) <!-- 2018-11-18 -->
 
 <p style="margin:0 0 1em 20px;">
@@ -741,7 +702,7 @@ For instance, for Visual Studio 2019, we set variable <b><code>BAZEL_VC</code></
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/lihaoyi/mill/releases">0.8.0-assembly</a> (<code>mill<//code>)                          <i>(53 MB)</i>
+<a href="https://github.com/lihaoyi/mill/releases">0.8.0-assembly</a> (<code>mill</code>)                            <i>(53 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.8-bin.zip</a>                        <i>( 9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                       <i>( 9 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.26.0-RC1">dotty-0.26.0-RC1.zip</a>                             <i>(24 MB)</i>
@@ -753,65 +714,6 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.3.zip</a>                                 <i>(21 MB)</i>
 </pre>
 
-<!-- ## removed on 2020-02-03 ##
-<b name="footnote_04">[4]</b ***Dotty distribution size*** [↩](#anchor_04) <!-- 2019-12-20 -- >
-
-<p style="margin:0 0 1em 20px;">
-Size of the <a href="https://dotty.epfl.ch/">Dotty</a> distribution has increased a lot between version 0.20 and 0.21, namely  <i>25.2 MB versus 43.7 MB</i> ! This is due to the inclusion of many new Java archive files in directory <b><code>lib\</code></b> of the distribution:
-</p>
-<pre style="margin:0 0 1em 20px; font-size:80%;">
-<b>&gt; dirsize.bat c:\opt\dotty-0.20.0-RC1\lib c:\opt\dotty-0.21.0-RC1\lib</b>
-Size of directory "c:\opt\dotty-0.20.0-RC1\lib" is 25.3 Mb
-Size of directory "c:\opt\dotty-0.21.0-RC1\lib" is 43.7 Mb
-</pre>
-<p style="margin:0 0 1em 20px;">
-We observe two important changes:
-</p>
-<ul style="margin:0 0 1em 20px;">
-<li><a href="https://github.com/vsch/flexmark-java">flexmark-java</a> - a CommonMark/Markdown Java parser - has been upgraded from version <a href="https://github.com/vsch/flexmark-java/releases/tag/0.28.32">0.28.32</a> (January 9, 2018) in Dotty 0.20 to version <a href="https://github.com/vsch/flexmark-java/releases/tag/0.42.12">0.42.12</a> (May 24, 2019) in Dotty 0.22.</li>
-<li><a href="http://site.icu-project.org/download/59">ICU 59</a> - a library for software  internationalization - has been added to the Dotty distribution; its size is over <i>11 MB</i>  !</li>
-</ul>
-<pre style="margin:0 0 1em 20px;">
-<b>&gt; libdiff.bat</b>
-c:\opt\dotty-0.21.0-RC1\lib\commons-logging-1.2.jar                                61829 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-all-0.42.12.jar                                2154 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-abbreviation-0.42.12.jar                  35259 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-admonition-0.42.12.jar                    34474 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-aside-0.42.12.jar                         16186 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-attributes-0.42.12.jar                    35726 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-definition-0.42.12.jar                    39846 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-enumerated-reference-0.42.12.jar          66414 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-escaped-character-0.42.12.jar             12789 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-footnotes-0.42.12.jar                     41056 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-gfm-issues-0.42.12.jar                    15638 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-gfm-users-0.42.12.jar                     15818 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-gitlab-0.42.12.jar                        42429 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-jekyll-front-matter-0.42.12.jar           18227 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-jekyll-tag-0.42.12.jar                    21131 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-macros-0.42.12.jar                        35051 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-media-tags-0.42.12.jar                    25060 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-toc-0.42.12.jar                           90605 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-typographic-0.42.12.jar                   22045 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-xwiki-macros-0.42.12.jar                  30921 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-ext-youtube-embedded-0.42.12.jar              12544 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-html-parser-0.42.12.jar                       44425 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-pdf-converter-0.42.12.jar                      7029 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-profile-pegdown-0.42.12.jar                    6294 bytes
-c:\opt\dotty-0.21.0-RC1\lib\flexmark-youtrack-converter-0.42.12.jar                40903 bytes
-c:\opt\dotty-0.21.0-RC1\lib\fontbox-2.0.11.jar                                   1557078 bytes
-c:\opt\dotty-0.21.0-RC1\lib\graphics2d-0.15.jar                                    50534 bytes
-c:\opt\dotty-0.21.0-RC1\lib\icu4j-59.1.jar                                      <span style="font-weight:bold;color:#ff3333">11916846 bytes</span>
-c:\opt\dotty-0.21.0-RC1\lib\openhtmltopdf-core-0.0.1-RC15.jar                    1233228 bytes
-c:\opt\dotty-0.21.0-RC1\lib\openhtmltopdf-jsoup-dom-converter-0.0.1-RC15.jar       19965 bytes
-c:\opt\dotty-0.21.0-RC1\lib\openhtmltopdf-pdfbox-0.0.1-RC15.jar                   141312 bytes
-c:\opt\dotty-0.21.0-RC1\lib\openhtmltopdf-rtl-support-0.0.1-RC15.jar               24506 bytes
-c:\opt\dotty-0.21.0-RC1\lib\pdfbox-2.0.11.jar                                    2524580 bytes
-c:\opt\dotty-0.21.0-RC1\lib\tasty-core_0.21-0.21.0-RC1.jar                         54125 bytes
-c:\opt\dotty-0.21.0-RC1\lib\xmpbox-2.0.11.jar                                     131862 bytes
-Total size: 17 MB
-</pre>
--->
-
 <b name="footnote_04">[4]</b> ***PowerShell*** [↩](#anchor_04) <!-- 2018-05-09 -->
 
 <p style="margin:0 0 1em 20px;"> 
@@ -820,7 +722,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

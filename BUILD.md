@@ -261,7 +261,7 @@ Command [**`build.bat`**](bin/dotty/build.bat) consists of ~400 lines of batch/[
 Command **`build.bat clean`** removes all generated *and untracked* files/directories from our [**Dotty fork**][github_dotty_fork].<br/>Internally, **`build clean`** executes the command **`sbt clean`** (one may use [**`git clean -xdf`**][git_clean] to remove all untracked directories/files, including build products).
 
 <pre style="font-size:80%;">
-<b>&gt; build clean</b>
+<b>&gt; <a href="bin/dotty/build.bat">build</a> clean</b>
 [...(sbt)...]
 Removing .vscode/
 Removing HelloWorld$.class
@@ -290,7 +290,7 @@ Removing testlogs/
 Command **`build -verbose clean`** also displays the tool paths/options and the current Git branch:
 
 <pre style="font-size:80%;">
-<b>&gt; build -verbose clean</b>
+<b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
    GIT_CMD=C:\opt\Git-2.28.0\bin\git.exe
    JAVA_CMD=C:\opt\jdk-11.0.8+10\bin\java.exe
@@ -309,7 +309,7 @@ Current Git branch
 Command **`build.bat compile`** generates the *"1st stage compiler"* for [Dotty] and executes the relevant test suites. 
 
 <pre style="font-size:80%;">
-<b>&gt; build compile</b>
+<b>&gt; <a href="bin/dotty/build.bat">build</a> compile</b>
 sbt compile and sbt test
 [...]
 [info] Done compiling.
@@ -371,7 +371,7 @@ Command **`build.bat community`**  generates subprojects from **`community-build
 Command **`build.bat archives`** works as follows:  ***if*** execution of the **`bootstrap`** subcommand was successful the **`archives`** subcommand generates the gz/zip archives.<br/>Below we execute the **`arch-only`** subcommand for the sake of brievity (previous steps are *assumed* to be successful): 
 
 <pre style="font-size:80%;">
-<b>&gt; build arch-only</b>
+<b>&gt; <a href="bin/dotty/build.bat">build</a> arch-only</b>
 [...]
 &nbsp;
 <b>&gt; dir /a-d /b dist-bootstrapped\target</b>
@@ -384,7 +384,7 @@ dotty-0.19.1-bin-SNAPSHOT.zip
 Command **`build.bat documentation`** works as follows: ***if*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Dotty website][dotty] and the online [Dotty documentation][dotty_docs].<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
 <pre style="font-size:80%;">
-<b>&gt; build -timer doc-only</b>
+<b>&gt; <a href="bin/dotty/build.bat">build</a> -timer doc-only</b>
 Working directory: W:\dotty
 [...]
 [info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 0.20.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
@@ -468,7 +468,7 @@ Total execution time: 00:20:25
 Command [**`project\scripts\cmdTests.bat`**](bin/dotty/project/scripts/cmdTests.bat) performs several tests running [Dotty](https://dotty.epfl.ch) commands from [**`sbt`**][sbt_cli]. In the normal case, command [**`cmdTests`**](bin/dotty/project/scripts/cmdTests.bat) is called by command **`build compile`** but may also be called directly.
 
 <pre style="font-size:80%;">
-<b>&gt; cmdTests</b>
+<b>&gt; <a href="bin/dotty/project/scripts/cmdTests.bat">cmdTests</a></b>
 testing sbt dotc and dotr
 hello world
 testing sbt dotc -from-tasty and dotr -classpath
@@ -630,39 +630,43 @@ total warnings with regards to compilation and documentation: 29
 
 ## <span id="footnotes">Footnotes</span>
 
-<b name="footnote_01">[1]</b> ***Continuous Integration/Delivery*** (CI/CD) [↩](#anchor_01)
-
-<p style="margin:0 0 1em 20px;">
+<dl>
+<dt><b name="footnote_01">&nbsp;&nbsp;[1]&nbsp;&nbsp; <i>Continuous Integration/Delivery</i></b> (CI/CD) <a href="#anchor_01">↩</a></dt>
+<dd>
+<p>
 Steps are: Checkout <b>&rarr;</b> Compile <b>&rarr;</b> Test <b>&rarr;</b> Deploy.
 </p>
-<table style="margin:0 0 1em 20px;">
+<table>
 <tr><th>Software</th<th>CI/CD&nbsp;service</th<th>Hosting</th></tr>
 <tr><td><a href="https://dotty-ci.epfl.ch/lampepfl/dotty">Dotty</a></td><td><a href="https://drone.io/">Drone</a> <sup><b>(1)</b></sup></td><td><a href="https://dotty-ci.epfl.ch/lampepfl/dotty">EPFL</a> in Lausanne, Switzerland</td></tr>
 <tr><td><a href="https://www.scala-lang.org/">Scala</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup><b>(2)</b></sup><br/><a href="https://docs.travis-ci.com/user/tutorial/">Travis CI</a> <sup><b>(3)</b></sup></td><td><a href="https://scala-ci.typesafe.com/">Lightbend</a> in San-Francisco, USA<br/><a href="https://travis-ci.org/scala/scala">Travis</a> in Berlin, Germany</td></tr>
 <tr><td><a href="https://ci.adoptopenjdk.net/">Oracle&nbsp;OpenJDK</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup><b>(2)</b></sup></td><td>Oracle</td></tr>
 <tr><td><a href="https://ci.eclipse.org/openj9/">IBM OpenJ9</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup><b>(2)</b></sup></td><td>IBM</td></tr>
 </table>
-<div style="margin:0 0 0 20px;">
+<div>
 <sub><sup><b>(1)</b></sup> Written in <a href="https://github.com/drone/drone">Go</a>, <sup><b>(2)</b></sup> Written in <a href="https://www.oracle.com/technetwork/java/index.html">Java</a>, <sup><b>(3)</b></sup> Written in <a href="https://www.ruby-lang.org/en/">Ruby</a>.</sub>
 </div>
-<div>&nbsp;</div>
+</dd>
+</dl>
 
-<b name="footnote_02">[2]</b> ***Java LTS** (2018-11-18)* [↩](#anchor_02)
-
-<p style="margin:0 0 1em 20px;">
+<dt><b name="footnote_02">&nbsp;&nbsp;[2]&nbsp;&nbsp; <i>Java LTS</i></b> (2018-11-18) <a href="#anchor_02">↩</a></dt>
+<dd>
+<p>
 Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html" rel="external">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current LTS release.<br/>(see also <a href="https://www.slideshare.net/HendrikEbbers/java-11-omg">Java 11 keynote</a> from <a href="https://www.jvm-con.de/speakers/#/speaker/3461-hendrik-ebbers">Hendrik Ebbers</a> at <a href="https://www.jvm-con.de/ruckblick/">JVM-Con 2018</a>).
 </p>
 
-<b name="footnote_03">[3]</b> ***Sbt issue on Windows*** [↩](#anchor_03)
-
-<p style="margin:0 0 1em 20px;">
+<dt><b name="footnote_03">&nbsp;&nbsp;[3]&nbsp;&nbsp;<i>Sbt issue on Windows</i></b> <a href="#anchor_03">↩</a></dt>
+<dd>
+<p>
 <a href="https://www.scala-sbt.org/download.html"><code>sbt</code></a> versions 1.3.6 and 1.3.7 are broken on Microsoft Windows (see <a href="https://github.com/sbt/io/pull/283">pull 283</a> in project <a href="https://github.com/sbt/io"><code>sbt/io</code></a>).
 Make sure to have a more recent <a href="https://www.scala-sbt.org/download.html"><code>sbt</code></a> version defined in project file <code>build.properties</code>:
 </p>
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+<pre style="font-size:80%;">
 <b>&gt; cat project\build.properties</b>
 sbt.version=1.3.13
 </pre>
+</dd>
+</dl>
 
 <b name="footnote_04">[4]</b> ***Git master repository*** [↩](#anchor_04)
 
