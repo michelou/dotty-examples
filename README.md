@@ -215,14 +215,14 @@ We distinguish different sets of batch/bash commands:
 
     | **Build tool** | **Configuration file** | **Parent file** | **Usage example** |
     | :------------- | :--------------------- | :-------------- | :---------------- |
-    | [**`ant`**][apache_ant_cli] | [**`build.xml`**](examples/enum-Planet/build.xml) | [**`build.xml`**](examples/build.xml) | **`ant clean compile run`** |
-    | [**`bazel`**][bazel_cli] | [**`BUILD`**](examples/enum-Planet/BUILD) | n.a. | **`bazel run :enum-Planet`** |
-    | [**`build`**](examples/enum-Planet/build.bat) | **`build.properties`** | n.a. | **`build clean run`** |
-    | [**`gradle`**][gradle_cli] | [**`build.gradle`**](examples/enum-Planet/build.gradle) | [**`common.gradle`**](examples/common.gradle) | **`gradle clean build run`** |
-    | [**`make`**][gmake_cli] | [**`Makefile`**](examples/enum-Planet/Makefile) | [**`Makefile.inc`**](examples/Makefile.inc) | **`make clean run`** |
-    | [**`mill`**][mill_cli] | [**`build.sc`**](examples/enum-Planet/build.sc) | [**`common.sc`**](examples/common.sc) | **`mill -i app`** |
-    | [**`mvn`**][apache_maven_cli] | [**`pom.xml`**](examples/enum-Planet/pom.xml) | [**`pom.xml`**](examples/pom.xml) | **`mvn clean compile test`** |
-    | [**`sbt`**][sbt_cli] | [**`build.sbt`**](examples/enum-Planet/build.sbt) | n.a. | **`sbt clean compile run`** |
+    | [**`ant.bat`**][apache_ant_cli] | [**`build.xml`**](examples/enum-Planet/build.xml) | [**`build.xml`**](examples/build.xml) | **`ant clean compile run`** |
+    | [**`bazel.exe`**][bazel_cli] | [**`BUILD`**](examples/enum-Planet/BUILD) | n.a. | **`bazel run :enum-Planet`** |
+    | [**`build.bat`**](examples/enum-Planet/build.bat) | **`build.properties`** | n.a. | **`build clean run`** |
+    | [**`gradle.bat`**][gradle_cli] | [**`build.gradle`**](examples/enum-Planet/build.gradle) | [**`common.gradle`**](examples/common.gradle) | **`gradle clean build run`** |
+    | [**`make.exe`**][gmake_cli] | [**`Makefile`**](examples/enum-Planet/Makefile) | [**`Makefile.inc`**](examples/Makefile.inc) | **`make clean run`** |
+    | [**`mill.bat`**][mill_cli] | [**`build.sc`**](examples/enum-Planet/build.sc) | [**`common.sc`**](examples/common.sc) | **`mill -i app`** |
+    | [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](examples/enum-Planet/pom.xml) | [**`pom.xml`**](examples/pom.xml) | **`mvn clean compile test`** |
+    | [**`sbt.bat`**][sbt_cli] | [**`build.sbt`**](examples/enum-Planet/build.sbt) | n.a. | **`sbt clean compile run`** |
 
 2. Decompiler tools
 
@@ -364,18 +364,18 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a></b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-dotty-doc_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-dotty-interfaces-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-dotty-language-server_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-dotty-library_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-dotty-sbt-bridge-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-dotty-staging_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-dotty-tasty-inspector_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-dotty-tastydoc-input_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-dotty-tastydoc_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-dotty_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-tasty-core_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
+dotty-compiler_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
+dotty-doc_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
+dotty-interfaces-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
+dotty-language-server_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
+dotty-library_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
+dotty-sbt-bridge-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
+dotty-staging_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
+dotty-tasty-inspector_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
+dotty-tastydoc-input_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
+dotty-tastydoc_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
+dotty_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
+tasty-core_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
 </pre>
 
 > **:mag_right:** Starting with Dotty version `0.22.0` package **`dotty.tools.tasty`** is distributed separately in archive **`tast-core_<xxx>.jar`**.
@@ -385,19 +385,20 @@ Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the downlo
 <pre style="font-size:80%">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose</b>
 Check for nightly files on Maven repository
-Downloading file dotty-tasty-inspector_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar ... 8 Kb
-Downloading file dotty-compiler_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar ... 12.3 Mb
-Downloading file dotty-doc_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar ... 1 Mb
-Downloading file dotty-language-server_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar ... 146.1 Kb
-Downloading file dotty-sbt-bridge-0.27.0-bin-20200724-fd18546-NIGHTLY.jar ... 13.4 Kb
-Downloading file dotty_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-tastydoc-input_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar ... 36.2 Kb
-Downloading file dotty-interfaces-0.27.0-bin-20200724-fd18546-NIGHTLY.jar ... 3.4 Kb
-Downloading file dotty-tastydoc_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar ... 435.8 Kb
-Downloading file dotty-staging_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar ... 35.6 Kb
-Downloading file tasty-core_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar ... 51.7 Kb
-Downloading file dotty-library_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar ... 1.4 Mb
+Downloading file dotty-tasty-inspector_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 7.9 Kb
+Downloading file dotty-compiler_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 12.2 Mb
+Downloading file dotty-doc_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 1 Mb
+Downloading file dotty-language-server_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 145.8 Kb
+Downloading file dotty-sbt-bridge-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-interfaces-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-tastydoc-input_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 36.2 Kb
+Downloading file dotty-tastydoc_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 435.6 Kb
+Downloading file dotty-staging_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 35.5 Kb
+Downloading file dotty-library_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 1.4 Mb
+Downloading file tasty-core_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 51.7 Kb
 Finished to download 12 files to directory W:\out\nightly-jars
+Nightly version is 0.27.0-bin-20200807-dfcc0b1-NIGHTLY
 </pre>
 
 We can now replace the library files from the original [Dotty distribution][dotty_releases] (installed in directory **`C:\opt\dotty-0.26.0-RC1\`** in our case) with library files from the latest nightly build.
@@ -406,11 +407,11 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> activate</b>
-Local nightly version has changed from 0.26.0-RC1 to 0.27-0.27.0-bin-20200724-fd18546-NIGHTLY
-Activate nightly build libraries: 0.27-0.27.0-bin-20200724-fd18546-NIGHTLY
+Local nightly version has changed from 0.26.0-RC1 to 0.27.0-bin-20200807-dfcc0b1-NIGHTLY
+Activate nightly build libraries: 0.27.0-bin-20200807-dfcc0b1-NIGHTLY
 
 <b>&gt; <a href="bin/0.25/dotc.bat">dotc</a> -version</b>
-Dotty compiler version 0.27.0-bin-20200724-fd18546-NIGHTLY-git-fd18546 -- Copyright 2002-2020, LAMP/EPFL
+Dotty compiler version 0.27.0-bin-20200807-dfcc0b1-NIGHTLY-git-dfcc0b1 -- Copyright 2002-2020, LAMP/EPFL
 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> reset</b>
 Activate default Dotty libraries: 0.26.0-RC1
@@ -436,19 +437,19 @@ lib\0.26.0-RC1\
 &nbsp;&nbsp;dotty-staging_0.26-0.26.0-RC1.jar
 &nbsp;&nbsp;dotty-tasty-inspector_0.26-0.26.0-RC1.jar
 &nbsp;&nbsp;tasty-core_0.26-0.26.0-RC1.jar
-lib\0.27-0.27.0-bin-20200724-fd18546-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-&nbsp;&nbsp;dotty-staging_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tasty-inspector_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc-input_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
-&nbsp;&nbsp;tasty-core_0.27-0.27.0-bin-20200724-fd18546-NIGHTLY.jar
+lib\0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-staging_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tasty-inspector_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc-input_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
+&nbsp;&nbsp;tasty-core_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original [Dotty] installation respectively from the latest nightly build.
@@ -635,7 +636,7 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 
 #### `dotr.bat`
 
-[Dotty REPL][dotty_repl] is an interactive tool for evaluating Scala expressions. Internally, it executes a source script by wrapping it in a template and then compiling and executing the resulting program.
+[Dotty REPL][dotty_repl] is an interactive tool for evaluating [Scala] expressions. Internally, it executes a source script by wrapping it in a template and then compiling and executing the resulting program.
 
    > **:warning:** Batch file [**`dotr.bat`**](bin/0.25/dotr.bat) is based on the bash script [**`dotr`**][github_dotr] available from the standard [Dotty distribution][dotty_releases]. We also have submitted pull request [#5444][github_PR5444] to add that batch file to the Dotty distribution.
 
@@ -681,7 +682,7 @@ Hello world!
 <b name="footnote_01">[1]</b> ***Java LTS*** [↩](#anchor_01) <!-- 2018-11-18 -->
 
 <p style="margin:0 0 1em 20px;">
-Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current LTS release.
+Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS release</a> in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html" rel="external">LTS release</a>.
 </p>
 
 <b name="footnote_02">[2]</b> ***Using Bazel on Windows*** [↩](#anchor_02)
@@ -800,6 +801,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
 [sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.13
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
+[scala]: https://www.scala-lang.org/
 [scala_releases]: https://www.scala-lang.org/files/archive/
 [scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.3
 [scalac_cli]: https://docs.scala-lang.org/overviews/compiler-options/index.html

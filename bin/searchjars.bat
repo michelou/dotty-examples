@@ -31,7 +31,7 @@ if exist "%SCALA_HOME%\lib\" (
     if not !_EXITCODE!==0 goto end
 )
 if exist "%JAVA_HOME%\lib\" (
-    @rem let's remove double quotes if any
+    @rem get rid of surrounding double quotes if any
     for %%i in (%JAVA_HOME%) do set "__JAVA_HOME=%%~i"
     call :search "!__JAVA_HOME!\lib"
     if not !_EXITCODE!==0 goto end

@@ -22,19 +22,19 @@ Build tools rely on one or more configuration files to achieve their tasks. In o
 
 | Build tool                    | Configuration file(s)                    | Parent file(s)                               |
 |-------------------------------|------------------------------------------|----------------------------------------------|
-| [**`ant`**][apache_ant_cli]   | [**`build.xml`**](enum-Planet/build.xml) | [**`build.xml`**](./build.xml), [**`ivy.xml`**](ivy.xml) |
-| [**`bazel`**][bazel_cli]      | [**`BUILD`**](enum-Planet/BUILD), **`WORKSPACE`** | n.a.                                |
-| **`build`**                   | [**`build.properties`**](enum-Planet/project/build.properties) | n.a.                   |
-| [**`gradle`**][gradle_cli]    | [**`build.gradle`**](enum-Planet/build.gradle) | [**`common.gradle`**](./common.gradle) |
-| [**`make`**][gmake_cli]       | [**`Makefile`**](enum-Planet/Makefile)   | [**`Makefile.inc`**](./Makefile.inc)         |
-| [**`mill`**][mill_cli]        | [**`build.sc`**](enum-Planet/build.sc)   | [**`common.sc`**](./common.sc)               |
-| [**`mvn`**][apache_maven_cli] | [**`pom.xml`**](enum-Planet/pom.xml)     | [**`pom.xml`**](./pom.xml)                   |
-| [**`sbt`**][sbt_cli]          | [**`build.sbt`**](enum-Planet/build.sbt) | n.a.                                         |
-
+| [**`ant.bat`**][apache_ant_cli]   | [**`build.xml`**](enum-Planet/build.xml) | [**`build.xml`**](./build.xml), [**`ivy.xml`**](ivy.xml) |
+| [**`bazel.exe`**][bazel_cli]      | [**`BUILD`**](enum-Planet/BUILD), **`WORKSPACE`** | n.a.                                |
+| **`build.bat`**                   | [**`build.properties`**](enum-Planet/project/build.properties) | [**`cpath.bat`**](./cpath.bat) <sup>(*)</sup>              |
+| [**`gradle.exe`**][gradle_cli]    | [**`build.gradle`**](enum-Planet/build.gradle) | [**`common.gradle`**](./common.gradle) |
+| [**`make.exe`**][gmake_cli]       | [**`Makefile`**](enum-Planet/Makefile)   | [**`Makefile.inc`**](./Makefile.inc)         |
+| [**`mill.bat`**][mill_cli]        | [**`build.sc`**](enum-Planet/build.sc)   | [**`common.sc`**](./common.sc)               |
+| [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](enum-Planet/pom.xml)     | [**`pom.xml`**](./pom.xml)                   |
+| [**`sbt.bat`**][sbt_cli]          | [**`build.sbt`**](enum-Planet/build.sbt) | n.a.                                         |
+<div style="margin:-4px 50% 0 0;font-size:80%;"><b><sup>(*)</sup></b> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).</div>
 
 ## <span id="ant">Ant build tool</span>
 
-The configuration file [**`enum-Planet\build.xml`**](enum-Planet/build.xml) depends on the parent file [**`examples\build.xml`**](build.xml) which provides the macro definition **`dotc`** to compile the Scala source files.
+The configuration file [**`enum-Planet\build.xml`**](enum-Planet/build.xml) depends on the parent file [**`examples\build.xml`**](build.xml) which provides the macro definition **`dotc`** to compile the [Scala] source files.
 
 > **:mag_right:** Command [**`ant`**][apache_ant_cli] (["Another Neat Tool"][apache_ant_faq]) is a Java-based build tool maintained by the [Apache Software Foundation][apache_history] (tool created in 2000). It works with XML-based configuration files.
 
@@ -83,7 +83,7 @@ Total time: 19 seconds
 > 20.10.2019  09:44         1 402 646 ivy-2.5.0.jar
 > </pre>
 
-We can set property **`-Duse.local=true`** to use [Dotty] local installation (*reminder*: environment variable **`DOTTY_HOME`** is set by command **`setenv`**):
+We can set property **`-Duse.local=true`** to use [Dotty] local installation (*reminder*: in our case environment variable **`DOTTY_HOME`** is set by command **`setenv`**):
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://ant.apache.org/manual/running.html">ant</a> -Duse.local=true clean run</b>
@@ -246,7 +246,7 @@ The configuration file [**`enum-Planet\build.gradle`**](enum-Planet/build.gradle
 Command **`gradle -q clean run`** produces the following output ([**`Planet.scala`**](enum-Planet/src/main/scala/Planet.scala)):
 
 <pre style="font-size:80%;">
-<b>&gt; gradle -q clean run</b>
+<b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html">gradle</a> -q clean run</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -292,7 +292,7 @@ Command **`make test`** executes the test suite [**`PlanetTest.scala`**](enum-Pl
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 dotc.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_0.25/0.26.0-RC1/dotty-library_0.25-0.26.0-RC1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13/junit-4.13.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_0.26/0.26.0-RC1/dotty-library_0.26-0.26.0-RC1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13/junit-4.13.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
 JUnit version 4.13
 ..
 Time: 0.239
@@ -321,14 +321,14 @@ private members with docstrings:   0/3 (0%)
 
 ## <span id="maven">Maven build tool</span>
 
-The configuration file [**`enum-Planet\pom.xml`**](enum-Planet/pom.xml) depends on the parent file [**`../pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**).
+The [Maven][apache_maven_about] configuration file [**`enum-Planet\pom.xml`**](enum-Planet/pom.xml) depends on the parent file [**`../pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**).
 
 > **:mag_right:** Command [**`mvn`**][mvn_cli] is a Java-based build tool maintained by the [Apache Software Foundation][apache_foundation]. Created in 2002 it works with XML-based configuration files and provides a way to share JARs across several projects.
 
-Command **` mvn compile test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our Maven plugin **`scala-maven-plugin`**:
+Command **` mvn compile test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our [Maven][apache_maven_about] plugin **`scala-maven-plugin`**:
 
 <pre style="font-size:80%;">
-<b>&gt; mvn -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
+<b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-1.8.0_252-b09\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.26.0-RC1 \
  -cp C:\opt\dotty-0.26.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
@@ -346,7 +346,7 @@ W:\dotty-examples\examples\hello-scala\target\classes hello
 Command [**`mvn --quiet clean test`**](enum-Planet/pom.xml) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; mvn --quiet clean test</b>
+<b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> --quiet clean test</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -358,7 +358,7 @@ Your weight on JUPITER is 2.5305575254957406
 </pre>
 
 <pre style="font-size:80%;">
-<b>&gt; mvn clean compile package</b>
+<b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> clean compile package</b>
 ...
 [INFO]
 [INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ enum-Planet ---
@@ -373,7 +373,7 @@ Your weight on JUPITER is 2.5305575254957406
 <b>&gt; java -version 2>&1 | findstr version</b>
 openjdk version "11.0.7" 2019-10-15
 
-<b>&gt; java -Xbootclasspath/a:"c:\opt\dotty-0.26.0-RC1\lib\dotty-library_0.25-0.26.0-RC1.jar;c:\opt\dotty-0.26.0-RC1\lib\scala-library-2.13.2.jar" -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
+<b>&gt; java -Xbootclasspath/a:"c:\opt\dotty-0.26.0-RC1\lib\dotty-library_0.26-0.26.0-RC1.jar;c:\opt\dotty-0.26.0-RC1\lib\scala-library-2.13.2.jar" -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -433,14 +433,14 @@ Your weight on JUPITER is 2.5305575254957406
 
 ## <span id="mill">Mill build tool</span>
 
-The configuration file [**`enum-Planet\build.sc`**](enum-Planet/build.sc) depends on the parent file [**`examples\common.sc`**](common.sc) which defines the common settings.
+The Mill configuration file [**`enum-Planet\build.sc`**](enum-Planet/build.sc) depends on the parent file [**`examples\common.sc`**](common.sc) which defines the common settings.
 
 > **:mag_right:** Command [**`mill`**][mill_cli] is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
 
 Command [**`mill -i app`**](enum-Planet/build.sc) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; mill -i app.run 1</b>
+<b>&gt; <a href="https://www.lihaoyi.com/mill/#command-line-tools">mill</a> -i app.run 1</b>
 [38/38] app.run
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
@@ -462,7 +462,7 @@ The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is written in [S
 Command **`sbt -warn clean "run 1"`** produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; sbt -warn clean "run 1"</b>
+<b>&gt; <a href="https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html">sbt</a> -warn clean "run 1"</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -476,7 +476,7 @@ Your weight on JUPITER is 2.5305575254957406
 
 ## <span id="footnotes">Footnotes</span>
 
-<a name="footnote_01">[1]</a> ***Batch files and coding conventions*** [↩](#anchor_01)
+<b name="footnote_01">[1]</b> ***Batch files and coding conventions*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 We strive to obey the following coding conventions in our batch files (e.g. <a href="enum-Planet/build.bat"><b><code>enum-Planet\build.bat</code></b></a>) :
@@ -487,7 +487,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 - We adopt the following naming conventions: global variables start with character `_` (shell variables defined in the user environment start with a letter) and local variables (e.g. inside subroutines or  **`if/for`** constructs) start with `__` (two `_` characters).
 </p>
 
-<pre style="font-size:80%;">
+<pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>@echo off</b>
 <b>setlocal enabledelayedexpansion</b>
 

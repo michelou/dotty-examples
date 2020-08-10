@@ -5,6 +5,7 @@ lazy val root = project
   .settings(
     name := "Union Types",
     description := "sbt example project to build/run Scala 3 applications",
+    organization := "Stéphane Micheloud",
     version := "0.1.0",
 
     scalaVersion := dottyVersion,

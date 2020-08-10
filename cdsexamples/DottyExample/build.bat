@@ -81,7 +81,7 @@ if not exist "%JAVA_HOME%\bin\java.exe" (
 set "_JAR_CMD=%JAVA_HOME%\bin\jar.exe"
 set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
 
-if not exist "%DOTTY_HOME%\bin\dotc.bat"" (
+if not exist "%DOTTY_HOME%\bin\dotc.bat" (
     echo %_ERROR_LABEL% Scala 3 installation not found 1>&2
     set _EXITCODE=1
     goto :eof

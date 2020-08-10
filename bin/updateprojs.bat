@@ -22,8 +22,9 @@ set _SBT_VERSION_NEW=sbt.version=1.3.13
 set _SBT_DOTTY_VERSION_OLD="0.4.0"
 set _SBT_DOTTY_VERSION_NEW="0.4.1"
 
-set _SCALATEST_VERSION_OLD=^(\"scalatest_2.13\"^)^(.+\"3.1.1\"^)
-set _SCALATEST_VERSION_NEW=$1 %%%% \"3.2.0\"
+@rem see https://mvnrepository.com/artifact/org.scalatest/scalatest
+set _SCALATEST_VERSION_OLD=^(\"scalatest_2.13\"^)^(.+\"3.2.0\"^)
+set _SCALATEST_VERSION_NEW=$1 %%%% \"3.2.1\"
 
 @rem files ivy.xml (NB. PS regex)
 set _IVY_DOTTY_VERSION_OLD=^(dotty-[a-z]+^)_0.25

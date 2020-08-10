@@ -1,4 +1,5 @@
 // see http://dotty.epfl.ch/docs/reference/changed-features/pattern-matching.html
+
 object Main {
 
   // Boolean Match

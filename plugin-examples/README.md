@@ -17,6 +17,10 @@ We present how to write/execute [Dotty] plugins in the following code examples:
 - [**`ModifyPipeline`**](#modifypipeline)
 - [**`MultiplyOne`**](#multiplyone) removes a multiply operation when the plugin detects that one of the operands is `1`.
 
+> **:mag_right:** As a reminder we have to perform two compilation tasks for each example:
+> 1. compilation of the *plugin source files* (e.g. `target\DivideZero.jar`)
+> 2. compilation ot the *test source files* with the plugin enabled/disabled.
+
 ## <span id="dividezero">DivideZero</span>
 
 Command  with no parameter displays the help message:
@@ -41,6 +45,15 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
     pack             create Java archive file
     test             execute unit tests
     test:noplugin    execute unit tests with NO plugin
+</pre>
+
+First let us try subcommand **`test:noplugin`** to see the output when the plugin is disabled for the test:
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="DivideZero/build.bat">build</a> clean test:noplugin</b>
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+        at DivideZeroTest$.main(DivideZeroTest.scala:6)
+        at DivideZeroTest.main(DivideZeroTest.scala)
 </pre>
 
 Command [**`build test`**](DivideZero/build.bat) generates the [Dotty] plugin **`DivideZero.jar`** from source file [**`DivideZero.scala`**](DivideZero/src/main/scala/DivideZero.scala) and tests the plugin with source file [**`DivideZeroTest.scala`**](DivideZero/src/test/scala/DivideZeroTest.scala):
@@ -131,7 +144,7 @@ aaaaaaaaaa
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
