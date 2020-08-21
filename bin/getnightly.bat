@@ -192,6 +192,9 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto args_loop
 :args_done
+if %_DEBUG%==1 ( set _STDOUT_REDIRECT=1^>CON
+) else ( set _STDOUT_REDIRECT=1^>NUL
+)
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _DOWNLOAD_ONLY=%_DOWNLOAD_ONLY% _ACTIVATE_NIGHTLY=%_ACTIVATE_NIGHTLY% _NIGHTLY_VERSION=%_NIGHTLY_VERSION% 1>&2
@@ -364,11 +367,17 @@ del "%__TO_DIR%\*%__OLD_VERSION%.jar" 1>NUL 2>&1
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% copy "%__FROM_DIR%\*.jar" "%__TO_DIR%\" 1>&2
 ) else if %_VERBOSE%==1 ( echo Copy "!__FROM_DIR:%_DOTTY_HOME%\=!\*.jar" "!__TO_DIR:%_DOTTY_HOME%\=!\" 1>&2
 )
-copy "%__FROM_DIR%\*.jar" "%__TO_DIR%\" 1>NUL
+copy "%__FROM_DIR%\*.jar" "%__TO_DIR%\" %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to copy files from "%__FROM_DIR%\" 1>&2
     set _EXITCODE=1
     goto :eof
+)
+set __OLD_DIR=
+for /f %%f in ('dir /b /ad "%_DOTTY_HOME%\lib\*-NIGHTLY" 2^>NUL') do set "__OLD_DIR=%_DOTTY_HOME%\lib\%%f"
+if not defined __OLD_DIR goto :eof
+for /f %%f in ('dir /b "%__OLD_DIR%\*.jar" 2^>NUL') do (
+    if exist "%__TO_DIR%\%%f" del "%__TO_DIR%\%%f"
 )
 goto :eof
 

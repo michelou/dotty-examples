@@ -1,5 +1,5 @@
-rem ##########################################################################
-rem ## Code common to dotc.bat, dotd.bat and dotr.bat
+@rem #########################################################################
+@rem ## Code common to dotc.bat, dotd.bat and dotr.bat
 
 if defined JAVACMD (
     set _JAVACMD=%JAVACMD%
@@ -13,7 +13,7 @@ if defined JAVACMD (
         set __JAVA_BIN_DIR=
         for /f "delims=" %%i in ('where /f java.exe') do (
             set __PATH=%%~dpsi
-            rem we take first occurence and ignore Oracle path for java executable
+            @rem we take first occurence and ignore Oracle path for java executable
             if not defined __JAVA_BIN_DIR if "!__PATH!"=="!__PATH:javapath=!" set "__JAVA_BIN_DIR=!__PATH!"
         )
         if defined __JAVA_BIN_DIR set "_JAVACMD=!__JAVA_BIN_DIR!\java.exe"
@@ -53,5 +53,5 @@ for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jline-terminal-3*"')      do set _JLINE
 for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jline-terminal-jna-3*"')  do set _JLINE_TERMINAL_JNA=%_LIB_DIR%\%%f
 for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jna-5*"')                 do set _JNA=%_LIB_DIR%\%%f
 
-rem debug
+@rem debug
 set _DEBUG_STR=-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005

@@ -43,7 +43,7 @@ Optionally one may also install the following software:
 - [Bazel 3.4][bazel_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
 - [Git 2.28][git_releases] ([*release notes*][git_relnotes])
-- [Gradle 6.5][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Gradle 6.6][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [JaCoCo 0.8][jacoco_downloads] ([*change log*][jacoco_changelog])
 - [Mill 0.8][mill_releases] ([*change log*][mill_changelog])
 - [SBT 1.3][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
@@ -56,7 +56,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*July 2020*) <sup id="anchor_03">[[3]](#footnote_03)</sup>:
+For instance our development environment looks as follows (*August 2020*) <sup id="anchor_03">[[3]](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.8+10\        <i>(181.0 MB)</i>
@@ -66,7 +66,7 @@ C:\opt\bazel-3.4.1\          <i>( 40.0 MB)</i>
 C:\opt\cfr-0.150\            <i>(  1.9 MB)</i>
 C:\opt\dotty-0.26.0-RC1\     <i>( 27.3 MB)</i>
 C:\opt\Git-2.28.0\           <i>(290.0 MB)</i>
-C:\opt\gradle-6.5.1\         <i>(112.0 MB)</i>
+C:\opt\gradle-6.6\           <i>(110.0 MB)</i>
 C:\opt\jacoco-0.8.5\         <i>( 10.6 MB)</i>
 C:\opt\Mill-0.8.0\           <i>( 53.7 MB)</i>
 C:\opt\sbt-1.3.13\           <i>( 61.3 MB)</i>
@@ -85,7 +85,7 @@ This project is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
 bin\cfr-0.150.zip
-bin\0.25\{<a href="bin/0.25/dotc.bat">dotc.bat</a>, <a href="bin/0.25/dotr.bat">dotr.bat</a>, ..}
+bin\0.26\{<a href="bin/0.25/dotc.bat">dotc.bat</a>, <a href="bin/0.26/dotr.bat">dotr.bat</a>, ..}
 bin\dotty\
 docs\
 dotty\     <i>(Git submodule)</i>
@@ -118,7 +118,7 @@ We also define a virtual drive **`W:`** in our working environment in order to r
 > **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
-> <b>&gt; subst W: %USERPROFILE%\workspace\dotty-examples</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst">subst</a> W: %USERPROFILE%\workspace\dotty-examples</b>
 > </pre>
 
 In the next section we give a brief description of the batch files present in this project.
@@ -150,19 +150,19 @@ We distinguish different sets of batch/bash commands:
    - [**`timeit.bat <cmd_1> { & <cmd_2> }`**](bin/timeit.bat) prints the execution time of the specified commands.
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory [**`bin\0.25\`**](bin/0.25/) - This directory contains batch files to be copied to the **`bin\`** directory of the [Dotty] installation (eg. **`C:\opt\dotty-0.26.0-RC1\bin\`**) in order to use the [**`dotc`**](bin/0.25/dotc.bat), [**`dotd`**](bin/0.25/dotd.bat) and [**`dotr`**](bin/0.25/dotr.bat) commands on **Microsoft Windows**.
+3. Directory [**`bin\0.26\`**](bin/0.26/) - This directory contains batch files to be copied to the **`bin\`** directory of the [Dotty] installation (eg. **`C:\opt\dotty-0.26.0-RC1\bin\`**) in order to use the [**`dotc`**](bin/0.26/dotc.bat), [**`dotd`**](bin/0.26/dotd.bat) and [**`dotr`**](bin/0.26/dotr.bat) commands on **Microsoft Windows**.
     > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Dotty distribution][dotty_releases]. We also have submitted pull request [#5444][github_PR5444] to add them to the Dotty distribution.
 
     <pre style="font-size:80%;">
     <b>&gt; dir /b c:\opt\dotty-0.26.0-RC1\bin</b>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/common">common</a>
-    <a href="bin/0.25/common.bat">common.bat</a>
+    <a href="bin/0.26/common.bat">common.bat</a>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/dotc">dotc</a>
-    <a href="bin/0.25/dotc.bat">dotc.bat</a>
+    <a href="bin/0.26/dotc.bat">dotc.bat</a>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/dotd">dotd</a>
-    <a href="bin/0.25/dotd.bat">dotd.bat</a>
+    <a href="bin/0.26/dotd.bat">dotd.bat</a>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/dotr">dotr</a>
-    <a href="bin/0.25/dotr.bat">dotr.bat</a>
+    <a href="bin/0.26/dotr.bat">dotr.bat</a>
     </pre>
 
 <!-- ## removed on 2018-10-05 ##
@@ -255,7 +255,7 @@ We distinguish different sets of batch/bash commands:
     Here is the console output from command [**`javap`**][javap_cli] with option **`-c`** for the same class file:
 
     <pre style="font-size:80%;">
-    <b>&gt; javap -c myexamples\00_AutoParamTupling\target\classes\myexamples\Main.class</b>
+    <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javap.html">javap</a> -c myexamples\00_AutoParamTupling\target\classes\myexamples\Main.class</b>
     Compiled from "Main.scala"
     public final class myexamples.Main {
       public static void main(java.lang.String[]);
@@ -289,7 +289,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.8, java 11.0.8, scalac 2.13.3, dotc 0.26.0-RC1,
-   ant 1.10.8, gradle 6.5.1, mill 0.8.0, mvn 3.6.3, sbt 1.3.13,
+   ant 1.10.8, gradle 6.6, mill 0.8.0, mvn 3.6.3, sbt 1.3.13,
    bazel 3.4.1, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.3,
    git 2.28.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 
@@ -304,7 +304,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.8, java 11.0.8, scalac 2.13.3, dotc 0.26.0-RC1,
-   ant 1.10.8, gradle 6.5.1, mill 0.8.0, mvn 3.6.3, sbt 1.3.13,
+   ant 1.10.8, gradle 6.6, mill 0.8.0, mvn 3.6.3, sbt 1.3.13,
    bazel 3.4.1, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.3,
    git 2.28.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
@@ -313,7 +313,7 @@ Tool paths:
    C:\opt\scala-2.13.3\bin\scalac.bat
    C:\opt\dotty-0.26.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.8\bin\ant.bat
-   C:\opt\gradle-6.5.1\bin\gradle.bat
+   C:\opt\gradle-6.6\bin\gradle.bat
    C:\opt\Mill-0.8.0\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
    C:\opt\sbt-1.3.13\bin\sbt.bat
@@ -364,18 +364,18 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a></b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
-dotty-doc_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
-dotty-interfaces-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
-dotty-language-server_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
-dotty-library_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
-dotty-sbt-bridge-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
-dotty-staging_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
-dotty-tasty-inspector_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
-dotty-tastydoc-input_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
-dotty-tastydoc_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
-dotty_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
-tasty-core_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar
+dotty-compiler_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+dotty-doc_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+dotty-interfaces-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+dotty-language-server_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+dotty-library_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+dotty-sbt-bridge-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+dotty-staging_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+dotty-tasty-inspector_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+dotty-tastydoc-input_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+dotty-tastydoc_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+dotty_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+tasty-core_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
 </pre>
 
 > **:mag_right:** Starting with Dotty version `0.22.0` package **`dotty.tools.tasty`** is distributed separately in archive **`tast-core_<xxx>.jar`**.
@@ -385,20 +385,20 @@ Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the downlo
 <pre style="font-size:80%">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose</b>
 Check for nightly files on Maven repository
-Downloading file dotty-tasty-inspector_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 7.9 Kb
-Downloading file dotty-compiler_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 12.2 Mb
-Downloading file dotty-doc_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 1 Mb
-Downloading file dotty-language-server_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 145.8 Kb
-Downloading file dotty-sbt-bridge-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 13.4 Kb
-Downloading file dotty_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 0.3 Kb
-Downloading file dotty-interfaces-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 3.4 Kb
-Downloading file dotty-tastydoc-input_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 36.2 Kb
-Downloading file dotty-tastydoc_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 435.6 Kb
-Downloading file dotty-staging_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 35.5 Kb
-Downloading file dotty-library_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 1.4 Mb
-Downloading file tasty-core_0.27-0.27.0-bin-20200807-dfcc0b1-NIGHTLY.jar ... 51.7 Kb
+Downloading file dotty-tasty-inspector_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar ... 7.9 Kb
+Downloading file dotty-compiler_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar ... 12.2 Mb
+Downloading file dotty-doc_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar ... 1 Mb
+Downloading file dotty-language-server_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar ... 145.9 Kb
+Downloading file dotty-sbt-bridge-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-tastydoc-input_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar ... 36.2 Kb
+Downloading file dotty-interfaces-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-tastydoc_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar ... 435.6 Kb
+Downloading file dotty-staging_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar ... 35.5 Kb
+Downloading file tasty-core_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar ... 51.7 Kb
+Downloading file dotty-library_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar ... 1.4 Mb
 Finished to download 12 files to directory W:\out\nightly-jars
-Nightly version is 0.27.0-bin-20200807-dfcc0b1-NIGHTLY
+Nightly version is 0.27.0-bin-20200819-6e6f67b-NIGHTLY
 </pre>
 
 We can now replace the library files from the original [Dotty distribution][dotty_releases] (installed in directory **`C:\opt\dotty-0.26.0-RC1\`** in our case) with library files from the latest nightly build.
@@ -411,7 +411,7 @@ Local nightly version has changed from 0.26.0-RC1 to 0.27.0-bin-20200807-dfcc0b1
 Activate nightly build libraries: 0.27.0-bin-20200807-dfcc0b1-NIGHTLY
 
 <b>&gt; <a href="bin/0.25/dotc.bat">dotc</a> -version</b>
-Dotty compiler version 0.27.0-bin-20200807-dfcc0b1-NIGHTLY-git-dfcc0b1 -- Copyright 2002-2020, LAMP/EPFL
+Dotty compiler version 0.27.0-bin-20200819-6e6f67b-NIGHTLY-git-6e6f67b -- Copyright 2002-2020, LAMP/EPFL
 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> reset</b>
 Activate default Dotty libraries: 0.26.0-RC1
@@ -437,19 +437,19 @@ lib\0.26.0-RC1\
 &nbsp;&nbsp;dotty-staging_0.26-0.26.0-RC1.jar
 &nbsp;&nbsp;dotty-tasty-inspector_0.26-0.26.0-RC1.jar
 &nbsp;&nbsp;tasty-core_0.26-0.26.0-RC1.jar
-lib\0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty-staging_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tasty-inspector_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc-input_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
-&nbsp;&nbsp;tasty-core_0.27-0.27.0-bin-20200806-b8825a2-NIGHTLY.jar
+lib\0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-staging_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tasty-inspector_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc-input_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
+&nbsp;&nbsp;tasty-core_0.27-0.27.0-bin-20200819-6e6f67b-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original [Dotty] installation respectively from the latest nightly build.
@@ -707,7 +707,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.8-bin.zip</a>                        <i>( 9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                       <i>( 9 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.26.0-RC1">dotty-0.26.0-RC1.zip</a>                             <i>(24 MB)</i>
-<a href="https://gradle.org/install/">gradle-6.5.1-bin.zip</a>                             <i>(97 MB)</i>
+<a href="https://gradle.org/install/">gradle-6.6-bin.zip</a>                               <i>(97 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.5.zip</a>                                 <i>( 4 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.8_10.zip</a> <i>(99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.28.0-64-bit.7z.exe</a>                 <i>(41 MB)</i>

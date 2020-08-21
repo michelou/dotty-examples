@@ -1,8 +1,8 @@
 @echo off
 setlocal enabledelayedexpansion
 
-rem ##########################################################################
-rem ## Environment setup
+@rem #########################################################################
+@rem ## Environment setup
 
 set _EXITCODE=0
 
@@ -14,8 +14,8 @@ if not %_EXITCODE%==0 goto end
 
 call :args %*
 
-rem ##########################################################################
-rem ## Main
+@rem #########################################################################
+@rem ## Main
 
 set _CASE_1=0
 if %_EXECUTE_REPL%==1 set _CASE_1=1
@@ -25,14 +25,14 @@ set _CASE_2=0
 if %_EXECUTE_RUN%==1 set _CASE_2=1
 if defined _RESIDUAL_ARGS set _CASE_2=1
 
-rem if [ $execute_repl == true ] || ([ $execute_run == false ] && [ $options_indicator == 0 ]); then
+@rem if [ $execute_repl == true ] || ([ $execute_run == false ] && [ $options_indicator == 0 ]); then
 if %_CASE_1%==1 (
     set _DOTC_ARGS=
     if defined _CLASS_PATH set _DOTC_ARGS=-classpath "%_CLASS_PATH%"
     set _DOTC_ARGS=!_DOTC_ARGS! %_JAVA_OPTS% -repl %_RESIDUAL_ARGS%
     echo Starting dotty REPL...
     call "%_PROG_HOME%\dotc.bat" !_DOTC_ARGS!
-rem elif [ $execute_repl == true ] || [ ${#residual_args[@]} -ne 0 ]; then
+@rem elif [ $execute_repl == true ] || [ ${#residual_args[@]} -ne 0 ]; then
 ) else if %_CASE_2%==1 (
     set _CP_ARG=%_DOTTY_LIB%%_PSEP%%_SCALA_LIB%
     if defined _CLASS_PATH ( set _CP_ARG=!_CP_ARG!%_PSEP%%_CLASS_PATH%
@@ -53,8 +53,8 @@ rem elif [ $execute_repl == true ] || [ ${#residual_args[@]} -ne 0 ]; then
 
 goto end
 
-rem ##########################################################################
-rem ## Subroutines
+@rem #########################################################################
+@rem ## Subroutines
 
 :args
 set _RESIDUAL_ARGS=
@@ -70,23 +70,23 @@ set _JAVA_OPTS=
 :args_loop
 if "%~1"=="" goto args_done
 set "__ARG=%~1"
-if /i "%__ARG%"=="-repl" (
+if "%__ARG%"=="-repl" (
     set _EXECUTE_REPL=1
-) else if /i "%__ARG%"=="-run" (
+) else if "%__ARG%"=="-run" (
     set _EXECUTE_RUN=1
-) else if /i "%__ARG%"=="-classpath" (
+) else if "%__ARG%"=="-classpath" (
     set _CLASS_PATH=%~2
     set /a _CLASS_PATH_COUNT+=1
     shift
-) else if /i "%__ARG%"=="-cp" (
+) else if "%__ARG%"=="-cp" (
     set _CLASS_PATH=%~2
     set /a _CLASS_PATH_COUNT+=1
     shift
-) else if /i "%__ARG%"=="-with-compiler" (
+) else if "%__ARG%"=="-with-compiler" (
     set _WITH_COMPILER=1
-) else if /i "%__ARG%"=="-d" (
+) else if "%__ARG%"=="-d" (
     set _JAVA_DEBUG=%_DEBUG_STR%
-) else if /i "%__ARG:~0,2%"=="-J" (
+) else if "%__ARG:~0,2%"=="-J" (
     set _JVM_OPTS=!_JVM_OPTS! %__ARG:~2%
     set _JAVA_OPTS=!_JAVA_OPTS! %__ARG%
 ) else (
@@ -97,8 +97,8 @@ goto args_loop
 :args_done
 goto :eof
 
-rem ##########################################################################
-rem ## Cleanups
+@rem #########################################################################
+@rem ## Cleanups
 
 :end
 exit /b %_EXITCODE%

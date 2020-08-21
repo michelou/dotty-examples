@@ -54,38 +54,38 @@ set _RESIDUAL_ARGS=
 if "%~1"=="" goto args_done
 set "__ARG=%~1"
 if "%__ARG%"=="--" (
-    rem for arg; do addResidual "$arg"; done; set -- ;;
-) else if /i "%__ARG%"=="-h" (
+    @rem for arg; do addResidual "$arg"; done; set -- ;;
+) else if "%__ARG%"=="-h" (
     set _HELP=true
     call :addScala "-help"
-) else if /i "%__ARG%"=="-help" (
+) else if "%__ARG%"=="-help" (
     set _HELP=true
     call :addScala "-help"
-) else if /i "%__ARG%"=="-v" (
+) else if "%__ARG%"=="-v" (
     set _VERBOSE=true
     call :addScala "-verbose"
-) else if /i "%__ARG%"=="-verbose" (
+) else if "%__ARG%"=="-verbose" (
     set _VERBOSE=true
     call :addScala "-verbose"
-) else if /i "%__ARG%"=="-debug" ( set _JAVA_DEBUG=%_DEBUG_STR%
-) else if /i "%__ARG%"=="-q" ( set _QUIET=true
-) else if /i "%__ARG%"=="-quiet" ( set _QUIET=true
-rem Optimize for short-running applications, see https://github.com/lampepfl/dotty/issues/222
+) else if "%__ARG%"=="-debug" ( set _JAVA_DEBUG=%_DEBUG_STR%
+) else if "%__ARG%"=="-q" ( set _QUIET=true
+) else if "%__ARG%"=="-quiet" ( set _QUIET=true
+@rem Optimize for short-running applications, see https://github.com/lampepfl/dotty/issues/222
 ) else if "%__ARG%"=="-Oshort" (
     call :addJava "-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
-) else if /i "%__ARG%"=="-repl" ( set _PROG_NAME=%_REPL_MAIN%
-) else if /i "%__ARG%"=="-compile" ( set _PROG_NAME=%_COMPILER_MAIN%
-) else if /i "%__ARG%"=="-decompile" ( set _PROG_NAME=%_DECOMPILER_MAIN%
-) else if /i "%__ARG%"=="-print-tasty" (
+) else if "%__ARG%"=="-repl" ( set _PROG_NAME=%_REPL_MAIN%
+) else if "%__ARG%"=="-compile" ( set _PROG_NAME=%_COMPILER_MAIN%
+) else if "%__ARG%"=="-decompile" ( set _PROG_NAME=%_DECOMPILER_MAIN%
+) else if "%__ARG%"=="-print-tasty" (
     set _PROG_NAME=%_DECOMPILER_MAIN%
     call :addScala "-print-tasty"
-) else if /i "%__ARG%"=="-run" ( set _PROG_NAME=%_REPL_MAIN%
-) else if /i "%__ARG%"=="-colors" ( set _COLORS=true
-) else if /i "%__ARG%"=="-no-colors" ( set _COLORS=
-) else if /i "%__ARG%"=="-with-compiler" ( set _JVM_CP_ARGS=%_PSEP%%_DOTTY_COMP%%_PSEP%%_TASTY_CORE%
-rem break out -D and -J options and add them to JAVA_OPTS as well
-rem so they reach the JVM in time to do some good. The -D options
-rem will be available as system properties.
+) else if "%__ARG%"=="-run" ( set _PROG_NAME=%_REPL_MAIN%
+) else if "%__ARG%"=="-colors" ( set _COLORS=true
+) else if "%__ARG%"=="-no-colors" ( set _COLORS=
+) else if "%__ARG%"=="-with-compiler" ( set _JVM_CP_ARGS=%_PSEP%%_DOTTY_COMP%%_PSEP%%_TASTY_CORE%
+@rem break out -D and -J options and add them to JAVA_OPTS as well
+@rem so they reach the JVM in time to do some good. The -D options
+@rem will be available as system properties.
 ) else if "%__ARG:~0,2%"=="-D" ( call :addJava "%__ARG%"
 ) else if "%__ARG:~0,2%"=="-J" ( call :addJava "%__ARG:~2%"
 ) else ( call :addResidual "%__ARG%"
@@ -95,30 +95,30 @@ goto args_loop
 :args_done
 goto :eof
 
-rem output parameter: _SCALA_ARGS
+@rem output parameter: _SCALA_ARGS
 :addScala
 set _SCALA_ARGS=%_SCALA_ARGS% %~1
 goto :eof
 
-rem output parameter: _JAVA_ARGS
+@rem output parameter: _JAVA_ARGS
 :addJava
 set _JAVA_ARGS=%_JAVA_ARGS% %~1
 goto :eof
 
-rem output parameter: _RESIDUAL_ARGS
+@rem output parameter: _RESIDUAL_ARGS
 :addResidual
 set _RESIDUAL_ARGS=%_RESIDUAL_ARGS% %~1
 goto :eof
 
-rem output parameter: _JVM_CP_ARGS
+@rem output parameter: _JVM_CP_ARGS
 :classpathArgs
-rem echo dotty-compiler: %_DOTTY_COMP%
-rem echo dotty-interface: %_DOTTY_INTF%
-rem echo dotty-library: %_DOTTY_LIB%
-rem echo tasty-core: %_TASTY_CORE%
-rem echo scala-asm: %_SCALA_ASM%
-rem echo scala-lib: %_SCALA_LIB%
-rem echo sbt-intface: %_SBT_INTF%
+@rem echo dotty-compiler: %_DOTTY_COMP%
+@rem echo dotty-interface: %_DOTTY_INTF%
+@rem echo dotty-library: %_DOTTY_LIB%
+@rem echo tasty-core: %_TASTY_CORE%
+@rem echo scala-asm: %_SCALA_ASM%
+@rem echo scala-lib: %_SCALA_LIB%
+@rem echo sbt-intface: %_SBT_INTF%
 
 set __TOOLCHAIN=%_SCALA_LIB%%_PSEP%
 set __TOOLCHAIN=%__TOOLCHAIN%%_DOTTY_LIB%%_PSEP%
@@ -130,7 +130,7 @@ set __TOOLCHAIN=%__TOOLCHAIN%%_TASTY_CORE%%_PSEP%
 set __TOOLCHAIN=%__TOOLCHAIN%%_DOTTY_STAGING%%_PSEP%
 set __TOOLCHAIN=%__TOOLCHAIN%%_DOTTY_TASTY_INSPECTOR%%_PSEP%
 
-rem # jline
+@rem # jline
 set __TOOLCHAIN=%__TOOLCHAIN%%_JLINE_READER%%_PSEP%
 set __TOOLCHAIN=%__TOOLCHAIN%%_JLINE_TERMINAL%%_PSEP%
 set __TOOLCHAIN=%__TOOLCHAIN%%_JLINE_TERMINAL_JNA%%_PSEP%
@@ -139,8 +139,8 @@ set __TOOLCHAIN=%__TOOLCHAIN%%_JNA%
 set _JVM_CP_ARGS=-classpath %__TOOLCHAIN%
 goto :eof
 
-rem ##########################################################################
-rem ## Cleanups
+@rem #########################################################################
+@rem ## Cleanups
 
 :end
 exit /b %_EXITCODE%
