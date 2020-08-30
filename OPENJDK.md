@@ -311,14 +311,14 @@ OpenJDK 64-Bit Server VM Zulu11.39+15-CA (build 11.0.7+10-LTS, mixed mode, shari
 
 ## <span id="footnotes">Footnotes</span> [**&#9650;**](#top)
 
-<a name="footnote_01" tooltip="[1]">[1]</a> ***JCK Compliance** (2018-04-06)* [↩](#anchor_01)
+<b name="footnote_01" tooltip="[1]">[1]</b> ***JCK Compliance** (2018-04-06)* [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 The JCK is a proprietary test suite, <a href="https://openjdk.java.net/groups/conformance/JckAccess/index.html" rel="external">accessible under license from Oracle</a>.<br/>
 The role of the JCK is not to determine <i>quality</i>, but rather to provide a binary indication of compatibility with the Java SE specification. As such, the JCK only tests functional behaviour, and only such functional behaviour that is given in the Java specification.<br/><i>(see <a href="https://github.com/AdoptOpenJDK/TSC/issues/19">issue 19</a> from <a href="https://github.com/AdoptOpenJDK/TSC">OpenJDK TSC</a>)</i>
 </p>
 
-<a name="footnote_02">[2]</a> ***Downloads*** [↩](#anchor_02)
+<b name="footnote_02">[2]</b> ***Downloads*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
@@ -337,7 +337,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

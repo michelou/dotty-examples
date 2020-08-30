@@ -93,7 +93,7 @@ Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
    [delete] Deleting directory W:\dotty-examples\examples\enum-Planet\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] DOTTY_HOME=C:\opt\dotty-0.26.0-RC1
+     [echo] DOTTY_HOME=C:\opt\dotty-0.27.0-RC1
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -213,10 +213,10 @@ No compilation needed ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
 Processing Planet$
 Processing Planet
-Save decompiled Java source files to "target\cfr-sources_scala3_0.26.0-RC1.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_0.27.0-RC1.java"
 &nbsp;
 <b>&gt; dir /b /s target\*.java</b>
-W:\examples\enum-Planet\target\cfr-sources_scala3_0.26.0-RC1.java
+W:\examples\enum-Planet\target\cfr-sources_scala3_0.27.0-RC1.java
 W:\examples\enum-Planet\target\cfr-sources\Planet$.java
 W:\examples\enum-Planet\target\cfr-sources\Planet.java
 </pre>
@@ -226,14 +226,14 @@ If the two Java source files `src\build\cfr-sources_scala<n>_<version>.txt` (*ch
 <pre style="font-size:80%;">
 <b>&gt; dir /b src\build</b>
 cfr-sources_scala3_0.24.0-RC1.java
-cfr-sources_scala3_0.26.0-RC1.java
-cfr-sources_scala3_0.26.0-NIGHTLY.java
+cfr-sources_scala3_0.27.0-RC1.java
+cfr-sources_scala3_0.28.0-NIGHTLY.java
 &nbsp;
 <b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose decompile</b>
 No compilation needed ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
-Save decompiled Java source files to "target\cfr-sources_scala3_0.26.0-RC1.java"
-Compare output file with check file "src\build\cfr-sources_scala3_0.26.0-RC1.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_0.27.0-RC1.java"
+Compare output file with check file "src\build\cfr-sources_scala3_0.27.0-RC1.java"
 </pre>
 
 
@@ -292,7 +292,7 @@ Command **`make test`** executes the test suite [**`PlanetTest.scala`**](enum-Pl
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 dotc.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_0.26/0.26.0-RC1/dotty-library_0.26-0.26.0-RC1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13/junit-4.13.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_0.27/0.27.0-RC1/dotty-library_0.27-0.27.0-RC1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13/junit-4.13.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
 JUnit version 4.13
 ..
 Time: 0.239
@@ -330,16 +330,16 @@ Command **` mvn compile test`** with option **`-debug`** produces additional deb
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-1.8.0_252-b09\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.26.0-RC1 \
- -cp C:\opt\dotty-0.26.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.27.0-RC1 \
+ -cp C:\opt\dotty-0.27.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-1.8.0_252-b09\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.26.0-RC1 [...]
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.27.0-RC1 [...]
 [DEBUG] [execute] C:\opt\jdk-1.8.0_252-b09\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.26.0-RC1\lib\*.jar;\
+ -Xms64m -Xmx1024m -cp C:\opt\dotty-0.27.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -373,7 +373,7 @@ Your weight on JUPITER is 2.5305575254957406
 <b>&gt; java -version 2>&1 | findstr version</b>
 openjdk version "11.0.7" 2019-10-15
 
-<b>&gt; java -Xbootclasspath/a:"c:\opt\dotty-0.26.0-RC1\lib\dotty-library_0.26-0.26.0-RC1.jar;c:\opt\dotty-0.26.0-RC1\lib\scala-library-2.13.2.jar" -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
+<b>&gt; java -Xbootclasspath/a:"c:\opt\dotty-0.27.0-RC1\lib\dotty-library_0.27-0.27.0-RC1.jar;c:\opt\dotty-0.27.0-RC1\lib\scala-library-2.13.3.jar" -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
 Your weight on MERCURY is 0.37775761520093526
 Your weight on SATURN is 1.0660155388115666
 Your weight on VENUS is 0.9049990998410455
@@ -396,7 +396,7 @@ Your weight on JUPITER is 2.5305575254957406
 >         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>0.26.0-RC1<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.version&gt;</b>0.27.0-RC1<b>&lt;/scala.version&gt;</b>
 >         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>

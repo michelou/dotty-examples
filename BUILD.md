@@ -6,7 +6,7 @@
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:80px;" src="docs/dotty.png" alt="Dotty logo" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Source code of the <a href="https://dotty.epfl.ch/" rel="external">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/">Github</a> and continuous delivery is performed on the <a href="https://dotty-ci.epfl.ch/lampepfl/dotty" rel="external">Dotty CI</a> server <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> from <a href="https://lamp.epfl.ch/" rel="external">LAMP/EPFL</a>.</br>This document describes changes we made to the <a href="https://github.com/lampepfl/dotty/" rel="external">lampepfl/dotty</a> repository in order to reproduce the same build/test steps locally on a Windows machine.
+    Source code of the <a href="https://dotty.epfl.ch/" rel="external">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/" rel="external">Github</a> and continuous delivery is performed on the <a href="https://dotty-ci.epfl.ch/lampepfl/dotty" rel="external">Dotty CI</a> server <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> from <a href="https://lamp.epfl.ch/" rel="external">LAMP/EPFL</a>.</br>This document describes changes we made to the <a href="https://github.com/lampepfl/dotty/" rel="external">lampepfl/dotty</a> repository in order to reproduce the same build/test steps locally on a Windows machine.
   </td>
   </tr>
 </table>
@@ -82,7 +82,7 @@ We also define a virtual drive **`W:`** in our working environment in order to r
 > **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
-> <b>&gt; subst W: %USERPROFILE%\workspace\dotty-examples</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst">subst</a> W: %USERPROFILE%\workspace\dotty-examples</b>
 > </pre>
 
 In the next section we give a brief description of the batch files present in those directories.
@@ -91,10 +91,10 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. Directory [**`bin\0.26\`**](bin/0.26) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software distribution][dotty_releases].
+1. Directory [**`bin\0.27\`**](bin/0.27) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software distribution][dotty_releases].
 
    <pre style="font-size:80%;">
-   <b>&gt; cp bin\0.26\*.bat dotty\dist\bin</b>
+   <b>&gt; cp bin\0.27\*.bat dotty\dist\bin</b>
    <b>&gt; dir /b dotty\dist\bin</b>
    common
    common.bat
@@ -669,7 +669,7 @@ sbt.version=1.3.13
 Nowadays we have experienced two times the error <code>Server does not allow request for unadvertised object..</code> when synchronizing our fork with the <a href="https://github.com/lampepfl/dotty"><code>lampepfl/dotty</code></a> repository:
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
-<b>&gt; git fetch upstream master</b>
+<b>&gt; <a href="https://git-scm.com/docs/git">git</a> fetch upstream master</b>
 <b>&gt; git merge upstream/master</b>
 [...]
 Error: Server does not allow request for unadvertised object ...
@@ -703,7 +703,7 @@ mainExamples/src/main/scala/examples/main/active/writing/toConsoleWriting/info/r
 We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration" rel="external">Git settings</a> as follows:
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
-<b>&gt; git config --system core.longpaths true</b>
+<b>&gt; <a href="https://git-scm.com/docs/git">git</a> config --system core.longpaths true</b>
 </pre>
 </p>
 

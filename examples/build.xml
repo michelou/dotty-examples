@@ -115,6 +115,51 @@
         </sequential>
     </macrodef>
 
+    <macrodef name="dotd" >
+        <attribute name="srcdir" default="." />
+        <attribute name="destdir" default="." />
+        <attribute name="classpathref" default="basedir.ref" />
+        <sequential>
+            <!-- local properties -->
+            <local name="classpath"/>
+            <local name="n"/>
+            <local name="quoted"/>
+            <local name="s"/>
+            <local name="scala.sources"/>
+
+            <pathconvert property="scala.sources" pathsep=" ">
+                <fileset dir="@{srcdir}" includes="**/*.scala" />
+            </pathconvert>
+            <resourcecount property="n">
+                <fileset dir="@{srcdir}" includes="**/*.scala" />
+            </resourcecount>
+            <condition property="s" value="s" else="">
+                <not><matches string="${n}" pattern="[0-1]" /></not>
+            </condition>
+            <!--
+            <exec executable="echo" taskname="scalac">
+                <arg value="Compiling ${n} source file${s} to @{destdir}" />
+            </exec>
+            -->
+            <echo message="Compiling ${n} source file${s} to @{destdir}" level="info" />
+            <pathconvert property="classpath" refid="@{classpathref}" />
+            <condition property="quoted" value="&quot;" else="">
+                <contains string="${classpath}" substring=" " />
+            </condition>
+            <java fork="true" classname="dotty.tools.dottydoc.Main" classpathref="dotc.classpath">
+                <jvmarg value="-Xmx768m" />
+                <jvmarg value="-Xms768m" />
+                <jvmarg value="-Dscala.usejavacp=true" />
+                <arg value="-deprecation" />
+                <arg value="-d" />
+                <arg value="@{destdir}" />
+                <arg value="-classpath" />
+                <arg value="${quoted}${classpath}${quoted}" />
+                <arg line="${scala.sources}" />
+            </java>
+        </sequential>
+    </macrodef>
+
     <target name="test.install">
         <ivy:resolve file="../ivy-test.xml" showprogress="false" log="download-only" />
         <ivy:install

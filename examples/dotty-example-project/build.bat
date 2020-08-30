@@ -196,6 +196,7 @@ set _DOC=0
 set _DOTTY=1
 set _HELP=0
 set _INSTRUMENTED=
+set _LINT=0
 set _MAIN_CLASS=%_MAIN_CLASS_DEFAULT%
 set _MAIN_ARGS=%_MAIN_ARGS_DEFAULT%
 set _RUN=0
@@ -282,7 +283,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _DOTTY=%_DOTTY% _INSTRUMENTED=%_INSTRUMENTED% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
     if %_DOTTY%==0 ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% SCALA_HOME=%SCALA_HOME% 1>&2
-    ) else ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% DOTTY_HOME=%DOTTY_HOME% 1>&2
+    ) else ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" DOTTY_HOME="%DOTTY_HOME%" 1>&2
     )
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i

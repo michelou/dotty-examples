@@ -20,62 +20,62 @@ set _LIBS_CPATH=
 set __SCALALIB_VERSION=2.13
 
 @rem https://mvnrepository.com/artifact/org.apiguardian/apiguardian-api
-call :add_jar "org/apiguardian" "apiguardian-api" "1.1.0"
+call :add_jar "org.apiguardian" "apiguardian-api" "1.1.0"
 
 @rem https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-call :add_jar "org/junit/jupiter" "junit-jupiter-api" "5.6.2"
+call :add_jar "org.junit.jupiter" "junit-jupiter-api" "5.6.2"
 
 @rem https://mvnrepository.com/artifact/org.portable-scala
-call :add_jar "org/portable-scala" "portable-scala-reflect_%__SCALALIB_VERSION%" "1.0.0"
+call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALALIB_VERSION%" "1.0.0"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-call :add_jar "org/scala-lang/modules" "scala-xml_%__SCALALIB_VERSION%" "1.2.0"
+call :add_jar "org.scala-lang.modules" "scala-xml_%__SCALALIB_VERSION%" "1.2.0"
 
 @rem https://mvnrepository.com/artifact/junit/junit
 call :add_jar "junit" "junit" "4.13"
 
 @rem https://mvnrepository.com/artifact/com.novocode/junit-interface
-call :add_jar "com/novocode" "junit-interface" "0.11"
+call :add_jar "com.novocode" "junit-interface" "0.11"
 
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest
-call :add_jar "org/hamcrest" "hamcrest" "2.2"
+call :add_jar "org.hamcrest" "hamcrest" "2.2"
 
-set __SCALATEST_VERSION=3.2.0
+set __SCALATEST_VERSION=3.2.2
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
-call :add_jar "org/scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
+call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-core
-call :add_jar "org/scalatest" "scalatest-core_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
+call :add_jar "org.scalatest" "scalatest-core_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-funsuite
-call :add_jar "org/scalatest" "scalatest-funsuite_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
+call :add_jar "org.scalatest" "scalatest-funsuite_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-funspec
 call :add_jar "org/scalatest" "scalatest-funspec_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest
-call :add_jar "org/scalatest" "scalatest_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
+call :add_jar "org.scalatest" "scalatest_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scalactic
-call :add_jar "org/scalactic" "scalactic_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
+call :add_jar "org.scalactic" "scalactic_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
 
-set __SPECS2_CORE_VERSION=4.10.0
+set __SPECS2_CORE_VERSION=4.10.3
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-core
-call :add_jar "org/specs2" "specs2-core_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
+call :add_jar "org.specs2" "specs2-core_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-common
-call :add_jar "org/specs2" "specs2-common_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
+call :add_jar "org.specs2" "specs2-common_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-junit
-call :add_jar "org/specs2" "specs2-junit_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
+call :add_jar "org.specs2" "specs2-junit_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-junit
-call :add_jar "org/specs2" "specs2-matcher_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
+call :add_jar "org.specs2" "specs2-matcher_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-fp
-call :add_jar "org/specs2" "specs2-fp_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
+call :add_jar "org.specs2" "specs2-fp_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
 
 goto end
 
@@ -91,13 +91,13 @@ set __ARTIFACT_ID=%~2
 set __VERSION=%~3
 
 set __JAR_NAME=%__ARTIFACT_ID%-%__VERSION%.jar
-set __JAR_PATH=%__GROUP_ID:/=\%\%__ARTIFACT_ID:/=\%
+set __JAR_PATH=%__GROUP_ID:.=\%\%__ARTIFACT_ID:/=\%
 set __JAR_FILE=
 for /f "usebackq delims=" %%f in (`where /r "%__LOCAL_REPO%\%__JAR_PATH%" %__JAR_NAME% 2^>NUL`) do (
     set "__JAR_FILE=%%f"
 )
 if not exist "%__JAR_FILE%" (
-    set __JAR_URL=%__CENTRAL_REPO%/%__GROUP_ID%/%__ARTIFACT_ID%/%__VERSION%/%__JAR_NAME%
+    set __JAR_URL=%__CENTRAL_REPO%/%__GROUP_ID:.=/%/%__ARTIFACT_ID%/%__VERSION%/%__JAR_NAME%
     set "__JAR_FILE=%__TEMP_DIR%\%__JAR_NAME%"
     if not exist "!__JAR_FILE!" (
         if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri !__JAR_URL! -Outfile !__JAR_FILE!" 1>&2
@@ -109,10 +109,10 @@ if not exist "%__JAR_FILE%" (
             set _EXITCODE=1
             goto :eof
         )
-        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_MVN_CMD% install:install-file -Dfile="!__JAR_FILE!" -DgroupId="%__GROUP_ID:/=.%" -DartifactId=%__ARTIFACT_ID% -Dversion=%__VERSION% 1>&2
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_MVN_CMD% install:install-file -Dfile="!__JAR_FILE!" -DgroupId="%__GROUP_ID%" -DartifactId=%__ARTIFACT_ID% -Dversion=%__VERSION% 1>&2
         ) else if %_VERBOSE%==1 ( echo Install Maven archive into directory "!__LOCAL_REPO:%USERPROFILE%=!\%__SCALA_XML_PATH%" 1>&2
         )
-        call "%_MVN_CMD%" %_MVN_OPTS% install:install-file -Dfile="!__JAR_FILE!" -DgroupId="%__GROUP_ID:/=.%" -DartifactId=%__ARTIFACT_ID% -Dversion=%__VERSION% -Dpackaging=jar
+        call "%_MVN_CMD%" %_MVN_OPTS% install:install-file -Dfile="!__JAR_FILE!" -DgroupId="%__GROUP_ID%" -DartifactId=%__ARTIFACT_ID% -Dversion=%__VERSION% -Dpackaging=jar
     )
 )
 set "_LIBS_CPATH=%_LIBS_CPATH%%__JAR_FILE%;"

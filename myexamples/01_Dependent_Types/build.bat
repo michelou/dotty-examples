@@ -290,8 +290,8 @@ if %_TASTY%==1 if %_DOTTY%==0 (
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _DOTTY=%_DOTTY% _EXPLAIN=%_SCALAC_OPTS_EXPLAIN% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
-    if %_DOTTY%==0 ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% SCALA_HOME=%SCALA_HOME% 1>&2
-    ) else ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% DOTTY_HOME=%DOTTY_HOME% 1>&2
+    if %_DOTTY%==0 ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" SCALA_HOME="%SCALA_HOME%" 1>&2
+    ) else ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" DOTTY_HOME="%DOTTY_HOME%" 1>&2
     )
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
@@ -336,6 +336,12 @@ echo   %__BEG_P%Properties:%__END%
 echo   ^(to be defined in SBT configuration file %__BEG_O%project\build.properties%__END%^)
 echo     %__BEG_O%main.class%__END%       alternative to option %__BEG_O%-main%__END%
 echo     %__BEG_O%main.args%__END%        list of arguments to be passed to main class
+if %_VERBOSE%==0 goto :eof
+echo.
+echo   %__BEG_P%Build tools:%__END%
+echo     %__BEG_O%^> build clean run%__END%
+echo     %__BEG_O%^> gradle -quiet clean run%__END%
+echo     %__BEG_O%^> mvn -quiet clean compile exec:java%__END%
 echo.
 goto :eof
 

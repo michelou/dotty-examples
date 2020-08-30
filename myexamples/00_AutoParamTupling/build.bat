@@ -293,7 +293,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _DOTTY=%_DOTTY% _INSTRUMENTED=%_INSTRUMENTED% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
     if %_DOTTY%==0 ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% SCALA_HOME=%SCALA_HOME% 1>&2
-    ) else ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% DOTTY_HOME=%DOTTY_HOME% 1>&2
+    ) else ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" DOTTY_HOME="%DOTTY_HOME%" 1>&2
     )
     echo %_DEBUG_LABEL% _MAIN_CLASS=%_MAIN_CLASS% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
 )
@@ -339,6 +339,12 @@ echo   %__BEG_P%Properties:%__END%
 echo   ^(to be defined in SBT configuration file %__BEG_O%project\build.properties%__END%^)
 echo     %__BEG_O%main.class%__END%       alternative to option %__BEG_O%-main%__END%
 echo     %__BEG_O%main.args%__END%        list of arguments to be passed to main class
+if %_VERBOSE%==0 goto :eof
+echo.
+echo   %__BEG_P%Build tools:%__END%
+echo     %__BEG_O%^> build clean run%__END%
+echo     %__BEG_O%^> gradle -quiet clean run%__END%
+echo     %__BEG_O%^> mvn -quiet clean compile exec:java%__END%
 goto :eof
 
 @rem output parameter: _MAIN_CLASS
@@ -447,7 +453,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURC
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of Scala source files failed 1>&2
+    echo %_ERROR_LABEL% Compilation of %__N% Scala source files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -475,7 +481,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURC
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not !ERRORLEVEL!==0 (
-    echo %_ERROR_LABEL% Compilation from TASTy files failed 1>&2
+    echo %_ERROR_LABEL% Compilation of %__N% TASTy files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -498,8 +504,8 @@ for /f "usebackq" %%i in (`powershell -c "gci -recurse -path '%__PATH%' -ea Stop
 call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
 set _COMPILE_REQUIRED=%_NEWER%
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% "%__TARGET_FILE%" 1>&2
-    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% "%__PATH%" 1>&2
+    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% Target : "%__TARGET_FILE%" 1>&2
+    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: "%__PATH%" 1>&2
     echo %_DEBUG_LABEL% _COMPILE_REQUIRED=%_COMPILE_REQUIRED% 1>&2
 ) else if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
     echo No compilation needed ^("!__PATH:%_ROOT_DIR%=!"^) 1>&2
@@ -511,15 +517,15 @@ goto :eof
 set __TIMESTAMP1=%~1
 set __TIMESTAMP2=%~2
 
-set __TIMESTAMP1_DATE=%__TIMESTAMP1:~0,8%
-set __TIMESTAMP1_TIME=%__TIMESTAMP1:~-6%
+set __DATE1=%__TIMESTAMP1:~0,8%
+set __TIME1=%__TIMESTAMP1:~-6%
 
-set __TIMESTAMP2_DATE=%__TIMESTAMP2:~0,8%
-set __TIMESTAMP2_TIME=%__TIMESTAMP2:~-6%
+set __DATE2=%__TIMESTAMP2:~0,8%
+set __TIME2=%__TIMESTAMP2:~-6%
 
-if %__TIMESTAMP1_DATE% gtr %__TIMESTAMP2_DATE% ( set _NEWER=1
-) else if %__TIMESTAMP1_DATE% lss %__TIMESTAMP2_DATE% ( set _NEWER=0
-) else if %__TIMESTAMP1_TIME% gtr %__TIMESTAMP2_TIME% ( set _NEWER=1
+if %__DATE1% gtr %__DATE2% ( set _NEWER=1
+) else if %__DATE1% lss %__DATE2% ( set _NEWER=0
+) else if %__TIME1% gtr %__TIME2% ( set _NEWER=1
 ) else ( set _NEWER=0
 )
 goto :eof
@@ -809,7 +815,6 @@ set __TEST_JAVA_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%
 
 @rem see https://github.com/junit-team/junit4/wiki/Getting-started
 for /f "usebackq" %%f in (`dir /s /b "%_TEST_CLASSES_DIR%\*Test.class" 2^>NUL`) do (
-    echo 333333333333333 %%f
     for %%i in (%%~dpf) do set __PKG_NAME=%%i
     set __PKG_NAME=!__PKG_NAME:%_TEST_CLASSES_DIR%\=!
     set "__MAIN_CLASS=!__PKG_NAME:\=.!%%~nf"

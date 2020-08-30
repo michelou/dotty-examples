@@ -288,10 +288,11 @@ if %_TASTY%==1 if %_DOTTY%==0 (
     set _TASTY=0
 )
 if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% _PROJECT_VERSION=%_PROJECT_VERSION% 1>&2
     echo %_DEBUG_LABEL% Options    : _DOTTY=%_DOTTY% _EXPLAIN=%_SCALAC_OPTS_EXPLAIN% _INSTRUMENTED=%_INSTRUMENTED% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
     if %_DOTTY%==0 ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% SCALA_HOME=%SCALA_HOME% 1>&2
-    ) else ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% DOTTY_HOME=%DOTTY_HOME% 1>&2
+    ) else ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" DOTTY_HOME="%DOTTY_HOME%" 1>&2
     )
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
@@ -316,7 +317,7 @@ echo     %__BEG_O%-debug%__END%           show commands executed by this script
 echo     %__BEG_O%-dotty%__END%           use Scala 3 tools ^(default^)
 echo     %__BEG_O%-explain%__END%         set compiler option %__BEG_O%-explain%__END%
 echo     %__BEG_O%-explain-types%__END%   set compiler option %__BEG_O%-explain-types%__END%
-echo     %__BEG_O%-main:^<name^>%__END%     define main class name ^(default: %__BEG_O%Main%__END%^)
+echo     %__BEG_O%-main:^<name^>%__END%     define main class name ^(default: %__BEG_O%%_MAIN_CLASS_DEFAULT%%__END%^)
 echo     %__BEG_O%-scala%__END%           use Scala 2 tools
 echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
 echo     %__BEG_O%-timer%__END%           display total elapsed time
@@ -336,6 +337,12 @@ echo   %__BEG_P%Properties:%__END%
 echo   ^(to be defined in SBT configuration file %__BEG_O%project\build.properties%__END%^)
 echo     %__BEG_O%main.class%__END%       alternative to option %__BEG_O%-main%__END%
 echo     %__BEG_O%main.args%__END%        list of arguments to be passed to main class
+if %_VERBOSE%==0 goto :eof
+echo.
+echo   %__BEG_P%Build tools:%__END%
+echo     %__BEG_O%^> build clean run%__END%
+echo     %__BEG_O%^> gradle -quiet clean run%__END%
+echo     %__BEG_O%^> mvn -quiet clean compile exec:java%__END%
 goto :eof
 
 @rem output parameter: _MAIN_CLASS
@@ -472,7 +479,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURC
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not !ERRORLEVEL!==0 (
-    echo %_ERROR_LABEL% Compilation of TASTy files failed 1>&2
+    echo %_ERROR_LABEL% Compilation of %__N% TASTy files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -769,6 +776,7 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+echo JaCoCo instrumentation report: "!__TARGET_HTML_DIR:%_ROOT_DIR%=!\index.html" 1>&2
 goto :eof
 
 :compile_test

@@ -14,24 +14,24 @@
         <m2.directory>${user.home}/.m2/repository</m2.directory>
 
         <!-- Scala settings -->
-        <scala.version>0.25.0-RC2</scala.version> <!-- eg. "2.12.18" or "0.22.0" -->
+        <scala.version>0.27.0-RC1</scala.version> <!-- eg. "2.13.3" or "0.26.0" -->
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugins -->
         <scala.maven.version>1.0-SNAPSHOT</scala.maven.version> <!-- Dec 2018 -->
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
-        <scalatest.version>3.1.1</scalatest.version>            <!-- Feb 2020 -->
+        <scalatest.version>3.2.2</scalatest.version>            <!-- Aug 2020 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven.compiler.version>3.8.1</maven.compiler.version>  <!-- May 2019 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
         <!-- Note: JUnit 5 requires Surefire version 2.22.1 or higher -->
         <maven.surefire.version>2.22.2</maven.surefire.version> <!-- Oct 2018 -->
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
-        <specs2.version>4.10.0</specs2.version>
+        <specs2.version>4.10.3</specs2.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
         <maven.jar.version>3.2.0</maven.jar.version>            <!-- May 2019 -->
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
-        <exec.maven.version>1.6.0</exec.maven.version>          <!-- Mar 2017 -->
+        <exec.maven.version>3.0.0</exec.maven.version>          <!-- Jun 2020 -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
         <jmh.version>1.23</jmh.version>                         <!-- May 2018, Oracle -->
@@ -48,16 +48,16 @@
             <artifactId>dotty-interfaces</artifactId>
             <version>${scala.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.26 -->
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.27 -->
         <dependency>
             <groupId>ch.epfl.lamp</groupId>
-            <artifactId>dotty-library_0.26</artifactId>
+            <artifactId>dotty-library_0.27</artifactId>
             <version>${scala.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/tasty-core_0.26 -->
+        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/tasty-core_0.27 -->
         <dependency>
             <groupId>ch.epfl.lamp</groupId>
-            <artifactId>tasty-core_0.26</artifactId>
+            <artifactId>tasty-core_0.27</artifactId>
             <version>${scala.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
@@ -80,6 +80,13 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jar-plugin</artifactId>
             <version>${maven.jar.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13</version>
+            <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apiguardian/apiguardian-api -->
         <dependency>
@@ -139,6 +146,30 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
             <version>${maven.surefire.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.specs2/specs2-common -->
+        <dependency>
+            <groupId>org.specs2</groupId>
+            <artifactId>specs2-common_2.13</artifactId>
+            <version>${specs2.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.specs2/specs2-core -->
+        <dependency>
+            <groupId>org.specs2</groupId>
+            <artifactId>specs2-core_2.13</artifactId>
+            <version>${specs2.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
+        <dependency>
+            <groupId>org.specs2</groupId>
+            <artifactId>specs2-junit_2.13</artifactId>
+            <version>${specs2.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.specs2/specs2-matcher -->
+        <dependency>
+            <groupId>org.specs2</groupId>
+            <artifactId>specs2-matcher_2.13</artifactId>
+            <version>${specs2.version}</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.mojo</groupId>

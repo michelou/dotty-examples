@@ -3,6 +3,7 @@
 
     <property name="scala-source.dir" value="${basedir}/src/main/scala" />
     <property name="target.dir" value="${basedir}/target" />
+    <property name="target-docs.dir" value="${target.dir}/docs" />
     <property name="build.dir" value="${target.dir}/main/classes" />
     <property name="main.class" value="Main" />
 
@@ -17,6 +18,13 @@
         <mkdir dir="${build.dir}" />
         <dotc srcdir="${scala-source.dir}"
               destdir="${build.dir}"
+              classpathref="build.classpath" />
+    </target>
+
+    <target name="doc" depends="init">
+        <mkdir dir="${target-docs.dir}" />
+        <dotd srcdir="${scala-source.dir}"
+              destdir="${target-docs.dir}"
               classpathref="build.classpath" />
     </target>
 
