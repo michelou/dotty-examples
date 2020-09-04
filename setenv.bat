@@ -85,6 +85,12 @@ if not %_EXITCODE%==0 (
     echo %_WARNING_LABEL% JaCoCo installation not found 1>&2
     set _EXITCODE=0
 )
+call :javafx
+if not %_EXITCODE%==0 (
+    @rem optional
+    echo %_WARNING_LABEL% JavaFX installation not found 1>&2
+    set _EXITCODE=0
+)
 call :jmc
 if not %_EXITCODE%==0 (
     @rem optional
@@ -597,6 +603,32 @@ if not exist "%_JACOCO_HOME%\lib\jacococli.jar" (
 )
 goto :eof
 
+@rem output parameter: _JAVAFX_HOME
+:javafx
+if defined JAVAFX_HOME (
+    set "_JAVAFX_HOME=%JAVAFX_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable JAVAFX_HOME 1>&2
+) else (
+    set __PATH=C:\opt
+    if exist "!__PATH!\javafx\" ( set "_JAVAFX_HOME=!__PATH!\javafx"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\javafx-*" 2^>NUL') do set "_JAVAFX_HOME=!__PATH!\%%f"
+        if not defined _JAVAFX_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f %%f in ('dir /ad /b "!__PATH!\javafx-*" 2^>NUL') do set "_JAVAFX_HOME=!__PATH!\%%f"
+        )
+    )
+    if defined _JAVAFX_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default JavaFX installation directory "!_JAVAFX_HOME!" 1>&2
+    )
+)
+if not exist "%_JAVAFX_HOME%\lib\javafx.graphics.jar" (
+    echo %_ERROR_LABEL% JavaFX Graphics library not found ^(%_JAVAFX_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
 @rem output parameter(s): _JMC_HOME, _JMC_PATH
 :jmc
 set _JMC_HOME=
@@ -624,7 +656,7 @@ if defined __JMC_CMD (
         )
     )
     if defined _JMC_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default JMC installation directory !_JMC_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default JMC installation directory "!_JMC_HOME!" 1>&2
     )
 )
 if not exist "%_JMC_HOME%\bin\jmc.exe" (
@@ -943,6 +975,7 @@ if %__VERBOSE%==1 (
     if defined DOTTY_HOME echo    DOTTY_HOME=%DOTTY_HOME% 1>&2
     if defined JAVA_HOME echo    JAVA_HOME=%JAVA_HOME% 1>&2
     if defined JAVA11_HOME echo    JAVA11_HOME=%JAVA11_HOME% 1>&2
+    if defined JAVAFX_HOME echo    JAVAFX_HOME=%JAVAFX_HOME% 1>&2
     if defined SCALA_HOME echo    SCALA_HOME=%SCALA_HOME% 1>&2
 )
 goto :eof
@@ -958,6 +991,7 @@ endlocal & (
         if not defined JACOCO_HOME set "JACOCO_HOME=%_JACOCO_HOME%"
         if not defined JAVA_HOME set "JAVA_HOME=%_JDK_HOME%"
         if not defined JAVA11_HOME set "JAVA11_HOME=%_JDK11_HOME%"
+        if not defined JAVAFX_HOME set "JAVAFX_HOME=%_JAVAFX_HOME%"
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
         set "PATH=%_JDK_PATH%%_PYTHON_PATH%%PATH%%_SCALA_PATH%%_SCALAFMT_PATH%%_DOTTY_PATH%%_ANT_PATH%%_BAZEL_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_CFR_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE% "%_GIT_HOME%"

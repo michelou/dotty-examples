@@ -6,7 +6,7 @@
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:80px;" src="docs/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    <a href="https://openjdk.java.net/faq/">OpenJDK</a> is an open-source project initiated by Oracle in 2010. Java 8 is the first LTS version of Java to be released <i>both</i> as a commercial product (<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Oracle Java SE 8 </a>) and as an open-source product (<a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot">Oracle OpenJDK 8</a>).<br/>In the following we focus on <a href="https://jdk.java.net/11/" rel="external">OpenJDK 11</a>, the current LTS version of Java.
+    <a href="https://openjdk.java.net/faq/">OpenJDK</a> is an open-source project initiated by Oracle in 2010. Java 8 is the first LTS version of Java to be released <i>both</i> as a commercial product (<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Oracle Java SE 8 </a>) and as an open-source product (<a href="https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot" rel="external">Oracle OpenJDK 8</a>).<br/>In the following we focus on <a href="https://jdk.java.net/11/" rel="external">OpenJDK 11</a>, the current LTS version of Java.
   </td>
   </tr>
 </table>
@@ -26,12 +26,12 @@ This document is part of a series of topics related to [Dotty] on Windows:
 This project depends on several external software for the **Microsoft Windows** platform:
 
 - [BellSoft OpenJDK 11][bellsoft_downloads] from [BellSoft][bellsoft_about] ([*release notes*][bellsoft_relnotes]).
-- [Corretto OpenJDK 11][amazon_corretto_downloads] from [Amazon](https://aws.amazon.com/) ([*release notes*][amazon_corretto_relnotes]).
+- [Corretto OpenJDK 11][amazon_corretto_downloads] from [Amazon][amazyon_aws] ([*release notes*][amazon_corretto_relnotes]).
 - [GraalVM OpenJDK 11][graalvm_downloads] from [Oracle] ([*release notes*][graalvm_relnotes]).
 - [OpenJ9 OpenJDK 11][openj9_downloads] from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html) ([*release notes*][openj9_relnotes], [*what's new?*][openj9_news]).
 - [Oracle OpenJDK 11][oracle_openjdk_downloads] from [Oracle] ([*release notes*][oracle_openjdk_relnotes]).
-- [RedHat OpenJDK 11](https://developers.redhat.com/products/openjdk/download/) from [RedHat](https://www.redhat.com/).
-- [SapMachine OpenJDK 11](https://sap.github.io/SapMachine/) from [SAP](https://www.sap.com/).
+- [RedHat OpenJDK 11][redhat_downloads] from [RedHat](https://www.redhat.com/).
+- [SapMachine OpenJDK 11](https://sap.github.io/SapMachine/) from [SAP][sap_home].
 - [Trava OpenJDK 11][trava_downloads] from [Travis](https://travis-ci.com/) ([*release notes*][trava_relnotes]).
 - [Zulu OpenJDK 11][azul_downloads] from [Azul Systems][azul_systems] ([*release notes*][azul_relnotes]).
 
@@ -46,18 +46,18 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*July 2020*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
+For instance our development environment looks as follows (*September 2020*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.8+10\                 <i>(297 MB)</i>
-C:\opt\jdk-bellsoft-11.0.7-lite\      <i>(102 MB)</i>
+C:\opt\jdk-bellsoft-11.0.8-lite\      <i>( 85 MB)</i>
 C:\opt\jdk-corretto-11.0.8_10\        <i>(290 MB)</i>
-C:\opt\jdk-dcevm-11.0.7+4\            <i>(295 MB)</i>
-C:\opt\jdk-graalvm-ce-java11-20.1.0\  <i>(721 MB)</i>
+C:\opt\jdk-dcevm-11.0.8+1\            <i>(295 MB)</i>
+C:\opt\jdk-graalvm-ce-java11-20.2.0\  <i>(731 MB)</i>
 C:\opt\jdk-openj9-11.0.8+10\          <i>(295 MB)</i>
-C:\opt\jdk-redhat-11.0.7.10\          <i>( 63 MB)</i>
+C:\opt\jdk-redhat-11.0.8.10\          <i>( 63 MB)</i>
 C:\opt\jdk-sapmachine-11.0.8\         <i>(288 MB)</i>
-C:\opt\jdk-zulu-11.0.7\               <i>(299 MB)</i>
+C:\opt\jdk-zulu-11.0.8\               <i>(299 MB)</i>
 </pre>
 
 ## Data sharing
@@ -80,22 +80,22 @@ An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For
 In the following we work with the *"lite"* version of BellSoft OpenJDK 11.
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-bellsoft-11.0.7-lite\bin\java -version</b>
-openjdk version "11.0.7" 2020-04-14 LTS
-OpenJDK Runtime Environment (build 11.0.7+10-LTS)
-OpenJDK 64-Bit Server VM (build 11.0.7+10-LTS, mixed mode)
+<b>&gt; c:\opt\jdk-bellsoft-11.0.8-lite\bin\java -version</b>
+openjdk version "11.0.8" 2020-07-14 LTS
+OpenJDK Runtime Environment (build 11.0.8+10-LTS)
+OpenJDK 64-Bit Server VM (build 11.0.8+10-LTS, mixed mode)
 
-<b>&gt; c:\opt\jdk-bellsoft-11.0.7-lite\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-bellsoft-11.0.8-lite\bin\java -Xshare:dump</b>
 [...]
-Number of classes 1265
+Number of classes 1229
 [...]
-<b>&gt; dir c:\opt\jdk-bellsoft-11.0.7-lite\bin\server | findstr jsa</b>
-20.04.2020  13:26       18 022 400 classes.jsa
+<b>&gt; dir c:\opt\jdk-bellsoft-11.0.8-lite\bin\server | findstr jsa</b>
+04.09.2020  19:48        17 760 256 classes.jsa
 
-<b>&gt; c:\opt\jdk-bellsoft-11.0.7-lite\bin\java -version</b>
-openjdk version "11.0.7" 2020-04-14 LTS
-OpenJDK Runtime Environment (build 11.0.7+10-LTS)
-OpenJDK 64-Bit Server VM (build 11.0.7+10-LTS, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-bellsoft-11.0.8-lite\bin\java -version</b>
+openjdk version "11.0.8" 2020-07-14 LTS
+OpenJDK Runtime Environment (build 11.0.8+10-LTS)
+OpenJDK 64-Bit Server VM (build 11.0.8+10-LTS, mixed mode, sharing)
 </pre>
 
 ### <span id="graalvm">GraalVM OpenJDK 11</span> [**&#9650;**](#top)
@@ -103,13 +103,13 @@ OpenJDK 64-Bit Server VM (build 11.0.7+10-LTS, mixed mode, sharing)
 [GraalVM][graalvm_org] is a universal virtual machine supporting the *interaction* between JVM-based languages like Java, Scala, Groovy, Kotlin, Clojure and native languages like C, C++, JavaScript, Python, R, Ruby.
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-graalvm-ce-java11-20.1.0\bin\java -version</b>
-openjdk version "11.0.7" 2020-04-14
-OpenJDK Runtime Environment GraalVM CE 20.1.0 (build 11.0.7+10-jvmci-20.1-b02)
-OpenJDK 64-Bit Server VM GraalVM CE 20.1.0 (build 11.0.7+10-jvmci-20.1-b02, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-graalvm-ce-java11-20.2.0\bin\java -version</b>
+openjdk version "11.0.8" 2020-07-14
+OpenJDK Runtime Environment GraalVM CE 20.2.0 (build 11.0.8+10-jvmci-20.2-b03)
+OpenJDK 64-Bit Server VM GraalVM CE 20.2.0 (build 11.0.8+10-jvmci-20.2-b03, mixed mode, sharing)
 &nbsp;
-<b>&gt; dir c:\opt\jdk-graalvm-ce-java11-20.1.0\bin\server | findstr jsa</b>
-07.03.2020  23:27        17 563 648 classes.jsa
+<b>&gt; dir c:\opt\jdk-graalvm-ce-java11-20.2.0\bin\server | findstr jsa</b>
+16.08.2020  08:41        17 563 648 classes.jsa
 </pre>
 
 We observe that [GraalVM][graalvm_org] is the only OpenJDK implementation to come with class sharing *enabled by default*.
@@ -182,7 +182,7 @@ OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.8+10, mixed mode, sharing)
 ### <span id="redhat">RedHat OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-redhat-11.0.7.10\bin\java -version</b>
+<b>&gt; c:\opt\jdk-redhat-11.0.8.10\bin\java -version</b>
 openjdk version "11.0.7" 2020-04-14 LTS
 OpenJDK Runtime Environment 18.9 (build 11.0.7+10-LTS)
 OpenJDK 64-Bit Server VM 18.9 (build 11.0.7+10-LTS, mixed mode)
@@ -337,11 +337,12 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
+[amazon_aws]: https://aws.amazon.com/
 [amazon_corretto_downloads]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html
 [amazon_corretto_relnotes]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html
 [azul_downloads]: https://www.azul.com/downloads/zulu/zulu-windows
@@ -374,6 +375,8 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 [oracle_openjdk_project]: https://openjdk.java.net/projects/jdk/11/
 [oracle_openjdk_downloads]: https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
 [oracle_openjdk_relnotes]: https://adoptopenjdk.net/release_notes.html?variant=openjdk11&jvmVariant=hotspot#jdk11_0_8
+[redhat_downloads]: https://developers.redhat.com/products/openjdk/download/
+[sap_home]: https://www.sap.com/
 [trava_downloads]: https://github.com/TravaOpenJDK/trava-jdk-11-dcevm
 [trava_relnotes]: https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples

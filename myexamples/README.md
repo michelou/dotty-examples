@@ -22,14 +22,14 @@ Build tools rely on one or more configuration files to achieve their tasks. In o
 
 | Build tool                    | Configuration file(s)                                   | Parent file(s)                       |
 |-------------------------------|---------------------------------------------------------|--------------------------------------|
-| [**`ant`**][apache_ant_cli]   | [**`build.xml`**](HelloWorld/build.xml)                 | [**`build.xml`**](build.xml), [**`ivy.xml`**](ivy.xml) |
-| [**`bazel`**][bazel_cli]      | [**`BUILD`**](HelloWorld/BUILD), **`WORKSPACE`**        | n.a.                                 |
+| [**`ant.bat`**][apache_ant_cli]   | [**`build.xml`**](HelloWorld/build.xml)                 | [**`build.xml`**](build.xml), [**`ivy.xml`**](ivy.xml) |
+| [**`bazel.exe`**][bazel_cli]      | [**`BUILD`**](HelloWorld/BUILD), **`WORKSPACE`**        | n.a.                                 |
 | **`build`**                   | [**`build.properties`**](HelloWorld/project/build.properties) | n.a.                           |
-| [**`gradle`**][gradle_cli]    | [**`build.gradle`**](HelloWorld/build.gradle)           | [**`common.gradle`**](common.gradle) |
-| [**`make`**][gmake_cli]       | [**`Makefile`**](HelloWorld/Makefile)                   | [**`Makefile.inc`**](Makefile.inc)   |
-| [**`mill`**][mill_cli]        | [**`build.sc`**](HelloWorld/build.sc)                   | [**`common.sc`**](common.sc)         |
-| [**`mvn`**][apache_maven_cli] | [**`pom.xml`**](HelloWorld/pom.xml)                     | [**`pom.xml`**](pom.xml)             |
-| [**`sbt`**][sbt_cli]          | [**`build.sbt`**](HelloWorld/build.sbt)                 | n.a.                                 |
+| [**`gradle.bat`**][gradle_cli]    | [**`build.gradle`**](HelloWorld/build.gradle)           | [**`common.gradle`**](common.gradle) |
+| [**`make.exe`**][gmake_cli]       | [**`Makefile`**](HelloWorld/Makefile)                   | [**`Makefile.inc`**](Makefile.inc)   |
+| [**`mill.bat`**][mill_cli]        | [**`build.sc`**](HelloWorld/build.sc)                   | [**`common.sc`**](common.sc)         |
+| [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](HelloWorld/pom.xml)                     | [**`pom.xml`**](pom.xml)             |
+| [**`sbt.bat`**][sbt_cli]          | [**`build.sbt`**](HelloWorld/build.sbt)                 | n.a.                                 |
 
 
 ## <span id="ant">Ant build tool</span>
@@ -79,7 +79,7 @@ Total time: 3 seconds
 We can set property **`-Duse.local=true`** to use Dotty local installation (*reminder*: variable **`DOTTY_HOME`** is set by command **`setenv`**):
 
 <pre style="font-size:80%;">
-<b>&gt;</b> ant -Duse.local=true clean run
+<b>&gt;</b> <a href="https://ant.apache.org/manual/running.html#commandline">ant</a> -Duse.local=true clean run
 Buildfile: W:\myexamples\HelloWorld\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">clean:</span>
@@ -275,7 +275,7 @@ W:\dotty-examples\examples\hello-scala\target\classes hello
 Execution of [**`HelloWorld\src\main\scala\HelloWorld.scala`**](HelloWorld/src/main/scala/HelloWorld.scala) produces the following output (option **`--quiet`** tells Maven not to display anything other than **`ERROR`** level messages):
 
 <pre style="font-size:80%;">
-<b>&gt; mvn --quiet clean test</b>
+<b>&gt; <a href="https://maven.apache.org/run.html">mvn</a> --quiet clean test</b>
 Hello world!
 </pre>
 
@@ -303,7 +303,7 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 > In the Maven configuration file we note the presence of the Maven plugin [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip). In fact the parent file [**`examples\pom.xml`**](pom.xml) depends on [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip), a Maven plugin we developed specifically for this project:
 >
 > <pre style="font-size:80%;">
-> <b>&gt; more ..\pom.xml</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/more">more</a> ..\pom.xml</b>
 > &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 > ...
 >     <b>&lt;properties&gt;</b>

@@ -76,8 +76,8 @@ Total time: 19 seconds
 > **&#9755;** **Apache Ivy**<br/>
 > We observe from task **`init.ivy`** that the [Apache Ivy][apache_ant_ivy] library has been added to the [Ant](https://ant.apache.org/) installation directory. In our case we installed [version 2.5.0][apache_ant_ivy_relnotes] of the [Apache Ivy][apache_ant_ivy] library.
 > <pre style="font-size:80%;">
-> <b>&gt; curl -sL -o c:\Temp\apache-ivy-2.5.0.zip https://www-eu.apache.org/dist//ant/ivy/2.5.0/apache-ivy-2.5.0-bin.zip</b>
-> <b>&gt; unzip c:\temp\apache-ivy-2.5.0.zip -d c:\opt</b>
+> <b>&gt; <a href="https://curl.haxx.se/docs/manpage.html">curl</a> -sL -o c:\Temp\apache-ivy-2.5.0.zip https://www-eu.apache.org/dist//ant/ivy/2.5.0/apache-ivy-2.5.0-bin.zip</b>
+> <b>&gt; <a href="https://linux.die.net/man/1/unzip">unzip</a> c:\temp\apache-ivy-2.5.0.zip -d c:\opt</b>
 > <b>&gt; copy c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.8\lib</b>
 > <b>&gt; dir c:\opt\apache-ant-1.10.8\lib | findstr ivy</b>
 > 20.10.2019  09:44         1 402 646 ivy-2.5.0.jar
@@ -215,7 +215,7 @@ Processing Planet$
 Processing Planet
 Save decompiled Java source files to "target\cfr-sources_scala3_0.27.0-RC1.java"
 &nbsp;
-<b>&gt; dir /b /s target\*.java</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b /s target\*.java</b>
 W:\examples\enum-Planet\target\cfr-sources_scala3_0.27.0-RC1.java
 W:\examples\enum-Planet\target\cfr-sources\Planet$.java
 W:\examples\enum-Planet\target\cfr-sources\Planet.java
@@ -224,7 +224,7 @@ W:\examples\enum-Planet\target\cfr-sources\Planet.java
 If the two Java source files `src\build\cfr-sources_scala<n>_<version>.txt` (*check file*) and `target\cfr-sources_scala<n>_<version>.txt` (*output file*) are present subcommand **`decompile`** also invokes the [`diff`][man1_diff] command to show differences between the check file and the output file:
 
 <pre style="font-size:80%;">
-<b>&gt; dir /b src\build</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b src\build</b>
 cfr-sources_scala3_0.24.0-RC1.java
 cfr-sources_scala3_0.27.0-RC1.java
 cfr-sources_scala3_0.28.0-NIGHTLY.java
@@ -329,16 +329,16 @@ Command **` mvn compile test`** with option **`-debug`** produces additional deb
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-1.8.0_252-b09\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-1.8.0_262-b10\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.27.0-RC1 \
  -cp C:\opt\dotty-0.27.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\opt\jdk-1.8.0_252-b09\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-1.8.0_262-b10\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.27.0-RC1 [...]
-[DEBUG] [execute] C:\opt\jdk-1.8.0_252-b09\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-1.8.0_262-b10\bin\java.exe \
  -Xms64m -Xmx1024m -cp C:\opt\dotty-0.27.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
@@ -370,7 +370,7 @@ Your weight on JUPITER is 2.5305575254957406
 [INFO] Finished at: 2019-07-27T19:53:09+01:00
 [INFO] ------------------------------------------------------------------------
 
-<b>&gt; java -version 2>&1 | findstr version</b>
+<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -version 2>&1 | findstr version</b>
 openjdk version "11.0.7" 2019-10-15
 
 <b>&gt; java -Xbootclasspath/a:"c:\opt\dotty-0.27.0-RC1\lib\dotty-library_0.27-0.27.0-RC1.jar;c:\opt\dotty-0.27.0-RC1\lib\scala-library-2.13.3.jar" -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
@@ -561,7 +561,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

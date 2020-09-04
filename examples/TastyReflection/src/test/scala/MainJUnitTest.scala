@@ -3,15 +3,12 @@
 import org.junit.Assert._
 import org.junit.Test
 
-class ColorJUnitTest {
+class MainJUnitTest {
+  import Macros._
 
   @Test
   def test1(): Unit = {
-    assertEquals(
-      "Enumeration contains 3 colors",
-      Color.values.size,
-      Integer.valueOf(3)
-    )
+    assertEquals("natConst", natConst(4), Integer.valueOf(4))
   }
 
 }

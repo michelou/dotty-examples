@@ -26,6 +26,7 @@ This document is part of a series of topics related to [Dotty] on Windows:
 This project depends on two external software for the **Microsoft Windows** platform:
 
 - [Dotty 0.27][dotty_releases] ([*release notes*][dotty_relnotes])
+- [Git 2.28][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][oracle_openjdk] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk_relnotes])
 <!--
 8u212  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
@@ -40,9 +41,8 @@ Optionally one may also install the following software:
 
 - [Apache Ant 1.10][apache_ant] (requires Java 8) ([*release notes*][apache_ant_relnotes])
 - [Apache Maven 3.6][apache_maven] ([requires Java 7][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
-- [Bazel 3.4][bazel_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
+- [Bazel 3.5][bazel_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
-- [Git 2.28][git_releases] ([*release notes*][git_relnotes])
 - [Gradle 6.6.1][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [JaCoCo 0.8][jacoco_downloads] ([*change log*][jacoco_changelog])
 - [Mill 0.8][mill_releases] ([*change log*][mill_changelog])
@@ -56,13 +56,13 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*August 2020*) <sup id="anchor_03">[[3]](#footnote_03)</sup>:
+For instance our development environment looks as follows (*September 2020*) <sup id="anchor_03">[[3]](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.8+10\        <i>(181.0 MB)</i>
 C:\opt\apache-ant-1.10.8\    <i>( 39.7 MB)</i>
 C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
-C:\opt\bazel-3.4.1\          <i>( 40.0 MB)</i>
+C:\opt\bazel-3.5.0\          <i>( 40.0 MB)</i>
 C:\opt\cfr-0.150\            <i>(  1.9 MB)</i>
 C:\opt\dotty-0.27.0-RC1\     <i>( 27.3 MB)</i>
 C:\opt\Git-2.28.0\           <i>(290.0 MB)</i>
@@ -72,7 +72,7 @@ C:\opt\Mill-0.8.0\           <i>( 53.7 MB)</i>
 C:\opt\sbt-1.3.13\           <i>( 61.3 MB)</i>
 C:\opt\scala-2.13.3\         <i>( 22.8 MB, 588 MB with API docs)</i>
 </pre>
- <!-- jdk: 242-b08 = 184 MB, 252-b09 = 181 MB -->
+ <!-- jdk: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
  <!-- sbt: 1.3.6 = 55.1 MB, 1.3.7 = 60.9 MB, 1.3.8 = 61.0 MB -->
  <!-- sbt: 1.3.9 = 61.2 MB, 1.3.10 = 61.2 MB, 1.3.11 = 61.3 MB -->
 
@@ -85,7 +85,7 @@ This project is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
 bin\cfr-0.150.zip
-bin\0.27\{<a href="bin/0.25/dotc.bat">dotc.bat</a>, <a href="bin/0.27/dotr.bat">dotr.bat</a>, ..}
+bin\0.27\{<a href="bin/0.27/dotc.bat">dotc.bat</a>, <a href="bin/0.27/dotr.bat">dotr.bat</a>, ..}
 bin\dotty\
 docs\
 dotty\     <i>(Git submodule)</i>
@@ -127,7 +127,7 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch/bash commands:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**][javac_cli], [**`scalac.bat`**][scalac_cli] and [**`dotc.bat`**](bin/0.25/dotc.bat)directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
+1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`javac.exe`**][javac_cli], [**`scalac.bat`**][scalac_cli] and [**`dotc.bat`**](bin/0.27/dotc.bat)directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
 
    <pre style="font-size:80%;">
    <b>&gt; <a href="setenv.bat">setenv</a> help</b>
@@ -290,7 +290,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 Tool versions:
    javac 11.0.8, java 11.0.8, scalac 2.13.3, dotc 0.27.0-RC1,
    ant 1.10.8, gradle 6.6.1, mill 0.8.0, mvn 3.6.3, sbt 1.3.13,
-   bazel 3.4.1, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.3,
+   bazel 3.5.0, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.3,
    git 2.28.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
@@ -305,7 +305,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 Tool versions:
    javac 11.0.8, java 11.0.8, scalac 2.13.3, dotc 0.27.0-RC1,
    ant 1.10.8, gradle 6.6.1, mill 0.8.0, mvn 3.6.3, sbt 1.3.13,
-   bazel 3.4.1, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.3,
+   bazel 3.5.0, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.3,
    git 2.28.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-11.0.8+10\bin\javac.exe
@@ -317,7 +317,7 @@ Tool paths:
    C:\opt\Mill-0.8.0\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
    C:\opt\sbt-1.3.13\bin\sbt.bat
-   C:\opt\bazel-3.4.1\bazel.exe
+   C:\opt\bazel-3.5.0\bazel.exe
    C:\opt\bloop-1.3.4\bloop.cmd
    C:\opt\cfr-0.150\bin\cfr.bat
    C:\opt\make-3.8.1\bin\make.exe
@@ -364,19 +364,19 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a></b>
 
 <b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar
-dotty-doc_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar
-dotty-interfaces-0.28.0-bin-20200827-757e431-NIGHTLY.jar
-dotty-language-server_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar
-dotty-library_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar
-dotty-library_sjs1_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar
-dotty-sbt-bridge-0.28.0-bin-20200827-757e431-NIGHTLY.jar
-dotty-staging_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar
-dotty-tasty-inspector_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar
-dotty-tastydoc-input_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar
-dotty-tastydoc_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar
-dotty_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar
-tasty-core_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar
+dotty-compiler_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar
+dotty-doc_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar
+dotty-interfaces-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar
+dotty-language-server_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar
+dotty-library_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar
+dotty-library_sjs1_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar
+dotty-sbt-bridge-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar
+dotty-staging_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar
+dotty-tasty-inspector_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar
+dotty-tastydoc-input_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar
+dotty-tastydoc_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar
+dotty_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar
+tasty-core_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar
 </pre>
 
 > **:mag_right:** A few notes about the distributed Java archives:
@@ -390,21 +390,21 @@ Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the downlo
 <pre style="font-size:80%">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose</b>
 Check for nightly files on Maven repository
-Downloading file dotty-library_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar ... 1.4 Mb
-Downloading file tasty-core_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar ... 51.6 Kb
-Downloading file dotty-tastydoc-input_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar ... 36.1 Kb
-Downloading file dotty-library_sjs1_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar ... 2.4 Mb
-Downloading file dotty-compiler_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar ... 12.3 Mb
-Downloading file dotty-sbt-bridge-0.28.0-bin-20200827-757e431-NIGHTLY.jar ... 13.4 Kb
-Downloading file dotty-doc_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar ... 1 Mb
-Downloading file dotty-language-server_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar ... 145.8 Kb
-Downloading file dotty-tastydoc_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar ... 435.5 Kb
-Downloading file dotty-staging_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar ... 35.5 Kb
-Downloading file dotty-interfaces-0.28.0-bin-20200827-757e431-NIGHTLY.jar ... 3.4 Kb
-Downloading file dotty-tasty-inspector_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar ... 8 Kb
-Downloading file dotty_0.28-0.28.0-bin-20200827-757e431-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-library_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar ... 1.4 Mb
+Downloading file tasty-core_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar ... 51.6 Kb
+Downloading file dotty-tastydoc-input_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar ... 36.1 Kb
+Downloading file dotty-compiler_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar ... 12.4 Mb
+Downloading file dotty-library_sjs1_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar ... 2.4 Mb
+Downloading file dotty-doc_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar ... 1 Mb
+Downloading file dotty-sbt-bridge-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty-language-server_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar ... 145.8 Kb
+Downloading file dotty-tastydoc_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar ... 435.5 Kb
+Downloading file dotty-staging_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar ... 35.5 Kb
+Downloading file dotty-interfaces-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-tasty-inspector_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar ... 8 Kb
+Downloading file dotty_0.28-0.28.0-bin-20200903-b3f908d-NIGHTLY.jar ... 0.3 Kb
 Finished to download 13 files to directory W:\out\nightly-jars
-Nightly version is 0.28.0-bin-20200827-757e431-NIGHTLY
+Nightly version is 0.28.0-bin-20200903-b3f908d-NIGHTLY
 </pre>
 
 We can now replace the library files from the original [Dotty distribution][dotty_releases] (installed in directory **`C:\opt\dotty-0.27.0-RC1\`** in our case) with library files from the latest nightly build.
@@ -413,11 +413,11 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> activate</b>
-Local nightly version has changed from 0.27.0-RC1 to 28.0-bin-20200827-757e431-NIGHTLY
-Activate nightly build libraries: 28.0-bin-20200827-757e431-NIGHTLY
+Local nightly version has changed from 0.27.0-RC1 to 0.28.0-bin-20200903-b3f908d-NIGHTLY
+Activate nightly build libraries: 0.28.0-bin-20200903-b3f908d-NIGHTLY
 
 <b>&gt; <a href="bin/0.27/dotc.bat">dotc</a> -version</b>
-Dotty compiler version 28.0-bin-20200827-757e431-NIGHTLY-git-757e431 -- Copyright 2002-2020, LAMP/EPFL
+Dotty compiler version 0.28.0-bin-20200903-b3f908d-NIGHTLY-git-b3f908d -- Copyright 2002-2020, LAMP/EPFL
 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> reset</b>
 Activate default Dotty libraries: 0.27.0-RC1
@@ -593,8 +593,8 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 
 | Project file | Variable | Example |
 | :----------- | :------: | :------ |
-| `build.sbt` | `dottyVersion` | `0.25.0-RC1` &rarr; `0.27.0-RC1`|
-| `build.sc` | `scalaVersion` | `0.25.0-RC1` &rarr; `0.27.0-RC1` |
+| `build.sbt` | `dottyVersion` | `0.26.0-RC1` &rarr; `0.27.0-RC1`|
+| `build.sc` | `scalaVersion` | `0.26.0-RC1` &rarr; `0.27.0-RC1` |
 | `project\build.properties` | `sbt.version` | `1.3.12` &rarr; `1.3.13` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.3.4` &rarr; `0.4.0` |
 
@@ -642,7 +642,7 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 
 [Dotty REPL][dotty_repl] is an interactive tool for evaluating [Scala] expressions. Internally, it executes a source script by wrapping it in a template and then compiling and executing the resulting program.
 
-   > **:warning:** Batch file [**`dotr.bat`**](bin/0.25/dotr.bat) is based on the bash script [**`dotr`**][github_dotr] available from the standard [Dotty distribution][dotty_releases]. We also have submitted pull request [#5444][github_PR5444] to add that batch file to the Dotty distribution.
+   > **:warning:** Batch file [**`dotr.bat`**](bin/0.27/dotr.bat) is based on the bash script [**`dotr`**][github_dotr] available from the standard [Dotty distribution][dotty_releases]. We also have submitted pull request [#5444][github_PR5444] to add that batch file to the Dotty distribution.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> dotr</b>
@@ -710,6 +710,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://github.com/lihaoyi/mill/releases">0.8.0-assembly</a> (<code>mill</code>)                            <i>(53 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.8-bin.zip</a>                        <i>( 9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                       <i>( 9 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases">bazel-3.5.0-windows-x86_64.zip</a>                   <i>(38 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.27.0-RC1">dotty-0.27.0-RC1.zip</a>                             <i>(24 MB)</i>
 <a href="https://gradle.org/install/">gradle-6.6.1-bin.zip</a>                             <i>(97 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.5.zip</a>                                 <i>( 4 MB)</i>
@@ -727,7 +728,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -741,7 +742,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [apache_maven_relnotes]: https://maven.apache.org/docs/3.6.3/release-notes.html
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [bazel_releases]: https://github.com/bazelbuild/bazel/releases
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/3.4.1
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/3.5.0
 [bloop_releases]: https://scalacenter.github.io/bloop/
 [bloop_relnotes]: https://github.com/scalacenter/bloop/releases/tag/v1.3.4
 [cfr_releases]: https://www.benf.org/other/cfr/

@@ -39,7 +39,7 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*August 2020*):
+For instance our development environment looks as follows (*September 2020*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.28.0\     <i>(290 MB)</i>
@@ -256,7 +256,7 @@ Below we summarize changes we made to the [source code](https://github.com/lampe
 
 Command [**`build.bat`**](bin/dotty/build.bat) consists of ~400 lines of batch/[Powershell ][microsoft_powershell] code and features the following subcommands:
 
-#### `build.bat clean`
+### **`build.bat clean`**
 
 Command **`build.bat clean`** removes all generated *and untracked* files/directories from our [**Dotty fork**][github_dotty_fork].<br/>Internally, **`build clean`** executes the command **`sbt clean`** (one may use [**`git clean -xdf`**][git_clean] to remove all untracked directories/files, including build products).
 
@@ -304,7 +304,7 @@ Current Git branch
 [...(sbt)...]
 </pre>
 
-#### `build.bat compile`
+### **`build.bat compile`**
 
 Command **`build.bat compile`** generates the *"1st stage compiler"* for [Dotty] and executes the relevant test suites. 
 
@@ -348,7 +348,7 @@ testing loading tasty from .tasty file in jar
 [...]
 </pre>
 
-#### `build.bat bootstrap`
+### **`build.bat bootstrap`**
 
 Command **`build.bat bootstrap`** works as follows: ***if*** execution of the **`compile`** subcommand was successful the **`bootstrap`** subcommand generates the *"bootstrap compiler"* for [Dotty] and executes the relevant test suites.
 
@@ -357,7 +357,7 @@ Command **`build.bat bootstrap`** works as follows: ***if*** execution of the **
 [...]
 </pre>
 
-#### `build.bat community`
+### **`build.bat community`**
 
 Command **`build.bat community`**  generates subprojects from **`community-build\community-projects\`**: 
 
@@ -366,7 +366,7 @@ Command **`build.bat community`**  generates subprojects from **`community-build
 [...]
 </pre>
 
-#### `build.bat archives`
+### **`build.bat archives`**
 
 Command **`build.bat archives`** works as follows:  ***if*** execution of the **`bootstrap`** subcommand was successful the **`archives`** subcommand generates the gz/zip archives.<br/>Below we execute the **`arch-only`** subcommand for the sake of brievity (previous steps are *assumed* to be successful): 
 
@@ -379,7 +379,7 @@ dotty-0.19.1-bin-SNAPSHOT.tar.gz
 dotty-0.19.1-bin-SNAPSHOT.zip
 </pre>
 
-#### `build.bat documentation`
+### **`build.bat documentation`**
 
 Command **`build.bat documentation`** works as follows: ***if*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Dotty website][dotty] and the online [Dotty documentation][dotty_docs].<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
@@ -463,7 +463,7 @@ usage
 Total execution time: 00:20:25
 -->
 
-#### `cmdTests.bat`
+### **`cmdTests.bat`**
 
 Command [**`project\scripts\cmdTests.bat`**](bin/dotty/project/scripts/cmdTests.bat) performs several tests running [Dotty](https://dotty.epfl.ch) commands from [**`sbt`**][sbt_cli]. In the normal case, command [**`cmdTests`**](bin/dotty/project/scripts/cmdTests.bat) is called by command **`build compile`** but may also be called directly.
 
@@ -489,7 +489,7 @@ testing loading tasty from .tasty file in jar
   def main(args: scala.Array[scala.Predef.String]): scala.Unit = scala.Predef.println("hello world")
 </pre>
 
-#### `bootstrapCmdTests.bat`
+### **`bootstrapCmdTests.bat`**
 
 Command [**`project\scripts\bootstrapCmdTests.bat`**](bin/dotty/project/scripts/bootstrapCmdTests.bat) performs several benchmarks and generates the documentation page for the [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala) program. In the normal case, command [**`bootstrapCmdTests`**](bin/dotty/project/scripts/bootstrapCmdTests.bat) is called by command **`build bootstrap`** but may also be called directly.
 
@@ -709,7 +709,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
