@@ -30,7 +30,7 @@ This project depends on several external software for the **Microsoft Windows** 
 - [GraalVM OpenJDK 11][graalvm_downloads] from [Oracle] ([*release notes*][graalvm_relnotes]).
 - [OpenJ9 OpenJDK 11][openj9_downloads] from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html) ([*release notes*][openj9_relnotes], [*what's new?*][openj9_news]).
 - [Oracle OpenJDK 11][oracle_openjdk_downloads] from [Oracle] ([*release notes*][oracle_openjdk_relnotes]).
-- [RedHat OpenJDK 11][redhat_downloads] from [RedHat](https://www.redhat.com/).
+- [RedHat OpenJDK 11][redhat_downloads] from [RedHat].
 - [SapMachine OpenJDK 11](https://sap.github.io/SapMachine/) from [SAP][sap_home].
 - [Trava OpenJDK 11][trava_downloads] from [Travis](https://travis-ci.com/) ([*release notes*][trava_relnotes]).
 - [Zulu OpenJDK 11][azul_downloads] from [Azul Systems][azul_systems] ([*release notes*][azul_relnotes]).
@@ -228,38 +228,38 @@ OpenJDK 64-Bit Server VM SapMachine (build 11.0.8+10-LTS-sapmachine, mixed mode,
 ### <span id="trava">Trava OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-dcevm-11.0.7+4\bin\java -version</b>
-Starting HotswapAgent 'c:\opt\jdk-dcevm-11.0.7+4\lib\hotswap\hotswap-agent.jar'
+<b>&gt; c:\opt\jdk-dcevm-11.0.8+1\bin\java -version</b>
+Starting HotswapAgent 'c:\opt\jdk-dcevm-11.0.8+1\lib\hotswap\hotswap-agent.jar'
 HOTSWAP AGENT: 10:28:40.841 INFO [...]
 HOTSWAP AGENT: 10:28:41.089 INFO [...]
-openjdk version "11.0.7" 2020-04-14
-OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.7+4-202006271159)
-Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.7+4-202006271159, mixed mode)
+openjdk version "11.0.8" 2020-07-14
+OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.8+1-202007270708)
+Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.8+1-202007270708, mixed mode)
 
-<b>&gt; c:\opt\jdk-dcevm-11.0.7+4\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-dcevm-11.0.8+1\bin\java -Xshare:dump</b>
 [...]
-Number of classes 1262
+Number of classes 12629
 [...]
 total    :  18048312 [100.0% of total] out of  18219008 bytes [ 99.1% used
-<b>&gt; dir c:\opt\jdk-dcevm-11.0.7+4\bin\server | findstr jsa</b>
-13.07.2020  10:30        18 284 544 classes.jsa
+<b>&gt; dir c:\opt\jdk-dcevm-11.0.8+1\bin\server | findstr jsa</b>
+04.09.2020  23:48        18 022 400 classes.jsa
 
-<b>&gt; c:\opt\jdk-dcevm-11.0.7+4\bin\java -version</b>
-Starting HotswapAgent 'c:\opt\jdk-dcevm-11.0.7+4\lib\hotswap\hotswap-agent.jar'
+<b>&gt; c:\opt\jdk-dcevm-11.0.8+1\bin\java -version</b>
+Starting HotswapAgent 'c:\opt\jdk-dcevm-11.0.8+1\lib\hotswap\hotswap-agent.jar'
 HOTSWAP AGENT: 10:31:03.941 INFO [...]
 HOTSWAP AGENT: 10:31:04.189 INFO [...]
-openjdk version "11.0.7" 2020-04-14
-OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.7+4-202006271159)
-Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.7+4-202006271159, mixed mode, sharing)
+openjdk version "11.0.8" 2020-07-14
+OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.8+1-202007270708)
+Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.8+1-202007270708, mixed mode, sharing)
 </pre>
 
 > **:mag_right:** [Trava OpenJDK](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases) is *not intended* to be used as 'main' JDK, since the integrated HotswapAgent is enabled by default and it uses serial GC by default. The default behaviour can be changed as follows:
 > <pre style="font-size:80%;">
-> <b>&gt; java -XX:+DisableHotswapAgent -XX:+UseConcMarkSweepGC -version</b>
+> <b>&gt; c:\opt\jdk-dcevm-11.0.8+1\bin\java -XX:+DisableHotswapAgent -XX:+UseConcMarkSweepGC -version</b>
 > Dynamic Code Evolution 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in version 9.0 and will likely be removed in a future release.
-> openjdk version "11.0.7" 2020-04-14
-> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.7+4-202006271159)
-> Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.7+4-202006271159, mixed mode, sharing)
+> openjdk version "11.0.8" 2020-07-14
+> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.8+1-202007270708)
+> Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.8+1-202007270708, mixed mode, sharing)
 > </pre>
 > Trava OpenJDK only supports the [serial and CMS garbage collectors](http://karunsubramanian.com/websphere/how-to-choose-the-correct-garbage-collector-java-generational-heap-and-garbage-collection-explained/) (ie. options `-XX:+UseParallelGC` and `-XX:+UseG1GC` are not supported).
 
@@ -267,22 +267,22 @@ Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.7+4-20200627115
 ### <span id="zulu">Zulu OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-zulu-11.0.7\bin\java -version</b>
-openjdk version "11.0.7" 2020-04-14 LTS
-OpenJDK Runtime Environment Zulu11.37+17-CA (build 11.0.7+10-LTS)
-OpenJDK 64-Bit Server VM Zulu11.37+17-CA (build 11.0.7+10-LTS, mixed mode)
+<b>&gt; c:\opt\jdk-zulu-11.0.8\bin\java -version</b>
+openjdk version "11.0.8" 2020-07-14 LTS
+OpenJDK Runtime Environment Zulu11.41+23-CA (build 11.0.8+10-LTS)
+OpenJDK 64-Bit Server VM Zulu11.41+23-CA (build 11.0.8+10-LTS, mixed mode)
 &nbsp;
-<b>&gt; c:\opt\jdk-zulu-11.0.7\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-zulu-11.0.8\bin\java -Xshare:dump</b>
 [...]
-Number of classes 1264
+Number of classes 1228
 [...]
-<b>&gt; dir c:\opt\jdk-zulu-11.0.7\bin\server | findstr jsa</b>
-20.04.2020  12:23        18 087 936 classes.jsa
+<b>&gt; dir c:\opt\jdk-zulu-11.0.8\bin\server | findstr jsa</b>
+04.09.2020  23:51        17 760 256 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-zulu-11.0.7\bin\java -version</b>
-openjdk version "11.0.7" 2020-04-14 LTS
-OpenJDK Runtime Environment Zulu11.39+15-CA (build 11.0.7+10-LTS)
-OpenJDK 64-Bit Server VM Zulu11.39+15-CA (build 11.0.7+10-LTS, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-zulu-11.0.8\bin\java -version</b>
+openjdk version "11.0.8" 2020-07-14 LTS
+OpenJDK Runtime Environment Zulu11.41+23-CA (build 11.0.8+10-LTS)
+OpenJDK 64-Bit Server VM Zulu11.41+23-CA (build 11.0.8+10-LTS, mixed mode, sharing)
 </pre>
 
 
@@ -326,13 +326,13 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html" rel="external">amazon-corretto-11.0.8.10.1-windows-x64-jdk.zip</a>                <i>(177 MB)</i>
 <a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.8+10-windows-amd64-lite.zip</a>                   <i>( 69 MB)</i>
-<a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.1.0">graalvm-ce-java11-windows-amd64-20.1.0.zip</a>                     <i>(360 MB)</i>
-<a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.7.10-1.windows.redhat.x86_64.zip</a>          <i>(235 MB)</i>
+<a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.2.0">graalvm-ce-java11-windows-amd64-20.2.0.zip</a>                     <i>(360 MB)</i>
+<a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.8.10-2.windows.redhat.x86_64.zip</a>          <i>(235 MB)</i>
 <a href="https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases/latest">java11-openjdk-dcevm-windows.zip</a>                               <i>(187 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.8_10.zip</a>               <i>(190 MB)</i>
 <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">OpenJDK11U-jdk_x64_windows_openj9_11.0.8_10_openj9-0.21.0.zip</a>  <i>(193 MB)</i>
 <a href="https://sap.github.io/SapMachine/" rel="external">sapmachine-jdk-11.0.8_windows-x64_bin.zip</a>                      <i>(187 MB)</i>
-<a href="https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html" rel="external">zulu11.41.23-ca-jdk11.0.8-win_x64.zip</a>                          <i>(188 MB)</i>
+<a href="https://www.azul.com/downloads/zulu-community/?version=java-11-lts" rel="external">zulu11.41.23-ca-jdk11.0.8-win_x64.zip</a>                          <i>(188 MB)</i>
 </pre>
 
 ***
@@ -375,6 +375,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 [oracle_openjdk_project]: https://openjdk.java.net/projects/jdk/11/
 [oracle_openjdk_downloads]: https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
 [oracle_openjdk_relnotes]: https://adoptopenjdk.net/release_notes.html?variant=openjdk11&jvmVariant=hotspot#jdk11_0_8
+[redhat]: https://www.redhat.com/
 [redhat_downloads]: https://developers.redhat.com/products/openjdk/download/
 [sap_home]: https://www.sap.com/
 [trava_downloads]: https://github.com/TravaOpenJDK/trava-jdk-11-dcevm
