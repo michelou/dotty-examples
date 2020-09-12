@@ -174,9 +174,11 @@ set _PROJECT_VERSION=0.1-SNAPSHOT
 set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
 if exist "%__PROPS_FILE%" (
     for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
+        set __NAME=
+        set __VALUE=
         for /f "delims= " %%n in ("%%i") do set __NAME=%%n
         @rem line comments start with "#"
-        if not "!__NAME!"=="" if not "!__NAME:~0,1!"=="#" (
+        if defined __NAME if not "!__NAME:~0,1!"=="#" (
             @rem trim value
             for /f "tokens=*" %%v in ("%%~j") do set __VALUE=%%v
             set "_!__NAME:.=_!=!__VALUE!"

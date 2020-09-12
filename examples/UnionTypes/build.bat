@@ -174,9 +174,11 @@ set _PROJECT_VERSION=0.1-SNAPSHOT
 set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
 if exist "%__PROPS_FILE%" (
     for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
+        set __NAME=
+        set __VALUE=
         for /f "delims= " %%n in ("%%i") do set __NAME=%%n
         @rem line comments start with "#"
-        if not "!__NAME!"=="" if not "!__NAME:~0,1!"=="#" (
+        if defined __NAME if not "!__NAME:~0,1!"=="#" (
             @rem trim value
             for /f "tokens=*" %%v in ("%%~j") do set __VALUE=%%v
             set "_!__NAME:.=_!=!__VALUE!"
@@ -294,6 +296,7 @@ if %_DEBUG%==1 (
     if %_DOTTY%==0 ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" SCALA_HOME="%SCALA_HOME%" 1>&2
     ) else ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" DOTTY_HOME="%DOTTY_HOME%" 1>&2
     )
+    echo %_DEBUG_LABEL% Variables  : _MAIN_CLASS=%_MAIN_CLASS% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
@@ -377,7 +380,7 @@ set __SCALAFMT_OPTS=--test --config "%_SCALAFMT_CONFIG_FILE%"
 if %_DEBUG%==1 set __SCALAFMT_OPTS=--debug %__SCALAFMT_OPTS%
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_SOURCE_DIR%\main\scala\" 1>&2
-) else if %_VERBOSE%==1 ( echo Analyze %__N% Scala source files with Scalafmt 1>&2
+) else if %_VERBOSE%==1 ( echo Analyze Scala source files with Scalafmt 1>&2
 )
 call "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% %_SOURCE_DIR%\main\scala\
 if not %ERRORLEVEL%==0 (
@@ -496,8 +499,8 @@ for /f "usebackq" %%i in (`powershell -c "gci -recurse -path '%__PATH%' -ea Stop
 call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
 set _COMPILE_REQUIRED=%_NEWER%
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% "%__TARGET_FILE%" 1>&2
-    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% "%__PATH%" 1>&2
+    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% Target : "%__TARGET_FILE%" 1>&2
+    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: "%__PATH%" 1>&2
     echo %_DEBUG_LABEL% _COMPILE_REQUIRED=%_COMPILE_REQUIRED% 1>&2
 ) else if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
     echo No compilation needed ^("!__PATH:%_ROOT_DIR%=!"^) 1>&2

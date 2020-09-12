@@ -14,9 +14,9 @@ $latest=Invoke-WebRequest -UseBasicParsing -Uri $request |
 ConvertFrom-Json |
 Select -expand response |
 Select -expand docs |
-# Where { $_.a -match "^dotty-compiler_0\.21.*" } |
+# Where { $_.a -match "^dotty-compiler_0\.28.*" } |
 Select-Object -first 1 |
-# for instance: 0.23.0-bin-20200305-84f2e41-NIGHTLY
+# for instance: 0.28.0-bin-20200911-b226ff1-NIGHTLY
 Foreach { $_.latestVersion }
 
 if ($debug -eq 1) { [Console]::Error.WriteLine("[getnightly] latest=$latest") }
@@ -27,5 +27,5 @@ ConvertFrom-Json |
 Select -expand response |
 Select -expand docs |
 Where { $_.a -match "^dotty.*" -or $_.a -match "^tasty.*" } |
-# http://repo.maven.apache.org/maven2/ch/epfl/lamp/dotty-compiler_0.23/0.23.0-bin-20200305-84f2e41-NIGHTLY/dotty-compiler_0.23-0.23.0-bin-20200305-84f2e41-NIGHTLY.jar
+# https://repo.maven.apache.org/maven2/ch/epfl/lamp/dotty-compiler_0.28/0.28.0-bin-20200911-b226ff1-NIGHTLY/dotty-compiler_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
 Foreach { ($_.g -replace "\.", "/")+'/'+$_.a+'/'+$latest+'/'+$_.a+'-'+$latest+'.jar' }

@@ -110,6 +110,9 @@ if not exist "%SCALAFMT_HOME%\bin\scalafmt.bat" (
    goto :eof
 )
 set "_SCALAFMT_CMD=%SCALAFMT_HOME%\bin\scalafmt.bat"
+
+set _SCALAFMT_CONFIG_FILE=
+for %%f in ("%~dp0\.") do set "_SCALAFMT_CONFIG_FILE=%%~dpf.scalafmt.conf"
 goto :eof
 
 :env_colors
@@ -364,7 +367,7 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :lint
-set __SCALAFMT_OPTS=--test
+set __SCALAFMT_OPTS=--test --config "%_SCALAFMT_CONFIG_FILE%"
 if %_DEBUG%==1 set __SCALAFMT_OPTS=--debug %__SCALAFMT_OPTS%
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_SOURCE_DIR%\main\scala\" 1>&2
@@ -414,7 +417,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_
 )
 call "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of main Java source files failed 1>&2
+    echo %_ERROR_LABEL% Compilation of %__N% Java source files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -436,7 +439,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of Scala source files failed 1>&2
+    echo %_ERROR_LABEL% Compilation of %__N% Scala source files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -464,7 +467,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURC
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not !ERRORLEVEL!==0 (
-    echo %_ERROR_LABEL% Compilation from TASTy files failed 1>&2
+    echo %_ERROR_LABEL% Compilation of %__N% TASTy files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -528,7 +531,7 @@ if not exist "%__BATCH_FILE%" (
 )
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__BATCH_FILE%" %_DEBUG% 1>&2
 call "%__BATCH_FILE%" %_DEBUG%
-set _LIBS_CPATH=%_CPATH%
+set "_LIBS_CPATH=%_CPATH%"
 
 if defined __ADD_DOTTY_LIBS (
     if not defined DOTTY_HOME (
@@ -537,7 +540,7 @@ if defined __ADD_DOTTY_LIBS (
         goto :eof
     )
     for %%f in ("%DOTTY_HOME%\lib\dotty*.jar" "%DOTTY_HOME%\lib\scala*.jar") do (
-        set _LIBS_CPATH=!_LIBS_CPATH!%%f;
+        set "_LIBS_CPATH=!_LIBS_CPATH!%%f;"
     )
 )
 goto :eof
@@ -623,8 +626,10 @@ call :compile_required "%__DOC_TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\scala\*.scal
 if %_COMPILE_REQUIRED%==0 goto :eof
 
 set "__SOURCES_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
+set __N=0
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i>> "%__SOURCES_FILE%"
+    set /a __N+=1
 )
 set "__OPTS_FILE=%_TARGET_DIR%\scaladoc_opts.txt"
 if %_DOTTY%==0 (

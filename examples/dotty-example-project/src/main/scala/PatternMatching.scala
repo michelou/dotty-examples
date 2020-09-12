@@ -1,7 +1,6 @@
-
 /**
-  * Pattern Matching: https://dotty.epfl.ch/docs/reference/changed-features/pattern-matching.html
-  */
+ * Pattern Matching: https://dotty.epfl.ch/docs/reference/changed-features/pattern-matching.html
+ */
 object PatternMatching {
 
   object booleanPattern {
@@ -36,11 +35,13 @@ object PatternMatching {
 
     // adapted from http://danielwestheide.com/blog/2012/11/28/the-neophytes-guide-to-scala-part-2-extracting-sequences.html
     object Names {
+
       def unapplySeq(name: String): Option[Seq[String]] = {
         val names = name.trim.split(" ")
         if (names.size < 2) None
         else Some(names.last :: names.head :: names.drop(1).dropRight(1).toList)
       }
+
     }
 
   }
@@ -59,7 +60,6 @@ object PatternMatching {
   }
 
   def test: Unit = {
-
     import booleanPattern._
 
     "even" match {
@@ -100,4 +100,5 @@ object PatternMatching {
     }
 
   }
+
 }

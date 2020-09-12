@@ -35,7 +35,7 @@ if %_ACTIVATE_NIGHTLY%==1 (
     call :download
     if not !_EXITCODE!==0 goto end
 
-    if defined _NIGHTLY_UPTODATE goto end
+    @rem if defined _NIGHTLY_UPTODATE goto end
 
     call :backup_nightly
     if not !_EXITCODE!==0 goto end
@@ -253,7 +253,7 @@ goto :eof
 
 @rem output parameter: _NIGHTLY_VERSION, _NIGHTLY_UPTODATE
 :download
-set _NIGHTLY_UPTODATE=
+@rem set _NIGHTLY_UPTODATE=
 
 if not exist "%_OUTPUT_DIR%\*.jar" goto :download_check
 
@@ -304,7 +304,7 @@ for /f %%i in ('dir /b "%_OUTPUT_DIR%\dotty-compiler_*.jar" 2^>NUL') do (
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Nightly version is %_NIGHTLY_VERSION% 1>&2
 ) else if %_VERBOSE%==1 ( echo Nightly version is %_NIGHTLY_VERSION% 1>&2
 )
-set _NIGHTLY_UPTODATE=1
+@rem set _NIGHTLY_UPTODATE=1
 goto :eof
 
 @rem global variable: _DOTTY_HOME

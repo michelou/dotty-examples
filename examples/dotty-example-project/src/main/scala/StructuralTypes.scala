@@ -1,7 +1,6 @@
-
 /**
-  * Structural Types: https://dotty.epfl.ch/docs/reference/other-new-features/trait-parameters.html
-  */
+ * Structural Types: https://dotty.epfl.ch/docs/reference/other-new-features/trait-parameters.html
+ */
 object StructuralTypes {
 
   case class Record(elems: (String, Any)*) extends Selectable {
@@ -13,9 +12,11 @@ object StructuralTypes {
     val age: Int
   }
 
-  val person = Record("name" -> "Emma", "age" -> 42, "salary" -> 320L).asInstanceOf[Person]
+  val person =
+    Record("name" -> "Emma", "age" -> 42, "salary" -> 320L).asInstanceOf[Person]
 
-  val invalidPerson = Record("name" -> "John", "salary" -> 42).asInstanceOf[Person]
+  val invalidPerson =
+    Record("name" -> "John", "salary" -> 42).asInstanceOf[Person]
 
   def test: Unit = {
     println(person.name)
@@ -25,4 +26,5 @@ object StructuralTypes {
     // age field is java.util.NoSuchElementException: None.get
     //println(invalidPerson.age)
   }
+
 }

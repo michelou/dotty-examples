@@ -1,6 +1,6 @@
 /**
-  * Intersection Types: https://dotty.epfl.ch/docs/reference/new-types/intersection-types.html
-  */
+ * Intersection Types: https://dotty.epfl.ch/docs/reference/new-types/intersection-types.html
+ */
 object IntersectionTypes {
 
   sealed trait X {
@@ -31,4 +31,5 @@ object IntersectionTypes {
     println(euclideanDistance(p1, p2))
 
   }
+
 }

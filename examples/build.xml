@@ -150,11 +150,14 @@
                 <jvmarg value="-Xmx768m" />
                 <jvmarg value="-Xms768m" />
                 <jvmarg value="-Dscala.usejavacp=true" />
-                <arg value="-deprecation" />
-                <arg value="-d" />
+                <arg value="-siteroot" />
                 <arg value="@{destdir}" />
                 <arg value="-classpath" />
                 <arg value="${quoted}${classpath}${quoted}" />
+                <arg value="-project" />
+                <arg value="${ant.project.name}" />
+                <arg value="-project-url" />
+                <arg value="github.com/${user.name}/dotty-examples" />
                 <arg line="${scala.sources}" />
             </java>
         </sequential>
