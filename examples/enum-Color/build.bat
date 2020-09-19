@@ -77,27 +77,27 @@ set "_TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
 
 if not exist "%JAVA_HOME%\bin\javac.exe" (
-   echo %_ERROR_LABEL% Java SDK installation not found 1>&2
-   set _EXITCODE=1
-   goto :eof
+    echo %_ERROR_LABEL% Java SDK installation not found 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
 set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
 set "_JAVADOC_CMD=%JAVA_HOME%\bin\javadoc.exe"
 
 if not exist "%SCALA_HOME%\bin\scalac.bat" (
-   echo %_ERROR_LABEL% Scala 2 installation not found 1>&2
-   set _EXITCODE=1
-   goto :eof
+    echo %_ERROR_LABEL% Scala 2 installation not found 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 set "_SCALA[0]=%SCALA_HOME%\bin\scala.bat"
 set "_SCALAC[0]=%SCALA_HOME%\bin\scalac.bat"
 set "_SCALADOC[0]=%SCALA_HOME%\bin\scaladoc.bat"
 
 if not exist "%DOTTY_HOME%\bin\dotc.bat" (
-   echo %_ERROR_LABEL% Scala 3 installation not found 1>&2
-   set _EXITCODE=1
-   goto :eof
+    echo %_ERROR_LABEL% Scala 3 installation not found 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 set "_SCALA[1]=%DOTTY_HOME%\bin\dotr.bat"
 set "_SCALAC[1]=%DOTTY_HOME%\bin\dotc.bat"
@@ -105,7 +105,7 @@ set "_SCALADOC[1]=%DOTTY_HOME%\bin\dotd.bat"
 
 set _SCALAFMT_CMD=
 if exist "%SCALAFMT_HOME%\bin\scalafmt.bat" (
-   set "_SCALAFMT_CMD=%SCALAFMT_HOME%\bin\scalafmt.bat"
+    set "_SCALAFMT_CMD=%SCALAFMT_HOME%\bin\scalafmt.bat"
 )
 set _SCALAFMT_CONFIG_FILE=
 for %%f in ("%~dp0\.") do set "_SCALAFMT_CONFIG_FILE=%%~dpf.scalafmt.conf"
@@ -305,9 +305,10 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% _PROJECT_VERSION=%_PROJECT_VERSION% 1>&2
     echo %_DEBUG_LABEL% Options    : _DOTTY=%_DOTTY% _EXPLAIN=%_SCALAC_OPTS_EXPLAIN% _INSTRUMENTED=%_INSTRUMENTED% _PRINT=%_SCALAC_OPTS_PRINT% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
-    if %_DOTTY%==0 ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% SCALA_HOME=%SCALA_HOME% 1>&2
+    if %_DOTTY%==0 ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" SCALA_HOME="%SCALA_HOME%" 1>&2
     ) else ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" DOTTY_HOME="%DOTTY_HOME%" 1>&2
     )
+    echo %_DEBUG_LABEL% Variables  : _MAIN_CLASS=%_MAIN_CLASS% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
@@ -437,7 +438,8 @@ for /f %%f in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     set /a __N+=1
 )
 set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
-echo -classpath "%_LIBS_CPATH%%_CLASSES_DIR:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
+set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%" 
+echo -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% Java source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
@@ -626,7 +628,6 @@ if not exist "%__OUTPUT_DIR%" mkdir "%__OUTPUT_DIR%"
 call :extra_cpath
 if not %_EXITCODE%==0 goto :eof
 
-set __CFR_CMD=cfr.bat
 set __CFR_OPTS=--extraclasspath "%_EXTRA_CPATH%" --outputdir "%__OUTPUT_DIR%"
 
 set "__CLASS_DIRS=%_CLASSES_DIR%"
@@ -635,8 +636,8 @@ for /f "delims=" %%f in ('dir /b /s /ad "%_CLASSES_DIR%" 2^>NUL') do (
 )
 if %_VERBOSE%==1 echo Decompile Java bytecode to directory "!__OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
 for %%i in (%__CLASS_DIRS%) do (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__CFR_CMD%" %__CFR_OPTS% "%%i\*.class" 1>&2
-    call "%__CFR_CMD%" %__CFR_OPTS% "%%i"\*.class %_STDERR_REDIRECT%
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_CFR_CMD%" %__CFR_OPTS% "%%i\*.class" 1>&2
+    call "%_CFR_CMD%" %__CFR_OPTS% "%%i"\*.class %_STDERR_REDIRECT%
     if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Failed to decompile generated code in directory "%%i" 1>&2
         set _EXITCODE=1

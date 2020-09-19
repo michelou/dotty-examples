@@ -594,12 +594,10 @@ goto :eof
 @rem output parameters: _VERSION_STRING, _VERSION_SUFFIX
 :version_string
 if %_DOTTY%==1 (
-    set "__LIB_PATH=%DOTTY_HOME%\lib"
     for /f "tokens=1,2,3,4,*" %%i in ('%DOTTY_HOME%\bin\dotc.bat -version 2^>^&1') do (
         set "_VERSION_STRING=scala3_%%l"
     )
 ) else (
-    set "__LIB_PATH=%SCALA_HOME%\lib"
     for /f "tokens=1,2,3,4,*" %%i in ('%SCALA_HOME%\bin\scalac.bat -version') do (
         set "_VERSION_STRING=scala2_%%l"
     )

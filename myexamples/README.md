@@ -14,7 +14,7 @@
 Let's choose example [**`myexamples\HelloWorld`**](HelloWorld) to demonstrate the usage of the build tools we do support:
 
 <pre style="font-size:80%;">
-<b>&gt; cd</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
 W:\myexamples\HelloWorld
 </pre>
 
@@ -24,7 +24,7 @@ Build tools rely on one or more configuration files to achieve their tasks. In o
 |-------------------------------|---------------------------------------------------------|--------------------------------------|
 | [**`ant.bat`**][apache_ant_cli]   | [**`build.xml`**](HelloWorld/build.xml)                 | [**`build.xml`**](build.xml), [**`ivy.xml`**](ivy.xml) |
 | [**`bazel.exe`**][bazel_cli]      | [**`BUILD`**](HelloWorld/BUILD), **`WORKSPACE`**        | n.a.                                 |
-| **`build`**                   | [**`build.properties`**](HelloWorld/project/build.properties) | n.a.                           |
+| **`build.bat`**                   | [**`build.properties`**](HelloWorld/project/build.properties) | n.a.                           |
 | [**`gradle.bat`**][gradle_cli]    | [**`build.gradle`**](HelloWorld/build.gradle)           | [**`common.gradle`**](common.gradle) |
 | [**`make.exe`**][gmake_cli]       | [**`Makefile`**](HelloWorld/Makefile)                   | [**`Makefile.inc`**](Makefile.inc)   |
 | [**`mill.bat`**][mill_cli]        | [**`build.sc`**](HelloWorld/build.sc)                   | [**`common.sc`**](common.sc)         |
@@ -71,8 +71,8 @@ Total time: 3 seconds
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://curl.haxx.se/docs/manual.html">curl</a> -sL -o c:\Temp\apache-ivy-2.5.0.zip https://www-eu.apache.org/dist//ant/ivy/2.5.0/apache-ivy-2.5.0-bin.zip</b>
 > <b>&gt; unzip c:\temp\apache-ivy-2.5.0.zip -d c:\opt</b>
-> <b>&gt; copy c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.7\lib</b>
-> <b>&gt; dir c:\opt\apache-ant-1.10.7\lib | findstr ivy</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/copy">copy</a> c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.8\lib</b>
+> <b>&gt; dir c:\opt\apache-ant-1.10.8\lib | findstr ivy</b>
 > 20.10.2019  09:44         1 402 646 ivy-2.5.0.jar
 > </pre>
 
@@ -106,7 +106,7 @@ Total time: 14 seconds
 
 ## <span id="build">`build.bat` command</span>
 
-Command [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~600 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
+Command [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~700 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
 
 Command [**`build clean run`**](HelloWorld/build.bat) produces the following output:
 
@@ -348,15 +348,15 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 Finally can check the Java manifest in **`HelloWorld-0.1-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.26.0-RC1\lib\dotty-library_0.26-0.26.0-RC1.jar;^
-c:\opt\dotty-0.26.0-RC1\lib\scala-library-2.13.1.jar ^
+<b>&gt;</b> java -Xbootclasspath/a:c:\opt\dotty-0.27.0-RC1\lib\dotty-library_0.27-0.27.0-RC1.jar;^
+c:\opt\dotty-0.27.0-RC1\lib\scala-library-2.13.3.jar ^
 -jar target\HelloWorld-0.1-SNAPSHOT.jar
 Hello world!
 </pre>
 
 > **:mag_right:** We can use batch script [**`searchjars`**](../bin/searchjars.bat) in case some class is missing in the specified classpath, e.g.
 > <pre style="font-size:80%;">
-> <b>&gt; java -Xbootclasspath/a:c:\opt\dotty-0.26.0-RC1\lib\dotty-library_0.26-0.26.0-RC1.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
+> <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\dotty-0.27.0-RC1\lib\dotty-library_0.27-0.27.0-RC1.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
 > Exception in thread "main" java.lang.NoClassDefFoundError: scala/Serializable
 >         [...]
 >         at Main.main(Main.scala)
@@ -547,7 +547,7 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
