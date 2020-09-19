@@ -1,5 +1,7 @@
 package dividezero
 
+import scala.language.implicitConversions
+
 import dotty.tools.dotc._
 import ast.Trees._
 import ast.tpd

@@ -26,7 +26,7 @@ This document is part of a series of topics related to [Dotty] on Windows:
 This project depends on several external software for the **Microsoft Windows** platform:
 
 - [BellSoft OpenJDK 11][bellsoft_downloads] from [BellSoft][bellsoft_about] ([*release notes*][bellsoft_relnotes]).
-- [Corretto OpenJDK 11][amazon_corretto_downloads] from [Amazon][amazyon_aws] ([*release notes*][amazon_corretto_relnotes]).
+- [Corretto OpenJDK 11][amazon_corretto_downloads] from [Amazon][amazon_aws] ([*release notes*][amazon_corretto_relnotes]).
 - [GraalVM OpenJDK 11][graalvm_downloads] from [Oracle] ([*release notes*][graalvm_relnotes]).
 - [OpenJ9 OpenJDK 11][openj9_downloads] from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html) ([*release notes*][openj9_relnotes], [*what's new?*][openj9_news]).
 - [Oracle OpenJDK 11][oracle_openjdk_downloads] from [Oracle] ([*release notes*][oracle_openjdk_relnotes]).
@@ -191,7 +191,7 @@ OpenJDK 64-Bit Server VM 18.9 (build 11.0.7+10-LTS, mixed mode)
 [...]
 Number of classes 1265
 [...]
-<b>&gt; dir c:\opt\jdk-redhat-11.0.7.10\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-redhat-11.0.7.10\bin\server | findstr jsa</b>
 28.04.2020  16:21        15 073 280 classes.jsa
 
 <b>&gt; c:\opt\jdk-redhat-11.0.7.10\bin\java -version</b>
@@ -213,7 +213,7 @@ OpenJDK 64-Bit Server VM SapMachine (build 11.0.8+10-LTS-sapmachine, mixed mode)
 [...]
 Number of classes 1214
 [...]
-<b>&gt; dir c:\opt\jdk-sapmachine-11.0.8\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-sapmachine-11.0.8\bin\server | findstr jsa</b>
 19.07.2020  00:29        17 629 184 classes.jsa
 &nbsp;
 <b>&gt; c:\opt\jdk-sapmachine-11.0.8\bin\java -version</b>
@@ -241,7 +241,7 @@ Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.8+1-20200727070
 Number of classes 12629
 [...]
 total    :  18048312 [100.0% of total] out of  18219008 bytes [ 99.1% used
-<b>&gt; dir c:\opt\jdk-dcevm-11.0.8+1\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-dcevm-11.0.8+1\bin\server | findstr jsa</b>
 04.09.2020  23:48        18 022 400 classes.jsa
 
 <b>&gt; c:\opt\jdk-dcevm-11.0.8+1\bin\java -version</b>
@@ -276,7 +276,7 @@ OpenJDK 64-Bit Server VM Zulu11.41+23-CA (build 11.0.8+10-LTS, mixed mode)
 [...]
 Number of classes 1228
 [...]
-<b>&gt; dir c:\opt\jdk-zulu-11.0.8\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-zulu-11.0.8\bin\server | findstr jsa</b>
 04.09.2020  23:51        17 760 256 classes.jsa
 &nbsp;
 <b>&gt; c:\opt\jdk-zulu-11.0.8\bin\java -version</b>

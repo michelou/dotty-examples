@@ -281,7 +281,7 @@ We distinguish different sets of batch/bash commands:
 
 ## <span id="examples">Usage examples</span>
 
-#### `setenv.bat`
+### `setenv.bat`
 
 Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`javac.exe`**][javac_cli], [**`sbt.bat`**][sbt_cli] and [**`git.exe`**][git_cli] directly available from the command prompt:
 
@@ -290,7 +290,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 Tool versions:
    javac 11.0.8, java 11.0.8, scalac 2.13.3, dotc 0.27.0-RC1,
    ant 1.10.8, gradle 6.6.1, mill 0.8.0, mvn 3.6.3, sbt 1.3.13,
-   bazel 3.5.0, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.3,
+   bazel 3.5.0, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.5,
    git 2.28.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
@@ -305,7 +305,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 Tool versions:
    javac 11.0.8, java 11.0.8, scalac 2.13.3, dotc 0.27.0-RC1,
    ant 1.10.8, gradle 6.6.1, mill 0.8.0, mvn 3.6.3, sbt 1.3.13,
-   bazel 3.5.0, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.3,
+   bazel 3.5.0, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.5,
    git 2.28.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-11.0.8+10\bin\javac.exe
@@ -333,7 +333,7 @@ Environment variables:
    SCALA_HOME=C:\opt\scala-2.13.3
 </pre>
 
-#### `cleanup.bat`
+### `cleanup.bat`
 
 Command [**`cleanup`**](bin/cleanup.bat) removes the output directories (ie. **`target\`**) from the example projects: 
 
@@ -344,7 +344,7 @@ Finished to clean up 16 subdirectories in W:\dotty\examples
 Finished to clean up 12 subdirectories in W:\dotty\myexamples
 </pre>
 
-#### `dirsize.bat {<dir_name>}`
+### `dirsize.bat {<dir_name>}`
 
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
@@ -356,27 +356,27 @@ Size of directory "c:\opt\dotty-0.27.0-RC1" is 26.7 Mb
 Size of directory "c:\opt\jdk-11.0.8+10" is 184.2 Mb
 </pre>
 
-#### `getnightly.bat`
+### `getnightly.bat`
 
 By default command [**`getnightly`**](bin/getnightly.bat) downloads the library files of the latest [Dotty nightly build][dotty_nightly] available from the [Maven Central Repository][maven_lamp] and saves them into directory **`out\nightly-jars\`**.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a></b>
 
-<b>&gt; dir /b out\nightly-jars</b>
-dotty-compiler_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-dotty-doc_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-dotty-interfaces-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-dotty-language-server_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-dotty-library_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-dotty-library_sjs1_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-dotty-sbt-bridge-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-dotty-staging_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-dotty-tasty-inspector_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-dotty-tastydoc-input_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-dotty-tastydoc_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-dotty_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-tasty-core_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b out\nightly-jars</b>
+dotty-compiler_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+dotty-doc_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+dotty-interfaces-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+dotty-language-server_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+dotty-library_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+dotty-library_sjs1_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+dotty-sbt-bridge-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+dotty-staging_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+dotty-tasty-inspector_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+dotty-tastydoc-input_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+dotty-tastydoc_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+dotty_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+tasty-core_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
 </pre>
 
 > **:mag_right:** A few notes about the distributed Java archives:
@@ -390,21 +390,21 @@ Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the downlo
 <pre style="font-size:80%">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose</b>
 Check for nightly files on Maven repository
-Downloading file dotty-library_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar ... 1.4 Mb
-Downloading file tasty-core_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar ... 51.6 Kb
-Downloading file dotty-library_sjs1_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar ... 2.4 Mb
-Downloading file dotty-tastydoc-input_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar ... 36.1 Kb
-Downloading file dotty-compiler_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar ... 12.4 Mb
-Downloading file dotty-sbt-bridge-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar ... 13.4 Kb
-Downloading file dotty-doc_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar ... 1 Mb
-Downloading file dotty-language-server_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar ... 145.8 Kb
-Downloading file dotty-staging_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar ... 35.5 Kb
-Downloading file dotty-tastydoc_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar ... 435.4 Kb
-Downloading file dotty-interfaces-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar ... 3.4 Kb
-Downloading file dotty-tasty-inspector_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar ... 8 Kb
-Downloading file dotty_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar ... 0.3 Kb
+Downloading file dotty-library_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar ... 1.5 Mb
+Downloading file dotty-tastydoc-input_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar ... 36.1 Kb
+Downloading file tasty-core_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar ... 51.6 Kb
+Downloading file dotty-library_sjs1_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar ... 2.5 Mb
+Downloading file dotty-compiler_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar ... 12.5 Mb
+Downloading file dotty-sbt-bridge-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar ... 13.4 Kb
+Downloading file dotty-doc_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar ... 1 Mb
+Downloading file dotty-language-server_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar ... 145.8 Kb
+Downloading file dotty-staging_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar ... 35.5 Kb
+Downloading file dotty-tastydoc_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar ... 434.4 Kb
+Downloading file dotty-interfaces-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar ... 3.4 Kb
+Downloading file dotty-tasty-inspector_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar ... 8 Kb
+Downloading file dotty_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar ... 0.3 Kb
 Finished to download 13 files to directory W:\out\nightly-jars
-Nightly version is 0.28.0-bin-20200911-b226ff1-NIGHTLY
+Nightly version is 0.28.0-bin-20200916-a05fc4b-NIGHTLY
 </pre>
 
 We can now replace the library files from the original [Dotty distribution][dotty_releases] (installed in directory **`C:\opt\dotty-0.27.0-RC1\`** in our case) with library files from the latest nightly build.
@@ -413,11 +413,11 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> activate</b>
-Local nightly version has changed from 0.27.0-RC1 to 0.28.0-bin-20200911-b226ff1-NIGHTLY
-Activate nightly build libraries: 0.28.0-bin-20200911-b226ff1-NIGHTLY
+Local nightly version has changed from 0.27.0-RC1 to 0.28.0-bin-20200916-a05fc4b-NIGHTLY
+Activate nightly build libraries: 0.28.0-bin-20200916-a05fc4b-NIGHTLY
 
 <b>&gt; <a href="bin/0.27/dotc.bat">dotc</a> -version</b>
-Dotty compiler version 0.28.0-bin-20200911-b226ff1-NIGHTLY-git-b226ff1 -- Copyright 2002-2020, LAMP/EPFL
+Dotty compiler version 0.28.0-bin-20200916-a05fc4b-NIGHTLY-git-a05fc4b -- Copyright 2002-2020, LAMP/EPFL
 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> reset</b>
 Activate default Dotty libraries: 0.27.0-RC1
@@ -431,7 +431,7 @@ Dotty compiler version 0.27.0-RC1 -- Copyright 2002-2020, LAMP/EPFL
 Internally command [**`getnightly`**](bin/getnightly.bat) manages two sets of libraries files which are organized as follows:
 
 <pre style="font-size:80%;">
-<b>&gt; pushd c:\opt\dotty-0.27.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/pushd">pushd</a> c:\opt\dotty-0.27.0-RC1&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd</b>
 VERSION
 VERSION-NIGHTLY
 lib\0.27.0-RC1\
@@ -443,25 +443,25 @@ lib\0.27.0-RC1\
 &nbsp;&nbsp;dotty-staging_0.27-0.27.0-RC1.jar
 &nbsp;&nbsp;dotty-tasty-inspector_0.27-0.27.0-RC1.jar
 &nbsp;&nbsp;tasty-core_0.27-0.27.0-RC1.jar
-lib\0.28.0-bin-20200911-b226ff1-NIGHTLY\
-&nbsp;&nbsp;dotty-compiler_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-&nbsp;&nbsp;dotty-doc_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-&nbsp;&nbsp;dotty-interfaces-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-&nbsp;&nbsp;dotty-language-server_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-&nbsp;&nbsp;dotty-library_sjs1_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-&nbsp;&nbsp;dotty-sbt-bridge-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-&nbsp;&nbsp;dotty-staging_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tasty-inspector_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc-input_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-&nbsp;&nbsp;dotty-tastydoc_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-&nbsp;&nbsp;dotty_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
-&nbsp;&nbsp;tasty-core_0.28-0.28.0-bin-20200911-b226ff1-NIGHTLY.jar
+lib\0.28.0-bin-20200916-a05fc4b-NIGHTLY\
+&nbsp;&nbsp;dotty-compiler_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-doc_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-interfaces-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-language-server_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-library_sjs1_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-sbt-bridge-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-staging_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tasty-inspector_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc-input_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+&nbsp;&nbsp;dotty-tastydoc_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+&nbsp;&nbsp;dotty_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
+&nbsp;&nbsp;tasty-core_0.28-0.28.0-bin-20200916-a05fc4b-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original [Dotty] installation respectively from the latest nightly build.
 
-#### `searchjars.bat <class_name>`
+### `searchjars.bat <class_name>`
 
 Command [**`searchjars`**](bin/searchjars.bat) helps us to search for class file names in the following directories: project's **`lib\`** directory (*if present*), Dotty's **`lib\`** directory, Java's **`lib\`** directory and Ivy/Maven default directories.
 
@@ -544,7 +544,7 @@ Searching for class name FileSystem in archive files %USERPROFILE%\.m2\repositor
   stagemonitor-os-0.88.9.jar:org/stagemonitor/os/metrics/FileSystemMetricSet.class
 </pre>
 
-#### `timeit.bat <cmd_1> { & <cmd_i> }`
+### `timeit.bat <cmd_1> { & <cmd_i> }`
 
 Command [**`timeit`**](bin/timeit.bat) prints the execution time (`hh:MM:ss` format) of the specified command (possibly given with options and parameters):
 
@@ -618,7 +618,7 @@ Parent directory: W:\dotty\myexamples
 </pre>
 -->
 
-#### `build.bat`
+### `build.bat`
 
 Command [**`build`**](examples/enum-Planet/build.bat) is a basic build tool consisting of ~800 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_04">[[4]](#footnote_04)</sup>.
 
@@ -638,7 +638,7 @@ Your weight on JUPITER (4) is 2.5305575254957406</pre>
 More usage examples are presented in [**`examples\README.md`**](examples/README.md) resp. [**`myexamples\README.md`**](myexamples/README.md)
 
 
-#### `dotr.bat`
+### `dotr.bat`
 
 [Dotty REPL][dotty_repl] is an interactive tool for evaluating [Scala] expressions. Internally, it executes a source script by wrapping it in a template and then compiling and executing the resulting program.
 

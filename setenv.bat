@@ -26,7 +26,6 @@ if %_HELP%==1 (
 set _ANT_PATH=
 set _BAZEL_PATH=
 set _BLOOP_PATH=
-set _CFR_PATH=
 set _DOTTY_PATH=
 set _GIT_PATH=
 set _GRADLE_PATH=
@@ -523,6 +522,7 @@ set "_BAZEL_PATH=;%__BAZEL_HOME%"
 goto :eof
 
 @rem http://www.benf.org/other/cfr/
+@rem output parameter: _CFR_HOME
 :cfr
 where /q cfr.bat
 if %ERRORLEVEL%==0 goto :eof
@@ -542,7 +542,6 @@ if not exist "%_CFR_HOME%\bin\cfr.bat" (
     set _EXITCODE=1
     goto :eof
 )
-set "_CFR_PATH=;%_CFR_HOME%\bin"
 goto :eof
 
 :gradle
@@ -987,13 +986,14 @@ goto :eof
 endlocal & (
     if %_EXITCODE%==0 (
         if not defined ANT_HOME set "ANT_HOME=%_ANT_HOME%"
+        if not defined CFR_HOME set "CFR_HOME=%_CFR_HOME%"
         if not defined DOTTY_HOME set "DOTTY_HOME=%_DOTTY_HOME%"
         if not defined JACOCO_HOME set "JACOCO_HOME=%_JACOCO_HOME%"
         if not defined JAVA_HOME set "JAVA_HOME=%_JDK_HOME%"
         if not defined JAVA11_HOME set "JAVA11_HOME=%_JDK11_HOME%"
         if not defined JAVAFX_HOME set "JAVAFX_HOME=%_JAVAFX_HOME%"
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
-        set "PATH=%_JDK_PATH%%_PYTHON_PATH%%PATH%%_SCALA_PATH%%_SCALAFMT_PATH%%_DOTTY_PATH%%_ANT_PATH%%_BAZEL_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_CFR_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
+        set "PATH=%_JDK_PATH%%_PYTHON_PATH%%PATH%%_SCALA_PATH%%_SCALAFMT_PATH%%_DOTTY_PATH%%_ANT_PATH%%_BAZEL_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE% "%_GIT_HOME%"
         if %_BASH%==1 (
             @rem see https://conemu.github.io/en/GitForWindows.html
