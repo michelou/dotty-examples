@@ -174,7 +174,10 @@ We distinguish different sets of batch/bash commands:
 5. File [**`bin\dotty\build.sh`**](bin/dotty/build.sh) - This bash command generates the [Dotty] software distribution from the [Git Bash][git_bash] command prompt.
 
 6. File [**`examples\*\build.bat`**](examples/dotty-example-project/build.bat) - Finally each example can be built/run using the [**`build`**](examples/dotty-example-project/build.bat) command.<br/>
-    > **&#9755;** We prefer command [**`build`**](examples/dotty-example-project/build.bat) here since our code examples are simple and don't require the [**`sbt`** ][sbt_cli] machinery (eg. [library dependencies][sbt_libs], [sbt server][sbt_server]).
+    > **&#9755;** We favor [**`build.bat`**](examples/dotty-example-project/build.bat) for 3 reasons:
+    > - it matches user commands executed from the the command prompt
+    > - code examples are simple (mostly one single source file)
+    > - we don't need the [**`sbt`** ][sbt_cli] machinery (eg. [library dependencies][sbt_libs], [sbt server][sbt_server]).
 
     <pre style="font-size:80%;">
     <b>&gt; <a href="examples/dotty-example-project/build.bat">build</a></b>
@@ -186,6 +189,7 @@ We distinguish different sets of batch/bash commands:
         -explain         set compiler option -explain
         -explain-types   set compiler option -explain-types
         -main:&lt;name&gt;     define main class name (default: Main)
+        -print           print IR after compilation phase 'lambdaLift'
         -scala           use Scala 2 tools
         -tasty           compile both from source and <a href="https://github.com/lampepfl/dotty/blob/master/tasty/src/dotty/tools/tasty/TastyFormat.scala">TASTy files</a>
         -timer           display the compile time

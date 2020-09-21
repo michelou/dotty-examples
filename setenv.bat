@@ -37,7 +37,6 @@ set _MILL_PATH=
 set _PYTHON_PATH=
 set _SBT_PATH=
 set _SCALA_PATH=
-set _SCALAFMT_PATH=
 set _VSCODE_PATH=
 
 @rem %1=vendor, %2=version
@@ -357,35 +356,32 @@ if not exist "%_SCALA_HOME%\bin\scalac.bat" (
 set "_SCALA_PATH=;%_SCALA_HOME%\bin"
 goto :eof
 
-@rem output parameter(s): _SCALAFMT_PATH
+@rem output parameter(s): _SCALAFMT_HOME
 :scalafmt
-set _DOTTY_PATH=
+set _SCALAFMT_HOME=
 
-set __SCALAFMT_HOME=
 set __SCALAFMT_CMD=
 for /f %%f in ('where scalafmt.bat 2^>NUL') do set "__SCALAFMT_CMD=%%f"
 if defined __SCALAFMT_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Dotty executable found in PATH 1>&2
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Scalafmt executable found in PATH 1>&2
     for %%i in ("%__SCALAFMT_CMD%") do set "__SCALAFMT_BIN_DIR=%%~dpi"
-    for %%f in ("!__SCALAFMT_BIN_DIR!\.") do set "__SCALAFMT_HOME=%%~dpf"
-    @rem keep _SCALAFMT_PATH undefined since executable already in path
+    for %%f in ("!__SCALAFMT_BIN_DIR!\.") do set "_SCALAFMT_HOME=%%~dpf"
     goto :eof
 ) else if defined SCALAFMT_HOME (
-    set "__SCALAFMT_HOME%SCALAFMT_HOME%"
+    set "_SCALAFMT_HOME%SCALAFMT_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SCALAFMT_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\dotty*" 2^>NUL') do set "__SCALAFMT_HOME=!_PATH!\%%f"
-    if defined __SCALAFMT_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scalafmt installation directory !__SCALAFMT_HOME! 1>&2
+    for /f %%f in ('dir /ad /b "!_PATH!\scalafmt*" 2^>NUL') do set "_SCALAFMT_HOME=!_PATH!\%%f"
+    if defined _SCALAFMT_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scalafmt installation directory !_SCALAFMT_HOME! 1>&2
     )
 )
-if not exist "%__SCALAFMT_HOME%\bin\scalafmt.bat" (
-    set _SCALAFMT_PATH=
+if not exist "%_SCALAFMT_HOME%\bin\scalafmt.bat" (
+    set _SCALAFMT_HOME=
     set _EXITCODE=1
     goto :eof
 )
-set "_SCALAFMT_PATH=;%__SCALAFMT_HOME%\bin"
 goto :eof
 
 @rem output parameter(s): _DOTTY_HOME, _DOTTY_PATH
@@ -972,10 +968,12 @@ if %__VERBOSE%==1 (
     echo Environment variables: 1>&2
     if defined ANT_HOME echo    ANT_HOME=%ANT_HOME% 1>&2
     if defined DOTTY_HOME echo    DOTTY_HOME=%DOTTY_HOME% 1>&2
+    if defined GIT_HOME echo    GIT_HOME=%GIT_HOME% 1>&2
     if defined JAVA_HOME echo    JAVA_HOME=%JAVA_HOME% 1>&2
     if defined JAVA11_HOME echo    JAVA11_HOME=%JAVA11_HOME% 1>&2
     if defined JAVAFX_HOME echo    JAVAFX_HOME=%JAVAFX_HOME% 1>&2
     if defined SCALA_HOME echo    SCALA_HOME=%SCALA_HOME% 1>&2
+    if defined SCALAFMT_HOME echo    SCALAFMT_HOME=%SCALAFMT_HOME% 1>&2
 )
 goto :eof
 
@@ -988,12 +986,14 @@ endlocal & (
         if not defined ANT_HOME set "ANT_HOME=%_ANT_HOME%"
         if not defined CFR_HOME set "CFR_HOME=%_CFR_HOME%"
         if not defined DOTTY_HOME set "DOTTY_HOME=%_DOTTY_HOME%"
+        if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
         if not defined JACOCO_HOME set "JACOCO_HOME=%_JACOCO_HOME%"
         if not defined JAVA_HOME set "JAVA_HOME=%_JDK_HOME%"
         if not defined JAVA11_HOME set "JAVA11_HOME=%_JDK11_HOME%"
         if not defined JAVAFX_HOME set "JAVAFX_HOME=%_JAVAFX_HOME%"
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
-        set "PATH=%_JDK_PATH%%_PYTHON_PATH%%PATH%%_SCALA_PATH%%_SCALAFMT_PATH%%_DOTTY_PATH%%_ANT_PATH%%_BAZEL_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
+        if not defined SCALAFMT_HOME set "SCALAFMT_HOME=%_SCALAFMT_HOME%"
+        set "PATH=%_JDK_PATH%%_PYTHON_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_BAZEL_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE% "%_GIT_HOME%"
         if %_BASH%==1 (
             @rem see https://conemu.github.io/en/GitForWindows.html

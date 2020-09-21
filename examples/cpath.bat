@@ -23,7 +23,10 @@ set __SCALALIB_VERSION=2.13
 call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALALIB_VERSION%" "1.0.0"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-call :add_jar "org.scala-lang/modules" "scala-xml_%__SCALALIB_VERSION%" "1.3.0"
+call :add_jar "org.scala-lang.modules" "scala-xml_%__SCALALIB_VERSION%" "1.3.0"
+
+@rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parser-combinators
+call :add_jar "Org.scala-lang.modules" "scala-parser-combinators_%__SCALALIB_VERSION%" "1.1.2"
 
 @rem https://mvnrepository.com/artifact/junit/junit
 call :add_jar "junit" "junit" "4.13"

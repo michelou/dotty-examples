@@ -60,14 +60,14 @@ Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
    [scalac] Compiling 1 source file to W:\dotty-examples\examples\enum-Planet/target/classes
 
 <span style="font-weight:bold;color:#9966ff;">run:</span>
-     [java] Your weight on MERCURY is 0.37775761520093526
-     [java] Your weight on SATURN is 1.0660155388115666
-     [java] Your weight on VENUS is 0.9049990998410455
-     [java] Your weight on URANUS is 0.9051271993894251
-     [java] Your weight on EARTH is 0.9999999999999999
-     [java] Your weight on NEPTUNE is 1.1383280724696578
-     [java] Your weight on MARS is 0.37873718403712886
-     [java] Your weight on JUPITER is 2.5305575254957406
+     [java] Your weight on MERCURY (0) is 0.37775761520093526
+     [java] Your weight on VENUS (1) is 0.9049990998410455
+     [java] Your weight on EARTH (2) is 0.9999999999999999
+     [java] Your weight on MARS (3) is 0.37873718403712886
+     [java] Your weight on JUPITER (4) is 2.5305575254957406
+     [java] Your weight on SATURN (5) is 1.0660155388115666
+     [java] Your weight on URANUS (6) is 0.9051271993894251
+     [java] Your weight on NEPTUNE (7) is 1.1383280724696578
 
 BUILD SUCCESSFUL
 Total time: 19 seconds
@@ -104,14 +104,14 @@ Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
     [scalac] Compiling 1 source file to W:\dotty-examples\examples\enum-Planet/target/classes
 
 <span style="font-weight:bold;color:#9966ff;">run:</span>
-    [java] Your weight on MERCURY is 0.37775761520093526
-    [java] Your weight on SATURN is 1.0660155388115666
-    [java] Your weight on VENUS is 0.9049990998410455
-    [java] Your weight on URANUS is 0.9051271993894251
-    [java] Your weight on EARTH is 0.9999999999999999
-    [java] Your weight on NEPTUNE is 1.1383280724696578
-    [java] Your weight on MARS is 0.37873718403712886
-    [java] Your weight on JUPITER is 2.5305575254957406
+     [java] Your weight on MERCURY (0) is 0.37775761520093526
+     [java] Your weight on VENUS (1) is 0.9049990998410455
+     [java] Your weight on EARTH (2) is 0.9999999999999999
+     [java] Your weight on MARS (3) is 0.37873718403712886
+     [java] Your weight on JUPITER (4) is 2.5305575254957406
+     [java] Your weight on SATURN (5) is 1.0660155388115666
+     [java] Your weight on URANUS (6) is 0.9051271993894251
+     [java] Your weight on NEPTUNE (7) is 1.1383280724696578
 
 BUILD SUCCESSFUL
 Total time: 14 seconds
@@ -126,14 +126,14 @@ Command [**`build clean run`**](enum-Planet/build.bat) produces the following ou
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="enum-Planet/build.bat">build</a> clean run</b>
-Your weight on MERCURY is 0.37775761520093526
-Your weight on SATURN is 1.0660155388115666
-Your weight on VENUS is 0.9049990998410455
-Your weight on URANUS is 0.9051271993894251
-Your weight on EARTH is 0.9999999999999999
-Your weight on NEPTUNE is 1.1383280724696578
-Your weight on MARS is 0.37873718403712886
-Your weight on JUPITER is 2.5305575254957406
+Your weight on MERCURY (0) is 0.37775761520093526
+Your weight on VENUS (1) is 0.9049990998410455
+Your weight on EARTH (2) is 0.9999999999999999
+Your weight on MARS (3) is 0.37873718403712886
+Your weight on JUPITER (4) is 2.5305575254957406
+Your weight on SATURN (5) is 1.0660155388115666
+Your weight on URANUS (6) is 0.9051271993894251
+Your weight on NEPTUNE (7) is 1.1383280724696578
 </pre>
 
 > **:mag_right:** Compilation of the Java/Scala source files is performed only if needed during the build process:
@@ -151,16 +151,16 @@ Command [**`build -verbose clean run`**](enum-Planet/build.bat) also displays pr
 <pre style="font-size:80%;">
 <b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose clean compile run</b>
 Delete directory target
-Compile Scala sources to target\classes
+Compile 1 Scala sources to directory "target\classes"
 Execute Scala main class Planet
-Your weight on MERCURY is 0.37775761520093526
-Your weight on SATURN is 1.0660155388115666
-Your weight on VENUS is 0.9049990998410455
-Your weight on URANUS is 0.9051271993894251
-Your weight on EARTH is 0.9999999999999999
-Your weight on NEPTUNE is 1.1383280724696578
-Your weight on MARS is 0.37873718403712886
-Your weight on JUPITER is 2.5305575254957406
+Your weight on MERCURY (0) is 0.37775761520093526
+Your weight on VENUS (1) is 0.9049990998410455
+Your weight on EARTH (2) is 0.9999999999999999
+Your weight on MARS (3) is 0.37873718403712886
+Your weight on JUPITER (4) is 2.5305575254957406
+Your weight on SATURN (5) is 1.0660155388115666
+Your weight on URANUS (6) is 0.9051271993894251
+Your weight on NEPTUNE (7) is 1.1383280724696578
 </pre>
 
 Command [**`build -debug clean compile run`**](enum-Planet/build.bat) also displays internal steps of the build process:
@@ -249,14 +249,14 @@ Command **`gradle -q clean run`** produces the following output ([**`Planet.scal
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html">gradle</a> -q clean run</b>
-Your weight on MERCURY is 0.37775761520093526
-Your weight on SATURN is 1.0660155388115666
-Your weight on VENUS is 0.9049990998410455
-Your weight on URANUS is 0.9051271993894251
-Your weight on EARTH is 0.9999999999999999
-Your weight on NEPTUNE is 1.1383280724696578
-Your weight on MARS is 0.37873718403712886
-Your weight on JUPITER is 2.5305575254957406
+Your weight on MERCURY (0) is 0.37775761520093526
+Your weight on VENUS (1) is 0.9049990998410455
+Your weight on EARTH (2) is 0.9999999999999999
+Your weight on MARS (3) is 0.37873718403712886
+Your weight on JUPITER (4) is 2.5305575254957406
+Your weight on SATURN (5) is 1.0660155388115666
+Your weight on URANUS (6) is 0.9051271993894251
+Your weight on NEPTUNE (7) is 1.1383280724696578
 </pre>
 
 > **&#9755;** ***Gradle Wrappers***<br/>
@@ -373,17 +373,17 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 [INFO] ------------------------------------------------------------------------
 
 <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -version 2>&1 | findstr version</b>
-openjdk version "11.0.7" 2019-10-15
+openjdk version "11.0.8" 2020-07-14
 
 <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:"c:\opt\dotty-0.27.0-RC1\lib\dotty-library_0.27-0.27.0-RC1.jar;c:\opt\dotty-0.27.0-RC1\lib\scala-library-2.13.3.jar" -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
-Your weight on MERCURY is 0.37775761520093526
-Your weight on SATURN is 1.0660155388115666
-Your weight on VENUS is 0.9049990998410455
-Your weight on URANUS is 0.9051271993894251
-Your weight on EARTH is 0.9999999999999999
-Your weight on NEPTUNE is 1.1383280724696578
-Your weight on MARS is 0.37873718403712886
-Your weight on JUPITER is 2.5305575254957406
+Your weight on MERCURY (0) is 0.37775761520093526
+Your weight on VENUS (1) is 0.9049990998410455
+Your weight on EARTH (2) is 0.9999999999999999
+Your weight on MARS (3) is 0.37873718403712886
+Your weight on JUPITER (4) is 2.5305575254957406
+Your weight on SATURN (5) is 1.0660155388115666
+Your weight on URANUS (6) is 0.9051271993894251
+Your weight on NEPTUNE (7) is 1.1383280724696578
 </pre>
 
 > **&#9755;** **Scala Maven Plugin**<br/>

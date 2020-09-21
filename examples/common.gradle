@@ -33,9 +33,8 @@ ext {
     } else {
         scalaClasspath = files(sourceSets.main.runtimeClasspath, classesDir)
     }
-    testLibsTree = fileTree(dir: "${project.gradle.userHomeDir}/.m2/repository", include: "**/junit-4.13.jar")
-    print("\n00000000000000 user.home   =${project.gradle.userHomeDir}")
-    print("\n11111111111111 testLibsTree=${testLibsTree}")
+    userHome = System.getenv("USERPROFILE", System.getenv("HOME"))
+    testLibsTree = fileTree(dir: "${userHome}/.m2/repository", include: "**/junit-4.13.jar")
     testClasspath = files(testLibsTree, scalaClasspath, testClassesDir)
 }
 
