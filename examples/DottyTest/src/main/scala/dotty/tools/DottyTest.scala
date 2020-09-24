@@ -15,7 +15,6 @@ import dotc.Compiler
 import dotc.core.Phases.Phase
 
 class DottyTest extends ContextEscapeDetection {
-  import scala.language.implicitConversions // otherwise warning starting with version 0.9.0
 
   dotc.parsing.Scanners // initialize keywords
 
@@ -26,9 +25,6 @@ class DottyTest extends ContextEscapeDetection {
     import base.settings._
     val ctx = base.initialCtx.fresh
     initializeCtx(ctx)
-    // when classpath is changed in ctx, we need to re-initialize to get the
-    // correct classpath from PathResolver
-    base.initialize()(ctx)
     ctx
   }
 
@@ -39,7 +35,7 @@ class DottyTest extends ContextEscapeDetection {
 
   protected def initializeCtx(fc: FreshContext): Unit = {
     fc.setSetting(fc.settings.encoding, "UTF8")
-    fc.setSetting(fc.settings.classpath, "C:\\opt\\dotty-0.9.0-RC1\\lib") // Jars.dottyLib)
+    // fc.setSetting(fc.settings.classpath, Jars.dottyLib)
   }
 
   private def compilerWithChecker(phase: String)(assertion: (tpd.Tree, Context) => Unit) = new Compiler {
@@ -62,7 +58,7 @@ class DottyTest extends ContextEscapeDetection {
     println("44444444444")
     val c = compilerWithChecker(checkAfterPhase)(assertion)
     val run = c.newRun
-    run.compile(source)
+    run.compile(List(source))
     run.runContext
   }
 

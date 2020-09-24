@@ -3,27 +3,24 @@
 //}
 
 object StringDelegates {
-  extension stringOps {
-    def (value: String) underscorize: String = value.map(v => s"${v}_").foldLeft("")((a, b) => a + b)
-  }
+  extension (value: String)
+    def underscorize: String = value.map(v => s"${v}_").foldLeft("")((a, b) => a + b)
 }
 
 object AnotherStringDelegates {
-  extension stringOps {
-    def (value: String) underscorize: String = value.map(v => s"${v}-").foldLeft("")((a, b) => a + b)
-  }
+  extension (value: String)
+    def underscorize: String = value.map(v => s"${v}-").foldLeft("")((a, b) => a + b)
 }
 
 object test1 {
-  import StringDelegates.stringOps
+  import StringDelegates._
 
   println("Harry".underscorize)
 }
 
 object test2 {
-  extension stringOps {
-    def (value: String) underscorize: String = value.map(v => s"${v}*").foldLeft("")((a, b) => a + b)
-  }
+  extension (value: String)
+    def underscorize: String = value.map(v => s"${v}*").foldLeft("")((a, b) => a + b)
 
   println("Harry".underscorize)
 }

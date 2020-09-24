@@ -114,6 +114,10 @@ set _CFR_CMD=
 if exist "%CFR_HOME%\bin\cfr.bat" (
     set "_CFR_CMD=%CFR_HOME%\bin\cfr.bat"
 )
+set _DIFF_CMD=
+if exist "%GIT_HOME%\usr\bin\diff.exe" (
+    set "_DIFF_CMD=%GIT_HOME%\usr\bin\diff.exe" 
+)
 goto :eof
 
 :env_colors
@@ -266,8 +270,8 @@ set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
 if %_DECOMPILE%==1 if not defined _CFR_CMD (
-   echo %_WARNING_LABEL% cfr installation not found 1>&2
-   set _DECOMPILE=0
+    echo %_WARNING_LABEL% cfr installation not found 1>&2
+    set _DECOMPILE=0
 )
 if %_LINT%==1 (
     if not defined _SCALAFMT_CMD (
@@ -279,8 +283,8 @@ if %_LINT%==1 (
     )
 )
 if defined _INSTRUMENTED if not exist "%JACOCO_HOME%\lib\jacococli.jar" (
-   echo %_WARNING_LABEL% JaCoCo installation not found 1>&2
-   set _INSTRUMENTED=
+    echo %_WARNING_LABEL% JaCoCo installation not found 1>&2
+    set _INSTRUMENTED=
 )
 set "_SCALA_CMD=!_SCALA[%_DOTTY%]!"
 set "_SCALAC_CMD=!_SCALAC[%_DOTTY%]!"
@@ -293,7 +297,7 @@ if %_SCALAC_OPTS_EXPLAIN_TYPES%==1 (
     )
 )
 if %_SCALAC_OPTS_PRINT%==1 (
-    if %_DOTTY%==1 ( set _SCALAC_OPTS=%_SCALAC_OPTS% -color never -Xprint:lambdaLift
+    if %_DOTTY%==1 ( set _SCALAC_OPTS=%_SCALAC_OPTS% -pagewidth 128 -color never -Xprint:lambdaLift
     ) else ( set _SCALAC_OPTS=%_SCALAC_OPTS% -print
     )
 )
@@ -302,7 +306,8 @@ if %_TASTY%==1 if %_DOTTY%==0 (
     set _TASTY=0
 )
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Options    : _DOTTY=%_DOTTY% _EXPLAIN=%_SCALAC_OPTS_EXPLAIN% _PRINT=%_SCALAC_OPTS_PRINT% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% _PROJECT_VERSION=%_PROJECT_VERSION% 1>&2
+    echo %_DEBUG_LABEL% Options    : _DOTTY=%_DOTTY% _EXPLAIN=%_SCALAC_OPTS_EXPLAIN% _INSTRUMENTED=%_INSTRUMENTED% _PRINT=%_SCALAC_OPTS_PRINT% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
     if %_DOTTY%==0 ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" SCALA_HOME="%SCALA_HOME%" 1>&2
     ) else ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" DOTTY_HOME="%DOTTY_HOME%" 1>&2
@@ -331,7 +336,7 @@ echo     %__BEG_O%-debug%__END%           show commands executed by this script
 echo     %__BEG_O%-dotty%__END%           use Scala 3 tools ^(default^)
 echo     %__BEG_O%-explain%__END%         set compiler option %__BEG_O%-explain%__END%
 echo     %__BEG_O%-explain-types%__END%   set compiler option %__BEG_O%-explain-types%__END%
-echo     %__BEG_O%-main:^<name^>%__END%     define main class name ^(default: %__BEG_O%Main%__END%^)
+echo     %__BEG_O%-main:^<name^>%__END%     define main class name ^(default: %__BEG_O%%_MAIN_CLASS_DEFAULT%%__END%^)
 echo     %__BEG_O%-print%__END%           print IR after compilation phase 'lambdaLift'
 echo     %__BEG_O%-scala%__END%           use Scala 2 tools
 echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
@@ -342,7 +347,7 @@ echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%            delete generated class files
 echo     %__BEG_O%compile%__END%          compile Java/Scala source files
 echo     %__BEG_O%decompile%__END%        decompile generated code with %__BEG_N%CFR%__END%
-echo     %__BEG_O%doc%__END%              generate documentation
+echo     %__BEG_O%doc%__END%              generate HTML documentation
 echo     %__BEG_O%help%__END%             display this help message
 echo     %__BEG_O%lint%__END%             analyze Scala source files with %__BEG_N%Scalafmt%__END%
 echo     %__BEG_O%run[:i]%__END%          execute main class ^(instrumented execution: %__BEG_O%:i%__END%^)
@@ -432,12 +437,12 @@ if not %_EXITCODE%==0 goto :eof
 set "__SOURCES_FILE=%_TARGET_DIR%\javac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
-for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
-    echo %%i >> "%__SOURCES_FILE%"
+for /f %%f in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
+    echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
 set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
-set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%" 
+set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%"
 echo -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
@@ -455,8 +460,8 @@ goto :eof
 set "__SOURCES_FILE=%_TARGET_DIR%\scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
-for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
-    echo %%i >> "%__SOURCES_FILE%"
+for /f %%f in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
+    echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
 set __PRINT_FILE_REDIRECT=
@@ -513,7 +518,7 @@ goto :eof
 @rem input parameter: 1=target file 2=path (wildcards accepted)
 @rem output parameter: _COMPILE_REQUIRED
 :compile_required
-set __TARGET_FILE=%~1
+set "__TARGET_FILE=%~1"
 set __PATH=%~2
 
 set __TARGET_TIMESTAMP=00000000000000
@@ -619,9 +624,11 @@ if not %_EXITCODE%==0 goto :eof
 
 set __CFR_OPTS=--extraclasspath "%_EXTRA_CPATH%" --outputdir "%__OUTPUT_DIR%"
 
-set "__CLASS_DIRS=%_CLASSES_DIR%"
+if exist "%_CLASSES_DIR%\*.class" ( set "__CLASS_DIRS=%_CLASSES_DIR%"
+) else ( set __CLASS_DIRS=
+)
 for /f "delims=" %%f in ('dir /b /s /ad "%_CLASSES_DIR%" 2^>NUL') do (
-    set __CLASS_DIRS=!__CLASS_DIRS! "%%f"
+    if exist "%%f\*.class" set __CLASS_DIRS=!__CLASS_DIRS! "%%f"
 )
 if %_VERBOSE%==1 echo Decompile Java bytecode to directory "!__OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
 for %%i in (%__CLASS_DIRS%) do (
@@ -649,15 +656,20 @@ for /f "delims=" %%f in ('dir /b /s "%__OUTPUT_DIR%\*.java" 2^>NUL') do (
 )
 if defined __JAVA_FILES type %__JAVA_FILES% >> "%__OUTPUT_FILE%" 2>NUL
 
-set __DIFF_CMD=diff.exe
+if not defined _DIFF_CMD (
+    if %_DEBUG%==1 ( echo %_WARNING_LABEL% diff command not found 1>&2
+    ) else if %_VERBOSE%==1 ( echo diff command not found 1>&2
+    )
+    goto :eof
+)
 set __DIFF_OPTS=--strip-trailing-cr
 
 set "__CHECK_FILE=%_SOURCE_DIR%\build\cfr-sources%_VERSION_SUFFIX%.java"
 if exist "%__CHECK_FILE%" (
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%__DIFF_CMD%" %__DIFF_OPTS% "%__OUTPUT_FILE%" "%__CHECK_FILE%" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_DIFF_CMD%" %__DIFF_OPTS% "%__OUTPUT_FILE%" "%__CHECK_FILE%" 1>&2
     ) else if %_VERBOSE%==1 ( echo Compare output file with check file "!__CHECK_FILE:%_ROOT_DIR%=!" 1>&2
     )
-    call "%__DIFF_CMD%" %__DIFF_OPTS% "%__OUTPUT_FILE%" "%__CHECK_FILE%"
+    call "%_DIFF_CMD%" %__DIFF_OPTS% "%__OUTPUT_FILE%" "%__CHECK_FILE%"
     if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Output file and check file differ 1>&2
         set _EXITCODE=1
@@ -676,6 +688,9 @@ if %_COMPILE_REQUIRED%==0 goto :eof
 
 set "__SOURCES_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
+@rem for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
+@rem     echo %%i>> "%__SOURCES_FILE%"
+@rem )
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i>> "%__SOURCES_FILE%"
 )
@@ -740,6 +755,74 @@ if not !ERRORLEVEL!==0 (
     echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
     set _EXITCODE=1
     goto :eof
+)
+goto :eof
+
+@rem experimental (see https://www.jacoco.org/jacoco/trunk/doc/agent.html)
+:run_instrumented
+set "__MAIN_CLASS_FILE=%_CLASSES_DIR%\%_MAIN_CLASS:.=\%.class"
+if not exist "%__MAIN_CLASS_FILE%" (
+    echo %_ERROR_LABEL% Main class '%_MAIN_CLASS%' not found ^(%__MAIN_CLASS_FILE%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "__JACOCO_AGENT_FILE=%JACOCO_HOME%\lib\jacocoagent.jar"
+set "__JACOCO_CLI_FILE=%JACOCO_HOME%\lib\jacococli.jar"
+if not exist "%__JACOCO_AGENT_FILE%" (
+    echo %_ERROR_LABEL% JaCoCo agent library not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set __CLASS_FILES=
+for /f "delims=" %%f in ('dir /s /b "%_CLASSES_DIR%\*.class" 2^>NUL') do (
+    set __CLASS_FILES=!__CLASS_FILES! "%%f"
+)
+for %%f in ("%_CLASSES_DIR%\.") do set "__INSTR_CLASSES_DIR=%%~dpfinstrumented-classes"
+if not exist "!__INSTR_CLASSES_DIR!" mkdir "!__INSTR_CLASSES_DIR!"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" instrument --quiet --dest "!__INSTR_CLASSES_DIR!" %__CLASS_FILES% 1>&2
+) else if %_VERBOSE%==1 ( echo Instrument Java class files 1>&2
+)
+call "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" instrument --quiet --dest "!__INSTR_CLASSES_DIR!" %__CLASS_FILES%
+if not %ERRORLEVEL%==0 (
+    set _EXITCODE=1
+    goto :eof
+)
+set __LIBS_CPATH=
+for %%f in ("%DOTTY_HOME%\lib\*.jar") do (
+    set "__JAR_FILE=%%~nxf"
+    if "!__JAR_FILE:~0,5!"=="dotty" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
+    ) else if "!__JAR_FILE:~0,5!"=="tasty" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
+    ) else if "!__JAR_FILE:~0,5!"=="scala" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
+    )
+)
+set "__EXEC_FILE=%_TARGET_DIR%\jacoco.exec"
+set __JAVA_OPTS=-Xmx768m -Xms768m -javaagent:"%__JACOCO_AGENT_FILE%=destfile=!__EXEC_FILE!,append=false" -classpath "%__LIBS_CPATH%%_CLASSES_DIR%"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% 1>&2
+)
+call "%_JAVA_CMD%" %__JAVA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "__TARGET_HTML_DIR=%_TARGET_DIR%\instrumented-html"
+if not exist "%__TARGET_HTML_DIR%\" mkdir "%__TARGET_HTML_DIR%" 1>NUL
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" report "%__EXEC_FILE%" --classfiles "%_CLASSES_DIR%" --encoding UTF8 --html "%__TARGET_HTML_DIR%" --name "%_PROJECT_NAME%" --quiet --sourcefiles "%_SOURCE_DIR%\main\scala" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate HTML report in directory "!__TARGET_HTML_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" report "%__EXEC_FILE%" --classfiles "%_CLASSES_DIR%" --encoding UTF8 --html "%__TARGET_HTML_DIR%" --name "%_PROJECT_NAME%" --quiet --sourcefiles "%_SOURCE_DIR%\main\scala"
+if not %ERRORLEVEL%==0 (
+    set _EXITCODE=1
+    goto :eof
+)
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% JaCoCo instrumentation report saved to file "%__TARGET_HTML_DIR%\index.html" 1>&2
+) else if %_VERBOSE%==1 (
+    echo JaCoCo instrumentation report saved to file "!__TARGET_HTML_DIR:%_ROOT_DIR%=!\index.html" 1>&2
 )
 goto :eof
 

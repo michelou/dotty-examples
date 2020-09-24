@@ -86,7 +86,7 @@ Buildfile: W:\myexamples\HelloWorld\build.xml
    [delete] Deleting directory W:\myexamples\HelloWorld\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] DOTTY_HOME=C:\opt\dotty-0.26.0-RC1
+     [echo] DOTTY_HOME=C:\opt\dotty-0.27.0-RC1
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -223,7 +223,7 @@ Command **`make test`** executes the test suite [**`HelloWorldTest.scala`**](Hel
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 dotc.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_0.26/0.26.0-RC1/dotty-library_0.26-0.26.0-RC1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13/junit-4.13.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.0/scalatest_2.13-3.2.0.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.0/scalactic_2.13-3.2.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.10.1/specs2-core_2.13-4.10.1.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.10.1/specs2-junit_2.13-4.10.1.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.10.1/specs2-matcher_2.13-4.10.1.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_0.27/0.27.0-RC1/dotty-library_0.27-0.27.0-RC1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13/junit-4.13.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.0/scalatest_2.13-3.2.0.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.0/scalactic_2.13-3.2.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.10.1/specs2-core_2.13-4.10.1.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.10.1/specs2-junit_2.13-4.10.1.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.10.1/specs2-matcher_2.13-4.10.1.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
 JUnit version 4.13
 .
 Time: 0.201
@@ -259,16 +259,16 @@ Command **`mvn clean test`** with option **`-debug`** produces additional debug 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/run.html">mvn</a> -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-11.0.8+10\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.26.0-RC1 \
- -cp C:\opt\dotty-0.26.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.27.0-RC1 \
+ -cp C:\opt\dotty-0.27.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-11.0.8+10\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.26.0-RC1 [...]
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.27.0-RC1 [...]
 [DEBUG] [execute] C:\opt\jdk-11.0.8+10\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.26.0-RC1\lib\*.jar;\
+ -Xms64m -Xmx1024m -cp C:\opt\dotty-0.27.0-RC1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -311,7 +311,7 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 >         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>0.26.0-RC1<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.version&gt;</b>0.27.0-RC1<b>&lt;/scala.version&gt;</b>
 >         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
@@ -365,16 +365,16 @@ Hello world!
 >         ... 13 more
 > 
 > <b>&gt; searchjars Serializable</b>
-> Searching for class Serializable in library files C:\opt\DOTTY-~1.0-R\lib\*.jar
+> Searching for class name Serializable in library files C:\opt\dotty-0.27.0-RC1\lib\*.jar
 >   jackson-core-2.9.8.jar:com/fasterxml/jackson/core/SerializableString.class
 >   [...]
->   scala-library-2.12.8.jar:scala/Serializable.class
-> Searching for class Serializable in library files C:\opt\SCALA-~1.8\lib\*.jar
->   scala-library.jar:scala/Serializable.class
-> Searching for class Serializable in library files C:\opt\JDK-18~1.0_2\lib\*.jar
->   tools.jar:com/sun/tools/internal/xjc/reader/xmlschema/bindinfo/BISerializable.class
+>   scala-library-2.13.3.jar:scala/collection/generic/DefaultSerializable.class
+> Searching for class name Serializable in library files C:\opt\scala-2.13.3\lib\*.jar
+>   scala-library.jar:scala/collection/generic/DefaultSerializable.class
+> Searching for class name Serializable in library files C:\opt\jdk-11.0.8+10\lib\*.jar
+> Searching for class name Serializable in archive files C:\opt\javafx-sdk-14.0.2.1\lib\*.jar
 > </pre>
-> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.26.0-RC1\lib\scala-library-2.13.1.jar`**, so let us add it to our classpath !
+> Class **`scala.Serializable`** is part of **`C:\opt\Dotty-0.27.0-RC1\lib\scala-library-2.13.3.jar`**, so let us add it to our classpath !
 
 
 ## <span id="mill">Mill build tool</span>
@@ -387,7 +387,7 @@ It is a standalone file written in Scala (with direct access to [OS-Lib][os_lib]
 Command [**`mill -i app`**](HelloWorld/build.sc) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; mill -i app</b>
+<b>&gt; <a href="https://www.lihaoyi.com/mill/#command-line-tools">mill</a> -i app</b>
 [38/38] app.run
 Hello world!
 </pre>
