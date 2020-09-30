@@ -56,7 +56,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*September 2020*) <sup id="anchor_03">[[3]](#footnote_03)</sup>:
+For instance our development environment looks as follows (*October 2020*) <sup id="anchor_03">[[3]](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.8+10\        <i>(181.0 MB)</i>
@@ -67,7 +67,7 @@ C:\opt\cfr-0.150\            <i>(  1.9 MB)</i>
 C:\opt\dotty-0.27.0-RC1\     <i>( 27.3 MB)</i>
 C:\opt\Git-2.28.0\           <i>(290.0 MB)</i>
 C:\opt\gradle-6.6.1\         <i>(110.0 MB)</i>
-C:\opt\jacoco-0.8.5\         <i>( 10.6 MB)</i>
+C:\opt\jacoco-0.8.6\         <i>( 10.6 MB)</i>
 C:\opt\Mill-0.8.0\           <i>( 53.7 MB)</i>
 C:\opt\sbt-1.3.13\           <i>( 61.3 MB)</i>
 C:\opt\scala-2.13.3\         <i>( 22.8 MB, 588 MB with API docs)</i>
@@ -233,7 +233,7 @@ We distinguish different sets of batch/bash commands:
     As an alternative to the standard [**`javap`**][javap_cli] class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.150.zip`**](bin/cfr-0.150.zip) to **`c:\opt\`**) which prints [Java source code][java_jls] instead of [Java bytecode][java_bytecode]:
 
     <pre style="font-size:80%;">
-    <b>&gt; cfr myexamples\00_AutoParamTupling\target\classes\myexamples\Main.class</b>
+    <b>&gt; <a href="https://www.benf.org/other/cfr/">cfr</a> myexamples\00_AutoParamTupling\target\classes\myexamples\Main.class</b>
     /*
      * Decompiled with CFR 0.150.
      */
@@ -333,8 +333,11 @@ Tool paths:
 Environment variables:
    ANT_HOME=C:\opt\apache-ant-1.10.8
    DOTTY_HOME=C:\opt\dotty-0.27.0-RC1
+   GIT_HOME=C:\opt\Git-2.28.0
    JAVA_HOME=C:\opt\jdk-11.0.8+10
+   JAVAFX_HOME=C:\opt\javafx-sdk-14.0.2.1
    SCALA_HOME=C:\opt\scala-2.13.3
+   SCALAFMT_HOME=C:\opt\scalafmt-2.6.4
 </pre>
 
 ### `cleanup.bat`
@@ -717,7 +720,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-3.5.0-windows-x86_64.zip</a>                   <i>(38 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.27.0-RC1">dotty-0.27.0-RC1.zip</a>                             <i>(24 MB)</i>
 <a href="https://gradle.org/install/">gradle-6.6.1-bin.zip</a>                             <i>(97 MB)</i>
-<a href="https://www.eclemma.org/jacoco/">jacoco-0.8.5.zip</a>                                 <i>( 4 MB)</i>
+<a href="https://www.eclemma.org/jacoco/">jacoco-0.8.6.zip</a>                                 <i>( 4 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.8_10.zip</a> <i>(99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.28.0-64-bit.7z.exe</a>                 <i>(41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.3.13.zip</a>                                   <i>(55 MB)</i>
@@ -732,7 +735,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

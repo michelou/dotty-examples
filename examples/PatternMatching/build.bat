@@ -718,6 +718,9 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% HTML documentation saved into directory "%_TARGET_DOCS_DIR%" 1>&2
+) else if %_VERBOSE%==1 ( echo HTML documentation saved into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
+)
 echo. > "%__DOC_TIMESTAMP_FILE%"
 goto :eof
 
@@ -828,7 +831,9 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-echo JaCoCo instrumentation report: "!__TARGET_HTML_DIR:%_ROOT_DIR%=!\index.html" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% JaCoCo instrumentation report saved into file "%__TARGET_HTML_DIR%\index.html" 1>&2
+) else if %_VERBOSE%==1 ( echo JaCoCo instrumentation report saved into file "!__TARGET_HTML_DIR:%_ROOT_DIR%=!\index.html" 1>&2
+)
 goto :eof
 
 :compile_test

@@ -442,7 +442,7 @@ for /f %%f in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     set /a __N+=1
 )
 set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
-set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%" 
+set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%"
 echo -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
@@ -474,7 +474,8 @@ if %_SCALAC_OPTS_PRINT%==1 (
     )
 )
 set "__OPTS_FILE=%_TARGET_DIR%\scalac_opts.txt"
-echo %_SCALAC_OPTS% -classpath "%_CLASSES_DIR:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
+set "__CPATH=%_CLASSES_DIR%"
+echo %_SCALAC_OPTS% -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% Scala source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
@@ -696,6 +697,9 @@ if %_COMPILE_REQUIRED%==0 goto :eof
 
 set "__SOURCES_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
+@rem for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
+@rem     echo %%i>> "%__SOURCES_FILE%"
+@rem )
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i>> "%__SOURCES_FILE%"
 )
@@ -713,6 +717,9 @@ if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Generation of HTML documentation failed 1>&2
     set _EXITCODE=1
     goto :eof
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% HTML documentation saved into directory "%_TARGET_DOCS_DIR%" 1>&2
+) else if %_VERBOSE%==1 ( echo HTML documentation saved into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
 )
 echo. > "%__DOC_TIMESTAMP_FILE%"
 goto :eof
@@ -824,7 +831,9 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-echo JaCoCo instrumentation report: "!__TARGET_HTML_DIR:%_ROOT_DIR%=!\index.html" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% JaCoCo instrumentation report saved into file "%__TARGET_HTML_DIR%\index.html" 1>&2
+) else if %_VERBOSE%==1 ( echo JaCoCo instrumentation report saved into file "!__TARGET_HTML_DIR:%_ROOT_DIR%=!\index.html" 1>&2
+)
 goto :eof
 
 :compile_test

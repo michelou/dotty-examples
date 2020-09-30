@@ -104,7 +104,7 @@ set "_SCALAC[1]=%DOTTY_HOME%\bin\dotc.bat"
 set "_SCALADOC[1]=%DOTTY_HOME%\bin\dotd.bat"
 
 set _SCALAFMT_CMD=
-if not exist "%SCALAFMT_HOME%\bin\scalafmt.bat" (
+if exist "%SCALAFMT_HOME%\bin\scalafmt.bat" (
     set "_SCALAFMT_CMD=%SCALAFMT_HOME%\bin\scalafmt.bat"
 )
 set _SCALAFMT_CONFIG_FILE=
@@ -297,7 +297,7 @@ if %_SCALAC_OPTS_EXPLAIN_TYPES%==1 (
     )
 )
 if %_SCALAC_OPTS_PRINT%==1 (
-    if %_DOTTY%==1 ( set _SCALAC_OPTS=%_SCALAC_OPTS% -color never -Xprint:lambdaLift
+    if %_DOTTY%==1 ( set _SCALAC_OPTS=%_SCALAC_OPTS% -pagewidth 128 -color never -Xprint:lambdaLift
     ) else ( set _SCALAC_OPTS=%_SCALAC_OPTS% -print
     )
 )
@@ -403,7 +403,7 @@ set __SCALAFMT_OPTS=--test --config "%_SCALAFMT_CONFIG_FILE%"
 if %_DEBUG%==1 set __SCALAFMT_OPTS=--debug %__SCALAFMT_OPTS%
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_SOURCE_DIR%\main\scala\" 1>&2
-) else if %_VERBOSE%==1 ( echo Analyze %__N% Scala source files with Scalafmt 1>&2
+) else if %_VERBOSE%==1 ( echo Analyze Scala source files with Scalafmt 1>&2
 )
 call "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% %_SOURCE_DIR%\main\scala\
 if not %ERRORLEVEL%==0 (
@@ -442,7 +442,8 @@ for /f %%f in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     set /a __N+=1
 )
 set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
-echo -classpath "%_LIBS_CPATH%%_CLASSES_DIR:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
+set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%"
+echo -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% Java source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
@@ -518,7 +519,7 @@ goto :eof
 @rem input parameter: 1=target file 2=path (wildcards accepted)
 @rem output parameter: _COMPILE_REQUIRED
 :compile_required
-set __TARGET_FILE=%~1
+set "__TARGET_FILE=%~1"
 set __PATH=%~2
 
 set __TARGET_TIMESTAMP=00000000000000
@@ -686,7 +687,10 @@ if %_COMPILE_REQUIRED%==0 goto :eof
 
 set "__SOURCES_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
-for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
+    echo %%i>> "%__SOURCES_FILE%"
+)
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i>> "%__SOURCES_FILE%"
 )
 set "__OPTS_FILE=%_TARGET_DIR%\scaladoc_opts.txt"
@@ -703,6 +707,9 @@ if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Generation of HTML documentation failed 1>&2
     set _EXITCODE=1
     goto :eof
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% HTML documentation saved into directory "%_TARGET_DOCS_DIR%" 1>&2
+) else if %_VERBOSE%==1 ( echo HTML documentation saved into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
 )
 echo. > "%__DOC_TIMESTAMP_FILE%"
 goto :eof
@@ -814,7 +821,9 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-echo JaCoCo instrumentation report: "!__TARGET_HTML_DIR:%_ROOT_DIR%=!\index.html" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% JaCoCo instrumentation report saved into file "%__TARGET_HTML_DIR%\index.html" 1>&2
+) else if %_VERBOSE%==1 ( echo JaCoCo instrumentation report saved into file "!__TARGET_HTML_DIR:%_ROOT_DIR%=!\index.html" 1>&2
+)
 goto :eof
 
 :compile_test

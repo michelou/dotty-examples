@@ -26,17 +26,13 @@ if %_HELP%==1 (
 set _ANT_PATH=
 set _BAZEL_PATH=
 set _BLOOP_PATH=
-set _DOTTY_PATH=
 set _GIT_PATH=
 set _GRADLE_PATH=
-set _JDK_PATH=
 set _JMC_PATH=
 set _MAKE_PATH=
 set _MAVEN_PATH=
 set _MILL_PATH=
-set _PYTHON_PATH=
 set _SBT_PATH=
-set _SCALA_PATH=
 set _VSCODE_PATH=
 
 @rem %1=vendor, %2=version
@@ -53,7 +49,7 @@ if not %_EXITCODE%==0 (
     echo %_WARNING_LABEL% Scalafmt installation not found 1>&2
     set _EXITCODE=0
 )
-call :dotc
+call :scala3
 if not %_EXITCODE%==0 goto end
 
 call :sbt
@@ -63,6 +59,10 @@ call :ant
 if not %_EXITCODE%==0 goto end
 
 call :bazel
+if not %_EXITCODE%==0 goto end
+
+@rem bloop depends on python
+call :python 3
 if not %_EXITCODE%==0 goto end
 
 call :bloop
@@ -231,13 +231,45 @@ echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%help%__END%        display this help message
 goto :eof
 
+@rem output parameter(s): _PYTHON_HOME, _PYTHON_PATH
+:python
+set _PYTHON_HOME=
+set _PYTHON_PATH=
+
+set _PYTHON_CMD=
+for /f %%f in ('where python.exe 2^>NUL') do set "_PYTHON_CMD=%%f"
+if defined _PYTHON_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Python executable found in PATH 1>&2
+    for %%i in ("%_PYTHON_CMD%") do set "_PYTHON_HOME=%%~dpi"
+    goto :eof
+) else if defined PYTHON_HOME (
+    set "_PYTHON_HOME=%PYTHON_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable PYTHON_HOME 1>&2
+) else (
+    set __PATH=C:\opt
+    if exist "!__PATH!\Python\" ( set "_PYTHON_HOME=!__PATH!\Python"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\Python-3*" 2^>NUL') do set "_PYTHON_HOME=!__PATH!\%%f"
+        if not defined _PYTHON_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f %%f in ('dir /ad /b "!__PATH!\Python-3*" 2^>NUL') do set "_PYTHON_HOME=!__PATH!\%%f"
+        )
+    )
+    if defined _PYTHON_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Python installation directory "!_PYTHON_HOME!" 1>&2
+    )
+)
+if not exist "%_PYTHON_HOME%\python.exe" (
+    echo %_ERROR_LABEL% Python executable not found ^(%_PYTHON_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_PYTHON_PATH=;%_PYTHON_HOME%;%_PYTHON_HOME%\Scripts"
+goto :eof
+
 @rem output parameter(s): _BLOOP_PATH
 :bloop
 set _BLOOP_PATH=
-
-@rem bloop depends on python
-call :python
-if not %_EXITCODE%==0 goto :eof
 
 set __BLOOP_HOME=
 set __BLOOP_CMD=
@@ -265,10 +297,9 @@ set "_BLOOP_PATH=;%__BLOOP_HOME%"
 goto :eof
 
 @rem input parameter: %1=vendor %1^=required version
-@rem output parameter(s): _JDK_HOME, _JDK_PATH
+@rem output parameter(s): _JDK_HOME
 :jdk
 set _JDK_HOME=
-set _JDK_PATH=
 
 set __VENDOR=%~1
 set __VERSION=%~2
@@ -307,8 +338,6 @@ if not exist "%_JDK_HOME%\bin\javac.exe" (
     set _EXITCODE=1
     goto :eof
 )
-@rem variable _JDK_PATH is prepended to PATH, so path separator must appear as last character
-set "_JDK_PATH=%_JDK_HOME%\bin;"
 goto :eof
 
 @rem input parameter(s): %1=javac file path
@@ -353,7 +382,6 @@ if not exist "%_SCALA_HOME%\bin\scalac.bat" (
     set _EXITCODE=1
     goto :eof
 )
-set "_SCALA_PATH=;%_SCALA_HOME%\bin"
 goto :eof
 
 @rem output parameter(s): _SCALAFMT_HOME
@@ -368,7 +396,7 @@ if defined __SCALAFMT_CMD (
     for %%f in ("!__SCALAFMT_BIN_DIR!\.") do set "_SCALAFMT_HOME=%%~dpf"
     goto :eof
 ) else if defined SCALAFMT_HOME (
-    set "_SCALAFMT_HOME%SCALAFMT_HOME%"
+    set "_SCALAFMT_HOME=%SCALAFMT_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SCALAFMT_HOME 1>&2
 ) else (
     set _PATH=C:\opt
@@ -384,10 +412,9 @@ if not exist "%_SCALAFMT_HOME%\bin\scalafmt.bat" (
 )
 goto :eof
 
-@rem output parameter(s): _DOTTY_HOME, _DOTTY_PATH
-:dotc
+@rem output parameter(s): _DOTTY_HOME
+:scala3
 set _DOTTY_HOME=
-set _DOTTY_PATH=
 
 set __DOTC_CMD=
 for /f %%f in ('where dotc.bat 2^>NUL') do set "__DOTC_CMD=%%f"
@@ -395,7 +422,6 @@ if defined __DOTC_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Dotty executable found in PATH 1>&2
     for %%i in ("%__DOTC_CMD%") do set "__DOTTY_BIN_DIR=%%~dpi"
     for %%f in ("!__DOTTY_BIN_DIR!..") do set "_DOTTY_HOME=%%f"
-    @rem keep _DOTTY_PATH undefined since executable already in path
     goto :eof
 ) else if defined DOTTY_HOME (
     set "_DOTTY_HOME=%DOTTY_HOME%"
@@ -412,7 +438,6 @@ if not exist "%_DOTTY_HOME%\bin\dotc.bat" (
     set _EXITCODE=1
     goto :eof
 )
-set "_DOTTY_PATH=;%_DOTTY_HOME%\bin"
 goto :eof
 
 @rem output parameter(s): _SBT_PATH
@@ -743,34 +768,29 @@ if not exist "%_MILL_HOME%\mill.bat" (
 set "_MILL_PATH=;%_MILL_HOME%"
 goto :eof
 
-@rem output parameter(s): _PYTHON_PATH
-:python
-set _PYTHON_PATH=
+@rem output parameter(s): _PYTHON_HOME
+set _PYTHON_HOME=
 
-set __PYTHON_HOME=
 set __PYTHON_CMD=
 for /f %%f in ('where python.exe 2^>NUL ^| findstr /v WindowsApps') do set "__PYTHON_CMD=%%f"
 if defined __PYTHON_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Python executable found in PATH 1>&2
-    rem keep _PYTHON_PATH undefined since executable already in path
     goto :eof
 ) else if defined PYTHON_HOME (
-    set "__PYTHON_HOME=%PYTHON_HOME%"
+    set "_PYTHON_HOME=%PYTHON_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable PYTHON_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\Python*" 2^>NUL') do set "__PYTHON_HOME=!_PATH!\%%f"
-    if defined __PYTHON_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Python installation directory !__PYTHON_HOME! 1>&2
+    for /f %%f in ('dir /ad /b "!_PATH!\Python*" 2^>NUL') do set "_PYTHON_HOME=!_PATH!\%%f"
+    if defined _PYTHON_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Python installation directory !_PYTHON_HOME! 1>&2
     )
 )
-if not exist "%__PYTHON_HOME%\python.exe" (
-    echo %_ERROR_LABEL% Python executable not found ^(%__PYTHON_HOME%^) 1>&2
+if not exist "%_PYTHON_HOME%\python.exe" (
+    echo %_ERROR_LABEL% Python executable not found ^(%_PYTHON_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-@rem variable _PYTHON_PATH is prepended to PATH, so path separator must appear as last character
-set "_PYTHON_PATH=%__PYTHON_HOME%;"
 goto :eof
 
 @rem output parameter(s): _VSCODE_PATH
@@ -869,25 +889,25 @@ set __VERSIONS_LINE2=
 set __VERSIONS_LINE3=
 set __VERSIONS_LINE4=
 set __WHERE_ARGS=
-where /q javac.exe
+where /q "%JAVA_HOME%\bin":javac.exe
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,*" %%i in ('javac.exe -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% javac %%j,"
-    set __WHERE_ARGS=%__WHERE_ARGS% javac.exe
+    for /f "tokens=1,2,*" %%i in ('"%JAVA_HOME%\bin\javac.exe" -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% javac %%j,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%JAVA_HOME%\bin:javac.exe"
 )
-where /q java.exe
+where /q "%JAVA_HOME%\bin":java.exe
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,*" %%i in ('java.exe -version 2^>^&1 ^| findstr version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% java %%~k,"
-    set __WHERE_ARGS=%__WHERE_ARGS% java.exe
+    for /f "tokens=1,2,3,*" %%i in ('"%JAVA_HOME%\bin\java.exe" -version 2^>^&1 ^| findstr version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% java %%~k,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%JAVA_HOME%\bin:java.exe"
 )
-where /q scalac.bat
+where /q "%SCALA_HOME%\bin":scalac.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,4,*" %%i in ('scalac.bat -version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalac %%l,"
-    set __WHERE_ARGS=%__WHERE_ARGS% scalac.bat
+    for /f "tokens=1,2,3,4,*" %%i in ('"%SCALA_HOME%\bin\scalac.bat" -version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalac %%l,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%SCALA_HOME%\bin:scalac.bat"
 )
-where /q dotc.bat
+where /q "%DOTTY_HOME%\bin":dotc.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,4,*" %%i in ('dotc.bat -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% dotc %%l,"
-    set __WHERE_ARGS=%__WHERE_ARGS% dotc.bat
+    for /f "tokens=1,2,3,4,*" %%i in ('"%DOTTY_HOME%\bin\dotc.bat" -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% dotc %%l,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%DOTTY_HOME%\bin:dotc.bat"
 )
 where /q ant.bat
 if %ERRORLEVEL%==0 (
@@ -927,20 +947,20 @@ if %ERRORLEVEL%==0 (
     set __WHERE_ARGS=%__WHERE_ARGS% bloop.cmd
     taskkill.exe /fi "WindowTitle eq bloop_8212*" /t /f 1>NUL
 )
-where /q cfr.bat
+where /q "%CFR_HOME%\bin":cfr.bat
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('cfr.bat 2^>^&1 ^| findstr /b CFR') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% cfr %%j,"
-    set __WHERE_ARGS=%__WHERE_ARGS% cfr.bat
+    for /f "tokens=1,*" %%i in ('"%CFR_HOME%\bin\cfr.bat" 2^>^&1 ^| findstr /b CFR') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% cfr %%j,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%CFR_HOME%\bin:cfr.bat"
 )
 where /q make.exe
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,*" %%i in ('make.exe --version 2^>^&1 ^| findstr Make') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% make %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% make.exe
 )
-where /q python.exe
+where /q "%PYTHON_HOME%:python.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('python.exe --version 2^>^&1') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% python %%j,"
-    set __WHERE_ARGS=%__WHERE_ARGS% python.exe
+    for /f "tokens=1,*" %%i in ('"%PYTHON_HOME%\python.exe" --version 2^>^&1') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% python %%j,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%PYTHON_HOME%:python.exe"
 )
 where /q git.exe
 if %ERRORLEVEL%==0 (
@@ -970,8 +990,10 @@ if %__VERBOSE%==1 (
     if defined DOTTY_HOME echo    DOTTY_HOME=%DOTTY_HOME% 1>&2
     if defined GIT_HOME echo    GIT_HOME=%GIT_HOME% 1>&2
     if defined JAVA_HOME echo    JAVA_HOME=%JAVA_HOME% 1>&2
+    if defined JAVACOCO_HOME echo    JAVACOCO_HOME=%JAVACOCO_HOME% 1>&2
     if defined JAVA11_HOME echo    JAVA11_HOME=%JAVA11_HOME% 1>&2
     if defined JAVAFX_HOME echo    JAVAFX_HOME=%JAVAFX_HOME% 1>&2
+    if defined PYTHON_HOME echo    PYTHON_HOME=%PYTHON_HOME% 1>&2
     if defined SCALA_HOME echo    SCALA_HOME=%SCALA_HOME% 1>&2
     if defined SCALAFMT_HOME echo    SCALAFMT_HOME=%SCALAFMT_HOME% 1>&2
 )
@@ -991,9 +1013,10 @@ endlocal & (
         if not defined JAVA_HOME set "JAVA_HOME=%_JDK_HOME%"
         if not defined JAVA11_HOME set "JAVA11_HOME=%_JDK11_HOME%"
         if not defined JAVAFX_HOME set "JAVAFX_HOME=%_JAVAFX_HOME%"
+        if not defined PYTHON_HOME set "PYTHON_HOME=%_PYTHON_HOME%"
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
         if not defined SCALAFMT_HOME set "SCALAFMT_HOME=%_SCALAFMT_HOME%"
-        set "PATH=%_JDK_PATH%%_PYTHON_PATH%%PATH%%_SCALA_PATH%%_DOTTY_PATH%%_ANT_PATH%%_BAZEL_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
+        set "PATH=%PATH%%_ANT_PATH%%_BAZEL_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE% "%_GIT_HOME%"
         if %_BASH%==1 (
             @rem see https://conemu.github.io/en/GitForWindows.html

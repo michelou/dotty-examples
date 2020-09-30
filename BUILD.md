@@ -39,7 +39,7 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*September 2020*):
+For instance our development environment looks as follows (*October 2020*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.28.0\     <i>(290 MB)</i>
@@ -649,7 +649,7 @@ Steps are: Checkout <b>&rarr;</b> Compile <b>&rarr;</b> Test <b>&rarr;</b> Deplo
 <b name="footnote_02">[2]</b> ***Java LTS*** (2018-11-18) [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
-Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html" rel="external">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current LTS release.<br/>(see also <a href="https://www.slideshare.net/HendrikEbbers/java-11-omg">Java 11 keynote</a> from <a href="https://www.jvm-con.de/speakers/#/speaker/3461-hendrik-ebbers">Hendrik Ebbers</a> at <a href="https://www.jvm-con.de/ruckblick/">JVM-Con 2018</a>).
+Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html" rel="external">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current LTS release.<br/>(see also <a href="https://www.slideshare.net/HendrikEbbers/java-11-omg">Java 11 keynote</a> from <a href="https://www.jvm-con.de/speakers/#/speaker/3461-hendrik-ebbers">Hendrik Ebbers</a> at <a href="https://www.jvm-con.de/ruckblick/" rel="external">JVM-Con 2018</a>).
 </p>
 
 <b name="footnote_03">[3]</b> ***Sbt issue on Windows*** [↩](#anchor_03)
@@ -678,7 +678,7 @@ Error: Server does not allow request for unadvertised object ...
 That error is caused by one of the subprojects in directory <b><code>community-build\community-projects\</code></b> and can be solved with the following commands:
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
-<b>&gt; git submodule sync</b>
+<b>&gt; <a href="https://git-scm.com/docs/git">git</a> submodule sync</b>
 <b>&gt; git submodule update --depth 50</b>
 </pre>
 
@@ -693,7 +693,7 @@ Defining directory <b><code>dotty\</code></b> as a Github submodule allows us to
 <p style="margin:0 0 1em 20px;">
 We report here one issue we encountered when working with the <a href="https://git-scm.com/docs/git-config"><b><code>git</code></b></a> command on Windows, namely the error message <code>"Filename too long"</code>:
 <pre style="margin:0 0 1em 20px;font-size:80%;">
-<b>&gt; git status</b>
+<b>&gt; <a href="https://git-scm.com/docs/git">git</a> status</b>
 mainExamples/src/main/scala/examples/main/active/writing/toConsoleWriting/info/reading/argumentAndResultMultiplier/FactorialOfArgumentMultipliedByResultMultiplierMain.scala: Filename too long
    On branch batch-files
    Your branch is ahead of 'origin/batch-files' by 1106 commits.
@@ -709,7 +709,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
