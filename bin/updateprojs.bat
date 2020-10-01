@@ -37,6 +37,10 @@ set _IVY_TASTY_VERSION_NEW=$1_0.27
 set _POM_DOTTY_VERSION_OLD=scala.version^>0.26.0-RC1
 set _POM_DOTTY_VERSION_NEW=scala.version^>0.27.0-RC1
 
+@rem files common.gradle
+set _GRADLE_DOTTY_VERSION_OLD=dotty-compiler_0.25:0.25.0-RC2
+set _GRADLE_DOTTY_VERSION_NEW=dotty-compiler_0.27:0.27.0-RC1
+
 call :env
 if not %_EXITCODE%==0 goto end
 
@@ -176,13 +180,13 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%           show commands executed by this script
-echo     %__BEG_O%-timer%__END%           display total elapsed time
-echo     %__BEG_O%-verbose%__END%         display progress messages
+echo     %__BEG_O%-debug%__END%       show commands executed by this script
+echo     %__BEG_O%-timer%__END%       display total elapsed time
+echo     %__BEG_O%-verbose%__END%     display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
-echo     %__BEG_O%help%__END%             display this help message
-echo     %__BEG_O%run%__END%              execute main class
+echo     %__BEG_O%help%__END%         display this help message
+echo     %__BEG_O%run%__END%          execute main class
 goto :eof
 
 :run
@@ -223,6 +227,7 @@ set __N3=0
 set __N4=0
 set __N5=0
 set __N6=0
+set __N7=0
 echo Parent directory: %__PARENT_DIR%
 for /f %%i in ('dir /ad /b "%__PARENT_DIR%" ^| findstr /v /c:"lib"') do (
     set "__BUILD_SBT=%__PARENT_DIR%\%%i\build.sbt"
@@ -284,15 +289,23 @@ if exist "%__POM_XML%" (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "%__POM_XML%" "%_IVY_TASTY_VERSION_OLD%" "%_IVY_TASTY_VERSION_NEW%" 1>&2
     call :replace "%__POM_XML%" "%_IVY_TASTY_VERSION_OLD%" "%_IVY_TASTY_VERSION_NEW%"
 ) else (
-   echo    %_WARNING_LABEL% Could not find file %__POM_XML% 1>&2
+    echo    %_WARNING_LABEL% Could not find file %__POM_XML% 1>&2
 )
-
+set "__COMMON_GRADLE=%__PARENT_DIR%\common.gradle"
+if exist "%__COMMON_GRADLE%" (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "%__COMMON_GRADLE%" "%_GRADLE_DOTTY_VERSION_OLD%" "%_GRADLE_DOTTY_VERSION_NEW%" 1>&2
+    call :replace "%__COMMON_GRADLE%" "%_GRADLE_DOTTY_VERSION_OLD%" "%_GRADLE_DOTTY_VERSION_NEW%"
+    set /a __N7+=1
+) else (
+    echo     %_WARNING_LABEL% Could not find file %__COMMON_GRADLE% 1>&2
+)
 call :message %__N1% "build.sbt"
 call :message %__N2% "project\build.properties"
 call :message %__N3% "project\plugins.sbt"
 call :message %__N4% "build.sc"
 call :message %__N5% "ivy.xml"
 call :message %__N6% "pom.xml"
+call :message %__N7% "common.gradle"
 goto :eof
 
 @rem input parameters: %1=nr of updates, %2=file name
