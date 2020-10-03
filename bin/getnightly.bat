@@ -71,35 +71,31 @@ if not exist "%_PS1_FILE%" (
 set "_OUTPUT_DIR=%_ROOT_DIR%out\nightly-jars"
 if not exist "%_OUTPUT_DIR%" mkdir "%_OUTPUT_DIR%" 1>NUL
 
-where /q dotc.bat
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% dotc command not found ^(run setenv.bat^) 1>&2
+if not exist "%DOTTY_HOME%\bin\dotc.bat" (
+    echo %_ERROR_LABEL% Scala 3 installation not found ^(run setenv.bat^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-for /f %%i in ('where dotc.bat') do (
-    for %%f in ("%%~dpi\.") do set "_DOTTY_HOME=%%~dpf"
-)
-if not exist "%_DOTTY_HOME%\lib\" (
+if not exist "%DOTTY_HOME%\lib\" (
     echo %_ERROR_LABEL% Dotty library directory not found ^(run setenv.bat^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-if not exist "%_DOTTY_HOME%\VERSION" (
+if not exist "%DOTTY_HOME%\VERSION" (
     echo %_ERROR_LABEL%: Dotty version file not found ^(run setenv.bat^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-for /f "delims== tokens=1,*" %%i in (%_DOTTY_HOME%\VERSION) do (
+for /f "delims== tokens=1,*" %%i in (%DOTTY_HOME%\VERSION) do (
     set __NAME=%%i
     set __VALUE=%%j
     if not "!__NAME:version=!"=="!__NAME!" set _DOTTY_VERSION=!__VALUE!
 )
 set _NIGHTLY_VERSION=unknown
-if exist "%_DOTTY_HOME%\VERSION-NIGHTLY" (
-    set /p _NIGHTLY_VERSION=< "%_DOTTY_HOME%\VERSION-NIGHTLY"
-    if not exist "%_DOTTY_HOME%\lib\!_NIGHTLY_VERSION!\" (
-        del "%_DOTTY_HOME%\VERSION-NIGHTLY" 1>NUL
+if exist "%DOTTY_HOME%\VERSION-NIGHTLY" (
+    set /p _NIGHTLY_VERSION=< "%DOTTY_HOME%\VERSION-NIGHTLY"
+    if not exist "%DOTTY_HOME%\lib\!_NIGHTLY_VERSION!\" (
+        del "%DOTTY_HOME%\VERSION-NIGHTLY" 1>NUL
         set _NIGHTLY_VERSION=unknown
     )
 )
@@ -198,6 +194,7 @@ if %_DEBUG%==1 ( set _STDOUT_REDIRECT=1^>CON
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _DOWNLOAD_ONLY=%_DOWNLOAD_ONLY% _ACTIVATE_NIGHTLY=%_ACTIVATE_NIGHTLY% _NIGHTLY_VERSION=%_NIGHTLY_VERSION% 1>&2
+    echo %_DEBUG_LABEL% Variables  : DOTTY_HOME="%DOTTY_HOME%" 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
@@ -277,7 +274,7 @@ for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%"
     for %%f in ("%%i") do set "__FILE_BASENAME=%%~nxf"
     if defined _NIGHTLY_VERSION if not "!__FILE_BASENAME:%_NIGHTLY_VERSION%=!"=="!__FILE_BASENAME!" (
         echo Nightly build files already present locally
-        echo ^(directory %_DOTTY_HOME%\lib\%_NIGHTLY_VERSION%^)
+        echo ^(directory %DOTTY_HOME%\lib\%_NIGHTLY_VERSION%^)
         goto :eof
     )
     if %_VERBOSE%==1 <NUL set /p=Downloading file !__FILE_BASENAME! ... 
@@ -309,11 +306,11 @@ goto :eof
 
 @rem global variable: _DOTTY_HOME
 :backup_dotty
-set __DOTTY_BAK_DIR=%_DOTTY_HOME%\lib\%_DOTTY_VERSION%
+set __DOTTY_BAK_DIR=%DOTTY_HOME%\lib\%_DOTTY_VERSION%
 if not exist "%__DOTTY_BAK_DIR%\" (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% mkdir "%__DOTTY_BAK_DIR%" 1<&2
     mkdir "%__DOTTY_BAK_DIR%"
-    for %%i in (%_DOTTY_HOME%\lib\^*%_DOTTY_VERSION%.jar) do (
+    for %%i in (%DOTTY_HOME%\lib\^*%_DOTTY_VERSION%.jar) do (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% copy %%i "%__DOTTY_BAK_DIR%\" 1>&2
         copy %%i "%__DOTTY_BAK_DIR%\" 1>NUL
         if not !ERRORLEVEL!==0 (
@@ -328,8 +325,8 @@ goto :eof
 @rem output parameter: _NIGHTLY_VERSION
 :backup_nightly
 set __OLD_NIGHTLY_VERSION=unknown
-if exist "%_DOTTY_HOME%\VERSION-NIGHTLY" (
-    set /p __OLD_NIGHTLY_VERSION=<%_DOTTY_HOME%\VERSION-NIGHTLY
+if exist "%DOTTY_HOME%\VERSION-NIGHTLY" (
+    set /p __OLD_NIGHTLY_VERSION=<%DOTTY_HOME%\VERSION-NIGHTLY
     if "%__OLD_NIGHTLY_VERSION%"=="%_NIGHTLY_VERSION%" (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Nightly version and old version are equal ^(%_NIGHTLY_VERSION%^) 1>&2
         goto :eof
@@ -338,9 +335,9 @@ if exist "%_DOTTY_HOME%\VERSION-NIGHTLY" (
     set __OLD_NIGHTLY_VERSION=%_DOTTY_VERSION%
 )
 echo Local nightly version has changed from %__OLD_NIGHTLY_VERSION% to %_NIGHTLY_VERSION%
-echo %_NIGHTLY_VERSION%>%_DOTTY_HOME%\VERSION-NIGHTLY
+echo %_NIGHTLY_VERSION%>%DOTTY_HOME%\VERSION-NIGHTLY
 
-set "__NIGHTLY_BAK_DIR=%_DOTTY_HOME%\lib\%_NIGHTLY_VERSION%"
+set "__NIGHTLY_BAK_DIR=%DOTTY_HOME%\lib\%_NIGHTLY_VERSION%"
 if not exist "%__NIGHTLY_BAK_DIR%\" (
     mkdir "%__NIGHTLY_BAK_DIR%"
     for %%i in (%_OUTPUT_DIR%\^*%_NIGHTLY_VERSION%.jar) do (
@@ -360,12 +357,12 @@ set __OLD_VERSION=%~1
 set __NEW_VERSION=%~2
 echo Activate nightly build libraries: %__NEW_VERSION%
 
-set "__FROM_DIR=%_DOTTY_HOME%\lib\%__NEW_VERSION%"
-set "__TO_DIR=%_DOTTY_HOME%\lib"
+set "__FROM_DIR=%DOTTY_HOME%\lib\%__NEW_VERSION%"
+set "__TO_DIR=%DOTTY_HOME%\lib"
 if %_DEBUG%==1 echo %_DEBUG_LABEL% del %__TO_DIR%\*%__OLD_VERSION%.jar 1>&2 
 del "%__TO_DIR%\*%__OLD_VERSION%.jar" 1>NUL 2>&1
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% copy "%__FROM_DIR%\*.jar" "%__TO_DIR%\" 1>&2
-) else if %_VERBOSE%==1 ( echo Copy "!__FROM_DIR:%_DOTTY_HOME%\=!\*.jar" "!__TO_DIR:%_DOTTY_HOME%\=!\" 1>&2
+) else if %_VERBOSE%==1 ( echo Copy "!__FROM_DIR:%DOTTY_HOME%\=!\*.jar" "!__TO_DIR:%DOTTY_HOME%\=!\" 1>&2
 )
 copy "%__FROM_DIR%\*.jar" "%__TO_DIR%\" %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
@@ -374,7 +371,7 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 set __OLD_DIR=
-for /f %%f in ('dir /b /ad "%_DOTTY_HOME%\lib\*-NIGHTLY" 2^>NUL') do set "__OLD_DIR=%_DOTTY_HOME%\lib\%%f"
+for /f %%f in ('dir /b /ad "%DOTTY_HOME%\lib\*-NIGHTLY" 2^>NUL') do set "__OLD_DIR=%DOTTY_HOME%\lib\%%f"
 if not defined __OLD_DIR goto :eof
 for /f %%f in ('dir /b "%__OLD_DIR%\*.jar" 2^>NUL') do (
     if exist "%__TO_DIR%\%%f" del "%__TO_DIR%\%%f"

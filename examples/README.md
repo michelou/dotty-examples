@@ -78,8 +78,8 @@ Total time: 19 seconds
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://curl.haxx.se/docs/manpage.html">curl</a> -sL -o c:\Temp\apache-ivy-2.5.0.zip https://www-eu.apache.org/dist//ant/ivy/2.5.0/apache-ivy-2.5.0-bin.zip</b>
 > <b>&gt; <a href="https://linux.die.net/man/1/unzip">unzip</a> c:\temp\apache-ivy-2.5.0.zip -d c:\opt</b>
-> <b>&gt; copy c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.8\lib</b>
-> <b>&gt; dir c:\opt\apache-ant-1.10.8\lib | findstr ivy</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/copy">copy</a> c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.8\lib</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\apache-ant-1.10.8\lib | findstr ivy</b>
 > 20.10.2019  09:44         1 402 646 ivy-2.5.0.jar
 > </pre>
 
@@ -188,7 +188,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 > **:mag_right:** The above `enum-Planet` example expects 1 argument at execution time.<br/>
 > For simplicity the [**`build`**](enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
-> <b>&gt; type <a href="enum-Planet/project/build.properties">project\build.properties</a></b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/type">type</a> <a href="enum-Planet/project/build.properties">project\build.properties</a></b>
 > sbt.version=1.3.13
 > main.class=Planet
 > main.args=1
@@ -330,7 +330,7 @@ The [Maven][apache_maven_about] configuration file [**`enum-Planet\pom.xml`**](e
 Command **` mvn compile test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our [Maven][apache_maven_about] plugin **`scala-maven-plugin`**:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> -debug compile test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
+<b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> -debug compile test | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-1.8.0_262-b10\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.27.0-RC1 \
  -cp C:\opt\dotty-0.27.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
