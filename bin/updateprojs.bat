@@ -14,8 +14,8 @@ set _DOTTY_VERSION_OLD="0.26.0-RC1"
 set _DOTTY_VERSION_NEW="0.27.0-RC1"
 
 @rem files project\build.properties
-set _SBT_VERSION_OLD=sbt.version=1.3.12
-set _SBT_VERSION_NEW=sbt.version=1.3.13
+set _SBT_VERSION_OLD=sbt.version=1.3.13
+set _SBT_VERSION_NEW=sbt.version=1.4.0
 
 @rem files project\plugins.sbt
 @rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/
@@ -38,7 +38,7 @@ set _POM_DOTTY_VERSION_OLD=scala.version^>0.26.0-RC1
 set _POM_DOTTY_VERSION_NEW=scala.version^>0.27.0-RC1
 
 @rem files common.gradle
-set _GRADLE_DOTTY_VERSION_OLD=dotty-compiler_0.25:0.25.0-RC2
+set _GRADLE_DOTTY_VERSION_OLD=dotty-compiler_0.26:0.26.0-RC1
 set _GRADLE_DOTTY_VERSION_NEW=dotty-compiler_0.27:0.27.0-RC1
 
 call :env

@@ -327,7 +327,7 @@ goto :eof
 set __OLD_NIGHTLY_VERSION=unknown
 if exist "%DOTTY_HOME%\VERSION-NIGHTLY" (
     set /p __OLD_NIGHTLY_VERSION=<%DOTTY_HOME%\VERSION-NIGHTLY
-    if "%__OLD_NIGHTLY_VERSION%"=="%_NIGHTLY_VERSION%" (
+    if "!__OLD_NIGHTLY_VERSION!"=="%_NIGHTLY_VERSION%" (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Nightly version and old version are equal ^(%_NIGHTLY_VERSION%^) 1>&2
         goto :eof
     )
