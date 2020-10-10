@@ -440,11 +440,11 @@ if not exist "%_DOTTY_HOME%\bin\dotc.bat" (
 )
 goto :eof
 
-@rem output parameter(s): _SBT_PATH
+@rem output parameter(s): _SBT_HOME, _SBT_PATH
 :sbt
+set _SBT_HOME=
 set _SBT_PATH=
 
-set __SBT_HOME=
 set __SBT_CMD=
 for /f %%f in ('where sbt.bat 2^>NUL') do set "__SBT_CMD=%%f"
 if defined __SBT_CMD (
@@ -452,25 +452,25 @@ if defined __SBT_CMD (
     @rem keep _SBT_PATH undefined since executable already in path
     goto :eof
 ) else if defined SBT_HOME (
-    set "__SBT_HOME=%SBT_HOME%"
+    set "_SBT_HOME=%SBT_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SBT_HOME 1>&2
 ) else (
     set __PATH=C:\opt
-    if exist "!__PATH!\sbt\" ( set "__SBT_HOME=!__PATH!\sbt"
+    if exist "!__PATH!\sbt\" ( set "_SBT_HOME=!__PATH!\sbt"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "__SBT_HOME=!__PATH!\%%f"
-        if not defined __SBT_HOME (
+        for /f %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!__PATH!\%%f"
+        if not defined _SBT_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "__SBT_HOME=!__PATH!\%%f"
+            for /f %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!__PATH!\%%f"
         )
     )
 )
-if not exist "%__SBT_HOME%\bin\sbt.bat" (
-    echo %_ERROR_LABEL% sbt executable not found ^(%__SBT_HOME%^) 1>&2
+if not exist "%_SBT_HOME%\bin\sbt.bat" (
+    echo %_ERROR_LABEL% sbt executable not found ^(%_SBT_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_SBT_PATH=;%__SBT_HOME%\bin"
+set "_SBT_PATH=;%_SBT_HOME%\bin"
 goto :eof
 
 @rem output parameter(s): _ANT_HOME, _ANT_PATH
@@ -889,30 +889,30 @@ set __VERSIONS_LINE2=
 set __VERSIONS_LINE3=
 set __VERSIONS_LINE4=
 set __WHERE_ARGS=
-where /q "%JAVA_HOME%\bin":javac.exe
+where /q "%JAVA_HOME%\bin:javac.exe"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,*" %%i in ('"%JAVA_HOME%\bin\javac.exe" -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% javac %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%JAVA_HOME%\bin:javac.exe"
 )
-where /q "%JAVA_HOME%\bin":java.exe
+where /q "%JAVA_HOME%\bin:java.exe"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,3,*" %%i in ('"%JAVA_HOME%\bin\java.exe" -version 2^>^&1 ^| findstr version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% java %%~k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%JAVA_HOME%\bin:java.exe"
 )
-where /q "%SCALA_HOME%\bin":scalac.bat
+where /q "%SCALA_HOME%\bin:scalac.bat"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,3,4,*" %%i in ('"%SCALA_HOME%\bin\scalac.bat" -version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalac %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%SCALA_HOME%\bin:scalac.bat"
 )
-where /q "%DOTTY_HOME%\bin":dotc.bat
+where /q "%DOTTY_HOME%\bin:dotc.bat"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,3,4,*" %%i in ('"%DOTTY_HOME%\bin\dotc.bat" -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% dotc %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%DOTTY_HOME%\bin:dotc.bat"
 )
-where /q ant.bat
+where /q "%ANT_HOME%\bin:ant.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,4,*" %%i in ('ant.bat -version ^| findstr version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% ant %%l,"
-    set __WHERE_ARGS=%__WHERE_ARGS% ant.bat
+    for /f "tokens=1,2,3,4,*" %%i in ('"%ANT_HOME%\bin\ant.bat" -version ^| findstr version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% ant %%l,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%ANT_HOME%\bin:ant.bat"
 )
 where /q gradle.bat
 if %ERRORLEVEL%==0 (
@@ -929,11 +929,12 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,3,*" %%i in ('mvn.cmd -version ^| findstr Apache') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% mvn %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% mvn.cmd
 )
-where /q sbt.bat
+where /q "%SBT_HOME%\bin:sbt.bat"
 if %ERRORLEVEL%==0 (
-    for /f "delims=: tokens=1,*" %%i in ('sbt.bat -V ^| findstr version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% sbt%%~j,"
-    set __WHERE_ARGS=%__WHERE_ARGS% sbt.bat
-)
+    @rem It's a nightmare to **quickly** get the sbt version
+    for /f "tokens=1-4,5,*" %%i in ('%JAVA_HOME%\bin\java.exe -jar "%SBT_HOME%\bin\sbt-launch.jar" exit ^| findstr sbt') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% sbt %%~m,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%SBT_HOME%\bin:sbt.bat"
+) 
 where /q bazel.exe
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('bazel.exe --version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bazel %%j,"
@@ -994,6 +995,7 @@ if %__VERBOSE%==1 (
     if defined JAVA11_HOME echo    JAVA11_HOME=%JAVA11_HOME% 1>&2
     if defined JAVAFX_HOME echo    JAVAFX_HOME=%JAVAFX_HOME% 1>&2
     if defined PYTHON_HOME echo    PYTHON_HOME=%PYTHON_HOME% 1>&2
+    if defined SBT_HOME echo    SBT_HOME=%SBT_HOME% 1>&2
     if defined SCALA_HOME echo    SCALA_HOME=%SCALA_HOME% 1>&2
     if defined SCALAFMT_HOME echo    SCALAFMT_HOME=%SCALAFMT_HOME% 1>&2
 )
@@ -1014,6 +1016,7 @@ endlocal & (
         if not defined JAVA11_HOME set "JAVA11_HOME=%_JDK11_HOME%"
         if not defined JAVAFX_HOME set "JAVAFX_HOME=%_JAVAFX_HOME%"
         if not defined PYTHON_HOME set "PYTHON_HOME=%_PYTHON_HOME%"
+        if not defined SBT_HOME set "SBT_HOME=%_SBT_HOME%"
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
         if not defined SCALAFMT_HOME set "SCALAFMT_HOME=%_SCALAFMT_HOME%"
         set "PATH=%PATH%%_ANT_PATH%%_BAZEL_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"

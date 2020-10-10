@@ -18,7 +18,7 @@ if not %_EXITCODE%==0 goto end
 for %%i in (%*) do (
     set __DIR=%%i
     set __DIR_TRUE=False
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -C "(Get-Item '!__DIR!') -is [System.IO.DirectoryInfo]"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -C "(Get-Item '!__DIR!') -is [System.IO.DirectoryInfo]" 1>&2
     for /f %%i in ('powershell -C "(Get-Item '!__DIR!') -is [System.IO.DirectoryInfo]"') do set __DIR_TRUE=%%i
     if /i "!__DIR_TRUE!"=="True" (
         call :dir_size "!__DIR!"
@@ -41,8 +41,6 @@ call :env_colors
 set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
 set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
-set _COLOR_START=%_NORMAL_FG_GREEN%
-set _COLOR_END=%_RESET%
 goto :eof
 
 :env_colors
@@ -104,7 +102,7 @@ Elseif ($total_size -ge 1048576) {  $n = $total_size / 1048576; $unit='Mb' } ^
 Else { $n = $total_size/1024; $unit='Kb' } ^
 Write-Host ([math]::Round($n,1))" "$unit
 
-if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -C "..."
+if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -C "..." 1>&2
 for /f "delims=" %%i in ('powershell -C "%__PS1_SCRIPT%"') do set __DIR_SIZE=%%i
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Execution of ps1 cmdlet failed 1>&2
@@ -118,6 +116,6 @@ goto :eof
 @rem ## Cleanups
 
 :end
-if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE%
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%
 endlocal

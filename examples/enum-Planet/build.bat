@@ -70,6 +70,7 @@ set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
+set "_MAIN_SOURCE_DIR=%_SOURCE_DIR%\main\scala"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_CLASSES_DIR=%_TARGET_DIR%\classes"
 set "_TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes"
@@ -90,18 +91,18 @@ if not exist "%SCALA_HOME%\bin\scalac.bat" (
     set _EXITCODE=1
     goto :eof
 )
-set "_SCALA[0]=%SCALA_HOME%\bin\scala.bat"
-set "_SCALAC[0]=%SCALA_HOME%\bin\scalac.bat"
-set "_SCALADOC[0]=%SCALA_HOME%\bin\scaladoc.bat"
+set "_SCALA2=%SCALA_HOME%\bin\scala.bat"
+set "_SCALAC2=%SCALA_HOME%\bin\scalac.bat"
+set "_SCALADOC2=%SCALA_HOME%\bin\scaladoc.bat"
 
 if not exist "%DOTTY_HOME%\bin\dotc.bat" (
     echo %_ERROR_LABEL% Scala 3 installation not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_SCALA[1]=%DOTTY_HOME%\bin\dotr.bat"
-set "_SCALAC[1]=%DOTTY_HOME%\bin\dotc.bat"
-set "_SCALADOC[1]=%DOTTY_HOME%\bin\dotd.bat"
+set "_SCALA3=%DOTTY_HOME%\bin\dotr.bat"
+set "_SCALAC3=%DOTTY_HOME%\bin\dotc.bat"
+set "_SCALADOC3=%DOTTY_HOME%\bin\dotd.bat"
 
 set _SCALAFMT_CMD=
 if exist "%SCALAFMT_HOME%\bin\scalafmt.bat" (
@@ -203,13 +204,13 @@ set _CLEAN=0
 set _COMPILE=0
 set _DECOMPILE=0
 set _DOC=0
-set _DOTTY=1
 set _HELP=0
 set _INSTRUMENTED=
 set _LINT=0
 set _MAIN_CLASS=%_MAIN_CLASS_DEFAULT%
 set _MAIN_ARGS=%_MAIN_ARGS_DEFAULT%
 set _RUN=0
+set _SCALA_VERSION=3
 set _SCALAC_OPTS=-deprecation -feature
 set _SCALAC_OPTS_EXPLAIN=0
 set _SCALAC_OPTS_EXPLAIN_TYPES=0
@@ -228,12 +229,12 @@ if not defined __ARG (
 if "%__ARG:~0,1%"=="-" (
     @rem option
     if "%__ARG%"=="-debug" ( set _DEBUG=1
-    ) else if "%__ARG%"=="-dotty" ( set _DOTTY=1
+    ) else if "%__ARG%"=="-dotty" ( set _SCALA_VERSION=3
     ) else if "%__ARG%"=="-explain" ( set _SCALAC_OPTS_EXPLAIN=1
     ) else if "%__ARG%"=="-explain-types" ( set _SCALAC_OPTS_EXPLAIN_TYPES=1
     ) else if "%__ARG%"=="-help" ( set _HELP=1
     ) else if "%__ARG%"=="-print" ( set _SCALAC_OPTS_PRINT=1
-    ) else if "%__ARG%"=="-scala" ( set _DOTTY=0
+    ) else if "%__ARG%"=="-scala" ( set _SCALA_VERSION=2
     ) else if "%__ARG%"=="-tasty" ( set _TASTY=1
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
@@ -269,6 +270,10 @@ goto :args_loop
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
+if %_COMPILE%==1 if %_SCALA_VERSION%==2 if exist "%_SOURCE_DIR%\main\scala2" (
+    @rem overwrite main source directory if Scala 2/3 sources differ 
+    set "_MAIN_SOURCE_DIR=%_SOURCE_DIR%\main\scala2"
+)
 if %_DECOMPILE%==1 if not defined _CFR_CMD (
    echo %_WARNING_LABEL% cfr installation not found 1>&2
    set _DECOMPILE=0
@@ -286,31 +291,32 @@ if defined _INSTRUMENTED if not exist "%JACOCO_HOME%\lib\jacococli.jar" (
    echo %_WARNING_LABEL% JaCoCo installation not found 1>&2
    set _INSTRUMENTED=
 )
-set "_SCALA_CMD=!_SCALA[%_DOTTY%]!"
-set "_SCALAC_CMD=!_SCALAC[%_DOTTY%]!"
-set "_SCALADOC_CMD=!_SCALADOC[%_DOTTY%]!"
+set "_SCALA_CMD=!_SCALA%_SCALA_VERSION%!"
+set "_SCALAC_CMD=!_SCALAC%_SCALA_VERSION%!"
+set "_SCALADOC_CMD=!_SCALADOC%_SCALA_VERSION%!"
 
 if %_SCALAC_OPTS_EXPLAIN%==1 set _SCALAC_OPTS=%_SCALAC_OPTS% -explain
 if %_SCALAC_OPTS_EXPLAIN_TYPES%==1 (
-    if !_DOTTY!==1 ( set _SCALAC_OPTS=%_SCALAC_OPTS% -explain-types
+    if %_SCALA_VERSION%==3 ( set _SCALAC_OPTS=%_SCALAC_OPTS% -explain-types
     ) else ( set _SCALAC_OPTS=%_SCALAC_OPTS% -explaintypes
     )
 )
 if %_SCALAC_OPTS_PRINT%==1 (
-    if %_DOTTY%==1 ( set _SCALAC_OPTS=%_SCALAC_OPTS% -color never -Xprint:lambdaLift
+    if %_SCALA_VERSION%==3 ( set _SCALAC_OPTS=%_SCALAC_OPTS% -color never -Xprint:lambdaLift
     ) else ( set _SCALAC_OPTS=%_SCALAC_OPTS% -print
     )
 )
-if %_TASTY%==1 if %_DOTTY%==0 (
+if %_TASTY%==1 if not %_SCALA_VERSION%==3 (
     echo %_WARNING_LABEL% Option '-tasty' only supported by Scala 3 1>&2
     set _TASTY=0
 )
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% _PROJECT_VERSION=%_PROJECT_VERSION% 1>&2
-    echo %_DEBUG_LABEL% Options    : _DOTTY=%_DOTTY% _EXPLAIN=%_SCALAC_OPTS_EXPLAIN% _PRINT=%_SCALAC_OPTS_PRINT% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Options    : _EXPLAIN=%_SCALAC_OPTS_EXPLAIN% _PRINT=%_SCALAC_OPTS_PRINT% _SCALA_VERSION=%_SCALA_VERSION% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
-    if %_DOTTY%==0 ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" SCALA_HOME="%SCALA_HOME%" 1>&2
-    ) else ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" DOTTY_HOME="%DOTTY_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" 1>&2
+    if %_SCALA_VERSION%==2 ( echo %_DEBUG_LABEL% Variables  : SCALA_HOME="%SCALA_HOME%" 1>&2
+    ) else ( echo %_DEBUG_LABEL% Variables  : DOTTY_HOME="%DOTTY_HOME%" 1>&2
     )
     echo %_DEBUG_LABEL% Variables  : _MAIN_CLASS=%_MAIN_CLASS% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
 )
@@ -402,10 +408,10 @@ goto :eof
 set __SCALAFMT_OPTS=--test --config "%_SCALAFMT_CONFIG_FILE%"
 if %_DEBUG%==1 set __SCALAFMT_OPTS=--debug %__SCALAFMT_OPTS%
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_SOURCE_DIR%\main\scala\" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_MAIN_SOURCE_DIR%\" 1>&2
 ) else if %_VERBOSE%==1 ( echo Analyze Scala source files with Scalafmt 1>&2
 )
-call "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% %_SOURCE_DIR%\main\scala\
+call "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% %_MAIN_SOURCE_DIR%\
 if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
@@ -422,7 +428,7 @@ if %_COMPILE_REQUIRED%==1 (
     call :compile_java
     if not !_EXITCODE!==0 goto :eof
 )
-call :compile_required "%__TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\scala\*.scala"
+call :compile_required "%__TIMESTAMP_FILE%" "%_MAIN_SOURCE_DIR%\*.scala"
 if %_COMPILE_REQUIRED%==1 (
     call :compile_scala
     if not !_EXITCODE!==0 goto :eof
@@ -460,7 +466,7 @@ goto :eof
 set "__SOURCES_FILE=%_TARGET_DIR%\scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
-for /f %%f in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
+for /f %%f in ('dir /s /b "%_MAIN_SOURCE_DIR%\*.scala" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
@@ -469,7 +475,7 @@ if %_SCALAC_OPTS_PRINT%==1 (
     call :version_string
     if not !_EXITCODE!==0 goto :eof
     set "__PRINT_FILE=%_TARGET_DIR%\scalac-print!_VERSION_SUFFIX!.scala"
-    if %_DOTTY%==1 ( set __PRINT_FILE_REDIRECT=2^> "!__PRINT_FILE!"
+    if %_SCALA_VERSION%==3 ( set __PRINT_FILE_REDIRECT=2^> "!__PRINT_FILE!"
     ) else ( set __PRINT_FILE_REDIRECT=1^> "!__PRINT_FILE!"
     )
 )
@@ -524,7 +530,7 @@ set __PATH_ARRAY=
 set __PATH_ARRAY1=
 :compile_path
 shift
-set __PATH=%~1
+set "__PATH=%~1"
 if not defined __PATH goto :compile_next
 set __PATH_ARRAY=%__PATH_ARRAY%,'%__PATH%'
 set __PATH_ARRAY1=%__PATH_ARRAY1%,'!__PATH:%_ROOT_DIR%=!'
@@ -597,7 +603,7 @@ goto :eof
 
 @rem output parameter: _EXTRA_CPATH
 :extra_cpath
-if %_DOTTY%==1 ( set "__LIB_PATH=%DOTTY_HOME%\lib"
+if %_SCALA_VERSION%==3 ( set "__LIB_PATH=%DOTTY_HOME%\lib"
 ) else ( set "__LIB_PATH=%SCALA_HOME%\lib"
 )
 set _EXTRA_CPATH=
@@ -606,7 +612,7 @@ goto :eof
 
 @rem output parameters: _VERSION_STRING, _VERSION_SUFFIX
 :version_string
-if %_DOTTY%==1 (
+if %_SCALA_VERSION%==3 (
     for /f "tokens=1,2,3,4,*" %%i in ('%DOTTY_HOME%\bin\dotc.bat -version 2^>^&1') do (
         set "_VERSION_STRING=scala3_%%l"
     )
@@ -691,16 +697,16 @@ if not exist "%_TARGET_DOCS_DIR%" mkdir "%_TARGET_DOCS_DIR%" 1>NUL
 
 set "__DOC_TIMESTAMP_FILE=%_TARGET_DOCS_DIR%\.latest-build"
 
-call :compile_required "%__DOC_TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\scala\*.scala"
+call :compile_required "%__DOC_TIMESTAMP_FILE%" "%_MAIN_SOURCE_DIR%\*.scala"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
 set "__SOURCES_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
-for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
+for /f %%i in ('dir /s /b "%_MAIN_SOURCE_DIR%\*.scala" 2^>NUL') do (
     echo %%i>> "%__SOURCES_FILE%"
 )
 set "__OPTS_FILE=%_TARGET_DIR%\scaladoc_opts.txt"
-if %_DOTTY%==0 (
+if %_SCALA_VERSION%==2 (
     echo -d "%_TARGET_DOCS_DIR%" -doc-title "%_PROJECT_NAME%" -doc-footer "%_PROJECT_URL%" -doc-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
 ) else (
     echo -siteroot "%_TARGET_DOCS_DIR%" -project "%_PROJECT_NAME%" -project-url "%_PROJECT_URL%" -project-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
@@ -816,10 +822,10 @@ if not %ERRORLEVEL%==0 (
 set "__TARGET_HTML_DIR=%_TARGET_DIR%\instrumented-html"
 if not exist "%__TARGET_HTML_DIR%\" mkdir "%__TARGET_HTML_DIR%" 1>NUL
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" report "%__EXEC_FILE%" --classfiles "%_CLASSES_DIR%" --encoding UTF8 --html "%__TARGET_HTML_DIR%" --name "%_PROJECT_NAME%" --quiet --sourcefiles "%_SOURCE_DIR%\main\scala" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" report "%__EXEC_FILE%" --classfiles "%_CLASSES_DIR%" --encoding UTF8 --html "%__TARGET_HTML_DIR%" --name "%_PROJECT_NAME%" --quiet --sourcefiles "%_MAIN_SOURCE_DIR%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate HTML report in directory "!__TARGET_HTML_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" report "%__EXEC_FILE%" --classfiles "%_CLASSES_DIR%" --encoding UTF8 --html "%__TARGET_HTML_DIR%" --name "%_PROJECT_NAME%" --quiet --sourcefiles "%_SOURCE_DIR%\main\scala"
+call "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" report "%__EXEC_FILE%" --classfiles "%_CLASSES_DIR%" --encoding UTF8 --html "%__TARGET_HTML_DIR%" --name "%_PROJECT_NAME%" --quiet --sourcefiles "%_MAIN_SOURCE_DIR%"
 if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof

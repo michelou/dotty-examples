@@ -20,6 +20,7 @@ object Planet {
   def main(args: Array[String]) = {
     val earthWeight = args(0).toDouble
     val mass = earthWeight / EARTH.surfaceGravity
+    println(s"Mass of earth is $mass")
     for (p <- values)
       println(s"Your weight on $p (${p.ordinal}) is ${p.surfaceWeight(mass)}")
   }
