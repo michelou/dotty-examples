@@ -41,10 +41,10 @@ Optionally one may also install the following software:
 
 - [Apache Ant 1.10][apache_ant] (requires Java 8) ([*release notes*][apache_ant_relnotes])
 - [Apache Maven 3.6][apache_maven] ([requires Java 7][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
-- [Bazel 3.5][bazel_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
+- [Bazel 3.6][bazel_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
 - [GNU Make 3.81][make_downloads]
-- [Gradle 6.6.1][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Gradle 6.7][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [JaCoCo 0.8][jacoco_downloads] ([*change log*][jacoco_changelog])
 - [Mill 0.8][mill_releases] ([*change log*][mill_changelog])
 - [SBT 1.4][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
@@ -63,11 +63,11 @@ For instance our development environment looks as follows (*October 2020*) <sup 
 C:\opt\jdk-11.0.8+10\        <i>(181.0 MB)</i>
 C:\opt\apache-ant-1.10.9\    <i>( 39.7 MB)</i>
 C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
-C:\opt\bazel-3.5.1\          <i>( 40.0 MB)</i>
+C:\opt\bazel-3.6.0\          <i>( 40.0 MB)</i>
 C:\opt\cfr-0.150\            <i>(  1.9 MB)</i>
 C:\opt\dotty-0.27.0-RC1\     <i>( 27.3 MB)</i>
 C:\opt\Git-2.28.0\           <i>(290.0 MB)</i>
-C:\opt\gradle-6.6.1\         <i>(110.0 MB)</i>
+C:\opt\gradle-6.7\           <i>(111.0 MB)</i>
 C:\opt\jacoco-0.8.6\         <i>( 10.6 MB)</i>
 C:\opt\make-3.81\            <i>(  2.1 MB)</i>
 C:\opt\Mill-0.8.0\           <i>( 53.7 MB)</i>
@@ -295,8 +295,8 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.8, java 11.0.8, scalac 2.13.3, dotc 0.27.0-RC1,
-   ant 1.10.9, gradle 6.6.1, mill 0.8.0, mvn 3.6.3, sbt 1.4.0,
-   bazel 3.5.1, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.6,
+   ant 1.10.9, gradle 6.7, mill 0.8.0, mvn 3.6.3, sbt 1.4.0,
+   bazel 3.6.0, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.6,
    git 2.28.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
@@ -312,8 +312,8 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.8, java 11.0.8, scalac 2.13.3, dotc 0.27.0-RC1,
-   ant 1.10.9, gradle 6.6.1, mill 0.8.0, mvn 3.6.3, sbt 1.4.0,
-   bazel 3.5.1, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.6,
+   ant 1.10.9, gradle 6.7, mill 0.8.0, mvn 3.6.3, sbt 1.4.0,
+   bazel 3.6.0, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.6,
    git 2.28.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-11.0.8+10\bin\javac.exe
@@ -321,11 +321,11 @@ Tool paths:
    C:\opt\scala-2.13.3\bin\scalac.bat
    C:\opt\dotty-0.27.0-RC1\bin\dotc.bat
    C:\opt\apache-ant-1.10.9\bin\ant.bat
-   C:\opt\gradle-6.6.1\bin\gradle.bat
+   C:\opt\gradle-6.7\bin\gradle.bat
    C:\opt\Mill-0.8.0\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
    C:\opt\sbt-1.4.0\bin\sbt.bat
-   C:\opt\bazel-3.5.1\bazel.exe
+   C:\opt\bazel-3.6.0\bazel.exe
    C:\opt\bloop-1.3.4\bloop.cmd
    C:\opt\cfr-0.150\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
@@ -594,12 +594,12 @@ Execution time: 00:00:11
 > **:mag_right:** The **`&&`** command separator performs error checking - that is, the commands to the right of the **`&&`** command run ***if and only if*** the command to the left of **`&&`** succeeds. The **`&`** command ***does not*** perform error checking - that is, all commands run.
 
 <!--
-#### `touch.bat`
+### `touch.bat`
 
 The [**`touch.bat`**](bin/touch.bat) command
 
 
-#### `updateprojs`
+### `updateprojs`
 
 Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software versions:
 
@@ -722,9 +722,9 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://github.com/lihaoyi/mill/releases">0.8.0-assembly</a> (<code>mill</code>)                            <i>(53 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.9-bin.zip</a>                        <i>( 9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                       <i>( 9 MB)</i>
-<a href="https://github.com/bazelbuild/bazel/releases">bazel-3.5.1-windows-x86_64.zip</a>                   <i>(38 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases">bazel-3.6.0-windows-x86_64.zip</a>                   <i>(38 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/0.27.0-RC1">dotty-0.27.0-RC1.zip</a>                             <i>(24 MB)</i>
-<a href="https://gradle.org/install/">gradle-6.6.1-bin.zip</a>                             <i>(97 MB)</i>
+<a href="https://gradle.org/install/">gradle-6.7-bin.zip</a>                             <i>(97 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.6.zip</a>                                 <i>( 4 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                <i>(10 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.8_10.zip</a> <i>(99 MB)</i>
@@ -755,7 +755,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [apache_maven_relnotes]: https://maven.apache.org/docs/3.6.3/release-notes.html
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [bazel_releases]: https://github.com/bazelbuild/bazel/releases
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/3.5.1
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/3.6.0
 [bloop_releases]: https://scalacenter.github.io/bloop/
 [bloop_relnotes]: https://github.com/scalacenter/bloop/releases/tag/v1.3.4
 [cfr_releases]: https://www.benf.org/other/cfr/
@@ -780,7 +780,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 [gradle_install]: https://gradle.org/install/
-[gradle_relnotes]: https://docs.gradle.org/6.5/release-notes.html
+[gradle_relnotes]: https://docs.gradle.org/6.7/release-notes.html
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [jacoco_changelog]: https://www.jacoco.org/jacoco/trunk/doc/changes.html
 [jacoco_downloads]: https://www.eclemma.org/jacoco/

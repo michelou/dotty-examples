@@ -26,9 +26,6 @@ if defined _HELP (
     call :help
     exit /b !_EXITCODE!
 )
-call :init
-if not %_EXITCODE%==0 goto end
-
 if defined _CLEAN (
     call :clean
     if not !_EXITCODE!==0 goto end
@@ -180,9 +177,9 @@ if not defined __ARG (
 )
 if "%__ARG:~0,1%"=="-" (
     @rem option
-    if /i "%__ARG%"=="-debug" ( set _DEBUG=1
-    ) else if /i "%__ARG%"=="-timer" ( set _TIMER=1
-    ) else if /i "%__ARG%"=="-verbose" ( set _VERBOSE=1
+    if "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if "%__ARG%"=="-timer" ( set _TIMER=1
+    ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %_STRONG_FG_GREEN%%__ARG%%__END% 1>&2
         set _EXITCODE=1
@@ -190,30 +187,30 @@ if "%__ARG:~0,1%"=="-" (
     )
 ) else (
     @rem subcommand
-    if /i "%__ARG:~0,4%"=="arch" (
+    if "%__ARG:~0,4%"=="arch" (
         if not "%__ARG:~-5%"=="-only" set _CLONE=1& set _COMPILE=1& set _BOOTSTRAP=1
         set _ARCHIVES=1
-    ) else if /i "%__ARG:~0,4%"=="boot" (
+    ) else if "%__ARG:~0,4%"=="boot" (
         if not "%__ARG:~-5%"=="-only" set _CLONE=1& set _COMPILE=1
         set _BOOTSTRAP=1
-    ) else if /i "%__ARG%"=="clean" ( set _CLEAN=1
-    ) else if /i "%__ARG%"=="clone" ( set _CLONE=1
-    ) else if /i "%__ARG:~0,7%"=="compile" (
+    ) else if "%__ARG%"=="clean" ( set _CLEAN=1
+    ) else if "%__ARG%"=="clone" ( set _CLONE=1
+    ) else if "%__ARG:~0,7%"=="compile" (
         if not "%__ARG:~-5%"=="-only" set _CLONE=1
         set _COMPILE=1
-    ) else if /i "%__ARG:~0,9%"=="community" (
+    ) else if "%__ARG:~0,9%"=="community" (
         rem if not "%__ARG:~-5%"=="-only" set _CLONE=1& set _COMPILE=1& set _BOOTSTRAP=1
         set _COMMUNITY=1
-    ) else if /i "%__ARG:~0,3%"=="doc" (
+    ) else if "%__ARG:~0,3%"=="doc" (
         if not "%__ARG:~-5%"=="-only" set _CLONE=1& set _COMPILE=1& set _BOOTSTRAP=1
         set _DOCUMENTATION=1
-    ) else if /i "%__ARG%"=="help" ( set _HELP=1
-    ) else if /i "%__ARG%"=="java11" ( set _CLONE=1& set _TEST_JAVA11=1
-    ) else if /i "%__ARG%"=="sbt" (
+    ) else if "%__ARG%"=="help" ( set _HELP=1
+    ) else if "%__ARG%"=="java11" ( set _CLONE=1& set _TEST_JAVA11=1
+    ) else if "%__ARG%"=="sbt" (
         set _CLONE=1& set _COMPILE=1& set _BOOTSTRAP=1& set _TEST_SBT=1
-    ) else if /i "%__ARG%"=="sbt-only" (
+    ) else if "%__ARG%"=="sbt-only" (
         set _TEST_SBT=1
-    ) else if /i "%__ARG%"=="update" ( set _UPDATE=1
+    ) else if "%__ARG%"=="update" ( set _UPDATE=1
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %_STRONG_FG_GREEN%%__ARG%%__END% 1>&2
         set _EXITCODE=1
@@ -224,7 +221,30 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto args_loop
 :args_done
+if %_VERBOSE%==1 call :print_env
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
+goto :eof
+
+:print_env
+set __SBT_BUILD_VERSION=unknown
+if exist "%_ROOT_DIR%\project\build.properties" (
+    for /f %%i in ('findstr /c:"sbt.version" "%_ROOT_DIR%\project\build.properties"') do set __SBT_BUILD_VERSION=%%i
+)
+set __BRANCH_NAME=unknown
+for /f %%i in ('"%_GIT_CMD%" rev-parse --abbrev-ref HEAD') do set __BRANCH_NAME=%%i
+
+echo Tool paths 1>&2
+echo    GIT_CMD="%_GIT_CMD%"
+echo    JAVA_CMD="%JAVA_HOME%\bin\java.exe"
+echo    SBT_CMD="%_SBT_CMD%"
+echo Tool options
+echo    JAVA_OPTS=%JAVA_OPTS%
+echo    SBT_OPTS=%SBT_OPTS%
+echo Sbt build version ^(build.properties^):
+echo    %__SBT_BUILD_VERSION%
+echo Current Git branch:
+echo    %__BRANCH_NAME%
+echo.
 goto :eof
 
 :help
@@ -264,34 +284,6 @@ echo     %__BEG_O%boot[strap]-only%__END%      generate+test ONLY bootstrapped c
 echo     %__BEG_O%compile-only%__END%          generate+test ONLY 1st stage compiler
 echo     %__BEG_O%doc[umentation]-only%__END%  generate ONLY documentation
 echo     %__BEG_O%sbt-only%__END%              test ONLY sbt-dotty
-
-goto :eof
-
-:init
-if %_VERBOSE%==1 (
-    for /f "delims=" %%i in ('where git.exe') do (
-        if not defined __GIT_CMD1 set __GIT_CMD1=%%i
-    )
-    for /f "delims=" %%i in ('where java.exe') do (
-        if not defined __JAVA_CMD1 set __JAVA_CMD1=%%i
-    )
-    set __SBT_BUILD_VERSION=unknown
-    for /f %%i in ('findstr /c:"sbt.version" "%_ROOT_DIR%\project\build.properties"') do set __SBT_BUILD_VERSION=%%i
-    set __BRANCH_NAME=unknown
-    for /f %%i in ('!__GIT_CMD1! rev-parse --abbrev-ref HEAD') do set __BRANCH_NAME=%%i
-    echo Tool paths
-    echo    GIT_CMD="!__GIT_CMD1!"
-    echo    JAVA_CMD="!__JAVA_CMD1!"
-    echo    SBT_CMD="%_SBT_CMD%"
-    echo Tool options
-    echo    JAVA_OPTS=%JAVA_OPTS%
-    echo    SBT_OPTS=%SBT_OPTS%
-    echo Sbt build version ^(build.properties^):
-    echo    !__SBT_BUILD_VERSION!
-    echo Current Git branch:
-    echo    !__BRANCH_NAME!
-    echo.
-)
 goto :eof
 
 :clean

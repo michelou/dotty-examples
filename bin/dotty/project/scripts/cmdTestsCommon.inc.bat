@@ -17,7 +17,7 @@ set _TASTY=HelloWorld.tasty
 set _EXPECTED_OUTPUT=hello world
 
 if exist "C:\Temp\" ( set _TMP_DIR=C:\Temp
-) else ( set _TMP_DIR=%TEMP%
+) else ( set "_TMP_DIR=%TEMP%"
 )
 set "_OUT_DIR=%_TMP_DIR%\dotty_out"
 if not exist "%_OUT_DIR%" mkdir "%_OUT_DIR%"
@@ -33,7 +33,8 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-set _GIT_CMD=git.exe
+@rem full path
+for /f "delims=" %%i in ('where git.exe') do set "_GIT_CMD=%%i"
 
 where /q sbt.bat
 if not %ERRORLEVEL%==0 (
@@ -42,7 +43,7 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 @rem full path is required for sbt to run successfully
-for /f %%i in ('where sbt.bat') do set _SBT_CMD=%%i
+for /f "delims=" %%i in ('where sbt.bat') do set "_SBT_CMD=%%i"
 
 @rem see file project/scripts/sbt
 @rem SBT uses the value of the JAVA_OPTS environment variable if defined, rather than the config.

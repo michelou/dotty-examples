@@ -42,7 +42,12 @@
             uri="antlib:org.apache.ivy.ant" />
         <ivy:resolve file="../ivy.xml" showprogress="false" log="download-only" />
         <ivy:cachepath pathid="dotc.classpath" conf="default"/>
-
+        <!-- reminder: installation to directory ${user.home}/.iv2/local/ -->
+        <!--
+        <ivy:install organisation="com.google.guava" module="guava"
+            revision="14.0" transitive="true" overwrite="false"
+            from="public" to="local" />
+        -->
         <path id="dotty.classpath">
             <fileset dir="${ivy.cache}/ch.epfl.lamp" includes="**/jars/dotty-library*.jar">
                 <filename regex="_0\.(1[8-9]|2[0-9])-0\.(1[8-9]|2[0-9])\.[0-9]+" />  <!-- e.g. _0.25-0.25.x -->
