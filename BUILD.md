@@ -26,7 +26,7 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 
 - [Git 2.28][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
-- [SBT 1.3][sbt_releases] <sup id="anchor_03">[[3]](#footnote_03)</sup> (requires Java 8) ([*release notes*][sbt_relnotes])
+- [SBT 1.4][sbt_releases] <sup id="anchor_03">[[3]](#footnote_03)</sup> (requires Java 8) ([*release notes*][sbt_relnotes])
 <!--
 8u212  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
 8u222  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
@@ -44,7 +44,7 @@ For instance our development environment looks as follows (*October 2020*):
 <pre style="font-size:80%;">
 C:\opt\Git-2.28.0\     <i>(290 MB)</i>
 C:\opt\jdk-11.0.8+10\  <i>(314 MB)</i>
-C:\opt\sbt-1.3.13\     <i>(  1 MB, no local-preloaded libraries)</i>
+C:\opt\sbt-1.4.0\      <i>(  1 MB, no local-preloaded libraries)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -63,18 +63,18 @@ dotty\project\scripts\
 Concretely directories [**`dotty\bin\`**](https://github.com/michelou/dotty/tree/master/bin), [**`dotty\dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin) and [**`dotty\project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts) are modified with the following additions:
 
 <pre style="font-size:80%;">
-dotty\bin\common.bat
-dotty\bin\dotc.bat
-dotty\bin\dotd.bat
-dotty\bin\dotr.bat
-dotty\dist\bin\common.bat
-dotty\dist\bin\dotc.bat
-dotty\dist\bin\dotd.bat
-dotty\dist\bin\dotr.bat
-dotty\project\scripts\bootstrapCmdTests.bat
-dotty\project\scripts\cmdTests.bat
-dotty\project\scripts\common.bat
-dotty\project\scripts\genDocs.bat
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/common.bat">dotty\bin\common.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scalac.bat">dotty\bin\scalac.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scalad.bat">dotty\bin\scalad.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scala.bat">dotty\bin\scala.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/common.bat">dotty\dist\bin\common.bat</a>
+<a hef="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/scalac.bat">dotty\dist\bin\scalac.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/scala.bat">dotty\dist\bin\scala.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/scala.bat">dotty\dist\bin\scala.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/bootstrapCmdTests.bat">dotty\project\scripts\bootstrapCmdTests.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/cmdTests.bat">dotty\project\scripts\cmdTests.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/cmdTestsCommon.inc.bat">dotty\project\scripts\cmdTestsCommon.inc.bat.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/genDocs.bat">dotty\project\scripts\genDocs.bat</a>
 </pre>
 
 We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
@@ -91,19 +91,19 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. Directory [**`bin\0.27\`**](bin/0.27) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software distribution][dotty_releases].
+1. Directory [**`bin\3.0\`**](bin/3.0) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software distribution][dotty_releases].
 
    <pre style="font-size:80%;">
-   <b>&gt; cp bin\0.27\*.bat dotty\dist\bin</b>
+   <b>&gt; cp bin\3.0\*.bat dotty\dist\bin</b>
    <b>&gt; dir /b dotty\dist\bin</b>
    common
    common.bat
-   dotc
-   dotc.bat
-   dotd
-   dotd.bat
-   dotr
-   dotr.bat
+   scalac
+   scalac.bat
+   scalad
+   scalad.bat
+   scala
+   scala.bat
    </pre>
 
 2. [**`build.bat`**](bin/dotty/build.bat)/[**`build.sh`**](bin/dotty/build.sh) - Both commands perform on a Windows machine the same build/test steps as specified in file [**`.drone.yml`**](https://github.com/michelou/dotty/blob/master/.drone.yml) and executed on the [Dotty CI][dotty_ci] server.
@@ -189,12 +189,12 @@ We distinguish different sets of batch commands:
    <b>&gt; dir /b dotty\bin</b>
    common
    common.bat
-   dotc
-   dotc.bat
-   dotd
-   dotd.bat
-   dotr
-   dotr.bat
+   scalac
+   scalac.bat
+   scalad
+   scalad.bat
+   scala
+   scala.bat
    </pre>
 
 4. [**`bin\dotty\project\scripts\`**](bin/dotty/project/scripts/) - This directory contains bash files to performs test steps on a Windows machine in a similar manner to the shell scripts on the [Dotty CI][dotty_ci] server (see console output in section [**Usage examples**](#usage_examples)).
@@ -294,7 +294,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 Tool paths
    GIT_CMD=C:\opt\Git-2.28.0\bin\git.exe
    JAVA_CMD=C:\opt\jdk-11.0.8+10\bin\java.exe
-   SBT_CMD=C:\opt\sbt-1.3.13\bin\sbt.bat
+   SBT_CMD=C:\opt\sbt-1.4.0\bin\sbt.bat
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
    SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -336,13 +336,13 @@ sbt compile and sbt test
 [info] Passed: Total 73, Failed 0, Errors 0, Passed 73
 [info] Passed: Total 290, Failed 0, Errors 0, Passed 288, Skipped 2
 [success] Total time: 1063 s, completed 16 nov. 2018 15:39:19
-testing sbt dotc and dotr
+testing sbt scalac and scala
 hello world
-testing sbt dotc -from-tasty and dotr -classpath
+testing sbt scalac -from-tasty and scala -classpath
 hello world
-testing sbt dotc -decompile
+testing sbt scalac -decompile
 [...]
-testing sbt dotr with no -classpath
+testing sbt scala with no -classpath
 hello world
 testing loading tasty from .tasty file in jar
 [...]
@@ -375,8 +375,8 @@ Command **`build.bat archives`** works as follows:  ***if*** execution of the **
 [...]
 &nbsp;
 <b>&gt; dir /a-d /b dist-bootstrapped\target</b>
-dotty-0.19.1-bin-SNAPSHOT.tar.gz
-dotty-0.19.1-bin-SNAPSHOT.zip
+dotty-3.0.1-bin-SNAPSHOT.tar.gz
+dotty-3.0.1-bin-SNAPSHOT.zip
 </pre>
 
 ### **`build.bat documentation`**
@@ -387,7 +387,7 @@ Command **`build.bat documentation`** works as follows: ***if*** execution of th
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -timer doc-only</b>
 Working directory: W:\dotty
 [...]
-[info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 0.20.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
+[info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 3.0.1-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
 Compiling (1/406): AlternateConstructorsPhase.scala
 [...]
 Compiling (406/406): package.scala
@@ -423,7 +423,7 @@ Total execution time: 00:02:36
 Output directory **`docs\_site\`** contains the files of the online [Dotty documentation][dotty_docs]:
 
 <pre style="font-size:80%;">
-<b>&gt; dir /b docs\_site</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b docs\_site</b>
 .gitignore
 api
 blog
@@ -469,19 +469,19 @@ Command [**`project\scripts\cmdTests.bat`**](bin/dotty/project/scripts/cmdTests.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/project/scripts/cmdTests.bat">cmdTests</a></b>
-testing sbt dotc and dotr
+testing sbt scalac and scala
 hello world
-testing sbt dotc -from-tasty and dotr -classpath
+testing sbt scalac -from-tasty and scala -classpath
 hello world
-testing sbt dotc -decompile
+testing sbt scalac -decompile
 [info] Loading project definition from W:\dotty\project\project
 [info] Loading project definition from W:\dotty\project
   def main(args: scala.Array[scala.Predef.String]): scala.Unit = scala.Predef.println("hello world")
-testing sbt dotc -decompile from file
+testing sbt scalac -decompile from file
 [info] Loading project definition from W:\dotty\project\project
 [info] Loading project definition from W:\dotty\project
   def main(args: scala.Array[scala.Predef.String]): scala.Unit = scala.Predef.println("hello world")
-testing sbt dotr with no -classpath
+testing sbt scala with no -classpath
 hello world
 testing loading tasty from .tasty file in jar
 [info] Loading project definition from W:\dotty\project\project
@@ -500,7 +500,7 @@ Command [**`project\scripts\bootstrapCmdTests.bat`**](bin/dotty/project/scripts/
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.22
-# VM version: JDK 11.0.7, VM 11.0.8+10
+# VM version: JDK 11.0.8, VM 11.0.8+10
 # VM invoker: C:\opt\jdk-11.0.8+10\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
@@ -530,7 +530,7 @@ Worker.compile  avgt       533.625          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.22
-# VM version: JDK 11.0.7, VM 11.0.8+10
+# VM version: JDK 11.0.8, VM 11.0.8+10
 # VM invoker: C:\opt\jdk-11.0.8+10\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
@@ -558,7 +558,7 @@ Worker.compile  avgt       361.619          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
 # JMH version: 1.22
-# VM version: JDK 11.0.7, VM 11.0.8+10
+# VM version: JDK 11.0.8, VM 11.0.8+10
 # VM invoker: C:\opt\jdk-11.0.8+10\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
@@ -583,15 +583,15 @@ Result "dotty.tools.benchmarks.Worker.compile":
 Benchmark       Mode  Cnt     Score   Error  Units
 Worker.compile  avgt       5828.334          ms/op
 [success] Total time: 28 s, completed 3 déc. 2018 09:45:23
-testing scala.quoted.Expr.run from sbt dotr
+testing scala.quoted.Expr.run from sbt scala
 [...]
 [info] [dist-bootstrapped] Creating a distributable package in dist-bootstrapped\target\pack
 [...]
 [info] [dist-bootstrapped] done.
 [success] Total time: 8 s, completed 3 déc. 2018 09:46:13
-testing ./bin/dotc and ./bin/dotr
-testing ./bin/dotc -from-tasty and dotr -classpath
-testing ./bin/dotd
+testing ./bin/scalac and ./bin/scala
+testing ./bin/sclac -from-tasty and scala -classpath
+testing ./bin/scalad
 Compiling (1/1): HelloWorld.scala
 [doc info] Generating doc page for: <empty>
 [doc info] Generating doc page for: <empty>.HelloWorld$
@@ -659,8 +659,8 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 Make sure to have a more recent <a href="https://www.scala-sbt.org/download.html"><code>sbt</code></a> version defined in project file <code>build.properties</code>:
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
-<b>&gt; cat project\build.properties</b>
-sbt.version=1.3.13
+<b>&gt; <a href="https://man7.org/linux/man-pages/man1/cat.1.html">cat</a> project\build.properties</b>
+sbt.version=1.4.0
 </pre>
 
 <b name="footnote_04">[4]</b> ***Git master repository*** [↩](#anchor_04)
@@ -764,7 +764,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.3.13
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.4.0
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/

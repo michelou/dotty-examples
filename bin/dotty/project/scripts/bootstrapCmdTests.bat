@@ -15,18 +15,18 @@ if not %_EXITCODE%==0 goto end
 @rem ## Main
 
 @rem # check that benchmarks can run
-call "%_SBT_CMD%" "dotty-bench/jmh:run 1 1 tests/pos/alias.scala"
+call "%_SBT_CMD%" "scala3-bench/jmh:run 1 1 tests/pos/alias.scala"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 
 @rem # The above is here as it relies on the bootstrapped library.
-call "%_SBT_CMD%" "dotty-bench-bootstrapped/jmh:run 1 1 tests/pos/alias.scala"
+call "%_SBT_CMD%" "scala3-bench-bootstrapped/jmh:run 1 1 tests/pos/alias.scala"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 
-call "%_SBT_CMD%" "dotty-bench-bootstrapped/jmh:run 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala"
+call "%_SBT_CMD%" "scala3-bench-bootstrapped/jmh:run 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 
 echo testing scala.quoted.Expr.run from sbt dotr > "$tmp"
-call "%_SBT_CMD%" ";dotty-compiler-bootstrapped/dotc -with-compiler tests/run-staging/quote-run.scala; dotty-compiler-bootstrapped/dotr -with-compiler Test" > "%_TMP_FILE%"
+call "%_SBT_CMD%" ";scala3-compiler-bootstrapped/dotc -with-compiler tests/run-staging/quote-run.scala; scala3-compiler-bootstrapped/dotr -with-compiler Test" > "%_TMP_FILE%"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 call :grep "val a: scala.Int = 3" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
@@ -78,8 +78,8 @@ goto end
 set _BASENAME=%~n0
 
 for %%f in ("%~dp0..") do set "_ROOT_DIR=%%~dpf"
-set "_SCRIPTS_DIR=%_ROOT_DIR%\project\scripts"
-set "_BIN_DIR=%_ROOT_DIR%\bin"
+set "_SCRIPTS_DIR=%_ROOT_DIR%project\scripts"
+set "_BIN_DIR=%_ROOT_DIR%bin"
 
 if not defined __COMMON__ (
     call "%_SCRIPTS_DIR%\cmdTestsCommon.inc.bat"

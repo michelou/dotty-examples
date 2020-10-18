@@ -19,13 +19,13 @@ set _EXPECTED_OUTPUT=hello world
 if exist "C:\Temp\" ( set _TMP_DIR=C:\Temp
 ) else ( set "_TMP_DIR=%TEMP%"
 )
-set "_OUT_DIR=%_TMP_DIR%\dotty_out"
+set "_OUT_DIR=%_TMP_DIR%\scala3_out"
 if not exist "%_OUT_DIR%" mkdir "%_OUT_DIR%"
 
-set "_OUT1_DIR=%_TMP_DIR%\dotty_out1"
+set "_OUT1_DIR=%_TMP_DIR%\scala3_out1"
 if not exist "%_OUT1_DIR%" mkdir "%_OUT1_DIR%"
 
-set "_TMP_FILE=%_TMP_DIR%\dotty_tmp.txt"
+set "_TMP_FILE=%_TMP_DIR%\scala3_tmp.txt"
 
 where /q git.exe
 if not %ERRORLEVEL%==0 (

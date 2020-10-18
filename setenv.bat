@@ -838,7 +838,7 @@ set __GIT_CMD=
 for /f %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
 if defined __GIT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
-    for %%i in ("%__GIT_CMD%") do set __GIT_BIN_DIR=%%~dpsi
+    for %%i in ("%__GIT_CMD%") do set "__GIT_BIN_DIR=%%~dpi"
     for %%f in ("!__GIT_BIN_DIR!..") do set "_GIT_HOME=%%f"
     @rem Executable git.exe is present both in bin\ and \mingw64\bin\
     if not "!_GIT_HOME:mingw=!"=="!_GIT_HOME!" (
@@ -931,10 +931,15 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%SBT_HOME%\bin:sbt.bat"
 if %ERRORLEVEL%==0 (
-    @rem It's a nightmare to **quickly** get the sbt version
-    for /f "tokens=1-4,5,*" %%i in ('%JAVA_HOME%\bin\java.exe -jar "%SBT_HOME%\bin\sbt-launch.jar" exit ^| findstr sbt') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% sbt %%~m,"
+    @rem retrieve version of sbt installation WITHOUT starting sbt (costly)
+    pushd "%TEMP%"
+    call "%JAVA_HOME%\bin\jar.exe" xf "%SBT_HOME%\bin\sbt-launch.jar" sbt/sbt.boot.properties
+    popd
+    set "__PS1_SCRIPT=$s=select-string -path '%TEMP%\sbt\sbt.boot.properties' -pattern 'sbt.version';if($s -match '.*\[([0-9.]+)\].*'){$matches[1]}else{'unknown'}"
+    for /f "usebackq" %%i in (`powershell -c "!__PS1_SCRIPT!"`) do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% sbt %%i,"
+    del "%TEMP%\sbt\sbt.boot.properties" 1>NUL 2>&1
     set __WHERE_ARGS=%__WHERE_ARGS% "%SBT_HOME%\bin:sbt.bat"
-) 
+)
 where /q bazel.exe
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('bazel.exe --version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bazel %%j,"

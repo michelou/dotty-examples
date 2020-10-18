@@ -17,7 +17,10 @@ if not %_EXITCODE%==0 goto end
 @rem # check that `sbt dotc` compiles and `sbt dotr` runs it
 echo testing sbt dotc and dotr
 call "%_SBT_CMD%" ";dotc %_SOURCE% -d %_OUT_DIR% ;dotr -classpath %_OUT_DIR% %_MAIN%" > "%_TMP_FILE%"
-if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
+if not %ERRORLEVEL%==0 (
+    if exist "%_TMP_FILE%" type "%_TMP_FILE%" | findstr /b "\[error\]"
+    set _EXITCODE=1& goto end
+)
 call :grep "%_EXPECTED_OUTPUT%" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
 
@@ -25,48 +28,69 @@ if not %_EXITCODE%==0 goto end
 echo testing sbt dotc -from-tasty and dotr -classpath
 call :clear_out "%_OUT_DIR%"
 call "%_SBT_CMD%" ";dotc %_SOURCE% -d %_OUT_DIR% ;dotc -from-tasty -classpath %_OUT_DIR% -d %_OUT1_DIR% %_MAIN% ;dotr -classpath %_OUT1_DIR% %_MAIN%" > "%_TMP_FILE%"
-if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
+if not %ERRORLEVEL%==0 (
+    if exist "%_TMP_FILE%" type "%_TMP_FILE%" | findstr /b "\[error\]"
+    set _EXITCODE=1& goto end
+)
 call :grep "%_EXPECTED_OUTPUT%" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
 
 echo testing sbt dotc -from-tasty from a jar and dotr -classpath
 call :clear_out "%_OUT_DIR%"
 call "%_SBT_CMD%" ";dotc -d %_OUT_DIR%\out.jar %_SOURCE% ;dotc -from-tasty -d %_OUT1_DIR% %_OUT_DIR%\out.jar ;dotr -classpath %_OUT1_DIR% %_MAIN%" > "%_TMP_FILE%"
-if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
+if not %ERRORLEVEL%==0 (
+    if exist "%_TMP_FILE%" type "%_TMP_FILE%" | findstr /b "\[error\]"
+    set _EXITCODE=1& goto end
+)
 call :grep "%_EXPECTED_OUTPUT%" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
 
 @rem # check that `sbt dotc -decompile` runs
 echo testing sbt dotc -decompile
 call "%_SBT_CMD%" ";dotc %_SOURCE% -d %_OUT_DIR% ;dotc -decompile -color:never -classpath %_OUT_DIR% %_MAIN%" > "%_TMP_FILE%"
-if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
+if not %ERRORLEVEL%==0 (
+    if exist "%_TMP_FILE%" type "%_TMP_FILE%" | findstr /b "\[error\]"
+    set _EXITCODE=1& goto end
+)
 call :grep "def main(args: scala.Array\[scala.Predef.String\]): scala.Unit =" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
 
 echo testing sbt dotc -decompile from file
 call "%_SBT_CMD%" ";dotc -decompile -color:never -classpath %_OUT_DIR% %_OUT_DIR%\%_TASTY%" > "%_TMP_FILE%"
-if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
+if not %ERRORLEVEL%==0 (
+    if exist "%_TMP_FILE%" type "%_TMP_FILE%" | findstr /b "\[error\]"
+    set _EXITCODE=1& goto end
+)
 call :grep "def main(args: scala.Array\[scala.Predef.String\]): scala.Unit =" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
 
 echo testing sbt dotr with no -classpath
 call :clear_out "%_OUT_DIR%"
 call "%_SBT_CMD%" ";dotc %_SOURCE% ; dotr %_MAIN%" > "%_TMP_FILE%"
-if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
+if not %ERRORLEVEL%==0 (
+    if exist "%_TMP_FILE%" type "%_TMP_FILE%" | findstr /b "\[error\]"
+    set _EXITCODE=1& goto end
+)
 call :grep "%_EXPECTED_OUTPUT%" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
 
 echo testing loading tasty from .tasty file in jar
 call :clear_out "%_OUT_DIR%"
 call "%_SBT_CMD%" ";dotc -d %_OUT_DIR%\out.jar %_SOURCE%; dotc -decompile -classpath %_OUT_DIR%\out.jar -color:never %_MAIN%" > "%_TMP_FILE%"
-if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
+if not %ERRORLEVEL%==0 (
+    if exist "%_TMP_FILE%" type "%_TMP_FILE%" | findstr /b "\[error\]"
+    set _EXITCODE=1& goto end
+)
 call :grep "def main(args: scala.Array\[scala.Predef.String\]): scala.Unit =" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
 
 echo testing sbt dotc with suspension
 call :clear_out "%_OUT_DIR%"
-call "%_SBT_CMD%" "dotty-compiler-bootstrapped/dotc -d %_OUT_DIR% tests/pos-macros/macros-in-same-project-1/Bar.scala tests/pos-macros/macros-in-same-project-1/Foo.scala" > "%_TMP_FILE%"
-if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
+call "%_SBT_CMD%" "scala3-compiler-bootstrapped/dotc -d %_OUT_DIR% tests/pos-macros/macros-in-same-project-1/Bar.scala tests/pos-macros/macros-in-same-project-1/Foo.scala" > "%_TMP_FILE%"
+if not %ERRORLEVEL%==0 (
+    if exist "%_TMP_FILE%" type "%_TMP_FILE%" | findstr /b "\[error\]"
+    set _EXITCODE=1& goto end
+)
 
 @rem # check that missing source file does not crash message rendering
 echo testing that missing source file does not crash message rendering
@@ -89,8 +113,6 @@ goto end
 @rem ## Subroutines
 
 :env
-set _BASENAME=%~n0
-
 for %%f in ("%~dp0..") do set "_ROOT_DIR=%%~dpf"
 set "_SCRIPTS_DIR=%_ROOT_DIR%\project\scripts"
 

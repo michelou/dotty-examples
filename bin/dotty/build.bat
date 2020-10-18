@@ -288,8 +288,8 @@ goto :eof
 
 :clean
 echo %_COLOR_START%run sbt clean%_COLOR_END%
-if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ";clean ;dotty-bootstrapped/clean" 1>&2
-call "%_SBT_CMD%" ";clean ;dotty-bootstrapped/clean"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ";clean ;scala3-bootstrapped/clean" 1>&2
+call "%_SBT_CMD%" ";clean ;scala3-bootstrapped/clean"
 if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
@@ -362,11 +362,11 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :test_bootstrapped
-echo %_COLOR_START%sbt dotty-bootstrapped/compile and sbt dotty-bootstrapped/test%_COLOR_END%
-if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ";dotty-bootstrapped/compile ;dotty-bootstrapped/test ;dotty-staging/test ;sjsSandbox/run;sjsSandbox/test;sjsJUnitTests/test"
-call "%_SBT_CMD%" ";dotty-bootstrapped/compile ;dotty-bootstrapped/test ;dotty-staging/test ;sjsSandbox/run;sjsSandbox/test;sjsJUnitTests/test" 1>&2
+echo %_COLOR_START%sbt scala3-bootstrapped/compile and sbt scala3-bootstrapped/test%_COLOR_END%
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SBT_CMD%" ";scala3-bootstrapped/compile ;scala3-bootstrapped/test ;scala3-staging/test ;sjsSandbox/run;sjsSandbox/test;sjsJUnitTests/test"
+call "%_SBT_CMD%" ";scala3-bootstrapped/compile ;scala3-bootstrapped/test ;scala3-staging/test ;sjsSandbox/run;sjsSandbox/test;sjsJUnitTests/test" 1>&2
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to run sbt command ";dotty-bootstrapped/compile ;dotty-bootstrapped/test ;dotty-staging/test ;sjsSandbox/run;sjsSandbox/test;sjsJUnitTests/test" 1>&2
+    echo %_ERROR_LABEL% Failed to run sbt command ";scala3-bootstrapped/compile ;scala3-bootstrapped/test ;scala3-staging/test ;sjsSandbox/run;sjsSandbox/test;sjsJUnitTests/test" 1>&2
     set _EXITCODE=1
     goto :eof
 )
