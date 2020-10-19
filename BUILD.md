@@ -6,11 +6,11 @@
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:80px;" src="docs/dotty.png" alt="Dotty logo" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Source code of the <a href="https://dotty.epfl.ch/" rel="external">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/" rel="external">Github</a> and continuous delivery is performed on the <a href="https://dotty-ci.epfl.ch/lampepfl/dotty" rel="external">Dotty CI</a> server <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> from <a href="https://lamp.epfl.ch/" rel="external">LAMP/EPFL</a>.</br>This document describes changes we made to the <a href="https://github.com/lampepfl/dotty/" rel="external">lampepfl/dotty</a> repository in order to reproduce the same build/test steps locally on a Windows machine.
+    Source code of the <a href="https://dotty.epfl.ch/" rel="external">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/" rel="external">Github</a> and continuous delivery is performed on the <a href="https://dotty-ci.epfl.ch/lampepfl/dotty" rel="external">Dotty CI</a> server <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> from <a href="https://lamp.epfl.ch/" rel="external">LAMP/EPFL</a>.</br>This document describes changes we made to the <a href="https://github.com/lampepfl/dotty/" rel="external">lampepfl/dotty</a> repository in order to successfully execute the CI build/test steps on a Windows runner (GitHub-hosted) <b><i>and</i></b> to reproduce the same build/test steps on a <i>local</i> Windows machine.
   </td>
   </tr>
 </table>
-
+<div>&nbsp;</div>
 This document is part of a series of topics related to [Dotty] on Windows:
 
 - [Running Dotty on Windows](README.md)
@@ -68,9 +68,9 @@ Concretely directories [**`dotty\bin\`**](https://github.com/michelou/dotty/tree
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scalad.bat">dotty\bin\scalad.bat</a>
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scala.bat">dotty\bin\scala.bat</a>
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/common.bat">dotty\dist\bin\common.bat</a>
-<a hef="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/scalac.bat">dotty\dist\bin\scalac.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/scalac.bat">dotty\dist\bin\scalac.bat</a>
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/scala.bat">dotty\dist\bin\scala.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/scala.bat">dotty\dist\bin\scala.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/scalad.bat">dotty\dist\bin\scalad.bat</a>
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/bootstrapCmdTests.bat">dotty\project\scripts\bootstrapCmdTests.bat</a>
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/cmdTests.bat">dotty\project\scripts\cmdTests.bat</a>
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/cmdTestsCommon.inc.bat">dotty\project\scripts\cmdTestsCommon.inc.bat.bat</a>
@@ -95,7 +95,7 @@ We distinguish different sets of batch commands:
 
    <pre style="font-size:80%;">
    <b>&gt; cp bin\3.0\*.bat dotty\dist\bin</b>
-   <b>&gt; dir /b dotty\dist\bin</b>
+   <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b dotty\dist\bin</b>
    common
    common.bat
    scalac
@@ -118,7 +118,7 @@ We distinguish different sets of batch commands:
    Command [**`build.bat help`**](bin/dotty/build.bat) display the help message.
 
    <pre style="font-size:80%;">
-   <b>&gt; cd</b>
+   <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
    W:\dotty
    &nbsp;
    <b>&gt; <a href="bin/dotty/build.bat">build</a> help</b>
@@ -186,7 +186,7 @@ We distinguish different sets of batch commands:
 3. Directory [**`bin\dotty\bin\`**](bin/dotty/bin) - This directory contains batch files used internally during the build process (see the [**`bootstrapCmdTests.bat`**](bin/dotty/project/scripts/bootstrapCmdTests.bat) command).
    <pre style="font-size:80%;">
    <b>&gt; cp bin\dotty\bin\*.bat dotty\bin</b>
-   <b>&gt; dir /b dotty\bin</b>
+   <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b dotty\bin</b>
    common
    common.bat
    scalac
@@ -445,7 +445,7 @@ versions
 Output directory **`docs\docs\`** contains the Markdown files of the [Dotty website][dotty]:
 
 <pre style="font-size:80%;">
-<b>&gt; dir /b docs\docs</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir" rel="external">dir</a> /b docs\docs</b>
 contributing
 index.md  
 internals 
@@ -487,6 +487,7 @@ testing loading tasty from .tasty file in jar
 [info] Loading project definition from W:\dotty\project\project
 [info] Loading project definition from W:\dotty\project
   def main(args: scala.Array[scala.Predef.String]): scala.Unit = scala.Predef.println("hello world")
+[...]
 </pre>
 
 ### **`bootstrapCmdTests.bat`**
@@ -602,7 +603,7 @@ protected members with docstrings: 0
 private members with docstrings:   0
 </pre>
 
-#### `genDocs.bat`
+### **`genDocs.bat`**
 
 Command [**`genDocs.bat`**](bin/dotty/project/scripts/genDocs.bat) generates the documentation page for program [**`tests\pos\HelloWorld.scala`**](https://github.com/michelou/dotty/tree/master/tests/pos/HelloWorld.scala).
 
@@ -637,13 +638,13 @@ Steps are: Checkout <b>&rarr;</b> Compile <b>&rarr;</b> Test <b>&rarr;</b> Deplo
 </p>
 <table style="margin:0 0 1em 20px;">
 <tr><th>Software</th<th>CI/CD&nbsp;service</th<th>Hosting</th></tr>
-<tr><td><a href="https://dotty-ci.epfl.ch/lampepfl/dotty">Dotty</a></td><td><a href="https://drone.io/">Drone</a> <sup><b>(1)</b></sup></td><td><a href="https://dotty-ci.epfl.ch/lampepfl/dotty">EPFL</a> in Lausanne, Switzerland</td></tr>
-<tr><td><a href="https://www.scala-lang.org/">Scala</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup><b>(2)</b></sup><br/><a href="https://docs.travis-ci.com/user/tutorial/">Travis CI</a> <sup><b>(3)</b></sup></td><td><a href="https://scala-ci.typesafe.com/">Lightbend</a> in San-Francisco, USA<br/><a href="https://travis-ci.org/scala/scala">Travis</a> in Berlin, Germany</td></tr>
+<tr><td><a href="https://dotty-ci.epfl.ch/lampepfl/dotty">Scala 3 (Dotty)</a></td><td><a href="https://docs.github.com/en/free-pro-team@latest/actions">Actions</a> <sup><b>(1)</b></sup></td><td><a href="https://github.com/lampepfl/dotty/actions">EPFL</a> in Lausanne, Switzerland</td></tr>
+<tr><td><a href="https://www.scala-lang.org/">Scala 2</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup><b>(2)</b></sup><br/><a href="https://docs.travis-ci.com/user/tutorial/">Travis CI</a> <sup><b>(3)</b></sup></td><td><a href="https://scala-ci.typesafe.com/">Lightbend</a> in San-Francisco, USA<br/><a href="https://travis-ci.org/scala/scala">Travis</a> in Berlin, Germany</td></tr>
 <tr><td><a href="https://ci.adoptopenjdk.net/">Oracle&nbsp;OpenJDK</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup><b>(2)</b></sup></td><td>Oracle</td></tr>
 <tr><td><a href="https://ci.eclipse.org/openj9/">IBM OpenJ9</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup><b>(2)</b></sup></td><td>IBM</td></tr>
 </table>
 <div style="margin:0 0 1em 20px;">
-<sub><sup><b>(1)</b></sup> Written in <a href="https://github.com/drone/drone">Go</a>, <sup><b>(2)</b></sup> Written in <a href="https://www.oracle.com/technetwork/java/index.html">Java</a>, <sup><b>(3)</b></sup> Written in <a href="https://www.ruby-lang.org/en/">Ruby</a>.</sub>
+<sub><sup><b>(1)</b></sup> Self-hosted <a href="https://github.com/actions/runner">Github runners</a>, <sup><b>(2)</b></sup> Written in <a href="https://www.oracle.com/technetwork/java/index.html">Java</a>, <sup><b>(3)</b></sup> Written in <a href="https://www.ruby-lang.org/en/">Ruby</a>.</sub>
 </div>
 
 <b name="footnote_02">[2]</b> ***Java LTS*** (2018-11-18) [↩](#anchor_02)
@@ -655,8 +656,7 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 <b name="footnote_03">[3]</b> ***Sbt issue on Windows*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
-<a href="https://www.scala-sbt.org/download.html"><code>sbt</code></a> versions 1.3.6 and 1.3.7 are broken on Microsoft Windows (see <a href="https://github.com/sbt/io/pull/283">pull 283</a> in project <a href="https://github.com/sbt/io"><code>sbt/io</code></a>).
-Make sure to have a more recent <a href="https://www.scala-sbt.org/download.html"><code>sbt</code></a> version defined in project file <code>build.properties</code>:
+<a href="https://www.scala-sbt.org/download.html"><b><code>sbt</code></b></a> versions 1.3.6 and 1.3.7 are broken on Microsoft Windows (see <a href="https://github.com/sbt/io/pull/283">pull 283</a> in project <a href="https://github.com/sbt/io"><code>sbt/io</code></a>).<br/>Make sure you defined a more recent <a href="https://www.scala-sbt.org/download.html"><code>sbt</code></a> version in project file <code>build.properties</code>:
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; <a href="https://man7.org/linux/man-pages/man1/cat.1.html">cat</a> project\build.properties</b>
