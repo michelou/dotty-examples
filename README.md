@@ -25,7 +25,7 @@ This document is part of a series of topics related to [Dotty] on Windows:
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
-- [Dotty 0.27][dotty_releases] ([*release notes*][dotty_relnotes])
+- [Scala 3.0][dotty_releases] ([*release notes*][dotty_relnotes])
 - [Git 2.29][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][oracle_openjdk] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk_relnotes])
 <!--
@@ -65,7 +65,6 @@ C:\opt\apache-ant-1.10.9\    <i>( 39.7 MB)</i>
 C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
 C:\opt\bazel-3.6.0\          <i>( 40.0 MB)</i>
 C:\opt\cfr-0.150\            <i>(  1.9 MB)</i>
-C:\opt\dotty-0.27.0-RC1\     <i>( 27.3 MB)</i>
 C:\opt\Git-2.29.0\           <i>(290.0 MB)</i>
 C:\opt\gradle-6.7\           <i>(111.0 MB)</i>
 C:\opt\jacoco-0.8.6\         <i>( 10.6 MB)</i>
@@ -73,6 +72,7 @@ C:\opt\make-3.81\            <i>(  2.1 MB)</i>
 C:\opt\Mill-0.8.0\           <i>( 53.7 MB)</i>
 C:\opt\sbt-1.4.1\            <i>( 61.3 MB)</i>
 C:\opt\scala-2.13.3\         <i>( 22.8 MB, 588 MB with API docs)</i>
+C:\opt\scala-3.0.0-M1\       <i>( 27.3 MB)</i>
 </pre>
  <!-- jdk: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
  <!-- sbt: 1.3.6 = 55.1 MB, 1.3.7 = 60.9 MB, 1.3.8 = 61.0 MB -->
@@ -418,7 +418,7 @@ Finished to download 13 files to directory W:\out\nightly-jars
 Nightly version is 3.0.0-M1-bin-20201021-97da3cb-NIGHTLY.
 </pre>
 
-We can now replace the library files from the original [Dotty distribution][dotty_releases] (installed in directory **`C:\opt\dotty-0.27.0-RC1\`** in our case) with library files from the latest nightly build.
+We can now replace the library files from the original [Dotty distribution][dotty_releases] (installed in directory **`C:\opt\scala-3.0.0-M1\`** in our case) with library files from the latest nightly build.
 
 Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in the [Dotty] installation directory.
 
