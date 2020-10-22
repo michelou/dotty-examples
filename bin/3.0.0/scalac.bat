@@ -112,9 +112,9 @@ goto :eof
 
 @rem output parameter: _JVM_CP_ARGS
 :classpathArgs
-@rem echo dotty-compiler: %_DOTTY_COMP%
-@rem echo dotty-interface: %_DOTTY_INTF%
-@rem echo dotty-library: %_DOTTY_LIB%
+@rem echo scala3-compiler: %_DOTTY_COMP%
+@rem echo scala3-interface: %_DOTTY_INTF%
+@rem echo scala3-library: %_DOTTY_LIB%
 @rem echo tasty-core: %_TASTY_CORE%
 @rem echo scala-asm: %_SCALA_ASM%
 @rem echo scala-lib: %_SCALA_LIB%

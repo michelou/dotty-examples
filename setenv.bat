@@ -40,7 +40,7 @@ set _VSCODE_PATH=
 call :jdk "" 11
 if not %_EXITCODE%==0 goto end
 
-call :scalac
+call :scala2
 if not %_EXITCODE%==0 goto end
 
 call :scalafmt
@@ -363,18 +363,29 @@ if "!__JAVAC_VERSION:~0,2!"=="14" ( set _JDK_VERSION=14
 )
 goto :eof
 
-:scalac
-where /q scalac.bat
-if %ERRORLEVEL%==0 goto :eof
+@rem output parameter: SCALA_HOME
+:scala2
+set _SCALA_HOME=
 
-if defined SCALA_HOME (
+set __SCALAC_CMD=
+for /f %%f in ('where scalac.bat 2^>NUL') do (
+    set __VERSION=
+    for /f "tokens=1,2,3,4,*" %%i in ('scalac.bat -version') do set "__VERSION=%%l"
+    if defined __VERSION if "!__VERSION:~0,1!"=="2" set "__SCALAC_CMD=%%f"
+)
+if defined __SCALAC_CMD (
+    for %%i in ("%__SCALAC_CMD%") do set "__SCALA_BIN_DIR=%%~dpi"
+    for %%f in ("!__SCALA_BIN_DIR!..") do set "_SCALA_HOME=%%f"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Scala 2 executable found in PATH 1>&2
+    goto :eof
+) else if defined SCALA_HOME (
     set "_SCALA_HOME=%SCALA_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SCALA_HOME 1>&2
 ) else (
     set _PATH=C:\opt
     for /f %%f in ('dir /ad /b "!_PATH!\scala-2*" 2^>NUL') do set _SCALA_HOME=!_PATH!\%%f
     if defined _SCALA_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala installation directory !_SCALA_HOME!
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala 2 installation directory !_SCALA_HOME!
     )
 )
 if not exist "%_SCALA_HOME%\bin\scalac.bat" (
@@ -391,9 +402,9 @@ set _SCALAFMT_HOME=
 set __SCALAFMT_CMD=
 for /f %%f in ('where scalafmt.bat 2^>NUL') do set "__SCALAFMT_CMD=%%f"
 if defined __SCALAFMT_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Scalafmt executable found in PATH 1>&2
     for %%i in ("%__SCALAFMT_CMD%") do set "__SCALAFMT_BIN_DIR=%%~dpi"
     for %%f in ("!__SCALAFMT_BIN_DIR!\.") do set "_SCALAFMT_HOME=%%~dpf"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Scalafmt executable found in PATH 1>&2
     goto :eof
 ) else if defined SCALAFMT_HOME (
     set "_SCALAFMT_HOME=%SCALAFMT_HOME%"
@@ -412,29 +423,33 @@ if not exist "%_SCALAFMT_HOME%\bin\scalafmt.bat" (
 )
 goto :eof
 
-@rem output parameter(s): _DOTTY_HOME
+@rem output parameter(s): _SCALA3_HOME
 :scala3
-set _DOTTY_HOME=
+set _SCALA3_HOME=
 
 set __DOTC_CMD=
-for /f %%f in ('where dotc.bat 2^>NUL') do set "__DOTC_CMD=%%f"
+for /f %%f in ('where scalac.bat 2^>NUL') do (
+    set __VERSION=
+    for /f "tokens=1,2,3,4,*" %%i in ('scalac.bat -version') do set "__VERSION=%%l"
+    if defined __VERSION if "!__VERSION:~0,1!"=="3" set "__DOTC_CMD=%%f"
+)
 if defined __DOTC_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Dotty executable found in PATH 1>&2
-    for %%i in ("%__DOTC_CMD%") do set "__DOTTY_BIN_DIR=%%~dpi"
-    for %%f in ("!__DOTTY_BIN_DIR!..") do set "_DOTTY_HOME=%%f"
+    for %%i in ("%__DOTC_CMD%") do set "__SCALA3_BIN_DIR=%%~dpi"
+    for %%f in ("!__SCALA3_BIN_DIR!..") do set "_SCALA3_HOME=%%f"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Scala 3 executable found in PATH 1>&2
     goto :eof
-) else if defined DOTTY_HOME (
-    set "_DOTTY_HOME=%DOTTY_HOME%"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable DOTTY_HOME 1>&2
+) else if defined SCALA3_HOME (
+    set "_SCALA3_HOME=%SCALA3_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SCALA3_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\dotty*" 2^>NUL') do set "_DOTTY_HOME=!_PATH!\%%f"
-    if defined _DOTTY_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Dotty installation directory !_DOTTY_HOME! 1>&2
+    for /f %%f in ('dir /ad /b "!_PATH!\scala-3*" 2^>NUL') do set "_SCALA3_HOME=!_PATH!\%%f"
+    if defined _SCALA3_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala 3 installation directory !_SCALA3_HOME! 1>&2
     )
 )
-if not exist "%_DOTTY_HOME%\bin\dotc.bat" (
-    echo %_ERROR_LABEL% Dotty executable not found ^(%_DOTTY_HOME%^) 1>&2
+if not exist "%_SCALA3_HOME%\bin\scalac.bat" (
+    echo %_ERROR_LABEL% Scala 3 executable not found ^(%_SCALA3_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -904,10 +919,10 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,3,4,*" %%i in ('"%SCALA_HOME%\bin\scalac.bat" -version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalac %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%SCALA_HOME%\bin:scalac.bat"
 )
-where /q "%DOTTY_HOME%\bin:dotc.bat"
+where /q "%SCALA3_HOME%\bin:scalac.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,4,*" %%i in ('"%DOTTY_HOME%\bin\dotc.bat" -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% dotc %%l,"
-    set __WHERE_ARGS=%__WHERE_ARGS% "%DOTTY_HOME%\bin:dotc.bat"
+    for /f "tokens=1,2,3,4,*" %%i in ('"%SCALA3_HOME%\bin\scalac.bat" -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalac %%l,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%SCALA3_HOME%\bin:scalac.bat"
 )
 where /q "%ANT_HOME%\bin:ant.bat"
 if %ERRORLEVEL%==0 (
@@ -993,7 +1008,6 @@ if %__VERBOSE%==1 (
     for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p 1>&2
     echo Environment variables: 1>&2
     if defined ANT_HOME echo    ANT_HOME=%ANT_HOME% 1>&2
-    if defined DOTTY_HOME echo    DOTTY_HOME=%DOTTY_HOME% 1>&2
     if defined GIT_HOME echo    GIT_HOME=%GIT_HOME% 1>&2
     if defined JAVA_HOME echo    JAVA_HOME=%JAVA_HOME% 1>&2
     if defined JAVACOCO_HOME echo    JAVACOCO_HOME=%JAVACOCO_HOME% 1>&2
@@ -1002,6 +1016,7 @@ if %__VERBOSE%==1 (
     if defined PYTHON_HOME echo    PYTHON_HOME=%PYTHON_HOME% 1>&2
     if defined SBT_HOME echo    SBT_HOME=%SBT_HOME% 1>&2
     if defined SCALA_HOME echo    SCALA_HOME=%SCALA_HOME% 1>&2
+    if defined SCALA3_HOME echo    SCALA3_HOME=%SCALA3_HOME% 1>&2
     if defined SCALAFMT_HOME echo    SCALAFMT_HOME=%SCALAFMT_HOME% 1>&2
 )
 goto :eof
@@ -1014,7 +1029,6 @@ endlocal & (
     if %_EXITCODE%==0 (
         if not defined ANT_HOME set "ANT_HOME=%_ANT_HOME%"
         if not defined CFR_HOME set "CFR_HOME=%_CFR_HOME%"
-        if not defined DOTTY_HOME set "DOTTY_HOME=%_DOTTY_HOME%"
         if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
         if not defined JACOCO_HOME set "JACOCO_HOME=%_JACOCO_HOME%"
         if not defined JAVA_HOME set "JAVA_HOME=%_JDK_HOME%"
@@ -1023,6 +1037,7 @@ endlocal & (
         if not defined PYTHON_HOME set "PYTHON_HOME=%_PYTHON_HOME%"
         if not defined SBT_HOME set "SBT_HOME=%_SBT_HOME%"
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
+        if not defined SCALA3_HOME set "SCALA3_HOME=%_SCALA3_HOME%"
         if not defined SCALAFMT_HOME set "SCALAFMT_HOME=%_SCALAFMT_HOME%"
         set "PATH=%PATH%%_ANT_PATH%%_BAZEL_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE% "%_GIT_HOME%"

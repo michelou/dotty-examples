@@ -27,6 +27,8 @@
 
 [Env Context][gh_env_setup]
 
+[GitHub Actions Tricks](https://rammusxu.github.io/toolkit/snippets/github-action/)
+
 ## <span id="footnotes">Footnotes</span>
 
 <b name="footnote_01">[1]</b> ***Preinstalled software*** [↩](#anchor_01)

@@ -294,7 +294,7 @@ for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%"
     set /a __N+=1
 )
 echo Finished to download %__N% files to directory %_OUTPUT_DIR%
-for /f %%i in ('dir /b "%_OUTPUT_DIR%\dotty-compiler_*.jar" 2^>NUL') do (
+for /f %%i in ('dir /b "%_OUTPUT_DIR%\scala3-compiler_*.jar" 2^>NUL') do (
     set _NIGHTLY_VERSION=%%~ni
     set _NIGHTLY_VERSION=!_NIGHTLY_VERSION:~20!
 )

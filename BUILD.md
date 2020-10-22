@@ -42,9 +42,9 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 For instance our development environment looks as follows (*October 2020*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.28.0\     <i>(290 MB)</i>
+C:\opt\Git-2.29.0\     <i>(290 MB)</i>
 C:\opt\jdk-11.0.8+10\  <i>(314 MB)</i>
-C:\opt\sbt-1.4.0\      <i>(  1 MB, no local-preloaded libraries)</i>
+C:\opt\sbt-1.4.1\      <i>(  1 MB, no local-preloaded libraries)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -67,10 +67,10 @@ Concretely directories [**`dotty\bin\`**](https://github.com/michelou/dotty/tree
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scalac.bat">dotty\bin\scalac.bat</a>
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scalad.bat">dotty\bin\scalad.bat</a>
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scala.bat">dotty\bin\scala.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/common.bat">dotty\dist\bin\common.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/scalac.bat">dotty\dist\bin\scalac.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/scala.bat">dotty\dist\bin\scala.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/scalad.bat">dotty\dist\bin\scalad.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/common.bat">dotty\dist\bin\common.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/scalac.bat">dotty\dist\bin\scalac.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/scala.bat">dotty\dist\bin\scala.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/scalad.bat">dotty\dist\bin\scalad.bat</a>
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/bootstrapCmdTests.bat">dotty\project\scripts\bootstrapCmdTests.bat</a>
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/cmdTests.bat">dotty\project\scripts\cmdTests.bat</a>
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/cmdTestsCommon.inc.bat">dotty\project\scripts\cmdTestsCommon.inc.bat.bat</a>
@@ -91,7 +91,7 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. Directory [**`bin\3.0\`**](bin/3.0) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software distribution][dotty_releases].
+1. Directory [**`bin\3.0.0\`**](bin/3.0.0) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software distribution][dotty_releases].
 
    <pre style="font-size:80%;">
    <b>&gt; cp bin\3.0\*.bat dotty\dist\bin</b>
@@ -106,14 +106,14 @@ We distinguish different sets of batch commands:
    scala.bat
    </pre>
 
-2. [**`build.bat`**](bin/dotty/build.bat)/[**`build.sh`**](bin/dotty/build.sh) - Both commands perform on a Windows machine the same build/test steps as specified in file [**`.drone.yml`**](https://github.com/michelou/dotty/blob/master/.drone.yml) and executed on the [Dotty CI][dotty_ci] server.
+2. [**`build.bat`**](bin/dotty/build.bat)/[**`build.sh`**](bin/dotty/build.sh) - Both commands perform on a Windows machine the same build/test steps as specified in file [**`ci.yaml`**](https://github.com/michelou/dotty/blob/master/.github/workflows/ci.yaml) and executed on the [Dotty CI][dotty_ci] server.
 
    > **:mag_right:** We get the same behavior when working with command [**`./build.sh`**](bin/dotty/build.sh) as presented below with command [**`build.bat`**](bin/dotty/build.bat).
 
    <pre style="font-size:80%;">
    <b>&gt; cp bin\dotty\build.bat dotty</b>
    <b>&gt; cp bin\dotty\project\scripts\*.bat dotty\project\scripts\</b>
-   <b>&gt; cd dotty</b></pre>
+   <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a> dotty</b></pre>
 
    Command [**`build.bat help`**](bin/dotty/build.bat) display the help message.
 
@@ -292,9 +292,9 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
-   GIT_CMD=C:\opt\Git-2.28.0\bin\git.exe
+   GIT_CMD=C:\opt\Git-2.29.0\bin\git.exe
    JAVA_CMD=C:\opt\jdk-11.0.8+10\bin\java.exe
-   SBT_CMD=C:\opt\sbt-1.4.0\bin\sbt.bat
+   SBT_CMD=C:\opt\sbt-1.4.1\bin\sbt.bat
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
    SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -660,7 +660,7 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; <a href="https://man7.org/linux/man-pages/man1/cat.1.html">cat</a> project\build.properties</b>
-sbt.version=1.4.0
+sbt.version=1.4.1
 </pre>
 
 <b name="footnote_04">[4]</b> ***Git master repository*** [↩](#anchor_04)
@@ -738,7 +738,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.28.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.29.0.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/
@@ -764,7 +764,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.4.0
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.4.1
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/

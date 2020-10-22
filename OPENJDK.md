@@ -126,7 +126,7 @@ OpenJDK 64-Bit Server VM Corretto-11.0.8.10.1 (build 11.0.8+10-LTS, mixed mode)
 [...]
 Number of classes 1214
 [...]
-<b>&gt; dir c:\opt\jdk-corretto-11.0.8_10\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-corretto-11.0.8_10\bin\server | findstr jsa</b>
 19.07.2020  00:02        17 629 184 classes.jsa
 
 <b>&gt; c:\opt\jdk-corretto-11.0.8_10\bin\java -version</b>
@@ -169,7 +169,7 @@ OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.8+10, mixed mode)
 [...]
 Number of classes 1214
 [...]
-<b>&gt; dir c:\opt\jdk-11.0.8+10\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-11.0.8+10\bin\server | findstr jsa</b>
 19.07.2020  00:04        17 629 184 classes.jsa
 &nbsp;
 <b>&gt; c:\opt\jdk-11.0.8+10\bin\java -version</b>
