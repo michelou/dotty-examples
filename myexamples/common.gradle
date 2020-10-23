@@ -12,8 +12,8 @@ ext {
     classesDir = file("${buildDir}/classes")
 
     if (dottyLocal?.toBoolean()) {
-        dottyHome = System.getenv("DOTTY_HOME")
-        print("DOTTY_HOME=$dottyHome")
+        dottyHome = System.getenv("SCALA3_HOME")
+        print("SCALA3_HOME=$dottyHome")
 
         dottyLibraryPath = file(dottyHome + "/lib")
         dottyLibraryFiles = files { dottyLibraryPath.listFiles() }
@@ -21,11 +21,11 @@ ext {
             f.name.matches("scala-library(.*)jar") ||
             f.name.matches("scala-asm(.*)jar") ||
             f.name.matches("compiler-interface(.*)jar") ||
-            f.name.matches("dotty-interfaces(.*)jar") ||
-            f.name.matches("dotty-library(.*)jar") ||
-            f.name.matches("dotty-compiler(.*)jar") ||
+            f.name.matches("scala3-interfaces(.*)jar") ||
+            f.name.matches("scala3-library(.*)jar") ||
+            f.name.matches("scala3-compiler(.*)jar") ||
             f.name.matches("tasty-core(.*)jar") ||
-            f.name.matches("dotty-staging(.*)jar")
+            f.name.matches("scala3-staging(.*)jar")
         }
         scalaClasspath = files(dotcLibraryFiles, projectJars, sourceSets.main.output, classesDir)
     } else {
@@ -76,7 +76,7 @@ task run(type: JavaExec) {
 
     classpath scalaClasspath
 
-    jvmArgs "-Xms1024m", "-Xss2m"
+    jvmArgs "-Xms1024m", "-Xss2m", "-Dfile.encoding=UTF-8"
 
     //systemProperty "message" "Hello"
 
@@ -90,6 +90,7 @@ repositories {
 }
 
 dependencies {
-    implementation "ch.epfl.lamp:dotty-compiler_0.27:0.27.0-RC1"
+    // implementation "ch.epfl.lamp:dotty-compiler_0.27:0.27.0-RC1"
+    implementation "org.scala-lang:scala3-compiler_3.0.0-M1:3.0.0-M1-bin-20201021-97da3cb-NIGHTLY"
     testImplementation "junit:junit:4.13"
 }

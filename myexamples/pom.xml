@@ -14,7 +14,9 @@
         <m2.directory>${user.home}/.m2/repository</m2.directory>
 
         <!-- Scala settings -->
-        <scala.version>0.27.0-RC1</scala.version> <!-- eg. "2.13.3" or "0.26.0" -->
+        <scala.groupId>org.scala-lang</scala.groupId> <!-- eg. "ch.epfl.lamp" -->
+        <scala.versionTag>3.0.0-M1</scala.versionTag>
+        <scala.version>${scala.versionTag}-bin-20201021-97da3cb-NIGHTLY</scala.version> <!-- eg. "2.13.3" or "0.26.0" -->
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugins -->
@@ -44,20 +46,20 @@
     <dependencies>
         <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-interfaces -->
         <dependency>
-            <groupId>ch.epfl.lamp</groupId>
-            <artifactId>dotty-interfaces</artifactId>
+            <groupId>${scala.groupId}</groupId>
+            <artifactId>scala3-interfaces</artifactId>
             <version>${scala.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.27 -->
         <dependency>
-            <groupId>ch.epfl.lamp</groupId>
-            <artifactId>dotty-library_0.27</artifactId>
+            <groupId>${scala.groupId}</groupId>
+            <artifactId>scala3-library_${scala.versionTag}</artifactId>
             <version>${scala.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/tasty-core_0.27 -->
         <dependency>
-            <groupId>ch.epfl.lamp</groupId>
-            <artifactId>tasty-core_0.27</artifactId>
+            <groupId>${scala.groupId}</groupId>
+            <artifactId>tasty-core_${scala.versionTag}</artifactId>
             <version>${scala.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->

@@ -94,14 +94,14 @@ set "_SCALA2=%SCALA_HOME%\bin\scala.bat"
 set "_SCALAC2=%SCALA_HOME%\bin\scalac.bat"
 set "_SCALADOC2=%SCALA_HOME%\bin\scaladoc.bat"
 
-if not exist "%DOTTY_HOME%\bin\dotc.bat" (
+if not exist "%SCALA3_HOME%\bin\scalac.bat" (
     echo %_ERROR_LABEL% Scala 3 installation not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_SCALA3=%DOTTY_HOME%\bin\dotr.bat"
-set "_SCALAC3=%DOTTY_HOME%\bin\dotc.bat"
-set "_SCALADOC3=%DOTTY_HOME%\bin\dotd.bat"
+set "_SCALA3=%SCALA3_HOME%\bin\scala.bat"
+set "_SCALAC3=%SCALA3_HOME%\bin\scalac.bat"
+set "_SCALADOC3=%SCALA3_HOME%\bin\scalad.bat"
 
 set _SCALAFMT_CMD=
 if exist "%SCALAFMT_HOME%\bin\scalafmt.bat" (
@@ -297,7 +297,7 @@ if %_SCALAC_OPTS_EXPLAIN_TYPES%==1 (
     )
 )
 if %_SCALAC_OPTS_PRINT%==1 (
-    if %_SCALA_VERSION%==3 ( set _SCALAC_OPTS=%_SCALAC_OPTS% -color never -Xprint:lambdaLift
+    if %_SCALA_VERSION%==3 ( set _SCALAC_OPTS=%_SCALAC_OPTS% -pagewidth 128 -color never -Xprint:lambdaLift
     ) else ( set _SCALAC_OPTS=%_SCALAC_OPTS% -print
     )
 )
@@ -309,8 +309,9 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% _PROJECT_VERSION=%_PROJECT_VERSION% 1>&2
     echo %_DEBUG_LABEL% Options    : _EXPLAIN=%_SCALAC_OPTS_EXPLAIN% _PRINT=%_SCALAC_OPTS_PRINT% _SCALA_VERSION=%_SCALA_VERSION% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
-    if %_SCALA_VERSION%==2 ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" SCALA_HOME="%SCALA_HOME%" 1>&2
-    ) else ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" DOTTY_HOME="%DOTTY_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" 1>&2
+    if %_SCALA_VERSION%==2 ( echo %_DEBUG_LABEL% Variables  : SCALA_HOME="%SCALA_HOME%" 1>&2
+    ) else ( echo %_DEBUG_LABEL% Variables  : SCALA3_HOME="%SCALA3_HOME%" 1>&2
     )
     echo %_DEBUG_LABEL% Variables  : _MAIN_CLASS=%_MAIN_CLASS% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
 )
@@ -584,12 +585,12 @@ call "%__BATCH_FILE%" %_DEBUG%
 set "_LIBS_CPATH=%_CPATH%"
 
 if defined __ADD_DOTTY_LIBS (
-    if not defined DOTTY_HOME (
-        echo %_ERROR_LABEL% Variable DOTTY_HOME not defined 1>&2
+    if not defined SCALA3_HOME (
+        echo %_ERROR_LABEL% Variable SCALA3_HOME not defined 1>&2
         set _EXITCODE=1
         goto :eof
     )
-    for %%f in ("%DOTTY_HOME%\lib\*.jar") do (
+    for %%f in ("%SCALA3_HOME%\lib\*.jar") do (
         set "_LIBS_CPATH=!_LIBS_CPATH!%%f;"
     )
 )
@@ -597,7 +598,7 @@ goto :eof
 
 @rem output parameter: _EXTRA_CPATH
 :extra_cpath
-if %_SCALA_VERSION%==3 ( set "__LIB_PATH=%DOTTY_HOME%\lib"
+if %_SCALA_VERSION%==3 ( set "__LIB_PATH=%SCALA3_HOME%\lib"
 ) else ( set "__LIB_PATH=%SCALA_HOME%\lib"
 )
 set _EXTRA_CPATH=
@@ -607,7 +608,7 @@ goto :eof
 @rem output parameters: _VERSION_STRING, _VERSION_SUFFIX
 :version_string
 if %_SCALA_VERSION%==3 (
-    for /f "tokens=1,2,3,4,*" %%i in ('%DOTTY_HOME%\bin\dotc.bat -version 2^>^&1') do (
+    for /f "tokens=1,2,3,4,*" %%i in ('%SCALA3_HOME%\bin\dotc.bat -version 2^>^&1') do (
         set "_VERSION_STRING=scala3_%%l"
     )
 ) else (
@@ -696,6 +697,9 @@ if %_COMPILE_REQUIRED%==0 goto :eof
 
 set "__SOURCES_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
+@rem for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
+@rem     echo %%i>> "%__SOURCES_FILE%"
+@rem )                                                                        
 for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i>> "%__SOURCES_FILE%"
 )
@@ -794,7 +798,7 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 set __LIBS_CPATH=
-for %%f in ("%DOTTY_HOME%\lib\*.jar") do (
+for %%f in ("%SCALA3_HOME%\lib\*.jar") do (
     set "__JAR_FILE=%%~nxf"
     if "!__JAR_FILE:~0,5!"=="dotty" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
     ) else if "!__JAR_FILE:~0,5!"=="tasty" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"

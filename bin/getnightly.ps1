@@ -11,7 +11,7 @@ $process.PriorityClass='High'
 # $groupId='ch.epfl.lamp'
 $groupId='org.scala-lang'
 #$progressPreference='silentlyContinue'
-#$request='https://search.maven.org/solrsearch/select?q=g:"'+$groupId+'"%20AND%20p:"jar"&rows=1&wt=json'
+$request='https://search.maven.org/solrsearch/select?q=g:"'+$groupId+'"%20AND%20p:"jar"&rows=1&wt=json'
 $latest=Invoke-WebRequest -UseBasicParsing -Uri $request |
 ConvertFrom-Json |
 Select -expand response |

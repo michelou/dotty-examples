@@ -960,15 +960,15 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('bazel.exe --version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bazel %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% bazel.exe
 )
-where /q bloop.cmd
-if %ERRORLEVEL%==0 (
-    start /min "bloop_8212" bloop.cmd server
-    timeout /t 2 /nobreak 1>NUL
-    for /f "tokens=1,*" %%i in ('bloop.cmd about --version 2^>^&1 ^| findstr /b bloop') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bloop %%j,"
-    set __WHERE_ARGS=%__WHERE_ARGS% bloop.cmd
-    taskkill.exe /fi "WindowTitle eq bloop_8212*" /t /f 1>NUL
-)
-where /q "%CFR_HOME%\bin":cfr.bat
+@rem where /q bloop.cmd
+@rem if %ERRORLEVEL%==0 (
+@rem     start /min "bloop_8212" bloop.cmd server
+@rem     timeout /t 2 /nobreak 1>NUL
+@rem     for /f "tokens=1,*" %%i in ('bloop.cmd about --version 2^>^&1 ^| findstr /b bloop') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bloop %%j,"
+@rem     set __WHERE_ARGS=%__WHERE_ARGS% bloop.cmd
+@rem     taskkill.exe /fi "WindowTitle eq bloop_8212*" /t /f 1>NUL
+@rem )
+where /q "%CFR_HOME%\bin:cfr.bat"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('"%CFR_HOME%\bin\cfr.bat" 2^>^&1 ^| findstr /b CFR') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% cfr %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%CFR_HOME%\bin:cfr.bat"
@@ -993,7 +993,7 @@ if %ERRORLEVEL%==0 (
    for /f "tokens=1-3,*" %%i in ('diff.exe --version ^| findstr diff') do set "__VERSIONS_LINE4=%__VERSIONS_LINE4% diff %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% diff.exe
 )
-where /q "%__GIT_HOME%\bin":bash.exe
+where /q "%__GIT_HOME%\bin:bash.exe"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1-3,4,*" %%i in ('"%__GIT_HOME%\bin\bash.exe" --version ^| findstr bash') do set "__VERSIONS_LINE4=%__VERSIONS_LINE4% bash %%l"
     set __WHERE_ARGS=%__WHERE_ARGS% "%__GIT_HOME%\bin:bash.exe"

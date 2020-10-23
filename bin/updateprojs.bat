@@ -19,8 +19,8 @@ set _SBT_VERSION_NEW=sbt.version=1.4.1
 
 @rem files project\plugins.sbt
 @rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/
-set _SBT_DOTTY_VERSION_OLD="0.4.1"
-set _SBT_DOTTY_VERSION_NEW="0.4.2"
+set _SBT_DOTTY_VERSION_OLD="0.4.2"
+set _SBT_DOTTY_VERSION_NEW="0.4.4"
 
 @rem see https://mvnrepository.com/artifact/org.scalatest/scalatest
 set _SCALATEST_VERSION_OLD=^(\"scalatest_2.13\"^)^(.+\"3.2.1\"^)

@@ -37,7 +37,7 @@
 Preinstalled software on a Windows Server is located either in directory <a href="https://docs.microsoft.com/en-us/windows/deployment/usmt/usmt-recognized-environment-variables"><b><code>%ProgramFiles%</code></b></a> or at the root of drive <b><code>C:</code></b>.<br/>Here are two examples:
 </p>
 <pre style="font-size:80%;margin-left:20px;">
-<b>&gt; dir "%ProgramFiles%"</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> "%ProgramFiles%"</b>
 &nbsp;
  Volume in drive C is Windows
  Volume Serial Number is F4CD-4404
@@ -70,7 +70,7 @@ Preinstalled software on a Windows Server is located either in directory <a href
               47 Dir(s)  89,415,794,688 bytes free
 </pre>
 <pre style="font-size:80%;margin-left:20px;">
-<b>&gt; dir c:\tools\php\</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\tools\php\</b>
 &nbsp;
  Volume in drive C is Windows
  Volume Serial Number is F4CD-4404
@@ -100,7 +100,7 @@ Preinstalled software on a Windows Server is located either in directory <a href
 <b name="footnote_02">[2]</b> ***Environment variables*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
-Here are non-standard environment variables defined on a Windows Server 2019 node (GitHub-hosted). 
+Here are GitHub-specific environment variables defined in a GitHub-hosted Windows runner (e.g. Windows Server 2019 with <code>runs-on: [windows-latest]</code>). 
 </p>
 
 <pre style="font-size:80%;margin-left:20px;">

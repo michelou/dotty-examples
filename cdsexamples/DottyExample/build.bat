@@ -81,14 +81,14 @@ if not exist "%JAVA_HOME%\bin\java.exe" (
 set "_JAR_CMD=%JAVA_HOME%\bin\jar.exe"
 set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
 
-if not exist "%DOTTY_HOME%\bin\dotc.bat" (
+if not exist "%SCALA3_HOME%\bin\scalac.bat" (
     echo %_ERROR_LABEL% Scala 3 installation not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_SCALA_CMD=%DOTTY_HOME%\bin\dotr.bat"
-set "_SCALAC_CMD=%DOTTY_HOME%\bin\dotc.bat"
-set "_SCALADOC_CMD=%DOTTY_HOME%\bin\dotd.bat"
+set "_SCALA_CMD=%SCALA3_HOME%\bin\scala.bat"
+set "_SCALAC_CMD=%SCALA3_HOME%\bin\scalac.bat"
+set "_SCALADOC_CMD=%SCALA3_HOME%\bin\scalad.bat"
 goto :eof
 
 :env_colors
@@ -201,7 +201,7 @@ if %_DEBUG%==1 ( set _REDIRECT_STDOUT=
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _ITER=%_RUN_ITER% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _RUN=%_RUN% _RUN_ARGS=%_RUN_ARGS% 1>&2
-    echo %_DEBUG_LABEL% Variables  : DOTTY_HOME=%DOTTY_HOME% JAVA_HOME=%JAVA_HOME% 1>&2
+    echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% SCALA3_HOME=%SCALA3_HOME% 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
@@ -391,8 +391,8 @@ for /f "usebackq" %%i in (`powershell -c "gci -recurse -path '%__PATH%' -ea Stop
 call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
 set _COMPILE_REQUIRED=%_NEWER%
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% "%__TARGET_FILE%" 1>&2
-    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% "%__PATH%" 1>&2
+    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% Target : "%__TARGET_FILE%" 1>&2
+    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: "%__PATH%" 1>&2
     echo %_DEBUG_LABEL% _COMPILE_REQUIRED=%_COMPILE_REQUIRED% 1>&2
 ) else if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
     echo No compilation needed ^("!__PATH:%_ROOT_DIR%=!"^) 1>&2
