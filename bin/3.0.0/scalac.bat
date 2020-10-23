@@ -6,17 +6,14 @@ setlocal enabledelayedexpansion
 
 set _EXITCODE=0
 
-if not "%~dp0"=="%CD%\" ( set "_PROG_HOME=%~dp0"
-) else ( for /f %%f in ('where "%0"') do set "_PROG_HOME=%%~dpf"
-)
+set "_PROG_HOME=%~dp0"
+
 call "%_PROG_HOME%\common.bat"
 if not %_EXITCODE%==0 goto end
 
 set _COMPILER_MAIN=dotty.tools.dotc.Main
 set _DECOMPILER_MAIN=dotty.tools.dotc.decompiler.Main
 set _REPL_MAIN=dotty.tools.repl.Main
-
-set _PROG_NAME=%_COMPILER_MAIN%
 
 call :args %*
 
@@ -46,6 +43,7 @@ set _HELP=
 set _VERBOSE=
 set _QUIET=
 set _COLORS=
+set _PROG_NAME=%_COMPILER_MAIN%
 set _SCALA_ARGS=
 set _JAVA_ARGS=
 set _RESIDUAL_ARGS=
@@ -136,7 +134,7 @@ set __TOOLCHAIN=%__TOOLCHAIN%%_JLINE_TERMINAL%%_PSEP%
 set __TOOLCHAIN=%__TOOLCHAIN%%_JLINE_TERMINAL_JNA%%_PSEP%
 set __TOOLCHAIN=%__TOOLCHAIN%%_JNA%
 
-set _JVM_CP_ARGS=-classpath %__TOOLCHAIN%
+set _JVM_CP_ARGS=-classpath "%__TOOLCHAIN%"
 goto :eof
 
 @rem #########################################################################
@@ -145,4 +143,3 @@ goto :eof
 :end
 exit /b %_EXITCODE%
 endlocal
-

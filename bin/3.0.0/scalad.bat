@@ -6,9 +6,8 @@ setlocal enabledelayedexpansion
 
 set _EXITCODE=0
 
-if not "%~dp0"=="%CD%\" ( set "_PROG_HOME=%~dp0"
-) else ( for /f %%f in ('where "%0"') do set "_PROG_HOME=%%~dpf"
-)
+set "_PROG_HOME=%~dp0"
+
 call "%_PROG_HOME%\common.bat"
 if not %_EXITCODE%==0 goto end
 
@@ -32,8 +31,8 @@ goto end
 :javaClassPath
 for /f %%f in ("%_PROG_HOME%\.") do set "__LIB_DIR=%%~dpflib"
 
-@rem Set dotty-doc dep:
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*dotty-doc*"') do set _DOTTY_DOC_LIB=%__LIB_DIR%\%%f
+@rem Set scala3-doc dep:
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*scala3-doc*"') do set _DOTTY_DOC_LIB=%__LIB_DIR%\%%f
 
 @rem Set flexmark deps:
 for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-0*"')                     do set _FLEXMARK_LIBS=%__LIB_DIR%\%%f%_PSEP%

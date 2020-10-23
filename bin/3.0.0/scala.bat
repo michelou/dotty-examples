@@ -6,9 +6,8 @@ setlocal enabledelayedexpansion
 
 set _EXITCODE=0
 
-if not "%~dp0"=="%CD%\" ( set "_PROG_HOME=%~dp0"
-) else ( for /f %%f in ('where "%0"') do set "_PROG_HOME=%%~dpf"
-)
+set "_PROG_HOME=%~dp0"
+
 call "%_PROG_HOME%\common.bat"
 if not %_EXITCODE%==0 goto end
 
