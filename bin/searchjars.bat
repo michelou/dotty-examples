@@ -22,8 +22,8 @@ if defined _HELP (
     call :help
     exit /b !_EXITCODE!
 )
-if exist "%DOTTY_HOME%\lib\" (
-    call :search "%DOTTY_HOME%\lib" 1
+if exist "%SCALA3_HOME%\lib\" (
+    call :search "%SCALA3_HOME%\lib" 1
     if not !_EXITCODE!==0 goto end
 )
 if exist "%SCALA_HOME%\lib\" (
@@ -62,7 +62,7 @@ goto end
 @rem ## Subroutines
 
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-@rem                    _JAR_CMD, _JAVA_HOME, _DOTTY_HOME, _SCALA_HOME
+@rem                    _JAR_CMD, _JAVA_HOME, _SCALA3_HOME, _SCALA_HOME
 :env
 set _BASENAME=%~n0
 for %%f in ("%~dp0..") do set "_ROOT_DIR=%%~dpf"
@@ -80,7 +80,7 @@ if not exist "%JAVA_HOME%\bin\jar.exe" (
 set "_JAR_CMD=%JAVA_HOME%\bin\jar.exe"
 set "_JAVAP_CMD=%JAVA_HOME%\bin\javap.exe"
 
-if not exist "%DOTTY_HOME%\lib\dotty-library_*.jar" (
+if not exist "%SCALA3_HOME%\lib\scala3-library_*.jar" (
     echo %_ERROR_LABEL% Scala 3 installation not found 1>&2
     set _EXITCODE=1
     goto :eof

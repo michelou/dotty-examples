@@ -1,4 +1,4 @@
-# <span id="top">Dotty examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
+# <span id="top">Scala 3 examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -6,7 +6,7 @@
     <a href="https://dotty.epfl.ch/"><img style="border:0;width:120px;" src="../docs/dotty.png" alt="Dotty logo" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>examples\</code></strong> contains <a href="https://dotty.epfl.ch/" rel="external">Dotty</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/" rel="external">Dotty project</a>.
+    Directory <strong><code>examples\</code></strong> contains <a href="https://dotty.epfl.ch/" rel="external">Scala 3</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/" rel="external">Dotty project</a>.
   </td>
   </tr>
 </table>
@@ -93,7 +93,7 @@ Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
    [delete] Deleting directory W:\dotty-examples\examples\enum-Planet\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] DOTTY_HOME=C:\opt\dotty-0.27.0-RC1
+     [echo] SCALA3_HOME=C:\opt\scala-3.0.0-M1
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -169,7 +169,7 @@ Command [**`build -debug clean compile run`**](enum-Planet/build.bat) also displ
 <b/>&gt; <a href="enum-Planet/build.bat">build</a> -debug clean compile run</b>
 [build] Options    : _DOTTY=1 _PRINT=0 _TASTY=0 _TIMER=0 _VERBOSE=0
 [build] Subcommands: _CLEAN=1 _COMPILE=1 _DECOMPILE=0 _DOC=0 _LINT=0 _RUN=1 _TEST=0
-[build] Variables  : JAVA_HOME="C:\opt\jdk-11.0.8+10" DOTTY_HOME="C:\opt\dotty-0.27.0-RC1"
+[build] Variables  : JAVA_HOME="C:\opt\jdk-11.0.9+11" SCALA3_HOME="C:\opt\scala-3.0.0-M1"
 [build] del /s /q W:\dotty\examples\enum-Planet\target\classes\*.class W:\dotty\examples\enum-Planet\target\classes\*.hasTasty W:\dotty\examples\enum-Planet\target\classes\.latest-build
 [build] 20180322224754 W:\dotty\examples\enum-Planet\src\main\scala\Planet.scala
 [build] 00000000000000 W:\dotty\examples\enum-Planet\target\classes\.latest-build
@@ -189,7 +189,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 > For simplicity the [**`build`**](enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/type">type</a> <a href="enum-Planet/project/build.properties">project\build.properties</a></b>
-> sbt.version=1.3.13
+> sbt.version=1.4.1
 > main.class=Planet
 > main.args=1
 > </pre>
@@ -373,9 +373,9 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 [INFO] ------------------------------------------------------------------------
 
 <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -version 2>&1 | findstr version</b>
-openjdk version "11.0.8" 2020-07-14
+openjdk version "11.0.9" 2020-10-20
 
-<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:"c:\opt\dotty-0.27.0-RC1\lib\dotty-library_0.27-0.27.0-RC1.jar;c:\opt\dotty-0.27.0-RC1\lib\scala-library-2.13.3.jar" -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
+<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:"c:\opt\scala-3.0.0-M1\lib\dotty-library_3.0.0-M1-scala-3.0.0-M1.jar;c:\opt\scala-3.0.0-M1\lib\scala-library-2.13.3.jar" -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
 Your weight on EARTH (2) is 0.9999999999999999
@@ -518,6 +518,10 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
     <b>call <span style="color:#9966ff;">:compile</span></b>
     <b>if not</b> <span style="color:#3333ff;">!_EXITCODE!</span>==0 <b>goto end</b>
 )
+<b>if</b> <span style="color:#3333ff;">%_LINT%</span>==1 (
+    <b>call <span style="color:#9966ff;">:lint</span></b>
+    <b>if not</b> <span style="color:#3333ff;">!_EXITCODE!</span>==0 <b>goto end</b>
+)
 <b>if</b> <span style="color:#3333ff;">%_DOC%</span>==1 (
     <b>call <span style="color:#9966ff;">:doc</span></b>
     <b>if not</b> <span style="color:#3333ff;">!_EXITCODE!</span>==0 <b>goto end</b>
@@ -544,6 +548,9 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 ...<i>(delete generated files/directories)</i>...
 <b>goto :eof</b>
 <span style="color:#9966ff;">:compile</span>
+...
+<b>goto :eof</b>
+<span style="color:#9966ff;">:lint</span>
 ...
 <b>goto :eof</b>
 <span style="color:#9966ff;">:doc</span>

@@ -53,6 +53,10 @@ if %_TEST%==1 (
     call :test
     if not !_EXITCODE!==0 goto end
 )
+if %_HILITE_ME%==1 (
+    call :hilite_me
+    if not !_EXITCODE!==0 goto end
+)
 goto end
 
 @rem #########################################################################
@@ -205,6 +209,7 @@ set _COMPILE=0
 set _DECOMPILE=0
 set _DOC=0
 set _HELP=0
+set _HILITE=0
 set _INSTRUMENTED=
 set _LINT=0
 set _MAIN_CLASS=%_MAIN_CLASS_DEFAULT%
@@ -253,6 +258,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="decompile" ( set _COMPILE=1& set _DECOMPILE=1
     ) else if "%__ARG%"=="doc" ( set _DOC=1
     ) else if "%__ARG%"=="help" ( set _HELP=1
+    ) else if "%__ARG%"=="hilite" ( set _HILITE_ME=1
     ) else if "%__ARG%"=="lint" ( set _LINT=1
     ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
     ) else if "%__ARG%"=="run:i" ( set _COMPILE=1& set _RUN=1& set _INSTRUMENTED=_instrumented
@@ -309,9 +315,10 @@ if %_TASTY%==1 if not %_SCALA_VERSION%==3 (
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% _PROJECT_VERSION=%_PROJECT_VERSION% 1>&2
     echo %_DEBUG_LABEL% Options    : _EXPLAIN=%_SCALAC_OPTS_EXPLAIN% _INSTRUMENTED=%_INSTRUMENTED% _PRINT=%_SCALAC_OPTS_PRINT% _SCALA_VERSION=%_SCALA_VERSION% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
-    echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
-    if %_SCALA_VERSION%==2 ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" SCALA_HOME="%SCALA_HOME%" 1>&2
-    ) else ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" SCALA3_HOME="%SCALA3_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _HILITE=%_HILITE% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
+    echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" 1>&2
+    if %_SCALA_VERSION%==2 ( echo %_DEBUG_LABEL% Variables  : SCALA_HOME="%SCALA_HOME%" 1>&2
+    ) else ( echo %_DEBUG_LABEL% Variables  : SCALA3_HOME="%SCALA3_HOME%" 1>&2
     )
     echo %_DEBUG_LABEL% Variables  : _MAIN_CLASS=%_MAIN_CLASS% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
 )
@@ -350,6 +357,7 @@ echo     %__BEG_O%compile%__END%          compile Java/Scala source files
 echo     %__BEG_O%decompile%__END%        decompile generated code with %__BEG_N%CFR%__END%
 echo     %__BEG_O%doc%__END%              generate HTML documentation
 echo     %__BEG_O%help%__END%             display this help message
+echo     %__BEG_O%hilite%__END%           generate pretty-printed HTML code for source files with %__BEG_N%Hilite.me%__END%
 echo     %__BEG_O%lint%__END%             analyze Scala source files with %__BEG_N%Scalafmt%__END%
 echo     %__BEG_O%run[:i]%__END%          execute main class ^(instrumented execution: %__BEG_O%:i%__END%^)
 echo     %__BEG_O%test%__END%             execute unit tests with %__BEG_N%JUnit%__END%
@@ -887,6 +895,42 @@ for /f "usebackq" %%f in (`dir /s /b "%_TEST_CLASSES_DIR%\*Test.class" 2^>NUL`) 
         set _EXITCODE=1
         goto :eof
     )
+)
+goto :eof
+
+:hilite_me
+if not exist "%_TARGET_DIR%\html" mkdir "%_TARGET_DIR%\html"
+@rem # hilite.me API documentation
+@rem 
+@rem GET or POST to http://hilite.me/api with these parameters:
+@rem 
+@rem * code: source code to format
+@rem * lexer: [lexer](http://pygments.org/docs/lexers/) to use, default it 'python'
+@rem * options: optional comma-separated list of lexer options
+@rem * style: [style](http://pygments.org/docs/styles/) to use, default is 'colorful'
+@rem * linenos: if not empty, the HTML will include line numbers
+@rem * divstyles: CSS style to use in the wrapping <div> element, can be empty
+@rem 
+@rem The request will return the HTML code in UTF-8 encoding.
+set __URI=http://hilite.me/api
+set __LEXER=scala
+set __N=0
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
+    set "__SOURCE_FILE=%%i" 
+    set "__OUT_FILE=%_TARGET_DIR%\html\%%~ni.html"
+    if %_DEBUG%==1 (echo %_DEBUG_LABEL% powershell -c "$progressPreference='silentlyContinue';$code=Get-Content -Encoding UTF8 -Raw "!__SOURCE_FILE!";Invoke-WebRequest -Method POST -Uri %__URI% -Body @{code=$code; lexer='%__LEXER%'} -Outfile '!__OUT_FILE!'" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Generate pretty-printed HTML code for Scala source file "!__SOURCE_FILE:%_ROOT_DIR%=!" 1>&2
+    )
+    powershell -c "$progressPreference='silentlyContinue';$code=Get-Content -Encoding UTF8 -Raw "!__SOURCE_FILE!";Invoke-WebRequest -Method POST -Uri %__URI% -Body @{code=$code; lexer='%__LEXER%'} -Outfile '!__OUT_FILE!'"
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to get response from web request to %_URI% 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+    set /a __N+=1
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Generated %__N% HTML code snippets into directory "%_TARGET_DIR%\html" 1>&2
+) else if %_VERBOSE%==1 ( echo Generated %__N% HTML code snippets into directory "!_TARGET_DIR:%_ROOT_DIR%=!\html" 1>&2
 )
 goto :eof
 

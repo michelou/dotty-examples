@@ -11,7 +11,7 @@ object Main {
   def booleanMatch: Unit = {
     "even" match {
       case s @ Even() => println(s"$s has an even number of characters")
-      case s          => println(s"$s has an odd number of characters")
+      case s => println(s"$s has an odd number of characters")
     }
   }
 
@@ -52,7 +52,7 @@ object Main {
   def singleMatch: Unit = {
     5 match {
       case Nat(n) => println(s"$n is a natural number")
-      case _      => ()
+      case _ => ()
     }
   }
 

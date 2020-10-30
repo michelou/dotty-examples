@@ -296,7 +296,7 @@ for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%"
 echo Finished to download %__N% files to directory %_OUTPUT_DIR%
 for /f %%i in ('dir /b "%_OUTPUT_DIR%\scala3-compiler_*.jar" 2^>NUL') do (
     set _NIGHTLY_VERSION=%%~ni
-    set _NIGHTLY_VERSION=!_NIGHTLY_VERSION:~20!
+    set _NIGHTLY_VERSION=!_NIGHTLY_VERSION:~16!
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Nightly version is %_NIGHTLY_VERSION% 1>&2
 ) else if %_VERBOSE%==1 ( echo Nightly version is %_NIGHTLY_VERSION% 1>&2
