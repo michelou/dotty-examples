@@ -53,6 +53,10 @@ if %_TEST%==1 (
     call :test
     if not !_EXITCODE!==0 goto end
 )
+if %_HILITE_ME%==1 (
+    call :hilite_me
+    if not !_EXITCODE!==0 goto end
+)
 goto end
 
 @rem #########################################################################
@@ -174,7 +178,7 @@ set _MAIN_ARGS_DEFAULT=
 
 for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set _PROJECT_URL=github.com/%USERNAME%/dotty-examples
-set _PROJECT_VERSION=0.1-SNAPSHOT
+set _PROJECT_VERSION=1.0-SNAPSHOT
 
 set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
 if exist "%__PROPS_FILE%" (
@@ -204,6 +208,7 @@ set _COMPILE=0
 set _DECOMPILE=0
 set _DOC=0
 set _HELP=0
+set _HILITE_ME=0
 set _INSTRUMENTED=
 set _LINT=0
 set _MAIN_CLASS=%_MAIN_CLASS_DEFAULT%
@@ -252,6 +257,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="decompile" ( set _COMPILE=1& set _DECOMPILE=1
     ) else if "%__ARG%"=="doc" ( set _DOC=1
     ) else if "%__ARG%"=="help" ( set _HELP=1
+    ) else if "%__ARG%"=="hilite" ( set _HILITE_ME=1
     ) else if "%__ARG%"=="lint" ( set _LINT=1
     ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
     ) else if "%__ARG%"=="run:i" ( set _COMPILE=1& set _RUN=1& set _INSTRUMENTED=_instrumented
@@ -350,6 +356,7 @@ echo     %__BEG_O%compile%__END%          compile Java/Scala source files
 echo     %__BEG_O%decompile%__END%        decompile generated code with %__BEG_N%CFR%__END%
 echo     %__BEG_O%doc%__END%              generate HTML documentation
 echo     %__BEG_O%help%__END%             display this help message
+echo     %__BEG_O%hilite%__END%           generate pretty-printed HTML code for source files with %__BEG_N%Hilite.me%__END%
 echo     %__BEG_O%lint%__END%             analyze Scala source files with %__BEG_N%Scalafmt%__END%
 echo     %__BEG_O%run[:i]%__END%          execute main class ^(instrumented execution: %__BEG_O%:i%__END%^)
 echo     %__BEG_O%test%__END%             execute unit tests with %__BEG_N%JUnit%__END%
@@ -429,11 +436,28 @@ if %_COMPILE_REQUIRED%==1 (
     if not !_EXITCODE!==0 goto :eof
 )
 echo. > "%__TIMESTAMP_FILE%"
+
+if %_TASTY%==0 goto :eof
+
+if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
+
+set "__TASTY_TIMESTAMP_FILE=%_TASTY_CLASSES_DIR%\.latest-build"
+
+call :compile_required "%__TASTY_TIMESTAMP_FILE%" "%_CLASSES_DIR%\*.tasty"
+if %_COMPILE_REQUIRED%==1 (
+    call :compile_tasty
+    if not !_EXITCODE!==0 goto :eof
+)
+echo. > "%__TASTY_TIMESTAMP_FILE%"
 goto :eof
 
 :compile_java
 call :libs_cpath
 if not %_EXITCODE%==0 goto :eof
+
+set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
+set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%"
+echo -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\javac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
@@ -442,10 +466,6 @@ for /f %%f in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
-set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
-set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%"
-echo -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
-
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% Java source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
@@ -458,6 +478,10 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :compile_scala
+set "__OPTS_FILE=%_TARGET_DIR%\scalac_opts.txt"
+set "__CPATH=%_CLASSES_DIR%"
+echo %_SCALAC_OPTS% -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
+
 set "__SOURCES_FILE=%_TARGET_DIR%\scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
@@ -474,9 +498,6 @@ if %_SCALAC_OPTS_PRINT%==1 (
     ) else ( set __PRINT_FILE_REDIRECT=1^> "!__PRINT_FILE!"
     )
 )
-set "__OPTS_FILE=%_TARGET_DIR%\scalac_opts.txt"
-echo %_SCALAC_OPTS% -classpath "%_CLASSES_DIR:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
-
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% Scala source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
@@ -486,17 +507,12 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-if %_TASTY%==1 (
-    call :compile_tasty
-    if not !_EXITCODE!==0 goto :eof
-)
 goto :eof
 
 :compile_tasty
-if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
-
 set "__OPTS_FILE=%_TARGET_DIR%\tasty_scalac_opts.txt"
-echo -from-tasty -classpath "%_CLASSES_DIR%" -d "%_TASTY_CLASSES_DIR%" > "%__OPTS_FILE%"
+set "__CPATH=%_CLASSES_DIR%"
+echo -from-tasty -classpath "%__CPATH:\=\\%" -d "%_TASTY_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\tasty_scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
@@ -595,17 +611,19 @@ if %_SCALA_VERSION%==3 ( set "__LIB_PATH=%SCALA3_HOME%\lib"
 ) else ( set "__LIB_PATH=%SCALA_HOME%\lib"
 )
 set _EXTRA_CPATH=
-for %%f in (%__LIB_PATH%\*.jar) do set "_EXTRA_CPATH=!_EXTRA_CPATH!%%f;"
+for %%f in ("%__LIB_PATH%\compiler*.jar" "%__LIB_PATH%\scala*.jar" "%__LIB_PATH%\tasty*.jar") do (
+    set "_EXTRA_CPATH=!_EXTRA_CPATH!%%f;"
+)
 goto :eof
 
 @rem output parameters: _VERSION_STRING, _VERSION_SUFFIX
 :version_string
 if %_SCALA_VERSION%==3 (
-    for /f "tokens=1,2,3,4,*" %%i in ('%SCALA3_HOME%\bin\dotc.bat -version 2^>^&1') do (
+    for /f "tokens=1,2,3,4,*" %%i in ('"%_SCALAC3%" -version 2^>^&1') do (
         set "_VERSION_STRING=scala3_%%l"
     )
 ) else (
-    for /f "tokens=1,2,3,4,*" %%i in ('%SCALA_HOME%\bin\scalac.bat -version') do (
+    for /f "tokens=1,2,3,4,*" %%i in ('"%_SCALAC2%" -version') do (
         set "_VERSION_STRING=scala2_%%l"
     )
 )
@@ -885,6 +903,42 @@ for /f "usebackq" %%f in (`dir /s /b "%_TEST_CLASSES_DIR%\*JUnitTest.class" 2^>N
         set _EXITCODE=1
         goto :eof
     )
+)
+goto :eof
+
+:hilite_me
+if not exist "%_TARGET_DIR%\html" mkdir "%_TARGET_DIR%\html"
+@rem # hilite.me API documentation
+@rem 
+@rem GET or POST to http://hilite.me/api with these parameters:
+@rem 
+@rem * code: source code to format
+@rem * lexer: [lexer](http://pygments.org/docs/lexers/) to use, default it 'python'
+@rem * options: optional comma-separated list of lexer options
+@rem * style: [style](http://pygments.org/docs/styles/) to use, default is 'colorful'
+@rem * linenos: if not empty, the HTML will include line numbers
+@rem * divstyles: CSS style to use in the wrapping <div> element, can be empty
+@rem 
+@rem The request will return the HTML code in UTF-8 encoding.
+set __URI=http://hilite.me/api
+set __LEXER=scala
+set __N=0
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
+    set "__SOURCE_FILE=%%i" 
+    set "__OUT_FILE=%_TARGET_DIR%\html\%%~ni.html"
+    if %_DEBUG%==1 (echo %_DEBUG_LABEL% powershell -c "$progressPreference='silentlyContinue';$code=Get-Content -Encoding UTF8 -Raw "!__SOURCE_FILE!";Invoke-WebRequest -Method POST -Uri %__URI% -Body @{code=$code; lexer='%__LEXER%'} -Outfile '!__OUT_FILE!'" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Generate pretty-printed HTML code for Scala source file "!__SOURCE_FILE:%_ROOT_DIR%=!" 1>&2
+    )
+    powershell -c "$progressPreference='silentlyContinue';$code=Get-Content -Encoding UTF8 -Raw "!__SOURCE_FILE!";Invoke-WebRequest -Method POST -Uri %__URI% -Body @{code=$code; lexer='%__LEXER%'} -Outfile '!__OUT_FILE!'"
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to get response from web request to %_URI% 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+    set /a __N+=1
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %__N% HTML code snippets saved into directory "%_TARGET_DIR%\html" 1>&2
+) else if %_VERBOSE%==1 ( echo %__N% HTML code snippets saved into directory "!_TARGET_DIR:%_ROOT_DIR%=!\html" 1>&2
 )
 goto :eof
 

@@ -120,6 +120,8 @@ goto end
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 :env
 set _BASENAME=%~n0
+set _DRIVE_NAME=W
+set "_ROOT_DIR=%~dp0"
 
 call :env_colors
 set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
@@ -176,8 +178,8 @@ goto :eof
 @rem input parameter: %*
 @rem output parameter: _HELP, _VERBOSE
 :args
-set _HELP=0
 set _BASH=0
+set _HELP=0
 set _VERBOSE=0
 
 :args_loop
@@ -206,6 +208,50 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto args_loop
 :args_done
+call :subst %_DRIVE_NAME% "%_ROOT_DIR%"
+if not %_EXITCODE%==0 goto :eof
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% Options  : _HELP=%_HELP% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Variables: _DRIVE_NAME=%_DRIVE_NAME% 1>&2
+)
+goto :eof
+
+@rem input parameter(s): %1: drive letter, %2: path to be substituted
+:subst
+set __DRIVE_NAME=%~1
+set "__GIVEN_PATH=%~2"
+
+if not "%__DRIVE_NAME:~-1%"==":" set __DRIVE_NAME=%__DRIVE_NAME%:
+if "%__DRIVE_NAME%"=="%__GIVEN_PATH:~0,2%" goto :eof
+
+if "%__GIVEN_PATH:~-1%"=="\" set "__GIVEN_PATH=%__GIVEN_PATH:~0,-1%"
+if not exist "%__GIVEN_PATH%" (
+    echo %_ERROR_LABEL% Provided path does not exist ^(%__GIVEN_PATH%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+for /f "tokens=1,2,*" %%f in ('subst ^| findstr /b "%__DRIVE_NAME%" 2^>NUL') do (
+    set "__SUBST_PATH=%%h"
+    if "!__SUBST_PATH!"=="!__GIVEN_PATH!" (
+        set __MESSAGE=
+        for /f %%i in ('subst ^| findstr /b "%__DRIVE_NAME%\"') do "set __MESSAGE=%%i"
+        if defined __MESSAGE (
+            if %_DEBUG%==1 ( echo %_DEBUG_LABEL% !__MESSAGE! 1>&2
+            ) else if %_VERBOSE%==1 ( echo !__MESSAGE! 1>&2
+            )
+        )
+        goto :eof
+    )
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% subst "%__DRIVE_NAME%" "%__GIVEN_PATH%" 1>&2
+) else if %_VERBOSE%==1 ( echo Assign path %__GIVEN_PATH% to drive %__DRIVE_NAME% 1>&2
+)
+subst "%__DRIVE_NAME%" "%__GIVEN_PATH%"
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to assigned drive %__DRIVE_NAME% to path 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 goto :eof
 
 :help
@@ -1045,6 +1091,9 @@ endlocal & (
             @rem see https://conemu.github.io/en/GitForWindows.html
             if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_HOME%\usr\bin\bash.exe --login 1>&2
             cmd.exe /c "%_GIT_HOME%\usr\bin\bash.exe --login"
+        ) else if not "%CD:~0,2%"=="%_DRIVE_NAME%:" (
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME%: 1>&2
+            cd /d %_DRIVE_NAME%:
         )
     )
     if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2

@@ -12,27 +12,27 @@
     <property name="ivy.cache" value="${user.home}/.ivy2/cache" />
 
     <target name="init.local" if="use.local">
-        <property name="dotty.home" value="${env.DOTTY_HOME}" />
+        <property name="dotty.home" value="${env.SCALA3_HOME}" />
         <condition property="dotc.executable"
-            value="${dotty.home}/bin/dotc.bat"
-            else="${dotty.home}/bin/dotc">
+            value="${dotty.home}/bin/scalac.bat"
+            else="${dotty.home}/bin/scalac">
             <os family="windows" />
         </condition>
-        <fail message="dotc compiler not found">
+        <fail message="Scala 3 compiler not found">
             <condition><not>
                 <available file="${dotc.executable}" />
             </not></condition>
         </fail>
-        <echo message="DOTTY_HOME=${dotty.home}" />
+        <echo message="SCALA3_HOME=${dotty.home}" />
         <path id="dotc.classpath">
-            <fileset dir="${dotty.home}/lib" includes="dotty-*.jar" />
             <fileset dir="${dotty.home}/lib" includes="jline-*.jar" />
             <fileset dir="${dotty.home}/lib" includes="scala-*.jar" />
+            <fileset dir="${dotty.home}/lib" includes="scala3-*.jar" />
             <fileset dir="${dotty.home}/lib" includes="tasty-*.jar" />
         </path>
         <path id="dotty.classpath">
-            <fileset dir="${dotty.home}/lib" includes="dotty-library*.jar" />
             <fileset dir="${dotty.home}/lib" includes="scala-library*.jar" />
+            <fileset dir="${dotty.home}/lib" includes="scala3-library*.jar" />
         </path>
     </target>
 
@@ -44,8 +44,13 @@
         <ivy:cachepath pathid="dotc.classpath" conf="default"/>
 
         <path id="dotty.classpath">
+            <!--
             <fileset dir="${ivy.cache}/ch.epfl.lamp" includes="**/jars/dotty-library*.jar">
-                <filename regex="_0\.(1[8-9]|2[0-9])-0\.(1[8-9]|2[0-9])\.[0-9]+" />  <!-- e.g. _0.25-0.25.x -->
+                <filename regex="_0\.(1[8-9]|2[0-9])-0\.(1[8-9]|2[0-9])\.[0-9]+" />  // e.g. _0.25-0.25.x
+            </fileset>
+            -->
+            <fileset dir="${ivy.cache}/org.scala-lang" includes="**/jars/scala3-library*.jar">
+                <filename regex="_3\.[0-9]\.[0-9](-M[1-9])?-3\.[0-9]\.[0-9](-M[1-9])?" />  <!-- e.g. _3.0.0-M1-3.0.0-M1-x -->
             </fileset>
             <fileset dir="${ivy.cache}/org.scala-lang" includes="**/jars/scala-library*.jar">
                 <filename regex="-2\.[1-2][3-9]\.[0-9]+" />  <!-- e.g. -2.13.x -->

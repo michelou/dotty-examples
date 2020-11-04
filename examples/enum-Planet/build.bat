@@ -175,7 +175,7 @@ set _MAIN_ARGS_DEFAULT=
 
 for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set _PROJECT_URL=github.com/%USERNAME%/dotty-examples
-set _PROJECT_VERSION=0.1-SNAPSHOT
+set _PROJECT_VERSION=1.0-SNAPSHOT
 
 set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
 if exist "%__PROPS_FILE%" (
@@ -434,11 +434,28 @@ if %_COMPILE_REQUIRED%==1 (
     if not !_EXITCODE!==0 goto :eof
 )
 echo. > "%__TIMESTAMP_FILE%"
+
+if %_TASTY%==0 goto :eof
+
+if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
+
+set "__TASTY_TIMESTAMP_FILE=%_TASTY_CLASSES_DIR%\.latest-build"
+
+call :compile_required "%__TASTY_TIMESTAMP_FILE%" "%_CLASSES_DIR%\*.tasty"
+if %_COMPILE_REQUIRED%==1 (
+    call :compile_tasty
+    if not !_EXITCODE!==0 goto :eof
+)
+echo. > "%__TASTY_TIMESTAMP_FILE%"
 goto :eof
 
 :compile_java
 call :libs_cpath
 if not %_EXITCODE%==0 goto :eof
+
+set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
+set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%"
+echo -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\javac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
@@ -447,10 +464,6 @@ for /f %%f in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
-set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
-set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%"
-echo -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
-
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% Java source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
@@ -463,6 +476,10 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :compile_scala
+set "__OPTS_FILE=%_TARGET_DIR%\scalac_opts.txt"
+set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%"
+echo %_SCALAC_OPTS% -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
+
 set "__SOURCES_FILE=%_TARGET_DIR%\scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
@@ -479,10 +496,6 @@ if %_SCALAC_OPTS_PRINT%==1 (
     ) else ( set __PRINT_FILE_REDIRECT=1^> "!__PRINT_FILE!"
     )
 )
-set "__OPTS_FILE=%_TARGET_DIR%\scalac_opts.txt"
-set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%"
-echo %_SCALAC_OPTS% -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
-
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% Scala source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
@@ -492,17 +505,12 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-if %_TASTY%==1 (
-    call :compile_tasty
-    if not !_EXITCODE!==0 goto :eof
-)
 goto :eof
 
 :compile_tasty
-if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
-
 set "__OPTS_FILE=%_TARGET_DIR%\tasty_scalac_opts.txt"
-echo -from-tasty -classpath "%_CLASSES_DIR%" -d "%_TASTY_CLASSES_DIR%" > "%__OPTS_FILE%"
+set "__CPATH=%_CLASSES_DIR%"
+echo -from-tasty -classpath "%__CPATH:\=\\%" -d "%_TASTY_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\tasty_scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
@@ -614,11 +622,11 @@ goto :eof
 @rem output parameters: _VERSION_STRING, _VERSION_SUFFIX
 :version_string
 if %_SCALA_VERSION%==3 (
-    for /f "tokens=1,2,3,4,*" %%i in ('%SCALA3_HOME%\bin\dotc.bat -version 2^>^&1') do (
+    for /f "tokens=1,2,3,4,*" %%i in ('"%_SCALAC3%" -version 2^>^&1') do (
         set "_VERSION_STRING=scala3_%%l"
     )
 ) else (
-    for /f "tokens=1,2,3,4,*" %%i in ('%SCALA_HOME%\bin\scalac.bat -version') do (
+    for /f "tokens=1,2,3,4,*" %%i in ('"%_SCALAC2%" -version') do (
         set "_VERSION_STRING=scala2_%%l"
     )
 )

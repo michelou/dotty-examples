@@ -167,14 +167,15 @@ Command [**`build -debug clean compile run`**](enum-Planet/build.bat) also displ
 
 <pre style="font-size:80%;">
 <b/>&gt; <a href="enum-Planet/build.bat">build</a> -debug clean compile run</b>
-[build] Options    : _DOTTY=1 _PRINT=0 _TASTY=0 _TIMER=0 _VERBOSE=0
+[build] Options    : _EXPLAIN=0 _PRINT=0 _SCALA_VERSION=3 _TASTY=0 _TIMER=0 _VERBOSE=0
 [build] Subcommands: _CLEAN=1 _COMPILE=1 _DECOMPILE=0 _DOC=0 _LINT=0 _RUN=1 _TEST=0
 [build] Variables  : JAVA_HOME="C:\opt\jdk-11.0.9+11" SCALA3_HOME="C:\opt\scala-3.0.0-M1"
+[build] Variables  : _MAIN_CLASS=Planet _MAIN_ARGS=1
 [build] del /s /q W:\dotty\examples\enum-Planet\target\classes\*.class W:\dotty\examples\enum-Planet\target\classes\*.hasTasty W:\dotty\examples\enum-Planet\target\classes\.latest-build
 [build] 20180322224754 W:\dotty\examples\enum-Planet\src\main\scala\Planet.scala
 [build] 00000000000000 W:\dotty\examples\enum-Planet\target\classes\.latest-build
-[build] dotc "@W:\examples\enum-Planet\target\scalac_opts.txt" "@W:\examples\enum-Planet\target\scalac_sources.txt"
-[build] dotr -classpath [...];W:\dotty\examples\enum-Planet\target\classes Planet 1
+[build] scalac "@W:\examples\enum-Planet\target\scalac_opts.txt" "@W:\examples\enum-Planet\target\scalac_sources.txt"
+[build] scala -classpath [...];W:\dotty\examples\enum-Planet\target\classes Planet 1
 Your weight on MERCURY is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
 Your weight on EARTH (2) is 0.9999999999999999
@@ -215,10 +216,10 @@ No compilation needed ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
 Processing Planet$
 Processing Planet
-Save decompiled Java source files to "target\cfr-sources_scala3_0.27.0-RC1.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_3.0.0-M1.java"
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b /s target\*.java</b>
-W:\examples\enum-Planet\target\cfr-sources_scala3_0.27.0-RC1.java
+W:\examples\enum-Planet\target\cfr-sources_scala3_3.0.0-M1.java
 W:\examples\enum-Planet\target\cfr-sources\Planet$.java
 W:\examples\enum-Planet\target\cfr-sources\Planet.java
 </pre>
@@ -229,7 +230,7 @@ If the two Java source files `src\build\cfr-sources_scala<n>_<version>.txt` (*ch
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b src\build</b>
 cfr-sources_scala3_0.24.0-RC1.java
 cfr-sources_scala3_0.27.0-RC1.java
-cfr-sources_scala3_0.28.0-NIGHTLY.java
+cfr-sources_scala3_3.0.0-M1.java
 &nbsp;
 <b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose decompile</b>
 No compilation needed ("src\main\scala\*.scala")
@@ -276,8 +277,8 @@ Command **`make clean run`** produces the following output ([**`Planet.scala`**]
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> clean run</b>
 rm -rf "target"
 [ -d "target/classes" ] || mkdir -p "target/classes"
-dotc.bat "@target/scalac_opts.txt" "@target/scalac_sources.txt"
-dotr.bat -classpath "target/classes" Planet 1
+scalac.bat "@target/scalac_opts.txt" "@target/scalac_sources.txt"
+scala.bat -classpath "target/classes" Planet 1
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
 Your weight on EARTH (2) is 0.9999999999999999
@@ -293,7 +294,7 @@ Command **`make test`** executes the test suite [**`PlanetTest.scala`**](enum-Pl
 <pre style="font-size:80%;">
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
-dotc.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
+scalac.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
 java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_0.27/0.27.0-RC1/dotty-library_0.27-0.27.0-RC1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13/junit-4.13.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
 JUnit version 4.13
 ..
@@ -570,7 +571,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

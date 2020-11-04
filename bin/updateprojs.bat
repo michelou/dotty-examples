@@ -10,36 +10,36 @@ set _DEBUG=0
 set _EXITCODE=0
 
 @rem files build.sbt, build.sc and ivy.xml
-set _DOTTY_VERSION_OLD="0.26.0-RC1"
-set _DOTTY_VERSION_NEW="0.27.0-RC1"
+set _DOTTY_VERSION_OLD="0.27.0-RC1"
+set _DOTTY_VERSION_NEW="3.0.0-M1"
 
 @rem files project\build.properties
-set _SBT_VERSION_OLD=sbt.version=1.4.0
-set _SBT_VERSION_NEW=sbt.version=1.4.1
+set _SBT_VERSION_OLD=sbt.version=1.4.1
+set _SBT_VERSION_NEW=sbt.version=1.4.2
 
 @rem files project\plugins.sbt
 @rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/
-set _SBT_DOTTY_VERSION_OLD="0.4.2"
-set _SBT_DOTTY_VERSION_NEW="0.4.4"
+set _SBT_DOTTY_VERSION_OLD="0.4.4"
+set _SBT_DOTTY_VERSION_NEW="0.4.5"
 
 @rem see https://mvnrepository.com/artifact/org.scalatest/scalatest
 set _SCALATEST_VERSION_OLD=^(\"scalatest_2.13\"^)^(.+\"3.2.1\"^)
 set _SCALATEST_VERSION_NEW=$1 %%%% \"3.2.2\"
 
 @rem files ivy.xml (NB. PS regex)
-set _IVY_DOTTY_VERSION_OLD=^(dotty-[a-z]+^)_0.26
-set _IVY_DOTTY_VERSION_NEW=$1_0.27
+set _IVY_DOTTY_VERSION_OLD=^(dotty-[a-z]+^)_0.27
+set _IVY_DOTTY_VERSION_NEW=$1_3.0.0-M1
 
-set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_0.26
-set _IVY_TASTY_VERSION_NEW=$1_0.27
+set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_0.27
+set _IVY_TASTY_VERSION_NEW=$1_3.0.0-M1
 
 @rem files pom.xml (NB. PS regex)
-set _POM_DOTTY_VERSION_OLD=scala.version^>0.26.0-RC1
-set _POM_DOTTY_VERSION_NEW=scala.version^>0.27.0-RC1
+set _POM_DOTTY_VERSION_OLD=scala.version^>0.27.0-RC1
+set _POM_DOTTY_VERSION_NEW=scala.version^>3.0.0-M1
 
 @rem files common.gradle
-set _GRADLE_DOTTY_VERSION_OLD=dotty-compiler_0.26:0.26.0-RC1
-set _GRADLE_DOTTY_VERSION_NEW=dotty-compiler_0.27:0.27.0-RC1
+set _GRADLE_DOTTY_VERSION_OLD=dotty-compiler_0.27:0.27.0-RC1
+set _GRADLE_DOTTY_VERSION_NEW=dotty-compiler_3.0.0-M1:3.0.0-M1
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -297,7 +297,7 @@ if exist "%__COMMON_GRADLE%" (
     call :replace "%__COMMON_GRADLE%" "%_GRADLE_DOTTY_VERSION_OLD%" "%_GRADLE_DOTTY_VERSION_NEW%"
     set /a __N7+=1
 ) else (
-    echo     %_WARNING_LABEL% Could not find file %__COMMON_GRADLE% 1>&2
+    echo    %_WARNING_LABEL% Could not find file %__COMMON_GRADLE% 1>&2
 )
 call :message %__N1% "build.sbt"
 call :message %__N2% "project\build.properties"

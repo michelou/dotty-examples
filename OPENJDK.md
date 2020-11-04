@@ -1,4 +1,4 @@
-# <span id="top">OpenJDK and Dotty on Windows</span> <span style="size:30%;"><a href="README.md">↩</a></span>
+# <span id="top">OpenJDK and Scala 3 on Windows</span> <span style="size:30%;"><a href="README.md">↩</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -46,12 +46,12 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*October 2020*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
+For instance our development environment looks as follows (*November 2020*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.9+11\                 <i>(299 MB)</i>
 C:\opt\jdk-corretto-11.0.9_11\        <i>(292 MB)</i>
-C:\opt\jdk-dcevm-11.0.8+1\            <i>(295 MB)</i>
+C:\opt\jdk-dcevm-11.0.9+1\            <i>(295 MB)</i>
 C:\opt\jdk-graalvm-ce-java11-20.2.0\  <i>(731 MB)</i>
 C:\opt\jdk-liberica-11.0.9\           <i>( 85 MB)</i>
 C:\opt\jdk-openj9-11.0.9+11\          <i>(295 MB)</i>
@@ -234,7 +234,7 @@ OpenJDK 64-Bit Server VM SapMachine (build 11.0.9+11-LTS-sapmachine, mixed mode,
 
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\jdk-dcevm-11.0.9+1\bin\java -version</b>
-openjdk version "11.0.8" 2020-10-20
+openjdk version "11.0.9" 2020-10-20
 OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.8+1-202010241925)
 Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.9+1-202010241925, mixed mode)
 

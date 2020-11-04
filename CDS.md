@@ -26,18 +26,18 @@ This document is part of a series of topics related to [Dotty] on Windows:
 
 This project depends on two external software for the **Microsoft Windows** platform:
 
-- [Git 2.28][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.29][git_downloads] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_downloads] ([*release notes*][openjdk_relnotes])
 - [Dotty 0.27][dotty_releases] ([*release notes*][dotty_relnotes])
 
-> **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Dotty] (aka [Scala 3][dotty_scala_3]) also support Java 9+. In the following we work with [Oracle OpenJDK 11][openjdk_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
+> **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Scala 3.0][scala_3] also support Java 9+. In the following we work with [Oracle OpenJDK 11][openjdk_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
 
-For instance our development environment looks as follows (*October 2020*):
+For instance our development environment looks as follows (*November 2020*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.28.0\        <i>(290 MB)</i>
-C:\opt\jdk-11.0.8+10\     <i>(314 MB)</i>
-C:\opt\dotty-0.27.0-RC1\  <i>( 57 MB)</i>
+C:\opt\Git-2.29.2\       <i>(290 MB)</i>
+C:\opt\jdk-11.0.9+11\    <i>(314 MB)</i>
+C:\opt\scala-3.0.0-M1\   <i>( 57 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_downloads] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -457,7 +457,7 @@ Note the following about the generated files:
 Command [**`sharedata`**](bin/sharedata.bat) creates and (un-)installs Java shared archives for both **`dotc`** and **`dotr`**:
 
 <pre style="font-size:80%;">
-<b>&gt; sharedata help</b>
+<b>&gt; <a href="bin/sharedata.bat">sharedata</a> help</b>
 Usage: sharedata { &lt;option&gt; | &lt;subcommand&gt; }
 &nbsp;
   Options:
@@ -486,7 +486,7 @@ Support files for Java class sharing:
 </pre>
 
 <pre style="font-size:80%;">
-<b>&gt; dir /b c:\opt\dotty-0.27.0-RC1\lib\dotty-cds*</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\dotty-0.27.0-RC1\lib\dotty-cds*</b>
 dotty-cds-compiler.classlist
 dotty-cds-compiler.jsa
 dotty-cds-repl.classlist
@@ -703,7 +703,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -712,7 +712,6 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_releases]: https://github.com/lampepfl/dotty/releases
 [dotty_relnotes]: https://github.com/lampepfl/dotty/releases/tag/0.27.0-RC1
-[dotty_scala_3]: https://www.scala-lang.org/blog/2018/04/19/scala-3.html
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
@@ -740,4 +739,5 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [openjdk_relnotes]: https://jdk.java.net/11/release-notes
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [scala_2_13]: https://www.scala-lang.org/news/roadmap-2.13.html
+[scala_3]: https://www.scala-lang.org/blog/2018/04/19/scala-3.html
 [scala_downloads]: https://www.scala-lang.org/download/

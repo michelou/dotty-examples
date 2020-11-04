@@ -5,12 +5,12 @@ object Macros {
 
   inline def natConst(inline x: Int): Int = ${natConstImpl('{x})}
 
-  def natConstImpl(x: Expr[Int])(using QuoteContext): Expr[Int] = {
-    import qctx.tasty._
+  def natConstImpl(x: Expr[Int])(using qctx: QuoteContext): Expr[Int] = {
+    import qctx.reflect._
 
     val xTree: Term = x.unseal
     xTree match {
-      case Inlined(_, _, Literal(Constant(n: Int))) =>
+      case Inlined(_, _, Literal(Constant.Int(n))) =>
         if (n <= 0) {
           report.error("Parameter must be natural number")
           '{0}

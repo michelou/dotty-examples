@@ -15,7 +15,7 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId> <!-- ch.epfl.lamp -->
-        <scala.versionTag>3.0.0-M1</scala.versionTag>
+        <scala.versionTag>3.0.0-M1</scala.versionTag> <!-- eg. "2.13" -->
         <scala.version>${scala.versionTag}-bin-20201021-97da3cb-NIGHTLY</scala.version> <!-- eg. "2.13.3" or "0.26.0" -->
         <scala.local.install>true</scala.local.install>
 
@@ -50,13 +50,13 @@
             <artifactId>dotty-interfaces</artifactId>
             <version>${scala.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-library_0.27 -->
+        <!-- https://mvnrepository.com/artifact/org.scala-lang/scala3-library_3.0.0-M1 -->
         <dependency>
             <groupId>${scala.groupId}</groupId>
             <artifactId>dotty-library_${scala.versionTag}</artifactId>
             <version>${scala.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/tasty-core_0.27 -->
+        <!-- https://mvnrepository.com/artifact/org.scala-lang/tasty-core_3.0.0-M1 -->
         <dependency>
             <groupId>${scala.groupId}</groupId>
             <artifactId>tasty-core_${scala.versionTag}</artifactId>

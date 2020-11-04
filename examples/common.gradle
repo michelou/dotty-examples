@@ -14,20 +14,18 @@ ext {
     testClassesDir = file("${buildDir}/test-classes")
 
     if (dottyLocal?.toBoolean()) {
-        dottyHome = System.getenv("DOTTY_HOME")
-        print("DOTTY_HOME=$dottyHome")
+        dottyHome = System.getenv("SCALA3_HOME")
+        print("SCALA3_HOME=$dottyHome")
 
         dottyLibraryPath = file(dottyHome + "/lib")
         dottyLibraryFiles = files { dottyLibraryPath.listFiles() }
         dotcLibraryFiles = dottyLibraryFiles.filter { File f ->
+            f.name.matches("compiler-interface(.*)jar") ||
+            f.name.matches("dotty-(.*)jar") ||  // up to version 0.27
             f.name.matches("scala-library(.*)jar") ||
             f.name.matches("scala-asm(.*)jar") ||
-            f.name.matches("compiler-interface(.*)jar") ||
-            f.name.matches("dotty-interfaces(.*)jar") ||
-            f.name.matches("dotty-library(.*)jar") ||
-            f.name.matches("dotty-compiler(.*)jar") ||
-            f.name.matches("tasty-core(.*)jar") ||
-            f.name.matches("dotty-staging(.*)jar")
+            f.name.matches("scala3-(.*)jar") ||
+            f.name.matches("tasty-core(.*)jar")
         }
         scalaClasspath = files(dotcLibraryFiles, classesDir)
     } else {
@@ -45,7 +43,7 @@ clean.doLast {
 tasks.withType(JavaCompile) {
     // https://docs.gradle.org/current/dsl/org.gradle.api.tasks.compile.CompileOptions.html
     options.deprecation true
-	options.encoding "UTF8"
+    options.encoding "UTF8"
 }
 
 task compileScala(type: JavaExec) {
@@ -115,6 +113,6 @@ repositories {
 }
 
 dependencies {
-    implementation "ch.epfl.lamp:dotty-compiler_0.27:0.27.0-RC1"
+    implementation "ch.epfl.lamp:dotty-compiler_3.0.0-M1:3.0.0-M1"
     testImplementation "junit:junit:4.13"
 }

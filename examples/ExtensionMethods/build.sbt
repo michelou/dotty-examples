@@ -1,11 +1,12 @@
-val dottyVersion = "0.27.0-RC1"
+val dottyVersion = "3.0.0-M1"
+// val dottyVersion = dottyLatestNightlyBuild.get 
 
 lazy val root = project
   .in(file("."))
   .settings(
     name := "Extension Methods",
     description := "sbt example project to build/run Scala 3 applications",
-    version := "0.1.0",
+    version := "1.0.0",
 
     scalaVersion := dottyVersion,
     scalacOptions ++= Seq(

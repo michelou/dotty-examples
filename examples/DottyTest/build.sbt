@@ -1,10 +1,11 @@
-val dottyVersion = "0.27.0-RC1"
+val dottyVersion = "3.0.0-M1-bin-20201027-b5a1715-NIGHTLY"
+// val dottyVersion = dottyLatestNightlyBuild.get 
 
 lazy val root = project
   .in(file("."))
   .settings(
     name := "DottyTest",
-    description := "Example sbt project that compiles using Dotty",
+    description := "Example sbt project that compiles using Scala 3",
     version := "0.1.0",
 
     scalaVersion := dottyVersion,

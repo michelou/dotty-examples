@@ -212,8 +212,8 @@ Command **`make clean run`** produces the following output ([**`HelloWorld.scala
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> clean run</b>
 rm -rf "target"
 [ -d "target/classes" ] || mkdir -p "target/classes"
-dotc.bat "@target/scalac_opts.txt" "@target/scalac_sources.txt"
-dotr.bat -classpath "target/classes" myexamples.HelloWorld 2
+scalac.bat "@target/scalac_opts.txt" "@target/scalac_sources.txt"
+scala.bat -classpath "target/classes" myexamples.HelloWorld 2
 Hello world!
 </pre>
 
@@ -222,8 +222,8 @@ Command **`make test`** executes the test suite [**`HelloWorldTest.scala`**](Hel
 <pre style="font-size:80%;">
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
-dotc.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_0.27/0.27.0-RC1/dotty-library_0.27-0.27.0-RC1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13/junit-4.13.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.0/scalatest_2.13-3.2.0.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.0/scalactic_2.13-3.2.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.10.1/specs2-core_2.13-4.10.1.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.10.1/specs2-junit_2.13-4.10.1.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.10.1/specs2-matcher_2.13-4.10.1.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
+scalac.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.3/scala-library-2.13.3.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_3.0.0-M1/3.0.0-M1/scala3-library_3.0.0-M1-3.0.0-M1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13/junit-4.13.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.0/scalatest_2.13-3.2.0.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.0/scalactic_2.13-3.2.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.10.1/specs2-core_2.13-4.10.1.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.10.1/specs2-junit_2.13-4.10.1.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.10.1/specs2-matcher_2.13-4.10.1.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
 JUnit version 4.13
 .
 Time: 0.201
@@ -236,7 +236,7 @@ Command **`make test`** generates the HTML documentation for program [**`HelloWo
 <pre style="font-size:80%;">
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> doc</b>
 [ -d "target/docs" ] || mkdir -p "target/docs"
-dotd.bat "@target/scaladoc_opts.txt" "@target/scaladoc_sources.txt"
+scalad.bat "@target/scaladoc_opts.txt" "@target/scaladoc_sources.txt"
 Compiling (1/1): HelloWorld.scala
 [doc info] Generating doc page for: myexamples
 [doc info] Generating doc page for: myexamples.HelloWorld$
@@ -348,7 +348,7 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 Finally can check the Java manifest in **`HelloWorld-0.1-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> java -Xbootclasspath/a:c:\opt\scala-3.0.0-M1\lib\dotty-library_3.0.0-M1-3.0.0-M1.jar;^
+<b>&gt;</b> <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala-3.0.0-M1\lib\dotty-library_3.0.0-M1-3.0.0-M1.jar;^
 c:\opt\scala-3.0.0-M1\lib\scala-library-2.13.3.jar ^
 -jar target\HelloWorld-0.1-SNAPSHOT.jar
 Hello world!
@@ -547,7 +547,7 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
