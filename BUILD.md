@@ -671,7 +671,7 @@ Nowadays we have experienced two times the error <code>Server does not allow req
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; <a href="https://git-scm.com/docs/git">git</a> fetch upstream master</b>
-<b>&gt; git merge upstream/master</b>
+<b>&gt; <a href="https://git-scm.com/docs/git">git</a> merge upstream/master</b>
 [...]
 Error: Server does not allow request for unadvertised object ...
 </pre>
@@ -680,7 +680,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; <a href="https://git-scm.com/docs/git">git</a> submodule sync</b>
-<b>&gt; git submodule update --depth 50</b>
+<b>&gt; <a href="https://git-scm.com/docs/git">git</a> submodule update --depth 50</b>
 </pre>
 
 <b name="footnote_05">[5]</b> ***Git submodule*** [↩](#anchor_05)

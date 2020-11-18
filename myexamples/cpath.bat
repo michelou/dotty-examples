@@ -77,6 +77,20 @@ call :add_jar "org.specs2" "specs2-matcher_%__SCALALIB_VERSION%" "%__SPECS2_CORE
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-fp
 call :add_jar "org.specs2" "specs2-fp_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
 
+set __JMH_VERSION=1.26
+
+@rem https://mvnrepository.com/artifact/net.sf.jopt-simple/jopt-simple
+call :add_jar "net.sf.jopt-simple" "jopt-simple" "4.6"
+
+@rem https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core
+call :add_jar "org.openjdk.jmh" "jmh-core" "%__JMH_VERSION%"
+
+@rem https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess
+call :add_jar "org.openjdk.jmh" "jmh-generator-annprocess" "%__JMH_VERSION%"
+
+@rem https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core-benchmarks
+call :add_jar "org.openjdk.jmh" "jmh-core-benchmarks" "%__JMH_VERSION%"
+
 goto end
 
 @rem #########################################################################

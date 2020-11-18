@@ -544,7 +544,7 @@ for /f %%f in ('where ant.bat 2^>NUL') do set "__ANT_CMD=%%f"
 if defined __ANT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Ant executable found in PATH 1>&2
     for %%i in ("%__ANT_CMD%") do set "__ANT_BIN_DIR=%%~dpi"
-    for %%f in ("!__ANT_BIN_DIR!..") do set "_ANT_HOME=%%f"
+    for %%f in ("!__ANT_BIN_DIR!\.") do set "_ANT_HOME=%%~dpf"
     @rem keep _ANT_PATH undefined since executable already in path
     goto :eof
 ) else if defined ANT_HOME (

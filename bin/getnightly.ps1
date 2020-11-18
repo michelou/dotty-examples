@@ -11,7 +11,7 @@ $process.PriorityClass='High'
 # $groupId='ch.epfl.lamp'
 $groupId='org.scala-lang'
 #$progressPreference='silentlyContinue'
-$request='https://search.maven.org/solrsearch/select?q=g:"'+$groupId+'"%20AND%20p:"jar"&rows=1&wt=json'
+$request='https://search.maven.org/solrsearch/select?q=g:"'+$groupId+'"&p:"jar"&rows=1&wt=json'
 $latest=Invoke-WebRequest -UseBasicParsing -Uri $request |
 ConvertFrom-Json |
 Select -expand response |
@@ -22,9 +22,8 @@ Select-Object -first 1 |
 # for instance: 3.0.0-M1-bin-20201021-97da3cb-NIGHTLY
 Foreach { $_.latestVersion }
 
-if ($debug -eq 1) { [Console]::Error.WriteLine("[getnightly] latest=$latest") }
-
-$request='https://search.maven.org/solrsearch/select?q=g:"'+$groupId+'"%20AND%20v:"'+$latest+'"%20AND%20p:"jar"&rows=20&wt=json'
+$request='https://search.maven.org/solrsearch/select?q=g:"'+$groupId+'"+AND+v:"'+$latest+'"&p:"jar"&rows=20&wt=json'
+if ($debug -eq 1) { [Console]::Error.WriteLine("[getnightly] request=$request") }
 Invoke-WebRequest -UseBasicParsing -Uri $request |
 ConvertFrom-Json |
 Select -expand response |

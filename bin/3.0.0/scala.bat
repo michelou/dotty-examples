@@ -29,8 +29,8 @@ if %_CASE_1%==1 (
     set _DOTC_ARGS=
     if defined _CLASS_PATH set _DOTC_ARGS=-classpath "%_CLASS_PATH%"
     set _DOTC_ARGS=!_DOTC_ARGS! %_JAVA_OPTS% -repl %_RESIDUAL_ARGS%
-    echo Starting dotty REPL...
-    call "%_PROG_HOME%\dotc.bat" !_DOTC_ARGS!
+    echo Starting scala3 REPL...
+    call "%_PROG_HOME%\scalac.bat" !_DOTC_ARGS!
 @rem elif [ $execute_repl == true ] || [ ${#residual_args[@]} -ne 0 ]; then
 ) else if %_CASE_2%==1 (
     set _CP_ARG=%_DOTTY_LIB%%_PSEP%%_SCALA_LIB%
@@ -38,7 +38,7 @@ if %_CASE_1%==1 (
     ) else ( set _CP_ARG=!_CP_ARG!%_PSEP%.
     )
     if %_CLASS_PATH_COUNT% gtr 1 (
-        echo Warning: Multiple classpaths are found, dotr only use the last one. 1>&2
+        echo Warning: Multiple classpaths are found, scala only use the last one. 1>&2
     )
     if %_WITH_COMPILER%==1 (
         set _CP_ARG=!_CP_ARG!%_PSEP%%_DOTTY_COMP%%_PSEP%%_TASTY_CORE%%_PSEP%%_DOTTY_INTF%%_PSEP%%_SCALA_ASM%%_PSEP%%_DOTTY_STAGING%%_PSEP%%_DOTTY_TASTY_INSPECTOR%

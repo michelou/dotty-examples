@@ -1,6 +1,6 @@
 /**
-  * Union Types: http://dotty.epfl.ch/docs/reference/new-types/union-types.html
-  */
+ * Union Types: http://dotty.epfl.ch/docs/reference/new-types/union-types.html
+ */
 object UnionTypes {
   import scala.language.implicitConversions // otherwise warning starting with version 0.9.0
 

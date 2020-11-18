@@ -1,6 +1,6 @@
 /**
-  * Functors: https://typelevel.org/cats/typeclasses/functor.html
-  */
+ * Functors: https://typelevel.org/cats/typeclasses/functor.html
+ */
 object Functors {
 
   trait Functor[F[_]] {
@@ -12,7 +12,7 @@ object Functors {
 
     implicit val functorForOption = new Functor[Option] {
       def map[A, B](fa: Option[A])(f: A => B): Option[B] = {
-        println("functorForOption: "+fa)
+        println("functorForOption: " + fa)
         fa match {
           case None => None
           case Some(a) => Some(f(a))
@@ -23,7 +23,7 @@ object Functors {
 
     implicit val functorForList = new Functor[List] {
       def map[A, B](fa: List[A])(f: A => B): List[B] = {
-        println("functorForList: "+fa)
+        println("functorForList: " + fa)
         fa match {
           case Nil => Nil
           case x :: xs => f(x) :: map(xs)(f)
@@ -34,8 +34,8 @@ object Functors {
 
     val listOption = List(Some(1), None, Some(2))
 
-    println(functorForOption.map(Some(1)){ a => if (a > 0) then -a else 0 })
-    println(functorForList.map(listOption){ _.getOrElse(0) })
+    println(functorForOption.map(Some(1)) { a => if (a > 0) then -a else 0 })
+    println(functorForList.map(listOption) { _.getOrElse(0) })
   }
 
 }

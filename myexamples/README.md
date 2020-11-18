@@ -311,7 +311,7 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 >         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>0.27.0-RC1<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.version&gt;</b>3.0.0-M1<b>&lt;/scala.version&gt;</b>
 >         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
@@ -365,7 +365,7 @@ Hello world!
 >         ... 13 more
 > 
 > <b>&gt; searchjars Serializable</b>
-> Searching for class name Serializable in library files C:\opt\dotty-0.27.0-RC1\lib\*.jar
+> Searching for class name Serializable in library files C:\opt\dotty-3.0.0-M1\lib\*.jar
 >   jackson-core-2.9.8.jar:com/fasterxml/jackson/core/SerializableString.class
 >   [...]
 >   scala-library-2.13.3.jar:scala/collection/generic/DefaultSerializable.class
@@ -402,7 +402,7 @@ The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is written in [Sc
 Command **`sbt -warn clean run`** produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; sbt -warn clean run</b>
+<b>&gt; <a href="https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html">sbt</a> -warn clean run</b>
 Hello world!
 </pre>
 

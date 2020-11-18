@@ -77,12 +77,12 @@ if not exist "%SCALA3_HOME%\bin\scalac.bat" (
     goto :eof
 )
 if not exist "%SCALA3_HOME%\lib\" (
-    echo %_ERROR_LABEL% Dotty library directory not found ^(run setenv.bat^) 1>&2
+    echo %_ERROR_LABEL% Scala 3 library directory not found ^(run setenv.bat^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
 if not exist "%SCALA3_HOME%\VERSION" (
-    echo %_ERROR_LABEL%: Dotty version file not found ^(run setenv.bat^) 1>&2
+    echo %_ERROR_LABEL%: Scala 3 version file not found ^(run setenv.bat^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -222,7 +222,7 @@ echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%activate%__END%    activate the nightly build library files
 echo     %__BEG_O%download%__END%    download nighty build files and quit (default)
 echo     %__BEG_O%help%__END%        display this help message
-echo     %__BEG_O%reset%__END%       restore the default Dotty library files
+echo     %__BEG_O%reset%__END%       restore the default Scala library files
 goto :eof
 
 @rem input parameter: 1=file path
@@ -279,7 +279,7 @@ for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%"
     )
     if %_VERBOSE%==1 <NUL set /p=Downloading file !__FILE_BASENAME! ... 
     set "__JAR_FILE=%_OUTPUT_DIR%\!__FILE_BASENAME!"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri !__URL! -Outfile !__JAR_FILE!" 1>&2
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri !__URL! -Outfile '!__JAR_FILE!'" 1>&2
     powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri !__URL! -Outfile '!__JAR_FILE!'"
     if not !ERRORLEVEL!==0 (
         echo.

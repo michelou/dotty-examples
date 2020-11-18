@@ -1,6 +1,6 @@
 /**
-  * Union Types: http://dotty.epfl.ch/docs/reference/new-types/union-types-spec.html
-  */
+ * Union Types: http://dotty.epfl.ch/docs/reference/new-types/union-types-spec.html
+ */
 import scala.collection.mutable._
 import scala.language.implicitConversions
 

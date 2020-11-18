@@ -28,7 +28,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 
 - [Git 2.29][git_downloads] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_downloads] ([*release notes*][openjdk_relnotes])
-- [Dotty 0.27][dotty_releases] ([*release notes*][dotty_relnotes])
+- [Scala 3][scala3_releases] ([*release notes*][scala3_relnotes])
 
 > **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Scala 3.0][scala_3] also support Java 9+. In the following we work with [Oracle OpenJDK 11][openjdk_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
 
@@ -710,12 +710,12 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 
 [dotty]: https://dotty.epfl.ch/
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
-[dotty_releases]: https://github.com/lampepfl/dotty/releases
-[dotty_relnotes]: https://github.com/lampepfl/dotty/releases/tag/0.27.0-RC1
+[scala3_releases]: https://github.com/lampepfl/dotty/releases
+[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.0.0-M1
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.28.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.29.2.txt
 [github_markdown]: https://github.github.com/gfm/
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [haskell_examples]: https://github.com/michelou/haskell-examples

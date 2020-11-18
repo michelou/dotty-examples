@@ -5,7 +5,7 @@
 
     <groupId>dotty.examples</groupId>
     <artifactId>dotty-examples</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -25,7 +25,7 @@
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugins -->
-        <scala.maven.version>1.0-SNAPSHOT</scala.maven.version> <!-- Dec 2018 -->
+        <scala.maven.version>1.0.0</scala.maven.version> <!-- Dec 2018 -->
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
         <scalatest.version>3.2.2</scalatest.version>            <!-- Aug 2020 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
@@ -72,6 +72,18 @@
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
             <version>2.13.3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-exec -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-exec</artifactId>
+            <version>1.3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.ivy/ivy -->
+        <dependency>
+            <groupId>org.apache.ivy</groupId>
+            <artifactId>ivy</artifactId>
+            <version>2.5.0</version>
         </dependency>
         <dependency>
             <groupId>ch.epfl.alumni</groupId>
