@@ -49,15 +49,15 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 For instance our development environment looks as follows (*November 2020*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\jdk-11.0.9+11\                 <i>(299 MB)</i>
-C:\opt\jdk-corretto-11.0.9_11\        <i>(292 MB)</i>
+C:\opt\jdk-11.0.9.1+1\                <i>(299 MB)</i>
+C:\opt\jdk-corretto-11.0.9_12\        <i>(292 MB)</i>
 C:\opt\jdk-dcevm-11.0.9+1\            <i>(295 MB)</i>
-C:\opt\jdk-graalvm-ce-java11-20.2.0\  <i>(731 MB)</i>
-C:\opt\jdk-liberica-11.0.9\           <i>( 85 MB)</i>
+C:\opt\jdk-graalvm-ce-java11-20.3.0\  <i>(731 MB)</i>
+C:\opt\jdk-liberica-11.0.9.1\         <i>(317 MB)</i>
 C:\opt\jdk-openj9-11.0.9+11\          <i>(295 MB)</i>
 C:\opt\jdk-redhat-11.0.8.10\          <i>( 63 MB)</i>
-C:\opt\jdk-sapmachine-11.0.9\         <i>(315 MB)</i>
-C:\opt\jdk-zulu-11.0.9\               <i>(300 MB)</i>
+C:\opt\jdk-sapmachine-11.0.9.1\       <i>(315 MB)</i>
+C:\opt\jdk-zulu-11.0.9.1\             <i>(300 MB)</i>
 </pre>
 <!-- hotspot : 11.0.8 = 297 MB, 11.0.9 = 299 MB -->
 <!-- corretto: 11.0.8 = 290 MB, 11.0.9 = 292 MB -->
@@ -72,8 +72,8 @@ This section supplements my writing from page [Data Sharing and Dotty on Windows
 An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For instance we proceed as follows to check if data sharing is enabled in Oracle OpenJDK 11:
 
 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last output line ends with
-   - **`(build 11.0.9+11-LTS, mixed mode, sharing)`** if data sharing is enabled
-   - **`(build 11.0.9+11-LTS, mixed mode)`** otherwise.
+   - **`(build 11.0.9.1+1, mixed mode, sharing)`** if data sharing is enabled
+   - **`(build 11.0.9.1+1, mixed mode)`** otherwise.
 2. Command **`java.exe -Xshare:dump`** generates the 17.3 Mb Java shared archive **`<install_dir>\bin\server\classes.jsa`** from file **`<install_dir>\lib\classlist`**.
 3. We go back to step 1 to verify that flag  **`sharing`** is present.
 
@@ -83,36 +83,37 @@ An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For
 [GraalVM][graalvm_org] is a universal virtual machine supporting the *interaction* between JVM-based languages like Java, Scala, Groovy, Kotlin, Clojure and native languages like C, C++, JavaScript, Python, R, Ruby.
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-graalvm-ce-java11-20.2.0\bin\java -version</b>
-openjdk version "11.0.8" 2020-07-14
-OpenJDK Runtime Environment GraalVM CE 20.2.0 (build 11.0.8+10-jvmci-20.2-b03)
-OpenJDK 64-Bit Server VM GraalVM CE 20.2.0 (build 11.0.8+10-jvmci-20.2-b03, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-graalvm-ce-java11-20.3.0\bin\java -version</b>
+openjdk version "11.0.9" 2020-10-20
+OpenJDK Runtime Environment GraalVM CE 20.3.0 (build 11.0.9+10-jvmci-20.3-b06)
+OpenJDK 64-Bit Server VM GraalVM CE 20.3.0 (build 11.0.9+10-jvmci-20.3-b06, mixed mode, sharing)
 &nbsp;
-<b>&gt; dir c:\opt\jdk-graalvm-ce-java11-20.2.0\bin\server | findstr jsa</b>
+<b>&gt; dir c:\opt\jdk-graalvm-ce-java11-20.3.0\bin\server | findstr jsa</b>
 16.08.2020  08:41        17 563 648 classes.jsa
 </pre>
 
 We observe that [GraalVM][graalvm_org] is the only OpenJDK implementation to come with class sharing *enabled by default*.
 
+
 ### <span id="corretto">Corretto OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-corretto-11.0.9_11\bin\java -version</b>
-openjdk version "11.0.9" 2020-10-20 LTS
-OpenJDK Runtime Environment Corretto-11.0.9.11.2 (build 11.0.9+11-LTS)
-OpenJDK 64-Bit Server VM Corretto-11.0.9.11.2 (build 11.0.9+11-LTS, mixed mode)
+<b>&gt; c:\opt\jdk-corretto-11.0.9_12\bin\java -version</b>
+openjdk version "11.0.9.1" 2020-11-04 LTS
+OpenJDK Runtime Environment Corretto-11.0.9.12.1 (build 11.0.9.1+12-LTS)
+OpenJDK 64-Bit Server VM Corretto-11.0.9.12.1 (build 11.0.9.1+12-LTS, mixed mode)
 
-<b>&gt; c:\opt\jdk-corretto-11.0.9_11\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-corretto-11.0.9_12\bin\java -Xshare:dump</b>
 [...]
 Number of classes 1214
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-corretto-11.0.9_11\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-corretto-11.0.9_12\bin\server | findstr jsa</b>
 30.10.2020  00:02        17 629 184 classes.jsa
 
-<b>&gt; c:\opt\jdk-corretto-11.0.9_11\bin\java -version</b>
-openjdk version "11.0.9" 2020-10-20 LTS
-OpenJDK Runtime Environment Corretto-11.0.9.11.2 (build 11.0.9+11-LTS)
-OpenJDK 64-Bit Server VM Corretto-11.0.9.11.2 (build 11.0.9+11-LTS, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-corretto-11.0.9_12\bin\java -version</b>
+openjdk version "11.0.9.1" 2020-11-04 LTS
+OpenJDK Runtime Environment Corretto-11.0.9.12.1 (build 11.0.9.1+12-LTS)
+OpenJDK 64-Bit Server VM Corretto-11.0.9.12.1 (build 11.0.9.1+12-LTS, mixed mode, sharing)
 </pre>
 
 > **:mag_right:** Amazon provides online documentation specific to Corretto 11 (eg. [change Log][corretto_changes], [patches][corretto_patches] as well as Youtube videos (eg. Devoxx keynotes by [Arun Gupta][corretto_gupta] and [James Gosling][corretto_gosling]).
@@ -124,22 +125,22 @@ OpenJDK 64-Bit Server VM Corretto-11.0.9.11.2 (build 11.0.9+11-LTS, mixed mode, 
 In the following we work with the *"regular"* version of Liberica OpenJDK 11.
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-liberica-11.0.9\bin\java -version</b>
-openjdk version "11.0.9" 2020-10-20 LTS
-OpenJDK Runtime Environment (build 11.0.9+12-LTS)
-OpenJDK 64-Bit Server VM (build 11.0.9+12-LTS, mixed mode)
+<b>&gt; c:\opt\jdk-liberica-11.0.9.1\bin\java -version</b>
+openjdk version "11.0.9.1" 2020-11-04 LTS
+OpenJDK Runtime Environment (build 11.0.9.1+1-LTS)
+OpenJDK 64-Bit Server VM (build 11.0.9.1+1-LTS, mixed mode)
 
-<b>&gt; c:\opt\jdk-liberica-11.0.9\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-liberica-11.0.9.1\bin\java -Xshare:dump</b>
 [...]
 Number of classes 1229
 [...]
-<b>&gt; dir c:\opt\jdk-liberica-11.0.9\bin\server | findstr jsa</b>
+<b>&gt; dir c:\opt\jdk-liberica-11.0.9.1\bin\server | findstr jsa</b>
 04.09.2020  19:48        17 760 256 classes.jsa
 
-<b>&gt; c:\opt\jdk-liberica-11.0.9\bin\java -version</b>
-openjdk version "11.0.9" 2020-10-20 LTS
-OpenJDK Runtime Environment (build 11.0.9+12-LTS)
-OpenJDK 64-Bit Server VM (build 11.0.9+12-LTS, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-liberica-11.0.9.1\bin\java -version</b>
+openjdk version "11.0.9.1" 2020-11-04 LTS
+OpenJDK Runtime Environment (build 11.0.9.1+1-LTS)
+OpenJDK 64-Bit Server VM (build 11.0.9.1+1-LTS, mixed mode, sharing)
 </pre>
 
 
@@ -165,22 +166,22 @@ JCL      - 3b09cfd7e9 based on jdk-11.0.9+11)
 
 Oracle OpenJDK is the [reference implementation][oracle_openjdk_project]; the other OpenJDK distributions are derived from it.
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-11.0.9+11\bin\java -version</b>
-openjdk version "11.0.9" 2020-10-20
-OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.9+11)
-OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.9+11, mixed mode)
+<b>&gt; c:\opt\jdk-11.0.9.1+1\bin\java -version</b>
+openjdk version "11.0.9.1" 2020-11-04
+OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.9.1+1)
+OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.9.1+1, mixed mode)
 
-<b>&gt; c:\opt\jdk-11.0.9+11\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-11.0.9.1+1\bin\java -Xshare:dump</b>
 [...]
 Number of classes 1214
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-11.0.9+11\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-11.0.9.1+1\bin\server | findstr jsa</b>
 30.10.2020  00:04        17 629 184 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-11.0.9+11\bin\java -version</b>
-openjdk version "11.0.9" 2020-10-20
-OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.9+11)
-OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.89+11, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-11.0.9.1+1\bin\java -version</b>
+openjdk version "11.0.9.1" 2020-11-04
+OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.9.1+1)
+OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.9.1+1, mixed mode, sharing)
 </pre>
 
 
@@ -209,25 +210,28 @@ OpenJDK 64-Bit Server VM 18.9 (build 11.0.8+10-LTS, mixed mode, sharing)
 ### <span id="sap">SapMachine OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-sapmachine-11.0.9\bin\java -version</b>
-openjdk version "11.0.9" 2020-10-22 LTS
-OpenJDK Runtime Environment SapMachine (build 11.0.9+11-LTS-sapmachine)
-OpenJDK 64-Bit Server VM SapMachine (build 11.0.9+11-LTS-sapmachine, mixed mode)
+<b>&gt; c:\opt\jdk-sapmachine-11.0.9.1\bin\java -version</b>
+openjdk version "11.0.9.1" 2020-11-05 LTS
+OpenJDK Runtime Environment SapMachine (build 11.0.9.1+1-LTS-sapmachine)
+OpenJDK 64-Bit Server VM SapMachine (build 11.0.9.1+1-LTS-sapmachine, mixed mode)
 &nbsp;
-<b>&gt; c:\opt\jdk-sapmachine-11.0.9\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-sapmachine-11.0.9.1\bin\java -Xshare:dump</b>
 [...]
 Number of classes 1214
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-sapmachine-11.0.9\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-sapmachine-11.0.9.1\bin\server | findstr jsa</b>
 30.10.2020  09:39        17 629 184 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-sapmachine-11.0.9\bin\java -version</b>
-openjdk version "11.0.9" 2020-10-22 LTS
-OpenJDK Runtime Environment SapMachine (build 11.0.9+11-LTS-sapmachine)
-OpenJDK 64-Bit Server VM SapMachine (build 11.0.9+11-LTS-sapmachine, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-sapmachine-11.0.9.1\bin\java -version</b>
+openjdk version "11.0.9.1" 2020-11-05 LTS
+OpenJDK Runtime Environment SapMachine (build 11.0.9.1+1-LTS-sapmachine)
+OpenJDK 64-Bit Server VM SapMachine (build 11.0.9.1+1-LTS-sapmachine, mixed mode, sharing)
 </pre>
 
 > **:mag_right:** SAP provides [online documentation](https://github.com/SAP/SapMachine/wiki) specific to SapMachine 11, e.g. [Differences between SapMachine and OpenJDK](https://github.com/SAP/SapMachine/wiki/Differences-between-SapMachine-and-OpenJDK).
+
+> **:mag_right:** SAP blog announcements:
+> - [Re-Spin of OpenJDK/SapMachine 11.0.9 release](https://blogs.sap.com/2020/11/13/re-spin-of-openjdk-sapmachine-11.0.9-release/).
 
 
 ### <span id="trava">Trava OpenJDK 11</span> [**&#9650;**](#top)
@@ -264,25 +268,26 @@ Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.9+1-20201024192
 > Starting with <i>version 11.0.9</i> of the Trava OpenJDK the compiler option <code>-XX:+DisableHotswapAgent</code> is replaced
 > by option <code>-XX:HotswapAgent:&lt;disabled|fatjar|core|external&gt;</code>.
 
+
 ### <span id="zulu">Zulu OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-zulu-11.0.9\bin\java -version</b>
-openjdk version "11.0.9" 2020-10-20 LTS
-OpenJDK Runtime Environment Zulu11.43+21-CA (build 11.0.9+10-LTS)
-OpenJDK 64-Bit Server VM Zulu11.43+21-CA (build 11.0.9+10-LTS, mixed mode)
+<b>&gt; c:\opt\jdk-zulu-11.0.9.1\bin\java -version</b>
+openjdk version "11.0.9.1" 2020-11-04 LTS
+OpenJDK Runtime Environment Zulu11.43+55-CA (build 11.0.9.1+1-LTS)
+OpenJDK 64-Bit Server VM Zulu11.43+55-CA (build 11.0.9.1+1-LTS, mixed mode)
 &nbsp;
-<b>&gt; c:\opt\jdk-zulu-11.0.9\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-zulu-11.0.9.1\bin\java -Xshare:dump</b>
 [...]
 Number of classes 1228
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-zulu-11.0.9\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-zulu-11.0.9.1\bin\server | findstr jsa</b>
 30.10.2020  09:20        17 760 270 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-zulu-11.0.9\bin\java -version</b>
-openjdk version "11.0.9" 2020-10-20 LTS
-OpenJDK Runtime Environment Zulu11.43+21-CA (build 11.0.9+11-LTS)
-OpenJDK 64-Bit Server VM Zulu11.43+21-CA (build 11.0.9+11-LTS, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-zulu-11.0.9.1\bin\java -version</b>
+openjdk version "11.0.9.1" 2020-11-04 LTS
+OpenJDK Runtime Environment Zulu11.43+55-CA (build 11.0.9.1+1-LTS)
+OpenJDK 64-Bit Server VM Zulu11.43+55-CA (build 11.0.9.1+1-LTS, mixed mode, sharing)
 </pre>
 
 
@@ -324,20 +329,20 @@ The role of the JCK is not to determine <i>quality</i>, but rather to provide a 
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html" rel="external">amazon-corretto-11.0.9.11.2-windows-x64-jdk.zip</a>                <i>(177 MB)</i>
-<a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.9+12-windows-amd64.zip</a>                        <i>(186 MB)</i>
-<a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.2.0">graalvm-ce-java11-windows-amd64-20.2.0.zip</a>                     <i>(360 MB)</i>
+<a href="https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html" rel="external">amazon-corretto-11.0.9.12.1-windows-x64-jdk.zip</a>                <i>(177 MB)</i>
+<a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.9.1+1-windows-amd64.zip</a>                       <i>(187 MB)</i>
+<a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.3.0">graalvm-ce-java11-windows-amd64-20.3.0.zip</a>                     <i>(360 MB)</i>
 <a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.8.10-2.windows.redhat.x86_64.zip</a>          <i>(235 MB)</i>
 <a href="https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases/latest">java11-openjdk-dcevm-windows.zip</a>                               <i>(187 MB)</i>
-<a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.8_10.zip</a>               <i>(190 MB)</i>
+<a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.9.1_1.zip</a>              <i>(190 MB)</i>
 <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">OpenJDK11U-jdk_x64_windows_openj9_11.0.8_10_openj9-0.21.0.zip</a>  <i>(193 MB)</i>
-<a href="https://sap.github.io/SapMachine/" rel="external">sapmachine-jdk-11.0.8_windows-x64_bin.zip</a>                      <i>(187 MB)</i>
-<a href="https://www.azul.com/downloads/zulu-community/?version=java-11-lts" rel="external">zulu11.41.23-ca-jdk11.0.8-win_x64.zip</a>                          <i>(188 MB)</i>
+<a href="https://github.com/SAP/SapMachine/releases/tag/sapmachine-11.0.9.1" rel="external">sapmachine-jdk-11.0.9.1_windows-x64_bin.zip</a>                    <i>(187 MB)</i>
+<a href="https://www.azul.com/downloads/zulu-community/?version=java-11-lts" rel="external">zulu11.43.55-ca-jdk11.0.9.1-win_x64.zip</a>                        <i>(188 MB)</i>
 </pre>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -360,7 +365,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 [graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [graalvm_org]: https://www.graalvm.org/
-[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_2/
+[graalvm_relnotes]: https://www.graalvm.org/docs/release-notes/20_3/
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [jmh_project]: https://openjdk.java.net/projects/code-tools/jmh/
 [kotlin_examples]: https://github.com/michelou/kotlin-examples

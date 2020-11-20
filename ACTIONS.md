@@ -23,6 +23,13 @@
 
 [Supported runners and hardware resources][gh_resources]
 
+## GitHub workflows
+
+[Ruby](https://github.com/ruby/ruby/tree/master/.github/workflows)
+
+[Rust](https://github.com/rust-lang/rust/tree/master/.github/workflows)
+
+
 ## Tips
 
 [Env Context][gh_env_setup]
