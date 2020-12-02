@@ -14,9 +14,9 @@ if not %_EXITCODE%==0 goto end
 @rem #########################################################################
 @rem ## Main
 
-@rem # check that `sbt dotc` compiles and `sbt dotr` runs it
-echo testing sbt dotc and dotr
-call "%_SBT_CMD%" ";dotc %_SOURCE% -d %_OUT_DIR% ;dotr -classpath %_OUT_DIR% %_MAIN%" > "%_TMP_FILE%"
+@rem # check that `sbt scalac` compiles and `sbt scala` runs it
+echo testing sbt scalac and scala
+call "%_SBT_CMD%" ";scalac %_SOURCE% -d %_OUT_DIR% ;scala -classpath %_OUT_DIR% %_MAIN%" > "%_TMP_FILE%"
 if not %ERRORLEVEL%==0 (
     if exist "%_TMP_FILE%" type "%_TMP_FILE%" | findstr /b "\[error\]"
     set _EXITCODE=1& goto end
@@ -24,10 +24,10 @@ if not %ERRORLEVEL%==0 (
 call :grep "%_EXPECTED_OUTPUT%" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
 
-@rem # check that `sbt dotc` compiles and `sbt dotr` runs it
-echo testing sbt dotc -from-tasty and dotr -classpath
+@rem # check that `sbt scalac` compiles and `sbt scala` runs it
+echo testing sbt scalac -from-tasty and scala -classpath
 call :clear_out "%_OUT_DIR%"
-call "%_SBT_CMD%" ";dotc %_SOURCE% -d %_OUT_DIR% ;dotc -from-tasty -classpath %_OUT_DIR% -d %_OUT1_DIR% %_MAIN% ;dotr -classpath %_OUT1_DIR% %_MAIN%" > "%_TMP_FILE%"
+call "%_SBT_CMD%" ";scalac %_SOURCE% -d %_OUT_DIR% ;scalac -from-tasty -classpath %_OUT_DIR% -d %_OUT1_DIR% %_MAIN% ;scala -classpath %_OUT1_DIR% %_MAIN%" > "%_TMP_FILE%"
 if not %ERRORLEVEL%==0 (
     if exist "%_TMP_FILE%" type "%_TMP_FILE%" | findstr /b "\[error\]"
     set _EXITCODE=1& goto end
@@ -35,9 +35,9 @@ if not %ERRORLEVEL%==0 (
 call :grep "%_EXPECTED_OUTPUT%" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
 
-echo testing sbt dotc -from-tasty from a jar and dotr -classpath
+echo testing sbt scalac -from-tasty from a jar and scala -classpath
 call :clear_out "%_OUT_DIR%"
-call "%_SBT_CMD%" ";dotc -d %_OUT_DIR%\out.jar %_SOURCE% ;dotc -from-tasty -d %_OUT1_DIR% %_OUT_DIR%\out.jar ;dotr -classpath %_OUT1_DIR% %_MAIN%" > "%_TMP_FILE%"
+call "%_SBT_CMD%" ";scalac -d %_OUT_DIR%\out.jar %_SOURCE% ;scalac -from-tasty -d %_OUT1_DIR% %_OUT_DIR%\out.jar ;scala -classpath %_OUT1_DIR% %_MAIN%" > "%_TMP_FILE%"
 if not %ERRORLEVEL%==0 (
     if exist "%_TMP_FILE%" type "%_TMP_FILE%" | findstr /b "\[error\]"
     set _EXITCODE=1& goto end
@@ -45,9 +45,9 @@ if not %ERRORLEVEL%==0 (
 call :grep "%_EXPECTED_OUTPUT%" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
 
-@rem # check that `sbt dotc -decompile` runs
-echo testing sbt dotc -decompile
-call "%_SBT_CMD%" ";dotc %_SOURCE% -d %_OUT_DIR% ;dotc -decompile -color:never -classpath %_OUT_DIR% %_MAIN%" > "%_TMP_FILE%"
+@rem # check that `sbt scalac -decompile` runs
+echo testing sbt scalac -decompile
+call "%_SBT_CMD%" ";scalac %_SOURCE% -d %_OUT_DIR% ;scalac -decompile -color:never -classpath %_OUT_DIR% %_MAIN%" > "%_TMP_FILE%"
 if not %ERRORLEVEL%==0 (
     if exist "%_TMP_FILE%" type "%_TMP_FILE%" | findstr /b "\[error\]"
     set _EXITCODE=1& goto end
@@ -55,8 +55,8 @@ if not %ERRORLEVEL%==0 (
 call :grep "def main(args: scala.Array\[scala.Predef.String\]): scala.Unit =" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
 
-echo testing sbt dotc -decompile from file
-call "%_SBT_CMD%" ";dotc -decompile -color:never -classpath %_OUT_DIR% %_OUT_DIR%\%_TASTY%" > "%_TMP_FILE%"
+echo testing sbt scalac -decompile from file
+call "%_SBT_CMD%" ";scalac -decompile -color:never -classpath %_OUT_DIR% %_OUT_DIR%\%_TASTY%" > "%_TMP_FILE%"
 if not %ERRORLEVEL%==0 (
     if exist "%_TMP_FILE%" type "%_TMP_FILE%" | findstr /b "\[error\]"
     set _EXITCODE=1& goto end
@@ -64,9 +64,9 @@ if not %ERRORLEVEL%==0 (
 call :grep "def main(args: scala.Array\[scala.Predef.String\]): scala.Unit =" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
 
-echo testing sbt dotr with no -classpath
+echo testing sbt scala with no -classpath
 call :clear_out "%_OUT_DIR%"
-call "%_SBT_CMD%" ";dotc %_SOURCE% ; dotr %_MAIN%" > "%_TMP_FILE%"
+call "%_SBT_CMD%" ";scalac %_SOURCE% ; scala %_MAIN%" > "%_TMP_FILE%"
 if not %ERRORLEVEL%==0 (
     if exist "%_TMP_FILE%" type "%_TMP_FILE%" | findstr /b "\[error\]"
     set _EXITCODE=1& goto end
@@ -76,7 +76,7 @@ if not %_EXITCODE%==0 goto end
 
 echo testing loading tasty from .tasty file in jar
 call :clear_out "%_OUT_DIR%"
-call "%_SBT_CMD%" ";dotc -d %_OUT_DIR%\out.jar %_SOURCE%; dotc -decompile -classpath %_OUT_DIR%\out.jar -color:never %_MAIN%" > "%_TMP_FILE%"
+call "%_SBT_CMD%" ";scalac -d %_OUT_DIR%\out.jar %_SOURCE%; scalac -decompile -classpath %_OUT_DIR%\out.jar -color:never %_MAIN%" > "%_TMP_FILE%"
 if not %ERRORLEVEL%==0 (
     if exist "%_TMP_FILE%" type "%_TMP_FILE%" | findstr /b "\[error\]"
     set _EXITCODE=1& goto end
@@ -84,9 +84,9 @@ if not %ERRORLEVEL%==0 (
 call :grep "def main(args: scala.Array\[scala.Predef.String\]): scala.Unit =" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
 
-echo testing sbt dotc with suspension
+echo testing sbt scalac with suspension
 call :clear_out "%_OUT_DIR%"
-call "%_SBT_CMD%" "scala3-compiler-bootstrapped/dotc -d %_OUT_DIR% tests/pos-macros/macros-in-same-project-1/Bar.scala tests/pos-macros/macros-in-same-project-1/Foo.scala" > "%_TMP_FILE%"
+call "%_SBT_CMD%" "scala3-compiler-bootstrapped/scalac -d %_OUT_DIR% tests/pos-macros/macros-in-same-project-1/Bar.scala tests/pos-macros/macros-in-same-project-1/Foo.scala" > "%_TMP_FILE%"
 if not %ERRORLEVEL%==0 (
     if exist "%_TMP_FILE%" type "%_TMP_FILE%" | findstr /b "\[error\]"
     set _EXITCODE=1& goto end
@@ -99,10 +99,10 @@ call :clear_out "%_OUT1_DIR%"
 @rem https://stackoverflow.com/questions/33752732/xcopy-still-asking-f-file-d-directory-confirmation
 echo F | xcopy /f /q /y "%_ROOT_DIR%\tests\neg\i6371\A_1.scala" "%_OUT_DIR%\A.scala" 1>NUL
 echo F | xcopy /f /q /y "%_ROOT_DIR%\tests\neg\i6371\B_2.scala" "%_OUT_DIR%\B.scala" 1>NUL
-call "%_SBT_CMD%" "dotc %_OUT_DIR%\A.scala -d %_OUT1_DIR%"
+call "%_SBT_CMD%" "scalac %_OUT_DIR%\A.scala -d %_OUT1_DIR%"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 del /q "%_OUT_DIR%\A.scala"
-call "%_SBT_CMD%" "dotc -classpath %_OUT1_DIR% -d %_OUT1_DIR% %_OUT_DIR%\B.scala" > "%_TMP_FILE%" 2>&1 || ( set ERRORLEVEL=0& echo "ok" )
+call "%_SBT_CMD%" "scalac -classpath %_OUT1_DIR% -d %_OUT1_DIR% %_OUT_DIR%\B.scala" > "%_TMP_FILE%" 2>&1 || ( set ERRORLEVEL=0& echo "ok" )
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 call :grep "B.scala:2:7" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end

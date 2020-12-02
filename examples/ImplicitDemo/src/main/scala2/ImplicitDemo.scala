@@ -2,25 +2,37 @@
 //  def (value: T) underscorize: String
 //}
 
-object StringDelegates:
-  extension (value: String)
+object StringDelegates {
+  implicit class StringExtension(value: String) {
     def underscorize: String = value.map(v => s"${v}_").foldLeft("")((a, b) => a + b)
+  }
+}
 
-object AnotherStringDelegates:
-  extension (value: String)
+object AnotherStringDelegates {
+  implicit class AnotherStringExtension(value: String) {
     def underscorize: String = value.map(v => s"${v}-").foldLeft("")((a, b) => a + b)
+  }
+}
 
-object test1:
+object test1 {
   import StringDelegates._
 
   println("Harry".underscorize)
+}
 
-object test2:
-  extension (value: String)
+object test2 {
+  implicit class UnderscoreExtension(value: String) {
     def underscorize: String = value.map(v => s"${v}*").foldLeft("")((a, b) => a + b)
+  }
 
   println("Harry".underscorize)
+}
 
-@main def ImplicitDemo: Unit =
-  test1
-  test2
+object ImplicitDemo {
+
+  def main(arsg: Array[String]): Unit = {
+    test1
+    test2
+  }
+
+}

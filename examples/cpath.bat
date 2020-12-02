@@ -74,6 +74,12 @@ call :add_jar "org.specs2" "specs2-matcher_%__SCALALIB_VERSION%" "%__SPECS2_CORE
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-fp
 call :add_jar "org.specs2" "specs2-fp_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
 
+@rem https://mvnrepository.com/artifact/com.chuusai/shapeless
+call :add_jar "com.chuusai" "shapeless_%__SCALALIB_VERSION%" "2.3.3"
+
+@rem https://mvnrepository.com/artifact/eu.timepit/refined
+call :add_jar "eu.timepit" "refined_%__SCALALIB_VERSION%" "0.9.18"
+
 goto end
 
 @rem #########################################################################

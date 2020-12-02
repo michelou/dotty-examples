@@ -32,12 +32,12 @@ This project depends on two external software for the **Microsoft Windows** plat
 
 > **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Scala 3.0][scala_3] also support Java 9+. In the following we work with [Oracle OpenJDK 11][openjdk_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
 
-For instance our development environment looks as follows (*November 2020*):
+For instance our development environment looks as follows (*December 2020*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.29.2\       <i>(290 MB)</i>
-C:\opt\jdk-11.0.9+11\    <i>(314 MB)</i>
-C:\opt\scala-3.0.0-M1\   <i>( 57 MB)</i>
+C:\opt\jdk-11.0.9.1+1\    <i>(314 MB)</i>
+C:\opt\scala-3.0.0-M2\   <i>( 57 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_downloads] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -311,7 +311,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
 Similarly to the previous section we execute the following command; option **`-verbose`** prints out the progress messages:
 
 <pre style="font-size:80%;">
-<b>&gt; build clean compile</b>
+<b>&gt; <a href="cdsexamples/DottyExample/build.bat">build</a> clean compile</b>
 &nbsp;
 <b>&gt; build -verbose clean compile</b>
 Delete output directory target
@@ -323,7 +323,7 @@ Create Java shared archive target\DottyExample.jsa
 We can now execute our [Dotty] example ***without data sharing*** (default settings: **`-share:off`**); option **`-verbose`** prints out the execution report:
 
 <pre style="font-size:80%;">
-<b>&gt; build run</b>
+<b>&gt; <a href="cdsexamples/DottyExample/build.bat">build</a> run</b>
 Hello from Dotty !
 &nbsp;
 <b>&gt; build run -verbose</b>
@@ -472,7 +472,7 @@ Usage: sharedata { &lt;option&gt; | &lt;subcommand&gt; }
 </pre>
 
 <pre style="font-size:80%;">
-<b>&gt; sharedata activate</b>
+<b>&gt; <a href="bin/sharedata.bat">sharedata</a> activate</b>
 Create class list file out\data-sharing\dotty-cds-compiler.classlist
 Create Java shared archive out\data-sharing\dotty-cds-compiler.jsa
 Create class list file out\data-sharing\dotty-cds-repl.classlist
@@ -517,7 +517,7 @@ Support files for Java class sharing:
    dotty-cds-repl.jsa (16640 Kb)
    dotty-cds_0.27-0.27.0-RC1.jar (3 Kb)
 &nbsp;
-<b>&gt; sharedata -verbose test</b>
+<b>&gt; <a href="bin/sharedata.bat">sharedata</a> -verbose test</b>
 Execute test application with Scala REPL <span style="background-color:#cc0000;color:white;">WITHOUT</span> Java shared archive
 Support files for Java class sharing:
    dotty-cds-compiler.classlist (120 Kb)
@@ -703,7 +703,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2020* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -711,7 +711,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [dotty]: https://dotty.epfl.ch/
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [scala3_releases]: https://github.com/lampepfl/dotty/releases
-[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.0.0-M1
+[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.0.0-M2
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win

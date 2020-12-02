@@ -1,4 +1,4 @@
-// see https://dotty.epfl.ch/docs/reference/trait-parameters.html
+// see https://dotty.epfl.ch/docs/reference/other-new-features/trait-parameters.html
 object Main {
 
   trait Greeting(val name: String) {
