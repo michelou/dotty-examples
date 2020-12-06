@@ -11,7 +11,7 @@ import core.Decorators._
 import core.StdNames._
 import core.Symbols._
 import plugins.{PluginPhase, StandardPlugin}
-import transform.{Pickler, ReifyQuotes}
+// import transform.Pickler
 
 class DivideZero extends PluginPhase with StandardPlugin {
   val name: String = "divideZero"
@@ -22,10 +22,10 @@ class DivideZero extends PluginPhase with StandardPlugin {
   // see ordering of compiler phases in file dotty.tools.dotc.Compiler.scala
   // no error output
   //override val runsAfter = Set(Pickler.name)
-  //override val runsBefore = Set(ReifyQuotes.name) // or Set("firstTransform")
+  //override val runsBefore = Set("firstTransform")
 
   // no error output
-  //override val runsAfter = Set(ReifyQuotes.name)
+  //override val runsAfter = Set(Pickler.name)
   //override val runsBefore = Set("checkReentrant") // or Set("checkStatic") or Set("betaReduce")
 
   // Exception: assertion failed: phase divideZero has unmet requirement: firstTransform should precede this phase
@@ -33,7 +33,7 @@ class DivideZero extends PluginPhase with StandardPlugin {
   //override val runsBefore = Set("checkStatic") // or Set("checkReentrant") or Set("betaReduce")
 
   // WITH error output !!!
-  override val runsAfter = Set("firstTransform") // or Set(Pickler.name) or Set(ReifyQuotes.name)
+  override val runsAfter = Set("firstTransform") // or Set(Pickler.name)
   override val runsBefore = Set(typer.RefChecks.name) // or Set("erasure")
 
   override def init(options: List[String]): List[PluginPhase] = this :: Nil

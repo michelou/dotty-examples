@@ -1,4 +1,4 @@
-val dottyVersion = "3.0.0-M1"
+val dottyVersion = "3.0.0-M2"
 // val dottyVersion = dottyLatestNightlyBuild.get 
 
 lazy val root = project
@@ -7,6 +7,7 @@ lazy val root = project
     name := "enum-Color",
     description := "sbt example project to build/run Scala 3 applications",
     version := "1.0.0",
+
     scalaVersion := dottyVersion,
     scalacOptions ++= Seq(
       "-deprecation",
@@ -20,7 +21,7 @@ lazy val root = project
       // https://mvnrepository.com/artifact/org.scalacheck/scalacheck
       "org.scalacheck" % "scalacheck_2.13" % "1.14.3" % Test,
       // https://mvnrepository.com/artifact/org.scalatest/scalatest
-      "org.scalatest" % "scalatest_2.13" % "3.2.2" % "test"
+      "org.scalatest" % "scalatest_2.13" % "3.2.2" % Test
     ),
     testOptions ++= Seq(
       Tests.Setup(() => println("Setup JUnit tests")),

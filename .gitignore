@@ -2,6 +2,7 @@
 .classpath
 .dotty-ide*
 .bloop/
+.bsp/
 .gradle/
 .idea/
 .project

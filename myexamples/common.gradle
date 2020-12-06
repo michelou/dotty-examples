@@ -90,7 +90,7 @@ repositories {
 }
 
 dependencies {
-    // implementation "ch.epfl.lamp:dotty-compiler_3.0.0-M1:3.0.0-M1"
-    implementation "org.scala-lang:scala3-compiler_3.0.0-M1:3.0.0-M1-bin-20201021-97da3cb-NIGHTLY"
-    testImplementation "junit:junit:4.13"
+    // implementation "ch.epfl.lamp:dotty-compiler_0.27:0.27.0-RC1"
+    implementation "org.scala-lang:scala3-compiler_3.0.0-M2:3.0.0-M2"
+    testImplementation "junit:junit:4.13.1"
 }

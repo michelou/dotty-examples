@@ -1,4 +1,4 @@
-val dottyVersion = "3.0.0-M1-bin-20201021-97da3cb-NIGHTLY" // "3.0.0-M1"
+val dottyVersion = "3.0.0-M2-bin-20201021-97da3cb-NIGHTLY" // "3.0.0-M2"
 
 lazy val root = project
   .in(file("."))

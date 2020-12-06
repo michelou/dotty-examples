@@ -77,14 +77,14 @@ set "_JAR_CMD=%JAVA_HOME%\bin\jar.exe"
 set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
 set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
 
-if not exist "%DOTTY_HOME%\bin\dotc.bat" (
+if not exist "%SCALA3_HOME%\bin\scalac.bat" (
    echo %_ERROR_LABEL% Scala 3 installation not found 1>&2
    set _EXITCODE=1
    goto :eof
 )
-set "_SCALA_CMD=%DOTTY_HOME%\bin\dotr.bat"
-set "_SCALAC_CMD=%DOTTY_HOME%\bin\dotc.bat"
-set "_SCALADOC_CMD=%DOTTY_HOME%\bin\dotd.bat"
+set "_SCALA_CMD=%SCALA3_HOME%\bin\scala.bat"
+set "_SCALAC_CMD=%SCALA3_HOME%\bin\scalac.bat"
+set "_SCALADOC_CMD=%SCALA3_HOME%\bin\scalad.bat"
 goto :eof
 
 :env_colors
@@ -388,12 +388,12 @@ call "%__BATCH_FILE%" %_DEBUG%
 set _LIBS_CPATH=%_CPATH%
 
 if defined __ADD_DOTTY_LIBS (
-    if not defined DOTTY_HOME (
-        echo %_ERROR_LABEL% Variable DOTTY_HOME not defined 1>&2
+    if not defined SCALA3_HOME (
+        echo %_ERROR_LABEL% Variable SCALA3_HOME not defined 1>&2
         set _EXITCODE=1
         goto :eof
     )
-    for %%f in ("%DOTTY_HOME%\lib\*.jar") do (
+    for %%f in ("%SCALA3_HOME%\lib\*.jar") do (
         set _LIBS_CPATH=!_LIBS_CPATH!%%f;
     )
 )

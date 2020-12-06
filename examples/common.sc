@@ -3,7 +3,7 @@ import mill._, api._, scalalib._
 //////////////////////////////////////////////////////////////////////////////
 // Project properties
 
-val scalaVersion = "3.0.0-M1"  // "0.27.0-RC1", "2.12.18"
+val scalaVersion = "3.0.0-M2"  // "0.27.0-RC1", "2.12.18"
 val scalacOptions = Seq("-deprecation", "-encoding", "UTF8", "-feature")
 
 val forkArgs = Seq("-Xmx1g")
@@ -18,25 +18,29 @@ val scalaSourcePath = os.pwd / "src" / "main" / "scala"
 //////////////////////////////////////////////////////////////////////////////
 // Ivy dependencies
 
+val scalaLibVersion = "2.13"
+val scalatestVersion = "3.2.2"
+val specs2Version = "4.10.3"
+
 val ivyJunit = ivy"org.junit:org.junit:4.13.1"
 
 // https://mvnrepository.com/artifact/com.novocode/junit-interface
 val ivyJunitInterface = ivy"com.novocode:junit-interface:0.11"
 
 // https://mvnrepository.com/artifact/org.scalatest/scalatest
-val ivyScalatest = ivy"org.scalatest:scalatest_2.13:3.2.2"
+val ivyScalatest = ivy"org.scalatest:scalatest_$scalaLibVersion:$scalatestVersion"
 
 // https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13
-val ivyScalactic = ivy"org.scalactic:scalactic_2.13:3.2.2"
+val ivyScalactic = ivy"org.scalactic:scalactic_$scalaLibVersion:$scalatestVersion"
 
 // https://mvnrepository.com/artifact/org.specs2/specs2-common
-val ivySpecs2Common = ivy"org.specs2:specs2-common_2.13:4.10.3"
+val ivySpecs2Common = ivy"org.specs2:specs2-common_$scalaLibVersion:$specs2Version"
 
 // https://mvnrepository.com/artifact/org.specs2/specs2-core
-val ivySpecs2Core = ivy"org.specs2:specs2-core_2.13:4.10.3"
+val ivySpecs2Core = ivy"org.specs2:specs2-core_$scalaLibVersion:$specs2Version"
 
 // https://mvnrepository.com/artifact/org.specs2/specs2-junit_2.13
-val ivySpecs2JUnit = ivy"org.specs2:specs2-junit_2.13:4.10.3"
+val ivySpecs2JUnit = ivy"org.specs2:specs2-junit_$scalaLibVersion:$specs2Version"
 
 //////////////////////////////////////////////////////////////////////////////
 // Helper functions

@@ -1,4 +1,4 @@
-val dottyVersion = "3.0.0-M1"
+val dottyVersion = "3.0.0-M2"
 // val dottyVersion = dottyLatestNightlyBuild.get 
 
 lazy val root = project
@@ -16,5 +16,5 @@ lazy val root = project
     ),
 
     // https://mvnrepository.com/artifact/com.novocode/junit-interface
-    libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % "test"
+    libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % Test
   )
