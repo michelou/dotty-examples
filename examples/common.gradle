@@ -76,7 +76,7 @@ task run(type: JavaExec) {
 
     classpath scalaClasspath
 
-    jvmArgs "-Xms1024m", "-Xss2m"
+    jvmArgs "-Xms1024m", "-Xss2m", "-Dfile.encoding=UTF-8"
 
     // systemProperty "message" "Hello"
 
@@ -113,6 +113,7 @@ repositories {
 }
 
 dependencies {
-    implementation "ch.epfl.lamp:dotty-compiler_3.0.0-M1:3.0.0-M1"
-    testImplementation "junit:junit:4.13"
+    // implementation "ch.epfl.lamp:dotty-compiler_0.27:0.27.0-RC1"
+    implementation "org.scala-lang:scala3-compiler_3.0.0-M2:3.0.0-M2"
+    testImplementation "junit:junit:4.13.1"
 }
