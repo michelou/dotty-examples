@@ -16,23 +16,28 @@ call :args %*
 @rem #########################################################################
 @rem ## Main
 
-set _CASE_1=0
-if %_EXECUTE_REPL%==1 set _CASE_1=1
-if %_EXECUTE_RUN%==0 if not defined _RESIDUAL_ARGS set _CASE_1=1
+set _CASE_REPL=0
+if %_EXECUTE_REPL%==1 set _CASE_REPL=1
+if %_EXECUTE_RUN%==0 if not defined _RESIDUAL_ARGS set _CASE_REPL=1
 
-set _CASE_2=0
-if %_EXECUTE_RUN%==1 set _CASE_2=1
-if defined _RESIDUAL_ARGS set _CASE_2=1
+set _CASE_EXEC=0
+if %_EXECUTE_RUN%==1 set _CASE_EXEC=1
+if defined _RESIDUAL_ARGS set _CASE_EXEC=1
 
+if %_EXECUTE_SCRIPT%==1 (
+    set _SCALAC_ARGS=
+    if defined _CLASS_PATH set _SCALAC_ARGS=-classpath "%_CLASS_PATH%"
+    set _SCALAC_ARGS=!_SCALAC_ARGS! %_JAVA_OPTS% -script %_RESIDUAL_ARGS%
+    call "%_PROG_HOME%\scalac.bat" !_SCALAC_ARGS!
 @rem if [ $execute_repl == true ] || ([ $execute_run == false ] && [ $options_indicator == 0 ]); then
-if %_CASE_1%==1 (
-    set _DOTC_ARGS=
-    if defined _CLASS_PATH set _DOTC_ARGS=-classpath "%_CLASS_PATH%"
-    set _DOTC_ARGS=!_DOTC_ARGS! %_JAVA_OPTS% -repl %_RESIDUAL_ARGS%
-    echo Starting scala3 REPL...
-    call "%_PROG_HOME%\scalac.bat" !_DOTC_ARGS!
+) else if %_CASE_REPL%==1 (
+    set _SCALAC_ARGS=
+    if defined _CLASS_PATH set _SCALAC_ARGS=-classpath "%_CLASS_PATH%"
+    set _SCALAC_ARGS=!_SCALAC_ARGS! %_JAVA_OPTS% -repl %_RESIDUAL_ARGS%
+    echo Starting dotty REPL...
+    call "%_PROG_HOME%\scalac.bat" !_SCALAC_ARGS!
 @rem elif [ $execute_repl == true ] || [ ${#residual_args[@]} -ne 0 ]; then
-) else if %_CASE_2%==1 (
+) else if %_CASE_EXEC%==1 (
     set _CP_ARG=%_DOTTY_LIB%%_PSEP%%_SCALA_LIB%
     if defined _CLASS_PATH ( set _CP_ARG=!_CP_ARG!%_PSEP%%_CLASS_PATH%
     ) else ( set _CP_ARG=!_CP_ARG!%_PSEP%.
@@ -57,8 +62,11 @@ goto end
 
 :args
 set _RESIDUAL_ARGS=
+set _SCRIPT_ARGS=
 set _EXECUTE_REPL=0
 set _EXECUTE_RUN=0
+set _EXECUTE_SCRIPT=0
+set _TARGET_SCRIPT=
 set _WITH_COMPILER=0
 set _JAVA_DEBUG=
 set _CLASS_PATH_COUNT=0
@@ -74,7 +82,7 @@ if "%__ARG%"=="-repl" (
 ) else if "%__ARG%"=="-run" (
     set _EXECUTE_RUN=1
 ) else if "%__ARG%"=="-classpath" (
-    set _CLASS_PATH=%~2
+    set "_CLASS_PATH=%~2"
     set /a _CLASS_PATH_COUNT+=1
     shift
 ) else if "%__ARG%"=="-cp" (
@@ -84,12 +92,19 @@ if "%__ARG%"=="-repl" (
 ) else if "%__ARG%"=="-with-compiler" (
     set _WITH_COMPILER=1
 ) else if "%__ARG%"=="-d" (
-    set _JAVA_DEBUG=%_DEBUG_STR%
+    set "_JAVA_DEBUG=%_DEBUG_STR%"
 ) else if "%__ARG:~0,2%"=="-J" (
     set _JVM_OPTS=!_JVM_OPTS! %__ARG:~2%
     set _JAVA_OPTS=!_JAVA_OPTS! %__ARG%
 ) else (
-    set _RESIDUAL_ARGS=%_RESIDUAL_ARGS% %__ARG%
+    if %_EXECUTE_SCRIPT%==1 (
+        set _SCRIPT_ARGS=%_SCRIPT_ARGS% %__ARG%
+    ) else if "%__ARG:~-6%"==".scala" (
+        set _EXECUTE_SCRIPT=1
+        set "_TARGET_SCRIPT=%__ARG%"
+    ) else (
+        set _RESIDUAL_ARGS=%_RESIDUAL_ARGS% %__ARG%
+    )
 )
 shift
 goto args_loop

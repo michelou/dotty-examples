@@ -11,9 +11,13 @@ set "_PROG_HOME=%~dp0"
 call "%_PROG_HOME%\common.bat"
 if not %_EXITCODE%==0 goto end
 
+set _DEFAULT_JAVA_OPTS=-Xmx768m -Xms768m
+@rem set _WITH_COMPILER=true
+
 set _COMPILER_MAIN=dotty.tools.dotc.Main
 set _DECOMPILER_MAIN=dotty.tools.dotc.decompiler.Main
 set _REPL_MAIN=dotty.tools.repl.Main
+set _SCRIPTING_MAIN=dotty.tools.scripting.Main
 
 call :args %*
 
@@ -22,12 +26,22 @@ call :args %*
 
 call :classpathArgs
 
+set _SCRIPTING_STRING=
+if "%_PROG_NAME%"=="%_SCRIPTING_MAIN%" (
+    if not defined _TARGET_SCRIPT (
+        echo Error: Missing Scala script file 1>&2
+        set _EXITCODE=1
+        goto end
+    )
+    set _SCRIPTING_STRING=-script %_TARGET_SCRIPT% %_SCRIPTING_ARGS%
+)
+
 if defined JAVA_OPTS ( set _JAVA_OPTS=%JAVA_OPTS%
-) else ( set _JAVA_OPTS=-Xmx768m -Xms768m
+) else ( set _JAVA_OPTS=%_DEFAULT_JAVA_OPTS%
 )
 call "%_JAVACMD%" %_JAVA_OPTS% %_JAVA_DEBUG% %_JAVA_ARGS% %_JVM_CP_ARGS% ^
 -Dscala.usejavacp=true ^
-%_PROG_NAME% %_SCALA_ARGS% %_RESIDUAL_ARGS%
+%_PROG_NAME% %_SCALA_ARGS% %_RESIDUAL_ARGS% %_SCRIPTING_STRING%
 if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto end
@@ -44,9 +58,11 @@ set _VERBOSE=
 set _QUIET=
 set _COLORS=
 set _PROG_NAME=%_COMPILER_MAIN%
+set _IN_SCRIPTING_ARGS=
 set _SCALA_ARGS=
 set _JAVA_ARGS=
 set _RESIDUAL_ARGS=
+set _SCRIPTING_ARGS=
 
 :args_loop
 if "%~1"=="" goto args_done
@@ -65,13 +81,18 @@ if "%__ARG%"=="--" (
 ) else if "%__ARG%"=="-verbose" (
     set _VERBOSE=true
     call :addScala "-verbose"
-) else if "%__ARG%"=="-debug" ( set _JAVA_DEBUG=%_DEBUG_STR%
+) else if "%__ARG%"=="-debug" ( set "_JAVA_DEBUG=%_DEBUG_STR%"
 ) else if "%__ARG%"=="-q" ( set _QUIET=true
 ) else if "%__ARG%"=="-quiet" ( set _QUIET=true
 @rem Optimize for short-running applications, see https://github.com/lampepfl/dotty/issues/222
 ) else if "%__ARG%"=="-Oshort" (
     call :addJava "-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
 ) else if "%__ARG%"=="-repl" ( set _PROG_NAME=%_REPL_MAIN%
+) else if "%__ARG%"=="-script" (
+    set _PROG_NAME=%_SCRIPTING_MAIN%
+    if "%~2"=="" goto args_done
+    set "_TARGET_SCRIPT=%~2"
+    set _IN_SCRIPTING_ARGS=true& shift
 ) else if "%__ARG%"=="-compile" ( set _PROG_NAME=%_COMPILER_MAIN%
 ) else if "%__ARG%"=="-decompile" ( set _PROG_NAME=%_DECOMPILER_MAIN%
 ) else if "%__ARG%"=="-print-tasty" (
@@ -86,7 +107,10 @@ if "%__ARG%"=="--" (
 @rem will be available as system properties.
 ) else if "%__ARG:~0,2%"=="-D" ( call :addJava "%__ARG%"
 ) else if "%__ARG:~0,2%"=="-J" ( call :addJava "%__ARG:~2%"
-) else ( call :addResidual "%__ARG%"
+) else (
+    if defined _IN_SCRIPTING_ARGS ( call :addScripting "%__ARG%"
+    ) else ( call :addResidual "%__ARG%"
+    )
 )
 shift
 goto args_loop
@@ -106,6 +130,11 @@ goto :eof
 @rem output parameter: _RESIDUAL_ARGS
 :addResidual
 set _RESIDUAL_ARGS=%_RESIDUAL_ARGS% %~1
+goto :eof
+
+@rem output parameter: _SCRIPTING_ARGS
+:addScripting
+set _SCRIPTING_ARGS=%_SCRIPTING_ARGS% %~1
 goto :eof
 
 @rem output parameter: _JVM_CP_ARGS

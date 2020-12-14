@@ -380,17 +380,17 @@ By default command [**`getnightly`**](bin/getnightly.bat) downloads the library 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a></b>
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b out\nightly-jars</b>
-scala3-compiler_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
-scala3-doc_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
-scala3-interfaces-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
-scala3-language-server_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
-scala3-library_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
-scala3-library_sjs1_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
-scala3-sbt-bridge-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
-scala3-staging_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
-scala3-tasty-inspector_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
-scala3doc_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
-tasty-core_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
+scala3-compiler_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+scala3-doc_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+scala3-interfaces-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+scala3-language-server_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+scala3-library_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+scala3-library_sjs1_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+scala3-sbt-bridge-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+scala3-staging_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+scala3-tasty-inspector_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+scala3doc_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+tasty-core_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
 </pre>
 
 > **:mag_right:** A few notes about the distributed Java archives:
@@ -404,19 +404,19 @@ Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the downlo
 <pre style="font-size:80%">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose</b>
 Check for nightly files on Maven repository
-Downloading file scala3-language-server_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar ... 145.2 Kb
-Downloading file scala3-interfaces-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar ... 3.5 Kb
-Downloading file scala3-library_sjs1_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar ... 1.7 Mb
-Downloading file scala3-doc_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar ... 1 Mb
-Downloading file scala3-staging_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar ... 35.7 Kb
-Downloading file scala3-compiler_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar ... 13.2 Mb
-Downloading file scala3-tasty-inspector_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar ... 12.2 Kb
-Downloading file tasty-core_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar ... 51.8 Kb
-Downloading file scala3-library_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar ... 1 Mb
-Downloading file scala3doc_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar ... 1.4 Mb
-Downloading file scala3-sbt-bridge-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar ... 13.5 Kb
+Downloading file scala3-interfaces-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar ... 3.7 Kb
+Downloading file scala3-language-server_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar ... 146.8 Kb
+Downloading file scala3-doc_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar ... 1 Mb
+Downloading file scala3-tasty-inspector_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar ... 13.6 Kb
+Downloading file scala3-library_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar ... 1.1 Mb
+Downloading file scala3doc_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar ... 1.5 Mb
+Downloading file scala3-staging_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar ... 35.3 Kb
+Downloading file scala3-compiler_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar ... 13.9 Mb
+Downloading file scala3-library_sjs1_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar ... 1.9 Mb
+Downloading file tasty-core_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar ... 59.1 Kb
+Downloading file scala3-sbt-bridge-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar ... 21.2 Kb
 Finished to download 11 files to directory W:\out\nightly-jars
-Nightly version is 3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY
+Nightly version is 3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY
 </pre>
 
 We can now replace the library files from the original [Scala 3 distribution][dotty_releases] (installed in directory **`C:\opt\scala-3.0.0-M2\`** in our case) with library files from the latest nightly build.
@@ -425,11 +425,11 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> activate</b>
-Local nightly version has changed from 3.0.0-M2 to 3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY
-Activate nightly build libraries: 3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY
+Local nightly version has changed from 3.0.0-M2 to 3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY
+Activate nightly build libraries: 3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY
 
 <b>&gt; <a href="bin/3.0.0/scalac.bat">scalac</a> -version</b>
-Scala compiler version 3.0.0-RC1-bin-20201125-6a56706-NIGHTLY-git-6a56706 -- Copyright 2002-2020, LAMP/EPFL
+Scala compiler version 3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY-git-3c18f6b -- Copyright 2002-2020, LAMP/EPFL
 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> reset</b>
 Activate default Scala libraries: 3.0.0-M2
@@ -454,16 +454,18 @@ lib\3.0.0-M2\
 &nbsp;&nbsp;scala3-staging_3.0.0-M2-3.0.0-M2.jar
 &nbsp;&nbsp;scala3-tasty-inspector_3.0.0-M2-3.0.0-M2.jar
 &nbsp;&nbsp;tasty-core_3.0.0-M2-3.0.0-M2.jar
-lib\3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY\
-&nbsp;&nbsp;scala3-compiler_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
-&nbsp;&nbsp;scala3-doc_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
-&nbsp;&nbsp;scala3-language-server_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
-&nbsp;&nbsp;scala3-library_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
-&nbsp;&nbsp;scala3-library_sjs1_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
-&nbsp;&nbsp;scala3-staging_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
-&nbsp;&nbsp;scala3-tasty-inspector_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
-&nbsp;&nbsp;scala3doc_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
-&nbsp;&nbsp;tasty-core_3.0.0-RC1-3.0.0-RC1-bin-20201125-6a56706-NIGHTLY.jar
+lib\3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY\
+&nbsp;&nbsp;scala3-compiler_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+&nbsp;&nbsp;scala3-doc_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+&nbsp;&nbsp;scala3-interfaces-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+&nbsp;&nbsp;scala3-language-server_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+&nbsp;&nbsp;scala3-library_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+&nbsp;&nbsp;scala3-library_sjs1_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+&nbsp;&nbsp;scala3-sbt-bridge-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+&nbsp;&nbsp;scala3-staging_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+&nbsp;&nbsp;scala3-tasty-inspector_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+&nbsp;&nbsp;scala3doc_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
+&nbsp;&nbsp;tasty-core_3.0.0-M3-3.0.0-M3-bin-20201213-3c18f6b-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original [Scala 3][scala_3] installation respectively from the latest nightly build.
