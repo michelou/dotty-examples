@@ -226,8 +226,10 @@ We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :--------: | :--------: | :--------- |
-| [#10767][dotty_pull_10767] | [merged](https://github.com/lampepfl/dotty/commit/3a7a6ae1cc4ff2374e2982738bc14611bc36f200) <span style="font-size:80%;">(Dec 2020)</span> | Documentation |
-| [#10448][dotty_pull_10448] | [merged](https://github.com/lampepfl/dotty/commit/51db1b5400d7f72c1985b1922d20f7b755d8f986) <span style="font-size:80%;">(Now 2020)</span> | Test suite |
+| [#10875][dotty_pull_10875] | *pending* <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
+| [#10826][dotty_pull_10826] | [merged](https://github.com/lampepfl/dotty/commit/bfb0b81) <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
+| [#10767][dotty_pull_10767] | [merged](https://github.com/lampepfl/dotty/commit/3a7a6ae) <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
+| [#10448][dotty_pull_10448] | [merged](https://github.com/lampepfl/dotty/commit/51db1b5) <span style="font-size:80%;">(Now 2020)</span> | Test suite |
 | [#8356][dotty_pull_8356] | [merged](https://github.com/lampepfl/dotty/commit/f51bf1b701a17851224472849c131ce6de38e2a7) <span style="font-size:80%;">(Feb 2020)</span> | Test suite |
 | [#8330][dotty_pull_8330] | [merged](https://github.com/lampepfl/dotty/commit/5018a1285cf3d8c0f3a17f98f015589154b0fbbd) <span style="font-size:80%;">(Feb 2020)</span> | Test suite |
 | [#8279][dotty_pull_8279] | [merged](https://github.com/lampepfl/dotty/commit/a5f1dae68202ba67ef99c39f243970ebd3530a65) <span style="font-size:80%;">(Feb.2020)</span> | Compiler options |
@@ -737,6 +739,8 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_pull_8356]: https://github.com/lampepfl/dotty/pull/8356
 [dotty_pull_10448]: https://github.com/lampepfl/dotty/pull/10448
 [dotty_pull_10767]: https://github.com/lampepfl/dotty/pull/10767
+[dotty_pull_10826]: https://github.com/lampepfl/dotty/pull/10826
+[dotty_pull_10875]: https://github.com/lampepfl/dotty/pull/10875
 [dotty_docs]: https://dotty.epfl.ch/docs/
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_releases]: https://github.com/lampepfl/dotty/releases

@@ -34,7 +34,7 @@ if %_EXECUTE_SCRIPT%==1 (
     set _SCALAC_ARGS=
     if defined _CLASS_PATH set _SCALAC_ARGS=-classpath "%_CLASS_PATH%"
     set _SCALAC_ARGS=!_SCALAC_ARGS! %_JAVA_OPTS% -repl %_RESIDUAL_ARGS%
-    echo Starting dotty REPL...
+    echo Starting scala3 REPL...
     call "%_PROG_HOME%\scalac.bat" !_SCALAC_ARGS!
 @rem elif [ $execute_repl == true ] || [ ${#residual_args[@]} -ne 0 ]; then
 ) else if %_CASE_EXEC%==1 (
