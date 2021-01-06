@@ -26,7 +26,7 @@ This document is part of a series of topics related to [Scala 3][scala_3] on Win
 This project depends on two external software for the **Microsoft Windows** platform:
 
 - [Scala 3.0][dotty_releases] ([*release notes*][dotty_relnotes])
-- [Git 2.29][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.30][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][oracle_openjdk] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk_relnotes])
 <!--
 8u212  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
@@ -58,28 +58,28 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*December 2020*) <sup id="anchor_03">[[3]](#footnote_03)</sup>:
+For instance our development environment looks as follows (*January 2021*) <sup id="anchor_03">[[3]](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant-1.10.9\    <i>( 39.7 MB)</i>
 C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
 C:\opt\bazel-3.7.1\          <i>( 41.0 MB)</i>
 C:\opt\cfr-0.150\            <i>(  1.9 MB)</i>
-C:\opt\Git-2.29.2\           <i>(290.0 MB)</i>
+C:\opt\Git-2.30.0\           <i>(290.0 MB)</i>
 C:\opt\gradle-6.7.1\         <i>(111.0 MB)</i>
 C:\opt\jacoco-0.8.6\         <i>( 10.6 MB)</i>
 C:\opt\jdk-11.0.9.1+1\       <i>(181.0 MB)</i>
 C:\opt\make-3.81\            <i>(  2.1 MB)</i>
-C:\opt\Mill-0.9.3\           <i>( 53.7 MB)</i>
-C:\opt\sbt-1.4.4\            <i>( 47.7 MB)</i>
+C:\opt\Mill-0.9.4\           <i>( 53.7 MB)</i>
+C:\opt\sbt-1.4.6\            <i>( 47.7 MB)</i>
 C:\opt\scala-2.13.4\         <i>( 23.3 MB, 611 MB with API docs)</i>
 C:\opt\scala-3.0.0-M3\       <i>( 30.1 MB)</i>
 </pre>
  <!-- jdk8: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
  <!-- jdk11: 11.0.8 = 314 MB, 11.0.9 = 316 MB -->
  <!-- sbt: 1.3.6 = 55.1 MB, 1.3.7 = 60.9 MB, 1.3.8 = 61.0 MB -->
- <!-- sbt: 1.3.9 = 61.2 MB, 1.3.10 = 61.2 MB, 1.3.11 = 61.3 MB -->
- <!-- sbt: 1.4.1 = 47.6 MB, 1.4.2 = 47.7 MB, 1.4.3 = 47.7 MB, 1.4.4 -> 48 MB -->
+ <!-- sbt: 1.3.9 = 61.2 MB, 1.3.10 = 61.2 MB, 1.3.11 = 61.3 MB, 1.4.1 = 47.6 MB -->
+ <!-- sbt: 1.4.2 = 47.7 MB, 1.4.3 = 47.7 MB, 1.4.4 -> 48 MB, 1.4.6 = MB -->
 
 > **:mag_right:** [Git for Windows][git_releases] provides a Bash emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
@@ -301,7 +301,7 @@ Tool versions:
    javac 11.0.9, java 11.0.9, scalac 2.13.4, scalac 3.0.0-M3,
    ant 1.10.9, gradle 6.7.1, mill 0.9.3, mvn 3.6.3, sbt 1.4.4,
    bazel 3.7.1, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.6,
-   git 2.29.2.windows.1, diff 3.7, bash 4.4.23(1)-release
+   git 2.30.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
 C:\opt\sbt-1.4.4\bin\sbt
@@ -318,7 +318,7 @@ Tool versions:
    javac 11.0.9.1, java 11.0.9.1, scalac 2.13.4, scalac 3.0.0-M3,
    ant 1.10.9, gradle 6.7.1, mill 0.9.3, mvn 3.6.3, sbt 1.4.4,
    bazel 3.7.1, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.6,
-   git 2.29.2.windows.1, diff 3.7, bash 4.4.23(1)-release
+   git 2.30.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-11.0.9.1+1\bin\javac.exe
    C:\opt\jdk-11.0.9.1+1\bin\java.exe
@@ -334,13 +334,13 @@ Tool paths:
    C:\opt\cfr-0.150\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
    C:\opt\Python-3.8\python.exe
-   C:\opt\Git-2.29.2\bin\git.exe
-   C:\opt\Git-2.29.2\mingw64\bin\git.exe
-   C:\opt\Git-2.29.2\usr\bin\diff.exe
-   C:\opt\Git-2.29.2\bin\bash.exe
+   C:\opt\Git-2.30.0\bin\git.exe
+   C:\opt\Git-2.30.0\mingw64\bin\git.exe
+   C:\opt\Git-2.30.0\usr\bin\diff.exe
+   C:\opt\Git-2.30.0\bin\bash.exe
 Environment variables:
    ANT_HOME=C:\opt\apache-ant-1.10.9
-   GIT_HOME=C:\opt\Git-2.29.2
+   GIT_HOME=C:\opt\Git-2.30.0
    JAVA_HOME=C:\opt\jdk-11.0.9.1+1
    JAVAFX_HOME=C:\opt\javafx-sdk-14.0.2.1
    PYTHON_HOME=C:\opt\Python-3.8
@@ -604,7 +604,7 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 | :----------- | :------: | :------ |
 | `build.sbt` | `dottyVersion` | `0.27.0-RC1` &rarr; `3.0.0-M3`|
 | `build.sc` | `scalaVersion` | `0.27.0-RC1` &rarr; `3.0.0-M3` |
-| `project\build.properties` | `sbt.version` | `1.4.3` &rarr; `1.4.4` |
+| `project\build.properties` | `sbt.version` | `1.4.4` &rarr; `1.4.6` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.4.4` &rarr; `0.4.6` |
 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
@@ -725,8 +725,8 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.6.zip</a>                                  <i>( 4 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                 <i>(10 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.9.1_1.zip</a> <i>(99 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.29.2-64-bit.7z.exe</a>                  <i>(41 MB)</i>
-<a href="https://github.com/sbt/sbt/releases">sbt-1.4.4.zip</a>                                     <i>(55 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.30.0-64-bit.7z.exe</a>                  <i>(41 MB)</i>
+<a href="https://github.com/sbt/sbt/releases">sbt-1.4.6.zip</a>                                     <i>(55 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.4.zip</a>                                  <i>(21 MB)</i>
 </pre>
 
@@ -738,7 +738,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -765,7 +765,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [git_bash]: https://www.atlassian.com/git/tutorials/git-bash
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.29.2.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.30.0.txt
 [github_guides]: https://guides.github.com/
 [github_lampepfl_dotty]: https://github.com/lampepfl/dotty
 [github_markdown]: https://github.github.com/gfm/
@@ -814,7 +814,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_downloads]: https://github.com/sbt/sbt/releases
 [sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.4.4
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.4.6
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala]: https://www.scala-lang.org/
 [scala_3]: https://dotty.epfl.ch

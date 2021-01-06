@@ -1,4 +1,4 @@
-# <span id="top">Dotty related documents</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
+# <span id="top">Scala 3 related documents</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -43,6 +43,11 @@
 
 ### **Presentations**
 
+- [[Link]](https://www.youtube.com/watch?v=lMvOykNQ4zs)<br/>"Scala 3, Type Inference and You!", <span style="font-weight:bold; color:#DC143C;">2019</span> (45 minutes).<br/>Gillaum Martres, [*LAMP - EPFL*][epfl_lamp]
+
+- [[Link]](https://www.youtube.com/watch?v=VV9lPg3fNl8)<br/>"GADTs in Dotty", <span style="font-weight:bold; color:#DC143C;">July 2019</span> (30 minutes).<br/>Aleksander Boruch-Gruszecki, [*LAMP - EPFL*][epfl_lamp].
+
+
 - [[Link]](https://www.youtube.com/watch?v=iobC5yGRWoo)<br/>"From DOT to Dotty", <span style="font-weight:bold; color:#DC143C;">2017</span> (48 minutes).<br/>Martin Odersky, [*LAMP - EPFL*][epfl_lamp].
 
 - [[Link](http://wirth-symposium.ethz.ch/programme.html)] [[PDF]](./2014_The_Trouble_with_Types.pdf)<br/>"The Trouble with Types", <span style="font-weight:bold; color:#DC143C;">2014</span> (50 slides).<br/>Martin Odersky, [*LAMP - EPFL*][epfl_lamp].
@@ -54,7 +59,7 @@
 
 <hr style="margin:2em 0 0 0;" />
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
