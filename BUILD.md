@@ -226,6 +226,7 @@ We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :--------: | :--------: | :--------- |
+| [#11016][dotty_pull_11016] | [merged](https://github.com/lampepfl/dotty/commit/437d02a) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
 | [#10953][dotty_pull_10953] | [merged](https://github.com/lampepfl/dotty/commit/141bf9e) <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
 | [#10875][dotty_pull_10875] | [merged](https://github.com/lampepfl/dotty/commit/626d24a) <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
 | [#10860][dotty_pull_10860] | [merged](https://github.com/lampepfl/dotty/commit/0e4fe3c) <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
@@ -745,6 +746,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_pull_10860]: https://github.com/lampepfl/dotty/pull/10860
 [dotty_pull_10875]: https://github.com/lampepfl/dotty/pull/10875
 [dotty_pull_10953]: https://github.com/lampepfl/dotty/pull/10953
+[dotty_pull_11016]: https://github.com/lampepfl/dotty/pull/11016
 [dotty_docs]: https://dotty.epfl.ch/docs/
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_releases]: https://github.com/lampepfl/dotty/releases

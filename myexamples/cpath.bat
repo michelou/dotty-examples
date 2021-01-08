@@ -40,7 +40,7 @@ call :add_jar "com.novocode" "junit-interface" "0.11"
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest
 call :add_jar "org.hamcrest" "hamcrest" "2.2"
 
-set __SCALATEST_VERSION=3.2.2
+set __SCALATEST_VERSION=3.2.3
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
@@ -52,7 +52,7 @@ call :add_jar "org.scalatest" "scalatest-core_%__SCALALIB_VERSION%" "%__SCALATES
 call :add_jar "org.scalatest" "scalatest-funsuite_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-funspec
-call :add_jar "org/scalatest" "scalatest-funspec_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
+call :add_jar "org.scalatest" "scalatest-funspec_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest
 call :add_jar "org.scalatest" "scalatest_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
@@ -60,7 +60,7 @@ call :add_jar "org.scalatest" "scalatest_%__SCALALIB_VERSION%" "%__SCALATEST_VER
 @rem https://mvnrepository.com/artifact/org.scalactic
 call :add_jar "org.scalactic" "scalactic_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
 
-set __SPECS2_CORE_VERSION=4.10.3
+set __SPECS2_CORE_VERSION=4.10.4
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-core
 call :add_jar "org.specs2" "specs2-core_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
@@ -77,7 +77,7 @@ call :add_jar "org.specs2" "specs2-matcher_%__SCALALIB_VERSION%" "%__SPECS2_CORE
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-fp
 call :add_jar "org.specs2" "specs2-fp_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
 
-set __JMH_VERSION=1.26
+set __JMH_VERSION=1.27
 
 @rem https://mvnrepository.com/artifact/net.sf.jopt-simple/jopt-simple
 call :add_jar "net.sf.jopt-simple" "jopt-simple" "4.6"
@@ -114,17 +114,17 @@ if not exist "%__JAR_FILE%" (
     set __JAR_URL=%__CENTRAL_REPO%/%__GROUP_ID:.=/%/%__ARTIFACT_ID%/%__VERSION%/%__JAR_NAME%
     set "__JAR_FILE=%__TEMP_DIR%\%__JAR_NAME%"
     if not exist "!__JAR_FILE!" (
-        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri !__JAR_URL! -Outfile !__JAR_FILE!" 1>&2
-        ) else if %_VERBOSE%==1 ( echo Download file %__JAR_NAME% to directory "!__TEMP_DIR:%USERPROFILE%=!" 1>&2
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri '!__JAR_URL!' -Outfile '!__JAR_FILE!'" 1>&2
+        ) else if %_VERBOSE%==1 ( echo Download file %__JAR_NAME% to directory "!__TEMP_DIR:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
         )
-        powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri !__JAR_URL! -Outfile !__JAR_FILE!"
+        powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri '!__JAR_URL!' -Outfile '!__JAR_FILE!'"
         if not !ERRORLEVEL!==0 (
             echo %_ERROR_LABEL% Failed to download file %__JAR_NAME% 1>&2
             set _EXITCODE=1
             goto :eof
         )
-        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_MVN_CMD% install:install-file -Dfile="!__JAR_FILE!" -DgroupId="%__GROUP_ID%" -DartifactId=%__ARTIFACT_ID% -Dversion=%__VERSION% 1>&2
-        ) else if %_VERBOSE%==1 ( echo Install Maven archive into directory "!__LOCAL_REPO:%USERPROFILE%=!\%__SCALA_XML_PATH%" 1>&2
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MVN_CMD%" install:install-file -Dfile="!__JAR_FILE!" -DgroupId="%__GROUP_ID%" -DartifactId=%__ARTIFACT_ID% -Dversion=%__VERSION% 1>&2
+        ) else if %_VERBOSE%==1 ( echo Install Maven archive into directory "!__LOCAL_REPO:%USERPROFILE%=%%USERPROFILE%%!\%__SCALA_XML_PATH%" 1>&2
         )
         call "%_MVN_CMD%" %_MVN_OPTS% install:install-file -Dfile="!__JAR_FILE!" -DgroupId="%__GROUP_ID%" -DartifactId=%__ARTIFACT_ID% -Dversion=%__VERSION% -Dpackaging=jar
     )
