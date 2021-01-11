@@ -13,10 +13,10 @@
 <div>&nbsp;</div>
 This document is part of a series of topics related to [Dotty] on Windows:
 
-- [Running Dotty on Windows](README.md)
-- Building Dotty on Windows [**&#9660;**](#bottom)
-- [Data Sharing and Dotty on Windows](CDS.md)
-- [OpenJDK and Dotty on Windows](OPENJDK.md)
+- [Running Scala 3 on Windows](README.md)
+- Building Scala 3 on Windows [**&#9660;**](#bottom)
+- [Data Sharing and Scala 3 on Windows](CDS.md)
+- [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
 [JMH], [Metaprogramming][dotty_metaprogramming], [GraalSqueak][graalsqueak_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodes_examples] and [TruffleSqueak][trufflesqueak_examples] are other topics we are currently investigating.
 
@@ -26,7 +26,7 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 
 - [Git 2.30][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
-- [SBT 1.4][sbt_releases] <sup id="anchor_03">[[3]](#footnote_03)</sup> (requires Java 8) ([*release notes*][sbt_relnotes])
+- [sbt 1.4][sbt_releases] <sup id="anchor_03">[[3]](#footnote_03)</sup> (requires Java 8) ([*release notes*][sbt_relnotes])
 <!--
 8u212  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
 8u222  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
@@ -226,6 +226,7 @@ We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :--------: | :--------: | :--------- |
+| [#11062][dotty_pull_11062] | [merged](https://github.com/lampepfl/dotty/commit/0f1d350) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
 | [#11016][dotty_pull_11016] | [merged](https://github.com/lampepfl/dotty/commit/437d02a) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
 | [#10953][dotty_pull_10953] | [merged](https://github.com/lampepfl/dotty/commit/141bf9e) <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
 | [#10875][dotty_pull_10875] | [merged](https://github.com/lampepfl/dotty/commit/626d24a) <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
@@ -747,6 +748,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_pull_10875]: https://github.com/lampepfl/dotty/pull/10875
 [dotty_pull_10953]: https://github.com/lampepfl/dotty/pull/10953
 [dotty_pull_11016]: https://github.com/lampepfl/dotty/pull/11016
+[dotty_pull_11062]: https://github.com/lampepfl/dotty/pull/11062
 [dotty_docs]: https://dotty.epfl.ch/docs/
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_releases]: https://github.com/lampepfl/dotty/releases
