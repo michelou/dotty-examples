@@ -12,7 +12,7 @@ trait GroupMod[N <: Int] extends Group[Int]:
   extension (x: Int) def combine(y: Int) = (x + y) % unit
   extension (x: Int) def inverse = (-x) % unit
 
-given [N <: Int : ValueOf] as GroupMod[N]:
+given [N <: Int : ValueOf]: GroupMod[N] with
   val unit: N = valueOf[N]
 
 def foo(x: Int, y: Int)(using GroupMod[7]): Int = x.combine(y)

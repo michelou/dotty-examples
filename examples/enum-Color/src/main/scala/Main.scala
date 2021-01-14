@@ -14,7 +14,9 @@ object Main {
     println(Color.Green)
     println(Color.Green.x)
     println(Color.Violet.x)
+    println()
     println(Main.Green)
     println(Main.Green.x)
+    println(Main.Violet.x)
   }
 }

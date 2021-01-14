@@ -37,7 +37,7 @@ call :add_jar "com.novocode" "junit-interface" "0.11"
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest
 call :add_jar "org.hamcrest" "hamcrest" "2.2"
 
-set __SCALATEST_VERSION=3.2.2
+set __SCALATEST_VERSION=3.2.3
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
@@ -57,7 +57,7 @@ call :add_jar "org.scalatest" "scalatest_%__SCALALIB_VERSION%" "%__SCALATEST_VER
 @rem https://mvnrepository.com/artifact/org.scalactic
 call :add_jar "org.scalactic" "scalactic_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
 
-set __SPECS2_CORE_VERSION=4.10.3
+set __SPECS2_CORE_VERSION=4.10.4
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-core
 call :add_jar "org.specs2" "specs2-core_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
@@ -78,7 +78,7 @@ call :add_jar "org.specs2" "specs2-fp_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERS
 call :add_jar "com.chuusai" "shapeless_%__SCALALIB_VERSION%" "2.3.3"
 
 @rem https://mvnrepository.com/artifact/eu.timepit/refined
-call :add_jar "eu.timepit" "refined_%__SCALALIB_VERSION%" "0.9.18"
+call :add_jar "eu.timepit" "refined_%__SCALALIB_VERSION%" "0.9.20"
 
 goto end
 

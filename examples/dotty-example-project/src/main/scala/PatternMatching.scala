@@ -1,7 +1,7 @@
 /**
  * Pattern Matching: https://dotty.epfl.ch/docs/reference/changed-features/pattern-matching.html
  */
-object PatternMatching {
+object PatternMatching:
 
   object booleanPattern {
 
@@ -59,7 +59,7 @@ object PatternMatching {
 
   }
 
-  def test: Unit = {
+  def test: Unit =
     import booleanPattern._
 
     "even" match {
@@ -68,11 +68,10 @@ object PatternMatching {
     }
 
     // http://dotty.epfl.ch/docs/reference/changed/vararg-patterns.html
-    def containsConsecutive(list: List[Int]): Boolean = list match {
+    def containsConsecutive(list: List[Int]): Boolean = list match
       case List(a, b, xs: _ *) => if (a == b) true else containsConsecutive(b :: xs.toList)
       case List(a, _ : _*) => false
       case Nil => false
-    }
 
     println(containsConsecutive(List(1, 2, 3, 4, 5)))
     println(containsConsecutive(List(1, 2, 3, 3, 5)))
@@ -98,7 +97,3 @@ object PatternMatching {
       case Name(n) => println(s"name is $n")
       case _ => println("empty name")
     }
-
-  }
-
-}

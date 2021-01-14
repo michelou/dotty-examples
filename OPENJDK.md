@@ -13,10 +13,10 @@
 
 This document is part of a series of topics related to [Dotty] on Windows:
 
-- [Running Dotty on Windows](README.md)
-- [Building Dotty on Windows](BUILD.md)
-- [Data Sharing and Dotty on Windows](CDS.md)
-- OpenJDK and Dotty on Windows [**&#9660;**](#bottom)
+- [Running Scala 3 on Windows](README.md)
+- [Building Scala 3 on Windows](BUILD.md)
+- [Data Sharing and Scala 3 on Windows](CDS.md)
+- OpenJDK and Scala 3 on Windows [**&#9660;**](#bottom)
 
 [JMH][jmh_project], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples] and [TruffleSqueak][trufflesqueak_examples] are other trending topics we are currently monitoring.
 
@@ -46,7 +46,7 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*November 2020*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
+For instance our development environment looks as follows (*January 2021*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.9.1+1\                <i>(299 MB)</i>
@@ -329,20 +329,20 @@ The role of the JCK is not to determine <i>quality</i>, but rather to provide a 
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html" rel="external">amazon-corretto-11.0.9.12.1-windows-x64-jdk.zip</a>                <i>(177 MB)</i>
+<a href="https://github.com/corretto/corretto-11/releases" rel="external">amazon-corretto-11.0.9.12.1-windows-x64-jdk.zip</a>                <i>(177 MB)</i>
 <a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.9.1+1-windows-amd64.zip</a>                       <i>(187 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.3.0">graalvm-ce-java11-windows-amd64-20.3.0.zip</a>                     <i>(360 MB)</i>
-<a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.8.10-2.windows.redhat.x86_64.zip</a>          <i>(235 MB)</i>
+<a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.9.11-3.windows.redhat.x86_64.zip</a>          <i>(256 MB)</i>
 <a href="https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases/latest">java11-openjdk-dcevm-windows.zip</a>                               <i>(187 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.9.1_1.zip</a>              <i>(190 MB)</i>
-<a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">OpenJDK11U-jdk_x64_windows_openj9_11.0.8_10_openj9-0.21.0.zip</a>  <i>(193 MB)</i>
+<a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">OpenJDK11U-jdk_x64_windows_openj9_11.0.9_11_openj9-0.23.0.zip</a>  <i>(193 MB)</i>
 <a href="https://github.com/SAP/SapMachine/releases/tag/sapmachine-11.0.9.1" rel="external">sapmachine-jdk-11.0.9.1_windows-x64_bin.zip</a>                    <i>(187 MB)</i>
 <a href="https://www.azul.com/downloads/zulu-community/?version=java-11-lts" rel="external">zulu11.43.55-ca-jdk11.0.9.1-win_x64.zip</a>                        <i>(188 MB)</i>
 </pre>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

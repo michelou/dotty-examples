@@ -13,10 +13,10 @@
 <div>&nbsp;</div>
 This document is part of a series of topics related to [Dotty] on Windows:
 
-- [Running Dotty on Windows](README.md)
-- Building Dotty on Windows [**&#9660;**](#bottom)
-- [Data Sharing and Dotty on Windows](CDS.md)
-- [OpenJDK and Dotty on Windows](OPENJDK.md)
+- [Running Scala 3 on Windows](README.md)
+- Building Scala 3 on Windows [**&#9660;**](#bottom)
+- [Data Sharing and Scala 3 on Windows](CDS.md)
+- [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
 [JMH], [Metaprogramming][dotty_metaprogramming], [GraalSqueak][graalsqueak_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodes_examples] and [TruffleSqueak][trufflesqueak_examples] are other topics we are currently investigating.
 
@@ -24,9 +24,9 @@ This document is part of a series of topics related to [Dotty] on Windows:
 
 Our [Dotty fork][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.29][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.30][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
-- [SBT 1.4][sbt_releases] <sup id="anchor_03">[[3]](#footnote_03)</sup> (requires Java 8) ([*release notes*][sbt_relnotes])
+- [sbt 1.4][sbt_releases] <sup id="anchor_03">[[3]](#footnote_03)</sup> (requires Java 8) ([*release notes*][sbt_relnotes])
 <!--
 8u212  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
 8u222  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
@@ -40,12 +40,12 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*November 2020*):
+For instance our development environment looks as follows (*January 2021*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.29.2\      <i>(290 MB)</i>
+C:\opt\Git-2.30.0\      <i>(290 MB)</i>
 C:\opt\jdk-11.0.9.1+1\  <i>(314 MB)</i>
-C:\opt\sbt-1.4.4\       <i>(  1 MB, no local-preloaded libraries)</i>
+C:\opt\sbt-1.4.6\       <i>(  1 MB, no local-preloaded libraries)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -95,7 +95,7 @@ We distinguish different sets of batch commands:
 1. Directory [**`bin\3.0.0\`**](bin/3.0.0) - This directory contains the shell scripts and batch files to be added unchanged to a [Dotty software distribution][dotty_releases].
 
    <pre style="font-size:80%;">
-   <b>&gt; cp bin\3.0\*.bat dotty\dist\bin</b>
+   <b>&gt; cp bin\3.0.0\*.bat dotty\dist\bin</b>
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b dotty\dist\bin</b>
    common
    common.bat
@@ -209,7 +209,7 @@ We distinguish different sets of batch commands:
 
 ## <span id="contribs">Contributions</span>
 
-We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6]</a></sup> while executing [Dotty] commands on Windows:
+We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6]</a></sup> while executing [Scala 3][Dotty] commands on Windows:
 
 | [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Issue status&nbsp;&nbsp;&nbsp; | Context |
 | :--------: | :--------: | :--------- |
@@ -226,7 +226,10 @@ We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :--------: | :--------: | :--------- |
-| [#10875][dotty_pull_10875] | *pending* <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
+| [#11062][dotty_pull_11062] | [merged](https://github.com/lampepfl/dotty/commit/0f1d350) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
+| [#11016][dotty_pull_11016] | [merged](https://github.com/lampepfl/dotty/commit/437d02a) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
+| [#10953][dotty_pull_10953] | [merged](https://github.com/lampepfl/dotty/commit/141bf9e) <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
+| [#10875][dotty_pull_10875] | [merged](https://github.com/lampepfl/dotty/commit/626d24a) <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
 | [#10860][dotty_pull_10860] | [merged](https://github.com/lampepfl/dotty/commit/0e4fe3c) <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
 | [#10826][dotty_pull_10826] | [merged](https://github.com/lampepfl/dotty/commit/bfb0b81) <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
 | [#10767][dotty_pull_10767] | [merged](https://github.com/lampepfl/dotty/commit/3a7a6ae) <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
@@ -298,9 +301,9 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
-   GIT_CMD=C:\opt\Git-2.29.2\bin\git.exe
+   GIT_CMD=C:\opt\Git-2.30.0\bin\git.exe
    JAVA_CMD=C:\opt\jdk-11.0.9.1+1\bin\java.exe
-   SBT_CMD=C:\opt\sbt-1.4.4\bin\sbt.bat
+   SBT_CMD=C:\opt\sbt-1.4.6\bin\sbt.bat
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
    SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -715,7 +718,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -743,6 +746,9 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_pull_10826]: https://github.com/lampepfl/dotty/pull/10826
 [dotty_pull_10860]: https://github.com/lampepfl/dotty/pull/10860
 [dotty_pull_10875]: https://github.com/lampepfl/dotty/pull/10875
+[dotty_pull_10953]: https://github.com/lampepfl/dotty/pull/10953
+[dotty_pull_11016]: https://github.com/lampepfl/dotty/pull/11016
+[dotty_pull_11062]: https://github.com/lampepfl/dotty/pull/11062
 [dotty_docs]: https://dotty.epfl.ch/docs/
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_releases]: https://github.com/lampepfl/dotty/releases

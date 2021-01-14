@@ -1,9 +1,9 @@
 /**
  * Automatic Tupling of Function Params: https://dotty.epfl.ch/docs/reference/other-new-features/auto-parameter-tupling.html
  */
-object AutoParamTupling {
+object AutoParamTupling:
 
-  def test: Unit = {
+  def test: Unit =
 
     /**
      * In order to get thread safety, you need to put @volatile before lazy vals.
@@ -18,7 +18,3 @@ object AutoParamTupling {
      * Consider a pattern matching anonymous function, `{ case (s, i) =>  ... }`
      */
     xs.zipWithIndex.map((s, i) => println(s"$i: $s"))
-
-  }
-
-}
