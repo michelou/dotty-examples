@@ -45,7 +45,7 @@ Optionally one may also install the following software:
 - [Bazel 3.7][bazel_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
 - [GNU Make 3.81][make_downloads]
-- [Gradle 6.7][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Gradle 6.8][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [JaCoCo 0.8][jacoco_downloads] ([*change log*][jacoco_changelog])
 - [Mill 0.9][mill_releases] ([*change log*][mill_changelog])
 - [SBT 1.4][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
@@ -66,7 +66,7 @@ C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
 C:\opt\bazel-3.7.2\          <i>( 41.0 MB)</i>
 C:\opt\cfr-0.150\            <i>(  1.9 MB)</i>
 C:\opt\Git-2.30.0\           <i>(290.0 MB)</i>
-C:\opt\gradle-6.7.1\         <i>(111.0 MB)</i>
+C:\opt\gradle-6.8\           <i>(116.0 MB)</i>
 C:\opt\jacoco-0.8.6\         <i>( 10.6 MB)</i>
 C:\opt\jdk-11.0.9.1+1\       <i>(181.0 MB)</i>
 C:\opt\make-3.81\            <i>(  2.1 MB)</i>
@@ -79,7 +79,7 @@ C:\opt\scala-3.0.0-M3\       <i>( 30.1 MB)</i>
  <!-- jdk11: 11.0.8 = 314 MB, 11.0.9 = 316 MB -->
  <!-- sbt: 1.3.6 = 55.1 MB, 1.3.7 = 60.9 MB, 1.3.8 = 61.0 MB -->
  <!-- sbt: 1.3.9 = 61.2 MB, 1.3.10 = 61.2 MB, 1.3.11 = 61.3 MB, 1.4.1 = 47.6 MB -->
- <!-- sbt: 1.4.2 = 47.7 MB, 1.4.3 = 47.7 MB, 1.4.4 -> 48 MB, 1.4.6 = MB -->
+ <!-- sbt: 1.4.2 = 47.7 MB, 1.4.3 = 47.7 MB, 1.4.6 -> 48 MB, 1.4.6 = MB -->
 
 > **:mag_right:** [Git for Windows][git_releases] provides a Bash emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
@@ -299,13 +299,13 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.9, java 11.0.9, scalac 2.13.4, scalac 3.0.0-M3,
-   ant 1.10.9, gradle 6.7.1, mill 0.9.3, mvn 3.6.3, sbt 1.4.4,
-   bazel 3.7.2, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.6,
+   ant 1.10.9, gradle 6.8, mill 0.9.4, mvn 3.6.3, sbt 1.4.6,
+   bazel 3.7.2, bloop v1.3.4, cfr 0.150, make 3.81, python 3.9.0,
    git 2.30.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
-C:\opt\sbt-1.4.4\bin\sbt
-C:\opt\sbt-1.4.4\bin\sbt.bat
+C:\opt\sbt-1.4.6\bin\sbt
+C:\opt\sbt-1.4.6\bin\sbt.bat
 </pre>
 
 > **:mag_right:** Other external tools such as [**`javac.exe`**][javac_cli] and [**`scalac.bat`**][scalac_cli] are accessible through the corresponding environment variable, e.g. **`JAVA_HOME`** for **`javac.exe`**, **`SCALA_HOME`** resp. **`SCALA3_HOME`** for **`scalac.exe`**.
@@ -316,8 +316,8 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.9.1, java 11.0.9.1, scalac 2.13.4, scalac 3.0.0-M3,
-   ant 1.10.9, gradle 6.7.1, mill 0.9.3, mvn 3.6.3, sbt 1.4.4,
-   bazel 3.7.2, bloop v1.3.4, cfr 0.150, make 3.81, python 3.8.6,
+   ant 1.10.9, gradle 6.8, mill 0.9.4, mvn 3.6.3, sbt 1.4.6,
+   bazel 3.7.2, bloop v1.3.4, cfr 0.150, make 3.81, python 3.9.0,
    git 2.30.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-11.0.9.1+1\bin\javac.exe
@@ -325,15 +325,15 @@ Tool paths:
    C:\opt\scala-2.13.4\bin\scalac.bat
    C:\opt\scala-3.0.0-M3\bin\scalac.bat
    C:\opt\apache-ant-1.10.9\bin\ant.bat
-   C:\opt\gradle-6.7.1\bin\gradle.bat
-   C:\opt\Mill-0.9.3\mill.bat
+   C:\opt\gradle-6.8\bin\gradle.bat
+   C:\opt\Mill-0.9.4\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
-   C:\opt\sbt-1.4.4\bin\sbt.bat
+   C:\opt\sbt-1.4.6\bin\sbt.bat
    C:\opt\bazel-3.7.2\bazel.exe
    C:\opt\bloop-1.3.4\bloop.cmd
    C:\opt\cfr-0.150\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
-   C:\opt\Python-3.8\python.exe
+   C:\opt\Python-3.9\python.exe
    C:\opt\Git-2.30.0\bin\git.exe
    C:\opt\Git-2.30.0\mingw64\bin\git.exe
    C:\opt\Git-2.30.0\usr\bin\diff.exe
@@ -343,7 +343,7 @@ Environment variables:
    GIT_HOME=C:\opt\Git-2.30.0
    JAVA_HOME=C:\opt\jdk-11.0.9.1+1
    JAVAFX_HOME=C:\opt\javafx-sdk-14.0.2.1
-   PYTHON_HOME=C:\opt\Python-3.8
+   PYTHON_HOME=C:\opt\Python-3.9
    SCALA_HOME=C:\opt\scala-2.13.4
    SCALA3_HOME=C:\opt\scala-3.0.0-M3
    SCALAFMT_HOME=C:\opt\scalafmt-2.6.4
@@ -716,12 +716,12 @@ For instance, for Visual Studio 2019, we set variable <b><code>BAZEL_VC</code></
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/lihaoyi/mill/releases">0.9.3-assembly</a> (<code>mill</code>)                             <i>(57 MB)</i>
+<a href="https://github.com/lihaoyi/mill/releases">0.9.4-assembly</a> (<code>mill</code>)                             <i>(57 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.9-bin.zip</a>                         <i>( 9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                        <i>( 9 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-3.7.2-windows-x86_64.zip</a>                    <i>(38 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.0.0-M3">scala-3.0.0-M3.zip</a>                                <i>(24 MB)</i>
-<a href="https://gradle.org/install/">gradle-6.7.1-bin.zip</a>                              <i>(97 MB)</i>
+<a href="https://gradle.org/install/">gradle-6.8-bin.zip</a>                                <i>(97 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.6.zip</a>                                  <i>( 4 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                 <i>(10 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.9.1_1.zip</a> <i>(99 MB)</i>

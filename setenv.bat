@@ -222,7 +222,7 @@ set __DRIVE_NAME=%~1
 set "__GIVEN_PATH=%~2"
 
 if not "%__DRIVE_NAME:~-1%"==":" set __DRIVE_NAME=%__DRIVE_NAME%:
-if "%__DRIVE_NAME%"=="%__GIVEN_PATH:~0,2%" goto :eof
+if /i "%__DRIVE_NAME%"=="%__GIVEN_PATH:~0,2%" goto :eof
 
 if "%__GIVEN_PATH:~-1%"=="\" set "__GIVEN_PATH=%__GIVEN_PATH:~0,-1%"
 if not exist "%__GIVEN_PATH%" (
