@@ -36,7 +36,7 @@ For instance our development environment looks as follows (*January 2021*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.30.0\       <i>(290 MB)</i>
-C:\opt\jdk-11.0.9.1+1\    <i>(314 MB)</i>
+C:\opt\jdk-11.0.10+9\    <i>(314 MB)</i>
 C:\opt\scala-3.0.0-M3\   <i>( 57 MB)</i>
 </pre>
 
@@ -240,7 +240,7 @@ Note the following about the generated files:
 For instance we can read from file **`logs\log_share_off.log`** that  source of **`cdsexamples.Main`** is **`file:/`** and that the total load time on the last line is **`0.124s`**:
 
 <pre style="font-size:80%;">
-[0.008s][info][class,load] opened: c:\opt\jdk-11.0.9.1+1\lib\modules
+[0.008s][info][class,load] opened: c:\opt\jdk-11.0.10+9\lib\modules
 [0.018s][info][class,load] java.lang.Object source: jrt:/java.base
 [...]
 [0.121s][info][class,load] cdsexamples.Main source: file:/&lt;project_path&gt;/target/JavaExample.jar
@@ -577,12 +577,12 @@ Classes per package (888):
 > 3. Repeat command from point 1. 
 > 
 > <pre style="font-size:80%;">
-> <b>&gt; c:\opt\jdk-11.0.9.1+1\bin\java -version</b>
+> <b>&gt; c:\opt\jdk-11.0.10+9\bin\java -version</b>
 > openjdk version "11.0.8" 2020-07-14
 > OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.8+10)
 > OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.8+10, mixed mode)
 > &nbsp;
-> <b>&gt; c:\opt\jdk-11.0.9.1+1\bin\java -Xshare:dump</b>
+> <b>&gt; c:\opt\jdk-11.0.10+9\bin\java -Xshare:dump</b>
 > [...]
 > Number of classes 1272
 > [...]
@@ -593,11 +593,11 @@ Classes per package (888):
 > od  space:   6534648 [ 36.1% of total] [...]
 > total    :  17873816 [100.0% of total] [...]
 > &nbsp;
-> <b>&gt; dir /b c:\opt\jdk-11.0.9.1+1\bin\server</b>
+> <b>&gt; dir /b c:\opt\jdk-11.0.10+9\bin\server</b>
 > classes.jsa
 > jvm.dll
 > &nbsp;
-> <b>&gt; c:\opt\jdk-11.0.9.1+1\bin\java -version</b>
+> <b>&gt; c:\opt\jdk-11.0.10+9\bin\java -version</b>
 > openjdk version "11.0.9.1" 2020-11-04
 > OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.9.1+1)
 > OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.8.1+1, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)

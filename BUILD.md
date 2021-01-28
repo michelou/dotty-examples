@@ -226,6 +226,8 @@ We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :--------: | :--------: | :--------- |
+| [#11235][dotty_pull_11235] | [merged](https://github.com/lampepfl/dotty/commit/8d3275c) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
+| [#11158][dotty_pull_11158] | [merged](https://github.com/lampepfl/dotty/commit/bbfff61) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
 | [#11062][dotty_pull_11062] | [merged](https://github.com/lampepfl/dotty/commit/0f1d350) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
 | [#11016][dotty_pull_11016] | [merged](https://github.com/lampepfl/dotty/commit/437d02a) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
 | [#10953][dotty_pull_10953] | [merged](https://github.com/lampepfl/dotty/commit/141bf9e) <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
@@ -451,7 +453,7 @@ versions
 9
 </pre>
 
-Output directory **`docs\docs\`** contains the Markdown files of the [Dotty website][dotty]:
+Output directory **`docs\docs\`** contains the Markdown files of the [Scala 3 website][dotty]:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir" rel="external">dir</a> /b docs\docs</b>
@@ -749,6 +751,8 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_pull_10953]: https://github.com/lampepfl/dotty/pull/10953
 [dotty_pull_11016]: https://github.com/lampepfl/dotty/pull/11016
 [dotty_pull_11062]: https://github.com/lampepfl/dotty/pull/11062
+[dotty_pull_11158]: https://github.com/lampepfl/dotty/pull/11158
+[dotty_pull_11235]: https://github.com/lampepfl/dotty/pull/11235
 [dotty_docs]: https://dotty.epfl.ch/docs/
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_releases]: https://github.com/lampepfl/dotty/releases
@@ -781,7 +785,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.4.1
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.4.6
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/

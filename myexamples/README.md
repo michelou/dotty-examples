@@ -71,8 +71,8 @@ Total time: 3 seconds
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://curl.haxx.se/docs/manual.html">curl</a> -sL -o c:\Temp\apache-ivy-2.5.0.zip https://www-eu.apache.org/dist//ant/ivy/2.5.0/apache-ivy-2.5.0-bin.zip</b>
 > <b>&gt; unzip c:\temp\apache-ivy-2.5.0.zip -d c:\opt</b>
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/copy">copy</a> c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.8\lib</b>
-> <b>&gt; dir c:\opt\apache-ant-1.10.8\lib | findstr ivy</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/copy">copy</a> c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.9\lib</b>
+> <b>&gt; dir c:\opt\apache-ant-1.10.9\lib | findstr ivy</b>
 > 20.10.2019  09:44         1 402 646 ivy-2.5.0.jar
 > </pre>
 
@@ -547,7 +547,7 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
