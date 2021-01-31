@@ -6,12 +6,12 @@
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:100px;" src="../docs/dotty.png" width="100" alt="Dotty logo"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>plugin-examples\</code></strong> contains <a href="https://dotty.epfl.ch/" rel="external" title="Dotty">Dotty</a> code examples written by myself.
+    Directory <strong><code>plugin-examples\</code></strong> contains <a href="https://dotty.epfl.ch/" rel="external" title="Dotty">Scala 3</a> code examples written by myself.
   </td>
   </tr>
 </table>
 
-We present how to write/execute [Dotty] plugins in the following code examples:
+We present how to write/execute [Scala 3][dotty] plugins in the following code examples:
 
 - [**`DivideZero`**](#dividezero) generates an error message when the plugin detects a division by zero.
 - [**`ModifyPipeline`**](#modifypipeline)
@@ -23,7 +23,7 @@ We present how to write/execute [Dotty] plugins in the following code examples:
 
 ## <span id="dividezero">DivideZero</span>
 
-Command  with no parameter displays the help message:
+Command [`build`](DivideZero/build.bat) with no parameter displays the help message:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="DivideZero/build.bat">build</a></b>
@@ -56,7 +56,7 @@ Exception in thread "main" java.lang.ArithmeticException: / by zero
         at DivideZeroTest.main(DivideZeroTest.scala)
 </pre>
 
-Command [**`build test`**](DivideZero/build.bat) generates the [Dotty] plugin **`DivideZero.jar`** from source file [**`DivideZero.scala`**](DivideZero/src/main/scala/DivideZero.scala) and tests the plugin with source file [**`DivideZeroTest.scala`**](DivideZero/src/test/scala/DivideZeroTest.scala):
+Command [**`build test`**](DivideZero/build.bat) generates the [Scala 3][dotty] plugin **`DivideZero.jar`** from source file [**`DivideZero.scala`**](DivideZero/src/main/scala/DivideZero.scala) and tests the plugin with source file [**`DivideZeroTest.scala`**](DivideZero/src/test/scala/DivideZeroTest.scala):
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="DivideZero/build.bat">build</a> clean test</b>
@@ -96,7 +96,7 @@ Command [**`build test`**](DivideZero/build.bat) generates the [Dotty] plugin **
 Error: Compilation of test Scala source files failed
 </pre>
 
-> **:mag_right:** We give two argument files to the [Dotty] compiler: **`target\test_scalac_opts.txt`** (compiler options) and **`target\test_scalac_sources.txt`** (source files):
+> **:mag_right:** We give two argument files to the [Scala 3][dotty] compiler: **`target\test_scalac_opts.txt`** (compiler options) and **`target\test_scalac_sources.txt`** (source files):
 > &nbsp;
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/type" rel="external">type</a> target\test_scala*.txt</b>
@@ -113,10 +113,9 @@ Error: Compilation of test Scala source files failed
 > </pre>
 > In particular we observe the usage of the two plugin options **`-Xplugin:<plugin_jar_file>`** and **`-Xplugin-require:<plugin_name> -P:"divideZero:opt1=1"`**.
 
-
 ## <span id="modifypipeline">ModifyPipeline</span>
 
-Command [**`build test`**](ModifyPipeline/build.bat) generates the [Dotty] plugin **`ModifyPipeline.jar`** from source file [**`ModifyPipeline.scala`**](ModifyPipeline/src/main/scala/ModifyPipeline.scala) and tests the plugin with source file [**`ModifyPipelineTest.scala`**](ModifyPipeline/src/test/scala/ModifyPipelineTest.scala):
+Command [**`build test`**](ModifyPipeline/build.bat) generates the [Scala 3][dotty] plugin **`ModifyPipeline.jar`** from source file [**`ModifyPipeline.scala`**](ModifyPipeline/src/main/scala/ModifyPipeline.scala) and tests the plugin with source file [**`ModifyPipelineTest.scala`**](ModifyPipeline/src/test/scala/ModifyPipelineTest.scala):
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="ModifyPipeline/build.bat">build</a> clean test</b>
@@ -127,7 +126,7 @@ Command [**`build test`**](ModifyPipeline/build.bat) generates the [Dotty] plugi
 
 ## <span id="multiplyone">MultiplyOne</span>
 
-Command [**`build clean test`**](MultiplyOne/build.bat) generates the [Dotty] plugin **`MultiplyOne.jar`** from source file [**`MultiplyOne.scala`**](MultiplyOne/src/main/scala/MultiplyOne.scala) and tests the plugin with source file [**`MultiplyOneTest.scala`**](MultiplyOne/src/test/scala/MultiplyOneTest.scala):
+Command [**`build clean test`**](MultiplyOne/build.bat) generates the [Scala 3][dotty] plugin **`MultiplyOne.jar`** from source file [**`MultiplyOne.scala`**](MultiplyOne/src/main/scala/MultiplyOne.scala) and tests the plugin with source file [**`MultiplyOneTest.scala`**](MultiplyOne/src/test/scala/MultiplyOneTest.scala):
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="MultiplyOne/build.bat">build</a> clean test</b>
@@ -144,7 +143,7 @@ aaaaaaaaaa
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2020* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

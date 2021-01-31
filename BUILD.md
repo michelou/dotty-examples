@@ -40,12 +40,12 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*January 2021*):
+For instance our development environment looks as follows (*February 2021*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.30.0\      <i>(290 MB)</i>
 C:\opt\jdk-11.0.9.1+1\  <i>(314 MB)</i>
-C:\opt\sbt-1.4.6\       <i>(  1 MB, no local-preloaded libraries)</i>
+C:\opt\sbt-1.4.7\       <i>( 48 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -212,7 +212,8 @@ We distinguish different sets of batch commands:
 We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6]</a></sup> while executing [Scala 3][Dotty] commands on Windows:
 
 | [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Issue status&nbsp;&nbsp;&nbsp; | Context |
-| :--------: | :--------: | :--------- |
+| :-------------------------: | :--------: | :--------- |
+| [#11014][dotty_issue_11014] | *open* | Markdown files |
 | [#8358][dotty_issue_8358] | *open* | Resource leak |
 | [#8355][dotty_issue_8355] | [fixed][dotty_pull_8356] | Test suite |
 | [#8218][dotty_issue_8218] | [fixed][dotty_pull_8224] | TASTy inspector |
@@ -225,7 +226,8 @@ We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6
 | [#4272][dotty_issue_4272] | [fixed](https://github.com/lampepfl/dotty/commit/9723748) | Type constraints|
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
-| :--------: | :--------: | :--------- |
+| :------------------------: | :--------: | :--------- |
+| [#11257][dotty_pull_11257] | *WIP*  | Reference documentation |
 | [#11235][dotty_pull_11235] | [merged](https://github.com/lampepfl/dotty/commit/8d3275c) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
 | [#11158][dotty_pull_11158] | [merged](https://github.com/lampepfl/dotty/commit/bbfff61) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
 | [#11062][dotty_pull_11062] | [merged](https://github.com/lampepfl/dotty/commit/0f1d350) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
@@ -720,7 +722,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -737,6 +739,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_issue_8218]: https://github.com/lampepfl/dotty/issues/8218
 [dotty_issue_8355]: https://github.com/lampepfl/dotty/issues/8355
 [dotty_issue_8358]: https://github.com/lampepfl/dotty/issues/8358
+[dotty_issue_11014]: https://github.com/lampepfl/dotty/issues/11014
 [dotty_pull_6653]: https://github.com/lampepfl/dotty/pull/6653
 [dotty_pull_7691]: https://github.com/lampepfl/dotty/pull/7691
 [dotty_pull_8224]: https://github.com/lampepfl/dotty/pull/8224
@@ -753,6 +756,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_pull_11062]: https://github.com/lampepfl/dotty/pull/11062
 [dotty_pull_11158]: https://github.com/lampepfl/dotty/pull/11158
 [dotty_pull_11235]: https://github.com/lampepfl/dotty/pull/11235
+[dotty_pull_11257]: https://github.com/lampepfl/dotty/pull/11257
 [dotty_docs]: https://dotty.epfl.ch/docs/
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_releases]: https://github.com/lampepfl/dotty/releases

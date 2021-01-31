@@ -20,7 +20,7 @@ val scalaSourcePath = os.pwd / "src" / "main" / "scala"
 
 val scalaLibVersion = "2.13"
 val scalatestVersion = "3.2.3"
-val specs2Version = "4.10.4"
+val specs2Version = "4.10.6"
 
 val ivyJunit = ivy"org.junit:org.junit:4.13.1"
 

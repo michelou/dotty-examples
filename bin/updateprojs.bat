@@ -14,13 +14,13 @@ set _DOTTY_VERSION_OLD="3.0.0-M2"
 set _DOTTY_VERSION_NEW="3.0.0-M3"
 
 @rem files project\build.properties
-set _SBT_VERSION_OLD=sbt.version=1.4.3
-set _SBT_VERSION_NEW=sbt.version=1.4.4
+set _SBT_VERSION_OLD=sbt.version=1.4.6
+set _SBT_VERSION_NEW=sbt.version=1.4.7
 
 @rem files project\plugins.sbt
 @rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/
-set _SBT_DOTTY_VERSION_OLD="0.5.0"
-set _SBT_DOTTY_VERSION_NEW="0.5.1"
+set _SBT_DOTTY_VERSION_OLD="0.5.1"
+set _SBT_DOTTY_VERSION_NEW="0.5.2"
 
 @rem see https://mvnrepository.com/artifact/org.scalatest/scalatest
 set _SCALATEST_VERSION_OLD=^(\"scalatest_2.13\"^)^(.+\"3.2.2\"^)
