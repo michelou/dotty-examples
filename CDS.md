@@ -12,7 +12,7 @@
   </tr>
 </table>
 
-This document is part of a series of topics related to [Dotty] on Windows:
+This document is part of a series of topics related to [Scala 3][dotty] on Windows:
 
 - [Running Dotty on Windows](README.md)
 - [Building Dotty on Windows](BUILD.md)
@@ -32,12 +32,12 @@ This project depends on two external software for the **Microsoft Windows** plat
 
 > **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Scala 3.0][scala_3] also support Java 9+. In the following we work with [Oracle OpenJDK 11][openjdk_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
 
-For instance our development environment looks as follows (*January 2021*):
+For instance our development environment looks as follows (*February 2021*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.30.0\       <i>(290 MB)</i>
 C:\opt\jdk-11.0.10+9\    <i>(314 MB)</i>
-C:\opt\scala-3.0.0-M3\   <i>( 57 MB)</i>
+C:\opt\scala-3.0.0-M4\   <i>( 57 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_downloads] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -251,7 +251,7 @@ For instance we can read from file **`logs\log_share_off.log`** that  source of 
 We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/tools/java.html) command (*from Java 9+*) directly to check if data sharing is effectively used:
 
 <pre style="font-size:80%;">
-<b>&gt; java -verbose:class -Xshare:on -XX:SharedArchiveFile=target\JavaExample.jsa ^
+<b>&gt; <a href="https://docs.oracle.com/en/java/javase/11/tools/java.htm">java</a> -verbose:class -Xshare:on -XX:SharedArchiveFile=target\JavaExample.jsa ^
  -jar W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar | findstr cdsexamples</b>
 [0.089s][info][class,load] cdsexamples.Main source: shared objects file
 
@@ -262,13 +262,13 @@ We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/t
 
 > **:warning:** The ***crucial point*** here is to use the correct path of **`JavaExample.jar`** together with the specified Java shared archive. Command [**`grep -a`**][man1_grep] (**`-a`** means "*process a binary file as if it were text*") helps us to extract that path from **`JavaExample.jsa`**.<br/>
 > <pre style="font-size:80%;">
-> <b>&gt; grep -aPo '.{0,40}JavaExample.jar{0,40}' target\JavaExample.jsa</b>
+> <b>&gt; <a href="https://www.gnu.org/software/grep/manual/grep.html#Invoking">grep</a> -aPo '.{0,40}JavaExample.jar{0,40}' target\JavaExample.jsa</b>
 >   W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar
 >   W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar
 > </pre>
 
 
-## <span id="dotty_example">Dotty example</span>
+## <span id="dotty_example">Scala 3 example</span>
 
 Source file [**`src\main\scala\Main.scala`**](cdsexamples/DottyExample/src/main/scala/Main.scala) is the main program of our [Dotty] code example:
 
@@ -276,7 +276,7 @@ Source file [**`src\main\scala\Main.scala`**](cdsexamples/DottyExample/src/main/
 <b>package</b> cdsexamples
 <b>object</b> Main {
   <b>def</b> main(args: <b style="color:#000066;">Array</b>[String]): <b style="color:#000066;">Unit</b> = {
-    println(<span style="color:#990000;">"Hello from Dotty !"</span>)
+    println(<span style="color:#990000;">"Hello from Scala 3 !"</span>)
     <b>if</b> (args.length > 0) {
       println(VMOptions.asString)
       <i style="color:#006600;">//TastyTest.run()</i>
@@ -324,11 +324,11 @@ We can now execute our [Dotty] example ***without data sharing*** (default setti
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="cdsexamples/DottyExample/build.bat">build</a> run</b>
-Hello from Dotty !
+Hello from Scala 3 !
 &nbsp;
 <b>&gt; build run -verbose</b>
 Execute Java archive (#iterations=1) target\DottyExample.jar
-Hello from Dotty !
+Hello from Scala 3 !
 Execution report:
    Share flag       : off
    Shared archive   : target\DottyExample.jsa
@@ -352,11 +352,11 @@ For comparison here is the output ***with data sharing***; option **`-verbose`**
 
 <pre style="font-size:80%;">
 <b>&gt; build run -share</b>
-Hello from Dotty !
+Hello from Scala 3 !
 &nbsp;
 <b>&gt; build run -verbose -share</b>
 Execute Java archive (#iterations=1) target\DottyExample.jar
-Hello from Dotty !
+Hello from Scala 3 !
 Execution report:
    Share flag       : on
    Shared archive   : target\DottyExample.jsa
@@ -381,10 +381,10 @@ Subcommand **`run`** with option **`-iter:<n>`** (**`n=1..99`**) executes **`n`*
 <pre style="font-size:80%;">
 <b>&gt; build run -verbose -share -iter:4</b>
 Execute Java archive (#iterations=4) target\DottyExample.jar
-Hello from Dotty !
-Hello from Dotty !
-Hello from Dotty !
-Hello from Dotty !
+Hello from Scala 3 !
+Hello from Scala 3 !
+Hello from Scala 3 !
+Hello from Scala 3 !
 Execution report:
    Share flag       : on
    Shared archive   : target\DottyExample.jsa
@@ -703,7 +703,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

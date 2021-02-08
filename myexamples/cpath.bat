@@ -26,13 +26,13 @@ call :add_jar "org.apiguardian" "apiguardian-api" "1.1.0"
 call :add_jar "org.junit.jupiter" "junit-jupiter-api" "5.6.2"
 
 @rem https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect
-call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALALIB_VERSION%" "1.0.0"
+call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALALIB_VERSION%" "1.1.0"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
 call :add_jar "org.scala-lang.modules" "scala-xml_%__SCALALIB_VERSION%" "1.3.0"
 
 @rem https://mvnrepository.com/artifact/junit/junit
-call :add_jar "junit" "junit" "4.13"
+call :add_jar "junit" "junit" "4.13.1"
 
 @rem https://mvnrepository.com/artifact/com.novocode/junit-interface
 call :add_jar "com.novocode" "junit-interface" "0.11"
@@ -60,7 +60,7 @@ call :add_jar "org.scalatest" "scalatest_%__SCALALIB_VERSION%" "%__SCALATEST_VER
 @rem https://mvnrepository.com/artifact/org.scalactic
 call :add_jar "org.scalactic" "scalactic_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
 
-set __SPECS2_CORE_VERSION=4.10.4
+set __SPECS2_CORE_VERSION=4.10.6
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-core
 call :add_jar "org.specs2" "specs2-core_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"

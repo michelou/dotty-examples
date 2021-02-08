@@ -34,7 +34,7 @@
         <!-- Note: JUnit 5 requires Surefire version 2.22.1 or higher -->
         <maven.surefire.version>2.22.2</maven.surefire.version> <!-- Oct 2018 -->
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
-        <specs2.version>4.10.4</specs2.version>
+        <specs2.version>4.10.6</specs2.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
         <maven.jar.version>3.2.0</maven.jar.version>            <!-- May 2019 -->
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
@@ -43,9 +43,9 @@
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
         <jmh.version>1.27</jmh.version>                         <!-- Dec 2020, Oracle -->
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
-        <junit.platform.version>1.7.0</junit.platform.version>  <!-- Sep 2020 -->
+        <junit.platform.version>1.7.1</junit.platform.version>  <!-- Sep 2020 -->
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <jupiter.version>5.7.0</jupiter.version>                <!-- Sep 2020 -->
+        <jupiter.version>5.7.1</jupiter.version>                <!-- Sep 2020 -->
     </properties>
 
     <dependencies>

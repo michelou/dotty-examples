@@ -22,13 +22,13 @@ object ImplicitFunctionTypes {
   case class Cell(elem: String)
 
   def table(init: Table ?=> Unit) = {
-    given t as Table
+    given t: Table = new Table
     init
     t
   }
 
   def row(init: Row ?=> Unit)(using t: Table) = {
-    given r as Row
+    given r: Row = new Row
     init
     t.add(r)
   }

@@ -64,14 +64,23 @@ set "_TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes"
 set "_TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
 
-if not defined JAVA_HOME (
-   echo %_ERROR_LABEL% Java SDK not found 1>&2
+if not exist "%JAVA_HOME%\bin\javac.exe" (
+   echo %_ERROR_LABEL% Java SDK installation not found 1>&2
    set _EXITCODE=1
    goto :eof
 )
 set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
 set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
 set "_JAVADOC_CMD=%JAVA_HOME%\bin\javadoc.exe"
+
+if not exist "%SCALA3_HOME%\bin\scalac.bat" (
+   echo %_ERROR_LABEL% Scala 3 installation not found 1>&2
+   set _EXITCODE=1
+   goto :eof
+)
+set "_SCALA_CMD=%SCALA3_HOME%\bin\scala.bat"
+set "_SCALAC_CMD=%SCALA3_HOME%\bin\scalac.bat"
+set "_SCALADOC_CMD=%SCALA3_HOME%\bin\scalad.bat"
 goto :eof
 
 :env_colors
@@ -154,7 +163,6 @@ set _CLEAN=0
 set _COMPILE=0
 set _DECOMPILE=0
 set _DOC=0
-set _DOTTY=1
 set _HELP=0
 set _MAIN_CLASS=%_MAIN_CLASS_DEFAULT%
 set _MAIN_ARGS=%_MAIN_ARGS_DEFAULT%
@@ -176,11 +184,9 @@ if not defined __ARG (
 if "%__ARG:~0,1%"=="-" (
     @rem option
 	if "%__ARG%"=="-debug" ( set _DEBUG=1
-    ) else if "%__ARG%"=="-dotty" ( set _DOTTY=1
     ) else if "%__ARG%"=="-explain" ( set _SCALAC_OPTS_EXPLAIN=1
     ) else if "%__ARG%"=="-explain-types" ( set _SCALAC_OPTS_EXPLAIN_TYPES=1
     ) else if "%__ARG%"=="-help" ( set _HELP=1
-    ) else if "%__ARG%"=="-scala" ( set _DOTTY=0
     ) else if "%__ARG%"=="-tasty" ( set _TASTY=1
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
@@ -214,18 +220,13 @@ if %_DEBUG%==1 set _STDERR_REDIRECT=
 
 if %_SCALAC_OPTS_EXPLAIN%==1 set _SCALAC_OPTS=%_SCALAC_OPTS% -explain
 if %_SCALAC_OPTS_EXPLAIN_TYPES%==1 (
-    if !_DOTTY!==1 ( set _SCALAC_OPTS=%_SCALAC_OPTS% -explain-types
-    ) else ( set _SCALAC_OPTS=%_SCALAC_OPTS% -explaintypes
-    )
-)
-if %_TASTY%==1 if %_DOTTY%==0 (
-    echo %_WARNING_LABEL% Option '-tasty' only supported by Scala 3 1>&2
-    set _TASTY=0
+    set _SCALAC_OPTS=%_SCALAC_OPTS% -explain-types
 )
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Options    : _DOTTY=%_DOTTY% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Options    : _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _RUN=%_RUN% _TEST=%_TEST% 1>&2
-    echo %_DEBUG_LABEL% _MAIN_CLASS=%_MAIN_CLASS% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
+    echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" SCALA3_HOME="%SCALA3_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : _MAIN_CLASS=%_MAIN_CLASS% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
@@ -246,11 +247,9 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%           show commands executed by this script
-echo     %__BEG_O%-dotty%__END%           use Scala 3 tools ^(default^)
 echo     %__BEG_O%-explain%__END%         set compiler option %__BEG_O%-explain%__END%
 echo     %__BEG_O%-explain-types%__END%   set compiler option %__BEG_O%-explain-types%__END%
 echo     %__BEG_O%-main:^<name^>%__END%     define main class name
-echo     %__BEG_O%-scala%__END%           use Scala 2 tools
 echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
 echo     %__BEG_O%-timer%__END%           display total elapsed time
 echo     %__BEG_O%-verbose%__END%         display progress messages
@@ -345,36 +344,7 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-:init_scala
-if defined _SCALAC_CMD goto :eof
-set __SCALA[0]=scala.bat
-set __SCALA[1]=dotr.bat
-set __SCALAC[0]=scalac.bat
-set __SCALAC[1]=dotc.bat
-set __SCALADOC[0]=scaladoc.bat
-set __SCALADOC[1]=dotd.bat
-
-set __SCALA_BIN_DIR=
-for /f %%i in ('where "!__SCALAC[%_DOTTY%]!" 2^>NUL') do set "__SCALA_BIN_DIR=%%~dpi"
-if defined __SCALA_BIN_DIR (
-    set "_SCALA_CMD=%__SCALA_BIN_DIR%!__SCALA[%_DOTTY%]!"
-    set "_SCALAC_CMD=%__SCALA_BIN_DIR%!__SCALAC[%_DOTTY%]!"
-    set "_SCALADOC_CMD=%__SCALA_BIN_DIR%!__SCALADOC[%_DOTTY%]!"
-) else if defined SCALA_HOME (
-    set "_SCALA_CMD=%SCALA_HOME%\bin\!__SCALA[%_DOTTY%]!"
-    set "_SCALAC_CMD=%SCALA_HOME%\bin\!__SCALAC[%_DOTTY%]!"
-    set "_SCALADOC_CMD=%SCALA_HOME%\bin\!__SCALADOC[%_DOTTY%]!"
-) else (
-   echo %_ERROR_LABEL% Command !__SCALAC[%_DOTTY%]! not found 1>&2
-   set _EXITCODE=1
-   goto :eof
-)
-goto :eof
-
 :compile_scala
-call :init_scala
-if not %_EXITCODE%==0 goto :eof
-
 call :libs_cpath
 if not %_EXITCODE%==0 goto :eof
 
@@ -498,9 +468,6 @@ if defined __ADD_DOTTY_LIBS (
 goto :eof
 
 :doc
-call :init_scala
-if not %_EXITCODE%==0 goto :eof
-
 if not exist "%_TARGET_DOCS_DIR%" mkdir "%_TARGET_DOCS_DIR%" 1>NUL
 
 set "__DOC_TIMESTAMP_FILE=%_TARGET_DOCS_DIR%\.latest-build"
@@ -513,11 +480,8 @@ for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i>> "%__SOURCES_FILE%"
 )
 set "__OPTS_FILE=%_TARGET_DIR%\scaladoc_opts.txt"
-if %_DOTTY%==0 (
-    echo -d "%_TARGET_DOCS_DIR%" -doc-title "%_PROJECT_NAME%" -doc-footer "%_PROJECT_URL%" -doc-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
-) else (
-    echo -siteroot "%_TARGET_DOCS_DIR%" -project "%_PROJECT_NAME%" -project-url "%_PROJECT_URL%" -project-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
-)
+echo -siteroot "%_TARGET_DOCS_DIR%" -project "%_PROJECT_NAME%" -project-url "%_PROJECT_URL%" -project-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
+
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate HTML documentation into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
 )
@@ -531,9 +495,6 @@ echo. > "%__DOC_TIMESTAMP_FILE%"
 goto :eof
 
 :run
-call :init_scala
-if not %_EXITCODE%==0 goto :eof
-
 set "__MAIN_CLASS_FILE=%_CLASSES_DIR%\%_MAIN_CLASS:.=\%.class"
 if not exist "%__MAIN_CLASS_FILE%" (
     echo %_ERROR_LABEL% Main class '%_MAIN_CLASS%' not found ^(%__MAIN_CLASS_FILE%^) 1>&2
