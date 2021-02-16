@@ -47,7 +47,7 @@ run: build
 ##############################################################################
 ## test rules
 
-TEST_CPATH     = $(SCALA_LIB_JAR)$(PSEP)$(DOTTY_LIB_JAR)$(PSEP)$(HAMCREST_JAR)$(PSEP)$(JUNIT_JAR)$(PSEP)$(JUNIT_INTF_JAR)$(PSEP)$(CLASSES_DIR)
+TEST_CPATH     = $(SCALA_LIB_JAR)$(PSEP)$(SCALA3_LIB_JAR)$(PSEP)$(HAMCREST_JAR)$(PSEP)$(JUNIT_JAR)$(PSEP)$(JUNIT_INTF_JAR)$(PSEP)$(CLASSES_DIR)
 TEST_SOURCES   = $(shell find $(SOURCE_DIR)/test -name *.scala)
 TEST_TARGET    = $(TARGET_DIR)/.latest-test-build
 

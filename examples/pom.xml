@@ -14,12 +14,7 @@
         <m2.directory>${user.home}/.m2/repository</m2.directory>
 
         <!-- Scala settings -->
-        <!--
-        <scala.groupId>ch.epfl.lamp</scala.groupId>
-        <scala.versionTag>0.27.0-RC1</scala.versionTag>
-        <scala.version>${scala.versionTag}</scala.version> // eg. "2.13.3" or "0.26.0"
-        -->
-        <scala.groupId>org.scala-lang</scala.groupId>
+        <scala.groupId>org.scala-lang</scala.groupId> <!-- old: "ch.epfl.lamp" -->
         <scala.versionTag>3.0.0-M3</scala.versionTag>
         <scala.version>${scala.versionTag}</scala.version>
         <scala.local.install>true</scala.local.install>

@@ -29,14 +29,15 @@ This project depends on two external software for the **Microsoft Windows** plat
 - [Git 2.30][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][oracle_openjdk] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk_relnotes])
 <!--
-8u212  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
-8u222  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
-8u232  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
-8u242  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
-8u252  -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-April/011559.html
-11.0.7 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
-11.0.8 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-July/003498.html
-11.0.9 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-October/004007.html
+8u212   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
+8u222   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
+8u232   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
+8u242   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
+8u252   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-April/011559.html
+11.0.7  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
+11.0.8  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-July/003498.html
+11.0.9  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-October/004007.html
+11.0.10 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-January/004689.html
 -->
 Optionally one may also install the following software:
 
@@ -47,6 +48,7 @@ Optionally one may also install the following software:
 - [GNU Make 3.81][make_downloads]
 - [Gradle 6.8][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [JaCoCo 0.8][jacoco_downloads] ([*change log*][jacoco_changelog])
+- [JavaFX 15][javafx_downloads] ([*release notes*][javafx_relnotes])
 - [Mill 0.9][mill_releases] ([*change log*][mill_changelog])
 - [SBT 1.4][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
@@ -65,9 +67,10 @@ C:\opt\apache-ant-1.10.9\    <i>( 39.7 MB)</i>
 C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
 C:\opt\bazel-4.0.0\          <i>( 41.0 MB)</i>
 C:\opt\cfr-0.151\            <i>(  1.9 MB)</i>
-C:\opt\Git-2.30.0\           <i>(290.0 MB)</i>
+C:\opt\Git-2.30.1\           <i>(290.0 MB)</i>
 C:\opt\gradle-6.8.2\         <i>(116.0 MB)</i>
 C:\opt\jacoco-0.8.6\         <i>( 10.6 MB)</i>
+C:\opt\javafx-sdk-15.0.1\    <i>( 78.2 MB)</i>
 C:\opt\jdk-11.0.10+9\        <i>(181.0 MB)</i>
 C:\opt\make-3.81\            <i>(  2.1 MB)</i>
 C:\opt\Mill-0.9.5\           <i>( 53.7 MB)</i>
@@ -302,7 +305,7 @@ Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.4, scalac 3.0.0-M4,
    ant 1.10.9, gradle 6.8.2, mill 0.9.5, mvn 3.6.3, sbt 1.4.7,
    bazel 4.0.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.1,
-   git 2.30.0.windows.1, diff 3.7, bash 4.4.23(1)-release
+   git 2.30.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
 C:\opt\sbt-1.4.7\bin\sbt
@@ -319,7 +322,7 @@ Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.4, scalac 3.0.0-M4,
    ant 1.10.9, gradle 6.8.2, mill 0.9.5, mvn 3.6.3, sbt 1.4.7,
    bazel 4.0.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.1,
-   git 2.30.0.windows.1, diff 3.7, bash 4.4.23(1)-release
+   git 2.30.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-11.0.10+9\bin\javac.exe
    C:\opt\jdk-11.0.10+9\bin\java.exe
@@ -335,13 +338,13 @@ Tool paths:
    C:\opt\cfr-0.151\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
    C:\opt\Python-3.9.1\python.exe
-   C:\opt\Git-2.30.0\bin\git.exe
-   C:\opt\Git-2.30.0\mingw64\bin\git.exe
-   C:\opt\Git-2.30.0\usr\bin\diff.exe
-   C:\opt\Git-2.30.0\bin\bash.exe
+   C:\opt\Git-2.30.1\bin\git.exe
+   C:\opt\Git-2.30.1\mingw64\bin\git.exe
+   C:\opt\Git-2.30.1\usr\bin\diff.exe
+   C:\opt\Git-2.30.1\bin\bash.exe
 Environment variables:
    ANT_HOME=C:\opt\apache-ant-1.10.9
-   GIT_HOME=C:\opt\Git-2.30.0
+   GIT_HOME=C:\opt\Git-2.30.1
    JAVA_HOME=C:\opt\jdk-11.0.10+9
    JAVAFX_HOME=C:\opt\javafx-sdk-14.0.2.1
    PYTHON_HOME=C:\opt\Python-3.9.1
@@ -689,10 +692,13 @@ Hello world!
 
 ## <span id="footnotes">Footnotes</span>
 
-<b name="footnote_01">[1]</b> ***Java LTS*** [↩](#anchor_01) <!-- 2018-11-18 -->
+<b name="footnote_01">[1]</b> ***Java LTS versions*** [↩](#anchor_01) <!-- 2018-11-18 -->
 
 <p style="margin:0 0 1em 20px;">
-Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS release</a> in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html" rel="external">LTS release</a>.
+Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 <a href="https://wiki.shibboleth.net/confluence/pages/viewpage.action?pageId=44729840">Java SE 8</a> is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS release</a> in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html" rel="external">LTS release</a>.
+</p>
+<p style="margin:0 0 1em 20px;">
+<a href="https://wiki.shibboleth.net/confluence/pages/viewpage.action?pageId=70352982">Java SE 17</a> is in early access (<a href="http://jdk.java.net/17/">build 9</a> released in February 2021); it will be the next LTS release after Java 11.
 </p>
 
 <b name="footnote_02">[2]</b> ***Using Bazel on Windows*** [↩](#anchor_02)
@@ -717,14 +723,16 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.9-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-4.0.0-windows-x86_64.zip</a>                    <i>( 40 MB)</i>
-<a href="https://github.com/lampepfl/dotty/releases/tag/3.0.0-M4">scala-3.0.0-M4.zip</a>                                <i>( 24 MB)</i>
 <a href="https://gradle.org/install/">gradle-6.8.2-bin.zip</a>                              <i>(103 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.6.zip</a>                                  <i>(  4 MB)</i>
+<a href="http://jdk.java.net/17/">openjdk-17-ea+9_windows-x64_bin.zip</a>               <i>(176 MB)</i>
+<a href="https://gluonhq.com/products/javafx/">openjfx-15.0.1_windows-x64_bin-sdk.zip</a>            <i>( 39 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                 <i>( 10 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.10_9.zip</a>  <i>( 99 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.30.0-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.30.1-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.4.7.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.4.zip</a>                                  <i>( 21 MB)</i>
+<a href="https://github.com/lampepfl/dotty/releases/tag/3.0.0-M4">scala-3.0.0-M4.zip</a>                                <i>( 24 MB)</i>
 </pre>
 
 <b name="footnote_04">[4]</b> ***PowerShell*** [↩](#anchor_04) <!-- 2018-05-09 -->
@@ -757,12 +765,12 @@ Command Prompt has been around for as long as we can remember, but starting with
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_nightly]: https://search.maven.org/search?q=g:ch.epfl.lamp
 [dotty_releases]: https://github.com/lampepfl/dotty/releases
-[dotty_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.0.0-M4
+[dotty_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.0.0-M3
 [github_scala]: https://github.com/lampepfl/dotty/blob/master/dist/bin/scala
 [git_bash]: https://www.atlassian.com/git/tutorials/git-bash
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.30.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.30.1.txt
 [github_guides]: https://guides.github.com/
 [github_lampepfl_dotty]: https://github.com/lampepfl/dotty
 [github_markdown]: https://github.github.com/gfm/
@@ -781,6 +789,8 @@ Command Prompt has been around for as long as we can remember, but starting with
 [java_bytecode]: https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html
 [java_jls]: https://docs.oracle.com/javase/specs/jls/se8/html/index.html
 [javac_cli]: https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html
+[javafx_downloads]: https://gluonhq.com/products/javafx/
+[javafx_relnotes]: https://github.com/openjdk/jfx/blob/jfx15/doc-files/release-notes-15.0.1.md
 [javap_cli]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html
 [jmh]: https://openjdk.java.net/projects/code-tools/jmh/
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
@@ -811,7 +821,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_downloads]: https://github.com/sbt/sbt/releases
 [sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.4.6
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.4.7
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala]: https://www.scala-lang.org/
 [scala_3]: https://dotty.epfl.ch
