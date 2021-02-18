@@ -5,13 +5,13 @@
 
     <groupId>dotty.examples</groupId>
     <artifactId>UnionTypes</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <parent>
         <groupId>dotty.examples</groupId>
         <artifactId>dotty-examples</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -67,7 +67,7 @@
                         <configuration>
                             <!-- TODO : add support for POM dependencies to Scala plugin -->
                             <additionalClasspathElements>
-                                <additionalClasspathElement>${m2.directory}/junit/junit/4.13/junit-4.13.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/junit/junit/4.13.2/junit-4.13.2.jar</additionalClasspathElement>
                             </additionalClasspathElements>
                             <includes>
                                 <include>scala/**/*.scala</include>
