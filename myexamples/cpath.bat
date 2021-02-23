@@ -20,19 +20,19 @@ set _LIBS_CPATH=
 set __SCALALIB_VERSION=2.13
 
 @rem https://mvnrepository.com/artifact/org.apiguardian/apiguardian-api
-call :add_jar "org.apiguardian" "apiguardian-api" "1.1.0"
+call :add_jar "org.apiguardian" "apiguardian-api" "1.1.1"
 
 @rem https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-call :add_jar "org.junit.jupiter" "junit-jupiter-api" "5.6.2"
+call :add_jar "org.junit.jupiter" "junit-jupiter-api" "5.7.1"
 
 @rem https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect
 call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALALIB_VERSION%" "1.1.0"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-call :add_jar "org.scala-lang.modules" "scala-xml_%__SCALALIB_VERSION%" "1.3.0"
+call :add_jar "org.scala-lang.modules" "scala-xml_%__SCALALIB_VERSION%" "2.0.0-M5"
 
 @rem https://mvnrepository.com/artifact/junit/junit
-call :add_jar "junit" "junit" "4.13.1"
+call :add_jar "junit" "junit" "4.13.2"
 
 @rem https://mvnrepository.com/artifact/com.novocode/junit-interface
 call :add_jar "com.novocode" "junit-interface" "0.11"
@@ -40,7 +40,7 @@ call :add_jar "com.novocode" "junit-interface" "0.11"
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest
 call :add_jar "org.hamcrest" "hamcrest" "2.2"
 
-set __SCALATEST_VERSION=3.2.3
+set __SCALATEST_VERSION=3.2.4
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
@@ -78,9 +78,11 @@ call :add_jar "org.specs2" "specs2-matcher_%__SCALALIB_VERSION%" "%__SPECS2_CORE
 call :add_jar "org.specs2" "specs2-fp_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
 
 set __JMH_VERSION=1.27
+@rem JMH 1.27 depends on Jopt 4.6
+set __JOPT_VERSION=4.6
 
 @rem https://mvnrepository.com/artifact/net.sf.jopt-simple/jopt-simple
-call :add_jar "net.sf.jopt-simple" "jopt-simple" "4.6"
+call :add_jar "net.sf.jopt-simple" "jopt-simple" "%__JOPT_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core
 call :add_jar "org.openjdk.jmh" "jmh-core" "%__JMH_VERSION%"

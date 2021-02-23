@@ -46,18 +46,18 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*January 2021*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
+For instance our development environment looks as follows (*February 2021*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\jdk-11.0.9.1+1\                <i>(299 MB)</i>
-C:\opt\jdk-corretto-11.0.9_12\        <i>(292 MB)</i>
-C:\opt\jdk-dcevm-11.0.9+1\            <i>(295 MB)</i>
-C:\opt\jdk-graalvm-ce-java11-20.3.0\  <i>(731 MB)</i>
-C:\opt\jdk-liberica-11.0.9.1\         <i>(317 MB)</i>
-C:\opt\jdk-openj9-11.0.9+11\          <i>(295 MB)</i>
-C:\opt\jdk-redhat-11.0.8.10\          <i>( 63 MB)</i>
-C:\opt\jdk-sapmachine-11.0.9.1\       <i>(315 MB)</i>
-C:\opt\jdk-zulu-11.0.9.1\             <i>(300 MB)</i>
+C:\opt\jdk-11.0.10+9\             <i>(299 MB)</i>
+C:\opt\jdk-corretto-11.0.9_12\    <i>(292 MB)</i>
+C:\opt\jdk-dcevm-11.0.9+1\        <i>(295 MB)</i>
+C:\opt\graalvm-ce-java11-20.3.1\  <i>(731 MB)</i>
+C:\opt\jdk-liberica-11.0.9.1\     <i>(317 MB)</i>
+C:\opt\jdk-openj9-11.0.9+11\      <i>(295 MB)</i>
+C:\opt\jdk-redhat-11.0.8.10\      <i>( 63 MB)</i>
+C:\opt\jdk-sapmachine-11.0.10\    <i>(315 MB)</i>
+C:\opt\jdk-zulu-11.0.10\          <i>(300 MB)</i>
 </pre>
 <!-- hotspot : 11.0.8 = 297 MB, 11.0.9 = 299 MB -->
 <!-- corretto: 11.0.8 = 290 MB, 11.0.9 = 292 MB -->
@@ -72,8 +72,8 @@ This section supplements my writing from page [Data Sharing and Dotty on Windows
 An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For instance we proceed as follows to check if data sharing is enabled in Oracle OpenJDK 11:
 
 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last output line ends with
-   - **`(build 11.0.9.1+1, mixed mode, sharing)`** if data sharing is enabled
-   - **`(build 11.0.9.1+1, mixed mode)`** otherwise.
+   - **`(build 11.0.10+9, mixed mode, sharing)`** if data sharing is enabled
+   - **`(build 11.0.10+9, mixed mode)`** otherwise.
 2. Command **`java.exe -Xshare:dump`** generates the 17.3 Mb Java shared archive **`<install_dir>\bin\server\classes.jsa`** from file **`<install_dir>\lib\classlist`**.
 3. We go back to step 1 to verify that flag  **`sharing`** is present.
 
@@ -83,12 +83,12 @@ An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For
 [GraalVM][graalvm_org] is a universal virtual machine supporting the *interaction* between JVM-based languages like Java, Scala, Groovy, Kotlin, Clojure and native languages like C, C++, JavaScript, Python, R, Ruby.
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-graalvm-ce-java11-20.3.0\bin\java -version</b>
-openjdk version "11.0.9" 2020-10-20
-OpenJDK Runtime Environment GraalVM CE 20.3.0 (build 11.0.9+10-jvmci-20.3-b06)
-OpenJDK 64-Bit Server VM GraalVM CE 20.3.0 (build 11.0.9+10-jvmci-20.3-b06, mixed mode, sharing)
+<b>&gt; c:\opt\graalvm-ce-java11-20.3.1\bin\java -version</b>
+openjdk version "11.0.10" 2021-01-19
+OpenJDK Runtime Environment GraalVM CE 20.3.1 (build 11.0.10+8-jvmci-20.3-b09)
+OpenJDK 64-Bit Server VM GraalVM CE 20.3.1 (build 11.0.10+8-jvmci-20.3-b09, mixed mode, sharing)
 &nbsp;
-<b>&gt; dir c:\opt\jdk-graalvm-ce-java11-20.3.0\bin\server | findstr jsa</b>
+<b>&gt; dir c:\opt\graalvm-ce-java11-20.3.1\bin\server | findstr jsa</b>
 16.08.2020  08:41        17 563 648 classes.jsa
 </pre>
 
@@ -331,18 +331,18 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/corretto/corretto-11/releases" rel="external">amazon-corretto-11.0.9.12.1-windows-x64-jdk.zip</a>                <i>(177 MB)</i>
 <a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.9.1+1-windows-amd64.zip</a>                       <i>(187 MB)</i>
-<a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.3.0">graalvm-ce-java11-windows-amd64-20.3.0.zip</a>                     <i>(360 MB)</i>
+<a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-20.3.1">graalvm-ce-java11-windows-amd64-20.3.1.zip</a>                     <i>(360 MB)</i>
 <a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.9.11-3.windows.redhat.x86_64.zip</a>          <i>(256 MB)</i>
 <a href="https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases/latest">java11-openjdk-dcevm-windows.zip</a>                               <i>(187 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.9.1_1.zip</a>              <i>(190 MB)</i>
 <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">OpenJDK11U-jdk_x64_windows_openj9_11.0.9_11_openj9-0.23.0.zip</a>  <i>(193 MB)</i>
-<a href="https://github.com/SAP/SapMachine/releases/tag/sapmachine-11.0.9.1" rel="external">sapmachine-jdk-11.0.9.1_windows-x64_bin.zip</a>                    <i>(187 MB)</i>
-<a href="https://www.azul.com/downloads/zulu-community/?version=java-11-lts" rel="external">zulu11.43.55-ca-jdk11.0.9.1-win_x64.zip</a>                        <i>(188 MB)</i>
+<a href="https://github.com/SAP/SapMachine/releases/tag/sapmachine-11.0.10" rel="external">sapmachine-jdk-11.0.10_windows-x64_bin.zip</a>                    <i>(189 MB)</i>
+<a href="https://www.azul.com/downloads/zulu-community/?version=java-11-lts" rel="external">zulu11.45.27-ca-jdk11.0.10-win_x64.zip</a>                        <i>(190 MB)</i>
 </pre>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -355,7 +355,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 [azul_systems]: https://www.azul.com/
 [bellsoft_about]: https://bell-sw.com/pages/about
 [bellsoft_downloads]: https://bell-sw.com/pages/downloads/#/java-11-lts
-[bellsoft_relnotes]: https://bell-sw.com/pages/liberica-release-notes-11.0.9/
+[bellsoft_relnotes]: https://bell-sw.com/pages/liberica-release-notes-11.0.10/
 [corretto_changes]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html
 [corretto_gosling]: https://www.youtube.com/watch?v=WuZk23O76Zk
 [corretto_gupta]: https://www.youtube.com/watch?v=RLKC5nsiZXU

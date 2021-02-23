@@ -1,5 +1,5 @@
 @rem #########################################################################
-@rem ## Code common to scalac.bat, scalad.bat and scala.bat
+@rem ## Code common to scalac.bat, scaladoc.bat and scala.bat
 
 if defined JAVACMD (
     set _JAVACMD=%JAVACMD%

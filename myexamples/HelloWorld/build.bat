@@ -105,7 +105,7 @@ if not exist "%SCALA3_HOME%\bin\scalac.bat" (
 )
 set "_SCALA3=%SCALA3_HOME%\bin\scala.bat"
 set "_SCALAC3=%SCALA3_HOME%\bin\scalac.bat"
-set "_SCALADOC3=%SCALA3_HOME%\bin\scalad.bat"
+set "_SCALADOC3=%SCALA3_HOME%\bin\scaladoc.bat"
 
 set _SCALAFMT_CMD=
 if exist "%SCALAFMT_HOME%\bin\scalafmt.bat" (

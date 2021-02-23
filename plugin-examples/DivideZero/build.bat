@@ -84,7 +84,7 @@ if not exist "%SCALA3_HOME%\bin\scalac.bat" (
 )
 set "_SCALA_CMD=%SCALA3_HOME%\bin\scala.bat"
 set "_SCALAC_CMD=%SCALA3_HOME%\bin\scalac.bat"
-set "_SCALADOC_CMD=%SCALA3_HOME%\bin\scalad.bat"
+set "_SCALADOC_CMD=%SCALA3_HOME%\bin\scaladoc.bat"
 goto :eof
 
 :env_colors
@@ -232,7 +232,8 @@ if %_SCALAC_OPTS_EXPLAIN_TYPES%==1 set _SCALAC_OPTS=%_SCALAC_OPTS% -explain-type
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _EXPLAIN=%_SCALAC_OPTS_EXPLAIN% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _PACK=%_PACK% _TEST=%_TEST% _TEST_PLUGIN=%_TEST_PLUGIN% 1>&2
-    echo %_DEBUG_LABEL% Variables  : SCALA3_HOME="%SCALA3_HOME%" JAVA_HOME="%JAVA_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : SCALA3_HOME="%SCALA3_HOME%" 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
@@ -262,7 +263,7 @@ echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%            delete generated class files
 echo     %__BEG_O%compile%__END%          compile Scala source files
-echo     %__BEG_O%doc%__END%              generate documentation
+echo     %__BEG_O%doc%__END%              generate HTML documentation
 echo     %__BEG_O%help%__END%             display this help message
 echo     %__BEG_O%pack%__END%             create Java archive file
 echo     %__BEG_O%test%__END%             execute unit tests

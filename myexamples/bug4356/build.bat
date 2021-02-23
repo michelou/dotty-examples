@@ -80,7 +80,7 @@ if not exist "%SCALA3_HOME%\bin\scalac.bat" (
 )
 set "_SCALA_CMD=%SCALA3_HOME%\bin\scala.bat"
 set "_SCALAC_CMD=%SCALA3_HOME%\bin\scalac.bat"
-set "_SCALADOC_CMD=%SCALA3_HOME%\bin\scalad.bat"
+set "_SCALADOC_CMD=%SCALA3_HOME%\bin\scaladoc.bat"
 goto :eof
 
 :env_colors

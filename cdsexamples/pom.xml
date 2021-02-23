@@ -3,9 +3,9 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>dotty.cdsexamples</groupId>
-    <artifactId>dotty-cdsexamples</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <groupId>dotty-examples</groupId>
+    <artifactId>cdsexamples</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -15,14 +15,14 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId> <!-- ch.epfl.lamp -->
-        <scala.versionTag>3.0.0-M4</scala.versionTag> <!-- eg. "2.13" -->
-        <scala.version>${scala.versionTag}-bin-20210206-a63b1d1-NIGHTLY</scala.version> <!-- eg. "2.13.3" or "0.26.0" -->
+        <scala.versionTag>3.0.0-RC1</scala.versionTag> <!-- eg. "2.13" -->
+        <scala.version>${scala.versionTag}</scala.version> <!-- eg. "2.13.3" or "0.26.0" -->
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugins -->
         <scala.maven.version>1.0-SNAPSHOT</scala.maven.version> <!-- Dec 2018 -->
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
-        <scalatest.version>3.2.2</scalatest.version>            <!-- Aug 2020 -->
+        <scalatest.version>3.2.5</scalatest.version>            <!-- Aug 2020 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven.compiler.version>3.8.1</maven.compiler.version>  <!-- May 2019 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
@@ -38,25 +38,25 @@
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
         <jmh.version>1.27</jmh.version>                         <!-- May 2018, Oracle -->
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
-        <junit.platform.version>1.6.2</junit.platform.version>  <!-- Sep 2019 -->
+        <junit.platform.version>1.7.1</junit.platform.version>  <!-- Sep 2019 -->
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <jupiter.version>5.6.2</jupiter.version>                <!-- Jan 2020 -->
+        <jupiter.version>5.7.1</jupiter.version>                <!-- Jan 2020 -->
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/ch.epfl.lamp/dotty-interfaces -->
+        <!-- https://mvnrepository.com/artifact/org.scala-lang/scala3-interfaces -->
         <dependency>
             <groupId>${scala.groupId}</groupId>
             <artifactId>dotty-interfaces</artifactId>
             <version>${scala.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.scala-lang/scala3-library_3.0.0-M1 -->
+        <!-- https://mvnrepository.com/artifact/org.scala-lang/scala3-library -->
         <dependency>
             <groupId>${scala.groupId}</groupId>
             <artifactId>dotty-library_${scala.versionTag}</artifactId>
             <version>${scala.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.scala-lang/tasty-core_3.0.0-M1 -->
+        <!-- https://mvnrepository.com/artifact/org.scala-lang/tasty-core -->
         <dependency>
             <groupId>${scala.groupId}</groupId>
             <artifactId>tasty-core_${scala.versionTag}</artifactId>
@@ -64,9 +64,9 @@
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
         <dependency>
-            <groupId>org.scala-lang</groupId>
+            <groupId>${scala.groupId}</groupId>
             <artifactId>scala-library</artifactId>
-            <version>2.13.3</version>
+            <version>2.13.5</version>
         </dependency>
         <dependency>
             <groupId>ch.epfl.alumni</groupId>

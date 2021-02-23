@@ -68,7 +68,7 @@
             <pathelement location="${basedir}"/>
         </path>
         <path id="test.classpath">
-            <fileset dir="${ivy.cache}/junit" includes="**/jars/junit-4.13.jar" />
+            <fileset dir="${ivy.cache}/junit" includes="**/jars/junit-4.13.1.jar" />
             <fileset dir="${ivy.cache}/org.hamcrest" includes="**/jars/hamcrest-2.2.jar" />
             <path refid="build.classpath" />
             <pathelement location="${test-build.dir}" />
@@ -123,7 +123,7 @@
     <target name="test.install">
         <ivy:resolve file="../ivy-test.xml" showprogress="false" log="download-only" />
         <ivy:install
-            organisation="junit" module="junit" revision="4.13"
+            organisation="junit" module="junit" revision="4.13.1"
             transitive="true" overwrite="false" from="public" to="local"
         />
         <ivy:install

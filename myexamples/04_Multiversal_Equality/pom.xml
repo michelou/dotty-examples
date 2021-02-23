@@ -5,13 +5,13 @@
 
     <groupId>dotty.myexamples</groupId>
     <artifactId>04_Multiversal_Equality</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <parent>
         <groupId>dotty.myexamples</groupId>
         <artifactId>dotty-myexamples</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 

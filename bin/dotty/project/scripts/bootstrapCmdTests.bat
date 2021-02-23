@@ -51,7 +51,7 @@ call "%_BIN_DIR%\scalac.bat" tests/run-staging/i4044f.scala -d "%_OUT_DIR%"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 call "%_BIN_DIR%\scala.bat" -with-compiler -classpath "%_OUT_DIR%" Test > "%_TMP_FILE%"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
-call "%_BIN_DIR%\scalad.bat" -project Staging -siteroot "%_OUT_DIR%" "tests/run-staging/i4044f.scala"
+call "%_BIN_DIR%\scaladoc.bat" -project Staging -siteroot "%_OUT_DIR%" "tests/run-staging/i4044f.scala"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 
 rem # check that `scalac -from-tasty` compiles and `scala` runs it
@@ -66,7 +66,7 @@ if not %_EXITCODE%==0 goto end
 
 echo testing ./bin/scalad
 call :clear_out "%_OUT_DIR%"
-call "%_BIN_DIR%\scalad.bat" -project Hello -siteroot "%_OUT_DIR%" "%_SOURCE%"
+call "%_BIN_DIR%\scaladoc.bat" -project Hello -siteroot "%_OUT_DIR%" "%_SOURCE%"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 
 goto end

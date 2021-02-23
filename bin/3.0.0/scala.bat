@@ -18,10 +18,10 @@ call :args %*
 
 set _CASE_REPL=0
 if %_EXECUTE_REPL%==1 set _CASE_REPL=1
-if %_EXECUTE_RUN%==0 if not defined _RESIDUAL_ARGS set _CASE_REPL=1
+if %_EXECUTE_RUN%==0 if %_OPTIONS_INDICATOR%==0 set _CASE_REPL=1
 
 set _CASE_EXEC=0
-if %_EXECUTE_RUN%==1 set _CASE_EXEC=1
+if %_EXECUTE_REPL%==1 set _CASE_EXEC=1
 if defined _RESIDUAL_ARGS set _CASE_EXEC=1
 
 if %_EXECUTE_SCRIPT%==1 (
@@ -34,7 +34,6 @@ if %_EXECUTE_SCRIPT%==1 (
     set _SCALAC_ARGS=
     if defined _CLASS_PATH set _SCALAC_ARGS=-classpath "%_CLASS_PATH%"
     set _SCALAC_ARGS=!_SCALAC_ARGS! %_JAVA_OPTS% -repl %_RESIDUAL_ARGS%
-    echo Starting scala3 REPL...
     call "%_PROG_HOME%\scalac.bat" !_SCALAC_ARGS!
 @rem elif [ $execute_repl == true ] || [ ${#residual_args[@]} -ne 0 ]; then
 ) else if %_CASE_EXEC%==1 (
@@ -73,6 +72,7 @@ set _CLASS_PATH_COUNT=0
 set _CLASS_PATH=
 set _JVM_OPTS=
 set _JAVA_OPTS=
+set _OPTIONS_INDICATOR=0
 
 :args_loop
 if "%~1"=="" goto args_done
@@ -97,6 +97,8 @@ if "%__ARG%"=="-repl" (
     set _JVM_OPTS=!_JVM_OPTS! %__ARG:~2%
     set _JAVA_OPTS=!_JAVA_OPTS! %__ARG%
 ) else (
+    @rem _OPTIONS_INDICATOR != 0 if at least one parameter is not an option
+    if not "%__ARG:~0,1%"=="-" set /a _OPTIONS_INDICATOR+=1
     if %_EXECUTE_SCRIPT%==1 (
         set _SCRIPT_ARGS=%_SCRIPT_ARGS% %__ARG%
     ) else if "%__ARG:~-6%"==".scala" (

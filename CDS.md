@@ -35,9 +35,9 @@ This project depends on two external software for the **Microsoft Windows** plat
 For instance our development environment looks as follows (*February 2021*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.30.0\       <i>(290 MB)</i>
+C:\opt\Git-2.30.1\       <i>(290 MB)</i>
 C:\opt\jdk-11.0.10+9\    <i>(314 MB)</i>
-C:\opt\scala-3.0.0-M4\   <i>( 57 MB)</i>
+C:\opt\scala-3.0.0-RC1\  <i>( 57 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_downloads] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -252,19 +252,19 @@ We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/t
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.oracle.com/en/java/javase/11/tools/java.htm">java</a> -verbose:class -Xshare:on -XX:SharedArchiveFile=target\JavaExample.jsa ^
- -jar W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar | findstr cdsexamples</b>
+ -jar W:\cdsexamples\JavaExample\target\JavaExample.jar | findstr cdsexamples</b>
 [0.089s][info][class,load] cdsexamples.Main source: shared objects file
 
 <b>&gt; java -verbose:class -Xshare:off -XX:SharedArchiveFile=target\JavaExample.jsa ^
- -jar W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar | findstr cdsexamples</b>
+ -jar W:\cdsexamples\JavaExample\target\JavaExample.jar | findstr cdsexamples</b>
 [0.112s][info][class,load] cdsexamples.Main source: file:/W:/dotty-examples/cdsexamples/JavaExample/target/Main.jar
 </pre>
 
 > **:warning:** The ***crucial point*** here is to use the correct path of **`JavaExample.jar`** together with the specified Java shared archive. Command [**`grep -a`**][man1_grep] (**`-a`** means "*process a binary file as if it were text*") helps us to extract that path from **`JavaExample.jsa`**.<br/>
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://www.gnu.org/software/grep/manual/grep.html#Invoking">grep</a> -aPo '.{0,40}JavaExample.jar{0,40}' target\JavaExample.jsa</b>
->   W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar
->   W:\DOTTY-~1\CDSEXA~1\JAVAEX~1\target\JavaExample.jar
+>   W:\cdsexamples\JavaExample\target\JavaExample.jar
+>   W:\cdsexamples\JavaExample\target\JavaExample.jar
 > </pre>
 
 
@@ -577,7 +577,7 @@ Classes per package (888):
 > 3. Repeat command from point 1. 
 > 
 > <pre style="font-size:80%;">
-> <b>&gt; c:\opt\jdk-11.0.10+9\bin\java -version</b>
+> <b>&gt; c:\opt\jdk-11.0.10+9\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 > openjdk version "11.0.8" 2020-07-14
 > OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.8+10)
 > OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.8+10, mixed mode)
@@ -593,11 +593,11 @@ Classes per package (888):
 > od  space:   6534648 [ 36.1% of total] [...]
 > total    :  17873816 [100.0% of total] [...]
 > &nbsp;
-> <b>&gt; dir /b c:\opt\jdk-11.0.10+9\bin\server</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\jdk-11.0.10+9\bin\server</b>
 > classes.jsa
 > jvm.dll
 > &nbsp;
-> <b>&gt; c:\opt\jdk-11.0.10+9\bin\java -version</b>
+> <b>&gt; c:\opt\jdk-11.0.10+9\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 > openjdk version "11.0.9.1" 2020-11-04
 > OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.9.1+1)
 > OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.8.1+1, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
@@ -609,8 +609,8 @@ Classes per package (888):
 ## Usage example
 
 <pre style="font-size:80%;">
-<b>&gt; cd examples\enum-Planet</b>
-<b>&gt; dotc -share -d target\classes src\main\scala\Planet.scala "-J-Xlog:class+load=info" > class-load.txt</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a> examples\enum-Planet</b>
+<b>&gt; scalac -share -d target\classes src\main\scala\Planet.scala "-J-Xlog:class+load=info" > class-load.txt</b>
 </pre>
 
 We can observe that 24 classes could not be found in the Java shared archive **`dotty-cds-compiler.jsa`**:
@@ -715,7 +715,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.30.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.30.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [haskell_examples]: https://github.com/michelou/haskell-examples

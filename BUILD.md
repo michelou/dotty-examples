@@ -43,8 +43,8 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 For instance our development environment looks as follows (*February 2021*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.30.0\      <i>(290 MB)</i>
-C:\opt\jdk-11.0.9.1+1\  <i>(314 MB)</i>
+C:\opt\Git-2.30.1\      <i>(290 MB)</i>
+C:\opt\jdk-11.0.10+9\   <i>(314 MB)</i>
 C:\opt\sbt-1.4.7\       <i>( 48 MB)</i>
 </pre>
 
@@ -65,13 +65,13 @@ Concretely directories [**`dotty\bin\`**](https://github.com/michelou/dotty/tree
 
 <pre style="font-size:80%;">
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/common.bat">dotty\bin\common.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scalac.bat">dotty\bin\scalac.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scalad.bat">dotty\bin\scalad.bat</a>
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scala.bat">dotty\bin\scala.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scalac.bat">dotty\bin\scalac.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scaladoc.bat">dotty\bin\scaladoc.bat</a>
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/common.bat">dotty\dist\bin\common.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/scalac.bat">dotty\dist\bin\scalac.bat</a>
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/scala.bat">dotty\dist\bin\scala.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/scalad.bat">dotty\dist\bin\scalad.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/scalac.bat">dotty\dist\bin\scalac.bat</a>
+<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/scaladoc.bat">dotty\dist\bin\scaladoc.bat</a>
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/bootstrapCmdTests.bat">dotty\project\scripts\bootstrapCmdTests.bat</a>
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/cmdTests.bat">dotty\project\scripts\cmdTests.bat</a>
 <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/cmdTestsCommon.inc.bat">dotty\project\scripts\cmdTestsCommon.inc.bat.bat</a>
@@ -99,12 +99,12 @@ We distinguish different sets of batch commands:
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b dotty\dist\bin</b>
    common
    common.bat
-   scalac
-   scalac.bat
-   scalad
-   scalad.bat
    scala
    scala.bat
+   scalac
+   scalac.bat
+   scaladoc
+   scaladoc.bat
    </pre>
 
 2. [**`build.bat`**](bin/dotty/build.bat)/[**`build.sh`**](bin/dotty/build.sh) - Both commands perform on a Windows machine the same build/test steps as specified in file [**`ci.yaml`**](https://github.com/michelou/dotty/blob/master/.github/workflows/ci.yaml) and executed on the [Dotty CI][dotty_ci] server.
@@ -186,16 +186,16 @@ We distinguish different sets of batch commands:
 
 3. Directory [**`bin\dotty\bin\`**](bin/dotty/bin) - This directory contains batch files used internally during the build process (see the [**`bootstrapCmdTests.bat`**](bin/dotty/project/scripts/bootstrapCmdTests.bat) command).
    <pre style="font-size:80%;">
-   <b>&gt; cp bin\dotty\bin\*.bat dotty\bin</b>
+   <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cp</a> bin\dotty\bin\*.bat dotty\bin</b>
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b dotty\bin</b>
    common
    common.bat
-   scalac
-   scalac.bat
-   scalad
-   scalad.bat
    scala
    scala.bat
+   scalac
+   scalac.bat
+   scaladoc
+   scaladoc.bat
    </pre>
 
 4. [**`bin\dotty\project\scripts\`**](bin/dotty/project/scripts/) - This directory contains bash files to performs test steps on a Windows machine in a similar manner to the shell scripts on the [Dotty CI][dotty_ci] server (see console output in section [**Usage examples**](#usage_examples)).
@@ -227,6 +227,7 @@ We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :------------------------: | :--------: | :--------- |
+| [#11480][dotty_pull_11480] | *pending* | Reference documentation |
 | [#11257][dotty_pull_11257] | *WIP*  | Reference documentation |
 | [#11235][dotty_pull_11235] | [merged](https://github.com/lampepfl/dotty/commit/8d3275c) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
 | [#11158][dotty_pull_11158] | [merged](https://github.com/lampepfl/dotty/commit/bbfff61) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
@@ -305,9 +306,9 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
-   GIT_CMD=C:\opt\Git-2.30.0\bin\git.exe
-   JAVA_CMD=C:\opt\jdk-11.0.9.1+1\bin\java.exe
-   SBT_CMD=C:\opt\sbt-1.4.6\bin\sbt.bat
+   GIT_CMD=C:\opt\Git-2.30.1\bin\git.exe
+   JAVA_CMD=C:\opt\jdk-11.0.10+9\bin\java.exe
+   SBT_CMD=C:\opt\sbt-1.4.7\bin\sbt.bat
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
    SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -387,9 +388,9 @@ Command **`build.bat archives`** works as follows:  ***if*** execution of the **
 <b>&gt; <a href="bin/dotty/build.bat">build</a> arch-only</b>
 [...]
 &nbsp;
-<b>&gt; dir /a-d /b dist-bootstrapped\target</b>
-dotty-3.0.1-bin-SNAPSHOT.tar.gz
-dotty-3.0.1-bin-SNAPSHOT.zip
+<b>&gt; dir /a-d /b dist\target</b>
+scala3-3.0.0-RC2-bin-SNAPSHOT.tar.gz
+scala3-3.0.0-RC2-bin-SNAPSHOT.zip
 </pre>
 
 ### **`build.bat documentation`**
@@ -447,11 +448,11 @@ index.html
 js
 sidebar.yml
 versions
-<b>&gt; dir /a-d /b /s docs\_site\*.html | wc -l</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b /s docs\_site\*.html | wc -l</b>
 2551
-<b>&gt; dir /a-d /b /s docs\_site\*.jpg docs\_site\*.png docs\_site\*.svg | wc -l</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b /s docs\_site\*.jpg docs\_site\*.png docs\_site\*.svg | wc -l</b>
 23
-<b>&gt; dir /a-d /b /s docs\_site\*.js | wc -l</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b /s docs\_site\*.js | wc -l</b>
 9
 </pre>
 
@@ -467,7 +468,7 @@ release-notes
 resources   
 typelevel.md
 usage
-<b>&gt; dir /a-d /b /s docs\docs\*.md | wc -l</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b /s docs\docs\*.md | wc -l</b>
 88 
 </pre>
 
@@ -514,8 +515,8 @@ Command [**`project\scripts\bootstrapCmdTests.bat`**](bin/dotty/project/scripts/
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.22
-# VM version: JDK 11.0.9, VM 11.0.9.1+1
-# VM invoker: C:\opt\jdk-11.0.9.1+1\bin\java.exe
+# VM version: JDK 11.0.9, VM 11.0.10+9
+# VM invoker: C:\opt\jdk-11.0.10+9\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -544,8 +545,8 @@ Worker.compile  avgt       533.625          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.22
-# VM version: JDK 11.0.9, VM 11.0.9.1+1
-# VM invoker: C:\opt\jdk-11.0.9.1+1\bin\java.exe
+# VM version: JDK 11.0.9, VM 11.0.10+9
+# VM invoker: C:\opt\jdk-11.0.10+9\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -572,8 +573,8 @@ Worker.compile  avgt       361.619          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
 # JMH version: 1.22
-# VM version: JDK 11.0.9, VM 11.0.9.1+1
-# VM invoker: C:\opt\jdk-11.0.9.1+1\bin\java.exe
+# VM version: JDK 11.0.9, VM 11.0.10+9
+# VM invoker: C:\opt\jdk-11.0.10+9\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -757,6 +758,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_pull_11158]: https://github.com/lampepfl/dotty/pull/11158
 [dotty_pull_11235]: https://github.com/lampepfl/dotty/pull/11235
 [dotty_pull_11257]: https://github.com/lampepfl/dotty/pull/11257
+[dotty_pull_11480]: https://github.com/lampepfl/dotty/pull/11480
 [dotty_docs]: https://dotty.epfl.ch/docs/
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_releases]: https://github.com/lampepfl/dotty/releases
@@ -789,7 +791,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.4.6
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.4.7
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/

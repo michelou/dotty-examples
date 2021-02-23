@@ -51,7 +51,7 @@ Buildfile: W:\myexamples\HelloWorld\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 [ivy:resolve] :: Apache Ivy 2.5.0 - 20191020104435 :: https://ant.apache.org/ivy/ ::
-[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.7/lib/ivy-2.5.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
+[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.9/lib/ivy-2.5.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
 
 <span style="font-weight:bold;color:#9966ff;">init:</span>
 
@@ -70,9 +70,9 @@ Total time: 3 seconds
 > We observe from task **`init.ivy`** that the [Apache Ivy][apache_ant_ivy] library has been added to the [Ant](https://ant.apache.org/) installation directory. In our case we installed [version 2.5.0][apache_ant_ivy_relnotes] of the [Apache Ivy][apache_ant_ivy] library.
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://curl.haxx.se/docs/manual.html">curl</a> -sL -o c:\Temp\apache-ivy-2.5.0.zip https://www-eu.apache.org/dist//ant/ivy/2.5.0/apache-ivy-2.5.0-bin.zip</b>
-> <b>&gt; unzip c:\temp\apache-ivy-2.5.0.zip -d c:\opt</b>
+> <b>&gt; <a href="https://linux.die.net/man/1/unzip">unzip</a> c:\temp\apache-ivy-2.5.0.zip -d c:\opt</b>
 > <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/copy">copy</a> c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.9\lib</b>
-> <b>&gt; dir c:\opt\apache-ant-1.10.9\lib | findstr ivy</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\apache-ant-1.10.9\lib | findstr ivy</b>
 > 20.10.2019  09:44         1 402 646 ivy-2.5.0.jar
 > </pre>
 
@@ -429,32 +429,32 @@ Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</
 
 <b>set</b> _EXITCODE=0
 
-<b>call <span style="color:#9966ff;">:env</span></b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:env</span></b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
 
-<b>call <span style="color:#9966ff;">:props</span></b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:props</span></b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
 
-<b>call <span style="color:#9966ff;">:args</span> %*</b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:args</span> %*</b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
 
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Main</i>
 
 <b>if</b> %_CLEAN%==1 (
-    <b>call :clean</b>
+    <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> :clean</b>
     <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
 <b>if</b> %_COMPILE%==1 (
-    <b>call <span style="color:#9966ff;">:compile</span></b>
+    <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:compile</span></b>
     <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
 <b>if</b> %_DOC%==1 (
-    <b>call <span style="color:#9966ff;">:doc</span></b>
+    <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:doc</span></b>
     <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
 <b>if</b> %_RUN%==1 (
-    <b>call <span style="color:#9966ff;">:run</span></b>
+    <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:run</span></b>
     <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
 <b>goto <span style="color:#9966ff;">end</span></b>
@@ -489,7 +489,7 @@ Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</
 
 <span style="color:#9966ff;">:end</span>
 ...
-<b>exit</b> /b <span style="color:#3333ff;">%_EXITCODE%</span>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/exit">exit</a></b> /b <span style="color:#3333ff;">%_EXITCODE%</span>
 </pre>
 </dd>
 

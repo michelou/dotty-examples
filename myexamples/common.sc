@@ -3,7 +3,7 @@ import mill._, api._, scalalib._
 //////////////////////////////////////////////////////////////////////////////
 // Project properties
 
-val scalaVersion = "3.0.0-M4"  // "0.27.0-RC1", "2.12.18"
+val scalaVersion = "3.0.0-RC1"  // "0.27.0-RC1", "2.12.18"
 val scalacOptions = Seq("-deprecation", "-encoding", "UTF8", "-feature")
 
 val forkArgs = Seq("-Xmx1g")
@@ -19,19 +19,19 @@ val scalaSourcePath = os.pwd / "src" / "main" / "scala"
 // Ivy dependencies
 
 val scalaLibVersion = "2.13"
-val scalatestVersion = "3.2.3"
+val scalatestVersion = "3.2.4"
 val specs2Version = "4.10.6"
 
-val ivyJunit = ivy"org.junit:org.junit:4.13.1"
+val ivyJunit = ivy"org.junit:org.junit:4.13.2"
 
 // https://mvnrepository.com/artifact/com.novocode/junit-interface
 val ivyJunitInterface = ivy"com.novocode:junit-interface:0.11"
 
 // https://mvnrepository.com/artifact/org.apiguardian/apiguardian-api
-val ivyApiGuardian = ivy"org.apiguardian:apiguardian-api:1.1.0"
+val ivyApiGuardian = ivy"org.apiguardian:apiguardian-api:1.1.1"
 
 // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-val ivyJunitJupiter = ivy"org.junit.jupiter:junit-jupiter-api:5.6.2"
+val ivyJunitJupiter = ivy"org.junit.jupiter:junit-jupiter-api:5.7.1"
 
 // https://mvnrepository.com/artifact/org.scalatest/scalatest
 val ivyScalatest = ivy"org.scalatest:scalatest_$scalaLibVersion:$scalatestVersion"

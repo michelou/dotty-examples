@@ -73,22 +73,22 @@ set "_TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
 
 if not exist "%JAVA_HOME%\bin\javac.exe" (
-   echo %_ERROR_LABEL% Java SDK installation not found 1>&2
-   set _EXITCODE=1
-   goto :eof
+    echo %_ERROR_LABEL% Java SDK installation not found 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
 set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
 set "_JAVADOC_CMD=%JAVA_HOME%\bin\javadoc.exe"
 
 if not exist "%SCALA3_HOME%\bin\scalac.bat" (
-   echo %_ERROR_LABEL% Scala 3 installation not found 1>&2
-   set _EXITCODE=1
-   goto :eof
+    echo %_ERROR_LABEL% Scala 3 installation not found 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 set "_SCALA_CMD=%SCALA3_HOME%\bin\scala.bat"
 set "_SCALAC_CMD=%SCALA3_HOME%\bin\scalac.bat"
-set "_SCALADOC_CMD=%SCALA3_HOME%\bin\scalad.bat"
+set "_SCALADOC_CMD=%SCALA3_HOME%\bin\scaladoc.bat"
 goto :eof
 
 :env_colors

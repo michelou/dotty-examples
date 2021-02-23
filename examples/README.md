@@ -24,13 +24,14 @@ Build tools rely on one or more configuration files to achieve their tasks. In o
 |-------------------------------|------------------------------------------|----------------------------------------------|
 | [**`ant.bat`**][apache_ant_cli]   | [**`build.xml`**](enum-Planet/build.xml) | [**`build.xml`**](./build.xml), [**`ivy.xml`**](ivy.xml) |
 | [**`bazel.exe`**][bazel_cli]      | [**`BUILD`**](enum-Planet/BUILD), **`WORKSPACE`** | n.a.                                |
-| **`build.bat`**                   | [**`build.properties`**](enum-Planet/project/build.properties) | [**`cpath.bat`**](./cpath.bat) <sup>(*)</sup>              |
+| [**`build.bat`**](enum-Planet/build.bat) | [**`build.properties`**](enum-Planet/project/build.properties) | [**`cpath.bat`**](./cpath.bat) <sup>(*)</sup>              |
+| [**`build.sh`**](enum-Planet/build.sh) | [**`build.properties`**](enum-Planet/project/build.properties) |                   |
 | [**`gradle.exe`**][gradle_cli]    | [**`build.gradle`**](enum-Planet/build.gradle) | [**`common.gradle`**](./common.gradle) |
 | [**`make.exe`**][gmake_cli]       | [**`Makefile`**](enum-Planet/Makefile)   | [**`Makefile.inc`**](./Makefile.inc)         |
 | [**`mill.bat`**][mill_cli]        | [**`build.sc`**](enum-Planet/build.sc)   | [**`common.sc`**](./common.sc)               |
 | [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](enum-Planet/pom.xml)     | [**`pom.xml`**](./pom.xml)                   |
 | [**`sbt.bat`**][sbt_cli]          | [**`build.sbt`**](enum-Planet/build.sbt) | n.a.                                         |
-<div style="margin:-4px 50% 0 0;font-size:80%;"><b><sup>(*)</sup></b> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).</div>
+<div style="margin:-4px 50% 0 0;font-size:80%;"><b><sup>(*)</sup></b> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).<br/>&nbsp;</div>
 
 ## <span id="ant">Ant build tool</span>
 
@@ -42,10 +43,10 @@ Execution of [**`Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produ
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://ant.apache.org/manual/running.html">ant</a> clean run</b>
-Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
+Buildfile: W:\examples\enum-Planet\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">clean:</span>
-   [delete] Deleting directory W:\dotty-examples\examples\enum-Planet\target
+   [delete] Deleting directory W:\examples\enum-Planet\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
 
@@ -56,8 +57,8 @@ Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
 <span style="font-weight:bold;color:#9966ff;">init:</span>
 
 <span style="font-weight:bold;color:#9966ff;">compile:</span>
-    [mkdir] Created dir: W:\dotty-examples\examples\enum-Planet\target\classes
-   [scalac] Compiling 1 source file to W:\dotty-examples\examples\enum-Planet/target/classes
+    [mkdir] Created dir: W:\examples\enum-Planet\target\classes
+   [scalac] Compiling 1 source file to W:\examples\enum-Planet/target/classes
 
 <span style="font-weight:bold;color:#9966ff;">run:</span>
      [java] Your weight on MERCURY (0) is 0.37775761520093526
@@ -87,21 +88,21 @@ We can set property **`-Duse.local=true`** to use [Dotty] local installation (*r
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://ant.apache.org/manual/running.html">ant</a> -Duse.local=true clean run</b>
-Buildfile: W:\dotty-examples\examples\enum-Planet\build.xml
+Buildfile: W:\examples\enum-Planet\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">clean:</span>
-   [delete] Deleting directory W:\dotty-examples\examples\enum-Planet\target
+   [delete] Deleting directory W:\examples\enum-Planet\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] SCALA3_HOME=C:\opt\scala-3.0.0-M3
+     [echo] SCALA3_HOME=C:\opt\scala-3.0.0-RC1
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
 <span style="font-weight:bold;color:#9966ff;">init:</span>
 
 <span style="font-weight:bold;color:#9966ff;">compile:</span>
-    [mkdir] Created dir: W:\dotty-examples\examples\enum-Planet\target\classes
-    [scalac] Compiling 1 source file to W:\dotty-examples\examples\enum-Planet/target/classes
+    [mkdir] Created dir: W:\examples\enum-Planet\target\classes
+    [scalac] Compiling 1 source file to W:\examples\enum-Planet/target/classes
 
 <span style="font-weight:bold;color:#9966ff;">run:</span>
      [java] Your weight on MERCURY (0) is 0.37775761520093526
@@ -120,7 +121,7 @@ Total time: 14 seconds
 
 ## <span id="build">`build.bat` command</span>
 
-Command [**`build.bat`**](enum-Planet/build.bat) is our basic build tool featuring subcommands **`clean`**, **`compile`**, **`decompile`**, **`doc`**, **`help`**, **`run`** and **`test`**; the batch file consists of ~700 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup>.
+Command [**`build.bat`**](enum-Planet/build.bat) is our basic build tool featuring subcommands **`clean`**, **`compile`**, **`decompile`**, **`doc`**, **`help`**, **`lint`**, **`run`** and **`test`**; the batch file consists of ~700 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup>.
 
 Command [**`build clean run`**](enum-Planet/build.bat) produces the following output:
 
@@ -169,7 +170,8 @@ Command [**`build -debug clean compile run`**](enum-Planet/build.bat) also displ
 <b/>&gt; <a href="enum-Planet/build.bat">build</a> -debug clean compile run</b>
 [build] Options    : _EXPLAIN=0 _PRINT=0 _SCALA_VERSION=3 _TASTY=0 _TIMER=0 _VERBOSE=0
 [build] Subcommands: _CLEAN=1 _COMPILE=1 _DECOMPILE=0 _DOC=0 _LINT=0 _RUN=1 _TEST=0
-[build] Variables  : JAVA_HOME="C:\opt\jdk-11.0.9.1+1" SCALA3_HOME="C:\opt\scala-3.0.0-M3"
+[build] Variables  : JAVA_HOME="C:\opt\jdk-11.0.10+9"
+[build] Variables  : SCALA3_HOME="C:\opt\scala-3.0.0-RC1"
 [build] Variables  : _MAIN_CLASS=Planet _MAINe_ARGS=1
 [build] del /s /q W:\dotty\examples\enum-Planet\target\classes\*.class W:\dotty\examples\enum-Planet\target\classes\*.hasTasty W:\dotty\examples\enum-Planet\target\classes\.latest-build
 [build] 20180322224754 W:\dotty\examples\enum-Planet\src\main\scala\Planet.scala
@@ -216,10 +218,10 @@ No compilation needed ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
 Processing Planet$
 Processing Planet
-Save decompiled Java source files to "target\cfr-sources_scala3_3.0.0-M3.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_3.0.0-RC1.java"
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b /s target\*.java</b>
-W:\examples\enum-Planet\target\cfr-sources_scala3_3.0.0-M3.java
+W:\examples\enum-Planet\target\cfr-sources_scala3_3.0.0-RC1.java
 W:\examples\enum-Planet\target\cfr-sources\Planet$.java
 W:\examples\enum-Planet\target\cfr-sources\Planet.java
 </pre>
@@ -230,13 +232,34 @@ If the two Java source files `src\build\cfr-sources_scala<n>_<version>.txt` (*ch
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b src\build</b>
 cfr-sources_scala3_0.24.0-RC1.java
 cfr-sources_scala3_0.27.0-RC1.java
-cfr-sources_scala3_3.0.0-M3.java
+cfr-sources_scala3_3.0.0-RC1.java
 &nbsp;
 <b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose decompile</b>
 No compilation needed ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
 Save decompiled Java source files to "target\cfr-sources_scala3_0.27.0-RC1.java"
 Compare output file with check file "src\build\cfr-sources_scala3_0.27.0-RC1.java"
+</pre>
+
+
+## <span id="build.shell">`build.sh` command</span>
+
+Command [**`build.sh`**](enum-Planet/build.sh) is our basic build tool for Unix environments like [Cygwin], Linux, MinGW or [MSYS2]; it features subcommands **`clean`**, **`compile`**, **`doc`**, **`help`**, **`lint`** and **`run`**; the Bash script consists of ~430 lines of [Bash] code.
+
+Command [**`build clean run`**](enum-Planet/build.sh) produces the following output:
+
+<pre style="font-size:80%;">
+user@host MINGW64 /w/examples/enum-Planet
+<b>$ <a href="enum-Planet/build.sh">./build.sh</a> clean run</b>
+Mass of earth is 0.1020132025669991
+Your weight on MERCURY (0) is 0.37775761520093526
+Your weight on VENUS (1) is 0.9049990998410455
+Your weight on EARTH (2) is 0.9999999999999999
+Your weight on MARS (3) is 0.37873718403712886
+Your weight on JUPITER (4) is 2.5305575254957406
+Your weight on SATURN (5) is 1.0660155388115666
+Your weight on URANUS (6) is 0.9051271993894251
+Your weight on NEPTUNE (7) is 1.1383280724696578
 </pre>
 
 
@@ -332,18 +355,18 @@ Command **` mvn compile test`** with option **`-debug`** produces additional deb
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> -debug compile test | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-1.8.0_262-b10\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.27.0-RC1 \
- -cp C:\opt\dotty-0.27.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
+[DEBUG] [execute] C:\opt\jdk-11.0.10+9\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala-3.0.0-RC1 \
+ -cp C:\opt\scala-3.0.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
- -classpath W:\dotty-examples\examples\hello-scala\target\classes \
- -d W:\dotty-examples\examples\hello-scala\target\classes \
- W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\opt\jdk-1.8.0_262-b10\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\dotty-0.27.0-RC1 [...]
-[DEBUG] [execute] C:\opt\jdk-1.8.0_262-b10\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\dotty-0.27.0-RC1\lib\*.jar;\
-W:\dotty-examples\examples\hello-scala\target\classes hello
+ -classpath W:\examples\hello-scala\target\classes \
+ -d W:\examples\hello-scala\target\classes \
+ W:\examples\hello-scala\src\main\scala\hello.scala
+[DEBUG] [execute] C:\opt\jdk-11.0.10+9\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala-3.0.0-RC1 [...]
+[DEBUG] [execute] C:\opt\jdk-11.0.10+9\bin\java.exe \
+ -Xms64m -Xmx1024m -cp C:\opt\scala-3.0.0-RC1\lib\*.jar;\
+W:\examples\hello-scala\target\classes hello
 </pre>
 
 Command [**`mvn --quiet clean test`**](enum-Planet/pom.xml) produces the following output:
@@ -365,7 +388,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 ...
 [INFO]
 [INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ enum-Planet ---
-[INFO] Building jar: W:\dotty-examples\examples\enum-Planet\target\enum-Planet-0.1-SNAPSHOT.jar
+[INFO] Building jar: W:\examples\enum-Planet\target\enum-Planet-1.0-SNAPSHOT.jar
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
@@ -374,9 +397,9 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 [INFO] ------------------------------------------------------------------------
 
 <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -version 2>&1 | findstr version</b>
-openjdk version "11.0.9" 2020-10-20
+openjdk version "11.0.10" 2021-01-19
 
-<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:"c:\opt\scala-3.0.0-M3\lib\dotty-library_3.0.0-M3-scala-3.0.0-M3.jar;c:\opt\scala-3.0.0-M3\lib\scala-library-2.13.3.jar" -jar target\enum-Planet-0.1-SNAPSHOT.jar 1</b>
+<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:"c:\opt\scala-3.0.0-RC1\lib\dotty-library_3.0.0-RC1-scala-3.0.0-RC1.jar;c:\opt\scala-3.0.0-RC1\lib\scala-library-2.13.4.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
 Your weight on EARTH (2) is 0.9999999999999999
@@ -399,7 +422,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 >         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>0.27.0-RC1<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.version&gt;</b>3.0.0-RC1<b>&lt;/scala.version&gt;</b>
 >         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
@@ -584,8 +607,10 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 [apache_history]: https://ant.apache.org/faq.html#history
 [apache_maven_about]: https://maven.apache.org/what-is-maven.html
 [apache_maven_cli]: https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html
+[bash]: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [cfr_releases]: https://www.benf.org/other/cfr/
+[cygwin]: https://cygwin.com/install.html
 [dotty]: https://dotty.epfl.ch/
 [gmake_cli]: http://www.glue.umd.edu/lsf-docs/man/gmake.html
 [gradle_groovy]: https://www.groovy-lang.org/
@@ -600,6 +625,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 [man1_diff]: https://www.linux.org/docs/man1/diff.html
 [mill_cli]: https://www.lihaoyi.com/mill/#command-line-tools
 [mvn_cli]: https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html
+[msys2]: https://www.msys2.org/
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_docs_defs]: https://www.scala-sbt.org/1.0/docs/Basic-Def.html
 [scala]: https://www.scala-lang.org/
