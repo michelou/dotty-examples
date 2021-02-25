@@ -213,10 +213,13 @@ We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6
 
 | [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Issue status&nbsp;&nbsp;&nbsp; | Context |
 | :-------------------------: | :--------: | :--------- |
+| [#11454][dotty_issue_11454] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
+| [#11453][dotty_issue_11453] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
+| [#11452][dotty_issue_11452] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
 | [#11014][dotty_issue_11014] | *open* | Markdown files |
 | [#8358][dotty_issue_8358] | *open* | Resource leak |
-| [#8355][dotty_issue_8355] | [fixed][dotty_pull_8356] | Test suite |
-| [#8218][dotty_issue_8218] | [fixed][dotty_pull_8224] | TASTy inspector |
+| [#8355][dotty_issue_8355] | [fixed][dotty_pull_8356] <span style="font-size:80%;">(Feb 2020)</span> | Test suite |
+| [#8218][dotty_issue_8218] | [fixed][dotty_pull_8224] <span style="font-size:80%;">(Feb 2020)</span> | TASTy inspector |
 | [#8124][dotty_issue_8124] | [fixed][dotty_pull_8279] | Compiler settings |
 | [#7720][dotty_issue_7720] | [fixed][dotty_pull_7691] | Staging |
 | [#7148][dotty_issue_7146] | [fixed](https://github.com/dotty-staging/dotty/commit/2c529c6) | Shell scripts |
@@ -741,6 +744,9 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_issue_8355]: https://github.com/lampepfl/dotty/issues/8355
 [dotty_issue_8358]: https://github.com/lampepfl/dotty/issues/8358
 [dotty_issue_11014]: https://github.com/lampepfl/dotty/issues/11014
+[dotty_issue_11452]: https://github.com/lampepfl/dotty/issues/11452 "Command line tools : option \"-version\""
+[dotty_issue_11453]: https://github.com/lampepfl/dotty/issues/11453
+[dotty_issue_11454]: https://github.com/lampepfl/dotty/issues/11454 "scaladoc tool : argument files (@-files)"
 [dotty_pull_6653]: https://github.com/lampepfl/dotty/pull/6653
 [dotty_pull_7691]: https://github.com/lampepfl/dotty/pull/7691
 [dotty_pull_8224]: https://github.com/lampepfl/dotty/pull/8224
@@ -758,6 +764,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_pull_11158]: https://github.com/lampepfl/dotty/pull/11158
 [dotty_pull_11235]: https://github.com/lampepfl/dotty/pull/11235
 [dotty_pull_11257]: https://github.com/lampepfl/dotty/pull/11257
+[dotty_pull_11476]: https://github.com/lampepfl/dotty/pull/11476
 [dotty_pull_11480]: https://github.com/lampepfl/dotty/pull/11480
 [dotty_docs]: https://dotty.epfl.ch/docs/
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html

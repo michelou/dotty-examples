@@ -101,7 +101,7 @@ if "%__ARG%"=="--" (
 ) else if "%__ARG%"=="-run" ( set _PROG_NAME=%_REPL_MAIN%
 ) else if "%__ARG%"=="-colors" ( set _COLORS=true
 ) else if "%__ARG%"=="-no-colors" ( set _COLORS=
-) else if "%__ARG%"=="-with-compiler" ( set _JVM_CP_ARGS=%_PSEP%%_DOTTY_COMP%%_PSEP%%_TASTY_CORE%
+) else if "%__ARG%"=="-with-compiler" ( set _JVM_CP_ARGS=%_PSEP%%_SCALA3_COMP%%_PSEP%%_TASTY_CORE%
 @rem break out -D and -J options and add them to JAVA_OPTS as well
 @rem so they reach the JVM in time to do some good. The -D options
 @rem will be available as system properties.
@@ -139,23 +139,23 @@ goto :eof
 
 @rem output parameter: _JVM_CP_ARGS
 :classpathArgs
-@rem echo scala3-compiler: %_DOTTY_COMP%
-@rem echo scala3-interface: %_DOTTY_INTF%
-@rem echo scala3-library: %_DOTTY_LIB%
+@rem echo scala3-compiler: %_SCALA3_COMP%
+@rem echo scala3-interface: %_SCALA3_INTF%
+@rem echo scala3-library: %_SCALA3_LIB%
 @rem echo tasty-core: %_TASTY_CORE%
 @rem echo scala-asm: %_SCALA_ASM%
 @rem echo scala-lib: %_SCALA_LIB%
 @rem echo sbt-intface: %_SBT_INTF%
 
 set __TOOLCHAIN=%_SCALA_LIB%%_PSEP%
-set __TOOLCHAIN=%__TOOLCHAIN%%_DOTTY_LIB%%_PSEP%
+set __TOOLCHAIN=%__TOOLCHAIN%%_SCALA3_LIB%%_PSEP%
 set __TOOLCHAIN=%__TOOLCHAIN%%_SCALA_ASM%%_PSEP%
 set __TOOLCHAIN=%__TOOLCHAIN%%_SBT_INTF%%_PSEP%
-set __TOOLCHAIN=%__TOOLCHAIN%%_DOTTY_INTF%%_PSEP%
-set __TOOLCHAIN=%__TOOLCHAIN%%_DOTTY_COMP%%_PSEP%
+set __TOOLCHAIN=%__TOOLCHAIN%%_SCALA3_INTF%%_PSEP%
+set __TOOLCHAIN=%__TOOLCHAIN%%_SCALA3_COMP%%_PSEP%
 set __TOOLCHAIN=%__TOOLCHAIN%%_TASTY_CORE%%_PSEP%
-set __TOOLCHAIN=%__TOOLCHAIN%%_DOTTY_STAGING%%_PSEP%
-set __TOOLCHAIN=%__TOOLCHAIN%%_DOTTY_TASTY_INSPECTOR%%_PSEP%
+set __TOOLCHAIN=%__TOOLCHAIN%%_SCALA3_STAGING%%_PSEP%
+set __TOOLCHAIN=%__TOOLCHAIN%%_SCALA3_TASTY_INSPECTOR%%_PSEP%
 
 @rem # jline
 set __TOOLCHAIN=%__TOOLCHAIN%%_JLINE_READER%%_PSEP%

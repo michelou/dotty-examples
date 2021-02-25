@@ -39,11 +39,11 @@ for /f %%f in ("%_PROG_HOME%\.") do set "_LIB_DIR=%%~dpflib"
 
 set _PSEP=;
 
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-compiler*"')        do set _DOTTY_COMP=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-interfaces*"')      do set _DOTTY_INTF=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-library*"')         do set _DOTTY_LIB=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-staging*"')         do set _DOTTY_STAGING=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-tasty-inspector*"') do set _DOTTY_TASTY_INSPECTOR=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-compiler*"')        do set _SCALA3_COMP=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-interfaces*"')      do set _SCALA3_INTF=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-library*"')         do set _SCALA3_LIB=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-staging*"')         do set _SCALA3_STAGING=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-tasty-inspector*"') do set _SCALA3_TASTY_INSPECTOR=%_LIB_DIR%\%%f
 for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*tasty-core*"')             do set _TASTY_CORE=%_LIB_DIR%\%%f
 for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala-asm*"')              do set _SCALA_ASM=%_LIB_DIR%\%%f
 for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala-library*"')          do set _SCALA_LIB=%_LIB_DIR%\%%f

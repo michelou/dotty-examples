@@ -22,10 +22,10 @@
     <properties>
         <mainClass>Planet</mainClass>
         <!-- TODO: remove once Maven plugin for Scala does support POM dependencies -->
-        <junit.version>4.13.1</junit.version>
+        <junit.version>4.13.2</junit.version>
         <junit.jar>junit/junit/${junit.version}/junit-${junit.version}.jar</junit.jar>
-        <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13 -->
-        <scalatest.version>3.1.2</scalatest.version>
+        <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
+        <scalatest.version>3.2.5</scalatest.version>
         <scalatest.jar>org/scalatest/scalatest_2.13/$scalatest.version}/scalatest_2.13-${scalatest.version}.jar</scalatest.jar>
     </properties>
 

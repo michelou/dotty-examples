@@ -109,7 +109,7 @@ goto :eof
 for /f %%f in ("%_PROG_HOME%\.") do set "__LIB_DIR=%%~dpflib"
 
 @rem Set scaladoc dep:
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*scaladoc*"') do set _DOTTY_DOC=%__LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*scaladoc*"') do set _SCALA3_DOC=%__LIB_DIR%\%%f
 
 @rem Set flexmark deps:
 for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-0*"')                     do set _FLEXMARK_LIBS=%__LIB_DIR%\%%f%_PSEP%
@@ -158,14 +158,14 @@ for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*ST4*"') do set _ST4_LIB=%__LIB_DIR%\%%
 @rem Set jsoup dep:
 for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*jsoup*"') do set _JSOUP_LIB=%__LIB_DIR%\%%f%_PSEP%
 
-set _CLASS_PATH=%_DOTTY_DOC%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_DOTTY_LIB%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_DOTTY_COMP%
+set _CLASS_PATH=%_SCALA3_DOC%
+set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA3_LIB%
+set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA3_COMP%
 set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_TASTY_CORE%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_DOTTY_INTF%
+set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA3_INTF%
 set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SBT_INTF%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_DOTTY_STAGING%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_DOTTY_TASTY_INSPECTOR%
+set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA3_STAGING%
+set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA3_TASTY_INSPECTOR%
 @rem set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA_ASM%
 set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA_LIB%
 set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_FLEXMARK_LIBS%
