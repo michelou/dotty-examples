@@ -810,7 +810,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
 [microsoft_vscode]: https://code.visualstudio.com/
 [mill_changelog]: https://github.com/lihaoyi/mill#changelog
-[mill_cli]: https://www.lihaoyi.com/mill/#command-line-tools
+[mill_cli]: https://com-lihaoyi.github.io/mill/#command-line-tools
 [mill_releases]: https://github.com/lihaoyi/mill/releases/
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [oracle_openjdk]: https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
