@@ -20,17 +20,17 @@ W:\examples\enum-Planet
 
 Build tools rely on one or more configuration files to achieve their tasks. In our case we created the following configuration files for [**`enum-Planet`**](enum-Planet):
 
-| Build tool                    | Configuration file(s)                    | Parent file(s)                               |
-|-------------------------------|------------------------------------------|----------------------------------------------|
-| [**`ant.bat`**][apache_ant_cli]   | [**`build.xml`**](enum-Planet/build.xml) | [**`build.xml`**](./build.xml), [**`ivy.xml`**](ivy.xml) |
-| [**`bazel.exe`**][bazel_cli]      | [**`BUILD`**](enum-Planet/BUILD), **`WORKSPACE`** | n.a.                                |
-| [**`build.bat`**](enum-Planet/build.bat) | [**`build.properties`**](enum-Planet/project/build.properties) | [**`cpath.bat`**](./cpath.bat) <sup>(*)</sup>              |
-| [**`build.sh`**](enum-Planet/build.sh) | [**`build.properties`**](enum-Planet/project/build.properties) |                   |
-| [**`gradle.exe`**][gradle_cli]    | [**`build.gradle`**](enum-Planet/build.gradle) | [**`common.gradle`**](./common.gradle) |
-| [**`make.exe`**][gmake_cli]       | [**`Makefile`**](enum-Planet/Makefile)   | [**`Makefile.inc`**](./Makefile.inc)         |
-| [**`mill.bat`**][mill_cli]        | [**`build.sc`**](enum-Planet/build.sc)   | [**`common.sc`**](./common.sc)               |
-| [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](enum-Planet/pom.xml)     | [**`pom.xml`**](./pom.xml)                   |
-| [**`sbt.bat`**][sbt_cli]          | [**`build.sbt`**](enum-Planet/build.sbt) | n.a.                                         |
+| Build tool                    | Configuration file(s)                    | Parent file(s)                               | Comment(s) |
+|-------------------------------|------------------------------------------|----------------------------------------------|---------|
+| [**`ant.bat`**][apache_ant_cli]   | [**`build.xml`**](enum-Planet/build.xml) | [**`build.xml`**](./build.xml), [**`ivy.xml`**](ivy.xml) |  |
+| [**`bazel.exe`**][bazel_cli]      | [**`BUILD`**](enum-Planet/BUILD), **`WORKSPACE`** | n.a.                                |  |
+| [**`build.bat`**](enum-Planet/build.bat) | [**`build.properties`**](enum-Planet/project/build.properties) | [**`cpath.bat`**](./cpath.bat) <sup>(*)</sup>              |  |
+| [**`build.sh`**](enum-Planet/build.sh) | [**`build.properties`**](enum-Planet/project/build.properties) |                   | [Cygwin], [MSYS2], etc. |
+| [**`gradle.exe`**][gradle_cli]    | [**`build.gradle`**](enum-Planet/build.gradle) | [**`common.gradle`**](./common.gradle) |  |
+| [**`make.exe`**][gmake_cli]       | [**`Makefile`**](enum-Planet/Makefile)   | [**`Makefile.inc`**](./Makefile.inc)         |  |
+| [**`mill.bat`**][mill_cli]        | [**`build.sc`**](enum-Planet/build.sc)   | [**`common.sc`**](./common.sc)               |  |
+| [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](enum-Planet/pom.xml)     | [**`pom.xml`**](./pom.xml)                   |  |
+| [**`sbt.bat`**][sbt_cli]          | [**`build.sbt`**](enum-Planet/build.sbt) | n.a.                                         |  |
 <div style="margin:-4px 50% 0 0;font-size:80%;"><b><sup>(*)</sup></b> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).<br/>&nbsp;</div>
 
 ## <span id="ant">Ant build tool</span>
@@ -244,7 +244,7 @@ Compare output file with check file "src\build\cfr-sources_scala3_0.27.0-RC1.jav
 
 ## <span id="build.shell">`build.sh` command</span>
 
-Command [**`build.sh`**](enum-Planet/build.sh) is our basic build tool for Unix environments like [Cygwin], Linux, MinGW or [MSYS2]; it features subcommands **`clean`**, **`compile`**, **`doc`**, **`help`**, **`lint`** and **`run`**; the Bash script consists of ~430 lines of [Bash] code.
+Command [**`build.sh`**](enum-Planet/build.sh) is our basic build tool for Unix environments like [Cygwin], Linux or [MSYS2]; it features subcommands **`clean`**, **`compile`**, **`doc`**, **`help`**, **`lint`** and **`run`**; the Bash script consists of ~530 lines of [Bash] code.
 
 Command [**`build clean run`**](enum-Planet/build.sh) produces the following output:
 

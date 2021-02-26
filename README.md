@@ -76,7 +76,7 @@ C:\opt\make-3.81\            <i>(  2.1 MB)</i>
 C:\opt\Mill-0.9.5\           <i>( 53.7 MB)</i>
 C:\opt\sbt-1.4.7\            <i>( 48.3 MB)</i>
 C:\opt\scala-2.13.5\         <i>( 23.4 MB, 612 MB with API docs)</i>
-C:\opt\scala-3.0.0-RC1\       <i>( 30.1 MB)</i>
+C:\opt\scala-3.0.0-RC1\      <i>( 30.1 MB)</i>
 </pre>
  <!-- jdk8: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
  <!-- jdk11: 11.0.8 = 314 MB, 11.0.9 = 316 MB -->
@@ -102,6 +102,7 @@ examples\{<a href="examples/README.md">README.md</a>, <a href="examples/dotty-ex
 myexamples\{<a href="myexamples/README.md">README.md</a>, <a href="myexamples/00_AutoParamTupling/">00_AutoParamTupling</a>, ..}
 plugin-examples\{<a href="plugin-examples/README.md">README.md</a>, <a href="plugin-examples/DivideZero/">DivideZero</a>, ..}
 README.md
+<a href="RESOURCES.md">RESOURCES.md</a>
 <a href="setenv.bat">setenv.bat</a>
 </pre>
 
@@ -117,6 +118,7 @@ where
 - directory [**`myexamples\`**](myexamples/) contains self-written [Scala 3][scala_3] examples (see file [**`myexamples\README.md`**](myexamples/README.md)).
 - directory [**`plugin-examples\`**](plugin-examples/) contains [Scala 3][scala_3] plugin examples (see file [**`plugin-examples\README.md`**](plugin-examples/README.md)).
 - file [**`README.md`**](README.md) is the [Markdown][github_markdown] document for this page.
+- file [**`RESOURCES.md`**](RESOURCES.md) is the [Markdown][github_markdown] document presenting external resources.
 - file [**`setenv.bat`**](setenv.bat) is the batch command for setting up our environment.
 
 <!--
@@ -159,19 +161,19 @@ We distinguish different sets of batch/bash commands:
    - [**`timeit.bat <cmd_1> { & <cmd_2> }`**](bin/timeit.bat) prints the execution time of the specified commands.
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory [**`bin\3.0.0\`**](bin/3.0.0/) - This directory contains batch files to be copied to the **`bin\`** directory of the [Scala 3][scala_3] installation (eg. **`C:\opt\scala-3.0.0-RC1\bin\`**) in order to use the [**`scalac`**](bin/3.0.0/scalac.bat), [**`scalad`**](bin/3.0.0/scalad.bat) and [**`scala`**](bin/3.0.0/scala.bat) commands on **Microsoft Windows**.
+3. Directory [**`bin\3.0.0\`**](bin/3.0.0/) - This directory contains batch files to be copied to the **`bin\`** directory of the [Scala 3][scala_3] installation (eg. **`C:\opt\scala-3.0.0-RC1\bin\`**) in order to use the [**`scalac`**](bin/3.0.0/scalac.bat), [**`scaladoc`**](bin/3.0.0/scaladoc.bat) and [**`scala`**](bin/3.0.0/scala.bat) commands on **Microsoft Windows**.
     > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Scala 3 distribution][dotty_releases]. We also have submitted pull request [#5444][github_PR5444] to add them to the [Scala 3][scala_3] distribution.
 
     <pre style="font-size:80%;">
     <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\dotty-3.0.0-RC1\bin</b>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/common">common</a>
     <a href="bin/3.0.0/common.bat">common.bat</a>
-    <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/scalac">scalac</a>
-    <a href="bin/3.0.0/scalac.bat">scalac.bat</a>
-    <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/scalad">scalad</a>
-    <a href="bin/3.0.0/scalad.bat">scalad.bat</a>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/scala">scala</a>
     <a href="bin/3.0.0/scala.bat">scala.bat</a>
+    <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/scalac">scalac</a>
+    <a href="bin/3.0.0/scalac.bat">scalac.bat</a>
+    <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/scalad">scaladoc</a>
+    <a href="bin/3.0.0/scaladoc.bat">scaladoc.bat</a>
     </pre>
 
 <!-- ## removed on 2018-10-05 ##
