@@ -63,7 +63,7 @@ args() {
         ## subcommands
         clean)     CLEAN=true ;;
         compile)   COMPILE=true ;;
-        decompile) DECOMPILE=true ;;
+        decompile) COMPILE=true && DECOMPILE=true ;;
         doc)       COMPILE=true && DOC=true ;;
         help)      HELP=true ;;
         lint)      LINT=true ;;
@@ -109,7 +109,7 @@ Usage: $BASENAME { <option> | <subcommand> }
   Subcommands:
     clean        delete generated files
     compile      compile Java/Scala source files
-    deocmpile    decompile generated code with CFR
+    decompile    decompile generated code with CFR
     doc          generate HTML documentation
     help         display this help message
     lint         analyze Scala source files with Scalafmt
@@ -148,12 +148,12 @@ compile() {
     local timestamp_file="$TARGET_DIR/.latest-build"
 
     local is_required=0
-    is_required="$(compile_required "$timestamp_file" "$SOURCE_DIR/main/java/*.java")"
+    is_required="$(compile_required "$timestamp_file" "$SOURCE_DIR/main/java/" "*.java")"
     if [[ $is_required -eq 1 ]]; then
         compile_java
         [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
     fi
-    is_required="$(compile_required "$timestamp_file" "$MAIN_SOURCE_DIR/*.scala")"
+    is_required="$(compile_required "$timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
     if [[ $is_required -eq 1 ]]; then
         compile_scala
         [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
@@ -163,9 +163,10 @@ compile() {
 
 compile_required() {
     local timestamp_file=$1
-    local file_pattern=$2
+    local search_path=$2
+    local search_pattern=$3
     local latest=
-    for f in $(ls -r $file_pattern 2>/dev/null); do
+    for f in $(find $search_path -name $search_pattern 2>/dev/null); do
         [[ $f -nt $latest ]] && latest=$f
     done
     if [ -z "$latest" ]; then
@@ -175,7 +176,7 @@ compile_required() {
         ## Do compile if timestamp file doesn't exist
         echo 1
     else
-        ## DO compile if timestamp file is older than most recent source file
+        ## Do compile if timestamp file is older than most recent source file
         local timestamp=$(stat -c %Y $timestamp_file)
         [[ $timestamp_file -nt $latest ]] && echo 1 || echo 0
     fi
@@ -187,21 +188,21 @@ compile_java() {
 
     local opts_file="$TARGET_DIR/javac_opts.txt"
     local cpath="$LIBS_CPATH$(mixed_path $CLASSES_DIR)"
-    echo -classpath "$CPATH" -d "$(mixed_path $CLASSES_DIR)" > "$opts_file"
+    echo -classpath "$cpath" -d "$(mixed_path $CLASSES_DIR)" > "$opts_file"
 
     local sources_file="$TARGET_DIR/javac_sources.txt"
     [[ -f "$sources_file" ]] && rm "$sources_file"
     local n=0
-    for f in $(ls $SOURCE_DIR/main/java/*.java 2>/dev/null); do
-        echo $f >> "$sources_file"
+    for f in $(find $SOURCE_DIR/main/java/ -name *.java 2>/dev/null); do
+        echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
     if $DEBUG; then
-        debug "$JAVAC_CMD @$opts_file @$sources_file"
+        debug "$JAVAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
         echo "Compile $n Java source files to directory ${CLASSES_DIR/$ROOT_DIR\//}" 1>&2
     fi
-    eval "$JAVAC_CMD" "@$(mixed_path $opts_file)" "@$($mixed_path $sources_file)"
+    eval "$JAVAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
         error "Compilation of $n Java source files failed"
         cleanup 1
@@ -219,7 +220,7 @@ compile_scala() {
     local sources_file="$TARGET_DIR/scalac_sources.txt"
     [[ -f "$sources_file" ]] && rm "$sources_file"
     local n=0
-    for f in $(ls $SOURCE_DIR/main/scala/*.scala 2>/dev/null); do
+    for f in $(find $SOURCE_DIR/main/scala/ -name *.scala 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
@@ -248,8 +249,8 @@ compile_scala() {
 
 mixed_path() {
     if [ -x "$CYGPATH_CMD" ]; then
-        echo $($CYGPATH_CMD -am $1)
-    elif $mingw || $msys; then
+        $CYGPATH_CMD -am $1
+    elif [[ $mingw || $msys ]]; then
         echo $1 | sed 's|/|\\\\|g'
     else
         echo $1
@@ -260,37 +261,42 @@ decompile() {
     local output_dir="$TARGET_DIR/cfr-sources"
     [[ -d "$output_dir" ]] || mkdir -p "$output_dir"
 
-    local cfr_opts="--extraclasspath "$(extra_cpath)" --outputdir "$output_dir""
+    local cfr_opts="--extraclasspath "$(extra_cpath)" --outputdir "$(mixed_path $output_dir)""
 
-    local class_dirs="$CLASSES_DIR"
+    local n="$(ls -n $CLASSES_DIR/*.class | wc -l)"
+    local class_dirs=
+    [[ $n -gt 0 ]] && class_dirs="$CLASSES_DIR"
     for f in $(ls -d $CLASSES_DIR 2>/dev/null); do
-        class_dirs="$class_dirs $f"
+        n="$(ls -n $CLASSES_DIR/*.class | wc -l)"
+        [[ $n -gt 0 ]] && class_dirs="$class_dirs $f"
     done
     $VERBOSE && echo "Decompile Java bytecode to directory ${output_dir/$ROOT_DIR\//}" 1>&2
-    for i in $class_dirs; do
-        debug "$CFR_CMD $cfr_opts $f/*.class"
-        eval "$CFR_CMD $cfr_opts $f/*.class $STDERR_REDIRECT"
+    for f in $class_dirs; do
+        debug "$CFR_CMD $cfr_opts $(mixed_path $f)/*.class"
+        eval "$CFR_CMD" $cfr_opts "$(mixed_path $f)/*.class" $STDERR_REDIRECT
         if [[ $? -ne 0 ]]; then
-            error "Failed to decompile generated code in directory $i"
+            error "Failed to decompile generated code in directory $f"
             cleanup 1
         fi
     done
-    local version_string="$(version_string)"
+    local version_list=($(version_string))
+    local version_string="${version_list[0]}"
+    local version_suffix="${version_list[1]}"
 
     ## output file contains Scala and CFR headers
     local output_file="$TARGET_DIR/cfr-sources$version_suffix.java"
     echo // Compiled with $version_string > "$output_file"
 
     if $DEBUG; then
-        debug "echo $output_dir/*.java ^>^> $output_file"
+        debug "cat $output_dir/*.java >> $output_file"
     elif $VERBOSE; then
         echo "Save generated Java source files to file ${output_file/$ROOT_DIR\//}" 1>&2
     fi
     local java_files=
-    for f in $(ls "$output_dir/*.java" 2^>/dev/null); do
-        java_files="$java_files $f"
+    for f in $(find $output_dir/ -name *.java 2>/dev/null); do
+        java_files="$java_files $(mixed_path $f)"
     done
-    [[ -n "$java_files" ]] && echo $java_files >> "$output_file"
+    [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
 
     if [ ! -x "$DIFF_CMD" ]; then
         if $DEBUG; then
@@ -305,7 +311,7 @@ decompile() {
     local check_file="$SOURCE_DIR/build/cfr-source$VERSION_SUFFIX.java"
     if [ -f "$check_file" ]; then
         if $DEBUG; then
-            debug "$DIFF_CMD $diff_opts $output_file $check_file"
+            debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
         elif $VERBOSE; then
             echo "Compare output file with check file ${check_file/$ROOT_DIR\//}" 1>&2
         fi
@@ -325,23 +331,34 @@ extra_cpath() {
         lib_path="$SCALA_HOME/lib"
     fi
     local extra_cpath=
-    for f in $(ls "$lib_path/*.jar"); do
-        extra_cpath="$extra_cpath$f;"
+    for f in $(find $lib_path/ -name *.jar); do
+        extra_cpath="$extra_cpath$(mixed_path $f)$PSEP"
     done
     echo $extra_cpath
 }
 
-## output parameters: _VERSION_STRING, _VERSION_SUFFIX
+## output parameter: ($version $suffix)
 version_string() {
-    local version="$($SCALAC3 -version 2>&1 | cut -d " " -f 4)"
-    [[ $SCALA_VERSION -eq 3 ]] && VERSION_STRING="scala3_$version" ||VERSION_STRING="scala2_$version"
+    local tool_version="$($SCALAC_CMD -version 2>&1 | cut -d " " -f 4)"
+    local version=
+    [[ $SCALA_VERSION -eq 3 ]] && version="scala3_$tool_version" || version="scala2_$tool_version"
 
     ## keep only "-NIGHTLY" in version suffix when compiling with a nightly build 
-    if "${VERSION_STRING/NIGHTLY/}"=="$VERSION_STRING"; then
-        VERSION_SUFFIX="_$VERSION_STRING"
+    local str="${version/NIGHTLY*/NIGHTLY}"
+    local suffix=
+    if [[ ! "$version" == "$str" ]]; then
+        suffix="_$str"
     else
-        VERSION_SUFFIX=_3.0.0
+        ## same for "-SNAPSHOT"
+        str="${version/SNAPSHOT*/SNAPSHOT}"
+        if [[ ! "$version" == "$str" ]]; then
+            suffix="_$str"
+        else
+            suffix=_3.0.0
+        fi
     fi
+    local arr=($version $suffix)
+    echo "${arr[@]}"
 }
 
 doc() {
@@ -349,15 +366,15 @@ doc() {
 
     local doc_timestamp_file="$TARGET_DOCS_DIR/.latest-build"
 
-    local is_required="$(compile_required "$doc_timestamp_file" "$MAIN_SOURCE_DIR/*.scala")"
+    local is_required="$(compile_required "$doc_timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
     [[ $is_required -eq 0 ]] && return 1
 
     local sources_file="$TARGET_DIR/scaladoc_sources.txt"
     [[ -f "$sources_file" ]] && rm -rf "$sources_file"
-    # for f in $(ls $SOURCE_DIR/main/java/*.java" 2>/dev/null); do
+    # for f in $(find $SOURCE_DIR/main/java/ -name *.java 2>/dev/null); do
     #     echo $(mixed_path $f) >> "$sources_file"
     # done
-    for f in $(ls $SOURCE_DIR/main/scala/*.scala 2>/dev/null); do
+    for f in $(find $SOURCE_DIR/main/scala/ -name *.scala 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
     done
     local opts_file="$TARGET_DIR/scaladoc_opts.txt"
@@ -385,7 +402,7 @@ doc() {
 }
 
 run() {
-    local main_class_file="$CLASSES_DIR/${MAIN_CLASS}.class"
+    local main_class_file="$CLASSES_DIR/${MAIN_CLASS/.//}.class"
     if [[ ! -f "$main_class_file" ]]; then
         error "Scala main class '$MAIN_CLASS' not found ($main_class_file)"
         cleanup 1
@@ -438,7 +455,7 @@ DOC=false
 HELP=false
 LINT=false
 MAIN_CLASS=Main
-MAIN_ARGS=1
+MAIN_ARGS=
 RUN=false
 SCALA_VERSION=3
 SCALAC_OPTS_PRINT=false
@@ -461,8 +478,14 @@ case "`uname -s`" in
   Darwin*) darwin=true      
 esac
 unset CYGPATH_CMD
-[[ $cygwin || $mingw || $msys ]] && CYGPATH_CMD="$(which cygpath 2>/dev/null)"
-
+PSEP=":"
+if [[ $cygwin || $mingw || $msys ]]; then
+    CYGPATH_CMD="$(which cygpath 2>/dev/null)"
+    [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
+    [[ -n "$SCALA3_HOME" ]] && SCALA3_HOME="$(mixed_path $SCALA3_HOME)"
+    [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
+    [[ -n "$SCALAFMT_HOME" ]] && SCALAFMT_HOME="$(mixed_path $SCALAFMT_HOME)"
+fi
 if [ ! -x "$JAVA_HOME/bin/javac" ]; then
     error "Java SDK installation not found"
     cleanup 1
@@ -501,7 +524,7 @@ SCALA_CMD=$SCALA3
 SCALAC_CMD=$SCALAC3
 SCALADOC_CMD=$SCALADOC3
 
-DIFF_CMD=diff
+DIFF_CMD="$(which diff)"
 
 ##############################################################################
 ## Main

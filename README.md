@@ -50,6 +50,7 @@ Optionally one may also install the following software:
 - [JaCoCo 0.8][jacoco_downloads] ([*change log*][jacoco_changelog])
 - [JavaFX 15][javafx_downloads] ([*release notes*][javafx_relnotes])
 - [Mill 0.9][mill_releases] ([*change log*][mill_changelog])
+- [MSYS2][msys2_releases]
 - [SBT 1.4][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
 <!--
@@ -74,6 +75,7 @@ C:\opt\javafx-sdk-15.0.1\    <i>( 78.2 MB)</i>
 C:\opt\jdk-11.0.10+9\        <i>(181.0 MB)</i>
 C:\opt\make-3.81\            <i>(  2.1 MB)</i>
 C:\opt\Mill-0.9.5\           <i>( 53.7 MB)</i>
+C:\opt\msys64\               <i>( 5.56 GB)</i>
 C:\opt\sbt-1.4.7\            <i>( 48.3 MB)</i>
 C:\opt\scala-2.13.5\         <i>( 23.4 MB, 612 MB with API docs)</i>
 C:\opt\scala-3.0.0-RC1\      <i>( 30.1 MB)</i>
@@ -234,6 +236,7 @@ We distinguish different sets of batch/bash commands:
     | [**`ant.bat`**][apache_ant_cli] | [**`build.xml`**](examples/enum-Planet/build.xml) | [**`build.xml`**](examples/build.xml) | **`ant clean compile run`** |
     | [**`bazel.exe`**][bazel_cli] | [**`BUILD`**](examples/enum-Planet/BUILD) | n.a. | **`bazel run :enum-Planet`** |
     | [**`build.bat`**](examples/enum-Planet/build.bat) | **`build.properties`** | n.a. | **`build clean run`** |
+    | [**`build.sh`**](examples/enum-Planet/build.sh) | *to be done* | n.a. | **`build clean run`** |
     | [**`gradle.bat`**][gradle_cli] | [**`build.gradle`**](examples/enum-Planet/build.gradle) | [**`common.gradle`**](examples/common.gradle) | **`gradle clean build run`** |
     | [**`make.exe`**][gmake_cli] | [**`Makefile`**](examples/enum-Planet/Makefile) | [**`Makefile.inc`**](examples/Makefile.inc) | **`make clean run`** |
     | [**`mill.bat`**][mill_cli] | [**`build.sc`**](examples/enum-Planet/build.sc) | [**`common.sc`**](examples/common.sc) | **`mill -i app`** |
@@ -323,7 +326,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.5, scalac 3.0.0-RC1,
    ant 1.10.9, gradle 6.8.3, mill 0.9.5, mvn 3.6.3, sbt 1.4.7,
-   bazel 4.0.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.1,
+   bazel 4.0.0, cfr 0.151, make 3.81, python 3.9.1,
    git 2.30.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-11.0.10+9\bin\javac.exe
@@ -336,7 +339,6 @@ Tool paths:
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
    C:\opt\sbt-1.4.7\bin\sbt.bat
    C:\opt\bazel-4.0.0\bazel.exe
-   C:\opt\bloop-1.3.4\bloop.cmd
    C:\opt\cfr-0.151\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
    C:\opt\Python-3.9.1\python.exe
@@ -350,6 +352,7 @@ Environment variables:
    JAVA_HOME=C:\opt\jdk-11.0.10+9
    JAVAFX_HOME=C:\opt\javafx-sdk-15.0.1
    PYTHON_HOME=C:\opt\Python-3.9.1
+   SBT_HOME=C:\opt\sbt-1.4.7
    SCALA_HOME=C:\opt\scala-2.13.5
    SCALA3_HOME=C:\opt\scala-3.0.0-RC1
    SCALAFMT_HOME=C:\opt\scalafmt-2.7.5
@@ -812,6 +815,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [mill_changelog]: https://github.com/lihaoyi/mill#changelog
 [mill_cli]: https://com-lihaoyi.github.io/mill/#command-line-tools
 [mill_releases]: https://github.com/lihaoyi/mill/releases/
+[msys2_releases]: https://github.com/msys2/msys2-installer/releases
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [oracle_openjdk]: https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
 <!-- also: https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/tag/jdk8u252-b09 -->

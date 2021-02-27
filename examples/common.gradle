@@ -32,7 +32,7 @@ ext {
         scalaClasspath = files(sourceSets.main.runtimeClasspath, classesDir)
     }
     userHome = System.getenv("USERPROFILE", System.getenv("HOME"))
-    testLibsTree = fileTree(dir: "${userHome}/.m2/repository", include: "**/junit-4.13.1.jar")
+    testLibsTree = fileTree(dir: "${userHome}/.m2/repository", include: "**/junit-4.13.2.jar")
     testClasspath = files(testLibsTree, scalaClasspath, testClassesDir)
 }
 
@@ -114,6 +114,6 @@ repositories {
 
 dependencies {
     // implementation "ch.epfl.lamp:dotty-compiler_0.27:0.27.0-RC1"
-    implementation "org.scala-lang:scala3-compiler_3.0.0-M4:3.0.0-M4"
-    testImplementation "junit:junit:4.13.1"
+    implementation "org.scala-lang:scala3-compiler_3.0.0-RC1:3.0.0-RC1"
+    testImplementation "junit:junit:4.13.2"
 }

@@ -180,6 +180,7 @@ goto :eof
 :args
 set _BASH=0
 set _HELP=0
+set _MSYS=0
 set _VERBOSE=0
 
 :args_loop
@@ -188,8 +189,9 @@ if not defined __ARG goto args_done
 
 if "%__ARG:~0,1%"=="-" (
     @rem option
-    if "%__ARG%"=="-bash" ( set _BASH=1
+    if "%__ARG%"=="-bash" ( set _MSYS=0& set _BASH=1
     ) else if "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if "%__ARG%"=="-msys" ( set _BASH=0& set _MSYS=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
@@ -944,7 +946,6 @@ goto :eof
 
 :print_env
 set __VERBOSE=%1
-set __GIT_HOME=%~2
 set __VERSIONS_LINE1=
 set __VERSIONS_LINE2=
 set __VERSIONS_LINE3=
@@ -1086,14 +1087,19 @@ endlocal & (
         if not defined SCALA3_HOME set "SCALA3_HOME=%_SCALA3_HOME%"
         if not defined SCALAFMT_HOME set "SCALAFMT_HOME=%_SCALAFMT_HOME%"
         set "PATH=%PATH%%_ANT_PATH%%_BAZEL_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
-        call :print_env %_VERBOSE% "%_GIT_HOME%"
+        call :print_env %_VERBOSE%
+        if not "%CD:~0,2%"=="%_DRIVE_NAME%:" (
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME%: 1>&2
+            cd /d %_DRIVE_NAME%:
+        )
         if %_BASH%==1 (
             @rem see https://conemu.github.io/en/GitForWindows.html
             if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_HOME%\usr\bin\bash.exe --login 1>&2
             cmd.exe /c "%_GIT_HOME%\usr\bin\bash.exe --login"
-        ) else if not "%CD:~0,2%"=="%_DRIVE_NAME%:" (
-            if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME%: 1>&2
-            cd /d %_DRIVE_NAME%:
+        ) else if %_MSYS%==1 (
+            set "__MINGW_CMD=C:\opt\msys64\mingw64.exe"
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% "!__MINGW_CMD!" 1>&2
+            cmd.exe /c "!__MINGW_CMD!"
         )
     )
     if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2

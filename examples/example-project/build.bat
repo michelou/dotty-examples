@@ -615,22 +615,12 @@ goto :eof
 
 @rem output parameters: _VERSION_STRING, _VERSION_SUFFIX
 :version_string
-if %_SCALA_VERSION%==3 (
-    for /f "tokens=1,2,3,4,*" %%i in ('%SCALA3_HOME%\bin\dotc.bat -version 2^>^&1') do (
-        set "_VERSION_STRING=scala3_%%l"
-    )
-) else (
-    for /f "tokens=1,2,3,4,*" %%i in ('%SCALA_HOME%\bin\scalac.bat -version') do (
-        set "_VERSION_STRING=scala2_%%l"
-    )
+for /f "tokens=1-3,4,*" %%i in ('"%_SCALAC_CMD%" -version 2^>^&1') do (
+    set "_VERSION_STRING=scala%_SCALA_VERSION%_%%l"
 )
 @rem keep only "-NIGHTLY" in version suffix when compiling with a nightly build 
-if "%_VERSION_STRING:NIGHTLY=%"=="%_VERSION_STRING%" (
-    set _VERSION_SUFFIX=_%_VERSION_STRING%
-) else (
-    for /f "usebackq" %%i in (`powershell -c "$s='%_VERSION_STRING%';$i=$s.indexOf('-bin',0); $s.substring(0, $i)"`) do (
-        set _VERSION_SUFFIX=_%%i-NIGHTLY
-    )
+for /f "usebackq" %%i in (`powershell -c "$s='%_VERSION_STRING%';$i=$s.indexOf('NIGHTLY',0);$j=$s.indexOf('SNAPSHOT');if($i -gt 0){$s.substring(0, $i+7)}elseif($j -gt 0){$s.substring(0, $j+8)}else{$s}"`) do (
+    set _VERSION_SUFFIX=_%%i
 )
 goto :eof
 

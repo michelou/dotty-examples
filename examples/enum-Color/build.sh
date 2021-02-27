@@ -63,7 +63,7 @@ args() {
         ## subcommands
         clean)     CLEAN=true ;;
         compile)   COMPILE=true ;;
-        decompile) DECOMPILE=true ;;
+        decompile) COMPILE=true && DECOMPILE=true ;;
         doc)       COMPILE=true && DOC=true ;;
         help)      HELP=true ;;
         lint)      LINT=true ;;
@@ -74,19 +74,24 @@ args() {
             ;;
         esac
     done
+    if $DECOMPILE && [ ! -x "$CFR_CMD" ]; then
+        warning "cfr installation not found"
+        DECOMPILE=false
+    fi
     if $LINT; then
         if [ ! -x "$SCALAFMT_CMD" ]; then
             warning "Scalafmt installation not found"
-            LINT=0
+            LINT=false
         elif [ ! -f "$SCALAFMT_CONFIG_FILE" ]; then
             warning "Scalafmt configuration file not found"
-            LINT=0
+            LINT=false
         fi
     fi
     debug "Options    : TIMER=$TIMER VERBOSE=$VERBOSE"
     debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DECOMPILE=$DECOMPILE HELP=$HELP LINT=$LINT RUN=$RUN"
     debug "Variables  : JAVA_HOME=$JAVA_HOME"
     debug "Variables  : SCALA3_HOME=$SCALA3_HOME"
+    [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
     [[ -n "$SCALAFMT_HOME" ]] && debug "Variables  : SCALAFMT_HOME=$SCALAFMT_HOME"
     # See http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
     $TIMER && TIMER_START=$(date +"%s")
@@ -104,7 +109,7 @@ Usage: $BASENAME { <option> | <subcommand> }
   Subcommands:
     clean        delete generated files
     compile      compile Java/Scala source files
-    deocmpile    decompile generated code with CFR
+    decompile    decompile generated code with CFR
     doc          generate HTML documentation
     help         display this help message
     lint         analyze Scala source files with Scalafmt
@@ -128,8 +133,11 @@ lint() {
     local scalfmt_opts="--test --config $(mixed_path $SCALAFMT_CONFIG_FILE)"
     $DEBUG && scalfmt_opts="--debug $scalfmt_opts"
 
-    debug "$SCALAFMT_CMD $scalfmt_opts $(mixed_path $MAIN_SOURCE_DIR)"
-    $VERBOSE && echo "Analyze Scala source files with Scalafmt" 1>&2
+    if $DEBUG; then
+        debug "$SCALAFMT_CMD $scalfmt_opts $(mixed_path $MAIN_SOURCE_DIR)"
+    elif $VERBOSE; then
+        echo "Analyze Scala source files with Scalafmt" 1>&2
+    fi
     eval "$SCALAFMT_CMD" $scalfmt_opts "$(mixed_path $MAIN_SOURCE_DIR)"
     [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 }
@@ -179,8 +187,8 @@ compile_java() {
     # if not %_EXITCODE%==0 goto :eof
 
     local opts_file="$TARGET_DIR/javac_opts.txt"
-    local cpath="$LIBS_CPATH$CLASSES_DIR"
-    echo -classpath "$cpath" -d "$CLASSES_DIR" > "$opts_file"
+    local cpath="$LIBS_CPATH$(mixed_path $CLASSES_DIR)"
+    echo -classpath "$cpath" -d "$(mixed_path $CLASSES_DIR)" > "$opts_file"
 
     local sources_file="$TARGET_DIR/javac_sources.txt"
     [[ -f "$sources_file" ]] && rm "$sources_file"
@@ -189,8 +197,11 @@ compile_java() {
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
-    debug "$JAVAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
-    $VERBOSE && echo "Compile $n Java source files to directory ${CLASSES_DIR/$ROOT_DIR\//}" 1>&2
+    if $DEBUG; then
+        debug "$JAVAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
+    elif $VERBOSE; then
+        echo "Compile $n Java source files to directory ${CLASSES_DIR/$ROOT_DIR\//}" 1>&2
+    fi
     eval "$JAVAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
         error "Compilation of $n Java source files failed"
@@ -224,8 +235,11 @@ compile_scala() {
         #    set __PRINT_FILE_REDIRECT=1^> "$print_file"
         #fi
     fi
-    debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
-    $VERBOSE && echo "Compile $n Scala source files to directory ${CLASSES_DIR/$ROOT_DIR\//}" 1>&2
+    if $DEBUG; then
+        debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
+    elif $VERBOSE; then
+        echo "Compile $n Scala source files to directory ${CLASSES_DIR/$ROOT_DIR\//}" 1>&2
+    fi
     eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
         error "Compilation of $n Scala source files failed"
@@ -235,8 +249,8 @@ compile_scala() {
 
 mixed_path() {
     if [ -x "$CYGPATH_CMD" ]; then
-        echo $($CYGPATH_CMD -am $1)
-    elif $mingw || $msys; then
+        $CYGPATH_CMD -am $1
+    elif [[ $mingw || $msys ]]; then
         echo $1 | sed 's|/|\\\\|g'
     else
         echo $1
@@ -244,7 +258,107 @@ mixed_path() {
 }
 
 decompile() {
-    echo "decompile"
+    local output_dir="$TARGET_DIR/cfr-sources"
+    [[ -d "$output_dir" ]] || mkdir -p "$output_dir"
+
+    local cfr_opts="--extraclasspath "$(extra_cpath)" --outputdir "$(mixed_path $output_dir)""
+
+    local n="$(ls -n $CLASSES_DIR/*.class | wc -l)"
+    local class_dirs=
+    [[ $n -gt 0 ]] && class_dirs="$CLASSES_DIR"
+    for f in $(ls -d $CLASSES_DIR 2>/dev/null); do
+        n="$(ls -n $CLASSES_DIR/*.class | wc -l)"
+        [[ $n -gt 0 ]] && class_dirs="$class_dirs $f"
+    done
+    $VERBOSE && echo "Decompile Java bytecode to directory ${output_dir/$ROOT_DIR\//}" 1>&2
+    for f in $class_dirs; do
+        debug "$CFR_CMD $cfr_opts $(mixed_path $f)/*.class"
+        eval "$CFR_CMD" $cfr_opts "$(mixed_path $f)/*.class" $STDERR_REDIRECT
+        if [[ $? -ne 0 ]]; then
+            error "Failed to decompile generated code in directory $f"
+            cleanup 1
+        fi
+    done
+    local version_list=($(version_string))
+    local version_string="${version_list[0]}"
+    local version_suffix="${version_list[1]}"
+
+    ## output file contains Scala and CFR headers
+    local output_file="$TARGET_DIR/cfr-sources$version_suffix.java"
+    echo // Compiled with $version_string > "$output_file"
+
+    if $DEBUG; then
+        debug "cat $output_dir/*.java >> $output_file"
+    elif $VERBOSE; then
+        echo "Save generated Java source files to file ${output_file/$ROOT_DIR\//}" 1>&2
+    fi
+    local java_files=
+    for f in $(find $output_dir/ -name *.java 2>/dev/null); do
+        java_files="$java_files $(mixed_path $f)"
+    done
+    [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
+
+    if [ ! -x "$DIFF_CMD" ]; then
+        if $DEBUG; then
+            warning "diff command not found"
+        elif $VERBOSE; then
+            echo "diff command not found" 1>&2
+        fi
+        return 0
+    fi
+    local diff_opts=--strip-trailing-cr
+
+    local check_file="$SOURCE_DIR/build/cfr-source$VERSION_SUFFIX.java"
+    if [ -f "$check_file" ]; then
+        if $DEBUG; then
+            debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
+        elif $VERBOSE; then
+            echo "Compare output file with check file ${check_file/$ROOT_DIR\//}" 1>&2
+        fi
+        eval "$DIFF_CMD" $diff_opts "$(mixed_path $output_file)" "$(mixed_path $check_file)"
+        if [[ $? -ne 0 ]]; then
+            error "Output file and check file differ"
+            cleanup 1
+        fi
+    fi
+}
+
+## output parameter: _EXTRA_CPATH
+extra_cpath() {
+    if [ $SCALA_VERSION==3 ]; then
+        lib_path="$SCALA3_HOME/lib"
+    else
+        lib_path="$SCALA_HOME/lib"
+    fi
+    local extra_cpath=
+    for f in $(find $lib_path/ -name *.jar); do
+        extra_cpath="$extra_cpath$(mixed_path $f)$PSEP"
+    done
+    echo $extra_cpath
+}
+
+## output parameter: ($version $suffix)
+version_string() {
+    local tool_version="$($SCALAC_CMD -version 2>&1 | cut -d " " -f 4)"
+    local version=
+    [[ $SCALA_VERSION -eq 3 ]] && version="scala3_$tool_version" || version="scala2_$tool_version"
+
+    ## keep only "-NIGHTLY" in version suffix when compiling with a nightly build 
+    local str="${version/NIGHTLY*/NIGHTLY}"
+    local suffix=
+    if [[ ! "$version" == "$str" ]]; then
+        suffix="_$str"
+    else
+        ## same for "-SNAPSHOT"
+        str="${version/SNAPSHOT*/SNAPSHOT}"
+        if [[ ! "$version" == "$str" ]]; then
+            suffix="_$str"
+        else
+            suffix=_3.0.0
+        fi
+    fi
+    local arr=($version $suffix)
+    echo "${arr[@]}"
 }
 
 doc() {
@@ -257,9 +371,9 @@ doc() {
 
     local sources_file="$TARGET_DIR/scaladoc_sources.txt"
     [[ -f "$sources_file" ]] && rm -rf "$sources_file"
-    # for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
-    #     echo %%i>> "%__SOURCES_FILE%"
-    # )
+    # for f in $(find $SOURCE_DIR/main/java/ -name *.java 2>/dev/null); do
+    #     echo $(mixed_path $f) >> "$sources_file"
+    # done
     for f in $(find $SOURCE_DIR/main/scala/ -name *.scala 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
     done
@@ -364,8 +478,14 @@ case "`uname -s`" in
   Darwin*) darwin=true      
 esac
 unset CYGPATH_CMD
-[[ $cygwin || $mingw || $msys ]] && CYGPATH_CMD="$(which cygpath 2>/dev/null)"
-
+PSEP=":"
+if [[ $cygwin || $mingw || $msys ]]; then
+    CYGPATH_CMD="$(which cygpath 2>/dev/null)"
+    [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
+    [[ -n "$SCALA3_HOME" ]] && SCALA3_HOME="$(mixed_path $SCALA3_HOME)"
+    [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
+    [[ -n "$SCALAFMT_HOME" ]] && SCALAFMT_HOME="$(mixed_path $SCALAFMT_HOME)"
+fi
 if [ ! -x "$JAVA_HOME/bin/javac" ]; then
     error "Java SDK installation not found"
     cleanup 1
@@ -388,6 +508,11 @@ if [ -f "$SCALAFMT_HOME/bin/scalafmt" ]; then
 fi
 SCALAFMT_CONFIG_FILE="$(dirname $ROOT_DIR)/.scalafmt.conf"
 
+unset CFR_CMD
+if [ -f "$CFR_HOME/bin/cfr" ]; then
+    CFR_CMD="$CFR_HOME/bin/cfr"
+fi
+
 PROJECT_NAME="$(basename $ROOT_DIR)"
 PROJECT_URL="github.com/$USER/dotty-examples"
 PROJECT_VERSION="1.0-SNAPSHOT"
@@ -398,6 +523,8 @@ args "$@"
 SCALA_CMD=$SCALA3
 SCALAC_CMD=$SCALAC3
 SCALADOC_CMD=$SCALADOC3
+
+DIFF_CMD="$(which diff)"
 
 ##############################################################################
 ## Main
