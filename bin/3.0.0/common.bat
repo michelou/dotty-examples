@@ -2,11 +2,11 @@
 @rem ## Code common to scalac.bat, scaladoc.bat and scala.bat
 
 if defined JAVACMD (
-    set _JAVACMD=%JAVACMD%
+    set "_JAVACMD=%JAVACMD%"
 ) else if defined JAVA_HOME (
-    set _JAVACMD=%JAVA_HOME%\bin\java.exe
+    set "_JAVACMD=%JAVA_HOME%\bin\java.exe"
 ) else if defined JDK_HOME (
-    set _JAVACMD=%JDK_HOME%\bin\java.exe
+    set "_JAVACMD=%JDK_HOME%\bin\java.exe"
 ) else (
     where /q java.exe
     if !ERRORLEVEL!==0 (
@@ -29,7 +29,7 @@ if defined JAVACMD (
     )
 )
 if not exist "%_JAVACMD%" (
-   echo Error: Java executable not found ^(%_JAVACMD%^) 1>&2
+   echo Error: Java executable not found ^(!_JAVACMD!^) 1>&2
    set _EXITCODE=1
    goto :eof
 )
