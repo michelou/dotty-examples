@@ -237,8 +237,8 @@ cfr-sources_scala3_3.0.0-RC1.java
 <b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose decompile</b>
 No compilation needed ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
-Save decompiled Java source files to "target\cfr-sources_scala3_0.27.0-RC1.java"
-Compare output file with check file "src\build\cfr-sources_scala3_0.27.0-RC1.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_3.0.0-RC1.java"
+Compare output file with check file "src\build\cfr-sources_scala3_3.0.0-RC1.java"
 </pre>
 
 

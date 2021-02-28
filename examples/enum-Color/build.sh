@@ -378,10 +378,10 @@ doc() {
         echo $(mixed_path $f) >> "$sources_file"
     done
     local opts_file="$TARGET_DIR/scaladoc_opts.txt"
-    if [ $SCALA_VERSION -eq 3 ]; then
+    if [ $SCALA_VERSION -eq 2 ]; then
         echo -d "$(mixed_path $TARGET_DOCS_DIR)" -doc-title "$PROJECT_NAME" -doc-footer "$PROJECT_URL" -doc-version "$PROJECT_VERSION" > "$opts_file"
     else
-        echo -siteroot "$(mixed_path $TARGET_DOCS_DIR)" -project "$PROJECT_NAME" -project-url "$PROJECT_URL" -project-version "$PROJECT_VERSION" > "$opts_file"
+        echo -siteroot "$(mixed_path $TARGET_DOCS_DIR)" -project "$PROJECT_NAME" -project-version "$PROJECT_VERSION" > "$opts_file"
     fi
     if $DEBUG; then
         debug "$SCALADOC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"

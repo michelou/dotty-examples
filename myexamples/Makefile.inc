@@ -1,17 +1,17 @@
 ifeq ($(OS),Windows_NT)
-JAVAC      = $(subst \,/,$(JAVA_HOME))/bin/javac.exe
 JAVA       = $(subst \,/,$(JAVA_HOME))/bin/java.exe
-SCALAC     = $(subst \,/,$(SCALA3_HOME))/bin/scalac.bat
-SCALADOC   = $(subst \,/,$(SCALA3_HOME))/bin/scalad.bat
+JAVAC      = $(subst \,/,$(JAVA_HOME))/bin/javac.exe
 SCALA      = $(subst \,/,$(SCALA3_HOME))/bin/scala.bat
+SCALAC     = $(subst \,/,$(SCALA3_HOME))/bin/scalac.bat
+SCALADOC   = $(subst \,/,$(SCALA3_HOME))/bin/scaladoc.bat
 LOCAL_REPO = $(subst \,/,$(USERPROFILE))/.m2/repository
 PSEP       = ;
 else
-JAVAC      = $(JAVA_HOME)/bin/javac
 JAVA       = $(JAVA_HOME)/bin/java
-SCALAC     = $(SCALA3_HOME)/bin/scalac
-SCALADOC   = $(SCALA3_HOME)/bin/scalad
+JAVAC      = $(JAVA_HOME)/bin/javac
 SCALA      = $(SCALA3_HOME)/bin/scala
+SCALAC     = $(SCALA3_HOME)/bin/scalac
+SCALADOC   = $(SCALA3_HOME)/bin/scaladoc
 LOCAL_REPO = $(HOME)/.m2/repository
 PSEP       = :
 endif

@@ -1,4 +1,4 @@
-val dottyVersion = "3.0.0-M4"
+val dottyVersion = "3.0.0-RC1"
 
 lazy val root = project
   .in(file("."))
@@ -17,7 +17,7 @@ lazy val root = project
     logLevel := Level.Warn,
 
     libraryDependencies ++= Seq(
-      // https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml_2.13
-      "org.scala-lang.modules" %% "scala-xml" % "1.2.0").withDottyCompat(scalaVersion.value
-    )
+      // https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
+      "org.scala-lang.modules" %% "scala-xml" % "1.2.0"
+    ).withDottyCompat(scalaVersion.value)
   )

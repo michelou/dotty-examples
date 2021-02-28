@@ -3,14 +3,14 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>dotty.examples</groupId>
+    <groupId>dotty-examples</groupId>
     <artifactId>enum-Color</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>dotty.examples</groupId>
-        <artifactId>dotty-examples</artifactId>
+        <groupId>dotty-examples</groupId>
+        <artifactId>examples</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -75,10 +75,10 @@
                             <additionalClasspathElements>
                                 <additionalClasspathElement>${m2.directory}/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar</additionalClasspathElement>
                                 <additionalClasspathElement>${m2.directory}/org/hamcrest/hamcrest/2.2/hamcrest-core-2.2.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/junit/junit/4.13/junit-4.13.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/junit/junit/4.13.2/junit-4.13.2.jar</additionalClasspathElement>
                                 <additionalClasspathElement>${m2.directory}/org/portable-scala/portable-scala-reflect_2.13/1.0.0/portable-scala-reflect_2.13-1.0.0.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/scalactic/scalactic_2.13/3.1.1/scalactic_2.13-3.1.1.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/scalatest/scalatest_2.13/3.1.1/scalatest_2.13-3.1.1.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/scalactic/scalactic_2.13/3.2.5/scalactic_2.13-3.2.5.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/scalatest/scalatest_2.13/3.2.5/scalatest_2.13-3.2.5.jar</additionalClasspathElement>
                                 <additionalClasspathElement>${specs2-common.jar}</additionalClasspathElement>
                                 <additionalClasspathElement>${specs2-core.jar}</additionalClasspathElement>
                                 <additionalClasspathElement>${specs2-fp.jar}</additionalClasspathElement>

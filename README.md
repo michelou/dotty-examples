@@ -235,8 +235,6 @@ We distinguish different sets of batch/bash commands:
     | :------------- | :--------------------- | :-------------- | :---------------- |
     | [**`ant.bat`**][apache_ant_cli] | [**`build.xml`**](examples/enum-Planet/build.xml) | [**`build.xml`**](examples/build.xml) | **`ant clean compile run`** |
     | [**`bazel.exe`**][bazel_cli] | [**`BUILD`**](examples/enum-Planet/BUILD) | n.a. | **`bazel run :enum-Planet`** |
-    | [**`build.bat`**](examples/enum-Planet/build.bat) | **`build.properties`** | n.a. | **`build clean run`** |
-    | [**`build.sh`**](examples/enum-Planet/build.sh) | *to be done* | n.a. | **`build clean run`** |
     | [**`gradle.bat`**][gradle_cli] | [**`build.gradle`**](examples/enum-Planet/build.gradle) | [**`common.gradle`**](examples/common.gradle) | **`gradle clean build run`** |
     | [**`make.exe`**][gmake_cli] | [**`Makefile`**](examples/enum-Planet/Makefile) | [**`Makefile.inc`**](examples/Makefile.inc) | **`make clean run`** |
     | [**`mill.bat`**][mill_cli] | [**`build.sc`**](examples/enum-Planet/build.sc) | [**`common.sc`**](examples/common.sc) | **`mill -i app`** |

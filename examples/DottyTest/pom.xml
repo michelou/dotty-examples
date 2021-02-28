@@ -3,14 +3,14 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>dotty.examples</groupId>
+    <groupId>dotty-examples</groupId>
     <artifactId>DottyTest</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>dotty.examples</groupId>
-        <artifactId>dotty-examples</artifactId>
+        <groupId>dotty-examples</groupId>
+        <artifactId>examples</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -75,7 +75,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <scalaVersion>0.11.0-RC1</scalaVersion>
+                    <scalaVersion>3.0.0-RC1</scalaVersion>
                     <localInstall>true</localInstall>
                     <!-- <debug>true</debug> -->
                     <jvmArgs>

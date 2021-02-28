@@ -712,7 +712,7 @@ if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 @rem for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
 @rem     echo %%i>> "%__SOURCES_FILE%"
 @rem )
-for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
+for /f %%i in ('dir /s /b "%_MAIN_SOURCE_DIR%\*.scala" 2^>NUL') do (
     echo %%i>> "%__SOURCES_FILE%"
 )
 set "__OPTS_FILE=%_TARGET_DIR%\scaladoc_opts.txt"
@@ -868,7 +868,8 @@ call :libs_cpath includeScalaLibs
 if not %_EXITCODE%==0 goto :eof
 
 set "__OPTS_FILE=%_TARGET_DIR%\test_scalac_opts.txt"
-echo %_SCALAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d "%_TEST_CLASSES_DIR%" > "%__OPTS_FILE%"
+set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
+echo %_SCALAC_OPTS% -classpath "%__CPATH:\=\\%" -d "%_TEST_CLASSES_DIR%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% Scala test source files to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2

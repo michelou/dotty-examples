@@ -175,7 +175,7 @@ set _MAIN_ARGS_DEFAULT=
 
 for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set _PROJECT_URL=github.com/%USERNAME%/dotty-examples
-set _PROJECT_VERSION=0.1-SNAPSHOT
+set _PROJECT_VERSION=1.0-SNAPSHOT
 
 set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
 if exist "%__PROPS_FILE%" (
@@ -229,12 +229,12 @@ if not defined __ARG (
 if "%__ARG:~0,1%"=="-" (
     @rem option
     if "%__ARG%"=="-debug" ( set _DEBUG=1
-    ) else if "%__ARG%"=="-dotty" ( set _SCALA_VERSION=3
     ) else if "%__ARG%"=="-explain" ( set _SCALAC_OPTS_EXPLAIN=1
     ) else if "%__ARG%"=="-explain-types" ( set _SCALAC_OPTS_EXPLAIN_TYPES=1
     ) else if "%__ARG%"=="-help" ( set _HELP=1
     ) else if "%__ARG%"=="-print" ( set _SCALAC_OPTS_PRINT=1
-    ) else if "%__ARG%"=="-scala" ( set _SCALA_VERSION=2
+    ) else if "%__ARG%"=="-scala" ( set _SCALA_VERSION=3
+    ) else if "%__ARG%"=="-scala2" ( set _SCALA_VERSION=2
     ) else if "%__ARG%"=="-tasty" ( set _TASTY=1
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
@@ -338,18 +338,18 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%           show commands executed by this script
-echo     %__BEG_O%-dotty%__END%           use Scala 3 tools ^(default^)
 echo     %__BEG_O%-explain%__END%         set compiler option %__BEG_O%-explain%__END%
 echo     %__BEG_O%-explain-types%__END%   set compiler option %__BEG_O%-explain-types%__END%
 echo     %__BEG_O%-main:^<name^>%__END%     define main class name ^(default: %__BEG_O%%_MAIN_CLASS_DEFAULT%%__END%^)
 echo     %__BEG_O%-print%__END%           print IR after compilation phase 'lambdaLift'
-echo     %__BEG_O%-scala%__END%           use Scala 2 tools
+echo     %__BEG_O%-scala%__END%           use Scala 3 tools ^(default^)
+echo     %__BEG_O%-scala2%__END%          use Scala 2 tools
 echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
 echo     %__BEG_O%-timer%__END%           display total elapsed time
 echo     %__BEG_O%-verbose%__END%         display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
-echo     %__BEG_O%clean%__END%            delete generated class files
+echo     %__BEG_O%clean%__END%            delete generated files
 echo     %__BEG_O%compile%__END%          compile Java/Scala source files
 echo     %__BEG_O%decompile%__END%        decompile generated code with %__BEG_N%CFR%__END%
 echo     %__BEG_O%doc%__END%              generate HTML documentation
@@ -625,22 +625,12 @@ goto :eof
 
 @rem output parameters: _VERSION_STRING, _VERSION_SUFFIX
 :version_string
-if %_SCALA_VERSION%==3 (
-    for /f "tokens=1,2,3,4,*" %%i in ('"%_SCALAC3%" -version 2^>^&1') do (
-        set "_VERSION_STRING=scala3_%%l"
-    )
-) else (
-    for /f "tokens=1,2,3,4,*" %%i in ('"%_SCALAC2%" -version') do (
-        set "_VERSION_STRING=scala2_%%l"
-    )
+for /f "tokens=1-3,4,*" %%i in ('"%_SCALAC_CMD%" -version 2^>^&1') do (
+    set "_VERSION_STRING=scala%_SCALA_VERSION%_%%l"
 )
 @rem keep only "-NIGHTLY" in version suffix when compiling with a nightly build 
-if "%_VERSION_STRING:NIGHTLY=%"=="%_VERSION_STRING%" (
-    set _VERSION_SUFFIX=_%_VERSION_STRING%
-) else (
-    for /f "usebackq" %%i in (`powershell -c "$s='%_VERSION_STRING%';$i=$s.indexOf('-bin',0); $s.substring(0, $i)"`) do (
-        set _VERSION_SUFFIX=_%%i-NIGHTLY
-    )
+for /f "usebackq" %%i in (`powershell -c "$s='%_VERSION_STRING%';$i=$s.indexOf('NIGHTLY',0);$j=$s.indexOf('SNAPSHOT');if($i -gt 0){$s.substring(0, $i+7)}elseif($j -gt 0){$s.substring(0, $j+8)}else{$s}"`) do (
+    set _VERSION_SUFFIX=_%%i
 )
 goto :eof
 
@@ -712,7 +702,7 @@ if not exist "%_TARGET_DOCS_DIR%" mkdir "%_TARGET_DOCS_DIR%" 1>NUL
 
 set "__DOC_TIMESTAMP_FILE=%_TARGET_DOCS_DIR%\.latest-build"
 
-call :compile_required "%__DOC_TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\scala\*.scala"
+call :compile_required "%__DOC_TIMESTAMP_FILE%" "%_MAIN_SOURCE_DIR%\*.scala"
 if %_COMPILE_REQUIRED%==0 goto :eof
 
 set "__SOURCES_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
@@ -725,7 +715,7 @@ for /f %%i in ('dir /s /b "%_MAIN_SOURCE_DIR%\*.scala" 2^>NUL') do (
 )
 set "__OPTS_FILE=%_TARGET_DIR%\scaladoc_opts.txt"
 if %_SCALA_VERSION%==2 (
-    echo -d "%_TARGET_DOCS_DIR%" -doc-title "%_PROJECT_NAME%" -doc-footer "%_PROJECT_URL%" -doc-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
+    echo -d "%_TARGET_DOCS_DIR%" -project "%_PROJECT_NAME%" -project-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
 ) else (
     echo -siteroot "%_TARGET_DOCS_DIR%" -project "%_PROJECT_NAME%" -project-url "%_PROJECT_URL%" -project-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
 )

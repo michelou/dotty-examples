@@ -37,15 +37,15 @@ if %_EXECUTE_SCRIPT%==1 (
     call "%_PROG_HOME%\scalac.bat" !_SCALAC_ARGS!
 @rem elif [ $execute_repl == true ] || [ ${#residual_args[@]} -ne 0 ]; then
 ) else if %_CASE_EXEC%==1 (
-    set _CP_ARG=%_SCALA3_LIB%%_PSEP%%_SCALA_LIB%
-    if defined _CLASS_PATH ( set _CP_ARG=!_CP_ARG!%_PSEP%%_CLASS_PATH%
-    ) else ( set _CP_ARG=!_CP_ARG!%_PSEP%.
+    set "_CP_ARG=%_SCALA3_LIB%%_PSEP%%_SCALA_LIB%"
+    if defined _CLASS_PATH ( set "_CP_ARG=!_CP_ARG!%_PSEP%%_CLASS_PATH%"
+    ) else ( set "_CP_ARG=!_CP_ARG!%_PSEP%."
     )
     if %_CLASS_PATH_COUNT% gtr 1 (
         echo Warning: Multiple classpaths are found, scala only use the last one. 1>&2
     )
     if %_WITH_COMPILER%==1 (
-        set _CP_ARG=!_CP_ARG!%_PSEP%%_SCALA3_COMP%%_PSEP%%_TASTY_CORE%%_PSEP%%_SCALA3_INTF%%_PSEP%%_SCALA_ASM%%_PSEP%%_SCALA3_STAGING%%_PSEP%%_SCALA3_TASTY_INSPECTOR%
+        set "_CP_ARG=!_CP_ARG!%_PSEP%%_SCALA3_COMP%%_PSEP%%_TASTY_CORE%%_PSEP%%_SCALA3_INTF%%_PSEP%%_SCALA_ASM%%_PSEP%%_SCALA3_STAGING%%_PSEP%%_SCALA3_TASTY_INSPECTOR%"
     )
     set _JAVA_ARGS=%_JAVA_DEBUG% -classpath "!_CP_ARG!" %_JVM_OPTS% %_RESIDUAL_ARGS%
     call "%_JAVACMD%" !_JAVA_ARGS!
@@ -86,7 +86,7 @@ if "%__ARG%"=="-repl" (
     set /a _CLASS_PATH_COUNT+=1
     shift
 ) else if "%__ARG%"=="-cp" (
-    set _CLASS_PATH=%~2
+    set "_CLASS_PATH=%~2"
     set /a _CLASS_PATH_COUNT+=1
     shift
 ) else if "%__ARG%"=="-with-compiler" (

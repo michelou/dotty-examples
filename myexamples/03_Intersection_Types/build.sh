@@ -177,13 +177,8 @@ compile_required() {
         echo 1
     else
         ## Do compile if timestamp file is older than most recent source file
-        if $DEBUG; then
-            local timestamp=$(stat -c %Y $timestamp_file)
-            local latest_timestamp=$(stat -c %Y $latest_file)
-            debug "timestamp=$timestamp latest=$latest_timestamp"
-        fi
-        ## Mnemonic: -nt = "newer than", -ot = "older than"
-        [[ $timestamp_file -ot $latest_file ]] && echo 1 || echo 0
+        # local timestamp=$(stat -c %Y $timestamp_file)
+        [[ $timestamp_file -nt $latest_file ]] && echo 1 || echo 0
     fi
 }
 

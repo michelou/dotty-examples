@@ -50,7 +50,7 @@
             </fileset>
             -->
             <fileset dir="${ivy.cache}/org.scala-lang" includes="**/jars/scala3-library*.jar">
-                <filename regex="_3\.[0-9]\.[0-9](-M[1-9])?-3\.[0-9]\.[0-9](-M[1-9])?" />  <!-- e.g. _3.0.0-M1-3.0.0-M1-x -->
+                <filename regex="_3\.[0-9]\.[0-9](-RC[1-9])?-3\.[0-9]\.[0-9](-RC[1-9])?" />  <!-- e.g. _3.0.0-M1-3.0.0-M1-x -->
             </fileset>
             <fileset dir="${ivy.cache}/org.scala-lang" includes="**/jars/scala-library*.jar">
                 <filename regex="-2\.[1-2][3-9]\.[0-9]+" />  <!-- e.g. -2.13.x -->

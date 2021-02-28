@@ -513,7 +513,6 @@ if [ -f "$CFR_HOME/bin/cfr" ]; then
     CFR_CMD="$CFR_HOME/bin/cfr"
 fi
 
-
 PROJECT_NAME="$(basename $ROOT_DIR)"
 PROJECT_URL="github.com/$USER/dotty-examples"
 PROJECT_VERSION="1.0-SNAPSHOT"

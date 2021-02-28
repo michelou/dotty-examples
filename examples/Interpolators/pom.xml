@@ -65,7 +65,7 @@
                         <configuration>
                             <!-- TODO : add support for POM dependencies to Scala plugin -->
                             <additionalClasspathElements>
-                                <additionalClasspathElement>${m2.directory}/junit/junit/4.13/junit-4.13.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/junit/junit/4.13.2/junit-4.13.2.jar</additionalClasspathElement>
                             </additionalClasspathElements>
                             <includes>
                                 <include>scala/**/*.scala</include>
