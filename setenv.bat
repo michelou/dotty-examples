@@ -104,6 +104,12 @@ if not %_EXITCODE%==0 goto end
 call :mill
 if not %_EXITCODE%==0 goto end
 
+call :msys
+if not %_EXITCODE%==0 (
+    @rem optional
+    echo %_WARNING_LABEL% MSYS2 installation not found 1>&2
+    set _EXITCODE=0
+)
 call :vscode
 if not %_EXITCODE%==0 goto end
 
@@ -831,6 +837,33 @@ if not exist "%_MILL_HOME%\mill.bat" (
 set "_MILL_PATH=;%_MILL_HOME%"
 goto :eof
 
+@rem output parameter: _MSYS_HOME
+:msys
+set _MSYS_HOME=
+
+set __MSYS2_CMD=
+for /f %%f in ('where msy2_shell.cmd 2^>NUL') do set "__MSYS2_CMD=%%f"
+if defined __MSYS2_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of msys2 command found in PATH 1>&2
+    goto :eof
+) else if defined MSYS_HOME (
+    set "_MSYS_HOME=%MSYS_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MSYS_HOME 1>&2
+) else (
+    set _PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!_PATH!\msys64*" 2^>NUL') do set "_MSYS_HOME=!_PATH!\%%f"
+    if defined _MSYS_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default MSYS2 installation directory !_MSYS_HOME! 1>&2
+    )
+)
+if not exist "%_MSYS_HOME%\msys2_shell.cmd" if %_MSYS%==1 (
+    set _MSYS=0
+    echo %_ERROR_LABEL% MSYS2 command not found ^(%_MSYS_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
 @rem output parameter(s): _PYTHON_HOME
 set _PYTHON_HOME=
 
@@ -1060,6 +1093,7 @@ if %__VERBOSE%==1 (
     if defined JAVACOCO_HOME echo    JAVACOCO_HOME=%JAVACOCO_HOME% 1>&2
     if defined JAVA11_HOME echo    JAVA11_HOME=%JAVA11_HOME% 1>&2
     if defined JAVAFX_HOME echo    JAVAFX_HOME=%JAVAFX_HOME% 1>&2
+    if defined MSYS_HOME echo    MSYS_HOME=%MSYS_HOME% 1>&2
     if defined PYTHON_HOME echo    PYTHON_HOME=%PYTHON_HOME% 1>&2
     if defined SBT_HOME echo    SBT_HOME=%SBT_HOME% 1>&2
     if defined SCALA_HOME echo    SCALA_HOME=%SCALA_HOME% 1>&2
@@ -1081,6 +1115,7 @@ endlocal & (
         if not defined JAVA_HOME set "JAVA_HOME=%_JDK_HOME%"
         if not defined JAVA11_HOME set "JAVA11_HOME=%_JDK11_HOME%"
         if not defined JAVAFX_HOME set "JAVAFX_HOME=%_JAVAFX_HOME%"
+        if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
         if not defined PYTHON_HOME set "PYTHON_HOME=%_PYTHON_HOME%"
         if not defined SBT_HOME set "SBT_HOME=%_SBT_HOME%"
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
@@ -1097,9 +1132,8 @@ endlocal & (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_HOME%\usr\bin\bash.exe --login 1>&2
             cmd.exe /c "%_GIT_HOME%\usr\bin\bash.exe --login"
         ) else if %_MSYS%==1 (
-            set "__MINGW_CMD=C:\opt\msys64\mingw64.exe"
-            if %_DEBUG%==1 echo %_DEBUG_LABEL% "!__MINGW_CMD!" 1>&2
-            cmd.exe /c "!__MINGW_CMD!"
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_MSYS_HOME%\msys2_shell.cmd -mingw64 -where %_DRIVE_NAME%:" 1>&2
+            cmd.exe /c "%_MSYS_HOME%\msys2_shell.cmd -mingw64 -where %_DRIVE_NAME%:"
         )
     )
     if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2

@@ -242,7 +242,7 @@ Compare output file with check file "src\build\cfr-sources_scala3_3.0.0-RC1.java
 </pre>
 
 
-## <span id="build.shell">`build.sh` command</span>
+## <span id="build.sh">`build.sh` command</span>
 
 Command [**`build.sh`**](enum-Planet/build.sh) is our basic build tool for Unix environments like [Cygwin], Linux or [MSYS2]; it features subcommands **`clean`**, **`compile`**, **`doc`**, **`help`**, **`lint`** and **`run`**; the Bash script consists of ~530 lines of [Bash] code.
 
@@ -594,7 +594,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

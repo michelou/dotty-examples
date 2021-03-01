@@ -11,7 +11,7 @@
   </tr>
 </table>
 <div>&nbsp;</div>
-This document is part of a series of topics related to [Dotty] on Windows:
+This document is part of a series of topics related to [Scala 3][scala3] on Windows:
 
 - [Running Scala 3 on Windows](README.md)
 - Building Scala 3 on Windows [**&#9660;**](#bottom)
@@ -40,7 +40,7 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*February 2021*):
+For instance our development environment looks as follows (*March 2021*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.30.1\      <i>(290 MB)</i>
@@ -209,7 +209,7 @@ We distinguish different sets of batch commands:
 
 ## <span id="contribs">Contributions</span>
 
-We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6]</a></sup> while executing [Scala 3][Dotty] commands on Windows:
+We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6]</a></sup> while executing [Scala 3][scala3] commands on Windows:
 
 | [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Issue status&nbsp;&nbsp;&nbsp; | Context |
 | :-------------------------: | :--------: | :--------- |
@@ -260,7 +260,7 @@ We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6
 > <ul><li><a href="https://github.com/lampepfl/dotty/pull/5560">#5560</a> Fix Windows path (<a href="https://github.com/lampepfl/dotty/commit/67c86783ff48723ae96fedeb51c50db62f375042">merged</a>).</li>
 > <li><a href="https://github.com/lampepfl/dotty/pull/5531">#5531</a> Test AppVeyor integration (<a href="https://github.com/lampepfl/dotty/pull/5531#issuecomment-446505630">closed</a>).</li></ul>
 
-Below we summarize changes we made to the [source code](https://github.com/lampepfl/dotty/) of the [Dotty] project:
+Below we summarize changes we made to the [source code](https://github.com/lampepfl/dotty/) of the [Scala 3][scala3] project:
 
 - Unspecified character encoding in some file operations<br/>*Example*: [**`Source.fromFile(f)`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html) **&rarr;** **`Source.fromFile(f, "UTF-8")`**.
 - Platform-specific new lines<br/>*Example*: **`"\n"`** **&rarr;** [**`System.lineSeparator`**](https://docs.oracle.com/javase/8/docs/api/java/lang/System.html#lineSeparator).
@@ -323,7 +323,7 @@ Current Git branch
 
 ### **`build.bat compile`**
 
-Command **`build.bat compile`** generates the *"1st stage compiler"* for [Dotty] and executes the relevant test suites. 
+Command **`build.bat compile`** generates the *"1st stage compiler"* for [Scala 3][scala3] and executes the relevant test suites. 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> compile</b>
@@ -367,7 +367,7 @@ testing loading tasty from .tasty file in jar
 
 ### **`build.bat bootstrap`**
 
-Command **`build.bat bootstrap`** works as follows: ***if*** execution of the **`compile`** subcommand was successful the **`bootstrap`** subcommand generates the *"bootstrap compiler"* for [Dotty] and executes the relevant test suites.
+Command **`build.bat bootstrap`** works as follows: ***if*** execution of the **`compile`** subcommand was successful the **`bootstrap`** subcommand generates the *"bootstrap compiler"* for [Scala 3][scala3] and executes the relevant test suites.
 
 <pre style="font-size:80%;">
 <b>&gt; build bootstrap</b>
@@ -398,7 +398,7 @@ scala3-3.0.0-RC2-bin-SNAPSHOT.zip
 
 ### **`build.bat documentation`**
 
-Command **`build.bat documentation`** works as follows: ***if*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Dotty website][dotty] and the online [Dotty documentation][dotty_docs].<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
+Command **`build.bat documentation`** works as follows: ***if*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Scala 3][scala3] website and the online [Dotty documentation][dotty_docs].<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -timer doc-only</b>
@@ -459,7 +459,7 @@ versions
 9
 </pre>
 
-Output directory **`docs\docs\`** contains the Markdown files of the [Scala 3 website][dotty]:
+Output directory **`docs\docs\`** contains the Markdown files of the [Scala 3][scala3] website:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir" rel="external">dir</a> /b docs\docs</b>
@@ -482,7 +482,7 @@ Total execution time: 00:20:25
 
 ### **`cmdTests.bat`**
 
-Command [**`project\scripts\cmdTests.bat`**](bin/dotty/project/scripts/cmdTests.bat) performs several tests running [Dotty](https://dotty.epfl.ch) commands from [**`sbt`**][sbt_cli]. In the normal case, command [**`cmdTests`**](bin/dotty/project/scripts/cmdTests.bat) is called by command **`build compile`** but may also be called directly.
+Command [**`project\scripts\cmdTests.bat`**](bin/dotty/project/scripts/cmdTests.bat) performs several tests running [Scala 3][scala3] commands from [**`sbt`**][sbt_cli]. In the normal case, command [**`cmdTests`**](bin/dotty/project/scripts/cmdTests.bat) is called by command **`build compile`** but may also be called directly.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/project/scripts/cmdTests.bat">cmdTests</a></b>
@@ -726,12 +726,12 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
-[dotty]: https://dotty.epfl.ch/
+[scala3]: https://dotty.epfl.ch/
 [dotty_ci]: https://dotty-ci.epfl.ch/lampepfl/dotty
 [dotty_issue_4272]: https://github.com/lampepfl/dotty/issues/4272
 [dotty_issue_4356]: https://github.com/lampepfl/dotty/issues/4356

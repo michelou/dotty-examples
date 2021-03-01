@@ -20,16 +20,18 @@ W:\myexamples\HelloWorld
 
 Build tools rely on one or more configuration files to achieve their tasks. In our case we created the following configuration files for [**`HelloWorld`**](HelloWorld):
 
-| Build tool                    | Configuration file(s)                                   | Parent file(s)                       |
-|-------------------------------|---------------------------------------------------------|--------------------------------------|
-| [**`ant.bat`**][apache_ant_cli]   | [**`build.xml`**](HelloWorld/build.xml)                 | [**`build.xml`**](build.xml), [**`ivy.xml`**](ivy.xml) |
-| [**`bazel.exe`**][bazel_cli]      | [**`BUILD`**](HelloWorld/BUILD), **`WORKSPACE`**        | n.a.                                 |
-| **`build.bat`**                   | [**`build.properties`**](HelloWorld/project/build.properties) | n.a.                           |
-| [**`gradle.bat`**][gradle_cli]    | [**`build.gradle`**](HelloWorld/build.gradle)           | [**`common.gradle`**](common.gradle) |
-| [**`make.exe`**][gmake_cli]       | [**`Makefile`**](HelloWorld/Makefile)                   | [**`Makefile.inc`**](Makefile.inc)   |
-| [**`mill.bat`**][mill_cli]        | [**`build.sc`**](HelloWorld/build.sc)                   | [**`common.sc`**](common.sc)         |
-| [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](HelloWorld/pom.xml)                     | [**`pom.xml`**](pom.xml)             |
-| [**`sbt.bat`**][sbt_cli]          | [**`build.sbt`**](HelloWorld/build.sbt)                 | n.a.                                 |
+| Build tool                    | Configuration file(s)                                   | Parent file(s)                       | Comment(s) |
+|-------------------------------|---------------------------------------------------------|--------------------------------------|---------|
+| [**`ant.bat`**][apache_ant_cli]   | [**`build.xml`**](HelloWorld/build.xml)                 | [**`build.xml`**](build.xml), [**`ivy.xml`**](ivy.xml) |  |
+| [**`bazel.exe`**][bazel_cli]      | [**`BUILD`**](HelloWorld/BUILD), **`WORKSPACE`**        | n.a.                                 |  |
+| **`build.bat`**                   | [**`build.properties`**](HelloWorld/project/build.properties) |  [**`cpath.bat`**](./cpath.bat) <sup>(*)</sup>        |  |
+| [**`build.sh`**](enum-Planet/build.sh) | [**`build.properties`**](enum-Planet/project/build.properties) |         | [Cygwin], [MSYS2], etc. |
+| [**`gradle.bat`**][gradle_cli]    | [**`build.gradle`**](HelloWorld/build.gradle)           | [**`common.gradle`**](common.gradle) |  |
+| [**`make.exe`**][gmake_cli]       | [**`Makefile`**](HelloWorld/Makefile)                   | [**`Makefile.inc`**](Makefile.inc)   |  |
+| [**`mill.bat`**][mill_cli]        | [**`build.sc`**](HelloWorld/build.sc)                   | [**`common.sc`**](common.sc)         |  |
+| [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](HelloWorld/pom.xml)                     | [**`pom.xml`**](pom.xml)             |  |
+| [**`sbt.bat`**][sbt_cli]          | [**`build.sbt`**](HelloWorld/build.sbt)                 | n.a.                                 |  |
+<div style="margin:-4px 50% 0 0;font-size:80%;"><b><sup>(*)</sup></b> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).<br/>&nbsp;</div>
 
 
 ## <span id="ant">Ant build tool</span>
@@ -106,12 +108,93 @@ Total time: 14 seconds
 
 ## <span id="build">`build.bat` command</span>
 
-Command [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~700 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`doc`**, **`help`** and **`run`**.
+Command [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~700 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`decompile`**, **`doc`**, **`help`** and **`run`**.
 
 Command [**`build clean run`**](HelloWorld/build.bat) produces the following output:
 
 <pre style="font-size:80%;">
+<b>&gt; cd</b>
+W:\myexamples\HelloWorld
+&nbsp;
 <b>&gt; <a href="HelloWorld/build.bat">build</a> clean run</b>
+Hello world!
+</pre>
+
+
+## <span id="build.sh">`build.sh` command</span>
+
+Command [**`build.sh`**](HelloWorld/build.sh) is our basic build tool for Unix environments like [Cygwin], Linux or [MSYS2]; it features subcommands **`clean`**, **`compile`**, **`doc`**, **`help`**, **`lint`** and **`run`**; our Bash script consists of ~530 lines of [Bash] code.
+
+### <span id="build-git">Git Bash session</span>
+
+Command [**`setenv -bash`**](setenv.bat) starts a [Cygwin] Bash session:
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="setenv.bat">setenv</a> -bash</b>
+Tool versions:
+   javac 11.0.10, java 11.0.10, scalac 2.13.5, scalac 3.0.0-RC1,
+   ant 1.10.9, gradle 6.8.3, mill 0.9.5, mvn 3.6.3, sbt +,
+   bazel 4.0.0, cfr 0.151, make 3.81, python 3.9.1,
+   git 2.30.1.windows.1, diff 3.7
+&nbsp;
+user@host MSYS /w
+<b>$ bash --version | grep bash</b>
+GNU bash, version 4.4.23(1)-release (x86_64-pc-msys)
+&nbsp;
+user@host MSYS /w
+<b>$ env | grep _HOME | sort</b>
+ANT_HOME=C:\opt\apache-ant-1.10.9
+[...]
+SBT_HOME=C:\opt\sbt-1.4.7
+SCALA3_HOME=C:\opt\scala-3.0.0-RC2-bin-SNAPSHOT
+SCALAFMT_HOME=C:\opt\scalafmt-2.7.5
+SCALA_HOME=C:\opt\scala-2.13.5
+</pre>
+
+Command [**`build clean run`**](HelloWorld/build.sh) produces the following output for project [**`HelloWorld`**](./HelloWorld/):
+
+<pre style="font-size:80%;">
+user@host MSYS /w
+$ cd myexamples/HelloWorld/
+&nbsp;
+user@host MSYS /w/myexamples/HelloWorld
+$ ./<a href="HelloWorld/build.sh">build.sh</a> clean run
+Hello world!
+</pre>
+
+### <span id="bash-msys2">MSYS2 Bash session</span>
+
+Similarly, command [**`setenv -msys`**](setenv.bat) starts a [MSYS2] Bash session <sup id="anchor_02">[[2]](#footnote_02)</sup>:
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="setenv.bat">setenv</a> -msys</b>
+Tool versions:
+   javac 11.0.10, java 11.0.10, scalac 2.13.5, scalac 3.0.0-RC1,
+   ant 1.10.9, gradle 6.8.3, mill 0.9.5, mvn 3.6.3, sbt +,
+   bazel 4.0.0, cfr 0.151, make 3.81, python 3.9.1,
+   git 2.30.1.windows.1, diff 3.7
+&nbsp;
+user@odin MINGW64 /w
+<b>$ bash --version | grep bash</b>
+GNU bash, version 5.1.4(1)-release (x86_64-pc-msys)
+&nbsp;
+user@host MINGW64 /w
+<b>$ env | grep _HOME | sort</b>
+ANT_HOME=C:\opt\apache-ant-1.10.9
+[...]
+SBT_HOME=C:\opt\sbt-1.4.7
+SCALA3_HOME=C:\opt\scala-3.0.0-RC2-bin-SNAPSHOT
+SCALAFMT_HOME=C:\opt\scalafmt-2.7.5
+SCALA_HOME=C:\opt\scala-2.13.5
+</pre>
+
+Command [**`build clean run`**](HelloWorld/build.sh) produces the following output for project [**`HelloWorld`**](./HelloWorld/):
+<pre style="font-size:80%;">
+user@host MINGW64 /w
+$ cd myexamples/HelloWorld
+&nbsp;
+user@host MINGW64 /w/examples/HelloWorld
+<b>$ <a href="HelloWorld/build.sh">./build.sh</a> clean run</b>
 Hello world!
 </pre>
 
@@ -493,61 +576,39 @@ Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</
 </pre>
 </dd>
 
-<dt><b name="footnote_02">&nbsp;&nbsp;[2]&nbsp;&nbsp; <a href="https://github.com/lampepfl/dotty/issues/4272" style="font-weight:bold;">bug4272</a> <i>2018-04-08</i></b> <a href="#anchor_02">↩</a></dt>
+<dt><b name="footnote_02">&nbsp;&nbsp;[2]&nbsp;&nbsp; MSYS2 Shell options</b> <a href="#anchor_02">↩</a></dt>
 <dd>
-<p>
-Executing command <a href="bug4272/build.bat" style="font-weight:bold;font-family:Courier;">build</a> in directory <a href="bug4272/" style="font-weight:bold;font-family:Courier;">bug4272\</a> produces a runtime exception with version 0.7 of the Dotty compiler (*was fixed in version 0.8*):
-</p>
 <pre style="font-size:80%;">
-<b>&gt; build clean compile run</b>
-exception occurred while typechecking C:\dotty\MYEXAM~1\bug4272\src\main\scala\Main.scala
-exception occurred while compiling C:\dotty\MYEXAM~1\bug4272\src\main\scala\Main.scala
-Exception in thread "main" java.lang.AssertionError: cannot merge Constraint(
- uninstVars = A;
- constrained types = [A, B](elems: (A, B)*): Map[A, B]
- bounds =
-     A >: Char
-     B := Boolean
- ordering =
-) with Constraint(
- uninstVars = A, Boolean;
- constrained types = [A, B](elems: (A, B)*): Map[A, B]
- bounds =
-     A >: String <: String
-     B <: Boolean
- ordering =
-)
-        at dotty.tools.dotc.core.OrderingConstraint.mergeError$1(OrderingConstraint.scala:538)
-        ..
-        at dotty.tools.dotc.Driver.main(Driver.scala:135)
-        at dotty.tools.dotc.Main.main(Main.scala)
-</pre>
-</dd>
+$ c:\opt\msys64\msys2_shell.cmd --help
+Usage:
+    msys2_shell.cmd [options] [login shell parameters]
 
-<dt><b name="footnote_03">&nbsp;&nbsp;[3]&nbsp;&nbsp; <a href="https://github.com/lampepfl/dotty/issues/4356" style="font-weight:bold;">bug4356</a> 2018-04-21</i></b> <a href="#anchor_03">↩</a></dt>
-<dd>
-<p>
-Executing <a href="bug4356/build.bat" style="font-weight:bold;font-family:Courier;">build</a> in directory <a href="bug4356/" style="font-weight:bold;font-family:Courier;">bug4356\</a> produces a runtime exception with version 0.7 of the Dotty compiler:
-</p>
-<pre style="font-size:80%;">
-<b>&gt; build clean compile</b>
-Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> at index 72: C:\dotty\MYEXAM~1\bug4356\\lib\junit-4.12.jar:C:\dotty\MYEXAM~1\bug4356\target\dotty-0.7\classes
-        at sun.nio.fs.WindowsPathParser.normalize(WindowsPathParser.java:182)
-        at sun.nio.fs.WindowsPathParser.parse(WindowsPathParser.java:153)
-        at sun.nio.fs.WindowsPathParser.parse(WindowsPathParser.java:77)
-        at sun.nio.fs.WindowsPath.parse(WindowsPath.java:94)
-        at sun.nio.fs.WindowsFileSystem.getPath(WindowsFileSystem.java:255)
-        at java.nio.file.Paths.get(Paths.java:84)
-        ...
-        at dotty.tools.dotc.Driver.main(Driver.scala:135)
-        at dotty.tools.dotc.Main.main(Main.scala)
+Options:
+    -mingw32 | -mingw64 | -msys[2]   Set shell type
+    -defterm | -mintty | -conemu     Set terminal type
+    -here                            Use current directory as working
+                                     directory
+    -where DIRECTORY                 Use specified DIRECTORY as working
+                                     directory
+    -[use-]full-path                 Use full current PATH variable
+                                     instead of trimming to minimal
+    -no-start                        Do not use "start" command and
+                                     return login shell resulting
+                                     errorcode as this batch file
+                                     resulting errorcode
+    -shell SHELL                     Set login shell
+    -help | --help | -? | /?         Display this help and exit
+
+Any parameter that cannot be treated as valid option and all
+following parameters are passed as login shell command parameters.
 </pre>
 </dd>
 </dl>
 
+
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -559,7 +620,9 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
 [apache_ant_ivy_relnotes]: https://ant.apache.org/ivy/history/2.5.0/release-notes.html
 [apache_maven_cli]: https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
+[bash]: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
+[cygwin]: https://cygwin.com/install.html
 [gmake_cli]: http://www.glue.umd.edu/lsf-docs/man/gmake.html
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_groovy]: https://www.groovy-lang.org/
@@ -569,6 +632,7 @@ Exception in thread "main" java.nio.file.InvalidPathException: Illegal char <:> 
 [lightbend]: https://www.lightbend.com/
 [microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
 [mill_cli]: https://www.lihaoyi.com/mill/#command-line-tools
+[msys2]: https://www.msys2.org/
 [os_lib]: https://github.com/lihaoyi/os-lib
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [scala]: https://www.scala-lang.org/
