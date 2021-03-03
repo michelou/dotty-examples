@@ -1,9 +1,20 @@
+ifndef JAVA_HOME
+$(error Variable JAVA_HOME is not set)
+endif
+ifndef SCALA3_HOME
+$(error Variable SCALA3_HOME is not set)
+endif
+ifndef SCALAFMT_HOME
+$(error Variable SCALAFMT_HOME is not set)
+endif
+
 ifeq ($(OS),Windows_NT)
 JAVA       = $(subst \,/,$(JAVA_HOME))/bin/java.exe
 JAVAC      = $(subst \,/,$(JAVA_HOME))/bin/javac.exe
 SCALA      = $(subst \,/,$(SCALA3_HOME))/bin/scala.bat
 SCALAC     = $(subst \,/,$(SCALA3_HOME))/bin/scalac.bat
 SCALADOC   = $(subst \,/,$(SCALA3_HOME))/bin/scaladoc.bat
+SCALAFMT   = $(subst \,/,$(SCALAFMT_HOME))/bin/scalafmt.bat
 LOCAL_REPO = $(subst \,/,$(USERPROFILE))/.m2/repository
 PSEP       = ;
 else
@@ -12,6 +23,7 @@ JAVAC      = $(JAVA_HOME)/bin/javac
 SCALA      = $(SCALA3_HOME)/bin/scala
 SCALAC     = $(SCALA3_HOME)/bin/scalac
 SCALADOC   = $(SCALA3_HOME)/bin/scaladoc
+SCALAFMT   = $(SCALAFMT_HOME)/bin/scalafmt
 LOCAL_REPO = $(HOME)/.m2/repository
 PSEP       = :
 endif

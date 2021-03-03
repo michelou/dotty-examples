@@ -1,3 +1,10 @@
+ifndef JAVA_HOME
+$(error Variable JAVA_HOME is not set)
+endif
+ifndef SCALA3_HOME
+$(error Variable SCALA3_HOME is not set)
+endif
+
 ifeq ($(OS),Windows_NT)
 JAVA       = $(subst \,/,$(JAVA_HOME))/bin/java.exe
 JAVAC      = $(subst \,/,$(JAVA_HOME))/bin/javac.exe

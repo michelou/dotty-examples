@@ -24,8 +24,8 @@ Build tools rely on one or more configuration files to achieve their tasks. In o
 |-------------------------------|---------------------------------------------------------|--------------------------------------|---------|
 | [**`ant.bat`**][apache_ant_cli]   | [**`build.xml`**](HelloWorld/build.xml)                 | [**`build.xml`**](build.xml), [**`ivy.xml`**](ivy.xml) |  |
 | [**`bazel.exe`**][bazel_cli]      | [**`BUILD`**](HelloWorld/BUILD), **`WORKSPACE`**        | n.a.                                 |  |
-| **`build.bat`**                   | [**`build.properties`**](HelloWorld/project/build.properties) |  [**`cpath.bat`**](./cpath.bat) <sup>(*)</sup>        |  |
-| [**`build.sh`**](enum-Planet/build.sh) | [**`build.properties`**](enum-Planet/project/build.properties) |         | [Cygwin], [MSYS2], etc. |
+| [**`build.bat`**](HelloWorld/build.bat) | [**`build.properties`**](HelloWorld/project/build.properties) |  [**`cpath.bat`**](./cpath.bat) <sup>(*)</sup>        |  |
+| [**`build.sh`**](HelloWorld/build.sh) | [**`build.properties`**](HelloWorld/project/build.properties) |         | [Cygwin], [MSYS2], etc. |
 | [**`gradle.bat`**][gradle_cli]    | [**`build.gradle`**](HelloWorld/build.gradle)           | [**`common.gradle`**](common.gradle) |  |
 | [**`make.exe`**][gmake_cli]       | [**`Makefile`**](HelloWorld/Makefile)                   | [**`Makefile.inc`**](Makefile.inc)   |  |
 | [**`mill.bat`**][mill_cli]        | [**`build.sc`**](HelloWorld/build.sc)                   | [**`common.sc`**](common.sc)         |  |

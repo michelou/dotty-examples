@@ -14,10 +14,10 @@ ext {
     testClassesDir = file("${buildDir}/test-classes")
 
     if (dottyLocal?.toBoolean()) {
-        dottyHome = System.getenv("SCALA3_HOME")
-        print("SCALA3_HOME=$dottyHome")
+        scala3Home = System.getenv("SCALA3_HOME")
+        print("SCALA3_HOME=$scala3Home")
 
-        dottyLibraryPath = file(dottyHome + "/lib")
+        dottyLibraryPath = file(scala3Home + "/lib")
         dottyLibraryFiles = files { dottyLibraryPath.listFiles() }
         dotcLibraryFiles = dottyLibraryFiles.filter { File f ->
             f.name.matches("compiler-interface(.*)jar") ||

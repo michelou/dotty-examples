@@ -1,10 +1,10 @@
-val dottyVersion = "3.0.0-M4"
+val dottyVersion = "3.0.0-RC1"
 
 lazy val root = project
   .in(file("."))
   .settings(
     name := "Higher-Kinded Types",
-    description := "Example sbt project that compiles using Dotty",
+    description := "Example sbt project that compiles using Scala 3",
     version := "0.1.0",
 
     scalaVersion := dottyVersion,

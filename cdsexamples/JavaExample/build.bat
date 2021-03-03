@@ -73,7 +73,7 @@ set "_JAR_FILE=%_TARGET_DIR%\%_APP_NAME%.jar"
 set "_CLASSLIST_FILE=%_TARGET_DIR%\%_APP_NAME%.classlist"
 set "_JSA_FILE=%_TARGET_DIR%\%_APP_NAME%.jsa"
 
-if not exist "%JAVA_HOME%\bin\javac.exe" (
+if not exist "%JAVA_HOME%\bin\java.exe" (
     echo %_ERROR_LABEL% Java SDK installation not found 1>&2
     set _EXITCODE=1
     goto :eof
@@ -188,8 +188,11 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto :args_loop
 :args_done
+if %_DEBUG%==1 ( set _REDIRECT_STDOUT=
+) else ( set _REDIRECT_STDOUT=1^>NUL
+)
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Options    : _ITER=%_RUN_ITER% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Options    : _ITER=%_RUN_ITER% _SHARE=%_SHARE_FLAG% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _RUN=%_RUN% _RUN_ARGS=%_RUN_ARGS% 1>&2
     echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" 1>&2
 )
@@ -211,7 +214,7 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-iter:1..99%__END%        set number of run iterations ^(default: %_BEG_O%%_RUN_ITER_DEFAULT%%__END%^)
+echo     %__BEG_O%-iter:1..99%__END%        set number of run iterations ^(default:%__BEG_O%%_RUN_ITER_DEFAULT%%__END%^)
 echo     %__BEG_O%-share[:^(on^|off^)]%__END%  enable/disable data sharing ^(default:%__BEG_O%off%__END%^)
 echo     %__BEG_O%-timer%__END%             display total elapsed time
 echo     %__BEG_O%-verbose%__END%           display progress messages
@@ -219,7 +222,7 @@ echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%              delete generated files
 echo     %__BEG_O%compile%__END%            compile Java source files
-echo     %__BEG_O%doc%__END%                generate Java documentation
+echo     %__BEG_O%doc%__END%                generate HTML documentation
 echo     %__BEG_O%help%__END%               display this help message
 echo     %__BEG_O%run[:arg]%__END%          execute main class with 1 optional argument
 goto :eof
@@ -301,15 +304,10 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-
-if %_DEBUG%==1 ( set __REDIRECT_STDOUT=
-) else ( set __REDIRECT_STDOUT=1^>NUL
-)
-
 @rem Important: options containing an "=" character must be quoted
 set __JAVA_TOOL_OPTS="-XX:DumpLoadedClassList=%_CLASSLIST_FILE%"
 if %_DEBUG%==1 (
-    set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-Xlog:class+path=info"
+    set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-Xlog:class+path^=info"
 ) else if %_VERBOSE%==1 (
     set "__LOG_FILE=%_LOG_DIR%\log_classlist.log"
     if not exist "%_LOG_DIR%\" mkdir "%_LOG_DIR%" 1>NUL
@@ -327,7 +325,6 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-
 set __JAVA_TOOL_OPTS=-Xshare:dump "-XX:SharedClassListFile=%_CLASSLIST_FILE%" "-XX:SharedArchiveFile=%_JSA_FILE%"
 if %_DEBUG%==1 (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-Xlog:class+path=info"
@@ -339,7 +336,7 @@ if %_DEBUG%==1 (
 ) else (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -Xlog:disable
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVA_CMD% %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% 1>&2
 ) else if %_VERBOSE%==1 ( echo Create Java shared archive !_JSA_FILE:%_ROOT_DIR%=! 1>&2
 )
 call "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -classpath "%_JAR_FILE%" %__REDIRECT_STDOUT%
@@ -368,8 +365,8 @@ for /f "usebackq" %%i in (`powershell -c "gci -recurse -path '%__PATH%' -ea Stop
 call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
 set _COMPILE_REQUIRED=%_NEWER%
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% "%__TARGET_FILE%" 1>&2
-    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% "%__PATH%" 1>&2
+    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% Target : "%__TARGET_FILE%" 1>&2
+    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: "%__PATH%" 1>&2
     echo %_DEBUG_LABEL% _COMPILE_REQUIRED=%_COMPILE_REQUIRED% 1>&2
 ) else if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
     echo No compilation needed ^("!__PATH:%_ROOT_DIR%=!"^) 1>&2
@@ -418,7 +415,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVADOC_CMD%" "@%__OPTS_FILE%" "@%__SOUR
 )
 call "%_JAVADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to generate Java documentation 1>&2
+    echo %_ERROR_LABEL% Failed to generate HTML documentation 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -426,12 +423,6 @@ echo. > "%__DOC_TIMESTAMP_FILE%"
 goto :eof
 
 :run
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -jar "%_JAR_FILE%" %_RUN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute Java archive "!_JAR_FILE:%_ROOT_DIR%=!" %_RUN_ARGS% 1>&2
-)
-echo #iterations=%_RUN_ITER%
-set __N=1
-:run_iter
 set __SHARE_LOG_FILE=%_LOG_DIR%\log_share_%_SHARE_FLAG%.log
 @rem Important: options containing an "=" character must be quoted
 set __JAVA_TOOL_OPTS=-Xshare:%_SHARE_FLAG% -XX:SharedArchiveFile=%_JSA_FILE%
@@ -444,6 +435,12 @@ if %_DEBUG%==1 (
 ) else (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -Xlog:disable
 )
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -jar "%_JAR_FILE%" %_RUN_ARGS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Java archive "!_JAR_FILE:%_ROOT_DIR%=!" %_RUN_ARGS% 1>&2
+)
+echo #iterations=%_RUN_ITER%
+set __N=1
+:run_iter
 call "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -jar "%_JAR_FILE%" %_RUN_ARGS%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to execute class %_MAIN_CLASS% 1>&2
@@ -543,17 +540,18 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] jdk." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] jdk." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: jdk."') do (
     set /a __N_JDK+=1
 )
-set __N_SCALA=0
-if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] scala." "%__SHARE_LOG_FILE%" 1>&2
-for /f "delims=" %%i in ('findstr /c:"] scala." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: scala."') do (
-    set /a __N_SCALA+=1
-)
 set __N_SUN=0
 if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] sun." "%__SHARE_LOG_FILE%" 1>&2
 for /f "delims=" %%i in ('findstr /c:"] sun." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: sun."') do (
     set /a __N_SUN+=1
 )
 
+@rem Scala libraries
+set __N_SCALA=0
+if %_DEBUG%==1 echo %_DEBUG_LABEL% findstr /c:"] scala." "%__SHARE_LOG_FILE%" 1>&2
+for /f "delims=" %%i in ('findstr /c:"] scala." "%__SHARE_LOG_FILE%" ^| findstr /v /c:"source: scala."') do (
+    set /a __N_SCALA+=1
+)
 set __LOAD_TIME[%__N%]=999.999s
 for /f "delims=[]" %%i in ('powershell -c "Get-Content %__SHARE_LOG_FILE% | select -Last 1"') do (
     set _T_SECS=%%i

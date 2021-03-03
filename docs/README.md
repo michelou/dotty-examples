@@ -6,7 +6,7 @@
     <a href="http://dotty.epfl.ch/" rel="external"><img src="../docs/dotty.png" width="120" alt="Dotty logo"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    The <strong><code>docs\</code></strong> directory contains a selection of external links and PDF documents related to <a href="http://dotty.epfl.ch/" rel="external">Dotty</a>.
+    The <strong><code>docs\</code></strong> directory contains a selection of external links and PDF documents related to <a href="http://dotty.epfl.ch/" rel="external">Scala 3</a>.
   </td>
   </tr>
 </table>
@@ -59,7 +59,7 @@
 
 <hr style="margin:2em 0 0 0;" />
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

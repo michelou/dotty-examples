@@ -19,7 +19,7 @@ val scalaSourcePath = os.pwd / "src" / "main" / "scala"
 // Ivy dependencies
 
 val scalaLibVersion = "2.13"
-val scalatestVersion = "3.2.4"
+val scalatestVersion = "3.2.5"
 val specs2Version = "4.10.6"
 
 val ivyJunit = ivy"org.junit:org.junit:4.13.2"
@@ -36,7 +36,7 @@ val ivyJunitJupiter = ivy"org.junit.jupiter:junit-jupiter-api:5.7.1"
 // https://mvnrepository.com/artifact/org.scalatest/scalatest
 val ivyScalatest = ivy"org.scalatest:scalatest_$scalaLibVersion:$scalatestVersion"
 
-// https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13
+// https://mvnrepository.com/artifact/org.scalactic/scalactic
 val ivyScalactic = ivy"org.scalactic:scalactic_$scalaLibVersion:$scalatestVersion"
 
 // https://mvnrepository.com/artifact/org.specs2/specs2-common
@@ -45,7 +45,7 @@ val ivySpecs2Common = ivy"org.specs2:specs2-common_$scalaLibVersion:$specs2Versi
 // https://mvnrepository.com/artifact/org.specs2/specs2-core
 val ivySpecs2Core = ivy"org.specs2:specs2-core_$scalaLibVersion:$specs2Version"
 
-// https://mvnrepository.com/artifact/org.specs2/specs2-junit_2.13
+// https://mvnrepository.com/artifact/org.specs2/specs2-junit
 val ivySpecs2JUnit = ivy"org.specs2:specs2-junit_$scalaLibVersion:$specs2Version"
 
 //////////////////////////////////////////////////////////////////////////////
