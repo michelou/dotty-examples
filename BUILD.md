@@ -1,4 +1,4 @@
-# <span id="top">Building Dotty on Windows</span> <span style="size:25%;"><a href="README.md">↩</a></span>
+# <span id="top">Building Scala 3 on Windows</span> <span style="size:25%;"><a href="README.md">↩</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -230,7 +230,7 @@ We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :------------------------: | :--------: | :--------- |
-| [#11480][dotty_pull_11480] | *pending* | Reference documentation |
+| [#11480][dotty_pull_11480] | [merged](https://github.com/lampepfl/dotty/commit/5eb3258) <span style="font-size:80%;">(Feb 2021)</span> | Reference documentation |
 | [#11257][dotty_pull_11257] | *WIP*  | Reference documentation |
 | [#11235][dotty_pull_11235] | [merged](https://github.com/lampepfl/dotty/commit/8d3275c) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
 | [#11158][dotty_pull_11158] | [merged](https://github.com/lampepfl/dotty/commit/bbfff61) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
@@ -241,7 +241,8 @@ We have come across several issues <sup id="anchor_06"><a href="#footnote_06">[6
 | [#10860][dotty_pull_10860] | [merged](https://github.com/lampepfl/dotty/commit/0e4fe3c) <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
 | [#10826][dotty_pull_10826] | [merged](https://github.com/lampepfl/dotty/commit/bfb0b81) <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
 | [#10767][dotty_pull_10767] | [merged](https://github.com/lampepfl/dotty/commit/3a7a6ae) <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
-| [#10448][dotty_pull_10448] | [merged](https://github.com/lampepfl/dotty/commit/51db1b5) <span style="font-size:80%;">(Now 2020)</span> | Test suite |
+| [#10448][dotty_pull_10448] | [merged](https://github.com/lampepfl/dotty/commit/51db1b5) <span style="font-size:80%;">(Nov 2020)</span> | Test suite |
+| [#10304][dotty_pull_10304] | [merged](https://github.com/lampepfl/dotty/commit/9531534) <span style="font-size:80%;">(Mar 2021)</span> | Compiler options |
 | [#8356][dotty_pull_8356] | [merged](https://github.com/lampepfl/dotty/commit/f51bf1b701a17851224472849c131ce6de38e2a7) <span style="font-size:80%;">(Feb 2020)</span> | Test suite |
 | [#8330][dotty_pull_8330] | [merged](https://github.com/lampepfl/dotty/commit/5018a1285cf3d8c0f3a17f98f015589154b0fbbd) <span style="font-size:80%;">(Feb 2020)</span> | Test suite |
 | [#8279][dotty_pull_8279] | [merged](https://github.com/lampepfl/dotty/commit/a5f1dae68202ba67ef99c39f243970ebd3530a65) <span style="font-size:80%;">(Feb.2020)</span> | Compiler options |
@@ -753,6 +754,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_pull_8279]: https://github.com/lampepfl/dotty/pull/8279
 [dotty_pull_8330]: https://github.com/lampepfl/dotty/pull/8330
 [dotty_pull_8356]: https://github.com/lampepfl/dotty/pull/8356
+[dotty_pull_10304]: https://github.com/lampepfl/dotty/pull/10304
 [dotty_pull_10448]: https://github.com/lampepfl/dotty/pull/10448
 [dotty_pull_10767]: https://github.com/lampepfl/dotty/pull/10767
 [dotty_pull_10826]: https://github.com/lampepfl/dotty/pull/10826
