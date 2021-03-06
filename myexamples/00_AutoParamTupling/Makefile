@@ -23,7 +23,7 @@ all: build
 
 build: $(TARGET)
 
-$(TARGET): src/main/scala/*.scala
+$(TARGET): $(SOURCES)
 	[ -d "$(CLASSES_DIR)" ] || mkdir -p "$(CLASSES_DIR)"
 	@echo "$(SCALAC_FLAGS) -d \"$(CLASSES_DIR)\"" > "$(OPTS_FILE)"
 	@echo "$(SOURCES)" > "$(SOURCES_FILE)"
@@ -64,7 +64,7 @@ DOC_SOURCES_FILE = $(TARGET_DIR)/scaladoc_sources.txt
 
 $(DOC_TARGET): $(DOC_SOURCES)
 	[ -d "$(DOC_TARGET_DIR)" ] || mkdir -p "$(DOC_TARGET_DIR)"
-	@echo -d \"$(DOC_TARGET_DIR)\" -project \"$(PROJECT_NAME)\" -project-version \"$(PROJECT_VERSION)\" > "$(DOC_OPTS_FILE)"
+	@echo -siteroot \"$(DOC_TARGET_DIR)\" -d \"$(DOC_TARGET_DIR)\" -project \"$(PROJECT_NAME)\" -project-version \"$(PROJECT_VERSION)\" > "$(DOC_OPTS_FILE)"
 	@echo "$(DOC_SOURCES)" > "$(DOC_SOURCES_FILE)"
 	$(SCALADOC) "@$(DOC_OPTS_FILE)" "@$(DOC_SOURCES_FILE)"
 	@echo "" > "$(DOC_TARGET)"
@@ -83,16 +83,15 @@ lint:
 ##############################################################################
 ## test rules
 
-TEST_SOURCES = $(shell find $(SOURCE_DIR)/test -name *.scala)
-TEST_TARGET  = $(TARGET_DIR)/.latest-test-build
+TEST_SOURCES     = $(shell find $(SOURCE_DIR)/test -name *.scala)
+TEST_CLASSES_DIR = $(TARGET_DIR)/test-classes
+TEST_TARGET      = $(TARGET_DIR)/.latest-test-build
 
 TEST_OPTS_FILE    = $(TARGET_DIR)/scalac_test_opts.txt
 TEST_SOURCES_FILE = $(TARGET_DIR)/scalac_test_sources.txt
 
-TEST_MAIN_CLASS  = $(MAIN_CLASS)Test
-TEST_CLASSES_DIR = $(TARGET_DIR)/test-classes
-TEST_CPATH       = $(SCALA_LIB_JAR)$(PSEP)$(SCALA3_LIB_JAR)$(PSEP)$(HAMCREST_JAR)$(PSEP)$(JUNIT_JAR)$(PSEP)$(JUNIT_INTF_JAR)$(PSEP)$(SCALATEST_JAR)$(PSEP)$(SCALACTIC_JAR)$(PSEP)$(SPECS2_CORE_JAR)$(PSEP)$(SPECS2_JUNIT_JAR)$(PSEP)$(SPECS2_MATCHER_JAR)$(PSEP)$(CLASSES_DIR)$(PSEP)$(TEST_CLASSES_DIR)
-
+TEST_MAIN_CLASS = $(MAIN_CLASS)Test
+TEST_CPATH      = $(SCALA_LIB_JAR)$(PSEP)$(SCALA3_LIB_JAR)$(PSEP)$(HAMCREST_JAR)$(PSEP)$(JUNIT_JAR)$(PSEP)$(JUNIT_INTF_JAR)$(PSEP)$(SCALATEST_JAR)$(PSEP)$(SCALACTIC_JAR)$(PSEP)$(SPECS2_CORE_JAR)$(PSEP)$(SPECS2_JUNIT_JAR)$(PSEP)$(SPECS2_MATCHER_JAR)$(PSEP)$(CLASSES_DIR)$(PSEP)$(TEST_CLASSES_DIR)
 
 $(TEST_TARGET): $(TEST_SOURCES)
 	[ -d "$(TEST_CLASSES_DIR)" ] || mkdir -p "$(TEST_CLASSES_DIR)"

@@ -18,6 +18,7 @@
         <scala.versionTag>3.0.0-RC1</scala.versionTag>
         <scala.version>${scala.versionTag}</scala.version>
         <scala.local.install>true</scala.local.install>
+        <scalalib.version>2.13</scalalib.version>
 
         <!-- Maven plugins -->
         <scala.maven.version>1.0.0</scala.maven.version> <!-- Dec 2018 -->
@@ -37,6 +38,7 @@
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
         <jmh.version>1.27</jmh.version>                         <!-- Dec 2020, Oracle -->
+        <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
         <junit.platform.version>1.7.1</junit.platform.version>  <!-- Sep 2020 -->
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
