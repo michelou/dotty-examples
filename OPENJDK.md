@@ -50,11 +50,11 @@ For instance our development environment looks as follows (*March 2021*) <sup id
 
 <pre style="font-size:80%;">
 C:\opt\jdk-11.0.10+9\             <i>(299 MB)</i>
+C:\opt\jdk-bellsoft-11.0.10\      <i>(317 MB)</i>
 C:\opt\jdk-corretto-11.0.10_9\    <i>(292 MB)</i>
 C:\opt\jdk-dcevm-11.0.9+1\        <i>(295 MB)</i>
 C:\opt\graalvm-ce-java11-21.0.0\  <i>(731 MB)</i>
-C:\opt\jdk-liberica-11.0.9.1\     <i>(317 MB)</i>
-C:\opt\jdk-openj9-11.0.9+11\      <i>(295 MB)</i>
+C:\opt\jdk-openj9-11.0.10+9\      <i>(295 MB)</i>
 C:\opt\jdk-redhat-11.0.10.9-1\    <i>(363 MB)</i>
 C:\opt\jdk-sapmachine-11.0.10\    <i>(315 MB)</i>
 C:\opt\jdk-zulu-11.0.10\          <i>(300 MB)</i>
@@ -65,7 +65,40 @@ C:\opt\jdk-zulu-11.0.10\          <i>(300 MB)</i>
 <!-- sap     : 11.0.8 = 288 MB, 11.0.9 = 315 MB -->
 <!-- zulu    : 11.0.8 = 299 MB, 11.0.9 = 300 MB -->
 
-## Data sharing
+## <span id="build_times">Scala 3 build times</span>
+
+In this section we are interested in the execution time used to generate the following two archive files, i.e. an installation-ready Scala 3 distribution :
+<pre style="font-size:80%;">
+dist\target\scala3-3.0.0-RC2-bin-SNAPSHOT.tar.gz
+dist\target\scala3-3.0.0-RC2-bin-SNAPSHOT.zip
+</pre>
+
+Ideally we would run the command `build -timer -verbose archives` to generate those two files. Unfortunately several tests do fail when run on Windows, so we have to fallback to the chained commands `build -timer -verbose clean boot & build -timer -verbose arch-only` to achieve that goal. 
+
+Let's compare the elapsed build times with Java 11 and Java 8 on a machine with an i7-8550U (1.8 GHz) processor and 16 Go of memory :
+
+| 11.0.10  | `bootstrap`     | `arch-only`     | **Total**       | 1.8.0_282 | `bootstrap`      | `arch-only`       | **Total**       |
+|----------|-----------------|-----------------|-----------------|-----------|-----------------|-----------------|-----------------|
+| BellSoft | 31:06<br/>33:42 | 01:10<br/>01:16 | 32:16<br/>34:58 | BellSoft  | 25:40<br/>24:44 | 01:16<br/>01:16 | 26:56<br/>26:00 |
+| Corretto | *Failure*       |                 |                 | Corretto  | *Failure*       |                 |                 |
+| RedHat   |                 |                 |                 | RedHat    | 24:37<br/>25:19 | 01:11<br/>01:13 | 25:48<br/>26.32 |
+| OpenJ9   | 26:23<br/>36:42 | 01:18<br/>01:18 | 37:41<br/>38:00 | OpenJ9    | 31:40<br/>31:56 | 01:18<br/>01:20 | 32:58<br/>33:16 |
+| OpenJDK  | 32:44<br/>32:38 | 01:05<br/>01:07 | 33:49<br/>33:45 | OpenJDK   | 24:25<br/>24:30 | 01:12<br/>01:10 | 25:37<br/>25:40 |
+| Zulu     | 31:01<br/>31:54 | 01:07<br/>01:07 | 32:08<br/>33:01 | Zulu      | 24:21<br/>24:57 | 01:12<br/>01:13 | 25:33<br/>26:10 |
+
+We compare the elapsed build times with Java 11 and Java 8 on a machine with an i7-47000MQ (2.4Ghz) processor and 12 Go of memory :
+
+| 11.0.10  | `bootstrap`     | `arch-only`     | **Total**       | 1.8.0_282 | `bootstrap`     | `arch-only`       | **Total**       |
+|----------|-----------------|-----------------|-----------------|-----------|-----------------|-----------------|-----------------|
+| BellSoft | 42:19<br/>40:17 | 07:25<br/>07:37 | 49:44<br/>47:54 | BellSoft  |                 |                 |                 |
+| Corretto | *Failure*       |                 |                 | Corretto  | *Failure*       |                 |                 |
+| RedHat   |                 |                 |                 | RedHat    | 32:33<br/>30:38 | 08:04<br/>08:56 | 40:37<br/>39:34 |
+| OpenJ9   | 42:04<br/>      | 16:40<br/>      | 58:44<br/>      | OpenJ9    | 38:45<br/>38:45 | 07:03<br/>05.19 | 57:08<br/>44:04 |
+| OpenJDK  | 39:54<br/>      | 07:42<br/>      | 47:36<br/>      | OpenJDK   | 32:07<br/>      | 04:01<br/>      | 36:08<br/>      |
+| Zulu     | 41:22<br/>      | 07:56<br/>      | 49:18<br/>      | Zulu      | 32:30<br/>32:40 | 06:50<br/>06:55 | 39:20<br/>39:35 |
+
+
+## <span id="data_sharing">Data sharing</span>
 
 This section supplements my writing from page [Data Sharing and Dotty on Windows](CDS.md).
 
@@ -290,7 +323,6 @@ OpenJDK Runtime Environment Zulu11.43+55-CA (build 11.0.9.1+1-LTS)
 OpenJDK 64-Bit Server VM Zulu11.43+55-CA (build 11.0.9.1+1-LTS, mixed mode, sharing)
 </pre>
 
-
 ## <span id="related">Related reading</span> [**&#9650;**](#top)
 
 ### 2018
@@ -316,14 +348,14 @@ OpenJDK 64-Bit Server VM Zulu11.43+55-CA (build 11.0.9.1+1-LTS, mixed mode, shar
 
 ## <span id="footnotes">Footnotes</span> [**&#9650;**](#top)
 
-<b name="footnote_01" tooltip="[1]">[1]</b> ***JCK Compliance** (2018-04-06)* [↩](#anchor_01)
+<span name="footnote_01" tooltip="[1]">[1]</span> ***JCK Compliance** (2018-04-06)* [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 The JCK is a proprietary test suite, <a href="https://openjdk.java.net/groups/conformance/JckAccess/index.html" rel="external">accessible under license from Oracle</a>.<br/>
 The role of the JCK is not to determine <i>quality</i>, but rather to provide a binary indication of compatibility with the Java SE specification. As such, the JCK only tests functional behaviour, and only such functional behaviour that is given in the Java specification.<br/><i>(see <a href="https://github.com/AdoptOpenJDK/TSC/issues/19">issue 19</a> from <a href="https://github.com/AdoptOpenJDK/TSC">OpenJDK TSC</a>)</i>
 </p>
 
-<b name="footnote_02">[2]</b> ***Downloads*** [↩](#anchor_02)
+<span name="footnote_02">[2]</span> ***Downloads*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):

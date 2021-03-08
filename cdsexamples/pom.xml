@@ -18,6 +18,8 @@
         <scala.versionTag>3.0.0-RC1</scala.versionTag> <!-- eg. "2.13" -->
         <scala.version>${scala.versionTag}</scala.version> <!-- eg. "2.13.3" or "0.26.0" -->
         <scala.local.install>true</scala.local.install>
+        <scala2.versionTag>2.13</scala2.versionTag>
+        <scala2.version>${scala2.versionTag}.5</scala2.version>
 
         <!-- Maven plugins -->
         <scala.maven.version>1.0-SNAPSHOT</scala.maven.version> <!-- Dec 2018 -->
@@ -37,6 +39,7 @@
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
         <jmh.version>1.27</jmh.version>                         <!-- May 2018, Oracle -->
+        <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
         <junit.platform.version>1.7.1</junit.platform.version>  <!-- Sep 2019 -->
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
@@ -66,7 +69,7 @@
         <dependency>
             <groupId>${scala.groupId}</groupId>
             <artifactId>scala-library</artifactId>
-            <version>2.13.5</version>
+            <version>${scala2.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.epfl.alumni</groupId>
@@ -126,7 +129,7 @@
         </dependency>
         <dependency>
             <groupId>org.scalatest</groupId>
-            <artifactId>scalatest_2.13</artifactId>
+            <artifactId>scalatest_${scala2.versionTag}</artifactId>
             <version>${scalatest.version}</version>
             <scope>test</scope>
         </dependency>
@@ -138,25 +141,25 @@
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-common -->
         <dependency>
             <groupId>org.specs2</groupId>
-            <artifactId>specs2-common_2.13</artifactId>
+            <artifactId>specs2-common_${scala2.versionTag}</artifactId>
             <version>${specs2.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-core -->
         <dependency>
             <groupId>org.specs2</groupId>
-            <artifactId>specs2-core_2.13</artifactId>
+            <artifactId>specs2-core_${scala2.versionTag}</artifactId>
             <version>${specs2.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
         <dependency>
             <groupId>org.specs2</groupId>
-            <artifactId>specs2-junit_2.13</artifactId>
+            <artifactId>specs2-junit_${scala2.versionTag}</artifactId>
             <version>${specs2.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-matcher -->
         <dependency>
             <groupId>org.specs2</groupId>
-            <artifactId>specs2-matcher_2.13</artifactId>
+            <artifactId>specs2-matcher_${scala2.versionTag}</artifactId>
             <version>${specs2.version}</version>
         </dependency>
         <dependency>
