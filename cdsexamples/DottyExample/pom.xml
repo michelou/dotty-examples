@@ -22,11 +22,11 @@
     <properties>
         <mainClass>cdsexamples.Main</mainClass>
         <!-- TODO: remove once Maven plugin for Scala does support POM dependencies -->
-        <specs2-common.jar>${m2.directory}/org/specs2/specs2-common_2.13/${specs2.version}/specs2-common_2.13-${specs2.version}.jar</specs2-common.jar>
-        <specs2-core.jar>${m2.directory}/org/specs2/specs2-core_2.13/${specs2.version}/specs2-core_2.13-${specs2.version}.jar</specs2-core.jar>
-        <specs2-fp.jar>${m2.directory}/org/specs2/specs2-fp_2.13/${specs2.version}/specs2-fp_2.13-${specs2.version}.jar</specs2-fp.jar>
-        <specs2-junit.jar>${m2.directory}/org/specs2/specs2-junit_2.13/${specs2.version}/specs2-junit_2.13-${specs2.version}.jar</specs2-junit.jar>
-        <specs2-matcher.jar>${m2.directory}/org/specs2/specs2-matcher_2.13/${specs2.version}/specs2-matcher_2.13-${specs2.version}.jar</specs2-matcher.jar>
+        <specs2-common.jar>${m2.directory}/org/specs2/specs2-common_${scala.versionTag}/${specs2.version}/specs2-common_${scala.versionTag}-${specs2.version}.jar</specs2-common.jar>
+        <specs2-core.jar>${m2.directory}/org/specs2/specs2-core_${scala.versionTag}/${specs2.version}/specs2-core_${scala.versionTag}-${specs2.version}.jar</specs2-core.jar>
+        <specs2-fp.jar>${m2.directory}/org/specs2/specs2-fp_${scala.versionTag}/${specs2.version}/specs2-fp_${scala.versionTag}-${specs2.version}.jar</specs2-fp.jar>
+        <specs2-junit.jar>${m2.directory}/org/specs2/specs2-junit_${scala.versionTag}/${specs2.version}/specs2-junit_${scala.versionTag}-${specs2.version}.jar</specs2-junit.jar>
+        <specs2-matcher.jar>${m2.directory}/org/specs2/specs2-matcher_${scala.versionTag}/${specs2.version}/specs2-matcher_${scala.versionTag}-${specs2.version}.jar</specs2-matcher.jar>
     </properties>
 
     <build>
@@ -76,9 +76,9 @@
                                 <additionalClasspathElement>${m2.directory}/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar</additionalClasspathElement>
                                 <additionalClasspathElement>${m2.directory}/org/hamcrest/hamcrest/2.2/hamcrest-core-2.2.jar</additionalClasspathElement>
                                 <additionalClasspathElement>${m2.directory}/junit/junit/4.13.2/junit-4.13.2.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/portable-scala/portable-scala-reflect_2.13/1.0.0/portable-scala-reflect_2.13-1.0.0.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/scalactic/scalactic_2.13/3.1.1/scalactic_2.13-3.2.0.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/scalatest/scalatest_2.13/3.1.1/scalatest_2.13-3.2.0.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/portable-scala/portable-scala-reflect_${scala.versionTag}/1.0.0/portable-scala-reflect_${scala.versionTag}-1.0.0.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/scalactic/scalactic_${scala.versionTag}/3.2.6/scalactic_${scala.versionTag}-3.2.6.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/scalatest/scalatest_${scala.versionTag}/3.2.6/scalatest_${scala.versionTag}-3.2.6.jar</additionalClasspathElement>
                                 <additionalClasspathElement>${specs2-common.jar}</additionalClasspathElement>
                                 <additionalClasspathElement>${specs2-core.jar}</additionalClasspathElement>
                                 <additionalClasspathElement>${specs2-fp.jar}</additionalClasspathElement>

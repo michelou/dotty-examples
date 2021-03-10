@@ -77,11 +77,11 @@
                                 <include>scala/**/*.scala</include>
                             </includes>
                             <additionalClasspathElements>
-                                <additionalClasspathElement>${m2.directory}/junit/junit/4.13/junit-4.13.jar</additionalClasspathElement> <!-- @withRun -->
+                                <additionalClasspathElement>${m2.directory}/junit/junit/4.13.2/junit-4.13.2.jar</additionalClasspathElement> <!-- @withRun -->
                                 <additionalClasspathElement>${m2.directory}/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/junit/jupiter/junit-jupiter-api/5.5.2/junit-jupiter-api-5.5.2.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/junit/platform/junit-platform-commons/1.5.2/junit-platform-commons-1.5.2.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/junit/platform/junit-platform-runner/1.5.2/junit-platform-runner-1.5.2.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/junit/jupiter/junit-jupiter-api/${jupiter.version}/junit-jupiter-api-${jupiter.version}.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/junit/platform/junit-platform-commons/${junit.platform.version}/junit-platform-commons-${junit.platform.version}.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/org/junit/platform/junit-platform-runner/${junit.platform.version}/junit-platform-runner-${junit.platform.version}.jar</additionalClasspathElement>
                                 <!--
                                 <additionalClasspathElement>${m2.directory}/org/junit/vintage/junit-vintage-engine/5.3.2/junit-vintage-engine-5.3.2.jar</additionalClasspathElement>
                                 -->

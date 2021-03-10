@@ -319,7 +319,7 @@ if %_DEBUG%==1 (
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -jar %_JAR_FILE% 1>&2
 ) else if %_VERBOSE%==1 ( echo Create class list file !_CLASSLIST_FILE:%_ROOT_DIR%=! 1>&2
 )
-call "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -jar "%_JAR_FILE%" %__REDIRECT_STDOUT%
+call "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -jar "%_JAR_FILE%" %_REDIRECT_STDOUT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to create file %_CLASSLIST_FILE% 1>&2
     set _EXITCODE=1
@@ -339,7 +339,7 @@ if %_DEBUG%==1 (
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -classpath %_JAR_FILE% 1>&2
 ) else if %_VERBOSE%==1 ( echo Create Java shared archive !_JSA_FILE:%_ROOT_DIR%=! 1>&2
 )
-call "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -classpath "%_JAR_FILE%" %__REDIRECT_STDOUT%
+call "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -classpath "%_JAR_FILE%" %_REDIRECT_STDOUT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to create shared archive %_JAR_FILE% 1>&2
     set _EXITCODE=1

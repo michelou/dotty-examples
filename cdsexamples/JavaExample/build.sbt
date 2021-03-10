@@ -22,7 +22,7 @@ lazy val root = project
       // https://mvnrepository.com/artifact/org.scalacheck/scalacheck
       "org.scalacheck" % "scalacheck_2.13" % "1.15.3" % Test,
       // https://mvnrepository.com/artifact/org.scalatest/scalatest
-      "org.scalatest" % "scalatest_2.13" % "3.2.5" % "test"
+      "org.scalatest" % "scalatest_2.13" % "3.2.6" % "test"
     ),
 
     testOptions ++= Seq(
