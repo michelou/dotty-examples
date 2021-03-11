@@ -73,6 +73,8 @@ dist\target\scala3-3.0.0-RC2-bin-SNAPSHOT.tar.gz
 dist\target\scala3-3.0.0-RC2-bin-SNAPSHOT.zip
 </pre>
 
+> **:mag_right:** Nightly builds are published on Maven as individual Java archive files, e.g. [nightly builds for version 3.0.0-RC2](https://repo1.maven.org/maven2/org/scala-lang/scala3-compiler_3.0.0-RC2/) of the Scala 3 compiler or [nightly builds for version 3.0.0-RC2](https://repo1.maven.org/maven2/org/scala-lang/scala3-library_3.0.0-RC2/) of the Scala 3 library (and so on).
+
 We ideally would run the command [`build -timer -verbose archives`](./bin/dotty/build.bat) to generate the above files (presuming all tests were successful).
 
 Unfortunately a few tests still fail on Windows, so need to proceed in two steps, running the command [`build -timer -verbose clean boot & build -timer -verbose arch-only`](./bin/dotty/build.bat), in order to achieve our goal. 
@@ -81,13 +83,13 @@ Let's compare the build times for Java 11 and Java 8 on a Win 10 laptop with an 
 
 | 11.0.10  | `bootstrap`     | `arch-only`     | **Total**       | 1.8.0_282 | `bootstrap`      | `arch-only`       | **Total**       |
 |----------|-----------------|-----------------|-----------------|-----------|-----------------|-----------------|-----------------|
-| [Liberica][bellsoft_downloads]<br/>(BellSoft) | 31:06<br/>33:42 | 01:10<br/>01:16 | 32:16<br/>34:58 | Liberica<br/>(BellSoft) | 25:40<br/>24:44 | 01:16<br/>01:16 | 26:56<br/>26:00 |
-| [Corretto][corretto_downloads]<br/>(Amazon) | *Failure* <sup>(1)</sup> |                 |                 | Corretto<br/>(Amazon) | *Failure* <sup>(1)</sup> |                 |                 |
-| [RedHat][redhat_downloads] | 32:26<br/>32:13 | 01:05<br/>01:04 | 33:31<br/>33:17 | RedHat    | 24:37<br/>25:19 | 01:11<br/>01:13 | 25:48<br/>26.32 |
-| [OpenJ9][openj9_downloads]<br/>(Eclipse) | 26:23<br/>36:42 | 01:18<br/>01:18 | 37:41<br/>38:00 | OpenJ9<br/>(Eclipse) | 31:40<br/>31:56 | 01:18<br/>01:20 | 32:58<br/>33:16 |
-| [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle)  | 32:44<br/>32:38 | 01:05<br/>01:07 | 33:49<br/>33:45 | OpenJDK<br/>(Oracle) | 24:25<br/>24:30 | 01:12<br/>01:10 | 25:37<br/>25:40 |
-| [DCEVM][trava_downloads]<br/>(Trava) | 32:36<br/>33:49 | 01:04<br/>01:07 | 33:40<br/>34:56 | DCEVM<br/>(Trava) | n.a.            | n.a.            | n.a.            |
-| [Zulu][azul_downloads]<br/>(Azul)     | 31:01<br/>31:54 | 01:07<br/>01:07 | 32:08<br/>33:01 | Zulu<br/>(Azul) | 24:21<br/>24:57 | 01:12<br/>01:13 | 25:33<br/>26:10 |
+| [Liberica][bellsoft_downloads]<br/>(BellSoft) | 31:06<br/>33:42 | 01:10<br/>01:16 | 32:16<br/>34:58 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 25:40<br/>24:44 | 01:16<br/>01:16 | 26:56<br/>26:00 |
+| [Corretto][corretto_downloads]<br/>(Amazon) | *Failure* <sup>(1)</sup> |                 |                 | [Corretto][corretto_downloads]<br/>(Amazon) | *Failure* <sup>(1)</sup> |                 |                 |
+| [RedHat][redhat_downloads] | 32:26<br/>32:13 | 01:05<br/>01:04 | 33:31<br/>33:17 | [RedHat][redhat_downloads]    | 24:37<br/>25:19 | 01:11<br/>01:13 | 25:48<br/>26.32 |
+| [OpenJ9][openj9_downloads]<br/>(Eclipse) | 26:23<br/>36:42 | 01:18<br/>01:18 | 37:41<br/>38:00 | [OpenJ9][openj9_downloads]<br/>(Eclipse) | 31:40<br/>31:56 | 01:18<br/>01:20 | 32:58<br/>33:16 |
+| [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle)  | 32:44<br/>32:38 | 01:05<br/>01:07 | 33:49<br/>33:45 | [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) | 24:25<br/>24:30 | 01:12<br/>01:10 | 25:37<br/>25:40 |
+| [DCEVM][trava_downloads]<br/>(Trava) | 32:36<br/>33:49 | 01:04<br/>01:07 | 33:40<br/>34:56 | [DCEVM][trava_downloads]<br/>(Trava) | n.a.            | n.a.            | n.a.            |
+| [Zulu][azul_downloads]<br/>(Azul)     | 31:01<br/>31:54 | 01:07<br/>01:07 | 32:08<br/>33:01 | [Zulu][azul_downloads]<br/>(Azul) | 24:21<br/>24:57 | 01:12<br/>01:13 | 25:33<br/>26:10 |
 <div style="font-size:80%;"><sup>(1)</sup>Build failure with "<code>Out of memory</code>" error.<br/>&nbsp;</div>
 
 Here are some observations about the above results :
@@ -100,7 +102,7 @@ And we get the following build times for Java 11 and Java 8 look on a *slower* W
 
 | 11.0.10  | `bootstrap`     | `arch-only`     | **Total**       | 1.8.0_282 | `bootstrap`     | `arch-only`     | **Total**       |
 |----------|-----------------|-----------------|-----------------|-----------|-----------------|-----------------|-----------------|
-| BellSoft | 42:19<br/>40:17 | 07:25<br/>07:37 | 49:44<br/>47:54 | BellSoft  | 32:69<br/>      | 18:16<br/>      | 51:15<br/>      |
+| BellSoft | 42:19<br/>40:17 | 07:25<br/>07:37 | 49:44<br/>47:54 | BellSoft  | 32:69<br/>35:54 | 18:16<br/>04:37 | 51:15<br/>40:31 |
 | Corretto | *Failure*       |                 |                 | Corretto  | *Failure*       |                 |                 |
 | RedHat   | 46:44<br/>      | 07:24<br/>      | 54:08<br/>      | RedHat    | 32:33<br/>30:38 | 08:04<br/>08:56 | 40:37<br/>39:34 |
 | OpenJ9   | 42:04<br/>50:47 | 16:40<br/>07:48 | 58:44<br/>58:35 | OpenJ9    | 38:45<br/>38:45 | 07:03<br/>05.19 | 57:08<br/>44:04 |

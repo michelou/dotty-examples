@@ -35,7 +35,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 For instance our development environment looks as follows (*March 2021*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.30.1\       <i>(290 MB)</i>
+C:\opt\Git-2.30.2\       <i>(290 MB)</i>
 C:\opt\jdk-11.0.10+9\    <i>(314 MB)</i>
 C:\opt\scala-3.0.0-RC1\  <i>( 57 MB)</i>
 </pre>
@@ -711,11 +711,11 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [dotty]: https://dotty.epfl.ch/
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [scala3_releases]: https://github.com/lampepfl/dotty/releases
-[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.0.0-M3
+[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.0.0-RC1
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.30.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.30.2.txt
 [github_markdown]: https://github.github.com/gfm/
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [haskell_examples]: https://github.com/michelou/haskell-examples

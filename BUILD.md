@@ -43,7 +43,7 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 For instance our development environment looks as follows (*March 2021*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.30.1\      <i>(290 MB)</i>
+C:\opt\Git-2.30.2\      <i>(278 MB)</i>  (fix for <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-21300">CVE-2021-21300</a>)
 C:\opt\jdk-11.0.10+9\   <i>(314 MB)</i>
 C:\opt\sbt-1.4.8\       <i>( 48 MB)</i>
 </pre>
@@ -249,7 +249,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
-   GIT_CMD=C:\opt\Git-2.30.1\bin\git.exe
+   GIT_CMD=C:\opt\Git-2.30.2\bin\git.exe
    JAVA_CMD=C:\opt\jdk-11.0.10+9\bin\java.exe
    SBT_CMD=C:\opt\sbt-1.4.8\bin\sbt.bat
 Tool options
@@ -660,7 +660,7 @@ Defining directory <b><code>dotty\</code></b> as a Github submodule allows us to
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.30.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.30.2.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/
