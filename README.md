@@ -315,7 +315,7 @@ C:\opt\sbt-1.4.8\bin\sbt
 C:\opt\sbt-1.4.8\bin\sbt.bat
 </pre>
 
-> **:mag_right:** Other external tools such as [**`javac.exe`**][javac_cli] and [**`scalac.bat`**][scalac_cli] are accessible through the corresponding environment variable, e.g. **`JAVA_HOME`** for **`javac.exe`**, **`SCALA_HOME`** resp. **`SCALA3_HOME`** for **`scalac.exe`**.
+> **:mag_right:** Other external tools such as [**`javac.exe`**][javac_cli] and [**`scalac.bat`**][scalac_cli] are accessible through the corresponding environment variable, e.g. **`JAVA_HOME`** for **`javac.exe`**, **`SCALA_HOME`** resp. **`SCALA3_HOME`** for **`scalac.bat`**.
 
 Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and defined variables:
 

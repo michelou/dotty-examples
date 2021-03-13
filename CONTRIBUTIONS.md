@@ -6,7 +6,7 @@
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:80px;" src="docs/dotty.png" alt="Dotty logo" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    This document presents issues and pull requests we have submitted to the <a href="https://github.com/lampepfl/dotty/" rel="external">Dotty</a> project.<br/>&nbsp;
+    This document presents issues and pull requests we have sofar submitted to the <a href="https://github.com/lampepfl/dotty/" rel="external">Dotty</a> project.<br/>&nbsp;
   </td>
   </tr>
 </table>
@@ -36,6 +36,7 @@ We have come across several issues <sup id="anchor_01"><a href="#footnote_01">[1
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :------------------------: | :--------: | :--------- |
+| [#11728][dotty_pull_11728] | *pending* | Reference documentation |
 | [#11480][dotty_pull_11480] | [merged](https://github.com/lampepfl/dotty/commit/5eb3258) <span style="font-size:80%;">(Feb 2021)</span> | Reference documentation |
 | [#11257][dotty_pull_11257] | *WIP*  | Reference documentation |
 | [#11235][dotty_pull_11235] | [merged](https://github.com/lampepfl/dotty/commit/8d3275c) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
@@ -138,4 +139,5 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_pull_11235]: https://github.com/lampepfl/dotty/pull/11235
 [dotty_pull_11257]: https://github.com/lampepfl/dotty/pull/11257
 [dotty_pull_11476]: https://github.com/lampepfl/dotty/pull/11476
-[dotty_pull_11480]: https://github.com/lampepfl/dotty/pull/11480
+[dotty_pull_11480]: https://github.com/lampepfl/dotty/pull/11480 "more fixes in Markdown files"
+[dotty_pull_11728]: https://github.com/lampepfl/dotty/pull/11728 "more fixes in Markdown files"

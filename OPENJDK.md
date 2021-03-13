@@ -106,7 +106,7 @@ And we get the following build times for Java 11 and Java 8 look on a *slower* W
 | Corretto | *Failure*       |                 |                 | Corretto  | *Failure*       |                 |                 |
 | RedHat   | 46:44<br/>      | 07:24<br/>      | 54:08<br/>      | RedHat    | 32:33<br/>30:38 | 08:04<br/>08:56 | 40:37<br/>39:34 |
 | OpenJ9   | 42:04<br/>50:47 | 16:40<br/>07:48 | 58:44<br/>58:35 | OpenJ9    | 38:45<br/>38:45 | 07:03<br/>05.19 | 57:08<br/>44:04 |
-| OpenJDK  | 39:54<br/>      | 07:42<br/>      | 47:36<br/>      | OpenJDK   | 32:07<br/>      | 04:01<br/>      | 36:08<br/>      |
+| OpenJDK  | 39:54<br/>      | 07:42<br/>      | 47:36<br/>      | OpenJDK   | 32:07<br/>40:09 | 04:01<br/>05:17 | 36:08<br/>45:26 |
 | Zulu     | 41:22<br/>      | 07:56<br/>      | 49:18<br/>      | Zulu      | 32:30<br/>32:40 | 06:50<br/>06:55 | 39:20<br/>39:35 |
 <div style="font-size:80%;"><sup>(1)</sup>Build failure with "<code>Out of memory</code>" error.<br/>&nbsp;</div>
 -->

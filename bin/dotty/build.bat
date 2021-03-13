@@ -325,6 +325,7 @@ if "%_DRONE_BUILD_EVENT%"=="pull_request" if defined _DRONE_REMOTE_URL (
     call "%_GIT_CMD%" config user.name "Dotty CI"
     call "%_GIT_CMD%" pull "%_DRONE_REMOTE_URL%" "%_DRONE_BRANCH%"
 )
+@rem "git submodule sync" updates the metadata about a submodule.
 if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% submodule sync 1>&2
 call "%_GIT_CMD%" submodule sync
 if not %ERRORLEVEL%==0 (
@@ -332,6 +333,7 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+@rem "git submodule update" updates the contents of the submodules.
 if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% submodule update --init --recursive --jobs 7 1>&2
 call "%_GIT_CMD%" submodule update --init --recursive --jobs 7
 if not %ERRORLEVEL%==0 (
