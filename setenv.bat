@@ -110,6 +110,9 @@ if not %_EXITCODE%==0 (
     echo %_WARNING_LABEL% MSYS2 installation not found 1>&2
     set _EXITCODE=0
 )
+call :msvs
+if not %_EXITCODE%==0 goto end
+
 call :vscode
 if not %_EXITCODE%==0 goto end
 
@@ -838,6 +841,47 @@ if not exist "%_MILL_HOME%\mill.bat" (
 set "_MILL_PATH=;%_MILL_HOME%"
 goto :eof
 
+@rem output parameter: _MSVS_HOME
+:msvs
+set _MSVS_HOME=
+
+set "__WSWHERE_CMD=%_ROOT_DIR%bin\vswhere.exe"
+for /f "delims=" %%f in ('"%__WSWHERE_CMD%" -property installationPath 2^>NUL') do set "_MSVS_HOME=%%~f"
+if not exist "%_MSVS_HOME%\" (
+    echo %_ERROR_LABEL% Could not find installation directory for Microsoft Visual Studio 2019 1>&2
+    echo        ^(see https://github.com/oracle/graal/blob/master/compiler/README.md^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+call :subst_path "%_MSVS_HOME%"
+if not %_EXITCODE%==0 goto :eof
+set "_MSVS_HOME=%_SUBST_PATH%"
+goto :eof
+
+@rem input parameter(s): %1=directory path
+@rem output parameter: _SUBST_PATH
+:subst_path
+set "_SUBST_PATH=%~1"
+set __DRIVE_NAME=X:
+set __ASSIGNED_PATH=
+for /f "tokens=1,2,*" %%f in ('subst ^| findstr /b "%__DRIVE_NAME%" 2^>NUL') do (
+    if not "%%h"=="%_SUBST_PATH%" (
+        echo %_WARNING_LABEL% Drive %__DRIVE_NAME% already assigned to %%h 1>&2
+        goto :eof
+    )
+    set "__ASSIGNED_PATH=%%h"
+)
+if not defined __ASSIGNED_PATH (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% subst "%__DRIVE_NAME%" "%_SUBST_PATH%" 1>&2
+    subst "%__DRIVE_NAME%" "%_SUBST_PATH%"
+    if not !ERRORLEVEL!==0 (
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+set _SUBST_PATH=%__DRIVE_NAME%
+goto :eof
+
 @rem output parameter: _MSYS_HOME
 :msys
 set _MSYS_HOME=
@@ -1094,6 +1138,7 @@ if %__VERBOSE%==1 (
     if defined JAVACOCO_HOME echo    JAVACOCO_HOME=%JAVACOCO_HOME% 1>&2
     if defined JAVA11_HOME echo    JAVA11_HOME=%JAVA11_HOME% 1>&2
     if defined JAVAFX_HOME echo    JAVAFX_HOME=%JAVAFX_HOME% 1>&2
+    if defined MSVS_HOME echo    MSVS_HOME="%MSVS_HOME%" 1>&2
     if defined MSYS_HOME echo    MSYS_HOME=%MSYS_HOME% 1>&2
     if defined PYTHON_HOME echo    PYTHON_HOME=%PYTHON_HOME% 1>&2
     if defined SBT_HOME echo    SBT_HOME=%SBT_HOME% 1>&2
@@ -1116,6 +1161,7 @@ endlocal & (
         if not defined JAVA_HOME set "JAVA_HOME=%_JDK_HOME%"
         if not defined JAVA11_HOME set "JAVA11_HOME=%_JDK11_HOME%"
         if not defined JAVAFX_HOME set "JAVAFX_HOME=%_JAVAFX_HOME%"
+        if not defined MSVS_HOME set "MSVS_HOME=%_MSVS_HOME%"
         if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
         if not defined PYTHON_HOME set "PYTHON_HOME=%_PYTHON_HOME%"
         if not defined SBT_HOME set "SBT_HOME=%_SBT_HOME%"

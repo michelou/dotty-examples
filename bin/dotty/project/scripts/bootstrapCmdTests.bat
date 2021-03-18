@@ -25,7 +25,7 @@ if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 call "%_SBT_CMD%" "scala3-bench-bootstrapped/jmh:run 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 
-echo testing scala.quoted.Expr.run from sbt scala > "$tmp"
+echo testing scala.quoted.Expr.run from sbt scala
 call "%_SBT_CMD%" ";scala3-compiler-bootstrapped/scalac -with-compiler tests/run-staging/quote-run.scala; scala3-compiler-bootstrapped/scala -with-compiler Test" > "%_TMP_FILE%"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 call :grep "val a: scala.Int = 3" "%_TMP_FILE%"
@@ -45,18 +45,23 @@ if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 call :test_pattern "%_EXPECTED_OUTPUT%" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
 
+@rem # Test scaladoc based on compiled classes
+call "%_BIN_DIR%\scaladoc.bat" -project Staging -d "%_OUT1_DIR%" "%_OUT_DIR%"
+if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
+call :clear_out "%_OUT1_DIR%"
+
 @rem # check that `scalac` and `scala` works for staging
 call :clear_out "%_OUT_DIR%"
 call "%_BIN_DIR%\scalac.bat" tests/run-staging/i4044f.scala -d "%_OUT_DIR%"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 call "%_BIN_DIR%\scala.bat" -with-compiler -classpath "%_OUT_DIR%" Test > "%_TMP_FILE%"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
-call "%_BIN_DIR%\scaladoc.bat" -project Staging -siteroot "%_OUT_DIR%" "tests/run-staging/i4044f.scala"
-if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 
 rem # check that `scalac -from-tasty` compiles and `scala` runs it
 echo testing ./bin/scalac -from-tasty and scala -classpath
 call :clear_out "%_OUT1_DIR%"
+call "%_BIN_DIR%\scalac.bat" "%_SOURCE%" -d "%_OUT_DIR%"
+if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 call "%_BIN_DIR%\scalac.bat" -from-tasty -classpath "%_OUT_DIR%" -d "%_OUT1_DIR%" "%_MAIN%"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 call "%_BIN_DIR%\scala.bat" -classpath "%_OUT1_DIR%" "%_MAIN%" > "%_TMP_FILE%"
@@ -64,10 +69,28 @@ if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
 call :test_pattern "%_EXPECTED_OUTPUT%" "%_TMP_FILE%"
 if not %_EXITCODE%==0 goto end
 
-echo testing ./bin/scalad
-call :clear_out "%_OUT_DIR%"
-call "%_BIN_DIR%\scaladoc.bat" -project Hello -siteroot "%_OUT_DIR%" "%_SOURCE%"
+@rem # check that `sbt scalac -decompile` runs
+echo testing sbt scalac -decompile from file
+call "%_BIN_DIR%\scalac.bat" -decompile -color:never "%_OUT_DIR%\%_TASTY%" > "%_TMP_FILE%"
 if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
+call :grep "def main(args: scala.Array\[scala.Predef.String\]): scala.Unit =" "%_TMP_FILE%"
+
+echo testing loading tasty from .tasty file in jar
+call :clear_out "%_OUT_DIR%"
+call "%_BIN_DIR%\scalac.bat" -d "%_OUT_DIR%\out.jar" "%_SOURCE%"
+call "%_BIN_DIR%\scalac.bat" -decompile -color:never "%_OUT_DIR%\out.jar" > "%_TMP_FILE%"
+call :grep "def main(args: scala.Array\[scala.Predef.String\]): scala.Unit =" "%_TMP_FILE%"
+
+echo testing ./bin/scaladoc
+call :clear_out "%_OUT1_DIR%"
+call "%_BIN_DIR%\scaladoc.bat" -project Hello -d "%_OUT1_DIR%" "%_OUT_DIR%\out.jar"
+if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
+
+@rem # check compilation when the class/tasty files already exist in the current directory
+echo "testing i11644"
+set "_CWD=%CD%"
+call :clear_out "%_OUT_DIR%"
+@rem (cd "%_OUT_DIR%" && "%_CWD%\bin\scalac" "%_CWD%\tests\pos\i11644.scala" && "%_CWD%\bin\scalac" "%_CWD%\tests\pos/i11644.scala")
 
 goto end
 

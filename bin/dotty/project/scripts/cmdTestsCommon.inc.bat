@@ -6,11 +6,6 @@ set __COMMON__=
 
 set _BOT_TOKEN=dotty-token
 
-@rem set _DRONE_BUILD_EVENT=pull_request
-set _DRONE_BUILD_EVENT=
-set _DRONE_REMOTE_URL=
-set _DRONE_BRANCH=
-
 set _SOURCE=tests\pos\HelloWorld.scala
 set _MAIN=HelloWorld
 set _TASTY=HelloWorld.tasty
@@ -47,9 +42,8 @@ for /f "delims=" %%i in ('where sbt.bat') do set "_SBT_CMD=%%i"
 
 @rem see file project/scripts/sbt
 @rem SBT uses the value of the JAVA_OPTS environment variable if defined, rather than the config.
-set JAVA_OPTS=-Xmx2048m ^
--XX:ReservedCodeCacheSize=2048m ^
--XX:MaxMetaspaceSize=1024m
+set JAVA_OPTS=-Xmx4096m ^
+-XX:ReservedCodeCacheSize=2048m
 
 set "_USER_HOME=%USERPROFILE%"
 for /f "delims=\" %%i in ('subst ^| findstr /e "%_USER_HOME%"') do (
@@ -57,7 +51,6 @@ for /f "delims=\" %%i in ('subst ^| findstr /e "%_USER_HOME%"') do (
 )
 set SBT_OPTS=-Xmx4096m ^
 -XX:ReservedCodeCacheSize=512m ^
--XX:MaxMetaspaceSize=1024m ^
 -Ddotty.drone.mem=4096m ^
 -Dsbt.ivy.home=%_USER_HOME%\.ivy2\ ^
 -DSBT_PGP_USE_GPG=false ^

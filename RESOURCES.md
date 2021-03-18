@@ -26,6 +26,10 @@
 
 - [Essential Scala](https://underscore.io/books/essential-scala/) (v1.3) by Noel Welsh and Dave Gurnell, April 2017.
 
+## <span id="papers">Papers</span>
+
+- [Semantics-Preserving Inlining for Metaprogramming](https://dl.acm.org/doi/10.1145/3426426.3428486) by Nicolas Stucki et al., November 2020.
+
 ## <span id="shell">Shell Scripting</span>
 
 - [Google Shell Guide](https://google.github.io/styleguide/shellguide.html)
