@@ -58,16 +58,18 @@ set _VERBOSE=
 set _QUIET=
 set _COLORS=
 set _PROG_NAME=%_COMPILER_MAIN%
-set _IN_SCRIPTING_ARGS=
 set _SCALA_ARGS=
 set _JAVA_ARGS=
 set _RESIDUAL_ARGS=
 set _SCRIPTING_ARGS=
+set _TARGET_SCRIPT=
 
 :args_loop
 if "%~1"=="" goto args_done
 set "__ARG=%~1"
-if "%__ARG%"=="--" (
+if defined _TARGET_SCRIPT (
+    call :addScripting "%__ARG%"
+) else if "%__ARG%"=="--" (
     @rem for arg; do addResidual "$arg"; done; set -- ;;
 ) else if "%__ARG%"=="-h" (
     set _HELP=true
@@ -92,7 +94,7 @@ if "%__ARG%"=="--" (
     set _PROG_NAME=%_SCRIPTING_MAIN%
     if "%~2"=="" goto args_done
     set "_TARGET_SCRIPT=%~2"
-    set _IN_SCRIPTING_ARGS=true& shift
+    shift
 ) else if "%__ARG%"=="-compile" ( set _PROG_NAME=%_COMPILER_MAIN%
 ) else if "%__ARG%"=="-decompile" ( set _PROG_NAME=%_DECOMPILER_MAIN%
 ) else if "%__ARG%"=="-print-tasty" (
@@ -107,10 +109,7 @@ if "%__ARG%"=="--" (
 @rem will be available as system properties.
 ) else if "%__ARG:~0,2%"=="-D" ( call :addJava "%__ARG%"
 ) else if "%__ARG:~0,2%"=="-J" ( call :addJava "%__ARG:~2%"
-) else (
-    if defined _IN_SCRIPTING_ARGS ( call :addScripting "%__ARG%"
-    ) else ( call :addResidual "%__ARG%"
-    )
+) else ( call :addResidual "%__ARG%"
 )
 shift
 goto args_loop
