@@ -21,36 +21,8 @@ if not %_EXITCODE%==0 goto end
 @rem #########################################################################
 @rem ## Main
 
-if %_HELP%==1 (
-    call :help
-    exit /b !_EXITCODE!
-)
-if %_CLEAN%==1 (
-    call :clean
-    if not !_EXITCODE!==0 goto end
-)
-if %_LINT%==1 (
-    call :lint
-    if not !_EXITCODE!==0 goto end
-)
-if %_COMPILE%==1 (
-    call :compile
-    if not !_EXITCODE!==0 goto end
-)
-if %_DECOMPILE%==1 (
-    call :decompile
-    if not !_EXITCODE!==0 goto end
-)
-if %_DOC%==1 (
-    call :doc
-    if not !_EXITCODE!==0 goto end
-)
-if %_RUN%==1 (
-    call :run%_INSTRUMENTED%
-    if not !_EXITCODE!==0 goto end
-)
-if %_TEST%==1 (
-    call :test
+for %%i in (%_COMMANDS%) do (
+    call :%%i
     if not !_EXITCODE!==0 goto end
 )
 goto end
@@ -200,30 +172,22 @@ goto :eof
 
 @rem input parameter: %*
 :args
-set _CLEAN=0
-set _COMPILE=0
-set _DECOMPILE=0
-set _DOC=0
-set _HELP=0
-set _INSTRUMENTED=
-set _LINT=0
+set _COMMANDS=
 set _MAIN_CLASS=%_MAIN_CLASS_DEFAULT%
 set _MAIN_ARGS=%_MAIN_ARGS_DEFAULT%
-set _RUN=0
 set _SCALA_VERSION=3
 set _SCALAC_OPTS=-deprecation -feature
 set _SCALAC_OPTS_EXPLAIN=0
 set _SCALAC_OPTS_EXPLAIN_TYPES=0
 set _SCALAC_OPTS_PRINT=0
 set _TASTY=0
-set _TEST=0
 set _TIMER=0
 set _VERBOSE=0
 set __N=0
 :args_loop
 set "__ARG=%~1"
 if not defined __ARG (
-    if !__N!==0 set _HELP=1
+    if !__N!==0 set _COMMANDS=help
     goto args_done
 )
 if "%__ARG:~0,1%"=="-" (
@@ -233,8 +197,8 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-explain-types" ( set _SCALAC_OPTS_EXPLAIN_TYPES=1
     ) else if "%__ARG%"=="-help" ( set _HELP=1
     ) else if "%__ARG%"=="-print" ( set _SCALAC_OPTS_PRINT=1
-    ) else if "%__ARG%"=="-scala" ( set _SCALA_VERSION=3
     ) else if "%__ARG%"=="-scala2" ( set _SCALA_VERSION=2
+    ) else if "%__ARG%"=="-scala3" ( set _SCALA_VERSION=3
     ) else if "%__ARG%"=="-tasty" ( set _TASTY=1
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
@@ -248,15 +212,15 @@ if "%__ARG:~0,1%"=="-" (
     )
 ) else (
     @rem subcommand
-    if "%__ARG%"=="clean" ( set _CLEAN=1
-    ) else if "%__ARG%"=="compile" ( set _COMPILE=1
-    ) else if "%__ARG%"=="decompile" ( set _COMPILE=1& set _DECOMPILE=1
-    ) else if "%__ARG%"=="doc" ( set _COMPILE=1& set _DOC=1
-    ) else if "%__ARG%"=="help" ( set _HELP=1
-    ) else if "%__ARG%"=="lint" ( set _LINT=1
-    ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
-    ) else if "%__ARG%"=="run:i" ( set _COMPILE=1& set _RUN=1& set _INSTRUMENTED=_instrumented
-    ) else if "%__ARG%"=="test" ( set _COMPILE=1& set _TEST=1
+    if "%__ARG%"=="clean" ( set _COMMANDS=!_COMMANDS! clean
+    ) else if "%__ARG%"=="compile" ( set _COMMANDS=!_COMMANDS! compile
+    ) else if "%__ARG%"=="decompile" ( set _COMMANDS=!_COMMANDS! compile decompile
+    ) else if "%__ARG%"=="doc" ( set _COMMANDS=!_COMMANDS! compile doc
+    ) else if "%__ARG%"=="help" ( set _COMMANDS=help
+    ) else if "%__ARG%"=="lint" ( set _COMMANDS=!_COMMANDS! lint
+    ) else if "%__ARG%"=="run" ( set _COMMANDS=!_COMMANDS! compile run
+    ) else if "%__ARG%"=="run:i" ( set _COMMANDS=!_COMMANDS! compile run_instrumented
+    ) else if "%__ARG%"=="test" ( set _COMMANDS=!_COMMANDS! compile test
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
         set _EXITCODE=1
@@ -265,31 +229,34 @@ if "%__ARG:~0,1%"=="-" (
     set /a __N+=1
 )
 shift
-goto :args_loop
+goto args_loop
 :args_done
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
-if %_COMPILE%==1 if %_SCALA_VERSION%==2 if exist "%_SOURCE_DIR%\main\scala2" (
+if not "%_COMMANDS:conmpile=%"=="%_COMMANDS%" if %_SCALA_VERSION%==2 if exist "%_SOURCE_DIR%\main\scala2" (
     @rem overwrite main source directory if Scala 2/3 sources differ 
     set "_MAIN_SOURCE_DIR=%_SOURCE_DIR%\main\scala2"
 )
-if %_DECOMPILE%==1 if not defined _CFR_CMD (
+if not "%_COMMANDS:decompile=%"=="%_COMMANDS%" if not defined _CFR_CMD (
     echo %_WARNING_LABEL% cfr installation not found 1>&2
-    set _DECOMPILE=0
+    set _COMMANDS=%_COMMANDS:decompile=%
 )
-if %_LINT%==1 (
+if not "%_COMMANDS:lint=%"=="%_COMMANDS%" (
     if not defined _SCALAFMT_CMD (
         echo %_WARNING_LABEL% Scalafmt installation not found 1>&2
-        set _LINT=0
+        set _COMMANDS=%_COMMANDS:lint=%
     ) else if not defined _SCALAFMT_CONFIG_FILE (
         echo %_WARNING_LABEL% Scalafmt configuration file not found 1>&2
-        set _LINT=0
+        set _COMMANDS=%_COMMANDS:lint=%
+    ) else if %_SCALA_VERSION%==3 (
+        echo %_WARNING_LABEL% Scalafmt doesn't yet support Scala 3 1>&2
+        set _COMMANDS=%_COMMANDS:lint=%
     )
 )
-if defined _INSTRUMENTED if not exist "%JACOCO_HOME%\lib\jacococli.jar" (
+if not "%_COMMANDS:run_instrumented=%"=="%_COMMANDS%" if not exist "%JACOCO_HOME%\lib\jacococli.jar" (
     echo %_WARNING_LABEL% JaCoCo installation not found 1>&2
-    set _INSTRUMENTED=
+    set _COMMANDS=%_COMMANDS:run_instrumented=%
 )
 set "_SCALA_CMD=!_SCALA%_SCALA_VERSION%!"
 set "_SCALAC_CMD=!_SCALAC%_SCALA_VERSION%!"
@@ -313,7 +280,7 @@ if %_TASTY%==1 if not %_SCALA_VERSION%==3 (
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% _PROJECT_VERSION=%_PROJECT_VERSION% 1>&2
     echo %_DEBUG_LABEL% Options    : _EXPLAIN=%_SCALAC_OPTS_EXPLAIN% _PRINT=%_SCALAC_OPTS_PRINT% _SCALA_VERSION=%_SCALA_VERSION% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
-    echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
+    echo %_DEBUG_LABEL% Subcommands: %_COMMANDS% 1>&2
     echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" 1>&2
     if %_SCALA_VERSION%==2 ( echo %_DEBUG_LABEL% Variables  : SCALA_HOME="%SCALA_HOME%" 1>&2
     ) else ( echo %_DEBUG_LABEL% Variables  : SCALA3_HOME="%SCALA3_HOME%" 1>&2
@@ -343,8 +310,8 @@ echo     %__BEG_O%-explain%__END%         set compiler option %__BEG_O%-explain%
 echo     %__BEG_O%-explain-types%__END%   set compiler option %__BEG_O%-explain-types%__END%
 echo     %__BEG_O%-main:^<name^>%__END%     define main class name ^(default: %__BEG_O%%_MAIN_CLASS_DEFAULT%%__END%^)
 echo     %__BEG_O%-print%__END%           print IR after compilation phase 'lambdaLift'
-echo     %__BEG_O%-scala%__END%           use Scala 3 tools ^(default^)
 echo     %__BEG_O%-scala2%__END%          use Scala 2 tools
+echo     %__BEG_O%-scala3%__END%          use Scala 3 tools ^(default^)
 echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
 echo     %__BEG_O%-timer%__END%           display total elapsed time
 echo     %__BEG_O%-verbose%__END%         display progress messages

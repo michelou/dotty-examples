@@ -6,7 +6,7 @@
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:80px;" src="docs/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    This document gathers <a href="https://dotty.epfl.ch/" rel="external">Scala 3</a> related resources that caught my attention.
+    This document gathers <a href="https://dotty.epfl.ch/" rel="external">Scala 3</a> related resources that caught our attention.
   </td>
   </tr>
 </table>
@@ -26,6 +26,10 @@
 
 - [Essential Scala](https://underscore.io/books/essential-scala/) (v1.3) by Noel Welsh and Dave Gurnell, April 2017.
 
+## <span id="news">News</span>
+
+- [Scala Times](https://scalatimes.com/) - Weekly Scala Newspaper.
+
 ## <span id="papers">Papers</span>
 
 - [Semantics-Preserving Inlining for Metaprogramming](https://dl.acm.org/doi/10.1145/3426426.3428486) by Nicolas Stucki et al., November 2020.
@@ -36,7 +40,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/April 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -15,7 +15,7 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId> <!-- ch.epfl.lamp -->
-        <scala.versionTag>3.0.0-RC1</scala.versionTag> <!-- eg. "2.13" -->
+        <scala.versionTag>3.0.0-RC2</scala.versionTag> <!-- eg. "2.13" -->
         <scala.version>${scala.versionTag}</scala.version> <!-- eg. "2.13.3" or "0.26.0" -->
         <scala.local.install>true</scala.local.install>
         <scala2.versionTag>2.13</scala2.versionTag>

@@ -10,13 +10,13 @@
         <!-- https://mvnrepository.com/artifact/log4j/log4j -->
         <dependency org="log4j" name="log4j" rev="1.2.17"/>
         
-        <!-- https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler_3.0.0-M3 -->
-        <dependency org="org.scala-lang" name="scala3-compiler_3.0.0-M3" rev="3.0.0-M3"/>
-        <dependency org="org.scala-lang" name="scala3-doc_3.0.0-M3" rev="3.0.0-M3"/>
+        <!-- https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler_3.0.0-RC2 -->
+        <dependency org="org.scala-lang" name="scala3-compiler_3.0.0-RC2" rev="3.0.0-RC2"/>
+        <dependency org="org.scala-lang" name="scala3-doc_3.0.0-RC2" rev="3.0.0-RC2"/>
         <!-- dependencies -->
-        <dependency org="org.scala-lang" name="scala3-interfaces" rev="3.0.0-M3"/>
-        <dependency org="org.scala-lang" name="scala3-library_3.0.0-M3" rev="3.0.0-M3"/>
-        <dependency org="org.scala-lang" name="scala3-staging_3.0.0-M3" rev="3.0.0-M3"/>
+        <dependency org="org.scala-lang" name="scala3-interfaces" rev="3.0.0-RC2"/>
+        <dependency org="org.scala-lang" name="scala3-library_3.0.0-RC2" rev="3.0.0-RC2"/>
+        <dependency org="org.scala-lang" name="scala3-staging_3.0.0-RC2" rev="3.0.0-RC2"/>
         <dependency org="org.jline" name="jline-reader" rev="3.15.0"/>
         <dependency org="org.jline" name="jline-terminal" rev="3.15.0"/>
         <dependency org="org.jline" name="jline-terminal-jna" rev="3.15.0"/>

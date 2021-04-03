@@ -27,7 +27,7 @@ FIND_CMD   = find
 endif
 
 SCALA_LIB_JAR      = $(shell $(FIND_CMD) "$(LOCAL_REPO)/org/scala-lang" -name scala-library-2.13.5.jar)
-SCALA3_LIB_JAR     = $(shell $(FIND_CMD) "$(LOCAL_REPO)/org/scala-lang" -name scala3-library_3.0.0-RC1-3.0.0-RC1.jar)
+SCALA3_LIB_JAR     = $(shell $(FIND_CMD) "$(LOCAL_REPO)/org/scala-lang" -name scala3-library_3.0.0-RC2-3.0.0-RC2.jar)
 HAMCREST_JAR       = $(shell $(FIND_CMD) "$(LOCAL_REPO)/org/hamcrest" -name hamcrest-2.2.jar)
 JUNIT_JAR          = $(shell $(FIND_CMD) "$(LOCAL_REPO)/junit/junit" -name junit-4.13.2.jar)
 JUNIT_INTF_JAR     = $(shell $(FIND_CMD) "$(LOCAL_REPO)/com/novocode" -name junit-interface-0.11.jar)

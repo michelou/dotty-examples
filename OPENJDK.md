@@ -11,14 +11,14 @@
   </tr>
 </table>
 
-This document is part of a series of topics related to [Scala 3][dotty] on Windows:
+This document is part of a series of topics related to [Scala 3][scala3_home] on Windows:
 
 - [Running Scala 3 on Windows](README.md)
 - [Building Scala 3 on Windows](BUILD.md)
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - OpenJDK and Scala 3 on Windows [**&#9660;**](#bottom)
 
-[JMH][jmh_project], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples] and [TruffleSqueak][trufflesqueak_examples] are other trending topics we are currently monitoring.
+[JMH][jmh_project], [Metaprogramming][scala3_metaprogramming], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples] and [TruffleSqueak][trufflesqueak_examples] are other trending topics we are currently monitoring.
 
 
 ## <span id="proj_deps">Project dependencies</span>
@@ -69,11 +69,11 @@ C:\opt\jdk-zulu-11.0.10\          <i>(300 MB)</i>
 
 We perform a quick comparison of the execution times to build the Scala 3 software distribution available as the following two archive files :
 <pre style="font-size:80%;">
-dist\target\scala3-3.0.0-RC2-bin-SNAPSHOT.tar.gz
-dist\target\scala3-3.0.0-RC2-bin-SNAPSHOT.zip
+dist\target\scala3-3.0.1-RC1-bin-SNAPSHOT.tar.gz
+dist\target\scala3-3.0.1-RC1-bin-SNAPSHOT.zip
 </pre>
 
-> **:mag_right:** Nightly builds are published on Maven as individual Java archive files, e.g. [nightly builds for version 3.0.0-RC2](https://repo1.maven.org/maven2/org/scala-lang/scala3-compiler_3.0.0-RC2/) of the Scala 3 compiler or [nightly builds for version 3.0.0-RC2](https://repo1.maven.org/maven2/org/scala-lang/scala3-library_3.0.0-RC2/) of the Scala 3 library (and so on).
+> **:mag_right:** Nightly builds are published on Maven as individual Java archive files, e.g. [nightly builds for version 3.0.1-RC1](ttps://repo1.maven.org/maven2/org/scala-lang/scala3-compiler_3.0.1-RC1/) of the Scala 3 compiler or [nightly builds for version 3.0.1-RC1](https://repo1.maven.org/maven2/org/scala-lang/scala3-library_3.0.1-RC1/) of the Scala 3 library (and so on).
 
 We ideally would run the command [`build -timer -verbose archives`](./bin/dotty/build.bat) to generate the above files (presuming all tests were successful).
 
@@ -84,7 +84,7 @@ Let's compare the build times for Java 11 and Java 8 on a Win 10 laptop with an 
 | 11.0.10  | `bootstrap`     | `arch-only`     | **Total**       | 1.8.0_282 | `bootstrap`      | `arch-only`       | **Total**       |
 |----------|-----------------|-----------------|-----------------|-----------|-----------------|-----------------|-----------------|
 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 31:06<br/>33:42 | 01:10<br/>01:16 | 32:16<br/>34:58 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 25:40<br/>24:44 | 01:16<br/>01:16 | 26:56<br/>26:00 |
-| [Corretto][corretto_downloads]<br/>(Amazon) | *Failure* <sup>(1)</sup> |                 |                 | [Corretto][corretto_downloads]<br/>(Amazon) | *Failure* <sup>(1)</sup> |                 |                 |
+| [Corretto][corretto_downloads]<br/>(Amazon) | 33:39<br/> | 01:09<br/>      |   34:48<br/>     | [Corretto][corretto_downloads]<br/>(Amazon) | *Failure* <sup>(1)</sup> |                 |                 |
 | [RedHat][redhat_downloads] | 32:26<br/>32:13 | 01:05<br/>01:04 | 33:31<br/>33:17 | [RedHat][redhat_downloads]    | 24:37<br/>25:19 | 01:11<br/>01:13 | 25:48<br/>26.32 |
 | [OpenJ9][openj9_downloads]<br/>(Eclipse) | 26:23<br/>36:42 | 01:18<br/>01:18 | 37:41<br/>38:00 | [OpenJ9][openj9_downloads]<br/>(Eclipse) | 31:40<br/>31:56 | 01:18<br/>01:20 | 32:58<br/>33:16 |
 | [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle)  | 32:44<br/>32:38 | 01:05<br/>01:07 | 33:49<br/>33:45 | [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) | 24:25<br/>24:30 | 01:12<br/>01:10 | 25:37<br/>25:40 |
@@ -110,6 +110,31 @@ And we get the following build times for Java 11 and Java 8 look on a *slower* W
 | Zulu     | 41:22<br/>      | 07:56<br/>      | 49:18<br/>      | Zulu      | 32:30<br/>32:40 | 06:50<br/>06:55 | 39:20<br/>39:35 |
 <div style="font-size:80%;"><sup>(1)</sup>Build failure with "<code>Out of memory</code>" error.<br/>&nbsp;</div>
 -->
+
+## <span id="build_errors">Scala 3 build errors</span>
+
+Build errors encountered on Windows on April 3, 2021, are :
+
+| JVM 8 - Failing tests  | bellsoft-08 | openj9-08 | openjdk-08 | redhat-08 | zulu-08 |
+|:-----------------------|:-----------:|:---------:|:----------:|:---------:|:-------:|
+| `FromTastyTests`       | Failed      | Failed    | Failed     | Failed    | Failed  |
+| `IdempotencyTests`     | Failed      | Failed    | Failed     | Failed    | Failed  |
+| `ZipArchiveTest`       | OK          | Failed    | OK         | OK        | OK      |
+| `CompilationTest`      | OK          | Failed    | OK         | OK        | OK      |
+| `ScriptingTests`       | OK          | Failed    | OK         | OK        | OK      |
+
+| JVM 11 - Failing tests | bellsoft-11 | corretto-11 | redhat-11 | zulu-11 |
+|:-----------------------|:-----------:|:-----------:|:---------:|:-------:|
+| `FromTastyTests`       | Failed      | Failed      | Failed    | Failed  |
+| `IdempotencyTests`     | Failed      | Failed      | &nbsp;    | Failed  |
+| `MultiReleaseJarTest`  | Failed      | Failed      | &nbsp;    | Failed  |
+
+| JVM 17 - Failing tests | openjdk-17 | sapmachine-17 | zulu-17 |
+|:-----------------------|:----------:|:-------------:|:-------:|
+| `FromTastyTests`       | &nbsp;     | Failed        | Failed  |
+| `IdempotencyTests`     | &nbsp;     | Failed        | Failed  |
+| `MultiReleaseJarTest`  | &nbsp;     | Failed        | Failed  |
+
 
 ## <span id="data_sharing">Data sharing</span>
 
@@ -255,6 +280,8 @@ OpenJDK 64-Bit Server VM 18.9 (build 11.0.10+9-LTS, mixed mode, sharing)
 
 ### <span id="sap">SapMachine OpenJDK 11</span> [**&#9650;**](#top)
 
+GitHub project repository is [`SAP/SapMachine`](https://github.com/SAP/SapMachine).
+
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\jdk-sapmachine-11.0.10\bin\java -version</b>
 openjdk version "11.0.10" 2020-11-05 LTS
@@ -387,7 +414,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/April 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -405,8 +432,6 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 [corretto_gosling]: https://www.youtube.com/watch?v=WuZk23O76Zk
 [corretto_gupta]: https://www.youtube.com/watch?v=RLKC5nsiZXU
 [corretto_patches]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/patches.html
-[dotty]: https://dotty.epfl.ch/
-[dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [graalvm_org]: https://www.graalvm.org/
@@ -428,6 +453,8 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 [redhat]: https://www.redhat.com/
 [redhat_downloads]: https://developers.redhat.com/products/openjdk/download/
 [sap_home]: https://www.sap.com/
+[scala3_home]: https://dotty.epfl.ch/
+[scala3_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [trava_downloads]: https://github.com/TravaOpenJDK/trava-jdk-11-dcevm
 [trava_relnotes]: https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples

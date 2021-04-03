@@ -264,14 +264,14 @@ if "%__ARG:~0,1%"=="-" (
     set /a __N+=1
 )
 shift
-goto :args_loop
+goto args_loop
 :args_done
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
 if %_DECOMPILE%==1 if not defined _CFR_CMD (
-   echo %_WARNING_LABEL% cfr installation not found 1>&2
-   set _DECOMPILE=0
+    echo %_WARNING_LABEL% cfr installation not found 1>&2
+    set _DECOMPILE=0
 )
 if %_LINT%==1 (
     if not defined _SCALAFMT_CMD (

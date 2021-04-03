@@ -13,7 +13,7 @@
 
 ## <span id="issues">Reported Issues</span>
 
-We have come across several issues <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> while executing [Scala 3][scala3] commands on Windows:
+We have come across several issues <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> while executing [Scala 3][scala3_home] commands on Windows:
 
 | [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Issue status&nbsp;&nbsp;&nbsp; | Context |
 | :-------------------------: | :--------: | :--------- |
@@ -68,7 +68,7 @@ We have come across several issues <sup id="anchor_01"><a href="#footnote_01">[1
 > <ul><li><a href="https://github.com/lampepfl/dotty/pull/5560">#5560</a> Fix Windows path (<a href="https://github.com/lampepfl/dotty/commit/67c86783ff48723ae96fedeb51c50db62f375042">merged</a>).</li>
 > <li><a href="https://github.com/lampepfl/dotty/pull/5531">#5531</a> Test AppVeyor integration (<a href="https://github.com/lampepfl/dotty/pull/5531#issuecomment-446505630">closed</a>).</li></ul>
 
-Below we summarize changes we made to the [source code](https://github.com/lampepfl/dotty/) of the [Scala 3][scala3] project:
+Below we summarize changes we made to the [source code](https://github.com/lampepfl/dotty/) of the [Scala 3][scala3_home] project:
 
 - Unspecified character encoding in some file operations<br/>*Example*: [**`Source.fromFile(f)`**](https://www.scala-lang.org/api/2.12.7/scala/io/Source$.html) **&rarr;** **`Source.fromFile(f, "UTF-8")`**.
 - Platform-specific new lines<br/>*Example*: **`"\n"`** **&rarr;** [**`System.lineSeparator`**](https://docs.oracle.com/javase/8/docs/api/java/lang/System.html#lineSeparator).
@@ -100,12 +100,12 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/April 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
-[scala3]: https://dotty.epfl.ch/
+[scala3_home]: https://dotty.epfl.ch/
 [dotty_issue_4272]: https://github.com/lampepfl/dotty/issues/4272
 [dotty_issue_4356]: https://github.com/lampepfl/dotty/issues/4356
 [dotty_issue_6367]: https://github.com/lampepfl/dotty/issues/6367
