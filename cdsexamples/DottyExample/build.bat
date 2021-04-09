@@ -292,12 +292,14 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-
+for /f "tokens=1,2,*" %%i in ('%JAVA_HOME%\bin\java -XshowSettings 2^>^&1^|findstr java.version') do (
+    set __JAVA_VERSION=%%k
+)
 set "__MANIFEST_FILE=%_TARGET_DIR%\MANIFEST.MF"
 (
     echo Manifest-Version: 1.0
     echo Built-By: %USERNAME%
-    echo Build-Jdk: %_JAVA_VERSION%
+    echo Build-Jdk: %__JAVA_VERSION%
     echo Specification-Title: %_MAIN_PKG_NAME%
     echo Specification-Version: 0.1-SNAPSHOT
     echo Implementation-Title: %_MAIN_PKG_NAME%

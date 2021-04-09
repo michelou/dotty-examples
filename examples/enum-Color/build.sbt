@@ -21,7 +21,7 @@ lazy val root = project
       // https://mvnrepository.com/artifact/org.scalacheck/scalacheck
       "org.scalacheck" % "scalacheck_2.13" % "1.15.3" % Test,
       // https://mvnrepository.com/artifact/org.scalatest/scalatest
-      "org.scalatest" % "scalatest_2.13" % "3.2.5" % Test
+      "org.scalatest" % "scalatest_2.13" % "3.2.7" % Test
     ),
     testOptions ++= Seq(
       Tests.Setup(() => println("Setup JUnit tests")),
@@ -29,6 +29,6 @@ lazy val root = project
       Tests.Filter(s => s.endsWith("Test"))
     ),
     // receive periodic notifications of tests that have been running longer than 120 seconds
-    testOptions in Test += Tests
+    Test / testOptions += Tests
       .Argument(TestFrameworks.ScalaTest, "-W", "120", "60")
   )

@@ -23,7 +23,7 @@ set __SCALALIB_VERSION=2.13
 call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALALIB_VERSION%" "1.1.0"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-call :add_jar "org.scala-lang.modules" "scala-xml_%__SCALALIB_VERSION%" "2.0.0-M5"
+call :add_jar "org.scala-lang.modules" "scala-xml_%__SCALALIB_VERSION%" "2.0.0-RC1"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parser-combinators
 call :add_jar "org.scala-lang.modules" "scala-parser-combinators_%__SCALALIB_VERSION%" "1.1.2"
@@ -37,7 +37,7 @@ call :add_jar "com.novocode" "junit-interface" "0.11"
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest
 call :add_jar "org.hamcrest" "hamcrest" "2.2"
 
-set __SCALATEST_VERSION=3.2.6
+set __SCALATEST_VERSION=3.2.7
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
@@ -78,7 +78,7 @@ call :add_jar "org.specs2" "specs2-fp_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERS
 call :add_jar "com.chuusai" "shapeless_%__SCALALIB_VERSION%" "2.3.3"
 
 @rem https://mvnrepository.com/artifact/eu.timepit/refined
-call :add_jar "eu.timepit" "refined_%__SCALALIB_VERSION%" "0.9.20"
+call :add_jar "eu.timepit" "refined_%__SCALALIB_VERSION%" "0.9.23"
 
 goto end
 

@@ -14,11 +14,11 @@ lazy val root = project
       "-encoding", "UTF-8"
     ),
 
-    mainClass in Compile := Some("hello.Hello"),
+    Compile / mainClass := Some("hello.Hello"),
     logLevel := Level.Warn,
 
     libraryDependencies ++= Seq(
       // https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml_2.13
-      "org.scala-lang.modules" %% "scala-xml" % "1.2.0"
-    ).withDottyCompat(scalaVersion.value)
+      "org.scala-lang.modules" %% "scala-xml" % "2.0.0-RC1"
+    ) //.withDottyCompat(scalaVersion.value)
   )

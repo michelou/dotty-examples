@@ -36,8 +36,8 @@ set _SBT_PATH=
 set _VSCODE_PATH=
 
 @rem %1=vendor, %2=version
-@rem eg. "" (Oracle), bellsoft, corretto, bellsoft, openj9, redhat, sapmachine, zulu
-call :jdk "openj9" 1.8
+@rem eg. openjdk, bellsoft, corretto, bellsoft, openj9, redhat, sapmachine, zulu
+call :jdk "openjdk" 1.8
 if not %_EXITCODE%==0 goto end
 
 call :scala2
