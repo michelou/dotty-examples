@@ -10,7 +10,7 @@ SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 ##############################################################################
 ## main rules
 
-SOURCES = $(shell find $(SOURCE_DIR)/main/scala -name *.scala 2>/dev/null)
+SOURCES = $(shell $(FIND_CMD) $(SOURCE_DIR)/main/scala -name *.scala 2>/dev/null)
 TARGET  = $(TARGET_DIR)/.latest-build
 
 OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
@@ -32,6 +32,8 @@ $(TARGET): $(SOURCES)
 
 clean:
 	rm -rf "$(TARGET_DIR)"
+
+compile: build
 
 run: build
 	$(SCALA) $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
@@ -106,4 +108,4 @@ test: build $(TEST_TARGET)
 ##############################################################################
 ## phony
 
-.PHONY: all build clean doc help lint run test
+.PHONY: all build clean compile doc help lint run test

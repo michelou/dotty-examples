@@ -68,7 +68,7 @@ C:\opt\apache-ant-1.10.9\    <i>( 39.7 MB)</i>
 C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
 C:\opt\bazel-4.0.0\          <i>( 41.0 MB)</i>
 C:\opt\cfr-0.151\            <i>(  1.9 MB)</i>
-C:\opt\Git-2.31.0\           <i>(279.0 MB)</i>  (fix for <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-21300">CVE-2021-21300</a>)
+C:\opt\Git-2.31.1\           <i>(279.0 MB)</i>
 C:\opt\gradle-6.8.3\         <i>(116.0 MB)</i>
 C:\opt\jacoco-0.8.6\         <i>( 10.6 MB)</i>
 C:\opt\javafx-sdk-15.0.1\    <i>( 78.2 MB)</i>
@@ -308,7 +308,7 @@ Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.5, scalac 3.0.0-RC2,
    ant 1.10.9, gradle 6.8.3, mill 0.9.5, mvn 3.6.3, sbt 1.5.0,
    bazel 4.0.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.2,
-   git 2.31.0.windows.1, diff 3.7, bash 4.4.23(1)-release
+   git 2.31.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
 C:\opt\sbt-1.5.0\bin\sbt
@@ -325,7 +325,7 @@ Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.5, scalac 3.0.0-RC2,
    ant 1.10.9, gradle 6.8.3, mill 0.9.5, mvn 3.6.3, sbt 1.5.0,
    bazel 4.0.0, cfr 0.151, make 3.81, python 3.9.2,
-   git 2.31.0.windows.1, diff 3.7, bash 4.4.23(1)-release
+   git 2.31.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-11.0.10+9\bin\javac.exe
    C:\opt\jdk-11.0.10+9\bin\java.exe
@@ -340,13 +340,13 @@ Tool paths:
    C:\opt\cfr-0.151\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
    C:\opt\Python-3.9.2\python.exe
-   C:\opt\Git-2.31.0\bin\git.exe
-   C:\opt\Git-2.31.0\mingw64\bin\git.exe
-   C:\opt\Git-2.31.0\usr\bin\diff.exe
-   C:\opt\Git-2.31.0\bin\bash.exe
+   C:\opt\Git-2.31.1\bin\git.exe
+   C:\opt\Git-2.31.1\mingw64\bin\git.exe
+   C:\opt\Git-2.31.1\usr\bin\diff.exe
+   C:\opt\Git-2.31.1\bin\bash.exe
 Environment variables:
    ANT_HOME=C:\opt\apache-ant-1.10.9
-   GIT_HOME=C:\opt\Git-2.31.0
+   GIT_HOME=C:\opt\Git-2.31.1
    JAVA_HOME=C:\opt\jdk-11.0.10+9
    JAVAFX_HOME=C:\opt\javafx-sdk-15.0.1
    PYTHON_HOME=C:\opt\Python-3.9.2
@@ -408,17 +408,17 @@ Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the downlo
 <pre style="font-size:80%">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose</b>
 Check for nightly files on Maven repository
-Downloading file scala3-compiler_3.0.0-RC2-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY.jar ... 14.6 Mb
-Downloading file scala3-language-server_3.0.0-RC2-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY.jar ... 151.4 Kb
-Downloading file scala3-tasty-inspector_3.0.0-RC2-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY.jar ... 16.6 Kb
-Downloading file scala3-interfaces-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY.jar ... 3.4 Kb
-Downloading file scala3-library_3.0.0-RC2-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY.jar ... 1.1 Mb
-Downloading file scala3-library_sjs1_3.0.0-RC2-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY.jar ... 1.8 Mb
-Downloading file scala3-staging_3.0.0-RC2-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY.jar ... 37.4 Kb
-Downloading file tasty-core_3.0.0-RC2-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY.jar ... 71.7 Kb
-Downloading file scala3-sbt-bridge-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY.jar ... 21.3 Kb
+Downloading file scala3-staging_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar ... 37.6 Kb
+Downloading file scala3-tasty-inspector_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar ... 16.7 Kb
+Downloading file scala3-interfaces-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar ... 3.4 Kb
+Downloading file scala3-language-server_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar ... 152.3 Kb
+Downloading file scala3-library_sjs1_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar ... 1.8 Mb
+Downloading file scala3-compiler_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar ... 14.7 Mb
+Downloading file tasty-core_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar ... 72.1 Kb
+Downloading file scala3-library_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar ... 1.1 Mb
+Downloading file scala3-sbt-bridge-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar ... 21.3 Kb
 Finished to download 9 files to directory W:\out\nightly-jars
-Nightly version is 3.0.0-RC2-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY
+Nightly version is 3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY
 </pre>
 
 We can now replace the library files from the original [Scala 3 distribution][dotty_releases] (installed in directory **`C:\opt\scala-3.0.0-RC2\`** in our case) with library files from the latest nightly build.
@@ -427,11 +427,11 @@ Concretely, we specify the **`activate`** subcommand to switch to the nightly bu
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> activate</b>
-Local nightly version has changed from 3.0.0-RC2 to 3.0.0-RC2-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY
-Activate nightly build libraries: 3.0.0-RC2-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY
+Local nightly version has changed from 3.0.0-RC2 to 3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY
+Activate nightly build libraries: 3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY
 
 <b>&gt; <a href="bin/3.0.0/scalac.bat">scalac</a> -version</b>
-Scala compiler version 3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY-git-cca5f8f -- Copyright 2002-2021, LAMP/EPFL
+Scala compiler version 3.0.1-RC1-bin-20210409-73bfead-NIGHTLY-git-73bfead -- Copyright 2002-2021, LAMP/EPFL
 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> reset</b>
 Activate default Scala libraries: 3.0.0-RC2
@@ -456,16 +456,16 @@ lib\3.0.0-RC2\
 &nbsp;&nbsp;scala3-staging_3.0.0-RC2-3.0.0-RC2.jar
 &nbsp;&nbsp;scala3-tasty-inspector_3.0.0-RC2-3.0.0-RC2.jar
 &nbsp;&nbsp;tasty-core_3.0.0-RC2-3.0.0-RC2.jar
-lib\3.0.0-RC2-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY\
-&nbsp;&nbsp;scala3-compiler_3.0.0-RC2-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY.jar
-&nbsp;&nbsp;scala3-interfaces-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY.jar
-&nbsp;&nbsp;scala3-language-server_3.0.0-RC2-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY.jar
-&nbsp;&nbsp;scala3-library_3.0.0-RC2-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY.jar
-&nbsp;&nbsp;scala3-library_sjs1_3.0.0-RC2-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY.jar
-&nbsp;&nbsp;scala3-sbt-bridge-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY.jar
-&nbsp;&nbsp;scala3-staging_3.0.0-RC2-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY.jar
-&nbsp;&nbsp;scala3-tasty-inspector_3.0.0-RC2-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY.jar
-&nbsp;&nbsp;tasty-core_3.0.0-RC2-3.0.0-RC2-bin-20210328-cca5f8f-NIGHTLY.jar
+lib\3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY\
+&nbsp;&nbsp;scala3-compiler_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar
+&nbsp;&nbsp;scala3-interfaces-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar
+&nbsp;&nbsp;scala3-language-server_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar
+&nbsp;&nbsp;scala3-library_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar
+&nbsp;&nbsp;scala3-library_sjs1_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar
+&nbsp;&nbsp;scala3-sbt-bridge-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar
+&nbsp;&nbsp;scala3-staging_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar
+&nbsp;&nbsp;scala3-tasty-inspector_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar
+&nbsp;&nbsp;tasty-core_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original [Scala 3][scala3_home] installation respectively from the latest nightly build.
@@ -728,7 +728,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="http://jdk.java.net/17/">openjdk-17-ea+13_windows-x64_bin.zip</a>              <i>(176 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-15.0.1_windows-x64_bin-sdk.zip</a>            <i>( 39 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.10_9.zip</a>  <i>( 99 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.31.0-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.31.1-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.5.0.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.5.zip</a>                                  <i>( 21 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.0.0-RC2">scala-3.0.0-RC2.zip</a>                               <i>( 24 MB)</i>
@@ -768,7 +768,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [git_bash]: https://www.atlassian.com/git/tutorials/git-bash
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.31.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.31.1.txt
 [github_guides]: https://guides.github.com/
 [github_lampepfl_dotty]: https://github.com/lampepfl/dotty
 [github_markdown]: https://github.github.com/gfm/

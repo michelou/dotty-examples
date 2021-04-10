@@ -14,3 +14,6 @@
 	path = scala3-windows
 	url = https://github.com/michelou/dotty.git
 
+[submodule "scala-3-migration-guide"]
+	path = scala-3-migration-guide
+	url = https://github.com/scalacenter/scala-3-migration-guide.git
