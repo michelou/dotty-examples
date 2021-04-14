@@ -19,13 +19,13 @@ getHome() {
 }
 
 debug() {
-    local DEBUG_LABEL="[46m[DEBUG][0m"
-    $DEBUG && echo "$DEBUG_LABEL $1" 1>&2
+    local debug_label="[46m[DEBUG][0m"
+    $DEBUG && echo "$debug_label $1" 1>&2
 }
 
 error() {
-    local ERROR_LABEL="[91mError:[0m"
-    echo "$ERROR_LABEL $1" 1>&2
+    local error_label="[91mError:[0m"
+    echo "$error_label $1" 1>&2
 }
 
 # use variables EXITCODE, TIMER_START
@@ -33,8 +33,8 @@ cleanup() {
     [[ $1 =~ ^[0-1]$ ]] && EXITCODE=$1
 
     if $TIMER; then
-        local TIMER_END=$(date +'%s')
-        local duration=$((TIMER_END - TIMER_START))
+        local timer_end=$(date +'%s')
+        local duration=$((timer_end - TIMER_START))
         echo "Total elapsed time: $(date -d @$duration +'%H:%M:%S')" 1>&2
     fi
     debug "EXITCODE=$EXITCODE"
@@ -51,7 +51,7 @@ args() {
         -help)  HELP=true ;;
         -timer) TIMER=true ;;
         -*)
-            echo "$ERROR_LABEL Unknown option $arg" 1>&2
+            error "Unknown option $arg"
             EXITCODE=1 && return 0
             ;;
         ## subcommands
@@ -66,7 +66,7 @@ args() {
         java11)            CLONE=true & JAVA11=true ;;
         update)            UPDATE=true ;;
         *)
-            error "$ERROR_LABEL Unknown subcommand $arg"
+            error "Unknown subcommand $arg"
             EXITCODE=1 && return 0
             ;;
         esac
