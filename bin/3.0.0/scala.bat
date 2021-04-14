@@ -27,14 +27,17 @@ if defined _RESIDUAL_ARGS set _CASE_EXEC=1
 if %_EXECUTE_SCRIPT%==1 (
     set _SCALAC_ARGS=
     if defined _CLASS_PATH set _SCALAC_ARGS=-classpath "%_CLASS_PATH%"
-    set _SCALAC_ARGS=!_SCALAC_ARGS! %_JAVA_OPTS% -script %_RESIDUAL_ARGS%
+    set _RESIDUAL_ARGS=!_RESIDUAL_ARGS! "-Dscript.path=%_TARGET_SCRIPT%" 
+    set _SCALAC_ARGS=!_SCALAC_ARGS! %_JAVA_OPTS% !_RESIDUAL_ARGS! -script "%_TARGET_SCRIPT%" %_SCRIPT_ARGS%
     call "%_PROG_HOME%\scalac.bat" !_SCALAC_ARGS!
+    if not !ERRORLEVEL!==0 ( set _EXITCODE=1& goto end )
 @rem if [ $execute_repl == true ] || ([ $execute_run == false ] && [ $options_indicator == 0 ]); then
 ) else if %_CASE_REPL%==1 (
     set _SCALAC_ARGS=
     if defined _CLASS_PATH set _SCALAC_ARGS=-classpath "%_CLASS_PATH%"
     set _SCALAC_ARGS=!_SCALAC_ARGS! %_JAVA_OPTS% -repl %_RESIDUAL_ARGS%
     call "%_PROG_HOME%\scalac.bat" !_SCALAC_ARGS!
+    if not !ERRORLEVEL!==0 ( set _EXITCODE=1& goto end )
 @rem elif [ $execute_repl == true ] || [ ${#residual_args[@]} -ne 0 ]; then
 ) else if %_CASE_EXEC%==1 (
     set "_CP_ARG=%_SCALA3_LIB%%_PSEP%%_SCALA_LIB%"
