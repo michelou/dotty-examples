@@ -182,6 +182,8 @@ for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set _PROJECT_URL=github.com/%USERNAME%/dotty-examples
 set _PROJECT_VERSION=1.0-SNAPSHOT
 
+set _SCALA_VERSION_DEFAULT=3
+
 set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
 if exist "%__PROPS_FILE%" (
     for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
@@ -200,6 +202,7 @@ if exist "%__PROPS_FILE%" (
     if defined _project_name set _PROJECT_NAME=!_project_name!
     if defined _project_url set _PROJECT_URL=!_project_url!
     if defined _project_version set _PROJECT_VERSION=!_project_version!
+    if defined _scala_version set _SCALA_VERSION=!_scala_version!
 )
 goto :eof
 
@@ -216,7 +219,7 @@ set _LINT=0
 set _MAIN_CLASS=%_MAIN_CLASS_DEFAULT%
 set _MAIN_ARGS=%_MAIN_ARGS_DEFAULT%
 set _RUN=0
-set _SCALA_VERSION=3
+set _SCALA_VERSION=%_SCALA_VERSION_DEFAULT%
 set _SCALAC_OPTS=-deprecation -feature
 set _SCALAC_OPTS_EXPLAIN=0
 set _SCALAC_OPTS_EXPLAIN_TYPES=0

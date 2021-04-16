@@ -21,12 +21,6 @@
 
     <properties>
         <mainClass>Main</mainClass>
-        <!-- TODO: remove once Maven plugin for Scala does support POM dependencies -->
-        <specs2-common.jar>${m2.directory}/org/specs2/specs2-common_${scalalib.version}/${specs2.version}/specs2-common_${scalalib_version}-${specs2.version}.jar</specs2-common.jar>
-        <specs2-core.jar>${m2.directory}/org/specs2/specs2-core_${scalalib_version}/${specs2.version}/specs2-core_${scalalib_version}-${specs2.version}.jar</specs2-core.jar>
-        <specs2-fp.jar>${m2.directory}/org/specs2/specs2-fp_${scalalib_version}/${specs2.version}/specs2-fp_${scalalib_version}-${specs2.version}.jar</specs2-fp.jar>
-        <specs2-junit.jar>${m2.directory}/org/specs2/specs2-junit_${scalalib_version}/${specs2.version}/specs2-junit_${scalalib_version}-${specs2.version}.jar</specs2-junit.jar>
-        <specs2-matcher.jar>${m2.directory}/org/specs2/specs2-matcher_${scalalib_version}/${specs2.version}/specs2-matcher_${scalalib_version}-${specs2.version}.jar</specs2-matcher.jar>
     </properties>
 
     <build>
@@ -71,20 +65,19 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
-                            <!-- TODO : add support for POM dependencies to Scala plugin -->
                             <additionalClasspathElements>
-                                <additionalClasspathElement>${m2.directory}/org/hamcrest/hamcrest/2.2/hamcrest-2.2.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/hamcrest/hamcrest/2.2/hamcrest-core-2.2.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/junit/junit/4.13.2/junit-4.13.2.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/portable-scala/portable-scala-reflect_${scalalib_version}/1.0.0/portable-scala-reflect_${scalalib_version}-1.0.0.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/scalactic/scalactic_${scalalib_version}/3.2.5/scalactic_${scalalib_version}-3.2.5.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/scalatest/scalatest_${scalalib_version}/3.2.5/scalatest_${scalalib_version}-3.2.5.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${specs2-common.jar}</additionalClasspathElement>
-                                <additionalClasspathElement>${specs2-core.jar}</additionalClasspathElement>
-                                <additionalClasspathElement>${specs2-fp.jar}</additionalClasspathElement>
-                                <additionalClasspathElement>${specs2-junit.jar}</additionalClasspathElement>
-                                <additionalClasspathElement>${specs2-matcher.jar}</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/scala-sbt/test-interface/1.0/test-interface-1.0.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.hamcrest.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.hamcrest-core.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.junit.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.scala-reflect.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.scalactic.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.scalatest.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.specs2-common.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.specs2-core.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.specs2-fp.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.specs2-junit.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.specs2-matcher.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.test-interface.jar}</additionalClasspathElement>
                             </additionalClasspathElements>
                             <includes>
                                 <include>scala/**/*.scala</include>

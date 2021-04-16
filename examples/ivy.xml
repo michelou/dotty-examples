@@ -12,7 +12,6 @@
         
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler_3.0.0-RC2 -->
         <dependency org="org.scala-lang" name="scala3-compiler_3.0.0-RC2" rev="3.0.0-RC2"/>
-        <dependency org="org.scala-lang" name="scala3-doc_3.0.0-RC2" rev="3.0.0-RC2"/>
         <!-- dependencies -->
         <dependency org="org.scala-lang" name="scala3-interfaces" rev="3.0.0-RC2"/>
         <dependency org="org.scala-lang" name="scala3-library_3.0.0-RC2" rev="3.0.0-RC2"/>

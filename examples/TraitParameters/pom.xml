@@ -3,13 +3,13 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>dotty.examples</groupId>
+    <groupId>dotty-examples</groupId>
     <artifactId>TraitParameters</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>dotty.examples</groupId>
+        <groupId>dotty-examples</groupId>
         <artifactId>examples</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
@@ -65,6 +65,13 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
+                            <additionalClasspathElements>
+                                <additionalClasspathElement>${m2.hamcrest.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.hamcrest-core.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.junit.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.ivy.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.plexus-utils.jar}</additionalClasspathElement>
+                            </additionalClasspathElements>
                             <includes>
                                 <include>scala/**/*.scala</include>
                             </includes>

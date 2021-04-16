@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>dotty.examples</groupId>
+    <groupId>dotty-examples</groupId>
     <artifactId>myexamples</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -11,7 +11,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
-        <m2.directory>${user.home}/.m2/repository</m2.directory>
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId> <!-- old: "ch.epfl.lamp" -->
@@ -19,10 +18,10 @@
         <scala.version>${scala.versionTag}</scala.version> <!-- eg. "2.13.3" or "0.26.0" -->
         <scala.local.install>true</scala.local.install>
 
-        <!-- Maven plugins -->
+        <!-- Maven plugin versions -->
         <scala.maven.version>1.0.0</scala.maven.version> <!-- Dec 2018 -->
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
-        <scalatest.version>3.2.5</scalatest.version>            <!-- Aug 2020 -->
+        <scalatest.version>3.2.7</scalatest.version>            <!-- Aug 2020 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven.compiler.version>3.8.1</maven.compiler.version>  <!-- May 2019 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
@@ -34,13 +33,28 @@
         <maven.jar.version>3.2.0</maven.jar.version>            <!-- May 2019 -->
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
         <exec.maven.version>3.0.0</exec.maven.version>          <!-- Jun 2020 -->
+        <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-core -->
+        <hamcrest.version>2.2</hamcrest.version>
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
-        <jmh.version>1.27</jmh.version>                         <!-- May 2018, Oracle -->
+        <jmh.version>1.29</jmh.version>                         <!-- May 2018, Oracle -->
+        <!-- -->
+        <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
         <junit.platform.version>1.7.1</junit.platform.version>  <!-- Sep 2019 -->
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
         <jupiter.version>5.7.1</jupiter.version>                <!-- Jan 2020 -->
+
+        <!-- Maven plugin dependencies -->
+        <m2.directory>${user.home}/.m2/repository</m2.directory>
+        <m2.hamcrest.jar>${m2.directory}/org/hamcrest/hamcrest/${hamcrest.version}/hamcrest-${hamcrest.version}.jar</m2.hamcrest.jar>
+        <m2.hamcrest-core.jar>${m2.directory}/org/hamcrest/hamcrest/${hamcrest.version}/hamcrest-core-${hamcrest.version}.jar</m2.hamcrest-core.jar>
+        <m2.ivy.jar>${m2.directory}/org/apache/ivy/ivy/2.5.0/ivy-2.5.0.jar</m2.ivy.jar>
+        <m2.junit.jar>${m2.directory}/junit/junit/${junit.version}/junit-${junit.version}.jar</m2.junit.jar>
+        <m2.plexus-utils.jar>${m2.directory}/org/codehaus/plexus/plexus-utils/3.3.0/plexus-utils-3.3.0.jar</m2.plexus-utils.jar>
+        <m2.scala-reflect.jar>${m2.directory}/org/portable-scala/portable-scala-reflect_2.13/1.0.0/portable-scala-reflect_2.13-1.0.0.jar</m2.scala-reflect.jar>
+        <m2.scalactic.jar>${m2.directory}/org/scalactic/scalactic_2.13/${scalatest.version}/scalactic_2.13-${scalatest.version}.jar</m2.scalactic.jar>
+        <m2.scalatest.jar>${m2.directory}/org/scalatest/scalatest_2.13/${scalatest.version}/scalatest_2.13-${scalatest.version}.jar</m2.scalatest.jar>
     </properties>
 
     <dependencies>

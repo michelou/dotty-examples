@@ -51,7 +51,7 @@
             <plugin>
                 <groupId>ch.epfl.alumni</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>1.0.0</version>
                 <executions>
                     <execution>
                         <id>scala-compile</id>
@@ -75,7 +75,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <scalaVersion>3.0.0-RC1</scalaVersion>
+                    <scalaVersion>3.0.0-RC2</scalaVersion>
                     <localInstall>true</localInstall>
                     <!-- <debug>true</debug> -->
                     <jvmArgs>

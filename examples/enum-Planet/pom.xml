@@ -71,7 +71,6 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
-                            <!-- TODO : add support for POM dependencies to Scala plugin -->
                             <additionalClasspathElements>
                                 <additionalClasspathElement>${m2.directory}/${junit.jar}</additionalClasspathElement>
                                 <additionalClasspathElement>${m2.directory}/${scalatest.jar}</additionalClasspathElement>

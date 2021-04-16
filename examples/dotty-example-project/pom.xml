@@ -24,8 +24,8 @@
     </properties>
 
     <build>
-        <sourceDirectory>src/main/scala</sourceDirectory>
-        <testSourceDirectory>src/test/scala</testSourceDirectory>
+        <sourceDirectory>src/main</sourceDirectory>
+        <testSourceDirectory>src/test</testSourceDirectory>
         <outputDirectory>target/classes</outputDirectory>
         <plugins>
             <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
@@ -35,7 +35,15 @@
                 <version>${maven.compiler.version}</version>
                 <executions>
                     <execution>
+                        <id>default-compile</id>
                         <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <phase>test</phase>
                         <goals>
                             <goal>compile</goal>
                         </goals>
@@ -46,6 +54,9 @@
                     <target>${java.version}</target>
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
+                    <includes>
+                        <include>java/**/*.java</include>
+                    </includes>
                 </configuration>
             </plugin>
             <!-- local Maven plugin for Scala 2.x/3.x -->
@@ -56,14 +67,23 @@
                 <version>${scala.maven.version}</version>
                 <executions>
                     <execution>
-                        <id>scala-compile</id>
+                        <id>default-compile</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>compile</goal>
                         </goals>
+                        <configuration>
+                            <additionalClasspathElements>
+                                <additionalClasspathElement>${m2.hamcrest-core.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.junit.jar}</additionalClasspathElement>
+                            </additionalClasspathElements>
+                            <includes>
+                                <include>scala/**/*.scala</include>
+                            </includes>
+                        </configuration>
                     </execution>
                     <execution>
-                        <id>scala-run</id>
+                        <id>default-test</id>
                         <phase>test</phase>
                         <goals>
                             <goal>run</goal>
@@ -78,8 +98,7 @@
                 </executions>
                 <configuration>
                     <scalaVersion>${scala.version}</scalaVersion>
-                    <localInstall>true</localInstall>
-                    <!-- <debug>true</debug> -->
+                    <localInstall>${scala.local.install}</localInstall>
                     <jvmArgs>
                         <jvmArg>-Xms64m</jvmArg>
                         <jvmArg>-Xmx1024m</jvmArg>
@@ -110,6 +129,14 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>${exec.maven.version}</version>
+                <executions>
+                    <execution>
+                        <phase>exec</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <mainClass>${mainClass}</mainClass>
                     <arguments>

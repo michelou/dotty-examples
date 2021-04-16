@@ -11,7 +11,7 @@
     <parent>
         <groupId>dotty-examples</groupId>
         <artifactId>myexamples</artifactId>
-        <version>0.1-SNAPSHOT</version>
+        <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -53,6 +53,8 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
                     <includes>
                         <include>java/**/*.java</include>
                     </includes>
@@ -72,6 +74,10 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
+                            <additionalClasspathElements>
+                                <additionalClasspathElement>${m2.hamcrest-core.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.junit.jar}</additionalClasspathElement>
+                            </additionalClasspathElements>
                             <includes>
                                 <include>scala/**/*.scala</include>
                             </includes>
@@ -133,7 +139,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <executable>java</executable>
                     <mainClass>${mainClass}</mainClass>
                     <arguments>
                         <argument></argument>

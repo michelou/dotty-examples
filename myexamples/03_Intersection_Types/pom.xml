@@ -3,13 +3,13 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>dotty.examples</groupId>
+    <groupId>dotty-examples</groupId>
     <artifactId>03_Intersection_Types</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>dotty.examples</groupId>
+        <groupId>dotty-examples</groupId>
         <artifactId>myexamples</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
@@ -78,7 +78,7 @@
                                 <include>scala/**/*.scala</include>
                             </includes>
                             <additionalClasspathElements>
-                                <additionalClasspathElement>${m2.directory}/junit/junit/4.13/junit-4.13.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.directory}/junit/junit/4.13.2/junit-4.13.2.jar</additionalClasspathElement>
                             </additionalClasspathElements>
                         </configuration>
                     </execution>

@@ -21,8 +21,8 @@
         <scala2.versionTag>2.13</scala2.versionTag>
         <scala2.version>${scala2.versionTag}.5</scala2.version>
 
-        <!-- Maven plugins -->
-        <scala.maven.version>1.0-SNAPSHOT</scala.maven.version> <!-- Dec 2018 -->
+        <!-- Maven plugin versions -->
+        <scala.maven.version>1.0.0</scala.maven.version> <!-- Dec 2018 -->
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
         <scalatest.version>3.2.7</scalatest.version>            <!-- Apr 2021 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
@@ -51,13 +51,13 @@
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala3-interfaces -->
         <dependency>
             <groupId>${scala.groupId}</groupId>
-            <artifactId>dotty-interfaces</artifactId>
+            <artifactId>scala3-interfaces</artifactId>
             <version>${scala.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala3-library -->
         <dependency>
             <groupId>${scala.groupId}</groupId>
-            <artifactId>dotty-library_${scala.versionTag}</artifactId>
+            <artifactId>scala3-library_${scala.versionTag}</artifactId> 
             <version>${scala.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/tasty-core -->

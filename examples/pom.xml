@@ -11,7 +11,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
-        <m2.directory>${user.home}/.m2/repository</m2.directory>
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId> <!-- old: "ch.epfl.lamp" -->
@@ -20,10 +19,10 @@
         <scala.local.install>true</scala.local.install>
         <scalalib.version>2.13</scalalib.version>
 
-        <!-- Maven plugins -->
+        <!-- Maven plugin versions -->
         <scala.maven.version>1.0.0</scala.maven.version> <!-- Dec 2018 -->
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
-        <scalatest.version>3.2.6</scalatest.version>            <!-- Nov 2020 -->
+        <scalatest.version>3.2.7</scalatest.version>            <!-- Nov 2020 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven.compiler.version>3.8.1</maven.compiler.version>  <!-- May 2019 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
@@ -35,15 +34,40 @@
         <maven.jar.version>3.2.0</maven.jar.version>            <!-- May 2019 -->
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
         <exec.maven.version>3.0.0</exec.maven.version>          <!-- Jun 2020 -->
+        <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-core -->
+        <hamcrest.version>2.2</hamcrest.version>                <!-- Oct 2019 -->
+        <!-- -->
+        <ivy.version>2.5.0</ivy.version>
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
-        <jmh.version>1.27</jmh.version>                         <!-- Dec 2020, Oracle -->
+        <jmh.version>1.29</jmh.version>                         <!-- Dec 2020, Oracle -->
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
         <junit.platform.version>1.7.1</junit.platform.version>  <!-- Sep 2020 -->
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
         <jupiter.version>5.7.1</jupiter.version>                <!-- Sep 2020 -->
+        <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
+        <scalatest.version>3.2.7</scalatest.version>
+
+        <!-- Maven plugin dependencies -->
+        <m2.directory>${user.home}/.m2/repository</m2.directory>
+        <m2.hamcrest.jar>${m2.directory}/org/hamcrest/hamcrest/${hamcrest.version}/hamcrest-${hamcrest.version}.jar</m2.hamcrest.jar>
+        <m2.hamcrest-core.jar>${m2.directory}/org/hamcrest/hamcrest/${hamcrest.version}/hamcrest-core-${hamcrest.version}.jar</m2.hamcrest-core.jar>
+        <m2.ivy.jar>${m2.directory}/org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar</m2.ivy.jar>
+        <m2.junit.jar>${m2.directory}/junit/junit/${junit.version}/junit-${junit.version}.jar</m2.junit.jar>
+        <m2.junit-platform.jar>${m2.directory}/org/junit/platform/junit-platform-runner/${junit.platform.version}\junit-platform-runner-${junit.platform.version}.jar</m2.junit-platform.jar>
+        <m2.junit-runner.jar>${m2.directory}/org/pantsbuild/junit-runner/1.0.30/junit-runner-1.0.30.jar</m2.junit-runner.jar>
+        <m2.plexus-utils.jar>${m2.directory}/org/codehaus/plexus/plexus-utils/3.3.0/plexus-utils-3.3.0.jar</m2.plexus-utils.jar>
+        <m2.scala-reflect.jar>${m2.directory}/org/portable-scala/portable-scala-reflect_${scalalib.version}/1.0.0/portable-scala-reflect_${scalalib.version}-1.0.0.jar</m2.scala-reflect.jar>
+        <m2.scalactic.jar>${m2.directory}/org/scalactic/scalactic_${scalalib.version}/${scalatest.version}/scalactic_${scalalib.version}-${scalatest.version}.jar</m2.scalactic.jar>
+        <m2.scalatest.jar>${m2.directory}/org/scalatest/scalatest_${scalalib.version}/${scalatest.version}/scalatest_${scalalib.version}-${scalatest.version}.jar</m2.scalatest.jar>
+        <m2.specs2-common.jar>${m2.directory}/org/specs2/specs2-common_2.13/${specs2.version}/specs2-common_2.13-${specs2.version}.jar</m2.specs2-common.jar>
+        <m2.specs2-core.jar>${m2.directory}/org/specs2/specs2-core_${scalalib.version}/${specs2.version}/specs2-core_${scalalib.version}-${specs2.version}.jar</m2.specs2-core.jar>
+        <m2.specs2-fp.jar>${m2.directory}/org/specs2/specs2-fp_2.13/${specs2.version}/specs2-fp_2.13-${specs2.version}.jar</m2.specs2-fp.jar>
+        <m2.specs2-junit.jar>${m2.directory}/org/specs2/specs2-junit_${scalalib.version}/${specs2.version}/specs2-junit_${scalalib.version}-${specs2.version}.jar</m2.specs2-junit.jar>
+        <m2.specs2-matcher.jar>${m2.directory}/org/specs2/specs2-matcher_${scalalib.version}/${specs2.version}/specs2-matcher_${scalalib.version}-${specs2.version}.jar</m2.specs2-matcher.jar>
+        <m2.test-interface.jar>${m2.directory}/org/scala-sbt/test-interface/1.0/test-interface-1.0.jar</m2.test-interface.jar>
     </properties>
 
     <dependencies>
@@ -81,7 +105,7 @@
         <dependency>
             <groupId>org.apache.ivy</groupId>
             <artifactId>ivy</artifactId>
-            <version>2.5.0</version>
+            <version>${ivy.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.epfl.alumni</groupId>
@@ -152,6 +176,12 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${jupiter.version}</version>
             <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.pantsbuild/junit-runner -->
+        <dependency>
+            <groupId>org.pantsbuild</groupId>
+            <artifactId>junit-runner</artifactId>
+            <version>1.0.30</version>
         </dependency>
         <dependency>
             <groupId>org.scalatest</groupId>
