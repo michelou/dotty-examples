@@ -3,14 +3,14 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>dotty.examples</groupId>
+    <groupId>dotty-examples</groupId>
     <artifactId>ImplicitFunctionTypes</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <parent>
-        <groupId>dotty.examples</groupId>
-        <artifactId>dotty-examples</artifactId>
+        <groupId>dotty-examples</groupId>
+        <artifactId>examples</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -68,6 +68,11 @@
                             <includes>
                                 <include>scala/**/*.scala</include>
                             </includes>
+                            <additionalClasspathElements>
+                                <additionalClasspathElement>${m2.hamcrest.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.hamcrest-core.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.junit.jar}</additionalClasspathElement>
+                            </additionalClasspathElements>
                         </configuration>
                     </execution>
                     <execution>
@@ -104,6 +109,33 @@
                             <mainClass>${mainClass}</mainClass>
                         </manifest>
                     </archive>
+                </configuration>
+            </plugin>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
+            </plugin>
+            <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec.maven.version}</version>
+                <executions>
+                    <execution>
+                        <id>junit</id>
+                        <phase>exec</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>org.junit.runner.JUnitCore</mainClass>
+                    <arguments>
+                        <argument>ColorSpec2Test</argument>
+                    </arguments>
                 </configuration>
             </plugin>
         </plugins>

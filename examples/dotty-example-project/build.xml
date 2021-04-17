@@ -31,7 +31,7 @@
     <target name="run" depends="compile">
         <java classname="${main.class}" fork="true">
             <classpath>
-                <path refid="dotty.classpath" />
+                <path refid="scala.classpath" />
                 <path refid="build.classpath" />
             </classpath>
         </java>

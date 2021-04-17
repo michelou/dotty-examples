@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="dotty-common" default="init" xmlns:ivy="antlib:org.apache.ivy.ant">
 
-    <!-- set dotty.home -->
+    <!-- set scala3.home -->
     <property environment="env" />
 
     <condition property="user.home"
@@ -11,11 +11,14 @@
     </condition>
     <property name="ivy.cache" value="${user.home}/.ivy2/cache" />
 
+    <property name="hamcrest.version" value="2.2" />
+    <property name="junit.version" value="4.13.2" />
+
     <target name="init.local" if="use.local">
-        <property name="dotty.home" value="${env.SCALA3_HOME}" />
+        <property name="scala3.home" value="${env.SCALA3_HOME}" />
         <condition property="dotc.executable"
-            value="${dotty.home}/bin/scalac.bat"
-            else="${dotty.home}/bin/scalac">
+            value="${scala3.home}/bin/scalac.bat"
+            else="${scala3.home}/bin/scalac">
             <os family="windows" />
         </condition>
         <fail message="dotc compiler not found">
@@ -23,16 +26,16 @@
                 <available file="${dotc.executable}" />
             </not></condition>
         </fail>
-        <echo message="SCALA3_HOME=${dotty.home}" />
-        <path id="dotc.classpath">
-            <fileset dir="${dotty.home}/lib" includes="dotty-*.jar" />
-            <fileset dir="${dotty.home}/lib" includes="jline-*.jar" />
-            <fileset dir="${dotty.home}/lib" includes="scala-*.jar" />
-            <fileset dir="${dotty.home}/lib" includes="tasty-*.jar" />
+        <echo message="SCALA3_HOME=${scala3.home}" />
+        <path id="scalac.classpath">
+            <fileset dir="${scala3.home}/lib" includes="scala3-*.jar" />
+            <fileset dir="${scala3.home}/lib" includes="jline-*.jar" />
+            <fileset dir="${scala3.home}/lib" includes="scala-*.jar" />
+            <fileset dir="${scala3.home}/lib" includes="tasty-*.jar" />
         </path>
-        <path id="dotty.classpath">
-            <fileset dir="${dotty.home}/lib" includes="scala3-library*.jar" />
-            <fileset dir="${dotty.home}/lib" includes="scala-library*.jar" />
+        <path id="scala.classpath">
+            <fileset dir="${scala3.home}/lib" includes="scala3-library*.jar" />
+            <fileset dir="${scala3.home}/lib" includes="scala-library*.jar" />
         </path>
     </target>
 
@@ -41,9 +44,9 @@
         <taskdef resource="org/apache/ivy/ant/antlib.xml"
             uri="antlib:org.apache.ivy.ant" />
         <ivy:resolve file="../ivy.xml" showprogress="false" log="download-only" />
-        <ivy:cachepath pathid="dotc.classpath" conf="default"/>
+        <ivy:cachepath pathid="scalac.classpath" conf="default"/>
 
-        <path id="dotty.classpath">
+        <path id="scala.classpath">
             <!--
             <fileset dir="${ivy.cache}/ch.epfl.lamp" includes="**/jars/dotty-library*.jar">
                 <filename regex="_0\.(1[8-9]|2[0-9])-0\.(1[8-9]|2[0-9])\.[0-9]+" />  // e.g. _0.25-0.25.x
@@ -56,8 +59,8 @@
                 <filename regex="-2\.[1-2][3-9]\.[0-9]+" />  <!-- e.g. -2.13.x -->
             </fileset>
         </path>
-        <pathconvert property="dotty.classpath.prop" refid="dotty.classpath"/>
-        <echo message="dotty.classpath=${dotty.classpath.prop}" level="verbose" />
+        <pathconvert property="scala.classpath.prop" refid="scala.classpath"/>
+        <echo message="scala.classpath=${scala.classpath.prop}" level="verbose" />
     </target>
 
     <target name="init" depends="init.local, init.ivy">
@@ -68,8 +71,8 @@
             <pathelement location="${basedir}"/>
         </path>
         <path id="test.classpath">
-            <fileset dir="${ivy.cache}/junit" includes="**/jars/junit-4.13.2.jar" />
-            <fileset dir="${ivy.cache}/org.hamcrest" includes="**/jars/hamcrest-2.2.jar" />
+            <fileset dir="${ivy.cache}/junit" includes="**/jars/junit-${junit.version}.jar" />
+            <fileset dir="${ivy.cache}/org.hamcrest" includes="**/jars/hamcrest-${hamcrest.version}.jar" />
             <path refid="build.classpath" />
             <pathelement location="${test-build.dir}" />
         </path>
@@ -106,7 +109,7 @@
             <condition property="quoted" value="&quot;" else="">
                 <contains string="${classpath}" substring=" " />
             </condition>
-            <java fork="true" classname="dotty.tools.dotc.Main" classpathref="dotc.classpath">
+            <java fork="true" classname="dotty.tools.dotc.Main" classpathref="scalac.classpath">
                 <jvmarg value="-Xmx768m" />
                 <jvmarg value="-Xms768m" />
                 <jvmarg value="-Dscala.usejavacp=true" />
@@ -123,11 +126,11 @@
     <target name="test.install">
         <ivy:resolve file="../ivy-test.xml" showprogress="false" log="download-only" />
         <ivy:install
-            organisation="junit" module="junit" revision="4.13.1"
+            organisation="junit" module="junit" revision="${junit.version}"
             transitive="true" overwrite="false" from="public" to="local"
         />
         <ivy:install
-            organisation="org.hamcrest" module="hamcrest" revision="2.2"
+            organisation="org.hamcrest" module="hamcrest" revision="${hamcrest.version}"
             transitive="true" overwrite="false" from="public" to="local"
         />
     </target>

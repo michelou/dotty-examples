@@ -409,7 +409,8 @@ if not exist "%__JAVAC_CMD%" (
 )
 set __JAVAC_VERSION=
 for /f "usebackq tokens=1,*" %%i in (`"%__JAVAC_CMD%" -version 2^>^&1`) do set __JAVAC_VERSION=%%j
-if "!__JAVAC_VERSION:~0,2!"=="14" ( set _JDK_VERSION=14
+if "!__JAVAC_VERSION:~0,2!"=="17" ( set _JDK_VERSION=17
+) else if "!__JAVAC_VERSION:~0,2!"=="14" ( set _JDK_VERSION=14
 ) else if "!__JAVAC_VERSION:~0,2!"=="11" ( set _JDK_VERSION=11
 ) else if "!__JAVAC_VERSION:~0,3!"=="1.8" ( set _JDK_VERSION=8
 ) else if "!__JAVAC_VERSION:~0,3!"=="1.7" ( set _JDK_VERSION=7
@@ -1132,19 +1133,19 @@ if %__VERBOSE%==1 (
     echo Tool paths: 1>&2
     for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p 1>&2
     echo Environment variables: 1>&2
-    if defined ANT_HOME echo    ANT_HOME=%ANT_HOME% 1>&2
-    if defined GIT_HOME echo    GIT_HOME=%GIT_HOME% 1>&2
-    if defined JAVA_HOME echo    JAVA_HOME=%JAVA_HOME% 1>&2
-    if defined JAVACOCO_HOME echo    JAVACOCO_HOME=%JAVACOCO_HOME% 1>&2
-    if defined JAVA11_HOME echo    JAVA11_HOME=%JAVA11_HOME% 1>&2
-    if defined JAVAFX_HOME echo    JAVAFX_HOME=%JAVAFX_HOME% 1>&2
-    if defined MSVS_HOME echo    MSVS_HOME="%MSVS_HOME%" 1>&2
-    if defined MSYS_HOME echo    MSYS_HOME=%MSYS_HOME% 1>&2
-    if defined PYTHON_HOME echo    PYTHON_HOME=%PYTHON_HOME% 1>&2
-    if defined SBT_HOME echo    SBT_HOME=%SBT_HOME% 1>&2
-    if defined SCALA_HOME echo    SCALA_HOME=%SCALA_HOME% 1>&2
-    if defined SCALA3_HOME echo    SCALA3_HOME=%SCALA3_HOME% 1>&2
-    if defined SCALAFMT_HOME echo    SCALAFMT_HOME=%SCALAFMT_HOME% 1>&2
+    if defined ANT_HOME echo    "ANT_HOME=%ANT_HOME%" 1>&2
+    if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
+    if defined JAVA_HOME echo    "JAVA_HOME=%JAVA_HOME%" 1>&2
+    if defined JAVACOCO_HOME echo    "JAVACOCO_HOME=%JAVACOCO_HOME%" 1>&2
+    if defined JAVA11_HOME echo    "JAVA11_HOME=%JAVA11_HOME%" 1>&2
+    if defined JAVAFX_HOME echo    "JAVAFX_HOME=%JAVAFX_HOME%" 1>&2
+    if defined MSVS_HOME echo    "MSVS_HOME=%MSVS_HOME%" 1>&2
+    if defined MSYS_HOME echo    "MSYS_HOME=%MSYS_HOME%" 1>&2
+    if defined PYTHON_HOME echo    "PYTHON_HOME=%PYTHON_HOME%" 1>&2
+    if defined SBT_HOME echo    "SBT_HOME=%SBT_HOME%" 1>&2
+    if defined SCALA_HOME echo    "SCALA_HOME=%SCALA_HOME%" 1>&2
+    if defined SCALA3_HOME echo    "SCALA3_HOME=%SCALA3_HOME%" 1>&2
+    if defined SCALAFMT_HOME echo    "SCALAFMT_HOME=%SCALAFMT_HOME%" 1>&2
 )
 goto :eof
 

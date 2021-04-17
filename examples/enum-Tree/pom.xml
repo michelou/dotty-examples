@@ -69,7 +69,7 @@
                                 <include>scala/**/*.scala</include>
                             </includes>
                             <additionalClasspathElements>
-                                <additionalClasspathElement>${m2.directory}/junit/junit/${junit.version}/junit-${junit.version}.jar</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.junit.jar}</additionalClasspathElement>
                             </additionalClasspathElements>
                         </configuration>
                     </execution>

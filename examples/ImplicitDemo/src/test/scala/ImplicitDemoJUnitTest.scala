@@ -4,7 +4,7 @@ import org.junit.Assert._
 import org.junit.Test
 
 class ImplicitDemoJUnitTest {
-  import StringDelegates.stringOps
+  import StringDelegates._
 
   @Test
   def test1(): Unit = {

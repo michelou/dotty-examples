@@ -33,11 +33,13 @@ $(TARGET): $(SOURCES)
 clean:
 	rm -rf "$(TARGET_DIR)"
 
+compile: build
+
 run: build
 	$(SCALA) $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
 
 help:
-	@echo "Usage: make all|build|clean|run|test"
+	@echo "Usage: make all|build|clean|doc|help|lint|run|test"
 	@echo ""
 	@echo "  Subcommands:"
 	@echo "    all    alias for build"
@@ -46,6 +48,7 @@ help:
 	@echo "    doc    generate HTML documentation"
 	@echo "    help   display this help message"
 	@echo "    lint   analyze Scala source files with Scalafmt"
+	@echo "    run    execute main program $(MAIN_CLASS)"
 	@echo "    test   execute unit tests with JUnit"
 
 ##############################################################################
@@ -106,4 +109,4 @@ test: build $(TEST_TARGET)
 ##############################################################################
 ## phony
 
-.PHONY: all build clean doc help lint run test
+.PHONY: all build clean compile doc help lint run test

@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:120px;" src="../docs/dotty.png" alt="Dotty logo" /></a>
+    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:120px;" src="../docs/dotty.png" alt="Scala 3 logo" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>examples\</code></strong> contains <a href="https://dotty.epfl.ch/" rel="external">Scala 3</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/" rel="external">Dotty project</a>.
@@ -84,7 +84,7 @@ Total time: 19 seconds
 > 20.10.2019  09:44         1 402 646 ivy-2.5.0.jar
 > </pre>
 
-We can set property **`-Duse.local=true`** to use [Dotty] local installation (*reminder*: in our case environment variable **`DOTTY_HOME`** is set by command **`setenv`**):
+We can set property **`-Duse.local=true`** to use [Scala 3][scala3_home] local installation (*reminder*: in our case environment variable **`SCALA3_HOME`** is set by command **`setenv`**):
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://ant.apache.org/manual/running.html">ant</a> -Duse.local=true clean run</b>
@@ -94,7 +94,7 @@ Buildfile: W:\examples\enum-Planet\build.xml
    [delete] Deleting directory W:\examples\enum-Planet\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] SCALA3_HOME=C:\opt\scala-3.0.0-RC1
+     [echo] SCALA3_HOME=C:\opt\scala-3.0.0-RC2
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -170,8 +170,8 @@ Command [**`build -debug clean compile run`**](enum-Planet/build.bat) also displ
 <b/>&gt; <a href="enum-Planet/build.bat">build</a> -debug clean compile run</b>
 [build] Options    : _EXPLAIN=0 _PRINT=0 _SCALA_VERSION=3 _TASTY=0 _TIMER=0 _VERBOSE=0
 [build] Subcommands: _CLEAN=1 _COMPILE=1 _DECOMPILE=0 _DOC=0 _LINT=0 _RUN=1 _TEST=0
-[build] Variables  : JAVA_HOME="C:\opt\jdk-11.0.10+9"
-[build] Variables  : SCALA3_HOME="C:\opt\scala-3.0.0-RC1"
+[build] Variables  : JAVA_HOME="C:\opt\jdk-openjdk-11.0.10_9"
+[build] Variables  : SCALA3_HOME="C:\opt\scala-3.0.0-RC2"
 [build] Variables  : _MAIN_CLASS=Planet _MAINe_ARGS=1
 [build] del /s /q W:\dotty\examples\enum-Planet\target\classes\*.class W:\dotty\examples\enum-Planet\target\classes\*.hasTasty W:\dotty\examples\enum-Planet\target\classes\.latest-build
 [build] 20180322224754 W:\dotty\examples\enum-Planet\src\main\scala\Planet.scala
@@ -192,7 +192,8 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 > For simplicity the [**`build`**](enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/type">type</a> <a href="enum-Planet/project/build.properties">project\build.properties</a></b>
-> sbt.version=1.4.1
+> sbt.version=1.5.0
+> &nbsp;
 > main.class=Planet
 > main.args=1
 > </pre>
@@ -218,10 +219,10 @@ No compilation needed ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
 Processing Planet$
 Processing Planet
-Save decompiled Java source files to "target\cfr-sources_scala3_3.0.0-RC1.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_3.0.0-RC2.java"
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b /s target\*.java</b>
-W:\examples\enum-Planet\target\cfr-sources_scala3_3.0.0-RC1.java
+W:\examples\enum-Planet\target\cfr-sources_scala3_3.0.0-RC2.java
 W:\examples\enum-Planet\target\cfr-sources\Planet$.java
 W:\examples\enum-Planet\target\cfr-sources\Planet.java
 </pre>
@@ -230,21 +231,21 @@ If the two Java source files `src\build\cfr-sources_scala<n>_<version>.txt` (*ch
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b src\build</b>
-cfr-sources_scala3_0.24.0-RC1.java
-cfr-sources_scala3_0.27.0-RC1.java
-cfr-sources_scala3_3.0.0-RC1.java
+cfr-sources_scala3_0.24.0-RC2.java
+cfr-sources_scala3_0.27.0-RC2.java
+cfr-sources_scala3_3.0.0-RC2.java
 &nbsp;
 <b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose decompile</b>
 No compilation needed ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
-Save decompiled Java source files to "target\cfr-sources_scala3_3.0.0-RC1.java"
-Compare output file with check file "src\build\cfr-sources_scala3_3.0.0-RC1.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_3.0.0-RC2.java"
+Compare output file with check file "src\build\cfr-sources_scala3_3.0.0-RC2.java"
 </pre>
 
 
 ## <span id="build.sh">`build.sh` command</span>
 
-Command [**`build.sh`**](enum-Planet/build.sh) is our basic build tool for Unix environments like [Cygwin], Linux or [MSYS2]; it features subcommands **`clean`**, **`compile`**, **`doc`**, **`help`**, **`lint`** and **`run`**; the Bash script consists of ~530 lines of [Bash] code.
+Command [**`build.sh`**](enum-Planet/build.sh) is our basic build tool for Unix environments like [Cygwin], Linux or [MSYS2]; it features subcommands **`clean`**, **`compile`**, **`doc`**, **`help`**, **`lint`** and **`run`**; the Bash script consists of ~500 lines of [Bash] code.
 
 Command [**`build clean run`**](enum-Planet/build.sh) produces the following output:
 
@@ -318,8 +319,8 @@ Command **`make test`** executes the test suite [**`PlanetTest.scala`**](enum-Pl
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 scalac.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.2/scala-library-2.13.2.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_0.27/0.27.0-RC1/dotty-library_0.27-0.27.0-RC1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13/junit-4.13.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
-JUnit version 4.13
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.5/scala-library-2.13.5.jar;%USERPROFILE%/.m2/repository/org.scala-lang/scala3-library_3.0.0-RC2/3.0.0-RC2/scala3-library_3.0.0-RC2-3.0.0-RC2.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
+JUnit version 4.13.2
 ..
 Time: 0.239
 
@@ -355,17 +356,17 @@ Command **` mvn compile test`** with option **`-debug`** produces additional deb
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> -debug compile test | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-11.0.10+9\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala-3.0.0-RC1 \
- -cp C:\opt\scala-3.0.0-RC1\lib\*.jar -Dscala.usejavacp=true  \
+[DEBUG] [execute] C:\opt\jdk-openjdk-11.0.10_9\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala-3.0.0-RC2 \
+ -cp C:\opt\scala-3.0.0-RC2\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\examples\hello-scala\target\classes \
  -d W:\examples\hello-scala\target\classes \
  W:\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\opt\jdk-11.0.10+9\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala-3.0.0-RC1 [...]
-[DEBUG] [execute] C:\opt\jdk-11.0.10+9\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\scala-3.0.0-RC1\lib\*.jar;\
+[DEBUG] [execute] C:\opt\jdk-openjdk-11.0.10_9\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala-3.0.0-RC2 [...]
+[DEBUG] [execute] C:\opt\jdk-openjdk-11.0.10_9\bin\java.exe \
+ -Xms64m -Xmx1024m -cp C:\opt\scala-3.0.0-RC2\lib\*.jar;\
 W:\examples\hello-scala\target\classes hello
 </pre>
 
@@ -399,7 +400,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -version 2>&1 | findstr version</b>
 openjdk version "11.0.10" 2021-01-19
 
-<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:"c:\opt\scala-3.0.0-RC1\lib\dotty-library_3.0.0-RC1-scala-3.0.0-RC1.jar;c:\opt\scala-3.0.0-RC1\lib\scala-library-2.13.4.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
+<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:"c:\opt\scala-3.0.0-RC2\lib\scala3-library_3.0.0-RC2-3.0.0-RC2.jar;c:\opt\scala-3.0.0-RC2\lib\scala-library-2.13.5.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
 Your weight on EARTH (2) is 0.9999999999999999
@@ -422,11 +423,11 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 >         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>3.0.0-RC1<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.version&gt;</b>3.0.0-RC2<b>&lt;/scala.version&gt;</b>
 >         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
->         <b>&lt;scala.maven.version&gt;</b>1.0-SNAPSHOT<b>&lt;/scala.maven.version&gt;</b>
+>         <b>&lt;scala.maven.version&gt;</b>1.0.0<b>&lt;/scala.maven.version&gt;</b>
 >         ...
 >     <b>&lt;/properties&gt;</b>
 >     <b>&lt;dependencies&gt;</b>
@@ -442,18 +443,19 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 > </pre>
 > The plugin is available as [Zip archive][zip_archive] and its installation is deliberately very simple:
 > <pre style="font-size:80%;">
-> <b>&gt; unzip ..\bin\scala-maven-plugin-1.0.zip %USERPROFILE%\.m2\repository\</b>
-> <b>&gt; tree /a /f %USERPROFILE%\.m2\repository\ch\epfl\alumni | findstr /v "^[A-Z]"</b>
-> |   maven-metadata-local.xml
-> |
+> <b>&gt; <a href="https://linux.die.net/man/1/unzip">unzip</a> ..\bin\scala-maven-plugin-1.0.zip %USERPROFILE%\.m2\repository\</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f %USERPROFILE%\.m2\repository\ch\epfl\alumni | findstr /v "^[A-Z]"</b>
 > \---scala-maven-plugin
->     |   maven-metadata-local.xml
+>     |   maven-metadata.xml
+>     |   maven-metadata.xml.md5
+>     |   [..]
 >     |
->     \---1.0-SNAPSHOT
->             maven-metadata-local.xml
->             scala-maven-plugin-1.0-SNAPSHOT.jar
->             scala-maven-plugin-1.0-SNAPSHOT.pom
->             _remote.repositories
+>     \---1.0.0
+>             scala-maven-plugin-1.0.0.jar
+>             scala-maven-plugin-1.0.0.jar.md5
+>             scala-maven-plugin-1.0.0.pom
+>             scala-maven-plugin-1.0.0.pom.md5
+>             [..]
 > </pre>
 
 
@@ -611,7 +613,6 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [cfr_releases]: https://www.benf.org/other/cfr/
 [cygwin]: https://cygwin.com/install.html
-[dotty]: https://dotty.epfl.ch/
 [gmake_cli]: http://www.glue.umd.edu/lsf-docs/man/gmake.html
 [gradle_groovy]: https://www.groovy-lang.org/
 [gradle_app_plugin]: https://docs.gradle.org/current/userguide/application_plugin.html#header
@@ -629,5 +630,6 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_docs_defs]: https://www.scala-sbt.org/1.0/docs/Basic-Def.html
 [scala]: https://www.scala-lang.org/
+[scala3_home]: https://dotty.epfl.ch/
 [windows_stderr]: https://support.microsoft.com/en-us/help/110930/redirecting-error-messages-from-command-prompt-stderr-stdout
 [zip_archive]: https://www.howtogeek.com/178146/

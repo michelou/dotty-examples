@@ -77,14 +77,11 @@
                                 <include>scala/**/*.scala</include>
                             </includes>
                             <additionalClasspathElements>
-                                <additionalClasspathElement>${m2.directory}/junit/junit/4.13.2/junit-4.13.2.jar</additionalClasspathElement> <!-- @withRun -->
-                                <additionalClasspathElement>${m2.directory}/org/apiguardian/apiguardian-api/1.1.0/apiguardian-api-1.1.0.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/junit/jupiter/junit-jupiter-api/${jupiter.version}/junit-jupiter-api-${jupiter.version}.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/junit/platform/junit-platform-commons/${junit.platform.version}/junit-platform-commons-${junit.platform.version}.jar</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.directory}/org/junit/platform/junit-platform-runner/${junit.platform.version}/junit-platform-runner-${junit.platform.version}.jar</additionalClasspathElement>
-                                <!--
-                                <additionalClasspathElement>${m2.directory}/org/junit/vintage/junit-vintage-engine/5.3.2/junit-vintage-engine-5.3.2.jar</additionalClasspathElement>
-                                -->
+                                <additionalClasspathElement>${m2.junit.jar}</additionalClasspathElement> <!-- @withRun -->
+                                <additionalClasspathElement>${m2.apiguardian-api.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.junit-jupiter-api.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.junit-platform-commons.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.junit-platform-runner.jar}</additionalClasspathElement>
                             </additionalClasspathElements>
                         </configuration>
                     </execution>
