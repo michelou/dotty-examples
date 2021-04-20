@@ -49,12 +49,12 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 For instance our development environment looks as follows (*March 2021*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\jdk-11.0.10+9\             <i>(299 MB)</i>
 C:\opt\jdk-bellsoft-11.0.10\      <i>(317 MB)</i>
 C:\opt\jdk-corretto-11.0.10_9\    <i>(292 MB)</i>
 C:\opt\jdk-dcevm-11.0.10+4\       <i>(313 MB)</i>
 C:\opt\graalvm-ce-java11-21.0.0\  <i>(731 MB)</i>
 C:\opt\jdk-openj9-11.0.10+9\      <i>(295 MB)</i>
+C:\opt\jdk-openjdk-11.0.10+9\     <i>(299 MB)</i>
 C:\opt\jdk-redhat-11.0.10.9-1\    <i>(363 MB)</i>
 C:\opt\jdk-sapmachine-11.0.10\    <i>(315 MB)</i>
 C:\opt\jdk-zulu-11.0.10\          <i>(300 MB)</i>
@@ -159,7 +159,7 @@ openjdk version "11.0.10" 2021-01-19
 OpenJDK Runtime Environment GraalVM CE 21.0.0 (build 11.0.10+8-jvmci-21.0-b06)
 OpenJDK 64-Bit Server VM GraalVM CE 21.0.0 (build 11.0.10+8-jvmci-21.0-b06, mixed mode, sharing)
 &nbsp;
-<b>&gt; dir c:\opt\graalvm-ce-java11-21.0.0\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\graalvm-ce-java11-21.0.0\bin\server | findstr jsa</b>
 16.08.2020  08:41        17 563 648 classes.jsa
 </pre>
 

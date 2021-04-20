@@ -11,7 +11,7 @@
   </tr>
 </table>
 <div>&nbsp;</div>
-This document is part of a series of topics related to [Scala 3][scala3] on Windows:
+This document is part of a series of topics related to [Scala 3][scala3_home] on Windows:
 
 - [Running Scala 3 on Windows](README.md)
 - Building Scala 3 on Windows [**&#9660;**](#bottom)
@@ -43,40 +43,38 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 For instance our development environment looks as follows (*April 2021*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.31.0\      <i>(279 MB)</i>
-C:\opt\jdk-11.0.10+9\   <i>(314 MB)</i>
-C:\opt\sbt-1.5.0\       <i>( 48 MB)</i>
+C:\opt\Git-2.31.1\             <i>(279 MB)</i>
+C:\opt\jdk-openjdk-11.0.10_9\  <i>(314 MB)</i>
+C:\opt\sbt-1.5.0\              <i>( 48 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
 ## Directory structure
 
-The directory structure of the [Dotty repository][github_dotty] <sup id="anchor_04">[[4]](#footnote_04)</sup> is quite complex but fortunately we only have to deal with the three subdirectories [**`bin\`**](https://github.com/michelou/dotty/tree/master/bin), [**`dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin) and [**`project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts).
+The directory structure of the [Dotty repository][github_dotty] <sup id="anchor_04">[[4]](#footnote_04)</sup> is quite complex but fortunately we only have to deal with three subdirectories. Concretely our additions affect two groups of directories :
 
-<pre style="font-size:80%;">
-dotty\      <i>(Git submodule)</i><sup id="anchor_05"><a href="#footnote_05">[5]</a></sup>
-dotty\bin\
-dotty\dist\bin\
-dotty\project\scripts\
-</pre>
+1. In directories [**`dotty\bin\`**](https://github.com/michelou/dotty/tree/master/bin) and [**`dotty\project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts) we add the batch files to support our build process on a Windows machine.
 
-Concretely directories [**`dotty\bin\`**](https://github.com/michelou/dotty/tree/master/bin), [**`dotty\dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin) and [**`dotty\project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts) are modified with the following additions:
+   <pre style="font-size:80%;">
+   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/common.bat">dotty\bin\common.bat</a>
+   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scala.bat">dotty\bin\scala.bat</a>
+   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scalac.bat">dotty\bin\scalac.bat</a>
+   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scaladoc.bat">dotty\bin\scaladoc.bat</a>
+   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/bootstrapCmdTests.bat">dotty\project\scripts\bootstrapCmdTests.bat</a>
+   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/cmdTests.bat">dotty\project\scripts\cmdTests.bat</a>
+   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/cmdTestsCommon.inc.bat">dotty\project\scripts\cmdTestsCommon.inc.bat.bat</a>
+   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/genDocs.bat">dotty\project\scripts\genDocs.bat</a>
+   </pre>
 
-<pre style="font-size:80%;">
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/common.bat">dotty\bin\common.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scala.bat">dotty\bin\scala.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scalac.bat">dotty\bin\scalac.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/bin/scaladoc.bat">dotty\bin\scaladoc.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/common.bat">dotty\dist\bin\common.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/scala.bat">dotty\dist\bin\scala.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/scalac.bat">dotty\dist\bin\scalac.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/scaladoc.bat">dotty\dist\bin\scaladoc.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/bootstrapCmdTests.bat">dotty\project\scripts\bootstrapCmdTests.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/cmdTests.bat">dotty\project\scripts\cmdTests.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/cmdTestsCommon.inc.bat">dotty\project\scripts\cmdTestsCommon.inc.bat.bat</a>
-<a href="https://github.com/michelou/dotty-examples/blob/master/bin/dotty/project/scripts/genDocs.bat">dotty\project\scripts\genDocs.bat</a>
-</pre>
+2. In directory [**`dotty\dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin) we add the batch files to be included in the generated software distributions.
+
+   <pre style="font-size:80%;">
+   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/common.bat">dotty\dist\bin\common.bat</a>
+   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/scala.bat">dotty\dist\bin\scala.bat</a>
+   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/scalac.bat">dotty\dist\bin\scalac.bat</a>
+   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/scaladoc.bat">dotty\dist\bin\scaladoc.bat</a>
+   </pre>
 
 We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
 
@@ -249,7 +247,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
-   GIT_CMD=C:\opt\Git-2.31.0\bin\git.exe
+   GIT_CMD=C:\opt\Git-2.31.1\bin\git.exe
    JAVA_CMD=C:\opt\jdk-11.0.10+9\bin\java.exe
    SBT_CMD=C:\opt\sbt-1.5.0\bin\sbt.bat
 Tool options
@@ -263,7 +261,7 @@ Current Git branch
 
 ### **`build.bat compile`**
 
-Command **`build.bat compile`** generates the *"1st stage compiler"* for [Scala 3][scala3] and executes the relevant test suites. 
+Command **`build.bat compile`** generates the *"1st stage compiler"* for [Scala 3][scala3_home] and executes the relevant test suites. 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> compile</b>
@@ -307,7 +305,7 @@ testing loading tasty from .tasty file in jar
 
 ### **`build.bat bootstrap`**
 
-Command **`build.bat bootstrap`** works as follows: ***if*** execution of the **`compile`** subcommand was successful the **`bootstrap`** subcommand generates the *"bootstrap compiler"* for [Scala 3][scala3] and executes the relevant test suites.
+Command **`build.bat bootstrap`** works as follows: ***if*** execution of the **`compile`** subcommand was successful the **`bootstrap`** subcommand generates the *"bootstrap compiler"* for [Scala 3][scala3_home] and executes the relevant test suites.
 
 <pre style="font-size:80%;">
 <b>&gt; build bootstrap</b>
@@ -338,7 +336,7 @@ scala3-3.0.0-RC2-bin-SNAPSHOT.zip
 
 ### **`build.bat documentation`**
 
-Command **`build.bat documentation`** works as follows: ***if*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Scala 3][scala3] website and the online [Dotty documentation][dotty_docs].<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
+Command **`build.bat documentation`** works as follows: ***if*** execution of the **`bootstrap`** subcommand was successful the **`documentation`** subcommand generates the [Scala 3][scala3_home] website and the online [Scala 3 documentation][scala3_docs].<br/>Below we execute the **`doc-only`** subcommand for the sake of brievity (previous operations are *assumed* to be successful): 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -timer doc-only</b>
@@ -377,7 +375,7 @@ total warnings with regards to compilation and documentation: 29
 Total execution time: 00:02:36
 </pre>
 
-Output directory **`docs\_site\`** contains the files of the online [Dotty documentation][dotty_docs]:
+Output directory **`docs\_site\`** contains the files of the online [Scala 3 documentation][scala3_docs]:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b docs\_site</b>
@@ -399,7 +397,7 @@ versions
 9
 </pre>
 
-Output directory **`docs\docs\`** contains the Markdown files of the [Scala 3][scala3] website:
+Output directory **`docs\docs\`** contains the Markdown files of the [Scala 3][scala3_home] website:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir" rel="external">dir</a> /b docs\docs</b>
@@ -422,7 +420,7 @@ Total execution time: 00:20:25
 
 ### **`cmdTests.bat`**
 
-Command [**`project\scripts\cmdTests.bat`**](bin/dotty/project/scripts/cmdTests.bat) performs several tests running [Scala 3][scala3] commands from [**`sbt`**][sbt_cli]. In the normal case, command [**`cmdTests`**](bin/dotty/project/scripts/cmdTests.bat) is called by command **`build compile`** but may also be called directly.
+Command [**`project\scripts\cmdTests.bat`**](bin/dotty/project/scripts/cmdTests.bat) performs several tests running [Scala 3][scala3_home] commands from [**`sbt`**][sbt_cli]. In the normal case, command [**`cmdTests`**](bin/dotty/project/scripts/cmdTests.bat) is called by command **`build compile`** but may also be called directly.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/project/scripts/cmdTests.bat">cmdTests</a></b>
@@ -639,12 +637,6 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 <b>&gt; <a href="https://git-scm.com/docs/git">git</a> submodule update --depth 50</b>
 </pre>
 
-<span name="footnote_05">[5]</span> ***Git submodule*** [↩](#anchor_05)
-
-<p style="margin:0 0 1em 20px;">
-Defining directory <b><code>dotty\</code></b> as a Github submodule allows us to make changes to this project independently from our fork of the <a href="https://github.com/lampepfl/dotty">lampepfl/dotty</a> repository. 
-</p>
-
 ***
 
 *[mics](https://lampwww.epfl.ch/~michelou/)/April 2021* [**&#9650;**](#top)
@@ -652,15 +644,13 @@ Defining directory <b><code>dotty\</code></b> as a Github submodule allows us to
 
 <!-- link refs -->
 
-[scala3]: https://dotty.epfl.ch/
 [dotty_ci]: https://dotty-ci.epfl.ch/lampepfl/dotty
-[dotty_docs]: https://dotty.epfl.ch/docs/
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_releases]: https://github.com/lampepfl/dotty/releases
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.31.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.31.1.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/
@@ -687,6 +677,8 @@ Defining directory <b><code>dotty\</code></b> as a Github submodule allows us to
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
 [sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.5.0-RC2
+[scala3_docs]: https://dotty.epfl.ch/docs/
+[scala3_home]: https://dotty.epfl.ch/
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/
