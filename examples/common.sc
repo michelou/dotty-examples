@@ -3,7 +3,7 @@ import mill._, api._, scalalib._
 //////////////////////////////////////////////////////////////////////////////
 // Project properties
 
-val scalaVersion = "3.0.0-RC1"  // "0.27.0-RC1", "2.12.18"
+val scalaVersion = "3.0.0-RC3"  // "0.27.0-RC1", "2.12.18"
 val scalacOptions = Seq("-deprecation", "-encoding", "UTF8", "-feature")
 
 val forkArgs = Seq("-Xmx1g")
@@ -18,12 +18,13 @@ val scalaSourcePath = os.pwd / "src" / "main" / "scala"
 //////////////////////////////////////////////////////////////////////////////
 // Ivy dependencies
 
+val junitVersion = "4.13.2"
 val scalaLibVersion = "2.13"
-val scalatestVersion = "3.2.6"
+val scalatestVersion = "3.2.7"
 val specs2Version = "4.10.6"
 
 // https://mvnrepository.com/artifact/junit/junit
-val ivyJunit = ivy"org.junit:org.junit:4.13.2"
+val ivyJunit = ivy"org.junit:org.junit:$junitVersion"
 
 // https://mvnrepository.com/artifact/com.novocode/junit-interface
 val ivyJunitInterface = ivy"com.novocode:junit-interface:0.11"

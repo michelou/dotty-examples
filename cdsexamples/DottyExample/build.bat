@@ -69,6 +69,7 @@ set _MAIN_PKG_NAME=cdsexamples
 set _MAIN_CLASS=%_MAIN_PKG_NAME%.%_MAIN_CLASS_NAME%
 
 set _APP_NAME=DottyExample
+set _APP_VERSION=1.0-SNAPSHOT
 set "_JAR_FILE=%_TARGET_DIR%\%_APP_NAME%.jar"
 set "_CLASSLIST_FILE=%_TARGET_DIR%\%_APP_NAME%.classlist"
 set "_JSA_FILE=%_TARGET_DIR%\%_APP_NAME%.jsa"
@@ -81,6 +82,9 @@ if not exist "%JAVA_HOME%\bin\java.exe" (
 set "_JAR_CMD=%JAVA_HOME%\bin\jar.exe"
 set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
 
+for /f "tokens=1,2,*" %%i in ('call "%_JAVA_CMD%" -XshowSettings 2^>^&1^|findstr /c:"java.version ="') do (
+    set _JAVA_VERSION=%%k
+)
 if not exist "%SCALA3_HOME%\bin\scalac.bat" (
     echo %_ERROR_LABEL% Scala 3 installation not found 1>&2
     set _EXITCODE=1
@@ -199,10 +203,11 @@ if %_DEBUG%==1 ( set _REDIRECT_STDOUT=
 ) else ( set _REDIRECT_STDOUT=1^>NUL
 )
 if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% Properties : _JAVA_VERSION=%_JAVA_VERSION% 1>&2
     echo %_DEBUG_LABEL% Options    : _ITER=%_RUN_ITER% _SHARE=%_SHARE_FLAG% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _RUN=%_RUN% _RUN_ARGS=%_RUN_ARGS% 1>&2
-    echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" 1>&2
-    echo %_DEBUG_LABEL% Variables  : SCALA3_HOME="%SCALA3_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "JAVA_HOME=%JAVA_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "SCALA3_HOME=%SCALA3_HOME%" 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
@@ -292,18 +297,15 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-for /f "tokens=1,2,*" %%i in ('%JAVA_HOME%\bin\java -XshowSettings 2^>^&1^|findstr java.version') do (
-    set __JAVA_VERSION=%%k
-)
 set "__MANIFEST_FILE=%_TARGET_DIR%\MANIFEST.MF"
 (
     echo Manifest-Version: 1.0
     echo Built-By: %USERNAME%
-    echo Build-Jdk: %__JAVA_VERSION%
+    echo Build-Jdk: %_JAVA_VERSION%
     echo Specification-Title: %_MAIN_PKG_NAME%
-    echo Specification-Version: 0.1-SNAPSHOT
+    echo Specification-Version: %_APP_VERSION%
     echo Implementation-Title: %_MAIN_PKG_NAME%
-    echo Implementation-Version: 0.1-SNAPSHOT
+    echo Implementation-Version: %_APP_VERSION%
     echo Main-Class: %_MAIN_CLASS%
 ) > "%__MANIFEST_FILE%"
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" cfm "%_JAR_FILE%" "%__MANIFEST_FILE%" -C "%_CLASSES_DIR%" . 1>&2
@@ -323,7 +325,8 @@ if %_DEBUG%==1 (
     set "__LOG_FILE=%_LOG_DIR%\log_classlist.log"
     if not exist "%_LOG_DIR%\" mkdir "%_LOG_DIR%" 1>NUL
     @rem !!! Ignore drive letter (temporary hack, see JDK-8215398)
-    set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-Xlog:class+path:file=!__LOG_FILE:~2!"
+    @rem set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-Xlog:class+path:file=!__LOG_FILE!"
+    set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -Xlog:enable
 ) else (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -Xlog:disable
 )

@@ -69,6 +69,8 @@ set _MAIN_PKG_NAME=cdsexamples
 set _MAIN_CLASS=%_MAIN_PKG_NAME%.%_MAIN_CLASS_NAME%
 
 set _APP_NAME=JavaExample
+set _APP_VERSION=1.0-SNAPSHOT
+
 set "_JAR_FILE=%_TARGET_DIR%\%_APP_NAME%.jar"
 set "_CLASSLIST_FILE=%_TARGET_DIR%\%_APP_NAME%.classlist"
 set "_JSA_FILE=%_TARGET_DIR%\%_APP_NAME%.jsa"
@@ -82,6 +84,10 @@ set "_JAR_CMD=%JAVA_HOME%\bin\jar.exe"
 set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
 set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
 set "_JAVADOC_CMD=%JAVA_HOME%\bin\javadoc.exe"
+
+for /f "tokens=1,2,*" %%i in ('call "%_JAVA_CMD%" -XshowSettings 2^>^&1^|findstr /c:"java.version ="') do (
+    set _JAVA_VERSION=%%k
+)
 goto :eof
 
 :env_colors
@@ -192,9 +198,10 @@ if %_DEBUG%==1 ( set _REDIRECT_STDOUT=
 ) else ( set _REDIRECT_STDOUT=1^>NUL
 )
 if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% Properties : _JAVA_VERSION=%_JAVA_VERSION% 1>&2
     echo %_DEBUG_LABEL% Options    : _ITER=%_RUN_ITER% _SHARE=%_SHARE_FLAG% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _RUN=%_RUN% _RUN_ARGS=%_RUN_ARGS% 1>&2
-    echo %_DEBUG_LABEL% Variables  : JAVA_HOME="%JAVA_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "JAVA_HOME=%JAVA_HOME%" 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
@@ -272,7 +279,7 @@ for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     set /a __N+=1
 )
 set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
-echo %_JAVAC_OPTS% -deprecation --release 8 -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
+echo -deprecation -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% Java source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
@@ -283,16 +290,15 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-
 set "__MANIFEST_FILE=%_TARGET_DIR%\MANIFEST.MF"
 (
     echo Manifest-Version: 1.0
     echo Built-By: %USERNAME%
     echo Build-Jdk: %_JAVA_VERSION%
     echo Specification-Title: %_MAIN_PKG_NAME%
-    echo Specification-Version: 0.1-SNAPSHOT
+    echo Specification-Version: %_APP_VERSION%
     echo Implementation-Title: %_MAIN_PKG_NAME%
-    echo Implementation-Version: 0.1-SNAPSHOT
+    echo Implementation-Version: %_APP_VERSION%
     echo Main-Class: %_MAIN_CLASS%
 ) > "%__MANIFEST_FILE%"
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" cfm "%_JAR_FILE%" "%__MANIFEST_FILE%" -C "%_CLASSES_DIR%" . 1>&2
@@ -425,9 +431,9 @@ goto :eof
 :run
 set __SHARE_LOG_FILE=%_LOG_DIR%\log_share_%_SHARE_FLAG%.log
 @rem Important: options containing an "=" character must be quoted
-set __JAVA_TOOL_OPTS=-Xshare:%_SHARE_FLAG% -XX:SharedArchiveFile=%_JSA_FILE%
+set __JAVA_TOOL_OPTS=-Xshare:%_SHARE_FLAG% -XX:+UnlockDiagnosticVMOptions -XX:SharedArchiveFile=%_JSA_FILE%
 if %_DEBUG%==1 (
-    set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-Xlog:class+load=info"
+    set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-verbose:class"
 ) else if %_VERBOSE%==1 (
     if not exist "%_LOG_DIR%\" mkdir "%_LOG_DIR%" 1>NUL
     @rem !!! Ignore drive letter (temporary hack, see JDK-8215398)
