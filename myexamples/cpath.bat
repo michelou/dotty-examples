@@ -29,7 +29,7 @@ call :add_jar "org.junit.jupiter" "junit-jupiter-api" "5.7.1"
 call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALALIB_VERSION%" "1.1.0"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-call :add_jar "org.scala-lang.modules" "scala-xml_%__SCALALIB_VERSION%" "2.0.0-M5"
+call :add_jar "org.scala-lang.modules" "scala-xml_%__SCALALIB_VERSION%" "2.0.0-RC1"
 
 @rem https://mvnrepository.com/artifact/junit/junit
 call :add_jar "junit" "junit" "4.13.2"
@@ -40,7 +40,7 @@ call :add_jar "com.novocode" "junit-interface" "0.11"
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest
 call :add_jar "org.hamcrest" "hamcrest" "2.2"
 
-set __SCALATEST_VERSION=3.2.6
+set __SCALATEST_VERSION=3.2.8
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"

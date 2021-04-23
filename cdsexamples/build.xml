@@ -123,7 +123,7 @@
     <target name="test.install">
         <ivy:resolve file="../ivy-test.xml" showprogress="false" log="download-only" />
         <ivy:install
-            organisation="junit" module="junit" revision="4.13"
+            organisation="junit" module="junit" revision="4.13.2"
             transitive="true" overwrite="false" from="public" to="local"
         />
         <ivy:install

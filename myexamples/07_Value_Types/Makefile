@@ -10,7 +10,7 @@ SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 ##############################################################################
 ## main rules
 
-SOURCES = $(shell $(FIND_CMD) $(SOURCE_DIR)/main -name *.scala)
+SOURCES = $(shell $(FIND) $(SOURCE_DIR)/main -name *.scala)
 TARGET  = $(TARGET_DIR)/.latest-build
 
 OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
@@ -38,6 +38,19 @@ compile: build
 run: build
 	$(SCALA) $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
 
+help:
+	@echo "Usage: make all|build|clean|doc|help|lint|run|test"
+	@echo ""
+	@echo "  Subcommands:"
+	@echo "    all    alias for build"
+	@echo "    build  compile Java/Scala source files"
+	@echo "    clean  delete generated files"
+	@echo "    doc    generate HTML documentation"
+	@echo "    help   display this help message"
+	@echo "    lint   analyze Scala source files with Scalafmt"
+	@echo "    run    execute the main program $(MAIN_CLASS)"
+	@echo "    test   execute unit tests with JUnit"
+
 ##############################################################################
 ## doc rules
 
@@ -61,9 +74,18 @@ $(DOC_TARGET): $(SOURCES)
 doc: $(DOC_TARGET)
 
 ##############################################################################
+## lint rules
+
+SCALAFMT_CONFIG_FILE = $(shell dirname $(CURDIR))/.scalafmt.conf
+SCALAFMT_OPTS = --test --config "$(SCALAFMT_CONFIG_FILE)"
+
+lint:
+	$(SCALAFMT) $(SCALAFMT_OPTS) $(SOURCE_DIR)
+
+##############################################################################
 ## test rules
 
-TEST_SOURCES = $(shell $(FIND_CMD) $(SOURCE_DIR)/test -name *.scala)
+TEST_SOURCES = $(shell $(FIND) $(SOURCE_DIR)/test -name *.scala)
 TEST_TARGET  = $(TARGET_DIR)/.latest-test-build
 
 TEST_OPTS_FILE    = $(TARGET_DIR)/scalac_test_opts.txt
@@ -87,4 +109,4 @@ test: build $(TEST_TARGET)
 ##############################################################################
 ## phony
 
-.PHONY: all build clean compile doc run test
+.PHONY: all build clean compile doc help lint run test

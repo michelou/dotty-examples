@@ -38,6 +38,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 11.0.8  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-July/003498.html
 11.0.9  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-October/004007.html
 11.0.10 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-January/004689.html
+11.0.11 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-April/005860.html
 -->
 Optionally one may also install the following software:
 
@@ -64,21 +65,22 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*April 2021*) <sup id="anchor_03">[[3]](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\apache-ant-1.10.9\    <i>( 39.7 MB)</i>
-C:\opt\apache-maven-3.6.3\   <i>( 10.7 MB)</i>
-C:\opt\bazel-4.0.0\          <i>( 41.0 MB)</i>
-C:\opt\cfr-0.151\            <i>(  1.9 MB)</i>
-C:\opt\Git-2.31.1\           <i>(279.0 MB)</i>
-C:\opt\gradle-7.0\           <i>(121.0 MB)</i>
-C:\opt\jacoco-0.8.6\         <i>( 10.6 MB)</i>
-C:\opt\javafx-sdk-15.0.1\    <i>( 78.2 MB)</i>
-C:\opt\jdk-11.0.10+9\        <i>(181.0 MB)</i>
-C:\opt\make-3.81\            <i>(  2.1 MB)</i>
-C:\opt\Mill-0.9.6\           <i>( 53.7 MB)</i>
-C:\opt\msys64\               <i>( 5.56 GB)</i>
-C:\opt\sbt-1.5.0\            <i>( 48.3 MB)</i>
-C:\opt\scala-2.13.5\         <i>( 23.4 MB, 612 MB with API docs)</i>
-C:\opt\scala-3.0.0-RC3\      <i>( 31.4 MB)</i>
+C:\opt\apache-ant-1.10.10\         <i>( 39.7 MB)</i>
+C:\opt\apache-maven-3.6.3\         <i>( 10.7 MB)</i>
+C:\opt\bazel-4.0.0\                <i>( 41.0 MB)</i>
+C:\opt\cfr-0.151\                  <i>(  1.9 MB)</i>
+C:\opt\Git-2.31.1\                 <i>(279.0 MB)</i>
+C:\opt\gradle-7.0\                 <i>(121.0 MB)</i>
+C:\opt\jacoco-0.8.6\               <i>( 10.6 MB)</i>
+C:\opt\javafx-sdk-15.0.1\          <i>( 78.2 MB)</i>
+C:\opt\jdk-openjdk-1.8.0_292-b10\  <i>(185.0 MB)</i>
+C:\opt\jdk-openjdk-11.0.11_9\      <i>(181.0 MB)</i>
+C:\opt\make-3.81\                  <i>(  2.1 MB)</i>
+C:\opt\Mill-0.9.6\                 <i>( 53.7 MB)</i>
+C:\opt\msys64\                     <i>( 5.56 GB)</i>
+C:\opt\sbt-1.5.0\                  <i>( 48.3 MB)</i>
+C:\opt\scala-2.13.5\               <i>( 23.4 MB, 612 MB with API docs)</i>
+C:\opt\scala-3.0.0-RC3\            <i>( 31.4 MB)</i>
 </pre>
  <!-- jdk8: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
  <!-- jdk11: 11.0.8 = 314 MB, 11.0.9 = 316 MB -->
@@ -306,7 +308,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.5, scalac 3.0.0-RC3,
-   ant 1.10.9, gradle 7.0, mill 0.9.6, mvn 3.6.3, sbt 1.5.0,
+   ant 1.10.10, gradle 7.0, mill 0.9.6, mvn 3.6.3, sbt 1.5.0,
    bazel 4.0.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.4,
    git 2.31.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 
@@ -334,7 +336,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.5, scalac 3.0.0-RC3,
-   ant 1.10.9, gradle 7.0, mill 0.9.6, mvn 3.6.3, sbt 1.5.0,
+   ant 1.10.10, gradle 7.0, mill 0.9.6, mvn 3.6.3, sbt 1.5.0,
    bazel 4.0.0, cfr 0.151, make 3.81, python 3.9.4,
    git 2.31.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
@@ -342,7 +344,7 @@ Tool paths:
    C:\opt\jdk-11.0.10+9\bin\java.exe
    C:\opt\scala-2.13.5\bin\scalac.bat
    C:\opt\scala-3.0.0-RC3\bin\scalac.bat
-   C:\opt\apache-ant-1.10.9\bin\ant.bat
+   C:\opt\apache-ant-1.10.10\bin\ant.bat
    C:\opt\gradle-7.0\bin\gradle.bat
    C:\opt\Mill-0.9.6\mill.bat
    C:\opt\apache-maven-3.6.3\bin\mvn.cmd
@@ -356,7 +358,7 @@ Tool paths:
    C:\opt\Git-2.31.1\usr\bin\diff.exe
    C:\opt\Git-2.31.1\bin\bash.exe
 Environment variables:
-   "ANT_HOME=C:\opt\apache-ant-1.10.9"
+   "ANT_HOME=C:\opt\apache-ant-1.10.10"
    "GIT_HOME=C:\opt\Git-2.31.1"
    "JAVA_HOME=C:\opt\jdk-openjdk-11.0.10_9"
    "JAVAFX_HOME=C:\opt\javafx-sdk-16"
@@ -731,7 +733,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/lihaoyi/mill/releases">0.9.6-assembly</a> (<code>mill</code>)                             <i>( 57 MB)</i>
-<a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.9-bin.zip</a>                         <i>(  9 MB)</i>
+<a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.10-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-4.0.0-windows-x86_64.zip</a>                    <i>( 40 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.0-bin.zip</a>                                <i>(103 MB)</i>
@@ -762,7 +764,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 [apache_ant]: https://ant.apache.org/
 [apache_ant_cli]: https://ant.apache.org/manual/running.html
-[apache_ant_relnotes]: https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.9.html
+[apache_ant_relnotes]: https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.10.html
 [apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
@@ -825,7 +827,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [oracle_openjdk]: https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
 <!-- also: https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/tag/jdk8u252-b09 -->
-[oracle_openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-January/004689.html
+[oracle_openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-April/005860.html
 <!--
 [python_changelog]: https://docs.python.org/3.8/whatsnew/changelog.html#python-3-8-0-final
 [python_release]: https://www.python.org/downloads/release/python-380/

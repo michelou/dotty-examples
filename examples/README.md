@@ -31,7 +31,7 @@ Build tools rely on one or more configuration files to achieve their tasks. In o
 | [**`mill.bat`**][mill_cli]        | [**`build.sc`**](enum-Planet/build.sc)   | [**`common.sc`**](./common.sc)               |  |
 | [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](enum-Planet/pom.xml)     | [**`pom.xml`**](./pom.xml)                   |  |
 | [**`sbt.bat`**][sbt_cli]          | [**`build.sbt`**](enum-Planet/build.sbt) | n.a.                                         |  |
-<div style="margin:-4px 50% 0 0;font-size:80%;"><b><sup>(*)</sup></b> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).<br/>&nbsp;</div>
+<div style="margin:-4px 30% 0 0;font-size:80%;"><b><sup>(*)</sup></b> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).<br/>&nbsp;</div>
 
 ## <span id="ant">Ant build tool</span>
 
@@ -52,7 +52,7 @@ Buildfile: W:\examples\enum-Planet\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 [ivy:resolve] :: Apache Ivy 2.5.0 - 20191020104435 :: https://ant.apache.org/ivy/ ::
-[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.9/lib/ivy-2.5.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
+[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.10/lib/ivy-2.5.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
 
 <span style="font-weight:bold;color:#9966ff;">init:</span>
 
@@ -79,8 +79,8 @@ Total time: 19 seconds
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://curl.haxx.se/docs/manpage.html">curl</a> -sL -o c:\Temp\apache-ivy-2.5.0.zip https://www-eu.apache.org/dist//ant/ivy/2.5.0/apache-ivy-2.5.0-bin.zip</b>
 > <b>&gt; <a href="https://linux.die.net/man/1/unzip">unzip</a> c:\temp\apache-ivy-2.5.0.zip -d c:\opt</b>
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/copy">copy</a> c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.9\lib</b>
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\apache-ant-1.10.9\lib | findstr ivy</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/copy">copy</a> c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.10\lib</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\apache-ant-1.10.10\lib | findstr ivy</b>
 > 20.10.2019  09:44         1 402 646 ivy-2.5.0.jar
 > </pre>
 
@@ -94,7 +94,7 @@ Buildfile: W:\examples\enum-Planet\build.xml
    [delete] Deleting directory W:\examples\enum-Planet\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] SCALA3_HOME=C:\opt\scala-3.0.0-RC2
+     [echo] SCALA3_HOME=C:\opt\scala-3.0.0-RC3
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -171,7 +171,7 @@ Command [**`build -debug clean compile run`**](enum-Planet/build.bat) also displ
 [build] Options    : _EXPLAIN=0 _PRINT=0 _SCALA_VERSION=3 _TASTY=0 _TIMER=0 _VERBOSE=0
 [build] Subcommands: _CLEAN=1 _COMPILE=1 _DECOMPILE=0 _DOC=0 _LINT=0 _RUN=1 _TEST=0
 [build] Variables  : JAVA_HOME="C:\opt\jdk-openjdk-11.0.10_9"
-[build] Variables  : SCALA3_HOME="C:\opt\scala-3.0.0-RC2"
+[build] Variables  : SCALA3_HOME="C:\opt\scala-3.0.0-RC3"
 [build] Variables  : _MAIN_CLASS=Planet _MAINe_ARGS=1
 [build] del /s /q W:\dotty\examples\enum-Planet\target\classes\*.class W:\dotty\examples\enum-Planet\target\classes\*.hasTasty W:\dotty\examples\enum-Planet\target\classes\.latest-build
 [build] 20180322224754 W:\dotty\examples\enum-Planet\src\main\scala\Planet.scala
@@ -219,10 +219,10 @@ No compilation needed ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
 Processing Planet$
 Processing Planet
-Save decompiled Java source files to "target\cfr-sources_scala3_3.0.0-RC2.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_3.0.0-RC3.java"
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b /s target\*.java</b>
-W:\examples\enum-Planet\target\cfr-sources_scala3_3.0.0-RC2.java
+W:\examples\enum-Planet\target\cfr-sources_scala3_3.0.0-RC3.java
 W:\examples\enum-Planet\target\cfr-sources\Planet$.java
 W:\examples\enum-Planet\target\cfr-sources\Planet.java
 </pre>
@@ -233,13 +233,13 @@ If the two Java source files `src\build\cfr-sources_scala<n>_<version>.txt` (*ch
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b src\build</b>
 cfr-sources_scala3_0.24.0-RC2.java
 cfr-sources_scala3_0.27.0-RC2.java
-cfr-sources_scala3_3.0.0-RC2.java
+cfr-sources_scala3_3.0.0-RC3.java
 &nbsp;
 <b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose decompile</b>
 No compilation needed ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
-Save decompiled Java source files to "target\cfr-sources_scala3_3.0.0-RC2.java"
-Compare output file with check file "src\build\cfr-sources_scala3_3.0.0-RC2.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_3.0.0-RC3.java"
+Compare output file with check file "src\build\cfr-sources_scala3_3.0.0-RC3.java"
 </pre>
 
 
@@ -319,7 +319,7 @@ Command **`make test`** executes the test suite [**`PlanetTest.scala`**](enum-Pl
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 scalac.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.5/scala-library-2.13.5.jar;%USERPROFILE%/.m2/repository/org.scala-lang/scala3-library_3.0.0-RC2/3.0.0-RC2/scala3-library_3.0.0-RC2-3.0.0-RC2.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.5/scala-library-2.13.5.jar;%USERPROFILE%/.m2/repository/org.scala-lang/scala3-library_3.0.0-RC3/3.0.0-RC3/scala3-library_3.0.0-RC3-3.0.0-RC3.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
 JUnit version 4.13.2
 ..
 Time: 0.239
@@ -357,16 +357,16 @@ Command **` mvn compile test`** with option **`-debug`** produces additional deb
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> -debug compile test | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-openjdk-11.0.10_9\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala-3.0.0-RC2 \
- -cp C:\opt\scala-3.0.0-RC2\lib\*.jar -Dscala.usejavacp=true  \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala-3.0.0-RC3 \
+ -cp C:\opt\scala-3.0.0-RC3\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\examples\hello-scala\target\classes \
  -d W:\examples\hello-scala\target\classes \
  W:\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-openjdk-11.0.10_9\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala-3.0.0-RC2 [...]
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala-3.0.0-RC3 [...]
 [DEBUG] [execute] C:\opt\jdk-openjdk-11.0.10_9\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\scala-3.0.0-RC2\lib\*.jar;\
+ -Xms64m -Xmx1024m -cp C:\opt\scala-3.0.0-RC3\lib\*.jar;\
 W:\examples\hello-scala\target\classes hello
 </pre>
 
@@ -400,7 +400,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -version 2>&1 | findstr version</b>
 openjdk version "11.0.10" 2021-01-19
 
-<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:"c:\opt\scala-3.0.0-RC2\lib\scala3-library_3.0.0-RC2-3.0.0-RC2.jar;c:\opt\scala-3.0.0-RC2\lib\scala-library-2.13.5.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
+<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:"c:\opt\scala-3.0.0-RC3\lib\scala3-library_3.0.0-RC3-3.0.0-RC3.jar;c:\opt\scala-3.0.0-RC3\lib\scala-library-2.13.5.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
 Your weight on EARTH (2) is 0.9999999999999999
@@ -423,7 +423,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 >         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>3.0.0-RC2<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.version&gt;</b>3.0.0-RC3<b>&lt;/scala.version&gt;</b>
 >         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>

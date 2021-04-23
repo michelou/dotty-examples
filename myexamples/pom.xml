@@ -14,7 +14,7 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId> <!-- old: "ch.epfl.lamp" -->
-        <scala.versionTag>3.0.0-RC2</scala.versionTag>
+        <scala.versionTag>3.0.0-RC3</scala.versionTag>
         <scala.version>${scala.versionTag}</scala.version> <!-- eg. "2.13.3" or "0.26.0" -->
         <scala.local.install>true</scala.local.install>
 
@@ -46,7 +46,7 @@
         <junit.platform.version>1.7.1</junit.platform.version>  <!-- Sep 2019 -->
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
         <jupiter.version>5.7.1</jupiter.version>                <!-- Jan 2020 -->
-        <!-- -->
+        <!-- https://mvnrepository.com/artifact/org.codehaus.plexus/plexus-utils -->
         <plexus-utils.version>3.3.0</plexus-utils.version>
 
         <!-- Maven plugin dependencies -->
