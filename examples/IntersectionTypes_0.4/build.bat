@@ -176,6 +176,8 @@ for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set _PROJECT_URL=github.com/%USERNAME%/dotty-examples
 set _PROJECT_VERSION=1.0-SNAPSHOT
 
+set _SCALA_VERSION_DEFAULT=3
+
 set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
 if exist "%__PROPS_FILE%" (
     for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
@@ -194,6 +196,7 @@ if exist "%__PROPS_FILE%" (
     if defined _project_name set _PROJECT_NAME=!_project_name!
     if defined _project_url set _PROJECT_URL=!_project_url!
     if defined _project_version set _PROJECT_VERSION=!_project_version!
+    if defined _scala_version set _SCALA_VERSION=!_scala_version!
 )
 goto :eof
 
@@ -208,7 +211,7 @@ set _LINT=0
 set _MAIN_CLASS=%_MAIN_CLASS_DEFAULT%
 set _MAIN_ARGS=%_MAIN_ARGS_DEFAULT%
 set _RUN=0
-set _SCALA_VERSION=3
+set _SCALA_VERSION=%_SCALA_VERSION_DEFAULT%
 set _SCALAC_OPTS=-deprecation -feature
 set _SCALAC_OPTS_EXPLAIN=0
 set _SCALAC_OPTS_EXPLAIN_TYPES=0
@@ -227,12 +230,12 @@ if not defined __ARG (
 if "%__ARG:~0,1%"=="-" (
     @rem option
     if "%__ARG%"=="-debug" ( set _DEBUG=1
-    ) else if "%__ARG%"=="-dotty" ( set _SCALA_VERSION=3
     ) else if "%__ARG%"=="-explain" ( set _SCALAC_OPTS_EXPLAIN=1
     ) else if "%__ARG%"=="-explain-types" ( set _SCALAC_OPTS_EXPLAIN_TYPES=1
     ) else if "%__ARG%"=="-help" ( set _HELP=1
     ) else if "%__ARG%"=="-print" ( set _SCALAC_OPTS_PRINT=1
-    ) else if "%__ARG%"=="-scala" ( set _SCALA_VERSION=2
+    ) else if "%__ARG%"=="-scala2" ( set _SCALA_VERSION=2
+    ) else if "%__ARG%"=="-scala3" ( set _SCALA_VERSION=3
     ) else if "%__ARG%"=="-tasty" ( set _TASTY=1
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
@@ -249,7 +252,7 @@ if "%__ARG:~0,1%"=="-" (
     if "%__ARG%"=="clean" ( set _CLEAN=1
     ) else if "%__ARG%"=="compile" ( set _COMPILE=1
     ) else if "%__ARG%"=="decompile" ( set _COMPILE=1& set _DECOMPILE=1
-    ) else if "%__ARG%"=="doc" ( set _DOC=1
+    ) else if "%__ARG%"=="doc" ( set _COMPILE=1& set _DOC=1
     ) else if "%__ARG%"=="help" ( set _HELP=1
     ) else if "%__ARG%"=="lint" ( set _LINT=1
     ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
@@ -302,8 +305,9 @@ if %_TASTY%==1 if not %_SCALA_VERSION%==3 (
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
-    if %_SCALA_VERSION%==2 ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% SCALA_HOME=%SCALA_HOME% 1>&2
-    ) else ( echo %_DEBUG_LABEL% Variables  : JAVA_HOME=%JAVA_HOME% SCALA3_HOME=%SCALA3_HOME% 1>&2
+    echo %_DEBUG_LABEL% Variables  : "JAVA_HOME=%JAVA_HOME%" 1>&2
+    if %_SCALA_VERSION%==2 ( echo %_DEBUG_LABEL% Variables  : "SCALA_HOME=%SCALA_HOME%" 1>&2
+    ) else ( echo %_DEBUG_LABEL% Variables  : "SCALA3_HOME=%SCALA3_HOME%" 1>&2
     )
     echo %_DEBUG_LABEL% Variables  : _MAIN_CLASS=%_MAIN_CLASS% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
 )
@@ -312,7 +316,7 @@ goto :eof
 
 :help
 if %_VERBOSE%==1 (
-    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __BEG_P=%_STRONG_FG_CYAN%
     set __BEG_O=%_STRONG_FG_GREEN%
     set __BEG_N=%_NORMAL_FG_YELLOW%
     set __END=%_RESET%
@@ -326,17 +330,17 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%           show commands executed by this script
-echo     %__BEG_O%-dotty%__END%           use Scala 3 tools ^(default^)
 echo     %__BEG_O%-explain%__END%         set compiler option %__BEG_O%-explain%__END%
 echo     %__BEG_O%-explain-types%__END%   set compiler option %__BEG_O%-explain-types%__END%
 echo     %__BEG_O%-main:^<name^>%__END%     define main class name
-echo     %__BEG_O%-scala%__END%           use Scala 2 tools
+echo     %__BEG_O%-scala2%__END%          use Scala 2 tools
+echo     %__BEG_O%-scala3%__END%          use Scala 3 tools ^(default^)
 echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
 echo     %__BEG_O%-timer%__END%           display total elapsed time
 echo     %__BEG_O%-verbose%__END%         display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
-echo     %__BEG_O%clean%__END%            delete generated class files
+echo     %__BEG_O%clean%__END%            delete generated files
 echo     %__BEG_O%compile%__END%          compile Java/Scala source files
 echo     %__BEG_O%decompile%__END%        decompile generated code with %__BEG_N%CFR%__END%
 echo     %__BEG_O%doc%__END%              generate HTML documentation
@@ -409,13 +413,13 @@ if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 
 set "__TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build"
 
-call :compile_required "%__TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\java\*.java"
-if %_COMPILE_REQUIRED%==1 (
+call :action_required "%__TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\java\*.java"
+if %_ACTION_REQUIRED%==1 (
     call :compile_java
     if not !_EXITCODE!==0 goto :eof
 )
-call :compile_required "%__TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\scala\*.scala"
-if %_COMPILE_REQUIRED%==1 (
+call :action_required "%__TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\scala\*.scala"
+if %_ACTION_REQUIRED%==1 (
     call :compile_scala
     if not !_EXITCODE!==0 goto :eof
 )
@@ -427,8 +431,8 @@ if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
 
 set "__TASTY_TIMESTAMP_FILE=%_TASTY_CLASSES_DIR%\.latest-build"
 
-call :compile_required "%__TASTY_TIMESTAMP_FILE%" "%_CLASSES_DIR%\*.tasty"
-if %_COMPILE_REQUIRED%==1 (
+call :action_required "%__TASTY_TIMESTAMP_FILE%" "%_CLASSES_DIR%\*.tasty"
+if %_ACTION_REQUIRED%==1 (
     call :compile_tasty
     if not !_EXITCODE!==0 goto :eof
 )
@@ -519,28 +523,38 @@ if not !ERRORLEVEL!==0 (
 )
 goto :eof
 
-@rem input parameter: 1=target file 2=path (wildcards accepted)
-@rem output parameter: _COMPILE_REQUIRED
-:compile_required
+@rem input parameter: 1=target file 2,3,..=path (wildcards accepted)
+@rem output parameter: _ACTION_REQUIRED
+:action_required
 set "__TARGET_FILE=%~1"
-set __PATH=%~2
 
+set __PATH_ARRAY=
+set __PATH_ARRAY1=
+:compile_path
+shift
+set "__PATH=%~1"
+if not defined __PATH goto :compile_next
+set __PATH_ARRAY=%__PATH_ARRAY%,'%__PATH%'
+set __PATH_ARRAY1=%__PATH_ARRAY1%,'!__PATH:%_ROOT_DIR%=!'
+goto :compile_path
+
+:compile_next
 set __TARGET_TIMESTAMP=00000000000000
 for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
      set __TARGET_TIMESTAMP=%%i
 )
 set __SOURCE_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -recurse -path '%__PATH%' -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`powershell -c "gci -recurse -path %__PATH_ARRAY:~1% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
     set __SOURCE_TIMESTAMP=%%i
 )
 call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
-set _COMPILE_REQUIRED=%_NEWER%
+set _ACTION_REQUIRED=%_NEWER%
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% Target : "%__TARGET_FILE%" 1>&2
-    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: "%__PATH%" 1>&2
-    echo %_DEBUG_LABEL% _COMPILE_REQUIRED=%_COMPILE_REQUIRED% 1>&2
-) else if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
-    echo No compilation needed ^("!__PATH:%_ROOT_DIR%=!"^) 1>&2
+    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% Target : '%__TARGET_FILE%' 1>&2
+    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: %__PATH_ARRAY:~1% 1>&2
+    echo %_DEBUG_LABEL% _ACTION_REQUIRED=%_ACTION_REQUIRED% 1>&2
+) else if %_VERBOSE%==1 if %_ACTION_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
+    echo No action required ^(%__PATH_ARRAY1:~1%^) 1>&2
 )
 goto :eof
 
@@ -672,7 +686,7 @@ set __DIFF_OPTS=--strip-trailing-cr
 
 set "__CHECK_FILE=%_SOURCE_DIR%\build\cfr-sources%_VERSION_SUFFIX%.java"
 if exist "%__CHECK_FILE%" (
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_DIFF_CMD%" %_DIFF_OPTS% "%__OUTPUT_FILE%" "%__CHECK_FILE%" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_DIFF_CMD%" %__DIFF_OPTS% "%__OUTPUT_FILE%" "%__CHECK_FILE%" 1>&2
     ) else if %_VERBOSE%==1 ( echo Compare output file with check file "!__CHECK_FILE:%_ROOT_DIR%=!" 1>&2
     )
     call "%_DIFF_CMD%" %__DIFF_OPTS% "%__OUTPUT_FILE%" "%__CHECK_FILE%"
@@ -689,22 +703,19 @@ if not exist "%_TARGET_DOCS_DIR%" mkdir "%_TARGET_DOCS_DIR%" 1>NUL
 
 set "__DOC_TIMESTAMP_FILE=%_TARGET_DOCS_DIR%\.latest-build"
 
-call :compile_required "%__DOC_TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\scala\*.scala"
-if %_COMPILE_REQUIRED%==0 goto :eof
+call :action_required "%__DOC_TIMESTAMP_FILE%" "%_CLASSES_DIR%\*.tasty"
+if %_ACTION_REQUIRED%==0 goto :eof
 
 set "__SOURCES_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
-@rem for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
-@rem     echo %%i>> "%__SOURCES_FILE%"
-@rem )
-for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
+for /f %%i in ('dir /s /b "%_CLASSES_DIR%\*.tasty" 2^>NUL') do (
     echo %%i>> "%__SOURCES_FILE%"
 )
 set "__OPTS_FILE=%_TARGET_DIR%\scaladoc_opts.txt"
 if %_SCALA_VERSION%==2 (
     echo -d "%_TARGET_DOCS_DIR%" -doc-title "%_PROJECT_NAME%" -doc-footer "%_PROJECT_URL%" -doc-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
 ) else (
-    echo -siteroot "%_TARGET_DOCS_DIR%" -project "%_PROJECT_NAME%" -project-url "%_PROJECT_URL%" -project-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
+    echo -d "%_TARGET_DOCS_DIR%" -siteroot "%_TARGET_DOCS_DIR%" -project "%_PROJECT_NAME%" -project-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate HTML documentation into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
@@ -773,8 +784,8 @@ if not exist "%_TEST_CLASSES_DIR%" mkdir "%_TEST_CLASSES_DIR%" 1>NUL
 
 set "__TEST_TIMESTAMP_FILE=%_TEST_CLASSES_DIR%\.latest-build"
 
-call :compile_required "%__TEST_TIMESTAMP_FILE%" "%_SOURCE_DIR%\test\scala\*.scala"
-if %_COMPILE_REQUIRED%==0 goto :eof
+call :action_required "%__TEST_TIMESTAMP_FILE%" "%_SOURCE_DIR%\test\scala\*.scala"
+if %_ACTION_REQUIRED%==0 goto :eof
 
 set "__SOURCES_FILE=%_TARGET_DIR%\test_scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
@@ -787,7 +798,8 @@ call :libs_cpath includeScalaLibs
 if not %_EXITCODE%==0 goto :eof
 
 set "__OPTS_FILE=%_TARGET_DIR%\test_scalac_opts.txt"
-echo %_SCALAC_OPTS% -classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d "%_TEST_CLASSES_DIR%" > "%__OPTS_FILE%"
+set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
+echo %_SCALAC_OPTS% -classpath "%__CPATH:\=\\%" -d "%_TEST_CLASSES_DIR%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% Scala test source files to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2

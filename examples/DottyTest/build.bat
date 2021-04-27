@@ -341,12 +341,12 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%           show commands executed by this script
-echo     %__BEG_O%-dotty%__END%           use Scala 3 tools ^(default^)
 echo     %__BEG_O%-explain%__END%         set compiler option %__BEG_O%-explain%__END%
 echo     %__BEG_O%-explain-types%__END%   set compiler option %__BEG_O%-explain-types%__END%
 echo     %__BEG_O%-main:^<name^>%__END%     define main class name ^(default: %__BEG_O%%_MAIN_CLASS_DEFAULT%%__END%^)
 echo     %__BEG_O%-print%__END%           print IR after compilation phase 'lambdaLift'
-echo     %__BEG_O%-scala%__END%           use Scala 2 tools
+echo     %__BEG_O%-scala2%__END%          use Scala 2 tools
+echo     %__BEG_O%-scala3%__END%          use Scala 3 tools ^(default^)
 echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
 echo     %__BEG_O%-timer%__END%           display total elapsed time
 echo     %__BEG_O%-verbose%__END%         display progress messages
@@ -425,13 +425,13 @@ if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 
 set "__TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build"
 
-call :compile_required "%__TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\java\*.java"
-if %_COMPILE_REQUIRED%==1 (
+call :action_required "%__TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\java\*.java"
+if %_ACTION_REQUIRED%==1 (
     call :compile_java
     if not !_EXITCODE!==0 goto :eof
 )
-call :compile_required "%__TIMESTAMP_FILE%" "%_MAIN_SOURCE_DIR%\*.scala"
-if %_COMPILE_REQUIRED%==1 (
+call :action_required "%__TIMESTAMP_FILE%" "%_MAIN_SOURCE_DIR%\*.scala"
+if %_ACTION_REQUIRED%==1 (
     call :compile_scala
     if not !_EXITCODE!==0 goto :eof
 )
@@ -443,8 +443,8 @@ if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
 
 set "__TASTY_TIMESTAMP_FILE=%_TASTY_CLASSES_DIR%\.latest-build"
 
-call :compile_required "%__TASTY_TIMESTAMP_FILE%" "%_CLASSES_DIR%\*.tasty"
-if %_COMPILE_REQUIRED%==1 (
+call :action_required "%__TASTY_TIMESTAMP_FILE%" "%_CLASSES_DIR%\*.tasty"
+if %_ACTION_REQUIRED%==1 (
     call :compile_tasty
     if not !_EXITCODE!==0 goto :eof
 )
@@ -536,8 +536,8 @@ if not !ERRORLEVEL!==0 (
 goto :eof
 
 @rem input parameter: 1=target file 2=path (wildcards accepted)
-@rem output parameter: _COMPILE_REQUIRED
-:compile_required
+@rem output parameter: _ACTION_REQUIRED
+:action_required
 set "__TARGET_FILE=%~1"
 set "__PATH=%~2"
 
@@ -550,13 +550,13 @@ for /f "usebackq" %%i in (`powershell -c "gci -recurse -path '%__PATH%' -ea Stop
     set __SOURCE_TIMESTAMP=%%i
 )
 call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
-set _COMPILE_REQUIRED=%_NEWER%
+set _ACTION_REQUIRED=%_NEWER%
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% Target : "%__TARGET_FILE%" 1>&2
     echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: "%__PATH%" 1>&2
-    echo %_DEBUG_LABEL% _COMPILE_REQUIRED=%_COMPILE_REQUIRED% 1>&2
-) else if %_VERBOSE%==1 if %_COMPILE_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
-    echo No compilation needed ^("!__PATH:%_ROOT_DIR%=!"^) 1>&2
+    echo %_DEBUG_LABEL% _ACTION_REQUIRED=%_ACTION_REQUIRED% 1>&2
+) else if %_VERBOSE%==1 if %_ACTION_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
+    echo No action required ^("!__PATH:%_ROOT_DIR%=!"^) 1>&2
 )
 goto :eof
 
@@ -695,8 +695,8 @@ if not exist "%_TARGET_DOCS_DIR%" mkdir "%_TARGET_DOCS_DIR%" 1>NUL
 
 set "__DOC_TIMESTAMP_FILE=%_TARGET_DOCS_DIR%\.latest-build"
 
-call :compile_required "%__DOC_TIMESTAMP_FILE%" "%_MAIN_SOURCE_DIR%\*.scala"
-if %_COMPILE_REQUIRED%==0 goto :eof
+call :action_required "%__DOC_TIMESTAMP_FILE%" "%_MAIN_SOURCE_DIR%\*.scala"
+if %_ACTION_REQUIRED%==0 goto :eof
 
 set "__SOURCES_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
@@ -779,8 +779,8 @@ if not exist "%_TEST_CLASSES_DIR%" mkdir "%_TEST_CLASSES_DIR%" 1>NUL
 
 set "__TEST_TIMESTAMP_FILE=%_TEST_CLASSES_DIR%\.latest-build"
 
-call :compile_required "%__TEST_TIMESTAMP_FILE%" "%_SOURCE_DIR%\test\scala\*.scala"
-if %_COMPILE_REQUIRED%==0 goto :eof
+call :action_required "%__TEST_TIMESTAMP_FILE%" "%_SOURCE_DIR%\test\scala\*.scala"
+if %_ACTION_REQUIRED%==0 goto :eof
 
 set "__SOURCES_FILE=%_TARGET_DIR%\test_scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL

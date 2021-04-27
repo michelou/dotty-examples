@@ -148,12 +148,12 @@ compile() {
     local timestamp_file="$TARGET_DIR/.latest-build"
 
     local is_required=0
-    is_required="$(compile_required "$timestamp_file" "$SOURCE_DIR/main/java/" "*.java")"
+    is_required="$(action_required "$timestamp_file" "$SOURCE_DIR/main/java/" "*.java")"
     if [[ $is_required -eq 1 ]]; then
         compile_java
         [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
     fi
-    is_required="$(compile_required "$timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
+    is_required="$(action_required "$timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
     if [[ $is_required -eq 1 ]]; then
         compile_scala
         [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
@@ -161,7 +161,7 @@ compile() {
     touch "$timestamp_file"
 }
 
-compile_required() {
+action_required() {
     local timestamp_file=$1
     local search_path=$2
     local search_pattern=$3
@@ -364,7 +364,7 @@ doc() {
 
     local doc_timestamp_file="$TARGET_DOCS_DIR/.latest-build"
 
-    local is_required="$(compile_required "$doc_timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
+    local is_required="$(action_required "$doc_timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
     [[ $is_required -eq 0 ]] && return 1
 
     local sources_file="$TARGET_DIR/scaladoc_sources.txt"

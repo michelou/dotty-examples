@@ -50,6 +50,12 @@ val ivySpecs2Core = ivy"org.specs2:specs2-core_$scalaLibVersion:$specs2Version"
 // https://mvnrepository.com/artifact/org.specs2/specs2-junit
 val ivySpecs2JUnit = ivy"org.specs2:specs2-junit_$scalaLibVersion:$specs2Version"
 
+// https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
+val ivyScalaXml = ivy"org.scala-lang.modules:scala-xml_$scalaLibVersion:2.0.0-RC1"
+
+// https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parser-combinators
+val ivyScalaParser = ivy"org.scala-lang.modules:scala-parser-combinators_3.0.0-RC3:1.2.0-RC2"
+
 //////////////////////////////////////////////////////////////////////////////
 // Helper functions
 

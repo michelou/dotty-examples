@@ -48,7 +48,7 @@ help:
 	@echo "    doc    generate HTML documentation"
 	@echo "    help   display this help message"
 	@echo "    lint   analyze Scala source files with Scalafmt"
-	@echo "    run    execute main program"
+	@echo "    run    execute main program $(MAIN_CLASS)"
 	@echo "    test   execute unit tests with JUnit"
 
 ##############################################################################

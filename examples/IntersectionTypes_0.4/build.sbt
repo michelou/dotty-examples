@@ -5,7 +5,7 @@ lazy val root = project
   .settings(
     name := "Intersection Types",
     description := "Example sbt project that compiles using Dotty",
-    version := "0.1.0",
+    version := "1.0.0",
 
     scalaVersion := dottyVersion,
     scalacOptions ++= Seq(

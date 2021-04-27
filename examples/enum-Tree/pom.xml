@@ -65,12 +65,13 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
+                            <additionalClasspathElements>
+                                <additionalClasspathElement>${m2.junit.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.scalatest.jar}</additionalClasspathElement>
+                            </additionalClasspathElements>
                             <includes>
                                 <include>scala/**/*.scala</include>
                             </includes>
-                            <additionalClasspathElements>
-                                <additionalClasspathElement>${m2.junit.jar}</additionalClasspathElement>
-                            </additionalClasspathElements>
                         </configuration>
                     </execution>
                     <execution>
@@ -117,7 +118,6 @@
                 <version>${exec.maven.version}</version>
                 <executions>
                     <execution>
-                        <id>junit</id>
                         <phase>exec</phase>
                         <goals>
                             <goal>java</goal>
@@ -125,9 +125,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>org.junit.runner.JUnitCore</mainClass>
+                    <mainClass>${mainClass}</mainClass>
                     <arguments>
-                        <argument>EnumTreeJUnitTest</argument>
+                        <argument></argument>
                     </arguments>
                 </configuration>
             </plugin>
