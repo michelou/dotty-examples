@@ -22,7 +22,7 @@
     <target name="run" depends="compile">
         <java classname="${main.class}">
             <classpath>
-                <path refid="dotty.classpath" />
+                <path refid="scala3.classpath" />
                 <path refid="build.classpath" />
             </classpath>
         </java>
@@ -38,7 +38,7 @@
     <target name="test" depends="compile, test-compile">
         <junit printsummary="withOutAndErr" haltonfailure="yes">
             <classpath>
-                <path refid="dotty.classpath" />
+                <path refid="scala3.classpath" />
                 <path refid="test.classpath" />
             </classpath>
             <formatter type="plain"/>

@@ -20,18 +20,20 @@ W:\myexamples\HelloWorld
 
 Build tools rely on one or more configuration files to achieve their tasks. In our case we created the following configuration files for [**`HelloWorld`**](HelloWorld):
 
-| Build tool                    | Configuration file(s)                                   | Parent file(s)                       | Comment(s) |
+| Build tool                    | Configuration file(s)                                   | Parent file(s)                       | Environment(s) |
 |-------------------------------|---------------------------------------------------------|--------------------------------------|---------|
-| [**`ant.bat`**][apache_ant_cli]   | [**`build.xml`**](HelloWorld/build.xml)                 | [**`build.xml`**](build.xml), [**`ivy.xml`**](ivy.xml) |  |
-| [**`bazel.exe`**][bazel_cli]      | [**`BUILD`**](HelloWorld/BUILD), **`WORKSPACE`**        | n.a.                                 |  |
-| [**`build.bat`**](HelloWorld/build.bat) | [**`build.properties`**](HelloWorld/project/build.properties) |  [**`cpath.bat`**](./cpath.bat) <sup>(*)</sup>        |  |
-| [**`build.sh`**](HelloWorld/build.sh) | [**`build.properties`**](HelloWorld/project/build.properties) |         | [Cygwin], [MSYS2], etc. |
-| [**`gradle.bat`**][gradle_cli]    | [**`build.gradle`**](HelloWorld/build.gradle)           | [**`common.gradle`**](common.gradle) |  |
-| [**`make.exe`**][gmake_cli]       | [**`Makefile`**](HelloWorld/Makefile)                   | [**`Makefile.inc`**](Makefile.inc)   |  |
-| [**`mill.bat`**][mill_cli]        | [**`build.sc`**](HelloWorld/build.sc)                   | [**`common.sc`**](common.sc)         |  |
-| [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](HelloWorld/pom.xml)                     | [**`pom.xml`**](pom.xml)             |  |
-| [**`sbt.bat`**][sbt_cli]          | [**`build.sbt`**](HelloWorld/build.sbt)                 | n.a.                                 |  |
-<div style="margin:-4px 50% 0 0;font-size:80%;"><b><sup>(*)</sup></b> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).<br/>&nbsp;</div>
+| [**`ant.bat`**][apache_ant_cli]   | [**`build.xml`**](HelloWorld/build.xml)                 | [**`build.xml`**](build.xml), [**`ivy.xml`**](ivy.xml) | Multiplatform <sup><b>a)</b></sup> |
+| [**`bazel.exe`**][bazel_cli]      | [**`BUILD`**](HelloWorld/BUILD), **`WORKSPACE`**        | n.a.                                 | Multiplatform |
+| [**`build.bat`**](HelloWorld/build.bat) | [**`build.properties`**](HelloWorld/project/build.properties) |  [**`cpath.bat`**](./cpath.bat) <sup><b>b)</b></sup>        | Windows only |
+| [**`build.sh`**](HelloWorld/build.sh) | [**`build.properties`**](HelloWorld/project/build.properties) |         | [Cygwin]/[MSYS2]/Unix only |
+| [**`gradle.bat`**][gradle_cli]    | [**`build.gradle`**](HelloWorld/build.gradle)           | [**`common.gradle`**](common.gradle) | Multiplatform |
+| [**`make.exe`**][gmake_cli]       | [**`Makefile`**](HelloWorld/Makefile)                   | [**`Makefile.inc`**](Makefile.inc)   | Multiplatform |
+| [**`mill.bat`**][mill_cli]        | [**`build.sc`**](HelloWorld/build.sc)                   | [**`common.sc`**](common.sc)         | Multiplatform |
+| [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](HelloWorld/pom.xml)                     | [**`pom.xml`**](pom.xml)             | Multiplatform |
+| [**`sbt.bat`**][sbt_cli]          | [**`build.sbt`**](HelloWorld/build.sbt)                 | n.a.                                 | Multiplatform |
+<div style="margin:0 30% 0 8px;font-size:90%;">
+<b><sup>a)</sup></b> Multiplatform = Windows / Cygwin / M2SYS / Unix.<br/>
+<b><sup>b)</sup></b> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).<br/>&nbsp;</div>
 
 
 ## <span id="ant">Ant build tool</span>
@@ -88,7 +90,7 @@ Buildfile: W:\myexamples\HelloWorld\build.xml
    [delete] Deleting directory W:\myexamples\HelloWorld\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] SCALA3_HOME=C:\opt\scala-3.0.0-M4
+     [echo] SCALA3_HOME=C:\opt\scala-3.0.0-RC3
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -306,7 +308,7 @@ Command **`make test`** executes the test suite [**`HelloWorldTest.scala`**](Hel
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 scalac.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.4/scala-library-2.13.4.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_3.0.0-M4/3.0.0-M4/scala3-library_3.0.0-M4-3.0.0-M4.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13/junit-4.13.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.3/scalatest_2.13-3.2.3.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.3/scalactic_2.13-3.2.3.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.10.6/specs2-core_2.13-4.10.6.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.10.6/specs2-junit_2.13-4.10.6.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.10.6/specs2-matcher_2.13-4.10.6.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.4/scala-library-2.13.4.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_3.0.0-RC3/3.0.0-RC3/scala3-library_3.0.0-RC3-3.0.0-RC3.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13/junit-4.13.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.3/scalatest_2.13-3.2.3.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.3/scalactic_2.13-3.2.3.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.10.6/specs2-core_2.13-4.10.6.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.10.6/specs2-junit_2.13-4.10.6.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.10.6/specs2-matcher_2.13-4.10.6.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
 JUnit version 4.13
 .
 Time: 0.201
@@ -342,16 +344,16 @@ Command **`mvn clean test`** with option **`-debug`** produces additional debug 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/run.html">mvn</a> -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-11.0.10+9\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala-3.0.0-M4 \
- -cp C:\opt\scala-3.0.0-M4\lib\*.jar -Dscala.usejavacp=true  \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala-3.0.0-RC3 \
+ -cp C:\opt\scala-3.0.0-RC3\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-11.0.10+9\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala-3.0.0-M4 [...]
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala-3.0.0-RC3 [...]
 [DEBUG] [execute] C:\opt\jdk-11.0.10+9\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\scala-3.0.0-M4\lib\*.jar;\
+ -Xms64m -Xmx1024m -cp C:\opt\scala-3.0.0-RC3\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -394,7 +396,7 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 >         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>3.0.0-M4<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.version&gt;</b>3.0.0-RC3<b>&lt;/scala.version&gt;</b>
 >         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
@@ -428,18 +430,18 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 >             _remote.repositories
 > </pre>
 
-Finally can check the Java manifest in **`HelloWorld-0.1-SNAPSHOT.jar`**:
+Finally can check the Java manifest in **`HelloWorld-1.0-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala-3.0.0-M4\lib\dotty-library_3.0.0-M4-3.0.0-M4.jar;^
-c:\opt\scala-3.0.0-M4\lib\scala-library-2.13.4.jar ^
+<b>&gt;</b> <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala-3.0.0-RC3\lib\dotty-library_3.0.0-RC3-3.0.0-RC3.jar;^
+c:\opt\scala-3.0.0-RC3\lib\scala-library-2.13.5.jar ^
 -jar target\HelloWorld-0.1-SNAPSHOT.jar
 Hello world!
 </pre>
 
 > **:mag_right:** We can use batch script [**`searchjars`**](../bin/searchjars.bat) in case some class is missing in the specified classpath, e.g.
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala-3.0.0-M4\lib\dotty-library_3.0.0-M4-3.0.0-M4.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
+> <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala-3.0.0-RC3\lib\dotty-library_3.0.0-RC3-3.0.0-RC3.jar -jar target\enum-Color-0.1-SNAPSHOT.jar</b>
 > Exception in thread "main" java.lang.NoClassDefFoundError: scala/Serializable
 >         [...]
 >         at Main.main(Main.scala)
@@ -448,7 +450,7 @@ Hello world!
 >         ... 13 more
 > 
 > <b>&gt; searchjars Serializable</b>
-> Searching for class name Serializable in library files C:\opt\dotty-3.0.0-M4\lib\*.jar
+> Searching for class name Serializable in library files C:\opt\dotty-3.0.0-RC3\lib\*.jar
 >   jackson-core-2.9.8.jar:com/fasterxml/jackson/core/SerializableString.class
 >   [...]
 >   scala-library-2.13.4.jar:scala/collection/generic/DefaultSerializable.class
@@ -457,7 +459,7 @@ Hello world!
 > Searching for class name Serializable in library files C:\opt\jdk-11.0.8+10\lib\*.jar
 > Searching for class name Serializable in archive files C:\opt\javafx-sdk-14.0.2.1\lib\*.jar
 > </pre>
-> Class **`scala.Serializable`** is part of **`C:\opt\scala-3.0.0-M4\lib\scala-library-2.13.4.jar`**, so let us add it to our classpath !
+> Class **`scala.Serializable`** is part of **`C:\opt\scala-3.0.0-RC3\lib\scala-library-2.13.4.jar`**, so let us add it to our classpath !
 
 
 ## <span id="mill">Mill build tool</span>
@@ -608,7 +610,7 @@ following parameters are passed as login shell command parameters.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="dotty-common" default="init" xmlns:ivy="antlib:org.apache.ivy.ant">
 
-    <!-- set dotty.home -->
+    <!-- set scala3.home -->
     <property environment="env" />
 
     <condition property="user.home"
@@ -12,10 +12,10 @@
     <property name="ivy.cache" value="${user.home}/.ivy2/cache" />
 
     <target name="init.local" if="use.local">
-        <property name="dotty.home" value="${env.SCALA3_HOME}" />
+        <property name="scala3.home" value="${env.SCALA3_HOME}" />
         <condition property="dotc.executable"
-            value="${dotty.home}/bin/scalac.bat"
-            else="${dotty.home}/bin/scalac">
+            value="${scala3.home}/bin/scalac.bat"
+            else="${scala3.home}/bin/scalac">
             <os family="windows" />
         </condition>
         <fail message="Scala 3 compiler not found">
@@ -23,16 +23,16 @@
                 <available file="${dotc.executable}" />
             </not></condition>
         </fail>
-        <echo message="SCALA3_HOME=${dotty.home}" />
+        <echo message="SCALA3_HOME=${scala3.home}" />
         <path id="dotc.classpath">
-            <fileset dir="${dotty.home}/lib" includes="jline-*.jar" />
-            <fileset dir="${dotty.home}/lib" includes="scala-*.jar" />
-            <fileset dir="${dotty.home}/lib" includes="scala3-*.jar" />
-            <fileset dir="${dotty.home}/lib" includes="tasty-*.jar" />
+            <fileset dir="${scala3.home}/lib" includes="jline-*.jar" />
+            <fileset dir="${scala3.home}/lib" includes="scala-*.jar" />
+            <fileset dir="${scala3.home}/lib" includes="scala3-*.jar" />
+            <fileset dir="${scala3.home}/lib" includes="tasty-*.jar" />
         </path>
-        <path id="dotty.classpath">
-            <fileset dir="${dotty.home}/lib" includes="scala-library*.jar" />
-            <fileset dir="${dotty.home}/lib" includes="scala3-library*.jar" />
+        <path id="scala3.classpath">
+            <fileset dir="${scala3.home}/lib" includes="scala-library*.jar" />
+            <fileset dir="${scala3.home}/lib" includes="scala3-library*.jar" />
         </path>
     </target>
 
@@ -48,7 +48,7 @@
             revision="14.0" transitive="true" overwrite="false"
             from="public" to="local" />
         -->
-        <path id="dotty.classpath">
+        <path id="scala3.classpath">
             <!--
             <fileset dir="${ivy.cache}/ch.epfl.lamp" includes="**/jars/dotty-library*.jar">
                 <filename regex="_0\.(1[8-9]|2[0-9])-0\.(1[8-9]|2[0-9])\.[0-9]+" />  // e.g. _0.25-0.25.x
@@ -61,8 +61,8 @@
                 <filename regex="-2\.[1-2][3-9]\.[0-9]+" />  <!-- e.g. -2.13.x -->
             </fileset>
         </path>
-        <pathconvert property="dotty.classpath.prop" refid="dotty.classpath"/>
-        <echo message="dotty.classpath=${dotty.classpath.prop}" level="verbose" />
+        <pathconvert property="scala3.classpath.prop" refid="scala3.classpath"/>
+        <echo message="scala3.classpath=${scala3.classpath.prop}" level="verbose" />
     </target>
 
     <target name="init" depends="init.local, init.ivy">

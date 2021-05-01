@@ -6,7 +6,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-ext {
+project.ext {
     mainSourceTree = fileTree(dir: "/src/main/scala", include: "**/*.scala")
     testSourceTree = fileTree(dir: "/src/test/scala", include: "**/*.scala")
 
@@ -31,7 +31,8 @@ ext {
     } else {
         scalaClasspath = files(sourceSets.main.runtimeClasspath, classesDir)
     }
-    userHome = System.getenv("USERPROFILE", System.getenv("HOME"))
+    userProfile = System.getenv("USERPROFILE")
+    userHome = userProfile != null ? userProfile.replaceAll("\\\\", "/") : System.getenv("HOME")
     testLibsTree = fileTree(dir: "${userHome}/.m2/repository", include: "**/junit-4.13.2.jar")
     testClasspath = files(testLibsTree, scalaClasspath, testClassesDir)
 }

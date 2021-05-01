@@ -11,13 +11,13 @@ SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 ##############################################################################
 ## main rules
 
-JAVA_SOURCES = $(shell find $(SOURCE_DIR)/main -name *.java)
+JAVA_SOURCES = $(shell $(FIND) $(SOURCE_DIR)/main -name *.java)
 JAVA_TARGET  = $(TARGET_DIR)/.latest-java-build
 
 JAVA_OPTS_FILE    = $(TARGET_DIR)/javac_opts.txt
 JAVA_SOURCES_FILE = $(TARGET_DIR)/javac_sources.txt
 
-SOURCES = $(shell find $(SOURCE_DIR)/main -name *.scala)
+SOURCES = $(shell $(FIND) $(SOURCE_DIR)/main -name *.scala)
 TARGET  = $(TARGET_DIR)/.latest-build
 
 OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
@@ -60,7 +60,7 @@ help:
 	@echo "    doc    generate HTML documentation"
 	@echo "    help   display this help message"
 	@echo "    lint   analyze Scala source files with Scalafmt"
-    @echo "    run    execute main program"
+	@echo "    run    execute main program $(MAIN_CLASS)"
 	@echo "    test   execute unit tests with JUnit"
 
 ##############################################################################

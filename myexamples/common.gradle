@@ -6,9 +6,10 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-ext {
+project.ext {
     mainSourceTree = fileTree(dir: "/src/main/scala", include: "**/*.scala")
-    projectJars = fileTree(dir: "/lib", include: "**/*.jar")
+    testSourceTree = fileTree(dir: "/src/test/scala", include: "**/*.scala")
+
     classesDir = file("${buildDir}/classes")
     testClassesDir = file("${buildDir}/test-classes")
 
@@ -26,10 +27,14 @@ ext {
             f.name.matches("scala3-(.*)jar") ||
             f.name.matches("tasty-core(.*)jar")
         }
-        scalaClasspath = files(dotcLibraryFiles, projectJars, sourceSets.main.output, classesDir)
+        scalaClasspath = files(dotcLibraryFiles, sourceSets.main.output, classesDir)
     } else {
-        scalaClasspath = files(sourceSets.main.runtimeClasspath, projectJars, classesDir)
+        scalaClasspath = files(sourceSets.main.runtimeClasspath, classesDir)
     }
+    userProfile = System.getenv("USERPROFILE")
+    userHome = userProfile != null ? userProfile.replaceAll("\\\\", "/") : System.getenv("HOME")
+    testLibsTree = fileTree(dir: "${userHome}/.m2/repository", include: "**/junit-4.13.2.jar")
+    testClasspath = files(testLibsTree, scalaClasspath, testClassesDir)
 }
 
 sourceSets {

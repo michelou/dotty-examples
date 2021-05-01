@@ -62,11 +62,11 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*April 2021*) <sup id="anchor_03">[[3]](#footnote_03)</sup>:
+For instance our development environment looks as follows (*May 2021*) <sup id="anchor_03">[[3]](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant-1.10.10\         <i>( 39.7 MB)</i>
-C:\opt\apache-maven-3.6.3\         <i>( 10.7 MB)</i>
+C:\opt\apache-maven-3.8.1\         <i>( 10.7 MB)</i>
 C:\opt\bazel-4.0.0\                <i>( 41.0 MB)</i>
 C:\opt\cfr-0.151\                  <i>(  1.9 MB)</i>
 C:\opt\Git-2.31.1\                 <i>(279.0 MB)</i>
@@ -78,7 +78,7 @@ C:\opt\jdk-openjdk-11.0.11_9\      <i>(181.0 MB)</i>
 C:\opt\make-3.81\                  <i>(  2.1 MB)</i>
 C:\opt\Mill-0.9.6\                 <i>( 53.7 MB)</i>
 C:\opt\msys64\                     <i>( 5.56 GB)</i>
-C:\opt\sbt-1.5.0\                  <i>( 48.3 MB)</i>
+C:\opt\sbt-1.5.1\                  <i>( 48.3 MB)</i>
 C:\opt\scala-2.13.5\               <i>( 23.4 MB, 612 MB with API docs)</i>
 C:\opt\scala-3.0.0-RC3\            <i>( 31.4 MB)</i>
 </pre>
@@ -308,13 +308,13 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.5, scalac 3.0.0-RC3,
-   ant 1.10.10, gradle 7.0, mill 0.9.6, mvn 3.6.3, sbt 1.5.0,
+   ant 1.10.10, gradle 7.0, mill 0.9.6, mvn 3.8.1, sbt 1.5.0,
    bazel 4.0.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.4,
    git 2.31.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
-C:\opt\sbt-1.5.0\bin\sbt
-C:\opt\sbt-1.5.0\bin\sbt.bat
+C:\opt\sbt-1.5.1\bin\sbt
+C:\opt\sbt-1.5.1\bin\sbt.bat
 </pre>
 
 Other development tools such as [**`javac.exe`**][javac_cli] and [**`scalac.bat`**][scalac_cli] are accessible through the corresponding environment variable, e.g. **`JAVA_HOME`** for **`javac.exe`**, **`SCALA_HOME`** resp. **`SCALA3_HOME`** for **`scalac.bat`** and **`PYTHON_HOME`** for **`python.exe`**.
@@ -336,7 +336,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.5, scalac 3.0.0-RC3,
-   ant 1.10.10, gradle 7.0, mill 0.9.6, mvn 3.6.3, sbt 1.5.0,
+   ant 1.10.10, gradle 7.0, mill 0.9.6, mvn 3.8.1, sbt 1.5.0,
    bazel 4.0.0, cfr 0.151, make 3.81, python 3.9.4,
    git 2.31.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
@@ -347,8 +347,8 @@ Tool paths:
    C:\opt\apache-ant-1.10.10\bin\ant.bat
    C:\opt\gradle-7.0\bin\gradle.bat
    C:\opt\Mill-0.9.6\mill.bat
-   C:\opt\apache-maven-3.6.3\bin\mvn.cmd
-   C:\opt\sbt-1.5.0\bin\sbt.bat
+   C:\opt\apache-maven-3.8.1\bin\mvn.cmd
+   C:\opt\sbt-1.5.1\bin\sbt.bat
    C:\opt\bazel-4.0.0\bazel.exe
    C:\opt\cfr-0.151\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
@@ -365,7 +365,7 @@ Environment variables:
    "MSVS_HOME=X:"
    "MSYS_HOME=C:\opt\msys64"
    "PYTHON_HOME=C:\opt\Python-3.9.4"
-   "SBT_HOME=C:\opt\sbt-1.5.0"
+   "SBT_HOME=C:\opt\sbt-1.5.1"
    "SCALA_HOME=C:\opt\scala-2.13.5"
    "SCALA3_HOME=C:\opt\scala-3.0.0-RC3"
    "SCALAFMT_HOME=C:\opt\scalafmt-2.7.5"
@@ -734,7 +734,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/lihaoyi/mill/releases">0.9.6-assembly</a> (<code>mill</code>)                             <i>( 57 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.10-bin.zip</a>                        <i>(  9 MB)</i>
-<a href="https://maven.apache.org/download.cgi">apache-maven-3.6.3-bin.zip</a>                        <i>(  9 MB)</i>
+<a href="https://maven.apache.org/download.cgi">apache-maven-3.8.1-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-4.0.0-windows-x86_64.zip</a>                    <i>( 40 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.0-bin.zip</a>                                <i>(103 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.6.zip</a>                                  <i>(  4 MB)</i>
@@ -744,7 +744,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://gluonhq.com/products/javafx/">openjfx-15.0.1_windows-x64_bin-sdk.zip</a>            <i>( 39 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.10_9.zip</a>  <i>( 99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.31.1-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
-<a href="https://github.com/sbt/sbt/releases">sbt-1.5.0.zip</a>                                     <i>( 17 MB)</i>
+<a href="https://github.com/sbt/sbt/releases">sbt-1.5.1.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.5.zip</a>                                  <i>( 21 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.0.0-RC3">scala-3.0.0-RC3.zip</a>                               <i>( 24 MB)</i>
 </pre>
@@ -757,7 +757,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -768,7 +768,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
-[apache_maven_relnotes]: https://maven.apache.org/docs/3.6.3/release-notes.html
+[apache_maven_relnotes]: https://maven.apache.org/docs/3.8.1/release-notes.html
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [bazel_releases]: https://github.com/bazelbuild/bazel/releases
 [bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/4.0.0
@@ -835,7 +835,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_downloads]: https://github.com/sbt/sbt/releases
 [sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.4.7
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.5.1
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala]: https://www.scala-lang.org/
 [scala3_home]: https://dotty.epfl.ch

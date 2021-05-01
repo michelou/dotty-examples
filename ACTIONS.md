@@ -38,7 +38,7 @@
 
 ## <span id="footnotes">Footnotes</span>
 
-<b name="footnote_01">[1]</b> ***Preinstalled software*** [↩](#anchor_01)
+<span name="footnote_01">[1]</span> ***Preinstalled software*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 Preinstalled software on a Windows Server is located either in directory <a href="https://docs.microsoft.com/en-us/windows/deployment/usmt/usmt-recognized-environment-variables"><b><code>%ProgramFiles%</code></b></a> or at the root of drive <b><code>C:</code></b>.<br/>Here are two examples:
@@ -104,7 +104,7 @@ Preinstalled software on a Windows Server is located either in directory <a href
 </pre>
 
 
-<b name="footnote_02">[2]</b> ***Environment variables*** [↩](#anchor_02)
+<span name="footnote_02">[2]</span> ***Environment variables*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 Here are GitHub-specific environment variables defined in a GitHub-hosted Windows runner (e.g. Windows Server 2019 with <code>runs-on: [windows-latest]</code>). 
@@ -167,7 +167,7 @@ SBT_HOME=C:\Program Files (x86)\sbt\
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
