@@ -24,8 +24,8 @@ all: build
 build: $(TARGET)
 
 $(TARGET): src/main/scala/*.scala
-	[ -d "$(CLASSES_DIR)" ] || mkdir -p "$(CLASSES_DIR)"
-	@echo "$(SCALAC_FLAGS) -d \"$(CLASSES_DIR)\"" > "$(OPTS_FILE)"
+	[ -d "$(CLASSES_DIR)" ] || $(MKDIR) -p "$(CLASSES_DIR)"
+	@echo $(SCALAC_FLAGS) -d "$(CLASSES_DIR)" > "$(OPTS_FILE)"
 	@echo "$(SOURCES)" > "$(SOURCES_FILE)"
 	$(SCALAC) "@$(OPTS_FILE)" "@$(SOURCES_FILE)"
 	@echo "" > "$(TARGET)"
@@ -53,7 +53,7 @@ help:
 ## doc rules
 
 DOC_TARGET_DIR = $(TARGET_DIR)/docs
-DOC_SOURCES    = $(shell $(FIND) $(CLASSES_DIR) -name *.tasty)
+DOC_SOURCES    = $(shell [ -d "$(CLASSES_DIR)" ] && $(FIND) $(CLASSES_DIR) -name *.tasty)
 DOC_TARGET     = $(DOC_TARGET_DIR)/.latest-build
 
 PROJECT_NAME    ?= $(shell basename $(CURDIR))
@@ -64,7 +64,7 @@ DOC_OPTS_FILE    = $(TARGET_DIR)/scaladoc_opts.txt
 DOC_SOURCES_FILE = $(TARGET_DIR)/scaladoc_sources.txt
 
 $(DOC_TARGET): $(DOC_SOURCES)
-	[ -d "$(DOC_TARGET_DIR)" ] || mkdir -p "$(DOC_TARGET_DIR)"
+	[ -d "$(DOC_TARGET_DIR)" ] || $(MKDIR) -p "$(DOC_TARGET_DIR)"
 	@echo -siteroot \"$(DOC_TARGET_DIR)\" -d \"$(DOC_TARGET_DIR)\" -project \"$(PROJECT_NAME)\" -project-version \"$(PROJECT_VERSION)\" > "$(DOC_OPTS_FILE)"
 	@echo "$(DOC_SOURCES)" > "$(DOC_SOURCES_FILE)"
 	$(SCALADOC) "@$(DOC_OPTS_FILE)" "@$(DOC_SOURCES_FILE)"
@@ -96,7 +96,7 @@ TEST_CPATH       = $(SCALA_LIB_JAR)$(PSEP)$(SCALA3_LIB_JAR)$(PSEP)$(HAMCREST_JAR
 
 
 $(TEST_TARGET): $(TEST_SOURCES)
-	[ -d "$(TEST_CLASSES_DIR)" ] || mkdir -p "$(TEST_CLASSES_DIR)"
+	[ -d "$(TEST_CLASSES_DIR)" ] || $(MKDIR) -p "$(TEST_CLASSES_DIR)"
 	@echo "$(SCALAC_FLAGS) -classpath \"$(TEST_CPATH)\" -d \"$(TEST_CLASSES_DIR)\"" > "$(TEST_OPTS_FILE)"
 	@echo "$(TEST_SOURCES)" > "$(TEST_SOURCES_FILE)"
 	$(SCALAC) "@$(TEST_OPTS_FILE)" "@$(TEST_SOURCES_FILE)"

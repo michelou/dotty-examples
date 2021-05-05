@@ -31,15 +31,15 @@ all: build
 build: $(JAVA_TARGET) $(TARGET)
 
 $(JAVA_TARGET): $(JAVA_SOURCES)
-	[ -d "$(CLASSES_DIR)" ] || mkdir -p "$(CLASSES_DIR)"
-	@echo "$(JAVAC_FLAGS) -d \"$(CLASSES_DIR)\"" > "$(JAVA_OPTS_FILE)"
+	[ -d "$(CLASSES_DIR)" ] || $(MKDIR) -p "$(CLASSES_DIR)"
+	@echo $(JAVAC_FLAGS) -d "$(CLASSES_DIR)" > "$(JAVA_OPTS_FILE)"
 	@echo "$(JAVA_SOURCES)" > "$(JAVA_SOURCES_FILE)"
 	$(JAVAC) "@$(JAVA_OPTS_FILE)" "@$(JAVA_SOURCES_FILE)"
 	@echo "" > "$(JAVA_TARGET)"
 
 $(TARGET): $(SOURCES)
-	[ -d "$(CLASSES_DIR)" ] || mkdir -p "$(CLASSES_DIR)"
-	@echo "$(SCALAC_FLAGS) -classpath \"$(CLASSES_DIR)\" -d \"$(CLASSES_DIR)\"" > "$(OPTS_FILE)"
+	[ -d "$(CLASSES_DIR)" ] || $(MKDIR) -p "$(CLASSES_DIR)"
+	@echo $(SCALAC_FLAGS) -classpath "$(CLASSES_DIR)" -d "$(CLASSES_DIR)" > "$(OPTS_FILE)"
 	@echo "$(SOURCES)" > "$(SOURCES_FILE)"
 	$(SCALAC) "@$(OPTS_FILE)" "@$(SOURCES_FILE)"
 	@echo "" > "$(TARGET)"
@@ -67,7 +67,7 @@ help:
 ## doc rules
 
 DOC_TARGET_DIR = $(TARGET_DIR)/docs
-DOC_SOURCES    = $(shell $(FIND) $(CLASSES_DIR) -name *.tasty)
+DOC_SOURCES    = $(shell [ -d "$(CLASSES_DIR)" ] && $(FIND) $(CLASSES_DIR) -name *.tasty 2>/dev/null)
 DOC_TARGET     = $(DOC_TARGET_DIR)/.latest-build
 
 PROJECT_NAME    ?= $(shell basename $(CURDIR))
@@ -109,7 +109,7 @@ TEST_MAIN_CLASS = HelloTest
 TEST_CPATH      = $(SCALA_LIB_JAR)$(PSEP)$(SCALA3_LIB_JAR)$(PSEP)$(HAMCREST_JAR)$(PSEP)$(JUNIT_JAR)$(PSEP)$(JUNIT_INTF_JAR)$(PSEP)$(CLASSES_DIR)$(PSEP)$(TEST_CLASSES_DIR)
 
 $(TEST_TARGET): $(TEST_SOURCES)
-	[ -d "$(TEST_CLASSES_DIR)" ] || mkdir -p "$(TEST_CLASSES_DIR)"
+	[ -d "$(TEST_CLASSES_DIR)" ] || $(MKDIR) -p "$(TEST_CLASSES_DIR)"
 	@echo "$(SCALAC_FLAGS) -classpath \"$(TEST_CPATH)\" -d \"$(TEST_CLASSES_DIR)\"" > "$(TEST_OPTS_FILE)"
 	@echo "$(TEST_SOURCES)" > "$(TEST_SOURCES_FILE)"
 	$(SCALAC) "@$(TEST_OPTS_FILE)" "@$(TEST_SOURCES_FILE)"

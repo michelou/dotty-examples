@@ -10,7 +10,7 @@ SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 ##############################################################################
 ## main rules
 
-SOURCES = $(shell find $(SOURCE_DIR)/main/scala -name *.scala)
+SOURCES = $(shell $(FIND) $(SOURCE_DIR)/main/scala -name *.scala)
 TARGET  = $(TARGET_DIR)/.latest-build
 
 OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
@@ -63,7 +63,7 @@ doc: $(DOC_TARGET)
 ##############################################################################
 ## test rules
 
-TEST_SOURCES = $(shell find $(SOURCE_DIR)/test -name *.scala)
+TEST_SOURCES = $(shell $(FIND) $(SOURCE_DIR)/test -name *.scala)
 TEST_TARGET  = $(TARGET_DIR)/.latest-test-build
 
 TEST_OPTS_FILE    = $(TARGET_DIR)/scalac_test_opts.txt

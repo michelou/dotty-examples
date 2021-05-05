@@ -386,7 +386,7 @@ doc() {
     if $DEBUG; then
         debug "$SCALADOC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Generate HTML documentation into directory ${TARGET_DOCS_DIR/$ROOT_DIR\//}" 1>&2
+        echo "Generate HTML documentation into directory \"${TARGET_DOCS_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$SCALADOC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
@@ -402,7 +402,7 @@ doc() {
 }
 
 run() {
-    local main_class_file="$CLASSES_DIR/${MAIN_CLASS/.//}.class"
+    local main_class_file="$CLASSES_DIR/${MAIN_CLASS//.//}.class"
     if [[ ! -f "$main_class_file" ]]; then
         error "Scala main class '$MAIN_CLASS' not found ($main_class_file)"
         cleanup 1

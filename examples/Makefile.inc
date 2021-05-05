@@ -13,8 +13,8 @@ SCALAC     = $(subst \,/,$(SCALA3_HOME))/bin/scalac.bat
 SCALADOC   = $(subst \,/,$(SCALA3_HOME))/bin/scaladoc.bat
 LOCAL_REPO = $(subst \,/,$(USERPROFILE))/.m2/repository
 PSEP       = ;
-## We grab Cygwin version instead of C:\Windows\System32\find.exe
-FIND       = /usr/bin/find.exe
+FIND       = $(subst \,/,$(GIT_HOME))/usr/bin/find
+MKDIR      = $(subst \,/,$(GIT_HOME))/usr/bin/mkdir
 else
 JAVA       = $(JAVA_HOME)/bin/java
 JAVAC      = $(JAVA_HOME)/bin/javac
@@ -24,6 +24,7 @@ SCALADOC   = $(SCALA3_HOME)/bin/scaladoc
 LOCAL_REPO = $(HOME)/.m2/repository
 PSEP       = :
 FIND       = find
+MKDIR      = mkdir
 endif
 
 SCALA_LIB_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala-library-2.13.5.jar)
@@ -35,4 +36,4 @@ SCALATEST_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/scalatest" -name scalate
 SCALACTIC_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/scalactic" -name scalactic_2.13-3.2.8.jar)
 SPECS2_CORE_JAR    = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-core_2.13-4.11.0.jar)
 SPECS2_JUNIT_JAR   = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-junit_2.13-4.11.0.jar)
-SPECS2_MATCHER_JAR = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-matcher_2.13-4.10.6.jar)
+SPECS2_MATCHER_JAR = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-matcher_2.13-4.11.0.jar)

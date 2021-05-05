@@ -17,8 +17,8 @@ SCALADOC   = $(subst \,/,$(SCALA3_HOME))/bin/scaladoc.bat
 SCALAFMT   = $(subst \,/,$(SCALAFMT_HOME))/bin/scalafmt.bat
 LOCAL_REPO = $(subst \,/,$(USERPROFILE))/.m2/repository
 PSEP       = ;
-## We grab Cygwin version instead of C:\Windows\System32\find.exe
-FIND       = /usr/bin/find.exe
+FIND       = $(subst \,/,$(GIT_HOME))/usr/bin/find.exe
+MKDIR      = $(subst \,/,$(GIT_HOME))/usr/bin/mkdir.exe
 else
 JAVA       = $(JAVA_HOME)/bin/java
 JAVAC      = $(JAVA_HOME)/bin/javac
@@ -29,6 +29,7 @@ SCALAFMT   = $(SCALAFMT_HOME)/bin/scalafmt
 LOCAL_REPO = $(HOME)/.m2/repository
 PSEP       = :
 FIND       = find
+MKDIR      = mkdir
 endif
 
 SCALA_LIB_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala-library-2.13.5.jar)
