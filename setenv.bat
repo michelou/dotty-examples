@@ -565,7 +565,7 @@ if defined __ANT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable ANT_HOME 1>&2
 ) else (
     set __PATH=C:\opt
-    if exist "!__PATH!\apache-ant\" ( set _ANT_HOME=!__PATH!\apache-ant
+    if exist "!__PATH!\apache-ant\" ( set "_ANT_HOME=!__PATH!\apache-ant"
     ) else (
         for /f %%f in ('dir /ad /b "!__PATH!\apache-ant-*" 2^>NUL') do set "_ANT_HOME=!__PATH!\%%f"
         if not defined _ANT_HOME (
@@ -822,7 +822,7 @@ if defined MILL_HOME (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MILL_HOME 1>&2
 ) else (
     set __PATH=C:\opt
-    if exist "!__PATH!\mill\" ( set _MILL_HOME=!__PATH!\mill
+    if exist "!__PATH!\mill\" ( set "_MILL_HOME=!__PATH!\mill"
     ) else (
         for /f %%f in ('dir /ad /b "!__PATH!\mill-*" 2^>NUL') do set "_MILL_HOME=!__PATH!\%%f"
         if not defined _MILL_HOME (

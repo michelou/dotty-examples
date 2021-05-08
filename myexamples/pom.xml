@@ -19,9 +19,9 @@
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugin versions -->
-        <scala.maven.version>1.0.0</scala.maven.version> <!-- Dec 2018 -->
+        <scala.maven.version>1.0.0</scala.maven.version>
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
-        <scalatest.version>3.2.7</scalatest.version>            <!-- Aug 2020 -->
+        <scalatest.version>3.2.8</scalatest.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven.compiler.version>3.8.1</maven.compiler.version>  <!-- May 2019 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
