@@ -13,8 +13,9 @@ SCALAC     = $(subst \,/,$(SCALA3_HOME))/bin/scalac.bat
 SCALADOC   = $(subst \,/,$(SCALA3_HOME))/bin/scaladoc.bat
 LOCAL_REPO = $(subst \,/,$(USERPROFILE))/.m2/repository
 PSEP       = ;
-FIND       = $(subst \,/,$(GIT_HOME))/usr/bin/find
-MKDIR      = $(subst \,/,$(GIT_HOME))/usr/bin/mkdir
+FIND       = $(subst \,/,$(GIT_HOME))/usr/bin/find.exe
+MKDIR      = $(subst \,/,$(GIT_HOME))/usr/bin/mkdir.exe
+TOUCH      = $(subst \,/,$(GIT_HOME))/usr/bin/touch.exe
 else
 JAVA       = $(JAVA_HOME)/bin/java
 JAVAC      = $(JAVA_HOME)/bin/javac
@@ -25,6 +26,7 @@ LOCAL_REPO = $(HOME)/.m2/repository
 PSEP       = :
 FIND       = find
 MKDIR      = mkdir
+TOUCH      = touch
 endif
 
 SCALA_LIB_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala-library-2.13.5.jar)

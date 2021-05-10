@@ -21,9 +21,9 @@
               classpathref="build.classpath" />
     </target>
 
-    <target name="doc" depends="init">
+    <target name="doc" depends="compile">
         <mkdir dir="${target-docs.dir}" />
-        <dotd srcdir="${scala-source.dir}"
+        <dotd srcdir="${build.dir}"
               destdir="${target-docs.dir}"
               classpathref="build.classpath" />
     </target>

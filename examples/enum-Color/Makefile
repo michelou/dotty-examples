@@ -25,7 +25,7 @@ build: $(TARGET)
 
 $(TARGET): $(SOURCES)
 	[ -d "$(CLASSES_DIR)" ] || $(MKDIR) -p "$(CLASSES_DIR)"
-	@echo $(SCALAC_FLAGS) -d "target\\classes" > "$(OPTS_FILE)"
+	@echo $(SCALAC_FLAGS) -d "$(CLASSES_DIR)" > "$(OPTS_FILE)"
 	@echo "$(SOURCES)" > "$(SOURCES_FILE)"
 	$(SCALAC) "@$(OPTS_FILE)" "@$(SOURCES_FILE)"
 	@echo "" > "$(TARGET)"
@@ -37,17 +37,17 @@ run: build
 	$(SCALA) $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
 
 help:
-	@echo "Usage: make all|build|clean|doc|help|lint|run|test"
-	@echo ""
-	@echo "  Subcommands:"
-	@echo "    all    alias for build"
-	@echo "    build  compile Java/Scala source files"
-	@echo "    clean  delete generated files"
-	@echo "    doc    generate HTML documentation"
-	@echo "    help   display this help message"
-	@echo "    lint   analyze Scala source files with Scalafmt"
-	@echo "    run    execute main program $(MAIN_CLASS)"
-	@echo "    test   execute unit tests with JUnit"
+	@$(info Usage: make all|build|clean|doc|help|lint|run|test)
+	@$(info )
+	@echo   Subcommands:
+	@echo     all    alias for build
+	@echo     build  compile Java/Scala source files
+	@echo     clean  delete generated files
+	@echo     doc    generate HTML documentation
+	@echo     help   display this help message
+	@echo     lint   analyze Scala source files with Scalafmt
+	@echo     run    execute main program $(MAIN_CLASS)
+	@echo     test   execute unit tests with JUnit
 
 ##############################################################################
 ## doc rules

@@ -27,7 +27,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 
 - [Scala 3.0][dotty_releases] ([*release notes*][scala3_relnotes])
 - [Git 2.31][git_releases] ([*release notes*][git_relnotes])
-- [Oracle OpenJDK 11][oracle_openjdk] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk_relnotes])
+- [Oracle OpenJDK 11 TLS][oracle_openjdk] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk_relnotes])
 <!--
 8u212   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
 8u222   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
@@ -48,10 +48,11 @@ Optionally one may also install the following software:
 - [CFR 0.15][cfr_releases] (Java decompiler)
 - [GNU Make 3.81][make_downloads]
 - [Gradle 7.0][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
-- [JaCoCo 0.8][jacoco_downloads] ([*change log*][jacoco_changelog])
+- [JaCoCo 0.8][jacoco_downloads] <sup id="anchor_03">[[3]](#footnote_03)</sup> ([*change log*][jacoco_changelog])
 - [JavaFX 15][javafx_downloads] ([*release notes*][javafx_relnotes])
 - [Mill 0.9][mill_releases] ([*change log*][mill_changelog])
 - [MSYS2][msys2_releases]
+- [Oracle OpenJDK 17][oracle_openjdk_17] ([*release notes*][oracle_openjdk_17_relnotes])
 - [SBT 1.5][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
 <!--
@@ -62,7 +63,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*May 2021*) <sup id="anchor_03">[[3]](#footnote_03)</sup>:
+For instance our development environment looks as follows (*May 2021*) <sup id="anchor_04">[[4]](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant-1.10.10\         <i>( 39.7 MB)</i>
@@ -71,10 +72,11 @@ C:\opt\bazel-4.0.0\                <i>( 41.0 MB)</i>
 C:\opt\cfr-0.151\                  <i>(  1.9 MB)</i>
 C:\opt\Git-2.31.1\                 <i>(279.0 MB)</i>
 C:\opt\gradle-7.0\                 <i>(121.0 MB)</i>
-C:\opt\jacoco-0.8.6\               <i>( 10.6 MB)</i>
+C:\opt\jacoco-0.8.7\               <i>( 10.7 MB)</i>
 C:\opt\javafx-sdk-15.0.1\          <i>( 78.2 MB)</i>
 C:\opt\jdk-openjdk-1.8.0_292-b10\  <i>(185.0 MB)</i>
-C:\opt\jdk-openjdk-11.0.11_9\      <i>(181.0 MB)</i>
+C:\opt\jdk-openjdk-11.0.11_9\      <i>(300.0 MB)</i>
+C:\opt\jdk-openjdk-17-ea_21\       <i>(291.0 MB)</i>
 C:\opt\make-3.81\                  <i>(  2.1 MB)</i>
 C:\opt\Mill-0.9.6\                 <i>( 53.7 MB)</i>
 C:\opt\msys64\                     <i>( 5.56 GB)</i>
@@ -309,7 +311,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.5, scalac 3.0.0-RC3,
    ant 1.10.10, gradle 7.0, mill 0.9.6, mvn 3.8.1, sbt 1.5.0,
-   bazel 4.0.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.4,
+   bazel 4.0.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.5,
    git 2.31.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
@@ -324,10 +326,10 @@ Other development tools such as [**`javac.exe`**][javac_cli] and [**`scalac.bat`
 INFO: Could not find files for the given pattern(s).
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> /r %JAVA_HOME% javac</b>
-c:\opt\jdk-openjdk-1.8.0_282-b08\bin\javac.exe
+c:\opt\jdk-openjdk-1.8.0_292-b10\bin\javac.exe
 &nbsp;
-<b>&gt; %JAVA_HOME%\bin\javac -version</b>
-javac 1.8.0_282
+<b>&gt; %JAVA_HOME%\bin\<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html">javac</a> -version</b>
+javac 1.8.0_292
 </pre>
 
 Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and defined variables:
@@ -337,7 +339,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.5, scalac 3.0.0-RC3,
    ant 1.10.10, gradle 7.0, mill 0.9.6, mvn 3.8.1, sbt 1.5.0,
-   bazel 4.0.0, cfr 0.151, make 3.81, python 3.9.4,
+   bazel 4.0.0, cfr 0.151, make 3.81, python 3.9.5,
    git 2.31.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-11.0.10+9\bin\javac.exe
@@ -352,7 +354,7 @@ Tool paths:
    C:\opt\bazel-4.0.0\bazel.exe
    C:\opt\cfr-0.151\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
-   C:\opt\Python-3.9.4\python.exe
+   C:\opt\Python-3.9.5\python.exe
    C:\opt\Git-2.31.1\bin\git.exe
    C:\opt\Git-2.31.1\mingw64\bin\git.exe
    C:\opt\Git-2.31.1\usr\bin\diff.exe
@@ -360,11 +362,11 @@ Tool paths:
 Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.10"
    "GIT_HOME=C:\opt\Git-2.31.1"
-   "JAVA_HOME=C:\opt\jdk-openjdk-11.0.10_9"
+   "JAVA_HOME=C:\opt\jdk-openjdk-11.0.11_9"
    "JAVAFX_HOME=C:\opt\javafx-sdk-16"
    "MSVS_HOME=X:"
    "MSYS_HOME=C:\opt\msys64"
-   "PYTHON_HOME=C:\opt\Python-3.9.4"
+   "PYTHON_HOME=C:\opt\Python-3.9.5"
    "SBT_HOME=C:\opt\sbt-1.5.1"
    "SCALA_HOME=C:\opt\scala-2.13.5"
    "SCALA3_HOME=C:\opt\scala-3.0.0-RC3"
@@ -391,7 +393,7 @@ Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of t
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
 Size of directory "c:\opt\scala-3.0.0-RC3" is 31.4 Mb
-Size of directory "c:\opt\jdk-openjdk-11.0.10_9" is 184.2 Mb
+Size of directory "c:\opt\jdk-openjdk-11.0.11_9" is 184.2 Mb
 </pre>
 
 ### **`getnightly.bat`**
@@ -644,7 +646,7 @@ Parent directory: W:\dotty\myexamples
 
 ### `build.bat`
 
-Command [**`build`**](examples/enum-Planet/build.bat) is a basic build tool consisting of ~800 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_04">[[4]](#footnote_04)</sup>.
+Command [**`build`**](examples/enum-Planet/build.bat) is a basic build tool consisting of ~800 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_05">[[5]](#footnote_05)</sup>.
 
 Running command [**`build`**](examples/enum-Planet/build.bat) with ***no*** option in project [**`examples\enum-Planet`**](examples/enum-Planet/) generates the following output:
 
@@ -711,7 +713,7 @@ Hello world!
 Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 <a href="https://wiki.shibboleth.net/confluence/pages/viewpage.action?pageId=44729840">Java SE 8</a> is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS release</a> in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html" rel="external">LTS release</a>.
 </p>
 <p style="margin:0 0 1em 20px;">
-<a href="https://wiki.shibboleth.net/confluence/pages/viewpage.action?pageId=70352982">Java SE 17</a> is in early access (<a href="http://jdk.java.net/17/">build 13</a> released in March 2021); it will be the next LTS release after Java 11.
+<a href="https://wiki.shibboleth.net/confluence/pages/viewpage.action?pageId=70352982">Java SE 17</a> is in early access (<a href="http://jdk.java.net/17/">build 21</a> released in May 2021); it will be the next LTS release after Java 11.
 </p>
 
 <span name="footnote_02">[2]</b> ***Using Bazel on Windows*** [↩](#anchor_02)
@@ -726,7 +728,21 @@ For instance, for Visual Studio 2019, we set variable <b><code>BAZEL_VC</code></
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a></b> BAZEL_VC=C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC
 </pre>
 
-<span name="footnote_03">[3]</span> ***Downloads*** [↩](#anchor_03)
+<span name="footnote_03">[3]</span> ***JaCoCo and Java support*** [↩](#anchor_03)
+
+<table style="margin:0 0 1em 20px; font-size:90%;">
+<tr><th>JaCoCo version</th><th>Supported Java version</th></tr>
+<tr><td>0.8.7 <i style="font-size:80%;">(May 2021)</i></td><td>15 and 16</td></tr>
+<tr><td>0.8.6 <i style="font-size:80%;">(Sept 2020)</i></td><td>14</td></tr>
+<tr><td>0.8.5 <i style="font-size:80%;">(Oct 2019)</i></td><td>13</td></tr>
+<tr><td>0.8.4</td><td>12</td></tr>
+<tr><td>0.8.3</td><td>11</td></tr>
+<tr><td>0.8.1 <i style="font-size:80%;">(March 2018)</i></td><td>10</td></tr>
+<tr><td>0.8.0</td><td>9</td></tr>
+<tr><td>0.7.0</td><td>8</td></tr>
+</table>
+
+<span name="footnote_04">[4]</span> ***Downloads*** [↩](#anchor_04)
 
 <p style="margin:0 0 1em 20px;">
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
@@ -737,7 +753,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.8.1-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-4.0.0-windows-x86_64.zip</a>                    <i>( 40 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.0-bin.zip</a>                                <i>(103 MB)</i>
-<a href="https://www.eclemma.org/jacoco/">jacoco-0.8.6.zip</a>                                  <i>(  4 MB)</i>
+<a href="https://www.eclemma.org/jacoco/">jacoco-0.8.7.zip</a>                                  <i>(  4 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                 <i>( 10 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20210228.exe</a>                         <i>( 94 MB)</i>
 <a href="http://jdk.java.net/17/">openjdk-17-ea+13_windows-x64_bin.zip</a>              <i>(176 MB)</i>
@@ -749,7 +765,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.0.0-RC3">scala-3.0.0-RC3.zip</a>                               <i>( 24 MB)</i>
 </pre>
 
-<span name="footnote_04">[4]</span> ***PowerShell*** [↩](#anchor_04) <!-- 2018-05-09 -->
+<span name="footnote_05">[5]</span> ***PowerShell*** [↩](#anchor_05) <!-- 2018-05-09 -->
 
 <p style="margin:0 0 1em 20px;"> 
 Command Prompt has been around for as long as we can remember, but starting with Windows 10 build 14971, Microsoft is trying to make <a href="https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6">PowerShell</a> the <a href="https://support.microsoft.com/en-us/help/4027690/windows-powershell-is-replacing-command-prompt">main command shell</a> in the operating system.
@@ -828,6 +844,8 @@ Command Prompt has been around for as long as we can remember, but starting with
 [oracle_openjdk]: https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
 <!-- also: https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/tag/jdk8u252-b09 -->
 [oracle_openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-April/005860.html
+[oracle_openjdk_17]: http://jdk.java.net/17/
+[oracle_openjdk_17_relnotes]: https://github.com/openjdk/jdk/compare/jdk-17%2B20...jdk-17%2B21
 <!--
 [python_changelog]: https://docs.python.org/3.8/whatsnew/changelog.html#python-3-8-0-final
 [python_release]: https://www.python.org/downloads/release/python-380/

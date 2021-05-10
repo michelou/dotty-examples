@@ -16,6 +16,7 @@
         <dependency org="org.scala-lang" name="scala3-library_3.0.0-RC3" rev="3.0.0-RC3"/>
         <dependency org="org.scala-lang" name="scala3-staging_3.0.0-RC3" rev="3.0.0-RC3"/>
         <dependency org="org.scala-lang" name="scala3-tasty-inspector_3.0.0-RC3" rev="3.0.0-RC3"/>
+        <dependency org="org.scala-lang" name="scaladoc_3.0.0-RC3" rev="3.0.0-RC3"/>
         <dependency org="org.jline" name="jline-reader" rev="3.19.0"/>
         <dependency org="org.jline" name="jline-terminal" rev="3.19.0"/>
         <dependency org="org.jline" name="jline-terminal-jna" rev="3.19.0"/>

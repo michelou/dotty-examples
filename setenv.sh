@@ -56,15 +56,17 @@ if [[ $OS == "cygwin" || $OS == "mingw" ]]; then
     export SCALA_HOME="$(getPath "$prefix/c/opt/scala-2.13")"
     export SCALA3_HOME="$(getPath "$prefix/c/opt/scala-3")"
     export SCALAFMT_HOME="$(getPath "$prefix/c/opt/scalafmt-2")"
-    PATH1="$PATH"
-    [[ -x "$ANT_HOME/bin/ant" ]] && PATH1="$PATH1:$ANT_HOME/bin"
-    [[ -x "$GRADLE_HOME/bin/gradle" ]] && PATH1="$PATH1:$GRADLE_HOME/bin"
-    [[ -x "$MAVEN_HOME/bin/mvn" ]] && PATH1="$PATH1:$MAVEN_HOME/bin"
-    [[ -x "$MILL_HOME/mill" ]] && PATH1="$PATH1:$MILL_HOME"
-    [[ -x "$GIT_HOME/bin/git" ]] && PATH1="$PATH1:$GIT_HOME/bin"
-    export PATH="$PATH1"
 else
-    ## export JAVA_HOME=/opt/jdk-1.8
-    export KOTLIN_HOME=/opt/kotlinc
+	export ANT_HOME="$(getPath "/opt/apache-ant-1")"
+	export GRADLE_HOME="$(getPath "/opt/gradle-7")"
+    export JAVA_HOME="$(getPath "/opt/jdk-openjdk-1.8")"
+    export KOTLIN_HOME="$(getPath "/opt/kotlinc")"
+	export MAVEN_HOME="$(getPath "/opt/apache-maven-3")"
 fi
-## echo "KOTLIN_HOME=$KOTLIN_HOME"
+PATH1="$PATH"
+[[ -x "$ANT_HOME/bin/ant" ]] && PATH1="$PATH1:$ANT_HOME/bin"
+[[ -x "$GRADLE_HOME/bin/gradle" ]] && PATH1="$PATH1:$GRADLE_HOME/bin"
+[[ -x "$MAVEN_HOME/bin/mvn" ]] && PATH1="$PATH1:$MAVEN_HOME/bin"
+[[ -x "$MILL_HOME/mill" ]] && PATH1="$PATH1:$MILL_HOME"
+[[ -x "$GIT_HOME/bin/git" ]] && PATH1="$PATH1:$GIT_HOME/bin"
+export PATH="$PATH1"

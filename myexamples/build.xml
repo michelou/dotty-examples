@@ -21,16 +21,17 @@
             else="${scala3.home}/bin/scalac">
             <os family="windows" />
         </condition>
-        <fail message="dotc compiler not found">
+        <fail message="Scala 3 compiler not found">
             <condition><not>
                 <available file="${dotc.executable}" />
             </not></condition>
         </fail>
         <echo message="SCALA3_HOME=${scala3.home}" />
         <path id="scalac.classpath">
-            <fileset dir="${scala3.home}/lib" includes="scala3-*.jar" />
             <fileset dir="${scala3.home}/lib" includes="jline-*.jar" />
             <fileset dir="${scala3.home}/lib" includes="scala-*.jar" />
+            <fileset dir="${scala3.home}/lib" includes="scala3-*.jar" />
+            <fileset dir="${scala3.home}/lib" includes="scaladoc*.jar" />
             <fileset dir="${scala3.home}/lib" includes="tasty-*.jar" />
         </path>
         <path id="scala.classpath">
@@ -40,7 +41,7 @@
     </target>
 
     <target name="init.ivy" unless="use.local">
-        <!-- installed: C:/opt/apache-ant-1.10.7/lib/ivy-2.5.0.jar -->
+        <!-- installed: C:/opt/apache-ant-1.10.10/lib/ivy-2.5.0.jar -->
         <taskdef resource="org/apache/ivy/ant/antlib.xml"
             uri="antlib:org.apache.ivy.ant" />
         <ivy:resolve file="../ivy.xml" showprogress="false" log="download-only" />
@@ -53,7 +54,7 @@
             </fileset>
             -->
             <fileset dir="${ivy.cache}/org.scala-lang" includes="**/jars/scala3-library*.jar">
-                <filename regex="_3\.[0-9]\.[0-9](-M[1-9])?-3\.[0-9]\.[0-9](-M[1-9])?" />  <!-- e.g. _3.0.0-M1-3.0.0-M1 -->
+                <filename regex="_3\.[0-9]\.[0-9](-RC[1-9])?-3\.[0-9]\.[0-9](-RC[1-9])?" />  <!-- e.g. _3.0.0-RC1-3.0.0-RC1 -->
             </fileset>
             <fileset dir="${ivy.cache}/org.scala-lang" includes="**/jars/scala-library*.jar">
                 <filename regex="-2\.[1-2][3-9]\.[0-9]+" />  <!-- e.g. -2.13.x -->
@@ -119,6 +120,47 @@
                 <arg value="-classpath" />
                 <arg value="${quoted}${classpath}${quoted}" />
                 <arg line="${scala.sources}" />
+            </java>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="dotd" >
+        <attribute name="srcdir" default="." />
+        <attribute name="destdir" default="." />
+        <attribute name="classpathref" default="basedir.ref" />
+        <sequential>
+            <!-- local properties -->
+            <local name="classpath"/>
+            <local name="n"/>
+            <local name="quoted"/>
+            <local name="s"/>
+            <local name="tasty.sources"/>
+
+            <pathconvert property="tasty.sources" pathsep=" ">
+                <fileset dir="@{srcdir}" includes="**/*.tasty" />
+            </pathconvert>
+            <resourcecount property="n">
+                <fileset dir="@{srcdir}" includes="**/*.tasty" />
+            </resourcecount>
+            <condition property="s" value="s" else="">
+                <not><matches string="${n}" pattern="[0-1]" /></not>
+            </condition>
+            <echo message="Compiling ${n} TASTY file${s} to @{destdir}" level="info" />
+            <pathconvert property="classpath" refid="@{classpathref}" />
+            <condition property="quoted" value="&quot;" else="">
+                <contains string="${classpath}" substring=" " />
+            </condition>
+            <java fork="true" classname="dotty.tools.scaladoc.Main" classpathref="scalac.classpath">
+                <jvmarg value="-Xmx768m" />
+                <jvmarg value="-Xms768m" />
+                <jvmarg value="-Dscala.usejavacp=true" />
+                <arg value="-d" />
+                <arg value="@{destdir}" />
+                <arg value="-classpath" />
+                <arg value="${quoted}${classpath}${quoted}" />
+                <arg value="-project" />
+                <arg value="${ant.project.name}" />
+                <arg line="${tasty.sources}" />
             </java>
         </sequential>
     </macrodef>

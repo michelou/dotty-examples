@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="enum-HList" default="compile" basedir=".">
 
-    <property name="sources.dir" value="src" />
     <property name="scala-source.dir" value="${basedir}/src/main/scala" />
     <property name="target.dir" value="${basedir}/target" />
-    <property name="build.dir" value="${target.dir}/classes" />
+    <property name="target-docs.dir" value="${target.dir}/docs" />
+    <property name="build.dir" value="${target.dir}/main/classes" />
     <property name="main.class" value="Main" />
+
+    <property name="test-source.dir" value="${basedir}/src/test/scala" />
+    <property name="test-build.dir" value="${target.dir}/test/classes" />
+    <property name="test-report.dir" value="${target.dir}/test/reports" />
 
     <!-- task 'init' and macro 'dotc' are defined in parent build.xml -->
     <import file="../build.xml" />
@@ -14,6 +18,13 @@
         <mkdir dir="${build.dir}" />
         <dotc srcdir="${scala-source.dir}"
               destdir="${build.dir}"
+              classpathref="build.classpath" />
+    </target>
+
+    <target name="doc" depends="compile">
+        <mkdir dir="${target-docs.dir}" />
+        <dotd srcdir="${build.dir}"
+              destdir="${target-docs.dir}"
               classpathref="build.classpath" />
     </target>
 

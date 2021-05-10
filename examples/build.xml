@@ -11,6 +11,9 @@
     </condition>
     <property name="ivy.cache" value="${user.home}/.ivy2/cache" />
 
+    <property name="hamcrest.version" value="2.2" />
+    <property name="junit.version" value="4.13.2" />
+
     <target name="init.local" if="use.local">
         <property name="scala3.home" value="${env.SCALA3_HOME}" />
         <condition property="dotc.executable"
@@ -28,6 +31,7 @@
             <fileset dir="${scala3.home}/lib" includes="jline-*.jar" />
             <fileset dir="${scala3.home}/lib" includes="scala-*.jar" />
             <fileset dir="${scala3.home}/lib" includes="scala3-*.jar" />
+            <fileset dir="${scala3.home}/lib" includes="scaladoc*.jar" />
             <fileset dir="${scala3.home}/lib" includes="tasty-*.jar" />
         </path>
         <path id="scala3.classpath">
@@ -37,7 +41,7 @@
     </target>
 
     <target name="init.ivy" unless="use.local">
-        <!-- installed: C:/opt/apache-ant-1.10.8/lib/ivy-2.5.0.jar -->
+        <!-- installed: C:/opt/apache-ant-1.10.10/lib/ivy-2.5.0.jar -->
         <taskdef resource="org/apache/ivy/ant/antlib.xml"
             uri="antlib:org.apache.ivy.ant" />
         <ivy:resolve file="../ivy.xml" showprogress="false" log="download-only" />
@@ -73,8 +77,8 @@
             <pathelement location="${basedir}"/>
         </path>
         <path id="test.classpath">
-            <fileset dir="${ivy.cache}/junit" includes="**/jars/junit-4.13.2.jar" />
-            <fileset dir="${ivy.cache}/org.hamcrest" includes="**/jars/hamcrest-2.2.jar" />
+            <fileset dir="${ivy.cache}/junit" includes="**/jars/junit-${junit.version}.jar" />
+            <fileset dir="${ivy.cache}/org.hamcrest" includes="**/jars/hamcrest-${hamcrest.version}.jar" />
             <path refid="build.classpath" />
             <pathelement location="${test-build.dir}" />
         </path>
@@ -135,40 +139,33 @@
             <local name="n"/>
             <local name="quoted"/>
             <local name="s"/>
-            <local name="scala.sources"/>
+            <local name="tasty.sources"/>
 
-            <pathconvert property="scala.sources" pathsep=" ">
-                <fileset dir="@{srcdir}" includes="**/*.scala" />
+            <pathconvert property="tasty.sources" pathsep=" ">
+                <fileset dir="@{srcdir}" includes="**/*.tasty" />
             </pathconvert>
             <resourcecount property="n">
-                <fileset dir="@{srcdir}" includes="**/*.scala" />
+                <fileset dir="@{srcdir}" includes="**/*.tasty" />
             </resourcecount>
             <condition property="s" value="s" else="">
                 <not><matches string="${n}" pattern="[0-1]" /></not>
             </condition>
-            <!--
-            <exec executable="echo" taskname="scalac">
-                <arg value="Compiling ${n} source file${s} to @{destdir}" />
-            </exec>
-            -->
-            <echo message="Compiling ${n} source file${s} to @{destdir}" level="info" />
+            <echo message="Compiling ${n} TASTY file${s} to @{destdir}" level="info" />
             <pathconvert property="classpath" refid="@{classpathref}" />
             <condition property="quoted" value="&quot;" else="">
                 <contains string="${classpath}" substring=" " />
             </condition>
-            <java fork="true" classname="dotty.tools.dottydoc.Main" classpathref="dotc.classpath">
+            <java fork="true" classname="dotty.tools.scaladoc.Main" classpathref="dotc.classpath">
                 <jvmarg value="-Xmx768m" />
                 <jvmarg value="-Xms768m" />
                 <jvmarg value="-Dscala.usejavacp=true" />
-                <arg value="-siteroot" />
+                <arg value="-d" />
                 <arg value="@{destdir}" />
                 <arg value="-classpath" />
                 <arg value="${quoted}${classpath}${quoted}" />
                 <arg value="-project" />
                 <arg value="${ant.project.name}" />
-                <arg value="-project-url" />
-                <arg value="github.com/${user.name}/dotty-examples" />
-                <arg line="${scala.sources}" />
+                <arg line="${tasty.sources}" />
             </java>
         </sequential>
     </macrodef>
@@ -176,11 +173,11 @@
     <target name="test.install">
         <ivy:resolve file="../ivy-test.xml" showprogress="false" log="download-only" />
         <ivy:install
-            organisation="junit" module="junit" revision="4.13"
+            organisation="junit" module="junit" revision="${junit.version}"
             transitive="true" overwrite="false" from="public" to="local"
         />
         <ivy:install
-            organisation="org.hamcrest" module="hamcrest" revision="2.2"
+            organisation="org.hamcrest" module="hamcrest" revision="${hamcrest.version}"
             transitive="true" overwrite="false" from="public" to="local"
         />
     </target>
