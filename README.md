@@ -27,7 +27,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 
 - [Scala 3.0][dotty_releases] ([*release notes*][scala3_relnotes])
 - [Git 2.31][git_releases] ([*release notes*][git_relnotes])
-- [Oracle OpenJDK 11 TLS][oracle_openjdk] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk_relnotes])
+- [Oracle OpenJDK 11 LTS][oracle_openjdk] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk_relnotes])
 <!--
 8u212   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
 8u222   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
@@ -43,7 +43,7 @@ This project depends on two external software for the **Microsoft Windows** plat
 Optionally one may also install the following software:
 
 - [Apache Ant 1.10][apache_ant] (requires Java 8) ([*release notes*][apache_ant_relnotes])
-- [Apache Maven 3.6][apache_maven] ([requires Java 7][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
+- [Apache Maven 3.8][apache_maven] ([requires Java 7][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
 - [Bazel 4.0][bazel_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
 - [GNU Make 3.81][make_downloads]
@@ -89,7 +89,7 @@ C:\opt\scala-3.0.0-RC3\            <i>( 31.4 MB)</i>
  <!-- sbt: 1.3.6 = 55.1 MB, 1.3.7 = 60.9 MB, 1.3.8 = 61.0 MB -->
  <!-- sbt: 1.3.9 = 61.2 MB, 1.3.10 = 61.2 MB, 1.3.11 = 61.3 MB, 1.4.1 = 47.6 MB -->
  <!-- sbt: 1.4.2 = 47.7 MB, 1.4.3 = 47.7 MB, 1.4.6 -> 48 MB, 1.4.6 = MB -->
- <!-- sbt: 1.4.7 = 48.3 MB, 1.4.8 = 48.3 MB, 1.5.0 = 48.3 MB, 1.5.0 = 50.6 MB -->
+ <!-- sbt: 1.4.7 = 48.3 MB, 1.4.8 = 48.3 MB, 1.5.0 = 48.3 MB, 1.5.1 = 50.6 MB -->
 
 > **:mag_right:** [Git for Windows][git_releases] provides a Bash emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
@@ -310,7 +310,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.5, scalac 3.0.0-RC3,
-   ant 1.10.10, gradle 7.0, mill 0.9.6, mvn 3.8.1, sbt 1.5.0,
+   ant 1.10.10, gradle 7.0, mill 0.9.6, mvn 3.8.1, sbt 1.5.1,
    bazel 4.0.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.5,
    git 2.31.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 
@@ -338,12 +338,12 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.5, scalac 3.0.0-RC3,
-   ant 1.10.10, gradle 7.0, mill 0.9.6, mvn 3.8.1, sbt 1.5.0,
+   ant 1.10.10, gradle 7.0, mill 0.9.6, mvn 3.8.1, sbt 1.5.1,
    bazel 4.0.0, cfr 0.151, make 3.81, python 3.9.5,
    git 2.31.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
-   C:\opt\jdk-11.0.10+9\bin\javac.exe
-   C:\opt\jdk-11.0.10+9\bin\java.exe
+   C:\opt\jdk-openjdk-11.0.11_9\bin\javac.exe
+   C:\opt\jdk-openjdk-11.0.11_9\bin\java.exe
    C:\opt\scala-2.13.5\bin\scalac.bat
    C:\opt\scala-3.0.0-RC3\bin\scalac.bat
    C:\opt\apache-ant-1.10.10\bin\ant.bat
@@ -389,7 +389,7 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala-3.0.0-RC3 c:\opt\jdk-openjdk-11.0.10_9</b>
+<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala-3.0.0-RC3 c:\opt\jdk-openjdk-11.0.11_9</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
 Size of directory "c:\opt\scala-3.0.0-RC3" is 31.4 Mb
@@ -519,12 +519,12 @@ Searching for class name System in archive files C:\opt\scala-2.13.5\lib\*.jar
   [...]
   scala-library.jar:scala/sys/SystemProperties$.class
   scala-library.jar:scala/sys/SystemProperties.class
-Searching for class name System in archive files C:\opt\jdk-11.0.10+9\lib\*.jar
+Searching for class name System in archive files C:\opt\jdk-11.0.11_9\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   [...]
   jrt-fs.jar:jdk/internal/jrtfs/SystemImage$2.class
   jrt-fs.jar:jdk/internal/jrtfs/SystemImage.class
-Searching for class name System in archive files c:\opt\javafx-sdk-15.0.1\lib\*.jar
+Searching for class name System in archive files c:\opt\javafx-sdk-16\lib\*.jar
   javafx.graphics.jar:com/sun/glass/ui/SystemClipboard.class
   [...]
   javafx.graphics.jar:com/sun/javafx/tk/TKSystemMenu.class
@@ -537,7 +537,7 @@ Searching for an unknown class name - e.g. **`BinarySearch`** - produces the fol
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> BinarySearch</b>
 Searching for class name BinarySearch in archive files C:\opt\scala-3.0.0-RC3\lib\*.jar
 Searching for class name BinarySearch in archive files C:\opt\scala-2.13.5\lib\*.jar
-Searching for class name BinarySearch in archive files C:\opt\jdk-11.0.10+9\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\jdk-11.0.11_9\lib\*.jar
 </pre>
 
 Searching for **`FileSystem`** with option **`-artifact`** produces the following output:
@@ -546,7 +546,7 @@ Searching for **`FileSystem`** with option **`-artifact`** produces the followin
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> FileSystem -artifact</b>
 Searching for class name FileSystem in archive files C:\opt\scala-3.0.0-RC3\lib\*.jar
 Searching for class name FileSystem in archive files C:\opt\scala-2.13.5\lib\*.jar
-Searching for class name FileSystem in archive files c:\opt\jdk-11.0.10+9\lib\*.jar
+Searching for class name FileSystem in archive files c:\opt\jdk-11.0.11_9\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystemProvider$1.class
@@ -691,7 +691,7 @@ The REPL has several commands available:
 :reset                   reset the repl to its initial state, forgetting all session entries
 
 <b>scala&gt;</b> System.getenv().get("JAVA_HOME")
-val res0: String = C:\opt\jdk-11.0.10+9
+val res0: String = C:\opt\jdk-11.0.11_9
 
 <b>scala&gt;</b> System.getenv().get("SCALA3_HOME")
 val res1: String = C:\opt\scala-3.0.0-RC3

@@ -1,3 +1,6 @@
+ifndef GIT_HOME
+$(error Variable GIT_HOME is not set)
+endif
 ifndef JAVA_HOME
 $(error Variable JAVA_HOME is not set)
 endif
@@ -11,6 +14,7 @@ JAVAC      = $(subst \,/,$(JAVA_HOME))/bin/javac.exe
 SCALA      = $(subst \,/,$(SCALA3_HOME))/bin/scala.bat
 SCALAC     = $(subst \,/,$(SCALA3_HOME))/bin/scalac.bat
 SCALADOC   = $(subst \,/,$(SCALA3_HOME))/bin/scaladoc.bat
+SCALAFMT   = $(subst \,/,$(SCALAFMT_HOME))/bin/scalafmt.bat
 LOCAL_REPO = $(subst \,/,$(USERPROFILE))/.m2/repository
 PSEP       = ;
 FIND       = $(subst \,/,$(GIT_HOME))/usr/bin/find.exe
@@ -22,6 +26,7 @@ JAVAC      = $(JAVA_HOME)/bin/javac
 SCALA      = $(SCALA3_HOME)/bin/scala
 SCALAC     = $(SCALA3_HOME)/bin/scalac
 SCALADOC   = $(SCALA3_HOME)/bin/scaladoc
+SCALAFMT   = $(SCALAFMT_HOME)/bin/scalafmt
 LOCAL_REPO = $(HOME)/.m2/repository
 PSEP       = :
 FIND       = find
