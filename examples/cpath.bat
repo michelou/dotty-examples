@@ -20,13 +20,13 @@ set _LIBS_CPATH=
 set __SCALALIB_VERSION=2.13
 
 @rem https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect
-call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALALIB_VERSION%" "1.1.0"
+call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALALIB_VERSION%" "1.1.1"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-call :add_jar "org.scala-lang.modules" "scala-xml_%__SCALALIB_VERSION%" "2.0.0-RC1"
+call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.0.0"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parser-combinators
-call :add_jar "org.scala-lang.modules" "scala-parser-combinators_%__SCALALIB_VERSION%" "1.1.2"
+call :add_jar "org.scala-lang.modules" "scala-parser-combinators_3" "2.0.0"
 
 @rem https://mvnrepository.com/artifact/junit/junit
 call :add_jar "junit" "junit" "4.13.2"
@@ -37,7 +37,7 @@ call :add_jar "com.novocode" "junit-interface" "0.11"
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest
 call :add_jar "org.hamcrest" "hamcrest" "2.2"
 
-set __SCALATEST_VERSION=3.2.8
+set __SCALATEST_VERSION=3.2.9
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
@@ -75,10 +75,10 @@ call :add_jar "org.specs2" "specs2-matcher_%__SCALALIB_VERSION%" "%__SPECS2_CORE
 call :add_jar "org.specs2" "specs2-fp_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
 
 @rem https://mvnrepository.com/artifact/com.chuusai/shapeless
-call :add_jar "com.chuusai" "shapeless_%__SCALALIB_VERSION%" "2.3.4"
+call :add_jar "com.chuusai" "shapeless_%__SCALALIB_VERSION%" "2.3.6"
 
 @rem https://mvnrepository.com/artifact/eu.timepit/refined
-call :add_jar "eu.timepit" "refined_%__SCALALIB_VERSION%" "0.9.23"
+call :add_jar "eu.timepit" "refined_3" "0.9.25"
 
 goto end
 

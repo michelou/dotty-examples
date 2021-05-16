@@ -9,17 +9,20 @@ import core.Decorators._
 import core.StdNames._
 import core.Symbols._
 import plugins.{PluginPhase, StandardPlugin}
-import transform.{Pickler, ReifyQuotes}
+import transform.{Pickler, Inlining}
 
 class MultiplyOne extends PluginPhase with StandardPlugin {
+
   val name: String = "multiplyOne"
+
   override val description: String = "multiply by one elimination"
   override val optionsHelp = Some("opt1,opt2")
 
   val phaseName = name
 
+  // see phases in file compiler\src\dotty\tools\dotc\Compiler.scala
   override val runsAfter = Set(Pickler.name)
-  override val runsBefore = Set(ReifyQuotes.name)
+  override val runsBefore = Set(Inlining.name)
 
   override def init(options: List[String]): List[PluginPhase] = {
     //println("111111111111 init: options="+options.mkString(","))
@@ -41,4 +44,5 @@ class MultiplyOne extends PluginPhase with StandardPlugin {
     case _ =>
       tree
   }
+
 }

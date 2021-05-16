@@ -85,6 +85,13 @@ if not exist "%SCALA3_HOME%\bin\scalac.bat" (
 set "_SCALA_CMD=%SCALA3_HOME%\bin\scala.bat"
 set "_SCALAC_CMD=%SCALA3_HOME%\bin\scalac.bat"
 set "_SCALADOC_CMD=%SCALA3_HOME%\bin\scaladoc.bat"
+
+if not exist "%CFR_HOME%\bin\cfr.bat" (
+    echo %_ERROR_LABEL% CFR installation not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_CFR_CMD=%CFR_HOME%\bin\cfr.bat"
 goto :eof
 
 :env_colors
@@ -331,15 +338,15 @@ set "__TARGET_FILE=%~1"
 
 set __PATH_ARRAY=
 set __PATH_ARRAY1=
-:compile_path
+:action_path
 shift
 set __PATH=%~1
-if not defined __PATH goto :compile_next
+if not defined __PATH goto :action_next
 set __PATH_ARRAY=%__PATH_ARRAY%,'%__PATH%'
 set __PATH_ARRAY1=%__PATH_ARRAY1%,'!__PATH:%_ROOT_DIR%=!'
-goto :compile_path
+goto :action_path
 
-:compile_next
+:action_next
 set __TARGET_TIMESTAMP=00000000000000
 for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
      set __TARGET_TIMESTAMP=%%i
@@ -355,7 +362,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: %__PATH_ARRAY:~1% 1>&2
     echo %_DEBUG_LABEL% _ACTION_REQUIRED=%_ACTION_REQUIRED% 1>&2
 ) else if %_VERBOSE%==1 if %_ACTION_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
-    echo No compilation needed ^(%__PATH_ARRAY1:~1%^) 1>&2
+    echo No action required ^(%__PATH_ARRAY1:~1%^) 1>&2
 )
 goto :eof
 
@@ -468,6 +475,7 @@ goto :eof
 set "_MANIFEST_FILE=%_TARGET_DIR%\Manifest.txt"
 echo Manifest-Version: 1.0> "%_MANIFEST_FILE%"
 
+set __JAVAC_VERSION=
 for /f "usebackq tokens=1,*" %%i in (`"%_JAVAC_CMD%" -version 2^>^&1`) do set __JAVAC_VERSION=%%j
 @rem Starting with Java 11 java.exe accepts a single Java source file
 @rem (Java versions prior to version 11 contain a dot in position 1)
@@ -481,9 +489,9 @@ if not exist "%__JAVA_FILE%" (
 )
 if defined _JAVAC_CMD (
     set "__TMP_DIR=%_TARGET_DIR%\tmp"
-    if not exist "!_TMP_DIR!" mkdir "!_TMP_DIR!"
-    call "%__JAVAC_CMD%" -d "!_TMP_DIR!" "%__JAVA_FILE%"
-    for /f "usebackq delims=" %%i in (`call "%_JAVA_CMD%" -cp "!_TMP_DIR!" Manifest`) do (
+    if not exist "!__TMP_DIR!" mkdir "!__TMP_DIR!"
+    call "%_JAVAC_CMD%" -d "!__TMP_DIR!" "%__JAVA_FILE%"
+    for /f "usebackq delims=" %%i in (`call "%_JAVA_CMD%" -cp "!__TMP_DIR!" Manifest`) do (
         echo %%i>> "%_MANIFEST_FILE%"
     )
 ) else (
@@ -532,7 +540,7 @@ goto :eof
 
 :decompile_test
 set "__LIB_PATH=%SCALA3_HOME%\lib"
-for /f "tokens=1,2,3,4,*" %%i in ('%SCALA3_HOME%\bin\dotc.bat -version 2^>^&1') do (
+for /f "tokens=1,2,3,4,*" %%i in ('%SCALA3_HOME%\bin\scalac.bat -version 2^>^&1') do (
     set "__VERSION_STRING=scala3_%%l"
 )
 @rem keep only "-NIGHTLY" in version suffix when compiling with a nightly build 
@@ -548,7 +556,6 @@ for %%f in (%__LIB_PATH%\*.jar) do set "__EXTRA_CPATH=!__EXTRA_CPATH!%%f;"
 set "__OUTPUT_DIR=%_TARGET_DIR%\cfr-sources"
 if not exist "%__OUTPUT_DIR%" mkdir "%__OUTPUT_DIR%"
 
-set __CFR_CMD=cfr.bat
 set __CFR_OPTS=--extraclasspath "%__EXTRA_CPATH%" --outputdir "%__OUTPUT_DIR%"
 
 set "__CLASS_DIRS=%_TEST_CLASSES_DIR%"
@@ -557,8 +564,8 @@ for /f "delims=" %%f in ('dir /b /s /ad "%_TEST_CLASSES_DIR%" 2^>NUL') do (
 )
 if %_VERBOSE%==1 echo Decompile Java bytecode to directory "!__OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
 for %%i in (%__CLASS_DIRS%) do (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__CFR_CMD%" %__CFR_OPTS% "%%i\*.class" 1>&2
-    call "%__CFR_CMD%" %__CFR_OPTS% "%%i"\*.class %_STDERR_REDIRECT%
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_CFR_CMD%" %__CFR_OPTS% "%%i\*.class" 1>&2
+    call "%_CFR_CMD%" %__CFR_OPTS% "%%i"\*.class %_STDERR_REDIRECT%
     if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Failed to decompile generated code in directory "%%i" 1>&2
         set _EXITCODE=1

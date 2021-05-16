@@ -71,14 +71,14 @@ C:\opt\apache-maven-3.8.1\         <i>( 10.7 MB)</i>
 C:\opt\bazel-4.0.0\                <i>( 41.0 MB)</i>
 C:\opt\cfr-0.151\                  <i>(  1.9 MB)</i>
 C:\opt\Git-2.31.1\                 <i>(279.0 MB)</i>
-C:\opt\gradle-7.0\                 <i>(121.0 MB)</i>
+C:\opt\gradle-7.0.2\               <i>(121.0 MB)</i>
 C:\opt\jacoco-0.8.7\               <i>( 10.7 MB)</i>
 C:\opt\javafx-sdk-15.0.1\          <i>( 78.2 MB)</i>
 C:\opt\jdk-openjdk-1.8.0_292-b10\  <i>(185.0 MB)</i>
 C:\opt\jdk-openjdk-11.0.11_9\      <i>(300.0 MB)</i>
 C:\opt\jdk-openjdk-17-ea_21\       <i>(291.0 MB)</i>
 C:\opt\make-3.81\                  <i>(  2.1 MB)</i>
-C:\opt\Mill-0.9.6\                 <i>( 53.7 MB)</i>
+C:\opt\Mill-0.9.7\                 <i>( 53.7 MB)</i>
 C:\opt\msys64\                     <i>( 5.56 GB)</i>
 C:\opt\sbt-1.5.1\                  <i>( 48.3 MB)</i>
 C:\opt\scala-2.13.5\               <i>( 23.4 MB, 612 MB with API docs)</i>
@@ -310,7 +310,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.5, scalac 3.0.0-RC3,
-   ant 1.10.10, gradle 7.0, mill 0.9.6, mvn 3.8.1, sbt 1.5.1,
+   ant 1.10.10, gradle 7.0, mill 0.9.7, mvn 3.8.1, sbt 1.5.1,
    bazel 4.0.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.5,
    git 2.31.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 
@@ -338,7 +338,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.5, scalac 3.0.0-RC3,
-   ant 1.10.10, gradle 7.0, mill 0.9.6, mvn 3.8.1, sbt 1.5.1,
+   ant 1.10.10, gradle 7.0, mill 0.9.7, mvn 3.8.1, sbt 1.5.1,
    bazel 4.0.0, cfr 0.151, make 3.81, python 3.9.5,
    git 2.31.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
@@ -348,7 +348,7 @@ Tool paths:
    C:\opt\scala-3.0.0-RC3\bin\scalac.bat
    C:\opt\apache-ant-1.10.10\bin\ant.bat
    C:\opt\gradle-7.0\bin\gradle.bat
-   C:\opt\Mill-0.9.6\mill.bat
+   C:\opt\Mill-0.9.7\mill.bat
    C:\opt\apache-maven-3.8.1\bin\mvn.cmd
    C:\opt\sbt-1.5.1\bin\sbt.bat
    C:\opt\bazel-4.0.0\bazel.exe
@@ -748,7 +748,7 @@ For instance, for Visual Studio 2019, we set variable <b><code>BAZEL_VC</code></
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/lihaoyi/mill/releases">0.9.6-assembly</a> (<code>mill</code>)                             <i>( 57 MB)</i>
+<a href="https://github.com/lihaoyi/mill/releases">0.9.7-assembly</a> (<code>mill</code>)                             <i>( 57 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.10-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.8.1-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-4.0.0-windows-x86_64.zip</a>                    <i>( 40 MB)</i>

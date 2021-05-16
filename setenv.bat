@@ -44,7 +44,7 @@ call :scala2
 if not %_EXITCODE%==0 goto end
 
 call :scalafmt
-if not %_EXITCODE%==0 (
+if not defined _SCALAFMT_CMD (
     @rem optional
     echo %_WARNING_LABEL% Scalafmt installation not found 1>&2
     set _EXITCODE=0
@@ -289,7 +289,7 @@ echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%help%__END%        display this help message
 goto :eof
 
-@rem output parameter(s): _PYTHON_HOME, _PYTHON_PATH
+@rem output parameters: _PYTHON_HOME, _PYTHON_PATH
 :python
 set _PYTHON_HOME=
 set _PYTHON_PATH=
@@ -454,31 +454,13 @@ if not exist "%_SCALA_HOME%\bin\scalac.bat" (
 )
 goto :eof
 
-@rem output parameter(s): _SCALAFMT_HOME
+@rem output parameter: _SCALAFMT_CMD
 :scalafmt
-set _SCALAFMT_HOME=
+set _SCALAFMT_CMD=
 
-set __SCALAFMT_CMD=
-for /f %%f in ('where scalafmt.bat 2^>NUL') do set "__SCALAFMT_CMD=%%f"
-if defined __SCALAFMT_CMD (
-    for %%i in ("%__SCALAFMT_CMD%") do set "__SCALAFMT_BIN_DIR=%%~dpi"
-    for %%f in ("!__SCALAFMT_BIN_DIR!\.") do set "_SCALAFMT_HOME=%%~dpf"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Scalafmt executable found in PATH 1>&2
-    goto :eof
-) else if defined SCALAFMT_HOME (
-    set "_SCALAFMT_HOME=%SCALAFMT_HOME%"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SCALAFMT_HOME 1>&2
-) else (
-    set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\scalafmt*" 2^>NUL') do set "_SCALAFMT_HOME=!_PATH!\%%f"
-    if defined _SCALAFMT_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scalafmt installation directory !_SCALAFMT_HOME! 1>&2
-    )
-)
-if not exist "%_SCALAFMT_HOME%\bin\scalafmt.bat" (
-    set _SCALAFMT_HOME=
-    set _EXITCODE=1
-    goto :eof
+@rem Coursier installed software
+if exist "%LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat" (
+    set "_SCALAFMT_CMD=%LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat"
 )
 goto :eof
 
@@ -639,11 +621,19 @@ if not exist "%_CFR_HOME%\bin\cfr.bat" (
 )
 goto :eof
 
+@rem output parameters: _GRADLE_HOME, _GRADLE_PATH
 :gradle
-where /q gradle.bat
-if %ERRORLEVEL%==0 goto :eof
+set _GRADLE_HOME=
+set _GRADLE_PATH=
 
-if defined GRADLE_HOME (
+set __GRADLE_CMD=
+for /f %%f in ('where gradle.bat 2^>NUL') do set "__GRADLE_CMD=%%f"
+if defined __GRADLE_CMD (
+    for %%i in ("%__GRADLE_CMD%") do set "__GRADLE_BIN_DIR=%%~dpi"
+    for %%f in ("!__GRADLE_BIN_DIR!\.") do set "_GRADLE_HOME=%%~dpf"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Gradle executable found in PATH 1>&2
+    goto :eof
+) else if defined GRADLE_HOME (
     set "_GRADLE_HOME=%GRADLE_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GRADLE_HOME 1>&2
 ) else (
@@ -733,7 +723,7 @@ for /f %%f in ('where jmc.exe 2^>NUL') do set "__JMC_CMD=%%f"
 if defined __JMC_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of JMC executable found in PATH 1>&2
     for %%i in ("%__JMC_CMD%") do set "__JMC_BIN_DIR=%%~dpi"
-    for %%f in ("!__JMC_JMC_DIR!..") do set "_JMC_HOME=%%f"
+    for %%f in ("!__JMC_BIN_DIR!\.") do set "_JMC_HOME=%%~dpf"
     @rem keep _JMC_PATH undefined since executable already in path
     goto :eof
 ) else if defined JMC_HOME (
@@ -790,12 +780,18 @@ if not exist "%__MAKE_HOME%\bin\make.exe" (
 set "_MAKE_PATH=;%__MAKE_HOME%\bin"
 goto :eof
 
-@rem output parameter(s): _MAVEN_PATH
+@rem output parameters: _MAVEN_HOME, _MAVEN_PATH
 :maven
-where /q mvn.cmd
-if %ERRORLEVEL%==0 goto :eof
+set _MAVEN_HOME=
+set _MAVEN_PATH=
 
-if defined MAVEN_HOME (
+set __MVN_CMD=
+for /f %%f in ('where mvn.cmd 2^>NUL') do set "__MVN_CMD=%%f"
+if defined __MVN_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Maven executable found in PATH 1>&2
+    for %%i in ("%__MVN_CMD%") do set "__MAVEN_BIN_DIR=%%~dpi"
+    for %%f in ("!__MAVEN_BIN_DIR!\.") do set "_MAVEN_HOME=%%~dpf"
+) else if defined MAVEN_HOME (
     set "_MAVEN_HOME=%MAVEN_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MAVEN_HOME 1>&2
 ) else (
@@ -813,11 +809,17 @@ if not exist "%_MAVEN_HOME%\bin\mvn.cmd" (
 set "_MAVEN_PATH=;%_MAVEN_HOME%\bin"
 goto :eof
 
+@rem output parameters: _MILL_HOME, _MILL_PATH
 :mill
-where /q mill.bat
-if %ERRORLEVEL%==0 goto :eof
+set _MILL_HOME=
+set _MILL_PATH=
 
-if defined MILL_HOME (
+set __MILL_CMD=
+for /f %%f in ('where mill.bat 2^>NUL') do set "__MILL_CMD=%%f"
+if defined __MILL_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Mill executable found in PATH 1>&2
+    for %%i in ("%__MILL_CMD%") do set "_MILL_HOME=%%~dpi"
+) else if defined MILL_HOME (
     set "_MILL_HOME=%MILL_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MILL_HOME 1>&2
 ) else (
@@ -980,7 +982,7 @@ set __GIT_CMD=
 for /f %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
 if defined __GIT_CMD (
     for %%i in ("%__GIT_CMD%") do set "__GIT_BIN_DIR=%%~dpi"
-    for %%f in ("!__GIT_BIN_DIR!..") do set "_GIT_HOME=%%f"
+    for %%f in ("!__GIT_BIN_DIR!\.") do set "_GIT_HOME=%%~dpf"
     @rem Executable git.exe is present both in bin\ and \mingw64\bin\
     if not "!_GIT_HOME:mingw=!"=="!_GIT_HOME!" (
         for %%f in ("!_GIT_HOME!\..") do set "_GIT_HOME=%%f"
@@ -1035,11 +1037,6 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,*" %%i in ('"%JAVA_HOME%\bin\javac.exe" -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% javac %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%JAVA_HOME%\bin:javac.exe"
 )
-where /q "%JAVA_HOME%\bin:java.exe"
-if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,*" %%i in ('"%JAVA_HOME%\bin\java.exe" -version 2^>^&1 ^| findstr version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% java %%~k,"
-    set __WHERE_ARGS=%__WHERE_ARGS% "%JAVA_HOME%\bin:java.exe"
-)
 where /q "%SCALA_HOME%\bin:scalac.bat"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,3,4,*" %%i in ('"%SCALA_HOME%\bin\scalac.bat" -version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalac %%l,"
@@ -1050,25 +1047,35 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,3,4,*" %%i in ('"%SCALA3_HOME%\bin\scalac.bat" -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalac %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%SCALA3_HOME%\bin:scalac.bat"
 )
+set "__SCALAFMT_CMD=%LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat"
+if exist "%__SCALAFMT_CMD%" (
+    for /f "tokens=1,2,*" %%i in ('"%__SCALAFMT_CMD%" -version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalafmt %%j,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%__SCALAFMT_CMD:bin\=bin:%"
+)
 where /q "%ANT_HOME%\bin:ant.bat"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,3,4,*" %%i in ('"%ANT_HOME%\bin\ant.bat" -version ^| findstr version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% ant %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%ANT_HOME%\bin:ant.bat"
 )
-where /q gradle.bat
+where /q "%GRADLE_HOME%\bin:gradle.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('gradle.bat -version ^| findstr Gradle') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j,"
-    set __WHERE_ARGS=%__WHERE_ARGS% gradle.bat
+    for /f "tokens=1,*" %%i in ('"%GRADLE_HOME%\bin\gradle.bat" -version ^| findstr Gradle') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%GRADLE_HOME%\bin:gradle.bat"
 )
-where /q mill.bat
+where /q "%JAVA_HOME%\bin:java.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=*" %%i in ('mill.bat -i version 2^>NUL') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% mill %%i,"
-    set __WHERE_ARGS=%__WHERE_ARGS% mill.bat
+    for /f "tokens=1,2,3,*" %%i in ('"%JAVA_HOME%\bin\java.exe" -version 2^>^&1 ^| findstr version 2^>^&1') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% java %%~k,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%JAVA_HOME%\bin:java.exe"
 )
-where /q mvn.cmd
+where /q "%MILL_HOME%:mill.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,*" %%i in ('mvn.cmd -version ^| findstr Apache') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% mvn %%k,"
-    set __WHERE_ARGS=%__WHERE_ARGS% mvn.cmd
+    for /f "tokens=*" %%i in ('"%MILL_HOME%\mill.bat" -i version 2^>NUL') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% mill %%i,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%MILL_HOME%:mill.bat"
+)
+where /q "%MAVEN_HOME%\bin:mvn.cmd"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,2,3,*" %%i in ('"%MAVEN_HOME%\bin\mvn.cmd" -version ^| findstr Apache') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% mvn %%k,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%MAVEN_HOME%\bin:mvn.cmd"
 )
 where /q "%SBT_HOME%\bin:sbt.bat"
 if %ERRORLEVEL%==0 (
@@ -1135,18 +1142,19 @@ if %__VERBOSE%==1 (
     echo Environment variables: 1>&2
     if defined ANT_HOME echo    "ANT_HOME=%ANT_HOME%" 1>&2
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
+    if defined GRADLE_HOME echo    "GRADLE_HOME=%GRADLE_HOME%" 1>&2
     if defined JAVA_HOME echo    "JAVA_HOME=%JAVA_HOME%" 1>&2
     if defined JAVACOCO_HOME echo    "JAVACOCO_HOME=%JAVACOCO_HOME%" 1>&2
     if defined JAVA11_HOME echo    "JAVA11_HOME=%JAVA11_HOME%" 1>&2
     if defined JAVAFX_HOME echo    "JAVAFX_HOME=%JAVAFX_HOME%" 1>&2
     if defined MAVEN_HOME echo    "MAVEN_HOME=%MAVEN_HOME%" 1>&2
+    if defined MILL_HOME echo    "MILL_HOME=%MILL_HOME%" 1>&2
     if defined MSVS_HOME echo    "MSVS_HOME=%MSVS_HOME%" 1>&2
     if defined MSYS_HOME echo    "MSYS_HOME=%MSYS_HOME%" 1>&2
     if defined PYTHON_HOME echo    "PYTHON_HOME=%PYTHON_HOME%" 1>&2
     if defined SBT_HOME echo    "SBT_HOME=%SBT_HOME%" 1>&2
     if defined SCALA_HOME echo    "SCALA_HOME=%SCALA_HOME%" 1>&2
     if defined SCALA3_HOME echo    "SCALA3_HOME=%SCALA3_HOME%" 1>&2
-    if defined SCALAFMT_HOME echo    "SCALAFMT_HOME=%SCALAFMT_HOME%" 1>&2
 )
 goto :eof
 
@@ -1159,18 +1167,19 @@ endlocal & (
         if not defined ANT_HOME set "ANT_HOME=%_ANT_HOME%"
         if not defined CFR_HOME set "CFR_HOME=%_CFR_HOME%"
         if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
+        if not defined GRADLE_HOME set "GRADLE_HOME=%_GRADLE_HOME%"
         if not defined JACOCO_HOME set "JACOCO_HOME=%_JACOCO_HOME%"
         if not defined JAVA_HOME set "JAVA_HOME=%_JDK_HOME%"
         if not defined JAVA11_HOME set "JAVA11_HOME=%_JDK11_HOME%"
         if not defined JAVAFX_HOME set "JAVAFX_HOME=%_JAVAFX_HOME%"
         if not defined MAVEN_HOME set "MAVEN_HOME=%_MAVEN_HOME%"
+        if not defined MILL_HOME set "MILL_HOME=%_MILL_HOME%"
         if not defined MSVS_HOME set "MSVS_HOME=%_MSVS_HOME%"
         if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
         if not defined PYTHON_HOME set "PYTHON_HOME=%_PYTHON_HOME%"
         if not defined SBT_HOME set "SBT_HOME=%_SBT_HOME%"
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
         if not defined SCALA3_HOME set "SCALA3_HOME=%_SCALA3_HOME%"
-        if not defined SCALAFMT_HOME set "SCALAFMT_HOME=%_SCALAFMT_HOME%"
         set "PATH=%PATH%%_ANT_PATH%%_BAZEL_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE%
         if not "%CD:~0,2%"=="%_DRIVE_NAME%:" (

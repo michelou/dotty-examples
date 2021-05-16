@@ -23,13 +23,13 @@ set __SCALALIB_VERSION=2.13
 call :add_jar "org.apiguardian" "apiguardian-api" "1.1.1"
 
 @rem https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-call :add_jar "org.junit.jupiter" "junit-jupiter-api" "5.7.1"
+call :add_jar "org.junit.jupiter" "junit-jupiter-api" "5.7.2"
 
 @rem https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect
-call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALALIB_VERSION%" "1.1.0"
+call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALALIB_VERSION%" "1.1.1"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-call :add_jar "org.scala-lang.modules" "scala-xml_%__SCALALIB_VERSION%" "2.0.0-RC1"
+call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.0.0"
 
 @rem https://mvnrepository.com/artifact/junit/junit
 call :add_jar "junit" "junit" "4.13.2"
@@ -40,7 +40,7 @@ call :add_jar "com.novocode" "junit-interface" "0.11"
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest
 call :add_jar "org.hamcrest" "hamcrest" "2.2"
 
-set __SCALATEST_VERSION=3.2.8
+set __SCALATEST_VERSION=3.2.9
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
@@ -77,8 +77,8 @@ call :add_jar "org.specs2" "specs2-matcher_%__SCALALIB_VERSION%" "%__SPECS2_CORE
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-fp
 call :add_jar "org.specs2" "specs2-fp_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
 
-set __JMH_VERSION=1.29
-@rem JMH 1.27 and 1.29 depend on Jopt 4.6
+set __JMH_VERSION=1.31
+@rem JMH 1.27, 1.29 and 1.31 depend on Jopt 4.6
 set __JOPT_VERSION=4.6
 
 @rem https://mvnrepository.com/artifact/net.sf.jopt-simple/jopt-simple

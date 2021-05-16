@@ -113,7 +113,7 @@ Usage: $BASENAME { <option> | <subcommand> }
     doc          generate HTML documentation
     help         display this help message
     lint         analyze Scala source files with Scalafmt
-    run          execute main class
+    run          execute main class $MAIN_CLASS
 EOS
 }
 

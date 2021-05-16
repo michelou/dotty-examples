@@ -5,7 +5,7 @@ import ast.tpd
 import core.Contexts.Context
 import core.Phases.Phase
 import plugins.{PluginPhase, ResearchPlugin}
-import transform.{Pickler, ReifyQuotes}
+import transform.{Pickler, Inlining}
 
 class ModifyPipeline extends PluginPhase with ResearchPlugin {
   val name: String = "modifyPipeline"
@@ -14,8 +14,9 @@ class ModifyPipeline extends PluginPhase with ResearchPlugin {
 
   val phaseName = name
 
+  // see phases in file compiler\src\dotty\tools\dotc\Compiler.scala
   override val runsAfter = Set(Pickler.name)
-  override val runsBefore = Set(ReifyQuotes.name)
+  override val runsBefore = Set(Inlining.name)
 
   def init(options: List[String], phases: List[List[Phase]])(implicit ctx: Context): List[List[Phase]] = {
     println("111111111 "+options.mkString(" "))

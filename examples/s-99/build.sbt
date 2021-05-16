@@ -4,7 +4,7 @@ val dottyVersion = "3.0.0"
 lazy val root = project
   .in(file("."))
   .settings(
-    name := "ImplicitDemo",
+    name := "s-99",
     description := "sbt example project to build/run Scala 3 applications",
     version := "1.0.0",
 
@@ -12,7 +12,7 @@ lazy val root = project
     scalacOptions ++= Seq(
       "-deprecation",
       "-encoding", "UTF-8",
-      "-feature"
+      "-feature" 
     ),
 
     // resolvers += "Maven Central Server" at "http://central.maven.org/maven2",
@@ -21,17 +21,14 @@ lazy val root = project
       // https://mvnrepository.com/artifact/com.novocode/junit-interface
       "com.novocode" % "junit-interface" % "0.11" % Test,
       // https://mvnrepository.com/artifact/org.scalacheck/scalacheck
-      "org.scalacheck" % "scalacheck_2.13" % "1.15.3" % Test,
+      "org.scalacheck" % "scalacheck_3" % "1.15.4" % Test,
       // https://mvnrepository.com/artifact/org.scalatest/scalatest
-      "org.scalatest" % "scalatest_2.13" % "3.2.9" % "test"
+      "org.scalatest" % "scalatest_3" % "3.2.9" % "test"
     ),
 
     testOptions ++= Seq(
-      Tests.Setup(() => println("Setup JUnit tests")),
-      Tests.Cleanup(() => println("Cleanup JUnit tests")),
+      Tests.Setup(() => println("Setup")),
+      Tests.Cleanup(() => println("Cleanup")),
       Tests.Filter(s => s.endsWith("Test"))
-    ),
-
-    // receive periodic notifications of tests that have been running longer than 120 seconds
-	testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-W", "120", "60")
+    )
   )

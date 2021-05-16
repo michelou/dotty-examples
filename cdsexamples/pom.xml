@@ -15,7 +15,7 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId> <!-- ch.epfl.lamp -->
-        <scala.versionTag>3.0.0-RC3</scala.versionTag> <!-- eg. "2.13" -->
+        <scala.versionTag>3.0.0</scala.versionTag> <!-- eg. "2.13" -->
         <scala.version>${scala.versionTag}</scala.version> <!-- eg. "2.13.3" or "0.26.0" -->
         <scala.local.install>true</scala.local.install>
         <scala2.versionTag>2.13</scala2.versionTag>
@@ -24,7 +24,7 @@
         <!-- Maven plugin versions -->
         <scala.maven.version>1.0.0</scala.maven.version> <!-- Dec 2018 -->
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
-        <scalatest.version>3.2.8</scalatest.version>            <!-- Apr 2021 -->
+        <scalatest.version>3.2.9</scalatest.version>            <!-- Apr 2021 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven.compiler.version>3.8.1</maven.compiler.version>  <!-- May 2019 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
@@ -38,7 +38,7 @@
         <exec.maven.version>3.0.0</exec.maven.version>          <!-- Jun 2020 -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
-        <jmh.version>1.29</jmh.version>                         <!-- May 2018, Oracle -->
+        <jmh.version>1.31</jmh.version>                         <!-- May 2018, Oracle -->
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
