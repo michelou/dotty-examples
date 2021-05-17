@@ -92,7 +92,6 @@ args() {
     debug "Variables  : JAVA_HOME=$JAVA_HOME"
     debug "Variables  : SCALA3_HOME=$SCALA3_HOME"
     [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
-    [[ -n "$SCALAFMT_HOME" ]] && debug "Variables  : SCALAFMT_HOME=$SCALAFMT_HOME"
     # See http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
     $TIMER && TIMER_START=$(date +"%s")
 }
@@ -113,7 +112,7 @@ Usage: $BASENAME { <option> | <subcommand> }
     doc          generate HTML documentation
     help         display this help message
     lint         analyze Scala source files with Scalafmt
-    run          execute main class
+    run          execute main class $MAIN_CLASS
 EOS
 }
 
@@ -473,7 +472,7 @@ case "`uname -s`" in
   CYGWIN*) cygwin=true ;;
   MINGW*)  mingw=true ;;
   MSYS*)   msys=true ;;
-  Darwin*) darwin=true      
+  Darwin*) darwin=true
 esac
 unset CYGPATH_CMD
 PSEP=":"
@@ -482,7 +481,6 @@ if [[ $cygwin || $mingw || $msys ]]; then
     [[ -n "$GIT_HOME" ]] && GIT_HOME="$(mixed_path $GIT_HOME)"
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA3_HOME" ]] && SCALA3_HOME="$(mixed_path $SCALA3_HOME)"
-    [[ -n "$SCALAFMT_HOME" ]] && SCALAFMT_HOME="$(mixed_path $SCALAFMT_HOME)"
     CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     DIFF_CMD="$GIT_HOME/usr/bin/diff.exe"
     SCALAFMT_CMD="$LOCALAPPDATA/Coursier/data/bin/scalafmt.bat"

@@ -4,6 +4,7 @@ SOURCE_DIR  = src
 TARGET_DIR  = target
 CLASSES_DIR = $(TARGET_DIR)/classes
 
+JAVAC_FLAGS  = -deprecation
 SCALAC_FLAGS = -deprecation -feature
 SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 
@@ -16,7 +17,7 @@ TARGET  = $(TARGET_DIR)/.latest-build
 OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
 SOURCES_FILE = $(TARGET_DIR)/scalac_sources.txt
 
-MAIN_CLASS = Main
+MAIN_CLASS = ImplicitDemo
 MAIN_ARGS ?= 
 
 all: build
@@ -25,7 +26,7 @@ build: $(TARGET)
 
 $(TARGET): $(SOURCES)
 	[ -d "$(CLASSES_DIR)" ] || $(MKDIR) -p "$(CLASSES_DIR)"
-	@echo $(SCALAC_FLAGS) -d "$(CLASSES_DIR)" > "$(OPTS_FILE)"
+	@echo $(SCALAC_FLAGS) -classpath "$(CLASSES_DIR)" -d "$(CLASSES_DIR)" > "$(OPTS_FILE)"
 	@echo $(SOURCES) > "$(SOURCES_FILE)"
 	$(SCALAC) "@$(OPTS_FILE)" "@$(SOURCES_FILE)"
 	@$(TOUCH) "$(TARGET)"
@@ -33,13 +34,11 @@ $(TARGET): $(SOURCES)
 clean:
 	rm -rf "$(TARGET_DIR)"
 
-compile: build
-
 run: build
 	$(SCALA) $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
 
 help:
-	@$(info Usage: make all|build|clean|doc|help|lint|run|test)
+	@$(find Usage: make all|build|clean|doc|help|lint|run|test)
 	@$(info )
 	@echo   Subcommands:
 	@echo     all    alias for build
@@ -55,7 +54,7 @@ help:
 ## doc rules
 
 DOC_TARGET_DIR = $(TARGET_DIR)/docs
-DOC_SOURCES    = $(shell $(FIND) $(CLASSES_DIR) -name *.tasty)
+DOC_SOURCES    = $(shell [ -d "$(CLASSES_DIR)" ] && $(FIND) $(CLASSES_DIR) -name *.tasty)
 DOC_TARGET     = $(DOC_TARGET_DIR)/.latest-build
 
 PROJECT_NAME    ?= $(shell basename $(CURDIR))
@@ -86,15 +85,15 @@ lint:
 ##############################################################################
 ## test rules
 
-TEST_SOURCES     = $(shell $(FIND) $(SOURCE_DIR)/test -name *.scala)
+TEST_SOURCES     = $(shell $(FIND) $(SOURCE_DIR)/test/scala -type f -name *.scala)
 TEST_CLASSES_DIR = $(TARGET_DIR)/test-classes
 TEST_TARGET      = $(TARGET_DIR)/.latest-test-build
 
 TEST_OPTS_FILE    = $(TARGET_DIR)/scalac_test_opts.txt
 TEST_SOURCES_FILE = $(TARGET_DIR)/scalac_test_sources.txt
 
-TEST_MAIN_CLASS  = $(MAIN_CLASS)Test
-TEST_CPATH       = $(SCALA_LIB_JAR)$(PSEP)$(SCALA3_LIB_JAR)$(PSEP)$(HAMCREST_JAR)$(PSEP)$(JUNIT_JAR)$(PSEP)$(JUNIT_INTF_JAR)$(PSEP)$(CLASSES_DIR)$(PSEP)$(TEST_CLASSES_DIR)
+TEST_MAIN_CLASS = HelloTest
+TEST_CPATH      = $(SCALA_LIB_JAR)$(PSEP)$(SCALA3_LIB_JAR)$(PSEP)$(HAMCREST_JAR)$(PSEP)$(JUNIT_JAR)$(PSEP)$(JUNIT_INTF_JAR)$(PSEP)$(CLASSES_DIR)$(PSEP)$(TEST_CLASSES_DIR)
 
 $(TEST_TARGET): $(TEST_SOURCES)
 	[ -d "$(TEST_CLASSES_DIR)" ] || $(MKDIR) -p "$(TEST_CLASSES_DIR)"
@@ -109,4 +108,4 @@ test: build $(TEST_TARGET)
 ##############################################################################
 ## phony
 
-.PHONY: all build clean compile doc help lint run test
+.PHONY: all build clean doc help lint run test

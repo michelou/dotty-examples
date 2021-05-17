@@ -478,15 +478,15 @@ case "`uname -s`" in
   CYGWIN*) cygwin=true ;;
   MINGW*)  mingw=true ;;
   MSYS*)   msys=true ;;
-  Darwin*) darwin=true      
+  Darwin*) darwin=true
 esac
 unset CYGPATH_CMD
 PSEP=":"
 if [[ $cygwin || $mingw || $msys ]]; then
+    [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
     [[ -n "$GIT_HOME" ]] && GIT_HOME="$(mixed_path $GIT_HOME)"
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA3_HOME" ]] && SCALA3_HOME="$(mixed_path $SCALA3_HOME)"
-    [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
     CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     DIFF_CMD="$GIT_HOME/bin/diff"
     SCALAFMT_CMD="$LOCALAPPDATA/Coursier/data/bin/scalafmt"

@@ -14,15 +14,15 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId> <!-- old: "ch.epfl.lamp" -->
-        <scala.versionTag>3.0.0-RC3</scala.versionTag>
-        <scala.version>${scala.versionTag}</scala.version>
+        <scala.version>3.0.0</scala.version>
         <scala.local.install>true</scala.local.install>
-        <scalalib.version>2.13</scalalib.version>
 
         <!-- Maven plugin versions -->
         <scala.maven.version>1.0.0</scala.maven.version> <!-- Dec 2018 -->
+		<!-- https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect -->
+		<scala-reflect.version>1.1.1</scala-reflect.version>
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
-        <scalatest.version>3.2.8</scalatest.version>            <!-- Nov 2020 -->
+        <scalatest.version>3.2.9</scalatest.version>            <!-- Nov 2020 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven.compiler.version>3.8.1</maven.compiler.version>  <!-- May 2019 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
@@ -40,16 +40,16 @@
         <ivy.version>2.5.0</ivy.version>
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
-        <jmh.version>1.29</jmh.version>                         <!-- Dec 2020, Oracle -->
+        <jmh.version>1.31</jmh.version>                         <!-- Dec 2020, Oracle -->
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
         <junit.platform.version>1.7.1</junit.platform.version>  <!-- Sep 2020 -->
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <jupiter.version>5.7.1</jupiter.version>                <!-- Sep 2020 -->
+        <jupiter.version>5.7.2</jupiter.version>                <!-- Sep 2020 -->
 
         <!-- Maven plugin dependencies -->
-        <m2.directory>${user.home}/.m2/repository</m2.directory>
+        <m2.directory>${user.home}${file.separator}.m2${file.separator}repository</m2.directory>
 
         <m2.hamcrest.jar>${m2.directory}/org/hamcrest/hamcrest/${hamcrest.version}/hamcrest-${hamcrest.version}.jar</m2.hamcrest.jar>
         <m2.hamcrest-core.jar>${m2.directory}/org/hamcrest/hamcrest/${hamcrest.version}/hamcrest-core-${hamcrest.version}.jar</m2.hamcrest-core.jar>
@@ -58,16 +58,16 @@
         <m2.junit-platform.jar>${m2.directory}/org/junit/platform/junit-platform-runner/${junit.platform.version}\junit-platform-runner-${junit.platform.version}.jar</m2.junit-platform.jar>
         <m2.junit-runner.jar>${m2.directory}/org/pantsbuild/junit-runner/1.0.30/junit-runner-1.0.30.jar</m2.junit-runner.jar>
         <m2.plexus-utils.jar>${m2.directory}/org/codehaus/plexus/plexus-utils/3.3.0/plexus-utils-3.3.0.jar</m2.plexus-utils.jar>
-        <m2.scala-reflect.jar>${m2.directory}/org/portable-scala/portable-scala-reflect_${scalalib.version}/1.0.0/portable-scala-reflect_${scalalib.version}-1.0.0.jar</m2.scala-reflect.jar>
-        <m2.scalactic.jar>${m2.directory}/org/scalactic/scalactic_${scalalib_version}/${scalatest.version}/scalactic_${scala.versionTag}-${scalatest.version}.jar</m2.scalactic.jar>
-        <m2.scalatest.jar>${m2.directory}/org/scalatest/scalatest_${scalalib_version}/${scalatest.version}/scalatest_${scala.versionTag}-${scalatest.version}.jar</m2.scalatest.jar>
-        <m2.scalatest-funspec.jar>${m2.directory}/org/scalatest/scalatest-funspec_${scalalib_version}/${scalatest.version}/scalatest-funspec_${scala.versionTag}-${scalatest.version}.jar</m2.scalatest-funspec.jar>
-        <m2.scalatest-funsuite.jar>${m2.directory}/org/scalatest/scalatest-funsuite_${scalalib_version}/${scalatest.version}/scalatest-funsuite_${scala.versionTag}-${scalatest.version}.jar</m2.scalatest-funsuite.jar>
-        <m2.specs2-common.jar>${m2.directory}/org/specs2/specs2-common_${scalalib.version}/${specs2.version}/specs2-common_${scalalib.version}-${specs2.version}.jar</m2.specs2-common.jar>
-        <m2.specs2-core.jar>${m2.directory}/org/specs2/specs2-core_${scalalib.version}/${specs2.version}/specs2-core_${scalalib.version}-${specs2.version}.jar</m2.specs2-core.jar>
-        <m2.specs2-fp.jar>${m2.directory}/org/specs2/specs2-fp_2.13/${specs2.version}/specs2-fp_2.13-${specs2.version}.jar</m2.specs2-fp.jar>
-        <m2.specs2-junit.jar>${m2.directory}/org/specs2/specs2-junit_${scalalib.version}/${specs2.version}/specs2-junit_${scalalib.version}-${specs2.version}.jar</m2.specs2-junit.jar>
-        <m2.specs2-matcher.jar>${m2.directory}/org/specs2/specs2-matcher_${scalalib.version}/${specs2.version}/specs2-matcher_${scalalib.version}-${specs2.version}.jar</m2.specs2-matcher.jar>
+        <m2.scala-reflect.jar>${m2.directory}/org/portable-scala/portable-scala-reflect_2.13/${scala-reflect.version}/portable-scala-reflect_2.13-${scala-reflect.version}.jar</m2.scala-reflect.jar>
+        <m2.scalactic.jar>${m2.directory}/org/scalactic/scalactic_3/${scalatest.version}/scalactic_3-${scalatest.version}.jar</m2.scalactic.jar>
+        <m2.scalatest.jar>${m2.directory}/org/scalatest/scalatest_3/${scalatest.version}/scalatest_3-${scalatest.version}.jar</m2.scalatest.jar>
+        <m2.scalatest-funspec.jar>${m2.directory}/org/scalatest/scalatest-funspec_3/${scalatest.version}/scalatest-funspec_3-${scalatest.version}.jar</m2.scalatest-funspec.jar>
+        <m2.scalatest-funsuite.jar>${m2.directory}/org/scalatest/scalatest-funsuite_3/${scalatest.version}/scalatest-funsuite_3-${scalatest.version}.jar</m2.scalatest-funsuite.jar>
+        <m2.specs2-common.jar>${m2.directory}/org/specs2/specs2-common_2.13/${specs2.version}/specs2-common_2.13-${specs2.version}.jar</m2.specs2-common.jar>
+        <m2.specs2-core.jar>${m2.directory}/org/specs2/specs2-core_2.13/${specs2.version}/specs2-core_2.13-${specs2.version}.jar</m2.specs2-core.jar>
+        <m2.specs2-fp.jar>${m2.directory}/org/specs2/specs2-fp_${scalalib_version}/${specs2.version}/specs2-fp_${scalalib_version}-${specs2.version}.jar</m2.specs2-fp.jar>
+        <m2.specs2-junit.jar>${m2.directory}/org/specs2/specs2-junit_2.13/${specs2.version}/specs2-junit_2.13-${specs2.version}.jar</m2.specs2-junit.jar>
+        <m2.specs2-matcher.jar>${m2.directory}/org/specs2/specs2-matcher_2.13/${specs2.version}/specs2-matcher_2.13-${specs2.version}.jar</m2.specs2-matcher.jar>
         <m2.test-interface.jar>${m2.directory}/org/scala-sbt/test-interface/1.0/test-interface-1.0.jar</m2.test-interface.jar>
     </properties>
 
@@ -81,13 +81,13 @@
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala3-library -->
         <dependency>
             <groupId>${scala.groupId}</groupId>
-            <artifactId>scala3-library_${scala.versionTag}</artifactId>
+            <artifactId>scala3-library_3</artifactId>
             <version>${scala.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/tasty-core -->
         <dependency>
             <groupId>${scala.groupId}</groupId>
-            <artifactId>tasty-core_${scala.versionTag}</artifactId>
+            <artifactId>tasty-core_3</artifactId>
             <version>${scala.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->

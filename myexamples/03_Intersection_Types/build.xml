@@ -27,7 +27,7 @@
     <target name="run" depends="compile">
         <java classname="${main.class}">
             <classpath>
-                <path refid="scala.classpath" />
+                <path refid="scala3.classpath" />
                 <path refid="build.classpath" />
             </classpath>
         </java>

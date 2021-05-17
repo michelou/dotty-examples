@@ -2,8 +2,8 @@
 buildDir file("/target")
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 project.ext {
@@ -114,7 +114,11 @@ repositories {
 }
 
 dependencies {
-    // implementation "ch.epfl.lamp:dotty-compiler_0.27:0.27.0-RC1"
     implementation "org.scala-lang:scala3-compiler_3:3.0.0"
     testImplementation "junit:junit:4.13.2"
+	testImplementation "org.scalatest:scalatest_3:3.2.9"
+	implementation "org.scalatest:scalatest-funspec_3:3.2.9"
+	implementation "org.scalatest:scalatest-funsuite_3:3.2.9"
+	implementation "org.specs2:specs2-core_2.13:4.11.0"
+	implementation "org.specs2:specs2-junit_2.13:4.11.0"
 }
