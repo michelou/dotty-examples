@@ -89,10 +89,9 @@ args() {
     fi
     debug "Options    : TIMER=$TIMER VERBOSE=$VERBOSE"
     debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DECOMPILE=$DECOMPILE HELP=$HELP LINT=$LINT RUN=$RUN"
+    [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
     debug "Variables  : JAVA_HOME=$JAVA_HOME"
     debug "Variables  : SCALA3_HOME=$SCALA3_HOME"
-    [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
-    [[ -n "$SCALAFMT_HOME" ]] && debug "Variables  : SCALAFMT_HOME=$SCALAFMT_HOME"
     # See http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
     $TIMER && TIMER_START=$(date +"%s")
 }
@@ -113,7 +112,7 @@ Usage: $BASENAME { <option> | <subcommand> }
     doc          generate HTML documentation
     help         display this help message
     lint         analyze Scala source files with Scalafmt
-    run          execute main class
+    run          execute main class $MAIN_CLASS
 EOS
 }
 
@@ -205,7 +204,7 @@ compile_java() {
     if $DEBUG; then
         debug "$JAVAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Java source files to directory ${CLASSES_DIR/$ROOT_DIR\//}" 1>&2
+        echo "Compile $n Java source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
@@ -255,7 +254,7 @@ compile_scala() {
 mixed_path() {
     if [ -x "$CYGPATH_CMD" ]; then
         $CYGPATH_CMD -am $1
-    elif [[ $mingw || $msys ]]; then
+    elif $mingw || $msys; then
         echo $1 | sed 's|/|\\\\|g'
     else
         echo $1
@@ -381,7 +380,7 @@ doc() {
     if [ $SCALA_VERSION -eq 3 ]; then
         echo -d "$(mixed_path $TARGET_DOCS_DIR)" -project "$PROJECT_NAME" -project-version "$PROJECT_VERSION" > "$opts_file"
     else
-        echo -siteroot "$(mixed_path $TARGET_DOCS_DIR)" -project "$PROJECT_NAME" -project-url "$PROJECT_URL" -project-version "$PROJECT_VERSION" > "$opts_file"
+        echo -siteroot "$(mixed_path $TARGET_DOCS_DIR)" -project "$PROJECT_NAME" -project-version "$PROJECT_VERSION" > "$opts_file"
     fi
     if $DEBUG; then
         debug "$SCALADOC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
@@ -479,14 +478,15 @@ case "`uname -s`" in
 esac
 unset CYGPATH_CMD
 PSEP=":"
-if [[ $cygwin || $mingw || $msys ]]; then
+if $cygwin || $mingw || $msys; then
+    CYGPATH_CMD="$(which cygpath 2>/dev/null)"
+	PSEP=";"
     [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
     [[ -n "$GIT_HOME" ]] && GIT_HOME="$(mixed_path $GIT_HOME)"
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA3_HOME" ]] && SCALA3_HOME="$(mixed_path $SCALA3_HOME)"
-    CYGPATH_CMD="$(which cygpath 2>/dev/null)"
-    DIFF_CMD="$GIT_HOME/bin/diff"
-    SCALAFMT_CMD="$LOCALAPPDATA/Coursier/data/bin/scalafmt"
+    DIFF_CMD="$GIT_HOME/usr/bin/diff.exe"
+    SCALAFMT_CMD="$(mixed_path $LOCALAPPDATA)/Coursier/data/bin/scalafmt"
 else
     DIFF_CMD="$(which diff)"
     SCALAFMT_CMD="$(which scalafmt)"
@@ -510,9 +510,7 @@ SCALADOC3="$SCALA3_HOME/bin/scaladoc"
 SCALAFMT_CONFIG_FILE="$(dirname $ROOT_DIR)/.scalafmt.conf"
 
 unset CFR_CMD
-if [ -f "$CFR_HOME/bin/cfr" ]; then
-    CFR_CMD="$CFR_HOME/bin/cfr"
-fi
+[ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
 
 PROJECT_NAME="$(basename $ROOT_DIR)"
 PROJECT_URL="github.com/$USER/dotty-examples"

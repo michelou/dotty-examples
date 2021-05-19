@@ -480,12 +480,12 @@ esac
 unset CYGPATH_CMD
 PSEP=":"
 if [[ $cygwin || $mingw || $msys ]]; then
+    CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
     [[ -n "$GIT_HOME" ]] && GIT_HOME="$(mixed_path $GIT_HOME)"
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA3_HOME" ]] && SCALA3_HOME="$(mixed_path $SCALA3_HOME)"
-    CYGPATH_CMD="$(which cygpath 2>/dev/null)"
-    DIFF_CMD="$GIT_HOME/bin/diff"
+    DIFF_CMD="$GIT_HOME/usr/bin/diff.exe"
     SCALAFMT_CMD="$LOCALAPPDATA/Coursier/data/bin/scalafmt"
 else 
 	DIFF_CMD="$(which diff)"
@@ -510,9 +510,7 @@ SCALADOC3="$SCALA3_HOME/bin/scaladoc"
 SCALAFMT_CONFIG_FILE="$(dirname $ROOT_DIR)/.scalafmt.conf"
 
 unset CFR_CMD
-if [ -f "$CFR_HOME/bin/cfr" ]; then
-    CFR_CMD="$CFR_HOME/bin/cfr"
-fi
+[ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
 
 PROJECT_NAME="$(basename $ROOT_DIR)"
 PROJECT_URL="github.com/$USER/dotty-examples"

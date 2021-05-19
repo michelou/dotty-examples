@@ -33,7 +33,7 @@
         <java classname="${main.class}">
             <arg value="1" />
             <classpath>
-                <path refid="dotty.classpath" />
+                <path refid="scala3.classpath" />
                 <path refid="build.classpath" />
             </classpath>
         </java>

@@ -14,6 +14,7 @@ JAVAC      = $(subst \,/,$(JAVA_HOME))/bin/javac.exe
 SCALA      = $(subst \,/,$(SCALA3_HOME))/bin/scala.bat
 SCALAC     = $(subst \,/,$(SCALA3_HOME))/bin/scalac.bat
 SCALADOC   = $(subst \,/,$(SCALA3_HOME))/bin/scaladoc.bat
+SCALAFMT   = $(subst \,/,$(LOCALAPPDATA))/Coursier/data/bin/scalafmt.bat
 LOCAL_REPO = $(subst \,/,$(USERPROFILE))/.m2/repository
 PSEP       = ;
 FIND       = $(subst \,/,$(GIT_HOME))/usr/bin/find.exe
@@ -25,6 +26,7 @@ JAVAC      = $(JAVA_HOME)/bin/javac
 SCALA      = $(SCALA3_HOME)/bin/scala
 SCALAC     = $(SCALA3_HOME)/bin/scalac
 SCALADOC   = $(SCALA3_HOME)/bin/scaladoc
+SCALAFMT   = $(HOME)/.local/share/coursier/bin/scalafmt
 LOCAL_REPO = $(HOME)/.m2/repository
 PSEP       = :
 FIND       = find
@@ -33,7 +35,7 @@ TOUCH      = touch
 endif
 
 SCALA_LIB_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala-library-2.13.5.jar)
-SCALA3_LIB_JAR     = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala3-library_3.0.0-*.jar)
+SCALA3_LIB_JAR     = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala3-library_3-3.0.0.jar)
 HAMCREST_JAR       = $(shell $(FIND) "$(LOCAL_REPO)/org/hamcrest" -name hamcrest-2.2.jar)
 JUNIT_JAR          = $(shell $(FIND) "$(LOCAL_REPO)/junit/junit" -name junit-4.13.2.jar)
 JUNIT_INTF_JAR     = $(shell $(FIND) "$(LOCAL_REPO)/com/novocode" -name junit-interface-0.11.jar)

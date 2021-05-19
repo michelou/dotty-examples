@@ -89,9 +89,9 @@ args() {
     fi
     debug "Options    : TIMER=$TIMER VERBOSE=$VERBOSE"
     debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DECOMPILE=$DECOMPILE HELP=$HELP LINT=$LINT RUN=$RUN"
+    [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
     debug "Variables  : JAVA_HOME=$JAVA_HOME"
     debug "Variables  : SCALA3_HOME=$SCALA3_HOME"
-    [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
     # See http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
     $TIMER && TIMER_START=$(date +"%s")
 }
@@ -476,7 +476,7 @@ case "`uname -s`" in
 esac
 unset CYGPATH_CMD
 PSEP=":"
-if [[ $cygwin || $mingw || $msys ]]; then
+if $cygwin || $mingw || $msys; then
     [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
     [[ -n "$GIT_HOME" ]] && GIT_HOME="$(mixed_path $GIT_HOME)"
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
@@ -486,7 +486,7 @@ if [[ $cygwin || $mingw || $msys ]]; then
     SCALAFMT_CMD="$LOCALAPPDATA/Coursier/data/bin/scalafmt.bat"
 else
     DIFF_CMD="$(which diff)"
-    SCALAFMT_CMD="$(which scalafmt)"
+    SCALAFMT_CMD="$HOME/.local/share/coursier/bin/scalafmt"
 fi
 if [ ! -x "$JAVA_HOME/bin/javac" ]; then
     error "Java SDK installation not found"
@@ -507,9 +507,7 @@ SCALADOC3="$SCALA3_HOME/bin/scaladoc"
 SCALAFMT_CONFIG_FILE="$(dirname $ROOT_DIR)/.scalafmt.conf"
 
 unset CFR_CMD
-if [ -f "$CFR_HOME/bin/cfr" ]; then
-    CFR_CMD="$CFR_HOME/bin/cfr"
-fi
+[ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
 
 PROJECT_NAME="$(basename $ROOT_DIR)"
 PROJECT_URL="github.com/$USER/dotty-examples"
@@ -521,8 +519,6 @@ args "$@"
 SCALA_CMD=$SCALA3
 SCALAC_CMD=$SCALAC3
 SCALADOC_CMD=$SCALADOC3
-
-DIFF_CMD="$(which diff)"
 
 ##############################################################################
 ## Main

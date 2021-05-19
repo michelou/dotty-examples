@@ -17,7 +17,7 @@ if not exist "%__TEMP_DIR%" mkdir "%__TEMP_DIR%"
 
 set _LIBS_CPATH=
 
-set __SCALALIB_VERSION=2.13
+set __SCALA_BINARY_VERSION=2.13
 
 @rem https://mvnrepository.com/artifact/org.apiguardian/apiguardian-api
 call :add_jar "org.apiguardian" "apiguardian-api" "1.1.1"
@@ -26,7 +26,7 @@ call :add_jar "org.apiguardian" "apiguardian-api" "1.1.1"
 call :add_jar "org.junit.jupiter" "junit-jupiter-api" "5.7.2"
 
 @rem https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect
-call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALALIB_VERSION%" "1.1.1"
+call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSION%" "1.1.1"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
 call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.0.0"
@@ -46,36 +46,36 @@ set __SCALATEST_VERSION=3.2.9
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-core
-call :add_jar "org.scalatest" "scalatest-core_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
+call :add_jar "org.scalatest" "scalatest-core_3" "%__SCALATEST_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-funsuite
-call :add_jar "org.scalatest" "scalatest-funsuite_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
+call :add_jar "org.scalatest" "scalatest-funsuite_3" "%__SCALATEST_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-funspec
-call :add_jar "org.scalatest" "scalatest-funspec_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
+call :add_jar "org.scalatest" "scalatest-funspec_3" "%__SCALATEST_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest
-call :add_jar "org.scalatest" "scalatest_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
+call :add_jar "org.scalatest" "scalatest_3" "%__SCALATEST_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scalactic
-call :add_jar "org.scalactic" "scalactic_%__SCALALIB_VERSION%" "%__SCALATEST_VERSION%"
+call :add_jar "org.scalactic" "scalactic_3" "%__SCALATEST_VERSION%"
 
 set __SPECS2_CORE_VERSION=4.11.0
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-core
-call :add_jar "org.specs2" "specs2-core_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
+call :add_jar "org.specs2" "specs2-core_%__SCALA_BINARY_VERSION%" "%__SPECS2_CORE_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-common
-call :add_jar "org.specs2" "specs2-common_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
+call :add_jar "org.specs2" "specs2-common_%__SCALA_BINARY_VERSION%" "%__SPECS2_CORE_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-junit
-call :add_jar "org.specs2" "specs2-junit_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
+call :add_jar "org.specs2" "specs2-junit_%__SCALA_BINARY_VERSION%" "%__SPECS2_CORE_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-junit
-call :add_jar "org.specs2" "specs2-matcher_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
+call :add_jar "org.specs2" "specs2-matcher_%__SCALA_BINARY_VERSION%" "%__SPECS2_CORE_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-fp
-call :add_jar "org.specs2" "specs2-fp_%__SCALALIB_VERSION%" "%__SPECS2_CORE_VERSION%"
+call :add_jar "org.specs2" "specs2-fp_%__SCALA_BINARY_VERSION%" "%__SPECS2_CORE_VERSION%"
 
 set __JMH_VERSION=1.31
 @rem JMH 1.27, 1.29 and 1.31 depend on Jopt 4.6

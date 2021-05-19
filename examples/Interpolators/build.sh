@@ -475,16 +475,22 @@ case "`uname -s`" in
   CYGWIN*) cygwin=true ;;
   MINGW*)  mingw=true ;;
   MSYS*)   msys=true ;;
-  Darwin*) darwin=true      
+  Darwin*) darwin=true
 esac
 unset CYGPATH_CMD
 PSEP=":"
-if [[ $cygwin || $mingw || $msys ]]; then
+if $cygwin || $mingw || $msys; then
     CYGPATH_CMD="$(which cygpath 2>/dev/null)"
+    PSEP=";"
+    [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
+    [[ -n "$GIT_HOME" ]] && GIT_HOME="$(mixed_path $GIT_HOME)"
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA3_HOME" ]] && SCALA3_HOME="$(mixed_path $SCALA3_HOME)"
-    [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
-    [[ -n "$SCALAFMT_HOME" ]] && SCALAFMT_HOME="$(mixed_path $SCALAFMT_HOME)"
+    DIFF_CMD="$GIT_HOME/usr/bin/diff.exe"
+    SCALAFMT_CMD="$LOCALAPPDATA/Coursier/data/bin/scalafmt.bat"
+else
+    DIFF_CMD="$(which diff)"
+    SCALAFMT_CMD="$HOME/.local/share/coursier/bin/scalafmt"
 fi
 if [ ! -x "$JAVA_HOME/bin/javac" ]; then
     error "Java SDK installation not found"
@@ -502,16 +508,10 @@ SCALA3="$SCALA3_HOME/bin/scala"
 SCALAC3="$SCALA3_HOME/bin/scalac"
 SCALADOC3="$SCALA3_HOME/bin/scaladoc"
 
-unset SCALAFMT_CMD
-if [ -f "$SCALAFMT_HOME/bin/scalafmt" ]; then
-    SCALAFMT_CMD="$SCALAFMT_HOME/bin/scalafmt"
-fi
 SCALAFMT_CONFIG_FILE="$(dirname $ROOT_DIR)/.scalafmt.conf"
 
 unset CFR_CMD
-if [ -f "$CFR_HOME/bin/cfr" ]; then
-    CFR_CMD="$CFR_HOME/bin/cfr"
-fi
+[ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
 
 PROJECT_NAME="$(basename $ROOT_DIR)"
 PROJECT_URL="github.com/$USER/dotty-examples"
@@ -523,8 +523,6 @@ args "$@"
 SCALA_CMD=$SCALA3
 SCALAC_CMD=$SCALAC3
 SCALADOC_CMD=$SCALADOC3
-
-DIFF_CMD="$(which diff)"
 
 ##############################################################################
 ## Main

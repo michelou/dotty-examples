@@ -464,18 +464,18 @@ if exist "%LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat" (
 )
 goto :eof
 
-@rem output parameter(s): _SCALA3_HOME
+@rem output parameter: _SCALA3_HOME
 :scala3
 set _SCALA3_HOME=
 
-set __DOTC_CMD=
+set __SCALAC_CMD=
 for /f %%f in ('where scalac.bat 2^>NUL') do (
     set __VERSION=
     for /f "tokens=1,2,3,4,*" %%i in ('scalac.bat -version') do set "__VERSION=%%l"
-    if defined __VERSION if "!__VERSION:~0,1!"=="3" set "__DOTC_CMD=%%f"
+    if defined __VERSION if "!__VERSION:~0,1!"=="3" set "__SCALAC_CMD=%%f"
 )
-if defined __DOTC_CMD (
-    for %%i in ("%__DOTC_CMD%") do set "__SCALA3_BIN_DIR=%%~dpi"
+if defined __SCALAC_CMD (
+    for %%i in ("%__SCALAC_CMD%") do set "__SCALA3_BIN_DIR=%%~dpi"
     for %%f in ("!__SCALA3_BIN_DIR!..") do set "_SCALA3_HOME=%%f"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Scala 3 executable found in PATH 1>&2
     goto :eof
@@ -484,7 +484,7 @@ if defined __DOTC_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SCALA3_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\scala-3*" 2^>NUL') do set "_SCALA3_HOME=!_PATH!\%%f"
+    for /f %%f in ('dir /ad /b "!_PATH!\scala3-3*" 2^>NUL') do set "_SCALA3_HOME=!_PATH!\%%f"
     if defined _SCALA3_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala 3 installation directory !_SCALA3_HOME! 1>&2
     )
@@ -567,44 +567,50 @@ if not exist "%_ANT_HOME%\bin\ant.cmd" (
 set "_ANT_PATH=;%_ANT_HOME%\bin"
 goto :eof
 
-@rem output parameter(s): _BAZEL_PATH
+@rem output parameter(s): _BAZEL_HOME, _BAZEL_PATH
 :bazel
+set _BAZEL_HOME=
 set _BAZEL_PATH=
 
-set __BAZEL_HOME=
 set __BAZEL_CMD=
 for /f %%f in ('where bazel.exe 2^>NUL') do set "__BAZEL_CMD=%%f"
 if defined __BAZEL_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Bazel executable found in PATH 1>&2
-    for /f "delims=" %%i in ("%__BAZEL_CMD%") do set "__BAZEL_HOME=%%~dpi"
+    for /f "delims=" %%i in ("%__BAZEL_CMD%") do set "_BAZEL_HOME=%%~dpi"
     @rem keep _BAZEL_PATH undefined since executable already in path
     goto :eof
 ) else if defined BAZEL_HOME (
-    set "__BAZEL_HOME=%BAZEL_HOME%"
+    set "_BAZEL_HOME=%BAZEL_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable BAZEL_HOME 1>&2
 ) else (
     set "__PATH=%ProgramFiles%"
-    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "__BAZEL_HOME=!__PATH!\%%f"
-    if not defined __BAZEL_HOME (
+    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "_BAZEL_HOME=!__PATH!\%%f"
+    if not defined _BAZEL_HOME (
         set __PATH=C:\opt
-        for /f %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "__BAZEL_HOME=!__PATH!\%%f"
+        for /f %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "_BAZEL_HOME=!__PATH!\%%f"
     )
 )
-if not exist "%__BAZEL_HOME%\bazel.exe" (
-    echo %_ERROR_LABEL% Bazel executable not found ^("%__BAZEL_HOME%"^) 1>&2
+if not exist "%_BAZEL_HOME%\bazel.exe" (
+    echo %_ERROR_LABEL% Bazel executable not found ^("%_BAZEL_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_BAZEL_PATH=;%__BAZEL_HOME%"
+set "_BAZEL_PATH=;%_BAZEL_HOME%"
 goto :eof
 
 @rem http://www.benf.org/other/cfr/
 @rem output parameter: _CFR_HOME
 :cfr
-where /q cfr.bat
-if %ERRORLEVEL%==0 goto :eof
+set _CFR_HOME=
 
-if defined CFR_HOME (
+set __CFR_CMD=
+for /f %%f in ('where cfr.bat 2^>NUL') do set "__CFR_CMD=%%f"
+if defined __CFR_CMD (
+    for %%i in ("%__CFR_CMD%") do set "__CFR_BIN_DIR=%%~dpi"
+    for %%f in ("!__CFR_BIN_DIR!\.") do set "_CFR_HOME=%%~dpf"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of CFR executable found in PATH 1>&2
+    goto :eof
+) else if defined CFR_HOME (
     set "_CFR_HOME=%CFR_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable CFR_HOME 1>&2
 ) else (
@@ -721,10 +727,9 @@ set _JMC_PATH=
 set __JMC_CMD=
 for /f %%f in ('where jmc.exe 2^>NUL') do set "__JMC_CMD=%%f"
 if defined __JMC_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of JMC executable found in PATH 1>&2
     for %%i in ("%__JMC_CMD%") do set "__JMC_BIN_DIR=%%~dpi"
     for %%f in ("!__JMC_BIN_DIR!\.") do set "_JMC_HOME=%%~dpf"
-    @rem keep _JMC_PATH undefined since executable already in path
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of JMC executable found in PATH 1>&2
     goto :eof
 ) else if defined JMC_HOME (
     set "_JMC_HOME=%JMC_HOME%"
@@ -1141,6 +1146,7 @@ if %__VERBOSE%==1 (
     for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p 1>&2
     echo Environment variables: 1>&2
     if defined ANT_HOME echo    "ANT_HOME=%ANT_HOME%" 1>&2
+    if defined BAZEL_HOME echo    "BAZEL_HOME=%BAZEL_HOME%" 1>&2
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
     if defined GRADLE_HOME echo    "GRADLE_HOME=%GRADLE_HOME%" 1>&2
     if defined JAVA_HOME echo    "JAVA_HOME=%JAVA_HOME%" 1>&2
@@ -1165,6 +1171,7 @@ goto :eof
 endlocal & (
     if %_EXITCODE%==0 (
         if not defined ANT_HOME set "ANT_HOME=%_ANT_HOME%"
+        if not defined BAZEL_HOME set "BAZEL_HOME=%_BAZEL_HOME%"
         if not defined CFR_HOME set "CFR_HOME=%_CFR_HOME%"
         if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
         if not defined GRADLE_HOME set "GRADLE_HOME=%_GRADLE_HOME%"

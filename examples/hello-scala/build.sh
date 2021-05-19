@@ -19,7 +19,7 @@ getHome() {
 }
 
 debug() {
-    local DEBUG_LABEL="[46m[DEBUG][0m"
+    local DEBUG_LABEL="[44m[DEBUG][0m"
     $DEBUG && echo "$DEBUG_LABEL $1" 1>&2
 }
 
@@ -89,10 +89,9 @@ args() {
     fi
     debug "Options    : TIMER=$TIMER VERBOSE=$VERBOSE"
     debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DECOMPILE=$DECOMPILE HELP=$HELP LINT=$LINT RUN=$RUN"
+    [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
     debug "Variables  : JAVA_HOME=$JAVA_HOME"
     debug "Variables  : SCALA3_HOME=$SCALA3_HOME"
-    [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
-    [[ -n "$SCALAFMT_HOME" ]] && debug "Variables  : SCALAFMT_HOME=$SCALAFMT_HOME"
     # See http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
     $TIMER && TIMER_START=$(date +"%s")
 }
@@ -113,7 +112,7 @@ Usage: $BASENAME { <option> | <subcommand> }
     doc          generate HTML documentation
     help         display this help message
     lint         analyze Scala source files with Scalafmt
-    run          execute main class
+    run          execute main class $MAIN_CLASS
 EOS
 }
 
@@ -148,12 +147,12 @@ compile() {
     local timestamp_file="$TARGET_DIR/.latest-build"
 
     local is_required=0
-    is_required="$(compile_required "$timestamp_file" "$SOURCE_DIR/main/java/" "*.java")"
+    is_required="$(action_required "$timestamp_file" "$SOURCE_DIR/main/java/" "*.java")"
     if [[ $is_required -eq 1 ]]; then
         compile_java
         [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
     fi
-    is_required="$(compile_required "$timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
+    is_required="$(action_required "$timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
     if [[ $is_required -eq 1 ]]; then
         compile_scala
         [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
@@ -161,7 +160,7 @@ compile() {
     touch "$timestamp_file"
 }
 
-compile_required() {
+action_required() {
     local timestamp_file=$1
     local search_path=$2
     local search_pattern=$3
@@ -200,7 +199,7 @@ compile_java() {
     if $DEBUG; then
         debug "$JAVAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Java source files to directory ${CLASSES_DIR/$ROOT_DIR\//}" 1>&2
+        echo "Compile $n Java source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
@@ -238,7 +237,7 @@ compile_scala() {
     if $DEBUG; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Scala source files to directory ${CLASSES_DIR/$ROOT_DIR\//}" 1>&2
+        echo "Compile $n Scala source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
@@ -250,7 +249,7 @@ compile_scala() {
 mixed_path() {
     if [ -x "$CYGPATH_CMD" ]; then
         $CYGPATH_CMD -am $1
-    elif [[ $mingw || $msys ]]; then
+    elif $mingw || $msys; then
         echo $1 | sed 's|/|\\\\|g'
     else
         echo $1
@@ -364,7 +363,7 @@ doc() {
 
     local doc_timestamp_file="$TARGET_DOCS_DIR/.latest-build"
 
-    local is_required="$(compile_required "$doc_timestamp_file" "$CLASSES_DIR/" "*.tasty")"
+    local is_required="$(action_required "$doc_timestamp_file" "$CLASSES_DIR/" "*.tasty")"
     [[ $is_required -eq 0 ]] && return 1
 
     local sources_file="$TARGET_DIR/scaladoc_sources.txt"
@@ -372,7 +371,7 @@ doc() {
     # for f in $(find $SOURCE_DIR/main/java/ -name *.java 2>/dev/null); do
     #     echo $(mixed_path $f) >> "$sources_file"
     # done
-    for f in $(find $CLASSES_DIR/ -name *.tasty 2>/dev/null); do
+    for f in $(find "$CLASSES_DIR/" -name *.tasty 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
     done
     local opts_file="$TARGET_DIR/scaladoc_opts.txt"
@@ -473,16 +472,22 @@ case "`uname -s`" in
   CYGWIN*) cygwin=true ;;
   MINGW*)  mingw=true ;;
   MSYS*)   msys=true ;;
-  Darwin*) darwin=true      
+  Darwin*) darwin=true
 esac
 unset CYGPATH_CMD
 PSEP=":"
-if [[ $cygwin || $mingw || $msys ]]; then
+if $cygwin || $mingw || $msys; then
     CYGPATH_CMD="$(which cygpath 2>/dev/null)"
+	PSEP=";"
+    [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
+    [[ -n "$GIT_HOME" ]] && GIT_HOME="$(mixed_path $GIT_HOME)"
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA3_HOME" ]] && SCALA3_HOME="$(mixed_path $SCALA3_HOME)"
-    [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
-    [[ -n "$SCALAFMT_HOME" ]] && SCALAFMT_HOME="$(mixed_path $SCALAFMT_HOME)"
+    DIFF_CMD="$GIT_HOME/usr/bin/diff.exe"
+    SCALAFMT_CMD="$LOCALAPPDATA/Coursier/data/bin/scalafmt.bat"
+else
+    DIFF_CMD="$(which diff)"
+    SCALAFMT_CMD="$HOME/.local/share/coursier/bin/scalafmt"
 fi
 if [ ! -x "$JAVA_HOME/bin/javac" ]; then
     error "Java SDK installation not found"
@@ -500,16 +505,10 @@ SCALA3="$SCALA3_HOME/bin/scala"
 SCALAC3="$SCALA3_HOME/bin/scalac"
 SCALADOC3="$SCALA3_HOME/bin/scaladoc"
 
-unset SCALAFMT_CMD
-if [ -f "$SCALAFMT_HOME/bin/scalafmt" ]; then
-    SCALAFMT_CMD="$SCALAFMT_HOME/bin/scalafmt"
-fi
 SCALAFMT_CONFIG_FILE="$(dirname $ROOT_DIR)/.scalafmt.conf"
 
 unset CFR_CMD
-if [ -f "$CFR_HOME/bin/cfr" ]; then
-    CFR_CMD="$CFR_HOME/bin/cfr"
-fi
+[ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
 
 PROJECT_NAME="$(basename $ROOT_DIR)"
 PROJECT_URL="github.com/$USER/dotty-examples"
@@ -521,8 +520,6 @@ args "$@"
 SCALA_CMD=$SCALA3
 SCALAC_CMD=$SCALAC3
 SCALADOC_CMD=$SCALADOC3
-
-DIFF_CMD="$(which diff)"
 
 ##############################################################################
 ## Main

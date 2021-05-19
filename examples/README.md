@@ -31,8 +31,8 @@ Build tools rely on one or more configuration files to achieve their tasks. In o
 | [**`mill.bat`**][mill_cli]        | [**`build.sc`**](enum-Planet/build.sc)   | [**`common.sc`**](./common.sc)               | Multiplatform |
 | [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](enum-Planet/pom.xml)     | [**`pom.xml`**](./pom.xml)                   | Multiplatform |
 | [**`sbt.bat`**][sbt_cli]          | [**`build.sbt`**](enum-Planet/build.sbt) | n.a.                                         | Multiplatform |
-<div style="margin:0 30% 0 8px;font-size:90%;">
-<b><sup>a)</sup></b> Multiplatform = Windows / Cygwin / MSYS2 / Unix.<br/>
+<div style="margin:0 10% 0 8px;font-size:90%;">
+<b><sup>a)</sup></b> Multiplatform means "tested on Windows, Cygwin, MSYS2 and Unix".<br/>
 <b><sup>b)</sup></b> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).<br/>&nbsp;</div>
 
 ## <span id="ant">Ant build tool</span>
@@ -96,7 +96,7 @@ Buildfile: W:\examples\enum-Planet\build.xml
    [delete] Deleting directory W:\examples\enum-Planet\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] SCALA3_HOME=C:\opt\scala-3.0.0-RC3
+     [echo] SCALA3_HOME=C:\opt\scala3-3.0.0
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -172,8 +172,8 @@ Command [**`build -debug clean compile run`**](enum-Planet/build.bat) also displ
 <b/>&gt; <a href="enum-Planet/build.bat">build</a> -debug clean compile run</b>
 [build] Options    : _EXPLAIN=0 _PRINT=0 _SCALA_VERSION=3 _TASTY=0 _TIMER=0 _VERBOSE=0
 [build] Subcommands: _CLEAN=1 _COMPILE=1 _DECOMPILE=0 _DOC=0 _LINT=0 _RUN=1 _TEST=0
-[build] Variables  : JAVA_HOME="C:\opt\jdk-openjdk-11.0.10_9"
-[build] Variables  : SCALA3_HOME="C:\opt\scala-3.0.0-RC3"
+[build] Variables  : "JAVA_HOME=C:\opt\jdk-openjdk-11.0.10_9"
+[build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.0.0"
 [build] Variables  : _MAIN_CLASS=Planet _MAINe_ARGS=1
 [build] del /s /q W:\dotty\examples\enum-Planet\target\classes\*.class W:\dotty\examples\enum-Planet\target\classes\*.hasTasty W:\dotty\examples\enum-Planet\target\classes\.latest-build
 [build] 20180322224754 W:\dotty\examples\enum-Planet\src\main\scala\Planet.scala
@@ -194,7 +194,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 > For simplicity the [**`build`**](enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/type">type</a> <a href="enum-Planet/project/build.properties">project\build.properties</a></b>
-> sbt.version=1.5.1
+> sbt.version=1.5.2
 > &nbsp;
 > main.class=Planet
 > main.args=1
@@ -235,13 +235,13 @@ If the two Java source files `src\build\cfr-sources_scala<n>_<version>.txt` (*ch
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b src\build</b>
 cfr-sources_scala3_0.24.0-RC2.java
 cfr-sources_scala3_0.27.0-RC2.java
-cfr-sources_scala3_3.0.0-RC3.java
+cfr-sources_scala3_3.0.0.java
 &nbsp;
 <b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose decompile</b>
 No compilation needed ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
-Save decompiled Java source files to "target\cfr-sources_scala3_3.0.0-RC3.java"
-Compare output file with check file "src\build\cfr-sources_scala3_3.0.0-RC3.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_3.0.0.java"
+Compare output file with check file "src\build\cfr-sources_scala3_3.0.0.java"
 </pre>
 
 
@@ -321,7 +321,7 @@ Command **`make test`** executes the test suite [**`PlanetTest.scala`**](enum-Pl
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 scalac.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.5/scala-library-2.13.5.jar;%USERPROFILE%/.m2/repository/org.scala-lang/scala3-library_3.0.0-RC3/3.0.0-RC3/scala3-library_3.0.0-RC3-3.0.0-RC3.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.5/scala-library-2.13.5.jar;%USERPROFILE%/.m2/repository/org.scala-lang/scala3-library_3/3.0.0/scala3-library_3-3.0.0.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
 JUnit version 4.13.2
 ..
 Time: 0.239
@@ -358,17 +358,17 @@ Command **` mvn compile test`** with option **`-debug`** produces additional deb
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> -debug compile test | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-openjdk-11.0.10_9\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala-3.0.0-RC3 \
- -cp C:\opt\scala-3.0.0-RC3\lib\*.jar -Dscala.usejavacp=true  \
+[DEBUG] [execute] C:\opt\jdk-openjdk-11.0.11_9\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.0.0 \
+ -cp C:\opt\scala3-3.0.0\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\examples\hello-scala\target\classes \
  -d W:\examples\hello-scala\target\classes \
  W:\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\opt\jdk-openjdk-11.0.10_9\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala-3.0.0-RC3 [...]
-[DEBUG] [execute] C:\opt\jdk-openjdk-11.0.10_9\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\scala-3.0.0-RC3\lib\*.jar;\
+[DEBUG] [execute] C:\opt\jdk-openjdk-11.0.11_9\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.0.0 [...]
+[DEBUG] [execute] C:\opt\jdk-openjdk-11.0.11_9\bin\java.exe \
+ -Xms64m -Xmx1024m -cp C:\opt\scala3-3.0.0\lib\*.jar;\
 W:\examples\hello-scala\target\classes hello
 </pre>
 
@@ -400,9 +400,9 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 [INFO] ------------------------------------------------------------------------
 
 <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -version 2>&1 | findstr version</b>
-openjdk version "11.0.10" 2021-01-19
+openjdk version "11.0.11" 2021-04-20
 
-<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:"c:\opt\scala-3.0.0-RC3\lib\scala3-library_3.0.0-RC3-3.0.0-RC3.jar;c:\opt\scala-3.0.0-RC3\lib\scala-library-2.13.5.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
+<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:"c:\opt\scala3-3.0.0\lib\scala3-library_3-3.0.0.jar;c:\opt\scala3-3.0.0\lib\scala-library-2.13.5.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
 Your weight on EARTH (2) is 0.9999999999999999
@@ -425,7 +425,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 >         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>3.0.0-RC3<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.version&gt;</b>3.0.0<b>&lt;/scala.version&gt;</b>
 >         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>

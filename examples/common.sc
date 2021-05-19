@@ -19,7 +19,7 @@ val scalaSourcePath = os.pwd / "src" / "main" / "scala"
 // Ivy dependencies
 
 val junitVersion = "4.13.2"
-val scalaLibVersion = "2.13"
+val scalaBinaryVersion = "2.13"
 val scalatestVersion = "3.2.9"
 val specs2Version = "4.11.0"
 
@@ -36,19 +36,19 @@ val ivyApiGuardian = ivy"org.apiguardian:apiguardian-api:1.1.1"
 val ivyJunitJupiter = ivy"org.junit.jupiter:junit-jupiter-api:5.7.2"
 
 // https://mvnrepository.com/artifact/org.scalatest/scalatest
-val ivyScalatest = ivy"org.scalatest:scalatest_$scalaLibVersion:$scalatestVersion"
+val ivyScalatest = ivy"org.scalatest:scalatest_3:$scalatestVersion"
 
 // https://mvnrepository.com/artifact/org.scalactic/scalactic
-val ivyScalactic = ivy"org.scalactic:scalactic_$scalaLibVersion:$scalatestVersion"
+val ivyScalactic = ivy"org.scalactic:scalactic_3:$scalatestVersion"
 
 // https://mvnrepository.com/artifact/org.specs2/specs2-common
-val ivySpecs2Common = ivy"org.specs2:specs2-common_$scalaLibVersion:$specs2Version"
+val ivySpecs2Common = ivy"org.specs2:specs2-common_$scalaBinaryVersion:$specs2Version"
 
 // https://mvnrepository.com/artifact/org.specs2/specs2-core
-val ivySpecs2Core = ivy"org.specs2:specs2-core_$scalaLibVersion:$specs2Version"
+val ivySpecs2Core = ivy"org.specs2:specs2-core_$scalaBinaryVersion:$specs2Version"
 
 // https://mvnrepository.com/artifact/org.specs2/specs2-junit
-val ivySpecs2JUnit = ivy"org.specs2:specs2-junit_$scalaLibVersion:$specs2Version"
+val ivySpecs2JUnit = ivy"org.specs2:specs2-junit_$scalaBinaryVersion:$specs2Version"
 
 // https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
 val ivyScalaXml = ivy"org.scala-lang.modules:scala-xml_3:2.0.0"

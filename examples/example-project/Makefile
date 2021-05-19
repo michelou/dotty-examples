@@ -64,7 +64,7 @@ DOC_SOURCES_FILE = $(TARGET_DIR)/scaladoc_sources.txt
 
 $(DOC_TARGET): $(SOURCES)
 	[ -d "$(DOC_TARGET_DIR)" ] || $(MKDIR) -p "$(DOC_TARGET_DIR)"
-	@echo -siteroot "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-url "$(PROJECT_URL)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
+	@echo -siteroot "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
 	@echo $(SOURCES) > "$(DOC_SOURCES_FILE)"
 	$(SCALADOC) "@$(DOC_OPTS_FILE)" "@$(DOC_SOURCES_FILE)"
 	@$(TOUCH) "$(DOC_TARGET)"

@@ -1,5 +1,5 @@
-// overrides default "/build"
-buildDir file("/target")
+// overrides default "build"
+buildDir file("target")
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -7,34 +7,34 @@ java {
 }
 
 project.ext {
-    mainSourceTree = fileTree(dir: "/src/main/scala", include: "**/*.scala")
-    testSourceTree = fileTree(dir: "/src/test/scala", include: "**/*.scala")
+    mainSourceTree = fileTree(dir: "src/main/scala", include: "**/*.scala")
+    testSourceTree = fileTree(dir: "src/test/scala", include: "**/*.scala")
 
     classesDir = file("${buildDir}/classes")
     testClassesDir = file("${buildDir}/test-classes")
 
     if (dottyLocal?.toBoolean()) {
         scala3Home = System.getenv("SCALA3_HOME")
-        print("SCALA3_HOME=$scala3Home")
+		scalaHome = scala3Home != null ? scala3Home : System.getenv("SCALA_HOME")
+        print("scalaHome=$scalaHome")
 
-        dottyLibraryPath = file(scala3Home + "/lib")
+        dottyLibraryPath = file(scalaHome + "/lib")
         dottyLibraryFiles = files { dottyLibraryPath.listFiles() }
         dotcLibraryFiles = dottyLibraryFiles.filter { File f ->
             f.name.matches("compiler-interface(.*)jar") ||
             f.name.matches("dotty-(.*)jar") ||  // up to version 0.27
-            f.name.matches("scala-library(.*)jar") ||
-            f.name.matches("scala-asm(.*)jar") ||
+            f.name.matches("scala-(.*)jar") ||
             f.name.matches("scala3-(.*)jar") ||
             f.name.matches("tasty-core(.*)jar")
         }
-        scalaClasspath = files(dotcLibraryFiles, classesDir)
+        buildClasspath = files(dotcLibraryFiles, classesDir)
     } else {
-        scalaClasspath = files(sourceSets.main.runtimeClasspath, classesDir)
+        buildClasspath = files(sourceSets.main.runtimeClasspath, classesDir)
     }
     userProfile = System.getenv("USERPROFILE")
     userHome = userProfile != null ? userProfile.replaceAll("\\\\", "/") : System.getenv("HOME")
     testLibsTree = fileTree(dir: "${userHome}/.m2/repository", include: "**/junit-4.13.2.jar")
-    testClasspath = files(testLibsTree, scalaClasspath, testClassesDir)
+    testClasspath = files(buildClasspath, testLibsTree, testClassesDir)
 }
 
 clean.doLast {
@@ -52,7 +52,7 @@ task compileScala(type: JavaExec) {
 
     description "Compile Scala source files"
 
-    classpath scalaClasspath
+    classpath buildClasspath
 
     jvmArgs "-Dscala.usejavacp=true"
 
@@ -75,7 +75,7 @@ task run(type: JavaExec) {
 
     description "Execute Scala main class $mainClassName"
 
-    classpath scalaClasspath
+    classpath buildClasspath
 
     jvmArgs "-Xms1024m", "-Xss2m", "-Dfile.encoding=UTF-8"
 
@@ -119,6 +119,7 @@ dependencies {
 	testImplementation "org.scalatest:scalatest_3:3.2.9"
 	implementation "org.scalatest:scalatest-funspec_3:3.2.9"
 	implementation "org.scalatest:scalatest-funsuite_3:3.2.9"
+	implementation "org.specs2:specs2-common_2.13:4.11.0"
 	implementation "org.specs2:specs2-core_2.13:4.11.0"
 	implementation "org.specs2:specs2-junit_2.13:4.11.0"
 }

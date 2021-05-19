@@ -15,26 +15,26 @@ project.ext {
 
     if (dottyLocal?.toBoolean()) {
         scala3Home = System.getenv("SCALA3_HOME")
-        print("SCALA3_HOME=$scala3Home")
+		scalaHome = scala3Home != null ? scala3Home : System.getenv("SCALA_HOME")
+        print("scalaHome=$scalaHome")
 
-        dottyLibraryPath = file(scala3Home + "/lib")
+        dottyLibraryPath = file(scalaHome + "/lib")
         dottyLibraryFiles = files { dottyLibraryPath.listFiles() }
         dotcLibraryFiles = dottyLibraryFiles.filter { File f ->
             f.name.matches("compiler-interface(.*)jar") ||
             f.name.matches("dotty-(.*)jar") ||  // up to version 0.27
-            f.name.matches("scala-library(.*)jar") ||
-            f.name.matches("scala-asm(.*)jar") ||
+            f.name.matches("scala-(.*)jar") ||
             f.name.matches("scala3-(.*)jar") ||
             f.name.matches("tasty-core(.*)jar")
         }
-        scalaClasspath = files(dotcLibraryFiles, sourceSets.main.output, classesDir)
+        buildClasspath = files(dotcLibraryFiles, sourceSets.main.output, classesDir)
     } else {
-        scalaClasspath = files(sourceSets.main.runtimeClasspath, classesDir)
+        buildClasspath = files(sourceSets.main.runtimeClasspath, classesDir)
     }
     userProfile = System.getenv("USERPROFILE")
     userHome = userProfile != null ? userProfile.replaceAll("\\\\", "/") : System.getenv("HOME")
     testLibsTree = fileTree(dir: "${userHome}/.m2/repository", include: "**/junit-4.13.2.jar")
-    testClasspath = files(testLibsTree, scalaClasspath, testClassesDir)
+    testClasspath = files(buildClasspath, testLibsTree, testClassesDir)
 }
 
 sourceSets {
@@ -60,7 +60,7 @@ task compileScala(type: JavaExec) {
 
     description "Compile Scala source files"
 
-    classpath scalaClasspath
+    classpath buildClasspath
 
     jvmArgs "-Dscala.usejavacp=true"
 
@@ -83,7 +83,7 @@ task run(type: JavaExec) {
 
     description "Execute Scala main class $mainClassName"
 
-    classpath scalaClasspath
+    classpath buildClasspath
 
     jvmArgs "-Xms1024m", "-Xss2m", "-Dfile.encoding=UTF-8"
 
@@ -115,6 +115,7 @@ compileTest.doFirst {
 
 test {
     dependsOn compileTest
+    println "test (NYI)"
 }
 
 repositories {
@@ -125,4 +126,10 @@ dependencies {
     // implementation "ch.epfl.lamp:dotty-compiler_0.27:0.27.0-RC1"
     implementation "org.scala-lang:scala3-compiler_3:3.0.0"
     testImplementation "junit:junit:4.13.2"
+	testImplementation "org.scalatest:scalatest_3:3.2.9"
+	implementation "org.scalatest:scalatest-funspec_3:3.2.9"
+	implementation "org.scalatest:scalatest-funsuite_3:3.2.9"
+	implementation "org.specs2:specs2-common_2.13:4.11.0"
+	implementation "org.specs2:specs2-core_2.13:4.11.0"
+	implementation "org.specs2:specs2-junit_2.13:4.11.0"
 }

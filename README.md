@@ -81,11 +81,11 @@ C:\opt\make-3.81\                  <i>(  2.1 MB)</i>
 C:\opt\Mill-0.9.7\                 <i>( 53.7 MB)</i>
 C:\opt\msys64\                     <i>( 5.56 GB)</i>
 C:\opt\sbt-1.5.1\                  <i>( 48.3 MB)</i>
-C:\opt\scala-2.13.5\               <i>( 23.4 MB, 612 MB with API docs)</i>
+C:\opt\scala-2.13.6\               <i>( 23.8 MB, 612 MB with API docs)</i>
 C:\opt\scala-3.0.0\                <i>( 31.4 MB)</i>
 </pre>
  <!-- jdk8: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
- <!-- jdk11: 11.0.8 = 314 MB, 11.0.9 = 316 MB -->
+ <!-- jdk11: 11.0.8 = 314 MB, 11.0.9 = 316 MB, 11.0.11 = 300 MB -->
  <!-- sbt: 1.3.6 = 55.1 MB, 1.3.7 = 60.9 MB, 1.3.8 = 61.0 MB -->
  <!-- sbt: 1.3.9 = 61.2 MB, 1.3.10 = 61.2 MB, 1.3.11 = 61.3 MB, 1.4.1 = 47.6 MB -->
  <!-- sbt: 1.4.2 = 47.7 MB, 1.4.3 = 47.7 MB, 1.4.6 -> 48 MB, 1.4.6 = MB -->
@@ -171,7 +171,7 @@ We distinguish different sets of batch/bash commands:
     > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Scala 3 distribution][dotty_releases]. We also have submitted pull request [#5444][github_PR5444] to add them to the [Scala 3][scala3_home] distribution.
 
     <pre style="font-size:80%;">
-    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\dotty-3.0.0-RC3\bin</b>
+    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\dotty-3.0.0\bin</b>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/common">common</a>
     <a href="bin/3.0.0/common.bat">common.bat</a>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/scala">scala</a>
@@ -309,8 +309,8 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   javac 11.0.10, java 11.0.10, scalac 2.13.6, scalac 3.0.0,
-   ant 1.10.10, gradle 7.0, mill 0.9.7, mvn 3.8.1, sbt 1.5.2,
+   javac 1.8.0_292, java 1.8.0_292, scalac 2.13.6, scalac 3.0.0,
+   ant 1.10.10, gradle 7.0.2, mill 0.9.7, mvn 3.8.1, sbt 1.5.2,
    bazel 4.0.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.5,
    git 2.31.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 
@@ -345,10 +345,11 @@ Tool paths:
    C:\opt\jdk-openjdk-11.0.11_9\bin\javac.exe
    C:\opt\jdk-openjdk-11.0.11_9\bin\java.exe
    C:\opt\scala-2.13.6\bin\scalac.bat
-   C:\opt\scala-3.0.0-RC3\bin\scalac.bat
+   C:\opt\scala3-3.0.0\bin\scalac.bat
+   %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.10\bin\ant.bat
-   C:\opt\gradle-7.0\bin\gradle.bat
-   C:\opt\Mill-0.9.7\mill.bat
+   C:\opt\gradle-7.0.2\bin\gradle.bat
+   C:\opt\mill-0.9.7\mill.bat
    C:\opt\apache-maven-3.8.1\bin\mvn.cmd
    C:\opt\sbt-1.5.2\bin\sbt.bat
    C:\opt\bazel-4.0.0\bazel.exe
@@ -361,6 +362,7 @@ Tool paths:
    C:\opt\Git-2.31.1\bin\bash.exe
 Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.10"
+   "BAZEL_HOME=c:\opt\bazel-4.0.0"
    "GIT_HOME=C:\opt\Git-2.31.1"
    "JAVA_HOME=C:\opt\jdk-openjdk-11.0.11_9"
    "JAVAFX_HOME=C:\opt\javafx-sdk-16"
@@ -369,7 +371,7 @@ Environment variables:
    "PYTHON_HOME=C:\opt\Python-3.9.5"
    "SBT_HOME=C:\opt\sbt-1.5.2"
    "SCALA_HOME=C:\opt\scala-2.13.6"
-   "SCALA3_HOME=C:\opt\scala-3.0.0"
+   "SCALA3_HOME=C:\opt\scala3-3.0.0"
 </pre>
 
 ### **`cleanup.bat`**
@@ -388,10 +390,10 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala-3.0.0-RC3 c:\opt\jdk-openjdk-11.0.11_9</b>
+<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.0.0 c:\opt\jdk-openjdk-11.0.11_9</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
-Size of directory "c:\opt\scala-3.0.0-RC3" is 31.4 Mb
+Size of directory "c:\opt\scala3-3.0.0" is 31.4 Mb
 Size of directory "c:\opt\jdk-openjdk-11.0.11_9" is 184.2 Mb
 </pre>
 
@@ -456,12 +458,12 @@ Activate default Scala libraries: 3.0.0
 Scala compiler version 3.0.0 -- Copyright 2002-2021, LAMP/EPFL
 </pre>
 
-> **:warning:** You need *write access* to the [Scala 3][scala3_home] installation directory (e.g. **`C:\opt\scala-3.0.0\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
+> **:warning:** You need *write access* to the [Scala 3][scala3_home] installation directory (e.g. **`C:\opt\scala3-3.0.0\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
 
 Internally command [**`getnightly`**](bin/getnightly.bat) manages two sets of libraries files which are organized as follows:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/pushd">pushd</a> c:\opt\scala-3.0.0&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/pushd">pushd</a> c:\opt\scala3-3.0.0&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd</b>
 VERSION
 lib\3.0.0\
 &nbsp;&nbsp;dist_3-3.0.0.jar
@@ -509,7 +511,7 @@ Passing argument **`System`** to command [**`searchjars`**](bin/searchjars.bat) 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> System</b>
-Searching for class name System in archive files C:\opt\scala-3.0.0\lib\*.jar
+Searching for class name System in archive files C:\opt\scala3-3.0.0\lib\*.jar
   jline-reader-3.15.0.jar:org/jline/reader/impl/completer/SystemCompleter.class
   scala-library-2.13.5.jar:scala/sys/SystemProperties$.class
   scala-library-2.13.5.jar:scala/sys/SystemProperties.class
@@ -543,7 +545,7 @@ Searching for **`FileSystem`** with option **`-artifact`** produces the followin
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> FileSystem -artifact</b>
-Searching for class name FileSystem in archive files C:\opt\scala-3.0.0\lib\*.jar
+Searching for class name FileSystem in archive files C:\opt\scala3-3.0.0\lib\*.jar
 Searching for class name FileSystem in archive files C:\opt\scala-2.13.6\lib\*.jar
 Searching for class name FileSystem in archive files c:\opt\jdk-11.0.11_9\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
@@ -671,8 +673,8 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> scala</b>
-C:\opt\scala-3.0.0\bin\scala
-C:\opt\scala-3.0.0\bin\scala.bat
+C:\opt\scala3-3.0.0\bin\scala
+C:\opt\scala3-3.0.0\bin\scala.bat
 
 <b>&gt; <a href="bin/3.0.0/scala.bat">scala</a> -version</b>
 Scala code runner version 3.0.0 -- Copyright 2002-2021, LAMP/EPFL
@@ -690,10 +692,10 @@ The REPL has several commands available:
 :reset                   reset the repl to its initial state, forgetting all session entries
 
 <b>scala&gt;</b> System.getenv().get("JAVA_HOME")
-val res0: String = C:\opt\jdk-11.0.11_9
+val res0: String = C:\opt\jdk-openjdk-11.0.11_9
 
 <b>scala&gt;</b> System.getenv().get("SCALA3_HOME")
-val res1: String = C:\opt\scala-3.0.0
+val res1: String = C:\opt\scala3-3.0.0
 
 <b>scala&gt;</b> :load myexamples/HelloWorld/src/main/scala/HelloWorld.scala
 // defined object HelloWorld
@@ -712,7 +714,7 @@ Hello world!
 Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 <a href="https://wiki.shibboleth.net/confluence/pages/viewpage.action?pageId=44729840">Java SE 8</a> is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS release</a> in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html" rel="external">LTS release</a>.
 </p>
 <p style="margin:0 0 1em 20px;">
-<a href="https://wiki.shibboleth.net/confluence/pages/viewpage.action?pageId=70352982">Java SE 17</a> is in early access (<a href="http://jdk.java.net/17/">build 21</a> released in May 2021); it will be the next LTS release after Java 11.
+<a href="https://wiki.shibboleth.net/confluence/pages/viewpage.action?pageId=70352982">Java SE 17</a> is in early access (<a href="http://jdk.java.net/17/">build 22</a> released in May 2021); it will be the next LTS release after Java 11.
 </p>
 
 <span name="footnote_02">[2]</b> ***Using Bazel on Windows*** [↩](#anchor_02)
@@ -761,7 +763,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://git-scm.com/download/win">PortableGit-2.31.1-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.5.2.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.6.zip</a>                                  <i>( 21 MB)</i>
-<a href="https://github.com/lampepfl/dotty/releases/tag/3.0.0-RC3">scala-3.0.0.zip</a>                                   <i>( 24 MB)</i>
+<a href="https://github.com/lampepfl/dotty/releases/tag/3.0.0">scala3-3.0.0.zip</a>                                   <i>( 24 MB)</i>
 </pre>
 
 <span name="footnote_05">[5]</span> ***PowerShell*** [↩](#anchor_05) <!-- 2018-05-09 -->
@@ -852,13 +854,13 @@ Command Prompt has been around for as long as we can remember, but starting with
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_downloads]: https://github.com/sbt/sbt/releases
 [sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.5.1
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.5.2
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala]: https://www.scala-lang.org/
 [scala3_home]: https://dotty.epfl.ch
-[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.0.0-RC3
+[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.0.0
 [scala_releases]: https://www.scala-lang.org/files/archive/
-[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.5
+[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.6
 [scala_repl]: https://docs.scala-lang.org/overviews/repl/overview.html
 [scalac_cli]: https://docs.scala-lang.org/overviews/compiler-options/index.html
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples

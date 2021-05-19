@@ -121,7 +121,7 @@ clean() {
         if $DEBUG; then
             debug "Delete directory $TARGET_DIR"
         elif $VERBOSE; then
-            echo "Delete directory ${TARGET_DIR/$ROOT_DIR\//}" 1>&2
+            echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
         fi
         rm -rf "$TARGET_DIR"
         [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
@@ -147,12 +147,12 @@ compile() {
     local timestamp_file="$TARGET_DIR/.latest-build"
 
     local is_required=0
-    is_required="$(action_required "$timestamp_file" "$SOURCE_DIR/main/java/" "*.java")"
+    is_required="$(compile_required "$timestamp_file" "$SOURCE_DIR/main/java/" "*.java")"
     if [[ $is_required -eq 1 ]]; then
         compile_java
         [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
     fi
-    is_required="$(action_required "$timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
+    is_required="$(compile_required "$timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
     if [[ $is_required -eq 1 ]]; then
         compile_scala
         [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
@@ -160,15 +160,15 @@ compile() {
     touch "$timestamp_file"
 }
 
-action_required() {
+compile_required() {
     local timestamp_file=$1
     local search_path=$2
     local search_pattern=$3
-    local latest=
+    local latest_file=
     for f in $(find $search_path -name $search_pattern 2>/dev/null); do
-        [[ $f -nt $latest ]] && latest=$f
+        [[ $f -nt $latest_file ]] && latest_file=$f
     done
-    if [ -z "$latest" ]; then
+    if [ -z "$latest_file" ]; then
         ## Do not compile if no source file
         echo 0
     elif [ ! -f "$timestamp_file" ]; then
@@ -176,8 +176,13 @@ action_required() {
         echo 1
     else
         ## Do compile if timestamp file is older than most recent source file
-        local timestamp=$(stat -c %Y $timestamp_file)
-        [[ $timestamp_file -nt $latest ]] && echo 1 || echo 0
+        if $DEBUG; then
+            local timestamp=$(stat -c %Y $timestamp_file)
+            local latest_timestamp=$(stat -c %Y $latest_file)
+            debug "timestamp=$timestamp latest=$latest_timestamp"
+        fi
+        ## Mnemonic: -nt = "newer than", -ot = "older than"
+        [[ $timestamp_file -ot $latest_file ]] && echo 1 || echo 0
     fi
 }
 
@@ -199,7 +204,7 @@ compile_java() {
     if $DEBUG; then
         debug "$JAVAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Java source files to directory ${CLASSES_DIR/$ROOT_DIR\//}" 1>&2
+        echo "Compile $n Java source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
@@ -237,7 +242,7 @@ compile_scala() {
     if $DEBUG; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Scala source files to directory ${CLASSES_DIR/$ROOT_DIR\//}" 1>&2
+        echo "Compile $n Scala source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
@@ -260,19 +265,17 @@ decompile() {
     local output_dir="$TARGET_DIR/cfr-sources"
     [[ -d "$output_dir" ]] || mkdir -p "$output_dir"
 
-    local cfr_opts="--extraclasspath "$(extra_cpath)" --outputdir "$(mixed_path $output_dir)""
+    local cfr_opts="--extraclasspath \"$(extra_cpath)\" --outputdir $(mixed_path $output_dir)"
 
-    local n="$(ls -n $CLASSES_DIR/*.class | wc -l)"
     local class_dirs=
-    [[ $n -gt 0 ]] && class_dirs="$CLASSES_DIR"
-    for f in $(ls -d $CLASSES_DIR 2>/dev/null); do
-        n="$(ls -n $CLASSES_DIR/*.class | wc -l)"
+    for f in $(find $CLASSES_DIR -type d -print); do
+        n="$(ls -n $f/*.class 2>/dev/null | wc -l)"
         [[ $n -gt 0 ]] && class_dirs="$class_dirs $f"
     done
     $VERBOSE && echo "Decompile Java bytecode to directory ${output_dir/$ROOT_DIR\//}" 1>&2
     for f in $class_dirs; do
         debug "$CFR_CMD $cfr_opts $(mixed_path $f)/*.class"
-        eval "$CFR_CMD" $cfr_opts "$(mixed_path $f)/*.class" $STDERR_REDIRECT
+        exec "$CFR_CMD" $cfr_opts $(mixed_path $f)/\\*.class
         if [[ $? -ne 0 ]]; then
             error "Failed to decompile generated code in directory $f"
             cleanup 1
@@ -287,7 +290,7 @@ decompile() {
     echo // Compiled with $version_string > "$output_file"
 
     if $DEBUG; then
-        debug "echo $output_dir/*.java >> $output_file"
+        debug "cat $output_dir/*.java >> $output_file"
     elif $VERBOSE; then
         echo "Save generated Java source files to file ${output_file/$ROOT_DIR\//}" 1>&2
     fi
@@ -307,14 +310,14 @@ decompile() {
     fi
     local diff_opts=--strip-trailing-cr
 
-    local check_file="$SOURCE_DIR/build/cfr-source$VERSION_SUFFIX.java"
+    local check_file="$SOURCE_DIR/build/cfr-source$version_suffix.java"
     if [ -f "$check_file" ]; then
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
         elif $VERBOSE; then
             echo "Compare output file with check file ${check_file/$ROOT_DIR\//}" 1>&2
         fi
-        eval "$DIFF_CMD" $diff_opts "$(mixed_path $output_file)" "$(mixed_path $check_file)"
+        "$DIFF_CMD" $diff_opts "$(mixed_path $output_file)" "$(mixed_path $check_file)"
         if [[ $? -ne 0 ]]; then
             error "Output file and check file differ"
             cleanup 1
@@ -365,7 +368,7 @@ doc() {
 
     local doc_timestamp_file="$TARGET_DOCS_DIR/.latest-build"
 
-    local is_required="$(action_required "$doc_timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
+    local is_required="$(compile_required "$doc_timestamp_file" "$CLASSES_DIR/" "*.tasty")"
     [[ $is_required -eq 0 ]] && return 1
 
     local sources_file="$TARGET_DIR/scaladoc_sources.txt"
@@ -373,12 +376,12 @@ doc() {
     # for f in $(find $SOURCE_DIR/main/java/ -name *.java 2>/dev/null); do
     #     echo $(mixed_path $f) >> "$sources_file"
     # done
-    for f in $(find $SOURCE_DIR/main/scala/ -name *.scala 2>/dev/null); do
+    for f in $(find $CLASSES_DIR/ -name *.tasty 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
     done
     local opts_file="$TARGET_DIR/scaladoc_opts.txt"
     if [ $SCALA_VERSION -eq 3 ]; then
-        echo -d "$(mixed_path $TARGET_DOCS_DIR)" -doc-title "$PROJECT_NAME" -doc-footer "$PROJECT_URL" -doc-version "$PROJECT_VERSION" > "$opts_file"
+        echo -d "$(mixed_path $TARGET_DOCS_DIR)" -project "$PROJECT_NAME" -project-version "$PROJECT_VERSION" > "$opts_file"
     else
         echo -siteroot "$(mixed_path $TARGET_DOCS_DIR)" -project "$PROJECT_NAME" -project-url "$PROJECT_URL" -project-version "$PROJECT_VERSION" > "$opts_file"
     fi
@@ -474,16 +477,16 @@ case "`uname -s`" in
   CYGWIN*) cygwin=true ;;
   MINGW*)  mingw=true ;;
   MSYS*)   msys=true ;;
-  Darwin*) darwin=true
+  Darwin*) darwin=true      
 esac
 unset CYGPATH_CMD
 PSEP=":"
 if $cygwin || $mingw || $msys; then
+    CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
     [[ -n "$GIT_HOME" ]] && GIT_HOME="$(mixed_path $GIT_HOME)"
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA3_HOME" ]] && SCALA3_HOME="$(mixed_path $SCALA3_HOME)"
-    CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     DIFF_CMD="$GIT_HOME/usr/bin/diff.exe"
     SCALAFMT_CMD="$(mixed_path $LOCALAPPDATA)/Coursier/data/bin/scalafmt.bat"
 else

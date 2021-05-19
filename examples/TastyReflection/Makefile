@@ -10,8 +10,11 @@ SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 ##############################################################################
 ## main rules
 
-SOURCES = $(shell find $(SOURCE_DIR)/main -name *.scala)
+SOURCES = $(shell $(FIND) $(SOURCE_DIR)/main/scala -type f -name *.scala)
 TARGET  = $(TARGET_DIR)/.latest-build
+
+OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
+SOURCES_FILE = $(TARGET_DIR)/scalac_sources.txt
 
 MAIN_CLASS = Main
 MAIN_ARGS ?= 
@@ -21,22 +24,36 @@ all: build
 build: $(TARGET)
 
 $(TARGET): $(SOURCES)
-	[ -d "$(CLASSES_DIR)" ] || mkdir -p "$(CLASSES_DIR)"
-	@echo "$(SCALAC_FLAGS) -d \"$(CLASSES_DIR)\"" > "$(TARGET_DIR)/scalac_opts.txt"
-	@echo "$(SOURCES)" > "$(TARGET_DIR)/scalac_sources.txt"
-	$(SCALAC) "@$(TARGET_DIR)/scalac_opts.txt" "@$(TARGET_DIR)/scalac_sources.txt"
-	@echo "" > "$(TARGET)"
+	[ -d "$(CLASSES_DIR)" ] || $(MKDIR) -p "$(CLASSES_DIR)"
+	@echo $(SCALAC_FLAGS) -d "$(CLASSES_DIR)" > "$(OPTS_FILE)"
+	@echo $(SOURCES) > "$(SOURCES_FILE)"
+	$(SCALAC) "@$(OPTS_FILE)" "@$(SOURCES_FILE)"
+	@$(TOUCH) "$(TARGET)"
 
 clean:
 	rm -rf "$(TARGET_DIR)"
 
 run: build
-	$(SCALA) $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS) $(MAIN_ARGS)
+	$(SCALA) $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
+
+help:
+	@$(info Usage: make all|build|clean|doc|help|lint|run|test)
+	@$(info )
+	@echo   Subcommands:
+	@echo     all    alias for build
+	@echo     build  compile Java/Scala source files
+	@echo     clean  delete generated files
+	@echo     doc    generate HTML documentation
+	@echo     help   display this help message
+	@echo     lint   analyze Scala source files with Scalafmt
+	@echo     run    execute main program $(MAIN_CLASS)
+	@echo     test   execute unit tests with JUnit
 
 ##############################################################################
 ## doc rules
 
 DOC_TARGET_DIR = $(TARGET_DIR)/docs
+DOC_SOURCES    = $(shell [ -d "$(CLASSES_DIR)" ] && $(FIND) $(CLASSES_DIR) -name *.tasty)
 DOC_TARGET     = $(DOC_TARGET_DIR)/.latest-build
 
 PROJECT_NAME    ?= $(shell basename $(CURDIR))
@@ -46,36 +63,54 @@ PROJECT_VERSION ?= 1.0.0
 DOC_OPTS_FILE    = $(TARGET_DIR)/scaladoc_opts.txt
 DOC_SOURCES_FILE = $(TARGET_DIR)/scaladoc_sources.txt
 
-$(DOC_TARGET): $(SOURCES)
-	[ -d "$(DOC_TARGET_DIR)" ] || mkdir -p "$(DOC_TARGET_DIR)"
-	@echo -siteroot \"$(DOC_TARGET_DIR)\" -project \"$(PROJECT_NAME)\" -project-url \"$(PROJECT_URL)\" -project-version \"$(PROJECT_VERSION)\" > "$(DOC_OPTS_FILE)"
-	@echo "$(SOURCES)" > "$(DOC_SOURCES_FILE)"
+$(DOC_TARGET): $(TARGET) $(DOC_SOURCES)
+	[ -d "$(DOC_TARGET_DIR)" ] || $(MKDIR) -p "$(DOC_TARGET_DIR)"
+	@echo -siteroot "$(DOC_TARGET_DIR)" -d "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
+	@echo $(DOC_SOURCES) > "$(DOC_SOURCES_FILE)"
 	$(SCALADOC) "@$(DOC_OPTS_FILE)" "@$(DOC_SOURCES_FILE)"
-	@echo "" > "$(DOC_TARGET)"
+	@$(TOUCH) "$(DOC_TARGET)"
 
-doc: $(DOC_TARGET)
+doc: build $(DOC_TARGET)
+
+##############################################################################
+## lint rules
+
+LINT_SOURCES = $(shell $(FIND) $(SOURCE_DIR) -type f -name *.scala)
+LINT_TARGET  = $(TARGET_DIR)/.latest-lint
+
+SCALAFMT_CONFIG_FILE = $(shell dirname $(CURDIR))/.scalafmt.conf
+SCALAFMT_OPTS = --test --config "$(SCALAFMT_CONFIG_FILE)"
+
+lint: $(LINT_TARGET)
+
+$(LINT_TARGET): $(LINT_SOURCES)
+	$(SCALAFMT) $(SCALAFMT_OPTS) $(SOURCE_DIR)
+	@$(TOUCH) "$(LINT_TARGET)"
 
 ##############################################################################
 ## test rules
 
-TEST_SOURCES = $(shell find $(SOURCE_DIR)/test -name *.scala)
-TEST_TARGET  = $(TARGET_DIR)/.latest-test-build
-
-TEST_MAIN_CLASS  = $(MAIN_CLASS)JUnitTest
+TEST_SOURCES     = $(shell $(FIND) $(SOURCE_DIR)/test -type f -name *.scala)
 TEST_CLASSES_DIR = $(TARGET_DIR)/test-classes
-TEST_CPATH       = $(SCALA_LIB_JAR)$(PSEP)$(SCALA3_LIB_JAR)$(PSEP)$(HAMCREST_JAR)$(PSEP)$(JUNIT_JAR)$(PSEP)$(JUNIT_INTF_JAR)$(PSEP)$(SCALATEST_JAR)$(PSEP)$(SCALACTIC_JAR)$(PSEP)$(SPECS2_CORE_JAR)$(PSEP)$(SPECS2_JUNIT_JAR)$(PSEP)$(SPECS2_MATCHER_JAR)$(PSEP)$(CLASSES_DIR)$(PSEP)$(TEST_CLASSES_DIR)
+TEST_TARGET      = $(TARGET_DIR)/.latest-test-build
+
+TEST_OPTS_FILE    = $(TARGET_DIR)/scalac_test_opts.txt
+TEST_SOURCES_FILE = $(TARGET_DIR)/scalac_test_sources.txt
+
+TEST_MAIN_CLASS = $(MAIN_CLASS)JUnitTest
+TEST_CPATH      = $(SCALA_LIB_JAR)$(PSEP)$(SCALA3_LIB_JAR)$(PSEP)$(HAMCREST_JAR)$(PSEP)$(JUNIT_JAR)$(PSEP)$(JUNIT_INTF_JAR)$(PSEP)$(SCALATEST_JAR)$(PSEP)$(SCALACTIC_JAR)$(PSEP)$(SPECS2_CORE_JAR)$(PSEP)$(SPECS2_JUNIT_JAR)$(PSEP)$(SPECS2_MATCHER_JAR)$(PSEP)$(CLASSES_DIR)$(PSEP)$(TEST_CLASSES_DIR)
 
 $(TEST_TARGET): $(TEST_SOURCES)
-	[ -d "$(TEST_CLASSES_DIR)" ] || mkdir -p "$(TEST_CLASSES_DIR)"
-	@echo "$(SCALAC_FLAGS) -classpath \"$(TEST_CPATH)\" -d \"$(TEST_CLASSES_DIR)\"" > "$(TARGET_DIR)/scalac_test_opts.txt"
-	@echo "$(TEST_SOURCES)" > "$(TARGET_DIR)/scalac_test_sources.txt"
-	$(SCALAC) "@$(TARGET_DIR)/scalac_test_opts.txt" "@$(TARGET_DIR)/scalac_test_sources.txt"
-	@echo "" > "$(TEST_TARGET)"
+	[ -d "$(TEST_CLASSES_DIR)" ] || $(MKDIR) -p "$(TEST_CLASSES_DIR)"
+	@echo $(SCALAC_FLAGS) -classpath "$(TEST_CPATH)" -d "$(TEST_CLASSES_DIR)" > "$(TEST_OPTS_FILE)"
+	@echo $(TEST_SOURCES) > "$(TEST_SOURCES_FILE)"
+	$(SCALAC) "@$(TEST_OPTS_FILE)" "@$(TEST_SOURCES_FILE)"
+	@$(TOUCH) "$(TEST_TARGET)"
 
-test: build $(TEST_TARGET)
+test: $(TARGET) $(TEST_TARGET)
 	$(JAVA) -classpath "$(TEST_CPATH)" org.junit.runner.JUnitCore $(TEST_MAIN_CLASS)
 
 ##############################################################################
 ## phony
 
-.PHONY: all build clean doc run test
+.PHONY: all build clean doc help lint run test

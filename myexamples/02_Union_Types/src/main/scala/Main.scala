@@ -155,11 +155,15 @@ object testShape {
 
 }
 
-object Main extends App {
-  testIntFloat.run
-  testPadding.run
-  testDivision.run
-  testMessage.run
-  testJSON.run
-  testShape.run
+object Main {
+
+  def main(args: Array[String]): Unit = {
+    testIntFloat.run
+    testPadding.run
+    testDivision.run
+    testMessage.run
+    testJSON.run
+    testShape.run
+  }
+
 }

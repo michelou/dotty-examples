@@ -11,15 +11,13 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
-        <m2.directory>${user.home}/.m2/repository</m2.directory>
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId> <!-- ch.epfl.lamp -->
-        <scala.versionTag>3.0.0</scala.versionTag> <!-- eg. "2.13" -->
-        <scala.version>${scala.versionTag}</scala.version> <!-- eg. "2.13.3" or "0.26.0" -->
+        <scala.version>3.0.0</scala.version> <!-- eg. "2.13.3" or "0.26.0" -->
         <scala.local.install>true</scala.local.install>
-        <scala2.versionTag>2.13</scala2.versionTag>
-        <scala2.version>${scala2.versionTag}.5</scala2.version>
+        <scala2.binary.version>2.13</scala2.binary.version>
+        <scala2.version>${scala2.binary.version}.6</scala2.version>
 
         <!-- Maven plugin versions -->
         <scala.maven.version>1.0.0</scala.maven.version> <!-- Dec 2018 -->
@@ -42,9 +40,27 @@
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
-        <junit.platform.version>1.7.1</junit.platform.version>  <!-- Sep 2019 -->
+        <junit.platform.version>1.7.2</junit.platform.version>  <!-- Sep 2019 -->
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <jupiter.version>5.7.1</jupiter.version>                <!-- Jan 2020 -->
+        <jupiter.version>5.7.2</jupiter.version>                <!-- Jan 2020 -->
+
+        <m2.directory>${user.home}/.m2/repository</m2.directory>
+
+        <m2.hamcrest.jar>${m2.directory}/org/hamcrest/hamcrest/${hamcrest.version}/hamcrest-${hamcrest.version}.jar</m2.hamcrest.jar>
+        <m2.hamcrest-core.jar>${m2.directory}/org/hamcrest/hamcrest/${hamcrest.version}/hamcrest-core-${hamcrest.version}.jar</m2.hamcrest-core.jar>
+        <m2.ivy.jar>${m2.directory}/org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar</m2.ivy.jar>
+        <m2.junit.jar>${m2.directory}/junit/junit/${junit.version}/junit-${junit.version}.jar</m2.junit.jar>
+        <m2.scala-reflect.jar>${m2.directory}/org/portable-scala/portable-scala-reflect_2.13/${scala-reflect.version}/portable-scala-reflect_2.13-${scala-reflect.version}.jar</m2.scala-reflect.jar>
+        <m2.scalactic.jar>${m2.directory}/org/scalactic/scalactic_3/${scalatest.version}/scalactic_3-${scalatest.version}.jar</m2.scalactic.jar>
+        <m2.scalatest.jar>${m2.directory}/org/scalatest/scalatest_3/${scalatest.version}/scalatest_3-${scalatest.version}.jar</m2.scalatest.jar>
+        <m2.scalatest-funspec.jar>${m2.directory}/org/scalatest/scalatest-funspec_3/${scalatest.version}/scalatest-funspec_3-${scalatest.version}.jar</m2.scalatest-funspec.jar>
+        <m2.scalatest-funsuite.jar>${m2.directory}/org/scalatest/scalatest-funsuite_3/${scalatest.version}/scalatest-funsuite_3-${scalatest.version}.jar</m2.scalatest-funsuite.jar>
+        <m2.specs2-common.jar>${m2.directory}/org/specs2/specs2-common_2.13/${specs2.version}/specs2-common_2.13-${specs2.version}.jar</m2.specs2-common.jar>
+        <m2.specs2-core.jar>${m2.directory}/org/specs2/specs2-core_2.13/${specs2.version}/specs2-core_2.13-${specs2.version}.jar</m2.specs2-core.jar>
+        <m2.specs2-fp.jar>${m2.directory}/org/specs2/specs2-fp_${scalalib_version}/${specs2.version}/specs2-fp_${scalalib_version}-${specs2.version}.jar</m2.specs2-fp.jar>
+        <m2.specs2-junit.jar>${m2.directory}/org/specs2/specs2-junit_2.13/${specs2.version}/specs2-junit_2.13-${specs2.version}.jar</m2.specs2-junit.jar>
+        <m2.specs2-matcher.jar>${m2.directory}/org/specs2/specs2-matcher_2.13/${specs2.version}/specs2-matcher_2.13-${specs2.version}.jar</m2.specs2-matcher.jar>
+        <m2.test-interface.jar>${m2.directory}/org/scala-sbt/test-interface/1.0/test-interface-1.0.jar</m2.test-interface.jar>
     </properties>
 
     <dependencies>
@@ -57,13 +73,13 @@
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala3-library -->
         <dependency>
             <groupId>${scala.groupId}</groupId>
-            <artifactId>scala3-library_${scala.versionTag}</artifactId> 
+            <artifactId>scala3-library_3</artifactId> 
             <version>${scala.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/tasty-core -->
         <dependency>
             <groupId>${scala.groupId}</groupId>
-            <artifactId>tasty-core_${scala.versionTag}</artifactId>
+            <artifactId>tasty-core_3</artifactId>
             <version>${scala.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
@@ -130,7 +146,7 @@
         </dependency>
         <dependency>
             <groupId>org.scalatest</groupId>
-            <artifactId>scalatest_${scala2.versionTag}</artifactId>
+            <artifactId>scalatest_${scala2.binary.version}</artifactId>
             <version>${scalatest.version}</version>
             <scope>test</scope>
         </dependency>
@@ -142,25 +158,25 @@
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-common -->
         <dependency>
             <groupId>org.specs2</groupId>
-            <artifactId>specs2-common_${scala2.versionTag}</artifactId>
+            <artifactId>specs2-common_${scala2.binary.version}</artifactId>
             <version>${specs2.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-core -->
         <dependency>
             <groupId>org.specs2</groupId>
-            <artifactId>specs2-core_${scala2.versionTag}</artifactId>
+            <artifactId>specs2-core_${scala2.binary.version}</artifactId>
             <version>${specs2.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
         <dependency>
             <groupId>org.specs2</groupId>
-            <artifactId>specs2-junit_${scala2.versionTag}</artifactId>
+            <artifactId>specs2-junit_${scala2.binary.version}</artifactId>
             <version>${specs2.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-matcher -->
         <dependency>
             <groupId>org.specs2</groupId>
-            <artifactId>specs2-matcher_${scala2.versionTag}</artifactId>
+            <artifactId>specs2-matcher_${scala2.binary.version}</artifactId>
             <version>${specs2.version}</version>
         </dependency>
         <dependency>

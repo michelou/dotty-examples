@@ -21,7 +21,7 @@
 
     <properties>
         <mainClass>myexamples.Main</mainClass>
-        <m2.repository>${user.home}\.m2\repository</m2.repository>
+        <m2.repository>${user.home}/.m2/repository</m2.repository>
     </properties>
 
     <build>

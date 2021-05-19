@@ -10,22 +10,25 @@ SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 ##############################################################################
 ## main rules
 
-SOURCES    = $(shell $(FIND) $(SOURCE_DIR)/main -name *.scala)
-TARGET     = $(TARGET_DIR)/.latest-build
+SOURCES = $(shell $(FIND) $(SOURCE_DIR)/main/scala -type f -name *.scala)
+TARGET  = $(TARGET_DIR)/.latest-build
+
+OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
+SOURCES_FILE = $(TARGET_DIR)/scalac_sources.txt
 
 MAIN_CLASS = Main
 MAIN_ARGS ?= 
 
 all: build
 
-build: $(JAVA_TARGET) $(TARGET)
+build: $(TARGET)
 
 $(TARGET): $(SOURCES)
 	[ -d "$(CLASSES_DIR)" ] || $(MKDIR) -p "$(CLASSES_DIR)"
-	@echo $(SCALAC_FLAGS) -d "$(CLASSES_DIR)" > "$(TARGET_DIR)/scalac_opts.txt"
-	@echo $(SOURCES) > "$(TARGET_DIR)/scalac_sources.txt"
-	$(SCALAC) "@$(TARGET_DIR)/scalac_opts.txt" "@$(TARGET_DIR)/scalac_sources.txt"
-	@echo "" > "$(TARGET)"
+	@echo $(SCALAC_FLAGS) -d "$(CLASSES_DIR)" > "$(OPTS_FILE)"
+	@echo $(SOURCES) > "$(SOURCES_FILE)"
+	$(SCALAC) "@$(OPTS_FILE)" "@$(SOURCES_FILE)"
+	@$(TOUCH) "$(TARGET)"
 
 clean:
 	rm -rf "$(TARGET_DIR)"
