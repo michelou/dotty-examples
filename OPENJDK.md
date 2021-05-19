@@ -52,7 +52,7 @@ For instance our development environment looks as follows (*May 2021*) <sup id="
 C:\opt\jdk-bellsoft-11.0.11\      <i>(317 MB)</i>
 C:\opt\jdk-corretto-11.0.11_9\    <i>(292 MB)</i>
 C:\opt\jdk-dcevm-11.0.10_4\       <i>(313 MB)</i>
-C:\opt\graalvm-ce-java11-21.0.0\  <i>(731 MB)</i>
+C:\opt\graalvm-ce-java11-21.1.0\  <i>(731 MB)</i>
 C:\opt\jdk-openj9-11.0.11_9\      <i>(295 MB)</i>
 C:\opt\jdk-openjdk-11.0.11_9\     <i>(299 MB)</i>
 C:\opt\jdk-redhat-11.0.10.9-1\    <i>(363 MB)</i>
@@ -178,7 +178,7 @@ OpenJDK 64-Bit Server VM Corretto-11.0.11.9.1 (build 11.0.11+9-LTS, mixed mode)
 [...]
 Number of classes 1214
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-corretto-11.0.10_9\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-corretto-11.0.11_9\bin\server | findstr jsa</b>
 30.10.2020  00:02        17 629 184 classes.jsa
 
 <b>&gt; c:\opt\jdk-corretto-11.0.11_9\bin\java -version</b>

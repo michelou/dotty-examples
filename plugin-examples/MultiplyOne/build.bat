@@ -236,6 +236,7 @@ if %_SCALAC_OPTS_EXPLAIN_TYPES%==1 set _SCALAC_OPTS=%_SCALAC_OPTS% -explain-type
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _EXPLAIN=%_SCALAC_OPTS_EXPLAIN% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DOC=%_DOC% _PACK=%_PACK% _TEST=%_TEST% _TEST_PLUGIN=%_TEST_PLUGIN% 1>&2
+	if defined _CFR_CMD echo %_DEBUG_LABEL% Variables  : "CFR_HOME=%CFR_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "JAVA_HOME=%JAVA_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "SCALA3_HOME=%SCALA3_HOME%" 1>&2
 )
@@ -322,7 +323,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURC
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of Scala source files failed 1>&2
+    echo %_ERROR_LABEL% Compilation of %__N% Scala source files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )

@@ -221,10 +221,10 @@ No compilation needed ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
 Processing Planet$
 Processing Planet
-Save decompiled Java source files to "target\cfr-sources_scala3_3.0.0-RC3.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_3.0.0.java"
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b /s target\*.java</b>
-W:\examples\enum-Planet\target\cfr-sources_scala3_3.0.0-RC3.java
+W:\examples\enum-Planet\target\cfr-sources_scala3_3.0.0.java
 W:\examples\enum-Planet\target\cfr-sources\Planet$.java
 W:\examples\enum-Planet\target\cfr-sources\Planet.java
 </pre>

@@ -14,10 +14,10 @@
 
 This document is part of a series of topics related to [Scala 3][dotty] on Windows:
 
-- [Running Dotty on Windows](README.md)
-- [Building Dotty on Windows](BUILD.md)
+- [Running Scala 3 on Windows](README.md)
+- [Building Scala 3 on Windows](BUILD.md)
 - Data Sharing and Dotty on Windows [**&#9660;**](#bottom)
-- [OpenJDK and Dotty on Windows](OPENJDK.md)
+- [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
 [JMH][jmh_project], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples] and [Node.js][nodejs_examples] are other trending topics we are currently monitoring.
 
@@ -37,7 +37,7 @@ For instance our development environment looks as follows (*May 2021*):
 <pre style="font-size:80%;">
 C:\opt\Git-2.31.1\             <i>(290 MB)</i>
 C:\opt\jdk-openjdk-11.0.10_9\  <i>(314 MB)</i>
-C:\opt\scala-3.0.0-RC3\        <i>( 57 MB)</i>
+C:\opt\scala3-3.0.0\           <i>( 57 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_downloads] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -162,7 +162,7 @@ For comparison here is the console output ***with data sharing***; option **`-ve
 <b>&gt; <a href="cdsexamples/JavaExample/build.bat">build</a> run -share</b>
 Hello from Java !
 &nbsp;
-<b>&gt; build run -verbose -share</b>
+<b>&gt; <a href="cdsexamples/JavaExample/build.bat">build</a> run -verbose -share</b>
 Execute Java archive (#iterations=1) target\JavaExample.jar
 Hello from Java !
 Execution report:
@@ -255,7 +255,7 @@ We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/t
  -jar W:\cdsexamples\JavaExample\target\JavaExample.jar | findstr cdsexamples</b>
 [0.089s][info][class,load] cdsexamples.Main source: shared objects file
 
-<b>&gt; java -verbose:class -Xshare:off -XX:SharedArchiveFile=target\JavaExample.jsa ^
+<b>&gt; <a href="https://docs.oracle.com/en/java/javase/11/tools/java.htm">java</a> -verbose:class -Xshare:off -XX:SharedArchiveFile=target\JavaExample.jsa ^
  -jar W:\cdsexamples\JavaExample\target\JavaExample.jar | findstr cdsexamples</b>
 [0.112s][info][class,load] cdsexamples.Main source: file:/W:/dotty-examples/cdsexamples/JavaExample/target/Main.jar
 </pre>
@@ -313,7 +313,7 @@ Similarly to the previous section we execute the following command; option **`-v
 <pre style="font-size:80%;">
 <b>&gt; <a href="cdsexamples/DottyExample/build.bat">build</a> clean compile</b>
 &nbsp;
-<b>&gt; build -verbose clean compile</b>
+<b>&gt; <a href="cdsexamples/DottyExample/build.bat">build</a> -verbose clean compile</b>
 Delete output directory target
 Create Java archive target\DottyExample.jar
 Create class list file target\DottyExample.classlist
@@ -326,7 +326,7 @@ We can now execute our [Dotty] example ***without data sharing*** (default setti
 <b>&gt; <a href="cdsexamples/DottyExample/build.bat">build</a> run</b>
 Hello from Scala 3 !
 &nbsp;
-<b>&gt; build run -verbose</b>
+<b>&gt; <a href="cdsexamples/DottyExample/build.bat">build</a> run -verbose</b>
 Execute Java archive (#iterations=1) target\DottyExample.jar
 Hello from Scala 3 !
 Execution report:
@@ -351,10 +351,10 @@ Classes per package (940):
 For comparison here is the output ***with data sharing***; option **`-verbose`** prints out the execution report:
 
 <pre style="font-size:80%;">
-<b>&gt; build run -share</b>
+<b>&gt; <a href="cdsexamples/DottyExample/build.bat">build</a> run -share</b>
 Hello from Scala 3 !
 &nbsp;
-<b>&gt; build run -verbose -share</b>
+<b>&gt; <a href="cdsexamples/DottyExample/build.bat">build</a> run -verbose -share</b>
 Execute Java archive (#iterations=1) target\DottyExample.jar
 Hello from Scala 3 !
 Execution report:
@@ -417,7 +417,7 @@ Classes per package (874):
 Finally we can check the contents of the output directory **`target\`**:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f target | findstr /v "^[A-Z]"</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f target | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v "^[A-Z]"</b>
 |   DottyExample.classlist
 |   DottyExample.jar
 |   DottyExample.jsa
@@ -577,12 +577,12 @@ Classes per package (888):
 > 3. Repeat command from point 1. 
 > 
 > <pre style="font-size:80%;">
-> <b>&gt; c:\opt\jdk-openjdk-11.0.10_9\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-> openjdk version "11.0.8" 2020-07-14
-> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.8+10)
-> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.8+10, mixed mode)
+> <b>&gt; c:\opt\jdk-openjdk-11.0.11_9\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+> openjdk version "11.0.11" 2021-04-20
+> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.11+9)
+> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.11+9, mixed mode)
 > &nbsp;
-> <b>&gt; c:\opt\jdk-openjdk-11.0.10_9\bin\java -Xshare:dump</b>
+> <b>&gt; c:\opt\jdk-openjdk-11.0.11_9\bin\java -Xshare:dump</b>
 > [...]
 > Number of classes 1272
 > [...]
@@ -593,14 +593,14 @@ Classes per package (888):
 > od  space:   6534648 [ 36.1% of total] [...]
 > total    :  17873816 [100.0% of total] [...]
 > &nbsp;
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\jdk-openjdk-11.0.10_9\bin\server</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\jdk-openjdk-11.0.11_9\bin\server</b>
 > classes.jsa
 > jvm.dll
 > &nbsp;
-> <b>&gt; c:\opt\jdk-openjdk-11.0.10_9\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-> openjdk version "11.0.9.1" 2020-11-04
-> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.9.1+1)
-> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.8.1+1, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
+> <b>&gt; c:\opt\jdk-openjdk-11.0.11_9\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+> openjdk version "11.0.11" 2021-04-20
+> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.11+9)
+> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.11+9, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
 > </pre>
 > Java 12 introduces default CDS archives ([JEP 341][java_jep_341])
 > to improve out-of-the-box startup time and to get rid of the need to run

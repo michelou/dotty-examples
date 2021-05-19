@@ -45,7 +45,7 @@ For instance our development environment looks as follows (*May 2021*):
 <pre style="font-size:80%;">
 C:\opt\Git-2.31.1\             <i>(279 MB)</i>
 C:\opt\jdk-openjdk-11.0.11_9\  <i>(314 MB)</i>
-C:\opt\sbt-1.5.1\              <i>( 48 MB)</i>
+C:\opt\sbt-1.5.2\              <i>( 48 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -249,7 +249,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 Tool paths
    GIT_CMD=C:\opt\Git-2.31.1\bin\git.exe
    JAVA_CMD=C:\opt\jdk-openjdk-11.0.11+9\bin\java.exe
-   SBT_CMD=C:\opt\sbt-1.5.1\bin\sbt.bat
+   SBT_CMD=C:\opt\sbt-1.5.2\bin\sbt.bat
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
    SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -330,8 +330,8 @@ Command **`build.bat archives`** works as follows:  ***if*** execution of the **
 [...]
 &nbsp;
 <b>&gt; dir /a-d /b dist\target</b>
-scala3-3.0.0-RC2-bin-SNAPSHOT.tar.gz
-scala3-3.0.0-RC2-bin-SNAPSHOT.zip
+scala3-3.0.1-RC1-bin-SNAPSHOT.tar.gz
+scala3-3.0.1-RC1-bin-SNAPSHOT.zip
 </pre>
 
 ### **`build.bat documentation`**
@@ -455,9 +455,9 @@ Command [**`project\scripts\bootstrapCmdTests.bat`**](bin/dotty/project/scripts/
 [info] Updating dotty-bench...
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
-# JMH version: 1.22
-# VM version: JDK 11.0.9, VM 11.0.10+9
-# VM invoker: C:\opt\jdk-11.0.10+9\bin\java.exe
+# JMH version: 1.31
+# VM version: JDK 11.0.11, VM 11.0.11+9
+# VM invoker: C:\opt\jdk-openjdk-11.0.11_9\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -485,9 +485,9 @@ Worker.compile  avgt       533.625          ms/op
 [info] Updating dotty-bench-bootstrapped...
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
-# JMH version: 1.22
-# VM version: JDK 11.0.9, VM 11.0.10+9
-# VM invoker: C:\opt\jdk-11.0.10+9\bin\java.exe
+# JMH version: 1.31
+# VM version: JDK 11.0.11, VM 11.0.11+9
+# VM invoker: C:\opt\jdk-openjdk-11.0.11_9\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -513,9 +513,9 @@ Worker.compile  avgt       361.619          ms/op
 [success] Total time: 21 s, completed 3 déc. 2018 09:44:42
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
-# JMH version: 1.22
-# VM version: JDK 11.0.9, VM 11.0.10+9
-# VM invoker: C:\opt\jdk-11.0.10+9\bin\java.exe
+# JMH version: 1.31
+# VM version: JDK 11.0.11, VM 11.0.11+9
+# VM invoker: C:\opt\jdk-openjdk-11.0.11_9\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -676,7 +676,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.5.1
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.5.2
 [scala3_docs]: https://dotty.epfl.ch/docs/
 [scala3_home]: https://dotty.epfl.ch/
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
