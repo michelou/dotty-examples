@@ -80,9 +80,9 @@ C:\opt\jdk-openjdk-17-ea_21\       <i>(291.0 MB)</i>
 C:\opt\make-3.81\                  <i>(  2.1 MB)</i>
 C:\opt\Mill-0.9.7\                 <i>( 53.7 MB)</i>
 C:\opt\msys64\                     <i>( 5.56 GB)</i>
-C:\opt\sbt-1.5.1\                  <i>( 48.3 MB)</i>
+C:\opt\sbt-1.5.2\                  <i>( 48.3 MB)</i>
 C:\opt\scala-2.13.6\               <i>( 23.8 MB, 612 MB with API docs)</i>
-C:\opt\scala-3.0.0\                <i>( 31.4 MB)</i>
+C:\opt\scala3-3.0.0\               <i>( 31.4 MB)</i>
 </pre>
  <!-- jdk8: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
  <!-- jdk11: 11.0.8 = 314 MB, 11.0.9 = 316 MB, 11.0.11 = 300 MB -->
@@ -426,30 +426,31 @@ Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the downlo
 <pre style="font-size:80%">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose</b>
 Check for nightly files on Maven repository
-Downloading file scala3-staging_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar ... 37.6 Kb
-Downloading file scala3-tasty-inspector_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar ... 16.7 Kb
-Downloading file scala3-interfaces-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar ... 3.4 Kb
-Downloading file scala3-language-server_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar ... 152.3 Kb
-Downloading file scala3-library_sjs1_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar ... 1.8 Mb
-Downloading file scala3-compiler_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar ... 14.7 Mb
-Downloading file tasty-core_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar ... 72.1 Kb
-Downloading file scala3-library_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar ... 1.1 Mb
-Downloading file scala3-sbt-bridge-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar ... 21.3 Kb
+Downloading file scala3-library_3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY.jar ... 1.1 Mb
+Downloading file scala3-compiler_3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY.jar ... 14.8 Mb
+Downloading file scala3-interfaces-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY.jar ... 3.4 Kb
+Downloading file scala3-language-server_3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY.jar ... 152.3 Kb
+Downloading file scala3-staging_3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY.jar ... 37.8 Kb
+Downloading file tasty-core_3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY.jar ... 72.2 Kb
+Downloading file scala3-library_sjs1_3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY.jar ... 1.8 Mb
+Downloading file scala3-tasty-inspector_3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY.jar ... 17 Kb
+Downloading file scala3-sbt-bridge-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY.jar ... 21.3 Kb
 Finished to download 9 files to directory W:\out\nightly-jars
-Nightly version is 3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY
+Nightly version is 3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY
 </pre>
 
-We can now replace the library files from the original [Scala 3 distribution][dotty_releases] (installed in directory **`C:\opt\scala-3.0.0-RC3\`** in our case) with library files from the latest nightly build.
+We can now replace the library files from the original [Scala 3 distribution][dotty_releases] (installed in directory **`C:\opt\scala3-3.0.0\`** in our case) with library files from the latest nightly build.
 
 Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in the [Scala 3][scala3_home] installation directory.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> activate</b>
-Local nightly version has changed from 3.0.0 to 3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY
-Activate nightly build libraries: 3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY
+Local nightly version has changed from 3.0.0 to 3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY
+Activate nightly build libraries: 3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY
+Copy "lib\3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY\*.jar" "lib\"
 
 <b>&gt; <a href="bin/3.0.0/scalac.bat">scalac</a> -version</b>
-Scala compiler version 3.0.1-RC1-bin-20210409-73bfead-NIGHTLY-git-73bfead -- Copyright 2002-2021, LAMP/EPFL
+Scala compiler version 3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY-git-4bf2f04 -- Copyright 2002-2021, LAMP/EPFL
 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> reset</b>
 Activate default Scala libraries: 3.0.0
@@ -465,25 +466,26 @@ Internally command [**`getnightly`**](bin/getnightly.bat) manages two sets of li
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/pushd">pushd</a> c:\opt\scala3-3.0.0&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd</b>
 VERSION
+VERSION-NIGHTLY
+lib\3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY\
+&nbsp;&nbsp;scala3-compiler_3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY.jar
+&nbsp;&nbsp;scala3-interfaces-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY.jar
+&nbsp;&nbsp;scala3-language-server_3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY.jar
+&nbsp;&nbsp;scala3-library_3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY.jar
+&nbsp;&nbsp;scala3-library_sjs1_3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY.jar
+&nbsp;&nbsp;scala3-sbt-bridge-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY.jar
+&nbsp;&nbsp;scala3-staging_3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY.jar
+&nbsp;&nbsp;scala3-tasty-inspector_3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY.jar
+&nbsp;&nbsp;tasty-core_3-3.0.1-RC1-bin-20210518-4bf2f04-NIGHTLY.jar
 lib\3.0.0\
 &nbsp;&nbsp;dist_3-3.0.0.jar
 &nbsp;&nbsp;scala3-compiler_3-3.0.0.jar
-&nbsp;&nbsp;scala3-doc_3-3.0.0.jar
 &nbsp;&nbsp;scala3-interfaces-3.0.0.jar
 &nbsp;&nbsp;scala3-library_3-3.0.0.jar
 &nbsp;&nbsp;scala3-staging_3-3.0.0.jar
 &nbsp;&nbsp;scala3-tasty-inspector_3-3.0.0.jar
+&nbsp;&nbsp;scaladoc_3-3.0.0.jar
 &nbsp;&nbsp;tasty-core_3-3.0.0.jar
-lib\3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY\
-&nbsp;&nbsp;scala3-compiler_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar
-&nbsp;&nbsp;scala3-interfaces-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar
-&nbsp;&nbsp;scala3-language-server_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar
-&nbsp;&nbsp;scala3-library_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar
-&nbsp;&nbsp;scala3-library_sjs1_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar
-&nbsp;&nbsp;scala3-sbt-bridge-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar
-&nbsp;&nbsp;scala3-staging_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar
-&nbsp;&nbsp;scala3-tasty-inspector_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar
-&nbsp;&nbsp;tasty-core_3.0.1-RC1-3.0.1-RC1-bin-20210409-73bfead-NIGHTLY.jar
 </pre>
 
 In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original [Scala 3][scala3_home] installation respectively from the latest nightly build.
@@ -512,11 +514,11 @@ Passing argument **`System`** to command [**`searchjars`**](bin/searchjars.bat) 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> System</b>
 Searching for class name System in archive files C:\opt\scala3-3.0.0\lib\*.jar
-  jline-reader-3.15.0.jar:org/jline/reader/impl/completer/SystemCompleter.class
+  jline-reader-3.19.0.jar:org/jline/reader/impl/completer/SystemCompleter.class
   scala-library-2.13.5.jar:scala/sys/SystemProperties$.class
   scala-library-2.13.5.jar:scala/sys/SystemProperties.class
 Searching for class name System in archive files C:\opt\scala-2.13.6\lib\*.jar
-  jline-3.15.0.jar:org/jline/builtins/SystemRegistryImpl$CommandOutputStream.class
+  jline-3.19.0.jar:org/jline/builtins/SystemRegistryImpl$CommandOutputStream.class
   [...]
   scala-library.jar:scala/sys/SystemProperties$.class
   scala-library.jar:scala/sys/SystemProperties.class
@@ -536,7 +538,7 @@ Searching for an unknown class name - e.g. **`BinarySearch`** - produces the fol
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> BinarySearch</b>
-Searching for class name BinarySearch in archive files C:\opt\scala-3.0.0\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\scala3-3.0.0\lib\*.jar
 Searching for class name BinarySearch in archive files C:\opt\scala-2.13.6\lib\*.jar
 Searching for class name BinarySearch in archive files C:\opt\jdk-11.0.11_9\lib\*.jar
 </pre>
@@ -620,10 +622,10 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 
 | Project file | Variable | Example |
 | :----------- | :------: | :------ |
-| `build.sbt` | `dottyVersion` | `3.0.0-M2` &rarr; `3.0.0-RC3`|
-| `build.sc` | `scalaVersion` | `3.0.0-M2` &rarr; `3.0.0-RC3` |
-| `project\build.properties` | `sbt.version` | `1.4.6` &rarr; `1.4.7` |
-| `project\plugins.sbt` | `sbt-dotty` | `0.4.4` &rarr; `0.4.6` |
+| `build.sbt` | `dottyVersion` | `3.0.0-RC3` &rarr; `3.0.0`|
+| `build.sc` | `scalaVersion` | `3.0.0-RC3` &rarr; `3.0.0` |
+| `project\build.properties` | `sbt.version` | `1.5.1` &rarr; `1.5.2` |
+| `project\plugins.sbt` | `sbt-dotty` | `0.5.4` &rarr; `0.5.5` |
 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
 

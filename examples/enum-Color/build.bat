@@ -285,6 +285,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% _PROJECT_VERSION=%_PROJECT_VERSION% 1>&2
     echo %_DEBUG_LABEL% Options    : _EXPLAIN=%_SCALAC_OPTS_EXPLAIN% _PRINT=%_SCALAC_OPTS_PRINT% _SCALA_VERSION=%_SCALA_VERSION% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: %_COMMANDS% 1>&2
+    if defined _CFR_CMD echo %_DEBUG_LABEL% Variables  : "CFR_HOME=%CFR_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "JAVA_HOME=%JAVA_HOME%" 1>&2
     if %_SCALA_VERSION%==2 ( echo %_DEBUG_LABEL% Variables  : "SCALA_HOME=%SCALA_HOME%" 1>&2
     ) else ( echo %_DEBUG_LABEL% Variables  : "SCALA3_HOME=%SCALA3_HOME%" 1>&2
@@ -560,7 +561,7 @@ goto :eof
 @rem input parameter: %1=flag to add Dotty libs
 @rem output parameter: _LIBS_CPATH
 :libs_cpath
-set __ADD_DOTTY_LIBS=%~1
+set __ADD_SCALA3_LIBS=%~1
 
 for %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
 if not exist "%__BATCH_FILE%" (
@@ -572,7 +573,7 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__BATCH_FILE%" %_DEBUG% 1>&2
 call "%__BATCH_FILE%" %_DEBUG%
 set "_LIBS_CPATH=%_CPATH%"
 
-if defined __ADD_DOTTY_LIBS (
+if defined __ADD_SCALA3_LIBS (
     if not defined SCALA3_HOME (
         echo %_ERROR_LABEL% Variable SCALA3_HOME not defined 1>&2
         set _EXITCODE=1
