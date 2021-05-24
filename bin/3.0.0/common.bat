@@ -39,19 +39,19 @@ for /f %%f in ("%_PROG_HOME%\.") do set "_LIB_DIR=%%~dpflib"
 
 set _PSEP=;
 
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-compiler*"')        do set _SCALA3_COMP=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-interfaces*"')      do set _SCALA3_INTF=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-library*"')         do set _SCALA3_LIB=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-staging*"')         do set _SCALA3_STAGING=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-tasty-inspector*"') do set _SCALA3_TASTY_INSPECTOR=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*tasty-core*"')             do set _TASTY_CORE=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala-asm*"')              do set _SCALA_ASM=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala-library*"')          do set _SCALA_LIB=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*compiler-interface*"')     do set _SBT_INTF=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jline-reader-3*"')         do set _JLINE_READER=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jline-terminal-3*"')       do set _JLINE_TERMINAL=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jline-terminal-jna-3*"')   do set _JLINE_TERMINAL_JNA=%_LIB_DIR%\%%f
-for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jna-5*"')                  do set _JNA=%_LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-compiler*"')        do set "_SCALA3_COMP=%_LIB_DIR%\%%f"
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-interfaces*"')      do set "_SCALA3_INTF=%_LIB_DIR%\%%f"
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-library*"')         do set "_SCALA3_LIB=%_LIB_DIR%\%%f"
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-staging*"')         do set "_SCALA3_STAGING=%_LIB_DIR%\%%f"
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala3-tasty-inspector*"') do set "_SCALA3_TASTY_INSPECTOR=%_LIB_DIR%\%%f"
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*tasty-core*"')             do set "_TASTY_CORE=%_LIB_DIR%\%%f"
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala-asm*"')              do set "_SCALA_ASM=%_LIB_DIR%\%%f"
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*scala-library*"')          do set "_SCALA_LIB=%_LIB_DIR%\%%f"
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*compiler-interface*"')     do set "_SBT_INTF=%_LIB_DIR%\%%f"
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jline-reader-3*"')         do set "_JLINE_READER=%_LIB_DIR%\%%f"
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jline-terminal-3*"')       do set "_JLINE_TERMINAL=%_LIB_DIR%\%%f"
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jline-terminal-jna-3*"')   do set "_JLINE_TERMINAL_JNA=%_LIB_DIR%\%%f"
+for /f %%f in ('dir /a-d /b "%_LIB_DIR%\*jna-5*"')                  do set "_JNA=%_LIB_DIR%\%%f"
 
 @rem debug
 set _DEBUG_STR=-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005

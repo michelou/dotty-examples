@@ -175,7 +175,7 @@ set _MAIN_ARGS_DEFAULT=
 
 for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set _PROJECT_URL=github.com/%USERNAME%/dotty-examples
-set _PROJECT_VERSION=0.1-SNAPSHOT
+set _PROJECT_VERSION=1.0-SNAPSHOT
 
 set _SCALA_VERSION_DEFAULT=3
 
@@ -313,7 +313,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% _PROJECT_VERSION=%_PROJECT_VERSION% 1>&2
     echo %_DEBUG_LABEL% Options    : _EXPLAIN=%_SCALAC_OPTS_EXPLAIN% _INSTRUMENTED=%_INSTRUMENTED% _PRINT=%_SCALAC_OPTS_PRINT% _SCALA_VERSION=%_SCALA_VERSION% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
-	if defined _CFR_CMD echo %_DEBUG_LABEL% Variables  : "CFR_HOME=%CFR_HOME%" 1>&2
+    if defined _CFR_CMD echo %_DEBUG_LABEL% Variables  : "CFR_HOME=%CFR_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "JAVA_HOME=%JAVA_HOME%" 1>&2
     if %_SCALA_VERSION%==2 ( echo %_DEBUG_LABEL% Variables  : "SCALA_HOME=%SCALA_HOME%" 1>&2
     ) else ( echo %_DEBUG_LABEL% Variables  : "SCALA3_HOME=%SCALA3_HOME%" 1>&2
@@ -706,7 +706,7 @@ set "__OPTS_FILE=%_TARGET_DIR%\scaladoc_opts.txt"
 if %_SCALA_VERSION%==2 (
     echo -d "%_TARGET_DOCS_DIR%" -doc-title "%_PROJECT_NAME%" -doc-footer "%_PROJECT_URL%" -doc-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
 ) else (
-    echo -siteroot "%_TARGET_DOCS_DIR%" -project "%_PROJECT_NAME%" -project-url "%_PROJECT_URL%" -project-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
+    echo -d "%_TARGET_DOCS_DIR%" -project "%_PROJECT_NAME%" -project-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate HTML documentation into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2

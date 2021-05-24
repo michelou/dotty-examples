@@ -4,7 +4,8 @@
     <property name="scala-source.dir" value="${basedir}/src/main/scala" />
     <property name="target.dir" value="${basedir}/target" />
     <property name="target-docs.dir" value="${target.dir}/docs" />
-    <property name="build.dir" value="${target.dir}/classes" />
+    <property name="build.dir" value="${target.dir}/main/classes" />
+    <property name="cfr-source.dir" value="${target.dir}/cfr-sources" />
     <property name="main.class" value="myexamples.Main" />
 
     <property name="test-source.dir" value="${basedir}/src/test/scala" />
@@ -19,6 +20,13 @@
         <dotc srcdir="${scala-source.dir}"
               destdir="${build.dir}"
               classpathref="build.classpath" />
+    </target>
+
+    <target name="decompile" depends="compile">
+        <mkdir dir="${cfr-source.dir}" />
+        <cfr srcdir="${build.dir}"
+             destdir="${cfr-source.dir}"
+             classpathref="build.classpath" />
     </target>
 
     <target name="doc" depends="compile">

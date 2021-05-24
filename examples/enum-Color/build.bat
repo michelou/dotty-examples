@@ -380,7 +380,7 @@ goto :eof
 set __SCALAFMT_OPTS=--test --config "%_SCALAFMT_CONFIG_FILE%"
 if %_DEBUG%==1 set __SCALAFMT_OPTS=--debug %__SCALAFMT_OPTS%
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% %_MAIN_SOURCE_DIR%\ 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_MAIN_SOURCE_DIR%\" 1>&2
 ) else if %_VERBOSE%==1 ( echo Analyze Scala source files with Scalafmt 1>&2
 )
 call "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% %_MAIN_SOURCE_DIR%\

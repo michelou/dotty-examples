@@ -204,7 +204,7 @@ compile_java() {
     if $DEBUG; then
         debug "$JAVAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Java source files to directory ${CLASSES_DIR/$ROOT_DIR\//}" 1>&2
+        echo "Compile $n Java source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then

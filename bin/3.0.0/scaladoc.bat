@@ -109,77 +109,77 @@ goto :eof
 for /f %%f in ("%_PROG_HOME%\.") do set "__LIB_DIR=%%~dpflib"
 
 @rem Set scaladoc dep:
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*scaladoc*"') do set _SCALA3_DOC=%__LIB_DIR%\%%f
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*scaladoc*"') do set "_SCALA3_DOC=%__LIB_DIR%\%%f"
 
 @rem Set flexmark deps:
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-0*"')                     do set _FLEXMARK_LIBS=%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-anchorlink*"')        do set _FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-autolink*"')          do set _FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-emoji*"')             do set _FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-gfm-strikethrough*"') do set _FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-gfm-tables*"')        do set _FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-gfm-tasklist*"')      do set _FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-ins*"')               do set _FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-superscript*"')       do set _FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-tables*"')            do set _FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-wikilink*"')          do set _FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-yaml-front-matter*"') do set _FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-formatter*"')             do set _FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-html-parser*"')           do set _FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-jira-converter*"')        do set _FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-util*"')                  do set _FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-0*"')                     do set "_FLEXMARK_LIBS=%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-anchorlink*"')        do set "_FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-autolink*"')          do set "_FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-emoji*"')             do set "_FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-gfm-strikethrough*"') do set "_FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-gfm-tables*"')        do set "_FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-gfm-tasklist*"')      do set "_FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-ins*"')               do set "_FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-superscript*"')       do set "_FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-tables*"')            do set "_FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-wikilink*"')          do set "_FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-ext-yaml-front-matter*"') do set "_FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-formatter*"')             do set "_FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-html-parser*"')           do set "_FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-jira-converter*"')        do set "_FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*flexmark-util*"')                  do set "_FLEXMARK_LIBS=%_FLEXMARK_LIBS%%__LIB_DIR%\%%f%_PSEP%"
 
 @rem Set jackson deps:
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*jackson-annotations*"')     do set _JACKSON_LIBS=%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*jackson-core*"')            do set _JACKSON_LIBS=%_JACKSON_LIBS%%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*jackson-databind*"')        do set _JACKSON_LIBS=%_JACKSON_LIBS%%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*jackson-dataformat-yaml*"') do set _JACKSON_LIBS=%_JACKSON_LIBS%%__LIB_DIR%\%%f%_PSEP%
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*jackson-annotations*"')     do set "_JACKSON_LIBS=%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*jackson-core*"')            do set "_JACKSON_LIBS=%_JACKSON_LIBS%%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*jackson-databind*"')        do set "_JACKSON_LIBS=%_JACKSON_LIBS%%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*jackson-dataformat-yaml*"') do set "_JACKSON_LIBS=%_JACKSON_LIBS%%__LIB_DIR%\%%f%_PSEP%"
 
 @rem Set liqp dep:
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*liqp*"') do set _LIQP_LIB=%__LIB_DIR%\%%f%_PSEP%
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*liqp*"') do set "_LIQP_LIB=%__LIB_DIR%\%%f%_PSEP%"
 
 @rem Set ANTLR dep:
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*antlr-3*"') do set _ANTLR_LIB=%__LIB_DIR%\%%f%_PSEP%
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*antlr-runtime-3*"') do set _ANTLR_RUNTIME_LIB=%__LIB_DIR%\%%f%_PSEP%
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*antlr-3*"') do set "_ANTLR_LIB=%__LIB_DIR%\%%f%_PSEP%"
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*antlr-runtime-3*"') do set "_ANTLR_RUNTIME_LIB=%__LIB_DIR%\%%f%_PSEP%"
 
 @rem Set autolink dep:
 @rem conflict with flexmark-ext-autolink-0.11
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*autolink-0.6*"') do set _AUTOLINK_LIB=%__LIB_DIR%\%%f%_PSEP%
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*autolink-0.6*"') do set "_AUTOLINK_LIB=%__LIB_DIR%\%%f%_PSEP%"
 
 @rem Set Protobuf dep:
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*protobuf-java*"') do set _PROTOBUF_LIB=%__LIB_DIR%\%%f%_PSEP%
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*protobuf-java*"') do set "_PROTOBUF_LIB=%__LIB_DIR%\%%f%_PSEP%"
 
 @rem Set snakeyaml dep:
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*snakeyaml*"') do set _SNAKEYAML_LIB=%__LIB_DIR%\%%f%_PSEP%
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*snakeyaml*"') do set "_SNAKEYAML_LIB=%__LIB_DIR%\%%f%_PSEP%"
 
 @rem Set ST4 dep:
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*ST4*"') do set _ST4_LIB=%__LIB_DIR%\%%f%_PSEP%
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*ST4*"') do set "_ST4_LIB=%__LIB_DIR%\%%f%_PSEP%"
 
 @rem Set jsoup dep:
-for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*jsoup*"') do set _JSOUP_LIB=%__LIB_DIR%\%%f%_PSEP%
+for /f %%f in ('dir /a-d /b "%__LIB_DIR%\*jsoup*"') do set "_JSOUP_LIB=%__LIB_DIR%\%%f%_PSEP%"
 
-set _CLASS_PATH=%_SCALA3_DOC%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA3_LIB%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA3_COMP%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_TASTY_CORE%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA3_INTF%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SBT_INTF%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA3_STAGING%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA3_TASTY_INSPECTOR%
-@rem set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA_ASM%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA_LIB%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_FLEXMARK_LIBS%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_JACKSON_LIBS%
-@rem set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_JLINE_READER%
-@rem set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_JLINE_TERMINAL%
-@rem set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_JLINE_TERMINAL_JNA%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_LIQP_LIB%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_ANTLR_LIB%%_PSEP%%_ANTLR_RUNTIME_LIB%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_AUTOLINK_LIB%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_PROTOBUF_LIB%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SNAKEYAML_LIB%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_ST4_LIB%
-set _CLASS_PATH=%_CLASS_PATH%%_PSEP%%_JSOUP_LIB%
+set "_CLASS_PATH=%_SCALA3_DOC%"
+set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA3_LIB%"
+set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA3_COMP%"
+set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_TASTY_CORE%"
+set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA3_INTF%"
+set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SBT_INTF%"
+set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA3_STAGING%"
+set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA3_TASTY_INSPECTOR%"
+@rem set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA_ASM%"
+set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SCALA_LIB%"
+set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_FLEXMARK_LIBS%"
+set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_JACKSON_LIBS%"
+@rem set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_JLINE_READER%"
+@rem set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_JLINE_TERMINAL%"
+@rem set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_JLINE_TERMINAL_JNA%"
+set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_LIQP_LIB%"
+set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_ANTLR_LIB%%_PSEP%%_ANTLR_RUNTIME_LIB%"
+set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_AUTOLINK_LIB%"
+set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_PROTOBUF_LIB%"
+set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_SNAKEYAML_LIB%"
+set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_ST4_LIB%"
+set "_CLASS_PATH=%_CLASS_PATH%%_PSEP%%_JSOUP_LIB%"
 goto :eof
 
 @rem #########################################################################

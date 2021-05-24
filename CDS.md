@@ -24,7 +24,7 @@ This document is part of a series of topics related to [Scala 3][dotty] on Windo
 
 ## <span id="proj_deps">Project dependencies</span>
 
-This project depends on two external software for the **Microsoft Windows** platform:
+This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [Git 2.31][git_downloads] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_downloads] ([*release notes*][openjdk_relnotes])

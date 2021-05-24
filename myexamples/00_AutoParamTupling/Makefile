@@ -37,17 +37,17 @@ run: build
 	$(SCALA) $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
 
 help:
-	@$(info Usage: make all|build|clean|doc|help|lint|run|test)
-	@$(info )
-	@echo   Subcommands:
-	@echo     all    alias for build
-	@echo     build  compile Java/Scala source files
-	@echo     clean  delete generated files
-	@echo     doc    generate HTML documentation
-	@echo     help   display this help message
-	@echo     lint   analyze Scala source files with Scalafmt
-	@echo     run    execute the main program $(MAIN_CLASS)
-	@echo     test   execute unit tests with JUnit
+	@$(ECHO) "Usage: make all|build|clean|doc|help|lint|run|test"
+	@$(ECHO) ""
+	@$(ECHO) "  Subcommands:"
+	@$(ECHO) "    all    alias for build"
+	@$(ECHO) "    build  compile Java/Scala source files"
+	@$(ECHO) "    clean  delete generated files"
+	@$(ECHO) "    doc    generate HTML documentation"
+	@$(ECHO) "    help   display this help message"
+	@$(ECHO) "    lint   analyze Scala source files with Scalafmt"
+	@$(ECHO) "    run    execute the main program $(MAIN_CLASS)"
+	@$(ECHO) "    test   execute unit tests with JUnit"
 
 ##############################################################################
 ## doc rules

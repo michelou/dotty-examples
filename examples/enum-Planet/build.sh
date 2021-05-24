@@ -249,7 +249,7 @@ compile_scala() {
 mixed_path() {
     if [ -x "$CYGPATH_CMD" ]; then
         $CYGPATH_CMD -am $1
-    elif [[ $mingw || $msys ]]; then
+    elif $mingw || $msys; then
         echo $1 | sed 's|/|\\\\|g'
     else
         echo $1
@@ -267,7 +267,7 @@ decompile() {
         n="$(ls -n $f/*.class 2>/dev/null | wc -l)"
         [[ $n -gt 0 ]] && class_dirs="$class_dirs $f"
     done
-    $VERBOSE && echo "Decompile Java bytecode to directory ${output_dir/$ROOT_DIR\//}" 1>&2
+    $VERBOSE && echo "Decompile Java bytecode to directory \"${output_dir/$ROOT_DIR\//}\"" 1>&2
     for f in $class_dirs; do
         debug "$CFR_CMD $cfr_opts $(mixed_path $f)/*.class"
         exec "$CFR_CMD" $cfr_opts $(mixed_path $f)/\\*.class
@@ -477,11 +477,12 @@ esac
 unset CYGPATH_CMD
 PSEP=":"
 if $cygwin || $mingw || $msys; then
+    CYGPATH_CMD="$(which cygpath 2>/dev/null)"
+    PSEP=";"
     [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
     [[ -n "$GIT_HOME" ]] && GIT_HOME="$(mixed_path $GIT_HOME)"
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA3_HOME" ]] && SCALA3_HOME="$(mixed_path $SCALA3_HOME)"
-    CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     DIFF_CMD="$GIT_HOME/usr/bin/diff.exe"
     SCALAFMT_CMD="$LOCALAPPDATA/Coursier/data/bin/scalafmt.bat"
 else

@@ -23,7 +23,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 
 ## <span id="proj_deps">Project dependencies</span>
 
-This project depends on two external software for the **Microsoft Windows** platform:
+This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [Scala 3.0][dotty_releases] ([*release notes*][scala3_relnotes])
 - [Git 2.31][git_releases] ([*release notes*][git_relnotes])
@@ -44,7 +44,7 @@ Optionally one may also install the following software:
 
 - [Apache Ant 1.10][apache_ant] (requires Java 8) ([*release notes*][apache_ant_relnotes])
 - [Apache Maven 3.8][apache_maven] ([requires Java 7][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
-- [Bazel 4.0][bazel_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
+- [Bazel 4.1][bazel_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
 - [GNU Make 3.81][make_downloads]
 - [Gradle 7.0][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
@@ -68,7 +68,7 @@ For instance our development environment looks as follows (*May 2021*) <sup id="
 <pre style="font-size:80%;">
 C:\opt\apache-ant-1.10.10\         <i>( 39.7 MB)</i>
 C:\opt\apache-maven-3.8.1\         <i>( 10.7 MB)</i>
-C:\opt\bazel-4.0.0\                <i>( 41.0 MB)</i>
+C:\opt\bazel-4.1.0\                <i>( 41.0 MB)</i>
 C:\opt\cfr-0.151\                  <i>(  1.9 MB)</i>
 C:\opt\Git-2.31.1\                 <i>(279.0 MB)</i>
 C:\opt\gradle-7.0.2\               <i>(121.0 MB)</i>
@@ -76,7 +76,7 @@ C:\opt\jacoco-0.8.7\               <i>( 10.7 MB)</i>
 C:\opt\javafx-sdk-15.0.1\          <i>( 78.2 MB)</i>
 C:\opt\jdk-openjdk-1.8.0_292-b10\  <i>(185.0 MB)</i>
 C:\opt\jdk-openjdk-11.0.11_9\      <i>(300.0 MB)</i>
-C:\opt\jdk-openjdk-17-ea_21\       <i>(291.0 MB)</i>
+C:\opt\jdk-openjdk-17-ea_23\       <i>(291.0 MB)</i>
 C:\opt\make-3.81\                  <i>(  2.1 MB)</i>
 C:\opt\Mill-0.9.7\                 <i>( 53.7 MB)</i>
 C:\opt\msys64\                     <i>( 5.56 GB)</i>
@@ -311,7 +311,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 Tool versions:
    javac 1.8.0_292, java 1.8.0_292, scalac 2.13.6, scalac 3.0.0,
    ant 1.10.10, gradle 7.0.2, mill 0.9.7, mvn 3.8.1, sbt 1.5.2,
-   bazel 4.0.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.5,
+   bazel 4.1.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.5,
    git 2.31.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
@@ -339,7 +339,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.6, scalac 3.0.0,
    ant 1.10.10, gradle 7.0, mill 0.9.7, mvn 3.8.1, sbt 1.5.2,
-   bazel 4.0.0, cfr 0.151, make 3.81, python 3.9.5,
+   bazel 4.1.0, cfr 0.151, make 3.81, python 3.9.5,
    git 2.31.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-openjdk-11.0.11_9\bin\javac.exe
@@ -352,7 +352,7 @@ Tool paths:
    C:\opt\mill-0.9.7\mill.bat
    C:\opt\apache-maven-3.8.1\bin\mvn.cmd
    C:\opt\sbt-1.5.2\bin\sbt.bat
-   C:\opt\bazel-4.0.0\bazel.exe
+   C:\opt\bazel-4.1.0\bazel.exe
    C:\opt\cfr-0.151\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
    C:\opt\Python-3.9.5\python.exe
@@ -362,7 +362,7 @@ Tool paths:
    C:\opt\Git-2.31.1\bin\bash.exe
 Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.10"
-   "BAZEL_HOME=c:\opt\bazel-4.0.0"
+   "BAZEL_HOME=c:\opt\bazel-4.1.0"
    "GIT_HOME=C:\opt\Git-2.31.1"
    "JAVA_HOME=C:\opt\jdk-openjdk-11.0.11_9"
    "JAVAFX_HOME=C:\opt\javafx-sdk-16"
@@ -754,12 +754,12 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://github.com/lihaoyi/mill/releases">0.9.7-assembly</a> (<code>mill</code>)                             <i>( 57 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.10-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.8.1-bin.zip</a>                        <i>(  9 MB)</i>
-<a href="https://github.com/bazelbuild/bazel/releases">bazel-4.0.0-windows-x86_64.zip</a>                    <i>( 40 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases">bazel-4.1.0-windows-x86_64.zip</a>                    <i>( 40 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.0.2-bin.zip</a>                              <i>(103 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.7.zip</a>                                  <i>(  4 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                 <i>( 10 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20210228.exe</a>                         <i>( 94 MB)</i>
-<a href="http://jdk.java.net/17/">openjdk-17-ea+22_windows-x64_bin.zip</a>              <i>(176 MB)</i>
+<a href="http://jdk.java.net/17/">openjdk-17-ea+23_windows-x64_bin.zip</a>              <i>(176 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-15.0.1_windows-x64_bin-sdk.zip</a>            <i>( 39 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.11_9.zip</a>  <i>( 99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.31.1-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
@@ -790,7 +790,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [apache_maven_relnotes]: https://maven.apache.org/docs/3.8.1/release-notes.html
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [bazel_releases]: https://github.com/bazelbuild/bazel/releases
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/4.0.0
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/4.1.0
 [bloop_releases]: https://scalacenter.github.io/bloop/
 [bloop_relnotes]: https://github.com/scalacenter/bloop/releases/tag/v1.3.4
 [cfr_releases]: https://www.benf.org/other/cfr/

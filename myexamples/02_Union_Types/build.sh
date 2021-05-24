@@ -89,9 +89,9 @@ args() {
     fi
     debug "Options    : TIMER=$TIMER VERBOSE=$VERBOSE"
     debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DECOMPILE=$DECOMPILE HELP=$HELP LINT=$LINT RUN=$RUN"
+    [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
     debug "Variables  : JAVA_HOME=$JAVA_HOME"
     debug "Variables  : SCALA3_HOME=$SCALA3_HOME"
-    [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
     # See http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
     $TIMER && TIMER_START=$(date +"%s")
 }
@@ -199,7 +199,7 @@ compile_java() {
     if $DEBUG; then
         debug "$JAVAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Java source files to directory ${CLASSES_DIR/$ROOT_DIR\//}" 1>&2
+        echo "Compile $n Java source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
@@ -237,7 +237,7 @@ compile_scala() {
     if $DEBUG; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Scala source files to directory ${CLASSES_DIR/$ROOT_DIR\//}" 1>&2
+        echo "Compile $n Scala source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
@@ -383,7 +383,7 @@ doc() {
     if $DEBUG; then
         debug "$SCALADOC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Generate HTML documentation into directory ${TARGET_DOCS_DIR/$ROOT_DIR\//}" 1>&2
+        echo "Generate HTML documentation into directory \"${TARGET_DOCS_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$SCALADOC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then

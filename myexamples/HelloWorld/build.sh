@@ -484,6 +484,7 @@ unset CYGPATH_CMD
 PSEP=":"
 if [[ $cygwin || $mingw || $msys ]]; then
     CYGPATH_CMD="$(which cygpath 2>/dev/null)"
+    PSEP=";"
     [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
     [[ -n "$GIT_HOME" ]] && GIT_HOME="$(mixed_path $GIT_HOME)"
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"

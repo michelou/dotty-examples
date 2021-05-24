@@ -19,12 +19,18 @@
 
 ## <span id="blogs">Blogs</span>
 
+- [Figuring out Scala functional programming libraries](https://blog.softwaremill.com/figuring-out-scala-functional-programming-libraries-af8230efccb4) by Krzysztof Atłasik, March 2021.
 - [Higher-rank and higher-kinded types](https://www.stephanboyer.com/post/115/higher-rank-and-higher-kinded-types) by Stephan Boyer, April 2016.
 - [Sum Types Are Coming: What You Should Know](https://chadaustin.me/2015/07/sum-types/) by Chad Austin, July 2015.
 
 ## <span id="books">Books</span>
 
+- [Programming in Scala](https://www.artima.com/shop/programming_in_scala_5ed) (5<sup>th</sup> Edition) by Martin Odersky et al., May 2021.
 - [Essential Scala](https://underscore.io/books/essential-scala/) (v1.3) by Noel Welsh and Dave Gurnell, April 2017.
+
+## <span id="courses">Courses</span>
+
+- [CSci 555 : Functional Programming](https://john.cs.olemiss.edu/~hcc/csci555/notes/555lectureNotes.html) by Conrad Cunningham, Spring Semester 2019.
 
 ## <span id="news">News</span>
 
@@ -40,7 +46,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -11,6 +11,7 @@
     </condition>
     <property name="ivy.cache" value="${user.home}/.ivy2/cache" />
 
+    <property name="cfr.version" value="0.151" />
     <property name="hamcrest.version" value="2.2" />
     <property name="junit.version" value="4.13.2" />
 
@@ -59,7 +60,7 @@
             </fileset>
             -->
             <fileset dir="${ivy.cache}/org.scala-lang" includes="**/jars/scala3-library*.jar">
-                <filename regex="_3\.[0-9]\.[0-9](-RC[1-9])?-3\.[0-9]\.[0-9](-RC[1-9])?" />  <!-- e.g. _3.0.0-RC1-3.0.0-RC1-x -->
+                <filename regex="_3-3\.[0-9]\.[0-9](-RC[1-9])?" />  <!-- e.g. _3.0.0-RC1-3.0.0-RC1 -->
             </fileset>
             <fileset dir="${ivy.cache}/org.scala-lang" includes="**/jars/scala-library*.jar">
                 <filename regex="-2\.[1-2][3-9]\.[0-9]+" />  <!-- e.g. -2.13.x -->
@@ -76,6 +77,9 @@
         <path id="basedir.ref">
             <pathelement location="${basedir}"/>
         </path>
+        <pathconvert property="cfr.jar">
+            <fileset dir="${ivy.cache}/org.benf" includes="**/cfr-${cfr.version}.jar" />
+        </pathconvert>
         <path id="test.classpath">
             <fileset dir="${ivy.cache}/junit" includes="**/jars/junit-${junit.version}.jar" />
             <fileset dir="${ivy.cache}/org.hamcrest" includes="**/jars/hamcrest-${hamcrest.version}.jar" />
@@ -139,9 +143,9 @@
             <local name="n"/>
             <local name="quoted"/>
             <local name="s"/>
-            <local name="tasty.sources"/>
+            <local name="tasty.files"/>
 
-            <pathconvert property="tasty.sources" pathsep=" ">
+            <pathconvert property="tasty.files" pathsep=" ">
                 <fileset dir="@{srcdir}" includes="**/*.tasty" />
             </pathconvert>
             <resourcecount property="n">
@@ -165,7 +169,43 @@
                 <arg value="${quoted}${classpath}${quoted}" />
                 <arg value="-project" />
                 <arg value="${ant.project.name}" />
-                <arg line="${tasty.sources}" />
+                <arg line="${tasty.files}" />
+            </java>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="cfr" >
+        <attribute name="srcdir" default="." />
+        <attribute name="destdir" default="." />
+        <attribute name="classpathref" default="basedir.ref" />
+        <sequential>
+            <!-- local properties -->
+            <local name="classpath"/>
+            <local name="n"/>
+            <local name="quoted"/>
+            <local name="s"/>
+            <local name="class.files"/>
+
+            <pathconvert property="class.files" pathsep=" ">
+                <fileset dir="@{srcdir}" includes="**/*.class" />
+            </pathconvert>
+            <resourcecount property="n">
+                <fileset dir="@{srcdir}" includes="**/*.class" />
+            </resourcecount>
+            <condition property="s" value="s" else="">
+                <not><matches string="${n}" pattern="[0-1]" /></not>
+            </condition>
+            <echo message="Decompiling ${n} class file${s} to @{destdir}" level="info" />
+            <pathconvert property="classpath" refid="@{classpathref}" />
+            <condition property="quoted" value="&quot;" else="">
+                <contains string="${classpath}" substring=" " />
+            </condition>
+            <java fork="true" jar="${cfr.jar}">
+                <arg value="--outputdir" />
+                <arg value="@{destdir}" />
+                <arg value="--extraclasspath" />
+                <arg value="${quoted}${classpath}${quoted}" />
+                <arg line="${class.files}" />
             </java>
         </sequential>
     </macrodef>
