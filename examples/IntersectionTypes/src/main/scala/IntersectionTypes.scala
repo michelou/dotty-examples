@@ -1,6 +1,7 @@
 /**
-  * Intersection Types: http://dotty.epfl.ch/docs/reference/intersection-types.html
-  */
+ * Intersection Types:
+ * http://dotty.epfl.ch/docs/reference/intersection-types.html
+ */
 object IntersectionTypes {
 
   trait Resettable {
@@ -8,22 +9,26 @@ object IntersectionTypes {
   }
 
   trait Growable[T] {
-    def add(x: T): this.type  
+    def add(x: T): this.type
   }
 
   final class Buffer[T] extends Resettable with Growable[T] {
     private var xs: List[T] = Nil
+
     def reset(): this.type = {
       xs = Nil
       this
     }
+
     def add(x: T): this.type = {
       xs = xs :+ x
       this
     }
+
     override def toString: String = {
-      "Buffer"+xs.mkString("(", ",", ")")
+      "Buffer" + xs.mkString("(", ",", ")")
     }
+
   }
 
   def test: Unit = {
@@ -38,4 +43,5 @@ object IntersectionTypes {
     println(buf)
 
   }
+
 }

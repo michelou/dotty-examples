@@ -176,7 +176,6 @@ action_required() {
         echo 1
     else
         ## Do compile if timestamp file is older than most recent source file
-        local timestamp=$(stat -c %Y $timestamp_file)
         [[ $timestamp_file -nt $latest ]] && echo 1 || echo 0
     fi
 }
@@ -199,7 +198,7 @@ compile_java() {
     if $DEBUG; then
         debug "$JAVAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Java source files to directory ${CLASSES_DIR/$ROOT_DIR\//}" 1>&2
+        echo "Compile $n Java source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
@@ -479,11 +478,12 @@ esac
 unset CYGPATH_CMD
 PSEP=":"
 if $cygwin || $mingw || $msys; then
+    CYGPATH_CMD="$(which cygpath 2>/dev/null)"
+    PSEP=";"
     [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
     [[ -n "$GIT_HOME" ]] && GIT_HOME="$(mixed_path $GIT_HOME)"
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA3_HOME" ]] && SCALA3_HOME="$(mixed_path $SCALA3_HOME)"
-    CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     DIFF_CMD="$GIT_HOME/usr/bin/diff.exe"
     SCALAFMT_CMD="$LOCALAPPDATA/Coursier/data/bin/scalafmt.bat"
 else

@@ -19,7 +19,7 @@ getHome() {
 }
 
 debug() {
-    local DEBUG_LABEL="[46m[DEBUG][0m"
+    local DEBUG_LABEL="[44m[DEBUG][0m"
     $DEBUG && echo "$DEBUG_LABEL $1" 1>&2
 }
 
@@ -199,7 +199,7 @@ compile_java() {
     if $DEBUG; then
         debug "$JAVAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Java source files to directory ${CLASSES_DIR/$ROOT_DIR\//}" 1>&2
+        echo "Compile $n Java source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
@@ -237,7 +237,7 @@ compile_scala() {
     if $DEBUG; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Scala source files to directory ${CLASSES_DIR/$ROOT_DIR\//}" 1>&2
+        echo "Compile $n Scala source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
@@ -395,7 +395,7 @@ doc() {
     if $DEBUG; then
         debug "HTML documentation saved into directory $TARGET_DOCS_DIR"
     elif $VERBOSE; then
-        echo "HTML documentation saved into directory ${TARGET_DOCS_DIR/$ROOT_DIR\//}" 1>&2
+        echo "HTML documentation saved into directory \"${TARGET_DOCS_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     touch "$doc_timestamp_file"
 }
@@ -479,11 +479,12 @@ esac
 unset CYGPATH_CMD
 PSEP=":"
 if $cygwin || $mingw || $msys; then
+    CYGPATH_CMD="$(which cygpath 2>/dev/null)"
+    PSEP=";"
     [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
     [[ -n "$GIT_HOME" ]] && GIT_HOME="$(mixed_path $GIT_HOME)"
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA3_HOME" ]] && SCALA3_HOME="$(mixed_path $SCALA3_HOME)"
-    CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     DIFF_CMD="$GIT_HOME/usr/bin/diff.exe"
     SCALAFMT_CMD="$(mixed_path $LOCALAPPDATA)/Coursier/data/bin/scalafmt.bat"
 else

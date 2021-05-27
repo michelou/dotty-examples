@@ -12,7 +12,7 @@ SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 ##############################################################################
 ## main rules
 
-SOURCES = $(shell $(FIND) $(SOURCE_DIR)/main/scala -name *.scala 2>/dev/null)
+SOURCES = $(shell $(FIND) $(SOURCE_DIR)/main/scala -type f -name *.scala)
 TARGET  = $(TARGET_DIR)/.latest-build
 
 OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
@@ -26,11 +26,11 @@ all: build
 build: $(TARGET)
 
 $(TARGET): $(SOURCES)
-	[ -d "$(CLASSES_DIR)" ] || mkdir -p "$(CLASSES_DIR)"
-	@echo "$(SCALAC_FLAGS) -classpath \"$(CLASSES_DIR)\" -d \"$(CLASSES_DIR)\"" > "$(OPTS_FILE)"
-	@echo "$(SOURCES)" > "$(SOURCES_FILE)"
+	[ -d "$(CLASSES_DIR)" ] || $(MKDIR) -p "$(CLASSES_DIR)"
+	@$(ECHO) $(SCALAC_FLAGS) -classpath "$(CLASSES_DIR)" -d "$(CLASSES_DIR)" > "$(OPTS_FILE)"
+	@$(ECHO) $(SOURCES) > "$(SOURCES_FILE)"
 	$(SCALAC) "@$(OPTS_FILE)" "@$(SOURCES_FILE)"
-	@echo "" > "$(TARGET)"
+	@$(TOUCH) "$(TARGET)"
 
 clean:
 	rm -rf "$(TARGET_DIR)"
@@ -41,23 +41,23 @@ run: build
 	$(SCALA) $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
 
 help:
-	@echo "Usage: make all|build|clean|doc|help|lint|run|test"
-	@echo ""
-	@echo "  Subcommands:"
-	@echo "    all    alias for build"
-	@echo "    build  compile Java/Scala source files"
-	@echo "    clean  delete generated files"
-	@echo "    doc    generate HTML documentation"
-	@echo "    help   display this help message"
-	@echo "    lint   analyze Scala source files with Scalafmt"
-	@echo "    run    execute main program"
-	@echo "    test   execute unit tests with JUnit"
+	@$(ECHO) "Usage: make all|build|clean|doc|help|lint|run|test"
+	@$(ECHO) ""
+	@$(ECHO) "  Subcommands:"
+	@$(ECHO) "    all    alias for build"
+	@$(ECHO) "    build  compile Java/Scala source files"
+	@$(ECHO) "    clean  delete generated files"
+	@$(ECHO) "    doc    generate HTML documentation"
+	@$(ECHO) "    help   display this help message"
+	@$(ECHO) "    lint   analyze Scala source files with Scalafmt"
+	@$(ECHO) "    run    execute main program"
+	@$(ECHO) "    test   execute unit tests with JUnit"
 
 ##############################################################################
 ## doc rules
 
 DOC_TARGET_DIR = $(TARGET_DIR)/docs
-DOC_SOURCES    = $(shell $(FIND) $(CLASSES_DIR) -name *.tasty 2>/dev/null)
+DOC_SOURCES    = $(shell $(FIND) $(CLASSES_DIR) -type f -name *.tasty)
 DOC_TARGET     = $(DOC_TARGET_DIR)/.latest-build
 
 PROJECT_NAME    ?= $(shell basename $(CURDIR))
@@ -68,11 +68,11 @@ DOC_OPTS_FILE    = $(TARGET_DIR)/scaladoc_opts.txt
 DOC_SOURCES_FILE = $(TARGET_DIR)/scaladoc_sources.txt
 
 $(DOC_TARGET): $(DOC_SOURCES)
-	[ -d "$(DOC_TARGET_DIR)" ] || mkdir -p "$(DOC_TARGET_DIR)"
-	@echo -siteroot \"$(DOC_TARGET_DIR)\" -d \"$(DOC_TARGET_DIR)\" -project \"$(PROJECT_NAME)\" -project-version \"$(PROJECT_VERSION)\" > "$(DOC_OPTS_FILE)"
-	@echo "$(DOC_SOURCES)" > "$(DOC_SOURCES_FILE)"
+	[ -d "$(DOC_TARGET_DIR)" ] || $(MKDIR) -p "$(DOC_TARGET_DIR)"
+	@$(ECHO) -siteroot "$(DOC_TARGET_DIR)" -d "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
+	@$(ECHO) $(DOC_SOURCES) > "$(DOC_SOURCES_FILE)"
 	$(SCALADOC) "@$(DOC_OPTS_FILE)" "@$(DOC_SOURCES_FILE)"
-	@echo "" > "$(DOC_TARGET)"
+	@$(TOUCH) "$(DOC_TARGET)"
 
 doc: build $(DOC_TARGET)
 
@@ -99,11 +99,11 @@ TEST_MAIN_CLASS = HelloTest
 TEST_CPATH      = $(SCALA_LIB_JAR)$(PSEP)$(SCALA3_LIB_JAR)$(PSEP)$(HAMCREST_JAR)$(PSEP)$(JUNIT_JAR)$(PSEP)$(JUNIT_INTF_JAR)$(PSEP)$(CLASSES_DIR)
 
 $(TEST_TARGET): $(TEST_SOURCES)
-	[ -d "$(TEST_CLASSES_DIR)" ] || mkdir -p "$(TEST_CLASSES_DIR)"
-	@echo "$(SCALAC_FLAGS) -classpath \"$(TEST_CPATH)\" -d \"$(TEST_CLASSES_DIR)\"" > "$(TEST_OPTS_FILE)"
-	@echo "$(TEST_SOURCES)" > "$(TEST_SOURCES_FILE)"
+	[ -d "$(TEST_CLASSES_DIR)" ] || $(MKDIR) -p "$(TEST_CLASSES_DIR)"
+	@$(ECHO) $(SCALAC_FLAGS) -classpath "$(TEST_CPATH)" -d "$(TEST_CLASSES_DIR)" > "$(TEST_OPTS_FILE)"
+	@$(ECHO) $(TEST_SOURCES) > "$(TEST_SOURCES_FILE)"
 	$(SCALAC) "@$(TEST_OPTS_FILE)" "@$(TEST_SOURCES_FILE)"
-	@echo "" > "$(TEST_TARGET)"
+	@$(TOUCH) "$(TEST_TARGET)"
 
 test: build $(TEST_TARGET)
 	$(JAVA) -classpath "$(TEST_CPATH)" org.junit.runner.JUnitCore $(TEST_MAIN_CLASS)

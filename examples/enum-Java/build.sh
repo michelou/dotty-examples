@@ -19,7 +19,7 @@ getHome() {
 }
 
 debug() {
-    local DEBUG_LABEL="[46m[DEBUG][0m"
+    local DEBUG_LABEL="[44m[DEBUG][0m"
     $DEBUG && echo "$DEBUG_LABEL $1" 1>&2
 }
 
@@ -89,10 +89,9 @@ args() {
     fi
     debug "Options    : TIMER=$TIMER VERBOSE=$VERBOSE"
     debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DECOMPILE=$DECOMPILE HELP=$HELP LINT=$LINT RUN=$RUN"
+    [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
     debug "Variables  : JAVA_HOME=$JAVA_HOME"
     debug "Variables  : SCALA3_HOME=$SCALA3_HOME"
-    [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
-    [[ -n "$SCALAFMT_HOME" ]] && debug "Variables  : SCALAFMT_HOME=$SCALAFMT_HOME"
     # See http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
     $TIMER && TIMER_START=$(date +"%s")
 }
@@ -177,7 +176,6 @@ action_required() {
         echo 1
     else
         ## Do compile if timestamp file is older than most recent source file
-        local timestamp=$(stat -c %Y $timestamp_file)
         [[ $timestamp_file -nt $latest ]] && echo 1 || echo 0
     fi
 }
@@ -270,7 +268,7 @@ decompile() {
         n="$(ls -n $CLASSES_DIR/*.class | wc -l)"
         [[ $n -gt 0 ]] && class_dirs="$class_dirs $f"
     done
-    $VERBOSE && echo "Decompile Java bytecode to directory ${output_dir/$ROOT_DIR\//}" 1>&2
+    $VERBOSE && echo "Decompile Java bytecode to directory \"${output_dir/$ROOT_DIR\//}\"" 1>&2
     for f in $class_dirs; do
         debug "$CFR_CMD $cfr_opts $(mixed_path $f)/*.class"
         eval "$CFR_CMD" $cfr_opts "$(mixed_path $f)/*.class" $STDERR_REDIRECT
@@ -471,7 +469,7 @@ cygwin=false
 mingw=false
 msys=false
 darwin=false
-case "`uname -s`" in
+case "$(uname -s)" in
   CYGWIN*) cygwin=true ;;
   MINGW*)  mingw=true ;;
   MSYS*)   msys=true ;;
@@ -479,17 +477,18 @@ case "`uname -s`" in
 esac
 unset CYGPATH_CMD
 PSEP=":"
-if [[ $cygwin || $mingw || $msys ]]; then
+if $cygwin || $mingw || $msys; then
+    CYGPATH_CMD="$(which cygpath 2>/dev/null)"
+    PSEP=";"
     [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
     [[ -n "$GIT_HOME" ]] && GIT_HOME="$(mixed_path $GIT_HOME)"
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA3_HOME" ]] && SCALA3_HOME="$(mixed_path $SCALA3_HOME)"
-    CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     DIFF_CMD="$GIT_HOME/usr/bin/diff.exe"
-    SCALAFMT_CMD="$LOCALAPPDATA/Coursier/data/bin/scalafmt.bat"
+    SCALAFMT_CMD="$(mixed_path $LOCALAPPDATA)/Coursier/data/bin/scalafmt.bat"
 else
     DIFF_CMD="$(which diff)"
-    SCALAFMT_CMD="$(which scalafmt)"
+    SCALAFMT_CMD="$HOME/.local/share/coursier/bin/scalafmt"
 fi
 if [ ! -x "$JAVA_HOME/bin/javac" ]; then
     error "Java SDK installation not found"
@@ -510,9 +509,7 @@ SCALADOC3="$SCALA3_HOME/bin/scaladoc"
 SCALAFMT_CONFIG_FILE="$(dirname $ROOT_DIR)/.scalafmt.conf"
 
 unset CFR_CMD
-if [ -f "$CFR_HOME/bin/cfr" ]; then
-    CFR_CMD="$CFR_HOME/bin/cfr"
-fi
+[ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
 
 PROJECT_NAME="$(basename $ROOT_DIR)"
 PROJECT_URL="github.com/$USER/dotty-examples"

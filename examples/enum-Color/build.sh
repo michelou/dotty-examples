@@ -471,7 +471,7 @@ cygwin=false
 mingw=false
 msys=false
 darwin=false
-case "`uname -s`" in
+case "$(uname -s)" in
   CYGWIN*) cygwin=true ;;
   MINGW*)  mingw=true ;;
   MSYS*)   msys=true ;;
