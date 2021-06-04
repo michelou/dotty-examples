@@ -148,12 +148,12 @@ compile() {
     local timestamp_file="$TARGET_DIR/.latest-build"
 
     local is_required=0
-    is_required="$(compile_required "$timestamp_file" "$SOURCE_DIR/main/java/" "*.java")"
+    is_required="$(action_required "$timestamp_file" "$SOURCE_DIR/main/java/" "*.java")"
     if [[ $is_required -eq 1 ]]; then
         compile_java
         [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
     fi
-    is_required="$(compile_required "$timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
+    is_required="$(action_required "$timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
     if [[ $is_required -eq 1 ]]; then
         compile_scala
         [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
@@ -161,7 +161,7 @@ compile() {
     touch "$timestamp_file"
 }
 
-compile_required() {
+action_required() {
     local timestamp_file=$1
     local search_path=$2
     local search_pattern=$3
@@ -261,19 +261,17 @@ decompile() {
     local output_dir="$TARGET_DIR/cfr-sources"
     [[ -d "$output_dir" ]] || mkdir -p "$output_dir"
 
-    local cfr_opts="--extraclasspath "$(extra_cpath)" --outputdir "$(mixed_path $output_dir)""
+    local cfr_opts="--extraclasspath \"$(extra_cpath)\" --outputdir $(mixed_path $output_dir)"
 
-    local n="$(ls -n $CLASSES_DIR/*.class | wc -l)"
     local class_dirs=
-    [[ $n -gt 0 ]] && class_dirs="$CLASSES_DIR"
-    for f in $(ls -d $CLASSES_DIR 2>/dev/null); do
-        n="$(ls -n $CLASSES_DIR/*.class | wc -l)"
+    for f in $(find $CLASSES_DIR -type d -print); do
+        n="$(ls -n $f/*.class 2>/dev/null | wc -l)"
         [[ $n -gt 0 ]] && class_dirs="$class_dirs $f"
     done
     $VERBOSE && echo "Decompile Java bytecode to directory ${output_dir/$ROOT_DIR\//}" 1>&2
     for f in $class_dirs; do
         debug "$CFR_CMD $cfr_opts $(mixed_path $f)/*.class"
-        eval "$CFR_CMD" $cfr_opts "$(mixed_path $f)/*.class" $STDERR_REDIRECT
+        exec "$CFR_CMD" $cfr_opts $(mixed_path $f)/\\*.class
         if [[ $? -ne 0 ]]; then
             error "Failed to decompile generated code in directory $f"
             cleanup 1
@@ -288,7 +286,7 @@ decompile() {
     echo // Compiled with $version_string > "$output_file"
 
     if $DEBUG; then
-        debug "echo $output_dir/*.java >> $output_file"
+        debug "cat $output_dir/*.java >> $output_file"
     elif $VERBOSE; then
         echo "Save generated Java source files to file ${output_file/$ROOT_DIR\//}" 1>&2
     fi
@@ -308,14 +306,14 @@ decompile() {
     fi
     local diff_opts=--strip-trailing-cr
 
-    local check_file="$SOURCE_DIR/build/cfr-source$VERSION_SUFFIX.java"
+    local check_file="$SOURCE_DIR/build/cfr-source$version_suffix.java"
     if [ -f "$check_file" ]; then
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
         elif $VERBOSE; then
             echo "Compare output file with check file ${check_file/$ROOT_DIR\//}" 1>&2
         fi
-        eval "$DIFF_CMD" $diff_opts "$(mixed_path $output_file)" "$(mixed_path $check_file)"
+        "$DIFF_CMD" $diff_opts "$(mixed_path $output_file)" "$(mixed_path $check_file)"
         if [[ $? -ne 0 ]]; then
             error "Output file and check file differ"
             cleanup 1
@@ -366,7 +364,7 @@ doc() {
 
     local doc_timestamp_file="$TARGET_DOCS_DIR/.latest-build"
 
-    local is_required="$(compile_required "$doc_timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
+    local is_required="$(action_required "$doc_timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
     [[ $is_required -eq 0 ]] && return 1
 
     local sources_file="$TARGET_DIR/scaladoc_sources.txt"
@@ -454,7 +452,7 @@ DECOMPILE=false
 DOC=false
 HELP=false
 LINT=false
-MAIN_CLASS=Main
+MAIN_CLASS=myexamples.Main
 MAIN_ARGS=
 RUN=false
 SCALA_VERSION=3
@@ -479,7 +477,7 @@ case "`uname -s`" in
 esac
 unset CYGPATH_CMD
 PSEP=":"
-if $cygwin || $mingw || $msys; then
+if [[ $cygwin || $mingw || $msys ]]; then
     CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     PSEP=";"
     [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
@@ -511,9 +509,7 @@ SCALADOC3="$SCALA3_HOME/bin/scaladoc"
 SCALAFMT_CONFIG_FILE="$(dirname $ROOT_DIR)/.scalafmt.conf"
 
 unset CFR_CMD
-if [ -f "$CFR_HOME/bin/cfr" ]; then
-    CFR_CMD="$CFR_HOME/bin/cfr"
-fi
+[ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
 
 PROJECT_NAME="$(basename $ROOT_DIR)"
 PROJECT_URL="github.com/$USER/dotty-examples"

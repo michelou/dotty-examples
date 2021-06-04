@@ -5,7 +5,7 @@ import org.junit.Assert._
 import org.junit.Test
 
 class MainJUnitTest {
-
+                                                                                                                           
   @Test
   def test1(): Unit = {
   }

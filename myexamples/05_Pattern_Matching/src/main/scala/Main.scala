@@ -87,7 +87,7 @@ object Main {
   }
 
   def childCount(p: Person) = p match {
-    case Person(_, ns : _*) => ns.length
+    case Person(_, ns) => ns.length
   }
 
   def varargPattern: Unit = {

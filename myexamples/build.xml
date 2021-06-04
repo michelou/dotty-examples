@@ -11,6 +11,12 @@
     </condition>
     <property name="ivy.cache" value="${user.home}/.ivy2/cache" />
 
+    <condition property="scalafmt.cmd"
+        value="${env.LOCALAPPDATA}/Coursier/data/bin/scalafmt.bat"
+        else="${env.HOME}/.local/share/coursier/bin/scalafmt">
+        <os family="windows" />
+    </condition>
+
     <property name="cfr.version" value="0.151" />
     <property name="hamcrest.version" value="2.2" />
     <property name="junit.version" value="4.13.2" />

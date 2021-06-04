@@ -1,7 +1,7 @@
 package myexamples
 
 // http://junit.sourceforge.net/javadoc/org/junit/Assert.html
-import org.junit.Assert._
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class MainJUnitTest {

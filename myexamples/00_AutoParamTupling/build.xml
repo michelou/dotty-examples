@@ -36,6 +36,14 @@
               classpathref="build.classpath" />
     </target>
 
+    <target name="lint">
+        <exec executable="${scalafmt.cmd}">
+            <arg value="--test" />
+            <arg value="--config" />
+            <arg path="../.scalafmt.conf" />
+        </exec>
+    </target>
+
     <target name="run" depends="compile">
         <java classname="${main.class}">
             <!-- <arg value="1" /> -->

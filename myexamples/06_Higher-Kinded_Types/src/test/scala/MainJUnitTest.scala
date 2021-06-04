@@ -11,7 +11,7 @@ class MainJUnitTest {
   def test1(): Unit = {
     import test01._
 
-    val stdout = captureStdout { hk1('a', s => (s.toInt+1).toChar) }
+    val stdout = captureStdout { hk1('a', s => (s.toInt + 1).toChar) }
     assertEquals("Hello message", stdout, s"f=(a,b)$eol")
   }
 
@@ -19,7 +19,7 @@ class MainJUnitTest {
   def test2(): Unit = {
     import test02._
 
-    val stdout = captureStdout { hk2(1.0, _+1) }
+    val stdout = captureStdout { hk2(1.0, _ + 1) }
     assertEquals("Hello message", stdout, s"f=(1.0,2.0)$eol")
   }
 

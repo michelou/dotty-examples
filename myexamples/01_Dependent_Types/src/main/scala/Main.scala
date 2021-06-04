@@ -6,15 +6,19 @@ object Main {
 
   class HMap {
     import scala.collection.mutable.HashMap
+
     private val m = HashMap.empty[Key, Any]
+
     def get(key: Key): Option[key.Value] = m get key match {
       case None => None
       case Some(x) => Some(x.asInstanceOf[key.Value])
     }
+
     def add(key: Key)(value: key.Value): HMap = {
       m += (key -> value)
       this
     }
+
     override def toString: String = m.toString()
   }
 

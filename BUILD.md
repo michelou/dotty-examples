@@ -45,7 +45,7 @@ For instance our development environment looks as follows (*May 2021*):
 <pre style="font-size:80%;">
 C:\opt\Git-2.31.1\             <i>(279 MB)</i>
 C:\opt\jdk-openjdk-11.0.11_9\  <i>(314 MB)</i>
-C:\opt\sbt-1.5.2\              <i>( 48 MB)</i>
+C:\opt\sbt-1.5.3\              <i>( 48 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -249,7 +249,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 Tool paths
    GIT_CMD=C:\opt\Git-2.31.1\bin\git.exe
    JAVA_CMD=C:\opt\jdk-openjdk-11.0.11+9\bin\java.exe
-   SBT_CMD=C:\opt\sbt-1.5.2\bin\sbt.bat
+   SBT_CMD=C:\opt\sbt-1.5.3\bin\sbt.bat
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
    SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -615,7 +615,7 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; <a href="https://man7.org/linux/man-pages/man1/cat.1.html">cat</a> project\build.properties</b>
-sbt.version=1.4.1
+sbt.version=1.5.3
 </pre>
 
 <span name="footnote_04">[4]</span> ***Git master repository*** [↩](#anchor_04)
@@ -639,7 +639,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

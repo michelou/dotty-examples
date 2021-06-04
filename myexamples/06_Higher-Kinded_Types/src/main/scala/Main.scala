@@ -21,6 +21,7 @@ object test01 {
 
 }
 
+
 object test02 {
 
   def hk2[S, T <: S](x: T, g: S => T): Unit = {
@@ -63,8 +64,12 @@ object test03 {
 
 }
 
-object Main extends App {
-  test01.run
-  test02.run
-  test03.run
+object Main {
+
+  def main(args: Array[String]): Unit = {
+    test01.run
+    test02.run
+    test03.run
+  }
+
 }

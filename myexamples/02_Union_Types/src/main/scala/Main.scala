@@ -13,7 +13,7 @@ object testIntFloat {
 
   def run: Unit = {
     println("testIntFloat example:")
-    printValue(0.0f)  // Float 0.0
+    printValue(0.0f) // Float 0.0
     printValue(1 + 3) // Integer 4
     println()
   }
@@ -22,10 +22,11 @@ object testIntFloat {
 
 // see https://www.typescriptlang.org/docs/handbook/advanced-types.html
 object testPadding {
+
   /**
-   * Takes a string and adds "padding" to the left.
-   * If 'padding' is a string, then 'padding' is appended to the left side.
-   * If 'padding' is a number, then that number of spaces is added to the left side.
+   * Takes a string and adds "padding" to the left. If 'padding' is a string,
+   * then 'padding' is appended to the left side. If 'padding' is a number, then
+   * that number of spaces is added to the left side.
    */
   def padLeft(value: String, padding: String | Int): String = padding match {
     case s: String => s + value
@@ -35,7 +36,7 @@ object testPadding {
   def run: Unit = {
     println("testPadding example:")
     println(padLeft("abc", "01234")) // "01234abc"
-    println(padLeft("abc", 8))       // "     abc"
+    println(padLeft("abc", 8)) // "     abc"
     println()
   }
 
@@ -58,10 +59,11 @@ object testDivision {
     println(saveDivide(1, 2)) // Success(0.5)
     println(saveDivide(1, 0)) // DivisionByZero
 
-    implicit def divisionToString(result: DivisionResult): String = result match {
-      case DivisionByZero => "Division failed"
-      case Success(r)     => r.toString
-    }
+    implicit def divisionToString(result: DivisionResult): String =
+      result match {
+        case DivisionByZero => "Division failed"
+        case Success(r) => r.toString
+      }
     def printString(s: String): Unit = println(s)
 
     printString(saveDivide(1, 2)) // 0.5
@@ -87,7 +89,9 @@ object testMessage {
 
   def run: Unit = {
     println("testMessage example:")
-    val data = handleMessage(Request(GET, new java.net.URL("https://www.google.com")))
+    val data = handleMessage(
+      Request(GET, new java.net.URL("https://www.google.com"))
+    )
     println(data)
     handleMessage(Response(200, "Dotty".getBytes("UTF-8"))) match {
       case a: Array[Byte] => println(new String(a))
@@ -111,7 +115,10 @@ object testJSON {
     case s: String => s"""$s"""
     case i: Number => json.toString()
     case b: Boolean => json.toString()
-    case o: JObject => "{" + o.props.keys.map(x => x + ": " + stringify(o.props(x))).mkString(", ") + "}"
+    case o: JObject =>
+      "{" + o.props.keys
+        .map(x => x + ": " + stringify(o.props(x)))
+        .mkString(", ") + "}"
     case a: JArray => "[" + a.elems.map(stringify).mkString(", ") + "]"
   }
 
