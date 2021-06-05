@@ -15,6 +15,14 @@
     <!-- task 'init' and macro 'dotc' are defined in parent build.xml -->
     <import file="../build.xml" />
 
+    <target name="lint">
+        <exec executable="${scalafmt.cmd}">
+            <arg value="--test" />
+            <arg value="--config" />
+            <arg path="../.scalafmt.conf" />
+        </exec>
+    </target>
+
     <target name="compile" depends="init">
         <mkdir dir="${build.dir}" />
         <dotc srcdir="${scala-source.dir}"
@@ -34,14 +42,6 @@
         <dotd srcdir="${build.dir}"
               destdir="${target-docs.dir}"
               classpathref="build.classpath" />
-    </target>
-
-    <target name="lint">
-        <exec executable="${scalafmt.cmd}">
-            <arg value="--test" />
-            <arg value="--config" />
-            <arg path="../.scalafmt.conf" />
-        </exec>
     </target>
 
     <target name="run" depends="compile">

@@ -4,8 +4,10 @@ object ScalaDay extends Enumeration {
 }
 
 object Test {
+
   def main(args: Array[String]): Unit = {
     println(Day.SUNDAY)
     println(ScalaDay.SUNDAY)
   }
+
 }

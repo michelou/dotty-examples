@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:60px;max-width:100px;">
-    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;" src="docs/dotty.png" alt="Dotty logo"/></a>
+    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;" src="docs/dotty.png" alt="Dotty project"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This repository gathers <a href="https://dotty.epfl.ch/" rel="external">Scala 3</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/" rel="external">Dotty</a> project - or written by myself.<br/>
@@ -76,7 +76,7 @@ C:\opt\jacoco-0.8.7\               <i>( 10.7 MB)</i>
 C:\opt\javafx-sdk-15.0.1\          <i>( 78.2 MB)</i>
 C:\opt\jdk-openjdk-1.8.0_292-b10\  <i>(185.0 MB)</i>
 C:\opt\jdk-openjdk-11.0.11_9\      <i>(300.0 MB)</i>
-C:\opt\jdk-openjdk-17-ea_24\       <i>(292.0 MB)</i>
+C:\opt\jdk-openjdk-17-ea_25\       <i>(292.0 MB)</i>
 C:\opt\make-3.81\                  <i>(  2.1 MB)</i>
 C:\opt\Mill-0.9.8\                 <i>( 60.3 MB)</i>
 C:\opt\msys64\                     <i>( 5.56 GB)</i>
@@ -107,6 +107,7 @@ dotty\     <i>(Git submodule)</i>
 examples\{<a href="examples/README.md">README.md</a>, <a href="examples/dotty-example-project/">dotty-example-project</a>, ..}
 myexamples\{<a href="myexamples/README.md">README.md</a>, <a href="myexamples/00_AutoParamTupling/">00_AutoParamTupling</a>, ..}
 plugin-examples\{<a href="plugin-examples/README.md">README.md</a>, <a href="plugin-examples/DivideZero/">DivideZero</a>, ..}
+<a href="CONTRIBUTIONS.md">CONTRIBUTIONS.md</a>
 README.md
 <a href="RESOURCES.md">RESOURCES.md</a>
 <a href="setenv.bat">setenv.bat</a>

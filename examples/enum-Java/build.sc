@@ -2,9 +2,11 @@ import mill._, scalalib._
 import $file.^.common
 
 object javaApp extends JavaModule {
+
   def mainClass = T.input {
     Some(common.getBuildProp("javaMainClassName", "EnumTest", T.ctx))
   }
+
   def sources = T.sources { common.javaSourcePath }
 }
 
@@ -21,6 +23,7 @@ object app extends ScalaModule {
   }
 
   def sources = T.sources { common.scalaSourcePath }
+
   // def resources = T.sources { os.pwd / "resources" }
 
   def clean() = T.command {

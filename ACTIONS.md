@@ -111,7 +111,7 @@ Here are GitHub-specific environment variables defined in a GitHub-hosted Window
 </p>
 
 <pre style="font-size:80%;margin-left:20px;">
-<b>&gt; set</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a></b>
 [...]
 CI=true
 [...]

@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="http://dotty.epfl.ch/" rel="external"><img src="../docs/dotty.png" width="120" alt="Dotty logo"/></a>
+    <a href="http://dotty.epfl.ch/" rel="external"><img src="../docs/dotty.png" width="120" alt="Dotty project"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     The <strong><code>docs\</code></strong> directory contains a selection of external links and PDF documents related to <a href="http://dotty.epfl.ch/" rel="external">Scala 3</a>.

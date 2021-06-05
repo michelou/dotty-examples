@@ -12,6 +12,7 @@ object app extends ScalaModule {
   }
 
   def sources = T.sources { common.scalaSourcePath }
+
   // def resources = T.sources { os.pwd / "resources" }
 
   def clean() = T.command {
@@ -20,17 +21,21 @@ object app extends ScalaModule {
   }
 
   object test extends Tests {
+
     def ivyDeps = Agg(
       common.ivyJunitInterface,
       common.ivyScalatest,
       common.ivySpecs2Common,
       common.ivySpecs2Core
     )
+
     def testFrameworks = Seq(
       "com.novocode.junit.JUnitFramework",
       "org.scalatest.tools.Framework",
       // "org.specs2.runner.JUnitRunner",
       // "org.specs2.Specs2Framework"
     )
+
   }
+
 }

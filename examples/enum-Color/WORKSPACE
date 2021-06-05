@@ -40,10 +40,10 @@ load("@io_bazel_rules_scala//scala:scala.bzl", "scala_repositories")
 scala_repositories()
 
 ##############################################################################
-##
+## see https://github.com/protocolbuffers/protobuf/releases
 
-protobuf_version="3.11.3"
-protobuf_version_sha256="cf754718b0aa945b00550ed7962ddc167167bd922b842199eeb6505e6f344852"
+protobuf_version="3.17.2"
+protobuf_version_sha256="36f81e03a0702f8f935fffd5a486dac1c0fc6d4bae1cd02c7a32448ad6e63bcb"
 
 http_archive(
     name = "com_google_protobuf",

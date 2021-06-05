@@ -42,8 +42,8 @@
             <fileset dir="${scala3.home}/lib" includes="tasty-*.jar" />
         </path>
         <path id="scala3.classpath">
-            <fileset dir="${scala3.home}/lib" includes="scala3-library*.jar" />
             <fileset dir="${scala3.home}/lib" includes="scala-library*.jar" />
+            <fileset dir="${scala3.home}/lib" includes="scala3-library*.jar" />
         </path>
     </target>
 
@@ -53,7 +53,6 @@
             uri="antlib:org.apache.ivy.ant" />
         <ivy:resolve file="../ivy.xml" showprogress="false" log="download-only" />
         <ivy:cachepath pathid="scalac.classpath" conf="default"/>
-
         <path id="scala3.classpath">
             <!--
             <fileset dir="${ivy.cache}/ch.epfl.lamp" includes="**/jars/dotty-library*.jar">

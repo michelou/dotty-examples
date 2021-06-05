@@ -394,7 +394,7 @@ doc() {
     if $DEBUG; then
         debug "HTML documentation saved into directory $TARGET_DOCS_DIR"
     elif $VERBOSE; then
-        echo "HTML documentation saved into directory ${TARGET_DOCS_DIR/$ROOT_DIR\//}" 1>&2
+        echo "HTML documentation saved into directory \"${TARGET_DOCS_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     touch "$doc_timestamp_file"
 }
