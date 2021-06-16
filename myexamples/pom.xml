@@ -38,7 +38,7 @@
         <ivy.version>2.5.0</ivy.version>
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
-        <jmh.version>1.31</jmh.version>                         <!-- May 2018, Oracle -->
+        <jmh.version>1.32</jmh.version>                         <!-- May 2018, Oracle -->
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->

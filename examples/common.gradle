@@ -22,7 +22,6 @@ project.ext {
         dottyLibraryFiles = files { dottyLibraryPath.listFiles() }
         dotcLibraryFiles = dottyLibraryFiles.filter { File f ->
             f.name.matches("compiler-interface(.*)jar") ||
-            f.name.matches("dotty-(.*)jar") ||  // up to version 0.27
             f.name.matches("scala-(.*)jar") ||
             f.name.matches("scala3-(.*)jar") ||
             f.name.matches("tasty-core(.*)jar")
@@ -107,6 +106,7 @@ compileTest.doFirst {
 
 test {
     dependsOn compileTest
+    println "test (NYI)"
 }
 
 repositories {

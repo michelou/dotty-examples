@@ -10,7 +10,8 @@ lazy val root = project
     scalacOptions ++= Seq(
       "-deprecation",
       "-encoding",
-      "UTF-8"
+      "UTF-8",
+      "-feature"
     ),
     libraryDependencies ++= Seq(
       // https://mvnrepository.com/artifact/com.novocode/junit-interface

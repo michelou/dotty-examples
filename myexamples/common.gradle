@@ -1,5 +1,5 @@
-// overrides default "/build"
-buildDir file("/target")
+// overrides default "build"
+buildDir file("target")
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -7,8 +7,8 @@ java {
 }
 
 project.ext {
-    mainSourceTree = fileTree(dir: "/src/main/scala", include: "**/*.scala")
-    testSourceTree = fileTree(dir: "/src/test/scala", include: "**/*.scala")
+    mainSourceTree = fileTree(dir: "src/main/scala", include: "**/*.scala")
+    testSourceTree = fileTree(dir: "src/test/scala", include: "**/*.scala")
 
     classesDir = file("${buildDir}/classes")
     testClassesDir = file("${buildDir}/test-classes")
@@ -22,7 +22,6 @@ project.ext {
         dottyLibraryFiles = files { dottyLibraryPath.listFiles() }
         dotcLibraryFiles = dottyLibraryFiles.filter { File f ->
             f.name.matches("compiler-interface(.*)jar") ||
-            f.name.matches("dotty-(.*)jar") ||  // up to version 0.27
             f.name.matches("scala-(.*)jar") ||
             f.name.matches("scala3-(.*)jar") ||
             f.name.matches("tasty-core(.*)jar")
@@ -123,13 +122,12 @@ repositories {
 }
 
 dependencies {
-    // implementation "ch.epfl.lamp:dotty-compiler_0.27:0.27.0-RC1"
     implementation "org.scala-lang:scala3-compiler_3:3.0.1-RC1"
     testImplementation "junit:junit:4.13.2"
 	testImplementation "org.scalatest:scalatest_3:3.2.9"
 	implementation "org.scalatest:scalatest-funspec_3:3.2.9"
 	implementation "org.scalatest:scalatest-funsuite_3:3.2.9"
-	implementation "org.specs2:specs2-common_2.13:4.11.0"
-	implementation "org.specs2:specs2-core_2.13:4.11.0"
-	implementation "org.specs2:specs2-junit_2.13:4.11.0"
+	implementation "org.specs2:specs2-common_2.13:4.12.1"
+	implementation "org.specs2:specs2-core_2.13:4.12.1"
+	implementation "org.specs2:specs2-junit_2.13:4.12.1"
 }
