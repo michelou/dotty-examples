@@ -59,8 +59,11 @@ call :ant
 if not %_EXITCODE%==0 goto end
 
 call :bazel
-if not %_EXITCODE%==0 goto end
-
+if not %_EXITCODE%==0 (
+    @rem optional
+    echo %_WARNING_LABEL% Bazel installation not found 1>&2
+    set _EXITCODE=0
+)
 @rem bloop depends on python
 call :python 3
 if not %_EXITCODE%==0 goto end
@@ -476,7 +479,7 @@ for /f %%f in ('where scalac.bat 2^>NUL') do (
 )
 if defined __SCALAC_CMD (
     for %%i in ("%__SCALAC_CMD%") do set "__SCALA3_BIN_DIR=%%~dpi"
-    for %%f in ("!__SCALA3_BIN_DIR!..") do set "_SCALA3_HOME=%%f"
+    for %%f in ("!__SCALA3_BIN_DIR!\.") do set "_SCALA3_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Scala 3 executable found in PATH 1>&2
     goto :eof
 ) else if defined SCALA3_HOME (
@@ -756,11 +759,11 @@ if not exist "%_JMC_HOME%\bin\jmc.exe" (
 set "_JMC_PATH=;%_JMC_HOME%\bin"
 goto :eof
 
-@rem output parameter(s): _MAKE_PATH
+@rem output parameters: _MAKE_HOME, _MAKE_PATH
 :make
+set _MAKE_HOME=
 set _MAKE_PATH=
 
-set __MAKE_HOME=
 set __MAKE_CMD=
 for /f %%f in ('where make.exe 2^>NUL') do set "__MAKE_CMD=%%f"
 if defined __MAKE_CMD (
@@ -768,21 +771,21 @@ if defined __MAKE_CMD (
     rem keep _MAKE_PATH undefined since executable already in path
     goto :eof
 ) else if defined MAKE_HOME (
-    set "__MAKE_HOME=%MAKE_HOME%"
+    set "_MAKE_HOME=%MAKE_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MAKE_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\make-3*" 2^>NUL') do set "__MAKE_HOME=!_PATH!\%%f"
-    if defined __MAKE_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Make installation directory !__MAKE_HOME! 1>&2
+    for /f %%f in ('dir /ad /b "!_PATH!\make-3*" 2^>NUL') do set "_MAKE_HOME=!_PATH!\%%f"
+    if defined _MAKE_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Make installation directory !_MAKE_HOME! 1>&2
     )
 )
-if not exist "%__MAKE_HOME%\bin\make.exe" (
-    echo %_ERROR_LABEL% Make executable not found ^(%__MAKE_HOME%^) 1>&2
+if not exist "%_MAKE_HOME%\bin\make.exe" (
+    echo %_ERROR_LABEL% Make executable not found ^(%_MAKE_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_MAKE_PATH=;%__MAKE_HOME%\bin"
+set "_MAKE_PATH=;%_MAKE_HOME%\bin"
 goto :eof
 
 @rem output parameters: _MAVEN_HOME, _MAVEN_PATH
@@ -1126,10 +1129,10 @@ if %ERRORLEVEL%==0 (
    for /f "tokens=1,2,*" %%i in ('"%GIT_HOME%\bin\git.exe" --version') do set "__VERSIONS_LINE4=%__VERSIONS_LINE4% git %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\bin:git.exe"
 )
-where /q diff.exe
+where /q "%GIT_HOME%\usr\bin:diff.exe"
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1-3,*" %%i in ('diff.exe --version ^| findstr diff') do set "__VERSIONS_LINE4=%__VERSIONS_LINE4% diff %%l,"
-    set __WHERE_ARGS=%__WHERE_ARGS% diff.exe
+   for /f "tokens=1-3,*" %%i in ('"%GIT_HOME%\usr\bin\diff.exe" --version ^| findstr diff') do set "__VERSIONS_LINE4=%__VERSIONS_LINE4% diff %%l,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\usr\bin:diff.exe"
 )
 where /q "%GIT_HOME%\bin:bash.exe"
 if %ERRORLEVEL%==0 (
@@ -1153,6 +1156,7 @@ if %__VERBOSE%==1 (
     if defined JAVACOCO_HOME echo    "JAVACOCO_HOME=%JAVACOCO_HOME%" 1>&2
     if defined JAVA11_HOME echo    "JAVA11_HOME=%JAVA11_HOME%" 1>&2
     if defined JAVAFX_HOME echo    "JAVAFX_HOME=%JAVAFX_HOME%" 1>&2
+    if defined MAKE_HOME echo    "MAKE_HOME=%MAKE_HOME%" 1>&2
     if defined MAVEN_HOME echo    "MAVEN_HOME=%MAVEN_HOME%" 1>&2
     if defined MILL_HOME echo    "MILL_HOME=%MILL_HOME%" 1>&2
     if defined MSVS_HOME echo    "MSVS_HOME=%MSVS_HOME%" 1>&2
@@ -1179,6 +1183,7 @@ endlocal & (
         if not defined JAVA_HOME set "JAVA_HOME=%_JDK_HOME%"
         if not defined JAVA11_HOME set "JAVA11_HOME=%_JDK11_HOME%"
         if not defined JAVAFX_HOME set "JAVAFX_HOME=%_JAVAFX_HOME%"
+        if not defined MAKE_HOME set "MAKE_HOME=%_MAKE_HOME%"
         if not defined MAVEN_HOME set "MAVEN_HOME=%_MAVEN_HOME%"
         if not defined MILL_HOME set "MILL_HOME=%_MILL_HOME%"
         if not defined MSVS_HOME set "MSVS_HOME=%_MSVS_HOME%"

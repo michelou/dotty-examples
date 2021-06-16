@@ -119,7 +119,7 @@ dependencies {
 	testImplementation "org.scalatest:scalatest_3:3.2.9"
 	implementation "org.scalatest:scalatest-funspec_3:3.2.9"
 	implementation "org.scalatest:scalatest-funsuite_3:3.2.9"
-	implementation "org.specs2:specs2-common_2.13:4.11.0"
-	implementation "org.specs2:specs2-core_2.13:4.11.0"
-	implementation "org.specs2:specs2-junit_2.13:4.11.0"
+	implementation "org.specs2:specs2-common_2.13:4.12.1"
+	implementation "org.specs2:specs2-core_2.13:4.12.1"
+	implementation "org.specs2:specs2-junit_2.13:4.12.1"
 }

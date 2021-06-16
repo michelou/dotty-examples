@@ -21,7 +21,6 @@ ext {
         dottyLibraryFiles = files { dottyLibraryPath.listFiles() }
         dotcLibraryFiles = dottyLibraryFiles.filter { File f ->
             f.name.matches("compiler-interface(.*)jar") ||
-            f.name.matches("dotty-(.*)jar") ||  // up to version 0.27
             f.name.matches("scala-library(.*)jar") ||
             f.name.matches("scala-asm(.*)jar") ||
             f.name.matches("scala3-(.*)jar") ||

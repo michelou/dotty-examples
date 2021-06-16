@@ -5,7 +5,7 @@ lazy val root = project
   .settings(
     name := "cdsexamples.Main",
     description := "sbt example project to build/run Scala 3 applications",
-    version := "0.1.0",
+    version := "1.0.0",
 
     scalaVersion := dottyVersion,
     scalacOptions ++= Seq(
@@ -20,9 +20,9 @@ lazy val root = project
       // https://mvnrepository.com/artifact/com.novocode/junit-interface
       "com.novocode" % "junit-interface" % "0.11" % Test,
       // https://mvnrepository.com/artifact/org.scalacheck/scalacheck
-      "org.scalacheck" % "scalacheck_2.13" % "1.15.3" % Test,
+      "org.scalacheck" %% "scalacheck" % "1.15.4" % Test,
       // https://mvnrepository.com/artifact/org.scalatest/scalatest
-      "org.scalatest" % "scalatest_2.13" % "3.2.9" % "test"
+      "org.scalatest" %% "scalatest" % "3.2.9" % "test"
     ),
 
     testOptions ++= Seq(
@@ -32,5 +32,5 @@ lazy val root = project
     ),
 
     // receive periodic notifications of tests that have been running longer than 120 seconds
-	testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-W", "120", "60")
+	Test / testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-W", "120", "60")
   )

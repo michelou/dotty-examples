@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:100px;">
-    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:100px;" src="../docs/scala3.png" width="100" alt="Dotty logo"/></a>
+    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:100px;" src="../docs/dotty.png" width="100" alt="Dotty project"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>myexamples\</code></strong> contains <a href="https://dotty.epfl.ch/" rel="external" title="Scala 3">Scala 3</a> code examples written by myself.
@@ -55,7 +55,7 @@ Buildfile: W:\myexamples\HelloWorld\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 [ivy:resolve] :: Apache Ivy 2.5.0 - 20191020104435 :: https://ant.apache.org/ivy/ ::
-[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.9/lib/ivy-2.5.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
+[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.10/lib/ivy-2.5.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
 
 <span style="font-weight:bold;color:#9966ff;">init:</span>
 
@@ -75,7 +75,7 @@ Total time: 3 seconds
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://curl.haxx.se/docs/manual.html">curl</a> -sL -o c:\Temp\apache-ivy-2.5.0.zip https://www-eu.apache.org/dist//ant/ivy/2.5.0/apache-ivy-2.5.0-bin.zip</b>
 > <b>&gt; <a href="https://linux.die.net/man/1/unzip">unzip</a> c:\temp\apache-ivy-2.5.0.zip -d c:\opt</b>
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/copy">copy</a> c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.9\lib</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/copy">copy</a> c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.10\lib</b>
 > <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\apache-ant-1.10.10\lib | findstr ivy</b>
 > 20.10.2019  09:44         1 402 646 ivy-2.5.0.jar
 > </pre>
@@ -134,10 +134,10 @@ Command [**`setenv -bash`**](setenv.bat) starts a [Cygwin] Bash session:
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -bash</b>
 Tool versions:
-   javac 11.0.10, java 11.0.10, scalac 2.13.5, scalac 3.0.0,
-   ant 1.10.9, gradle 7.0.2, mill 0.9.7, mvn 3.8.1, sbt 1.5.2,
-   bazel 4.0.0, cfr 0.151, make 3.81, python 3.9.5,
-   git 2.31.1.windows.1, diff 3.7
+   javac 11.0.11, java 11.0.11, scalac 2.13.6, scalac 3.0.1-RC1,
+   ant 1.10.10, gradle 7.1, mill 0.9.8, mvn 3.8.1, sbt 1.5.4,
+   bazel 4.1.0, cfr 0.151, make 3.81, python 3.9.5,
+   git 2.32.0.windows.1, diff 3.7
 &nbsp;
 user@host MSYS /w
 <b>$ bash --version | grep bash</b>
@@ -145,9 +145,9 @@ GNU bash, version 4.4.23(1)-release (x86_64-pc-msys)
 &nbsp;
 user@host MSYS /w
 <b>$ env | grep _HOME | sort</b>
-ANT_HOME=C:\opt\apache-ant-1.10.9
+ANT_HOME=C:\opt\apache-ant-1.10.10
 [...]
-SBT_HOME=C:\opt\sbt-1.5.2
+SBT_HOME=C:\opt\sbt-1.5.4
 SCALA3_HOME=C:\opt\scala3-3.0.1-RC1
 SCALA_HOME=C:\opt\scala-2.13.6
 </pre>
@@ -170,10 +170,10 @@ Similarly, command [**`setenv -msys`**](setenv.bat) starts a [MSYS2] Bash sessio
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -msys</b>
 Tool versions:
-   javac 11.0.10, java 11.0.10, scalac 2.13.5, scalac 3.0.0,
-   ant 1.10.9, gradle 7.0.2, mill 0.9.7, mvn 3.8.1, sbt +,
-   bazel 4.0.0, cfr 0.151, make 3.81, python 3.9.5,
-   git 2.31.1.windows.1, diff 3.7
+   javac 11.0.11, java 11.0.11, scalac 2.13.6, scalac 3.0.1-RC1,
+   ant 1.10.10, gradle 7.1, mill 0.9.8, mvn 3.8.1, sbt 1.5.4,
+   bazel 4.1.0, cfr 0.151, make 3.81, python 3.9.5,
+   git 2.32.0.windows.1, diff 3.7
 &nbsp;
 user@odin MINGW64 /w
 <b>$ bash --version | grep bash</b>
@@ -181,11 +181,11 @@ GNU bash, version 5.1.4(1)-release (x86_64-pc-msys)
 &nbsp;
 user@host MINGW64 /w
 <b>$ env | grep _HOME | sort</b>
-ANT_HOME=C:\opt\apache-ant-1.10.9
+ANT_HOME=C:\opt\apache-ant-1.10.10
 [...]
-SBT_HOME=C:\opt\sbt-1.5.2
+SBT_HOME=C:\opt\sbt-1.5.4
 SCALA3_HOME=C:\opt\scala3-3.0.1-RC1
-SCALA_HOME=C:\opt\scala-2.13.5
+SCALA_HOME=C:\opt\scala-2.13.6
 </pre>
 
 Command [**`build clean run`**](HelloWorld/build.sh) produces the following output for project [**`HelloWorld`**](./HelloWorld/):
@@ -306,7 +306,7 @@ Command **`make test`** executes the test suite [**`HelloWorldTest.scala`**](Hel
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 scalac.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.5/scala-library-2.13.5.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_3/3.0.0/scala3-library_3-3.0.1-RC1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.9/scalatest_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.9/scalactic_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.11.0/specs2-core_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.11.0/specs2-junit_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.11.0/specs2-matcher_2.13-4.11.0.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.6/scala-library-2.13.6.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_3/3.0.1-RC1/scala3-library_3-3.0.1-RC1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.9/scalatest_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.9/scalactic_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.11.0/specs2-core_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.11.0/specs2-junit_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.11.0/specs2-matcher_2.13-4.11.0.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
 JUnit version 4.13.2
 .
 Time: 0.201
@@ -394,7 +394,7 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 >         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>3.0.0<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.version&gt;</b>3.0.1-RC1<b>&lt;/scala.version&gt;</b>
 >         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
@@ -432,7 +432,7 @@ Finally can check the Java manifest in **`HelloWorld-1.0-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
 <b>&gt;</b> <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.0.1-RC1\lib\dotty-library_3-3.0.1-RC1.jar;^
-c:\opt\scala3-3.0.1-RC1\lib\scala-library-2.13.5.jar ^
+c:\opt\scala3-3.0.1-RC1\lib\scala-library-2.13.6.jar ^
 -jar target\HelloWorld-1.0-SNAPSHOT.jar
 Hello world!
 </pre>
@@ -451,13 +451,13 @@ Hello world!
 > Searching for class name Serializable in library files C:\opt\scala3-3.0.1-RC1\lib\*.jar
 >   jackson-core-2.9.8.jar:com/fasterxml/jackson/core/SerializableString.class
 >   [...]
->   scala-library-2.13.5.jar:scala/collection/generic/DefaultSerializable.class
+>   scala-library-2.13.6.jar:scala/collection/generic/DefaultSerializable.class
 > Searching for class name Serializable in library files C:\opt\scala-2.13.6\lib\*.jar
 >   scala-library.jar:scala/collection/generic/DefaultSerializable.class
 > Searching for class name Serializable in library files C:\opt\jdk-openjdk-11.0.11_9\lib\*.jar
 > Searching for class name Serializable in archive files C:\opt\javafx-sdk-14.0.2.1\lib\*.jar
 > </pre>
-> Class **`scala.Serializable`** is part of **`C:\opt\scala3-3.0.1-RC1\lib\scala-library-2.13.5.jar`**, so let us add it to our classpath !
+> Class **`scala.Serializable`** is part of **`C:\opt\scala3-3.0.1-RC1\lib\scala-library-2.13.6.jar`**, so let us add it to our classpath !
 
 
 ## <span id="mill">Mill build tool</span>

@@ -24,7 +24,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 
 Our [Dotty fork][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.31][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.32][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
 - [sbt 1.5][sbt_releases] <sup id="anchor_03">[[3]](#footnote_03)</sup> (requires Java 8) ([*release notes*][sbt_relnotes])
 <!--
@@ -40,12 +40,12 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*May 2021*):
+For instance our development environment looks as follows (*June 2021*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.31.1\             <i>(279 MB)</i>
+C:\opt\Git-2.32.0\             <i>(279 MB)</i>
 C:\opt\jdk-openjdk-11.0.11_9\  <i>(314 MB)</i>
-C:\opt\sbt-1.5.3\              <i>( 48 MB)</i>
+C:\opt\sbt-1.5.4\              <i>( 48 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -247,9 +247,9 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
-   GIT_CMD=C:\opt\Git-2.31.1\bin\git.exe
+   GIT_CMD=C:\opt\Git-2.32.0\bin\git.exe
    JAVA_CMD=C:\opt\jdk-openjdk-11.0.11+9\bin\java.exe
-   SBT_CMD=C:\opt\sbt-1.5.3\bin\sbt.bat
+   SBT_CMD=C:\opt\sbt-1.5.4\bin\sbt.bat
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
    SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -615,7 +615,7 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; <a href="https://man7.org/linux/man-pages/man1/cat.1.html">cat</a> project\build.properties</b>
-sbt.version=1.5.3
+sbt.version=1.5.4
 </pre>
 
 <span name="footnote_04">[4]</span> ***Git master repository*** [↩](#anchor_04)
@@ -650,7 +650,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.31.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.32.0.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/

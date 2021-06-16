@@ -1,5 +1,4 @@
-val dottyVersion = "3.0.1-RC1"
-// val dottyVersion = dottyLatestNightlyBuild.get 
+val scala3Version = "3.0.1-RC1" // = dottyLatestNightlyBuild.get 
 
 lazy val root = project
   .in(file("."))
@@ -7,28 +6,28 @@ lazy val root = project
     name := "enum-Planet",
     description := "sbt example project to build/run Scala 3 applications",
     version := "1.0.0",
-
-    scalaVersion := dottyVersion,
+    scalaVersion := scala3Version,
     scalacOptions ++= Seq(
       "-deprecation",
-      "-encoding", "UTF-8",
-      "-feature" 
+      "-encoding",
+      "UTF-8",
+      "-feature"
     ),
-
     // resolvers += "Maven Central Server" at "http://central.maven.org/maven2",
-
     libraryDependencies ++= Seq(
       // https://mvnrepository.com/artifact/com.novocode/junit-interface
       "com.novocode" % "junit-interface" % "0.11" % Test,
       // https://mvnrepository.com/artifact/org.scalacheck/scalacheck
-      "org.scalacheck" % "scalacheck_3" % "1.14.3" % Test,
+      "org.scalacheck" %% "scalacheck" % "1.15.4" % Test,
       // https://mvnrepository.com/artifact/org.scalatest/scalatest
-      "org.scalatest" % "scalatest_3" % "3.2.9" % "test"
+      "org.scalatest" %% "scalatest" % "3.2.9" % Test
     ),
-
     testOptions ++= Seq(
-      Tests.Setup(() => println("Setup")),
-      Tests.Cleanup(() => println("Cleanup")),
+      Tests.Setup(() => println("Setup JUnit tests")),
+      Tests.Cleanup(() => println("Cleanup JUnit tests")),
       Tests.Filter(s => s.endsWith("Test"))
-    )
+    ),
+    // receive periodic notifications of tests that have been running longer than 120 seconds
+    Test / testOptions += Tests
+      .Argument(TestFrameworks.ScalaTest, "-W", "120", "60")
   )
