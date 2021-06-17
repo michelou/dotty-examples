@@ -36,7 +36,13 @@
 
 - [[Link](https://typista.org/categories-in-dotty/)] [[PDF](./20191223_Mendez_Category_Theory_in_Scala_3.pdf)]<br/>"Notes on Category Theory in Scala 3", December <span style="font-weight:bold; color:#DC143C;">2019</span>.<br/>Juan Pablo Romero Méndez.
 
-- [[Link](http://guillaume.martres.me/ide_paper.pdf)] [[PDF](./2017_ide_paper.pdf)]<br/>"Interactive Development using the Dotty Compiler"], <span style="font-weight:bold; color:#DC143C;">2017</span> (4 pages).<br/>Guillaume Martres, [*LAMP - EPFL*][epfl_lamp].
+- [[Link](http://lptk.github.io/files/%5Bv.2.0.1%5D%20scala19_gadt.pdf)] [[PDF](./2019_ACM_Towards_Improved_GADT_Reasoning_in_Scala_v.2.0.1.pdf)]<br/>"Towards Improved GADT Reasoning in Scala", July <span style="font-weight:bold; color:#DC143C;">2019</span> (5 pages).<br/>L. Parreaux, A Boruch-Gruszecki &amp; P.-G. Giarrusso, [*LAMP - EPFL*][epfl_lamp].
+
+- [[Link](http://biboudis.github.io/papers/init-scala18.pdf)] [[PDF](./2018_ACM_Initialization_Patterns_in_Dotty.pdf)]<br/>"Initialization Patterns in Dotty", September <span style="font-weight:bold; color:#DC143C;">2018</span> (5 pages).<br/>F. Liu, A. Biboudis &amp; M. Odersky, [*LAMP - EPFL*][epfl_lamp].
+
+- [[Link](http://guillaume.martres.me/ide_paper.pdf)] [[PDF](./2017_ide_paper.pdf)]<br/>"Interactive Development using the Dotty Compiler", <span style="font-weight:bold; color:#DC143C;">2017</span> (4 pages).<br/>Guillaume Martres, [*LAMP - EPFL*][epfl_lamp].
+
+- [[Link](https://core.ac.uk/download/pdf/148025431.pdf)] [[PDF](./2016_ACM_Implementing_Higher-Kinded_Types_in_Dotty.pdf)]<br/>"Implementing Higher-Kinded Types in Dotty", October <span style="font-weight:bold; color:#DC143C;">2016</span> (10 pages).<br/>M. Odersky, G. Martres &amp; D. Petrashko, [*LAMP - EPFL*][epfl_lamp].
 
 - [[Link](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.1014.5167&q=Programming%20with%20intersection%20types)] [[PDF](./10.1.1.1014.5167.pdf)]<br/>"Programming with intersection types, uniion types and polymorphism", <span style="font-weight:bold; color:#DC143C;">1991</span> (39 pages).<br/>Benjamin C. Pierce, [*Canergie Mellon University*](https://www.cmu.edu/).
 

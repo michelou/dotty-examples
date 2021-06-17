@@ -1,0 +1,1 @@
+Source: http://lptk.github.io/files/%5Bv.2.0.1%5D%20scala19_gadt.pdf
