@@ -83,6 +83,10 @@
         <path id="test.classpath">
             <fileset dir="${ivy.cache}/junit" includes="**/jars/junit-${junit.version}.jar" />
             <fileset dir="${ivy.cache}/org.hamcrest" includes="**/jars/hamcrest-${hamcrest.version}.jar" />
+            <fileset dir="${ivy.cache}/org.apiguardian" includes="**/jars/apiguardian-api-1.1.1.jar" />
+            <fileset dir="${ivy.cache}/org.junit.jupiter" includes="**/jars/junit-jupiter-api-5.7.2.jar" />
+            <fileset dir="${ivy.cache}/org.junit.platform" includes="**/jars/junit-platform-commons-1.7.2.jar" />
+            <fileset dir="${ivy.cache}/org.junit.platform" includes="**/jars/junit-platform-runner-1.7.2.jar" />
             <path refid="build.classpath" />
             <pathelement location="${test-build.dir}" />
         </path>

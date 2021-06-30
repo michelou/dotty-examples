@@ -21,7 +21,7 @@ val scalaSourcePath = os.pwd / "src" / "main" / "scala"
 val junitVersion = "4.13.2"
 val scalaBinaryVersion = "2.13"
 val scalatestVersion = "3.2.9"
-val specs2Version = "4.12.1"
+val specs2Version = "4.12.2"
 
 // https://mvnrepository.com/artifact/junit/junit
 val ivyJunit = ivy"org.junit:org.junit:$junitVersion"

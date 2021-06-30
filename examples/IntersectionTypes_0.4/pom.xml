@@ -5,7 +5,7 @@
 
     <groupId>dotty-examples</groupId>
     <artifactId>IntersectionTypes_0.4</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <parent>

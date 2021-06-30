@@ -31,14 +31,14 @@ all: build
 build: $(JAVA_TARGET) $(TARGET)
 
 $(JAVA_TARGET): $(JAVA_SOURCES)
-	[ -d "$(CLASSES_DIR)" ] || mkdir -p "$(CLASSES_DIR)"
+	[ -d "$(CLASSES_DIR)" ] || $(MKDIR) -p "$(CLASSES_DIR)"
 	@$(ECHO) "$(JAVAC_FLAGS) -d \"$(CLASSES_DIR)\"" > "$(JAVAC_OPTS_FILE)"
 	@$(ECHO) "$(JAVA_SOURCES)" > "$(JAVAC_SOURCES_FILE)"
 	$(JAVAC) "@$(JAVAC_OPTS_FILE)" "@$(JAVAC_SOURCES_FILE)"
-	@$(ECHO) "" > "$(JAVA_TARGET)"
+	@$(TOUCH) "$(JAVA_TARGET)"
 
 $(TARGET): $(SOURCES)
-	[ -d "$(CLASSES_DIR)" ] || mkdir -p "$(CLASSES_DIR)"
+	[ -d "$(CLASSES_DIR)" ] || $(MKDIR) -p "$(CLASSES_DIR)"
 	@$(ECHO) "$(SCALAC_FLAGS) -classpath \"$(CLASSES_DIR)\" -d \"$(CLASSES_DIR)\"" > "$(OPTS_FILE)"
 	@$(ECHO) "$(SOURCES)" > "$(SOURCES_FILE)"
 	$(SCALAC) "@$(OPTS_FILE)" "@$(SOURCES_FILE)"
@@ -82,7 +82,7 @@ DOC_SOURCES_FILE = $(TARGET_DIR)/scaladoc_sources.txt
 $(DOC_TARGET): $(DOC_SOURCES)
 	[ -d "$(DOC_TARGET_DIR)" ] || $(MKDIR) -p "$(DOC_TARGET_DIR)"
 	@$(ECHO) -classpath "$(CLASSES_DIR)" -siteroot "$(DOC_TARGET_DIR)" -d "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
-	@$(ECHO) "$(DOC_SOURCES)" > "$(DOC_SOURCES_FILE)"
+	@$(ECHO) $(DOC_SOURCES) > "$(DOC_SOURCES_FILE)"
 	$(SCALADOC) "@$(DOC_OPTS_FILE)" "@$(DOC_SOURCES_FILE)"
 	@$(TOUCH) "$(DOC_TARGET)"
 
@@ -112,8 +112,8 @@ TEST_CPATH      = $(SCALA_LIB_JAR)$(PSEP)$(SCALA3_LIB_JAR)$(PSEP)$(HAMCREST_JAR)
 
 $(TEST_TARGET): $(TEST_SOURCES)
 	[ -d "$(TEST_CLASSES_DIR)" ] || $(MKDIR) -p "$(TEST_CLASSES_DIR)"
-	@$(ECHO) "$(SCALAC_FLAGS) -classpath \"$(TEST_CPATH)\" -d \"$(TEST_CLASSES_DIR)\"" > "$(TEST_OPTS_FILE)"
-	@$(ECHO) "$(TEST_SOURCES)" > "$(TEST_SOURCES_FILE)"
+	@$(ECHO) $(SCALAC_FLAGS) -classpath "$(TEST_CPATH)" -d "$(TEST_CLASSES_DIR)" > "$(TEST_OPTS_FILE)"
+	@$(ECHO) $(TEST_SOURCES) > "$(TEST_SOURCES_FILE)"
 	$(SCALAC) "@$(TEST_OPTS_FILE)" "@$(TEST_SOURCES_FILE)"
 	@$(TOUCH) "$(TEST_TARGET)"
 
