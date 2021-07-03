@@ -26,7 +26,7 @@ This document is part of a series of topics related to [Scala 3][dotty] on Windo
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.31][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.32][git_downloads] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_downloads] ([*release notes*][openjdk_relnotes])
 - [Scala 3][scala3_releases] ([*release notes*][scala3_relnotes])
 
@@ -35,9 +35,9 @@ This project depends on the following external software for the **Microsoft Wind
 For instance our development environment looks as follows (*May 2021*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.31.1\             <i>(290 MB)</i>
-C:\opt\jdk-openjdk-11.0.10_9\  <i>(314 MB)</i>
-C:\opt\scala3-3.0.1-RC1\       <i>( 57 MB)</i>
+C:\opt\Git-2.32.0\             <i>(290 MB)</i>
+C:\opt\jdk-openjdk-11.0.11_9\  <i>(314 MB)</i>
+C:\opt\scala3-3.0.1-RC2\       <i>( 57 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_downloads] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -703,7 +703,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

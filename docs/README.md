@@ -65,7 +65,7 @@
 
 <hr style="margin:2em 0 0 0;" />
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

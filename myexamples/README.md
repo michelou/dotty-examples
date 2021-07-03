@@ -22,17 +22,17 @@ Build tools rely on one or more configuration files to achieve their tasks. In o
 
 | Build tool                    | Configuration file(s)                                   | Parent file(s)                       | Environment(s) |
 |-------------------------------|---------------------------------------------------------|--------------------------------------|---------|
-| [**`ant.bat`**][apache_ant_cli]   | [**`build.xml`**](HelloWorld/build.xml)                 | [**`build.xml`**](build.xml), [**`ivy.xml`**](ivy.xml) | Multiplatform <sup><b>a)</b></sup> |
-| [**`bazel.exe`**][bazel_cli]      | [**`BUILD`**](HelloWorld/BUILD), **`WORKSPACE`**        | n.a.                                 | Multiplatform |
+| [**`ant.bat`**][apache_ant_cli]   | [**`build.xml`**](HelloWorld/build.xml)                 | [**`build.xml`**](build.xml), [**`ivy.xml`**](ivy.xml) | Any <sup><b>a)</b></sup> |
+| [**`bazel.exe`**][bazel_cli]      | [**`BUILD`**](HelloWorld/BUILD), **`WORKSPACE`**        | n.a.                                 | Any |
 | [**`build.bat`**](HelloWorld/build.bat) | [**`build.properties`**](HelloWorld/project/build.properties) |  [**`cpath.bat`**](./cpath.bat) <sup><b>b)</b></sup>        | Windows only |
 | [**`build.sh`**](HelloWorld/build.sh) | [**`build.properties`**](HelloWorld/project/build.properties) |         | [Cygwin]/[MSYS2]/Unix only |
-| [**`gradle.bat`**][gradle_cli]    | [**`build.gradle`**](HelloWorld/build.gradle)           | [**`common.gradle`**](common.gradle) | Multiplatform |
-| [**`make.exe`**][gmake_cli]       | [**`Makefile`**](HelloWorld/Makefile)                   | [**`Makefile.inc`**](Makefile.inc)   | Multiplatform |
-| [**`mill.bat`**][mill_cli]        | [**`build.sc`**](HelloWorld/build.sc)                   | [**`common.sc`**](common.sc)         | Multiplatform |
-| [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](HelloWorld/pom.xml)                     | [**`pom.xml`**](pom.xml)             | Multiplatform |
-| [**`sbt.bat`**][sbt_cli]          | [**`build.sbt`**](HelloWorld/build.sbt)                 | n.a.                                 | Multiplatform |
+| [**`gradle.bat`**][gradle_cli]    | [**`build.gradle`**](HelloWorld/build.gradle)           | [**`common.gradle`**](common.gradle) | Any |
+| [**`make.exe`**][gmake_cli]       | [**`Makefile`**](HelloWorld/Makefile)                   | [**`Makefile.inc`**](Makefile.inc)   | Any |
+| [**`mill.bat`**][mill_cli]        | [**`build.sc`**](HelloWorld/build.sc)                   | [**`common.sc`**](common.sc)         | Any |
+| [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](HelloWorld/pom.xml)                     | [**`pom.xml`**](pom.xml)             | Any |
+| [**`sbt.bat`**][sbt_cli]          | [**`build.sbt`**](HelloWorld/build.sbt)                 | n.a.                                 | Any |
 <div style="margin:0 10% 0 8px;font-size:90%;">
-<b><sup>a)</sup></b> Multiplatform means "tested on Windows, Cygwin, M2SYS and Unix".<br/>
+<b><sup>a)</sup></b> Here "Any" means "tested on Windows, Cygwin, M2SYS and Unix".<br/>
 <b><sup>b)</sup></b> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).<br/>&nbsp;</div>
 
 
@@ -90,7 +90,7 @@ Buildfile: W:\myexamples\HelloWorld\build.xml
    [delete] Deleting directory W:\myexamples\HelloWorld\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] SCALA3_HOME=C:\opt\scala3-3.0.1-RC1
+     [echo] SCALA3_HOME=C:\opt\scala3-3.0.1-RC2
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -134,7 +134,7 @@ Command [**`setenv -bash`**](setenv.bat) starts a [Cygwin] Bash session:
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -bash</b>
 Tool versions:
-   javac 11.0.11, java 11.0.11, scalac 2.13.6, scalac 3.0.1-RC1,
+   javac 11.0.11, java 11.0.11, scalac 2.13.6, scalac 3.0.1-RC2,
    ant 1.10.10, gradle 7.1, mill 0.9.8, mvn 3.8.1, sbt 1.5.4,
    bazel 4.1.0, cfr 0.151, make 3.81, python 3.9.5,
    git 2.32.0.windows.1, diff 3.7
@@ -148,7 +148,7 @@ user@host MSYS /w
 ANT_HOME=C:\opt\apache-ant-1.10.10
 [...]
 SBT_HOME=C:\opt\sbt-1.5.4
-SCALA3_HOME=C:\opt\scala3-3.0.1-RC1
+SCALA3_HOME=C:\opt\scala3-3.0.1-RC2
 SCALA_HOME=C:\opt\scala-2.13.6
 </pre>
 
@@ -170,7 +170,7 @@ Similarly, command [**`setenv -msys`**](setenv.bat) starts a [MSYS2] Bash sessio
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -msys</b>
 Tool versions:
-   javac 11.0.11, java 11.0.11, scalac 2.13.6, scalac 3.0.1-RC1,
+   javac 11.0.11, java 11.0.11, scalac 2.13.6, scalac 3.0.1-RC2,
    ant 1.10.10, gradle 7.1, mill 0.9.8, mvn 3.8.1, sbt 1.5.4,
    bazel 4.1.0, cfr 0.151, make 3.81, python 3.9.5,
    git 2.32.0.windows.1, diff 3.7
@@ -184,7 +184,7 @@ user@host MINGW64 /w
 ANT_HOME=C:\opt\apache-ant-1.10.10
 [...]
 SBT_HOME=C:\opt\sbt-1.5.4
-SCALA3_HOME=C:\opt\scala3-3.0.1-RC1
+SCALA3_HOME=C:\opt\scala3-3.0.1-RC2
 SCALA_HOME=C:\opt\scala-2.13.6
 </pre>
 
@@ -306,7 +306,7 @@ Command **`make test`** executes the test suite [**`HelloWorldTest.scala`**](Hel
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 scalac.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.6/scala-library-2.13.6.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_3/3.0.1-RC1/scala3-library_3-3.0.1-RC1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.9/scalatest_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.9/scalactic_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.11.0/specs2-core_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.11.0/specs2-junit_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.11.0/specs2-matcher_2.13-4.11.0.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.6/scala-library-2.13.6.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_3/3.0.1-RC2/scala3-library_3-3.0.1-RC2.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.9/scalatest_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.9/scalactic_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.11.0/specs2-core_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.11.0/specs2-junit_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.11.0/specs2-matcher_2.13-4.11.0.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
 JUnit version 4.13.2
 .
 Time: 0.201
@@ -342,16 +342,16 @@ Command **`mvn clean test`** with option **`-debug`** produces additional debug 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/run.html">mvn</a> -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-openjdk-11.0.11_9\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.0.1-RC1 \
- -cp C:\opt\scala3-3.0.1-RC1\lib\*.jar -Dscala.usejavacp=true  \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.0.1-RC2 \
+ -cp C:\opt\scala3-3.0.1-RC2\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-openjdk-11.0.11_9\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.0.1-RC1 [...]
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.0.1-RC2 [...]
 [DEBUG] [execute] C:\opt\jdk-11.0.11_9\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\scala3-3.0.1-RC1\lib\*.jar;\
+ -Xms64m -Xmx1024m -cp C:\opt\scala3-3.0.1-RC2\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -394,7 +394,7 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 >         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>3.0.1-RC1<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.version&gt;</b>3.0.1-RC2<b>&lt;/scala.version&gt;</b>
 >         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
@@ -431,15 +431,15 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 Finally can check the Java manifest in **`HelloWorld-1.0-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.0.1-RC1\lib\dotty-library_3-3.0.1-RC1.jar;^
-c:\opt\scala3-3.0.1-RC1\lib\scala-library-2.13.6.jar ^
+<b>&gt;</b> <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.0.1-RC2\lib\dotty-library_3-3.0.1-RC2.jar;^
+c:\opt\scala3-3.0.1-RC2\lib\scala-library-2.13.6.jar ^
 -jar target\HelloWorld-1.0-SNAPSHOT.jar
 Hello world!
 </pre>
 
 > **:mag_right:** We can use batch script [**`searchjars`**](../bin/searchjars.bat) in case some class is missing in the specified classpath, e.g.
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.0.1-RC1\lib\scala3-library_3-3.0.1-RC1.jar -jar target\enum-Color-1.0-SNAPSHOT.jar</b>
+> <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.0.1-RC2\lib\scala3-library_3-3.0.1-RC2.jar -jar target\enum-Color-1.0-SNAPSHOT.jar</b>
 > Exception in thread "main" java.lang.NoClassDefFoundError: scala/Serializable
 >         [...]
 >         at Main.main(Main.scala)
@@ -448,7 +448,7 @@ Hello world!
 >         ... 13 more
 > 
 > <b>&gt; <a href="../bin/searchjars.bat">searchjars</a> Serializable</b>
-> Searching for class name Serializable in library files C:\opt\scala3-3.0.1-RC1\lib\*.jar
+> Searching for class name Serializable in library files C:\opt\scala3-3.0.1-RC2\lib\*.jar
 >   jackson-core-2.9.8.jar:com/fasterxml/jackson/core/SerializableString.class
 >   [...]
 >   scala-library-2.13.6.jar:scala/collection/generic/DefaultSerializable.class
@@ -457,7 +457,7 @@ Hello world!
 > Searching for class name Serializable in library files C:\opt\jdk-openjdk-11.0.11_9\lib\*.jar
 > Searching for class name Serializable in archive files C:\opt\javafx-sdk-14.0.2.1\lib\*.jar
 > </pre>
-> Class **`scala.Serializable`** is part of **`C:\opt\scala3-3.0.1-RC1\lib\scala-library-2.13.6.jar`**, so let us add it to our classpath !
+> Class **`scala.Serializable`** is part of **`C:\opt\scala3-3.0.1-RC2\lib\scala-library-2.13.6.jar`**, so let us add it to our classpath !
 
 
 ## <span id="mill">Mill build tool</span>
@@ -524,15 +524,15 @@ Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Main</i>
 
-<b>if</b> %_CLEAN%==1 (
+<b>if</b> <span style="color:#3333ff;">%_CLEAN%</span>==1 (
     <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> :clean</b>
     <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
-<b>if</b> %_COMPILE%==1 (
+<b>if</b> <span style="color:#3333ff;">%_COMPILE%</span>==1 (
     <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:compile</span></b>
     <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
-<b>if</b> %_DOC%==1 (
+<b>if</b> <span style="color:#3333ff;">%_DOC%</span>==1 (
     <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:doc</span></b>
     <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
@@ -608,7 +608,7 @@ following parameters are passed as login shell command parameters.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

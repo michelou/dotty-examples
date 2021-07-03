@@ -379,7 +379,7 @@ set __SCALAFMT_OPTS=--test --config "%_SCALAFMT_CONFIG_FILE%"
 if %_DEBUG%==1 set __SCALAFMT_OPTS=--debug %__SCALAFMT_OPTS%
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_MAIN_SOURCE_DIR%\" 1>&2
-) else if %_VERBOSE%==1 ( echo Analyze %__N% Scala source files with Scalafmt 1>&2
+) else if %_VERBOSE%==1 ( echo Analyze Scala source files with Scalafmt 1>&2
 )
 call "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% %_MAIN_SOURCE_DIR%\
 if not %ERRORLEVEL%==0 (
@@ -424,7 +424,7 @@ call :libs_cpath
 if not %_EXITCODE%==0 goto :eof
 
 set "__OPTS_FILE=%_TARGET_DIR%\javac_opts.txt"
-set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%" 
+set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%"
 echo -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\javac_sources.txt"
@@ -611,9 +611,11 @@ if not %_EXITCODE%==0 goto :eof
 
 set __CFR_OPTS=--extraclasspath "%_EXTRA_CPATH%" --outputdir "%__OUTPUT_DIR%"
 
-set "__CLASS_DIRS=%_CLASSES_DIR%"
+if exist "%_CLASSES_DIR%\*.class" ( set "__CLASS_DIRS=%_CLASSES_DIR%"
+) else ( set __CLASS_DIRS=
+)
 for /f "delims=" %%f in ('dir /b /s /ad "%_CLASSES_DIR%" 2^>NUL') do (
-    set __CLASS_DIRS=!__CLASS_DIRS! "%%f"
+    if exist "%%f\*.class" set __CLASS_DIRS=!__CLASS_DIRS! "%%f"
 )
 if %_VERBOSE%==1 echo Decompile Java bytecode to directory "!__OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
 for %%i in (%__CLASS_DIRS%) do (
@@ -690,6 +692,9 @@ if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Generation of HTML documentation failed 1>&2
     set _EXITCODE=1
     goto :eof
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% HTML documentation saved into directory "%_TARGET_DOCS_DIR%" 1>&2
+) else if %_VERBOSE%==1 ( echo HTML documentation saved into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
 )
 echo. > "%__DOC_TIMESTAMP_FILE%"
 goto :eof
