@@ -11,31 +11,11 @@
   </tr>
 </table>
 
-## <span id="issues">Reported Issues</span>
-
-We have come across several issues <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> while executing [Scala 3][scala3_home] commands on Windows:
-
-| [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Issue status&nbsp;&nbsp;&nbsp; | Context |
-| :-------------------------: | :--------: | :--------- |
-| [#11454][dotty_issue_11454] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
-| [#11453][dotty_issue_11453] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
-| [#11452][dotty_issue_11452] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
-| [#11014][dotty_issue_11014] | *open* | Markdown files |
-| [#8358][dotty_issue_8358] | *open* | Resource leak |
-| [#8355][dotty_issue_8355] | [fixed][dotty_pull_8356] <span style="font-size:80%;">(Feb 2020)</span> | Test suite |
-| [#8218][dotty_issue_8218] | [fixed][dotty_pull_8224] <span style="font-size:80%;">(Feb 2020)</span> | TASTy inspector |
-| [#8124][dotty_issue_8124] | [fixed][dotty_pull_8279] | Compiler settings |
-| [#7720][dotty_issue_7720] | [fixed][dotty_pull_7691] | Staging |
-| [#7148][dotty_issue_7146] | [fixed](https://github.com/dotty-staging/dotty/commit/2c529c6) | Shell scripts |
-| [#6868][dotty_issue_6868] | [fixed](https://github.com/lampepfl/dotty/commit/0ea949a) | Class file parser |
-| [#6367][dotty_issue_6367] | *open* | Dotty REPL |
-| [#4356][dotty_issue_4356] | [won't fix](https://github.com/lampepfl/dotty/issues/4356#event-2098905156) | Windows batch command |
-| [#4272][dotty_issue_4272] | [fixed](https://github.com/lampepfl/dotty/commit/9723748) | Type constraints|
-
 ## <span id="pull_requests">Pull Requests</span>
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :------------------------: | :--------: | :--------- |
+| [#13006][dotty_pull_13006] | [merged](https://github.com/lampepfl/dotty/commit/158b332) <span style="font-size:80%;">(July 2021)</span> | Batch files |
 | [#11728][dotty_pull_11728] | *pending* | Reference documentation |
 | [#11480][dotty_pull_11480] | [merged](https://github.com/lampepfl/dotty/commit/5eb3258) <span style="font-size:80%;">(Feb 2021)</span> | Reference documentation |
 | [#11257][dotty_pull_11257] | *WIP*  | Reference documentation |
@@ -53,7 +33,7 @@ We have come across several issues <sup id="anchor_01"><a href="#footnote_01">[1
 | [#8356][dotty_pull_8356] | [merged](https://github.com/lampepfl/dotty/commit/f51bf1b701a17851224472849c131ce6de38e2a7) <span style="font-size:80%;">(Feb 2020)</span> | Test suite |
 | [#8330][dotty_pull_8330] | [merged](https://github.com/lampepfl/dotty/commit/5018a1285cf3d8c0f3a17f98f015589154b0fbbd) <span style="font-size:80%;">(Feb 2020)</span> | Test suite |
 | [#8279][dotty_pull_8279] | [merged](https://github.com/lampepfl/dotty/commit/a5f1dae68202ba67ef99c39f243970ebd3530a65) <span style="font-size:80%;">(Feb.2020)</span> | Compiler options |
-| [#6653][dotty_pull_6653] | [merged](https://github.com/lampepfl/dotty/commit/fe02bf4fdc14f648b5f42731e39448995963256c) <span style="font-size:80%;">(Jun 2019)</span> | Batch commands |
+| [#6653][dotty_pull_6653] | [merged](https://github.com/lampepfl/dotty/commit/fe02bf4fdc14f648b5f42731e39448995963256c) <span style="font-size:80%;">(Jun 2019)</span> | Batch files |
 | [#5814](https://github.com/lampepfl/dotty/pull/5814) | [merged](https://github.com/lampepfl/dotty/commit/923fb06dc625e054e8b1833d4b7db49d369d91ad) <span style="font-size:80%;">(Jan 2019)</span> | **`build compile`** |
 | [#5659](https://github.com/lampepfl/dotty/pull/5659) | [merged](https://github.com/lampepfl/dotty/commit/7b9ffbb56b2bd33efead1c0f38a71c057c31463e) <span style="font-size:80%;">(Dec 2018)</span> | **`build bootstrap`** |
 | [#5587](https://github.com/lampepfl/dotty/pull/5587) | [merged](https://github.com/lampepfl/dotty/commit/172d6a0a1a3a4cbdb0a3ac4741b3f561d1221c40) <span style="font-size:80%;">(Dec 2018)</span> | **`build bootstrap`** |
@@ -61,7 +41,7 @@ We have come across several issues <sup id="anchor_01"><a href="#footnote_01">[1
 | [#5487](https://github.com/lampepfl/dotty/pull/5487) | [merged](https://github.com/lampepfl/dotty/commit/052c3b1) <span style="font-size:80%;">(Nov 2018)</span> | **`build bootstrap`** |
 | [#5457](https://github.com/lampepfl/dotty/pull/5457) | [merged](https://github.com/lampepfl/dotty/commit/eb175cb) <span style="font-size:80%;">(Nov 2018)</span> | **`build compile`** |
 | [#5452](https://github.com/lampepfl/dotty/pull/5452) | [merged](https://github.com/lampepfl/dotty/commit/7e093b15ff2a927212c7f40aa36b71d0a28f81b5) <span style="font-size:80%;">(Nov 2018)</span> | Code review |
-| [#5444](https://github.com/lampepfl/dotty/pull/5444) | [closed](https://github.com/lampepfl/dotty/pull/5444#issuecomment-567178490) | Batch commands |
+| [#5444](https://github.com/lampepfl/dotty/pull/5444) | [closed](https://github.com/lampepfl/dotty/pull/5444#issuecomment-567178490) | Batch files <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> |
 | [#5430](https://github.com/lampepfl/dotty/pull/5430) | [merged](https://github.com/lampepfl/dotty/commit/81b30383800495c64f2c8cfd0979e69e504104bc) <span style="font-size:80%;">(Nov 2018)</span> | **`build documentation`** |
 
 > **&#9755;** Related pull requests from other contributors include:<br/>
@@ -77,9 +57,43 @@ Below we summarize changes we made to the [source code](https://github.com/lampe
 - Transformation of URL addresses to file system paths<br/>*Example*: [**`url.getFile`**](https://docs.oracle.com/javase/8/docs/api/java/net/URL.html#getFile) **&rarr;** **`Paths.get(url.toURI).toString`**.
 - Unspecified character encoding when piping stdout<br/>*Example*: **`new InputStreamReader(process.getInputStream)`** **&rarr;** **`new InputStreamReader(process.getInputStream, "UTF-8")`**<br/>where **`process`** has type [**`ProcessBuilder`**](https://docs.oracle.com/javase/8/docs/api/java/lang/ProcessBuilder.html).
 
+## <span id="issues">Reported Issues</span>
+
+We have come across several issues <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup> while executing [Scala 3][scala3_home] commands on Windows:
+
+| [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Issue status&nbsp;&nbsp;&nbsp; | Context |
+| :-------------------------: | :--------: | :--------- |
+| [#11454][dotty_issue_11454] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
+| [#11453][dotty_issue_11453] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
+| [#11452][dotty_issue_11452] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
+| [#11014][dotty_issue_11014] | [fixed][dotty_pull_11833] <span style="font-size:80%;">(Mar 2021)</span> | Markdown files |
+| [#8358][dotty_issue_8358] | [fixed][scala_pull_9013] <span style="font-size:80%;">(May 2020)</span> | Resource leak |
+| [#8355][dotty_issue_8355] | [fixed][dotty_pull_8356] <span style="font-size:80%;">(Feb 2020)</span> | Test suite |
+| [#8218][dotty_issue_8218] | [fixed][dotty_pull_8224] <span style="font-size:80%;">(Feb 2020)</span> | TASTy inspector |
+| [#8124][dotty_issue_8124] | [fixed][dotty_pull_8279] <span style="font-size:80%;">(Feb 2020)</span> | Compiler settings |
+| [#7720][dotty_issue_7720] | [fixed][dotty_pull_7691] <span style="font-size:80%;">(Dec 2019)</span> | Staging |
+| [#7148][dotty_issue_7146] | [fixed](https://github.com/dotty-staging/dotty/commit/2c529c6) <span style="font-size:80%;">(Sep 2019)</span> | Shell scripts |
+| [#6868][dotty_issue_6868] | [fixed](https://github.com/lampepfl/dotty/commit/0ea949a) <span style="font-size:80%;">(Jul 2019)</span> | Class file parser |
+| [#6367][dotty_issue_6367] | *open* | Dotty REPL |
+| [#4356][dotty_issue_4356] | [won't fix](https://github.com/lampepfl/dotty/issues/4356#event-2098905156) <span style="font-size:80%;">(Jan 2019)</span> | Windows batch command |
+| [#4272][dotty_issue_4272] | [fixed](https://github.com/lampepfl/dotty/commit/9723748) <span style="font-size:80%;">(Apr 2018)</span> | Type constraints|
+
 ## <span id="footnotes">Footnotes</span>
 
-<span name="footnote_01">[1]</span> ***Git configuration*** [↩](#anchor_01)
+<span name="footnote_01">[1]</span> ***Batch files*** [↩](#anchor_01)
+
+<p style="margin:0 0 0 20px;">
+<a href="https://github.com/lampepfl/dotty/pull/5444">PR #5444</a> (<i>closed</i> in December 2019</i>) targets the MS Windows platform and includes 2 sets of batch files :
+</p>
+<ul>
+  <li>Batch files to run the <code>scala</code>, <code>scalac</code> and <code>scaladoc</code> commands from the Windows prompt.</li>
+  <li>Batch files to build the Scala 3 distribution archives (more details in file <a href="BUILD.md"><code>BUILD.md</code></a>).</li>
+</ul>
+<p style="margin:0 0 1em 20px;">
+<a href="https://github.com/lampepfl/dotty/pull/13006">PR #13006</a> (<i>merged</i> in July 2021) includes the first set of batch files.
+</p>
+
+<span name="footnote_02">[2]</span> ***Git configuration*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 We report here one issue we encountered when working with the <a href="https://git-scm.com/docs/git-config"><b><code>git</code></b></a> command on Windows, namely the error message <code>"Filename too long"</code>:
@@ -100,7 +114,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -141,3 +155,6 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_pull_11476]: https://github.com/lampepfl/dotty/pull/11476
 [dotty_pull_11480]: https://github.com/lampepfl/dotty/pull/11480 "more fixes in Markdown files"
 [dotty_pull_11728]: https://github.com/lampepfl/dotty/pull/11728 "more fixes in Markdown files"
+[dotty_pull_11833]: https://github.com/lampepfl/dotty/pull/11833 "add Wiki code blocks to Md syntax"
+[dotty_pull_13006]: https://github.com/lampepfl/dotty/pull/13006
+[scala_pull_9013]: https://github.com/scala/scala/pull/9013 "Close Source.fromFile"

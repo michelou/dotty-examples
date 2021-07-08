@@ -76,7 +76,7 @@ C:\opt\jacoco-0.8.7\               <i>( 10.7 MB)</i>
 C:\opt\javafx-sdk-16\              <i>( 79.0 MB)</i>
 C:\opt\jdk-openjdk-1.8.0_292-b10\  <i>(185.0 MB)</i>
 C:\opt\jdk-openjdk-11.0.11_9\      <i>(300.0 MB)</i>
-C:\opt\jdk-openjdk-17-ea_25\       <i>(292.0 MB)</i>
+C:\opt\jdk-openjdk-17-ea_29\       <i>(292.0 MB)</i>
 C:\opt\make-3.81\                  <i>(  2.1 MB)</i>
 C:\opt\Mill-0.9.8\                 <i>( 60.3 MB)</i>
 C:\opt\msys64\                     <i>( 5.56 GB)</i>
@@ -101,7 +101,7 @@ This project is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
 bin\cfr-0.151.zip
-bin\3.0.0\{<a href="bin/3.0.0/scalac.bat">scalac.bat</a>, <a href="bin/3.0.0/scala.bat">scala.bat</a>, ..}
+bin\3.0.0\{<a href="bin/3.0.0/scala.bat">scala.bat</a>, <a href="bin/3.0.0/scalac.bat">scalac.bat</a>, <a href="bin/3.0.0/scaladoc.bat">scaladoc.bat</a>}
 bin\dotty\
 docs\
 dotty\     <i>(Git submodule)</i>
@@ -125,6 +125,7 @@ where
 - directory [**`examples\`**](examples/) contains [Scala 3][scala3_home] examples grabbed from various websites (see file [**`examples\README.md`**](examples/README.md)).
 - directory [**`myexamples\`**](myexamples/) contains self-written [Scala 3][scala3_home] examples (see file [**`myexamples\README.md`**](myexamples/README.md)).
 - directory [**`plugin-examples\`**](plugin-examples/) contains [Scala 3][scala3_home] plugin examples (see file [**`plugin-examples\README.md`**](plugin-examples/README.md)).
+- file [**`CONTRIBUTIONS.md`**](CONTRIBUTIONS.md) lists PRs and issues we reported so far.
 - file [**`README.md`**](README.md) is the [Markdown][github_markdown] document for this page.
 - file [**`RESOURCES.md`**](RESOURCES.md) is the [Markdown][github_markdown] document presenting external resources.
 - file [**`setenv.bat`**](setenv.bat) is the batch command for setting up our environment.
