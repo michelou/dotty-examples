@@ -65,6 +65,10 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
+                            <additionalClasspathElements>
+                                <additionalClasspathElement>${m2.junit.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.scalatest.jar}</additionalClasspathElement>
+                            </additionalClasspathElements>
                             <includes>
                                 <include>scala/**/*.scala</include>
                             </includes>

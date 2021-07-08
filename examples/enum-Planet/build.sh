@@ -363,7 +363,7 @@ doc() {
 
     local doc_timestamp_file="$TARGET_DOCS_DIR/.latest-build"
 
-    local is_required="$(action_required "$doc_timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
+    local is_required="$(action_required "$doc_timestamp_file" "$CLASSES_DIR/" "*.tasty")"
     [[ $is_required -eq 0 ]] && return 1
 
     local sources_file="$TARGET_DIR/scaladoc_sources.txt"
@@ -371,14 +371,14 @@ doc() {
     # for f in $(find $SOURCE_DIR/main/java/ -name *.java 2>/dev/null); do
     #     echo $(mixed_path $f) >> "$sources_file"
     # done
-    for f in $(find $SOURCE_DIR/main/scala/ -name *.scala 2>/dev/null); do
+    for f in $(find "$CLASSES_DIR/" -name *.tasty 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
     done
     local opts_file="$TARGET_DIR/scaladoc_opts.txt"
     if [ $SCALA_VERSION -eq 2 ]; then
         echo -d "$(mixed_path $TARGET_DOCS_DIR)" -doc-title "$PROJECT_NAME" -doc-footer "$PROJECT_URL" -doc-version "$PROJECT_VERSION" > "$opts_file"
     else
-        echo -d "$(mixed_path $TARGET_DOCS_DIR)" -siteroot "$(mixed_path $TARGET_DOCS_DIR)" -project "$PROJECT_NAME" -project-version "$PROJECT_VERSION" > "$opts_file"
+        echo -d "$(mixed_path $TARGET_DOCS_DIR)" -project "$PROJECT_NAME" -project-version "$PROJECT_VERSION" > "$opts_file"
     fi
     if $DEBUG; then
         debug "$SCALADOC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"

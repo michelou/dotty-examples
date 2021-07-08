@@ -193,7 +193,7 @@
                 <fileset dir="@{srcdir}" includes="**/*.class" />
             </resourcecount>
             <condition property="s" value="" else="s">
-                <matches string="${n}" pattern="[0-1]" />
+                <matches string="n" pattern="[0-1]" />
             </condition>
             <echo message="Decompiling ${n} class file${s} to @{destdir}" level="info" />
             <pathconvert property="classpath" refid="@{classpathref}" />

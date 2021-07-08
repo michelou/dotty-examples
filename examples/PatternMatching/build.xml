@@ -5,6 +5,7 @@
     <property name="target.dir" value="${basedir}/target" />
     <property name="target-docs.dir" value="${target.dir}/docs" />
     <property name="build.dir" value="${target.dir}/classes" />
+    <property name="cfr-source.dir" value="${target.dir}/cfr-sources" />
     <property name="main.class" value="Main" />
 
     <property name="test-source.dir" value="${basedir}/src/test/scala" />
@@ -14,11 +15,26 @@
     <!-- task 'init' and macro 'dotc' are defined in parent build.xml -->
     <import file="../build.xml" />
 
+    <target name="lint">
+        <exec executable="${scalafmt.cmd}">
+            <arg value="--test" />
+            <arg value="--config" />
+            <arg path="../.scalafmt.conf" />
+        </exec>
+    </target>
+
     <target name="compile" depends="init">
         <mkdir dir="${build.dir}" />
         <dotc srcdir="${scala-source.dir}"
               destdir="${build.dir}"
               classpathref="build.classpath" />
+    </target>
+
+    <target name="decompile" depends="compile">
+        <mkdir dir="${cfr-source.dir}" />
+        <cfr srcdir="${build.dir}"
+             destdir="${cfr-source.dir}"
+             classpathref="build.classpath" />
     </target>
 
     <target name="doc" depends="compile">

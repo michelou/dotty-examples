@@ -38,7 +38,7 @@ Build tools rely on one or more configuration files to achieve their tasks. In o
 
 ## <span id="ant">Ant build tool</span>
 
-The configuration file [**`HelloWorld\build.xml`**](HelloWorld/build.xml) depends on the parent file [**`myexamples\build.xml`**](build.xml) which provides the macro definition **`dotc`** to compile the Scala source files.
+The configuration file [**`HelloWorld\build.xml`**](HelloWorld/build.xml) depends on the parent file [**`myexamples\build.xml`**](build.xml) which provides several macro definitions such as **`dotc`**, **`dotd`** and **`cfr`** to process Scala source files.
 
 > **:mag_right:** Command [**`ant`**][apache_ant_cli] (["Another Neat Tool"][apache_ant_faq]) is a Java-based build maintained by the [Apache Software Foundation][apache_ant_history] (tool created in 2000). It works with XML-based configuration files.
 
@@ -176,11 +176,11 @@ Tool versions:
    git 2.32.0.windows.1, diff 3.7
 &nbsp;
 user@odin MINGW64 /w
-<b>$ bash --version | grep bash</b>
+<b>$ bash --version | <a href="https://man7.org/linux/man-pages/man1/grep.1.html">grep</a> bash</b>
 GNU bash, version 5.1.4(1)-release (x86_64-pc-msys)
 &nbsp;
 user@host MINGW64 /w
-<b>$ env | grep _HOME | sort</b>
+<b>$ <a href="https://man7.org/linux/man-pages/man1/env.1.html">env</a> | <a href="https://man7.org/linux/man-pages/man1/grep.1.html">grep</a> _HOME | <a href="https://man7.org/linux/man-pages/man1/sort.1.html">sort</a></b>
 ANT_HOME=C:\opt\apache-ant-1.10.10
 [...]
 SBT_HOME=C:\opt\sbt-1.5.4
@@ -191,7 +191,7 @@ SCALA_HOME=C:\opt\scala-2.13.6
 Command [**`build clean run`**](HelloWorld/build.sh) produces the following output for project [**`HelloWorld`**](./HelloWorld/):
 <pre style="font-size:80%;">
 user@host MINGW64 /w
-$ cd myexamples/HelloWorld
+<b>$ <a href="https://man7.org/linux/man-pages/man1/cd.1p.html">cd</a> myexamples/HelloWorld</b>
 &nbsp;
 user@host MINGW64 /w/examples/HelloWorld
 <b>$ <a href="HelloWorld/build.sh">./build.sh</a> clean run</b>
