@@ -26,6 +26,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 This project depends on several external software for the **Microsoft Windows** platform:
 
 - [Corretto OpenJDK 11][corretto_downloads] from [Amazon][amazon_aws] ([*release notes*][corretto_relnotes]).
+- [Dragonwell OpenJDK 11][dragonwell_downloads] from [Alibaba][alibaba] ([*release notes*][dragonwell_relnotes]).
 - [GraalVM OpenJDK 11][graalvm_downloads] from [Oracle] ([*release notes*][graalvm_relnotes]).
 - [Liberica OpenJDK 11][bellsoft_downloads] from [BellSoft][bellsoft_about] ([*release notes*][bellsoft_relnotes]).
 - [OpenJ9 OpenJDK 11][openj9_downloads] from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html) ([*release notes*][openj9_relnotes], [*what's new?*][openj9_news]).
@@ -52,6 +53,7 @@ For instance our development environment looks as follows (*May 2021*) <sup id="
 C:\opt\jdk-bellsoft-11.0.11\      <i>(317 MB)</i>
 C:\opt\jdk-corretto-11.0.11_9\    <i>(292 MB)</i>
 C:\opt\jdk-dcevm-11.0.10_4\       <i>(313 MB)</i>
+C:\opt\jdk-dragonwell-11.0.11_0\  <i>(280 MB)</i>
 C:\opt\graalvm-ce-java11-21.1.0\  <i>(731 MB)</i>
 C:\opt\jdk-openj9-11.0.11_9\      <i>(295 MB)</i>
 C:\opt\jdk-openjdk-11.0.11_9\     <i>(299 MB)</i>
@@ -83,8 +85,9 @@ Let's compare the build times for Java 11 and Java 8 on a Win 10 laptop with an 
 
 | 11.0.10  | `bootstrap`     | `arch-only`     | **Total**       | 1.8.0_282 | `bootstrap`      | `arch-only`       | **Total**       |
 |----------|-----------------|-----------------|-----------------|-----------|-----------------|-----------------|-----------------|
-| [Liberica][bellsoft_downloads]<br/>(BellSoft) | 31:06<br/>33:42 | 01:10<br/>01:16 | 32:16<br/>34:58 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 25:40<br/>24:44 | 01:16<br/>01:16 | 26:56<br/>26:00 |
 | [Corretto][corretto_downloads]<br/>(Amazon) | 33:39<br/> | 01:09<br/>      |   34:48<br/>     | [Corretto][corretto_downloads]<br/>(Amazon) | *Failure* <sup>(1)</sup> |                 |                 |
+| [Dagonwell][dragonwell_downloads]<br/>(Alibaba) | tbd<br/>&nbsp; | tbd<br/>&nbsp; | tbd<br/>&nbsp; | [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) | tbd<br/>&nbsp; | tbd<br/>&nbsp; | tbd<br/>&nbsp; |
+| [Liberica][bellsoft_downloads]<br/>(BellSoft) | 31:06<br/>33:42 | 01:10<br/>01:16 | 32:16<br/>34:58 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 25:40<br/>24:44 | 01:16<br/>01:16 | 26:56<br/>26:00 |
 | [RedHat][redhat_downloads] | 32:26<br/>32:13 | 01:05<br/>01:04 | 33:31<br/>33:17 | [RedHat][redhat_downloads]    | 24:37<br/>25:19 | 01:11<br/>01:13 | 25:48<br/>26.32 |
 | [OpenJ9][openj9_downloads]<br/>(Eclipse) | 26:23<br/>36:42 | 01:18<br/>01:18 | 37:41<br/>38:00 | [OpenJ9][openj9_downloads]<br/>(Eclipse) | 31:40<br/>31:56 | 01:18<br/>01:20 | 32:58<br/>33:16 |
 | [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle)  | 32:44<br/>32:38 | 01:05<br/>01:07 | 33:49<br/>33:45 | [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) | 24:25<br/>24:30 | 01:12<br/>01:10 | 25:37<br/>25:40 |
@@ -149,23 +152,6 @@ An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For
 3. We go back to step 1 to verify that flag  **`sharing`** is present.
 
 
-### <span id="graalvm">GraalVM OpenJDK 11</span> [**&#9650;**](#top)
-
-[GraalVM][graalvm_org] is a universal virtual machine supporting the *interaction* between JVM-based languages like Java, Scala, Groovy, Kotlin, Clojure and native languages like C, C++, JavaScript, Python, R, Ruby.
-
-<pre style="font-size:80%;">
-<b>&gt; c:\opt\graalvm-ce-java11-21.1.0\bin\java -version</b>
-openjdk version "11.0.11" 2021-04-20
-OpenJDK Runtime Environment GraalVM CE 21.1.0 (build 11.0.11+8-jvmci-21.1-b05)
-OpenJDK 64-Bit Server VM GraalVM CE 21.1.0 (build 11.0.11+8-jvmci-21.1-b05, mixed mode, sharing)
-&nbsp;
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\graalvm-ce-java11-21.1.0\bin\server | findstr jsa</b>
-16.08.2020  08:41        17 563 648 classes.jsa
-</pre>
-
-We observe that [GraalVM][graalvm_org] is the only OpenJDK implementation to come with class sharing *enabled by default*.
-
-
 ### <span id="corretto">Corretto OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
@@ -178,7 +164,7 @@ OpenJDK 64-Bit Server VM Corretto-11.0.11.9.1 (build 11.0.11+9-LTS, mixed mode)
 [...]
 Number of classes 1214
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-corretto-11.0.11_9\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-corretto-11.0.11_9\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 30.10.2020  00:02        17 629 184 classes.jsa
 
 <b>&gt; c:\opt\jdk-corretto-11.0.11_9\bin\java -version</b>
@@ -188,6 +174,45 @@ OpenJDK 64-Bit Server VM Corretto-11.0.11.9.1 (build 11.0.11+9-LTS, mixed mode, 
 </pre>
 
 > **:mag_right:** Amazon provides online documentation specific to Corretto 11 (eg. [change Log][corretto_changes], [patches][corretto_patches] as well as Youtube videos (eg. Devoxx keynotes by [Arun Gupta][corretto_gupta] and [James Gosling][corretto_gosling]).
+
+### <span id="dragonwell">Dragonwell OpenJDK 11</span> [**&#9650;**](#top)
+
+<pre style="font-size:80%;">
+<b>&gt; c:\opt\jdk-dragonwell-11.0.11_0\bin\java -version</b>
+openjdk version "11.0.11" 2021-04-20
+OpenJDK Runtime Environment (Alibaba Dragonwell) (build 11.0.11+0)
+OpenJDK 64-Bit Server VM (Alibaba Dragonwell) (build 11.0.11+0, mixed mode)
+&nbsp;
+<b>&gt; c:\opt\jdk-dragonwell-11.0.11_0\bin\java -Xshare:dump</b>
+[...]
+Number of classes 1258
+[...]
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-dragonwell-11.0.11_0\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
+12.07.2021  16:43        17 956 864 classes.jsa
+&nbsp;
+<b>&gt; c:\opt\jdk-dragonwell-11.0.11_0\bin\java -version</b>
+openjdk version "11.0.11" 2021-04-20
+OpenJDK Runtime Environment (Alibaba Dragonwell) (build 11.0.11+0)
+OpenJDK 64-Bit Server VM (Alibaba Dragonwell) (build 11.0.11+0, mixed mode, sharing)
+</pre>
+
+
+### <span id="graalvm">GraalVM OpenJDK 11</span> [**&#9650;**](#top)
+
+[GraalVM][graalvm_org] is a universal virtual machine supporting the *interaction* between JVM-based languages like Java, Scala, Groovy, Kotlin, Clojure and native languages like C, C++, JavaScript, Python, R, Ruby.
+
+<pre style="font-size:80%;">
+<b>&gt; c:\opt\graalvm-ce-java11-21.1.0\bin\java -version</b>
+openjdk version "11.0.11" 2021-04-20
+OpenJDK Runtime Environment GraalVM CE 21.1.0 (build 11.0.11+8-jvmci-21.1-b05)
+OpenJDK 64-Bit Server VM GraalVM CE 21.1.0 (build 11.0.11+8-jvmci-21.1-b05, mixed mode, sharing)
+&nbsp;
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\graalvm-ce-java11-21.1.0\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
+16.08.2020  08:41        17 563 648 classes.jsa
+</pre>
+
+We observe that [GraalVM][graalvm_org] is the only OpenJDK implementation to come with class sharing *enabled by default*.
+
 
 ### <span id="liberica">Liberica OpenJDK 11</span> [**&#9650;**](#top)
 
@@ -205,7 +230,7 @@ OpenJDK 64-Bit Server VM (build 11.0.11+9-LTS, mixed mode)
 [...]
 Number of classes 1224
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-bellsoft-11.0.11\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-bellsoft-11.0.11\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 01.05.2021  16:38        17 760 256 classes.jsa
 
 <b>&gt; c:\opt\jdk-bellsoft-11.0.11\bin\java -version</b>
@@ -246,7 +271,7 @@ OpenJDK 64-Bit Server VM AdoptOpenJDK-11.0.11+9 (build 11.0.11+9, mixed mode)
 [...]
 Number of classes 1214
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-openjdk-11.0.11_9\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-openjdk-11.0.11_9\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 01.05.2021  16:41        17 694 720 classes.jsa
 &nbsp;
 <b>&gt; c:\opt\jdk-openjdk-11.0.11_9\bin\java -version</b>
@@ -268,7 +293,7 @@ OpenJDK 64-Bit Server VM 18.9 (build 11.0.10+9-LTS, mixed mode)
 [...]
 Number of classes 1229
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-redhat-11.0.10_9-1\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-redhat-11.0.10_9-1\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 30.10.2020  10:09        17 760 256 classes.jsa
 
 <b>&gt; c:\opt\jdk-redhat-11.0.10_9-1\bin\java -version</b>
@@ -292,7 +317,7 @@ OpenJDK 64-Bit Server VM SapMachine (build 11.0.11+9-LTS-sapmachine, mixed mode)
 [...]
 Number of classes 1214
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-sapmachine-11.0.11\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-sapmachine-11.0.11\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 01.05.2021  16:43        17 694 720 classes.jsa
 &nbsp;
 <b>&gt; c:\opt\jdk-sapmachine-11.0.11\bin\java -version</b>
@@ -320,7 +345,7 @@ Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.10+4-2020102419
 Number of classes 12629
 [...]
 total    :  18048312 [100.0% of total] out of  18219008 bytes [ 99.1% used
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-dcevm-11.0.10+4\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-dcevm-11.0.10+4\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 30.10.2020  09:26        17 956 864 classes.jsa
 
 <b>&gt; c:\opt\jdk-dcevm-11.0.10_4\bin\java -version</b>
@@ -354,7 +379,7 @@ OpenJDK 64-Bit Server VM Zulu11.48+21-CA (build 11.0.11+9-LTS, mixed mode)
 [...]
 Number of classes 1228
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-zulu-11.0.11\bin\server | findstr jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-zulu-11.0.11\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 01.05.2021  16:45        17 760 256 classes.jsa
 &nbsp;
 <b>&gt; c:\opt\jdk-zulu-11.0.11\bin\java -version</b>
@@ -401,12 +426,13 @@ The role of the JCK is not to determine <i>quality</i>, but rather to provide a 
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
+<a href="https://github.com/alibaba/dragonwell11/releases">Alibaba_Dragonwell_11.0.11.7_x64_windows.zip</a>                   <i>(181 MB)</i>
 <a href="https://github.com/corretto/corretto-11/releases" rel="external">amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip</a>                <i>(177 MB)</i>
-<a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.11+9-windows-amd64.zip</a>                       <i>(187 MB)</i>
+<a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.11+9-windows-amd64.zip</a>                        <i>(187 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.1.0">graalvm-ce-java11-windows-amd64-21.1.0.zip</a>                     <i>(360 MB)</i>
 <a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.10.9-1.windows.redhat.x86_64.zip</a>          <i>(256 MB)</i>
 <a href="https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases/latest">java11-openjdk-dcevm-windows.zip</a>                               <i>(187 MB)</i>
-<a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.10_1.zip</a>              <i>(190 MB)</i>
+<a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.10_1.zip</a>               <i>(190 MB)</i>
 <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">OpenJDK11U-jdk_x64_windows_openj9_11.0.11+9_openj9-0.26.0.zip</a>  <i>(193 MB)</i>
 <a href="https://github.com/SAP/SapMachine/releases/tag/sapmachine-11.0.11" rel="external">sapmachine-jdk-11.0.11_windows-x64_bin.zip</a>                     <i>(189 MB)</i>
 <a href="https://www.azul.com/downloads/zulu-community/?version=java-11-lts" rel="external">zulu11.45.27-ca-jdk11.0.11-win_x64.zip</a>                         <i>(190 MB)</i>
@@ -419,6 +445,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 
 <!-- link refs -->
 
+[alibaba]: https://www.alibabagroup.com/en/global/home
 [amazon_aws]: https://aws.amazon.com/
 [corretto_downloads]: https://github.com/corretto/corretto-11/releases
 [corretto_relnotes]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html
@@ -432,6 +459,9 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 [corretto_gosling]: https://www.youtube.com/watch?v=WuZk23O76Zk
 [corretto_gupta]: https://www.youtube.com/watch?v=RLKC5nsiZXU
 [corretto_patches]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/patches.html
+[dragonwell_downloads]: https://github.com/alibaba/dragonwell11/releases/tag/dragonwell-11.0.11.7_jdk-11.0.11-ga
+[dragonwell_relnotes]: https://github.com/alibaba/dragonwell11/wiki/Alibaba-Dragonwell-11-Release-Notes#110117
+[dragonwell8_downloads]: https://github.com/alibaba/dragonwell8/releases
 [graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [graalvm_org]: https://www.graalvm.org/
