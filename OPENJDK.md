@@ -47,35 +47,36 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*May 2021*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
+For instance our development environment looks as follows (*July 2021*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\jdk-bellsoft-11.0.11\      <i>(317 MB)</i>
 C:\opt\jdk-corretto-11.0.11_9\    <i>(292 MB)</i>
-C:\opt\jdk-dcevm-11.0.10_4\       <i>(313 MB)</i>
+C:\opt\jdk-dcevm-11.0.11_1\       <i>(313 MB)</i>
 C:\opt\jdk-dragonwell-11.0.11_0\  <i>(280 MB)</i>
 C:\opt\graalvm-ce-java11-21.1.0\  <i>(731 MB)</i>
 C:\opt\jdk-openj9-11.0.11_9\      <i>(295 MB)</i>
 C:\opt\jdk-openjdk-11.0.11_9\     <i>(299 MB)</i>
-C:\opt\jdk-redhat-11.0.10.9-1\    <i>(363 MB)</i>
+C:\opt\jdk-redhat-11.0.11.9-1\    <i>(363 MB)</i>
 C:\opt\jdk-sapmachine-11.0.11\    <i>(315 MB)</i>
 C:\opt\jdk-zulu-11.0.11\          <i>(300 MB)</i>
 </pre>
-<!-- hotspot : 11.0.8 = 297 MB, 11.0.9 = 299 MB, 11.0.10 = 300 MB -->
-<!-- corretto: 11.0.8 = 290 MB, 11.0.9 = 292 MB, 11.0.10 = 292 MB -->
-<!-- dcevm   : 11.0.8 = 296 MB, 11.0.9 = 296 MB, 11.0.10 = 313 MB-->
-<!-- sap     : 11.0.8 = 288 MB, 11.0.9 = 315 MB, 11.0.10 = 316 MB -->
-<!-- zulu    : 11.0.8 = 299 MB, 11.0.9 = 300 MB, 11.0.10 = 301 MB -->
+<!-- hotspot   : 11.0.8 = 297 MB, 11.0.9 = 299 MB, 11.0.10 = 300 MB -->
+<!-- corretto  : 11.0.8 = 290 MB, 11.0.9 = 292 MB, 11.0.10 = 292 MB -->
+<!-- dcevm     : 11.0.8 = 296 MB, 11.0.9 = 296 MB, 11.0.10 = 313 MB-->
+<!-- dragonwell: 11.0.11 = 307 MB -->
+<!-- sap       : 11.0.8 = 288 MB, 11.0.9 = 315 MB, 11.0.10 = 316 MB -->
+<!-- zulu      : 11.0.8 = 299 MB, 11.0.9 = 300 MB, 11.0.10 = 301 MB -->
 
 ## <span id="build_times">Scala 3 build times</span>
 
 We perform a quick comparison of the execution times to build the Scala 3 software distribution available as the following two archive files :
 <pre style="font-size:80%;">
-dist\target\scala3-3.0.1-RC1-bin-SNAPSHOT.tar.gz
-dist\target\scala3-3.0.1-RC1-bin-SNAPSHOT.zip
+dist\target\scala3-3.0.2-RC1-bin-SNAPSHOT.tar.gz
+dist\target\scala3-3.0.2-RC1-bin-SNAPSHOT.zip
 </pre>
 
-> **:mag_right:** Nightly builds are published on Maven as individual Java archive files, e.g. [nightly builds for version 3.0.1-RC1](https://repo1.maven.org/maven2/org/scala-lang/scala3-compiler_3.0.1-RC3/) of the Scala 3 compiler or [nightly builds for version 3.0.1-RC1](https://repo1.maven.org/maven2/org/scala-lang/scala3-library_3.0.1-RC1/) of the Scala 3 library (and so on).
+> **:mag_right:** Nightly builds are published on Maven as individual Java archive files, e.g. [nightly builds for version 3.0.1-RC1](https://repo1.maven.org/maven2/org/scala-lang/scala3-compiler_3.0.1-RC1/) of the Scala 3 compiler or [nightly builds for version 3.0.1-RC1](https://repo1.maven.org/maven2/org/scala-lang/scala3-library_3.0.1-RC1/) of the Scala 3 library (and so on).
 
 We ideally would run the command [`build -timer -verbose archives`](./bin/dotty/build.bat) to generate the above files (presuming all tests were successful).
 
@@ -83,17 +84,18 @@ Unfortunately a few tests still fail on Windows, so need to proceed in two steps
 
 Let's compare the build times for Java 11 and Java 8 on a Win 10 laptop with an i7-8550U (1.8 GHz) processor and 16 Go of memory :
 
-| 11.0.10  | `bootstrap`     | `arch-only`     | **Total**       | 1.8.0_282 | `bootstrap`      | `arch-only`       | **Total**       |
+| 11.0.11  | `bootstrap`     | `arch-only`     | **Total**       | 1.8.0_292 | `bootstrap`      | `arch-only`       | **Total**       |
 |----------|-----------------|-----------------|-----------------|-----------|-----------------|-----------------|-----------------|
-| [Corretto][corretto_downloads]<br/>(Amazon) | 33:39<br/> | 01:09<br/>      |   34:48<br/>     | [Corretto][corretto_downloads]<br/>(Amazon) | *Failure* <sup>(1)</sup> |                 |                 |
-| [Dagonwell][dragonwell_downloads]<br/>(Alibaba) | tbd<br/>&nbsp; | tbd<br/>&nbsp; | tbd<br/>&nbsp; | [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) | tbd<br/>&nbsp; | tbd<br/>&nbsp; | tbd<br/>&nbsp; |
-| [Liberica][bellsoft_downloads]<br/>(BellSoft) | 31:06<br/>33:42 | 01:10<br/>01:16 | 32:16<br/>34:58 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 25:40<br/>24:44 | 01:16<br/>01:16 | 26:56<br/>26:00 |
-| [RedHat][redhat_downloads] | 32:26<br/>32:13 | 01:05<br/>01:04 | 33:31<br/>33:17 | [RedHat][redhat_downloads]    | 24:37<br/>25:19 | 01:11<br/>01:13 | 25:48<br/>26.32 |
-| [OpenJ9][openj9_downloads]<br/>(Eclipse) | 26:23<br/>36:42 | 01:18<br/>01:18 | 37:41<br/>38:00 | [OpenJ9][openj9_downloads]<br/>(Eclipse) | 31:40<br/>31:56 | 01:18<br/>01:20 | 32:58<br/>33:16 |
-| [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle)  | 32:44<br/>32:38 | 01:05<br/>01:07 | 33:49<br/>33:45 | [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) | 24:25<br/>24:30 | 01:12<br/>01:10 | 25:37<br/>25:40 |
-| [DCEVM][trava_downloads]<br/>(Trava) | 32:36<br/>33:49 | 01:04<br/>01:07 | 33:40<br/>34:56 | [DCEVM][trava_downloads]<br/>(Trava) | n.a.            | n.a.            | n.a.            |
-| [Zulu][azul_downloads]<br/>(Azul)     | 31:01<br/>31:54 | 01:07<br/>01:07 | 32:08<br/>33:01 | [Zulu][azul_downloads]<br/>(Azul) | 24:21<br/>24:57 | 01:12<br/>01:13 | 25:33<br/>26:10 |
-<div style="font-size:80%;"><sup>(1)</sup>Build failure with "<code>Out of memory</code>" error.<br/>&nbsp;</div>
+| [Corretto][corretto_downloads]<br/>(Amazon) | 30:37<br/>30:53 | 01:11<br/>01:12  |   31:48<br/>32:05 | [Corretto][corretto_downloads]<br/>(Amazon) | 25:45</br>26:02 | 01:15</br>01:15 | 27:00</br>27:27 |
+| [Dragonwell][dragonwell_downloads]<br/>(Alibaba) | 31:21<br/>30:40 | 01:18<br/>01:20 | 32:39<br/>32:00 | [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) | 31:35<br/>32:02 | 01:17<br/>01:17 | 32:52<br/>33:19 |
+| [Liberica][bellsoft_downloads]<br/>(BellSoft) | 31:08<br/>33:42 | 01:10<br/>01:16 | 32:18<br/>34:58 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 25:06<br/>24:44 | 01:09<br/>01:16 | 25:15<br/>26:00 |
+| [RedHat][redhat_downloads] | 30:25<br/>32:13 | 01:21<br/>01:04 | 31:46<br/>33:17 | [RedHat][redhat_downloads]    | 25:53<br/>25:19 | 01:15<br/>01:13 | 27:08<br/>26.32 |
+| [OpenJ9][openj9_downloads]<br/>(Eclipse) | 26:23<br/>36:42 | 01:18<br/>01:18 | 37:41<br/>38:00 | [OpenJ9][openj9_downloads]<br/>(Eclipse) | 32:39<br/>31:56 | 01:23<br/>01:20 | 34:02<br/>33:16 |
+| [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle)  | 32:44<br/>32:38 | 01:05<br/>01:07 | 33:49<br/>33:45 | [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) | 25:17<br/>24:30 | 01:07<br/>01:10 | 26:24<br/>25:40 |
+| [DCEVM][trava_downloads]<br/>(Trava) <sup>(1)</sup> | 32:36<br/>33:49 | 01:04<br/>01:07 | 33:40<br/>34:56 | [DCEVM][trava_downloads]<br/>(Trava) | n.a.            | n.a.            | n.a.            |
+| [Zulu][azul_downloads]<br/>(Azul)     | 31:01<br/>31:54 | 01:30<br/>01:07 | 32:31<br/>33:01 | [Zulu][azul_downloads]<br/>(Azul) | 25:09<br/>24:57 | 01:08<br/>01:13 | 26:17<br/>26:10 |
+<div style="font-size:80%;">
+<sup>(1)</sup> DCEM Version 10.0.10.<br/>&nbsp;</div>
 
 Here are some observations about the above results :
 - The build process fails with [Corretto JDK][corretto_downloads] (ongoing investigation).
@@ -116,21 +118,20 @@ And we get the following build times for Java 11 and Java 8 look on a *slower* W
 
 ## <span id="build_errors">Scala 3 build errors</span>
 
-Build errors encountered on Windows on April 3, 2021, are :
+Build errors encountered on Windows on July 13, 2021, are :
 
-| JVM 8 - Failing tests  | bellsoft-08 | openj9-08 | openjdk-08 | redhat-08 | zulu-08 |
-|:-----------------------|:-----------:|:---------:|:----------:|:---------:|:-------:|
-| `FromTastyTests`       | Failed      | Failed    | Failed     | Failed    | Failed  |
-| `IdempotencyTests`     | Failed      | Failed    | Failed     | Failed    | Failed  |
-| `ZipArchiveTest`       | OK          | Failed    | OK         | OK        | OK      |
-| `CompilationTest`      | OK          | Failed    | OK         | OK        | OK      |
-| `ScriptingTests`       | OK          | Failed    | OK         | OK        | OK      |
+| JVM 8 - Failing tests  | bellsoft-08 | corretto-08 | dragonwell-08 | openj9-08 | openjdk-08 | redhat-08 | zulu-08 |
+|:-----------------------|:-----------:|:-----------:|:-------------:|:---------:|:----------:|:---------:|:-------:|
+| `FromTastyTests`       | Failed      | Failed      | Failed        | Failed    | Failed     | Failed    | Failed  |
+| `CompilationTest`      | OK          | OK          | OK            | Failed    | OK         | OK        | OK      |
+| `ClasspathTests`       | Failed      | Failed      | Failed        | Failed    | Failed     | Failed    | Failed  |
+| `ZipArchiveTest`       | OK          | OK          | OK            | Failed    | OK         | OK        | OK      |
 
-| JVM 11 - Failing tests | bellsoft-11 | corretto-11 | redhat-11 | zulu-11 |
-|:-----------------------|:-----------:|:-----------:|:---------:|:-------:|
-| `FromTastyTests`       | Failed      | Failed      | Failed    | Failed  |
-| `IdempotencyTests`     | Failed      | Failed      | &nbsp;    | Failed  |
-| `MultiReleaseJarTest`  | Failed      | Failed      | &nbsp;    | Failed  |
+| JVM 11 - Failing tests | bellsoft-11 | corretto-11 | dragonwell-11 | redhat-11 | zulu-11 |
+|:-----------------------|:-----------:|:-----------:|:-------------:|:---------:|:-------:|
+| `ClasspathTests  `     | Failed      | Failed      | Failed        | Failed    | Failed  |
+| `FromTastyTests`       | Failed      | Failed      | Failed        | Failed    | Failed  |
+| `MultiReleaseJarTest`  | Failed      | Failed      | Failed        | Failed    | Failed  |
 
 | JVM 17 - Failing tests | openjdk-17 | sapmachine-17 | zulu-17 |
 |:-----------------------|:----------:|:-------------:|:-------:|
@@ -335,12 +336,12 @@ OpenJDK 64-Bit Server VM SapMachine (build 11.0.11+9-LTS-sapmachine, mixed mode,
 ### <span id="trava">Trava OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-dcevm-11.0.10_4\bin\java -version</b>
-openjdk version "11.0.9" 2020-10-20
-OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.8+1-202010241925)
-Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.10+4-202010241925, mixed mode)
+<b>&gt; c:\opt\jdk-dcevm-11.0.11_1\bin\java -version</b>
+openjdk version "11.0.11" 2021-04-20
+OpenJDK Runtime Environment AdoptOpenJDK-dcevm-11.0.11+1-202105021746 (build 11.0.11+1-202105021746)
+Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK-dcevm-11.0.11+1-202105021746 (build 11.0.11+1-202105021746, mixed mode)
 
-<b>&gt; c:\opt\jdk-dcevm-11.0.10_4\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-dcevm-11.0.11_1\bin\java -Xshare:dump</b>
 [...]
 Number of classes 12629
 [...]
@@ -348,14 +349,15 @@ total    :  18048312 [100.0% of total] out of  18219008 bytes [ 99.1% used
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-dcevm-11.0.10+4\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 30.10.2020  09:26        17 956 864 classes.jsa
 
-<b>&gt; c:\opt\jdk-dcevm-11.0.10_4\bin\java -version</b>
-OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.10+4-202010241925)
-Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK (build 11.0.10+4-202010241925, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-dcevm-11.0.11_1\bin\java -version</b>
+openjdk version "11.0.11" 2021-04-20
+OpenJDK Runtime Environment AdoptOpenJDK-dcevm-11.0.11+1-202105021746 (build 11.0.11+1-202105021746)
+Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK-dcevm-11.0.11+1-202105021746 (build 11.0.11+1-202105021746, mixed mode, sharing)
 </pre>
 
 > **:mag_right:** [Trava OpenJDK](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases) is *not intended* to be used as 'main' JDK, since the integrated HotswapAgent is enabled by default and it uses serial GC by default. The default behaviour can be changed as follows:
 > <pre style="font-size:80%;">
-> <b>&gt; c:\opt\jdk-dcevm-11.0.10_4\bin\java -XX:+DisableHotswapAgent -XX:+UseConcMarkSweepGC -version</b>
+> <b>&gt; c:\opt\jdk-dcevm-11.0.11_1\bin\java -XX:+DisableHotswapAgent -XX:+UseConcMarkSweepGC -version</b>
 > Dynamic Code Evolution 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in version 9.0 and will likely be removed in a future release.
 > openjdk version "11.0.9" 2020-10-20
 > OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.10+4-202010241925)
