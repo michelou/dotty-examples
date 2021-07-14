@@ -80,7 +80,7 @@ C:\opt\jdk-openjdk-17-ea_30\       <i>(293.0 MB)</i>
 C:\opt\make-3.81\                  <i>(  2.1 MB)</i>
 C:\opt\Mill-0.9.8\                 <i>( 60.3 MB)</i>
 C:\opt\msys64\                     <i>( 5.56 GB)</i>
-C:\opt\sbt-1.5.4\                  <i>( 48.3 MB)</i>
+C:\opt\sbt-1.5.5\                  <i>( 48.3 MB)</i>
 C:\opt\scala-2.13.6\               <i>( 23.8 MB, 612 MB with API docs)</i>
 C:\opt\scala3-3.0.1\               <i>( 31.6 MB)</i>
 </pre>
@@ -90,7 +90,7 @@ C:\opt\scala3-3.0.1\               <i>( 31.6 MB)</i>
  <!-- sbt: 1.3.9 = 61.2 MB, 1.3.10 = 61.2 MB, 1.3.11 = 61.3 MB, 1.4.1 = 47.6 MB -->
  <!-- sbt: 1.4.2 = 47.7 MB, 1.4.3 = 47.7 MB, 1.4.6 -> 48 MB, 1.4.6 = MB -->
  <!-- sbt: 1.4.7 = 48.3 MB, 1.4.8 = 48.3 MB, 1.5.0 = 48.3 MB, 1.5.1 = 50.6 MB -->
- <!-- sbt: 1.5.2 = 50.6 MB, 1.5.3 = 50.6 MB, 1.5.4 = 50.6 MB -->
+ <!-- sbt: 1.5.2 = 50.6 MB, 1.5.3 = 50.6 MB, 1.5.4/1.5.5 = 50.6 MB -->
 
 > **:mag_right:** [Git for Windows][git_releases] provides a Bash emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
@@ -101,7 +101,7 @@ This project is organized as follows:
 <pre style="font-size:80%;">
 bin\*.bat
 bin\cfr-0.151.zip
-bin\3.0.0\{<a href="bin/3.0.0/scala.bat">scala.bat</a>, <a href="bin/3.0.0/scalac.bat">scalac.bat</a>, <a href="bin/3.0.0/scaladoc.bat">scaladoc.bat</a>}
+bin\3.0\{<a href="bin/3.0/scala.bat">scala.bat</a>, <a href="bin/3.0/scalac.bat">scalac.bat</a>, <a href="bin/3.0/scaladoc.bat">scaladoc.bat</a>}
 bin\dotty\
 docs\
 dotty\     <i>(Git submodule)</i>
@@ -118,7 +118,7 @@ where
 
 - directory [**`bin\`**](bin/) provides several utility [batch files][windows_batch_file].
 - file [**`bin\cfr-0.151.zip`**](bin/cfr-0.151.zip) contains a zipped distribution of [CFR][cfr_releases].
-- directory [**`bin\3.0.0\`**](bin/3.0.0/) contains the batch commands for [Scala 3][scala3_relnotes].
+- directory [**`bin\3.0\`**](bin/3.0/) contains the batch commands for [Scala 3][scala3_relnotes].
 - directory [**`bin\dotty\`**](bin/dotty/) contains several [batch files][windows_batch_file]/[bash scripts][unix_bash_script] for building the [Scala 3][scala3_home] software distribution on a Windows machine.
 - directory [**`docs\`**](docs/) contains [Scala 3][scala3_home] related papers/articles (see file [**`docs\README.md`**](docs/README.md)).
 - directory **`dotty\`** contains our fork of the [lampepfl/dotty][github_lampepfl_dotty] repository as a [Github submodule](.gitmodules).
@@ -170,7 +170,7 @@ We distinguish different sets of batch/bash commands:
    - [**`timeit.bat <cmd_1> { & <cmd_2> }`**](bin/timeit.bat) prints the execution time of the specified commands.
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory [**`bin\3.0.0\`**](bin/3.0/) - This directory contains batch files to be copied to the **`bin\`** directory of the [Scala 3][scala3_home] installation (eg. **`C:\opt\scala3-3.0.2-RC1\bin\`**) in order to use the [**`scalac`**](bin/3.0/scalac.bat), [**`scaladoc`**](bin/3.0/scaladoc.bat) and [**`scala`**](bin/3.0/scala.bat) commands on **Microsoft Windows**.
+3. Directory [**`bin\3.0\`**](bin/3.0/) - This directory contains batch files to be copied to the **`bin\`** directory of the [Scala 3][scala3_home] installation (eg. **`C:\opt\scala3-3.0.2-RC1\bin\`**) in order to use the [**`scalac`**](bin/3.0/scalac.bat), [**`scaladoc`**](bin/3.0/scaladoc.bat) and [**`scala`**](bin/3.0/scala.bat) commands on **Microsoft Windows**.
     > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Scala 3 distribution][scala3_releases]. We also have submitted pull request [#5444][github_PR5444] to add them to the [Scala 3][scala3_home] distribution.
 
     <pre style="font-size:80%;">
@@ -313,13 +313,13 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 1.8.0_292, java 1.8.0_292, scalac 2.13.6, scalac 3.0.1,
-   ant 1.10.11, gradle 7.1.1, mill 0.9.8, mvn 3.8.1, sbt 1.5.4,
+   ant 1.10.11, gradle 7.1.1, mill 0.9.8, mvn 3.8.1, sbt 1.5.5,
    bazel 4.1.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.6,
    git 2.32.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
-C:\opt\sbt-1.5.4\bin\sbt
-C:\opt\sbt-1.5.4\bin\sbt.bat
+C:\opt\sbt-1.5.5\bin\sbt
+C:\opt\sbt-1.5.5\bin\sbt.bat
 </pre>
 
 Other development tools such as [**`javac.exe`**][javac_cli] and [**`scalac.bat`**][scalac_cli] are accessible through the corresponding environment variable, e.g. **`JAVA_HOME`** for **`javac.exe`**, **`SCALA_HOME`** resp. **`SCALA3_HOME`** for **`scalac.bat`** and **`PYTHON_HOME`** for **`python.exe`**.
@@ -341,7 +341,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.6, scalac 3.0.1,
-   ant 1.10.11, gradle 7.1.1, mill 0.9.8, mvn 3.8.1, sbt 1.5.4,
+   ant 1.10.11, gradle 7.1.1, mill 0.9.8, mvn 3.8.1, sbt 1.5.5,
    bazel 4.1.0, cfr 0.151, make 3.81, python 3.9.6,
    git 2.32.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
@@ -354,7 +354,7 @@ Tool paths:
    C:\opt\gradle-7.1.1\bin\gradle.bat
    C:\opt\mill-0.9.8\mill.bat
    C:\opt\apache-maven-3.8.1\bin\mvn.cmd
-   C:\opt\sbt-1.5.4\bin\sbt.bat
+   C:\opt\sbt-1.5.5\bin\sbt.bat
    C:\opt\bazel-4.1.0\bazel.exe
    C:\opt\cfr-0.151\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
@@ -372,7 +372,7 @@ Environment variables:
    "MSVS_HOME=X:"
    "MSYS_HOME=C:\opt\msys64"
    "PYTHON_HOME=C:\opt\Python-3.9.6"
-   "SBT_HOME=C:\opt\sbt-1.5.4"
+   "SBT_HOME=C:\opt\sbt-1.5.5"
    "SCALA_HOME=C:\opt\scala-2.13.6"
    "SCALA3_HOME=C:\opt\scala3-3.0.1"
 </pre>
@@ -452,13 +452,13 @@ Local nightly version has changed from 3.0.1 to 3.0.2-RC1-bin-20210615-2db43da-N
 Activate nightly build libraries: 3.0.2-RC1-bin-20210615-2db43da-NIGHTLY
 Copy "lib\3.0.2-RC1-bin-20210615-2db43da-NIGHTLY\*.jar" "lib\"
 
-<b>&gt; <a href="bin/3.0.0/scalac.bat">scalac</a> -version</b>
+<b>&gt; <a href="bin/3.0/scalac.bat">scalac</a> -version</b>
 Scala compiler version 3.0.2-RC1-bin-20210615-2db43da-NIGHTLY-git-2db43da -- Copyright 2002-2021, LAMP/EPFL
 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> reset</b>
 Activate default Scala libraries: 3.0.1
 
-<b>&gt; <a href="bin/3.0.0/scalac.bat">scalac</a> -version</b>
+<b>&gt; <a href="bin/3.0/scalac.bat">scalac</a> -version</b>
 Scala compiler version 3.0.1 -- Copyright 2002-2021, LAMP/EPFL
 </pre>
 
@@ -625,9 +625,9 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 
 | Project file | Variable | Example |
 | :----------- | :------: | :------ |
-| `build.sbt` | `dottyVersion` | `3.0.0-RC3` &rarr; `3.0.0`|
-| `build.sc` | `scalaVersion` | `3.0.0-RC3` &rarr; `3.0.0` |
-| `project\build.properties` | `sbt.version` | `1.5.1` &rarr; `1.5.2` |
+| `build.sbt` | `dottyVersion` | `3.0.1-RC2` &rarr; `3.0.2-RC1`|
+| `build.sc` | `scalaVersion` | `3.0.1-RC2` &rarr; `3.0.2-RC1` |
+| `project\build.properties` | `sbt.version` | `1.5.4` &rarr; `1.5.5` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.5.4` &rarr; `0.5.5` |
 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
@@ -678,13 +678,13 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> scala</b>
-C:\opt\scala3-3.0.1\bin\scala
-C:\opt\scala3-3.0.1\bin\scala.bat
+C:\opt\scala3-3.0.2-RC1\bin\scala
+C:\opt\scala3-3.0.2-RC1\bin\scala.bat
 
-<b>&gt; <a href="bin/3.0.0/scala.bat">scala</a> -version</b>
-Scala code runner version 3.0.1 -- Copyright 2002-2021, LAMP/EPFL
+<b>&gt; <a href="bin/3.0/scala.bat">scala</a> -version</b>
+Scala code runner version 3.0.2-RC1 -- Copyright 2002-2021, LAMP/EPFL
 
-<b>&gt; <a href="bin/3.0.0/scala.bat">scala</a></b>
+<b>&gt; <a href="bin/3.0/scala.bat">scala</a></b>
 Starting scala REPL...
 scala> :help
 The REPL has several commands available:
@@ -762,13 +762,13 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.7.zip</a>                                  <i>(  4 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                 <i>( 10 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20210228.exe</a>                         <i>( 94 MB)</i>
-<a href="http://jdk.java.net/17/">openjdk-17-ea+23_windows-x64_bin.zip</a>              <i>(176 MB)</i>
+<a href="http://jdk.java.net/17/">openjdk-17-ea+30_windows-x64_bin.zip</a>              <i>(176 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-15.0.1_windows-x64_bin-sdk.zip</a>            <i>( 39 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.11_9.zip</a>  <i>( 99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.32.0-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
-<a href="https://github.com/sbt/sbt/releases">sbt-1.5.4.zip</a>                                     <i>( 17 MB)</i>
+<a href="https://github.com/sbt/sbt/releases">sbt-1.5.5.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.6.zip</a>                                  <i>( 21 MB)</i>
-<a href="https://github.com/lampepfl/dotty/releases/tag/3.0.1">scala3-3.0.1.zip</a>                              <i>( 24 MB)</i>
+<a href="https://github.com/lampepfl/dotty/releases/tag/3.0.2-RC1">scala3-3.0.2-RC1.zip</a>                              <i>( 24 MB)</i>
 </pre>
 
 <span name="footnote_05">[5]</span> ***PowerShell*** [↩](#anchor_05) <!-- 2018-05-09 -->
@@ -858,7 +858,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_downloads]: https://github.com/sbt/sbt/releases
 [sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.5.4
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.5.5
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala]: https://www.scala-lang.org/
 [scala3_home]: https://dotty.epfl.ch
