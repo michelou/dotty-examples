@@ -181,7 +181,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option %_STRONG_FG_GREEN%%__ARG%%__END% 1>&2
+        echo %_ERROR_LABEL% Unknown option %_STRONG_FG_GREEN%%__ARG%%_RESET% 1>&2
         set _EXITCODE=1
         goto args_done
     )

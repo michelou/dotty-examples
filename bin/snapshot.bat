@@ -14,20 +14,20 @@ if not %_EXITCODE%==0 goto end
 @rem #########################################################################
 @rem ## Main
 
-set _REFERENCE_VERSION=3.0.1-RC2
+set _REFERENCE_VERSION=3.0.1
 set _BASE_VERSION=3.0.2-RC1
 
-set _EIGHT=bellsoft-08 openj9-08 openjdk-08 redhat-08 zulu-08 zulu-08
-set _ELEVEN=bellsoft-11 corretto-11 dcevm-11 openj9-11 openjdk-11 redhat-11 sapmachine-11 zulu-11
+set _EIGHT=bellsoft-08 dragonwell-08 openj9-08 openjdk-08 redhat-08 zulu-08 zulu-08
+set _ELEVEN=bellsoft-11 corretto-11 dcevm-11 dragonwell-11 openj9-11 openjdk-11 redhat-11 sapmachine-11 zulu-11
 set _SEVENTEEN=openjdk-17 sapmachine-17 zulu-17
 
 @rem for %%i in (%_EIGHT% %_ELEVEN% %_SEVENTEEN%) do (
-for %%i in (%_ELEVEN%) do (
+for %%i in (%_EIGHT%) do (
     call :build_snapshot "%%i"
     if not !_EXITCODE!==0 goto end
     call :save_snapshot "%%i"
     if not !_EXITCODE!==0 goto end
-	timeout /t 20 /nobreak 1>NUL
+    timeout /t 20 /nobreak 1>NUL
 )
 goto end
 
@@ -50,6 +50,9 @@ for /f %%d in ('dir /ad /b "c:\opt\jdk-bellsoft-11*"') do set "_MAP[bellsoft-11]
 
 for /f %%d in ('dir /ad /b "c:\opt\jdk-corretto-11*"') do set "_MAP[corretto-11]=c:\opt\%%d"
 
+for /f %%d in ('dir /ad /b "c:\opt\jdk-dragonwell-1.8*"') do set "_MAP[dragonwell-08]=c:\opt\%%d"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-dragonwell-11*"') do set "_MAP[dragonwell-11]=c:\opt\%%d"
+
 for /f %%d in ('dir /ad /b "c:\opt\jdk-dcevm-11*"') do set "_MAP[dcevm-11]=c:\opt\%%d"
 
 for /f %%d in ('dir /ad /b "c:\opt\jdk-openj9-1.8*"') do set "_MAP[openj9-08]=c:\opt\%%d"
@@ -71,8 +74,8 @@ for /f %%d in ('dir /ad /b "c:\opt\jdk-zulu-17*"') do set "_MAP[zulu-17]=C:\opt\
 
 if not exist "%_ROOT_DIR%build.bat" (
     echo %_ERROR_LABEL% Batch file build.bat not found 1>&2
-	set _EXITCODE=1
-	goto :eof
+    set _EXITCODE=1
+    goto :eof
 )
 set "_BUILD_BAT=%_ROOT_DIR%build.bat"
 goto :eof
@@ -129,12 +132,12 @@ goto :eof
 @rem core.20210414.110041.2036.0001.dmp
 if exist "%_ROOT_DIR%core.*.dmp" (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% del "%_ROOT_DIR%core.*.dmp" 1>&2
-	del "%_ROOT_DIR%core.*.dmp"
+    del "%_ROOT_DIR%core.*.dmp"
 )
 @rem heapdump.20210414.110041.2036.0002.phd
 if exist "%_ROOT_DIR%headdump.*.phd" (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% del "%_ROOT_DIR%headdump.*.phd" 1>&2
-	del "%_ROOT_DIR%headdump.*.phd"
+    del "%_ROOT_DIR%headdump.*.phd"
 )
 @rem javacore.20210414.110041.2036.0003.txt
 if exist "%_ROOT_DIR%javacore.*.txt" (
