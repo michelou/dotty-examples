@@ -114,12 +114,12 @@ repositories {
 }
 
 dependencies {
-    implementation "org.scala-lang:scala3-compiler_3:3.0.1-RC2"
+    implementation "org.scala-lang:scala3-compiler_3:3.0.2-RC1"
     testImplementation "junit:junit:4.13.2"
 	testImplementation "org.scalatest:scalatest_3:3.2.9"
 	implementation "org.scalatest:scalatest-funspec_3:3.2.9"
 	implementation "org.scalatest:scalatest-funsuite_3:3.2.9"
-	implementation "org.specs2:specs2-common_2.13:4.12.2"
-	implementation "org.specs2:specs2-core_2.13:4.12.2"
-	implementation "org.specs2:specs2-junit_2.13:4.12.2"
+	implementation "org.specs2:specs2-common_2.13:4.12.3"
+	implementation "org.specs2:specs2-core_2.13:4.12.3"
+	implementation "org.specs2:specs2-junit_2.13:4.12.3"
 }

@@ -10,12 +10,12 @@ set _DEBUG=0
 set _EXITCODE=0
 
 @rem files build.sbt, build.sc and ivy.xml
-set _DOTTY_VERSION_OLD="3.0.1-RC1"
-set _DOTTY_VERSION_NEW="3.0.1-RC2"
+set _DOTTY_VERSION_OLD="3.0.1-RC2"
+set _DOTTY_VERSION_NEW="3.0.2-RC1"
 
 @rem files project\build.properties
-set _SBT_VERSION_OLD=sbt.version=1.5.3
-set _SBT_VERSION_NEW=sbt.version=1.5.4
+set _SBT_VERSION_OLD=sbt.version=1.5.4
+set _SBT_VERSION_NEW=sbt.version=1.5.5
 
 @rem files project\plugins.sbt
 @rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/
@@ -27,19 +27,19 @@ set _SCALATEST_VERSION_OLD=^(\"scalatest_2.13\"^)^(.+\"3.2.8\"^)
 set _SCALATEST_VERSION_NEW=$1 %%%% \"3.2.9\"
 
 @rem files ivy.xml (NB. PS regex)
-set _IVY_DOTTY_VERSION_OLD=^(scala3-[a-z]+^)_3.0.1-RC1
-set _IVY_DOTTY_VERSION_NEW=$1_3.0.1-RC2
+set _IVY_DOTTY_VERSION_OLD=^(scala3-[a-z]+^)_3.0.1-RC2
+set _IVY_DOTTY_VERSION_NEW=$1_3.0.2-RC1
 
-set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_3.0.1-RC1
-set _IVY_TASTY_VERSION_NEW=$1_3.0.1-RC2
+set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_3.0.1-RC2
+set _IVY_TASTY_VERSION_NEW=$1_3.0.2-RC1
 
 @rem files pom.xml (NB. PS regex)
-set _POM_DOTTY_VERSION_OLD=scala.version^>3.0.1-RC1
-set _POM_DOTTY_VERSION_NEW=scala.version^>3.0.1-RC2
+set _POM_DOTTY_VERSION_OLD=scala.version^>3.0.1-RC2
+set _POM_DOTTY_VERSION_NEW=scala.version^>3.0.2-RC1
 
 @rem files common.gradle
-set _GRADLE_DOTTY_VERSION_OLD=scala3-compiler_3:3.0.1-RC1
-set _GRADLE_DOTTY_VERSION_NEW=scala3-compiler_3:3.0.1-RC2
+set _GRADLE_DOTTY_VERSION_OLD=scala3-compiler_3:3.0.1-RC2
+set _GRADLE_DOTTY_VERSION_NEW=scala3-compiler_3:3.0.2-RC1
 
 call :env
 if not %_EXITCODE%==0 goto end

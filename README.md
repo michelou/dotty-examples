@@ -27,7 +27,7 @@ This project depends on the following external software for the **Microsoft Wind
 
 - [Git 2.32][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11 LTS][oracle_openjdk] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk_relnotes])
-- [Scala 3.0][dotty_releases] ([*release notes*][scala3_relnotes])
+- [Scala 3.0][scala3_releases] ([*release notes*][scala3_relnotes])
 <!--
 8u212   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
 8u222   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
@@ -66,7 +66,7 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*July 2021*) <sup id="anchor_04">[[4]](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\apache-ant-1.10.10\         <i>( 39.7 MB)</i>
+C:\opt\apache-ant-1.10.11\         <i>( 39.7 MB)</i>
 C:\opt\apache-maven-3.8.1\         <i>( 10.7 MB)</i>
 C:\opt\bazel-4.1.0\                <i>( 41.0 MB)</i>
 C:\opt\cfr-0.151\                  <i>(  1.9 MB)</i>
@@ -170,19 +170,19 @@ We distinguish different sets of batch/bash commands:
    - [**`timeit.bat <cmd_1> { & <cmd_2> }`**](bin/timeit.bat) prints the execution time of the specified commands.
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory [**`bin\3.0.0\`**](bin/3.0.0/) - This directory contains batch files to be copied to the **`bin\`** directory of the [Scala 3][scala3_home] installation (eg. **`C:\opt\scala3-3.0.1\bin\`**) in order to use the [**`scalac`**](bin/3.0.0/scalac.bat), [**`scaladoc`**](bin/3.0.0/scaladoc.bat) and [**`scala`**](bin/3.0.0/scala.bat) commands on **Microsoft Windows**.
-    > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Scala 3 distribution][dotty_releases]. We also have submitted pull request [#5444][github_PR5444] to add them to the [Scala 3][scala3_home] distribution.
+3. Directory [**`bin\3.0.0\`**](bin/3.0/) - This directory contains batch files to be copied to the **`bin\`** directory of the [Scala 3][scala3_home] installation (eg. **`C:\opt\scala3-3.0.2-RC1\bin\`**) in order to use the [**`scalac`**](bin/3.0/scalac.bat), [**`scaladoc`**](bin/3.0/scaladoc.bat) and [**`scala`**](bin/3.0/scala.bat) commands on **Microsoft Windows**.
+    > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Scala 3 distribution][scala3_releases]. We also have submitted pull request [#5444][github_PR5444] to add them to the [Scala 3][scala3_home] distribution.
 
     <pre style="font-size:80%;">
     <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3-3.0.1\bin</b>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/common">common</a>
-    <a href="bin/3.0.0/common.bat">common.bat</a>
+    <a href="bin/3.0/common.bat">common.bat</a>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/scala">scala</a>
-    <a href="bin/3.0.0/scala.bat">scala.bat</a>
+    <a href="bin/3.0/scala.bat">scala.bat</a>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/scalac">scalac</a>
-    <a href="bin/3.0.0/scalac.bat">scalac.bat</a>
+    <a href="bin/3.0/scalac.bat">scalac.bat</a>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/scalad">scaladoc</a>
-    <a href="bin/3.0.0/scaladoc.bat">scaladoc.bat</a>
+    <a href="bin/3.0/scaladoc.bat">scaladoc.bat</a>
     </pre>
 
 <!-- ## removed on 2018-10-05 ##
@@ -313,7 +313,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 1.8.0_292, java 1.8.0_292, scalac 2.13.6, scalac 3.0.1,
-   ant 1.10.10, gradle 7.1.1, mill 0.9.8, mvn 3.8.1, sbt 1.5.4,
+   ant 1.10.11, gradle 7.1.1, mill 0.9.8, mvn 3.8.1, sbt 1.5.4,
    bazel 4.1.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.6,
    git 2.32.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 
@@ -341,7 +341,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.6, scalac 3.0.1,
-   ant 1.10.10, gradle 7.1.1, mill 0.9.8, mvn 3.8.1, sbt 1.5.4,
+   ant 1.10.11, gradle 7.1.1, mill 0.9.8, mvn 3.8.1, sbt 1.5.4,
    bazel 4.1.0, cfr 0.151, make 3.81, python 3.9.6,
    git 2.32.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
@@ -350,7 +350,7 @@ Tool paths:
    C:\opt\scala-2.13.6\bin\scalac.bat
    C:\opt\scala3-3.0.1\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
-   C:\opt\apache-ant-1.10.10\bin\ant.bat
+   C:\opt\apache-ant-1.10.11\bin\ant.bat
    C:\opt\gradle-7.1.1\bin\gradle.bat
    C:\opt\mill-0.9.8\mill.bat
    C:\opt\apache-maven-3.8.1\bin\mvn.cmd
@@ -364,7 +364,7 @@ Tool paths:
    C:\opt\Git-2.32.0\usr\bin\diff.exe
    C:\opt\Git-2.32.0\bin\bash.exe
 Environment variables:
-   "ANT_HOME=C:\opt\apache-ant-1.10.10"
+   "ANT_HOME=C:\opt\apache-ant-1.10.11"
    "BAZEL_HOME=c:\opt\bazel-4.1.0"
    "GIT_HOME=C:\opt\Git-2.32.0"
    "JAVA_HOME=C:\opt\jdk-openjdk-11.0.11_9"
@@ -442,7 +442,7 @@ Finished to download 9 files to directory W:\out\nightly-jars
 Nightly version is 3-3.0.2-RC1-bin-20210615-2db43da-NIGHTLY
 </pre>
 
-We can now replace the library files from the original [Scala 3 distribution][dotty_releases] (installed in directory **`C:\opt\scala3-3.0.1\`** in our case) with library files from the latest nightly build.
+We can now replace the library files from the original [Scala 3 distribution][scala3_releases] (installed in directory **`C:\opt\scala3-3.0.2-RC1\`** in our case) with library files from the latest nightly build.
 
 Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in the [Scala 3][scala3_home] installation directory.
 
@@ -674,7 +674,7 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 
 [Scala REPL][scala_repl] is an interactive tool for evaluating [Scala] expressions. Internally, it executes a source script by wrapping it in a template and then compiling and executing the resulting program.
 
-   > **:warning:** Batch file [**`scala.bat`**](bin/3.0.0/scala.bat) is based on the bash script [**`scala`**][github_scala] available from the standard [Scala 3 distribution][dotty_releases]. We also have submitted pull request [#5444][github_PR5444] to add that batch file to the Dotty distribution.
+   > **:warning:** Batch file [**`scala.bat`**](bin/3.0/scala.bat) is based on the bash script [**`scala`**][github_scala] available from the standard [Scala 3 distribution][scala3_releases]. We also have submitted pull request [#5444][github_PR5444] to add that batch file to the Dotty distribution.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> scala</b>
@@ -755,7 +755,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/lihaoyi/mill/releases">0.9.8-assembly</a> (<code>mill</code>)                             <i>( 57 MB)</i>
-<a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.10-bin.zip</a>                        <i>(  9 MB)</i>
+<a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.11-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.8.1-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-4.1.0-windows-x86_64.zip</a>                    <i>( 40 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.1.1-bin.zip</a>                              <i>(103 MB)</i>
@@ -786,7 +786,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 [apache_ant]: https://ant.apache.org/
 [apache_ant_cli]: https://ant.apache.org/manual/running.html
-[apache_ant_relnotes]: https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.10.html
+[apache_ant_relnotes]: https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.11.html
 [apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
@@ -800,7 +800,6 @@ Command Prompt has been around for as long as we can remember, but starting with
 [dotty]: https://dotty.epfl.ch
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_nightly]: https://search.maven.org/search?q=g:ch.epfl.lamp
-[dotty_releases]: https://github.com/lampepfl/dotty/releases
 [github_scala]: https://github.com/lampepfl/dotty/blob/master/dist/bin/scala
 [git_bash]: https://www.atlassian.com/git/tutorials/git-bash
 [git_cli]: https://git-scm.com/docs/git
@@ -863,6 +862,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala]: https://www.scala-lang.org/
 [scala3_home]: https://dotty.epfl.ch
+[scala3_releases]: https://github.com/lampepfl/dotty/releases
 [scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.0.1
 [scala_releases]: https://www.scala-lang.org/files/archive/
 [scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.6
