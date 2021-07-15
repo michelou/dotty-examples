@@ -6,7 +6,7 @@
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:80px;" src="docs/dotty.png" alt="Dotty project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    This document presents issues and pull requests we have sofar submitted to the <a href="https://github.com/lampepfl/dotty/" rel="external">Dotty</a> project.<br/>&nbsp;
+    This document presents pull requests and issues we have submitted so far to the <a href="https://github.com/lampepfl/dotty/" rel="external">Dotty</a> project.<br/>&nbsp;
   </td>
   </tr>
 </table>

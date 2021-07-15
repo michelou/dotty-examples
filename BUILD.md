@@ -72,10 +72,10 @@ The directory structure of the [Dotty repository][github_dotty] <sup id="anchor_
 2. In directory [**`dotty\dist\bin\`**](https://github.com/michelou/dotty/tree/master/dist/bin) we add the batch files to be included in the generated software distributions.
 
    <pre style="font-size:80%;">
-   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/common.bat">dotty\dist\bin\common.bat</a>
-   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/scala.bat">dotty\dist\bin\scala.bat</a>
-   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/scalac.bat">dotty\dist\bin\scalac.bat</a>
-   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0.0/scaladoc.bat">dotty\dist\bin\scaladoc.bat</a>
+   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/common.bat">dotty\dist\bin\common.bat</a>
+   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/scala.bat">dotty\dist\bin\scala.bat</a>
+   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/scalac.bat">dotty\dist\bin\scalac.bat</a>
+   <a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/scaladoc.bat">dotty\dist\bin\scaladoc.bat</a>
    </pre>
    > **:mag_right:** With [PR#13006](https://github.com/lampepfl/dotty/pull/13006) those batch files have been added into the 3.0.2 branch of Scala 3.
 
@@ -93,10 +93,10 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch commands:
 
-1. Directory [**`bin\3.0.0\`**](bin/3.0.0) - This directory contains the shell scripts and batch files to be added unchanged to a [Scala 3 software distribution][dotty_releases].
+1. Directory [**`bin\3.0\`**](bin/3.0) - This directory contains the shell scripts and batch files to be added unchanged to a [Scala 3 software distribution][dotty_releases].
 
    <pre style="font-size:80%;">
-   <b>&gt; cp bin\3.0.0\*.bat dotty\dist\bin</b>
+   <b>&gt; cp bin\3.0\*.bat dotty\dist\bin</b>
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b dotty\dist\bin</b>
    common
    common.bat
@@ -333,8 +333,8 @@ Command **`build.bat archives`** works as follows:  ***if*** execution of the **
 [...]
 &nbsp;
 <b>&gt; dir /a-d /b dist\target</b>
-scala3-3.0.1-RC1-bin-SNAPSHOT.tar.gz
-scala3-3.0.1-RC1-bin-SNAPSHOT.zip
+scala3-3.0.2-RC1-bin-SNAPSHOT.tar.gz
+scala3-3.0.2-RC1-bin-SNAPSHOT.zip
 </pre>
 
 ### **`build.bat documentation`**

@@ -19,6 +19,16 @@
 
 ## <span id="blogs">Blogs</span>
 
+- [47 Degrees Blog](https://www.47deg.com/blog/)
+   - [Automatically Deriving Typeclass Instances in Scala 3](https://www.47deg.com/blog/scala-3-deriving-typeclasses/), May 2021.
+   - [Typeclasses in Scala 3](https://www.47deg.com/blog/scala-3-typeclasses/), May 2021.
+   - [Enumerations in Scala 3](https://www.47deg.com/blog/scala-3-enumerations/), April 2021.
+   - [Compiler Plugin Development in Scala 3](https://www.47deg.com/blog/compiler-plugin-development-scala3/), March 2021.
+- [Rock the JVM Blog](https://blog.rockthejvm.com/) by Daniel Ciocîrlan.
+   - [Exploiting Implicit Ambiguity in Scala ](https://blog.rockthejvm.com/anti-implicits/), July 2021.
+   - [Scala 3: Anti-Givens](https://blog.rockthejvm.com/anti-givens/), June 2021.
+   - [Scala 3: Extension Methods](https://blog.rockthejvm.com/scala-3-extension-methods/), April 2021.
+   - [Match Types in Scala 3](https://blog.rockthejvm.com/scala-3-match-types/), February 2021.
 - [Figuring out Scala functional programming libraries](https://blog.softwaremill.com/figuring-out-scala-functional-programming-libraries-af8230efccb4) by Krzysztof Atłasik, March 2021.
 - [Higher-rank and higher-kinded types](https://www.stephanboyer.com/post/115/higher-rank-and-higher-kinded-types) by Stephan Boyer, April 2016.
 - [Sum Types Are Coming: What You Should Know](https://chadaustin.me/2015/07/sum-types/) by Chad Austin, July 2015.
@@ -43,6 +53,10 @@
 ## <span id="shell">Shell Scripting</span>
 
 - [Google Shell Guide](https://google.github.io/styleguide/shellguide.html)
+
+## <span id="videos">Videos</span>
+
+- [Scala 3 has landed](https://youtu.be/JcLG9Ss9Y-w) by Martin Odersky, May 2021.
 
 ***
 
