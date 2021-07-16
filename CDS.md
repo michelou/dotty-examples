@@ -12,7 +12,7 @@
   </tr>
 </table>
 
-This document is part of a series of topics related to [Scala 3][dotty] on Windows:
+This document is part of a series of topics related to [Scala 3][scala3_home] on Windows:
 
 - [Running Scala 3 on Windows](README.md)
 - [Building Scala 3 on Windows](BUILD.md)
@@ -30,14 +30,14 @@ This project depends on the following external software for the **Microsoft Wind
 - [Oracle OpenJDK 11][openjdk_downloads] ([*release notes*][openjdk_relnotes])
 - [Scala 3][scala3_releases] ([*release notes*][scala3_relnotes])
 
-> **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Scala 3.0][scala_3] also support Java 9+. In the following we work with [Oracle OpenJDK 11][openjdk_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
+> **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Scala 3][scala_3] also support Java 9+. In the following we work with [Oracle OpenJDK 11][openjdk_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
 
 For instance our development environment looks as follows (*May 2021*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.32.0\             <i>(290 MB)</i>
 C:\opt\jdk-openjdk-11.0.11_9\  <i>(314 MB)</i>
-C:\opt\scala3-3.0.1-RC2\       <i>( 57 MB)</i>
+C:\opt\scala3-3.0.2-RC1\       <i>( 57 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_downloads] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -270,7 +270,7 @@ We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/t
 
 ## <span id="dotty_example">Scala 3 example</span>
 
-Source file [**`src\main\scala\Main.scala`**](cdsexamples/DottyExample/src/main/scala/Main.scala) is the main program of our [Dotty] code example:
+Source file [**`src\main\scala\Main.scala`**](cdsexamples/DottyExample/src/main/scala/Main.scala) is the main program of our [Scala 3][scala3_home] code example:
 
 <pre style="font-size:80%;">
 <b>package</b> cdsexamples
@@ -320,7 +320,7 @@ Create class list file target\DottyExample.classlist
 Create Java shared archive target\DottyExample.jsa
 </pre>
 
-We can now execute our [Dotty] example ***without data sharing*** (default settings: **`-share:off`**); option **`-verbose`** prints out the execution report:
+We can now execute our [Scala 3][scala3_home] example ***without data sharing*** (default settings: **`-share:off`**); option **`-verbose`** prints out the execution report:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="cdsexamples/DottyExample/build.bat">build</a> run</b>
@@ -376,7 +376,7 @@ Classes per package (874):
    scala.runtime.* (5), scala.sys.* (10), scala.util.* (14)
 </pre>
 
-Subcommand **`run`** with option **`-iter:<n>`** (**`n=1..99`**) executes **`n`** times the [Dotty] example:
+Subcommand **`run`** with option **`-iter:<n>`** (**`n=1..99`**) executes **`n`** times the [Scala 3][scala3_home] example:
 
 <pre style="font-size:80%;">
 <b>&gt; build run -verbose -share -iter:4</b>
@@ -447,14 +447,14 @@ Finally we can check the contents of the output directory **`target\`**:
 Note the following about the generated files:
 
 - File **`MANIFEST.MF`** is added to **`DottyExample.jar`** as usual.
-- Files **`classes\Main$.class`** and **`classes\Main.tasty`** ([typed AST][dotty_tasty]) are specific to the [Dotty] compiler.
+- Files **`classes\Main$.class`** and **`classes\Main.tasty`** ([typed AST][dotty_tasty]) are specific to the [Scala 3][scala3_home] compiler.
 - Files **`logs\log_classlist.log`** and **`logs\log_dump.log`** are generated when option **`-verbose`** is passed to the **`compile`** subcommand; they contain the execution logs for the generation of **`DottyExample.classlist`** resp. **`DottyExample.jsa`**. 
 - File **`logs\log_share_off.log`** is generated when option **`-share:off`** is passed to the **`run`** subcommand.
 - File **`logs\log_share_on.log`** is generated when option **`-share:on`** is passed to the **`run`** subcommand.
 
 ## Batch command `sharedata`
 
-Command [**`sharedata`**](bin/sharedata.bat) creates and (un-)installs Java shared archives for both **`dotc`** and **`dotr`**:
+Command [**`sharedata`**](bin/sharedata.bat) creates and (un-)installs Java shared archives for both **`scala`** and **`scalac`**:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/sharedata.bat">sharedata</a> help</b>
@@ -486,12 +486,12 @@ Support files for Java class sharing:
 </pre>
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\dotty-0.27.0-RC1\lib\dotty-cds*</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3_3.0.2-RC1\lib\dotty-cds*</b>
 dotty-cds-compiler.classlist
 dotty-cds-compiler.jsa
 dotty-cds-repl.classlist
 dotty-cds-repl.jsa
-dotty-cds_0.27-0.27.0-RC1.jar
+dotty-cds_3-3.0.2-RC1.jar
 </pre>
 
 <pre style="font-size:80%;">
@@ -708,8 +708,8 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 
 <!-- link refs -->
 
-[dotty]: https://dotty.epfl.ch/
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
+[scala3_home]: https://dotty.epfl.ch/
 [scala3_releases]: https://github.com/lampepfl/dotty/releases
 [scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.0.0-RC3
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html

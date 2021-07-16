@@ -1,0 +1,15 @@
+plugins {
+    id "java"
+}
+
+group "$appGroup"
+version "$appVersion"
+
+description """Gradle example project to build/run Scala 3 code"""
+
+apply from: "../common.gradle"
+
+run.doFirst {
+    main scalaMainClassName
+    args ""
+}

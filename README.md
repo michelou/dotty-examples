@@ -78,7 +78,7 @@ C:\opt\jdk-openjdk-1.8.0_292-b10\  <i>(185.0 MB)</i>
 C:\opt\jdk-openjdk-11.0.11_9\      <i>(300.0 MB)</i>
 C:\opt\jdk-openjdk-17-ea_30\       <i>(293.0 MB)</i>
 C:\opt\make-3.81\                  <i>(  2.1 MB)</i>
-C:\opt\Mill-0.9.8\                 <i>( 60.3 MB)</i>
+C:\opt\mill-0.9.9\                 <i>( 60.3 MB)</i>
 C:\opt\msys64\                     <i>( 5.56 GB)</i>
 C:\opt\sbt-1.5.5\                  <i>( 48.3 MB)</i>
 C:\opt\scala-2.13.6\               <i>( 23.8 MB, 612 MB with API docs)</i>
@@ -170,11 +170,11 @@ We distinguish different sets of batch/bash commands:
    - [**`timeit.bat <cmd_1> { & <cmd_2> }`**](bin/timeit.bat) prints the execution time of the specified commands.
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
-3. Directory [**`bin\3.0\`**](bin/3.0/) - This directory contains batch files to be copied to the **`bin\`** directory of the [Scala 3][scala3_home] installation (eg. **`C:\opt\scala3-3.0.2-RC1\bin\`**) in order to use the [**`scalac`**](bin/3.0/scalac.bat), [**`scaladoc`**](bin/3.0/scaladoc.bat) and [**`scala`**](bin/3.0/scala.bat) commands on **Microsoft Windows**.
-    > **&#9755;** We wrote (and do maintain) those batch files based on the bash scripts available from the official [Scala 3 distribution][scala3_releases]. We also have submitted pull request [#5444][github_PR5444] to add them to the [Scala 3][scala3_home] distribution.
+3. Directory [**`bin\3.0\`**](bin/3.0/) - This directory contains batch files to be copied to the **`bin\`** directory of the [Scala 3][scala3_home] installation for versions *prior to 3.0.2* in order to use the [**`scalac`**](bin/3.0/scalac.bat), [**`scaladoc`**](bin/3.0/scaladoc.bat) and [**`scala`**](bin/3.0/scala.bat) commands on **Microsoft Windows**.
+    > **&#9755;** Starting with version 3.0.2 those batch files are included in the [Scala 3 distribution][scala3_releases] (see [PR#13006](https://github.com/lampepfl/dotty/pull/13006), itself based on [PR#5444][github_PR5444]).
 
     <pre style="font-size:80%;">
-    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3-3.0.1\bin</b>
+    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3-3.0.2-RC1\bin</b>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/common">common</a>
     <a href="bin/3.0/common.bat">common.bat</a>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/scala">scala</a>
@@ -313,7 +313,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 1.8.0_292, java 1.8.0_292, scalac 2.13.6, scalac 3.0.1,
-   ant 1.10.11, gradle 7.1.1, mill 0.9.8, mvn 3.8.1, sbt 1.5.5,
+   ant 1.10.11, gradle 7.1.1, mill 0.9.9, mvn 3.8.1, sbt 1.5.5,
    bazel 4.1.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.6,
    git 2.32.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 
@@ -341,7 +341,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.10, java 11.0.10, scalac 2.13.6, scalac 3.0.1,
-   ant 1.10.11, gradle 7.1.1, mill 0.9.8, mvn 3.8.1, sbt 1.5.5,
+   ant 1.10.11, gradle 7.1.1, mill 0.9.9, mvn 3.8.1, sbt 1.5.5,
    bazel 4.1.0, cfr 0.151, make 3.81, python 3.9.6,
    git 2.32.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
@@ -352,7 +352,7 @@ Tool paths:
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.11\bin\ant.bat
    C:\opt\gradle-7.1.1\bin\gradle.bat
-   C:\opt\mill-0.9.8\mill.bat
+   C:\opt\mill-0.9.9\mill.bat
    C:\opt\apache-maven-3.8.1\bin\mvn.cmd
    C:\opt\sbt-1.5.5\bin\sbt.bat
    C:\opt\bazel-4.1.0\bazel.exe
@@ -754,7 +754,7 @@ For instance, for Visual Studio 2019, we set variable <b><code>BAZEL_VC</code></
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/lihaoyi/mill/releases">0.9.8-assembly</a> (<code>mill</code>)                             <i>( 57 MB)</i>
+<a href="https://github.com/lihaoyi/mill/releases">0.9.9-assembly</a> (<code>mill</code>)                             <i>( 57 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.11-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.8.1-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-4.1.0-windows-x86_64.zip</a>                    <i>( 40 MB)</i>

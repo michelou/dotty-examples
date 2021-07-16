@@ -57,6 +57,7 @@
 ## <span id="videos">Videos</span>
 
 - [Scala 3 has landed](https://youtu.be/JcLG9Ss9Y-w) by Martin Odersky, May 2021.
+- [Scala 3, Type Inference and You!](https://youtu.be/lMvOykNQ4zs) by Guillaume Martres, September 2019. 
 
 ***
 
