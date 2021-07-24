@@ -69,9 +69,13 @@
                                 <additionalClasspathElement>${m2.hamcrest.jar}</additionalClasspathElement>
                                 <additionalClasspathElement>${m2.hamcrest-core.jar}</additionalClasspathElement>
                                 <additionalClasspathElement>${m2.junit.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.junit-platform.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.junit-runner.jar}</additionalClasspathElement>
                                 <additionalClasspathElement>${m2.scala-reflect.jar}</additionalClasspathElement>
                                 <additionalClasspathElement>${m2.scalactic.jar}</additionalClasspathElement>
                                 <additionalClasspathElement>${m2.scalatest.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.scalatest-compatible.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.scalatest-core.jar}</additionalClasspathElement>
                                 <additionalClasspathElement>${m2.scalatest-funspec.jar}</additionalClasspathElement>
                                 <additionalClasspathElement>${m2.scalatest-funsuite.jar}</additionalClasspathElement>
                                 <additionalClasspathElement>${m2.specs2-common.jar}</additionalClasspathElement>

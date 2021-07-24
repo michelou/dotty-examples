@@ -26,6 +26,7 @@ if %_HELP%==1 (
 set _ANT_PATH=
 set _BAZEL_PATH=
 set _BLOOP_PATH=
+set _COURSIER_PATH=
 set _GIT_PATH=
 set _GRADLE_PATH=
 set _JMC_PATH=
@@ -77,6 +78,12 @@ if not %_EXITCODE%==0 (
 call :cfr
 if not %_EXITCODE%==0 goto end
 
+call :coursier
+if not %_EXITCODE%==0 (
+    @rem optional
+    echo %_WARNING_LABEL% Coursier installation not found 1>&2
+    set _EXITCODE=0
+)
 call :gradle
 if not %_EXITCODE%==0 goto end
 
@@ -499,7 +506,7 @@ if not exist "%_SCALA3_HOME%\bin\scalac.bat" (
 )
 goto :eof
 
-@rem output parameter(s): _SBT_HOME, _SBT_PATH
+@rem output parameters: _SBT_HOME, _SBT_PATH
 :sbt
 set _SBT_HOME=
 set _SBT_PATH=
@@ -532,7 +539,7 @@ if not exist "%_SBT_HOME%\bin\sbt.bat" (
 set "_SBT_PATH=;%_SBT_HOME%\bin"
 goto :eof
 
-@rem output parameter(s): _ANT_HOME, _ANT_PATH
+@rem output parameters: _ANT_HOME, _ANT_PATH
 :ant
 set _ANT_HOME=
 set _ANT_PATH=
@@ -570,7 +577,7 @@ if not exist "%_ANT_HOME%\bin\ant.cmd" (
 set "_ANT_PATH=;%_ANT_HOME%\bin"
 goto :eof
 
-@rem output parameter(s): _BAZEL_HOME, _BAZEL_PATH
+@rem output parameters: _BAZEL_HOME, _BAZEL_PATH
 :bazel
 set _BAZEL_HOME=
 set _BAZEL_PATH=
@@ -628,6 +635,42 @@ if not exist "%_CFR_HOME%\bin\cfr.bat" (
     set _EXITCODE=1
     goto :eof
 )
+goto :eof
+
+@rem output parameter: _COURSIER_HOME, _COURSIER_PATH
+:coursier
+set _COURSIER_HOME=
+set _COURSIER_PATH=
+
+set __COURSIER_CMD=
+for /f %%f in ('where coursier.bat 2^>NUL') do set "__COURSIER_CMD=%%f"
+if defined __COURSIER_CMD (
+    for %%i in ("%__COURSIER_CMD%") do set "_COURSIER_HOME=%%~dpf"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Coursier executable found in PATH 1>&2
+    goto :eof
+) else if defined COURSIER_HOME (
+    set "_COURSIER_HOME=%COURSIER_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable COURSIER_HOME 1>&2
+) else (
+    set __PATH=C:\opt
+    if exist "!__PATH!\coursier\" ( set "_COURSIER_HOME=!__PATH!\coursier"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\coursier-*" 2^>NUL') do set "_COURSIER_HOME=!__PATH!\%%f"
+        if not defined _COURSIER_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f %%f in ('dir /ad /b "!__PATH!\coursier-*" 2^>NUL') do set "_COURSIER_HOME=!__PATH!\%%f"
+        )
+    )
+    if defined _COURSIER_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Coursier installation directory !_COURSIER_HOME! 1>&2
+    )
+)
+if not exist "%_COURSIER_HOME%\coursier.bat" (
+    echo %_ERROR_LABEL% Coursier executable not found ^(%_COURSIER_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_COURSIER_PATH=;%_COURSIER_HOME%"
 goto :eof
 
 @rem output parameters: _GRADLE_HOME, _GRADLE_PATH
@@ -698,6 +741,8 @@ goto :eof
 
 @rem output parameter: _JAVAFX_HOME
 :javafx
+set _JAVAFX_HOME=
+
 if defined JAVAFX_HOME (
     set "_JAVAFX_HOME=%JAVAFX_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable JAVAFX_HOME 1>&2
@@ -722,7 +767,7 @@ if not exist "%_JAVAFX_HOME%\lib\javafx.graphics.jar" (
 )
 goto :eof
 
-@rem output parameter(s): _JMC_HOME, _JMC_PATH
+@rem output parameters: _JMC_HOME, _JMC_PATH
 :jmc
 set _JMC_HOME=
 set _JMC_PATH=
@@ -920,7 +965,7 @@ if not exist "%_MSYS_HOME%\msys2_shell.cmd" if %_MSYS%==1 (
 )
 goto :eof
 
-@rem output parameter(s): _PYTHON_HOME
+@rem output parameter: _PYTHON_HOME
 set _PYTHON_HOME=
 
 set __PYTHON_CMD=
@@ -945,11 +990,11 @@ if not exist "%_PYTHON_HOME%\python.exe" (
 )
 goto :eof
 
-@rem output parameter(s): _VSCODE_PATH
+@rem output parameters: _VSCODE_HOME, _VSCODE_PATH
 :vscode
+set _VSCODE_HOME=
 set _VSCODE_PATH=
 
-set __VSCODE_HOME=
 set __CODE_CMD=
 for /f %%f in ('where code.exe 2^>NUL') do set "__CODE_CMD=%%f"
 if defined __CODE_CMD (
@@ -957,31 +1002,31 @@ if defined __CODE_CMD (
     @rem keep _VSCODE_PATH undefined since executable already in path
     goto :eof
 ) else if defined VSCODE_HOME (
-    set "__VSCODE_HOME=%VSCODE_HOME%"
+    set "_VSCODE_HOME=%VSCODE_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable VSCODE_HOME 1>&2
 ) else (
     set __PATH=C:\opt
-    if exist "!__PATH!\VSCode\" ( set "__VSCODE_HOME=!__PATH!\VSCode"
+    if exist "!__PATH!\VSCode\" ( set "_VSCODE_HOME=!__PATH!\VSCode"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "__VSCODE_HOME=!__PATH!\%%f"
-        if not defined __VSCODE_HOME (
+        for /f %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
+        if not defined _VSCODE_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "__VSCODE_HOME=!__PATH!\%%f"
+            for /f %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
         )
     )
 )
-if not exist "%__VSCODE_HOME%\code.exe" (
-    echo %_ERROR_LABEL% VSCode executable not found ^(%__VSCODE_HOME%^) 1>&2
-    if exist "%__VSCODE_HOME%\Code - Insiders.exe" (
+if not exist "%_VSCODE_HOME%\code.exe" (
+    echo %_ERROR_LABEL% VSCode executable not found ^(%_VSCODE_HOME%^) 1>&2
+    if exist "%_VSCODE_HOME%\Code - Insiders.exe" (
         echo %_WARNING_LABEL% It looks like you've installed an Insider version of VSCode 1>&2
     )
     set _EXITCODE=1
     goto :eof
 )
-set "_VSCODE_PATH=;%__VSCODE_HOME%"
+set "_VSCODE_PATH=;%_VSCODE_HOME%"
 goto :eof
 
-@rem output parameter(s): _GIT_HOME, _GIT_PATH
+@rem output parameters: _GIT_HOME, _GIT_PATH
 :git
 set _GIT_HOME=
 set _GIT_PATH=
@@ -1087,19 +1132,13 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%SBT_HOME%\bin:sbt.bat"
 if %ERRORLEVEL%==0 (
-    @rem retrieve version of sbt installation WITHOUT starting sbt (costly)
-    pushd "%TEMP%"
-    call "%JAVA_HOME%\bin\jar.exe" xf "%SBT_HOME%\bin\sbt-launch.jar" sbt/sbt.boot.properties
-    popd
-    set "__PS1_SCRIPT=$s=select-string -path '%TEMP%\sbt\sbt.boot.properties' -pattern 'sbt.version';if($s -match '.*\[([0-9.]+)\].*'){$matches[1]}else{'unknown'}"
-    for /f "usebackq" %%i in (`powershell -c "!__PS1_SCRIPT!"`) do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% sbt %%i,"
-    del "%TEMP%\sbt\sbt.boot.properties" 1>NUL 2>&1
+    for /f "tokens=1-3,*" %%i in ('"%SBT_HOME%\bin\sbt.bat" --version ^| findstr script') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% sbt %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%SBT_HOME%\bin:sbt.bat"
 )
-where /q bazel.exe
+where /q "%BAZEL_HOME%:bazel.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('bazel.exe --version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bazel %%j,"
-    set __WHERE_ARGS=%__WHERE_ARGS% bazel.exe
+    for /f "tokens=1,*" %%i in ('"%BAZEL_HOME%\bazel.exe" --version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bazel %%j,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%BAZEL_HOME%:bazel.exe"
 )
 @rem where /q bloop.cmd
 @rem if %ERRORLEVEL%==0 (
@@ -1114,10 +1153,15 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('"%CFR_HOME%\bin\cfr.bat" 2^>^&1 ^| findstr /b CFR') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% cfr %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%CFR_HOME%\bin:cfr.bat"
 )
-where /q make.exe
+where /q "%COURSIER_HOME%:coursier.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,*" %%i in ('make.exe --version 2^>^&1 ^| findstr Make') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% make %%k,"
-    set __WHERE_ARGS=%__WHERE_ARGS% make.exe
+    for /f %%i in ('"%COURSIER_HOME%\coursier.bat" --version 2^>^&1') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% coursier %%i,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%COURSIER_HOME%:coursier.bat"
+)
+where /q "%MAKE_HOME%\bin:make.exe"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,2,*" %%i in ('"%MAKE_HOME%\bin\make.exe" --version 2^>^&1 ^| findstr Make') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% make %%k,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%MAKE_HOME%\bin:make.exe"
 )
 where /q "%PYTHON_HOME%:python.exe"
 if %ERRORLEVEL%==0 (
@@ -1150,6 +1194,8 @@ if %__VERBOSE%==1 (
     echo Environment variables: 1>&2
     if defined ANT_HOME echo    "ANT_HOME=%ANT_HOME%" 1>&2
     if defined BAZEL_HOME echo    "BAZEL_HOME=%BAZEL_HOME%" 1>&2
+    if defined CFR_HOME echo    "CFR_HOME=%CFR_HOME%" 1>&2
+    if defined COURSIER_HOME echo    "COURSIER_HOME=%COURSIER_HOME%" 1>&2
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
     if defined GRADLE_HOME echo    "GRADLE_HOME=%GRADLE_HOME%" 1>&2
     if defined JAVA_HOME echo    "JAVA_HOME=%JAVA_HOME%" 1>&2
@@ -1177,6 +1223,7 @@ endlocal & (
         if not defined ANT_HOME set "ANT_HOME=%_ANT_HOME%"
         if not defined BAZEL_HOME set "BAZEL_HOME=%_BAZEL_HOME%"
         if not defined CFR_HOME set "CFR_HOME=%_CFR_HOME%"
+        if not defined COURSIER_HOME set "COURSIER_HOME=%_COURSIER_HOME%"
         if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
         if not defined GRADLE_HOME set "GRADLE_HOME=%_GRADLE_HOME%"
         if not defined JACOCO_HOME set "JACOCO_HOME=%_JACOCO_HOME%"
@@ -1192,7 +1239,7 @@ endlocal & (
         if not defined SBT_HOME set "SBT_HOME=%_SBT_HOME%"
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
         if not defined SCALA3_HOME set "SCALA3_HOME=%_SCALA3_HOME%"
-        set "PATH=%PATH%%_ANT_PATH%%_BAZEL_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
+        set "PATH=%PATH%%_ANT_PATH%%_BAZEL_PATH%%_COURSIER_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE%
         if not "%CD:~0,2%"=="%_DRIVE_NAME%:" (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME%: 1>&2

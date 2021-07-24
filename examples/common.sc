@@ -52,7 +52,7 @@ val ivySpecs2Core = ivy"org.specs2:specs2-core_$scalaBinaryVersion:$specs2Versio
 val ivySpecs2JUnit = ivy"org.specs2:specs2-junit_$scalaBinaryVersion:$specs2Version"
 
 // https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-val ivyScalaXml = ivy"org.scala-lang.modules:scala-xml_3:2.0.0"
+val ivyScalaXml = ivy"org.scala-lang.modules:scala-xml_3:2.0.1"
 
 // https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parser-combinators
 val ivyScalaParser = ivy"org.scala-lang.modules:scala-parser-combinators_3:2.0.0"

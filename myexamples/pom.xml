@@ -14,7 +14,7 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId> <!-- old: "ch.epfl.lamp" -->
-        <scala.version>3.0.1-RC2</scala.version> <!-- eg. "3.0.0", "2.13.3" or "0.26.0" -->
+        <scala.version>3.0.2-RC1</scala.version> <!-- eg. "3.0.0", "2.13.3" or "0.26.0" -->
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugin versions -->
@@ -89,7 +89,7 @@
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
-            <version>2.13.5</version>
+            <version>2.13.6</version>
         </dependency>
         <dependency>
             <groupId>ch.epfl.alumni</groupId>

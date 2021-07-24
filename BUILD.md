@@ -11,7 +11,7 @@
   </tr>
 </table>
 
-This document is part of a series of topics related to [Scala 3][scala3_home] on Windows:
+This document is part of a series of topics related to [Scala 3][scala3_home] on Microsoft Windows:
 
 - [Running Scala 3 on Windows](README.md)
 - Building Scala 3 on Windows [**&#9660;**](#bottom)
@@ -45,9 +45,11 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 For instance our development environment looks as follows (*July 2021*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.32.0\             <i>(279 MB)</i>
-C:\opt\jdk-openjdk-11.0.11_9\  <i>(314 MB)</i>
-C:\opt\sbt-1.5.5\              <i>( 48 MB)</i>
+C:\opt\Git-2.32.0\                 <i>(279 MB)</i>
+C:\opt\jdk-openjdk-1.8.0u292-b10\  <i>(186 MB)</i>
+C:\opt\jdk-openjdk-11.0.11_9\      <i>(314 MB)</i>
+C:\opt\jdk-openjdk-17-ea_31\       <i>(293 MB)</i>
+C:\opt\sbt-1.5.5\                  <i>( 48 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -91,9 +93,10 @@ In the next section we give a brief description of the batch files present in th
 
 ## <span id="batch_commands">Batch/Bash commands</span>
 
-We distinguish different sets of batch commands:
+We distinguish several sets of batch commands:
 
 1. Directory [**`bin\3.0\`**](bin/3.0) - This directory contains the shell scripts and batch files to be added unchanged to a [Scala 3 software distribution][dotty_releases].
+   > **:mag_right:** With the merge of [PR#13006](https://github.com/lampepfl/dotty/pull/13006) into the <b><code>3.0.2</code></b> branch of the [Dotty project][scala3_home] the copy operation below is no more required.
 
    <pre style="font-size:80%;">
    <b>&gt; cp bin\3.0\*.bat dotty\dist\bin</b>
@@ -110,10 +113,10 @@ We distinguish different sets of batch commands:
 
 2. [**`build.bat`**](bin/dotty/build.bat)/[**`build.sh`**](bin/dotty/build.sh) - Both commands perform on a Windows machine the same build/test steps as specified in file [**`ci.yaml`**](https://github.com/michelou/dotty/blob/master/.github/workflows/ci.yaml) and executed on the [Dotty CI][dotty_ci] server.
 
-   > **:mag_right:** We get the same behavior when working with command [**`./build.sh`**](bin/dotty/build.sh) as presented below with command [**`build.bat`**](bin/dotty/build.bat).
+   > **:mag_right:** Scala users working in a Linux-like environment such as Cygwin or MSYS2 can perform the same tasks with the bash script [**`./build.sh`**](bin/dotty/build.sh).
 
    <pre style="font-size:80%;">
-   <b>&gt; cp bin\dotty\build.bat dotty</b>
+   <b>&gt; cp bin\dotty\build.* dotty</b>
    <b>&gt; cp bin\dotty\project\scripts\*.bat dotty\project\scripts\</b>
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a> dotty</b></pre>
 
@@ -152,7 +155,7 @@ We distinguish different sets of batch commands:
 
    Subcommands obey the following dependency rules for their execution:
 
-    | **A** depends on **B** | Execution time<sup>**(1)**</sup> | Output from **A** |
+    | **A** depends on **B** | Execution time<sup>**a)**</sup> | Output from **A** |
     | :------------ | :------------: | :------------ |
     | `clean` &rarr; &empty; | &lt;1 min | &nbsp; |
     | `clone` &rarr; &empty; | &lt;1 min | &nbsp; |
@@ -163,7 +166,7 @@ We distinguish different sets of batch commands:
     | `documentation` &rarr; `bootstrap` | &nbsp; | `docs\_site\*.html`<br/>`docs\docs\*.md` |
     | `sbt` &rarr; `bootstrap` | &nbsp; | &nbsp; |
     
-    <sub><sup>**(1)**</sup> Average execution time measured on a i7-i8550U laptop with 16 GB of memory.</sub>
+    <sub><sup>**a)**</sup> Average execution time measured on a i7-i8550U laptop with 16 GB of memory.</sub>
 
     > **:mag_right:** Subcommands whose name ends with **`-only`** help us to execute one single step without running again the precedent ones. They are listed as *Advanced subcommands* by command **`build help`** and should ***never*** be used in an automatic build.
     > 
@@ -332,7 +335,7 @@ Command **`build.bat archives`** works as follows:  ***if*** execution of the **
 <b>&gt; <a href="bin/dotty/build.bat">build</a> arch-only</b>
 [...]
 &nbsp;
-<b>&gt; dir /a-d /b dist\target</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b dist\target</b>
 scala3-3.0.2-RC1-bin-SNAPSHOT.tar.gz
 scala3-3.0.2-RC1-bin-SNAPSHOT.zip
 </pre>

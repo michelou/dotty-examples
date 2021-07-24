@@ -23,7 +23,7 @@ set __SCALA_BINARY_VERSION=2.13
 call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSION%" "1.1.1"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.0.0"
+call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.0.1"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parser-combinators
 call :add_jar "org.scala-lang.modules" "scala-parser-combinators_3" "2.0.0"

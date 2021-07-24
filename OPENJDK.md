@@ -82,7 +82,7 @@ We ideally would run the command [`build -timer -verbose archives`](./bin/dotty/
 
 Unfortunately a few tests still fail on Windows, so need to proceed in two steps, running the command [`build -timer -verbose clean boot & build -timer -verbose arch-only`](./bin/dotty/build.bat), in order to achieve our goal. 
 
-Let's compare the build times for Java 11 and Java 8 on a Win 10 laptop with an i7-8550U (1.8 GHz) processor and 16 Go of memory :
+Let's compare the build times for Java 11 and Java 8 on a Win 10 laptop with an i7-8550U (1.8 GHz) processor and 16 Go of memory <sup id="anchor_03">[[3]](#footnote_03)</sup> :
 
 | 11.0.11  | `bootstrap`     | `arch-only`     | **Total**       | 1.8.0_292 | `bootstrap`      | `arch-only`       | **Total**       |
 |----------|-----------------|-----------------|-----------------|-----------|-----------------|-----------------|-----------------|
@@ -438,6 +438,52 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">OpenJDK11U-jdk_x64_windows_openj9_11.0.11+9_openj9-0.26.0.zip</a>  <i>(193 MB)</i>
 <a href="https://github.com/SAP/SapMachine/releases/tag/sapmachine-11.0.11" rel="external">sapmachine-jdk-11.0.11_windows-x64_bin.zip</a>                     <i>(189 MB)</i>
 <a href="https://www.azul.com/downloads/zulu-community/?version=java-11-lts" rel="external">zulu11.45.27-ca-jdk11.0.11-win_x64.zip</a>                         <i>(190 MB)</i>
+</pre>
+
+<span name="footnote_03">[3]</span> ***Snapshot builds*** [↩](#anchor_03)
+
+<p style="margin:0 0 1em 20px;">
+We run the batch file <a href="./bin/dotty/snapshot.bat"><code>snapshot.bat</code></a> (which calls <a href="./bin/dotty/build.bat"><code>build.bat</code></a>) to generate <b>36</b> Scala 3 distributions for <b>9</b> OpenJDK implementations (see snyk report "<a href="https://snyk.io/jvm-ecosystem-report-2021/">JVM Ecosystem report 2021"</a>).
+</p>
+
+<pre style="margin:0 0 1em 20px;font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b __SNAPSHOT_LOCAL</b>
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>bellsoft-08</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-bellsoft-08.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>bellsoft-11</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-bellsoft-11.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>corretto-11</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-corretto-11.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>dcevm-11</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-dcevm-11.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>dragonwell-08</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-dragonwell-08.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>dragonwell-11</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-dragonwell-11.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>openj9-08</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-openj9-08.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>openj9-11</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-openj9-11.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>openjdk-08</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-openjdk-08.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>openjdk-11</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-openjdk-11.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>openjdk-17</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-openjdk-17.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>redhat-08</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-redhat-08.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>redhat-11</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-redhat-11.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>sapmachine-11</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-sapmachine-11.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>sapmachine-17</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-sapmachine-17.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>zulu-08</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-zulu-08.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>zulu-11</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-zulu-11.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>zulu-17</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-zulu-17.zip
 </pre>
 
 ***

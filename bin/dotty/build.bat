@@ -234,17 +234,17 @@ set __BRANCH_NAME=unknown
 for /f %%i in ('"%_GIT_CMD%" rev-parse --abbrev-ref HEAD') do set __BRANCH_NAME=%%i
 
 echo Tool paths 1>&2
-echo    GIT_CMD="%_GIT_CMD%"
-echo    JAVA_CMD="%JAVA_HOME%\bin\java.exe"
-echo    SBT_CMD="%_SBT_CMD%"
-echo Tool options
-echo    JAVA_OPTS=%JAVA_OPTS%
-echo    SBT_OPTS=%SBT_OPTS%
-echo Sbt build version ^(build.properties^):
-echo    %__SBT_BUILD_VERSION%
-echo Current Git branch:
-echo    %__BRANCH_NAME%
-echo.
+echo    "GIT_CMD=%_GIT_CMD%" 1>&2
+echo    "JAVA_CMD=%JAVA_HOME%\bin\java.exe" 1>&2
+echo    "SBT_CMD=%_SBT_CMD%" 1>&2
+echo Tool options 1>&2
+echo    JAVA_OPTS=%JAVA_OPTS% 1>&2
+echo    SBT_OPTS=%SBT_OPTS% 1>&2
+echo Sbt build version ^(build.properties^): 1>&2
+echo    %__SBT_BUILD_VERSION% 1>&2
+echo Current Git branch: 1>&2
+echo    %__BRANCH_NAME% 1>&2
+echo. 1>&2
 goto :eof
 
 :help
