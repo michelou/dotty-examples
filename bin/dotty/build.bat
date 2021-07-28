@@ -353,7 +353,7 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 
-rem see shell script project/scripts/cmdTests
+@rem see shell script project/scripts/cmdTests
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SCRIPTS_DIR%\cmdTests.bat" 1>&2
 call "%_SCRIPTS_DIR%\cmdTests.bat"
 if not %ERRORLEVEL%==0 (
