@@ -50,16 +50,16 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 For instance our development environment looks as follows (*July 2021*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\jdk-bellsoft-11.0.11\      <i>(317 MB)</i>
-C:\opt\jdk-corretto-11.0.11_9\    <i>(292 MB)</i>
+C:\opt\jdk-bellsoft-11.0.12\      <i>(300 MB)</i>
+C:\opt\jdk-corretto-11.0.12_7\    <i>(293 MB)</i>
 C:\opt\jdk-dcevm-11.0.11_1\       <i>(313 MB)</i>
 C:\opt\jdk-dragonwell-11.0.11_0\  <i>(280 MB)</i>
-C:\opt\graalvm-ce-java11-21.1.0\  <i>(731 MB)</i>
+C:\opt\graalvm-ce-java11-21.2.0\  <i>(731 MB)</i>
 C:\opt\jdk-openj9-11.0.11_9\      <i>(295 MB)</i>
 C:\opt\jdk-openjdk-11.0.11_9\     <i>(299 MB)</i>
-C:\opt\jdk-redhat-11.0.11.9-1\    <i>(363 MB)</i>
-C:\opt\jdk-sapmachine-11.0.11\    <i>(315 MB)</i>
-C:\opt\jdk-zulu-11.0.11\          <i>(300 MB)</i>
+C:\opt\jdk-redhat-11.0.12.7-1\    <i>(364 MB)</i>
+C:\opt\jdk-sapmachine-11.0.12\    <i>(316 MB)</i>
+C:\opt\jdk-zulu-11.0.12\          <i>(302 MB)</i>
 </pre>
 <!-- hotspot   : 11.0.8 = 297 MB, 11.0.9 = 299 MB, 11.0.10 = 300 MB -->
 <!-- corretto  : 11.0.8 = 290 MB, 11.0.9 = 292 MB, 11.0.10 = 292 MB -->
@@ -82,7 +82,7 @@ We ideally would run the command [`build -timer -verbose archives`](./bin/dotty/
 
 Unfortunately a few tests still fail on Windows, so need to proceed in two steps, running the command [`build -timer -verbose clean boot & build -timer -verbose arch-only`](./bin/dotty/build.bat), in order to achieve our goal. 
 
-Let's compare the build times for Java 11 and Java 8 on a Win 10 laptop with an i7-8550U (1.8 GHz) processor and 16 Go of memory <sup id="anchor_03">[[3]](#footnote_03)</sup> :
+Let's compare the build times for Java 11 and Java 8 on a Win10 laptop with an i7-8550U (1.8 GHz) processor and 16 Go of memory <sup id="anchor_03">[[3]](#footnote_03)</sup> :
 
 | 11.0.11  | `bootstrap`     | `arch-only`     | **Total**       | 1.8.0_292 | `bootstrap`      | `arch-only`       | **Total**       |
 |----------|-----------------|-----------------|-----------------|-----------|-----------------|-----------------|-----------------|
@@ -118,22 +118,22 @@ And we get the following build times for Java 11 and Java 8 look on a *slower* W
 
 ## <span id="build_errors">Scala 3 build errors</span>
 
-Build errors encountered on Windows on July 13, 2021, are :
+Build errors encountered on MS Windows on July 13, 2021, are :
 
-| JVM 8 - Failing tests  | bellsoft-08 | corretto-08 | dragonwell-08 | openj9-08 | openjdk-08 | redhat-08 | zulu-08 |
+| JVM 8 - Failing tests  | <a href="https://bell-sw.com/pages/downloads/#/java-8-lts">bellsoft-08</a> | <a href="https://github.com/corretto/corretto-8/releases">corretto-08</a> | <a href="https://github.com/alibaba/dragonwell8/releases">dragonwell-08</a> | <a href="https://adoptopenjdk.net/releases.html?variant=openjdk8&jvmVariant=openj9">openj9-08</a> | <a href="https://adoptopenjdk.net/releases.html?variant=openjdk8&jvmVariant=hotspot">openjdk-08</a> | <a href="https://developers.redhat.com/products/openjdk/download">redhat-08</a> | <a href="https://www.azul.com/downloads/?version=java-8-lts&package=jdk">zulu-08</a> |
 |:-----------------------|:-----------:|:-----------:|:-------------:|:---------:|:----------:|:---------:|:-------:|
 | `FromTastyTests`       | Failed      | Failed      | Failed        | Failed    | Failed     | Failed    | Failed  |
 | `CompilationTest`      | OK          | OK          | OK            | Failed    | OK         | OK        | OK      |
 | `ClasspathTests`       | Failed      | Failed      | Failed        | Failed    | Failed     | Failed    | Failed  |
 | `ZipArchiveTest`       | OK          | OK          | OK            | Failed    | OK         | OK        | OK      |
 
-| JVM 11 - Failing tests | bellsoft-11 | corretto-11 | dragonwell-11 | redhat-11 | zulu-11 |
-|:-----------------------|:-----------:|:-----------:|:-------------:|:---------:|:-------:|
-| `ClasspathTests  `     | Failed      | Failed      | Failed        | Failed    | Failed  |
-| `FromTastyTests`       | Failed      | Failed      | Failed        | Failed    | Failed  |
-| `MultiReleaseJarTest`  | Failed      | Failed      | Failed        | Failed    | Failed  |
+| JVM 11 - Failing tests | <a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-11</a> | <a href="https://github.com/corretto/corretto-11/releases">corretto-11</a> | <a href="https://github.com/alibaba/dragonwell11/releases">dragonwell-11</a> | <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">openj9-11</a> | <a rhef="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=hotspot">openjdk-11</a> | <a href="https://developers.redhat.com/products/openjdk/download">redhat-11</a> | <a href="https://github.com/SAP/SapMachine/releases">sapmachine-11</a> | <a href="https://www.azul.com/downloads/?version=java-11-lts&package=jdk">zulu-11</a> |
+|:-----------------------|:-----------:|:-----------:|:-------------:|:---------:|:---------:|:---------:|:---------:|:-------:|
+| `ClasspathTests  `     | Failed      | Failed      | Failed        | Failed    | Failed    | Failed    | Failed    | Failed  |
+| `FromTastyTests`       | Failed      | Failed      | Failed        | Failed    | Failed    | Failed    | Failed    | Failed  |
+| `MultiReleaseJarTest`  | Failed      | Failed      | Failed        | Failed    | Failed    | Failed    | Failed    | Failed  |
 
-| JVM 17 - Failing tests | openjdk-17 | sapmachine-17 | zulu-17 |
+| JVM 17 - Failing tests | <a href="https://jdk.java.net/17/">openjdk-17</a> | <a href="https://github.com/SAP/SapMachine/releases">sapmachine-17</a> | <a href="https://www.azul.com/downloads/?version=java-17-ea&package=jdk">zulu-17</a> |
 |:-----------------------|:----------:|:-------------:|:-------:|
 | `FromTastyTests`       | &nbsp;     | Failed        | Failed  |
 | `IdempotencyTests`     | &nbsp;     | Failed        | Failed  |
@@ -156,22 +156,22 @@ An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For
 ### <span id="corretto">Corretto OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-corretto-11.0.11_9\bin\java -version</b>
-openjdk version "11.0.11" 2021-04-20 LTS
-OpenJDK Runtime Environment Corretto-11.0.11.9.1 (build 11.0.11+9-LTS)
-OpenJDK 64-Bit Server VM Corretto-11.0.11.9.1 (build 11.0.11+9-LTS, mixed mode)
+<b>&gt; c:\opt\jdk-corretto-11.0.12_7\bin\java -version</b>
+openjdk version "11.0.12" 2021-07-20 LTS
+OpenJDK Runtime Environment Corretto-11.0.12.7.1 (build 11.0.12+7-LTS)
+OpenJDK 64-Bit Server VM Corretto-11.0.12.7.1 (build 11.0.12+7-LTS, mixed mode)
 
-<b>&gt; c:\opt\jdk-corretto-11.0.11_9\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-corretto-11.0.12_7\bin\java -Xshare:dump</b>
 [...]
 Number of classes 1214
 [...]
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-corretto-11.0.11_9\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
-30.10.2020  00:02        17 629 184 classes.jsa
+29.07.2021  11:51        17 694 720 classes.jsa
 
-<b>&gt; c:\opt\jdk-corretto-11.0.11_9\bin\java -version</b>
-openjdk version "11.0.11" 2021-04-20 LTS
-OpenJDK Runtime Environment Corretto-11.0.11.9.1 (build 11.0.11+9-LTS)
-OpenJDK 64-Bit Server VM Corretto-11.0.11.9.1 (build 11.0.11+9-LTS, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-corretto-11.0.12_7\bin\java -version</b>
+openjdk version "11.0.12" 2021-07-20 LTS
+OpenJDK Runtime Environment Corretto-11.0.12.7.1 (build 11.0.12+7-LTS)
+OpenJDK 64-Bit Server VM Corretto-11.0.12.7.1 (build 11.0.12+7-LTS, mixed mode, sharing)
 </pre>
 
 > **:mag_right:** Amazon provides online documentation specific to Corretto 11 (eg. [change Log][corretto_changes], [patches][corretto_patches] as well as Youtube videos (eg. Devoxx keynotes by [Arun Gupta][corretto_gupta] and [James Gosling][corretto_gosling]).
@@ -189,7 +189,7 @@ OpenJDK 64-Bit Server VM (Alibaba Dragonwell) (build 11.0.11+0, mixed mode)
 Number of classes 1258
 [...]
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-dragonwell-11.0.11_0\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
-12.07.2021  16:43        17 956 864 classes.jsa
+29.07.2021  11:52        17 956 864 classes.jsa
 &nbsp;
 <b>&gt; c:\opt\jdk-dragonwell-11.0.11_0\bin\java -version</b>
 openjdk version "11.0.11" 2021-04-20
@@ -309,22 +309,22 @@ OpenJDK 64-Bit Server VM 18.9 (build 11.0.10+9-LTS, mixed mode, sharing)
 GitHub project repository is [`SAP/SapMachine`](https://github.com/SAP/SapMachine).
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-sapmachine-11.0.11\bin\java -version</b>
-openjdk version "11.0.11" 2021-04-20 LTS
-OpenJDK Runtime Environment SapMachine (build 11.0.11+9-LTS-sapmachine)
-OpenJDK 64-Bit Server VM SapMachine (build 11.0.11+9-LTS-sapmachine, mixed mode)
+<b>&gt; c:\opt\jdk-sapmachine-11.0.12\bin\java -version</b>
+openjdk version "11.0.12" 2021-07-20 LTS
+OpenJDK Runtime Environment SapMachine (build 11.0.12+7-LTS-sapmachine)
+OpenJDK 64-Bit Server VM SapMachine (build 11.0.12+7-LTS-sapmachine, mixed mode)
 &nbsp;
-<b>&gt; c:\opt\jdk-sapmachine-11.0.11\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-sapmachine-11.0.12\bin\java -Xshare:dump</b>
 [...]
 Number of classes 1214
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-sapmachine-11.0.11\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
-01.05.2021  16:43        17 694 720 classes.jsa
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-sapmachine-11.0.12\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
+29.07.2021  11:54        17 694 720 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-sapmachine-11.0.11\bin\java -version</b>
-openjdk version "11.0.11" 2021-04-20 LTS
-OpenJDK Runtime Environment SapMachine (build 11.0.11+9-LTS-sapmachine)
-OpenJDK 64-Bit Server VM SapMachine (build 11.0.11+9-LTS-sapmachine, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-sapmachine-11.0.12\bin\java -version</b>
+openjdk version "11.0.12" 2021-07-20 LTS
+OpenJDK Runtime Environment SapMachine (build 11.0.12+7-LTS-sapmachine)
+OpenJDK 64-Bit Server VM SapMachine (build 11.0.12+7-LTS-sapmachine, mixed mode, sharing)
 </pre>
 
 > **:mag_right:** SAP provides [online documentation](https://github.com/SAP/SapMachine/wiki) specific to SapMachine 11, e.g. [Differences between SapMachine and OpenJDK](https://github.com/SAP/SapMachine/wiki/Differences-between-SapMachine-and-OpenJDK).
@@ -372,22 +372,22 @@ Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK-dcevm-11.0.11+1-20210502174
 ### <span id="zulu">Zulu OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-zulu-11.0.11\bin\java -version</b>
-openjdk version "11.0.11" 2021-04-20 LTS
-OpenJDK Runtime Environment Zulu11.48+21-CA (build 11.0.11+9-LTS)
-OpenJDK 64-Bit Server VM Zulu11.48+21-CA (build 11.0.11+9-LTS, mixed mode)
+<b>&gt; c:\opt\jdk-zulu-11.0.12\bin\java -version</b>
+openjdk version "11.0.12" 2021-07-20 LTS
+OpenJDK Runtime Environment Zulu11.50+19-CA (build 11.0.12+7-LTS)
+OpenJDK 64-Bit Server VM Zulu11.50+19-CA (build 11.0.12+7-LTS, mixed mode)
 &nbsp;
-<b>&gt; c:\opt\jdk-zulu-11.0.11\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-zulu-11.0.12\bin\java -Xshare:dump</b>
 [...]
-Number of classes 1228
+Number of classes 1213
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-zulu-11.0.11\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
-01.05.2021  16:45        17 760 256 classes.jsa
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-zulu-11.0.12\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
+29.07.2021  11:55        17 825 792 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-zulu-11.0.11\bin\java -version</b>
-openjdk version "11.0.11" 2021-04-20 LTS
-OpenJDK Runtime Environment Zulu11.48+21-CA (build 11.0.11+9-LTS)
-OpenJDK 64-Bit Server VM Zulu11.48+21-CA (build 11.0.11+9-LTS, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-zulu-11.0.12\bin\java -version</b>
+openjdk version "11.0.12" 2021-07-20 LTS
+OpenJDK Runtime Environment Zulu11.50+19-CA (build 11.0.12+7-LTS)
+OpenJDK 64-Bit Server VM Zulu11.50+19-CA (build 11.0.12+7-LTS, mixed mode, sharing)
 </pre>
 
 ## <span id="related">Related reading</span> [**&#9650;**](#top)
@@ -429,15 +429,15 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
 <a href="https://github.com/alibaba/dragonwell11/releases">Alibaba_Dragonwell_11.0.11.7_x64_windows.zip</a>                   <i>(181 MB)</i>
-<a href="https://github.com/corretto/corretto-11/releases" rel="external">amazon-corretto-11.0.11.9.1-windows-x64-jdk.zip</a>                <i>(177 MB)</i>
-<a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.11+9-windows-amd64.zip</a>                        <i>(187 MB)</i>
-<a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.1.0">graalvm-ce-java11-windows-amd64-21.1.0.zip</a>                     <i>(360 MB)</i>
-<a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.10.9-1.windows.redhat.x86_64.zip</a>          <i>(256 MB)</i>
-<a href="https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases/latest">java11-openjdk-dcevm-windows.zip</a>                               <i>(187 MB)</i>
+<a href="https://github.com/corretto/corretto-11/releases" rel="external">amazon-corretto-11.0.12.7.1-windows-x64-jdk.zip</a>                <i>(178 MB)</i>
+<a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.12+7-windows-amd64.zip</a>                        <i>(187 MB)</i>
+<a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.2.0">graalvm-ce-java11-windows-amd64-21.2.0.zip</a>                     <i>(360 MB)</i>
+<a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.12.7-1.windows.redhat.x86_64.zip</a>          <i>(256 MB)</i>
+<a href="https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases/latest">Openjdk11u-dcevm-windows-x64.zip</a>                               <i>(187 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.10_1.zip</a>               <i>(190 MB)</i>
 <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">OpenJDK11U-jdk_x64_windows_openj9_11.0.11+9_openj9-0.26.0.zip</a>  <i>(193 MB)</i>
 <a href="https://github.com/SAP/SapMachine/releases/tag/sapmachine-11.0.11" rel="external">sapmachine-jdk-11.0.11_windows-x64_bin.zip</a>                     <i>(189 MB)</i>
-<a href="https://www.azul.com/downloads/zulu-community/?version=java-11-lts" rel="external">zulu11.45.27-ca-jdk11.0.11-win_x64.zip</a>                         <i>(190 MB)</i>
+<a href="https://www.azul.com/downloads/zulu-community/?version=java-11-lts" rel="external">zulu11.50.19-ca-jdk11.0.12-win_x64.zip</a>                         <i>(190 MB)</i>
 </pre>
 
 <span name="footnote_03">[3]</span> ***Snapshot builds*** [↩](#anchor_03)

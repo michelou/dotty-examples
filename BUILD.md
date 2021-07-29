@@ -395,11 +395,11 @@ index.html
 js
 sidebar.yml
 versions
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b /s docs\_site\*.html | wc -l</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b /s docs\_site\*.html | <a href="https://linux.die.net/man/1/wc">wc</a> -l</b>
 2551
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b /s docs\_site\*.jpg docs\_site\*.png docs\_site\*.svg | wc -l</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b /s docs\_site\*.jpg docs\_site\*.png docs\_site\*.svg | <a href="https://linux.die.net/man/1/wc">wc</a> -l</b>
 23
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b /s docs\_site\*.js | wc -l</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b /s docs\_site\*.js | <a href="https://linux.die.net/man/1/wc">wc</a> -l</b>
 9
 </pre>
 
@@ -415,7 +415,7 @@ release-notes
 resources   
 typelevel.md
 usage
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b /s docs\docs\*.md | wc -l</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b /s docs\docs\*.md | <a href="https://linux.die.net/man/1/wc">wc</a> -l</b>
 88 
 </pre>
 
