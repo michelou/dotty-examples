@@ -29,12 +29,17 @@ This project depends on several external software for the **Microsoft Windows** 
 - [Dragonwell OpenJDK 11][dragonwell_downloads] from [Alibaba][alibaba] ([*release notes*][dragonwell_relnotes]).
 - [GraalVM OpenJDK 11][graalvm_downloads] from [Oracle] ([*release notes*][graalvm_relnotes]).
 - [Liberica OpenJDK 11][bellsoft_downloads] from [BellSoft][bellsoft_about] ([*release notes*][bellsoft_relnotes]).
+- [Microsoft OpenJDK][microsoft_downloads] from [Microsoft][microsoft].
 - [OpenJ9 OpenJDK 11][openj9_downloads] from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html) ([*release notes*][openj9_relnotes], [*what's new?*][openj9_news]).
 - [Oracle OpenJDK 11][oracle_openjdk_downloads] from [Oracle] ([*release notes*][oracle_openjdk_relnotes]).
 - [RedHat OpenJDK 11][redhat_downloads] from [RedHat].
 - [SapMachine OpenJDK 11](https://sap.github.io/SapMachine/) from [SAP][sap_home].
 - [Trava OpenJDK 11][trava_downloads] from [Travis](https://travis-ci.com/) ([*release notes*][trava_relnotes]).
 - [Zulu OpenJDK 11][azul_downloads] from [Azul Systems][azul_systems] ([*release notes*][azul_relnotes]).
+
+<!--
+https://devblogs.microsoft.com/java/announcing-general-availability-of-microsoft-build-of-openjdk/
+-->
 
 The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in several ways:
 
@@ -55,6 +60,7 @@ C:\opt\jdk-corretto-11.0.12_7\    <i>(293 MB)</i>
 C:\opt\jdk-dcevm-11.0.11_1\       <i>(313 MB)</i>
 C:\opt\jdk-dragonwell-11.0.11_0\  <i>(280 MB)</i>
 C:\opt\graalvm-ce-java11-21.2.0\  <i>(731 MB)</i>
+C:\opt\jdk-microsoft-11.0.11_9\   <i>(291 MB)</i>
 C:\opt\jdk-openj9-11.0.11_9\      <i>(295 MB)</i>
 C:\opt\jdk-openjdk-11.0.11_9\     <i>(299 MB)</i>
 C:\opt\jdk-redhat-11.0.12.7-1\    <i>(364 MB)</i>
@@ -87,15 +93,16 @@ Let's compare the build times for Java 11 and Java 8 on a Win10 laptop with an i
 | 11.0.11  | `bootstrap`     | `arch-only`     | **Total**       | 1.8.0_292 | `bootstrap`      | `arch-only`       | **Total**       |
 |----------|-----------------|-----------------|-----------------|-----------|-----------------|-----------------|-----------------|
 | [Corretto][corretto_downloads]<br/>(Amazon) | 30:37<br/>30:53 | 01:11<br/>01:12  |   31:48<br/>32:05 | [Corretto][corretto_downloads]<br/>(Amazon) | 25:45</br>26:02 | 01:15</br>01:15 | 27:00</br>27:27 |
+| [DCEVM][trava_downloads]<br/>(Trava) <sup><b>a)</b></sup> | 32:36<br/>33:49 | 01:04<br/>01:07 | 33:40<br/>34:56 | [DCEVM][trava_downloads]<br/>(Trava) | n.a.            | n.a.            | n.a.            |
 | [Dragonwell][dragonwell_downloads]<br/>(Alibaba) | 31:21<br/>30:40 | 01:18<br/>01:20 | 32:39<br/>32:00 | [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) | 31:35<br/>32:02 | 01:17<br/>01:17 | 32:52<br/>33:19 |
 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 31:08<br/>33:42 | 01:10<br/>01:16 | 32:18<br/>34:58 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 25:06<br/>24:44 | 01:09<br/>01:16 | 25:15<br/>26:00 |
-| [RedHat][redhat_downloads] | 30:25<br/>32:13 | 01:21<br/>01:04 | 31:46<br/>33:17 | [RedHat][redhat_downloads]    | 25:53<br/>25:19 | 01:15<br/>01:13 | 27:08<br/>26.32 |
+| [Microsoft][microsoft_downloads] | tbd<br/>&nbsp; | tbd<br/>&nbsp; | tbd<br/>&nbsp; | [Microsoft][microsoft_downloads] | n.a.            | n.a.            | n.a.            |
 | [OpenJ9][openj9_downloads]<br/>(Eclipse) | 26:23<br/>36:42 | 01:18<br/>01:18 | 37:41<br/>38:00 | [OpenJ9][openj9_downloads]<br/>(Eclipse) | 32:39<br/>31:56 | 01:23<br/>01:20 | 34:02<br/>33:16 |
 | [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle)  | 32:44<br/>32:38 | 01:05<br/>01:07 | 33:49<br/>33:45 | [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) | 25:17<br/>24:30 | 01:07<br/>01:10 | 26:24<br/>25:40 |
-| [DCEVM][trava_downloads]<br/>(Trava) <sup>(1)</sup> | 32:36<br/>33:49 | 01:04<br/>01:07 | 33:40<br/>34:56 | [DCEVM][trava_downloads]<br/>(Trava) | n.a.            | n.a.            | n.a.            |
+| [RedHat][redhat_downloads] | 30:25<br/>32:13 | 01:21<br/>01:04 | 31:46<br/>33:17 | [RedHat][redhat_downloads]    | 25:53<br/>25:19 | 01:15<br/>01:13 | 27:08<br/>26.32 |
 | [Zulu][azul_downloads]<br/>(Azul)     | 31:01<br/>31:54 | 01:30<br/>01:07 | 32:31<br/>33:01 | [Zulu][azul_downloads]<br/>(Azul) | 25:09<br/>24:57 | 01:08<br/>01:13 | 26:17<br/>26:10 |
 <div style="font-size:80%;">
-<sup>(1)</sup> DCEM Version 10.0.10.<br/>&nbsp;</div>
+<sup><b>a)</b></sup> DCEM Version 10.0.10.<br/>&nbsp;</div>
 
 Here are some observations about the above results :
 - The build process fails with [Corretto JDK][corretto_downloads] (ongoing investigation).
@@ -238,6 +245,27 @@ Number of classes 1224
 openjdk version "11.0.11" 2021-04-20 LTS
 OpenJDK Runtime Environment (build 11.0.11+9-LTS)
 OpenJDK 64-Bit Server VM (build 11.0.11+9-LTS, mixed mode, sharing)
+</pre>
+
+### <span id="microsoft">Microsoft OpenJDK 11</span> [**&#9650;**](#top)
+
+<pre style="font-size:80%;">
+<b>&gt; c:\opt\jdk-microsoft-11.0.11_9\bin\java -version</b>
+openjdk version "11.0.11" 2021-04-20
+OpenJDK Runtime Environment Microsoft-22268 (build 11.0.11+9)
+OpenJDK 64-Bit Server VM Microsoft-22268 (build 11.0.11+9, mixed mode)
+
+<b>&gt; c:\opt\jdk-microsoft-11.0.11_9\bin\java -Xshare:dump</b>
+[...]
+Number of classes 1217
+[...]
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-microsoft-11.0.11_9\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
+30.07.2021  23:47        17 694 720 classes.jsa
+
+<b>&gt; c:\opt\jdk-microsoft-11.0.11_9\bin\java -version</b>
+openjdk version "11.0.11" 2021-04-20
+OpenJDK Runtime Environment Microsoft-22268 (build 11.0.11+9)
+OpenJDK 64-Bit Server VM Microsoft-22268 (build 11.0.11+9, mixed mode, sharing)
 </pre>
 
 
@@ -433,6 +461,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.12+7-windows-amd64.zip</a>                        <i>(187 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.2.0">graalvm-ce-java11-windows-amd64-21.2.0.zip</a>                     <i>(360 MB)</i>
 <a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.12.7-1.windows.redhat.x86_64.zip</a>          <i>(256 MB)</i>
+<a href="https://docs.microsoft.com/en-us/java/openjdk/">microsoft-jdk-11.0.11.9.1-windows-x64.zip</a>                      <i>(177 MB)</i>
 <a href="https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases/latest">Openjdk11u-dcevm-windows-x64.zip</a>                               <i>(187 MB)</i>
 <a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.10_1.zip</a>               <i>(190 MB)</i>
 <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">OpenJDK11U-jdk_x64_windows_openj9_11.0.11+9_openj9-0.26.0.zip</a>  <i>(193 MB)</i>
@@ -443,7 +472,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <span name="footnote_03">[3]</span> ***Snapshot builds*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
-We run the batch file <a href="./bin/dotty/snapshot.bat"><code>snapshot.bat</code></a> (which calls <a href="./bin/dotty/build.bat"><code>build.bat</code></a>) to generate <b>36</b> Scala 3 distributions for <b>9</b> OpenJDK implementations (see snyk report "<a href="https://snyk.io/jvm-ecosystem-report-2021/">JVM Ecosystem report 2021"</a>).
+We run the batch file <a href="./bin/dotty/snapshot.bat"><code>snapshot.bat</code></a> (which calls <a href="./bin/dotty/build.bat"><code>build.bat</code></a>) to generate <b>19</b> Scala 3 distributions for <b>9</b> OpenJDK implementations (see snyk report "<a href="https://snyk.io/jvm-ecosystem-report-2021/">JVM Ecosystem report 2021"</a>).
 </p>
 
 <pre style="margin:0 0 1em 20px;font-size:80%;">
@@ -460,6 +489,8 @@ scala3-3.0.3-RC1-bin-SNAPSHOT-<b>dragonwell-08</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-dragonwell-08.zip
 scala3-3.0.3-RC1-bin-SNAPSHOT-<b>dragonwell-11</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-dragonwell-11.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT-<b>microsoft-11</b>.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT-microsoft-11.zip
 scala3-3.0.3-RC1-bin-SNAPSHOT-<b>openj9-08</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-openj9-08.zip
 scala3-3.0.3-RC1-bin-SNAPSHOT-<b>openj9-11</b>.tar.gz
@@ -518,6 +549,8 @@ scala3-3.0.3-RC1-bin-SNAPSHOT-zulu-17.zip
 [jmh_project]: https://openjdk.java.net/projects/code-tools/jmh/
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
 [llvm_examples]: https://github.com/michelou/llvm-examples
+[microsoft]: https://docs.microsoft.com/en-us/java/
+[microsoft_downloads]: https://docs.microsoft.com/en-us/java/openjdk/download#generally-available-ga-builds
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [openj9_downloads]: https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9
 [openj9_news]: https://www.eclipse.org/openj9/oj9_whatsnew.html

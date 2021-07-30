@@ -17,8 +17,8 @@ if not %_EXITCODE%==0 goto end
 set _REFERENCE_VERSION=3.0.2-RC1
 set _BASE_VERSION=3.0.3-RC1
 
-set _EIGHT=bellsoft-08 dragonwell-08 openj9-08 openjdk-08 redhat-08 zulu-08 zulu-08
-set _ELEVEN=bellsoft-11 corretto-11 dcevm-11 dragonwell-11 openj9-11 openjdk-11 redhat-11 sapmachine-11 zulu-11
+set _EIGHT=bellsoft-08 dragonwell-08 openj9-08 openjdk-08 redhat-08 zulu-08
+set _ELEVEN=bellsoft-11 corretto-11 dcevm-11 dragonwell-11 microsoft-11 openj9-11 openjdk-11 redhat-11 sapmachine-11 zulu-11
 set _SEVENTEEN=openjdk-17 sapmachine-17 zulu-17
 
 @rem for %%i in (%_EIGHT% %_ELEVEN% %_SEVENTEEN%) do (
@@ -54,6 +54,8 @@ for /f %%d in ('dir /ad /b "c:\opt\jdk-dragonwell-1.8*"') do set "_MAP[dragonwel
 for /f %%d in ('dir /ad /b "c:\opt\jdk-dragonwell-11*"') do set "_MAP[dragonwell-11]=c:\opt\%%d"
 
 for /f %%d in ('dir /ad /b "c:\opt\jdk-dcevm-11*"') do set "_MAP[dcevm-11]=c:\opt\%%d"
+
+for /f %%d in ('dir /ad /b "c:\opt\jdk-microsoft-11*"') do set "_MAP[microsoft-11]=c:\opt\%%d"
 
 for /f %%d in ('dir /ad /b "c:\opt\jdk-openj9-1.8*"') do set "_MAP[openj9-08]=c:\opt\%%d"
 for /f %%d in ('dir /ad /b "c:\opt\jdk-openj9-11*"') do set "_MAP[openj9-11]=c:\opt\%%d"
