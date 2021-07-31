@@ -34,6 +34,15 @@ This project depends on the following external software for the **Microsoft Wind
 8u232   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
 8u242   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
 8u252   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-April/011559.html
+8u262   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-July/012143.html
+8u272   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-October/012817.html
+8u282   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-January/013337.html
+8u292   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-April/013680.html
+8u302   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-July/014118.html
+11.0.3  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2019-April/000951.html
+11.0.4  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2019-July/001423.html
+11.0.5  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2019-October/002025.html
+11.0.6  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-January/002374.html
 11.0.7  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
 11.0.8  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-July/003498.html
 11.0.9  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-October/004007.html

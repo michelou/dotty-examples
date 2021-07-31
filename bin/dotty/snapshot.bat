@@ -43,6 +43,7 @@ set _ERROR_LABEL=Error:
 
 set "_TARGET_DIR=%_ROOT_DIR%dist\target"
 set "_SNAPSHOT_DIR=%_ROOT_DIR%__SNAPSHOT_LOCAL"
+set "_LOG_FILE=%_SNAPSHOT_DIR%\snapshot_log.txt"
 
 @rem map distro name to distro installation path
 for /f %%d in ('dir /ad /b "c:\opt\jdk-bellsoft-1.8*"') do set "_MAP[bellsoft-08]=c:\opt\%%d"
@@ -94,14 +95,20 @@ if not exist "!__JAVA_HOME!\bin\java.exe" (
 setlocal
 set "JAVA_HOME=%__JAVA_HOME%"
 echo.
-call "%_BUILD_BAT%" -timer -verbose clean boot
-call "%_BUILD_BAT%" -timer -verbose arch-only
+call "%_BUILD_BAT%" clean
+for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
+@rem the 2 subcommands are run in 2 steps since a few tests are still failing on Windows
+call "%_BUILD_BAT%" boot
+call "%_BUILD_BAT%" arch-only
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to create .tar.gz/.zip files in directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
-echo JAVA_HOME="!JAVA_HOME!" DISTRO_NAME=%__DISTRO_NAME% 1>&2
+for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
+call :duration "%_TIMER_START%" "%__TIMER_END%"
+for /f "delims=" %%i in ('powershell -c "(Get-Date -Format 'yyyy-MM-dd hh:mm')"') do set "__TS=%%i"
+echo [%__TS%] DISTRO_NAME=%__DISTRO_NAME% DURATION=%_DURATION% "JAVA_HOME=!JAVA_HOME!" >> "%_LOG_FILE%"
 endlocal
 goto :eof
 
@@ -125,6 +132,14 @@ for %%j in (.tar.gz .zip) do (
     )
     del "%_TARGET_DIR%\%__SNAPSHOT_BASENAME%%%j"
 )
+goto :eof
+
+@rem output parameter: _DURATION
+:duration
+set __START=%~1
+set __END=%~2
+
+for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
 goto :eof
 
 @rem #########################################################################

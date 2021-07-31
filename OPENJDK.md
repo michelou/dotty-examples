@@ -71,6 +71,7 @@ C:\opt\jdk-zulu-11.0.12\          <i>(302 MB)</i>
 <!-- corretto  : 11.0.8 = 290 MB, 11.0.9 = 292 MB, 11.0.10 = 292 MB -->
 <!-- dcevm     : 11.0.8 = 296 MB, 11.0.9 = 296 MB, 11.0.10 = 313 MB-->
 <!-- dragonwell: 11.0.11 = 307 MB -->
+<!-- microsoft : 11.0.11 = 291 MB -->
 <!-- sap       : 11.0.8 = 288 MB, 11.0.9 = 315 MB, 11.0.10 = 316 MB -->
 <!-- zulu      : 11.0.8 = 299 MB, 11.0.9 = 300 MB, 11.0.10 = 301 MB -->
 
@@ -78,11 +79,14 @@ C:\opt\jdk-zulu-11.0.12\          <i>(302 MB)</i>
 
 We perform a quick comparison of the execution times to build the Scala 3 software distribution available as the following two archive files :
 <pre style="font-size:80%;">
-dist\target\scala3-3.0.2-RC1-bin-SNAPSHOT.tar.gz
-dist\target\scala3-3.0.2-RC1-bin-SNAPSHOT.zip
+dist\target\scala3-3.0.3-RC1-bin-SNAPSHOT.tar.gz
+dist\target\scala3-3.0.3-RC1-bin-SNAPSHOT.zip
 </pre>
 
-> **:mag_right:** Nightly builds are published on Maven as individual Java archive files, e.g. [nightly builds for version 3.0.1-RC1](https://repo1.maven.org/maven2/org/scala-lang/scala3-compiler_3.0.1-RC1/) of the Scala 3 compiler or [nightly builds for version 3.0.1-RC1](https://repo1.maven.org/maven2/org/scala-lang/scala3-library_3.0.1-RC1/) of the Scala 3 library (and so on).
+> **:mag_right:** Scala nightly builds are published on Maven as individual Java archive files, e.g.
+> - [`scala3-compiler`](https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler) (Scala 3 compiler)
+> - [`scala3-library`](https://mvnrepository.com/artifact/org.scala-lang/scala3-library) (Scala 3 library)
+> - and so on.
 
 We ideally would run the command [`build -timer -verbose archives`](./bin/dotty/build.bat) to generate the above files (presuming all tests were successful).
 
@@ -90,17 +94,17 @@ Unfortunately a few tests still fail on Windows, so need to proceed in two steps
 
 Let's compare the build times for Java 11 and Java 8 on a Win10 laptop with an i7-8550U (1.8 GHz) processor and 16 Go of memory <sup id="anchor_03">[[3]](#footnote_03)</sup> :
 
-| 11.0.11  | `bootstrap`     | `arch-only`     | **Total**       | 1.8.0_292 | `bootstrap`      | `arch-only`       | **Total**       |
-|----------|-----------------|-----------------|-----------------|-----------|-----------------|-----------------|-----------------|
-| [Corretto][corretto_downloads]<br/>(Amazon) | 30:37<br/>30:53 | 01:11<br/>01:12  |   31:48<br/>32:05 | [Corretto][corretto_downloads]<br/>(Amazon) | 25:45</br>26:02 | 01:15</br>01:15 | 27:00</br>27:27 |
-| [DCEVM][trava_downloads]<br/>(Trava) <sup><b>a)</b></sup> | 32:36<br/>33:49 | 01:04<br/>01:07 | 33:40<br/>34:56 | [DCEVM][trava_downloads]<br/>(Trava) | n.a.            | n.a.            | n.a.            |
-| [Dragonwell][dragonwell_downloads]<br/>(Alibaba) | 31:21<br/>30:40 | 01:18<br/>01:20 | 32:39<br/>32:00 | [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) | 31:35<br/>32:02 | 01:17<br/>01:17 | 32:52<br/>33:19 |
-| [Liberica][bellsoft_downloads]<br/>(BellSoft) | 31:08<br/>33:42 | 01:10<br/>01:16 | 32:18<br/>34:58 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 25:06<br/>24:44 | 01:09<br/>01:16 | 25:15<br/>26:00 |
-| [Microsoft][microsoft_downloads] | tbd<br/>&nbsp; | tbd<br/>&nbsp; | tbd<br/>&nbsp; | [Microsoft][microsoft_downloads] | n.a.            | n.a.            | n.a.            |
-| [OpenJ9][openj9_downloads]<br/>(Eclipse) | 26:23<br/>36:42 | 01:18<br/>01:18 | 37:41<br/>38:00 | [OpenJ9][openj9_downloads]<br/>(Eclipse) | 32:39<br/>31:56 | 01:23<br/>01:20 | 34:02<br/>33:16 |
-| [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle)  | 32:44<br/>32:38 | 01:05<br/>01:07 | 33:49<br/>33:45 | [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) | 25:17<br/>24:30 | 01:07<br/>01:10 | 26:24<br/>25:40 |
-| [RedHat][redhat_downloads] | 30:25<br/>32:13 | 01:21<br/>01:04 | 31:46<br/>33:17 | [RedHat][redhat_downloads]    | 25:53<br/>25:19 | 01:15<br/>01:13 | 27:08<br/>26.32 |
-| [Zulu][azul_downloads]<br/>(Azul)     | 31:01<br/>31:54 | 01:30<br/>01:07 | 32:31<br/>33:01 | [Zulu][azul_downloads]<br/>(Azul) | 25:09<br/>24:57 | 01:08<br/>01:13 | 26:17<br/>26:10 |
+| 11.0.12  | **Build&nbsp;time** | 1.8.0_302 | **Build&nbsp;time** |
+|----------|---------------------|-----------|---------------------|
+| [Corretto][corretto_downloads]<br/>(Amazon) |   31:48<br/>32:05 | [Corretto][corretto_downloads]<br/>(Amazon) | 25:45</br>26:02 | 01:15</br>01:15 | 27:00</br>27:27 |
+| [DCEVM][trava_downloads]<br/>(Trava) <sup><b>a)</b></sup> | 33:40<br/>34:56 | [DCEVM][trava_downloads]<br/>(Trava) | n.a.            | n.a.            | n.a.            |
+| [Dragonwell][dragonwell_downloads]<br/>(Alibaba) | 32:39<br/>32:00 | [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) | 31:35<br/>32:02 | 01:17<br/>01:17 | 32:52<br/>33:19 |
+| [Liberica][bellsoft_downloads]<br/>(BellSoft) | 32:18<br/>34:58 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 25:06<br/>24:44 | 01:09<br/>01:16 | 25:15<br/>26:00 |
+| [Microsoft][microsoft_downloads] | <i>tbd</i> | [Microsoft][microsoft_downloads] | n.a.            | n.a.            | n.a.            |
+| [OpenJ9][openj9_downloads]<br/>(Eclipse) | 37:41<br/>38:00 | [OpenJ9][openj9_downloads]<br/>(Eclipse) | 34:02<br/>33:16 |
+| [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle)  | 33:49<br/>33:45 | [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) | 26:24<br/>25:40 |
+| [RedHat][redhat_downloads] | 31:46<br/>33:17 | [RedHat][redhat_downloads]    | 27:08<br/>26.32 |
+| [Zulu][azul_downloads]<br/>(Azul)     | 32:31<br/>33:01 | [Zulu][azul_downloads]<br/>(Azul) | 26:17<br/>26:10 |
 <div style="font-size:80%;">
 <sup><b>a)</b></sup> DCEM Version 10.0.10.<br/>&nbsp;</div>
 
