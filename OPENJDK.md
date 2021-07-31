@@ -98,15 +98,15 @@ Let's compare the build times for Java 11 and Java 8 on a Win10 laptop with an i
 |----------|---------------------|-----------|---------------------|
 | [Corretto][corretto_downloads]<br/>(Amazon) |   31:48<br/>32:05 | [Corretto][corretto_downloads]<br/>(Amazon) | 25:45</br>26:02 | 01:15</br>01:15 | 27:00</br>27:27 |
 | [DCEVM][trava_downloads]<br/>(Trava) <sup><b>a)</b></sup> | 33:40<br/>34:56 | [DCEVM][trava_downloads]<br/>(Trava) | n.a.            | n.a.            | n.a.            |
-| [Dragonwell][dragonwell_downloads]<br/>(Alibaba) | 32:39<br/>32:00 | [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) | 31:35<br/>32:02 | 01:17<br/>01:17 | 32:52<br/>33:19 |
+| [Dragonwell][dragonwell_downloads]<br/>(Alibaba) <sup><b>a)</b></sup> | 32:39<br/>32:00 | [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) | 31:35<br/>32:02 | 01:17<br/>01:17 | 32:52<br/>33:19 |
 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 32:18<br/>34:58 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 25:06<br/>24:44 | 01:09<br/>01:16 | 25:15<br/>26:00 |
-| [Microsoft][microsoft_downloads] | <i>tbd</i> | [Microsoft][microsoft_downloads] | n.a.            | n.a.            | n.a.            |
-| [OpenJ9][openj9_downloads]<br/>(Eclipse) | 37:41<br/>38:00 | [OpenJ9][openj9_downloads]<br/>(Eclipse) | 34:02<br/>33:16 |
-| [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle)  | 33:49<br/>33:45 | [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) | 26:24<br/>25:40 |
-| [RedHat][redhat_downloads] | 31:46<br/>33:17 | [RedHat][redhat_downloads]    | 27:08<br/>26.32 |
+| [Microsoft][microsoft_downloads] <sup><b>a)</b></sup> | <i>tbd</i> | [Microsoft][microsoft_downloads] | n.a.            | n.a.            | n.a.            |
+| [OpenJ9][openj9_downloads]<br/>(Eclipse) <sup><b>a)</b></sup> | 37:41<br/>38:00 | [OpenJ9][openj9_downloads]<br/>(Eclipse) | 34:02<br/>33:16 |
+| [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) <sup><b>a)</b></sup> | 33:49<br/>33:45 | [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) | 26:24<br/>25:40 |
+| [RedHat][redhat_downloads] <sup><b>a)</b></sup> | 31:46<br/>33:17 | [RedHat][redhat_downloads]    | 27:08<br/>26.32 |
 | [Zulu][azul_downloads]<br/>(Azul)     | 32:31<br/>33:01 | [Zulu][azul_downloads]<br/>(Azul) | 26:17<br/>26:10 |
 <div style="font-size:80%;">
-<sup><b>a)</b></sup> DCEM Version 10.0.10.<br/>&nbsp;</div>
+<sup><b>a)</b></sup> Version 11.0.11.<br/>&nbsp;</div>
 
 Here are some observations about the above results :
 - The build process fails with [Corretto JDK][corretto_downloads] (ongoing investigation).
@@ -142,7 +142,6 @@ Build errors encountered on MS Windows on July 13, 2021, are :
 |:-----------------------|:-----------:|:-----------:|:-------------:|:---------:|:---------:|:---------:|:---------:|:-------:|
 | `ClasspathTests  `     | Failed      | Failed      | Failed        | Failed    | Failed    | Failed    | Failed    | Failed  |
 | `FromTastyTests`       | Failed      | Failed      | Failed        | Failed    | Failed    | Failed    | Failed    | Failed  |
-| `MultiReleaseJarTest`  | Failed      | Failed      | Failed        | Failed    | Failed    | Failed    | Failed    | Failed  |
 
 | JVM 17 - Failing tests | <a href="https://jdk.java.net/17/">openjdk-17</a> | <a href="https://github.com/SAP/SapMachine/releases">sapmachine-17</a> | <a href="https://www.azul.com/downloads/?version=java-17-ea&package=jdk">zulu-17</a> |
 |:-----------------------|:----------:|:-------------:|:-------:|
@@ -480,44 +479,25 @@ We run the batch file <a href="./bin/dotty/snapshot.bat"><code>snapshot.bat</cod
 </p>
 
 <pre style="margin:0 0 1em 20px;font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b __SNAPSHOT_LOCAL</b>
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>bellsoft-08</b>.tar.gz
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b __SNAPSHOT_LOCAL\*.zip</b>
 scala3-3.0.3-RC1-bin-SNAPSHOT-bellsoft-08.zip
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>bellsoft-11</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-bellsoft-11.zip
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>corretto-11</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-corretto-11.zip
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>dcevm-11</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-dcevm-11.zip
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>dragonwell-08</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-dragonwell-08.zip
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>dragonwell-11</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-dragonwell-11.zip
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>microsoft-11</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-microsoft-11.zip
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>openj9-08</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-openj9-08.zip
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>openj9-11</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-openj9-11.zip
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>openjdk-08</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-openjdk-08.zip
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>openjdk-11</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-openjdk-11.zip
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>openjdk-17</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-openjdk-17.zip
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>redhat-08</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-redhat-08.zip
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>redhat-11</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-redhat-11.zip
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>sapmachine-11</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-sapmachine-11.zip
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>sapmachine-17</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-sapmachine-17.zip
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>zulu-08</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-zulu-08.zip
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>zulu-11</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-zulu-11.zip
-scala3-3.0.3-RC1-bin-SNAPSHOT-<b>zulu-17</b>.tar.gz
 scala3-3.0.3-RC1-bin-SNAPSHOT-zulu-17.zip
 </pre>
 
