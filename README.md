@@ -73,7 +73,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*July 2021*) <sup id="anchor_04">[[4]](#footnote_04)</sup>:
+For instance our development environment looks as follows (*August 2021*) <sup id="anchor_04">[[4]](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant-1.10.11\         <i>( 39.7 MB)</i>
@@ -729,7 +729,7 @@ Hello world!
 Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 <a href="https://wiki.shibboleth.net/confluence/pages/viewpage.action?pageId=44729840">Java SE 8</a> is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS release</a> in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html" rel="external">LTS release</a>.
 </p>
 <p style="margin:0 0 1em 20px;">
-<a href="https://wiki.shibboleth.net/confluence/pages/viewpage.action?pageId=70352982">Java SE 17</a> is in early access (<a href="http://jdk.java.net/17/">build 29</a> released in July 2021); it will be the next LTS release after Java 11.
+<a href="https://wiki.shibboleth.net/confluence/pages/viewpage.action?pageId=70352982">Java SE 17</a> is in early access (<a href="http://jdk.java.net/17/">build 33</a> released in July 2021); it will be the next LTS release after Java 11.
 </p>
 
 <span name="footnote_02">[2]</b> ***Using Bazel on Windows*** [↩](#anchor_02)
@@ -789,7 +789,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -52,7 +52,7 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*July 2021*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
+For instance our development environment looks as follows (*August 2021*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\jdk-bellsoft-11.0.12\      <i>(300 MB)</i>
@@ -88,29 +88,31 @@ dist\target\scala3-3.0.3-RC1-bin-SNAPSHOT.zip
 > - [`scala3-library`](https://mvnrepository.com/artifact/org.scala-lang/scala3-library) (Scala 3 library)
 > - and so on.
 
-We ideally would run the command [`build -timer -verbose archives`](./bin/dotty/build.bat) to generate the above files (presuming all tests were successful).
+We ideally would run the command [`build archives`](./bin/dotty/build.bat) to generate the above files (presuming all tests were successful).
 
-Unfortunately a few tests still fail on Windows, so need to proceed in two steps, running the command [`build -timer -verbose clean boot & build -timer -verbose arch-only`](./bin/dotty/build.bat), in order to achieve our goal. 
+Unfortunately a few tests still fail on Windows, so need to proceed in two steps, running the command [`build boot & build arch-only`](./bin/dotty/build.bat), in order to achieve our goal. 
 
-Let's compare the build times for Java 11 and Java 8 on a Win10 laptop with an i7-8550U (1.8 GHz) processor and 16 Go of memory <sup id="anchor_03">[[3]](#footnote_03)</sup> :
+Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop with an i7-8550U (1.8 GHz) processor and 16 Go of memory <sup id="anchor_03">[[3]](#footnote_03)</sup> :
 
-| 11.0.12  | **Build&nbsp;time** | 1.8.0_302 | **Build&nbsp;time** |
-|----------|---------------------|-----------|---------------------|
-| [Corretto][corretto_downloads]<br/>(Amazon) |   31:48<br/>32:05 | [Corretto][corretto_downloads]<br/>(Amazon) | 25:45</br>26:02 | 01:15</br>01:15 | 27:00</br>27:27 |
-| [DCEVM][trava_downloads]<br/>(Trava) <sup><b>a)</b></sup> | 33:40<br/>34:56 | [DCEVM][trava_downloads]<br/>(Trava) | n.a.            | n.a.            | n.a.            |
-| [Dragonwell][dragonwell_downloads]<br/>(Alibaba) <sup><b>a)</b></sup> | 32:39<br/>32:00 | [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) | 31:35<br/>32:02 | 01:17<br/>01:17 | 32:52<br/>33:19 |
-| [Liberica][bellsoft_downloads]<br/>(BellSoft) | 32:18<br/>34:58 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 25:06<br/>24:44 | 01:09<br/>01:16 | 25:15<br/>26:00 |
-| [Microsoft][microsoft_downloads] <sup><b>a)</b></sup> | <i>tbd</i> | [Microsoft][microsoft_downloads] | n.a.            | n.a.            | n.a.            |
-| [OpenJ9][openj9_downloads]<br/>(Eclipse) <sup><b>a)</b></sup> | 37:41<br/>38:00 | [OpenJ9][openj9_downloads]<br/>(Eclipse) | 34:02<br/>33:16 |
-| [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) <sup><b>a)</b></sup> | 33:49<br/>33:45 | [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) | 26:24<br/>25:40 |
-| [RedHat][redhat_downloads] <sup><b>a)</b></sup> | 31:46<br/>33:17 | [RedHat][redhat_downloads]    | 27:08<br/>26.32 |
-| [Zulu][azul_downloads]<br/>(Azul)     | 32:31<br/>33:01 | [Zulu][azul_downloads]<br/>(Azul) | 26:17<br/>26:10 |
+| 8u302 | **Build&nbsp;time** | 11.0.12  | **Build&nbsp;time** | 17 EA | **Build&nbsp;time** |
+|-----------|---------------------|----------|---------------------|-------|---------------------|
+| [Corretto][corretto_downloads]<br/>(Amazon) | 27:00</br>27:27 | [Corretto][corretto_downloads]<br/>(Amazon) |   30:49<br/>30:42 | <span style="color:#aaaaaa;">Corretto<br/>(Amazon)</span> | n.a. |
+| <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a. | [DCEVM][trava_downloads]<br/>(Trava) <sup><b>b)</b></sup> | 31:10<br/>31:42 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a.           |
+| [Dragonwell][dragonwell_downloads]<br/>(Alibaba) | n.a. | [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) <sup><b>b)</b></sup> | 30:41<br/>30:44 | <span style="color:#aaaaaa;">Dragonwell<br/>(Alibaba)</span> | n.a. |
+| GraalVM<br/>(Oracle) | 26:40<br/>&nbsp; | GraalVM<br/> (Oracle) | 31:34<br/>&nbsp; | <span style="color:#aaaaaa;">GraalVM<br/>(Oracle)</span> | n.a. |
+| [Liberica][bellsoft_downloads]<br/>(BellSoft) | 25:10<br/>25:41 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 31:04<br/>30:33 | <span style="color:#aaaaaa;">Liberica<br/>(BellSoft)</span> | n.a. |
+| <span style="color:#aaaaaa;">Microsoft</span> | n.a. | [Microsoft][microsoft_downloads] <sup><b>b)</b></sup> | 30:56<br/>31:16 | <span style="color:#aaaaaa;">Microsoft</span> | n.a. |
+| [OpenJ9][openj9_downloads]<br/>(Eclipse) <sup><b>a)</b></sup> | 33:30<br/>33:47 | [OpenJ9][openj9_downloads]<br/>(Eclipse) <sup><b>b)</b></sup> | 39:04<br/>38:00 | <span style="color:#aaaaaa;">OpenJ9<br/>Eclipse</span> | n.a. |
+| [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) <sup><b>a)</b></sup> | 25:46<br/>25:47 | [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) <sup><b>b)</b></sup> | 29:59<br/>32:14 | [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) | 28:52<br/>29:04 |
+| [RedHat][redhat_downloads] <sup><b>a)</b></sup> | 26:01<br/>26:09 | [RedHat][redhat_downloads] <sup><b>b)</b></sup> | 30:16<br/>33:17 | <span style="color:#aaaaaa;">RedHat</a> | n.a. |
+| <span style="color:#aaaaaa;">SapMachine<br/>(SAP)</span> | n.a. | [SapMachine][sapmachine_downloads]<br/>(SAP) | 31:33<br/>&nbsp; | [SapMachine][sapmachine_downloads]<br/>(SAP) | 28:43<br/>28:27 |
+| [Zulu][azul_downloads]<br/>(Azul)     | 25:39<br/>25:44 | [Zulu][azul_downloads]<br/>(Azul) | 31:38<br/>32:02 | [Zulu][azul_downloads]<br/>(Azul) | 28:59<br/>28:41 |
 <div style="font-size:80%;">
-<sup><b>a)</b></sup> Version 11.0.11.<br/>&nbsp;</div>
+<sup><b>a)</b></sup> Version 8u292 instead of 8u302<br/>
+<sup><b>b)</b></sup> Version 11.0.11 instead of 11.0.12.</div>
 
-Here are some observations about the above results :
-- The build process fails with [Corretto JDK][corretto_downloads] (ongoing investigation).
-- Build times are ~10% longer with [OpenJ9 JDK][openj9_downloads] (for Java 11 and Java 8).
+Here are two observations about the above results :
+- Build times are ~10% longer with [OpenJ9 JDK][openj9_downloads] (for Java 8 and Java 11).
 - Build times are significantly slower for Java 11 than for Java 8.
 
 <!--
@@ -129,7 +131,7 @@ And we get the following build times for Java 11 and Java 8 look on a *slower* W
 
 ## <span id="build_errors">Scala 3 build errors</span>
 
-Build errors encountered on MS Windows on July 13, 2021, are :
+Build errors encountered on MS Windows on July 31, 2021, are :
 
 | JVM 8 - Failing tests  | <a href="https://bell-sw.com/pages/downloads/#/java-8-lts">bellsoft-08</a> | <a href="https://github.com/corretto/corretto-8/releases">corretto-08</a> | <a href="https://github.com/alibaba/dragonwell8/releases">dragonwell-08</a> | <a href="https://adoptopenjdk.net/releases.html?variant=openjdk8&jvmVariant=openj9">openj9-08</a> | <a href="https://adoptopenjdk.net/releases.html?variant=openjdk8&jvmVariant=hotspot">openjdk-08</a> | <a href="https://developers.redhat.com/products/openjdk/download">redhat-08</a> | <a href="https://www.azul.com/downloads/?version=java-8-lts&package=jdk">zulu-08</a> |
 |:-----------------------|:-----------:|:-----------:|:-------------:|:---------:|:----------:|:---------:|:-------:|
@@ -475,7 +477,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <span name="footnote_03">[3]</span> ***Snapshot builds*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
-We run the batch file <a href="./bin/dotty/snapshot.bat"><code>snapshot.bat</code></a> (which calls <a href="./bin/dotty/build.bat"><code>build.bat</code></a>) to generate <b>19</b> Scala 3 distributions for <b>9</b> OpenJDK implementations (see snyk report "<a href="https://snyk.io/jvm-ecosystem-report-2021/">JVM Ecosystem report 2021"</a>).
+We run the batch file <a href="./bin/dotty/snapshot.bat"><code>snapshot.bat</code></a> (which calls <a href="./bin/dotty/build.bat"><code>build.bat</code></a>) to generate <b>19</b> Scala 3 distributions built using <b>10</b> OpenJDK implementations (see snyk report "<a href="https://snyk.io/jvm-ecosystem-report-2021/">JVM Ecosystem report 2021"</a>).
 </p>
 
 <pre style="margin:0 0 1em 20px;font-size:80%;">
@@ -503,7 +505,7 @@ scala3-3.0.3-RC1-bin-SNAPSHOT-zulu-17.zip
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -547,6 +549,7 @@ scala3-3.0.3-RC1-bin-SNAPSHOT-zulu-17.zip
 [oracle_openjdk_relnotes]: https://adoptopenjdk.net/release_notes.html?variant=openjdk11&jvmVariant=hotspot#jdk11_0_10
 [redhat]: https://www.redhat.com/
 [redhat_downloads]: https://developers.redhat.com/products/openjdk/download/
+[sapmachine_downloads]: https://sap.github.io/SapMachine/
 [sap_home]: https://www.sap.com/
 [scala3_home]: https://dotty.epfl.ch/
 [scala3_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html

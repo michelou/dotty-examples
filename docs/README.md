@@ -13,7 +13,7 @@
 
 > **:mag_right:** Articles published on the Web have been converted to PDF format and do not necessarily reflect the actual state of the original publication.
 
-### **Blogs**
+## <span id="blogs">Blogs</span>
 
 - "Types: Never commit too early"<br/>
   <ul style="margin:-16px 0 -16px 0;">
@@ -27,7 +27,10 @@
 - [[Link](https://chadaustin.me/2015/07/sum-types/)] [[PDF](./20150709_Sum_Types_Are_Coming.pdf)]<br/>"Sum Types Are Coming: What You Should Know", <span style="font-weight:bold; color:#DC143C;">2015</span> (21 pages).<br/>Chad Austin, [personal website](https://chadaustin.me/).
 
 
-### **Github**
+## <span id="books">Books</span>
+
+
+## <span id="github">Github</span>
 
 - [[Link](https://github.com/ikhoon/functional-programming-jargon.scala)] [[PDF](./20171113_Scala_code_examples_for_Functional_Programming_Jargon.pdf)]<br/>"Scala code examples for Functional Programming Jargon", <span style="font-weight:bold; color:#DC143C;">2017</span> (19 pages).<br/>Ikhoon Eom, [Github repository](https://github.com/ikhoon).
 
@@ -65,7 +68,7 @@
 
 <hr style="margin:2em 0 0 0;" />
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
