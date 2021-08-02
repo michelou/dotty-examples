@@ -31,7 +31,7 @@ This project depends on several external software for the **Microsoft Windows** 
 - [Liberica OpenJDK 11][bellsoft_downloads] from [BellSoft][bellsoft_about] ([*release notes*][bellsoft_relnotes]).
 - [Microsoft OpenJDK][microsoft_downloads] from [Microsoft][microsoft].
 - [OpenJ9 OpenJDK 11][openj9_downloads] from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html) ([*release notes*][openj9_relnotes], [*what's new?*][openj9_news]).
-- [Oracle OpenJDK 11][oracle_openjdk_downloads] from [Oracle] ([*release notes*][oracle_openjdk_relnotes]).
+- [Oracle OpenJDK 11][oracle_openjdk11_downloads] from [Oracle] ([*release notes*][oracle_openjdk_relnotes]).
 - [RedHat OpenJDK 11][redhat_downloads] from [RedHat].
 - [SapMachine OpenJDK 11](https://sap.github.io/SapMachine/) from [SAP][sap_home].
 - [Trava OpenJDK 11][trava_downloads] from [Travis](https://travis-ci.com/) ([*release notes*][trava_relnotes]).
@@ -62,7 +62,7 @@ C:\opt\jdk-dragonwell-11.0.11_0\  <i>(280 MB)</i>
 C:\opt\graalvm-ce-java11-21.2.0\  <i>(731 MB)</i>
 C:\opt\jdk-microsoft-11.0.11_9\   <i>(291 MB)</i>
 C:\opt\jdk-openj9-11.0.11_9\      <i>(295 MB)</i>
-C:\opt\jdk-openjdk-11.0.11_9\     <i>(299 MB)</i>
+C:\opt\jdk-openjdk-11.0.12_7\     <i>(296 MB)</i>
 C:\opt\jdk-redhat-11.0.12.7-1\    <i>(364 MB)</i>
 C:\opt\jdk-sapmachine-11.0.12\    <i>(316 MB)</i>
 C:\opt\jdk-zulu-11.0.12\          <i>(302 MB)</i>
@@ -103,7 +103,7 @@ Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop 
 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 25:10<br/>25:41 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 31:04<br/>30:33 | <span style="color:#aaaaaa;">Liberica<br/>(BellSoft)</span> | n.a. |
 | <span style="color:#aaaaaa;">Microsoft</span> | n.a. | [Microsoft][microsoft_downloads] <sup><b>b)</b></sup> | 30:56<br/>30:37 | <span style="color:#aaaaaa;">Microsoft</span> | n.a. |
 | [OpenJ9][openj9_downloads]<br/>(Eclipse) <sup><b>a)</b></sup> | 33:30<br/>33:47 | [OpenJ9][openj9_downloads]<br/>(Eclipse) <sup><b>b)</b></sup> | 39:04<br/>39:17 | <span style="color:#aaaaaa;">OpenJ9<br/>Eclipse</span> | n.a. |
-| [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) <sup><b>a)</b></sup> | 25:46<br/>25:47 | [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) <sup><b>b)</b></sup> | 29:59<br/>31:19 | [OpenJDK][oracle_openjdk_downloads]<br/>(Oracle) | 28:52<br/>29:04 |
+| [OpenJDK][oracle_openjdk8_downloads]<br/>(Oracle) | 25:46<br/>25:47 | [OpenJDK][oracle_openjdk11_downloads]<br/>(Oracle) | 29:59<br/>31:19 | [OpenJDK][oracle_openjdk17_downloads]<br/>(Oracle) | 28:52<br/>29:04 |
 | [RedHat][redhat_downloads] <sup><b>a)</b></sup> | 26:01<br/>26:09 | [RedHat][redhat_downloads] <sup><b>b)</b></sup> | 30:16<br/>30:51 | <span style="color:#aaaaaa;">RedHat</a> | n.a. |
 | <span style="color:#aaaaaa;">SapMachine<br/>(SAP)</span> | n.a. | [SapMachine][sapmachine_downloads]<br/>(SAP) | 31:33<br/>&nbsp; | [SapMachine][sapmachine_downloads]<br/>(SAP) | 28:43<br/>28:27 |
 | [Zulu][azul_downloads]<br/>(Azul)     | 25:39<br/>25:44 | [Zulu][azul_downloads]<br/>(Azul) | 31:38<br/>30:49 | [Zulu][azul_downloads]<br/>(Azul) | 28:59<br/>28:41 |
@@ -156,7 +156,7 @@ Build errors encountered on MS Windows on July 31, 2021, are :
 
 This section supplements my writing from page [Data Sharing and Dotty on Windows](CDS.md).
 
-An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For instance we proceed as follows to check if data sharing is enabled in [Oracle OpenJDK 11][oracle_openjdk_downloads] :
+An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For instance we proceed as follows to check if data sharing is enabled in [Oracle OpenJDK 11][oracle_openjdk11_downloads] :
 
 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last output line ends with
    - **`(build 11.0.11+9, mixed mode, sharing)`** if data sharing is enabled
@@ -294,7 +294,7 @@ JCL      - 7796c80419 based on jdk-11.0.11+9)
 
 ### <span id="oracle">Oracle OpenJDK 11</span> [**&#9650;**](#top)
 
-Oracle OpenJDK is the [reference implementation][oracle_openjdk_project]; the other OpenJDK distributions are derived from it.
+Oracle OpenJDK is the [reference implementation][oracle_openjdk11_project]; the other OpenJDK distributions are derived from it.
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\jdk-openjdk-11.0.11_9\bin\java -version</b>
 openjdk version "11.0.11" 2021-04-20
@@ -544,9 +544,11 @@ scala3-3.0.3-RC1-bin-SNAPSHOT-zulu-17.zip
 [openjdk_jck]: https://openjdk.java.net/groups/conformance/JckAccess/
 [openjdk_trademark]: https://openjdk.java.net/legal/openjdk-trademark-notice.html
 [oracle]: https://www.oracle.com/
-[oracle_openjdk_project]: https://openjdk.java.net/projects/jdk/11/
-[oracle_openjdk_downloads]: https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
-[oracle_openjdk_relnotes]: https://adoptopenjdk.net/release_notes.html?variant=openjdk11&jvmVariant=hotspot#jdk11_0_10
+[oracle_openjdk11_project]: https://openjdk.java.net/projects/jdk/11/
+[oracle_openjdk11_downloads]: https://github.com/AdoptOpenJDK/openjdk11-upstream-binaries/releases
+[oracle_openjdk11_relnotes]: https://adoptopenjdk.net/release_notes.html?variant=openjdk11&jvmVariant=hotspot#jdk11_0_10
+[oracle_openjdk17_downloads]: https://jdk.java.net/17/
+[oracle_openjdk8_downloads]: https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases
 [redhat]: https://www.redhat.com/
 [redhat_downloads]: https://developers.redhat.com/products/openjdk/download/
 [sapmachine_downloads]: https://sap.github.io/SapMachine/
