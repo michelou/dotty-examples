@@ -32,7 +32,7 @@ This project depends on the following external software for the **Microsoft Wind
 
 > **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Scala 3][scala_3] also support Java 9+. In the following we work with [Oracle OpenJDK 11][openjdk_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
 
-For instance our development environment looks as follows (*May 2021*):
+For instance our development environment looks as follows (*August 2021*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.32.0\             <i>(290 MB)</i>
@@ -703,7 +703,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -711,11 +711,11 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [scala3_home]: https://dotty.epfl.ch/
 [scala3_releases]: https://github.com/lampepfl/dotty/releases
-[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.0.0-RC3
+[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.0.2-RC1
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.31.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.32.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [haskell_examples]: https://github.com/michelou/haskell-examples

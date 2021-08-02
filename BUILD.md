@@ -42,13 +42,13 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*July 2021*):
+For instance our development environment looks as follows (*August 2021*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.32.0\                 <i>(279 MB)</i>
 C:\opt\jdk-openjdk-1.8.0u292-b10\  <i>(186 MB)</i>
 C:\opt\jdk-openjdk-11.0.11_9\      <i>(314 MB)</i>
-C:\opt\jdk-openjdk-17-ea_31\       <i>(293 MB)</i>
+C:\opt\jdk-openjdk-17-ea_33\       <i>(293 MB)</i>
 C:\opt\sbt-1.5.5\                  <i>( 48 MB)</i>
 </pre>
 
@@ -645,7 +645,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -682,7 +682,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.5.2
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.5.5
 [scala3_docs]: https://dotty.epfl.ch/docs/
 [scala3_home]: https://dotty.epfl.ch/
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
