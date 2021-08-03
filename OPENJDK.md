@@ -99,13 +99,13 @@ Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop 
 | [Corretto][corretto_downloads]<br/>(Amazon) | 27:00</br>27:27 | [Corretto][corretto_downloads]<br/>(Amazon) |   30:49<br/>30:42 | <span style="color:#aaaaaa;">Corretto<br/>(Amazon)</span> | n.a. |
 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a. | [DCEVM][trava_downloads]<br/>(Trava) <sup><b>b)</b></sup> | 31:10<br/>30:28 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a.           |
 | [Dragonwell][dragonwell_downloads]<br/>(Alibaba) | n.a. | [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) <sup><b>b)</b></sup> | 30:41<br/>30:44 | <span style="color:#aaaaaa;">Dragonwell<br/>(Alibaba)</span> | n.a. |
-| GraalVM<br/>(Oracle) | 26:40<br/>26:11 | GraalVM<br/> (Oracle) | 31:34<br/>&nbsp; | <span style="color:#aaaaaa;">GraalVM<br/>(Oracle)</span> | n.a. |
+| GraalVM<br/>(Oracle) | 26:09<br/>26:11 | GraalVM<br/> (Oracle) | 31:34<br/>33:11 | <span style="color:#aaaaaa;">GraalVM<br/>(Oracle)</span> | n.a. |
 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 25:10<br/>25:41 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 31:04<br/>30:33 | <span style="color:#aaaaaa;">Liberica<br/>(BellSoft)</span> | n.a. |
-| <span style="color:#aaaaaa;">Microsoft</span> | n.a. | [Microsoft][microsoft_downloads] <sup><b>b)</b></sup> | 30:56<br/>30:37 | <span style="color:#aaaaaa;">Microsoft</span> | n.a. |
+| <span style="color:#aaaaaa;">Microsoft</span> | n.a. | [Microsoft][microsoft_downloads] <sup><b>b)</b></sup> | 30:16<br/>30:37 | <span style="color:#aaaaaa;">Microsoft</span> | n.a. |
 | [OpenJ9][openj9_downloads]<br/>(Eclipse) <sup><b>a)</b></sup> | 33:30<br/>33:47 | [OpenJ9][openj9_downloads]<br/>(Eclipse) <sup><b>b)</b></sup> | 39:04<br/>39:17 | <span style="color:#aaaaaa;">OpenJ9<br/>Eclipse</span> | n.a. |
 | [OpenJDK][oracle_openjdk8_downloads]<br/>(Oracle) | 25:46<br/>25:47 | [OpenJDK][oracle_openjdk11_downloads]<br/>(Oracle) | 29:59<br/>31:19 | [OpenJDK][oracle_openjdk17_downloads]<br/>(Oracle) | 28:52<br/>29:04 |
 | [RedHat][redhat_downloads] <sup><b>a)</b></sup> | 26:01<br/>26:09 | [RedHat][redhat_downloads] <sup><b>b)</b></sup> | 30:16<br/>30:51 | <span style="color:#aaaaaa;">RedHat</a> | n.a. |
-| <span style="color:#aaaaaa;">SapMachine<br/>(SAP)</span> | n.a. | [SapMachine][sapmachine_downloads]<br/>(SAP) | 31:33<br/>&nbsp; | [SapMachine][sapmachine_downloads]<br/>(SAP) | 28:43<br/>28:27 |
+| <span style="color:#aaaaaa;">SapMachine<br/>(SAP)</span> | n.a. | [SapMachine][sapmachine_downloads]<br/>(SAP) | 31:33<br/>30:52 | [SapMachine][sapmachine_downloads]<br/>(SAP) | 28:43<br/>28:27 |
 | [Zulu][azul_downloads]<br/>(Azul)     | 25:39<br/>25:44 | [Zulu][azul_downloads]<br/>(Azul) | 31:38<br/>30:49 | [Zulu][azul_downloads]<br/>(Azul) | 28:59<br/>28:41 |
 <div style="font-size:80%;">
 <sup><b>a)</b></sup> Version 8u292 instead of 8u302<br/>
