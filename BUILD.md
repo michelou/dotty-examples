@@ -46,8 +46,8 @@ For instance our development environment looks as follows (*August 2021*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.32.0\                 <i>(279 MB)</i>
-C:\opt\jdk-openjdk-1.8.0u292-b10\  <i>(186 MB)</i>
-C:\opt\jdk-openjdk-11.0.11_9\      <i>(314 MB)</i>
+C:\opt\jdk-openjdk-1.8.0u302-b08\  <i>(186 MB)</i>
+C:\opt\jdk-openjdk-11.0.12_7\      <i>(314 MB)</i>
 C:\opt\jdk-openjdk-17-ea_33\       <i>(293 MB)</i>
 C:\opt\sbt-1.5.5\                  <i>( 48 MB)</i>
 </pre>
@@ -79,7 +79,7 @@ The directory structure of the [Dotty repository][github_dotty] <sup id="anchor_
    <a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/scalac.bat">dotty\dist\bin\scalac.bat</a>
    <a href="https://github.com/michelou/dotty-examples/blob/master/bin/3.0/scaladoc.bat">dotty\dist\bin\scaladoc.bat</a>
    </pre>
-   > **:mag_right:** With [PR#13006](https://github.com/lampepfl/dotty/pull/13006) those batch files have been added into the 3.0.2 branch of Scala 3.
+   > **:mag_right:** With [PR#13006](https://github.com/lampepfl/dotty/pull/13006) those batch files have been added to the 3.0.2 branch of Scala 3.
 
 We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
 
@@ -96,7 +96,7 @@ In the next section we give a brief description of the batch files present in th
 We distinguish several sets of batch commands:
 
 1. Directory [**`bin\3.0\`**](bin/3.0) - This directory contains the shell scripts and batch files to be added unchanged to a [Scala 3 software distribution][dotty_releases].
-   > **:mag_right:** With the merge of [PR#13006](https://github.com/lampepfl/dotty/pull/13006) into the <b><code>3.0.2</code></b> branch of the [Dotty project][scala3_home] the copy operation below is no more required.
+   > **:mag_right:** With the merge of [PR#13006](https://github.com/lampepfl/dotty/pull/13006) into the <a href="https://github.com/lampepfl/dotty/tree/release-3.0.2"><b><code>3.0.2</code></b> branch</a> of the [Dotty project][scala3_home] the copy operation below is no more required.
 
    <pre style="font-size:80%;">
    <b>&gt; cp bin\3.0\*.bat dotty\dist\bin</b>
@@ -336,8 +336,8 @@ Command **`build.bat archives`** works as follows:  ***if*** execution of the **
 [...]
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b dist\target</b>
-scala3-3.0.2-RC1-bin-SNAPSHOT.tar.gz
-scala3-3.0.2-RC1-bin-SNAPSHOT.zip
+scala3-3.0.3-RC1-bin-SNAPSHOT.tar.gz
+scala3-3.0.3-RC1-bin-SNAPSHOT.zip
 </pre>
 
 ### **`build.bat documentation`**

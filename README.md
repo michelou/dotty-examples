@@ -26,7 +26,8 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [Git 2.32][git_releases] ([*release notes*][git_relnotes])
-- [Oracle OpenJDK 11 LTS][oracle_openjdk] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk_relnotes])
+- [Oracle OpenJDK 8 LTS][oracle_openjdk8] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk8_relnotes])
+- [Oracle OpenJDK 11 LTS][oracle_openjdk11] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk11_relnotes])
 - [Scala 3.0][scala3_releases] ([*release notes*][scala3_relnotes])
 <!--
 8u212   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
@@ -46,7 +47,7 @@ This project depends on the following external software for the **Microsoft Wind
 11.0.7  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
 11.0.8  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-July/003498.html
 11.0.9  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-October/004007.html
-11.0.10 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-January/004689.html
+11.0.12 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-January/004689.html
 11.0.11 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-April/005860.html
 11.0.12 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-July/006954.html
 -->
@@ -62,7 +63,7 @@ Optionally one may also install the following software:
 - [JavaFX 16][javafx_downloads] ([*release notes*][javafx_relnotes])
 - [Mill 0.9][mill_releases] ([*change log*][mill_changelog])
 - [MSYS2][msys2_releases]
-- [Oracle OpenJDK 17][oracle_openjdk_17] ([*release notes*][oracle_openjdk_17_relnotes])
+- [Oracle OpenJDK 17][oracle_openjdk17] ([*release notes*][oracle_openjdk17_relnotes])
 - [SBT 1.5][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
 <!--
@@ -84,7 +85,7 @@ C:\opt\Git-2.32.0\                 <i>(279.0 MB)</i>
 C:\opt\gradle-7.1.1\               <i>(121.0 MB)</i>
 C:\opt\jacoco-0.8.7\               <i>( 10.7 MB)</i>
 C:\opt\javafx-sdk-16\              <i>( 79.0 MB)</i>
-C:\opt\jdk-openjdk-1.8.0_292-b10\  <i>(185.0 MB)</i>
+C:\opt\jdk-openjdk-1.8.0_302-b10\  <i>(185.0 MB)</i>
 C:\opt\jdk-openjdk-11.0.11_9\      <i>(300.0 MB)</i>
 C:\opt\jdk-openjdk-17-ea_30\       <i>(293.0 MB)</i>
 C:\opt\make-3.81\                  <i>(  2.1 MB)</i>
@@ -322,7 +323,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   javac 1.8.0_292, java 1.8.0_292, scalac 2.13.6, scalac 3.0.1,
+   javac 1.8.0_302, java 1.8.0_302, scalac 2.13.6, scalac 3.0.2-RC1,
    ant 1.10.11, gradle 7.1.1, mill 0.9.9, mvn 3.8.1, sbt 1.5.5,
    bazel 4.1.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.6,
    git 2.32.0.windows.1, diff 3.7, bash 4.4.23(1)-release
@@ -339,10 +340,10 @@ Other development tools such as [**`javac.exe`**][javac_cli] and [**`scalac.bat`
 INFO: Could not find files for the given pattern(s).
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> /r %JAVA_HOME% javac</b>
-c:\opt\jdk-openjdk-1.8.0_292-b10\bin\javac.exe
+c:\opt\jdk-openjdk-1.8.0_302-b10\bin\javac.exe
 &nbsp;
 <b>&gt; %JAVA_HOME%\bin\<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html">javac</a> -version</b>
-javac 1.8.0_292
+javac 1.8.0_302
 </pre>
 
 Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and defined variables:
@@ -350,15 +351,15 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   javac 11.0.10, java 11.0.10, scalac 2.13.6, scalac 3.0.1,
+   javac 11.0.12, java 11.0.12, scalac 2.13.6, scalac 3.0.2-RC1,
    ant 1.10.11, gradle 7.1.1, mill 0.9.9, mvn 3.8.1, sbt 1.5.5,
    bazel 4.1.0, cfr 0.151, make 3.81, python 3.9.6,
    git 2.32.0.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
-   C:\opt\jdk-openjdk-11.0.11_9\bin\javac.exe
-   C:\opt\jdk-openjdk-11.0.11_9\bin\java.exe
+   C:\opt\jdk-openjdk-11.0.12_7\bin\javac.exe
+   C:\opt\jdk-openjdk-11.0.12_7\bin\java.exe
    C:\opt\scala-2.13.6\bin\scalac.bat
-   C:\opt\scala3-3.0.1\bin\scalac.bat
+   C:\opt\scala3-3.0.2-RC1\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.11\bin\ant.bat
    C:\opt\gradle-7.1.1\bin\gradle.bat
@@ -377,14 +378,14 @@ Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.11"
    "BAZEL_HOME=c:\opt\bazel-4.1.0"
    "GIT_HOME=C:\opt\Git-2.32.0"
-   "JAVA_HOME=C:\opt\jdk-openjdk-11.0.11_9"
+   "JAVA_HOME=C:\opt\jdk-openjdk-11.0.12_7"
    "JAVAFX_HOME=C:\opt\javafx-sdk-16"
    "MSVS_HOME=X:"
    "MSYS_HOME=C:\opt\msys64"
    "PYTHON_HOME=C:\opt\Python-3.9.6"
    "SBT_HOME=C:\opt\sbt-1.5.5"
    "SCALA_HOME=C:\opt\scala-2.13.6"
-   "SCALA3_HOME=C:\opt\scala3-3.0.1"
+   "SCALA3_HOME=C:\opt\scala3-3.0.2-RC1"
 </pre>
 
 ### **`cleanup.bat`**
@@ -403,11 +404,11 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.0.1 c:\opt\jdk-openjdk-11.0.11_9</b>
+<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.0.2-RC1 c:\opt\jdk-openjdk-11.0.12_7</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
-Size of directory "c:\opt\scala3-3.0.1" is 31.4 Mb
-Size of directory "c:\opt\jdk-openjdk-11.0.11_9" is 184.2 Mb
+Size of directory "c:\opt\scala3-3.0.2-RC1" is 31.4 Mb
+Size of directory "c:\opt\jdk-openjdk-11.0.12_7" is 184.2 Mb
 </pre>
 
 ### **`getnightly.bat`**
@@ -741,7 +742,7 @@ Read the page <a href="https://docs.bazel.build/versions/master/windows.html#bui
 For instance, for Visual Studio 2019, we set variable <b><code>BAZEL_VC</code></b> to the Visual C++ Build Tools installation directory:
 </p>
 <pre style="margin:0 0 1em 20px;font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a></b> BAZEL_VC=C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a></b> "BAZEL_VC=C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC"
 </pre>
 
 <span name="footnote_03">[3]</span> ***JaCoCo and Java support*** [↩](#anchor_03)
@@ -774,7 +775,8 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20210228.exe</a>                         <i>( 94 MB)</i>
 <a href="http://jdk.java.net/17/">openjdk-17-ea+30_windows-x64_bin.zip</a>              <i>(176 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-15.0.1_windows-x64_bin-sdk.zip</a>            <i>( 39 MB)</i>
-<a href="https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.11_9.zip</a>  <i>( 99 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u302b08.zip</a>    <i>( 99 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.12_7.zip</a>  <i>( 99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.32.0-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.5.5.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.6.zip</a>                                  <i>( 21 MB)</i>
@@ -856,11 +858,16 @@ Command Prompt has been around for as long as we can remember, but starting with
 [mill_releases]: https://github.com/lihaoyi/mill/releases/
 [msys2_releases]: https://github.com/msys2/msys2-installer/releases
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
-[oracle_openjdk]: https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
-<!-- also: https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/tag/jdk8u252-b09 -->
-[oracle_openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-April/005860.html
-[oracle_openjdk_17]: http://jdk.java.net/17/
-[oracle_openjdk_17_relnotes]: https://github.com/openjdk/jdk/compare/jdk-17%2B20...jdk-17%2B21
+[oracle_openjdk8]: https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot
+[oracle_openjdk8_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-July/014118.html
+<!--
+11.0.11 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-April/005860.html
+11.0.12 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-July/006954.html
+-->
+[oracle_openjdk11_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-July/006954.html
+[oracle_openjdk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
+[oracle_openjdk17]: http://jdk.java.net/17/
+[oracle_openjdk17_relnotes]: https://github.com/openjdk/jdk/compare/jdk-17%2B20...jdk-17%2B21
 <!--
 [python_changelog]: https://docs.python.org/3.8/whatsnew/changelog.html#python-3-8-0-final
 [python_release]: https://www.python.org/downloads/release/python-380/
