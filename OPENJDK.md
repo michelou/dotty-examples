@@ -30,7 +30,7 @@ This project depends on several external software for the **Microsoft Windows** 
 - [GraalVM OpenJDK 11][graalvm_downloads] from [Oracle] ([*release notes*][graalvm_relnotes]).
 - [Liberica OpenJDK 11][bellsoft_downloads] from [BellSoft][bellsoft_about] ([*release notes*][bellsoft_relnotes]).
 - [Microsoft OpenJDK][microsoft_downloads] from [Microsoft][microsoft].
-- [OpenJ9 OpenJDK 11][openj9_downloads] from [IBM Eclipse](https://www.ibm.com/developerworks/rational/library/nov05/cernosek/index.html) ([*release notes*][openj9_relnotes], [*what's new?*][openj9_news]).
+- [OpenJ9 OpenJDK 11][openj9_downloads] from [IBM Developer](https://developer.ibm.com/) ([*release notes*][openj9_relnotes]).
 - [Oracle OpenJDK 11][oracle_openjdk11_downloads] from [Oracle] ([*release notes*][oracle_openjdk11_relnotes]).
 - [RedHat OpenJDK 11][redhat_downloads] from [RedHat].
 - [SapMachine OpenJDK 11](https://sap.github.io/SapMachine/) from [SAP][sap_home].
@@ -102,7 +102,7 @@ Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop 
 | [GraalVM][graalvm_downloads]<br/>(Oracle) | 26:09<br/>26:11 | [GraalVM][graalvm_downloads]<br/> (Oracle) | 31:34<br/>33:11 | <span style="color:#aaaaaa;">GraalVM<br/>(Oracle)</span> | n.a. |
 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 25:10<br/>25:41 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 31:04<br/>30:33 | <span style="color:#aaaaaa;">Liberica<br/>(BellSoft)</span> | n.a. |
 | <span style="color:#aaaaaa;">Microsoft</span> | n.a. | [Microsoft][microsoft_downloads] <sup><b>b)</b></sup> | 30:16<br/>30:37 | <span style="color:#aaaaaa;">Microsoft</span> | n.a. |
-| [OpenJ9][openj9_downloads]<br/>(Eclipse) | 33:30<br/>33:47 | [OpenJ9][openj9_downloads]<br/>(Eclipse) | 39:04<br/>39:17 | <span style="color:#aaaaaa;">OpenJ9<br/>Eclipse</span> | n.a. |
+| [OpenJ9][openj9_downloads]<br/>(IBM) | 33:30<br/>33:47 | [OpenJ9][openj9_downloads]<br/>(IBM) | 39:04<br/>39:17 | <span style="color:#aaaaaa;">OpenJ9<br/>(IBM)</span> | n.a. |
 | [OpenJDK][oracle_openjdk8_downloads]<br/>(Oracle) | 25:46<br/>25:47 | [OpenJDK][oracle_openjdk11_downloads]<br/>(Oracle) | 29:59<br/>31:19 | [OpenJDK][oracle_openjdk17_downloads]<br/>(Oracle) | 28:52<br/>29:04 |
 | [RedHat][redhat_downloads] | 26:01<br/>26:09 | [RedHat][redhat_downloads] | 30:16<br/>30:51 | <span style="color:#aaaaaa;">RedHat</a> | n.a. |
 | <span style="color:#aaaaaa;">SapMachine<br/>(SAP)</span> | n.a. | [SapMachine][sapmachine_downloads]<br/>(SAP) | 31:33<br/>30:52 | [SapMachine][sapmachine_downloads]<br/>(SAP) | 28:43<br/>28:27 |
@@ -112,7 +112,7 @@ Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop 
 <sup><b>b)</b></sup> Version 11.0.11 instead of 11.0.12.</div>
 
 Here are two observations about the above results :
-- Build times are ~10% longer with [OpenJ9 JDK][openj9_downloads] (for Java 8 and Java 11).
+- Build times are ~10% longer with [IBM JDK][openj9_downloads] (for Java 8 and Java 11).
 - Build times are significantly slower for Java 11 than for Java 8.
 
 <!--
@@ -233,19 +233,19 @@ We observe that [GraalVM][graalvm_org] is the only OpenJDK implementation to com
 In the following we work with the *"regular"* version of Liberica OpenJDK 11.
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-bellsoft-11.0.11\bin\java -version</b>
-openjdk version "11.0.11" 2021-04-20 LTS
-OpenJDK Runtime Environment (build 11.0.11+9-LTS)
-OpenJDK 64-Bit Server VM (build 11.0.11+9-LTS, mixed mode)
+<b>&gt; c:\opt\jdk-bellsoft-11.0.12\bin\java -version</b>
+openjdk version "11.0.12" 2021-07-20 LTS
+OpenJDK Runtime Environment (build 11.0.12+7-LTS)
+OpenJDK 64-Bit Server VM (build 11.0.12+7-LTS, mixed mode)
 
-<b>&gt; c:\opt\jdk-bellsoft-11.0.11\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-bellsoft-11.0.12\bin\java -Xshare:dump</b>
 [...]
 Number of classes 1224
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-bellsoft-11.0.11\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-bellsoft-11.0.12\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 01.05.2021  16:38        17 760 256 classes.jsa
 
-<b>&gt; c:\opt\jdk-bellsoft-11.0.11\bin\java -version</b>
+<b>&gt; c:\opt\jdk-bellsoft-11.0.12\bin\java -version</b>
 openjdk version "11.0.11" 2021-04-20 LTS
 OpenJDK Runtime Environment (build 11.0.11+9-LTS)
 OpenJDK 64-Bit Server VM (build 11.0.11+9-LTS, mixed mode, sharing)
@@ -275,17 +275,17 @@ OpenJDK 64-Bit Server VM Microsoft-22268 (build 11.0.11+9, mixed mode, sharing)
 
 ### <span id="openj9">OpenJ9 OpenJDK 11</span> [**&#9650;**](#top)
 
-Compared to the other OpenJDK distributions OpenJ9 JDK 11 provides advanced settings to manage shared data; it uses option [**`-Xshareclasses:<params>`**](https://www.eclipse.org/openj9/docs/xshareclasses/) instead of **`-Xshare:<param>`**.
+Compared to the other OpenJDK distributions OpenJ9 OpenJDK 11 provides advanced settings to manage shared data; it uses option [**`-Xshareclasses:<params>`**](https://www.eclipse.org/openj9/docs/xshareclasses/) instead of **`-Xshare:<param>`**.
 > **:mag_right:** Execute **`java -Xshareclasses:help`** to list the settings.
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-openj9-11.0.11_9\bin\java -version</b>
-openjdk version "11.0.11" 2021-04-20
-OpenJDK Runtime Environment AdoptOpenJDK-11.0.11+9 (build 11.0.11+9)
-Eclipse OpenJ9 VM AdoptOpenJDK-11.0.11+9 (build openj9-0.26.0, JRE 11 Windows 10 amd64-64-Bit Compressed References 20210421_976 (JIT enabled, AOT enabled)
-OpenJ9   - b4cc246d9
-OMR      - 162e6f729
-JCL      - 7796c80419 based on jdk-11.0.11+9)
+<b>&gt; c:\opt\jdk-openj9-11.0.12_7\bin\java -version</b>
+openjdk version "11.0.12" 2021-07-20
+IBM Semeru Runtime Open Edition 11.0.12.0 (build 11.0.12+7)
+Eclipse OpenJ9 VM 11.0.12.0 (build openj9-0.27.0, JRE 11 Windows 10 amd64-64-Bit Compressed References 20210730_175 (JIT enabled, AOT enabled)
+OpenJ9   - 1851b0074
+OMR      - 9db1c870d
+JCL      - 21849e2ca0 based on jdk-11.0.12+7)
 
 [XXXXXXXXXX -Xshareclasses:name=<name> ##########]
 </pre>
@@ -464,6 +464,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://github.com/corretto/corretto-11/releases" rel="external">amazon-corretto-11.0.12.7.1-windows-x64-jdk.zip</a>                <i>(178 MB)</i>
 <a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.12+7-windows-amd64.zip</a>                        <i>(187 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.2.0">graalvm-ce-java11-windows-amd64-21.2.0.zip</a>                     <i>(360 MB)</i>
+<a href="https://developer.ibm.com/languages/java/semeru-runtimes/downloads">ibm-semeru-open-jdk_x64_windows_11.0.12_7_openj9-0.27.0.zip</a>    <i>(198 MB)</i>
 <a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.12.7-1.windows.redhat.x86_64.zip</a>          <i>(256 MB)</i>
 <a href="https://docs.microsoft.com/en-us/java/openjdk/">microsoft-jdk-11.0.11.9.1-windows-x64.zip</a>                      <i>(177 MB)</i>
 <a href="https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases/latest">Openjdk11u-dcevm-windows-x64.zip</a>                               <i>(187 MB)</i>
@@ -537,8 +538,7 @@ scala3-3.0.3-RC1-bin-SNAPSHOT-zulu-17.zip
 [microsoft]: https://docs.microsoft.com/en-us/java/
 [microsoft_downloads]: https://docs.microsoft.com/en-us/java/openjdk/download#generally-available-ga-builds
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
-[openj9_downloads]: https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9
-[openj9_news]: https://www.eclipse.org/openj9/oj9_whatsnew.html
+[openj9_downloads]: https://developer.ibm.com/languages/java/semeru-runtimes/downloads
 [openj9_relnotes]: https://github.com/eclipse/openj9/releases/
 [openjdk_jck]: https://openjdk.java.net/groups/conformance/JckAccess/
 [openjdk_trademark]: https://openjdk.java.net/legal/openjdk-trademark-notice.html
