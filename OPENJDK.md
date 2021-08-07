@@ -112,7 +112,7 @@ Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop 
 <sup><b>b)</b></sup> Version 11.0.11 instead of 11.0.12.</div>
 
 Here are two observations about the above results :
-- Build times are ~10% longer with [IBM JDK][openj9_downloads] (for Java 8 and Java 11).
+- Build times are ~10% longer with [OpenJ9 JDK][openj9_downloads] (for Java 8 and Java 11).
 - Build times are significantly slower for Java 11 than for Java 8.
 
 <!--
@@ -140,7 +140,7 @@ Build errors encountered on MS Windows on July 31, 2021, are :
 | `ClasspathTests`       | Failed      | Failed      | Failed        | Failed    | Failed     | Failed    | Failed  |
 | `ZipArchiveTest`       | OK          | OK          | OK            | Failed    | OK         | OK        | OK      |
 
-| JVM 11 - Failing tests | <a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-11</a> | <a href="https://github.com/corretto/corretto-11/releases">corretto-11</a> | <a href="https://github.com/alibaba/dragonwell11/releases">dragonwell-11</a> | <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">openj9-11</a> | <a rhef="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=hotspot">openjdk-11</a> | <a href="https://developers.redhat.com/products/openjdk/download">redhat-11</a> | <a href="https://github.com/SAP/SapMachine/releases">sapmachine-11</a> | <a href="https://www.azul.com/downloads/?version=java-11-lts&package=jdk">zulu-11</a> |
+| JVM 11 - Failing tests | <a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-11</a> | <a href="https://github.com/corretto/corretto-11/releases">corretto-11</a> | <a href="https://github.com/alibaba/dragonwell11/releases">dragonwell-11</a> | <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">openj9-11</a> | <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=hotspot">openjdk-11</a> | <a href="https://developers.redhat.com/products/openjdk/download">redhat-11</a> | <a href="https://github.com/SAP/SapMachine/releases">sapmachine-11</a> | <a href="https://www.azul.com/downloads/?version=java-11-lts&package=jdk">zulu-11</a> |
 |:-----------------------|:-----------:|:-----------:|:-------------:|:---------:|:---------:|:---------:|:---------:|:-------:|
 | `ClasspathTests  `     | Failed      | Failed      | Failed        | Failed    | Failed    | Failed    | Failed    | Failed  |
 | `FromTastyTests`       | Failed      | Failed      | Failed        | Failed    | Failed    | Failed    | Failed    | Failed  |
@@ -158,8 +158,8 @@ This section supplements my writing from page [Data Sharing and Dotty on Windows
 An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For instance we proceed as follows to check if data sharing is enabled in [Oracle OpenJDK 11][oracle_openjdk11_downloads] :
 
 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last output line ends with
-   - **`(build 11.0.11+9, mixed mode, sharing)`** if data sharing is enabled
-   - **`(build 11.0.11+9, mixed mode)`** otherwise.
+   - **`(build 11.0.12+7, mixed mode, sharing)`** if data sharing is enabled
+   - **`(build 11.0.12+7, mixed mode)`** otherwise.
 2. Command **`java.exe -Xshare:dump`** generates the 17.3 Mb Java shared archive **`<install_dir>\bin\server\classes.jsa`** from file **`<install_dir>\lib\classlist`**.
 3. We go back to step 1 to verify that flag  **`sharing`** is present.
 
