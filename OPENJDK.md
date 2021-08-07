@@ -98,7 +98,7 @@ Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop 
 |-----------|---------------------|----------|---------------------|-------|---------------------|
 | [Corretto][corretto_downloads]<br/>(Amazon) | 27:00</br>27:27 | [Corretto][corretto_downloads]<br/>(Amazon) |   30:49<br/>30:42 | <span style="color:#aaaaaa;">Corretto<br/>(Amazon)</span> | n.a. |
 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a. | [DCEVM][trava_downloads]<br/>(Trava) <sup><b>b)</b></sup> | 31:10<br/>30:28 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a.           |
-| [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) <sup><b>a)</b></sup> | n.a. | [Dragonwell][dragonwell_downloads]<br/>(Alibaba) <sup><b>b)</b></sup> | 30:41<br/>30:44 | <span style="color:#aaaaaa;">Dragonwell<br/>(Alibaba)</span> | n.a. |
+| [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) <sup><b>a)</b></sup> | 31:54<br/>32:01 | [Dragonwell][dragonwell_downloads]<br/>(Alibaba) <sup><b>b)</b></sup> | 30:41<br/>30:44 | <span style="color:#aaaaaa;">Dragonwell<br/>(Alibaba)</span> | n.a. |
 | [GraalVM][graalvm_downloads]<br/>(Oracle) | 26:09<br/>26:11 | [GraalVM][graalvm_downloads]<br/> (Oracle) | 31:34<br/>33:11 | <span style="color:#aaaaaa;">GraalVM<br/>(Oracle)</span> | n.a. |
 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 25:10<br/>25:41 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 31:04<br/>30:33 | <span style="color:#aaaaaa;">Liberica<br/>(BellSoft)</span> | n.a. |
 | <span style="color:#aaaaaa;">Microsoft</span> | n.a. | [Microsoft][microsoft_downloads] | 30:16<br/>30:37 | <span style="color:#aaaaaa;">Microsoft</span> | n.a. |

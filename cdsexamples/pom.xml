@@ -3,6 +3,29 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <description>CDS Examples</description>
+    <url>https://github.com/michelou/dotty-examples</url>
+    <inceptionYear>2018</inceptionYear>
+    <licenses>
+        <license>
+            <name>Apache</name>
+            <url>https://github.com/lampepfl/dotty/blob/master/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <organization>
+        <name>EPFL Alumni</name>
+        <url>https://www.epflalumni.ch/</url>
+    </organization>
+    <developers>
+        <developer>
+            <id>michelou</id>
+            <name>Stéphane Micheloud</name>
+            <email>stephane.micheloud@alumni.epfl.ch</email>
+            <organization>EPFL Alumni</organization>
+        </developer>
+    </developers>
+
     <groupId>dotty-examples</groupId>
     <artifactId>cdsexamples</artifactId>
     <version>1.0-SNAPSHOT</version>

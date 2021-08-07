@@ -15,7 +15,7 @@ project.ext {
 
     if (dottyLocal?.toBoolean()) {
         scala3Home = System.getenv("SCALA3_HOME")
-		scalaHome = scala3Home != null ? scala3Home : System.getenv("SCALA_HOME")
+        scalaHome = scala3Home != null ? scala3Home : System.getenv("SCALA_HOME")
         print("scalaHome=$scalaHome")
 
         dottyLibraryPath = file(scalaHome + "/lib")
@@ -116,10 +116,10 @@ repositories {
 dependencies {
     implementation "org.scala-lang:scala3-compiler_3:3.0.2-RC1"
     testImplementation "junit:junit:4.13.2"
-	testImplementation "org.scalatest:scalatest_3:3.2.9"
-	implementation "org.scalatest:scalatest-funspec_3:3.2.9"
-	implementation "org.scalatest:scalatest-funsuite_3:3.2.9"
-	implementation "org.specs2:specs2-common_2.13:4.12.3"
-	implementation "org.specs2:specs2-core_2.13:4.12.3"
-	implementation "org.specs2:specs2-junit_2.13:4.12.3"
+    testImplementation "org.scalatest:scalatest_3:3.2.9"
+    implementation "org.scalatest:scalatest-funspec_3:3.2.9"
+    implementation "org.scalatest:scalatest-funsuite_3:3.2.9"
+    implementation "org.specs2:specs2-common_2.13:4.12.3"
+    implementation "org.specs2:specs2-core_2.13:4.12.3"
+    implementation "org.specs2:specs2-junit_2.13:4.12.3"
 }
