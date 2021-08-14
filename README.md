@@ -93,7 +93,7 @@ C:\opt\mill-0.9.9\                 <i>( 60.3 MB)</i>
 C:\opt\msys64\                     <i>( 5.56 GB)</i>
 C:\opt\sbt-1.5.5\                  <i>( 48.3 MB)</i>
 C:\opt\scala-2.13.6\               <i>( 23.8 MB, 612 MB with API docs)</i>
-C:\opt\scala3-3.0.1\               <i>( 31.6 MB)</i>
+C:\opt\scala3-3.0.2-RC1\           <i>( 31.6 MB)</i>
 </pre>
  <!-- jdk8: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
  <!-- jdk11: 11.0.8 = 314 MB, 11.0.9 = 316 MB, 11.0.11 = 300 MB -->
@@ -340,7 +340,7 @@ Other development tools such as [**`javac.exe`**][javac_cli] and [**`scalac.bat`
 INFO: Could not find files for the given pattern(s).
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> /r %JAVA_HOME% javac</b>
-c:\opt\jdk-openjdk-1.8.0_302-b10\bin\javac.exe
+c:\opt\jdk-openjdk-1.8.0_302-b08\bin\javac.exe
 &nbsp;
 <b>&gt; %JAVA_HOME%\bin\<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html">javac</a> -version</b>
 javac 1.8.0_302

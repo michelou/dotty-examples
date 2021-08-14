@@ -49,6 +49,8 @@
 ## <span id="papers">Papers</span>
 
 - [Semantics-Preserving Inlining for Metaprogramming](https://dl.acm.org/doi/10.1145/3426426.3428486) by Nicolas Stucki et al., November 2020.
+- [Interactive Development using the Dotty Compiler](https://conf.researchr.org/details/scala-2017/scala-2017-papers/4/Interactive-Development-using-the-Dotty-Compiler-Tool-Paper-) by Guillaume Martres, October 2017.
+- [Implementing Higher-Kinded Types in Dotty](https://conf.researchr.org/details/scala-2016/scala-2016/5/Implementing-Higher-Kinded-Types-in-Dotty) by Martin Odersky et al., October 2016.
 
 ## <span id="shell">Shell Scripting</span>
 
@@ -61,7 +63,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

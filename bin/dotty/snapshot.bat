@@ -17,8 +17,8 @@ if not %_EXITCODE%==0 goto end
 set _REFERENCE_VERSION=3.0.2-RC1
 set _BASE_VERSION=3.0.3-RC1
 
-set _EIGHT=bellsoft-08 dragonwell-08 openj9-08 openjdk-08 redhat-08 zulu-08
-set _ELEVEN=bellsoft-11 corretto-11 dcevm-11 dragonwell-11 microsoft-11 openj9-11 openjdk-11 redhat-11 sapmachine-11 zulu-11
+set _EIGHT=bellsoft-08 dragonwell-08 graalvm-ce-08 openj9-08 openjdk-08 redhat-08 zulu-08
+set _ELEVEN=bellsoft-11 corretto-11 dcevm-11 dragonwell-11 graalvm-ce-11 microsoft-11 openj9-11 openjdk-11 redhat-11 sapmachine-11 zulu-11
 set _SEVENTEEN=openjdk-17 sapmachine-17 zulu-17
 
 @rem for %%i in (%_EIGHT% %_ELEVEN% %_SEVENTEEN%) do (
@@ -56,6 +56,9 @@ for /f %%d in ('dir /ad /b "c:\opt\jdk-dragonwell-11*"') do set "_MAP[dragonwell
 
 for /f %%d in ('dir /ad /b "c:\opt\jdk-dcevm-11*"') do set "_MAP[dcevm-11]=c:\opt\%%d"
 
+for /f %%d in ('dir /ad /b "c:\opt\graalvm-ce-java8*"') do set "_MAP[graalvm-ce-08]=c:\opt\%%d"
+for /f %%d in ('dir /ad /b "c:\opt\graalvm-ce-java11*"') do set "_MAP[graalvm-ce-11]=c:\opt\%%d"
+
 for /f %%d in ('dir /ad /b "c:\opt\jdk-microsoft-11*"') do set "_MAP[microsoft-11]=c:\opt\%%d"
 
 for /f %%d in ('dir /ad /b "c:\opt\jdk-openj9-1.8*"') do set "_MAP[openj9-08]=c:\opt\%%d"
@@ -92,6 +95,10 @@ if not exist "!__JAVA_HOME!\bin\java.exe" (
     set _EXITCODE=1
     goto :eof
 )
+if %_DEBUG%==1 (
+    if defined JAVA_OPTS echo %_DEBUG_LABEL% JAVA_OPTS=%JAVA_OPTS%
+    if defined SBT_OPTS echo %_DEBUG_LABEL% SBT_OPTS=%SBT_OPTS%
+)
 setlocal
 set "JAVA_HOME=%__JAVA_HOME%"
 echo.
@@ -108,7 +115,7 @@ if not %ERRORLEVEL%==0 (
 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
 call :duration "%_TIMER_START%" "%__TIMER_END%"
 for /f "delims=" %%i in ('powershell -c "(Get-Date -Format 'yyyy-MM-dd hh:mm')"') do set "__TS=%%i"
-echo [%__TS%] DISTRO_NAME=%__DISTRO_NAME% DURATION=%_DURATION% "JAVA_HOME=!JAVA_HOME!" >> "%_LOG_FILE%"
+echo [%__TS%] DISTRO_NAME=%__DISTRO_NAME% DURATION=%_DURATION% "JAVA_HOME=!JAVA_HOME!">> "%_LOG_FILE%"
 endlocal
 goto :eof
 
@@ -165,6 +172,11 @@ if exist "%_ROOT_DIR%javacore.*.txt" (
 if exist "%_ROOT_DIR%Snap.*.trc" (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% del "%_ROOT_DIR%Snap.*.trc" 1>&2
     del "%_ROOT_DIR%Snap.*.trc"
+)
+@rem .git\config.lock
+if exist "%_ROOT_DIR%.git\config.lock" (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% del "%_ROOT_DIR%.git\config.lock" 1>&2
+    del "%_ROOT_DIR%.git\config.lock"
 )
 goto :eof
 
