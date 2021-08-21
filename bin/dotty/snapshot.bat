@@ -15,7 +15,7 @@ if not %_EXITCODE%==0 goto end
 @rem ## Main
 
 set _REFERENCE_VERSION=3.0.2-RC1
-set _BASE_VERSION=3.0.3-RC1
+set _BASE_VERSION=3.1.0-RC1
 
 set _EIGHT=bellsoft-08 dragonwell-08 graalvm-ce-08 openj9-08 openjdk-08 redhat-08 zulu-08
 set _ELEVEN=bellsoft-11 corretto-11 dcevm-11 dragonwell-11 graalvm-ce-11 microsoft-11 openj9-11 openjdk-11 redhat-11 sapmachine-11 zulu-11
@@ -115,7 +115,9 @@ if not %ERRORLEVEL%==0 (
 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
 call :duration "%_TIMER_START%" "%__TIMER_END%"
 for /f "delims=" %%i in ('powershell -c "(Get-Date -Format 'yyyy-MM-dd hh:mm')"') do set "__TS=%%i"
-echo [%__TS%] DISTRO_NAME=%__DISTRO_NAME% DURATION=%_DURATION% "JAVA_HOME=!JAVA_HOME!">> "%_LOG_FILE%"
+@rem for all distros name length is 6 < n < 14
+set "__PAD_RIGHT=%__DISTRO_NAME%      "
+echo [%__TS%] DISTRO_NAME=%__PAD_RIGHT:~0,13% DURATION=%_DURATION% JAVA_HOME=!JAVA_HOME!>> "%_LOG_FILE%"
 endlocal
 goto :eof
 

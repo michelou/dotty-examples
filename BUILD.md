@@ -24,7 +24,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 
 Our [Dotty fork][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.32][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.33][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
 - [sbt 1.5][sbt_releases] <sup id="anchor_03">[[3]](#footnote_03)</sup> (requires Java 8) ([*release notes*][sbt_relnotes])
 <!--
@@ -39,16 +39,20 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 11.0.10 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-January/004689.html
 11.0.11 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-April/005860.html
 -->
+Optionally one may also install the following software:
+
+- [Oracle OpenJDK 17][oracle_openjdk17] ([*release notes*][oracle_openjdk17_relnotes])
+
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
 For instance our development environment looks as follows (*August 2021*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.32.0\                 <i>(279 MB)</i>
+C:\opt\Git-2.33.0\                 <i>(279 MB)</i>
 C:\opt\jdk-openjdk-1.8.0u302-b08\  <i>(186 MB)</i>
 C:\opt\jdk-openjdk-11.0.12_7\      <i>(314 MB)</i>
-C:\opt\jdk-openjdk-17-ea_33\       <i>(293 MB)</i>
+C:\opt\jdk-openjdk-17-ea_35\       <i>(293 MB)</i>
 C:\opt\sbt-1.5.5\                  <i>( 48 MB)</i>
 </pre>
 
@@ -253,7 +257,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
-   GIT_CMD=C:\opt\Git-2.32.0\bin\git.exe
+   GIT_CMD=C:\opt\Git-2.33.0\bin\git.exe
    JAVA_CMD=C:\opt\jdk-openjdk-11.0.11_9\bin\java.exe
    SBT_CMD=C:\opt\sbt-1.5.5\bin\sbt.bat
 Tool options
@@ -656,7 +660,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.32.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.33.0.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/
@@ -680,6 +684,8 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 <!-- 8u232 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html -->
 <!-- 8u242 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html -->
 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
+[oracle_openjdk17]: http://jdk.java.net/17/
+[oracle_openjdk17_relnotes]: https://github.com/openjdk/jdk/compare/jdk-17%2B20...jdk-17%2B21
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
 [sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.5.5

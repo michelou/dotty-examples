@@ -304,11 +304,11 @@ goto :eof
 set _PYTHON_HOME=
 set _PYTHON_PATH=
 
-set _PYTHON_CMD=
-for /f %%f in ('where python.exe 2^>NUL') do set "_PYTHON_CMD=%%f"
-if defined _PYTHON_CMD (
+set __PYTHON_CMD=
+for /f %%f in ('where python.exe 2^>NUL') do set "__PYTHON_CMD=%%f"
+if defined __PYTHON_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Python executable found in PATH 1>&2
-    for %%i in ("%_PYTHON_CMD%") do set "_PYTHON_HOME=%%~dpi"
+    for %%i in ("%__PYTHON_CMD%") do set "_PYTHON_HOME=%%~dpi"
     goto :eof
 ) else if defined PYTHON_HOME (
     set "_PYTHON_HOME=%PYTHON_HOME%"

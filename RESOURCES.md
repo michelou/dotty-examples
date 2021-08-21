@@ -49,12 +49,18 @@
 ## <span id="papers">Papers</span>
 
 - [Semantics-Preserving Inlining for Metaprogramming](https://dl.acm.org/doi/10.1145/3426426.3428486) by Nicolas Stucki et al., November 2020.
+- [Towards Improved GADT Reasoning in Scala](http://lptk.github.io/files/%5Bv.2.0.1%5D%20scala19_gadt.pdf)] by L. Parreaux, A Boruch-Gruszecki and P.-G. Giarrusso, 2019.
+- [Initialization Patterns in Dotty](http://biboudis.github.io/papers/init-scala18.pdf) by F. Liu, A. Biboudis and M. Odersky, September 2018.
 - [Interactive Development using the Dotty Compiler](https://conf.researchr.org/details/scala-2017/scala-2017-papers/4/Interactive-Development-using-the-Dotty-Compiler-Tool-Paper-) by Guillaume Martres, October 2017.
 - [Implementing Higher-Kinded Types in Dotty](https://conf.researchr.org/details/scala-2016/scala-2016/5/Implementing-Higher-Kinded-Types-in-Dotty) by Martin Odersky et al., October 2016.
 
 ## <span id="shell">Shell Scripting</span>
 
 - [Google Shell Guide](https://google.github.io/styleguide/shellguide.html)
+
+## <span id="tools">Tools</span>
+
+- [ScalaStan](https://github.com/cibotech/scalastan) - A Scala DSL for [Stan](https://mc-stan.org/), an open-source software for statistical modeling and high-performance statistical computation.
 
 ## <span id="videos">Videos</span>
 
