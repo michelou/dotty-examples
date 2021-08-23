@@ -340,8 +340,8 @@ Command **`build.bat archives`** works as follows:  ***if*** execution of the **
 [...]
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b dist\target</b>
-scala3-3.0.3-RC1-bin-SNAPSHOT.tar.gz
-scala3-3.0.3-RC1-bin-SNAPSHOT.zip
+scala3-3.1.0-RC1-bin-SNAPSHOT.tar.gz
+scala3-3.1.0-RC1-bin-SNAPSHOT.zip
 </pre>
 
 ### **`build.bat documentation`**
@@ -352,7 +352,7 @@ Command **`build.bat documentation`** works as follows: ***if*** execution of th
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -timer doc-only</b>
 Working directory: W:\dotty
 [...]
-[info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 3.0.1-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
+[info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 3.1.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
 Compiling (1/406): AlternateConstructorsPhase.scala
 [...]
 Compiling (406/406): package.scala
@@ -466,8 +466,8 @@ Command [**`project\scripts\bootstrapCmdTests.bat`**](bin/dotty/project/scripts/
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.31
-# VM version: JDK 11.0.11, VM 11.0.11+9
-# VM invoker: C:\opt\jdk-openjdk-11.0.11_9\bin\java.exe
+# VM version: JDK 11.0.12, VM 11.0.12+7
+# VM invoker: C:\opt\jdk-openjdk-11.0.12_7\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -496,8 +496,8 @@ Worker.compile  avgt       533.625          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.31
-# VM version: JDK 11.0.11, VM 11.0.11+9
-# VM invoker: C:\opt\jdk-openjdk-11.0.11_9\bin\java.exe
+# VM version: JDK 11.0.12, VM 11.0.12+7
+# VM invoker: C:\opt\jdk-openjdk-11.0.12_7\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -524,8 +524,8 @@ Worker.compile  avgt       361.619          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
 # JMH version: 1.31
-# VM version: JDK 11.0.11, VM 11.0.11+9
-# VM invoker: C:\opt\jdk-openjdk-11.0.11_9\bin\java.exe
+# VM version: JDK 11.0.12, VM 11.0.12+7
+# VM invoker: C:\opt\jdk-openjdk-11.0.12_7\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
