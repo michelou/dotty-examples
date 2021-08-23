@@ -35,7 +35,7 @@ This project depends on the following external software for the **Microsoft Wind
 For instance our development environment looks as follows (*August 2021*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.32.0\             <i>(290 MB)</i>
+C:\opt\Git-2.33.0\             <i>(290 MB)</i>
 C:\opt\jdk-openjdk-11.0.11_9\  <i>(314 MB)</i>
 C:\opt\scala3-3.0.2-RC1\       <i>( 57 MB)</i>
 </pre>
@@ -715,7 +715,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.32.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.33.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [haskell_examples]: https://github.com/michelou/haskell-examples
