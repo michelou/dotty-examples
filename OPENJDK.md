@@ -18,7 +18,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - OpenJDK and Scala 3 on Windows [**&#9660;**](#bottom)
 
-[JMH][jmh_project], [Metaprogramming][scala3_metaprogramming], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples] and [TruffleSqueak][trufflesqueak_examples] are other trending topics we are currently monitoring.
+[Deno][deno_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples] and [TruffleSqueak][trufflesqueak_examples] are other trending topics we are currently monitoring.
 
 
 ## <span id="proj_deps">Project dependencies</span>
@@ -55,22 +55,22 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 For instance our development environment looks as follows (*August 2021*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java11-21.2.0\  <i>(731 MB)</i>
-C:\opt\jdk-bellsoft-11.0.12\      <i>(300 MB)</i>
-C:\opt\jdk-corretto-11.0.12_7\    <i>(293 MB)</i>
-C:\opt\jdk-dcevm-11.0.11_1\       <i>(313 MB)</i>
-C:\opt\jdk-dragonwell-11.0.11_0\  <i>(280 MB)</i>
-C:\opt\jdk-microsoft-11.0.12_7\   <i>(291 MB)</i>
-C:\opt\jdk-openj9-11.0.12_7\      <i>(295 MB)</i>
-C:\opt\jdk-openjdk-11.0.12_7\     <i>(296 MB)</i>
-C:\opt\jdk-redhat-11.0.12.7-1\    <i>(364 MB)</i>
-C:\opt\jdk-sapmachine-11.0.12\    <i>(316 MB)</i>
-C:\opt\jdk-zulu-11.0.12\          <i>(302 MB)</i>
+C:\opt\graalvm-ce-java11-21.2.0\    <i>(731 MB)</i>
+C:\opt\jdk-bellsoft-11.0.12\        <i>(300 MB)</i>
+C:\opt\jdk-corretto-11.0.12_7\      <i>(293 MB)</i>
+C:\opt\jdk-dcevm-11.0.11_1\         <i>(313 MB)</i>
+C:\opt\jdk-dragonwell-11.0.12.8_0\  <i>(290 MB)</i>
+C:\opt\jdk-microsoft-11.0.12_7\     <i>(291 MB)</i>
+C:\opt\jdk-openj9-11.0.12_7\        <i>(295 MB)</i>
+C:\opt\jdk-openjdk-11.0.12_7\       <i>(296 MB)</i>
+C:\opt\jdk-redhat-11.0.12.7-1\      <i>(364 MB)</i>
+C:\opt\jdk-sapmachine-11.0.12\      <i>(316 MB)</i>
+C:\opt\jdk-zulu-11.0.12\            <i>(302 MB)</i>
 </pre>
 <!-- hotspot   : 11.0.8 = 297 MB, 11.0.9 = 299 MB, 11.0.10 = 300 MB -->
 <!-- corretto  : 11.0.8 = 290 MB, 11.0.9 = 292 MB, 11.0.10 = 292 MB -->
 <!-- dcevm     : 11.0.8 = 296 MB, 11.0.9 = 296 MB, 11.0.10 = 313 MB-->
-<!-- dragonwell: 11.0.11 = 307 MB -->
+<!-- dragonwell: 11.0.11 = 280 MB, 11.0.12 = 290 MB -->
 <!-- microsoft : 11.0.11 = 291 MB -->
 <!-- sap       : 11.0.8 = 288 MB, 11.0.9 = 315 MB, 11.0.10 = 316 MB -->
 <!-- zulu      : 11.0.8 = 299 MB, 11.0.9 = 300 MB, 11.0.10 = 301 MB -->
@@ -97,8 +97,8 @@ Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop 
 | 8u302 | **Build&nbsp;time** | 11.0.12  | **Build&nbsp;time** | 17 EA | **Build&nbsp;time** |
 |-----------|---------------------|----------|---------------------|-------|---------------------|
 | [Corretto][corretto_downloads]<br/>(Amazon) | 27:00</br>27:27 | [Corretto][corretto_downloads]<br/>(Amazon) |   30:49<br/>30:42 | <span style="color:#aaaaaa;">Corretto<br/>(Amazon)</span> | n.a. |
-| <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a. | [DCEVM][trava_downloads]<br/>(Trava) <sup><b>b)</b></sup> | 31:10<br/>30:28 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a.           |
-| [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) <sup><b>a)</b></sup> | 31:54<br/>32:01 | [Dragonwell][dragonwell_downloads]<br/>(Alibaba) <sup><b>b)</b></sup> | 30:41<br/>30:44 | <span style="color:#aaaaaa;">Dragonwell<br/>(Alibaba)</span> | n.a. |
+| <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a. | [DCEVM][trava_downloads]<br/>(Trava) <sup><b>a)</b></sup> | 31:10<br/>30:28 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a.           |
+| [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) | 31:54<br/>32:01 | [Dragonwell][dragonwell_downloads]<br/>(Alibaba) | 30:41<br/>30:44 | <span style="color:#aaaaaa;">Dragonwell<br/>(Alibaba)</span> | n.a. |
 | [GraalVM][graalvm_downloads]<br/>(Oracle) | 26:09<br/>26:11 | [GraalVM][graalvm_downloads]<br/> (Oracle) | 31:34<br/>33:11 | <span style="color:#aaaaaa;">GraalVM<br/>(Oracle)</span> | n.a. |
 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 25:10<br/>25:41 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 31:04<br/>30:33 | <span style="color:#aaaaaa;">Liberica<br/>(BellSoft)</span> | n.a. |
 | <span style="color:#aaaaaa;">Microsoft</span> | n.a. | [Microsoft][microsoft_downloads] | 30:16<br/>30:37 | <span style="color:#aaaaaa;">Microsoft</span> | n.a. |
@@ -108,8 +108,7 @@ Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop 
 | <span style="color:#aaaaaa;">SapMachine<br/>(SAP)</span> | n.a. | [SapMachine][sapmachine_downloads]<br/>(SAP) | 31:33<br/>30:52 | [SapMachine][sapmachine_downloads]<br/>(SAP) | 28:43<br/>28:27 |
 | [Zulu][azul_downloads]<br/>(Azul)     | 25:39<br/>25:44 | [Zulu][azul_downloads]<br/>(Azul) | 31:38<br/>30:49 | [Zulu][azul_downloads]<br/>(Azul) | 28:59<br/>28:41 |
 <div style="font-size:80%;">
-<sup><b>a)</b></sup> Version 8u292 instead of 8u302<br/>
-<sup><b>b)</b></sup> Version 11.0.11 instead of 11.0.12.</div>
+<sup><b>a)</b></sup> Version 11.0.11 instead of 11.0.12.</div>
 
 Here are two observations about the above results :
 - Build times are ~10% longer with [OpenJ9 JDK][openj9_downloads] (for Java 8 and Java 11).
@@ -167,12 +166,12 @@ An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For
 ### <span id="corretto">Corretto OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-corretto-11.0.12_7\bin\java -version</b>
+<b>&gt; c:\opt\jdk-corretto-11.0.12_7\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.12" 2021-07-20 LTS
 OpenJDK Runtime Environment Corretto-11.0.12.7.1 (build 11.0.12+7-LTS)
 OpenJDK 64-Bit Server VM Corretto-11.0.12.7.1 (build 11.0.12+7-LTS, mixed mode)
 
-<b>&gt; c:\opt\jdk-corretto-11.0.12_7\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-corretto-11.0.12_7\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
 [...]
 Number of classes 1214
 [...]
@@ -190,22 +189,22 @@ OpenJDK 64-Bit Server VM Corretto-11.0.12.7.1 (build 11.0.12+7-LTS, mixed mode, 
 ### <span id="dragonwell">Dragonwell OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-dragonwell-11.0.11_0\bin\java -version</b>
-openjdk version "11.0.11" 2021-04-20
-OpenJDK Runtime Environment (Alibaba Dragonwell) (build 11.0.11+0)
-OpenJDK 64-Bit Server VM (Alibaba Dragonwell) (build 11.0.11+0, mixed mode)
+<b>&gt; c:\opt\jdk-dragonwell-11.0.12.8_0\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+openjdk version "11.0.12.8" 2021-07-20
+OpenJDK Runtime Environment (Alibaba Dragonwell) (build 11.0.12.8+0)
+OpenJDK 64-Bit Server VM (Alibaba Dragonwell) (build 11.0.12.8+0, mixed mode)
 &nbsp;
-<b>&gt; c:\opt\jdk-dragonwell-11.0.11_0\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-dragonwell-11.0.12.8_0\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
 [...]
 Number of classes 1258
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-dragonwell-11.0.11_0\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
-29.07.2021  11:52        17 956 864 classes.jsa
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-dragonwell-11.0.12.8_0\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
+25.08.2021  19:37        17 956 864 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-dragonwell-11.0.11_0\bin\java -version</b>
-openjdk version "11.0.11" 2021-04-20
-OpenJDK Runtime Environment (Alibaba Dragonwell) (build 11.0.11+0)
-OpenJDK 64-Bit Server VM (Alibaba Dragonwell) (build 11.0.11+0, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-dragonwell-11.0.12.8_0\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+openjdk version "11.0.12.8" 2021-07-20
+OpenJDK Runtime Environment (Alibaba Dragonwell) (build 11.0.12.8+0)
+OpenJDK 64-Bit Server VM (Alibaba Dragonwell) (build 11.0.12.8+0, mixed mode, sharing)
 </pre>
 
 
@@ -214,7 +213,7 @@ OpenJDK 64-Bit Server VM (Alibaba Dragonwell) (build 11.0.11+0, mixed mode, shar
 [GraalVM][graalvm_org] is a universal virtual machine supporting the *interaction* between JVM-based languages like Java, Scala, Groovy, Kotlin, Clojure and native languages like C, C++, JavaScript, Python, R, Ruby.
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\graalvm-ce-java11-21.2.0\bin\java -version</b>
+<b>&gt; c:\opt\graalvm-ce-java11-21.2.0\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.12" 2021-07-20
 OpenJDK Runtime Environment GraalVM CE 21.2.0 (build 11.0.12+6-jvmci-21.2-b08)
 OpenJDK 64-Bit Server VM GraalVM CE 21.2.0 (build 11.0.12+6-jvmci-21.2-b08, mixed mode, sharing)
@@ -230,22 +229,24 @@ We observe that [GraalVM][graalvm_org] is the only OpenJDK implementation to com
 
 [Liberica OpenJDK 11][bellsoft_downloads] is available both as a *"regular"* and as a *"lite"* version (no JavaFX modules, compressed modules). BellSoft currently provides binaries suitable for different hardware and OS combinations, eg. Windows x86_64 and Windows x86.
 
+> **:mag_right:** Bellsoft also offers a <a href="https://libericajdk.ru/pages/liberica-release-notes-native-image-kit-21.2.0/">native image based JDK</a> distributions.
+
 In the following we work with the *"regular"* version of Liberica OpenJDK 11.
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-bellsoft-11.0.12\bin\java -version</b>
+<b>&gt; c:\opt\jdk-bellsoft-11.0.12\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.12" 2021-07-20 LTS
 OpenJDK Runtime Environment (build 11.0.12+7-LTS)
 OpenJDK 64-Bit Server VM (build 11.0.12+7-LTS, mixed mode)
 
-<b>&gt; c:\opt\jdk-bellsoft-11.0.12\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-bellsoft-11.0.12\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
 [...]
 Number of classes 1224
 [...]
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-bellsoft-11.0.12\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 01.05.2021  16:38        17 760 256 classes.jsa
 
-<b>&gt; c:\opt\jdk-bellsoft-11.0.12\bin\java -version</b>
+<b>&gt; c:\opt\jdk-bellsoft-11.0.12\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.11" 2021-04-20 LTS
 OpenJDK Runtime Environment (build 11.0.11+9-LTS)
 OpenJDK 64-Bit Server VM (build 11.0.11+9-LTS, mixed mode, sharing)
@@ -254,19 +255,19 @@ OpenJDK 64-Bit Server VM (build 11.0.11+9-LTS, mixed mode, sharing)
 ### <span id="microsoft">Microsoft OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-microsoft-11.0.12_7\bin\java -version</b>
+<b>&gt; c:\opt\jdk-microsoft-11.0.12_7\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.12" 2021-07-20
 OpenJDK Runtime Environment Microsoft-25199 (build 11.0.12+7)
 OpenJDK 64-Bit Server VM Microsoft-25199 (build 11.0.12+7, mixed mode)
 
-<b>&gt; c:\opt\jdk-microsoft-11.0.12_7\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-microsoft-11.0.12_7\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
 [...]
 Number of classes 1217
 [...]
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-microsoft-11.0.12_7\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 06.08.2021  14:47        17 694 720 classes.jsa
 
-<b>&gt; c:\opt\jdk-microsoft-11.0.12_7\bin\java -version</b>
+<b>&gt; c:\opt\jdk-microsoft-11.0.12_7\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.12" 2021-07-20
 OpenJDK Runtime Environment Microsoft-25199 (build 11.0.12+7)
 OpenJDK 64-Bit Server VM Microsoft-25199 (build 11.0.12+7, mixed mode, sharing)
@@ -279,7 +280,7 @@ Compared to the other OpenJDK distributions OpenJ9 OpenJDK 11 provides advanced 
 > **:mag_right:** Execute **`java -Xshareclasses:help`** to list the settings.
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-openj9-11.0.12_7\bin\java -version</b>
+<b>&gt; c:\opt\jdk-openj9-11.0.12_7\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.12" 2021-07-20
 IBM Semeru Runtime Open Edition 11.0.12.0 (build 11.0.12+7)
 Eclipse OpenJ9 VM 11.0.12.0 (build openj9-0.27.0, JRE 11 Windows 10 amd64-64-Bit Compressed References 20210730_175 (JIT enabled, AOT enabled)
@@ -295,7 +296,7 @@ JCL      - 21849e2ca0 based on jdk-11.0.12+7)
 
 Oracle OpenJDK is the [reference implementation][oracle_openjdk11_project]; the other OpenJDK distributions are derived from it.
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-openjdk-11.0.12_7\bin\java -version</b>
+<b>&gt; c:\opt\jdk-openjdk-11.0.12_7\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.12" 2021-07-20
 OpenJDK Runtime Environment 18.9 (build 11.0.12+7)
 OpenJDK 64-Bit Server VM 18.9 (build 11.0.12+7, mixed mode)
@@ -307,7 +308,7 @@ Number of classes 1214
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-openjdk-11.0.12_7\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 02.08.2021  21:20        17 760 256 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-openjdk-11.0.12_7\bin\java -version</b>
+<b>&gt; c:\opt\jdk-openjdk-11.0.12_7\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.12" 2021-07-20
 OpenJDK Runtime Environment 18.9 (build 11.0.12+7)
 OpenJDK 64-Bit Server VM 18.9 (build 11.0.12+7, mixed mode, sharing)
@@ -317,19 +318,19 @@ OpenJDK 64-Bit Server VM 18.9 (build 11.0.12+7, mixed mode, sharing)
 ### <span id="redhat">RedHat OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-redhat-11.0.12_7-1\bin\java -version</b>
+<b>&gt; c:\opt\jdk-redhat-11.0.12_7-1\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.12" 2021-07-20 LTS
 OpenJDK Runtime Environment 18.9 (build 11.0.12+7-LTS)
 OpenJDK 64-Bit Server VM 18.9 (build 11.0.12+7-LTS, mixed mode)
 
-<b>&gt; c:\opt\jdk-redhat-11.0.12_7-1\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-redhat-11.0.12_7-1\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
 [...]
 Number of classes 1229
 [...]
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-redhat-11.0.12_7-1\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 06.08.2021  14:50        17 760 256 classes.jsa
 
-<b>&gt; c:\opt\jdk-redhat-11.0.12_7-1\bin\java -version</b>
+<b>&gt; c:\opt\jdk-redhat-11.0.12_7-1\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.12" 2021-07-20 LTS
 OpenJDK Runtime Environment 18.9 (build 11.0.12+7-LTS)
 OpenJDK 64-Bit Server VM 18.9 (build 11.0.12+7-LTS, mixed mode, sharing)
@@ -341,19 +342,19 @@ OpenJDK 64-Bit Server VM 18.9 (build 11.0.12+7-LTS, mixed mode, sharing)
 GitHub project repository is [`SAP/SapMachine`](https://github.com/SAP/SapMachine).
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-sapmachine-11.0.12\bin\java -version</b>
+<b>&gt; c:\opt\jdk-sapmachine-11.0.12\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.12" 2021-07-20 LTS
 OpenJDK Runtime Environment SapMachine (build 11.0.12+7-LTS-sapmachine)
 OpenJDK 64-Bit Server VM SapMachine (build 11.0.12+7-LTS-sapmachine, mixed mode)
 &nbsp;
-<b>&gt; c:\opt\jdk-sapmachine-11.0.12\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-sapmachine-11.0.12\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
 [...]
 Number of classes 1214
 [...]
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-sapmachine-11.0.12\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 29.07.2021  11:54        17 694 720 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-sapmachine-11.0.12\bin\java -version</b>
+<b>&gt; c:\opt\jdk-sapmachine-11.0.12\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.12" 2021-07-20 LTS
 OpenJDK Runtime Environment SapMachine (build 11.0.12+7-LTS-sapmachine)
 OpenJDK 64-Bit Server VM SapMachine (build 11.0.12+7-LTS-sapmachine, mixed mode, sharing)
@@ -368,12 +369,12 @@ OpenJDK 64-Bit Server VM SapMachine (build 11.0.12+7-LTS-sapmachine, mixed mode,
 ### <span id="trava">Trava OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-dcevm-11.0.11_1\bin\java -version</b>
+<b>&gt; c:\opt\jdk-dcevm-11.0.11_1\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.11" 2021-04-20
 OpenJDK Runtime Environment AdoptOpenJDK-dcevm-11.0.11+1-202105021746 (build 11.0.11+1-202105021746)
 Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK-dcevm-11.0.11+1-202105021746 (build 11.0.11+1-202105021746, mixed mode)
 
-<b>&gt; c:\opt\jdk-dcevm-11.0.11_1\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-dcevm-11.0.11_1\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
 [...]
 Number of classes 12629
 [...]
@@ -381,7 +382,7 @@ total    :  18048312 [100.0% of total] out of  18219008 bytes [ 99.1% used
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-dcevm-11.0.10+4\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 30.10.2020  09:26        17 956 864 classes.jsa
 
-<b>&gt; c:\opt\jdk-dcevm-11.0.11_1\bin\java -version</b>
+<b>&gt; c:\opt\jdk-dcevm-11.0.11_1\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.11" 2021-04-20
 OpenJDK Runtime Environment AdoptOpenJDK-dcevm-11.0.11+1-202105021746 (build 11.0.11+1-202105021746)
 Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK-dcevm-11.0.11+1-202105021746 (build 11.0.11+1-202105021746, mixed mode, sharing)
@@ -404,19 +405,19 @@ Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK-dcevm-11.0.11+1-20210502174
 ### <span id="zulu">Zulu OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-zulu-11.0.12\bin\java -version</b>
+<b>&gt; c:\opt\jdk-zulu-11.0.12\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.12" 2021-07-20 LTS
 OpenJDK Runtime Environment Zulu11.50+19-CA (build 11.0.12+7-LTS)
 OpenJDK 64-Bit Server VM Zulu11.50+19-CA (build 11.0.12+7-LTS, mixed mode)
 &nbsp;
-<b>&gt; c:\opt\jdk-zulu-11.0.12\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-zulu-11.0.12\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
 [...]
 Number of classes 1213
 [...]
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-zulu-11.0.12\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 29.07.2021  11:55        17 825 792 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-zulu-11.0.12\bin\java -version</b>
+<b>&gt; c:\opt\jdk-zulu-11.0.12\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.12" 2021-07-20 LTS
 OpenJDK Runtime Environment Zulu11.50+19-CA (build 11.0.12+7-LTS)
 OpenJDK 64-Bit Server VM Zulu11.50+19-CA (build 11.0.12+7-LTS, mixed mode, sharing)
@@ -460,7 +461,7 @@ The role of the JCK is not to determine <i>quality</i>, but rather to provide a 
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/alibaba/dragonwell11/releases">Alibaba_Dragonwell_11.0.11.7_x64_windows.zip</a>                   <i>(181 MB)</i>
+<a href="https://github.com/alibaba/dragonwell11/releases">Alibaba_Dragonwell_11.0.12.8_x64_windows.zip</a>                   <i>(181 MB)</i>
 <a href="https://github.com/corretto/corretto-11/releases" rel="external">amazon-corretto-11.0.12.7.1-windows-x64-jdk.zip</a>                <i>(178 MB)</i>
 <a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.12+7-windows-amd64.zip</a>                        <i>(187 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.2.0">graalvm-ce-java11-windows-amd64-21.2.0.zip</a>                     <i>(360 MB)</i>
@@ -518,18 +519,19 @@ scala3-3.1.0-RC1-bin-SNAPSHOT-zulu-17.zip
 [azul_systems]: https://www.azul.com/
 [bellsoft_about]: https://bell-sw.com/pages/about
 [bellsoft_downloads]: https://bell-sw.com/pages/downloads/#/java-11-lts
-[bellsoft_relnotes]: https://bell-sw.com/pages/liberica-release-notes-11.0.11/
+[bellsoft_relnotes]: https://bell-sw.com/pages/liberica-release-notes-11.0.12/
 [corretto_changes]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html
 [corretto_gosling]: https://www.youtube.com/watch?v=WuZk23O76Zk
 [corretto_gupta]: https://www.youtube.com/watch?v=RLKC5nsiZXU
 [corretto_patches]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/patches.html
+[deno_examples]: https://github.com/michelou/llvm-examples
 [dragonwell_downloads]: https://github.com/alibaba/dragonwell11/releases
 [dragonwell_relnotes]: https://github.com/alibaba/dragonwell11/wiki/Alibaba-Dragonwell-11-Release-Notes#110117
 [dragonwell8_downloads]: https://github.com/alibaba/dragonwell8/releases
 [graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [graalvm_org]: https://www.graalvm.org/
-[graalvm_relnotes]: https://www.graalvm.org/release-notes/21_1/
+[graalvm_relnotes]: https://www.graalvm.org/release-notes/21_2/
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [jmh_project]: https://openjdk.java.net/projects/code-tools/jmh/
 [kotlin_examples]: https://github.com/michelou/kotlin-examples

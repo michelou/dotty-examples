@@ -36,8 +36,8 @@ For instance our development environment looks as follows (*August 2021*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.33.0\             <i>(290 MB)</i>
-C:\opt\jdk-openjdk-11.0.11_9\  <i>(314 MB)</i>
-C:\opt\scala3-3.0.2-RC1\       <i>( 57 MB)</i>
+C:\opt\jdk-openjdk-11.0.12_7\  <i>(314 MB)</i>
+C:\opt\scala3-3.0.2-RC2\       <i>( 57 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_downloads] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -486,12 +486,12 @@ Support files for Java class sharing:
 </pre>
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3_3.0.2-RC1\lib\dotty-cds*</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3_3.0.2-RC2\lib\dotty-cds*</b>
 dotty-cds-compiler.classlist
 dotty-cds-compiler.jsa
 dotty-cds-repl.classlist
 dotty-cds-repl.jsa
-dotty-cds_3-3.0.2-RC1.jar
+dotty-cds_3-3.0.2-RC2.jar
 </pre>
 
 <pre style="font-size:80%;">
@@ -577,12 +577,12 @@ Classes per package (888):
 > 3. Repeat command from point 1. 
 > 
 > <pre style="font-size:80%;">
-> <b>&gt; c:\opt\jdk-openjdk-11.0.11_9\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+> <b>&gt; c:\opt\jdk-openjdk-11.0.12_7\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 > openjdk version "11.0.11" 2021-04-20
 > OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.11+9)
 > OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.11+9, mixed mode)
 > &nbsp;
-> <b>&gt; c:\opt\jdk-openjdk-11.0.11_9\bin\java -Xshare:dump</b>
+> <b>&gt; c:\opt\jdk-openjdk-11.0.12_7\bin\java -Xshare:dump</b>
 > [...]
 > Number of classes 1272
 > [...]
@@ -593,11 +593,11 @@ Classes per package (888):
 > od  space:   6534648 [ 36.1% of total] [...]
 > total    :  17873816 [100.0% of total] [...]
 > &nbsp;
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\jdk-openjdk-11.0.11_9\bin\server</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\jdk-openjdk-11.0.12_7\bin\server</b>
 > classes.jsa
 > jvm.dll
 > &nbsp;
-> <b>&gt; c:\opt\jdk-openjdk-11.0.11_9\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+> <b>&gt; c:\opt\jdk-openjdk-11.0.12_7\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 > openjdk version "11.0.11" 2021-04-20
 > OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.11+9)
 > OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.11+9, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
@@ -711,7 +711,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [scala3_home]: https://dotty.epfl.ch/
 [scala3_releases]: https://github.com/lampepfl/dotty/releases
-[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.0.2-RC1
+[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.0.2-RC2
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
