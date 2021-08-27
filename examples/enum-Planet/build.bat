@@ -292,7 +292,7 @@ goto :eof
 
 :help
 if %_VERBOSE%==1 (
-    set __BEG_P=%_STRONG_FG_CYAN%
+    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
     set __BEG_O=%_STRONG_FG_GREEN%
     set __BEG_N=%_NORMAL_FG_YELLOW%
     set __END=%_RESET%
@@ -556,7 +556,7 @@ goto :eof
 @rem input parameter: %1=flag to add Dotty libs
 @rem output parameter: _LIBS_CPATH
 :libs_cpath
-set __ADD_DOTTY_LIBS=%~1
+set __ADD_SCALA3_LIBS=%~1
 
 for %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
 if not exist "%__BATCH_FILE%" (
@@ -568,7 +568,7 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__BATCH_FILE%" %_DEBUG% 1>&2
 call "%__BATCH_FILE%" %_DEBUG%
 set "_LIBS_CPATH=%_CPATH%"
 
-if defined __ADD_DOTTY_LIBS (
+if defined __ADD_SCALA3_LIBS (
     if not defined SCALA3_HOME (
         echo %_ERROR_LABEL% Variable SCALA3_HOME not defined 1>&2
         set _EXITCODE=1
@@ -885,7 +885,7 @@ goto :eof
 if %_TIMER%==1 (
     for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
     call :duration "%_TIMER_START%" "!__TIMER_END!"
-    echo Total elapsed time: !_DURATION! 1>&2
+    echo Total execution time: !_DURATION! 1>&2
 )
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%

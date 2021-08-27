@@ -20,6 +20,7 @@ PSEP       = ;
 ECHO       = $(subst \,/,$(GIT_HOME))/usr/bin/echo.exe
 FIND       = $(subst \,/,$(GIT_HOME))/usr/bin/find.exe
 MKDIR      = $(subst \,/,$(GIT_HOME))/usr/bin/mkdir.exe
+RM         = $(subst \,/,$(GIT_HOME))/usr/bin/rm.exe
 TOUCH      = $(subst \,/,$(GIT_HOME))/usr/bin/touch.exe
 else
 JAVA       = $(JAVA_HOME)/bin/java
@@ -33,11 +34,12 @@ PSEP       = :
 ECHO       = echo
 FIND       = find
 MKDIR      = mkdir
+RM         = rm
 TOUCH      = touch
 endif
 
 SCALA_LIB_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala-library-2.13.6.jar)
-SCALA3_LIB_JAR     = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala3-library_3-3.0.2-RC1.jar)
+SCALA3_LIB_JAR     = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala3-library_3-3.0.2-RC2.jar)
 HAMCREST_JAR       = $(shell $(FIND) "$(LOCAL_REPO)/org/hamcrest" -name hamcrest-2.2.jar)
 JUNIT_JAR          = $(shell $(FIND) "$(LOCAL_REPO)/junit/junit" -name junit-4.13.2.jar)
 JUNIT_INTF_JAR     = $(shell $(FIND) "$(LOCAL_REPO)/com/novocode" -name junit-interface-0.11.jar)

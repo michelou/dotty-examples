@@ -486,7 +486,8 @@ if %_SCALAC_OPTS_PRINT%==1 (
     )
 )
 set "__OPTS_FILE=%_TARGET_DIR%\scalac_opts.txt"
-echo %_SCALAC_OPTS% -classpath "%_CLASSES_DIR:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
+set "__CPATH=%_CLASSES_DIR%"
+echo %_SCALAC_OPTS% -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N% Scala source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
@@ -573,7 +574,7 @@ goto :eof
 @rem input parameter: %1=flag to add Dotty libs
 @rem output parameter: _LIBS_CPATH
 :libs_cpath
-set __ADD_DOTTY_LIBS=%~1
+set __ADD_SCALA3_LIBS=%~1
 
 for %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
 if not exist "%__BATCH_FILE%" (
@@ -585,7 +586,7 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__BATCH_FILE%" %_DEBUG% 1>&2
 call "%__BATCH_FILE%" %_DEBUG%
 set "_LIBS_CPATH=%_CPATH%"
 
-if defined __ADD_DOTTY_LIBS (
+if defined __ADD_SCALA3_LIBS (
     if not defined SCALA3_HOME (
         echo %_ERROR_LABEL% Variable SCALA3_HOME not defined 1>&2
         set _EXITCODE=1
@@ -913,7 +914,7 @@ goto :eof
 if %_TIMER%==1 (
     for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
     call :duration "%_TIMER_START%" "!__TIMER_END!"
-    echo Total elapsed time: !_DURATION! 1>&2
+    echo Total execution time: !_DURATION! 1>&2
 )
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%

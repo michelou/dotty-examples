@@ -284,6 +284,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% _PROJECT_VERSION=%_PROJECT_VERSION% 1>&2
     echo %_DEBUG_LABEL% Options    : _EXPLAIN=%_SCALAC_OPTS_EXPLAIN% _PRINT=%_SCALAC_OPTS_PRINT% _SCALA_VERSION=%_SCALA_VERSION% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: %_COMMANDS% 1>&2
+    if defined _CFR_CMD echo %_DEBUG_LABEL% Variables  : "CFR_HOME=%CFR_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "JAVA_HOME=%JAVA_HOME%" 1>&2
     if %_SCALA_VERSION%==2 ( echo %_DEBUG_LABEL% Variables  : "SCALA_HOME=%SCALA_HOME%" 1>&2
     ) else ( echo %_DEBUG_LABEL% Variables  : "SCALA3_HOME=%SCALA3_HOME%" 1>&2
@@ -510,10 +511,10 @@ set __PATH_ARRAY1=
 :action_path
 shift
 set __PATH=%~1
-if not defined __PATH goto :action_next
+if not defined __PATH goto action_next
 set __PATH_ARRAY=%__PATH_ARRAY%,'%__PATH%'
 set __PATH_ARRAY1=%__PATH_ARRAY1%,'!__PATH:%_ROOT_DIR%=!'
-goto :action_path
+goto action_path
 
 :action_next
 set __TARGET_TIMESTAMP=00000000000000
@@ -888,7 +889,7 @@ goto :eof
 if %_TIMER%==1 (
     for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
     call :duration "%_TIMER_START%" "!__TIMER_END!"
-    echo Total elapsed time: !_DURATION! 1>&2
+    echo Total execution time: !_DURATION! 1>&2
 )
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%

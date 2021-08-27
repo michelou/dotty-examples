@@ -105,7 +105,7 @@ object TypeRefinements {
     println("aa.xz="+aa.xz)
   }
 
-  def test: Unit = {
+  @main def test: Unit = {
     test_1a
     test_2
     test_3

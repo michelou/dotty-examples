@@ -577,10 +577,10 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 )
 goto :eof
 
-@rem input parameter: %1=flag to add Dotty libs
+@rem input parameter: %1=flag to add Scala 3 libs
 @rem output parameter: _LIBS_CPATH
 :libs_cpath
-set __ADD_DOTTY_LIBS=%~1
+set __ADD_SCALA3_LIBS=%~1
 
 for %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
 if not exist "%__BATCH_FILE%" (
@@ -592,7 +592,7 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__BATCH_FILE%" %_DEBUG% 1>&2
 call "%__BATCH_FILE%" %_DEBUG%
 set "_LIBS_CPATH=%_CPATH%"
 
-if defined __ADD_DOTTY_LIBS (
+if defined __ADD_SCALA3_LIBS (
     if not defined SCALA3_HOME (
         echo %_ERROR_LABEL% Variable SCALA3_HOME not defined 1>&2
         set _EXITCODE=1

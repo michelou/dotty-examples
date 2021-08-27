@@ -31,7 +31,7 @@ $(TARGET): $(SOURCES)
 	@$(TOUCH) "$(TARGET)"
 
 clean:
-	rm -rf "$(TARGET_DIR)"
+	$(RM) -rf "$(TARGET_DIR)"
 
 compile: build
 

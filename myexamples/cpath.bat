@@ -77,8 +77,8 @@ call :add_jar "org.specs2" "specs2-matcher_%__SCALA_BINARY_VERSION%" "%__SPECS2_
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-fp
 call :add_jar "org.specs2" "specs2-fp_%__SCALA_BINARY_VERSION%" "%__SPECS2_CORE_VERSION%"
 
-set __JMH_VERSION=1.32
-@rem JMH 1.27, 1.29, 1.31 and 1.32 depend on Jopt 4.6
+set __JMH_VERSION=1.33
+@rem JMH 1.27, 1.29, 1.31-33 depend on Jopt 4.6
 set __JOPT_VERSION=4.6
 
 @rem https://mvnrepository.com/artifact/net.sf.jopt-simple/jopt-simple

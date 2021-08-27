@@ -114,7 +114,7 @@ repositories {
 }
 
 dependencies {
-    implementation "org.scala-lang:scala3-compiler_3:3.0.2-RC1"
+    implementation "org.scala-lang:scala3-compiler_3:3.0.2-RC2"
     testImplementation "junit:junit:4.13.2"
     testImplementation "org.scalatest:scalatest_3:3.2.9"
     implementation "org.scalatest:scalatest-funspec_3:3.2.9"

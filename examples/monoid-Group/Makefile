@@ -4,8 +4,6 @@ SOURCE_DIR  = src
 TARGET_DIR  = target
 CLASSES_DIR = $(TARGET_DIR)/classes
 
-JAVAC_FLAGS  = -deprecation
-
 SCALAC_FLAGS = -deprecation -feature
 SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 
@@ -33,12 +31,12 @@ $(TARGET): $(SOURCES)
 	@$(TOUCH) "$(TARGET)"
 
 clean:
-	rm -rf "$(TARGET_DIR)"
+	$(RM) -rf "$(TARGET_DIR)"
 
 compile: build
 
 run: build
-	$(SCALA) $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
+	$(SCALA) $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS) $(MAIN_ARGS)
 
 help:
 	@$(ECHO) "Usage: make all|build|clean|doc|help|lint|run|test"

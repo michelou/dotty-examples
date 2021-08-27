@@ -1,4 +1,4 @@
-val dottyVersion = "3.0.2-RC1"
+val dottyVersion = "3.0.2-RC2"
 // val dottyVersion = dottyLatestNightlyBuild.get 
 
 lazy val root = project
@@ -10,7 +10,8 @@ lazy val root = project
     scalaVersion := dottyVersion,
     scalacOptions ++= Seq(
       "-deprecation",
-      "-encoding", "UTF-8",
+      "-encoding",
+      "UTF-8",
       "-feature"
     ),
     libraryDependencies ++= Seq(

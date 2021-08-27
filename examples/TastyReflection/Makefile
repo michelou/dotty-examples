@@ -25,13 +25,13 @@ build: $(TARGET)
 
 $(TARGET): $(SOURCES)
 	[ -d "$(CLASSES_DIR)" ] || $(MKDIR) -p "$(CLASSES_DIR)"
-	@echo $(SCALAC_FLAGS) -d "$(CLASSES_DIR)" > "$(OPTS_FILE)"
-	@echo $(SOURCES) > "$(SOURCES_FILE)"
+	@$(ECHO) $(SCALAC_FLAGS) -d "$(CLASSES_DIR)" > "$(OPTS_FILE)"
+	@$(ECHO) $(SOURCES) > "$(SOURCES_FILE)"
 	$(SCALAC) "@$(OPTS_FILE)" "@$(SOURCES_FILE)"
 	@$(TOUCH) "$(TARGET)"
 
 clean:
-	rm -rf "$(TARGET_DIR)"
+	$(RM) -rf "$(TARGET_DIR)"
 
 run: build
 	$(SCALA) $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
@@ -65,8 +65,8 @@ DOC_SOURCES_FILE = $(TARGET_DIR)/scaladoc_sources.txt
 
 $(DOC_TARGET): $(TARGET) $(DOC_SOURCES)
 	[ -d "$(DOC_TARGET_DIR)" ] || $(MKDIR) -p "$(DOC_TARGET_DIR)"
-	@echo -siteroot "$(DOC_TARGET_DIR)" -d "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
-	@echo $(DOC_SOURCES) > "$(DOC_SOURCES_FILE)"
+	@$(ECHO) -siteroot "$(DOC_TARGET_DIR)" -d "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
+	@$(ECHO) $(DOC_SOURCES) > "$(DOC_SOURCES_FILE)"
 	$(SCALADOC) "@$(DOC_OPTS_FILE)" "@$(DOC_SOURCES_FILE)"
 	@$(TOUCH) "$(DOC_TARGET)"
 
