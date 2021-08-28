@@ -223,6 +223,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="help" ( set _COMMANDS=help
     ) else if "%__ARG%"=="lint" ( set _COMMANDS=!_COMMANDS! lint
     ) else if "%__ARG%"=="run" ( set _COMMANDS=!_COMMANDS! compile run
+    ) else if "%__ARG%"=="run:d" ( set _COMMANDS=!_COMMANDS! compile run_diagnostic
     ) else if "%__ARG%"=="run:i" ( set _COMMANDS=!_COMMANDS! compile run_instrumented
     ) else if "%__ARG%"=="test" ( set _COMMANDS=!_COMMANDS! compile test
     ) else (
@@ -328,7 +329,9 @@ echo     %__BEG_O%decompile%__END%        decompile generated code with %__BEG_N
 echo     %__BEG_O%doc%__END%              generate HTML documentation
 echo     %__BEG_O%help%__END%             display this help message
 echo     %__BEG_O%lint%__END%             analyze Scala source files with %__BEG_N%Scalafmt%__END%
-echo     %__BEG_O%run[:i]%__END%          execute main class ^(instrumented execution: %__BEG_O%:i%__END%^)
+echo     %__BEG_O%run%__END%              execute main class %__BEG_N%%_MAIN_CLASS%%__END%
+echo     %__DEB_O%run:d%__END%            execute main and generate diagnostic files for %__BEG_O%JITWatch%__END%
+echo     %__BEG_O%run:i%__END%            execute main class with %__BEG_N%JaCoco%__END% instrumentation
 echo     %__BEG_O%test%__END%             execute unit tests with %__BEG_N%JUnit%__END%
 echo.
 echo   %__BEG_P%Properties:%__END%
@@ -436,12 +439,15 @@ for /f %%f in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
+if %__N% gtr 1 ( set __N_FILES=%__N% Java source files
+) else ( set __N_FILES=%__N% Java source file
+)
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N% Java source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of %__N% Java source files failed 1>&2
+    echo %_ERROR_LABEL% Compilation of %__N_FILES% failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -462,6 +468,9 @@ for /f %%f in ('dir /s /b "%_MAIN_SOURCE_DIR%\*.scala" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
+if %__N% gtr 1 ( set __N_FILES=%__N% Scala source files
+) else ( set __N_FILES=%__N% Scala source file
+)
 set __PRINT_FILE_REDIRECT=
 if %_SCALAC_OPTS_PRINT%==1 (
     call :version_string
@@ -472,11 +481,11 @@ if %_SCALAC_OPTS_PRINT%==1 (
     )
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N% Scala source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" %__PRINT_FILE_REDIRECT%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of %__N% Scala source files failed 1>&2
+    echo %_ERROR_LABEL% Compilation of %__N_FILES% files failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -705,6 +714,17 @@ echo. > "%__DOC_TIMESTAMP_FILE%"
 goto :eof
 
 :run
+call :run_common 0
+goto :eof
+
+:run_diagnostic
+call :run_common 1
+goto :eof
+
+@rem input parameter: %1=diagnostic=0/1
+:run_common
+set __DIAGNOSTIC=%~1
+
 set "__MAIN_CLASS_FILE=%_CLASSES_DIR%\%_MAIN_CLASS:.=\%.class"
 if not exist "%__MAIN_CLASS_FILE%" (
     echo %_ERROR_LABEL% Main class '%_MAIN_CLASS%' not found ^(%__MAIN_CLASS_FILE%^) 1>&2
@@ -715,11 +735,15 @@ if not exist "%__MAIN_CLASS_FILE%" (
 @rem if not %_EXITCODE%==0 goto :eof
 
 set __SCALA_OPTS=-classpath "%_CLASSES_DIR%"
-
+if %__DIAGNOSTIC%==1 (
+    call :diagnostic_opts
+    if not !_EXITCODE!==0 goto :eof
+    set __SCALA_OPTS=!_DIAGNOSTIC_OPTS! %__SCALA_OPTS%
+)
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% 1>&2
 )
-call "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
+call "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
     set _EXITCODE=1
@@ -729,6 +753,29 @@ if %_TASTY%==1 (
     call :run_tasty
     if not !_EXITCODE!==0 goto :eof
 )
+goto :eof
+
+@rem output parameter: _DIAGNOSTIC_OPTS
+:diagnostic_opts
+set _DIAGNOSTIC_OPTS=
+
+@rem PROCESSOR_ARCHITECTURE=AMD64,IA64,x86
+if not exist "%JAVA_HOME%\bin\hsdis-%PROCESSOR_ARCHITECTURE%.dll" (
+    echo %_ERROR_LABEL% HotSpot disassembler library not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set __TSTAMP=00000000-0000
+for /f %%i in ('powershell -C "Get-Date -format 'yyyyMMdd-HHmm'"') do set "__TSTAMP=%%i"
+set "__LOG_FILE=%_TARGET_DIR%\hotspot-%__TSTAMP%.log"
+
+@rem see https://github.com/AdoptOpenJDK/jitwatch/wiki/Instructions
+set _DIAGNOSTIC_OPTS=-J-XX:+UnlockDiagnosticVMOptions
+set _DIAGNOSTIC_OPTS=%_DIAGNOSTIC_OPTS% -J-XX:+TraceClassLoading "-J-XX:LogFile=%__LOG_FILE%"
+@rem Generate an XML log file, e.g. hotspot_pid20056.log
+set _DIAGNOSTIC_OPTS=%_DIAGNOSTIC_OPTS% -J-XX:+LogCompilation
+@rem see https://wiki.openjdk.java.net/display/HotSpot/PrintAssembly
+set _DIAGNOSTIC_OPTS=%_DIAGNOSTIC_OPTS% -J-XX:+PrintAssembly -J-XX:+DebugNonSafepoints
 goto :eof
 
 :run_tasty

@@ -61,6 +61,7 @@ Optionally one may also install the following software:
 - [Gradle 7.2][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [JaCoCo 0.8][jacoco_downloads] <sup id="anchor_03">[[3]](#footnote_03)</sup> ([*change log*][jacoco_changelog])
 - [JavaFX 16][javafx_downloads] ([*release notes*][javafx_relnotes])
+- [JITWatch][jitwatch_releases] (requires Java 11 or newer)
 - [Mill 0.9][mill_releases] ([*change log*][mill_changelog])
 - [MSYS2][msys2_releases] ([*change log*][msys2_changelog])
 - [Oracle OpenJDK 17][oracle_openjdk17] ([*release notes*][oracle_openjdk17_relnotes])
@@ -771,6 +772,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-4.2.0-windows-x86_64.zip</a>                    <i>( 40 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.2-bin.zip</a>                                <i>(103 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.7.zip</a>                                  <i>(  4 MB)</i>
+<a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.0-shaded-win.jar</a>                  <i>( 95 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                 <i>( 10 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20210228.exe</a>                         <i>( 94 MB)</i>
 <a href="http://jdk.java.net/17/">openjdk-17-ea+30_windows-x64_bin.zip</a>              <i>(176 MB)</i>
@@ -838,6 +840,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [javafx_downloads]: https://gluonhq.com/products/javafx/
 [javafx_relnotes]: https://github.com/openjdk/jfx/blob/jfx15/doc-files/release-notes-15.0.1.md
 [javap_cli]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html
+[jitwatch_releases]: https://github.com/AdoptOpenJDK/jitwatch/releases
 [jmh]: https://openjdk.java.net/projects/code-tools/jmh/
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
 [llvm_examples]: https://github.com/michelou/llvm-examples
