@@ -18,7 +18,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[JMH], [Metaprogramming][dotty_metaprogramming], [GraalSqueak][graalsqueak_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodes_examples] and [TruffleSqueak][trufflesqueak_examples] are other topics we are currently investigating.
+[Deno][deno_examples], [GraalSqueak][graalsqueak_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodes_examples], [Rust][rust_examples] and [TruffleSqueak][trufflesqueak_examples] are other topics we are currently investigating.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -46,7 +46,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*August 2021*):
+For instance our development environment looks as follows (*September 2021*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.33.0\                 <i>(279 MB)</i>
@@ -258,7 +258,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
    GIT_CMD=C:\opt\Git-2.33.0\bin\git.exe
-   JAVA_CMD=C:\opt\jdk-openjdk-11.0.11_9\bin\java.exe
+   JAVA_CMD=C:\opt\jdk-openjdk-11.0.12_7\bin\java.exe
    SBT_CMD=C:\opt\sbt-1.5.5\bin\sbt.bat
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
@@ -649,11 +649,12 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
+[deno_examples]: https://github.com/michelou/deno-examples
 [dotty_ci]: https://dotty-ci.epfl.ch/lampepfl/dotty
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_releases]: https://github.com/lampepfl/dotty/releases
@@ -686,6 +687,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
 [oracle_openjdk17]: http://jdk.java.net/17/
 [oracle_openjdk17_relnotes]: https://github.com/openjdk/jdk/compare/jdk-17%2B20...jdk-17%2B21
+[rust_examples]: https://github.com/michelou/rust-examples
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
 [sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.5.5
