@@ -14,15 +14,12 @@ if not %_EXITCODE%==0 goto end
 @rem #########################################################################
 @rem ## Main
 
-set _REFERENCE_VERSION=3.0.2-RC1
-set _BASE_VERSION=3.1.0-RC1
-
 set _EIGHT=bellsoft-08 dragonwell-08 graalvm-ce-08 openj9-08 openjdk-08 redhat-08 zulu-08
 set _ELEVEN=bellsoft-11 corretto-11 dcevm-11 dragonwell-11 graalvm-ce-11 microsoft-11 openj9-11 openjdk-11 redhat-11 sapmachine-11 zulu-11
 set _SEVENTEEN=openjdk-17 sapmachine-17 zulu-17
 
 @rem for %%i in (%_EIGHT% %_ELEVEN% %_SEVENTEEN%) do (
-for %%i in (openjdk-08 openjdk-11 openjdk-17) do (
+for %%i in (%_EIGHT%) do (
     call :build_snapshot "%%i"
     if not !_EXITCODE!==0 goto end
     call :save_snapshot "%%i"
@@ -84,6 +81,18 @@ if not exist "%_ROOT_DIR%build.bat" (
     goto :eof
 )
 set "_BUILD_BAT=%_ROOT_DIR%build.bat"
+
+if not exist "%_ROOT_DIR%project\Build.scala" (
+    echo %_ERROR_LABEL% SBT file Build.scala not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+for /f "delims=^= tokens=1,*" %%i in ('findstr /i "val.baseVersion" "%_ROOT_DIR%project\Build.scala"') do (
+    set __VERSION=%%j
+    set __VERSION=!__VERSION:"=!
+    set _BASE_VERSION=!__VERSION: =!
+)
+if %_DEBUG%==1 echo %_DEBUG_LABEL% _BASE_VERSION=%_BASE_VERSION% 1>&2
 goto :eof
 
 :build_snapshot
@@ -96,8 +105,8 @@ if not exist "!__JAVA_HOME!\bin\java.exe" (
     goto :eof
 )
 if %_DEBUG%==1 (
-    if defined JAVA_OPTS echo %_DEBUG_LABEL% JAVA_OPTS=%JAVA_OPTS%
-    if defined SBT_OPTS echo %_DEBUG_LABEL% SBT_OPTS=%SBT_OPTS%
+    if defined JAVA_OPTS echo %_DEBUG_LABEL% JAVA_OPTS=%JAVA_OPTS% 1>&2
+    if defined SBT_OPTS echo %_DEBUG_LABEL% SBT_OPTS=%SBT_OPTS% 1>&2
 )
 setlocal
 set "JAVA_HOME=%__JAVA_HOME%"
