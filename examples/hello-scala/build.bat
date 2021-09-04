@@ -45,8 +45,12 @@ if %_DOC%==1 (
     call :doc
     if not !_EXITCODE!==0 goto end
 )
+if %_LINK%==1 (
+    call :link
+    if not !_EXITCODE!==0 goto end
+)
 if %_RUN%==1 (
-    call :run%_INSTRUMENTED%
+    call :run%_RUN_TARGET%
     if not !_EXITCODE!==0 goto end
 )
 if %_TEST%==1 (
@@ -76,6 +80,7 @@ set "_CLASSES_DIR=%_TARGET_DIR%\classes"
 set "_TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes"
 set "_TEST_CLASSES_DIR=%_TARGET_DIR%\test-classes"
 set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
+set "_TARGET_RUNTIME_DIR=%_TARGET_DIR%\custom-runtime"
 
 if not exist "%JAVA_HOME%\bin\javac.exe" (
     echo %_ERROR_LABEL% Java SDK installation not found 1>&2
@@ -86,6 +91,11 @@ set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
 set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
 set "_JAVADOC_CMD=%JAVA_HOME%\bin\javadoc.exe"
 
+set _JLINK_CMD=
+if exist "%JAVA_HOME%\bin\jlink.exe" (
+    set "_JLINK_CMD=%JAVA_HOME%\bin\jlink.exe"
+    set "_JDEPS_CMD=%JAVA_HOME%\bin\jdeps.exe"
+)
 if not exist "%SCALA_HOME%\bin\scalac.bat" (
     echo %_ERROR_LABEL% Scala 2 installation not found 1>&2
     set _EXITCODE=1
@@ -208,11 +218,12 @@ set _COMPILE=0
 set _DECOMPILE=0
 set _DOC=0
 set _HELP=0
-set _INSTRUMENTED=
+set _LINK=0
 set _LINT=0
 set _MAIN_CLASS=%_MAIN_CLASS_DEFAULT%
 set _MAIN_ARGS=%_MAIN_ARGS_DEFAULT%
 set _RUN=0
+set _RUN_TARGET=
 set _SCALA_VERSION=%_SCALA_VERSION_DEFAULT%
 set _SCALAC_OPTS=-deprecation -feature
 set _SCALAC_OPTS_EXPLAIN=0
@@ -256,9 +267,11 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="decompile" ( set _COMPILE=1& set _DECOMPILE=1
     ) else if "%__ARG%"=="doc" ( set _DOC=1
     ) else if "%__ARG%"=="help" ( set _HELP=1
+    ) else if "%__ARG%"=="link" ( set _COMPILE=1& set _LINK=1
     ) else if "%__ARG%"=="lint" ( set _LINT=1
     ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
-    ) else if "%__ARG%"=="run:i" ( set _COMPILE=1& set _RUN=1& set _INSTRUMENTED=_instrumented
+    ) else if "%__ARG%"=="run:i" ( set _COMPILE=1& set _RUN=1& set _RUN_TARGET=_instrumented
+    ) else if "%__ARG%"=="run:l" ( set _COMPILE=1& set _LINK=1& set _RUN=1& set _RUN_TARGET=_linked
     ) else if "%__ARG%"=="test" ( set _COMPILE=1& set _TEST=1
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
@@ -276,6 +289,10 @@ if %_DEBUG%==1 set _STDERR_REDIRECT=
 if %_DECOMPILE%==1 if not defined _CFR_CMD (
     echo %_WARNING_LABEL% cfr installation not found 1>&2
     set _DECOMPILE=0
+)
+if %_LINK%==1 if not defined _JLINK_CMD (
+    echo %_WARNING_LABEL% jlink installation not found ^(Java 11+ required^) 1>&2
+    set _LINK=0
 )
 if %_LINT%==1 (
     if not defined _SCALAFMT_CMD (
@@ -311,13 +328,13 @@ if %_TASTY%==1 if not %_SCALA_VERSION%==3 (
 )
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% _PROJECT_VERSION=%_PROJECT_VERSION% 1>&2
-    echo %_DEBUG_LABEL% Options    : _EXPLAIN=%_SCALAC_OPTS_EXPLAIN% _INSTRUMENTED=%_INSTRUMENTED% _PRINT=%_SCALAC_OPTS_PRINT% _SCALA_VERSION=%_SCALA_VERSION% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
-    echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
+    echo %_DEBUG_LABEL% Options    : _EXPLAIN=%_SCALAC_OPTS_EXPLAIN% _PRINT=%_SCALAC_OPTS_PRINT% _RUN_TARGET=%_RUN_TARGET% _SCALA_VERSION=%_SCALA_VERSION% _TASTY=%_TASTY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _DECOMPILE=%_DECOMPILE% _DOC=%_DOC% _LINK=%_LINK% _LINT=%_LINT% _RUN=%_RUN% _TEST=%_TEST% 1>&2
     if defined _CFR_CMD echo %_DEBUG_LABEL% Variables  : "CFR_HOME=%CFR_HOME%" 1>&2
+    if defined _INSTRUMENTED echo %_DEBUG_LABEL% Variables  : "JACOCO_HOME=%JACOCO_HOME% 1>&2
     echo %_DEBUG_LABEL% Variables  : "JAVA_HOME=%JAVA_HOME%" 1>&2
-    if %_SCALA_VERSION%==2 ( echo %_DEBUG_LABEL% Variables  : "SCALA_HOME=%SCALA_HOME%" 1>&2
-    ) else ( echo %_DEBUG_LABEL% Variables  : "SCALA3_HOME=%SCALA3_HOME%" 1>&2
-    )
+    echo %_DEBUG_LABEL% Variables  : "SCALA_HOME=%SCALA_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "SCALA3_HOME=%SCALA3_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : _MAIN_CLASS=%_MAIN_CLASS% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
@@ -355,8 +372,11 @@ echo     %__BEG_O%compile%__END%          compile Java/Scala source files
 echo     %__BEG_O%decompile%__END%        decompile generated code with %__BEG_N%CFR%__END%
 echo     %__BEG_O%doc%__END%              generate HTML documentation
 echo     %__BEG_O%help%__END%             display this help message
+echo     %__BEG_O%link%__END%             create custom runtime for application %__BEG_O%%_MAIN_CLASS%%__END%
 echo     %__BEG_O%lint%__END%             analyze Scala source files with %__BEG_N%Scalafmt%__END%
-echo     %__BEG_O%run[:i]%__END%          execute main class ^(instrumented execution: %__BEG_O%:i%__END%^)
+echo     %__BEG_O%run%__END%              execute main class %__BEG_O%%_MAIN_CLASS%%__END%
+echo     %__BEG_O%run:i%__END%            instrument execution of main class %__BEG_O%%_MAIN_CLASS%%__END%
+echo     %__BEG_O%run:l%__END%            execute main class %__BEG_O%%_MAIN_CLASS%%__END% with custom Java runtime
 echo     %__BEG_O%test%__END%             execute unit tests with %__BEG_N%JUnit%__END%
 echo.
 echo   %__BEG_P%Properties:%__END%
@@ -726,6 +746,78 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% HTML documentation saved into directory "%_
 echo. > "%__DOC_TIMESTAMP_FILE%"
 goto :eof
 
+@rem https://medium.com/azulsystems/using-jlink-to-build-java-runtimes-for-non-modular-applications-9568c5e70ef4
+:link
+set __MODULE_PATH=
+for %%f in (%SCALA3_HOME%\lib\scala*library*.jar %SCALA3_HOME%\lib\tasty-core*.jar) do (
+    set "__MODULE_PATH=!__MODULE_PATH!;%%f"
+)
+set __JDEPS_OPTS=-cp "%__MODULE_PATH%" -dotoutput "%_TARGET_DIR%\dot-files"
+
+set __CLASS_FILES=
+for /f %%f in ('dir /s /b "%_CLASSES_DIR%\*.class"') do (
+    set __CLASS_FILES=!__CLASS_FILES! "%%f"
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JDEPS_CMD%" %__JDEPS_OPTS% %__CLASS_FILES% 1>&2
+) else if %_VERBOSE%==1 ( echo Analyze module dependencies in directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_JDEPS_CMD%" %__JDEPS_OPTS% %__CLASS_FILES% > "%_TARGET_DIR%\jdeps.txt"
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to analyze module dependencies 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+call :rmdir "%_TARGET_RUNTIME_DIR%"
+
+set __JLINK_OPTS=--no-header-files --no-man-pages --compress=2 --strip-debug 
+set __JLINK_OPTS=%__JLINK_OPTS% --add-modules java.base --module-path "%__MODULE_PATH%"
+set __JLINK_OPTS=%__JLINK_OPTS% --output "%_TARGET_RUNTIME_DIR%"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JLINK_CMD%" %__JLINK_OPTS% 1>&2
+) else if %_VERBOSE%==1 ( echo Create custom Java runtime into directory "!_TARGET_RUNTIME_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_JLINK_CMD%" %__JLINK_OPTS%
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to create custom Java runtime 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set /a __SHOW_SIZE=%_DEBUG%+%_VERBOSE%
+if %__SHOW_SIZE% gtr 0 (
+    call :dir_size "%JAVA_HOME%"
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Size of directory "%JAVA_HOME%" is !_DIR_SIZE:,=.! 1>&2
+    ) else if %_VERBOSE%==1 ( echo Size of directory "%JAVA_HOME%" is !_DIR_SIZE:,=.! 1>&2
+    )
+    call :dir_size "%_TARGET_RUNTIME_DIR%"
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Size of directory "%_TARGET_RUNTIME_DIR%" is !_DIR_SIZE:,=.! 1>&2
+    ) else if %_VERBOSE%==1 ( echo Size of directory "%_TARGET_RUNTIME_DIR%" is !_DIR_SIZE:,=.! 1>&2
+    )
+)
+goto :eof
+
+@rem input parameter: %1=directory path
+@rem output parameter: _DIR_SIZE
+:dir_size
+set "__DIR=%~1"
+set _DIR_SIZE=0
+
+set __PS1_SCRIPT= ^
+$total_size=[long]0; ^
+Get-ChildItem '%__DIR%' -File -r -fo ^|%%{$total_size+=$_.length}; ^
+If ($total_size -ge 1073741824) { $n = $total_size / 1073741824; $unit='GB' } ^
+Elseif ($total_size -ge 1048576) {  $n = $total_size / 1048576; $unit='MB' } ^
+Else { $n = $total_size/1024; $unit='KB' } ^
+Write-Host ([math]::Round($n,1))" "$unit
+
+if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -C "..." 1>&2
+for /f "delims=" %%i in ('powershell -C "%__PS1_SCRIPT%"') do set _DIR_SIZE=%%i
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Execution of ps1 cmdlet failed 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
 :run
 set "__MAIN_CLASS_FILE=%_CLASSES_DIR%\%_MAIN_CLASS:.=\%.class"
 if not exist "%__MAIN_CLASS_FILE%" (
@@ -836,6 +928,26 @@ if not %ERRORLEVEL%==0 (
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% JaCoCo instrumentation report saved into file "%__TARGET_HTML_DIR%\index.html" 1>&2
 ) else if %_VERBOSE%==1 ( echo JaCoCo instrumentation report saved into file "!__TARGET_HTML_DIR:%_ROOT_DIR%=!\index.html" 1>&2
+)
+goto :eof
+
+:run_linked
+if not exist "%_TARGET_RUNTIME_DIR%\bin\java.exe" (
+    echo %_ERROR_LABEL% Custom runtime directory not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "__CPATH=%_CLASSES_DIR%"
+for %%f in ("%SCALA3_HOME%\lib\tasty-core*.jar" "%SCALA3_HOME%\lib\scala*library*.jar") do (
+    set "__CPATH=%%f;!__CPATH!"
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_TARGET_RUNTIME_DIR%\bin\java.exe" -cp "%__CPATH%" %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute main program with custom Java runtime 1>&2
+)
+call "%_TARGET_RUNTIME_DIR%\bin\java.exe" -cp "%__CPATH%" %_MAIN_CLASS% %_MAIN_ARGS%
+if not %ERRORLEVEL%==0 (
+    set _EXITCODE=1
+    goto :eof
 )
 goto :eof
 
