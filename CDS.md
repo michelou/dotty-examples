@@ -26,7 +26,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.32][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.33][git_downloads] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_downloads] ([*release notes*][openjdk_relnotes])
 - [Scala 3][scala3_releases] ([*release notes*][scala3_relnotes])
 

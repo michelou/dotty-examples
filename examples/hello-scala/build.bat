@@ -291,8 +291,8 @@ if %_DECOMPILE%==1 if not defined _CFR_CMD (
     set _DECOMPILE=0
 )
 if %_LINK%==1 if not defined _JLINK_CMD (
-    echo %_WARNING_LABEL% jlink installation not found ^(Java 11+ required^) 1>&2
-    set _LINK=0
+    echo %_ERROR_LABEL% jlink installation not found ^(Java 11+ required^) 1>&2
+    set _EXITCODE=1
 )
 if %_LINT%==1 (
     if not defined _SCALAFMT_CMD (

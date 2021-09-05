@@ -45,6 +45,9 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <!-- starting with Java 11
+                    <release>${java.version}</release>
+                    -->
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
                     <includes>
