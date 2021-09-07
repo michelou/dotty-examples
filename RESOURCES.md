@@ -35,7 +35,8 @@
 
 ## <span id="books">Books</span>
 
-- [Programming in Scala](https://www.artima.com/shop/programming_in_scala_5ed) (5<sup>th</sup> Edition) by Martin Odersky et al., May 2021.
+- [Programming Scala](https://www.oreilly.com/library/view/programming-scala-2nd/9781491950135/) (3<sup>rd</sup> Edition) by Dean Wampler and Alex Payne, June 2021.<br/><span style="font-size:80%;">(O'Reilly, ISBN 978-1-4920-7789-3)</span>
+- [Programming in Scala](https://www.artima.com/shop/programming_in_scala_5ed) (5<sup>th</sup> Edition) by Martin Odersky et al., May 2021.<br/><span style="font-size:80%;">(<a href="https://www.artima.com/about">Artima Press</a>, ISBN ‎ 978-0-9971-4800-8, 651 pages)</span>
 - [Essential Scala](https://underscore.io/books/essential-scala/) (v1.3) by Noel Welsh and Dave Gurnell, April 2017.
 
 ## <span id="courses">Courses</span>

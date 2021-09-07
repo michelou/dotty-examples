@@ -18,7 +18,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - OpenJDK and Scala 3 on Windows [**&#9660;**](#bottom)
 
-[Deno][deno_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples] and [TruffleSqueak][trufflesqueak_examples] are other trending topics we are currently monitoring.
+[Deno][deno_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples] and [TruffleSqueak][trufflesqueak_examples] are other trending topics we are currently monitoring.
 
 
 ## <span id="proj_deps">Project dependencies</span>
@@ -29,6 +29,7 @@ This project depends on several external software for the **Microsoft Windows** 
 - [Dragonwell OpenJDK 11][dragonwell_downloads] from [Alibaba][alibaba] ([*release notes*][dragonwell_relnotes]).
 - [GraalVM OpenJDK 11][graalvm_downloads] from [Oracle] ([*release notes*][graalvm_relnotes]).
 - [Liberica OpenJDK 11][bellsoft_downloads] from [BellSoft][bellsoft_about] ([*release notes*][bellsoft_relnotes]).
+- [Liberica NIK OpenJDK 11][bellsoft_nik_downloads] from [BellSoft][bellsoft_about] ([*release notes*][bellsoft_nik_relnotes]).
 - [Microsoft OpenJDK][microsoft_downloads] from [Microsoft][microsoft].
 - [OpenJ9 OpenJDK 11][openj9_downloads] from [IBM Developer](https://developer.ibm.com/) ([*release notes*][openj9_relnotes]).
 - [Oracle OpenJDK 11][oracle_openjdk11_downloads] from [Oracle] ([*release notes*][oracle_openjdk11_relnotes]).
@@ -92,15 +93,16 @@ We ideally would run the command [`build archives`](./bin/dotty/build.bat) to ge
 
 Unfortunately a few tests still fail on Windows, so need to proceed in two steps, running the command [`build boot & build arch-only`](./bin/dotty/build.bat), in order to achieve our goal. 
 
-Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop with an i7-8550U (1.8 GHz) processor and 16 Go of memory <sup id="anchor_03">[[3]](#footnote_03)</sup> :
+Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop with an i7-8550U (1.8 GHz) processor and 16 Go of memory <sup id="anchor_03">[[3]](#footnote_03)</sup> (entries come from the log file [`snapshot_log.txt`](./docs/snapshot_log.txt)):
 
 | 8u302 | **Build&nbsp;time** | 11.0.12  | **Build&nbsp;time** | 17 EA | **Build&nbsp;time** |
 |-----------|---------------------|----------|---------------------|-------|---------------------|
 | [Corretto][corretto_downloads]<br/>(Amazon) | 27:00</br>27:27 | [Corretto][corretto_downloads]<br/>(Amazon) |   30:49<br/>30:42 | <span style="color:#aaaaaa;">Corretto<br/>(Amazon)</span> | n.a. |
-| <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a. | [DCEVM][trava_downloads]<br/>(Trava) <sup><b>a)</b></sup> | 31:10<br/>30:28 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a.           |
+| <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a. | [DCEVM][trava_downloads]<br/>(Trava) <a href="#a"><sup><b>a)</b></sup></a> | 31:10<br/>30:28 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a.           |
 | [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) | 31:54<br/>32:01 | [Dragonwell][dragonwell_downloads]<br/>(Alibaba) | 30:41<br/>30:44 | <span style="color:#aaaaaa;">Dragonwell<br/>(Alibaba)</span> | n.a. |
 | [GraalVM][graalvm_downloads]<br/>(Oracle) | 26:09<br/>26:11 | [GraalVM][graalvm_downloads]<br/> (Oracle) | 31:34<br/>33:11 | <span style="color:#aaaaaa;">GraalVM<br/>(Oracle)</span> | n.a. |
 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 25:10<br/>25:41 | [Liberica][bellsoft_downloads]<br/>(BellSoft) | 31:04<br/>30:33 | <span style="color:#aaaaaa;">Liberica<br/>(BellSoft)</span> | n.a. |
+| Liberica NIK<br/>(BellSoft) | n.a. | [Liberica NIK][bellsoft_nik_downloads]<br/>(BellSoft) <a href="#b"><sup><b>b)</b></sup></a> | 31:29 | Liberica<br/>(BellSoft) | n.a. |
 | <span style="color:#aaaaaa;">Microsoft</span> | n.a. | [Microsoft][microsoft_downloads] | 30:16<br/>30:37 | <span style="color:#aaaaaa;">Microsoft</span> | n.a. |
 | [OpenJ9][openj9_downloads]<br/>(IBM) | 33:30<br/>33:47 | [OpenJ9][openj9_downloads]<br/>(IBM) | 39:04<br/>39:17 | <span style="color:#aaaaaa;">OpenJ9<br/>(IBM)</span> | n.a. |
 | [OpenJDK][oracle_openjdk8_downloads]<br/>(Oracle) | 25:46<br/>25:47 | [OpenJDK][oracle_openjdk11_downloads]<br/>(Oracle) | 29:59<br/>31:19 | [OpenJDK][oracle_openjdk17_downloads]<br/>(Oracle) | 28:52<br/>29:04 |
@@ -108,7 +110,8 @@ Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop 
 | <span style="color:#aaaaaa;">SapMachine<br/>(SAP)</span> | n.a. | [SapMachine][sapmachine_downloads]<br/>(SAP) | 31:33<br/>30:52 | [SapMachine][sapmachine_downloads]<br/>(SAP) | 28:43<br/>28:27 |
 | [Zulu][azul_downloads]<br/>(Azul)     | 25:39<br/>25:44 | [Zulu][azul_downloads]<br/>(Azul) | 31:38<br/>30:49 | [Zulu][azul_downloads]<br/>(Azul) | 28:59<br/>28:41 |
 <div style="font-size:80%;">
-<sup><b>a)</b></sup> Version 11.0.11 instead of 11.0.12.</div>
+<sup id="a"><b>a)</b></sup> Version 11.0.11 instead of 11.0.12.<br/>
+<sup id="b"><b>b)</b></sup> NIK = Native Image Kit.</div>
 
 Here are two observations about the above results :
 - Build times are ~10% longer with [OpenJ9 JDK][openj9_downloads] (for Java 8 and Java 11).
@@ -139,20 +142,27 @@ Build errors encountered on MS Windows on July 31, 2021, are :
 | `ClasspathTests`       | Failed      | Failed      | Failed        | Failed    | Failed     | Failed    | Failed  |
 | `ZipArchiveTest`       | OK          | OK          | OK            | Failed    | OK         | OK        | OK      |
 
-| JVM 11 - Failing tests | <a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-11</a> | <a href="https://github.com/corretto/corretto-11/releases">corretto-11</a> | <a href="https://github.com/alibaba/dragonwell11/releases">dragonwell-11</a> | <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">openj9-11</a> | <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=hotspot">openjdk-11</a> | <a href="https://developers.redhat.com/products/openjdk/download">redhat-11</a> | <a href="https://github.com/SAP/SapMachine/releases">sapmachine-11</a> | <a href="https://www.azul.com/downloads/?version=java-11-lts&package=jdk">zulu-11</a> |
-|:-----------------------|:-----------:|:-----------:|:-------------:|:---------:|:---------:|:---------:|:---------:|:-------:|
-| `ClasspathTests  `     | Failed      | Failed      | Failed        | Failed    | Failed    | Failed    | Failed    | Failed  |
-| `FromTastyTests`       | Failed      | Failed      | Failed        | Failed    | Failed    | Failed    | Failed    | Failed  |
+| JVM 11 - Failing tests | `ClasspathTests` | `FromTastyTests` |
+|:-----------------------|:----------------:|:----------------:|
+| <a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-11</a>   | Failed | Failed        |
+| <a href="https://libericajdk.ru/pages/downloads/native-image-kit/">bellsoft-nik-11</a> | Failed      | Failed        |
+| <a href="https://github.com/corretto/corretto-11/releases">corretto-11</a>    | Failed | Failed        | 
+| <a href="https://github.com/alibaba/dragonwell11/releases">dragonwell-11</a>  | Failed | Failed        |
+| <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">openj9-11</a> | Failed      | Failed        | 
+| <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=hotspot">openjdk-11</a> | Failed      | Failed        | 
+| <a href="https://developers.redhat.com/products/openjdk/download">redhat-11</a>      | Failed      | Failed        | 
+| <a href="https://github.com/SAP/SapMachine/releases">sapmachine-11</a> | Failed      | Failed        | 
+| <a href="https://www.azul.com/downloads/?version=java-11-lts&package=jdk">zulu-11</a> | Failed      | Failed        | 
 
-| JVM 17 - Failing tests | <a href="https://jdk.java.net/17/">openjdk-17</a> | <a href="https://github.com/SAP/SapMachine/releases">sapmachine-17</a> | <a href="https://www.azul.com/downloads/?version=java-17-ea&package=jdk">zulu-17</a> |
-|:-----------------------|:----------:|:-------------:|:-------:|
-| `ClasspathTests  `     | Failed     | Failed        | Failed  |
-| `FromTastyTests`       | Failed     | Failed        | Failed  |
-
+| JVM 17 - Failing tests | `ClasspathTests` | `FromTastyTests` |
+|:-----------------------|:----------------:|:----------------:|
+| <a href="https://jdk.java.net/17/">openjdk-17</a> | Failed        | Failed  |
+| <a href="https://github.com/SAP/SapMachine/releases">sapmachine-17</a> | Failed        | Failed  |
+| <a href="https://www.azul.com/downloads/?version=java-17-ea&package=jdk">zulu-17</a> | Failed        | Failed  |
 
 ## <span id="data_sharing">Data sharing</span>
 
-This section supplements my writing from page [Data Sharing and Dotty on Windows](CDS.md).
+This section supplements my writing from page [Data Sharing and Scala 3 on Windows](CDS.md).
 
 An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For instance we proceed as follows to check if data sharing is enabled in [Oracle OpenJDK 11][oracle_openjdk11_downloads] :
 
@@ -464,6 +474,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://github.com/alibaba/dragonwell11/releases">Alibaba_Dragonwell_11.0.12.8_x64_windows.zip</a>                   <i>(181 MB)</i>
 <a href="https://github.com/corretto/corretto-11/releases" rel="external">amazon-corretto-11.0.12.7.1-windows-x64-jdk.zip</a>                <i>(178 MB)</i>
 <a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.12+7-windows-amd64.zip</a>                        <i>(187 MB)</i>
+<a href="https://libericajdk.ru/pages/downloads/native-image-kit/">bellsoft-liberica-vm-openjdk11-21.2.0-windows-amd64.zip</a>        <i>(291 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.2.0">graalvm-ce-java11-windows-amd64-21.2.0.zip</a>                     <i>(360 MB)</i>
 <a href="https://developer.ibm.com/languages/java/semeru-runtimes/downloads">ibm-semeru-open-jdk_x64_windows_11.0.12_7_openj9-0.27.0.zip</a>    <i>(198 MB)</i>
 <a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.12.7-1.windows.redhat.x86_64.zip</a>          <i>(241 MB)</i>
@@ -505,7 +516,7 @@ scala3-3.1.0-RC1-bin-SNAPSHOT-zulu-17.zip
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -519,7 +530,9 @@ scala3-3.1.0-RC1-bin-SNAPSHOT-zulu-17.zip
 [azul_systems]: https://www.azul.com/
 [bellsoft_about]: https://bell-sw.com/pages/about
 [bellsoft_downloads]: https://bell-sw.com/pages/downloads/#/java-11-lts
+[bellsoft_nik_downloads]: https://libericajdk.ru/pages/downloads/native-image-kit/
 [bellsoft_relnotes]: https://bell-sw.com/pages/liberica-release-notes-11.0.12/
+[bellsoft_nik_relnotes]: https://libericajdk.ru/pages/liberica-release-notes-native-image-kit-21.2.0/
 [corretto_changes]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html
 [corretto_gosling]: https://www.youtube.com/watch?v=WuZk23O76Zk
 [corretto_gupta]: https://www.youtube.com/watch?v=RLKC5nsiZXU
@@ -551,6 +564,7 @@ scala3-3.1.0-RC1-bin-SNAPSHOT-zulu-17.zip
 [oracle_openjdk8_downloads]: https://github.com/AdoptOpenJDK/openjdk8-upstream-binaries/releases
 [redhat]: https://www.redhat.com/
 [redhat_downloads]: https://developers.redhat.com/products/openjdk/download/
+[rust_examples]: https://github.com/michelou/rust-examples
 [sapmachine_downloads]: https://github.com/SAP/SapMachine/releases
 [sap_home]: https://www.sap.com/
 [scala3_home]: https://dotty.epfl.ch/
