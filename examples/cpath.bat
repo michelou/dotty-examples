@@ -57,7 +57,7 @@ call :add_jar "org.scalatest" "scalatest_3" "%__SCALATEST_VERSION%"
 @rem https://mvnrepository.com/artifact/org.scalactic
 call :add_jar "org.scalactic" "scalactic_3" "%__SCALATEST_VERSION%"
 
-set __SPECS2_CORE_VERSION=4.12.3
+set __SPECS2_CORE_VERSION=4.12.12
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-core
 call :add_jar "org.specs2" "specs2-core_%__SCALA_BINARY_VERSION%" "%__SPECS2_CORE_VERSION%"

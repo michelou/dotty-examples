@@ -14,8 +14,8 @@ if not %_EXITCODE%==0 goto end
 @rem #########################################################################
 @rem ## Main
 
-set _EIGHT=bellsoft-08 dragonwell-08 graalvm-ce-08 openj9-08 openjdk-08 redhat-08 zulu-08
-set _ELEVEN=bellsoft-11 corretto-11 dcevm-11 dragonwell-11 graalvm-ce-11 microsoft-11 openj9-11 openjdk-11 redhat-11 sapmachine-11 zulu-11
+set _EIGHT=bellsoft-08 corretto-8 dragonwell-08 graalvm-ce-08 openj9-08 openjdk-08 redhat-08 zulu-08
+set _ELEVEN=bellsoft-11 bellsoft-nik-11 corretto-11 dcevm-11 dragonwell-11 graalvm-ce-11 microsoft-11 openj9-11 openjdk-11 redhat-11 sapmachine-11 zulu-11
 set _SEVENTEEN=openjdk-17 sapmachine-17 zulu-17
 
 @rem for %%i in (%_EIGHT% %_ELEVEN% %_SEVENTEEN%) do (
@@ -46,6 +46,9 @@ set "_LOG_FILE=%_SNAPSHOT_DIR%\snapshot_log.txt"
 for /f %%d in ('dir /ad /b "c:\opt\jdk-bellsoft-1.8*"') do set "_MAP[bellsoft-08]=c:\opt\%%d"
 for /f %%d in ('dir /ad /b "c:\opt\jdk-bellsoft-11*"') do set "_MAP[bellsoft-11]=c:\opt\%%d"
 
+for /f %%d in ('dir /ad /b "c:\opt\jdk-bellsoft-nik-java11*"') do set "_MAP[bellsoft-nik-11]=c:\opt\%%d"
+
+for /f %%d in ('dir /ad /b "c:\opt\jdk-corretto-1.8*"') do set "_MAP[corretto-8]=c:\opt\%%d"
 for /f %%d in ('dir /ad /b "c:\opt\jdk-corretto-11*"') do set "_MAP[corretto-11]=c:\opt\%%d"
 
 for /f %%d in ('dir /ad /b "c:\opt\jdk-dragonwell-1.8*"') do set "_MAP[dragonwell-08]=c:\opt\%%d"
@@ -125,8 +128,8 @@ for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
 call :duration "%_TIMER_START%" "%__TIMER_END%"
 for /f "delims=" %%i in ('powershell -c "(Get-Date -Format 'yyyy-MM-dd hh:mm')"') do set "__TS=%%i"
 @rem for all distros name length is 6 < n < 14
-set "__PAD_RIGHT=%__DISTRO_NAME%      "
-echo [%__TS%] DISTRO_NAME=%__PAD_RIGHT:~0,13% DURATION=%_DURATION% JAVA_HOME=!JAVA_HOME!>> "%_LOG_FILE%"
+set "__PAD_RIGHT=%__DISTRO_NAME%        "
+echo [%__TS%] DISTRO_NAME=%__PAD_RIGHT:~0,15% DURATION=%_DURATION% JAVA_HOME=!JAVA_HOME!>> "%_LOG_FILE%"
 endlocal
 goto :eof
 

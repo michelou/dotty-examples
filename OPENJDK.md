@@ -53,7 +53,7 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*August 2021*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
+For instance our development environment looks as follows (*September 2021*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java11-21.2.0\    <i>(731 MB)</i>
@@ -80,8 +80,8 @@ C:\opt\jdk-zulu-11.0.12\            <i>(302 MB)</i>
 
 We perform a quick comparison of the execution times to build the Scala 3 software distribution available as the following two archive files :
 <pre style="font-size:80%;">
-dist\target\scala3-3.1.0-RC1-bin-SNAPSHOT.tar.gz
-dist\target\scala3-3.1.0-RC1-bin-SNAPSHOT.zip
+dist\target\scala3-3.1.1-RC1-bin-SNAPSHOT.tar.gz
+dist\target\scala3-3.1.1-RC1-bin-SNAPSHOT.zip
 </pre>
 
 > **:mag_right:** Scala nightly builds are published on Maven as individual Java archive files, e.g.
@@ -95,9 +95,9 @@ Unfortunately a few tests still fail on Windows, so need to proceed in two steps
 
 Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop with an i7-8550U (1.8 GHz) processor and 16 Go of memory <sup id="anchor_03">[[3]](#footnote_03)</sup> (entries come from the log file [`snapshot_log.txt`](./docs/snapshot_log.txt)):
 
-| 8u302 | **Build&nbsp;time** | 11.0.12  | **Build&nbsp;time** | 17 EA | **Build&nbsp;time** |
+| 8u302 | **Build&nbsp;time** | 11.0.12  | **Build&nbsp;time** | 17    | **Build&nbsp;time** |
 |-----------|---------------------|----------|---------------------|-------|---------------------|
-| [Corretto][corretto_downloads]<br/>(Amazon) | 27:00</br>27:27 | [Corretto][corretto_downloads]<br/>(Amazon) |   30:49<br/>30:42 | <span style="color:#aaaaaa;">Corretto<br/>(Amazon)</span> | n.a. |
+| [Corretto][corretto_8_downloads]<br/>(Amazon) | 27:00</br>27:27 | [Corretto][corretto_11_downloads]<br/>(Amazon) |   30:49<br/>30:42 | <span style="color:#aaaaaa;">Corretto<br/>(Amazon)</span> | n.a. |
 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a. | [DCEVM][trava_downloads]<br/>(Trava) <a href="#a"><sup><b>a)</b></sup></a> | 31:10<br/>30:28 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a.           |
 | [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) | 31:54<br/>32:01 | [Dragonwell][dragonwell_downloads]<br/>(Alibaba) | 30:41<br/>30:44 | <span style="color:#aaaaaa;">Dragonwell<br/>(Alibaba)</span> | n.a. |
 | [GraalVM][graalvm_downloads]<br/>(Oracle) | 26:09<br/>26:11 | [GraalVM][graalvm_downloads]<br/> (Oracle) | 31:34<br/>33:11 | <span style="color:#aaaaaa;">GraalVM<br/>(Oracle)</span> | n.a. |
@@ -135,14 +135,17 @@ And we get the following build times for Java 11 and Java 8 look on a *slower* W
 
 Build errors encountered on MS Windows on July 31, 2021, are :
 
-| JVM 8 - Failing tests  | <a href="https://bell-sw.com/pages/downloads/#/java-8-lts">bellsoft-08</a> | <a href="https://github.com/corretto/corretto-8/releases">corretto-08</a> | <a href="https://github.com/alibaba/dragonwell8/releases">dragonwell-08</a> | <a href="https://adoptopenjdk.net/releases.html?variant=openjdk8&jvmVariant=openj9">openj9-08</a> | <a href="https://adoptopenjdk.net/releases.html?variant=openjdk8&jvmVariant=hotspot">openjdk-08</a> | <a href="https://developers.redhat.com/products/openjdk/download">redhat-08</a> | <a href="https://www.azul.com/downloads/?version=java-8-lts&package=jdk">zulu-08</a> |
-|:-----------------------|:-----------:|:-----------:|:-------------:|:---------:|:----------:|:---------:|:-------:|
-| `FromTastyTests`       | Failed      | Failed      | Failed        | Failed    | Failed     | Failed    | Failed  |
-| `CompilationTest`      | OK          | OK          | OK            | Failed    | OK         | OK        | OK      |
-| `ClasspathTests`       | Failed      | Failed      | Failed        | Failed    | Failed     | Failed    | Failed  |
-| `ZipArchiveTest`       | OK          | OK          | OK            | Failed    | OK         | OK        | OK      |
+| JVM 8 - Failing tests  | [`ClasspathTests`](https://github.com/lampepfl/dotty/blob/master/compiler/test/dotty/tools/scripting/ClasspathTests.scala) | [`CompilationTests`](https://github.com/lampepfl/dotty/blob/master/compiler/test/dotty/tools/dotc/CompilationTests.scala) | [`FromTastyTests`](https://github.com/lampepfl/dotty/blob/master/compiler/test/dotty/tools/dotc/FromTastyTests.scala) | `ZipArchiveTests` |
+|:-----------------------|:----------------:|:----------------:|:----------------:|:----------------:|
+| <a href="https://bell-sw.com/pages/downloads/#/java-8-lts">bellsoft-8</a>   | Failed | OK | Failed | OK |
+| <a href="https://github.com/corretto/corretto-8/releases">corretto-8</a>    | Failed | OK | Failed | OK |
+| <a href="https://github.com/alibaba/dragonwell8/releases">dragonwell-8</a>  | Failed | OK | Failed | OK |
+| <a href="https://adoptopenjdk.net/releases.html?variant=openjdk8&jvmVariant=openj9">openj9-8</a> | Failed | Failed | Failed | Failed |
+| <a href="https://adoptopenjdk.net/releases.html?variant=openjdk8&jvmVariant=hotspot">openjdk-8</a> | Failed | OK | Failed | OK |
+| <a href="https://developers.redhat.com/products/openjdk/download">redhat-8</a>      | Failed      | OK | Failed | OK |
+| <a href="https://www.azul.com/downloads/?version=java-8-lts&package=jdk">zulu-8</a> | Failed      | OK | Failed | OK |
 
-| JVM 11 - Failing tests | `ClasspathTests` | `FromTastyTests` |
+| JVM 11 - Failing tests | [`ClasspathTests`](https://github.com/lampepfl/dotty/blob/master/compiler/test/dotty/tools/scripting/ClasspathTests.scala) | [`FromTastyTests`](https://github.com/lampepfl/dotty/blob/master/compiler/test/dotty/tools/dotc/FromTastyTests.scala) |
 |:-----------------------|:----------------:|:----------------:|
 | <a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-11</a>   | Failed | Failed        |
 | <a href="https://libericajdk.ru/pages/downloads/native-image-kit/">bellsoft-nik-11</a> | Failed      | Failed        |
@@ -154,7 +157,7 @@ Build errors encountered on MS Windows on July 31, 2021, are :
 | <a href="https://github.com/SAP/SapMachine/releases">sapmachine-11</a> | Failed      | Failed        | 
 | <a href="https://www.azul.com/downloads/?version=java-11-lts&package=jdk">zulu-11</a> | Failed      | Failed        | 
 
-| JVM 17 - Failing tests | `ClasspathTests` | `FromTastyTests` |
+| JVM 17 - Failing tests | `ClasspathTests` | [`FromTastyTests`](https://github.com/lampepfl/dotty/blob/master/compiler/test/dotty/tools/dotc/FromTastyTests.scala) |
 |:-----------------------|:----------------:|:----------------:|
 | <a href="https://jdk.java.net/17/">openjdk-17</a> | Failed        | Failed  |
 | <a href="https://github.com/SAP/SapMachine/releases">sapmachine-17</a> | Failed        | Failed  |
@@ -488,30 +491,33 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <span name="footnote_03">[3]</span> ***Snapshot builds*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
-We run the batch file <a href="./bin/dotty/snapshot.bat"><code>snapshot.bat</code></a> (which calls <a href="./bin/dotty/build.bat"><code>build.bat</code></a>) to generate <b>19</b> Scala 3 distributions built using <b>11</b> OpenJDK implementations (see also snyk report "<a href="https://snyk.io/jvm-ecosystem-report-2021/">JVM Ecosystem report 2021"</a>).
+We run the batch file <a href="./bin/dotty/snapshot.bat"><code>snapshot.bat</code></a> (which calls <a href="./bin/dotty/build.bat"><code>build.bat</code></a>) to generate <b>22</b> Scala 3 distributions built using <b>11</b> OpenJDK implementations (see also snyk report "<a href="https://snyk.io/jvm-ecosystem-report-2021/">JVM Ecosystem report 2021"</a>).
 </p>
 
 <pre style="margin:0 0 1em 20px;font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b __SNAPSHOT_LOCAL\*.zip</b>
-scala3-3.1.0-RC1-bin-SNAPSHOT-bellsoft-08.zip
-scala3-3.1.0-RC1-bin-SNAPSHOT-bellsoft-11.zip
-scala3-3.1.0-RC1-bin-SNAPSHOT-corretto-11.zip
-scala3-3.1.0-RC1-bin-SNAPSHOT-dcevm-11.zip
-scala3-3.1.0-RC1-bin-SNAPSHOT-dragonwell-08.zip
-scala3-3.1.0-RC1-bin-SNAPSHOT-dragonwell-11.zip
-scala3-3.1.0-RC1-bin-SNAPSHOT-microsoft-11.zip
-scala3-3.1.0-RC1-bin-SNAPSHOT-openj9-08.zip
-scala3-3.1.0-RC1-bin-SNAPSHOT-openj9-11.zip
-scala3-3.1.0-RC1-bin-SNAPSHOT-openjdk-08.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-bellsoft-08.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-bellsoft-11.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-bellsoft-nik-11.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-corretto-11.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-dcevm-11.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-dragonwell-08.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-dragonwell-11.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-graalvm-ce-08.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-graalvm-ce-11.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-microsoft-11.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-openj9-08.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-openj9-11.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-openjdk-08.zip
 scala3-3.1.0-RC1-bin-SNAPSHOT-openjdk-11.zip
-scala3-3.1.0-RC1-bin-SNAPSHOT-openjdk-17.zip
-scala3-3.1.0-RC1-bin-SNAPSHOT-redhat-08.zip
-scala3-3.1.0-RC1-bin-SNAPSHOT-redhat-11.zip
-scala3-3.1.0-RC1-bin-SNAPSHOT-sapmachine-11.zip
-scala3-3.1.0-RC1-bin-SNAPSHOT-sapmachine-17.zip
-scala3-3.1.0-RC1-bin-SNAPSHOT-zulu-08.zip
-scala3-3.1.0-RC1-bin-SNAPSHOT-zulu-11.zip
-scala3-3.1.0-RC1-bin-SNAPSHOT-zulu-17.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-openjdk-17.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-redhat-08.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-redhat-11.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-sapmachine-11.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-sapmachine-17.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-zulu-08.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-zulu-11.zip
+scala3-3.1.1-RC1-bin-SNAPSHOT-zulu-17.zip
 </pre>
 
 ***
@@ -523,7 +529,8 @@ scala3-3.1.0-RC1-bin-SNAPSHOT-zulu-17.zip
 
 [alibaba]: https://www.alibabagroup.com/en/global/home
 [amazon_aws]: https://aws.amazon.com/
-[corretto_downloads]: https://github.com/corretto/corretto-11/releases
+[corretto_8_downloads]: https://github.com/corretto/corretto-8/releases
+[corretto_11_downloads]: https://github.com/corretto/corretto-11/releases
 [corretto_relnotes]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html
 [azul_downloads]: https://www.azul.com/downloads/?package=jdk#download-openjdk
 [azul_relnotes]: https://docs.azul.com/core/zulu-openjdk/release-notes.html
