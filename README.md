@@ -26,8 +26,9 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [Git 2.33][git_releases] ([*release notes*][git_relnotes])
-- [Oracle OpenJDK 8 LTS][oracle_openjdk8] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk8_relnotes])
-- [Oracle OpenJDK 11 LTS][oracle_openjdk11] <sup id="anchor_01">[[1]](#footnote_01)</sup> ([*release notes*][oracle_openjdk11_relnotes])
+- [Oracle OpenJDK 8 LTS][oracle_openjdk8] <sup id="anchor_01">[&#91;1&#93;](#footnote_01)</sup> ([*release notes*][oracle_openjdk8_relnotes])
+- [Oracle OpenJDK 11 LTS][oracle_openjdk11] <sup id="anchor_01">[&#91;1&#93;](#footnote_01)</sup> ([*release notes*][oracle_openjdk11_relnotes])
+- [Oracle OpenJDK 17 LTS][oracle_openjdk17] <sup id="anchor_01">[&#91;1&#93;](#footnote_01)</sup> ([*release notes*][oracle_openjdk17_relnotes])
 - [Scala 3.1][scala3_releases] ([*release notes*][scala3_relnotes])
 <!--
 8u212   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
@@ -60,11 +61,10 @@ Optionally one may also install the following software:
 - [GNU Make 3.81][make_downloads]
 - [Gradle 7.2][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [JaCoCo 0.8][jacoco_downloads] <sup id="anchor_03">[[3]](#footnote_03)</sup> ([*change log*][jacoco_changelog])
-- [JavaFX 16][javafx_downloads] ([*release notes*][javafx_relnotes])
+- [JavaFX 17][javafx_downloads] ([*release notes*][javafx_relnotes])
 - [JITWatch 1.4][jitwatch_releases] (requires Java 11 or newer)
 - [Mill 0.9][mill_releases] ([*change log*][mill_changelog])
 - [MSYS2][msys2_releases] ([*change log*][msys2_changelog])
-- [Oracle OpenJDK 17][oracle_openjdk17] ([*release notes*][oracle_openjdk17_relnotes])
 - [sbt 1.5][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
 <!--
@@ -78,23 +78,23 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*September 2021*) <sup id="anchor_04">[[4]](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\apache-ant-1.10.11\         <i>( 39.7 MB)</i>
-C:\opt\apache-maven-3.8.2\         <i>( 10.7 MB)</i>
-C:\opt\bazel-4.2.0\                <i>( 41.0 MB)</i>
-C:\opt\cfr-0.151\                  <i>(  1.9 MB)</i>
-C:\opt\Git-2.32.0\                 <i>(279.0 MB)</i>
-C:\opt\gradle-7.2\                 <i>(121.0 MB)</i>
-C:\opt\jacoco-0.8.7\               <i>( 10.7 MB)</i>
-C:\opt\javafx-sdk-16\              <i>( 79.0 MB)</i>
-C:\opt\jdk-openjdk-1.8.0_302-b08\  <i>(185.0 MB)</i>
-C:\opt\jdk-openjdk-11.0.12_7\      <i>(300.0 MB)</i>
-C:\opt\jdk-openjdk-17-ea_35\       <i>(293.0 MB)</i>
-C:\opt\make-3.81\                  <i>(  2.1 MB)</i>
-C:\opt\mill-0.9.9\                 <i>( 60.3 MB)</i>
-C:\opt\msys64\                     <i>( 5.56 GB)</i>
-C:\opt\sbt-1.5.5\                  <i>( 48.3 MB)</i>
-C:\opt\scala-2.13.6\               <i>( 23.8 MB, 612 MB with API docs)</i>
-C:\opt\scala3-3.1.0-RC1\           <i>( 31.6 MB)</i>
+C:\opt\apache-ant-1.10.11\         <i>( 39 MB)</i>
+C:\opt\apache-maven-3.8.2\         <i>( 10 MB)</i>
+C:\opt\bazel-4.2.0\                <i>( 41 MB)</i>
+C:\opt\cfr-0.151\                  <i>(  2 MB)</i>
+C:\opt\Git-2.32.0\                 <i>(279 MB)</i>
+C:\opt\gradle-7.2\                 <i>(121 MB)</i>
+C:\opt\jacoco-0.8.7\               <i>( 10 MB)</i>
+C:\opt\javafx-sdk-17\              <i>(115 MB)</i>
+C:\opt\jdk-openjdk-1.8.0_302-b08\  <i>(185 MB)</i>
+C:\opt\jdk-openjdk-11.0.12_7\      <i>(300 MB)</i>
+C:\opt\jdk-openjdk-17\             <i>(293 MB)</i>
+C:\opt\make-3.81\                  <i>(  2 MB)</i>
+C:\opt\mill-0.9.9\                 <i>( 60 MB)</i>
+C:\opt\msys64\                     <i>(5.5 GB)</i>
+C:\opt\sbt-1.5.5\                  <i>( 48 MB)</i>
+C:\opt\scala-2.13.6\               <i>( 23 MB, 612 MB with API docs)</i>
+C:\opt\scala3-3.1.0-RC1\           <i>( 31 MB)</i>
 </pre>
  <!-- jdk8: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
  <!-- jdk11: 11.0.8 = 314 MB, 11.0.9 = 316 MB, 11.0.11 = 300 MB -->
@@ -150,7 +150,7 @@ We also define a virtual drive **`W:`** in our working environment in order to r
 > **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst">subst</a> W: %USERPROFILE%\workspace\dotty-examples</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst">subst</a> W: <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%USERPROFILE%</a>\workspace\dotty-examples</b>
 > </pre>
 
 In the next section we give a brief description of the batch files present in this project.
@@ -380,7 +380,7 @@ Environment variables:
    "BAZEL_HOME=c:\opt\bazel-4.2.0"
    "GIT_HOME=C:\opt\Git-2.32.0"
    "JAVA_HOME=C:\opt\jdk-openjdk-11.0.12_7"
-   "JAVAFX_HOME=C:\opt\javafx-sdk-16"
+   "JAVAFX_HOME=C:\opt\javafx-sdk-17"
    "MSVS_HOME=X:"
    "MSYS_HOME=C:\opt\msys64"
    "PYTHON_HOME=C:\opt\Python-3.9.6"
@@ -537,12 +537,12 @@ Searching for class name System in archive files C:\opt\scala-2.13.6\lib\*.jar
   [...]
   scala-library.jar:scala/sys/SystemProperties$.class
   scala-library.jar:scala/sys/SystemProperties.class
-Searching for class name System in archive files C:\opt\jdk-11.0.11_9\lib\*.jar
+Searching for class name System in archive files C:\opt\jdk-11.0.12_7\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   [...]
   jrt-fs.jar:jdk/internal/jrtfs/SystemImage$2.class
   jrt-fs.jar:jdk/internal/jrtfs/SystemImage.class
-Searching for class name System in archive files c:\opt\javafx-sdk-16\lib\*.jar
+Searching for class name System in archive files c:\opt\javafx-sdk-17\lib\*.jar
   javafx.graphics.jar:com/sun/glass/ui/SystemClipboard.class
   [...]
   javafx.graphics.jar:com/sun/javafx/tk/TKSystemMenu.class
@@ -555,7 +555,7 @@ Searching for an unknown class name - e.g. **`BinarySearch`** - produces the fol
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> BinarySearch</b>
 Searching for class name BinarySearch in archive files C:\opt\scala3-3.1.0-RC1\lib\*.jar
 Searching for class name BinarySearch in archive files C:\opt\scala-2.13.6\lib\*.jar
-Searching for class name BinarySearch in archive files C:\opt\jdk-11.0.11_9\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\jdk-11.0.12_7\lib\*.jar
 </pre>
 
 Searching for **`FileSystem`** with option **`-artifact`** produces the following output:
@@ -564,13 +564,13 @@ Searching for **`FileSystem`** with option **`-artifact`** produces the followin
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> FileSystem -artifact</b>
 Searching for class name FileSystem in archive files C:\opt\scala3-3.1.0-RC1\lib\*.jar
 Searching for class name FileSystem in archive files C:\opt\scala-2.13.6\lib\*.jar
-Searching for class name FileSystem in archive files c:\opt\jdk-11.0.11_9\lib\*.jar
+Searching for class name FileSystem in archive files c:\opt\jdk-11.0.12_7\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystemProvider$1.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystemProvider$JrtFsLoader.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystemProvider.class
-Searching for class name FileSystem in archive files c:\opt\javafx-sdk-15.0.1\lib\*.jar
+Searching for class name FileSystem in archive files c:\opt\javafx-sdk-17\lib\*.jar
   javafx.web.jar:com/sun/webkit/FileSystem.class
 Searching for class name FileSystem in archive files %USERPROFILE%\.ivy2\cache\*.jar
   okhttp-3.14.2.jar:okhttp3/internal/io/FileSystem$1.class
@@ -728,11 +728,31 @@ Hello world!
 <span name="footnote_01">[1]</span> ***Java LTS versions*** [↩](#anchor_01) <!-- 2018-11-18 -->
 
 <p style="margin:0 0 1em 20px;">
-Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 <a href="https://wiki.shibboleth.net/confluence/pages/viewpage.action?pageId=44729840">Java SE 8</a> is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS release</a> in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html" rel="external">LTS release</a>.
+Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Current LTS versions are (from <a href="https://www.oracle.com/java/technologies/java-se-support-roadmap.html">Support roadmap</a>):
 </p>
-<p style="margin:0 0 1em 20px;">
-<a href="https://wiki.shibboleth.net/confluence/pages/viewpage.action?pageId=70352982">Java SE 17</a> is in early access (<a href="http://jdk.java.net/17/">build 33</a> released in July 2021); it will be the next LTS release after Java 11.
-</p>
+<table style="margin:0 0 1em 20px;">
+<tr><th>Java SE Version</th><th>GA</th><th>End of life</th></tr>
+<tr>
+  <td>21</td>
+  <td>September 2023</td>
+  <td>September 2031</td>
+</tr>
+<tr>
+  <td><a href="https://www.oracle.com/java/technologies/downloads/#java17">17</a></td>
+  <td>September 2021</td>
+  <td>September 2029</td>
+</tr>
+<tr>
+  <td><a href="https://www.oracle.com/java/technologies/downloads/#java11">11</a></td>
+  <td>September 2018</td>
+  <td>September 2026</td>
+</tr>
+<tr>
+  <td><a href="https://www.oracle.com/java/technologies/downloads/#java8">8</a></td>
+  <td> March 2014</td>
+  <td>December 2030</td>
+</tr>
+</table>
 
 <span name="footnote_02">[2]</b> ***Using Bazel on Windows*** [↩](#anchor_02)
 
@@ -775,8 +795,8 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.0-shaded-win.jar</a>                  <i>( 95 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                 <i>( 10 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20210228.exe</a>                         <i>( 94 MB)</i>
-<a href="http://jdk.java.net/17/">openjdk-17-ea+30_windows-x64_bin.zip</a>              <i>(176 MB)</i>
-<a href="https://gluonhq.com/products/javafx/">openjfx-15.0.1_windows-x64_bin-sdk.zip</a>            <i>( 39 MB)</i>
+<a href="http://jdk.java.net/17/">openjdk-17_windows-x64_bin.zip</a>                    <i>(176 MB)</i>
+<a href="https://gluonhq.com/products/javafx/">openjfx-17_windows-x64_bin-sdk.zip</a>                <i>( 39 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u302b08.zip</a>    <i>( 99 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.12_7.zip</a>  <i>( 99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.32.0-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
@@ -838,7 +858,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [java_jls]: https://docs.oracle.com/javase/specs/jls/se8/html/index.html
 [javac_cli]: https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html
 [javafx_downloads]: https://gluonhq.com/products/javafx/
-[javafx_relnotes]: https://github.com/openjdk/jfx/blob/jfx15/doc-files/release-notes-15.0.1.md
+[javafx_relnotes]: https://gluonhq.com/products/javafx/openjfx-17-release-notes/
 [javap_cli]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html
 [jitwatch_releases]: https://github.com/AdoptOpenJDK/jitwatch/releases
 [jmh]: https://openjdk.java.net/projects/code-tools/jmh/
