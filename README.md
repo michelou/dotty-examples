@@ -728,7 +728,7 @@ Hello world!
 <span name="footnote_01">[1]</span> ***Java LTS versions*** [↩](#anchor_01) <!-- 2018-11-18 -->
 
 <p style="margin:0 0 1em 20px;">
-Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Current LTS versions are (from <a href="https://www.oracle.com/java/technologies/java-se-support-roadmap.html">Support roadmap</a>):
+Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Current LTS versions are (from <a href="https://www.oracle.com/java/technologies/java-se-support-roadmap.html">Oracle's support roadmap</a>):
 </p>
 <table style="margin:0 0 1em 20px;">
 <tr><th>Java SE Version</th><th>GA</th><th>End of life</th></tr>
@@ -753,6 +753,10 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
   <td>December 2030</td>
 </tr>
 </table>
+
+<p style="margin:0 0 1em 20px;">
+<b>NB.</b> See also <a href="https://www.azul.com/products/azul-support-roadmap/">Zulu's support roadmap</a>.
+</p>
 
 <span name="footnote_02">[2]</b> ***Using Bazel on Windows*** [↩](#anchor_02)
 
