@@ -1,4 +1,4 @@
-# <span id="top">Contributing to the Dotty project</span> <span style="size:25%;"><a href="README.md">↩</a></span>
+# <span id="top">Contributions to the Dotty project</span> <span style="size:25%;"><a href="README.md">↩</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -15,6 +15,7 @@
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :------------------------: | :--------: | :--------- |
+| [#13577][dotty_pull_13577] | [merged](https://github.com/lampepfl/dotty/commit/2b3f6da) <span style="font-size:80%;">(Sep 2021)</span> | Batch files |
 | [#13006][dotty_pull_13006] | [merged](https://github.com/lampepfl/dotty/commit/158b332) <span style="font-size:80%;">(July 2021)</span> | Batch files |
 | [#11728][dotty_pull_11728] | *pending* | Reference documentation |
 | [#11480][dotty_pull_11480] | [merged](https://github.com/lampepfl/dotty/commit/5eb3258) <span style="font-size:80%;">(Feb 2021)</span> | Reference documentation |
@@ -59,7 +60,7 @@ Below we summarize changes we made to the [source code](https://github.com/lampe
 
 ## <span id="issues">Reported Issues</span>
 
-We have come across several issues <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup> while executing [Scala 3][scala3_home] commands on Windows:
+We have come across several issues <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup> while executing [Scala 3][scala3_home] commands on Microsoft Windows:
 
 | [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Issue status&nbsp;&nbsp;&nbsp; | Context |
 | :-------------------------: | :--------: | :--------- |
@@ -157,4 +158,5 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_pull_11728]: https://github.com/lampepfl/dotty/pull/11728 "more fixes in Markdown files"
 [dotty_pull_11833]: https://github.com/lampepfl/dotty/pull/11833 "add Wiki code blocks to Md syntax"
 [dotty_pull_13006]: https://github.com/lampepfl/dotty/pull/13006
+[dotty_pull_13577]: https://github.com/lampepfl/dotty/pull/13577
 [scala_pull_9013]: https://github.com/scala/scala/pull/9013 "Close Source.fromFile"
