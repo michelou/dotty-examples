@@ -90,6 +90,7 @@ if not exist "%_ROOT_DIR%project\Build.scala" (
     set _EXITCODE=1
     goto :eof
 )
+@rem https://newbedev.com/what-are-the-undocumented-features-and-limitations-of-the-windows-findstr-command
 for /f "delims=^= tokens=1,*" %%i in ('findstr /i "val.baseVersion" "%_ROOT_DIR%project\Build.scala"') do (
     set __VERSION=%%j
     set __VERSION=!__VERSION:"=!

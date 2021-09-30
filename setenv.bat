@@ -38,7 +38,13 @@ set _VSCODE_PATH=
 
 @rem %1=vendor, %2=version
 @rem eg. openjdk, bellsoft, corretto, bellsoft, openj9, redhat, sapmachine, zulu
-call :jdk "openjdk" 1.8
+call :java "openjdk" 1.8
+if not %_EXITCODE%==0 goto end
+
+call :java "openjdk" 11
+if not %_EXITCODE%==0 goto end
+
+call :java "openjdk" 17
 if not %_EXITCODE%==0 goto end
 
 call :scala2
@@ -365,9 +371,9 @@ set "_BLOOP_PATH=;%__BLOOP_HOME%"
 goto :eof
 
 @rem input parameter: %1=vendor %1^=required version
-@rem output parameter(s): _JDK_HOME
-:jdk
-set _JDK_HOME=
+@rem output parameter: _JAVA_HOME (resp. JAVA11_HOME)
+:java
+set _JAVA_HOME=
 
 set __VENDOR=%~1
 set __VERSION=%~2
@@ -380,32 +386,34 @@ if defined __JAVAC_CMD (
     call :jdk_version "%__JAVAC_CMD%"
     if !_JDK_VERSION!==%__VERSION% (
         for %%i in ("%__JAVAC_CMD%") do set "__BIN_DIR=%%~dpi"
-        for %%f in ("%__BIN_DIR%") do set "_JDK_HOME=%%~dpf"
+        for %%f in ("%__BIN_DIR%") do set "_JAVA_HOME=%%~dpf"
     ) else (
         echo %_ERROR_LABEL% Required JDK installation not found ^(%__JDK_NAME%^) 1>&2
         set _EXITCODE=1
         goto :eof
     )
 )
-if defined JDK_HOME (
-    set "_JDK_HOME=%JDK_HOME%"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable JDK_HOME 1>&2
+if defined JAVA_HOME (
+    set "_JAVA_HOME=%JAVA_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable JAVA_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JDK_HOME=!_PATH!\%%f"
-    if not defined _JDK_HOME (
+    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f"
+    if not defined _JAVA_HOME (
         set "_PATH=%ProgramFiles%\Java"
-        for /f %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JDK_HOME=!_PATH!\%%f"
+        for /f %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f"
     )
-    if defined _JDK_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Java SDK installation directory !_JDK_HOME! 1>&2
+    if defined _JAVA_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Java SDK installation directory !_JAVA_HOME! 1>&2
     )
 )
-if not exist "%_JDK_HOME%\bin\javac.exe" (
-    echo %_ERROR_LABEL% Executable javac.exe not found ^(%_JDK_HOME%^) 1>&2
+if not exist "%_JAVA_HOME%\bin\javac.exe" (
+    echo %_ERROR_LABEL% Executable javac.exe not found ^(%_JAVA_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
+call :jdk_version "%_JAVA_HOME%\bin\javac.exe"
+set "_JAVA!_JDK_VERSION!_HOME=%_JAVA_HOME%"
 goto :eof
 
 @rem input parameter(s): %1=javac file path
@@ -419,16 +427,10 @@ if not exist "%__JAVAC_CMD%" (
 )
 set __JAVAC_VERSION=
 for /f "usebackq tokens=1,*" %%i in (`"%__JAVAC_CMD%" -version 2^>^&1`) do set __JAVAC_VERSION=%%j
-if "!__JAVAC_VERSION:~0,2!"=="17" ( set _JDK_VERSION=17
-) else if "!__JAVAC_VERSION:~0,2!"=="14" ( set _JDK_VERSION=14
-) else if "!__JAVAC_VERSION:~0,2!"=="11" ( set _JDK_VERSION=11
-) else if "!__JAVAC_VERSION:~0,3!"=="1.8" ( set _JDK_VERSION=8
-) else if "!__JAVAC_VERSION:~0,3!"=="1.7" ( set _JDK_VERSION=7
-) else (
-    set _JDK_VERSION=
-    echo %_ERROR_LABEL% Unsupported JDK version %__JAVAC_VERSION% 1>&2
-    set _EXITCODE=1
-    goto :eof
+set "__PREFIX=%__JAVAC_VERSION:~0,2%"
+@rem either 1.7, 1.8 or 11..18
+if "%__PREFIX%"=="1." ( set _JDK_VERSION=%__JAVAC_VERSION:~2,1%
+) else ( set _JDK_VERSION=%__PREFIX%
 )
 goto :eof
 
@@ -637,7 +639,7 @@ if not exist "%_CFR_HOME%\bin\cfr.bat" (
 )
 goto :eof
 
-@rem output parameter: _COURSIER_HOME, _COURSIER_PATH
+@rem output parameters: _COURSIER_HOME, _COURSIER_PATH
 :coursier
 set _COURSIER_HOME=
 set _COURSIER_PATH=
@@ -709,7 +711,6 @@ if not exist "%_GRADLE_HOME%\bin\gradle.bat" (
 )
 set "_GRADLE_PATH=;%_GRADLE_HOME%\bin"
 goto :eof
-
 
 @rem output parameter(s): _JACOCO_HOME
 :jacoco
@@ -1199,8 +1200,9 @@ if %__VERBOSE%==1 (
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
     if defined GRADLE_HOME echo    "GRADLE_HOME=%GRADLE_HOME%" 1>&2
     if defined JAVA_HOME echo    "JAVA_HOME=%JAVA_HOME%" 1>&2
-    if defined JAVACOCO_HOME echo    "JAVACOCO_HOME=%JAVACOCO_HOME%" 1>&2
     if defined JAVA11_HOME echo    "JAVA11_HOME=%JAVA11_HOME%" 1>&2
+    if defined JAVA17_HOME echo    "JAVA17_HOME=%JAVA17_HOME%" 1>&2
+    if defined JAVACOCO_HOME echo    "JAVACOCO_HOME=%JAVACOCO_HOME%" 1>&2
     if defined JAVAFX_HOME echo    "JAVAFX_HOME=%JAVAFX_HOME%" 1>&2
     if defined MAKE_HOME echo    "MAKE_HOME=%MAKE_HOME%" 1>&2
     if defined MAVEN_HOME echo    "MAVEN_HOME=%MAVEN_HOME%" 1>&2
@@ -1227,8 +1229,9 @@ endlocal & (
         if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
         if not defined GRADLE_HOME set "GRADLE_HOME=%_GRADLE_HOME%"
         if not defined JACOCO_HOME set "JACOCO_HOME=%_JACOCO_HOME%"
-        if not defined JAVA_HOME set "JAVA_HOME=%_JDK_HOME%"
-        if not defined JAVA11_HOME set "JAVA11_HOME=%_JDK11_HOME%"
+        if not defined JAVA_HOME set "JAVA_HOME=%_JAVA_HOME%"
+        if not defined JAVA11_HOME set "JAVA11_HOME=%_JAVA11_HOME%"
+        if not defined JAVA17_HOME set "JAVA17_HOME=%_JAVA17_HOME%"
         if not defined JAVAFX_HOME set "JAVAFX_HOME=%_JAVAFX_HOME%"
         if not defined MAKE_HOME set "MAKE_HOME=%_MAKE_HOME%"
         if not defined MAVEN_HOME set "MAVEN_HOME=%_MAVEN_HOME%"

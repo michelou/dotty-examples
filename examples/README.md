@@ -610,7 +610,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 [apache_foundation]: https://maven.apache.org/docs/history.html
 [apache_history]: https://ant.apache.org/faq.html#history
 [apache_maven_about]: https://maven.apache.org/what-is-maven.html
-[apache_maven_cli]: https://maven.apache.org/ref/3.8.1/maven-embedder/cli.html
+[apache_maven_cli]: https://maven.apache.org/ref/3.8.2/maven-embedder/cli.html
 [bash]: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [cfr_releases]: https://www.benf.org/other/cfr/

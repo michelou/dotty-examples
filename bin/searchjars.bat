@@ -163,7 +163,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
         set _EXITCODE=1
-        goto :args_done
+        goto args_done
     )
 ) else (
     if not defined _CLASS_NAME ( set _CLASS_NAME=%__ARG%
@@ -171,13 +171,17 @@ if "%__ARG:~0,1%"=="-" (
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
         set _EXITCODE=1
-        goto :args_done
+        goto args_done
     )
 )
 shift
 goto args_loop
 :args_done
-if %_DEBUG%==1 echo %_DEBUG_LABEL% _CLASS_NAME=%_CLASS_NAME% _METH_NAME=%_METH_NAME% _MAVEN=%_MAVEN% 1>&2
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% Options   : _ARTIFACT=%_ARTIFACT% _IVY=%_IVY% _MAVEN=%_MAVEN% 1>&2
+    echo %_DEBUG_LABEL% Variables : _CLASS_NAME=%_CLASS_NAME% 1&2
+    echo %_DEBUG_LABEL% Variables : _METH_NAME=%_METH_NAME% 1>&2
+)
 goto :eof
 
 :help
@@ -208,7 +212,7 @@ goto :eof
 
 @rem input parameter: %1=lib directory, %2=traverse recursively
 :search
-set __LIB_DIR=%~1
+set "__LIB_DIR=%~1"
 set __RECURSIVE=%~2
 
 if defined __RECURSIVE ( set __DIR_OPTS=/s /b
