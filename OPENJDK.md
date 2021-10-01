@@ -25,7 +25,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 
 This project depends on several external software for the **Microsoft Windows** platform:
 
-- [Corretto OpenJDK 11][corretto_downloads] from [Amazon][amazon_aws] ([*release notes*][corretto_relnotes]).
+- [Corretto OpenJDK 11][corretto_11_downloads] from [Amazon][amazon_aws] ([*release notes*][corretto_11_relnotes]).
 - [Dragonwell OpenJDK 11][dragonwell_downloads] from [Alibaba][alibaba] ([*release notes*][dragonwell_relnotes]).
 - [GraalVM OpenJDK 11][graalvm_downloads] from [Oracle] ([*release notes*][graalvm_relnotes]).
 - [Liberica OpenJDK 11][bellsoft_downloads] from [BellSoft][bellsoft_about] ([*release notes*][bellsoft_relnotes]).
@@ -53,7 +53,7 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*September 2021*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
+For instance our development environment looks as follows (*October 2021*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java11-21.2.0\    <i>(731 MB)</i>
@@ -522,7 +522,7 @@ scala3-3.1.1-RC1-bin-SNAPSHOT-zulu-17.zip
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -531,7 +531,7 @@ scala3-3.1.1-RC1-bin-SNAPSHOT-zulu-17.zip
 [amazon_aws]: https://aws.amazon.com/
 [corretto_8_downloads]: https://github.com/corretto/corretto-8/releases
 [corretto_11_downloads]: https://github.com/corretto/corretto-11/releases
-[corretto_relnotes]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html
+[corretto_11_relnotes]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html
 [azul_downloads]: https://www.azul.com/downloads/?package=jdk#download-openjdk
 [azul_relnotes]: https://docs.azul.com/core/zulu-openjdk/release-notes.html
 [azul_systems]: https://www.azul.com/
