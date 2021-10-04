@@ -1,4 +1,4 @@
-val scala3Version = "3.1.0-RC1" // = dottyLatestNightlyBuild.get 
+val scala3Version = "3.1.0-RC3" // = dottyLatestNightlyBuild.get 
 
 lazy val root = project
   .in(file("."))
@@ -27,7 +27,7 @@ lazy val root = project
       Package.ManifestAttributes("Created-By" -> s"${version} (${vendor})")
     },
     // https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler
-    libraryDependencies += "org.scala-lang" % "scala3-compiler" % "3.1.0-RC1",
+    libraryDependencies += "org.scala-lang" % "scala3-compiler" % "3.1.0-RC3",
 
     // https://mvnrepository.com/artifact/com.novocode/junit-interface
     libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % Test
