@@ -218,12 +218,12 @@ We distinguish different sets of batch/bash commands:
     &nbsp;
       Options:
         -debug           show commands executed by this script
-        -dotty           use Scala 3 tools (default)
         -explain         set compiler option -explain
         -explain-types   set compiler option -explain-types
         -main:&lt;name&gt;     define main class name (default: Main)
         -print           print IR after compilation phase 'lambdaLift'
-        -scala           use Scala 2 tools
+        -scala2          use Scala 2 tools
+        -scala3          use Scala 3 tools (default)
         -tasty           compile both from source and <a href="https://github.com/lampepfl/dotty/blob/master/tasty/src/dotty/tools/tasty/TastyFormat.scala">TASTy files</a>
         -timer           display the compile time
         -verbose         display progress messages

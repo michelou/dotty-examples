@@ -37,7 +37,7 @@ call :add_jar "com.novocode" "junit-interface" "0.11"
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest
 call :add_jar "org.hamcrest" "hamcrest" "2.2"
 
-set __SCALATEST_VERSION=3.2.9
+set __SCALATEST_VERSION=3.2.10
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
@@ -58,6 +58,10 @@ call :add_jar "org.scalatest" "scalatest_3" "%__SCALATEST_VERSION%"
 call :add_jar "org.scalactic" "scalactic_3" "%__SCALATEST_VERSION%"
 
 set __SPECS2_CORE_VERSION=4.12.12
+
+@rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
+@rem NB. dependency of specs2
+call :add_jar "org.scala-lang" "scala-reflect" "2.13.6"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-core
 call :add_jar "org.specs2" "specs2-core_%__SCALA_BINARY_VERSION%" "%__SPECS2_CORE_VERSION%"

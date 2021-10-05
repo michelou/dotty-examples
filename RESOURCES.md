@@ -19,6 +19,7 @@
 
 ## <span id="blogs">Blogs</span>
 
+- [Scala 3 : un nouveau langage ?][blog_sarradin] by François Sarradin, May 2021.
 - [47 Degrees Blog](https://www.47deg.com/blog/)
    - [Automatically Deriving Typeclass Instances in Scala 3](https://www.47deg.com/blog/scala-3-deriving-typeclasses/), May 2021.
    - [Typeclasses in Scala 3](https://www.47deg.com/blog/scala-3-typeclasses/), May 2021.
@@ -35,9 +36,12 @@
 
 ## <span id="books">Books</span>
 
+- [Scala Cookbook][book_alexander] (2<sup>nd</sup> edition) by Alvin Alexander, August 2021.<br/><span style="font-size:80%;">(O'Reilly, ISBN 978-1-4920-5154-1, 802 pages)</span>
 - [Programming Scala](https://www.oreilly.com/library/view/programming-scala-2nd/9781491950135/) (3<sup>rd</sup> Edition) by Dean Wampler and Alex Payne, June 2021.<br/><span style="font-size:80%;">(O'Reilly, ISBN 978-1-4920-7789-3)</span>
 - [Programming in Scala](https://www.artima.com/shop/programming_in_scala_5ed) (5<sup>th</sup> Edition) by Martin Odersky et al., May 2021.<br/><span style="font-size:80%;">(<a href="https://www.artima.com/about">Artima Press</a>, ISBN ‎ 978-0-9971-4800-8, 651 pages)</span>
+- [Hands-on Scala Programming][book_haoyi] by Li Haoyi, July 2020.<br/><span style="font-size:80%;">(Li Haoyli, ISBN 978-9-8114-5693-0, 414 pages)</span>
 - [Essential Scala](https://underscore.io/books/essential-scala/) (v1.3) by Noel Welsh and Dave Gurnell, April 2017.
+- [Introduction to Programming and Problem-Solving Using Scala][book_lewis]  (2<sup>nd</sup> edition) by Mark C. Lewis and Lisa Lacher, August 2016.<br/><span style="font-size:80%;">(CRC Press, ISBN 978-1-4987-3095-2, 590 pages)</span>
 
 ## <span id="courses">Courses</span>
 
@@ -74,3 +78,8 @@
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
+
+[blog_sarradin]: https://univalence.io/blog/articles/scala-3-un-nouveau-langage/
+[book_alexander]: https://www.oreilly.com/library/view/scala-cookbook-2nd/9781492051534/
+[book_haoyi]: https://www.handsonscala.com/
+[book_lewis]: https://www.routledge.com/Introduction-to-Programming-and-Problem-Solving-Using-Scala/Lewis-Lacher/p/book/9781498730952

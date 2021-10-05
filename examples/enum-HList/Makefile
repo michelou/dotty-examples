@@ -24,32 +24,32 @@ all: build
 build: $(TARGET)
 
 $(TARGET): $(SOURCES)
-	[ -d "$(CLASSES_DIR)" ] || $(MKDIR) -p "$(CLASSES_DIR)"
+	[ -d "$(CLASSES_DIR)" ] || "$(MKDIR)" -p "$(CLASSES_DIR)"
 	@echo $(SCALAC_FLAGS) -d "$(CLASSES_DIR)" > "$(OPTS_FILE)"
 	@echo $(SOURCES) > "$(SOURCES_FILE)"
-	$(SCALAC) "@$(OPTS_FILE)" "@$(SOURCES_FILE)"
+	"$(SCALAC)" "@$(OPTS_FILE)" "@$(SOURCES_FILE)"
 	@$(TOUCH) "$(TARGET)"
 
 clean:
-	rm -rf "$(TARGET_DIR)"
+	"$(RM)" -rf "$(TARGET_DIR)"
 
 compile: build
 
 run: build
-	$(SCALA) $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
+	"$(SCALA)" $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
 
 help:
-	@$(info Usage: make all|build|clean|doc|help|lint|run|test)
-	@$(info )
-	@echo   Subcommands:
-	@echo     all    alias for build
-	@echo     build  compile Java/Scala source files
-	@echo     clean  delete generated files
-	@echo     doc    generate HTML documentation
-	@echo     help   display this help message
-	@echo     lint   analyze Scala source files with Scalafmt
-	@echo     run    execute main program $(MAIN_CLASS)
-	@echo     test   execute unit tests with JUnit
+	@$(ECHO) "Usage: make all|build|clean|doc|help|lint|run|test)"
+	@$(ECHO) ""
+	@$(ECHO) "  Subcommands:"
+	@$(ECHO) "    all    alias for build"
+	@$(ECHO) "    build  compile Java/Scala source files"
+	@$(ECHO) "    clean  delete generated files"
+	@$(ECHO) "    doc    generate HTML documentation"
+	@$(ECHO) "    help   display this help message"
+	@$(ECHO) "    lint   analyze Scala source files with Scalafmt"
+	@$(ECHO) "    run    execute main program $(MAIN_CLASS)"
+	@$(ECHO) "    test   execute unit tests with JUnit"
 
 ##############################################################################
 ## doc rules
@@ -66,10 +66,10 @@ DOC_OPTS_FILE    = $(TARGET_DIR)/scaladoc_opts.txt
 DOC_SOURCES_FILE = $(TARGET_DIR)/scaladoc_sources.txt
 
 $(DOC_TARGET): $(DOC_SOURCES)
-	[ -d "$(DOC_TARGET_DIR)" ] || $(MKDIR) -p "$(DOC_TARGET_DIR)"
-	@echo -siteroot "$(DOC_TARGET_DIR)" -d "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
-	@echo $(DOC_SOURCES) > "$(DOC_SOURCES_FILE)"
-	$(SCALADOC) "@$(DOC_OPTS_FILE)" "@$(DOC_SOURCES_FILE)"
+	[ -d "$(DOC_TARGET_DIR)" ] || "$(MKDIR)" -p "$(DOC_TARGET_DIR)"
+	@$(ECHO) -siteroot "$(DOC_TARGET_DIR)" -d "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
+	@$(ECHO) $(DOC_SOURCES) > "$(DOC_SOURCES_FILE)"
+	"$(SCALADOC)" "@$(DOC_OPTS_FILE)" "@$(DOC_SOURCES_FILE)"
 	@$(TOUCH) "$(DOC_TARGET)"
 
 doc: build $(DOC_TARGET)
@@ -81,7 +81,7 @@ SCALAFMT_CONFIG_FILE = $(shell dirname $(CURDIR))/.scalafmt.conf
 SCALAFMT_OPTS = --test --config "$(SCALAFMT_CONFIG_FILE)"
 
 lint:
-	$(SCALAFMT) $(SCALAFMT_OPTS) $(SOURCE_DIR)
+	"$(SCALAFMT)" $(SCALAFMT_OPTS) $(SOURCE_DIR)
 
 ##############################################################################
 ## test rules
@@ -97,14 +97,14 @@ TEST_MAIN_CLASS = $(MAIN_CLASS)Test
 TEST_CPATH      = $(SCALA_LIB_JAR)$(PSEP)$(SCALA3_LIB_JAR)$(PSEP)$(HAMCREST_JAR)$(PSEP)$(JUNIT_JAR)$(PSEP)$(JUNIT_INTF_JAR)$(PSEP)$(CLASSES_DIR)$(PSEP)$(TEST_CLASSES_DIR)
 
 $(TEST_TARGET): $(TEST_SOURCES)
-	[ -d "$(TEST_CLASSES_DIR)" ] || $(MKDIR) -p "$(TEST_CLASSES_DIR)"
-	@echo $(SCALAC_FLAGS) -classpath "$(TEST_CPATH)" -d "$(TEST_CLASSES_DIR)" > "$(TEST_OPTS_FILE)"
-	@echo $(TEST_SOURCES) > "$(TEST_SOURCES_FILE)"
-	$(SCALAC) "@$(TEST_OPTS_FILE)" "@$(TEST_SOURCES_FILE)"
+	[ -d "$(TEST_CLASSES_DIR)" ] || "$(MKDIR)" -p "$(TEST_CLASSES_DIR)"
+	@$(ECHO) $(SCALAC_FLAGS) -classpath "$(TEST_CPATH)" -d "$(TEST_CLASSES_DIR)" > "$(TEST_OPTS_FILE)"
+	@$(ECHO) $(TEST_SOURCES) > "$(TEST_SOURCES_FILE)"
+	"$(SCALAC)" "@$(TEST_OPTS_FILE)" "@$(TEST_SOURCES_FILE)"
 	@$(TOUCH) "$(TEST_TARGET)"
 
 test: build $(TEST_TARGET)
-	$(JAVA) -classpath "$(TEST_CPATH)" org.junit.runner.JUnitCore $(TEST_MAIN_CLASS)
+	"$(JAVA)" -classpath "$(TEST_CPATH)" org.junit.runner.JUnitCore $(TEST_MAIN_CLASS)
 
 ##############################################################################
 ## phony

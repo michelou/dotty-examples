@@ -60,10 +60,10 @@
             </fileset>
             -->
             <fileset dir="${ivy.cache}/org.scala-lang" includes="**/jars/scala3-library*.jar">
-                <filename regex="_3-3\.[0-9]\.[0-9](-RC[1-9])?" />  <!-- e.g. _3.0.0-RC1-3.0.0-RC1 -->
+                <filename regex="_3\.[0-9](-RC[1-9])?" />  <!-- e.g. _3-3.1.0-RC3 -->
             </fileset>
             <fileset dir="${ivy.cache}/org.scala-lang" includes="**/jars/scala-library*.jar">
-                <filename regex="-2\.[1-2][3-9]\.[0-9]+" />  <!-- e.g. -2.13.x -->
+                <filename regex="-2\.[1-2][3-9]\.[0-9]+" />  <!-- e.g. -2.13.6 -->
             </fileset>
         </path>
         <pathconvert property="scala3.classpath.prop" refid="scala3.classpath"/>

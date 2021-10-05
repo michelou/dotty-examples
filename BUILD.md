@@ -52,7 +52,7 @@ For instance our development environment looks as follows (*September 2021*):
 C:\opt\Git-2.33.0\                 <i>(279 MB)</i>
 C:\opt\jdk-openjdk-1.8.0u302-b08\  <i>(186 MB)</i>
 C:\opt\jdk-openjdk-11.0.12_7\      <i>(314 MB)</i>
-C:\opt\jdk-openjdk-17-ea_35\       <i>(293 MB)</i>
+C:\opt\jdk-openjdk-17-35\          <i>(293 MB)</i>
 C:\opt\sbt-1.5.5\                  <i>( 48 MB)</i>
 </pre>
 
@@ -649,7 +649,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

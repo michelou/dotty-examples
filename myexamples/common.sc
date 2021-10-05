@@ -21,7 +21,7 @@ val scalaSourcePath = os.pwd / "src" / "main" / "scala"
 val scalaBinaryVersion = "2.13"
 
 val junitVersion = "4.13.2"
-val scalatestVersion = "3.2.9"
+val scalatestVersion = "3.2.10"
 val specs2Version = "4.12.12"
 
 // https://mvnrepository.com/artifact/junit/junit
@@ -34,7 +34,7 @@ val ivyJunitInterface = ivy"com.novocode:junit-interface:0.11"
 val ivyApiGuardian = ivy"org.apiguardian:apiguardian-api:1.1.1"
 
 // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-val ivyJunitJupiter = ivy"org.junit.jupiter:junit-jupiter-api:5.7.2"
+val ivyJunitJupiter = ivy"org.junit.jupiter:junit-jupiter-api:5.8.1"
 
 // https://mvnrepository.com/artifact/org.scalatest/scalatest
 val ivyScalatest = ivy"org.scalatest:scalatest_3:$scalatestVersion"

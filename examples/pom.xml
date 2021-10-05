@@ -13,8 +13,8 @@
         <java.version>11</java.version>
 
         <!-- Scala settings -->
-        <scala.groupId>org.scala-lang</scala.groupId> <!-- old: "ch.epfl.lamp" -->
-        <scala.version>3.1.0-RC1</scala.version>
+        <scala.groupId>org.scala-lang</scala.groupId>
+        <scala.version>3.1.0-RC3</scala.version>
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugin versions -->
@@ -22,7 +22,7 @@
         <!-- https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect -->
         <scala-reflect.version>1.1.1</scala-reflect.version>
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
-        <scalatest.version>3.2.9</scalatest.version>            <!-- Nov 2020 -->
+        <scalatest.version>3.2.10</scalatest.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven.compiler.version>3.8.1</maven.compiler.version>  <!-- May 2019 -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
@@ -44,9 +44,9 @@
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
-        <junit.platform.version>1.7.2</junit.platform.version>  <!-- Sep 2020 -->
+        <junit.platform.version>1.8.1</junit.platform.version>
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <jupiter.version>5.7.2</jupiter.version>                <!-- Sep 2020 -->
+        <jupiter.version>5.8.1</jupiter.version>
 
         <!-- Maven plugin dependencies -->
         <m2.directory>${user.home}/.m2/repository</m2.directory>
@@ -136,7 +136,7 @@
         <dependency>
             <groupId>org.apiguardian</groupId>
             <artifactId>apiguardian-api</artifactId>
-            <version>1.1.1</version>
+            <version>1.1.2</version>
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.opentest4j/opentest4j -->

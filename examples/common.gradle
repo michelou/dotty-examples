@@ -51,11 +51,11 @@ task compileScala(type: JavaExec) {
 
     description "Compile Scala source files"
 
-    classpath buildClasspath
+    classpath = buildClasspath
 
     jvmArgs "-Dscala.usejavacp=true"
 
-    main "dotty.tools.dotc.Main"
+    mainClass = "dotty.tools.dotc.Main"
 
     String sources = mainSourceTree.files.join("\" \"").replaceAll("\\\\", "/")
     args "-deprecation", "-encoding", "UTF8", "-d", classesDir, sources
@@ -74,14 +74,14 @@ task run(type: JavaExec) {
 
     description "Execute Scala main class $mainClassName"
 
-    classpath buildClasspath
+    classpath = buildClasspath
 
     jvmArgs "-Xms1024m", "-Xss2m", "-Dfile.encoding=UTF-8"
 
     // systemProperty "message" "Hello"
 
-    if (mainClassName?.trim()) main mainClassName
-    else main "Main"
+    if (mainClassName?.trim()) mainClass = mainClassName
+    else mainClass = "Main"
     if (args == null) args ""
 }
 
@@ -90,11 +90,11 @@ task compileTest(type: JavaExec) {
 
     description "Compile Scala test source files"
 
-    classpath testClasspath
+    classpath = testClasspath
 
     jvmArgs "-Dscala.usejavacp=true"
 
-    main "dotty.tools.dotc.Main"
+    mainClass = "dotty.tools.dotc.Main"
 
     String sources = testSourceTree.files.join("\" \"").replaceAll("\\\\", "/")
     args "-deprecation", "-encoding", "UTF8", "-d", testClassesDir, sources
@@ -116,9 +116,9 @@ repositories {
 dependencies {
     implementation "org.scala-lang:scala3-compiler_3:3.1.0-RC3"
     testImplementation "junit:junit:4.13.2"
-    testImplementation "org.scalatest:scalatest_3:3.2.9"
-    implementation "org.scalatest:scalatest-funspec_3:3.2.9"
-    implementation "org.scalatest:scalatest-funsuite_3:3.2.9"
+    testImplementation "org.scalatest:scalatest_3:3.2.10"
+    implementation "org.scalatest:scalatest-funspec_3:3.2.10"
+    implementation "org.scalatest:scalatest-funsuite_3:3.2.10"
     implementation "org.specs2:specs2-common_2.13:4.12.12"
     implementation "org.specs2:specs2-core_2.13:4.12.12"
     implementation "org.specs2:specs2-junit_2.13:4.12.12"

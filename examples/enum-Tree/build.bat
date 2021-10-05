@@ -105,8 +105,8 @@ set "_SCALAC3=%SCALA3_HOME%\bin\scalac.bat"
 set "_SCALADOC3=%SCALA3_HOME%\bin\scaladoc.bat"
 
 set _SCALAFMT_CMD=
-if exist "%SCALAFMT_HOME%\bin\scalafmt.bat" (
-    set "_SCALAFMT_CMD=%SCALAFMT_HOME%\bin\scalafmt.bat"
+if exist "%LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat" (
+    set "_SCALAFMT_CMD=%LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat"
 )
 set _SCALAFMT_CONFIG_FILE=
 for %%f in ("%~dp0\.") do set "_SCALAFMT_CONFIG_FILE=%%~dpf.scalafmt.conf"
@@ -359,7 +359,8 @@ echo     %__BEG_O%decompile%__END%        decompile generated code with %__BEG_N
 echo     %__BEG_O%doc%__END%              generate HTML documentation
 echo     %__BEG_O%help%__END%             display this help message
 echo     %__BEG_O%lint%__END%             analyze Scala source files with %__BEG_N%Scalafmt%__END%
-echo     %__BEG_O%run[:i]%__END%          execute main class ^(instrumented execution: %__BEG_O%:i%__END%^)
+echo     %__BEG_O%run%__END%              execute main class %__BEG_N%%_MAIN_CLASS%%__END%
+echo     %__BEG_O%run:i%__END%            execute main class with %__BEG_N%JaCoco%__END% instrumentation
 echo     %__BEG_O%test%__END%             execute unit tests with %__BEG_N%JUnit%__END%
 echo.
 echo   %__BEG_P%Properties:%__END%
@@ -467,8 +468,11 @@ for /f %%f in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
-if %__N% gtr 1 ( set __N_FILES=%__N% Java source files
-) else ( set __N_FILES=%__N% Java source file
+if %__N%==0 (
+    echo %_WARNING_LABEL% No Java source file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% Java source file
+) else ( set __N_FILES=%__N% Java source files
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
@@ -496,8 +500,11 @@ for /f %%f in ('dir /s /b "%_MAIN_SOURCE_DIR%\*.scala" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
-if %__N% gtr 1 ( set __N_FILES=%__N% Scala source files
-) else ( set __N_FILES=%__N% Scala source file
+if %__N%==0 (
+    echo %_WARNING_LABEL% No Scala source file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% Scala source file
+) else ( set __N_FILES=%__N% Scala source files
 )
 set __PRINT_FILE_REDIRECT=
 if %_SCALAC_OPTS_PRINT%==1 (
@@ -531,12 +538,18 @@ for /f %%f in ('dir /s /b "%_CLASSES_DIR%\*.tasty" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
+if %__N%==0 (
+    echo %_WARNING_LABEL% No TASTy file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% TASTy file
+) else ( set __N_FILES=%__N% TASTy files
+)
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N% TASTy files to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not !ERRORLEVEL!==0 (
-    echo %_ERROR_LABEL% Compilation of %__N% TASTy files failed 1>&2
+    echo %_ERROR_LABEL% Compilation of %__N_FILES% failed 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -598,7 +611,7 @@ goto :eof
 @rem input parameter: %1=flag to add Dotty libs
 @rem output parameter: _LIBS_CPATH
 :libs_cpath
-set __ADD_DOTTY_LIBS=%~1
+set __ADD_SCALA3_LIBS=%~1
 
 for %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
 if not exist "%__BATCH_FILE%" (
@@ -610,7 +623,7 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__BATCH_FILE%" %_DEBUG% 1>&2
 call "%__BATCH_FILE%" %_DEBUG%
 set "_LIBS_CPATH=%_CPATH%"
 
-if defined __ADD_DOTTY_LIBS (
+if defined __ADD_SCALA3_LIBS (
     if not defined SCALA3_HOME (
         echo %_ERROR_LABEL% Variable SCALA3_HOME not defined 1>&2
         set _EXITCODE=1
@@ -722,7 +735,7 @@ set "__OPTS_FILE=%_TARGET_DIR%\scaladoc_opts.txt"
 if %_SCALA_VERSION%==2 (
     echo -d "%_TARGET_DOCS_DIR%" -doc-title "%_PROJECT_NAME%" -doc-footer "%_PROJECT_URL%" -doc-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
 ) else (
-    echo -d "%_TARGET_DOCS_DIR%" -siteroot "%_TARGET_DOCS_DIR%" -project "%_PROJECT_NAME%" -project-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
+    echo -d "%_TARGET_DOCS_DIR%" -project "%_PROJECT_NAME%" -project-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate HTML documentation into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
@@ -866,19 +879,25 @@ for /f %%i in ('dir /s /b "%_SOURCE_DIR%\test\scala\*.scala" 2^>NUL') do (
     echo %%i >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
+if %__N%==0 (
+    echo %_WARNING_LABEL% No Scala test source file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% Scala test source file
+) else ( set __N_FILES=%__N% Scala test source files
+)
 call :libs_cpath includeScalaLibs
 if not %_EXITCODE%==0 goto :eof
 
 set "__OPTS_FILE=%_TARGET_DIR%\test_scalac_opts.txt"
 set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
-echo %_SCALAC_OPTS% -classpath "%__CPATH:\=\\%" -d "%_TEST_CLASSES_DIR%" > "%__OPTS_FILE%"
+echo %_SCALAC_OPTS% -classpath "%__CPATH:\=\\%" -d "%_TEST_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N% Scala test source files to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of %__N% Scala test source files failed 1>&2
+    echo %_ERROR_LABEL% Compilation of %__N_FILES% failed 1>&2
     set _EXITCODE=1
     goto :eof
 )

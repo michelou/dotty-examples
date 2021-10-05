@@ -147,7 +147,7 @@
                 <configuration>
                     <mainClass>org.junit.runner.JUnitCore</mainClass>
                     <arguments>
-                        <argument>EnumTreeJUnitTest</argument>
+                        <argument>MainTest</argument>
                     </arguments>
                 </configuration>
             </plugin>
