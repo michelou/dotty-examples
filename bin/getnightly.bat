@@ -22,28 +22,16 @@ if %_HELP%==1 (
     call :help
     exit /b !_EXITCODE!
 )
-if %_DOWNLOAD_ONLY%==1 (
+if %_DOWNLOAD%==1 (
     call :download
     if not !_EXITCODE!==0 goto end
-    goto end
 )
-
-call :backup_dotty
-if not %_EXITCODE%==0 goto end
-
-if %_ACTIVATE_NIGHTLY%==1 (
-    call :download
+if %_ACTIVATE%==1 (
+    call :activate
     if not !_EXITCODE!==0 goto end
-
-    @rem if defined _NIGHTLY_UPTODATE goto end
-
-    call :backup_nightly
-    if not !_EXITCODE!==0 goto end
-
-    call :activate_nightly
-    if not !_EXITCODE!==0 goto end
-) else (
-    call :activate_dotty
+)
+if %_RESTORE%==1 (
+    call :restore
     if not !_EXITCODE!==0 goto end
 )
 
@@ -67,38 +55,15 @@ if not exist "%_PS1_FILE%" (
     set _EXITCODE=1
     goto :eof
 )
+if not exist "%GIT_HOME%\usr\bin\unix2dos.exe" (
+    set _EXITCODE=1
+    goto :eof
+)
+set "_UNIX2DOS_CMD=%GIT_HOME%\usr\bin\unix2dos.exe"
 
-set "_OUTPUT_DIR=%_ROOT_DIR%out\nightly-jars"
-if not exist "%_OUTPUT_DIR%" mkdir "%_OUTPUT_DIR%" 1>NUL
-
-if not exist "%SCALA3_HOME%\bin\scalac.bat" (
-    echo %_ERROR_LABEL% Scala 3 installation not found ^(run setenv.bat^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-if not exist "%SCALA3_HOME%\lib\" (
-    echo %_ERROR_LABEL% Scala 3 library directory not found ^(run setenv.bat^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-if not exist "%SCALA3_HOME%\VERSION" (
-    echo %_ERROR_LABEL%: Scala 3 version file not found ^(run setenv.bat^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-for /f "delims== tokens=1,*" %%i in (%SCALA3_HOME%\VERSION) do (
-    set __NAME=%%i
-    set __VALUE=%%j
-    if not "!__NAME:version=!"=="!__NAME!" set _DOTTY_VERSION=!__VALUE!
-)
-set _NIGHTLY_VERSION=unknown
-if exist "%SCALA3_HOME%\VERSION-NIGHTLY" (
-    set /p _NIGHTLY_VERSION=< "%SCALA3_HOME%\VERSION-NIGHTLY"
-    if not exist "%SCALA3_HOME%\lib\!_NIGHTLY_VERSION!\" (
-        del "%SCALA3_HOME%\VERSION-NIGHTLY" 1>NUL
-        set _NIGHTLY_VERSION=unknown
-    )
-)
+set "_NIGHTLY_DIR=%_ROOT_DIR%out\nightly"
+set "_NIGHTLY_BIN_DIR=%_NIGHTLY_DIR%\bin"
+set "_NIGHTLY_LIB_DIR=%_NIGHTLY_DIR%\lib"
 goto :eof
 
 :env_colors
@@ -150,40 +115,42 @@ goto :eof
 @rem input parameter: %*
 @rem output parameter: _HELP, _TIMER, _VERBOSE
 :args
-set _ACTIVATE_NIGHTLY=0
-set _DOWNLOAD_ONLY=1
+set _ACTIVATE=0
+set _DOWNLOAD=0
 set _HELP=0
+set _RESTORE=0
 set _TIMER=0
 set _VERBOSE=0
+set __N=0
 :args_loop
 set "__ARG=%~1"
-if not defined __ARG goto args_done
-
+if not defined __ARG (
+    if !__N!==0 set _HELP=1
+    goto args_done
+)
 if "%__ARG:~0,1%"=="-" (
     @rem option
     if "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if "%__ARG%"=="-help" ( set _HELP=1
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
         set _EXITCODE=1
-        goto :args_done
+        goto args_done
     )
 ) else (
     @rem subcommand
     if "%__ARG%"=="help" ( set _HELP=1
-    ) else if "%__ARG%"=="download" ( set _DOWNLOAD_ONLY=1
-    ) else if "%__ARG%"=="activate" (
-        set _DOWNLOAD_ONLY=0
-        set _ACTIVATE_NIGHTLY=1
-    ) else if "%__ARG%"=="reset" (
-        set _DOWNLOAD_ONLY=0
-        set _ACTIVATE_NIGHTLY=0
+    ) else if "%__ARG%"=="download" ( set _DOWNLOAD=1
+    ) else if "%__ARG%"=="activate" ( set _DOWNLOAD=1& set _ACTIVATE=1
+    ) else if "%__ARG%"=="restore" ( set _RESTORE=1
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
         set _EXITCODE=1
-        goto :args_done
+        goto args_done
     )
+    set /a __N+=1
 )
 shift
 goto args_loop
@@ -193,8 +160,8 @@ if %_DEBUG%==1 ( set _STDOUT_REDIRECT=1^>CON
 )
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
-    echo %_DEBUG_LABEL% Subcommands: _DOWNLOAD_ONLY=%_DOWNLOAD_ONLY% _ACTIVATE_NIGHTLY=%_ACTIVATE_NIGHTLY% _NIGHTLY_VERSION=%_NIGHTLY_VERSION% 1>&2
-    echo %_DEBUG_LABEL% Variables  : SCALA3_HOME="%SCALA3_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Subcommands: _DOWNLOAD=%_DOWNLOAD% _ACTIVATE=%_ACTIVATE% _RESTORE=%_RESTORE% 1>&2
+    if defined SCALA3_HOME echo %_DEBUG_LABEL% Variables  : "SCALA3_HOME=%SCALA3_HOME%" 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
@@ -222,13 +189,13 @@ echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%activate%__END%    activate the nightly build library files
 echo     %__BEG_O%download%__END%    download nighty build files and quit (default)
 echo     %__BEG_O%help%__END%        display this help message
-echo     %__BEG_O%reset%__END%       restore the default Scala library files
+echo     %__BEG_O%restore%__END%     restore the default Scala library files
 goto :eof
 
 @rem input parameter: 1=file path
 @rem output parameter: _FILE_SIZE
 :file_size
-set __FILE=%~1
+set "__FILE=%~1"
 
 set __PS1_SCRIPT= ^
 $size=(Get-Item '%__FILE%').length; ^
@@ -248,25 +215,25 @@ if not %ERRORLEVEL%==0 (
 set _FILE_SIZE=%_FILE_SIZE:,=.%
 goto :eof
 
-@rem output parameter: _NIGHTLY_VERSION, _NIGHTLY_UPTODATE
+@rem output parameter: _NIGHTLY_VERSION
 :download
-@rem set _NIGHTLY_UPTODATE=
+set _NIGHTLY_VERSION=
 
-if not exist "%_OUTPUT_DIR%\*.jar" goto :download_check
+if not exist "%_NIGHTLY_LIB_DIR%\*.jar" goto download_nightly
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% del /f /q "%_OUTPUT_DIR%\*.jar" 1>&2
-) else if %_VERBOSE%==1 ( echo Delete Java archive files in directory "!_OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% del /f /q "%_NIGHTLY_LIB_DIR%\*.jar" 1>&2
+) else if %_VERBOSE%==1 ( echo Delete Java archive files in directory "!_NIGHTLY_LIB_DIR:%_ROOT_DIR%=!" 1>&2
 )
-del /f /q "%_OUTPUT_DIR%\*.jar" 1>NUL 2>&1
+del /f /q "%_NIGHTLY_LIB_DIR%\*.jar" 1>NUL 2>&1
 if not !ERRORLEVEL!==0 (
     set _EXITCODE=1
     goto :eof
 )
-
-:download_check
+:download_nightly
+if not exist "%_NIGHTLY_LIB_DIR%" mkdir "%_NIGHTLY_LIB_DIR%" 1>NUL
 set __N=0
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%" %_DEBUG% 1>&2
-) else if %_VERBOSE%== 1 ( echo Check for nightly files on Maven repository 1>&2
+) else if %_VERBOSE%== 1 ( echo Download nightly files from Maven repository 1>&2
 )
 for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%" %_DEBUG%') do (
     @rem set __URL=http://central.maven.org/maven2/%%i
@@ -278,9 +245,9 @@ for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%"
         goto :eof
     )
     if %_VERBOSE%==1 <NUL set /p=Downloading file !__FILE_BASENAME! ... 
-    set "__JAR_FILE=%_OUTPUT_DIR%\!__FILE_BASENAME!"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri !__URL! -Outfile '!__JAR_FILE!'" 1>&2
-    powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri !__URL! -Outfile '!__JAR_FILE!'"
+    set "__JAR_FILE=%_NIGHTLY_LIB_DIR%\!__FILE_BASENAME!"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -c "wget -uri !__URL! -Outfile '!__JAR_FILE!'" 1>&2
+    powershell -c "$progressPreference='silentlyContinue';wget -uri !__URL! -Outfile '!__JAR_FILE!'"
     if not !ERRORLEVEL!==0 (
         echo.
         echo %_ERROR_LABEL% Failed to download file "!__JAR_FILE!" 1>&2
@@ -293,107 +260,118 @@ for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%"
     )
     set /a __N+=1
 )
-echo Finished to download %__N% files to directory %_OUTPUT_DIR%
-for /f %%i in ('dir /b "%_OUTPUT_DIR%\scala3-compiler_*.jar" 2^>NUL') do (
+if %_VERBOSE%==1 echo Finished to download %__N% files to directory "%_NIGHTLY_LIB_DIR%"
+for /f %%i in ('dir /b "%_NIGHTLY_LIB_DIR%\scala3-compiler_3-*.jar" 2^>NUL') do (
     set _NIGHTLY_VERSION=%%~ni
-    set _NIGHTLY_VERSION=!_NIGHTLY_VERSION:~16!
+    set _NIGHTLY_VERSION=!_NIGHTLY_VERSION:~18!
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Nightly version is %_NIGHTLY_VERSION% 1>&2
-) else if %_VERBOSE%==1 ( echo Nightly version is %_NIGHTLY_VERSION% 1>&2
-)
-@rem set _NIGHTLY_UPTODATE=1
-goto :eof
-
-@rem global variable: _SCALA3_HOME
-:backup_dotty
-set __DOTTY_BAK_DIR=%SCALA3_HOME%\lib\%_DOTTY_VERSION%
-if not exist "%__DOTTY_BAK_DIR%\" (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% mkdir "%__DOTTY_BAK_DIR%" 1<&2
-    mkdir "%__DOTTY_BAK_DIR%"
-    for %%i in (%SCALA3_HOME%\lib\^*%_DOTTY_VERSION%.jar) do (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% copy %%i "%__DOTTY_BAK_DIR%\" 1>&2
-        copy %%i "%__DOTTY_BAK_DIR%\" 1>NUL
-        if not !ERRORLEVEL!==0 (
-            echo %_ERROR_LABEL% Failed to backup file %%i 1>&2
-            set _EXITCODE=1
-        )
-    )
-)
-goto :eof
-
-@rem global variables: _SCALA3_HOME, _OUTPUT_DIR
-@rem output parameter: _NIGHTLY_VERSION
-:backup_nightly
-set __OLD_NIGHTLY_VERSION=unknown
-if exist "%SCALA3_HOME%\VERSION-NIGHTLY" (
-    set /p __OLD_NIGHTLY_VERSION=<%SCALA3_HOME%\VERSION-NIGHTLY
-    if "!__OLD_NIGHTLY_VERSION!"=="%_NIGHTLY_VERSION%" (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Nightly version and old version are equal ^(%_NIGHTLY_VERSION%^) 1>&2
-        goto :eof
-    )
-) else (
-    set __OLD_NIGHTLY_VERSION=%_DOTTY_VERSION%
-)
-echo Local nightly version has changed from %__OLD_NIGHTLY_VERSION% to %_NIGHTLY_VERSION%
-echo %_NIGHTLY_VERSION%>%SCALA3_HOME%\VERSION-NIGHTLY
-
-set "__NIGHTLY_BAK_DIR=%SCALA3_HOME%\lib\%_NIGHTLY_VERSION%"
-if not exist "%__NIGHTLY_BAK_DIR%\" (
-    mkdir "%__NIGHTLY_BAK_DIR%"
-    for %%i in (%_OUTPUT_DIR%\^*%_NIGHTLY_VERSION%.jar) do (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% copy %%i "%__NIGHTLY_BAK_DIR%\" 1>&2
-        copy %%i "%__NIGHTLY_BAK_DIR%\" 1>NUL
-        if not !ERRORLEVEL!==0 (
-            echo %_ERROR_LABEL% Failed to backup file %%i 1>&2
-            set _EXITCODE=1
-        )
-    )
-)
-goto :eof
-
-@rem global variable: _SCALA3_HOME
-:activate_version
-set __OLD_VERSION=%~1
-set __NEW_VERSION=%~2
-echo Activate nightly build libraries: %__NEW_VERSION%
-
-set "__FROM_DIR=%SCALA3_HOME%\lib\%__NEW_VERSION%"
-set "__TO_DIR=%SCALA3_HOME%\lib"
-if %_DEBUG%==1 echo %_DEBUG_LABEL% del %__TO_DIR%\*%__OLD_VERSION%.jar 1>&2 
-del "%__TO_DIR%\*%__OLD_VERSION%.jar" 1>NUL 2>&1
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% copy "%__FROM_DIR%\*.jar" "%__TO_DIR%\" 1>&2
-) else if %_VERBOSE%==1 ( echo Copy "!__FROM_DIR:%SCALA3_HOME%\=!\*.jar" "!__TO_DIR:%SCALA3_HOME%\=!\" 1>&2
-)
-copy "%__FROM_DIR%\*.jar" "%__TO_DIR%\" %_STDOUT_REDIRECT%
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to copy files from "%__FROM_DIR%\" 1>&2
+:download_deps
+set "__LST_FILE=%~dp0%_BASENAME%.lst"
+if not exist "%__LST_FILE%" (
+    echo %_ERROR_LABEL% File "%_BASENAME%.lst" is missing 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set __OLD_DIR=
-for /f %%f in ('dir /b /ad "%SCALA3_HOME%\lib\*-NIGHTLY" 2^>NUL') do set "__OLD_DIR=%SCALA3_HOME%\lib\%%f"
-if not defined __OLD_DIR goto :eof
-for /f %%f in ('dir /b "%__OLD_DIR%\*.jar" 2^>NUL') do (
-    if exist "%__TO_DIR%\%%f" del "%__TO_DIR%\%%f"
+set __N=0
+for /f "tokens=1,*" %%i in (%__LST_FILE%) do (
+    set "__DIR=%%i"
+    if not "!__DIR:~0,1!"=="#" (
+        set "__URI=%%j"
+        call :name_from_url "%%j"
+        if not exist "%_NIGHTLY_DIR%\!__DIR!" mkdir "%_NIGHTLY_DIR%\!__DIR!" 1>NUL
+        set "__OUTFILE=%_NIGHTLY_DIR%\!__DIR!\!__NAME!"
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -C "wget -uri '!__URI!' -outfile '!__OUTFILE!'"
+        ) else if %_VERBOSE%==1 ( echo Downloading file !__NAME! 1>&2
+        )
+        powershell -C "$progressPreference='silentlyContinue';wget -uri '!__URI!' -outfile '!__OUTFILE!'"
+        if !ERRORLEVEL!==0  if "!__NAME:~-4!"==".bat" (
+            if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_UNIX2DOS_CMD%" "!__OUTFILE!" 1^>NUL 1>&2
+            @rem ) else if %_VERBOSE%==1 ( echo Convert file !__NAME! to DOS format 2>&2
+            )
+            call "%_UNIX2DOS_CMD%" "!__OUTFILE!" 2>NUL
+        )
+        set /a __N+=1
+    )
+)
+if %_VERBOSE%==1 echo Finished to download %__N% files to directory "%_NIGHTLY_DIR%"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Nightly version is %_NIGHTLY_VERSION% 1>&2
+) else if %_VERBOSE%==1 ( echo Nightly version is %_NIGHTLY_VERSION% 1>&2
+)
+echo %_NIGHTLY_VERSION%> "%_NIGHTLY_DIR%\VERSION"
+goto :eof
+
+@rem input parameter: %1=URL
+@rem output parameter: __NAME
+:name_from_url
+set "__URL=%~1"
+set __NAME=
+:extract_loop
+for /f "delims=/ tokens=1,*" %%i in ("%__URL%") do (
+    set "__NAME=%%i"
+    set "__URL=%%j"
+    goto extract_loop
 )
 goto :eof
 
-@rem global variables: _DOTTY_VERSION, _NIGHTLY_VERSION
-:activate_nightly
-call :activate_version "%_DOTTY_VERSION%" "%_NIGHTLY_VERSION%"
-if not !_EXITCODE!==0 (
-    echo.
+@rem output parameter: _SCALA3_HOME
+:activate
+if not exist "%_NIGHTLY_DIR%\VERSION" (
+    echo %_ERROR_LABEL% File VERSION not found in directory "%_NIGHTLY_DIR%" 1>&2
+    set _EXITCODE=1
     goto :eof
 )
+set /p __NIGHTLY_VERSION=< "%_NIGHTLY_DIR%\VERSION"
+set "__NIGHTLY_HOME=C:\opt\scala3-%__NIGHTLY_VERSION%"
+if /i "%SCALA3_HOME%"=="%__NIGHTLY_HOME%" goto :eof
+
+if not exist "%__NIGHTLY_HOME%\lib" mkdir "%__NIGHTLY_HOME%\lib"
+if not exist "%__NIGHTLY_HOME%\bin" mkdir "%__NIGHTLY_HOME%\bin"
+
+@rem lib\ directory
+xcopy /q /y "%_NIGHTLY_LIB_DIR%\*.jar" "%__NIGHTLY_HOME%\lib\" 1>NUL
+
+@rem bin\ directory
+xcopy /q /y "%_NIGHTLY_BIN_DIR%\common*" "%__NIGHTLY_HOME%\bin\" 1>NUL
+xcopy /q /y "%_NIGHTLY_BIN_DIR%\scala*" "%__NIGHTLY_HOME%\bin\" 1>NUL
+
+@rem create VERSION file in %__NIGHTLY_HOME% directory.
+set __REVISION=%__NIGHTLY_VERSION:-NIGHTLY=%
+set __REVISION=%__REVISION:~-7%
+for /f "usebackq delims=" %%i in (`powershell -C "Get-Date -Format 'yyyy-MM-dd HH:mm:ssK'"`) do set "__BUILD_TIME=%%i"
+(
+    echo version:=%__NIGHTLY_VERSION%
+    echo revision:=%__REVISION%
+    echo buildTime:=%__BUILD_TIME%
+) > "%__NIGHTLY_HOME%\VERSION"
+if defined SCALA3_HOME (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Create file "%__NIGHTLY_HOME%\SCALA3_HOME_BACKUP" 1>&2
+    echo %SCALA3_HOME%> "%__NIGHTLY_HOME%\SCALA3_HOME_BACKUP"
+    call :version
+    echo Active Scala 3 installation is %__NIGHTLY_VERSION% ^(was !_VERSION!^)
+)
+set "_SCALA3_HOME=%__NIGHTLY_HOME%"
 goto :eof
 
-@rem global variables: _DOTTY_VERSION, _NIGHTLY_VERSION
-:activate_dotty
-call :activate_version "%_NIGHTLY_VERSION%" "%_DOTTY_VERSION%"
-if not !_EXITCODE!==0 (
-    echo.
+@rem output parameter: _VERSION
+:version
+set _VERSION=unknown
+for /f "tokens=1-3,4,*" %%i in ('"%SCALA3_HOME%\bin\scalac.bat" -version 2^>^&1') do set _VERSION=%%l
+goto :eof
+
+@rem output parameter: _SCALA3_HOME
+:restore
+if exist "%SCALA3_HOME%\SCALA3_HOME_BACKUP" (
+    set /p _SCALA3_HOME=< "%SCALA3_HOME%\SCALA3_HOME_BACKUP"
+) else if exist "%SCALA3_HOME%\bin\scala.bat" (
+    set "_SCALA3_HOME=%SCALA3_HOME%"
+) else (
+    echo %_ERROR_LABEL% Scala installation directory not found 1>&2
+    set _EXITCODE=1
     goto :eof
 )
+call :version
+echo Active Scala 3 installation is %_VERSION%
 goto :eof
 
 @rem output parameter: _DURATION
@@ -411,8 +389,13 @@ goto :eof
 if %_TIMER%==1 (
     for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
     call :duration "%_TIMER_START%" "!__TIMER_END!"
-    echo Total elapsed time: !_DURATION! 1>&2
+    echo Total execution time: !_DURATION! 1>&2
 )
-if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
-exit /b %_EXITCODE%
-endlocal
+endlocal & (
+    if defined _SCALA3_HOME (
+        set "SCALA3_HOME=%_SCALA3_HOME%"
+        echo Variable SCALA3_HOME is defined as "!SCALA3_HOME!"
+    )
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
+    exit /b %_EXITCODE%
+)

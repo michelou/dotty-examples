@@ -177,8 +177,8 @@ We distinguish different sets of batch/bash commands:
 2. Directory [**`bin\`**](bin/) - This directory contains several utility batch files:
    - [**`cleanup.bat`**](bin/cleanup.bat) removes the generated class files from every example directory (both in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories).
    - [**`dirsize.bat <dir_path_1> ..`**](bin/dirsize.bat) prints the size in Kb/Mb/Gb of the specified directory paths.
-   - [**`getnightly.bat`**](bin/getnightly.bat) downloads/installs the library files from the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
-   - [**`searchjars.bat <class_name>`**](bin/searchjars.bat) searches for the given class name into all Dotty/Scala JAR files.
+   - [**`getnightly.bat`**](bin/getnightly.bat) downloads/installs the distribution from the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
+   - [**`searchjars.bat <class_name>`**](bin/searchjars.bat) searches for the given class name into all Scala JAR files.
    - [**`timeit.bat <cmd_1> { & <cmd_2> }`**](bin/timeit.bat) prints the execution time of the specified commands.
    - [**`touch.bat <file_path>`**](bin/touch.bat) updates the modification date of an existing file or creates a new one.<div style="font-size:8px;">&nbsp;</div>
 
@@ -414,94 +414,97 @@ Size of directory "c:\opt\jdk-openjdk-11.0.12_7" is 184.2 Mb
 
 ### **`getnightly.bat`**
 
-By default command [**`getnightly`**](bin/getnightly.bat) downloads the library files of the latest [Dotty nightly build][dotty_nightly] available from the [Maven Central Repository][maven_lamp] and saves them into directory **`out\nightly-jars\`**.
+By default command [**`getnightly`**](bin/getnightly.bat) downloads the library files of the latest [Dotty nightly build][dotty_nightly] available from the [Maven Central Repository][maven_lamp] and saves them into directory **`out\nightly\`**.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a></b>
-
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b out\nightly-jars</b>
-scala3-compiler_3-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY.jar
-scala3-interfaces-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY.jar
-scala3-language-server_3-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY.jar
-scala3-library_3-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY.jar
-scala3-library_sjs1_3-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY.jar
-scala3-sbt-bridge-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY.jar
-scala3-staging_3-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY.jar
-scala3-tasty-inspector_3-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY.jar
-tasty-core_3-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY.jar
+Usage: getnightly { &lt;option&gt; | &lt;subcommand&gt; }
+&nbsp;
+  Options:
+    -debug      show commands executed by this script
+    -timer      display total elapsed time
+    -verbose    display download progress
+&nbsp;
+  Subcommands:
+    activate    activate the nightly build library files
+    download    download nighty build files and quit (default)
+    help        display this help message
+    restore     restore the default Scala library files
 </pre>
 
+Command [**`getnightly download`**](bin/getnightly.bat) with options **` -verbose`** also displays the download progress:
+
+<pre style="font-size:80%">
+<b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose download</b>
+Delete Java archive files in directory "out\nightly\lib"
+Download nightly files from Maven repository
+Downloading file scala3-library_3-3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY.jar ... 1.1 Mb
+Downloading file scala3-interfaces-3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY.jar ... 3.5 Kb
+Downloading file scala3-compiler_3-3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY.jar ... 16.3 Mb
+Downloading file scala3-staging_3-3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY.jar ... 37.9 Kb
+Downloading file scala3-language-server_3-3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY.jar ... 152.4 Kb
+Downloading file tasty-core_3-3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY.jar ... 72.1 Kb
+Downloading file scala3-library_sjs1_3-3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY.jar ... 1.9 Mb
+Downloading file scala3-sbt-bridge-3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY.jar ... 21.5 Kb
+Downloading file scala3-tasty-inspector_3-3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY.jar ... 17 Kb
+Finished to download 9 files to directory "W:\out\nightly\lib"
+Finished to download 37 files to directory "W:\out\nightly"
+Nightly version is 3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY
+</pre>
+
+Directory **`out\nightly\`** contains the two directories **`bin\`** and **`lib\`**:
+
+<pre style="font-size:80%">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b out\nightly\bin out\nightly\lib</b>
+common
+common.bat
+scala
+scala.bat
+scalac
+scalac.bat
+scaladoc
+scaladoc.bat
+antlr-runtime-3.5.1.jar
+autolink-0.6.0.jar
+[...]
+scala-asm-9.1.0-scala-1.jar
+scala-library-2.13.6.jar
+scala3-compiler_3-3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY.jar
+scala3-interfaces-3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY.jar
+scala3-language-server_3-3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY.jar
+scala3-library_3-3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY.jar
+scala3-library_sjs1_3-3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY.jar
+scala3-sbt-bridge-3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY.jar
+scala3-staging_3-3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY.jar
+scala3-tasty-inspector_3-3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY.jar
+snakeyaml-1.23.jar
+ST4-4.0.7.jar
+tasty-core_3-3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY.jar
+</pre>
+<!--
 > **:mag_right:** A few notes about the distributed Java archives:
 > - Dotty versions up to `0.18.0` depend on **`scala-library-2.12.8.jar`**; Dotty versions `0.18.1` and newer depend on **`scala-library-2.13.x.jar`**.
 > - Starting with Dotty version `0.22.0` package **`dotty.tools.tasty`** is distributed separately in archive **`tast-core_<xxx>.jar`**.
 > - Starting with Dotty version `0.28.0` package **`dotty-library_sjs1.x.jar`** is part of the software distribution.<br/>&nbsp;
+-->
 
-Command [**`getnightly -verbose`**](bin/getnightly.bat) also displays the download progress:
-
-<pre style="font-size:80%">
-<b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose</b>
-Check for nightly files on Maven repository
-Downloading file scala3-library_3-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY.jar ... 1.1 Mb
-Downloading file scala3-interfaces-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY.jar ... 3.5 Kb
-Downloading file scala3-compiler_3-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY.jar ... 16.3 Mb
-Downloading file scala3-staging_3-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY.jar ... 37.8 Kb
-Downloading file scala3-language-server_3-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY.jar ... 152.5 Kb
-Downloading file tasty-core_3-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY.jar ... 72.1 Kb
-Downloading file scala3-library_sjs1_3-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY.jar ... 1.9 Mb
-Downloading file scala3-tasty-inspector_3-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY.jar ... 17.1 Kb
-Downloading file scala3-sbt-bridge-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY.jar ... 21.5 Kb
-Finished to download 9 files to directory C:\Users\michelou\workspace-perso\dotty-examples\out\nightly-jars
-Nightly version is 3-3.1.1-RC1-bin-20210928-8246a7b-NIGHTLYY
-</pre>
-
-We can now replace the library files from the original [Scala 3 distribution][scala3_releases] (installed in directory **`C:\opt\scala3-3.1.0-RC3\`** in our case) with library files from the latest nightly build.
-
-Concretely, we specify the **`activate`** subcommand to switch to the nightly build version and the **`reset`** subcommand to restore the original library files in the [Scala 3][scala3_home] installation directory.
+Concretely, subcommand **`activate`** switches to the nightly build version and subcommand **`restore`** restore the path to the [Scala 3][scala3_home] installation directory.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> activate</b>
-Local nightly version has changed from 3.1.0-RC3 to 3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY
+Active Scala 3 installation is 3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY (was 3.1.0-RC3)
 
-<b>&gt; <a href="bin/3.0/scalac.bat">scalac</a> -version</b>
-Scala compiler version 3.1.1-RC1-bin-20210928-8246a7b-NIGHTLY-git-2db43da -- Copyright 2002-2021, LAMP/EPFL
+<b>&gt; %SCALA3_HOME%\bin\<a href="bin/3.0/scalac.bat">scalac</a> -version</b>
+Scala compiler version 3.1.1-RC1-bin-20211005-eb8773e-NIGHTLY-git-eb8773e -- Copyright 2002-2021, LAMP/EPFL
 
-<b>&gt; <a href="bin/getnightly.bat">getnightly</a> reset</b>
-Activate default Scala libraries: 3.1.0-RC3
+<b>&gt; <a href="bin/getnightly.bat">getnightly</a> restore</b>
+Active Scala 3 installation is 3.1.0-RC3
 
-<b>&gt; <a href="bin/3.0/scalac.bat">scalac</a> -version</b>
+<b>&gt; %SCALA3_HOME%\bin\<a href="bin/3.0/scalac.bat">scalac</a> -version</b>
 Scala compiler version 3.1.0-RC3 -- Copyright 2002-2021, LAMP/EPFL
 </pre>
 
 > **:warning:** You need *write access* to the [Scala 3][scala3_home] installation directory (e.g. **`C:\opt\scala3-3.1.0-RC3\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
-
-Internally command [**`getnightly`**](bin/getnightly.bat) manages two sets of libraries files which are organized as follows:
-
-<pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/pushd">pushd</a> c:\opt\scala3-3.1.0-RC3&dir/b/a-d&for /f %i in ('dir/s/b/ad lib') do @(echo lib\%~nxi\&dir/b %i)&popd</b>
-VERSION
-VERSION-NIGHTLY
-lib\3.1.0-RC3\
-&nbsp;&nbsp;dist_3-3.1.0-RC3.jar
-&nbsp;&nbsp;scala3-compiler_3-3.1.0-RC3.jar
-&nbsp;&nbsp;scala3-interfaces-3.1.0-RC3.jar
-&nbsp;&nbsp;scala3-library_3-3.1.0-RC3.jar
-&nbsp;&nbsp;scala3-staging_3-3.1.0-RC3.jar
-&nbsp;&nbsp;scala3-tasty-inspector_3-3.1.0-RC3.jar
-&nbsp;&nbsp;scaladoc_3-3.1.0-RC3.jar
-&nbsp;&nbsp;tasty-core_3-3.1.0-RC3.jar
-lib\3.1.1-RC1-bin-20210820-68044a6-NIGHTLY\
-&nbsp;&nbsp;scala3-compiler_3-3.1.1-RC1-bin-20210820-68044a6-NIGHTLY.jar
-&nbsp;&nbsp;scala3-interfaces-3.1.1-RC1-bin-20210820-68044a6-NIGHTLY.jar
-&nbsp;&nbsp;scala3-language-server_3-3.1.1-RC1-bin-20210820-68044a6-NIGHTLY.jar
-&nbsp;&nbsp;scala3-library_3-3.1.1-RC1-bin-20210820-68044a6-NIGHTLY.jar
-&nbsp;&nbsp;scala3-library_sjs1_3-3.1.1-RC1-bin-20210820-68044a6-NIGHTLY.jar
-&nbsp;&nbsp;scala3-sbt-bridge-3.1.1-RC1-bin-20210820-68044a6-NIGHTLY.jar
-&nbsp;&nbsp;scala3-staging_3-3.1.1-RC1-bin-20210820-68044a6-NIGHTLY.jar
-&nbsp;&nbsp;scala3-tasty-inspector_3-3.1.1-RC1-bin-20210820-68044a6-NIGHTLY.jar
-&nbsp;&nbsp;tasty-core_3-3.1.1-RC1-bin-20210820-68044a6-NIGHTLY.jar
-</pre>
-
-In the above output file **`VERSION-NIGHTLY`** contains the signature of the managed nightly build and the **`lib\`** directory contains two backup directories with copies of the library files from the original [Scala 3][scala3_home] installation respectively from the latest nightly build.
 
 ### `searchjars.bat <class_name>`
 
