@@ -1,12 +1,16 @@
 ##############################################################################
 # library files from Maven repository
+##############################################################################
 #
+# ANTLR - https://mvnrepository.com/artifact/org.antlr
+#
+lib https://repo1.maven.org/maven2/org/antlr/antlr/3.5.1/antlr-3.5.1.jar
 lib https://repo1.maven.org/maven2/org/antlr/antlr-runtime/3.5.1/antlr-runtime-3.5.1.jar
-lib https://repo1.maven.org/maven2/org/antlr/antlr-runtime/3.5.1/antlr-runtime-3.5.1.jar
+#
 lib https://repo1.maven.org/maven2/org/nibor/autolink/autolink/0.6.0/autolink-0.6.0.jar
 lib https://repo1.maven.org/maven2/org/scala-sbt/compiler-interface/1.3.5/compiler-interface-1.3.5.jar
 #
-# Flexmark
+# Flexmark - https://mvnrepository.com/artifact/com.vladsch.flexmark
 #
 lib https://repo1.maven.org/maven2/com/vladsch/flexmark/flexmark/0.42.12/flexmark-0.42.12.jar
 lib https://repo1.maven.org/maven2/com/vladsch/flexmark/flexmark-ext-anchorlink/0.42.12/flexmark-ext-anchorlink-0.42.12.jar
@@ -16,17 +20,23 @@ lib https://repo1.maven.org/maven2/com/vladsch/flexmark/flexmark-ext-gfm-striket
 lib https://repo1.maven.org/maven2/com/vladsch/flexmark/flexmark-ext-gfm-tables/0.42.12/flexmark-ext-gfm-tables-0.42.12.jar
 lib https://repo1.maven.org/maven2/com/vladsch/flexmark/flexmark-ext-gfm-tasklist/0.42.12/flexmark-ext-gfm-tasklist-0.42.12.jar
 lib https://repo1.maven.org/maven2/com/vladsch/flexmark/flexmark-ext-ins/0.42.12/flexmark-ext-ins-0.42.12.jar
+lib https://repo1.maven.org/maven2/com/vladsch/flexmark/flexmark-ext-superscript/0.42.12/flexmark-ext-superscript-0.42.12.jar
+lib https://repo1.maven.org/maven2/com/vladsch/flexmark/flexmark-ext-tables/0.42.12/flexmark-ext-tables-0.42.12.jar
+lib https://repo1.maven.org/maven2/com/vladsch/flexmark/flexmark-ext-wikilink/0.42.12/flexmark-ext-wikilink-0.42.12.jar
+lib https://repo1.maven.org/maven2/com/vladsch/flexmark/flexmark-ext-yaml-front-matter/0.42.12/flexmark-ext-yaml-front-matter-0.42.12.jar
+lib https://repo1.maven.org/maven2/com/vladsch/flexmark/flexmark-formatter/0.42.12/flexmark-formatter-0.42.12.jar
+lib https://repo1.maven.org/maven2/com/vladsch/flexmark/flexmark-html-parser/0.42.12/flexmark-html-parser-0.42.12.jar
 lib https://repo1.maven.org/maven2/com/vladsch/flexmark/flexmark-jira-converter/0.42.12/flexmark-jira-converter-0.42.12.jar
 lib https://repo1.maven.org/maven2/com/vladsch/flexmark/flexmark-util/0.42.12/flexmark-util-0.42.12.jar
 #
-# Jackson
+# Jackson - https://mvnrepository.com/artifact/com.fasterxml.jackson.core
 #
 lib https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.2.3/jackson-annotations-2.2.3.jar
 lib https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.9.8/jackson-core-2.9.8.jar
 lib https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.2.3/jackson-databind-2.2.3.jar
 lib https://repo1.maven.org/maven2/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.9.8/jackson-dataformat-yaml-2.9.8.jar
 #
-# jline
+# jline - https://mvnrepository.com/artifact/org.jline
 #
 lib https://repo1.maven.org/maven2/org/jline/jline-reader/3.19.0/jline-reader-3.19.0.jar
 lib https://repo1.maven.org/maven2/org/jline/jline-terminal/3.19.0/jline-terminal-3.19.0.jar
@@ -43,6 +53,7 @@ lib https://repo1.maven.org/maven2/org/antlr/ST4/4.0.7/ST4-4.0.7.jar
 #
 ##############################################################################
 # binary files from GitHub project "lampepfl/dotty"
+##############################################################################
 #
 bin https://raw.githubusercontent.com/lampepfl/dotty/master/dist/bin/common
 bin https://raw.githubusercontent.com/lampepfl/dotty/master/dist/bin/common.bat
