@@ -85,14 +85,6 @@ The directory structure of the [Dotty repository][github_dotty] <sup id="anchor_
    </pre>
    > **:mag_right:** With [PR#13006](https://github.com/lampepfl/dotty/pull/13006) those batch files have been added to the 3.0.2 branch of Scala 3.
 
-We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
-
-> **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
->
-> <pre style="font-size:80%;">
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst">subst</a> W: %USERPROFILE%\workspace\dotty-examples</b>
-> </pre>
-
 In the next section we give a brief description of the batch files present in those directories.
 
 ## <span id="batch_commands">Batch/Bash commands</span>

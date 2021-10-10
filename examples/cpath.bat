@@ -37,6 +37,9 @@ call :add_jar "com.novocode" "junit-interface" "0.11"
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest
 call :add_jar "org.hamcrest" "hamcrest" "2.2"
 
+@rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all
+call :add_jar "org.hamcrest" "hamcrest-all" "1.3"
+
 set __SCALATEST_VERSION=3.2.10
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
@@ -82,7 +85,7 @@ call :add_jar "org.specs2" "specs2-fp_%__SCALA_BINARY_VERSION%" "%__SPECS2_CORE_
 call :add_jar "com.chuusai" "shapeless_%__SCALA_BINARY_VERSION%" "2.3.7"
 
 @rem https://mvnrepository.com/artifact/eu.timepit/refined
-call :add_jar "eu.timepit" "refined_3" "0.9.26"
+call :add_jar "eu.timepit" "refined_3" "0.9.27"
 
 goto end
 

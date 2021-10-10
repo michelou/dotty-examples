@@ -38,13 +38,14 @@ set _VSCODE_PATH=
 
 @rem %1=vendor, %2=version
 @rem eg. openjdk, bellsoft, corretto, bellsoft, openj9, redhat, sapmachine, zulu
-call :java "openjdk" 1.8
+call :java "openjdk" 17
 if not %_EXITCODE%==0 goto end
 
 call :java "openjdk" 11
 if not %_EXITCODE%==0 goto end
 
-call :java "openjdk" 17
+@rem last call to :java defines variable JAVA_HOME
+call :java "openjdk" 1.8
 if not %_EXITCODE%==0 goto end
 
 call :scala2
