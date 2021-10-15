@@ -314,6 +314,10 @@ set _PYTHON_PATH=
 set __PYTHON_CMD=
 for /f %%f in ('where python.exe 2^>NUL') do set "__PYTHON_CMD=%%f"
 if defined __PYTHON_CMD (
+    @rem We ignore Python installation in directory %LOCALADDDATA%
+    if not "%__PYTHON_CMD:WindowsApps=%"=="%__PYTHON_CMD%" set __PYTHON_CMD=
+)
+if defined __PYTHON_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Python executable found in PATH 1>&2
     for %%i in ("%__PYTHON_CMD%") do set "_PYTHON_HOME=%%~dpi"
     goto :eof
@@ -1197,6 +1201,7 @@ if %__VERBOSE%==1 (
     if defined ANT_HOME echo    "ANT_HOME=%ANT_HOME%" 1>&2
     if defined BAZEL_HOME echo    "BAZEL_HOME=%BAZEL_HOME%" 1>&2
     if defined CFR_HOME echo    "CFR_HOME=%CFR_HOME%" 1>&2
+    if defined COURSIER_DATA_DIR echo    "COURSIER_DATA_DIR=%COURSIER_DATA_DIR%" 1>&2
     if defined COURSIER_HOME echo    "COURSIER_HOME=%COURSIER_HOME%" 1>&2
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
     if defined GRADLE_HOME echo    "GRADLE_HOME=%GRADLE_HOME%" 1>&2
@@ -1227,6 +1232,7 @@ endlocal & (
         if not defined BAZEL_HOME set "BAZEL_HOME=%_BAZEL_HOME%"
         if not defined CFR_HOME set "CFR_HOME=%_CFR_HOME%"
         if not defined COURSIER_HOME set "COURSIER_HOME=%_COURSIER_HOME%"
+        if exist "%LOCALAPPDATA%\coursier\data" set "COURSIER_DATA_DIR=%LOCALAPPDATA%\coursier\data"
         if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
         if not defined GRADLE_HOME set "GRADLE_HOME=%_GRADLE_HOME%"
         if not defined JACOCO_HOME set "JACOCO_HOME=%_JACOCO_HOME%"

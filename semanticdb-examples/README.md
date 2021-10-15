@@ -18,7 +18,12 @@
 > 
 > We proceed in two ways to install the above tools:
 > - We rely on [Coursier] to install the tools **`metac`** and **`metap`** <sup id="anchor_01">[[1]](#footnote_01)</sup>.
-> - We extract the archive file `protoc-3.yy.z-win64.zip` (available from the GitHub project [`protocolbuffers/protobuf`](https://github.com/protocolbuffers/protobuf/releases)) into directory **`C:\opt\protoc-3.yy.z\`**.
+> - We extract the Zip archive `protoc-3.yy.z-win64.zip` (available from the GitHub project [`protocolbuffers/protobuf`](https://github.com/protocolbuffers/protobuf/releases)) into directory **`C:\opt\protoc-3.yy.z\`**.
+> 
+> Finally we modify the environment variable `PATH` in our current session as follows:
+> <pre style="font-style:80%;">
+> <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> "PATH=%PATH%;%COURSIER_DATA_DIR%\bin;c:\opt\protoc-3.18.1"
+> </pre>
 
 ## <span id="hello">`hello`</span>
 
@@ -28,7 +33,7 @@
 &nbsp;
 <b>&gt; <a href="https://scalameta.org/docs/semanticdb/guide.html#metac">metac</a> -d target\classes src\main\scala\Main.scala</b>
 &nbsp;
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f target\classes |findstr /b /v [a-z]</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f target\classes |<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /b /v [a-z]</b>
 │   .latest-build
 │
 └───META-INF
@@ -39,7 +44,7 @@
                         Main.scala.semanticdb
 </pre>
 
-By default command **`metap <classpath>`** prints only the most important parts of the SemanticDB payload (same as option **`-compact`**).
+By default command **`metap <classpath>`** prints only the most important parts of the SemanticDB payload (default option is **`-compact`**).
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://scalameta.org/docs/semanticdb/guide.html#metap">metap</a> target\classes</b>
@@ -67,6 +72,52 @@ Occurrences:
 [1:23..1:29) =&gt; scala/Predef.String#
 [1:33..1:37) =&gt; scala/Unit#
 [2:4..2:11) =&gt; scala/Predef.println(+1).
+</pre>
+
+## <span id="semanticdb-example">`semanticdb-example`</span>
+
+This code example is an updated version of Geirsson's example (May 2018) available from his GitHub project [`olafurpg/semantic-example`](https://github.com/olafurpg/semanticdb-example).
+
+This example is interesting because we programmatically access the generated `.semanticdb` files from the main program [`Main.scala`](semanticdb-example/cli/src/main/scala/tool/Main.scala).
+
+<pre style"=font-size:80%;">
+<b>&gt; <a href="semanticdb-example/build.bat">build</a> -verbose compile</b>
+Generate SemanticDB data for 2 Scala source files into directory "example\target\classes"
+Compile 1 Scala source file to directory "cli\target\classes"
+&nbsp;
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /f example\target\classes |<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /b /v [a-z]</b>
+└───META-INF
+    └───semanticdb
+        └───example
+            └───src
+                └───main
+                    └───scala
+                        └───example
+                                Domain.scala.semanticdb
+                                Example.scala.semanticdb
+</pre>
+
+Then we execute the main program and redirect the output to some file, e.g. `output.txt`:
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="semanticdb-example/build.bat">build</a> -verbose run > output.txt</b>
+No action required ('example\src\main\scala\*.scala')
+No action required ('cli\src\main\scala\*.scala')
+&nbsp;
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/more">more</a> output.txt</b>
+W:\semanticdb-examples\semanticdb-example\cli\src\main\scala\tool\Main.scala:28 document.uri: "example/src/main/scala/example/Domain.scala"
+range {
+  start_line: 8
+  start_character: 27
+  end_line: 8
+  end_character: 33
+}
+symbol: "scala/Predef.String#"
+role: REFERENCE
+[...]
+range {
+  start_line: 8
+  start_character: 57
 </pre>
 
 ## <span id="footnotes">Footnotes</span>

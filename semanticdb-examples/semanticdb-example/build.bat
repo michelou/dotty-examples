@@ -1,7 +1,7 @@
 @echo off
 setlocal enabledelayedexpansion
 
-set _DEBUG=1
+set _DEBUG=0
 
 @rem #########################################################################
 @rem ## Environment setup
@@ -27,6 +27,10 @@ if %_CLEAN%==1 (
 )
 if %_COMPILE%==1 (
     call :compile
+    if not !_EXITCODE!==0 goto end
+)
+if %_RUN%==1 (
+    call :run
     if not !_EXITCODE!==0 goto end
 )
 if %_TEST%==1 (
@@ -55,9 +59,20 @@ set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
 set "_ROOT_DIR=%~dp0"
-set "_SOURCE_DIR=%_ROOT_DIR%src"
-set "_TARGET_DIR=%_ROOT_DIR%target"
-set "_CLASSES_DIR=%_TARGET_DIR%\classes"
+set "_CLI_SOURCE_DIR=%_ROOT_DIR%cli\src\main\scala"
+set "_EXAMPLE_SOURCE_DIR=%_ROOT_DIR%example\src\main\scala"
+set "_CLI_TARGET_DIR=%_ROOT_DIR%cli\target"
+set "_EXAMPLE_TARGET_DIR=%_ROOT_DIR%example\target"
+
+set _MAIN_CLASS=tool.Main
+
+if not exist "%SCALA_HOME%\bin\scalac.bat" (
+    echo %_ERROR_LABEL% Scala installation directory not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_SCALA_CMD=%SCALA_HOME%\bin\scala.bat"
+set "_SCALAC_CMD=%SCALA_HOME%\bin\scalac.bat"
 
 if not exist "%LOCALAPPDATA%\Coursier\data\bin\metac.bat" (
     echo %_ERROR_LABEL% metac executable not found 1>&2
@@ -134,6 +149,7 @@ set _COMPILE=0
 set _FORMAT=-compact
 set _HELP=0
 set _PROTOC=0
+set _RUN=0
 set _TEST=0
 set _TIMER=0
 set _VERBOSE=0
@@ -163,6 +179,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="compile" ( set _COMPILE=1
     ) else if "%__ARG%"=="help" ( set _HELP=1
     ) else if "%__ARG%"=="protoc" ( set _COMPILE=1& set _PROTOC=1
+    ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
     ) else if "%__ARG%"=="test" ( set _COMPILE=1& set _TEST=1
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
@@ -186,9 +203,11 @@ if %_PROTOC%==1 (
 )
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
-    echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _PROTOC=%_PROTOC% _TEST=%_TEST% 1>&2
+    echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _PROTOC=%_PROTOC% _RUN=%_RUN% _TEST=%_TEST% 1>&2
     echo %_DEBUG_LABEL% Variables  : "JAVA_HOME=%JAVA_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : "SCALA_HOME=%SCALA_HOME%" 1>&2
     if defined _PROTOC_CMD echo %_DEBUG_LABEL% Variables  : "PROTOC_HOME=%PROTOC_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables  : _MAIN_CLASS=%_MAIN_CLASS% 1>&2
 )
 if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
@@ -209,18 +228,20 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%      show commands executed by this script
-echo     %__BEG_O%-timer%__END%      display total elapsed time
+echo     %__BEG_O%-timer%__END%      display total execution time
 echo     %__BEG_O%-verbose%__END%    display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%       delete generated files
-echo     %__BEG_O%compile%__END%     compile Java/Scala source files
+echo     %__BEG_O%compile%__END%     compile Scala source files
 echo     %__BEG_O%help%__END%        display this help message
+echo     %__BEG_O%run%__END%         execute main %__BEG_O%%_MAIN_CLASS%%__END%
 echo     %__BEG_O%test%__END%        execute unit tests
 goto :eof
 
 :clean
-call :rmdir "%_TARGET_DIR%"
+call :rmdir "%_CLI_TARGET_DIR%"
+call :rmdir "%_EXAMPLE_TARGET_DIR%"
 goto :eof
 
 @rem input parameter(s): %1=directory path
@@ -238,35 +259,112 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :compile
-if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%"
+call :compile_example
+if not %_EXITCODE%==0 goto :eof
 
-set "__TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build"
+call :compile_cli
+if not %_EXITCODE%==0 goto :eof
 
-call :action_required "%__TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\scala\*.scala"
+goto :eof
+
+:compile_example
+set "__CLASSES_DIR=%_EXAMPLE_TARGET_DIR%\classes"
+if not exist "%__CLASSES_DIR%" mkdir "%__CLASSES_DIR%"
+
+set "__TIMESTAMP_FILE=%_EXAMPLE_TARGET_DIR%\.latest-build"
+
+call :action_required "%__TIMESTAMP_FILE%" "%_EXAMPLE_SOURCE_DIR%\*.scala"
 if %_ACTION_REQUIRED%==0 goto :eof
 
 set __SOURCE_FILES=
-for /f "delims=" %%f in ('dir /s /b "%_SOURCE_DIR%\*.scala" 2^>NUL') do (
+set __N=0
+for /f "delims=" %%f in ('dir /s /b "%_EXAMPLE_SOURCE_DIR%\*.scala" 2^>NUL') do (
     set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
+    set /a __N+=1
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_METAC_CMD%" -d "%_CLASSES_DIR%" %__SOURCE_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Create semanticdb file 1>&2
+if %__N%==0 (
+    echo %_WARNING_LABEL% No Scala source file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% Scala source file
+) else ( set __N_FILES=%__N% Scala source files
 )
-call "%_METAC_CMD%" -d "%_CLASSES_DIR%" %__SOURCE_FILES%
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_METAC_CMD%" -d "%__CLASSES_DIR%" %__SOURCE_FILES% 1>&2
+) else if %_VERBOSE%==1 ( echo Generate SemanticDB data for %__N_FILES% into directory "!__CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_METAC_CMD%" -d "%__CLASSES_DIR%" %__SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-   set _EXITCODE=1
-   goto :eof
+    echo %_DEBUG_LABEL% Failed to generate SemanticDB data for  %__N_FILES% into directory "!__CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 echo. > "%__TIMESTAMP_FILE%"
+goto :eof
+
+:compile_cli
+set "__CLASSES_DIR=%_CLI_TARGET_DIR%\classes"
+if not exist "%__CLASSES_DIR%" mkdir "%__CLASSES_DIR%"
+
+set "__TIMESTAMP_FILE=%_CLI_TARGET_DIR%\.latest-build"
+
+call :action_required "%__TIMESTAMP_FILE%" "%_CLI_SOURCE_DIR%\*.scala"
+if %_ACTION_REQUIRED%==0 goto :eof
+
+call :libs_cpath
+if not %_EXITCODE%==0 goto :eof
+
+set "__OPTS_FILE=%_CLI_TARGET_DIR%\scalac_opts.txt"
+set "__CPATH=%_LIBS_CPATH%%__CLASSES_DIR%"
+echo -deprecation -classpath "%__CPATH:\=\\%" -d "%__CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
+
+set "__SOURCES_FILE=%_CLI_TARGET_DIR%\scalac_sources.txt"
+if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
+set __N=0
+for /f "delims=" %%f in ('dir /s /b "%_CLI_SOURCE_DIR%\*.scala" 2^>NUL') do (
+    echo %%f >> "%__SOURCES_FILE%"
+    set /a __N+=1
+)
+if %__N%==0 (
+    echo %_WARNING_LABEL% No Scala source file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% Scala source file
+) else ( set __N_FILES=%__N% Scala source files
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!__CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_CLI_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+echo. > "%__TIMESTAMP_FILE%"
+goto :eof
+
+:run
+call :libs_cpath
+if not %_EXITCODE%==0 goto :eof
+
+set "__CPATH=%_LIBS_CPATH%%_CLI_TARGET_DIR%\classes"
+
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SCALA_CMD%" -cp "%__CPATH%" %_MAIN_CLASS% "%_EXAMPLE_TARGET_DIR%\classes" 1>&2
+) else if %_VERBOSE%==1 ( echo Execute main program "%_MAIN_CLASS%" 1>&2
+)
+call "%_SCALA_CMD%" -cp "%__CPATH%" %_MAIN_CLASS% "%_EXAMPLE_TARGET_DIR%\classes"
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Execution of main program "%_MAIN_CLASS%" failed 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 goto :eof
 
 :test
 set __METAP_OPTS=%_FORMAT%
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_METAP_CMD%" %__METAP_OPTS% "%_CLASSES_DIR%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_METAP_CMD%" %__METAP_OPTS% "%_EXAMPLE_TARGET_DIR%\classes" 1>&2
 ) else if %_VERBOSE%==1 ( echo Pretty print contents of semanticdb files 1>&2
 )
-call "%_METAP_CMD%" %__METAP_OPTS% "%_CLASSES_DIR%"
+call "%_METAP_CMD%" %__METAP_OPTS% "%_EXAMPLE_TARGET_DIR%\classes"
 if not %ERRORLEVEL%==0 (
    set _EXITCODE=1
    goto :eof
@@ -278,28 +376,35 @@ if %_PROTOC%==1 (
 goto :eof
 
 :protoc
-set "__SEMANTICDB_FILE=%_CLASSES_DIR%\META-INF\semanticdb\src\main\scala\Main.scala.semanticdb"
-if not exist "%__SEMANTICDB_FILE%" (
-    echo %_ERROR_LABEL% Semanticdb file not found 1>&2
-    set _EXITCODE=1
-    goto :eof
+set __SEMANTICDB_FILES=
+set __N=0
+for /f %%f in ('dir /a-d /b /s "%_EXAMPLE_TARGET_DIR%\classes\*.semanticdb"') do (
+    set __SEMANTICDB_FILES=!__SEMANTICDB_FILES! "%%f"
+    set /a __N+=1
 )
-set __OUT_OPTS=
+if %__N%==0 (
+    echo %_WARNING_LABEL% No SemanticDB file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% SemanticDB file
+) else ( set __N_FILES=%__N% SemanticDB files
+)
 for %%i in (java kotlin) do (
     set __LANG=%%i
-    set "__OUTPUT_DIR=%_TARGET_DIR%\!__LANG!"
+    set "__OUTPUT_DIR=%_EXAMPLE_TARGET_DIR%\!__LANG!"
     if not exist "!__OUTPUT_DIR!" mkdir "!__OUTPUT_DIR!"
-    set __OUT_OPTS=!__OUT_OPTS! "--!__LANG!_out=!__OUTPUT_DIR!"
-)
-set __PROTOC_OPTS="--proto_path=%_PROTO_PATH%" semanticdb.proto %__OUT_OPTS%
 
-if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_PROTOC_CMD%" %__PROTOC_OPTS% ^< "%__SEMANTICDB_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Print protobuf 1>&2
-)
-call "%_PROTOC_CMD%" %__PROTOC_OPTS% < "%__SEMANTICDB_FILE%"
-if not %ERRORLEVEL%==0 (
-   set _EXITCODE=1
-   goto :eof
+    set __PROTOC_OPTS="--proto_path=%_PROTO_PATH%" semanticdb.proto "--!__LANG!_out=!__OUTPUT_DIR!"
+
+    for %%f in (%__SEMANTICDB_FILES%) do (
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_PROTOC_CMD%" !__PROTOC_OPTS! ^< %%f 1>&2
+        ) else if %_VERBOSE%==1 ( echo Print protobuf 1>&2
+        )
+        call "%_PROTOC_CMD%" !__PROTOC_OPTS! < %%f
+        if not !ERRORLEVEL!==0 (
+           set _EXITCODE=1
+           goto :eof
+        )
+    )
 )
 goto :eof
 
@@ -353,6 +458,33 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 ) else if %__DATE1% lss %__DATE2% ( set _NEWER=0
 ) else if %__TIME1% gtr %__TIME2% ( set _NEWER=1
 ) else ( set _NEWER=0
+)
+goto :eof
+
+@rem input parameter: %1=flag to add Dotty libs
+@rem output parameter: _LIBS_CPATH
+:libs_cpath
+set __ADD_SCALA3_LIBS=%~1
+
+for %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
+if not exist "%__BATCH_FILE%" (
+    echo %_ERROR_LABEL% Batch file "%__BATCH_FILE%" not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__BATCH_FILE%" %_DEBUG% 1>&2
+call "%__BATCH_FILE%" %_DEBUG%
+set "_LIBS_CPATH=%_CPATH%"
+
+if defined __ADD_SCALA3_LIBS (
+    if not defined SCALA3_HOME (
+        echo %_ERROR_LABEL% Variable SCALA3_HOME not defined 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+    for %%f in ("%SCALA3_HOME%\lib\*.jar") do (
+        set "_LIBS_CPATH=!_LIBS_CPATH!%%f;"
+    )
 )
 goto :eof
 
