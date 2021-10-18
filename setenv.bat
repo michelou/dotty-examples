@@ -315,7 +315,7 @@ set __PYTHON_CMD=
 for /f %%f in ('where python.exe 2^>NUL') do set "__PYTHON_CMD=%%f"
 if defined __PYTHON_CMD (
     @rem We ignore Python installation in directory %LOCALADDDATA%
-    if not "%__PYTHON_CMD:WindowsApps=%"=="%__PYTHON_CMD%" set __PYTHON_CMD=
+    if not "!__PYTHON_CMD:WindowsApps=!"=="%__PYTHON_CMD%" set __PYTHON_CMD=
 )
 if defined __PYTHON_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Python executable found in PATH 1>&2

@@ -59,6 +59,7 @@ if not exist "%GIT_HOME%\usr\bin\unix2dos.exe" (
     set _EXITCODE=1
     goto :eof
 )
+set "_GIT_CMD=%GIT_HOME%\bin\git.exe"
 set "_UNIX2DOS_CMD=%GIT_HOME%\usr\bin\unix2dos.exe"
 
 set "_NIGHTLY_DIR=%_ROOT_DIR%out\nightly"
@@ -260,7 +261,6 @@ for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%"
     )
     set /a __N+=1
 )
-if %_VERBOSE%==1 echo Finished to download %__N% files to directory "%_NIGHTLY_LIB_DIR%"
 for /f %%i in ('dir /b "%_NIGHTLY_LIB_DIR%\scala3-compiler_3-*.jar" 2^>NUL') do (
     set _NIGHTLY_VERSION=%%~ni
     set _NIGHTLY_VERSION=!_NIGHTLY_VERSION:~18!
@@ -272,7 +272,7 @@ if not exist "%__LST_FILE%" (
     set _EXITCODE=1
     goto :eof
 )
-set __N=0
+if %_VERBOSE%== 1 echo Download library files from Maven repository and script files from GitHub project 1>&2
 for /f "tokens=1,*" %%i in (%__LST_FILE%) do (
     set "__DIR=%%i"
     if not "!__DIR:~0,1!"=="#" (
@@ -293,12 +293,23 @@ for /f "tokens=1,*" %%i in (%__LST_FILE%) do (
         set /a __N+=1
     )
 )
-if %_VERBOSE%==1 echo Finished to download %__N% files to directory "%_NIGHTLY_DIR%"
+if %_VERBOSE%==1 echo Finished to download %__N% files to directory "!_NIGHTLY_DIR=%_ROOT_DIR%=!" 1>&2
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Nightly version is %_NIGHTLY_VERSION% 1>&2
 ) else if %_VERBOSE%==1 ( echo Nightly version is %_NIGHTLY_VERSION% 1>&2
 )
-echo %_NIGHTLY_VERSION%> "%_NIGHTLY_DIR%\VERSION"
+@rem create VERSION file in %__NIGHTLY_HOME% directory.
+set __HASH=%_NIGHTLY_VERSION:-NIGHTLY=%
+set __HASH=%__HASH:~-7%
+for /f "tokens=1,*" %%i in ('"%_GIT_CMD%" show %__HASH% ^| findstr /b commit') do (
+    set "__REVISION=%%j"
+)
+for /f "usebackq delims=" %%i in (`powershell -C "Get-Date -Format 'yyyy-MM-dd HH:mm:ssK'"`) do set "__BUILD_TIME=%%i"
+(
+    echo version:=%_NIGHTLY_VERSION%
+    echo revision:=%__REVISION%
+    echo buildTime:=%__BUILD_TIME%
+) > "%_NIGHTLY_DIR%\VERSION"
 goto :eof
 
 @rem input parameter: %1=URL
@@ -321,29 +332,24 @@ if not exist "%_NIGHTLY_DIR%\VERSION" (
     set _EXITCODE=1
     goto :eof
 )
-set /p __NIGHTLY_VERSION=< "%_NIGHTLY_DIR%\VERSION"
+for /f "delims=^:^= tokens=1,*" %%i in ('findstr version ^< "%_NIGHTLY_DIR%\VERSION"') do (
+    set "__NIGHTLY_VERSION=%%j"
+)
 set "__NIGHTLY_HOME=C:\opt\scala3-%__NIGHTLY_VERSION%"
 if /i "%SCALA3_HOME%"=="%__NIGHTLY_HOME%" goto :eof
 
 if not exist "%__NIGHTLY_HOME%\lib" mkdir "%__NIGHTLY_HOME%\lib"
 if not exist "%__NIGHTLY_HOME%\bin" mkdir "%__NIGHTLY_HOME%\bin"
 
-@rem lib\ directory
+@rem copy lib\ directory
 xcopy /q /y "%_NIGHTLY_LIB_DIR%\*.jar" "%__NIGHTLY_HOME%\lib\" 1>NUL
 
-@rem bin\ directory
+@rem copy bin\ directory
 xcopy /q /y "%_NIGHTLY_BIN_DIR%\common*" "%__NIGHTLY_HOME%\bin\" 1>NUL
 xcopy /q /y "%_NIGHTLY_BIN_DIR%\scala*" "%__NIGHTLY_HOME%\bin\" 1>NUL
 
-@rem create VERSION file in %__NIGHTLY_HOME% directory.
-set __REVISION=%__NIGHTLY_VERSION:-NIGHTLY=%
-set __REVISION=%__REVISION:~-7%
-for /f "usebackq delims=" %%i in (`powershell -C "Get-Date -Format 'yyyy-MM-dd HH:mm:ssK'"`) do set "__BUILD_TIME=%%i"
-(
-    echo version:=%__NIGHTLY_VERSION%
-    echo revision:=%__REVISION%
-    echo buildTime:=%__BUILD_TIME%
-) > "%__NIGHTLY_HOME%\VERSION"
+@rem copy VERSION file
+xcopy /q /y "%_NIGHTLY_DIR%\VERSION" "%__NIGHTLY_HOME%\VERSION"
 if defined SCALA3_HOME (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Create file "%__NIGHTLY_HOME%\SCALA3_HOME_BACKUP" 1>&2
     echo %SCALA3_HOME%> "%__NIGHTLY_HOME%\SCALA3_HOME_BACKUP"
