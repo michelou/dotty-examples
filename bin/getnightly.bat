@@ -43,6 +43,7 @@ goto end
 :env
 set _BASENAME=%~n0
 for %%f in ("%~dp0\.") do set "_ROOT_DIR=%%~dpf"
+set _TIMER=0
 
 call :env_colors
 set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
@@ -59,7 +60,9 @@ if not exist "%GIT_HOME%\usr\bin\unix2dos.exe" (
     set _EXITCODE=1
     goto :eof
 )
+set "_CURL_CMD=%GIT_HOME%\mingw64\bin\curl.exe"
 set "_GIT_CMD=%GIT_HOME%\bin\git.exe"
+set "_SED_CMD=%GIT_HOME%\usr\bin\sed.exe"
 set "_UNIX2DOS_CMD=%GIT_HOME%\usr\bin\unix2dos.exe"
 
 set "_NIGHTLY_DIR=%_ROOT_DIR%out\nightly"
@@ -234,7 +237,7 @@ if not !ERRORLEVEL!==0 (
 if not exist "%_NIGHTLY_LIB_DIR%" mkdir "%_NIGHTLY_LIB_DIR%" 1>NUL
 set __N=0
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%" %_DEBUG% 1>&2
-) else if %_VERBOSE%== 1 ( echo Download nightly files from Maven repository 1>&2
+) else if %_VERBOSE%== 1 ( echo Download Scala 3 nightly files from Maven repository 1>&2
 )
 for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%" %_DEBUG%') do (
     @rem set __URL=http://central.maven.org/maven2/%%i
@@ -247,8 +250,11 @@ for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%"
     )
     if %_VERBOSE%==1 <NUL set /p=Downloading file !__FILE_BASENAME! ... 
     set "__JAR_FILE=%_NIGHTLY_LIB_DIR%\!__FILE_BASENAME!"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -c "wget -uri !__URL! -Outfile '!__JAR_FILE!'" 1>&2
-    powershell -c "$progressPreference='silentlyContinue';wget -uri !__URL! -Outfile '!__JAR_FILE!'"
+    @rem NB. curl is faster than wget
+    @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -c "wget -uri !__URL! -Outfile '!__JAR_FILE!'" 1>&2
+    @rem powershell -c "$progressPreference='silentlyContinue';wget -uri !__URL! -Outfile '!__JAR_FILE!'"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_CURL_CMD%" --silent --url "!__URL!" ^> "!__JAR_FILE!" 1>&2
+    call "%_CURL_CMD%" --silent --url "!__URL!" > "!__JAR_FILE!"
     if not !ERRORLEVEL!==0 (
         echo.
         echo %_ERROR_LABEL% Failed to download file "!__JAR_FILE!" 1>&2
@@ -272,42 +278,46 @@ if not exist "%__LST_FILE%" (
     set _EXITCODE=1
     goto :eof
 )
-if %_VERBOSE%== 1 echo Download library files from Maven repository and script files from GitHub project 1>&2
+@rem if %_VERBOSE%== 1 echo Download library files from Maven repository and script files from GitHub project 1>&2
 for /f "tokens=1,*" %%i in (%__LST_FILE%) do (
     set "__DIR=%%i"
     if not "!__DIR:~0,1!"=="#" (
         set "__URI=%%j"
         call :name_from_url "%%j"
         if not exist "%_NIGHTLY_DIR%\!__DIR!" mkdir "%_NIGHTLY_DIR%\!__DIR!" 1>NUL
+        if %_VERBOSE%==1 <NUL set /p=Downloading file !__NAME! ... 
         set "__OUTFILE=%_NIGHTLY_DIR%\!__DIR!\!__NAME!"
-        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -C "wget -uri '!__URI!' -outfile '!__OUTFILE!'"
-        ) else if %_VERBOSE%==1 ( echo Downloading file !__NAME! 1>&2
-        )
-        powershell -C "$progressPreference='silentlyContinue';wget -uri '!__URI!' -outfile '!__OUTFILE!'"
+        @rem NB. curl is faster than wget
+        @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -C "wget -uri '!__URI!' -outfile '!__OUTFILE!'"
+        @rem powershell -C "$progressPreference='silentlyContinue';wget -uri '!__URI!' -outfile '!__OUTFILE!'"
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_CURL_CMD%" --silent --url "!__URI!" ^> "!__OUTFILE!" 1>&2
+        call "%_CURL_CMD%" --silent --url "!__URI!" > "!__OUTFILE!"
         if !ERRORLEVEL!==0  if "!__NAME:~-4!"==".bat" (
             if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_UNIX2DOS_CMD%" "!__OUTFILE!" 1^>NUL 1>&2
             @rem ) else if %_VERBOSE%==1 ( echo Convert file !__NAME! to DOS format 2>&2
             )
             call "%_UNIX2DOS_CMD%" "!__OUTFILE!" 2>NUL
         )
+        if %_VERBOSE%==1 (
+            call :file_size "!__OUTFILE!"
+            echo !_FILE_SIZE!
+        )
         set /a __N+=1
     )
 )
-if %_VERBOSE%==1 echo Finished to download %__N% files to directory "!_NIGHTLY_DIR=%_ROOT_DIR%=!" 1>&2
+if %_VERBOSE%==1 echo Finished to download %__N% files to directory "!_NIGHTLY_DIR:%_ROOT_DIR%=!" 1>&2
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Nightly version is %_NIGHTLY_VERSION% 1>&2
 ) else if %_VERBOSE%==1 ( echo Nightly version is %_NIGHTLY_VERSION% 1>&2
 )
 @rem create VERSION file in %__NIGHTLY_HOME% directory.
-set __HASH=%_NIGHTLY_VERSION:-NIGHTLY=%
-set __HASH=%__HASH:~-7%
-for /f "tokens=1,*" %%i in ('"%_GIT_CMD%" show %__HASH% ^| findstr /b commit') do (
-    set "__REVISION=%%j"
-)
+call :github_revision "%_NIGHTLY_VERSION%"
+if not %_EXITCODE%==0 goto :eof
+
 for /f "usebackq delims=" %%i in (`powershell -C "Get-Date -Format 'yyyy-MM-dd HH:mm:ssK'"`) do set "__BUILD_TIME=%%i"
 (
     echo version:=%_NIGHTLY_VERSION%
-    echo revision:=%__REVISION%
+    echo revision:=%_GITHUB_REVISION%
     echo buildTime:=%__BUILD_TIME%
 ) > "%_NIGHTLY_DIR%\VERSION"
 goto :eof
@@ -325,6 +335,31 @@ for /f "delims=/ tokens=1,*" %%i in ("%__URL%") do (
 )
 goto :eof
 
+@rem input parameter: %1=nightly version
+@rem output parameter: _GITHUB_REVISION
+:github_revision
+set "__NIGHTLY_VERSION=%~1"
+set "__HASH=!__NIGHTLY_VERSION:-NIGHTLY=!"
+set "__HASH=%__HASH:~-7%"
+set "__URL=https://github.com/lampepfl/dotty/commit/%__HASH%"
+set "__OUTPUT_FILE=%TEMP%\%_BASENAME%_curl.txt"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" --silent --url "%__URL%"^| "%_SED_CMD%" -e "s#/><#\n#g" ^> "%__OUTPUT_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Retrieve revision for hash "%__HASH%" from GitHub repository "lampepfl/dotty" 1>&2
+)
+call "%_CURL_CMD%" --silent --url "%__URL%" | "%_SED_CMD%" -e "s#/><#\n#g" > "%__OUTPUT_FILE%"
+if not %ERRORLEVEL%==0 (
+    set _EXITCODE=1
+    goto :eof
+)
+@rem Make sure findstr output does NOT contain '<' or '>' characters
+for /f "delims=^= tokens=1,2,*" %%i in ('findstr og:url "%__OUTPUT_FILE%"') do (
+    set _GITHUB_REVISION=%%~k
+    set "_GITHUB_REVISION=!_GITHUB_REVISION:"=!"
+    set "_GITHUB_REVISION=!_GITHUB_REVISION:/lampepfl/dotty/commit/=!"
+)
+goto :eof
+
 @rem output parameter: _SCALA3_HOME
 :activate
 if not exist "%_NIGHTLY_DIR%\VERSION" (
@@ -332,7 +367,7 @@ if not exist "%_NIGHTLY_DIR%\VERSION" (
     set _EXITCODE=1
     goto :eof
 )
-for /f "delims=^:^= tokens=1,*" %%i in ('findstr version ^< "%_NIGHTLY_DIR%\VERSION"') do (
+for /f "delims=^:^= tokens=1,*" %%i in ('findstr version "%_NIGHTLY_DIR%\VERSION"') do (
     set "__NIGHTLY_VERSION=%%j"
 )
 set "__NIGHTLY_HOME=C:\opt\scala3-%__NIGHTLY_VERSION%"
