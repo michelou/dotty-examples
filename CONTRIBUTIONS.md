@@ -15,6 +15,8 @@
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
 | :------------------------: | :--------: | :--------- |
+| [#13791][dotty_pull_13791] | *pending* <span style="font-size:80%;">(Oct 2021)</span> | Test suite |
+| [#13790][dotty_pull_13790] | *pending* <span style="font-size:80%;">(Oct 2021)</span> | Batch files |
 | [#13577][dotty_pull_13577] | [merged](https://github.com/lampepfl/dotty/commit/2b3f6da) <span style="font-size:80%;">(Sep 2021)</span> | Batch files |
 | [#13006][dotty_pull_13006] | [merged](https://github.com/lampepfl/dotty/commit/158b332) <span style="font-size:80%;">(July 2021)</span> | Batch files |
 | [#11728][dotty_pull_11728] | *pending* | Reference documentation |
@@ -159,4 +161,6 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_pull_11833]: https://github.com/lampepfl/dotty/pull/11833 "add Wiki code blocks to Md syntax"
 [dotty_pull_13006]: https://github.com/lampepfl/dotty/pull/13006
 [dotty_pull_13577]: https://github.com/lampepfl/dotty/pull/13577
+[dotty_pull_13790]: https://github.com/lampepfl/dotty/pull/13790
+[dotty_pull_13791]: https://github.com/lampepfl/dotty/pull/13791
 [scala_pull_9013]: https://github.com/scala/scala/pull/9013 "Close Source.fromFile"
