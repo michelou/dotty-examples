@@ -219,20 +219,27 @@ if not %ERRORLEVEL%==0 (
 set _FILE_SIZE=%_FILE_SIZE:,=.%
 goto :eof
 
+@rem input parameter(s): %1=directory path
+:rmdir
+set "__DIR=%~1"
+if not exist "%__DIR%\" goto :eof
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
+) else if %_VERBOSE%==1 ( echo Delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
+)
+rmdir /s /q "%__DIR%"
+if not %ERRORLEVEL%==0 (
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
 @rem output parameter: _NIGHTLY_VERSION
 :download
 set _NIGHTLY_VERSION=
 
-if not exist "%_NIGHTLY_LIB_DIR%\*.jar" goto download_nightly
+call :rmdir "%_NIGHTLY_DIR%"
+if not %_EXITCODE%==0 goto :eof
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% del /f /q "%_NIGHTLY_LIB_DIR%\*.jar" 1>&2
-) else if %_VERBOSE%==1 ( echo Delete Java archive files in directory "!_NIGHTLY_LIB_DIR:%_ROOT_DIR%=!" 1>&2
-)
-del /f /q "%_NIGHTLY_LIB_DIR%\*.jar" 1>NUL 2>&1
-if not !ERRORLEVEL!==0 (
-    set _EXITCODE=1
-    goto :eof
-)
 :download_nightly
 if not exist "%_NIGHTLY_LIB_DIR%" mkdir "%_NIGHTLY_LIB_DIR%" 1>NUL
 set __N=0
@@ -266,6 +273,11 @@ for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%"
         echo !_FILE_SIZE!
     )
     set /a __N+=1
+)
+if %__N%==0 (
+    echo %_ERROR_LABEL% No nightly file found ^(check issue in script %_BASENAME%.ps1^) 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 for /f %%i in ('dir /b "%_NIGHTLY_LIB_DIR%\scala3-compiler_3-*.jar" 2^>NUL') do (
     set _NIGHTLY_VERSION=%%~ni
@@ -307,9 +319,6 @@ for /f "tokens=1,*" %%i in (%__LST_FILE%) do (
 )
 if %_VERBOSE%==1 echo Finished to download %__N% files to directory "!_NIGHTLY_DIR:%_ROOT_DIR%=!" 1>&2
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Nightly version is %_NIGHTLY_VERSION% 1>&2
-) else if %_VERBOSE%==1 ( echo Nightly version is %_NIGHTLY_VERSION% 1>&2
-)
 @rem create VERSION file in %__NIGHTLY_HOME% directory.
 call :github_revision "%_NIGHTLY_VERSION%"
 if not %_EXITCODE%==0 goto :eof
@@ -320,6 +329,11 @@ for /f "usebackq delims=" %%i in (`powershell -C "Get-Date -Format 'yyyy-MM-dd H
     echo revision:=%_GITHUB_REVISION%
     echo buildTime:=%__BUILD_TIME%
 ) > "%_NIGHTLY_DIR%\VERSION"
+set /a __SHOW=%_VERBOSE%+%_DEBUG%
+if not %__SHOW%==0 (
+    echo File "!_NIGHTLY_DIR:%_ROOT_DIR%=!\VERSION": 1>&2
+    type "%_NIGHTLY_DIR%\VERSION" 1>&2
+)
 goto :eof
 
 @rem input parameter: %1=URL
@@ -352,7 +366,7 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-@rem Make sure findstr output does NOT contain '<' or '>' characters
+@rem Make sure findstr output does NOT contain any '<' or '>' characters
 for /f "delims=^= tokens=1,2,*" %%i in ('findstr og:url "%__OUTPUT_FILE%"') do (
     set _GITHUB_REVISION=%%~k
     set "_GITHUB_REVISION=!_GITHUB_REVISION:"=!"
