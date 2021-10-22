@@ -36,7 +36,8 @@
 
 ## <span id="books">Books</span>
 
-- [Scala Cookbook][book_alexander] (2<sup>nd</sup> edition) by Alvin Alexander, August 2021.<br/><span style="font-size:80%;">(O'Reilly, ISBN 978-1-4920-5154-1, 802 pages)</span>
+- [Beginning Scala 3][book_pollak] (3<sup>rd</sup> Edition) by David Pollak et al, 2022.<br/><span style="font-size:80%;">(Apress, ISBN 978-1-4842-7421-7)
+- [Scala Cookbook][book_alexander] (2<sup>nd</sup> Edition) by Alvin Alexander, August 2021.<br/><span style="font-size:80%;">(O'Reilly, ISBN 978-1-4920-5154-1, 802 pages)</span>
 - [Programming Scala](https://www.oreilly.com/library/view/programming-scala-2nd/9781491950135/) (3<sup>rd</sup> Edition) by Dean Wampler and Alex Payne, June 2021.<br/><span style="font-size:80%;">(O'Reilly, ISBN 978-1-4920-7789-3)</span>
 - [Programming in Scala](https://www.artima.com/shop/programming_in_scala_5ed) (5<sup>th</sup> Edition) by Martin Odersky et al., May 2021.<br/><span style="font-size:80%;">(<a href="https://www.artima.com/about">Artima Press</a>, ISBN ‎ 978-0-9971-4800-8, 651 pages)</span>
 - [Hands-on Scala Programming][book_haoyi] by Li Haoyi, July 2020.<br/><span style="font-size:80%;">(Li Haoyli, ISBN 978-9-8114-5693-0, 414 pages)</span>
@@ -45,6 +46,7 @@
 
 ## <span id="courses">Courses</span>
 
+- [Learning to code in Scala](https://scala.zone/courses/scala): [Beginner](https://scala.zone/courses/scala/beginner), [Intermediate](https://scala.zone/courses/scala/intermediate), [Advanced](https://scala.zone/courses/scala/advanced).
 - [CSci 555 : Functional Programming](https://john.cs.olemiss.edu/~hcc/csci555/notes/555lectureNotes.html) by Conrad Cunningham, Spring Semester 2019.
 
 ## <span id="news">News</span>
@@ -63,9 +65,10 @@
 
 - [Google Shell Guide](https://google.github.io/styleguide/shellguide.html)
 
-## <span id="tools">Tools</span>
+## <span id="tools">Tools and Frameworks</span>
 
-- [ScalaStan](https://github.com/cibotech/scalastan) - A Scala DSL for [Stan](https://mc-stan.org/), an open-source software for statistical modeling and high-performance statistical computation.
+- [Scala.js](https://www.scala-js.org/) - a Scala backend to generate highly efficient JavaScript.
+- [ScalaStan](https://github.com/cibotech/scalastan) - a Scala DSL for [Stan](https://mc-stan.org/), an open-source software for statistical modeling and high-performance statistical computation.
 
 ## <span id="videos">Videos</span>
 
@@ -83,3 +86,4 @@
 [book_alexander]: https://www.oreilly.com/library/view/scala-cookbook-2nd/9781492051534/
 [book_haoyi]: https://www.handsonscala.com/
 [book_lewis]: https://www.routledge.com/Introduction-to-Programming-and-Problem-Solving-Using-Scala/Lewis-Lacher/p/book/9781498730952
+[book_pollak]: https://www.apress.com/gp/book/9781484274217

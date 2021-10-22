@@ -116,7 +116,7 @@ bin\cfr-0.151.zip
 bin\3.0\{<a href="bin/3.0/scala.bat">scala.bat</a>, <a href="bin/3.0/scalac.bat">scalac.bat</a>, <a href="bin/3.0/scaladoc.bat">scaladoc.bat</a>}
 bin\dotty\
 docs\
-dotty\     <i>(Git submodule)</i>
+<a href="https://github.com/lampepfl/dotty">dotty</a>\     <i>(Git submodule)</i>
 examples\{<a href="examples/README.md">README.md</a>, <a href="examples/dotty-example-project/">dotty-example-project</a>, ..}
 myexamples\{<a href="myexamples/README.md">README.md</a>, <a href="myexamples/00_AutoParamTupling/">00_AutoParamTupling</a>, ..}
 plugin-examples\{<a href="plugin-examples/README.md">README.md</a>, <a href="plugin-examples/DivideZero/">DivideZero</a>, ..}

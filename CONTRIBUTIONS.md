@@ -13,10 +13,10 @@
 
 ## <span id="pull_requests">Pull Requests</span>
 
-| [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Request status | Context |
+| [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Status | Context |
 | :------------------------: | :--------: | :--------- |
 | [#13791][dotty_pull_13791] | *pending* <span style="font-size:80%;">(Oct 2021)</span> | Test suite |
-| [#13790][dotty_pull_13790] | *pending* <span style="font-size:80%;">(Oct 2021)</span> | Batch files |
+| [#13790][dotty_pull_13790] | [merged](https://github.com/lampepfl/dotty/commit/78824ad) <span style="font-size:80%;">(Oct 2021)</span> | Batch files |
 | [#13577][dotty_pull_13577] | [merged](https://github.com/lampepfl/dotty/commit/2b3f6da) <span style="font-size:80%;">(Sep 2021)</span> | Batch files |
 | [#13006][dotty_pull_13006] | [merged](https://github.com/lampepfl/dotty/commit/158b332) <span style="font-size:80%;">(July 2021)</span> | Batch files |
 | [#11728][dotty_pull_11728] | *pending* | Reference documentation |
@@ -64,7 +64,7 @@ Below we summarize changes we made to the [source code](https://github.com/lampe
 
 We have come across several issues <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup> while executing [Scala 3][scala3_home] commands on Microsoft Windows:
 
-| [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Issue status&nbsp;&nbsp;&nbsp; | Context |
+| [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Status&nbsp;&nbsp;&nbsp; | Context |
 | :-------------------------: | :--------: | :--------- |
 | [#11454][dotty_issue_11454] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
 | [#11453][dotty_issue_11453] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
