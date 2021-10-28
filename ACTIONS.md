@@ -2,8 +2,8 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;max-width:80px;">
-    <a href="https://github.com/" rel="external"><img style="border:0;width:80px;" src="https://github.githubassets.com/images/modules/logos_page/Octocat.png" alt="GitHub logo"/></a>
+  <td style="border:0;padding:0 10px 0 0;max-width:100px;">
+    <a href="https://github.com/" rel="external"><img style="border:0;width:100px;" src="https://github.githubassets.com/images/modules/logos_page/Octocat.png" alt="GitHub logo"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This page gathers informations about <a href="https://docs.github.com/en/free-pro-team@latest/actions" rel="external">GitHub Actions</a>, their associated <a href="https://github.com/actions/runner/releases">runners</a> and <a href="https://github.com/actions/virtual-environments" rel="external">virtual environments</a>, in particular the Windows runners.
@@ -13,7 +13,7 @@
 
 | Windows       | #CPU   | Memory | Repository |
 |---------------|--------|-------:|------------|
-| GitHub-hosted | 2 CPUs |  8 GB  | [**`michelou/dotty`**](https://github.com/lampepfl/dotty/actions) *(fork)* |
+| GitHub-hosted | 2&nbsp;CPUs |  8&nbsp;GB  | [**`michelou/dotty`**](https://github.com/lampepfl/dotty/actions) *(fork)* |
 | self-hosted   | 4 CPUs | 24 GB  | [**`lampepfl/dotty`**](https://github.com/lampepfl/dotty/actions) |
 
 > **&#9755;** ***Default Windows shell***<br/>

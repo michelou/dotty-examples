@@ -19,7 +19,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - Data Sharing and Dotty on Windows [**&#9660;**](#bottom)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[JMH][jmh_project], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples] and [Node.js][nodejs_examples] are other trending topics we are currently monitoring.
+[Deno][deno_examples], [JMH][jmh_project], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples] and [Rust][rust_examples] are other trending topics we are currently monitoring.
 
 
 ## <span id="proj_deps">Project dependencies</span>
@@ -35,9 +35,9 @@ This project depends on the following external software for the **Microsoft Wind
 For instance our development environment looks as follows (*October 2021*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.33.0\             <i>(290 MB)</i>
-C:\opt\jdk-openjdk-11.0.12_7\  <i>(314 MB)</i>
-C:\opt\scala3-3.1.0-RC3\       <i>( 57 MB)</i>
+C:\opt\Git-2.33.1\             <i>(290 MB)</i>
+C:\opt\jdk-openjdk-11.0.13_8\  <i>(314 MB)</i>
+C:\opt\scala3-3.1.1-RC1\       <i>( 57 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_downloads] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -209,7 +209,7 @@ Classes per package (590):
 Let's check the contents of the output directory **`target\`**:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f target | findstr /v "^[A-Z]"</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f target | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v "^[A-Z]"</b>
 |   JavaExample.classlist
 |   JavaExample.jar
 |   JavaExample.jsa
@@ -252,11 +252,11 @@ We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/t
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.oracle.com/en/java/javase/11/tools/java.htm">java</a> -verbose:class -Xshare:on -XX:SharedArchiveFile=target\JavaExample.jsa ^
- -jar W:\cdsexamples\JavaExample\target\JavaExample.jar | findstr cdsexamples</b>
+ -jar W:\cdsexamples\JavaExample\target\JavaExample.jar | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> cdsexamples</b>
 [0.089s][info][class,load] cdsexamples.Main source: shared objects file
 
 <b>&gt; <a href="https://docs.oracle.com/en/java/javase/11/tools/java.htm">java</a> -verbose:class -Xshare:off -XX:SharedArchiveFile=target\JavaExample.jsa ^
- -jar W:\cdsexamples\JavaExample\target\JavaExample.jar | findstr cdsexamples</b>
+ -jar W:\cdsexamples\JavaExample\target\JavaExample.jar | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> cdsexamples</b>
 [0.112s][info][class,load] cdsexamples.Main source: file:/W:/dotty-examples/cdsexamples/JavaExample/target/Main.jar
 </pre>
 
@@ -486,12 +486,12 @@ Support files for Java class sharing:
 </pre>
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3_3.1.0-RC3\lib\dotty-cds*</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3_3.1.1-RC1\lib\dotty-cds*</b>
 dotty-cds-compiler.classlist
 dotty-cds-compiler.jsa
 dotty-cds-repl.classlist
 dotty-cds-repl.jsa
-dotty-cds_3-3.1.0-RC3.jar
+dotty-cds_3-3.1.1-RC1.jar
 </pre>
 
 <pre style="font-size:80%;">
@@ -577,12 +577,12 @@ Classes per package (888):
 > 3. Repeat command from point 1. 
 > 
 > <pre style="font-size:80%;">
-> <b>&gt; c:\opt\jdk-openjdk-11.0.12_7\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-> openjdk version "11.0.11" 2021-04-20
-> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.11+9)
-> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.11+9, mixed mode)
+> <b>&gt; c:\opt\jdk-openjdk-11.0.13_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+> openjdk version "11.0.13" 2021-10-19
+> OpenJDK Runtime Environment Temurin-11.0.13+8 (build 11.0.13+8)
+> OpenJDK 64-Bit Server VM Temurin-11.0.13+8 (build 11.0.13+8, mixed mode, sharing)
 > &nbsp;
-> <b>&gt; c:\opt\jdk-openjdk-11.0.12_7\bin\java -Xshare:dump</b>
+> <b>&gt; c:\opt\jdk-openjdk-11.0.13_8\bin\java -Xshare:dump</b>
 > [...]
 > Number of classes 1272
 > [...]
@@ -593,14 +593,14 @@ Classes per package (888):
 > od  space:   6534648 [ 36.1% of total] [...]
 > total    :  17873816 [100.0% of total] [...]
 > &nbsp;
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\jdk-openjdk-11.0.12_7\bin\server</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\jdk-openjdk-11.0.13_8\bin\server</b>
 > classes.jsa
 > jvm.dll
 > &nbsp;
-> <b>&gt; c:\opt\jdk-openjdk-11.0.12_7\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-> openjdk version "11.0.11" 2021-04-20
-> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.11+9)
-> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.11+9, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
+> <b>&gt; c:\opt\jdk-openjdk-11.0.13_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+> openjdk version "11.0.13" 2021-10-19
+> OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.13+8)
+> OpenJDK 64-Bit Server VM AdoptOpenJDK (build 11.0.13+8, mixed mode, sharing), <span style="background-color:#00cc00;color:white;">sharing</span>)
 > </pre>
 > Java 12 introduces default CDS archives ([JEP 341][java_jep_341])
 > to improve out-of-the-box startup time and to get rid of the need to run
@@ -708,14 +708,15 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 
 <!-- link refs -->
 
+[deno_examples]: https://github.com/michelou/deno-examples
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [scala3_home]: https://dotty.epfl.ch/
 [scala3_releases]: https://github.com/lampepfl/dotty/releases
-[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.1.0-RC3
+[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.1.1-RC1
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.33.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.33.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [haskell_examples]: https://github.com/michelou/haskell-examples
@@ -737,6 +738,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [openjdk_downloads]: https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
 [openjdk_relnotes]: https://jdk.java.net/11/release-notes
+[rust_examples]: https://github.com/michelou/rust-examples
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [scala_2_13]: https://www.scala-lang.org/news/roadmap-2.13.html
 [scala_3]: https://www.scala-lang.org/blog/2018/04/19/scala-3.html

@@ -26,7 +26,7 @@ call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSI
 call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.0.1"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parser-combinators
-call :add_jar "org.scala-lang.modules" "scala-parser-combinators_3" "2.0.0"
+call :add_jar "org.scala-lang.modules" "scala-parser-combinators_3" "2.1.0"
 
 @rem https://mvnrepository.com/artifact/junit/junit
 call :add_jar "junit" "junit" "4.13.2"
@@ -60,7 +60,7 @@ call :add_jar "org.scalatest" "scalatest_3" "%__SCALATEST_VERSION%"
 @rem https://mvnrepository.com/artifact/org.scalactic
 call :add_jar "org.scalactic" "scalactic_3" "%__SCALATEST_VERSION%"
 
-set __SPECS2_CORE_VERSION=4.12.12
+set __SPECS2_CORE_VERSION=4.13.0
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
 @rem NB. dependency of specs2

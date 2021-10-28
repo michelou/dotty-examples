@@ -48,9 +48,10 @@ This project depends on the following external software for the **Microsoft Wind
 11.0.7  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
 11.0.8  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-July/003498.html
 11.0.9  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-October/004007.html
-11.0.12 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-January/004689.html
+11.0.10 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-January/004689.html
 11.0.11 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-April/005860.html
 11.0.12 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-July/006954.html
+11.0.13 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-October/009368.html
 -->
 Optionally one may also install the following software:
 
@@ -86,9 +87,9 @@ C:\opt\Git-2.33.1\                 <i>(279 MB)</i>
 C:\opt\gradle-7.2\                 <i>(121 MB)</i>
 C:\opt\jacoco-0.8.7\               <i>( 10 MB)</i>
 C:\opt\javafx-sdk-17.0.0.1\        <i>(115 MB)</i>
-C:\opt\jdk-openjdk-1.8.0_302-b08\  <i>(185 MB)</i>
-C:\opt\jdk-openjdk-11.0.12_7\      <i>(300 MB)</i>
-C:\opt\jdk-openjdk-17\             <i>(293 MB)</i>
+C:\opt\jdk-openjdk-1.8.0_312-b08\  <i>(185 MB)</i>
+C:\opt\jdk-openjdk-11.0.13_8\      <i>(300 MB)</i>
+C:\opt\jdk-openjdk-17_35\          <i>(299 MB)</i>
 C:\opt\make-3.81\                  <i>(  2 MB)</i>
 C:\opt\mill-0.9.9\                 <i>( 60 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
@@ -328,7 +329,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   javac 1.8.0_302, java 1.8.0_302, scalac 2.13.6, scalac 3.1.1-RC1,
+   javac 1.8.0_312, java 1.8.0_312, scalac 2.13.6, scalac 3.1.1-RC1,
    ant 1.10.11, gradle 7.2, mill 0.9.9, mvn 3.8.3, sbt 1.5.5,
    bazel 4.2.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.7,
    git 2.33.1.windows.1, diff 3.7, bash 4.4.23(1)-release
@@ -345,10 +346,10 @@ Other development tools such as [**`javac.exe`**][javac_cli] and [**`scalac.bat`
 INFO: Could not find files for the given pattern(s).
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> /r %JAVA_HOME% javac</b>
-c:\opt\jdk-openjdk-1.8.0_302-b08\bin\javac.exe
+c:\opt\jdk-openjdk-1.8.0_312-b08\bin\javac.exe
 &nbsp;
 <b>&gt; %JAVA_HOME%\bin\<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html">javac</a> -version</b>
-javac 1.8.0_302
+javac 1.8.0_312
 </pre>
 
 Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and defined variables:
@@ -356,13 +357,13 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   javac 11.0.12, java 11.0.12, scalac 2.13.6, scalac 3.1.1-RC1,
+   javac 11.0.13, java 11.0.13, scalac 2.13.6, scalac 3.1.1-RC1,
    ant 1.10.11, gradle 7.2, mill 0.9.9, mvn 3.8.3, sbt 1.5.5,
    bazel 4.2.0, cfr 0.151, make 3.81, python 3.9.7,
    git 2.33.1.windows.1, diff 3.7, bash 4.4.23(1)-release
 Tool paths:
-   C:\opt\jdk-openjdk-11.0.12_7\bin\javac.exe
-   C:\opt\jdk-openjdk-11.0.12_7\bin\java.exe
+   C:\opt\jdk-openjdk-11.0.13_8\bin\javac.exe
+   C:\opt\jdk-openjdk-11.0.13_8\bin\java.exe
    C:\opt\scala-2.13.6\bin\scalac.bat
    C:\opt\scala3-3.1.1-RC1\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
@@ -383,7 +384,7 @@ Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.11"
    "BAZEL_HOME=c:\opt\bazel-4.2.0"
    "GIT_HOME=C:\opt\Git-2.33.1"
-   "JAVA_HOME=C:\opt\jdk-openjdk-11.0.12_7"
+   "JAVA_HOME=C:\opt\jdk-openjdk-11.0.13_8"
    "JAVAFX_HOME=C:\opt\javafx-sdk-17"
    "MSVS_HOME=X:"
    "MSYS_HOME=C:\opt\msys64"
@@ -409,11 +410,11 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.1.1-RC1 c:\opt\jdk-openjdk-11.0.12_7</b>
+<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.1.1-RC1 c:\opt\jdk-openjdk-11.0.13_8</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
 Size of directory "c:\opt\scala3-3.1.1-RC1" is 31.4 Mb
-Size of directory "c:\opt\jdk-openjdk-11.0.12_7" is 184.2 Mb
+Size of directory "c:\opt\jdk-openjdk-11.0.13_8" is 184.2 Mb
 </pre>
 
 ### **`getnightly.bat`**
@@ -542,7 +543,7 @@ Searching for class name System in archive files C:\opt\scala-2.13.6\lib\*.jar
   [...]
   scala-library.jar:scala/sys/SystemProperties$.class
   scala-library.jar:scala/sys/SystemProperties.class
-Searching for class name System in archive files C:\opt\jdk-11.0.12_7\lib\*.jar
+Searching for class name System in archive files C:\opt\jdk-11.0.13_8\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   [...]
   jrt-fs.jar:jdk/internal/jrtfs/SystemImage$2.class
@@ -560,7 +561,7 @@ Searching for an unknown class name - e.g. **`BinarySearch`** - produces the fol
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> BinarySearch</b>
 Searching for class name BinarySearch in archive files C:\opt\scala3-3.1.1-RC1\lib\*.jar
 Searching for class name BinarySearch in archive files C:\opt\scala-2.13.6\lib\*.jar
-Searching for class name BinarySearch in archive files C:\opt\jdk-11.0.12_7\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\jdk-11.0.13_8\lib\*.jar
 </pre>
 
 Searching for **`FileSystem`** with option **`-artifact`** produces the following output:
@@ -569,7 +570,7 @@ Searching for **`FileSystem`** with option **`-artifact`** produces the followin
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> FileSystem -artifact</b>
 Searching for class name FileSystem in archive files C:\opt\scala3-3.1.1-RC1\lib\*.jar
 Searching for class name FileSystem in archive files C:\opt\scala-2.13.6\lib\*.jar
-Searching for class name FileSystem in archive files c:\opt\jdk-11.0.12_7\lib\*.jar
+Searching for class name FileSystem in archive files c:\opt\jdk-11.0.13_8\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystemProvider$1.class
@@ -714,7 +715,7 @@ The REPL has several commands available:
 :reset                   reset the repl to its initial state, forgetting all session entries
 
 <b>scala&gt;</b> System.getenv().get("JAVA_HOME")
-val res0: String = C:\opt\jdk-openjdk-11.0.12_7
+val res0: String = C:\opt\jdk-openjdk-11.0.13_8
 
 <b>scala&gt;</b> System.getenv().get("SCALA3_HOME")
 val res1: String = C:\opt\scala3-3.1.1-RC1
@@ -806,8 +807,8 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20210228.exe</a>                         <i>( 94 MB)</i>
 <a href="http://jdk.java.net/17/">openjdk-17_windows-x64_bin.zip</a>                    <i>(176 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-17_windows-x64_bin-sdk.zip</a>                <i>( 39 MB)</i>
-<a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u302b08.zip</a>    <i>( 99 MB)</i>
-<a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.12_7.zip</a>  <i>( 99 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.zip</a>    <i>( 99 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.zip</a>  <i>( 99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.33.1-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.5.5.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.6.zip</a>                                  <i>( 21 MB)</i>

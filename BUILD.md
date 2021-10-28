@@ -26,7 +26,7 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 
 - [Git 2.33][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
-- [sbt 1.5][sbt_releases] <sup id="anchor_03">[[3]](#footnote_03)</sup> (requires Java 8) ([*release notes*][sbt_relnotes])
+- [sbt 1.5][sbt_releases] (requires Java 8) ([*release notes*][sbt_relnotes])
 <!--
 8u212   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
 8u222   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
@@ -38,6 +38,8 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 11.0.9  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-October/004007.html
 11.0.10 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-January/004689.html
 11.0.11 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-April/005860.html
+11.0.12 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-July/006954.html
+11.0.13 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-October/009368.html
 -->
 Optionally one may also install the following software:
 
@@ -46,12 +48,12 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*September 2021*):
+For instance our development environment looks as follows (*October 2021*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.33.0\                 <i>(279 MB)</i>
-C:\opt\jdk-openjdk-1.8.0u302-b08\  <i>(186 MB)</i>
-C:\opt\jdk-openjdk-11.0.12_7\      <i>(314 MB)</i>
+C:\opt\Git-2.33.1\                 <i>(279 MB)</i>
+C:\opt\jdk-openjdk-1.8.0u312-b07\  <i>(186 MB)</i>
+C:\opt\jdk-openjdk-11.0.13_8\      <i>(314 MB)</i>
 C:\opt\jdk-openjdk-17-35\          <i>(293 MB)</i>
 C:\opt\sbt-1.5.5\                  <i>( 48 MB)</i>
 </pre>
@@ -60,7 +62,7 @@ C:\opt\sbt-1.5.5\                  <i>( 48 MB)</i>
 
 ## Directory structure
 
-The directory structure of the [Dotty repository][github_dotty] <sup id="anchor_04">[[4]](#footnote_04)</sup> is quite complex but fortunately we only have to deal with three subdirectories. Concretely our additions affect two groups of directories :
+The directory structure of the [Dotty repository][github_dotty] <sup id="anchor_03">[[3]](#footnote_03)</sup> is quite complex but fortunately we only have to deal with three subdirectories. Concretely our additions affect two groups of directories :
 
 1. In directories [**`dotty\bin\`**](https://github.com/michelou/dotty/tree/master/bin) and [**`dotty\project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts) we add the batch files to support our build process on a Windows machine.
 
@@ -249,9 +251,9 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
-   GIT_CMD=C:\opt\Git-2.33.0\bin\git.exe
-   JAVA_CMD=C:\opt\jdk-openjdk-11.0.12_7\bin\java.exe
-   SBT_CMD=C:\opt\sbt-1.5.5\bin\sbt.bat
+   "GIT_CMD=C:\opt\Git-2.33.1\bin\git.exe"
+   "JAVA_CMD=C:\opt\jdk-openjdk-11.0.13_8\bin\java.exe"
+   "SBT_CMD=C:\opt\sbt-1.5.5\bin\sbt.bat"
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
    SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -332,8 +334,8 @@ Command **`build.bat archives`** works as follows:  ***if*** execution of the **
 [...]
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b dist\target</b>
-scala3-3.1.0-RC1-bin-SNAPSHOT.tar.gz
-scala3-3.1.0-RC1-bin-SNAPSHOT.zip
+scala3-3.1.2-RC1-bin-SNAPSHOT.tar.gz
+scala3-3.1.2-RC1-bin-SNAPSHOT.zip
 </pre>
 
 ### **`build.bat documentation`**
@@ -344,7 +346,7 @@ Command **`build.bat documentation`** works as follows: ***if*** execution of th
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -timer doc-only</b>
 Working directory: W:\dotty
 [...]
-[info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 3.1.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
+[info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 3.1.2-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
 Compiling (1/406): AlternateConstructorsPhase.scala
 [...]
 Compiling (406/406): package.scala
@@ -457,9 +459,9 @@ Command [**`project\scripts\bootstrapCmdTests.bat`**](bin/dotty/project/scripts/
 [info] Updating dotty-bench...
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
-# JMH version: 1.31
-# VM version: JDK 11.0.12, VM 11.0.12+7
-# VM invoker: C:\opt\jdk-openjdk-11.0.12_7\bin\java.exe
+# JMH version: 1.33
+# VM version: JDK 11.0.13, VM 11.0.13+8
+# VM invoker: C:\opt\jdk-openjdk-11.0.13_8\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -487,9 +489,9 @@ Worker.compile  avgt       533.625          ms/op
 [info] Updating dotty-bench-bootstrapped...
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
-# JMH version: 1.31
-# VM version: JDK 11.0.12, VM 11.0.12+7
-# VM invoker: C:\opt\jdk-openjdk-11.0.12_7\bin\java.exe
+# JMH version: 1.33
+# VM version: JDK 11.0.13, VM 11.0.13+8
+# VM invoker: C:\opt\jdk-openjdk-11.0.13_8\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -515,9 +517,9 @@ Worker.compile  avgt       361.619          ms/op
 [success] Total time: 21 s, completed 3 déc. 2018 09:44:42
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
-# JMH version: 1.31
-# VM version: JDK 11.0.12, VM 11.0.12+7
-# VM invoker: C:\opt\jdk-openjdk-11.0.12_7\bin\java.exe
+# JMH version: 1.33
+# VM version: JDK 11.0.13, VM 11.0.13+8
+# VM invoker: C:\opt\jdk-openjdk-11.0.13_8\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -594,7 +596,7 @@ total warnings with regards to compilation and documentation: 29
 Steps are: Checkout <b>&rarr;</b> Compile <b>&rarr;</b> Test <b>&rarr;</b> Deploy.
 </p>
 <table style="margin:0 0 1em 20px;">
-<tr><th>Software</th<th>CI/CD&nbsp;service</th<th>Hosting</th></tr>
+<tr><th>Software</th><th>CI/CD&nbsp;service</th><th>Hosting</th></tr>
 <tr><td><a href="https://dotty-ci.epfl.ch/lampepfl/dotty">Scala 3 (Dotty)</a></td><td><a href="https://docs.github.com/en/free-pro-team@latest/actions">Actions</a> <sup><b>(1)</b></sup></td><td><a href="https://github.com/lampepfl/dotty/actions">EPFL</a> in Lausanne, Switzerland</td></tr>
 <tr><td><a href="https://www.scala-lang.org/">Scala 2</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup><b>(2)</b></sup><br/><a href="https://docs.travis-ci.com/user/tutorial/">Travis CI</a> <sup><b>(3)</b></sup></td><td><a href="https://scala-ci.typesafe.com/">Lightbend</a> in San-Francisco, USA<br/><a href="https://travis-ci.org/scala/scala">Travis</a> in Berlin, Germany</td></tr>
 <tr><td><a href="https://ci.adoptopenjdk.net/">Oracle&nbsp;OpenJDK</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup><b>(2)</b></sup></td><td>Oracle</td></tr>
@@ -610,17 +612,7 @@ Steps are: Checkout <b>&rarr;</b> Compile <b>&rarr;</b> Test <b>&rarr;</b> Deplo
 Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html" rel="external">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current LTS release.<br/>(see also <a href="https://www.slideshare.net/HendrikEbbers/java-11-omg">Java 11 keynote</a> from <a href="https://www.jvm-con.de/speakers/#/speaker/3461-hendrik-ebbers">Hendrik Ebbers</a> at <a href="https://www.jvm-con.de/ruckblick/" rel="external">JVM-Con 2018</a>).
 </p>
 
-<span name="footnote_03">[3]</span> ***Sbt issue on Windows*** [↩](#anchor_03)
-
-<p style="margin:0 0 1em 20px;">
-<a href="https://www.scala-sbt.org/download.html"><b><code>sbt</code></b></a> versions 1.3.6 and 1.3.7 are broken on Microsoft Windows (see <a href="https://github.com/sbt/io/pull/283">pull 283</a> in project <a href="https://github.com/sbt/io"><code>sbt/io</code></a>).<br/>Make sure you defined a more recent <a href="https://www.scala-sbt.org/download.html"><code>sbt</code></a> version in project file <code>build.properties</code>:
-</p>
-<pre style="margin:0 0 1em 20px;font-size:80%;">
-<b>&gt; <a href="https://man7.org/linux/man-pages/man1/cat.1.html">cat</a> project\build.properties</b>
-sbt.version=1.5.5
-</pre>
-
-<span name="footnote_04">[4]</span> ***Git master repository*** [↩](#anchor_04)
+<span name="footnote_03">[3]</span> ***Git master repository*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
 Nowadays we have experienced two times the error <code>Server does not allow request for unadvertised object..</code> when synchronizing our fork with the <a href="https://github.com/lampepfl/dotty"><code>lampepfl/dotty</code></a> repository:
@@ -653,7 +645,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.33.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.33.1.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/

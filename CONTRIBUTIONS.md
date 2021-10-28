@@ -15,6 +15,7 @@
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Status | Context |
 | :------------------------: | :--------: | :--------- |
+| [#13806][dotty_pull_13806] | [merged](https://github.com/lampepfl/dotty/commit/608344a) <span style="font-size:80%;">(Oct 2021)</span> | Batch files |
 | [#13791][dotty_pull_13791] | *pending* <span style="font-size:80%;">(Oct 2021)</span> | Test suite |
 | [#13790][dotty_pull_13790] | [merged](https://github.com/lampepfl/dotty/commit/78824ad) <span style="font-size:80%;">(Oct 2021)</span> | Batch files |
 | [#13577][dotty_pull_13577] | [merged](https://github.com/lampepfl/dotty/commit/2b3f6da) <span style="font-size:80%;">(Sep 2021)</span> | Batch files |
@@ -163,4 +164,5 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_pull_13577]: https://github.com/lampepfl/dotty/pull/13577
 [dotty_pull_13790]: https://github.com/lampepfl/dotty/pull/13790
 [dotty_pull_13791]: https://github.com/lampepfl/dotty/pull/13791
+[dotty_pull_13806]: https://github.com/lampepfl/dotty/pull/13806
 [scala_pull_9013]: https://github.com/scala/scala/pull/9013 "Close Source.fromFile"
