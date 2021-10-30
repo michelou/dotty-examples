@@ -19,7 +19,7 @@ set _LIBS_CPATH=
 
 set __SCALA_BINARY_VERSION=2.13
 
-set __SCALAMETA_VERSION=4.4.28
+set __SCALAMETA_VERSION=4.4.29
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
 call :add_jar "org.scala-lang" "scala-reflect" "2.13.6"
