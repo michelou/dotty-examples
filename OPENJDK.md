@@ -135,15 +135,15 @@ And we get the following build times for Java 11 and Java 8 look on a *slower* W
 
 Build errors encountered on MS Windows on July 31, 2021, are :
 
-| Failing&nbsp;tests<br/>&nbsp;&nbsp;&nbsp;JVM 8 | [`ClasspathTests`](https://github.com/lampepfl/dotty/blob/master/compiler/test/dotty/tools/scripting/ClasspathTests.scala) | [`CompilationTests`](https://github.com/lampepfl/dotty/blob/master/compiler/test/dotty/tools/dotc/CompilationTests.scala) | [`FromTastyTests`](https://github.com/lampepfl/dotty/blob/master/compiler/test/dotty/tools/dotc/FromTastyTests.scala) | `ZipArchiveTests` |
+| Failing&nbsp;tests<br/>&nbsp;&nbsp;&nbsp;JVM 8 | [`ClasspathTests`](https://github.com/lampepfl/dotty/blob/master/compiler/test/dotty/tools/scripting/ClasspathTests.scala) | [`CompilationTests`](https://github.com/lampepfl/dotty/blob/master/compiler/test/dotty/tools/dotc/CompilationTests.scala) | [`FromTastyTests`](https://github.com/lampepfl/dotty/blob/master/compiler/test/dotty/tools/dotc/FromTastyTests.scala) | [`ZipArchiveTests`](https://github.com/lampepfl/dotty/blob/master/compiler/test/dotty/tools/io/ZipArchiveTest.scala) |
 |:-----------------------|:----------------:|:----------------:|:----------------:|:----------------:|
-| <a href="https://bell-sw.com/pages/downloads/#/java-8-lts">bellsoft-8</a>   | Failed | OK | Failed | OK |
-| <a href="https://github.com/corretto/corretto-8/releases">corretto-8</a>    | Failed | OK | Failed | OK |
-| <a href="https://github.com/alibaba/dragonwell8/releases">dragonwell-8</a>  | Failed | OK | Failed | OK |
-| <a href="https://adoptopenjdk.net/releases.html?variant=openjdk8&jvmVariant=openj9">openj9-8</a> | Failed | Failed | Failed | Failed |
-| <a href="https://adoptopenjdk.net/releases.html?variant=openjdk8&jvmVariant=hotspot">openjdk-8</a> | Failed | OK | Failed | OK |
-| <a href="https://developers.redhat.com/products/openjdk/download">redhat-8</a>      | Failed      | OK | Failed | OK |
-| <a href="https://www.azul.com/downloads/?version=java-8-lts&package=jdk">zulu-8</a> | Failed      | OK | Failed | OK |
+| <a href="https://bell-sw.com/pages/downloads/#/java-8-lts">bellsoft-08</a>   | Failed | OK | Failed | OK |
+| <a href="https://github.com/corretto/corretto-8/releases">corretto-08</a>    | Failed | OK | Failed | OK |
+| <a href="https://github.com/alibaba/dragonwell8/releases">dragonwell-08</a>  | Failed | OK | Failed | OK |
+| <a href="https://adoptopenjdk.net/releases.html?variant=openjdk8&jvmVariant=openj9">openj9-08</a> | Failed | Failed | Failed | Failed |
+| <a href="https://adoptopenjdk.net/releases.html?variant=openjdk8&jvmVariant=hotspot">openjdk-08</a> | Failed | OK | Failed | OK |
+| <a href="https://developers.redhat.com/products/openjdk/download">redhat-08</a>      | Failed      | OK | Failed | OK |
+| <a href="https://www.azul.com/downloads/?version=java-8-lts&package=jdk">zulu-08</a> | Failed      | OK | Failed | OK |
 
 | Failing&nbsp;tests<br/>&nbsp;&nbsp;&nbsp;JVM 11 | [`ClasspathTests`](https://github.com/lampepfl/dotty/blob/master/compiler/test/dotty/tools/scripting/ClasspathTests.scala) | [`FromTastyTests`](https://github.com/lampepfl/dotty/blob/master/compiler/test/dotty/tools/dotc/FromTastyTests.scala) |
 |:-----------------------|:----------------:|:----------------:|
@@ -151,6 +151,7 @@ Build errors encountered on MS Windows on July 31, 2021, are :
 | <a href="https://libericajdk.ru/pages/downloads/native-image-kit/">bellsoft-nik-11</a> | Failed      | Failed        |
 | <a href="https://github.com/corretto/corretto-11/releases">corretto-11</a>    | Failed | Failed        | 
 | <a href="https://github.com/alibaba/dragonwell11/releases">dragonwell-11</a>  | Failed | Failed        |
+| <a href="https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-11">microsoft-11</a>  | Failed | Failed        |
 | <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=openj9">openj9-11</a> | Failed      | Failed        | 
 | <a href="https://adoptopenjdk.net/releases.html?variant=openjdk11&jvmVariant=hotspot">openjdk-11</a> | Failed      | Failed        | 
 | <a href="https://developers.redhat.com/products/openjdk/download">redhat-11</a>      | Failed      | Failed        | 
@@ -160,6 +161,7 @@ Build errors encountered on MS Windows on July 31, 2021, are :
 | Failing&nbsp;tests<br/>&nbsp;&nbsp;&nbsp;JVM 17 | `ClasspathTests` | [`FromTastyTests`](https://github.com/lampepfl/dotty/blob/master/compiler/test/dotty/tools/dotc/FromTastyTests.scala) |
 |:-----------------------|:----------------:|:----------------:|
 | <a href="https://bell-sw.com/pages/downloads/#/java-17-lts">bellsoft-17</a> | Failed       | Failed    |
+| <a href="https://libericajdk.ru/pages/downloads/native-image-kit/">bellsoft-nik-17</a> | Failed       | Failed    |
 | <a href="https://docs.microsoft.com/en-us/java/openjdk/download#openjdk-17">microsoft-17</a> | Failed       | Failed     |
 | <a href="https://jdk.java.net/17/">openjdk-17</a>  | Failed       | Failed     |
 | <a href="https://github.com/SAP/SapMachine/releases">sapmachine-17</a> | Failed        | Failed     |
