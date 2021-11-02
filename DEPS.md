@@ -11,7 +11,7 @@
   </tr>
 </table>
 
-### <span id="intro">Introduction</span>
+## <span id="intro">Introduction</span>
 
 The Scala 3 and Scala 2 software distributions differ in several ways regarding their dependencies on external libraries. Here we enumerate a few differences :
 - Scala 3 depends on *many more* external libraries, introduced mainly with the new development of [`scaladoc`](https://docs.scala-lang.org/scala3/scaladoc.html).
@@ -24,12 +24,13 @@ The Scala 3 and Scala 2 software distributions differ in several ways regarding 
 > |:----------|:-----------:|:------------:|
 > |  [3.1.0](https://github.com/lampepfl/dotty/releases/tag/3.1.0) |   33.1 MB   |   35.0 MB    |
 > |  [3.0.2](https://github.com/lampepfl/dotty/releases/tag/3.0.2) |   31.1 MB   |   33.0 MB    |
+> |  [2.13.7](https://www.scala-lang.org/download/2.13.7.html)     |   22.6 MB   |   24.1 MB    |
 > |  [2.13.6](https://www.scala-lang.org/download/2.13.6.html)     |   22.3 MB   |   23.8 MB    |
 > |  [2.12.15](https://www.scala-lang.org/download/2.12.15.html)   |   20.1 MB   |   21.5 MB    |
 
 In the next sections we give more details on those dependencies for the three Scala distributions currently available, namely [3.x](#scala3_releases), [2.13](#scala213_releases) and [2.12](#scala212_releases).
 
-### <span id="scala3_releases">Dependencies in Scala 3 Releases</span>
+## <span id="scala3_releases">Dependencies in Scala 3 Releases</span>
 
 The Scala 3 distributions depend on *many* external libraries.
 
@@ -76,7 +77,7 @@ The Scala 3 distributions depend on *many* external libraries.
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark"><code>flexmark-*</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark/0.62.2"><b>0.62.2</b></a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark/0.62.2"><b>0.62.2</b></a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2020)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark/0.42.12">0.42.12</a><br/><span style="color:gray;">(2019)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark/0.42.12">0.42.12</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark/0.42.12">0.42.12</a></td>
@@ -96,7 +97,7 @@ The Scala 3 distributions depend on *many* external libraries.
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core"><code>jackson-core</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.13.0"><b>2.13.0</b></a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.13.0"><b>2.13.0</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.9.8">2.9.8</a><br/><span style="color:gray;">(2018)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.9.8">2.9.8</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.9.8">2.9.8</a></td>
@@ -146,8 +147,8 @@ The Scala 3 distributions depend on *many* external libraries.
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jsoup/jsoup"><code>jsoup</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jsoup/jsoup/1.14.3"><b>1.14.3</b></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jsoup/jsoup/1.13.1">1.13.1</a><br/><span style="color:gray;">(2020)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jsoup/jsoup/1.14.3"><b>1.14.3</b></a><br/><span style="color:gray;">(Sep&nbsp;2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jsoup/jsoup/1.13.1">1.13.1</a><br/><span style="color:gray;">(Mar&nbsp;2020)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jsoup/jsoup/1.13.1">1.13.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jsoup/jsoup/1.13.1">1.13.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jsoup/jsoup/1.13.1">1.13.1</a></td>
@@ -216,7 +217,7 @@ The Scala 3 distributions depend on *many* external libraries.
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface"><code>util-interface</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.6.0-M1"><b>1.6.0</b></a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.6.0-M1"><b>1.6.0</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.3.0">1.3.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.3.0">1.3.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.3.0">1.3.0</a></td>
@@ -226,7 +227,7 @@ The Scala 3 distributions depend on *many* external libraries.
 </tr>
 </table>
 
-### <span id="scala213_releases">Dependencies in Scala 2.13 Releases</span>
+## <span id="scala213_releases">Dependencies in Scala 2.13 Releases</span>
 
 The following table presents the library dependencies of the Scala 2.13 distributions.
 
@@ -238,7 +239,8 @@ The following table presents the library dependencies of the Scala 2.13 distribu
   <th style="padding:4px;"><a href="https://www.scala-lang.org/download/2.13.4.html">2.13.4</a><br/><span style="color:gray;">final</span></th>
   <th style="padding:4px;"><a href="https://www.scala-lang.org/download/2.13.5.html">2.13.5</a><br/><span style="color:gray;">final</span></th>
   <th style="padding:4px;"><a href="https://www.scala-lang.org/download/2.13.6.html">2.13.6</a><br/><span style="color:gray;">final</span></th>
-  <th style="padding:4px;">2.13.7<br/><span style="color:red;">DEV</span></th>
+  <th style="padding:4px;"><a href="https://www.scala-lang.org/download/2.13.7.html">2.13.7</a><br/><span style="color:gray;">final</span></th>
+  <th style="padding:4px;">2.13.8<br/><span style="color:red;">DEV</span></th>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr"><code>jline</code></a></td>
@@ -247,6 +249,7 @@ The following table presents the library dependencies of the Scala 2.13 distribu
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.16.0">3.16.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.19.0">3.19.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.19.0">3.19.0</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.20.0">3.20.0</a></td>
   <td style="padding:4px;"><i>-</i></td>
 </tr>
 <tr>
@@ -256,6 +259,7 @@ The following table presents the library dependencies of the Scala 2.13 distribu
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna/5.3.1">5.3.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna/5.3.1">5.3.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna/5.3.1">5.3.1</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna/5.8.0">5.8.0</a></td>
   <td style="padding:4px;">-</td>
 </tr>
 <tr>
@@ -265,11 +269,12 @@ The following table presents the library dependencies of the Scala 2.13 distribu
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/7.3.1-scala-1">7.3.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.1.0-scala-1">9.1.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.1.0-scala-1">9.1.0</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.2.0-scala-1">9.2.0</a></td>
   <td style="padding:4px;">-</td>
 </tr>
 </table>
 
-### <span id="scala212_releases">Dependencies in Scala 2.12 Releases</span>
+## <span id="scala212_releases">Dependencies in Scala 2.12 Releases</span>
 
 The following table presents the library dependencies of the Scala 2.12 distributions.
 
@@ -285,7 +290,7 @@ The following table presents the library dependencies of the Scala 2.12 distribu
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/jline/jline"><code>jline</code></a><br/><i>(version 2)</i></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/jline/jline/2.14.6"><b>2.14.6</b></a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/jline/jline/2.14.6"><b>2.14.6</b></a><br/><span style="color:gray;font-size:80%;">(Nov&nbsp;2007)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/jline/jline/2.14.6">2.14.6</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/jline/jline/2.14.6">2.14.6</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/jline/jline/2.14.6">2.14.6</a></td>
@@ -303,7 +308,7 @@ The following table presents the library dependencies of the Scala 2.12 distribu
 </tr>
 </table>
 
-### <span id="footnotes">Footnotes</span>
+## <span id="footnotes">Footnotes</span>
 
 <span name="footnote_01">[1]</span> **`scala-asm` *Library*** [↩](#anchor_01)
 
@@ -315,7 +320,7 @@ Scala 3 and Scala 2 software distributions are packaged differently regarding th
 <li>In Scala 3 <a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm"><code>scala-asm</code></a> is a separate archive file.
 </ul>
 <p style="margin:0 0 1em 20px;">
-We wrote the batch file <a href="bin/getasm.bat"><code>getasm.bat</code></a> (~200 lines) to extract the ASM version from the Scala 2 and Scala 3 distributions (using file <code>scala-asm.properties</code>). Here is a sample output :
+We wrote the batch file <a href="bin/getasm.bat"><b><code>getasm.bat</code></b></a> (~200 lines) to extract the ASM version from the Scala 2 and Scala 3 distributions (using file <b><code>scala-asm.properties</code></b>). Here is a sample output :
 </p>
 
 <pre style="margin:0 0 1em 20px; font-size:80%;">
@@ -327,6 +332,7 @@ Found ASM version "9.2.0-scala-1" in Scala 2 installation is "C:\opt\scala-2.12.
 Found ASM version "7.3.1-scala-1" in Scala 2 installation is "C:\opt\scala-2.13.4"
 Found ASM version "9.1.0-scala-1" in Scala 2 installation is "C:\opt\scala-2.13.5"
 Found ASM version "9.1.0-scala-1" in Scala 2 installation is "C:\opt\scala-2.13.6"
+Found ASM version "9.2.0-scala-1" in Scala 2 installation is "C:\opt\scala-2.13.7"
 Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.0.0"
 Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.0.2"
 Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.1.0"
@@ -438,7 +444,7 @@ Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.1.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

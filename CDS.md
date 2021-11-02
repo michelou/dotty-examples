@@ -703,7 +703,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

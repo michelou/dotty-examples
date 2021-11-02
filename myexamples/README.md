@@ -431,8 +431,8 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 Finally can check the Java manifest in **`HelloWorld-1.0-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.0.1-RC2\lib\dotty-library_3-3.0.1-RC2.jar;^
-c:\opt\scala3-3.0.1-RC2\lib\scala-library-2.13.6.jar ^
+<b>&gt;</b> <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.1.1-RC1\lib\dotty-library_3-3.0.1-RC2.jar;^
+c:\opt\scala3-3.1.1-RC1\lib\scala-library-2.13.6.jar ^
 -jar target\HelloWorld-1.0-SNAPSHOT.jar
 Hello world!
 </pre>
@@ -608,7 +608,7 @@ following parameters are passed as login shell command parameters.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -633,7 +633,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -665,11 +665,11 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [man1_wc]: https://www.linux.org/docs/man1/wc.html
 [microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
 [nodes_examples]: https://github.com/michelou/nodejs-examples
-[openjdk_releases]: https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
+[openjdk_releases]: https://adoptium.net/releases.html
 <!-- 8u232 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html -->
 <!-- 8u242 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html -->
 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
-[oracle_openjdk17]: http://jdk.java.net/17/
+[oracle_openjdk17]: https://adoptium.net/releases.html
 [oracle_openjdk17_relnotes]: https://github.com/openjdk/jdk/compare/jdk-17%2B20...jdk-17%2B21
 [rust_examples]: https://github.com/michelou/rust-examples
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
