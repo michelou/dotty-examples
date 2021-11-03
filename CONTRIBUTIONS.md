@@ -16,7 +16,7 @@
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Status | Context |
 | :------------------------: | :--------: | :--------- |
 | [#13806][dotty_pull_13806] | [merged](https://github.com/lampepfl/dotty/commit/608344a) <span style="font-size:80%;">(Oct 2021)</span> | Batch files |
-| [#13791][dotty_pull_13791] | *pending* <span style="font-size:80%;">(Oct 2021)</span> | Test suite |
+| [#13791][dotty_pull_13791] | [merged](https://github.com/lampepfl/dotty/commit/8ee672c) <span style="font-size:80%;">(Nov 2021)</span> | Test suite |
 | [#13790][dotty_pull_13790] | [merged](https://github.com/lampepfl/dotty/commit/78824ad) <span style="font-size:80%;">(Oct 2021)</span> | Batch files |
 | [#13577][dotty_pull_13577] | [merged](https://github.com/lampepfl/dotty/commit/2b3f6da) <span style="font-size:80%;">(Sep 2021)</span> | Batch files |
 | [#13006][dotty_pull_13006] | [merged](https://github.com/lampepfl/dotty/commit/158b332) <span style="font-size:80%;">(July 2021)</span> | Batch files |
@@ -34,9 +34,9 @@
 | [#10767][dotty_pull_10767] | [merged](https://github.com/lampepfl/dotty/commit/3a7a6ae) <span style="font-size:80%;">(Dec 2020)</span> | Reference documentation |
 | [#10448][dotty_pull_10448] | [merged](https://github.com/lampepfl/dotty/commit/51db1b5) <span style="font-size:80%;">(Nov 2020)</span> | Test suite |
 | [#10304][dotty_pull_10304] | [merged](https://github.com/lampepfl/dotty/commit/9531534) <span style="font-size:80%;">(Mar 2021)</span> | Compiler options |
-| [#8356][dotty_pull_8356] | [merged](https://github.com/lampepfl/dotty/commit/f51bf1b701a17851224472849c131ce6de38e2a7) <span style="font-size:80%;">(Feb 2020)</span> | Test suite |
-| [#8330][dotty_pull_8330] | [merged](https://github.com/lampepfl/dotty/commit/5018a1285cf3d8c0f3a17f98f015589154b0fbbd) <span style="font-size:80%;">(Feb 2020)</span> | Test suite |
-| [#8279][dotty_pull_8279] | [merged](https://github.com/lampepfl/dotty/commit/a5f1dae68202ba67ef99c39f243970ebd3530a65) <span style="font-size:80%;">(Feb.2020)</span> | Compiler options |
+| [#8356][dotty_pull_8356] | [merged](https://github.com/lampepfl/dotty/commit/f51bf1b701a17851224472849c131ce6de38e2a7) <span style="font-size:80%;">(Feb&nbsp;2020)</span> | Test suite |
+| [#8330][dotty_pull_8330] | [merged](https://github.com/lampepfl/dotty/commit/5018a1285cf3d8c0f3a17f98f015589154b0fbbd) <span style="font-size:80%;">(Feb&nbsp;2020)</span> | Test suite |
+| [#8279][dotty_pull_8279] | [merged](https://github.com/lampepfl/dotty/commit/a5f1dae68202ba67ef99c39f243970ebd3530a65) <span style="font-size:80%;">(Feb&nbsp;2020)</span> | Compiler options |
 | [#6653][dotty_pull_6653] | [merged](https://github.com/lampepfl/dotty/commit/fe02bf4fdc14f648b5f42731e39448995963256c) <span style="font-size:80%;">(Jun 2019)</span> | Batch files |
 | [#5814](https://github.com/lampepfl/dotty/pull/5814) | [merged](https://github.com/lampepfl/dotty/commit/923fb06dc625e054e8b1833d4b7db49d369d91ad) <span style="font-size:80%;">(Jan 2019)</span> | **`build compile`** |
 | [#5659](https://github.com/lampepfl/dotty/pull/5659) | [merged](https://github.com/lampepfl/dotty/commit/7b9ffbb56b2bd33efead1c0f38a71c057c31463e) <span style="font-size:80%;">(Dec 2018)</span> | **`build bootstrap`** |
@@ -44,8 +44,8 @@
 | [#5561](https://github.com/lampepfl/dotty/pull/5561) | [merged](https://github.com/lampepfl/dotty/commit/24a2798f51e1cc01d476b9c00ac0e4b925acc8e5) <span style="font-size:80%;">(Dec 2018)</span> | **`build bootstrap`** |
 | [#5487](https://github.com/lampepfl/dotty/pull/5487) | [merged](https://github.com/lampepfl/dotty/commit/052c3b1) <span style="font-size:80%;">(Nov 2018)</span> | **`build bootstrap`** |
 | [#5457](https://github.com/lampepfl/dotty/pull/5457) | [merged](https://github.com/lampepfl/dotty/commit/eb175cb) <span style="font-size:80%;">(Nov 2018)</span> | **`build compile`** |
-| [#5452](https://github.com/lampepfl/dotty/pull/5452) | [merged](https://github.com/lampepfl/dotty/commit/7e093b15ff2a927212c7f40aa36b71d0a28f81b5) <span style="font-size:80%;">(Nov 2018)</span> | Code review |
-| [#5444](https://github.com/lampepfl/dotty/pull/5444) | [closed](https://github.com/lampepfl/dotty/pull/5444#issuecomment-567178490) | Batch files <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> |
+| [#5452](https://github.com/lampepfl/dotty/pull/5452) | [merged](https://github.com/lampepfl/dotty/commit/7e093b15ff2a927212c7f40aa36b71d0a28f81b5) <span style="font-size:80%;">(Nov&nbsp;2018)</span> | Code review |
+| [#5444](https://github.com/lampepfl/dotty/pull/5444) | [closed](https://github.com/lampepfl/dotty/pull/5444#issuecomment-567178490) <span style="font-size:80%;">(Dec 2019)</span> | Batch files <sup id="anchor_01"><a href="#footnote_01">1</a></sup> |
 | [#5430](https://github.com/lampepfl/dotty/pull/5430) | [merged](https://github.com/lampepfl/dotty/commit/81b30383800495c64f2c8cfd0979e69e504104bc) <span style="font-size:80%;">(Nov 2018)</span> | **`build documentation`** |
 
 > **&#9755;** Related pull requests from other contributors include:<br/>
@@ -70,8 +70,8 @@ We have come across several issues <sup id="anchor_02"><a href="#footnote_02">[2
 | [#11454][dotty_issue_11454] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
 | [#11453][dotty_issue_11453] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
 | [#11452][dotty_issue_11452] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
-| [#11014][dotty_issue_11014] | [fixed][dotty_pull_11833] <span style="font-size:80%;">(Mar 2021)</span> | Markdown files |
-| [#8358][dotty_issue_8358] | [fixed][scala_pull_9013] <span style="font-size:80%;">(May 2020)</span> | Resource leak |
+| [#11014][dotty_issue_11014] | [fixed][dotty_pull_11833] <span style="font-size:80%;">(Mar&nbsp;2021)</span> | Markdown files |
+| [#8358][dotty_issue_8358] | [fixed][scala_pull_9013] <span style="font-size:80%;">(May&nbsp;2020)</span> | Resource leak |
 | [#8355][dotty_issue_8355] | [fixed][dotty_pull_8356] <span style="font-size:80%;">(Feb 2020)</span> | Test suite |
 | [#8218][dotty_issue_8218] | [fixed][dotty_pull_8224] <span style="font-size:80%;">(Feb 2020)</span> | TASTy inspector |
 | [#8124][dotty_issue_8124] | [fixed][dotty_pull_8279] <span style="font-size:80%;">(Feb 2020)</span> | Compiler settings |
@@ -91,7 +91,7 @@ We have come across several issues <sup id="anchor_02"><a href="#footnote_02">[2
 </p>
 <ul>
   <li>Batch files to run the <code>scala</code>, <code>scalac</code> and <code>scaladoc</code> commands from the Windows prompt.</li>
-  <li>Batch files to build the Scala 3 distribution archives (more details in file <a href="BUILD.md"><code>BUILD.md</code></a>).</li>
+  <li>Batch files to build the Scala 3 distribution archives (more details in file <a href="BUILD.md"><b><code>BUILD.md</code></b></a>).</li>
 </ul>
 <p style="margin:0 0 1em 20px;">
 <a href="https://github.com/lampepfl/dotty/pull/13006">PR #13006</a> (<i>merged</i> in July 2021) includes the first set of batch files.
