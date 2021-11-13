@@ -446,7 +446,7 @@ set _SCALA_HOME=
 set __SCALAC_CMD=
 for /f %%f in ('where scalac.bat 2^>NUL') do (
     set __VERSION=
-    for /f "tokens=1,2,3,4,*" %%i in ('scalac.bat -version') do set "__VERSION=%%l"
+    for /f "tokens=1,2,3,4,*" %%i in ('scalac.bat -version 2^>^&1') do set "__VERSION=%%l"
     if defined __VERSION if "!__VERSION:~0,1!"=="2" set "__SCALAC_CMD=%%f"
 )
 if defined __SCALAC_CMD (
@@ -488,7 +488,7 @@ set _SCALA3_HOME=
 set __SCALAC_CMD=
 for /f %%f in ('where scalac.bat 2^>NUL') do (
     set __VERSION=
-    for /f "tokens=1,2,3,4,*" %%i in ('scalac.bat -version') do set "__VERSION=%%l"
+    for /f "tokens=1,2,3,4,*" %%i in ('scalac.bat -version 2^>^&1') do set "__VERSION=%%l"
     if defined __VERSION if "!__VERSION:~0,1!"=="3" set "__SCALAC_CMD=%%f"
 )
 if defined __SCALAC_CMD (
