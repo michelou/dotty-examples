@@ -444,7 +444,7 @@ Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.1.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

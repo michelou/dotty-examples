@@ -24,7 +24,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 
 Our [Dotty fork][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.33][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.34][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
 - [sbt 1.5][sbt_releases] (requires Java 8) ([*release notes*][sbt_relnotes])
 <!--
@@ -51,7 +51,7 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*October 2021*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.33.1\                 <i>(279 MB)</i>
+C:\opt\Git-2.34.1\                 <i>(279 MB)</i>
 C:\opt\jdk-openjdk-1.8.0u312-b07\  <i>(186 MB)</i>
 C:\opt\jdk-openjdk-11.0.13_8\      <i>(314 MB)</i>
 C:\opt\jdk-openjdk-17-35\          <i>(293 MB)</i>
@@ -251,7 +251,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
-   "GIT_CMD=C:\opt\Git-2.33.1\bin\git.exe"
+   "GIT_CMD=C:\opt\Git-2.34.1\bin\git.exe"
    "JAVA_CMD=C:\opt\jdk-openjdk-11.0.13_8\bin\java.exe"
    "SBT_CMD=C:\opt\sbt-1.5.5\bin\sbt.bat"
 Tool options
@@ -590,7 +590,7 @@ total warnings with regards to compilation and documentation: 29
 
 ## <span id="footnotes">Footnotes</span>
 
-<span name="footnote_01">[1]</span> ***Continuous Integration/Delivery*** (CI/CD) [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Continuous Integration/Delivery*** (CI/CD) [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 Steps are: Checkout <b>&rarr;</b> Compile <b>&rarr;</b> Test <b>&rarr;</b> Deploy.
@@ -606,13 +606,13 @@ Steps are: Checkout <b>&rarr;</b> Compile <b>&rarr;</b> Test <b>&rarr;</b> Deplo
 <sub><sup><b>(1)</b></sup> Self-hosted <a href="https://github.com/actions/runner">Github runners</a>, <sup><b>(2)</b></sup> Written in <a href="https://www.oracle.com/technetwork/java/index.html">Java</a>, <sup><b>(3)</b></sup> Written in <a href="https://www.ruby-lang.org/en/">Ruby</a>.</sub>
 </div>
 
-<span name="footnote_02">[2]</span> ***Java LTS*** (2018-11-18) [↩](#anchor_02)
+<span id="footnote_02">[2]</span> ***Java LTS*** (2018-11-18) [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html" rel="external">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current LTS release.<br/>(see also <a href="https://www.slideshare.net/HendrikEbbers/java-11-omg">Java 11 keynote</a> from <a href="https://www.jvm-con.de/speakers/#/speaker/3461-hendrik-ebbers">Hendrik Ebbers</a> at <a href="https://www.jvm-con.de/ruckblick/" rel="external">JVM-Con 2018</a>).
 </p>
 
-<span name="footnote_03">[3]</span> ***Git master repository*** [↩](#anchor_03)
+<span id="footnote_03">[3]</span> ***Git master repository*** [↩](#anchor_03)
 
 <p style="margin:0 0 1em 20px;">
 Nowadays we have experienced two times the error <code>Server does not allow request for unadvertised object..</code> when synchronizing our fork with the <a href="https://github.com/lampepfl/dotty"><code>lampepfl/dotty</code></a> repository:
@@ -633,7 +633,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -645,7 +645,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.33.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.34.1.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/

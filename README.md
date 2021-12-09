@@ -25,7 +25,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.33][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.34][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 8 LTS][oracle_openjdk8] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk8_relnotes])
 - [Oracle OpenJDK 11 LTS][oracle_openjdk11] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk11_relnotes])
 - [Oracle OpenJDK 17 LTS][oracle_openjdk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk17_relnotes])
@@ -60,7 +60,7 @@ Optionally one may also install the following software:
 - [Bazel 4.2][bazel_releases] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
 - [GNU Make 3.81][make_downloads]
-- [Gradle 7.2][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Gradle 7.3][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [JaCoCo 0.8][jacoco_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*change log*][jacoco_changelog])
 - [JavaFX 17][javafx_downloads] ([*release notes*][javafx_relnotes])
 - [JITWatch 1.4][jitwatch_releases] (requires Java 11 or newer)
@@ -76,22 +76,22 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*November 2021*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*December 2021*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant-1.10.12\         <i>( 40 MB)</i>
-C:\opt\apache-maven-3.8.3\         <i>( 10 MB)</i>
-C:\opt\bazel-4.2.0\                <i>( 41 MB)</i>
+C:\opt\apache-maven-3.8.4\         <i>( 10 MB)</i>
+C:\opt\bazel-4.2.2\                <i>( 41 MB)</i>
 C:\opt\cfr-0.151\                  <i>(  2 MB)</i>
-C:\opt\Git-2.33.1\                 <i>(279 MB)</i>
-C:\opt\gradle-7.2\                 <i>(121 MB)</i>
+C:\opt\Git-2.34.1\                 <i>(279 MB)</i>
+C:\opt\gradle-7.3.1\               <i>(122 MB)</i>
 C:\opt\jacoco-0.8.7\               <i>( 10 MB)</i>
-C:\opt\javafx-sdk-17.0.0.1\        <i>(115 MB)</i>
+C:\opt\javafx-sdk-17.0.1\          <i>(115 MB)</i>
 C:\opt\jdk-openjdk-1.8.0_312-b08\  <i>(185 MB)</i>
 C:\opt\jdk-openjdk-11.0.13_8\      <i>(300 MB)</i>
-C:\opt\jdk-openjdk-17_35\          <i>(299 MB)</i>
+C:\opt\jdk-openjdk-17.0.1_12\      <i>(299 MB)</i>
 C:\opt\make-3.81\                  <i>(  2 MB)</i>
-C:\opt\mill-0.9.9\                 <i>( 60 MB)</i>
+C:\opt\mill-0.9.10\                <i>( 60 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
 C:\opt\sbt-1.5.5\                  <i>( 48 MB)</i>
 C:\opt\scala-2.13.7\               <i>( 35 MB)</i>
@@ -330,9 +330,9 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 1.8.0_312, java 1.8.0_312, scalac 2.13.7, scalac 3.1.1-RC1,
-   ant 1.10.12, gradle 7.2, mill 0.9.9, mvn 3.8.3, sbt 1.5.5,
-   bazel 4.2.0, bloop v1.3.4, cfr 0.151, make 3.81, python 3.9.7,
-   git 2.33.1.windows.1, diff 3.8, bash 4.4.23(1)-release
+   ant 1.10.12, gradle 7.3.1, mill 0.9.10, mvn 3.8.4, sbt 1.5.5,
+   bazel 4.2.2, bloop v1.3.4, cfr 0.151, make 3.81, python 3.10.0,
+   git 2.34.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
 C:\opt\sbt-1.5.5\bin\sbt
@@ -358,9 +358,9 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.13, java 11.0.13, scalac 2.13.7, scalac 3.1.1-RC1,
-   ant 1.10.12, gradle 7.2, mill 0.9.9, mvn 3.8.3, sbt 1.5.5,
-   bazel 4.2.0, cfr 0.151, make 3.81, python 3.9.7,
-   git 2.33.1.windows.1, diff 3.8, bash 4.4.23(1)-release
+   ant 1.10.12, gradle 7.3.1, mill 0.9.10, mvn 3.8.4, sbt 1.5.5,
+   bazel 4.2.2, cfr 0.151, make 3.81, python 3.10.0,
+   git 2.34.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-openjdk-11.0.13_8\bin\javac.exe
    C:\opt\jdk-openjdk-11.0.13_8\bin\java.exe
@@ -368,27 +368,27 @@ Tool paths:
    C:\opt\scala3-3.1.1-RC1\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.12\bin\ant.bat
-   C:\opt\gradle-7.2\bin\gradle.bat
-   C:\opt\mill-0.9.9\mill.bat
-   C:\opt\apache-maven-3.8.3\bin\mvn.cmd
+   C:\opt\gradle-7.3.1\bin\gradle.bat
+   C:\opt\mill-0.9.10\mill.bat
+   C:\opt\apache-maven-3.8.4\bin\mvn.cmd
    C:\opt\sbt-1.5.5\bin\sbt.bat
-   C:\opt\bazel-4.2.0\bazel.exe
+   C:\opt\bazel-4.2.2\bazel.exe
    C:\opt\cfr-0.151\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
-   C:\opt\Python-3.9.7\python.exe
-   C:\opt\Git-2.33.1\bin\git.exe
-   C:\opt\Git-2.33.1\mingw64\bin\git.exe
-   C:\opt\Git-2.33.1\usr\bin\diff.exe
-   C:\opt\Git-2.33.1\bin\bash.exe
+   C:\opt\Python-3.10.0\python.exe
+   C:\opt\Git-2.34.1\bin\git.exe
+   C:\opt\Git-2.34.1\mingw64\bin\git.exe
+   C:\opt\Git-2.34.1\usr\bin\diff.exe
+   C:\opt\Git-2.34.1\bin\bash.exe
 Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.12"
-   "BAZEL_HOME=c:\opt\bazel-4.2.0"
-   "GIT_HOME=C:\opt\Git-2.33.1"
+   "BAZEL_HOME=c:\opt\bazel-4.2.2"
+   "GIT_HOME=C:\opt\Git-2.34.1"
    "JAVA_HOME=C:\opt\jdk-openjdk-11.0.13_8"
    "JAVAFX_HOME=C:\opt\javafx-sdk-17"
    "MSVS_HOME=X:"
    "MSYS_HOME=C:\opt\msys64"
-   "PYTHON_HOME=C:\opt\Python-3.9.7"
+   "PYTHON_HOME=C:\opt\Python-3.10.0"
    "SBT_HOME=C:\opt\sbt-1.5.5"
    "SCALA_HOME=C:\opt\scala-2.13.7"
    "SCALA3_HOME=C:\opt\scala3-3.1.1-RC1"
@@ -796,11 +796,11 @@ For instance, for Visual Studio 2019, we set variable <b><code>BAZEL_VC</code></
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
 </p>
 <pre style="margin:0 0 1em 20px; font-size:80%;">
-<a href="https://github.com/lihaoyi/mill/releases">0.9.9-assembly</a> (<code>mill</code>)                             <i>( 57 MB)</i>
+<a href="https://github.com/lihaoyi/mill/releases">0.9.10-assembly</a> (<code>mill</code>)                            <i>( 57 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.12-bin.zip</a>                        <i>(  9 MB)</i>
-<a href="https://maven.apache.org/download.cgi">apache-maven-3.8.3-bin.zip</a>                        <i>( 10 MB)</i>
-<a href="https://github.com/bazelbuild/bazel/releases">bazel-4.2.0-windows-x86_64.zip</a>                    <i>( 40 MB)</i>
-<a href="https://gradle.org/install/">gradle-7.2-bin.zip</a>                                <i>(103 MB)</i>
+<a href="https://maven.apache.org/download.cgi">apache-maven-3.8.4-bin.zip</a>                        <i>( 10 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases">bazel-4.2.2-windows-x86_64.zip</a>                    <i>( 40 MB)</i>
+<a href="https://gradle.org/install/">gradle-7.3.1-bin.zip</a>                              <i>(103 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.7.zip</a>                                  <i>(  4 MB)</i>
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.2-shaded-win.jar</a>                  <i>( 36 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                 <i>( 10 MB)</i>
@@ -809,7 +809,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://gluonhq.com/products/javafx/">openjfx-17_windows-x64_bin-sdk.zip</a>                <i>( 39 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.zip</a>    <i>( 99 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.zip</a>  <i>( 99 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.33.1-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.34.1-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.5.5.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.7.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.1-RC1">scala3-3.1.1-RC1.zip</a>                              <i>( 24 MB)</i>
@@ -823,7 +823,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -834,10 +834,10 @@ Command Prompt has been around for as long as we can remember, but starting with
 [apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
-[apache_maven_relnotes]: https://maven.apache.org/docs/3.8.3/release-notes.html
+[apache_maven_relnotes]: https://maven.apache.org/docs/3.8.4/release-notes.html
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [bazel_releases]: https://github.com/bazelbuild/bazel/releases
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/4.2.0
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/4.2.2
 [bloop_releases]: https://scalacenter.github.io/bloop/
 [bloop_relnotes]: https://github.com/scalacenter/bloop/releases/tag/v1.3.4
 [cfr_releases]: https://www.benf.org/other/cfr/
@@ -849,7 +849,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [git_bash]: https://www.atlassian.com/git/tutorials/git-bash
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.33.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.34.1.txt
 [github_guides]: https://guides.github.com/
 [github_lampepfl_dotty]: https://github.com/lampepfl/dotty
 [github_markdown]: https://github.github.com/gfm/
@@ -859,7 +859,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 [gradle_install]: https://gradle.org/install/
-[gradle_relnotes]: https://docs.gradle.org/7.2/release-notes.html
+[gradle_relnotes]: https://docs.gradle.org/7.3.1/release-notes.html
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [jacoco_changelog]: https://www.jacoco.org/jacoco/trunk/doc/changes.html
 [jacoco_downloads]: https://www.eclemma.org/jacoco/

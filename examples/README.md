@@ -54,7 +54,7 @@ Buildfile: W:\examples\enum-Planet\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 [ivy:resolve] :: Apache Ivy 2.5.0 - 20191020104435 :: https://ant.apache.org/ivy/ ::
-[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.10/lib/ivy-2.5.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
+[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.12/lib/ivy-2.5.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
 
 <span style="font-weight:bold;color:#9966ff;">init:</span>
 
@@ -81,8 +81,8 @@ Total time: 19 seconds
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://curl.haxx.se/docs/manpage.html">curl</a> -sL -o c:\Temp\apache-ivy-2.5.0.zip <a href="https://downloads.apache.org/ant/ivy/2.5.0/">https://www-eu.apache.org/dist//ant/ivy/2.5.0/apache-ivy-2.5.0-bin.zip</a></b>
 > <b>&gt; <a href="https://linux.die.net/man/1/unzip">unzip</a> c:\temp\apache-ivy-2.5.0.zip -d c:\opt</b>
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/copy">copy</a> c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.10\lib</b>
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\apache-ant-1.10.10\lib | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> ivy</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/copy">copy</a> c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.12\lib</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\apache-ant-1.10.12\lib | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> ivy</b>
 > 20.10.2019  09:44         1 402 646 ivy-2.5.0.jar
 > </pre>
 
@@ -174,7 +174,7 @@ Command [**`build -debug clean compile run`**](enum-Planet/build.bat) also displ
 [build] Subcommands: _CLEAN=1 _COMPILE=1 _DECOMPILE=0 _DOC=0 _LINT=0 _RUN=1 _TEST=0
 [build] Variables  : "JAVA_HOME=C:\opt\jdk-openjdk-11.0.13_8"
 [build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.1.1-RC1"
-[build] Variables  : _MAIN_CLASS=Planet _MAINe_ARGS=1
+[build] Variables  : _MAIN_CLASS=Planet _MAIN_ARGS=1
 [build] del /s /q W:\dotty\examples\enum-Planet\target\classes\*.class W:\dotty\examples\enum-Planet\target\classes\*.hasTasty W:\dotty\examples\enum-Planet\target\classes\.latest-build
 [build] 20180322224754 W:\dotty\examples\enum-Planet\src\main\scala\Planet.scala
 [build] 00000000000000 W:\dotty\examples\enum-Planet\target\classes\.latest-build
@@ -598,7 +598,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

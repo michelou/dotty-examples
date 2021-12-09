@@ -26,7 +26,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 This project depends on several external software for the **Microsoft Windows** platform:
 
 - [Corretto OpenJDK 11][corretto_11_downloads] from [Amazon][amazon_aws] ([*release notes*][corretto_11_relnotes]).
-- [Dragonwell OpenJDK 11][dragonwell_downloads] from [Alibaba][alibaba] ([*release notes*][dragonwell_relnotes]).
+- [Dragonwell OpenJDK 11][dragonwell11_downloads] from [Alibaba][alibaba] ([*release notes*][dragonwell11_relnotes]).
 - [GraalVM OpenJDK 11][graalvm_downloads] from [Oracle] ([*release notes*][graalvm_relnotes]).
 - [Liberica OpenJDK 11][bellsoft_11_downloads] from [BellSoft][bellsoft_about] ([*release notes*][bellsoft_relnotes]).
 - [Liberica NIK OpenJDK 11][bellsoft_nik_downloads] from [BellSoft][bellsoft_about] ([*release notes*][bellsoft_nik_relnotes]).
@@ -53,7 +53,7 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*October 2021*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
+For instance our development environment looks as follows (*December 2021*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java11-21.3.0\    <i>(731 MB)</i>
@@ -93,13 +93,13 @@ We ideally would run the command [`build archives`](./bin/dotty/build.bat) to ge
 
 Unfortunately a few tests still fail on Windows, so need to proceed in two steps, running the command [`build boot & build arch-only`](./bin/dotty/build.bat), in order to achieve our goal. 
 
-Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop with an i7-8550U (1.8 GHz) processor and 16 Go of memory <sup id="anchor_03">[[3]](#footnote_03)</sup> (entries come from the log file [`snapshot_log.txt`](./docs/snapshot_log.txt)):
+Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop with an i7-8550U (1.8 GHz) processor and 16 Go of memory <sup id="anchor_03">[3](#footnote_03)</sup> (entries come from the log file [`snapshot_log.txt`](./docs/snapshot_log.txt)):
 
 | 8u312 | **Build&nbsp;time** | 11.0.13  | **Build&nbsp;time** | 17    | **Build&nbsp;time** |
 |-----------|---------------------|----------|---------------------|-------|---------------------|
 | [Corretto][corretto_8_downloads]<br/>(Amazon) | 27:00</br>27:27 | [Corretto][corretto_11_downloads]<br/>(Amazon) |   30:49<br/>30:42 | [Corretto][corretto_17_downloads]<br/>(Amazon)</span> | n.a. |
 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a. | [DCEVM][trava_downloads]<br/>(Trava) <a href="#a"><sup><b>a)</b></sup></a> | 31:10<br/>30:28 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a.           |
-| [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) | 31:54<br/>32:01 | [Dragonwell][dragonwell_downloads]<br/>(Alibaba) | 30:41<br/>30:44 | <span style="color:#aaaaaa;">Dragonwell<br/>(Alibaba)</span> | n.a. |
+| [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) | 31:54<br/>32:01 | [Dragonwell][dragonwell11_downloads]<br/>(Alibaba) | 30:41<br/>30:44 | [Dragonwell][dragonwell17_downloads]<br/>(Alibaba)</span> | n.a. |
 | [GraalVM][graalvm_downloads]<br/>(Oracle) | 26:09<br/>26:11 | [GraalVM][graalvm_downloads]<br/> (Oracle) | 31:34<br/>33:11 | [GraalVM][graalvm_downloads]<br/> (Oracle) | 33:30<br/>&nbsp; |
 | [Liberica][bellsoft_8_downloads]<br/>(BellSoft) | 25:10<br/>25:41 | [Liberica][bellsoft_11_downloads]<br/>(BellSoft) | 31:04<br/>30:33 | [Liberica][bellsoft_17_downloads]<br/>(BellSoft) | 29:38<br/>31:17 |
 | Liberica NIK<br/>(BellSoft) | n.a. | [Liberica NIK][bellsoft_nik_downloads]<br/>(BellSoft) <a href="#b"><sup><b>b)</b></sup></a> | 31:29 | Liberica<br/>(BellSoft) | n.a. |
@@ -537,7 +537,7 @@ scala3-3.1.2-RC1-bin-SNAPSHOT-zulu-11.zip
 -->
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -563,8 +563,9 @@ scala3-3.1.2-RC1-bin-SNAPSHOT-zulu-11.zip
 [corretto_gupta]: https://www.youtube.com/watch?v=RLKC5nsiZXU
 [corretto_patches]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/patches.html
 [deno_examples]: https://github.com/michelou/llvm-examples
-[dragonwell_downloads]: https://github.com/alibaba/dragonwell11/releases
-[dragonwell_relnotes]: https://github.com/alibaba/dragonwell11/wiki/Alibaba-Dragonwell-11-Release-Notes#110117
+[dragonwell11_downloads]: https://github.com/alibaba/dragonwell11/releases
+[dragonwell11_relnotes]: https://github.com/alibaba/dragonwell11/wiki/Alibaba-Dragonwell-11-Release-Notes#110117
+[dragonwell17_downloads]: https://github.com/alibaba/dragonwell17/releases
 [dragonwell8_downloads]: https://github.com/alibaba/dragonwell8/releases
 [graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
 [graalvm_examples]: https://github.com/michelou/graalvm-examples

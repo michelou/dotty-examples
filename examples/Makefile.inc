@@ -9,6 +9,7 @@ $(error Variable SCALA3_HOME is not set)
 endif
 
 ifeq ($(OS),Windows_NT)
+JAR        = $(subst \,/,$(GRAALVM_HOME))/bin/jar.exe
 JAVA       = $(subst \,/,$(JAVA_HOME))/bin/java.exe
 JAVAC      = $(subst \,/,$(JAVA_HOME))/bin/javac.exe
 SCALA      = $(subst \,/,$(SCALA3_HOME))/bin/scala.bat
@@ -18,11 +19,13 @@ SCALAFMT   = $(subst \,/,$(LOCALAPPDATA))/Coursier/data/bin/scalafmt.bat
 LOCAL_REPO = $(subst \,/,$(USERPROFILE))/.m2/repository
 PSEP       = ;
 ECHO       = $(subst \,/,$(GIT_HOME))/usr/bin/echo.exe
+## We grab Mingw version instead of C:\Windows\System32\find.exe
 FIND       = $(subst \,/,$(GIT_HOME))/usr/bin/find.exe
 MKDIR      = $(subst \,/,$(GIT_HOME))/usr/bin/mkdir.exe
 RM         = $(subst \,/,$(GIT_HOME))/usr/bin/rm.exe
 TOUCH      = $(subst \,/,$(GIT_HOME))/usr/bin/touch.exe
 else
+JAR        = $(GRAALVM_HOME)/bin/jar
 JAVA       = $(JAVA_HOME)/bin/java
 JAVAC      = $(JAVA_HOME)/bin/javac
 SCALA      = $(SCALA3_HOME)/bin/scala
