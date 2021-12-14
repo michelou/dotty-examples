@@ -14,11 +14,13 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId>
-        <scala.version>3.1.1-RC1</scala.version> <!-- eg. "3.0.0", "2.13.3" or "0.26.0" -->
+        <scala.version>3.1.1-RC1</scala.version>
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugin versions -->
         <scala.maven.version>1.0.0</scala.maven.version>
+        <!-- https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect -->
+        <scala-reflect.version>1.1.1</scala-reflect.version>
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
         <scalatest.version>3.2.10</scalatest.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
@@ -27,7 +29,7 @@
         <!-- Note: JUnit 5 requires Surefire version 2.22.1 or higher -->
         <maven.surefire.version>2.22.2</maven.surefire.version> <!-- Oct 2018 -->
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
-        <specs2.version>4.13.0</specs2.version>
+        <specs2.version>4.13.1</specs2.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
         <maven.jar.version>3.2.0</maven.jar.version>            <!-- May 2019 -->
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
@@ -42,11 +44,11 @@
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
-        <junit.platform.version>1.8.1</junit.platform.version>
+        <junit.platform.version>1.8.2</junit.platform.version>
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <jupiter.version>5.8.1</jupiter.version>
+        <jupiter.version>5.8.2</jupiter.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.plexus/plexus-utils -->
-        <plexus-utils.version>3.3.0</plexus-utils.version>
+        <plexus-utils.version>3.4.1</plexus-utils.version>
 
         <!-- Maven plugin dependencies -->
         <m2.directory>${user.home}/.m2/repository</m2.directory>
@@ -61,7 +63,7 @@
         <m2.junit-platform-runner.jar>${m2.directory}/org/junit/platform/junit-platform-runner/${junit.platform.version}/junit-platform-runner-${junit.platform.version}.jar</m2.junit-platform-runner.jar>
         <m2.junit-runner.jar>${m2.directory}/org/pantsbuild/junit-runner/1.0.30/junit-runner-1.0.30.jar</m2.junit-runner.jar>
         <m2.plexus-utils.jar>${m2.directory}/org/codehaus/plexus/plexus-utils/${plexus-utils.version}/plexus-utils-${plexus-utils.version}.jar</m2.plexus-utils.jar>
-        <m2.scala-reflect.jar>${m2.directory}/org/portable-scala/portable-scala-reflect_2.13/1.1.1/portable-scala-reflect_2.13-1.1.1.jar</m2.scala-reflect.jar>
+        <m2.scala-reflect.jar>${m2.directory}/org/portable-scala/portable-scala-reflect_2.13/${scala-reflect.version}/portable-scala-reflect_2.13-${scala-reflect.version}.jar</m2.scala-reflect.jar>
         <m2.scalactic.jar>${m2.directory}/org/scalactic/scalactic_3/${scalatest.version}/scalactic_3-${scalatest.version}.jar</m2.scalactic.jar>
         <m2.scalatest.jar>${m2.directory}/org/scalatest/scalatest_3/${scalatest.version}/scalatest_3-${scalatest.version}.jar</m2.scalatest.jar>
     </properties>
@@ -73,7 +75,7 @@
             <artifactId>scala3-interfaces</artifactId>
             <version>${scala.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler -->
+        <!-- https://mvnrepository.com/artifact/org.scala-lang/scala3-library -->
         <dependency>
             <groupId>${scala.groupId}</groupId>
             <artifactId>scala3-library_3</artifactId>
@@ -87,7 +89,7 @@
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
         <dependency>
-            <groupId>org.scala-lang</groupId>
+            <groupId>${scala.groupId}</groupId>
             <artifactId>scala-library</artifactId>
             <version>2.13.6</version>
         </dependency>
@@ -148,7 +150,7 @@
             <version>${junit.platform.version}</version>
             <scope>test</scope>
         </dependency>
-		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -162,14 +164,14 @@
             <version>${jupiter.version}</version>
             <scope>test</scope>
         </dependency>
-		<!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
+        <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
         <dependency>
             <groupId>org.scalatest</groupId>
             <artifactId>scalatest_3</artifactId>
             <version>${scalatest.version}</version>
             <scope>test</scope>
         </dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
@@ -199,19 +201,19 @@
             <artifactId>specs2-matcher_2.13</artifactId>
             <version>${specs2.version}</version>
         </dependency>
-		<!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
+        <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
         <dependency>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
             <version>${exec.maven.version}</version>
         </dependency>
-		<!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
+        <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
         <dependency>
             <groupId>org.openjdk.jmh</groupId>
             <artifactId>jmh-core</artifactId>
             <version>${jmh.version}</version>
         </dependency>
-		<!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
+        <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
         <dependency>
             <groupId>org.openjdk.jmh</groupId>
             <artifactId>jmh-generator-annprocess</artifactId>

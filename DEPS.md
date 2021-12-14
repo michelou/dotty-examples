@@ -310,7 +310,7 @@ The following table presents the library dependencies of the Scala 2.12 distribu
 
 ## <span id="footnotes">Footnotes</span>
 
-<span name="footnote_01">[1]</span> **`scala-asm` *Library*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> **`scala-asm` *Library*** [↩](#anchor_01)
 
 <p style="margin:0 0 1em 20px;">
 Scala 3 and Scala 2 software distributions are packaged differently regarding their dependency on the <a href="https://asm.ow2.io">ASM</a> library (actually a fork of it):

@@ -5,6 +5,7 @@
 .bsp/
 .gradle/
 .idea/
+.metals/
 .project
 .settings/
 .vscode/
