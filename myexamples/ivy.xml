@@ -37,10 +37,10 @@
         <!-- https://mvnrepository.com/artifact/org.apiguardian/apiguardian-api -->
         <dependency org="org.apiguardian" name="apiguardian-api" rev="1.1.1"/>
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
-        <dependency org="org.junit.jupiter" name="junit-jupiter-api" rev="5.8.1"/>
+        <dependency org="org.junit.jupiter" name="junit-jupiter-api" rev="5.8.2"/>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-commons -->
-        <dependency org="org.junit.platform" name="junit-platform-commons" rev="1.8.1"/>
+        <dependency org="org.junit.platform" name="junit-platform-commons" rev="1.8.2"/>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-runner -->
-        <dependency org="org.junit.platform" name="junit-platform-runner" rev="1.8.1"/>
+        <dependency org="org.junit.platform" name="junit-platform-runner" rev="1.8.2"/>
     </dependencies>
 </ivy-module>

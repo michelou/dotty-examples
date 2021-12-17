@@ -84,7 +84,7 @@ We have come across several issues <sup id="anchor_02"><a href="#footnote_02">[2
 
 ## <span id="footnotes">Footnotes</span>
 
-<span name="footnote_01">[1]</span> ***Batch files*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Batch files*** [↩](#anchor_01)
 
 <p style="margin:0 0 0 20px;">
 <a href="https://github.com/lampepfl/dotty/pull/5444">PR #5444</a> (<i>closed</i> in December 2019</i>) targets the MS Windows platform and includes 2 sets of batch files :
@@ -97,7 +97,7 @@ We have come across several issues <sup id="anchor_02"><a href="#footnote_02">[2
 <a href="https://github.com/lampepfl/dotty/pull/13006">PR #13006</a> (<i>merged</i> in July 2021) includes the first set of batch files.
 </p>
 
-<span name="footnote_02">[2]</span> ***Git configuration*** [↩](#anchor_02)
+<span id="footnote_02">[2]</span> ***Git configuration*** [↩](#anchor_02)
 
 <p style="margin:0 0 1em 20px;">
 We report here one issue we encountered when working with the <a href="https://git-scm.com/docs/git-config"><b><code>git</code></b></a> command on Windows, namely the error message <code>"Filename too long"</code>:

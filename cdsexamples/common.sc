@@ -22,7 +22,7 @@ val scalaBinaryVersion = "2.13"
 
 val junitVersion = "4.13.2"
 val scalatestVersion = "3.2.10"
-val specs2Version = "4.13.0"
+val specs2Version = "4.13.1"
 
 // https://mvnrepository.com/artifact/junit/junit
 val ivyJunit = ivy"org.junit:org.junit:$junitVersion"
