@@ -93,7 +93,7 @@ C:\opt\jdk-openjdk-17.0.1_12\      <i>(299 MB)</i>
 C:\opt\make-3.81\                  <i>(  2 MB)</i>
 C:\opt\mill-0.9.10\                <i>( 60 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
-C:\opt\sbt-1.5.6\                  <i>( 48 MB)</i>
+C:\opt\sbt-1.5.7\                  <i>( 48 MB)</i>
 C:\opt\scala-2.13.7\               <i>( 35 MB)</i>
 C:\opt\scala3-3.1.1-RC1\           <i>( 35 MB)</i>
 </pre>
@@ -330,13 +330,13 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 1.8.0_312, java 1.8.0_312, scalac 2.13.7, scalac 3.1.1-RC1,
-   ant 1.10.12, gradle 7.3.2, mill 0.9.10, mvn 3.8.4, sbt 1.5.6,
+   ant 1.10.12, gradle 7.3.2, mill 0.9.10, mvn 3.8.4, sbt 1.5.7,
    bazel 4.2.2, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.0,
    git 2.34.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
-C:\opt\sbt-1.5.6\bin\sbt
-C:\opt\sbt-1.5.6\bin\sbt.bat
+C:\opt\sbt-1.5.7\bin\sbt
+C:\opt\sbt-1.5.7\bin\sbt.bat
 </pre>
 
 Other development tools such as [**`javac.exe`**][javac_cli] and [**`scalac.bat`**][scalac_cli] are accessible through the corresponding environment variable, e.g. **`JAVA_HOME`** for **`javac.exe`**, **`SCALA_HOME`** resp. **`SCALA3_HOME`** for **`scalac.bat`** and **`PYTHON_HOME`** for **`python.exe`**.
@@ -358,7 +358,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.13, java 11.0.13, scalac 2.13.7, scalac 3.1.1-RC1,
-   ant 1.10.12, gradle 7.3.2, mill 0.9.10, mvn 3.8.4, sbt 1.5.6,
+   ant 1.10.12, gradle 7.3.2, mill 0.9.10, mvn 3.8.4, sbt 1.5.7,
    bazel 4.2.2, cfr 0.152, make 3.81, python 3.10.0,
    git 2.34.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
@@ -371,7 +371,7 @@ Tool paths:
    C:\opt\gradle-7.3.2\bin\gradle.bat
    C:\opt\mill-0.9.10\mill.bat
    C:\opt\apache-maven-3.8.4\bin\mvn.cmd
-   C:\opt\sbt-1.5.6\bin\sbt.bat
+   C:\opt\sbt-1.5.7\bin\sbt.bat
    C:\opt\bazel-4.2.2\bazel.exe
    C:\opt\cfr-0.152\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
@@ -389,7 +389,7 @@ Environment variables:
    "MSVS_HOME=X:"
    "MSYS_HOME=C:\opt\msys64"
    "PYTHON_HOME=C:\opt\Python-3.10.0"
-   "SBT_HOME=C:\opt\sbt-1.5.6"
+   "SBT_HOME=C:\opt\sbt-1.5.7"
    "SCALA_HOME=C:\opt\scala-2.13.7"
    "SCALA3_HOME=C:\opt\scala3-3.1.1-RC1"
 </pre>
@@ -643,9 +643,9 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 
 | Project file | Variable | Example |
 | :----------- | :------: | :------ |
-| `build.sbt` | `dottyVersion` | `3.1.0-RC1` &rarr; `3.1.1-RC1`|
-| `build.sc` | `scalaVersion` | `3.1.0-RC1` &rarr; `3.1.1-RC1` |
-| `project\build.properties` | `sbt.version` | `1.5.5` &rarr; `1.5.6` |
+| `build.sbt` | `dottyVersion` | `3.1.1-RC1` &rarr; `3.1.1-RC2`|
+| `build.sc` | `scalaVersion` | `3.1.1-RC1` &rarr; `3.1.1-RC2` |
+| `project\build.properties` | `sbt.version` | `1.5.6` &rarr; `1.5.7` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.5.4` &rarr; `0.5.5` |
 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
@@ -810,7 +810,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.zip</a>    <i>( 99 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.zip</a>  <i>( 99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.34.1-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
-<a href="https://github.com/sbt/sbt/releases">sbt-1.5.6.zip</a>                                     <i>( 17 MB)</i>
+<a href="https://github.com/sbt/sbt/releases">sbt-1.5.7.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.7.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.1-RC1">scala3-3.1.1-RC1.zip</a>                              <i>( 24 MB)</i>
 </pre>
@@ -911,7 +911,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_downloads]: https://github.com/sbt/sbt/releases
 [sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.5.6
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.5.7
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala]: https://www.scala-lang.org/
 [scala3_home]: https://dotty.epfl.ch
