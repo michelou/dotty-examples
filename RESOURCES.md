@@ -19,6 +19,8 @@
 
 ## <span id="blogs">Blogs</span>
 
+- [Databricks Blog](https://databricks.com/blog)
+   - [Scala at Scale at Databricks](https://databricks.com/blog/2021/12/03/scala-at-scale-at-databricks.html) by Li Haoyi, Decembre 2021.
 - [Scala 3 : un nouveau langage ?][blog_sarradin] by François Sarradin, May 2021.
 - [47 Degrees Blog](https://www.47deg.com/blog/)
    - [Automatically Deriving Typeclass Instances in Scala 3](https://www.47deg.com/blog/scala-3-deriving-typeclasses/), May 2021.
@@ -61,14 +63,15 @@
 - [Interactive Development using the Dotty Compiler](https://conf.researchr.org/details/scala-2017/scala-2017-papers/4/Interactive-Development-using-the-Dotty-Compiler-Tool-Paper-) by Guillaume Martres, October 2017.
 - [Implementing Higher-Kinded Types in Dotty](https://conf.researchr.org/details/scala-2016/scala-2016/5/Implementing-Higher-Kinded-Types-in-Dotty) by Martin Odersky et al., October 2016.
 
-## <span id="shell">Shell Scripting</span>
-
-- [Google Shell Guide](https://google.github.io/styleguide/shellguide.html)
-
-## <span id="tools">Tools and Frameworks</span>
+## <span id="projects">Projects</span>
 
 - [Scala.js](https://www.scala-js.org/) - a Scala backend to generate highly efficient JavaScript.
 - [ScalaStan](https://github.com/cibotech/scalastan) - a Scala DSL for [Stan](https://mc-stan.org/), an open-source software for statistical modeling and high-performance statistical computation.
+- [Woof](https://github.com/LEGO/woof) - a pure Scala 3 logging library with no reflection.
+
+## <span id="shell">Shell Scripting</span>
+
+- [Google Shell Guide](https://google.github.io/styleguide/shellguide.html)
 
 ## <span id="videos">Videos</span>
 
@@ -77,7 +80,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
