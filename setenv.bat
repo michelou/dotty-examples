@@ -146,7 +146,7 @@ goto end
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 :env
 set _BASENAME=%~n0
-set _DRIVE_NAME=W
+set _DRIVE_NAME=Y
 set "_ROOT_DIR=%~dp0"
 
 call :env_colors

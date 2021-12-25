@@ -19,7 +19,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[Deno][deno_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other trending topics we are continuously monitoring.
+[Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other trending topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -731,12 +731,13 @@ Hello world!
 
 ## <span id="footnotes">Footnotes</span>
 
-<span name="footnote_01">[1]</span> ***Java LTS versions*** [↩](#anchor_01) <!-- 2018-11-18 -->
+<span id="footnote_01">[1]</span> ***Java LTS versions*** [↩](#anchor_01) <!-- 2018-11-18 -->
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Current LTS versions are (from <a href="https://www.oracle.com/java/technologies/java-se-support-roadmap.html">Oracle's support roadmap</a>):
-</p>
-<table style="margin:0 0 1em 20px;">
+</dd>
+<dd>
+<table>
 <tr><th>Java LTS Version</th><th>GA</th><th>End of life</th></tr>
 <tr>
   <td>21</td>
@@ -759,26 +760,29 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
   <td>December 2030</td>
 </tr>
 </table>
-
-<p style="margin:0 0 1em 20px;">
+</dd>
+<dd>
 <b>NB.</b> See also <a href="https://www.azul.com/products/azul-support-roadmap/">Zulu's support roadmap</a>.
-</p>
+</dd></dl>
 
-<span name="footnote_02">[2]</b> ***Using Bazel on Windows*** [↩](#anchor_02)
+<span id="footnote_02">[2]</b> ***Using Bazel on Windows*** [↩](#anchor_02)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 Read the page <a href="https://docs.bazel.build/versions/master/windows.html#build-on-windows" rel="external">Builds on Windows</a> of the <a href="https://www.bazel.build/" rel="external">Bazel website</a> for tips to build with MSVC, Clang, Java or Python on a Windows machine.
-</p>
-<p style="margin:0 0 1em 20px;">
+</dd>
+<dd>
 For instance, for Visual Studio 2019, we set variable <b><code>BAZEL_VC</code></b> to the Visual C++ Build Tools installation directory:
-</p>
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a></b> "BAZEL_VC=C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC"
 </pre>
+</dd></dl>
 
-<span name="footnote_03">[3]</span> ***JaCoCo and Java support*** [↩](#anchor_03)
+<span id="footnote_03">[3]</span> ***JaCoCo and Java support*** [↩](#anchor_03)
 
-<table style="margin:0 0 1em 20px; font-size:90%;">
+<dl><dd>
+<table style="font-size:90%;">
 <tr><th>JaCoCo version</th><th>Supported Java version</th></tr>
 <tr><td>0.8.7 <i style="font-size:80%;">(May 2021)</i></td><td>15 and 16</td></tr>
 <tr><td>0.8.6 <i style="font-size:80%;">(Sept 2020)</i></td><td>14</td></tr>
@@ -789,13 +793,15 @@ For instance, for Visual Studio 2019, we set variable <b><code>BAZEL_VC</code></
 <tr><td>0.8.0</td><td>9</td></tr>
 <tr><td>0.7.0</td><td>8</td></tr>
 </table>
+</dd></dl>
 
-<span name="footnote_04">[4]</span> ***Downloads*** [↩](#anchor_04)
+<span id="footnote_04">[4]</span> ***Downloads*** [↩](#anchor_04)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
-</p>
-<pre style="margin:0 0 1em 20px; font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <a href="https://github.com/lihaoyi/mill/releases">0.9.10-assembly</a> (<code>mill</code>)                            <i>( 57 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.12-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.8.4-bin.zip</a>                        <i>( 10 MB)</i>
@@ -814,12 +820,13 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.7.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.1-RC2">scala3-3.1.1-RC2.zip</a>                              <i>( 24 MB)</i>
 </pre>
+</dd></dl>
 
-<span name="footnote_05">[5]</span> ***PowerShell*** [↩](#anchor_05) <!-- 2018-05-09 -->
+<span id="footnote_05">[5]</span> ***PowerShell*** [↩](#anchor_05) <!-- 2018-05-09 -->
 
-<p style="margin:0 0 1em 20px;"> 
+<dl><dd> 
 Command Prompt has been around for as long as we can remember, but starting with Windows 10 build 14971, Microsoft is trying to make <a href="https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6">PowerShell</a> the <a href="https://support.microsoft.com/en-us/help/4027690/windows-powershell-is-replacing-command-prompt">main command shell</a> in the operating system.
-</p>
+</dd></dl>
 
 ***
 
@@ -855,6 +862,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [github_markdown]: https://github.github.com/gfm/
 [github_PR5444]: https://github.com/lampepfl/dotty/pull/5444
 [gmake_cli]: http://www.glue.umd.edu/lsf-docs/man/gmake.html
+[golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
