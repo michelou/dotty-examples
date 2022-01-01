@@ -19,7 +19,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - Data Sharing and Dotty on Windows [**&#9660;**](#bottom)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[Deno][deno_examples], [JMH][jmh_project], [Metaprogramming][dotty_metaprogramming], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples] and [Rust][rust_examples] are other trending topics we are currently monitoring.
+[Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
 
 
 ## <span id="proj_deps">Project dependencies</span>
@@ -32,12 +32,12 @@ This project depends on the following external software for the **Microsoft Wind
 
 > **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Scala 3][scala_3] also support Java 9+. In the following we work with [Oracle OpenJDK 11][openjdk_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
 
-For instance our development environment looks as follows (*December 2021*):
+For instance our development environment looks as follows (*January 2022*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.34.1\             <i>(290 MB)</i>
 C:\opt\jdk-openjdk-11.0.13_8\  <i>(314 MB)</i>
-C:\opt\scala3-3.1.1-RC1\       <i>( 57 MB)</i>
+C:\opt\scala3-3.1.1-RC2\       <i>( 57 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_downloads] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -486,12 +486,12 @@ Support files for Java class sharing:
 </pre>
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3_3.1.1-RC1\lib\dotty-cds*</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3_3.1.1-RC2\lib\dotty-cds*</b>
 dotty-cds-compiler.classlist
 dotty-cds-compiler.jsa
 dotty-cds-repl.classlist
 dotty-cds-repl.jsa
-dotty-cds_3-3.1.1-RC1.jar
+dotty-cds_3-3.1.1-RC2.jar
 </pre>
 
 <pre style="font-size:80%;">
@@ -703,7 +703,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -712,12 +712,13 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [scala3_home]: https://dotty.epfl.ch/
 [scala3_releases]: https://github.com/lampepfl/dotty/releases
-[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.1.1-RC1
+[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.1.1-RC2
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
 [git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.34.1.txt
 [github_markdown]: https://github.github.com/gfm/
+[golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [java_cli]: https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html
@@ -743,3 +744,4 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [scala_2_13]: https://www.scala-lang.org/news/roadmap-2.13.html
 [scala_3]: https://www.scala-lang.org/blog/2018/04/19/scala-3.html
 [scala_downloads]: https://www.scala-lang.org/download/
+[wix_examples]: https://github.com/michelou/wix-examples

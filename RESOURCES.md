@@ -13,6 +13,7 @@
 
 ## <span id="articles">Articles</span>
 
+- [Safer Exceptions in Scala](https://infoscience.epfl.ch/record/290885) by Martin Odersky et al., October 2021.
 - [A Practical Unification of Multi-stage Programming and Macros](http://biboudis.github.io/papers/pcp-gpce18.pdf) by Nicolas Stucki et al., [GPCE'18](https://conf.researchr.org/track/gpce-2018/gpce-2018), November 2018.
 - [Dependent Object Types](https://infoscience.epfl.ch/record/183030) by Nada Amin et al., October 2012.
 - [Deriving Sesion and Union Types for Objects](http://www.di.unito.it/~capecchi/) by Lorenzo Bettini et al., September 2011.
@@ -80,7 +81,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

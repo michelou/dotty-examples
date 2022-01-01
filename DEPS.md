@@ -68,7 +68,7 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface"><code>compiler-interface</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.5.9"><b>1.5.9</b></a><br/><span style="color:gray;font-size:80%;">(Deb&nbsp;2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.6.0"><b>1.6.0</b></a><br/><span style="color:gray;font-size:80%;">(Dec&nbsp;2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.3.5">1.3.5</a><br/><span style="color:gray;font-size:80%;">(2020)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.3.5">1.3.5</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.3.5">1.3.5</a></td>
@@ -118,7 +118,7 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml"><code>jackson-dataformat-yaml</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.13.0"><b>2.13.0</b></a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.13.0"><b>2.13.1</b></a><br/><span style="color:gray;font-size:80%;">(Dec&nbsp;2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.9.8">2.9.8</a><br/><span style="color:gray;">(2018)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.9.8">2.9.8</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.9.8">2.9.8</a></td>
@@ -218,7 +218,7 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface"><code>util-interface</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.6.0-RC2"><b>1.6.0</b></a><br/><span style="color:gray;font-size:80%;">(Dec&nbsp;2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.6.1"><b>1.6.1</b></a><br/><span style="color:gray;font-size:80%;">(Dec&nbsp;2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.3.0">1.3.0</a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2019)</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.3.0">1.3.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.3.0">1.3.0</a></td>
@@ -448,7 +448,7 @@ Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.1.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

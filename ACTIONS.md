@@ -2,8 +2,8 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;max-width:100px;">
-    <a href="https://github.com/" rel="external"><img style="border:0;width:100px;" src="https://github.githubassets.com/images/modules/logos_page/Octocat.png" alt="GitHub logo"/></a>
+  <td style="border:0;padding:0 10px 0 0;max-width:120px;">
+    <a href="https://github.com/" rel="external"><img style="border:0;width:120px;" src="https://github.githubassets.com/images/modules/logos_page/Octocat.png" alt="GitHub project"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This page gathers informations about <a href="https://docs.github.com/en/free-pro-team@latest/actions" rel="external">GitHub Actions</a>, their associated <a href="https://github.com/actions/runner/releases">runners</a> and <a href="https://github.com/actions/virtual-environments" rel="external">virtual environments</a>, in particular the Windows runners.
@@ -38,12 +38,13 @@
 
 ## <span id="footnotes">Footnotes</span>
 
-<span name="footnote_01">[1]</span> ***Preinstalled software*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Preinstalled software*** [↩](#anchor_01)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 Preinstalled software on a Windows Server is located either in directory <a href="https://docs.microsoft.com/en-us/windows/deployment/usmt/usmt-recognized-environment-variables"><b><code>%ProgramFiles%</code></b></a> or at the root of drive <b><code>C:</code></b>.<br/>Here are two examples:
-</p>
-<pre style="font-size:80%;margin-left:20px;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> "%ProgramFiles%"</b>
 &nbsp;
  Volume in drive C is Windows
@@ -76,7 +77,7 @@ Preinstalled software on a Windows Server is located either in directory <a href
                0 File(s)              0 bytes
               47 Dir(s)  89,415,794,688 bytes free
 </pre>
-<pre style="font-size:80%;margin-left:20px;">
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\tools\php\</b>
 &nbsp;
  Volume in drive C is Windows
@@ -102,15 +103,15 @@ Preinstalled software on a Windows Server is located either in directory <a href
               37 File(s)     54,383,638 bytes
                7 Dir(s)  89,387,798,528 bytes free
 </pre>
+</dd></dl>
 
+<span id="footnote_02">[2]</span> ***Environment variables*** [↩](#anchor_02)
 
-<span name="footnote_02">[2]</span> ***Environment variables*** [↩](#anchor_02)
-
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 Here are GitHub-specific environment variables defined in a GitHub-hosted Windows runner (e.g. Windows Server 2019 with <code>runs-on: [windows-latest]</code>). 
-</p>
-
-<pre style="font-size:80%;margin-left:20px;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a></b>
 [...]
 CI=true
@@ -164,10 +165,11 @@ RUNNER_WORKSPACE=D:\a\dotty
 SBT_HOME=C:\Program Files (x86)\sbt\
 [...]
 </pre>
+</dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -48,14 +48,14 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*October 2021*):
+For instance our development environment looks as follows (*January 2022*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.34.1\                 <i>(279 MB)</i>
 C:\opt\jdk-openjdk-1.8.0u312-b07\  <i>(186 MB)</i>
 C:\opt\jdk-openjdk-11.0.13_8\      <i>(314 MB)</i>
-C:\opt\jdk-openjdk-17-35\          <i>(293 MB)</i>
-C:\opt\sbt-1.5.5\                  <i>( 48 MB)</i>
+C:\opt\jdk-openjdk-17.0.1_12\      <i>(293 MB)</i>
+C:\opt\sbt-1.5.8\                  <i>( 48 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -253,7 +253,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 Tool paths
    "GIT_CMD=C:\opt\Git-2.34.1\bin\git.exe"
    "JAVA_CMD=C:\opt\jdk-openjdk-11.0.13_8\bin\java.exe"
-   "SBT_CMD=C:\opt\sbt-1.5.5\bin\sbt.bat"
+   "SBT_CMD=C:\opt\sbt-1.5.8\bin\sbt.bat"
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
    SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -592,48 +592,54 @@ total warnings with regards to compilation and documentation: 29
 
 <span id="footnote_01">[1]</span> ***Continuous Integration/Delivery*** (CI/CD) [↩](#anchor_01)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 Steps are: Checkout <b>&rarr;</b> Compile <b>&rarr;</b> Test <b>&rarr;</b> Deploy.
-</p>
-<table style="margin:0 0 1em 20px;">
+</dd>
+<dd>
+<table>
 <tr><th>Software</th><th>CI/CD&nbsp;service</th><th>Hosting</th></tr>
 <tr><td><a href="https://dotty-ci.epfl.ch/lampepfl/dotty">Scala 3 (Dotty)</a></td><td><a href="https://docs.github.com/en/free-pro-team@latest/actions">Actions</a> <sup><b>(1)</b></sup></td><td><a href="https://github.com/lampepfl/dotty/actions">EPFL</a> in Lausanne, Switzerland</td></tr>
 <tr><td><a href="https://www.scala-lang.org/">Scala 2</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup><b>(2)</b></sup><br/><a href="https://docs.travis-ci.com/user/tutorial/">Travis CI</a> <sup><b>(3)</b></sup></td><td><a href="https://scala-ci.typesafe.com/">Lightbend</a> in San-Francisco, USA<br/><a href="https://travis-ci.org/scala/scala">Travis</a> in Berlin, Germany</td></tr>
 <tr><td><a href="https://ci.adoptopenjdk.net/">Oracle&nbsp;OpenJDK</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup><b>(2)</b></sup></td><td>Oracle</td></tr>
 <tr><td><a href="https://ci.eclipse.org/openj9/">IBM OpenJ9</a></td><td><a href="https://jenkins.io/doc/">Jenkins</a> <sup><b>(2)</b></sup></td><td>IBM</td></tr>
 </table>
-<div style="margin:0 0 1em 20px;">
+<div>
 <sub><sup><b>(1)</b></sup> Self-hosted <a href="https://github.com/actions/runner">Github runners</a>, <sup><b>(2)</b></sup> Written in <a href="https://www.oracle.com/technetwork/java/index.html">Java</a>, <sup><b>(3)</b></sup> Written in <a href="https://www.ruby-lang.org/en/">Ruby</a>.</sub>
 </div>
+</dd></dl>
 
 <span id="footnote_02">[2]</span> ***Java LTS*** (2018-11-18) [↩](#anchor_02)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html" rel="external">Java SE Support Roadmap</a> he will stop public updates of Java SE 8 for commercial use after January 2019. Launched in March 2014 Java SE 8 is classified an <a href="https://www.oracle.com/technetwork/java/java-se-support-roadmap.html">LTS</a> release in the new time-based system and <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html">Java SE 11</a>, released in September 2018, is the current LTS release.<br/>(see also <a href="https://www.slideshare.net/HendrikEbbers/java-11-omg">Java 11 keynote</a> from <a href="https://www.jvm-con.de/speakers/#/speaker/3461-hendrik-ebbers">Hendrik Ebbers</a> at <a href="https://www.jvm-con.de/ruckblick/" rel="external">JVM-Con 2018</a>).
-</p>
+</dd></dl>
 
 <span id="footnote_03">[3]</span> ***Git master repository*** [↩](#anchor_03)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 Nowadays we have experienced two times the error <code>Server does not allow request for unadvertised object..</code> when synchronizing our fork with the <a href="https://github.com/lampepfl/dotty"><code>lampepfl/dotty</code></a> repository:
-</p>
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://git-scm.com/docs/git">git</a> fetch upstream master</b>
 <b>&gt; <a href="https://git-scm.com/docs/git">git</a> merge upstream/master</b>
 [...]
 Error: Server does not allow request for unadvertised object ...
 </pre>
-<p style="margin:0 0 1em 20px;">
+</dd>
+<dd>
 That error is caused by one of the subprojects in directory <b><code>community-build\community-projects\</code></b> and can be solved with the following commands:
-</p>
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://git-scm.com/docs/git">git</a> submodule sync</b>
 <b>&gt; <a href="https://git-scm.com/docs/git">git</a> submodule update --depth 50</b>
 </pre>
+</dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -674,7 +680,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [rust_examples]: https://github.com/michelou/rust-examples
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.5.5
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.5.8
 [scala3_docs]: https://dotty.epfl.ch/docs/
 [scala3_home]: https://dotty.epfl.ch/
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
