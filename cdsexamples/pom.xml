@@ -37,7 +37,7 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId>
-        <scala.version>3.1.0</scala.version> <!-- eg. "2.13.3" or "0.26.0" -->
+        <scala.version>3.1.1-RC2</scala.version> <!-- eg. "2.13.3" or "0.26.0" -->
         <scala.local.install>true</scala.local.install>
         <scala2.binary.version>2.13</scala2.binary.version>
         <scala2.version>${scala2.binary.version}.6</scala2.version>
@@ -59,7 +59,7 @@
         <exec.maven.version>3.0.0</exec.maven.version>          <!-- Jun 2020 -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
-        <jmh.version>1.33</jmh.version>
+        <jmh.version>1.34</jmh.version>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->

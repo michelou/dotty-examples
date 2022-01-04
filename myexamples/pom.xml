@@ -14,7 +14,7 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId>
-        <scala.version>3.1.1-RC1</scala.version>
+        <scala.version>3.1.1-RC2</scala.version>
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugin versions -->
@@ -40,7 +40,7 @@
         <ivy.version>2.5.0</ivy.version>
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
-        <jmh.version>1.33</jmh.version>
+        <jmh.version>1.34</jmh.version>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->

@@ -2,8 +2,8 @@
 buildDir file("target")
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 project.ext {
@@ -119,7 +119,7 @@ dependencies {
     testImplementation "org.scalatest:scalatest_3:3.2.10"
     implementation "org.scalatest:scalatest-funspec_3:3.2.10"
     implementation "org.scalatest:scalatest-funsuite_3:3.2.10"
-    implementation "org.specs2:specs2-common_2.13:4.13.0"
-    implementation "org.specs2:specs2-core_2.13:4.13.0"
-    implementation "org.specs2:specs2-junit_2.13:4.13.0"
+    implementation "org.specs2:specs2-common_2.13:4.13.1"
+    implementation "org.specs2:specs2-core_2.13:4.13.1"
+    implementation "org.specs2:specs2-junit_2.13:4.13.1"
 }

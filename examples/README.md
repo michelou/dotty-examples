@@ -194,7 +194,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 > For simplicity the [**`build`**](enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/type">type</a> <a href="enum-Planet/project/build.properties">project\build.properties</a></b>
-> sbt.version=1.5.7
+> sbt.version=1.6.1
 > &nbsp;
 > main.class=Planet
 > main.args=1
@@ -235,6 +235,7 @@ If the two Java source files `src\build\cfr-sources_scala<n>_<version>.txt` (*ch
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b src\build</b>
 cfr-sources_scala3_0.24.0-RC2.java
 cfr-sources_scala3_0.27.0-RC2.java
+cfr-sources_scala3_3.1.0.java
 cfr-sources_scala3_3.1.1-RC2.java
 &nbsp;
 <b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose decompile</b>

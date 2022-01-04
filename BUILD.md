@@ -55,7 +55,7 @@ C:\opt\Git-2.34.1\                 <i>(279 MB)</i>
 C:\opt\jdk-openjdk-1.8.0u312-b07\  <i>(186 MB)</i>
 C:\opt\jdk-openjdk-11.0.13_8\      <i>(314 MB)</i>
 C:\opt\jdk-openjdk-17.0.1_12\      <i>(293 MB)</i>
-C:\opt\sbt-1.5.8\                  <i>( 48 MB)</i>
+C:\opt\sbt-1.6.1\                  <i>( 48 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -253,7 +253,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 Tool paths
    "GIT_CMD=C:\opt\Git-2.34.1\bin\git.exe"
    "JAVA_CMD=C:\opt\jdk-openjdk-11.0.13_8\bin\java.exe"
-   "SBT_CMD=C:\opt\sbt-1.5.8\bin\sbt.bat"
+   "SBT_CMD=C:\opt\sbt-1.6.1\bin\sbt.bat"
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
    SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -680,7 +680,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [rust_examples]: https://github.com/michelou/rust-examples
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.5.8
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.6.1
 [scala3_docs]: https://dotty.epfl.ch/docs/
 [scala3_home]: https://dotty.epfl.ch/
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples

@@ -23,7 +23,7 @@ set __SCALA_BINARY_VERSION=2.13
 call :add_jar "org.apiguardian" "apiguardian-api" "1.1.1"
 
 @rem https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-call :add_jar "org.junit.jupiter" "junit-jupiter-api" "5.8.1"
+call :add_jar "org.junit.jupiter" "junit-jupiter-api" "5.8.2"
 
 @rem https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect
 call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSION%" "1.1.1"
