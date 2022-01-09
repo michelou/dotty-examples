@@ -153,7 +153,7 @@ Command [**`build -verbose clean run`**](enum-Planet/build.bat) also displays pr
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose clean compile run</b>
-Delete directory target
+Delete directory "target"
 Compile 1 Scala sources to directory "target\classes"
 Execute Scala main class Planet
 Your weight on MERCURY (0) is 0.37775761520093526
@@ -172,8 +172,10 @@ Command [**`build -debug clean compile run`**](enum-Planet/build.bat) also displ
 <b/>&gt; <a href="enum-Planet/build.bat">build</a> -debug clean compile run</b>
 [build] Options    : _EXPLAIN=0 _PRINT=0 _SCALA_VERSION=3 _TASTY=0 _TIMER=0 _VERBOSE=0
 [build] Subcommands: _CLEAN=1 _COMPILE=1 _DECOMPILE=0 _DOC=0 _LINT=0 _RUN=1 _TEST=0
+[build] Variables  : "CFR_HOME=C:\opt\cfr-0.152"
 [build] Variables  : "JAVA_HOME=C:\opt\jdk-openjdk-11.0.13_8"
 [build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.1.1-RC2"
+[build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.7"
 [build] Variables  : _MAIN_CLASS=Planet _MAIN_ARGS=1
 [build] del /s /q W:\dotty\examples\enum-Planet\target\classes\*.class W:\dotty\examples\enum-Planet\target\classes\*.hasTasty W:\dotty\examples\enum-Planet\target\classes\.latest-build
 [build] 20180322224754 W:\dotty\examples\enum-Planet\src\main\scala\Planet.scala
@@ -483,6 +485,18 @@ Your weight on URANUS (6) is 0.9051271993894251
 Your weight on NEPTUNE (7) is 1.1383280724696578
 </pre>
 
+> **:mag_right:** The user has to execute two `mill` commands to perform a clean build and run the application :
+> <pre style="font-size:80%;">
+> <b>&gt; <a href="https://www.lihaoyi.com/mill/#command-line-tools">mill</a> -i app.clean &amp; <a href="https://www.lihaoyi.com/mill/#command-line-tools">mill</a> -i app.run 1</b>
+> [1/1] app.clean
+> [27/39] app.compile
+> [info] compiling 1 Scala source to Y:\examples\enum-Planet\out\app\compile\dest\classes ...
+> [info] done compiling
+> [39/39] app.run
+> Mass of earth is 0.1020132025669991
+> Your weight on MERCURY (0) is 0.37775761520093526
+> [...]
+> </pre>
 
 ## <span id="sbt">SBT build tool</span>
 
@@ -507,18 +521,21 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 
 ## <span id="footnotes">Footnotes</span>
 
-<b name="footnote_01">[1]</b> ***Batch files and coding conventions*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Batch files and coding conventions*** [↩](#anchor_01)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 We strive to obey the following coding conventions in our batch files (e.g. <a href="enum-Planet/build.bat"><b><code>enum-Planet\build.bat</code></b></a>) :
-
-- We use at most 80 characters per line. In general we would say that 80 characters fit well with 4:3 screens and 100 characters fit well with 16:9 screens (both [Databricks](https://github.com/databricks/scala-style-guide#line-length) and [Google](https://google.github.io/styleguide/javaguide.html#s4.4-column-limit) use the convention of 100 characters).
-- We organize our code in 4 sections: `Environment setup`, `Main`, `Subroutines` and `Cleanups`.
-- We write exactly ***one exit instruction*** (label **`end`** in section **`Cleanups`**).
-- We adopt the following naming conventions: global variables start with character `_` (shell variables defined in the user environment start with a letter) and local variables (e.g. inside subroutines or  **`if/for`** constructs) start with `__` (two `_` characters).
-</p>
-
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+</dd>
+<dd>
+<ul>
+<li>We use at most 80 characters per line. In general we would say that 80 characters fit well with 4:3 screens and 100 characters fit well with 16:9 screens (both <a href="https://github.com/databricks/scala-style-guide#line-length">Databricks</a> and <a href="https://google.github.io/styleguide/javaguide.html#s4.4-column-limit">Google</a> use the convention of 100 characters).</li>
+<li>We organize our code in 4 sections: <code>Environment setup</code>, <code>Main</code>, <code>Subroutines</code> and <code>Cleanups</code>.</li>
+<li>We write exactly <b><i>one exit instruction</i></b> (label <b><code>end</code></b> in section <b><code>Cleanups</code></b>).</li>
+<li>We adopt the following naming conventions: global variables start with character <code>_</code> (shell variables defined in the user environment start with a letter) and local variables (e.g. inside subroutines or <b><code>if/for</code></b> constructs) start with <code>__</code> (two <code>_</code> characters).</li>
+</ul>
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>@echo off</b>
 <b>setlocal enabledelayedexpansion</b>
 
@@ -596,6 +613,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 ...
 <b>exit</b> /b <span style="color:#3333ff;">%_EXITCODE%</span>
 </pre>
+</dd></dl>
 
 ***
 

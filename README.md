@@ -90,8 +90,9 @@ C:\opt\javafx-sdk-17.0.1\          <i>(115 MB)</i>
 C:\opt\jdk-openjdk-1.8.0_312-b08\  <i>(185 MB)</i>
 C:\opt\jdk-openjdk-11.0.13_8\      <i>(300 MB)</i>
 C:\opt\jdk-openjdk-17.0.1_12\      <i>(299 MB)</i>
+C:\opt\jitwatch-1.4.4\             <i>( 36 MB)</i>
 C:\opt\make-3.81\                  <i>(  2 MB)</i>
-C:\opt\mill-0.9.10\                <i>( 60 MB)</i>
+C:\opt\mill-0.9.12\                <i>( 60 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
 C:\opt\sbt-1.6.1\                  <i>( 48 MB)</i>
 C:\opt\scala-2.13.7\               <i>( 35 MB)</i>
@@ -330,7 +331,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 1.8.0_312, java 1.8.0_312, scalac 2.13.7, scalac 3.1.1-RC2,
-   ant 1.10.12, gradle 7.3.3, mill 0.9.10, mvn 3.8.4, sbt 1.6.1,
+   ant 1.10.12, gradle 7.3.3, mill 0.9.12, mvn 3.8.4, sbt 1.6.1,
    bazel 4.2.2, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.0,
    git 2.34.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 
@@ -358,7 +359,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.13, java 11.0.13, scalac 2.13.7, scalac 3.1.1-RC2,
-   ant 1.10.12, gradle 7.3.3, mill 0.9.10, mvn 3.8.4, sbt 1.6.1,
+   ant 1.10.12, gradle 7.3.3, mill 0.9.12, mvn 3.8.4, sbt 1.6.1,
    bazel 4.2.2, cfr 0.152, make 3.81, python 3.10.0,
    git 2.34.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
@@ -369,7 +370,7 @@ Tool paths:
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.12\bin\ant.bat
    C:\opt\gradle-7.3.3\bin\gradle.bat
-   C:\opt\mill-0.9.10\mill.bat
+   C:\opt\mill-0.9.12\mill.bat
    C:\opt\apache-maven-3.8.4\bin\mvn.cmd
    C:\opt\sbt-1.6.1\bin\sbt.bat
    C:\opt\bazel-4.2.2\bazel.exe
@@ -802,13 +803,13 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/lihaoyi/mill/releases">0.9.10-assembly</a> (<code>mill</code>)                            <i>( 57 MB)</i>
+<a href="https://github.com/lihaoyi/mill/releases">0.9.12-assembly</a> (<code>mill</code>)                            <i>( 60 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.12-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.8.4-bin.zip</a>                        <i>( 10 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-4.2.2-windows-x86_64.zip</a>                    <i>( 40 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.3.3-bin.zip</a>                              <i>(103 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.7.zip</a>                                  <i>(  4 MB)</i>
-<a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.2-shaded-win.jar</a>                  <i>( 36 MB)</i>
+<a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.4-shaded-win.jar</a>                  <i>( 36 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                 <i>( 10 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20210228.exe</a>                         <i>( 94 MB)</i>
 <a href="http://jdk.java.net/17/">openjdk-17_windows-x64_bin.zip</a>                    <i>(176 MB)</i>
