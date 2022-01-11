@@ -25,7 +25,7 @@ The Scala 3 and Scala 2 software distributions differ in several ways regarding 
 > |  [3.1.1](https://github.com/lampepfl/dotty/releases/tag/3.1.1-RC2) |   33.3 MB   |   35.2 MB    |
 > |  [3.1.0](https://github.com/lampepfl/dotty/releases/tag/3.1.0) |   33.1 MB   |   35.0 MB    |
 > |  [3.0.2](https://github.com/lampepfl/dotty/releases/tag/3.0.2) |   31.1 MB   |   33.0 MB    |
-> |  [2.13.7](https://www.scala-lang.org/download/2.13.7.html)     |   22.6 MB   |   24.1 MB    |
+> |  [2.13.7](https://www.scala-lang.org/download/2.13.7.html), [2.13.8](https://www.scala-lang.org/download/2.13.8.html)     |   22.6 MB   |   24.1 MB    |
 > |  [2.13.6](https://www.scala-lang.org/download/2.13.6.html)     |   22.3 MB   |   23.8 MB    |
 > |  [2.12.15](https://www.scala-lang.org/download/2.12.15.html)   |   20.1 MB   |   21.5 MB    |
 
@@ -124,7 +124,7 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.9.8">2.9.8</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.9.8">2.9.8</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.9.8">2.9.8</a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.9.8">2.9.8</a></td></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.12.1">2.12.1</a></td></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline-reader"><code>jline-reader</code></a></td>
@@ -164,7 +164,7 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/nl.big-o/liqp/0.6.7">0.6.7</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/nl.big-o/liqp/0.6.7">0.6.7</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/nl.big-o/liqp/0.6.7">0.6.7</a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/nl.big-o/liqp/0.6.8">0.6.8</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/nl.big-o/liqp/0.8.2">0.8.2</a></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java"><code>protobuf-java</code></a></td>
@@ -241,7 +241,8 @@ The following table presents the library dependencies of the Scala 2.13 distribu
   <th style="padding:4px;"><a href="https://www.scala-lang.org/download/2.13.5.html">2.13.5</a><br/><span style="color:gray;">final</span></th>
   <th style="padding:4px;"><a href="https://www.scala-lang.org/download/2.13.6.html">2.13.6</a><br/><span style="color:gray;">final</span></th>
   <th style="padding:4px;"><a href="https://www.scala-lang.org/download/2.13.7.html">2.13.7</a><br/><span style="color:gray;">final</span></th>
-  <th style="padding:4px;"><a href="https://app.travis-ci.com/github/scala/scala/branches">2.13.8</a><br/><span style="color:red;">DEV</span></th>
+  <th style="padding:4px;"><a href="https://app.travis-ci.com/github/scala/scala/branches">2.13.8</a><br/><span style="color:gray;">final</span></th>
+  <th style="padding:4px;"><a href="https://app.travis-ci.com/github/scala/scala/branches">2.13.9</a><br/><span style="color:red;">DEV</span></th>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr"><code>jline</code></a></td>
@@ -251,6 +252,7 @@ The following table presents the library dependencies of the Scala 2.13 distribu
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.19.0">3.19.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.19.0">3.19.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.20.0">3.20.0</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.21.0">3.21.0</a></td>
   <td style="padding:4px;"><i>-</i></td>
 </tr>
 <tr>
@@ -261,6 +263,7 @@ The following table presents the library dependencies of the Scala 2.13 distribu
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna/5.3.1">5.3.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna/5.3.1">5.3.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna/5.8.0">5.8.0</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna/5.9.0">5.9.0</a></td>
   <td style="padding:4px;">-</td>
 </tr>
 <tr>
@@ -270,6 +273,7 @@ The following table presents the library dependencies of the Scala 2.13 distribu
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/7.3.1-scala-1">7.3.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.1.0-scala-1">9.1.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.1.0-scala-1">9.1.0</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.2.0-scala-1">9.2.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.2.0-scala-1">9.2.0</a></td>
   <td style="padding:4px;">-</td>
 </tr>
@@ -336,10 +340,12 @@ Found ASM version "7.3.1-scala-1" in Scala 2 installation is "C:\opt\scala-2.13.
 Found ASM version "9.1.0-scala-1" in Scala 2 installation is "C:\opt\scala-2.13.5"
 Found ASM version "9.1.0-scala-1" in Scala 2 installation is "C:\opt\scala-2.13.6"
 Found ASM version "9.2.0-scala-1" in Scala 2 installation is "C:\opt\scala-2.13.7"
+Found ASM version "9.2.0-scala-1" in Scala 2 installation is "C:\opt\scala-2.13.8"
 Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.0.0"
 Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.0.2"
 Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.1.0"
 Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.1.1-RC1"
+Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.1.1-RC2"
 </pre>
 </dd></dl>
 

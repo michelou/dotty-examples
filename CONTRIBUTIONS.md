@@ -15,15 +15,16 @@
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Status | Context |
 | :------------------------: | :--------: | :--------- |
-| [#13806][dotty_pull_13806] | [merged](https://github.com/lampepfl/dotty/commit/608344a) <span style="font-size:80%;">(Oct 2021)</span> | Batch files |
+| [#14191][dotty_pull_14191] | [merged](https://github.com/lampepfl/dotty/commit/c9c6de6) <span style="font-size:80%;">(Jan 2022)</span> | [Reference Documentation][scala3_reference] |
+| [#13806][dotty_pull_13806] | [merged](https://github.com/lampepfl/dotty/commit/608344a) <span style="font-size:80%;">(Oct 2021)</span> | [Batch files][scala3_commands] |
 | [#13791][dotty_pull_13791] | [merged](https://github.com/lampepfl/dotty/commit/8ee672c) <span style="font-size:80%;">(Nov 2021)</span> | Test suite |
 | [#13790][dotty_pull_13790] | [merged](https://github.com/lampepfl/dotty/commit/78824ad) <span style="font-size:80%;">(Oct 2021)</span> | Batch files |
 | [#13577][dotty_pull_13577] | [merged](https://github.com/lampepfl/dotty/commit/2b3f6da) <span style="font-size:80%;">(Sep 2021)</span> | Batch files |
 | [#13006][dotty_pull_13006] | [merged](https://github.com/lampepfl/dotty/commit/158b332) <span style="font-size:80%;">(July 2021)</span> | Batch files |
 | [#11728][dotty_pull_11728] | *pending* | Reference documentation |
-| [#11480][dotty_pull_11480] | [merged](https://github.com/lampepfl/dotty/commit/5eb3258) <span style="font-size:80%;">(Feb 2021)</span> | Reference documentation |
+| [#11480][dotty_pull_11480] | [merged](https://github.com/lampepfl/dotty/commit/5eb3258) <span style="font-size:80%;">(Feb 2021)</span> | [Reference Documentation][scala3_reference] |
 | [#11257][dotty_pull_11257] | *WIP*  | Reference documentation |
-| [#11235][dotty_pull_11235] | [merged](https://github.com/lampepfl/dotty/commit/8d3275c) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
+| [#11235][dotty_pull_11235] | [merged](https://github.com/lampepfl/dotty/commit/8d3275c) <span style="font-size:80%;">(Jan 2021)</span> | [Reference Documentation][scala3_reference] |
 | [#11158][dotty_pull_11158] | [merged](https://github.com/lampepfl/dotty/commit/bbfff61) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
 | [#11062][dotty_pull_11062] | [merged](https://github.com/lampepfl/dotty/commit/0f1d350) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
 | [#11016][dotty_pull_11016] | [merged](https://github.com/lampepfl/dotty/commit/437d02a) <span style="font-size:80%;">(Jan 2021)</span> | Reference documentation |
@@ -37,7 +38,7 @@
 | [#8356][dotty_pull_8356] | [merged](https://github.com/lampepfl/dotty/commit/f51bf1b701a17851224472849c131ce6de38e2a7) <span style="font-size:80%;">(Feb&nbsp;2020)</span> | Test suite |
 | [#8330][dotty_pull_8330] | [merged](https://github.com/lampepfl/dotty/commit/5018a1285cf3d8c0f3a17f98f015589154b0fbbd) <span style="font-size:80%;">(Feb&nbsp;2020)</span> | Test suite |
 | [#8279][dotty_pull_8279] | [merged](https://github.com/lampepfl/dotty/commit/a5f1dae68202ba67ef99c39f243970ebd3530a65) <span style="font-size:80%;">(Feb&nbsp;2020)</span> | Compiler options |
-| [#6653][dotty_pull_6653] | [merged](https://github.com/lampepfl/dotty/commit/fe02bf4fdc14f648b5f42731e39448995963256c) <span style="font-size:80%;">(Jun 2019)</span> | Batch files |
+| [#6653][dotty_pull_6653] | [merged](https://github.com/lampepfl/dotty/commit/fe02bf4fdc14f648b5f42731e39448995963256c) <span style="font-size:80%;">(Jun 2019)</span> | [Batch files][scala3_commands] |
 | [#5814](https://github.com/lampepfl/dotty/pull/5814) | [merged](https://github.com/lampepfl/dotty/commit/923fb06dc625e054e8b1833d4b7db49d369d91ad) <span style="font-size:80%;">(Jan 2019)</span> | **`build compile`** |
 | [#5659](https://github.com/lampepfl/dotty/pull/5659) | [merged](https://github.com/lampepfl/dotty/commit/7b9ffbb56b2bd33efead1c0f38a71c057c31463e) <span style="font-size:80%;">(Dec 2018)</span> | **`build bootstrap`** |
 | [#5587](https://github.com/lampepfl/dotty/pull/5587) | [merged](https://github.com/lampepfl/dotty/commit/172d6a0a1a3a4cbdb0a3ac4741b3f561d1221c40) <span style="font-size:80%;">(Dec 2018)</span> | **`build bootstrap`** |
@@ -67,6 +68,8 @@ We have come across several issues <sup id="anchor_02"><a href="#footnote_02">[2
 
 | [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Status&nbsp;&nbsp;&nbsp; | Context |
 | :-------------------------: | :--------: | :--------- |
+| [#14251][dotty_issue_14251] | *open* | Library dependencies |
+| [#14235][dotty_issue_14235] | [fixed][dotty_pull_14247] <span style="font-size:80%;">(Jan 2022)</span> | Library dependencies |
 | [#11454][dotty_issue_11454] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
 | [#11453][dotty_issue_11453] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
 | [#11452][dotty_issue_11452] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
@@ -86,35 +89,40 @@ We have come across several issues <sup id="anchor_02"><a href="#footnote_02">[2
 
 <span id="footnote_01">[1]</span> ***Batch files*** [↩](#anchor_01)
 
-<p style="margin:0 0 0 20px;">
+<dl><dd>
 <a href="https://github.com/lampepfl/dotty/pull/5444">PR #5444</a> (<i>closed</i> in December 2019</i>) targets the MS Windows platform and includes 2 sets of batch files :
 </p>
 <ul>
   <li>Batch files to run the <code>scala</code>, <code>scalac</code> and <code>scaladoc</code> commands from the Windows prompt.</li>
   <li>Batch files to build the Scala 3 distribution archives (more details in file <a href="BUILD.md"><b><code>BUILD.md</code></b></a>).</li>
 </ul>
-<p style="margin:0 0 1em 20px;">
+</dd>
+<dd>
 <a href="https://github.com/lampepfl/dotty/pull/13006">PR #13006</a> (<i>merged</i> in July 2021) includes the first set of batch files.
-</p>
+</dd></dl>
 
 <span id="footnote_02">[2]</span> ***Git configuration*** [↩](#anchor_02)
 
-<p style="margin:0 0 1em 20px;">
+<dl><dd>
 We report here one issue we encountered when working with the <a href="https://git-scm.com/docs/git-config"><b><code>git</code></b></a> command on Windows, namely the error message <code>"Filename too long"</code>:
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://git-scm.com/docs/git">git</a> status</b>
 mainExamples/src/main/scala/examples/main/active/writing/toConsoleWriting/info/reading/argumentAndResultMultiplier/FactorialOfArgumentMultipliedByResultMultiplierMain.scala: Filename too long
    On branch batch-files
    Your branch is ahead of 'origin/batch-files' by 1106 commits.
       (use "git push" to publish your local commits)
 </pre>
-<p style="margin:0 0 1em 20px;">
+</dd>
+<dd>
 We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration" rel="external">Git settings</a> as follows:
-</p>
-<pre style="margin:0 0 1em 20px;font-size:80%;">
+</dd>
+<dd>
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://git-scm.com/docs/git">git</a> config --system core.longpaths true</b>
 </pre>
-</p>
+</dd></dl>
 
 ***
 
@@ -138,6 +146,8 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_issue_11452]: https://github.com/lampepfl/dotty/issues/11452 "Command line tools : option \"-version\""
 [dotty_issue_11453]: https://github.com/lampepfl/dotty/issues/11453
 [dotty_issue_11454]: https://github.com/lampepfl/dotty/issues/11454 "scaladoc tool : argument files (@-files)"
+[dotty_issue_14235]: https://github.com/lampepfl/dotty/issues/14235
+[dotty_issue_14251]: https://github.com/lampepfl/dotty/issues/14251
 [dotty_pull_6653]: https://github.com/lampepfl/dotty/pull/6653
 [dotty_pull_7691]: https://github.com/lampepfl/dotty/pull/7691
 [dotty_pull_8224]: https://github.com/lampepfl/dotty/pull/8224
@@ -165,4 +175,8 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_pull_13790]: https://github.com/lampepfl/dotty/pull/13790
 [dotty_pull_13791]: https://github.com/lampepfl/dotty/pull/13791
 [dotty_pull_13806]: https://github.com/lampepfl/dotty/pull/13806
+[dotty_pull_14191]: https://github.com/lampepfl/dotty/pull/14191
+[dotty_pull_14247]: https://github.com/lampepfl/dotty/pull/14247
 [scala_pull_9013]: https://github.com/scala/scala/pull/9013 "Close Source.fromFile"
+[scala3_commands]: https://github.com/lampepfl/dotty/tree/master/dist/bin "Batch files"
+[scala3_reference]: https://docs.scala-lang.org/scala3/reference/overview.html "Scala 3 Reference"

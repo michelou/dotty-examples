@@ -306,16 +306,17 @@ echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%help%__END%        display this help message
 goto :eof
 
-@rem output parameters: _PYTHON_HOME, _PYTHON_PATH
+@rem output parameter: _PYTHON_HOME
 :python
 set _PYTHON_HOME=
-set _PYTHON_PATH=
 
 set __PYTHON_CMD=
-for /f %%f in ('where python.exe 2^>NUL') do set "__PYTHON_CMD=%%f"
-if defined __PYTHON_CMD (
-    @rem We ignore Python installation in directory %LOCALADDDATA%
-    if not "!__PYTHON_CMD:WindowsApps=!"=="%__PYTHON_CMD%" set __PYTHON_CMD=
+for /f %%f in ('where python.exe 2^>NUL') do (
+    set "__PYTHON_CMD=%%f"
+    @rem we ignore Scoop/Windows managed Python installation
+    if not "!__PYTHON_CMD:scoop=!"=="!__PYTHON_CMD!" ( set __PYTHON_CMD=
+    ) else if not "!__PYTHON_CMD:WindowsApps=!"=="%__PYTHON_CMD%" ( set __PYTHON_CMD=
+    )
 )
 if defined __PYTHON_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Python executable found in PATH 1>&2
@@ -343,10 +344,9 @@ if not exist "%_PYTHON_HOME%\python.exe" (
     set _EXITCODE=1
     goto :eof
 )
-set "_PYTHON_PATH=;%_PYTHON_HOME%;%_PYTHON_HOME%\Scripts"
 goto :eof
 
-@rem output parameter(s): _BLOOP_PATH
+@rem output parameter: _BLOOP_PATH
 :bloop
 set _BLOOP_PATH=
 
@@ -375,7 +375,7 @@ if not exist "%__BLOOP_HOME%\bloop.cmd" (
 set "_BLOOP_PATH=;%__BLOOP_HOME%"
 goto :eof
 
-@rem input parameter: %1=vendor %1^=required version
+@rem input parameters: %1=vendor %2=required version
 @rem output parameter: _JAVA_HOME (resp. JAVA11_HOME)
 :java
 set _JAVA_HOME=
@@ -386,7 +386,11 @@ if not defined __VENDOR ( set __JDK_NAME=jdk-%__VERSION%
 ) else ( set __JDK_NAME=jdk-%__VENDOR%-%__VERSION%
 )
 set __JAVAC_CMD=
-for /f %%f in ('where javac.exe 2^>NUL') do set "__JAVAC_CMD=%%f"
+for /f %%f in ('where javac.exe 2^>NUL') do (
+    set "__JAVAC_CMD=%%f"
+    @rem we ignore Scoop managed Java installation
+    if not "!__JAVAC_CMD:scoop=!"=="!__JAVAC_CMD!" set __JAVAC_CMD=
+)
 if defined __JAVAC_CMD (
     call :jdk_version "%__JAVAC_CMD%"
     if !_JDK_VERSION!==%__VERSION% (
@@ -421,8 +425,8 @@ call :jdk_version "%_JAVA_HOME%\bin\javac.exe"
 set "_JAVA!_JDK_VERSION!_HOME=%_JAVA_HOME%"
 goto :eof
 
-@rem input parameter(s): %1=javac file path
-@rem output parameter(s): _JDK_VERSION
+@rem input parameter: %1=javac file path
+@rem output parameter: _JDK_VERSION
 :jdk_version
 set "__JAVAC_CMD=%~1"
 if not exist "%__JAVAC_CMD%" (
@@ -845,7 +849,11 @@ set _MAVEN_HOME=
 set _MAVEN_PATH=
 
 set __MVN_CMD=
-for /f %%f in ('where mvn.cmd 2^>NUL') do set "__MVN_CMD=%%f"
+for /f %%f in ('where mvn.cmd 2^>NUL') do (
+    set "__MVN_CMD=%%f"
+    @rem we ignore Scoop managed Maven installation
+    if not "!__MVN_CMD:scoop=!"=="!__MVN_CMD!" set __MVN_CMD=
+)
 if defined __MVN_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Maven executable found in PATH 1>&2
     for %%i in ("%__MVN_CMD%") do set "__MAVEN_BIN_DIR=%%~dpi"
@@ -966,31 +974,6 @@ if defined __MSYS2_CMD (
 if not exist "%_MSYS_HOME%\msys2_shell.cmd" if %_MSYS%==1 (
     set _MSYS=0
     echo %_ERROR_LABEL% MSYS2 command not found ^(%_MSYS_HOME%^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-goto :eof
-
-@rem output parameter: _PYTHON_HOME
-set _PYTHON_HOME=
-
-set __PYTHON_CMD=
-for /f %%f in ('where python.exe 2^>NUL ^| findstr /v WindowsApps') do set "__PYTHON_CMD=%%f"
-if defined __PYTHON_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Python executable found in PATH 1>&2
-    goto :eof
-) else if defined PYTHON_HOME (
-    set "_PYTHON_HOME=%PYTHON_HOME%"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable PYTHON_HOME 1>&2
-) else (
-    set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\Python*" 2^>NUL') do set "_PYTHON_HOME=!_PATH!\%%f"
-    if defined _PYTHON_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Python installation directory !_PYTHON_HOME! 1>&2
-    )
-)
-if not exist "%_PYTHON_HOME%\python.exe" (
-    echo %_ERROR_LABEL% Python executable not found ^(%_PYTHON_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -1120,11 +1103,6 @@ where /q "%GRADLE_HOME%\bin:gradle.bat"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('"%GRADLE_HOME%\bin\gradle.bat" -version ^| findstr Gradle') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GRADLE_HOME%\bin:gradle.bat"
-)
-where /q "%JAVA_HOME%\bin:java.exe"
-if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,*" %%i in ('"%JAVA_HOME%\bin\java.exe" -version 2^>^&1 ^| findstr version 2^>^&1') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% java %%~k,"
-    set __WHERE_ARGS=%__WHERE_ARGS% "%JAVA_HOME%\bin:java.exe"
 )
 where /q "%MILL_HOME%:mill.bat"
 if %ERRORLEVEL%==0 (
