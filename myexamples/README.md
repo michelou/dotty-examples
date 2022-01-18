@@ -18,7 +18,7 @@ Let's choose example [**`myexamples\HelloWorld`**](HelloWorld) to demonstrate th
 W:\myexamples\HelloWorld
 </pre>
 
-Build tools rely on one or more configuration files to achieve their tasks. In our case we created the following configuration files for [**`HelloWorld`**](HelloWorld):
+Build tools rely on one or more configuration files to achieve their tasks. In our case we provide the following configuration files for [**`HelloWorld`**](HelloWorld):
 
 | Build tool                    | Configuration file(s)                                   | Parent file(s)                       | Environment(s) |
 |-------------------------------|---------------------------------------------------------|--------------------------------------|---------|
@@ -36,7 +36,7 @@ Build tools rely on one or more configuration files to achieve their tasks. In o
 <b><sup>b)</sup></b> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).<br/>&nbsp;</div>
 
 
-## <span id="ant">Ant build tool</span>
+## <span id="ant">Ant build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 The configuration file [**`HelloWorld\build.xml`**](HelloWorld/build.xml) depends on the parent file [**`myexamples\build.xml`**](build.xml) which provides several macro definitions such as **`dotc`**, **`dotd`** and **`cfr`** to process Scala source files.
 
@@ -108,7 +108,7 @@ Total time: 14 seconds
 </pre>
 
 
-## <span id="build">`build.bat` command</span>
+## <span id="build">`build.bat` command</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 Command [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~800 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`decompile`**, **`doc`**, **`help`**, **`lint`** and **`run`**.
 
@@ -123,7 +123,7 @@ Hello world!
 </pre>
 
 
-## <span id="build.sh">`build.sh` command</span>
+## <span id="build.sh">`build.sh` command</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 Command [**`build.sh`**](HelloWorld/build.sh) is our basic build tool for Unix environments like [Cygwin], Linux or [MSYS2]; it features subcommands **`clean`**, **`compile`**, **`doc`**, **`help`**, **`lint`** and **`run`**; our Bash script consists of ~530 lines of [Bash] code.
 
@@ -199,7 +199,7 @@ Hello world!
 </pre>
 
 
-## <span id="gradle">Gradle build tool</span>
+## <span id="gradle">Gradle build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 Command [**`gradle`**][gradle_cli] is the official build tool for Android applications (tool created in 2007). It replaces XML-based build scripts with a [Groovy][gradle_groovy]-based DSL.
 
@@ -283,7 +283,7 @@ BUILD SUCCESSFUL in 4s
 7 actionable tasks: 7 executed
 </pre>
 
-## <span id="gmake">Make build tool</span>
+## <span id="gmake">Make build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 The configuration file [**`HelloWorld\Makefile`**](HelloWorld/Makefile) depends on the parent file [**`myexamples\Makefile.inc`**](Makefile.inc) which defines common settings (i.e. tool and library paths).
 
@@ -331,7 +331,7 @@ private members with docstrings:   0
 </pre>
 
 
-## Maven build tool
+## <span id="maven">Maven build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 The configuration file [**`HelloWorld\pom.xml`**](HelloWorld/pom.xml) depends on the parent file [**`myexamples\pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**).
 
@@ -460,7 +460,7 @@ Hello world!
 > Class **`scala.Serializable`** is part of **`C:\opt\scala3-3.1.1-RC1\lib\scala-library-2.13.7.jar`**, so let us add it to our classpath !
 
 
-## <span id="mill">Mill build tool</span>
+## <span id="mill">Mill build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 The configuration file [**`build.sc`**](HelloWorld/build.sc) depends on the parent file [**`myexamples\common.sc`**](common.sc) which defines the common settings.
 It is a standalone file written in Scala (with direct access to [OS-Lib][os_lib]).
@@ -476,13 +476,13 @@ Hello world!
 </pre>
 
 
-## <span id="sbt">SBT build tool</span>
+## <span id="sbt">SBT build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is written in [Scala] and obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
 > **:mag_right:** [Lightbend] provides commercial support for the [**`sbt`**][sbt_cli] build tool.
 
-Command **`sbt -warn clean run`** produces the following output:
+Command **<code>[sbt](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) -warn clean run</code>** produces the following output:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html">sbt</a> -warn clean run</b>
@@ -491,18 +491,17 @@ Hello world!
 
 ## <span id="footnotes">Footnotes</span>
 
-<dl>
-<dt><span name="footnote_01">&nbsp;&nbsp;[1]&nbsp;&nbsp;</span> <b><i>Batch files and coding conventions</i></b> <a href="#anchor_01">↩</a></dt>
-<dd>
-<p>
+<span id="footnote_01">[1]</span> ***Batch files and coding conventions*** [↩](#anchor_01)
+
+<dl><dd>
 Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</code></b></a>) obey the following coding conventions:
 
 - We use at most 80 characters per line. In general we would say that 80 characters fit well with 4:3 screens and 100 characters fit well with 16:9 screens (both [Databricks](https://github.com/databricks/scala-style-guide#line-length) and [Google](https://google.github.io/styleguide/javaguide.html#s4.4-column-limit) use the convention of 100 characters).
 - We organize our code in 4 sections: `Environment setup`, `Main`, `Subroutines` and `Cleanups`.
 - We write exactly ***one exit instruction*** (label **`end`** in section **`Cleanups`**).
 - We adopt the following naming conventions: global variables start with character `_` (shell variables defined in the user environment start with a letter) and local variables (e.g. inside subroutines or  **`if/for`** constructs) start with `__` (two `_` characters).
-</p>
-
+</dd>
+<dd>
 <pre style="font-size:80%;">
 <b>@echo off</b>
 <b>setlocal enabledelayedexpansion</b>
@@ -575,9 +574,11 @@ Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</
 <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/exit">exit</a></b> /b <span style="color:#3333ff;">%_EXITCODE%</span>
 </pre>
 </dd>
+</dl>
 
-<dt><span name="footnote_02">&nbsp;&nbsp;[2]&nbsp;&nbsp;</span> <b><i>MSYS2 Shell options</i></b> <a href="#anchor_02">↩</a></dt>
-<dd>
+<span id="footnote_02">[2]</span> ***MSYS2 Shell options*** [↩](#anchor_02)
+
+<dl><dd>
 <pre style="font-size:80%;">
 $ c:\opt\msys64\msys2_shell.cmd --help
 Usage:
@@ -602,9 +603,7 @@ Options:
 Any parameter that cannot be treated as valid option and all
 following parameters are passed as login shell command parameters.
 </pre>
-</dd>
-</dl>
-
+</dd></dl>
 
 ***
 

@@ -11,14 +11,14 @@
   </tr>
 </table>
 
-Let's choose example [**`enum-Planet`**](enum-Planet) to demonstrate the usage of the build tools we do support:
+Let's choose example [**`examples\enum-Planet`**](enum-Planet) to demonstrate the usage of the build tools we do support:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
 W:\examples\enum-Planet
 </pre>
 
-Build tools rely on one or more configuration files to achieve their tasks. In our case we created the following configuration files for [**`enum-Planet`**](enum-Planet):
+Build tools rely on one or more configuration files to achieve their tasks. In our case we provide the following configuration files for [**`enum-Planet`**](enum-Planet):
 
 | Build tool                    | Configuration file(s)                    | Parent file(s)                               | Environment(s) |
 |-------------------------------|------------------------------------------|----------------------------------------------|---------|
@@ -121,7 +121,7 @@ Total time: 14 seconds
 </pre>
 
 
-## <span id="build">`build.bat` command</span>
+## <span id="build">`build.bat` command</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 Command [**`build.bat`**](enum-Planet/build.bat) is our basic build tool featuring subcommands **`clean`**, **`compile`**, **`decompile`**, **`doc`**, **`help`**, **`lint`**, **`run`** and **`test`**; the batch file consists of ~790 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup>.
 
@@ -248,7 +248,7 @@ Compare output file with check file "src\build\cfr-sources_scala3_3.1.1-RC2.java
 </pre>
 
 
-## <span id="build.sh">`build.sh` command</span>
+## <span id="build.sh">`build.sh` command</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 Command [**`build.sh`**](enum-Planet/build.sh) is our basic build tool for Unix environments like [Cygwin], Linux or [MSYS2]; it features subcommands **`clean`**, **`compile`**, **`doc`**, **`help`**, **`lint`** and **`run`**; the Bash script consists of ~500 lines of [Bash] code.
 
@@ -269,7 +269,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 </pre>
 
 
-## <span id="gradle">Gradle build tool</span>
+## <span id="gradle">Gradle build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 The configuration file [**`enum-Planet\build.gradle`**](enum-Planet/build.gradle) depends on the parent file [**`examples\common.gradle`**](common.gradle) which defines the task **`compileDotty`** and manages the task dependencies.
 
@@ -294,7 +294,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 > Simply execute the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of [**`gradle`**][gradle_cli].
 
 
-## <span id="gmake">Make build tool</span>
+## <span id="gmake">Make build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 The configuration file [**`enum-Planet\Makefile`**](enum-Planet/Makefile) depends on the parent file [**`examples\Makefile.inc`**](Makefile.inc) which defines common settings (i.e. tool and library paths).
 
@@ -351,7 +351,7 @@ private members with docstrings:   0/3 (0%)
 </pre>
 
 
-## <span id="maven">Maven build tool</span>
+## <span id="maven">Maven build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 The [Maven][apache_maven_about] configuration file [**`enum-Planet\pom.xml`**](enum-Planet/pom.xml) depends on the parent file [**`../pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**).
 
@@ -464,7 +464,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 > </pre>
 
 
-## <span id="mill">Mill build tool</span>
+## <span id="mill">Mill build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 The Mill configuration file [**`enum-Planet\build.sc`**](enum-Planet/build.sc) depends on the parent file [**`examples\common.sc`**](common.sc) which defines the common settings.
 
@@ -498,13 +498,13 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 > [...]
 > </pre>
 
-## <span id="sbt">SBT build tool</span>
+## <span id="sbt">SBT build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is written in [Scala] and obeys the [sbt build definitions][sbt_docs_defs].
 
 > **:mag_right:** [Lightbend] provides commercial support for the [**`sbt`**][sbt_cli] build tool.
 
-Command **`sbt -warn clean "run 1"`** produces the following output:
+Command **<code>[sbt](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) -warn clean "run 1"</code>** produces the following output:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html">sbt</a> -warn clean "run 1"</b>

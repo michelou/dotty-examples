@@ -27,8 +27,8 @@ This project depends on the following external software for the **Microsoft Wind
 
 - [Git 2.34][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 8 LTS][oracle_openjdk8] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk8_relnotes])
-- [Oracle OpenJDK 11 LTS][oracle_openjdk11] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk11_relnotes])
-- [Oracle OpenJDK 17 LTS][oracle_openjdk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk17_relnotes])
+- [Oracle OpenJDK 11 LTS][oracle_openjdk11] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk11_relnotes], [*bug fixes*][oracle_openjdk11_bugfixes])
+- [Oracle OpenJDK 17 LTS][oracle_openjdk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk17_relnotes], [*bug fixes*][oracle_openjdk17_bugfixes])
 - [Scala 3.1][scala3_releases] ([*release notes*][scala3_relnotes])
 <!--
 8u212   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
@@ -64,7 +64,7 @@ Optionally one may also install the following software:
 - [JaCoCo 0.8][jacoco_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*change log*][jacoco_changelog])
 - [JavaFX 17][javafx_downloads] ([*release notes*][javafx_relnotes])
 - [JITWatch 1.4][jitwatch_releases] (requires Java 11 or newer)
-- [Mill 0.9][mill_releases] ([*change log*][mill_changelog])
+- [Mill 0.10][mill_releases] ([*change log*][mill_changelog])
 - [MSYS2][msys2_releases] ([*change log*][msys2_changelog])
 - [sbt 1.6][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
@@ -92,7 +92,7 @@ C:\opt\jdk-openjdk-11.0.13_8\      <i>(300 MB)</i>
 C:\opt\jdk-openjdk-17.0.1_12\      <i>(299 MB)</i>
 C:\opt\jitwatch-1.4.4\             <i>( 36 MB)</i>
 C:\opt\make-3.81\                  <i>(  2 MB)</i>
-C:\opt\mill-0.9.12\                <i>( 60 MB)</i>
+C:\opt\mill-0.10.0\                <i>( 60 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
 C:\opt\sbt-1.6.1\                  <i>( 48 MB)</i>
 C:\opt\scala-2.13.7\               <i>( 35 MB)</i>
@@ -331,7 +331,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 1.8.0_312, java 1.8.0_312, scalac 2.13.7, scalac 3.1.1-RC2,
-   ant 1.10.12, gradle 7.3.3, mill 0.9.12, mvn 3.8.4, sbt 1.6.1,
+   ant 1.10.12, gradle 7.3.3, mill 0.10.0, mvn 3.8.4, sbt 1.6.1,
    bazel 4.2.2, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.0,
    git 2.34.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 
@@ -359,7 +359,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.13, java 11.0.13, scalac 2.13.7, scalac 3.1.1-RC2,
-   ant 1.10.12, gradle 7.3.3, mill 0.9.12, mvn 3.8.4, sbt 1.6.1,
+   ant 1.10.12, gradle 7.3.3, mill 0.10.0, mvn 3.8.4, sbt 1.6.1,
    bazel 4.2.2, cfr 0.152, make 3.81, python 3.10.0,
    git 2.34.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
@@ -370,7 +370,7 @@ Tool paths:
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.12\bin\ant.bat
    C:\opt\gradle-7.3.3\bin\gradle.bat
-   C:\opt\mill-0.9.12\mill.bat
+   C:\opt\mill-0.10.0\mill.bat
    C:\opt\apache-maven-3.8.4\bin\mvn.cmd
    C:\opt\sbt-1.6.1\bin\sbt.bat
    C:\opt\bazel-4.2.2\bazel.exe
@@ -758,9 +758,10 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 <tr>
   <td><a href="https://www.oracle.com/java/technologies/downloads/#java8">8</a></td>
   <td> March 2014</td>
-  <td>December 2030</td>
+  <td>December 2030 <sup>(1)</sup></td>
 </tr>
 </table>
+<div style="font-size:80%;"><sup>(1)</sup> The Extended Support uplift fee will be waived for the period March 2022 - December 2030 for Java SE 8.
 </dd>
 <dd>
 <b>NB.</b> See also <a href="https://www.azul.com/products/azul-support-roadmap/">Zulu's support roadmap</a>.
@@ -784,7 +785,7 @@ For instance, for Visual Studio 2019, we set variable <b><code>BAZEL_VC</code></
 
 <dl><dd>
 <table style="font-size:90%;">
-<tr><th>JaCoCo version</th><th>Supported Java version</th></tr>
+<tr><th><a href="https://www.eclemma.org/jacoco/">JaCoCo</a> version</th><th>Supported Java version</th></tr>
 <tr><td>0.8.7 <i style="font-size:80%;">(May 2021)</i></td><td>15 and 16</td></tr>
 <tr><td>0.8.6 <i style="font-size:80%;">(Sept 2020)</i></td><td>14</td></tr>
 <tr><td>0.8.5 <i style="font-size:80%;">(Oct 2019)</i></td><td>13</td></tr>
@@ -803,7 +804,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/lihaoyi/mill/releases">0.9.12-assembly</a> (<code>mill</code>)                            <i>( 60 MB)</i>
+<a href="https://github.com/lihaoyi/mill/releases">0.10.0-assembly</a> (<code>mill</code>)                            <i>( 60 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.12-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.8.4-bin.zip</a>                        <i>( 10 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-4.2.2-windows-x86_64.zip</a>                    <i>( 40 MB)</i>
@@ -903,14 +904,18 @@ Command Prompt has been around for as long as we can remember, but starting with
 [msys2_releases]: https://github.com/msys2/msys2-installer/releases
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [oracle_openjdk8]: https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot
-[oracle_openjdk8_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-July/014118.html
+[oracle_openjdk8_relnotes]: https://www.oracle.com/java/technologies/javase/8u311-relnotes.html
 <!--
+jdk8 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-July/014118.html
 11.0.11 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-April/005860.html
 11.0.12 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-July/006954.html
+11.0.13 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-October/009368.html
 -->
-[oracle_openjdk11_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-July/006954.html
+[oracle_openjdk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-13-bugfixes.html
+[oracle_openjdk11_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-October/009368.html
 [oracle_openjdk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
 [oracle_openjdk17]: https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot
+[oracle_openjdk17_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-1-bugfixes.html
 [oracle_openjdk17_relnotes]: https://github.com/openjdk/jdk/compare/jdk-17%2B20...jdk-17%2B21
 <!--
 [python_changelog]: https://docs.python.org/3.8/whatsnew/changelog.html#python-3-8-0-final

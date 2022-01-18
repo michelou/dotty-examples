@@ -13,11 +13,11 @@
 
 ## <span id="intro">Introduction</span>
 
-The Scala 3 and Scala 2 software distributions differ in several ways regarding their dependencies on external libraries. Here we enumerate a few differences :
+The [Scala 3](https://www.scala-lang.org/download/scala3.html) and [Scala 2](https://www.scala-lang.org/download/scala2.html) software distributions differ in several ways regarding their dependencies on external libraries. We enumerate here the main differences :
 - Scala 3 depends on *many more* external libraries, introduced mainly with the new development of [`scaladoc`](https://docs.scala-lang.org/scala3/scaladoc.html).
 - Scala 3 depends on [`compiler-interface`](https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface), the Scala incremental compiler library ([`Zinc`](https://mvnrepository.com/artifact/org.scala-sbt/zinc)), originally part of [`sbt`](https://www.scala-sbt.org/).
 - Scala 3 depends on [`scala-library`](https://mvnrepository.com/artifact/org.scala-lang/scala-library), the Scala 2.13 standard library (mainly for compatibility with the [Scala 2 collection framework](https://docs.scala-lang.org/overviews/collections-2.13/introduction.html)).
-- Depencencies *common* to both software distributions include [`jline`](https://jline.github.io/) ([Scala REPL](https://docs.scala-lang.org/scala3/book/taste-repl.html)) and [`scala-asm`](https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm) ([JVM backend](https://dotty.epfl.ch/docs/internals/backend.html)).
+- Depencencies *common* to both software distributions include [`jline`](https://github.com/jline/jline3#jline----) ([Scala REPL](https://docs.scala-lang.org/scala3/book/taste-repl.html)) and [`scala-asm`](https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm) ([JVM backend](https://dotty.epfl.ch/docs/internals/backend.html)).
 
 > **:mag_right:** We observe a jump in the increases in size of the software distributions : 
 > |  Version  | Zip archive | Installation |
@@ -168,7 +168,7 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java"><code>protobuf-java</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java/3.19.1"><b>3.19.1</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java/3.19.3"><b>3.19.3</b></a><br/><span style="color:gray;font-size:80%;">(Jan&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java/3.7.0">3.7.0</a><br/><span style="color:gray;">(2019)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java/3.7.0">3.7.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java/3.7.0">3.7.0</a></td>
@@ -177,7 +177,7 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java/3.7.0">3.7.0</a></td>
 </tr>
 <tr>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm"><code>scala-asm</code></a> <sup id="anchor_01"><a href="#footnote_01">1</a></sup></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm"><code>scala-asm</code></a> <sup id="anchor_02"><a href="#footnote_02">2</a></sup></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.2.0-scala-1"><b>9.2.0</b></a><br/><span style="color:gray;font-size:80%;">(Jul 2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.1.0-scala-1">9.1.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.1.0-scala-1">9.1.0</a></td>
@@ -188,7 +188,7 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library"><code>scala-library</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.7"><b>2.13.7</b></a><br/><span style="color:gray;font-size:80%;">(Nov&nbsp;2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.8"><b>2.13.8</b></a><br/><span style="color:gray;font-size:80%;">(Jan&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.5">2.13.5</a><br/><span style="color:gray;font-size:80%;">(Feb&nbsp;2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.6">2.13.6</a><br/><span style="color:gray;font-size:80%;">(May&nbsp;2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.6">2.13.6</a></td>
@@ -245,7 +245,7 @@ The following table presents the library dependencies of the Scala 2.13 distribu
   <th style="padding:4px;"><a href="https://app.travis-ci.com/github/scala/scala/branches">2.13.9</a><br/><span style="color:red;">DEV</span></th>
 </tr>
 <tr>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr"><code>jline</code></a></td>
+  <td style="padding:4px;"><a href="hhttps://mvnrepository.com/artifact/org.jline/jline"><code>jline</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.21.0"><b>3.21.0</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.15.0">3.15.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.16.0">3.16.0</a></td>
@@ -318,7 +318,7 @@ The following table presents the library dependencies of the Scala 2.12 distribu
 <span id="footnote_01">[1]</span> **`jline 3.21.0` and `JNA 5.9.0` *Library Updates*** [↩](#anchor_01)
 
 <dl><dd>
-Update 3.21.0 of the <a href="https://mvnrepository.com/artifact/org.jline/jline"><code>JLine</code></a> library and update 5.9.0 of the <a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna"><code>JNA</code></a> library (see <a href="https://github.com/scala/scala/pull/9807">pull 9807</a>) make REPL work again on Mac M1.
+Update 3.21.0 of the <a href="https://mvnrepository.com/artifact/org.jline/jline"><code>JLine</code></a> library and update 5.9.0 of the <a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna"><code>JNA</code></a> library make REPL work again on Mac M1  (see <a href="https://github.com/scala/scala/pull/9807">pull 9807</a>).
 </dd></dl>
 
 <span id="footnote_02">[2]</span> **`scala-asm` *Library*** [↩](#anchor_02)

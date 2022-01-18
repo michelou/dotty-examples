@@ -20,10 +20,11 @@
 
 ## <span id="blogs">Blogs</span>
 
-- [Databricks Blog](https://databricks.com/blog)
+- [Databricks Blog][blog_databricks]
    - [Scala at Scale at Databricks](https://databricks.com/blog/2021/12/03/scala-at-scale-at-databricks.html) by Li Haoyi, Decembre 2021.
 - [Scala 3 : un nouveau langage ?][blog_sarradin] by François Sarradin, May 2021.
-- [47 Degrees Blog](https://www.47deg.com/blog/)
+- [47 Degrees Blog][blog_47_degrees]
+   - [Smart constructors for case classes][blog_markham] by Noel Markham, December 2021.
    - [Automatically Deriving Typeclass Instances in Scala 3](https://www.47deg.com/blog/scala-3-deriving-typeclasses/), May 2021.
    - [Typeclasses in Scala 3](https://www.47deg.com/blog/scala-3-typeclasses/), May 2021.
    - [Enumerations in Scala 3](https://www.47deg.com/blog/scala-3-enumerations/), April 2021.
@@ -50,7 +51,7 @@
 ## <span id="courses">Courses</span>
 
 - [Learning to code in Scala](https://scala.zone/courses/scala): [Beginner](https://scala.zone/courses/scala/beginner), [Intermediate](https://scala.zone/courses/scala/intermediate), [Advanced](https://scala.zone/courses/scala/advanced).
-- [CSci 555 : Functional Programming](https://john.cs.olemiss.edu/~hcc/csci555/notes/555lectureNotes.html) by Conrad Cunningham, Spring Semester 2019.
+- [CSci 555 : Functional Programming][course_csci555] by Conrad Cunningham, Spring Semester 2019.
 
 ## <span id="news">News</span>
 
@@ -66,7 +67,7 @@
 
 ## <span id="projects">Projects</span>
 
-- [Scala.js](https://www.scala-js.org/) - a Scala backend to generate highly efficient JavaScript.
+- [Scala.js][project_scalajs] - a Scala backend to generate highly efficient JavaScript.
 - [ScalaStan](https://github.com/cibotech/scalastan) - a Scala DSL for [Stan](https://mc-stan.org/), an open-source software for statistical modeling and high-performance statistical computation.
 - [Woof](https://github.com/LEGO/woof) - a pure Scala 3 logging library with no reflection.
 
@@ -86,8 +87,13 @@
 
 <!-- link refs -->
 
+[blog_47_degrees]: https://www.47deg.com/blog/tags/scala/
+[blog_databricks]: https://databricks.com/blog
 [blog_sarradin]: https://univalence.io/blog/articles/scala-3-un-nouveau-langage/
 [book_alexander]: https://www.oreilly.com/library/view/scala-cookbook-2nd/9781492051534/
 [book_haoyi]: https://www.handsonscala.com/
 [book_lewis]: https://www.routledge.com/Introduction-to-Programming-and-Problem-Solving-Using-Scala/Lewis-Lacher/p/book/9781498730952
+[blog_markham]: https://www.47deg.com/blog/smart-constructors-in-scala/
 [book_pollak]: https://www.apress.com/gp/book/9781484274217
+[course_csci555]: https://john.cs.olemiss.edu/~hcc/csci555/notes/555lectureNotes.html
+[project_scalajs]: https://www.scala-js.org/
