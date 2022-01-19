@@ -95,7 +95,7 @@ C:\opt\make-3.81\                  <i>(  2 MB)</i>
 C:\opt\mill-0.10.0\                <i>( 60 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
 C:\opt\sbt-1.6.1\                  <i>( 48 MB)</i>
-C:\opt\scala-2.13.7\               <i>( 35 MB)</i>
+C:\opt\scala-2.13.8\               <i>( 35 MB)</i>
 C:\opt\scala3-3.1.1-RC2\           <i>( 35 MB)</i>
 </pre>
  <!-- jdk8: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
@@ -330,7 +330,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   javac 1.8.0_312, java 1.8.0_312, scalac 2.13.7, scalac 3.1.1-RC2,
+   javac 1.8.0_312, java 1.8.0_312, scalac 2.13.8, scalac 3.1.1-RC2,
    ant 1.10.12, gradle 7.3.3, mill 0.10.0, mvn 3.8.4, sbt 1.6.1,
    bazel 4.2.2, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.0,
    git 2.34.1.windows.1, diff 3.8, bash 4.4.23(1)-release
@@ -358,14 +358,14 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   javac 11.0.13, java 11.0.13, scalac 2.13.7, scalac 3.1.1-RC2,
+   javac 11.0.13, java 11.0.13, scalac 2.13.8, scalac 3.1.1-RC2,
    ant 1.10.12, gradle 7.3.3, mill 0.10.0, mvn 3.8.4, sbt 1.6.1,
    bazel 4.2.2, cfr 0.152, make 3.81, python 3.10.0,
    git 2.34.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-openjdk-11.0.13_8\bin\javac.exe
    C:\opt\jdk-openjdk-11.0.13_8\bin\java.exe
-   C:\opt\scala-2.13.7\bin\scalac.bat
+   C:\opt\scala-2.13.8\bin\scalac.bat
    C:\opt\scala3-3.1.1-RC2\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.12\bin\ant.bat
@@ -391,7 +391,7 @@ Environment variables:
    "MSYS_HOME=C:\opt\msys64"
    "PYTHON_HOME=C:\opt\Python-3.10.0"
    "SBT_HOME=C:\opt\sbt-1.6.1"
-   "SCALA_HOME=C:\opt\scala-2.13.7"
+   "SCALA_HOME=C:\opt\scala-2.13.8"
    "SCALA3_HOME=C:\opt\scala3-3.1.1-RC2"
 </pre>
 
@@ -521,10 +521,12 @@ Command [**`searchjars`**](bin/searchjars.bat) helps us to search for class file
 Usage: searchjars { &lt;option&gt; | &lt;class_name&gt; }
 &nbsp;
   Options:
-    -artifact        include ~\.ivy2 and ~\.m2 directories
+    -artifact        search in ~\.ivy2 and ~\.m2 directories
     -help            display this help message
-    -ivy             include ~\.ivy directory
-    -maven           include ~\.m2 directory
+    -ivy             search in ~\.ivy directory
+    -java            search in Java library directories
+    -maven           search in ~\.m2 directory
+    -scala           search in Scala library directories
     -verbose         display download progress
 &nbsp;
   Arguments:
@@ -539,7 +541,7 @@ Searching for class name System in archive files C:\opt\scala3-3.1.1-RC2\lib\*.j
   jline-reader-3.19.0.jar:org/jline/reader/impl/completer/SystemCompleter.class
   scala-library-2.13.6.jar:scala/sys/SystemProperties$.class
   scala-library-2.13.6.jar:scala/sys/SystemProperties.class
-Searching for class name System in archive files C:\opt\scala-2.13.7\lib\*.jar
+Searching for class name System in archive files C:\opt\scala-2.13.8\lib\*.jar
   jline-3.19.0.jar:org/jline/builtins/SystemRegistryImpl$CommandOutputStream.class
   [...]
   scala-library.jar:scala/sys/SystemProperties$.class
@@ -561,7 +563,7 @@ Searching for an unknown class name - e.g. **`BinarySearch`** - produces the fol
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> BinarySearch</b>
 Searching for class name BinarySearch in archive files C:\opt\scala3-3.1.1-RC2\lib\*.jar
-Searching for class name BinarySearch in archive files C:\opt\scala-2.13.7\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\scala-2.13.8\lib\*.jar
 Searching for class name BinarySearch in archive files C:\opt\jdk-11.0.13_8\lib\*.jar
 </pre>
 
@@ -570,7 +572,7 @@ Searching for **`FileSystem`** with option **`-artifact`** produces the followin
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> FileSystem -artifact</b>
 Searching for class name FileSystem in archive files C:\opt\scala3-3.1.1-RC2\lib\*.jar
-Searching for class name FileSystem in archive files C:\opt\scala-2.13.7\lib\*.jar
+Searching for class name FileSystem in archive files C:\opt\scala-2.13.8\lib\*.jar
 Searching for class name FileSystem in archive files c:\opt\jdk-11.0.13_8\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem.class
@@ -819,7 +821,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.zip</a>  <i>( 99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.34.1-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.6.1.zip</a>                                     <i>( 17 MB)</i>
-<a href="https://www.scala-lang.org/files/archive/">scala-2.13.7.zip</a>                                  <i>( 22 MB)</i>
+<a href="https://www.scala-lang.org/files/archive/">scala-2.13.8.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.1-RC2">scala3-3.1.1-RC2.zip</a>                              <i>( 24 MB)</i>
 </pre>
 </dd></dl>

@@ -22,42 +22,44 @@ if defined _HELP (
     call :help
     exit /b !_EXITCODE!
 )
-if exist "%SCALA3_HOME%\lib\" (
-    call :search "%SCALA3_HOME%\lib" 1
+if defined _SEARCH_SCALA (
+    if exist "%SCALA3_HOME%\lib\" (
+        call :search "%SCALA3_HOME%\lib" 1
+        if not !_EXITCODE!==0 goto end
+    )
+    if exist "%SCALA_HOME%\lib\" (
+        call :search "%SCALA_HOME%\lib" 1
+        if not !_EXITCODE!==0 goto end
+    )
+)
+if defined _SEARCH_JAVA (
+    if exist "%SCALAFIX_HOME%\lib\" (
+        call :search "%SCALAFIX_HOME%\lib"
+        if not !_EXITCODE!==0 goto end
+    )
+    if exist "%JAVA_HOME%\lib\" (
+        call :search "%JAVA_HOME%\lib"
+        if not !_EXITCODE!==0 goto end
+    )
+    if exist "%JAVA_HOME%\jre\lib\" (
+        call :search "%JAVA_HOME%\jre\lib"
+        if not !_EXITCODE!==0 goto end
+    )
+    if exist "%JAVAFX_HOME%\lib\" (
+        call :search "%JAVAFX_HOME%\lib"
+        if not !_EXITCODE!==0 goto end
+    )
+)
+if defined _SEARCH_IVY if exist "%USERPROFILE%\.ivy2\" (
+    call :search "%USERPROFILE%\.ivy2\cache" 1
     if not !_EXITCODE!==0 goto end
 )
-if exist "%SCALA_HOME%\lib\" (
-    call :search "%SCALA_HOME%\lib" 1
-    if not !_EXITCODE!==0 goto end
-)
-if exist "%SCALAFIX_HOME%\lib\" (
-    call :search "%SCALAFIX_HOME%\lib"
-    if not !_EXITCODE!==0 goto end
-)
-if exist "%JAVA_HOME%\lib\" (
-    @rem get rid of surrounding double quotes if any
-    for %%i in (%JAVA_HOME%) do set "__JAVA_HOME=%%~i"
-    call :search "!__JAVA_HOME!\lib"
-    if not !_EXITCODE!==0 goto end
-)
-if exist "%JAVA_HOME%\jre\lib\" (
-    call :search "%JAVA_HOME%\jre\lib"
-    if not !_EXITCODE!==0 goto end
-)
-if exist "%JAVAFX_HOME%\lib\" (
-    call :search "%JAVAFX_HOME%\lib"
+if defined _SEARCH_MAVEN if exist "%USERPROFILE%\.m2\" (
+    call :search "%USERPROFILE%\.m2\repository" 1
     if not !_EXITCODE!==0 goto end
 )
 if exist "%CD%\lib\*" (
     call :search "%CD%\lib" 1
-    if not !_EXITCODE!==0 goto end
-)
-if defined _IVY if exist "%USERPROFILE%\.ivy2\" (
-    call :search "%USERPROFILE%\.ivy2\cache" 1
-    if not !_EXITCODE!==0 goto end
-)
-if defined _MAVEN if exist "%USERPROFILE%\.m2\" (
-    call :search "%USERPROFILE%\.m2\repository" 1
     if not !_EXITCODE!==0 goto end
 )
 goto end
@@ -69,7 +71,7 @@ goto end
 @rem                    _JAR_CMD, _JAVA_HOME, _SCALA3_HOME, _SCALA_HOME
 :env
 set _BASENAME=%~n0
-for %%f in ("%~dp0..") do set "_ROOT_DIR=%%~dpf"
+set "_ROOT_DIR=%~dp0"
 
 call :env_colors
 set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
@@ -146,10 +148,12 @@ goto :eof
 @rem output parameter: _HELP, _VERBOSE
 :args
 set _CLASS_NAME=
-set _IVY=
-set _MAVEN=
-set _METH_NAME=
 set _HELP=
+set _METH_NAME=
+set _SEARCH_IVY=
+set _SEARCH_JAVA=
+set _SEARCH_MAVEN=
+set _SEARCH_SCALA=
 set _VERBOSE=0
 
 :args_loop
@@ -158,11 +162,13 @@ if not defined __ARG goto args_done
 
 if "%__ARG:~0,1%"=="-" (
     @rem option
-    if "%__ARG%"=="-artifact" ( set _IVY=1& set _MAVEN=1
+    if "%__ARG%"=="-artifact" ( set _SEARCH_IVY=1& set _SEARCH_MAVEN=1
     ) else if "%__ARG%"=="-debug" ( set _DEBUG=1
-    ) else if "%__ARG%"=="-ivy" ( set _IVY=1
     ) else if "%__ARG%"=="-help" ( set _HELP=1
-    ) else if "%__ARG%"=="-maven" ( set _MAVEN=1
+    ) else if "%__ARG%"=="-ivy" ( set _SEARCH_IVY=1
+    ) else if "%__ARG%"=="-java" ( set _SEARCH_JAVA=1
+    ) else if "%__ARG%"=="-maven" ( set _SEARCH_MAVEN=1
+    ) else if "%__ARG%"=="-scala" ( set _SEARCH_SCALA=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
@@ -181,9 +187,17 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto args_loop
 :args_done
+set __SOME=%_SEARCH_IVY%%_SEARCH_MAVEN%%_SEARCH_JAVA%%_SEARCH_SCALA%
+if not defined __SOME (
+    echo %_WARNING_LABEL% Search all directories ^(no option specified^) 1>&2
+    set _SEARCH_IVY=1& set _SEARCH_MAVEN=1& set _SEARCH_JAVA=1& set _SEARCH_SCALA=1
+)
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Options   : _ARTIFACT=%_ARTIFACT% _IVY=%_IVY% _MAVEN=%_MAVEN% 1>&2
-    echo %_DEBUG_LABEL% Variables : _CLASS_NAME=%_CLASS_NAME% 1&2
+    echo %_DEBUG_LABEL% Options   : _SEARCH_IVY=%_SEARCH_IVY% _SEARCH_MAVEN=%_SEARCH_MAVEN% _SEARCH_JAVA=%_SEARCH_JAVA% 1>&2
+    echo %_DEBUG_LABEL% Variables : "JAVA_HOME=%JAVA_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables : "SCALA_HOME=%SCALA_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables : "SCALA3_HOME=%SCALA3_HOME%" 1>&2
+    echo %_DEBUG_LABEL% Variables : _CLASS_NAME=%_CLASS_NAME% 1>&2
     echo %_DEBUG_LABEL% Variables : _METH_NAME=%_METH_NAME% 1>&2
 )
 goto :eof
@@ -203,15 +217,17 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> } ^<class_name^> [ ^<meth_name^> ]%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-artifact%__END%        include %__BEG_O%~\.ivy2%__END% and %__BEG_O%~\.m2%__END% directories
-echo     %__BEG_O%-debug%__END%           show commands executed by this script
-echo     %__BEG_O%-help%__END%            display this help message
-echo     %__BEG_O%-ivy%__END%             include %__BEG_O%~\.ivy%__END% directory
-echo     %__BEG_O%-maven%__END%           include %__BEG_O%~\.m2%__END% directory
-echo     %__BEG_O%-verbose%__END%         display download progress
+echo     %__BEG_O%-artifact%__END%     search in %__BEG_O%~\.ivy2%__END% and %__BEG_O%~\.m2%__END% directories
+echo     %__BEG_O%-debug%__END%        show commands executed by this script
+echo     %__BEG_O%-help%__END%         display this help message
+echo     %__BEG_O%-ivy%__END%          search in %__BEG_O%~\.ivy%__END% directory
+echo     %__BEG_O%-java%__END%         search in Java library directories
+echo     %__BEG_O%-maven%__END%        search in %__BEG_O%~\.m2%__END% directory
+echo     %__BEG_O%-scala%__END%        search in Scala 2 and Scala library directories
+echo     %__BEG_O%-verbose%__END%      display download progress
 echo.
 echo   %__BEG_P%Arguments:%__END%
-echo     %__BEG_O%^<class_name^>%__END%     class name
+echo     %__BEG_O%^<class_name^>%__END%  class name
 goto :eof
 
 @rem input parameter: %1=lib directory, %2=traverse recursively
@@ -222,23 +238,23 @@ set __RECURSIVE=%~2
 if defined __RECURSIVE ( set __DIR_OPTS=/s /b
 ) else ( set __DIR_OPTS=/b
 )
-echo Searching for class name %_CLASS_NAME% in archive files !__LIB_DIR:%USERPROFILE%=%%USERPROFILE%%!\*.jar
-for /f %%i in ('dir %__DIR_OPTS% "%__LIB_DIR%\*.jar" 2^>NUL') do (
+echo Searching for class "%_CLASS_NAME%" in files "!__LIB_DIR:%USERPROFILE%=%%USERPROFILE%%!\*.jar"
+for /f "delims=" %%i in ('dir %__DIR_OPTS% "%__LIB_DIR%\*.jar" ') do (
     if defined __RECURSIVE ( set "__JAR_FILE=%%i"
     ) else ( set "__JAR_FILE=%__LIB_DIR%\%%i"
     )
-    for %%f in (!__JAR_FILE!) do set _JAR_FILENAME=%%~nxf
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAR_CMD% -tvf "!__JAR_FILE!" ^| findstr ".*%_CLASS_NAME%.*\.class$" 1>&2
-    ) else if %_VERBOSE%==1 ( echo Search for class name %_CLASS_NAME% in archive !__JAR_FILE! 1>&2
+    for /f "delims=" %%f in ("!__JAR_FILE!") do set "_JAR_FILENAME=%%~nxf"
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" -tf "!__JAR_FILE!" 1>&2
+    ) else if %_VERBOSE%==1 ( echo    Search for class name %_CLASS_NAME% in file "!__JAR_FILE:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
     )
-    for /f "delims=" %%f in ('powershell -c "%_JAR_CMD% -tvf "!__JAR_FILE!" | Where {$_.endsWith('class') -And $_.split('/.')[-2].contains('%_CLASS_NAME%')}"') do (
-        for %%x in (%%f) do set __LAST=%%x
+    for /f "delims=" %%f in ('call "%_JAR_CMD%" -tf "!__JAR_FILE!" ^| findstr /e /r "%_CLASS_NAME%.*\.class"') do (
+        for /f "delims=" %%x in ("%%f") do set "__LAST=%%x"
         if defined _METH_NAME (
-            set __CLASS_NAME=!__LAST:~0,-6!
-            if %_DEBUG%==1 ( echo %_DEBUG_LABEL% %_JAVAP_CMD% -cp "!__JAR_FILE!" "!__CLASS_NAME:/=.!" ^| findstr "%_METH_NAME%" 1>&2
-            else if %_VERBOSE%==1 ( echo Search for method %_METH_NAME% in class !__CLASS_NAME:/=.! 1>&2
+            set "__CLASS_NAME=!__LAST:~0,-6!"
+            if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAP_CMD%" -cp "!__JAR_FILE!" "!__CLASS_NAME:/=.!" ^| findstr "%_METH_NAME%" 1>&2
+            ) else if %_VERBOSE%==1 ( echo Search for method %_METH_NAME% in class !__CLASS_NAME:/=.! 1>&2
             )
-            for /f "delims=" %%y in ('%_JAVAP_CMD% -cp "!__JAR_FILE!" "!__CLASS_NAME:/=.!" ^| findstr "%_METH_NAME%"') do (
+            for /f "delims=" %%y in ('"%_JAVAP_CMD%" -cp "!__JAR_FILE!" "!__CLASS_NAME:/=.!" ^| findstr "%_METH_NAME%"') do (
                 echo   !_JAR_FILENAME!:!__LAST!
                 echo   %%y
             )
