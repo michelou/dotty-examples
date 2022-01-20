@@ -20,14 +20,16 @@ The [Scala 3](https://www.scala-lang.org/download/scala3.html) and [Scala 2](htt
 - Depencencies *common* to both software distributions include [`jline`](https://github.com/jline/jline3#jline----) ([Scala REPL](https://docs.scala-lang.org/scala3/book/taste-repl.html)) and [`scala-asm`](https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm) ([JVM backend](https://dotty.epfl.ch/docs/internals/backend.html)).
 
 > **:mag_right:** We observe a jump in the increases in size of the software distributions : 
-> |  Version  | Zip archive | Installation |
-> |:----------|:-----------:|:------------:|
-> |  [3.1.1](https://github.com/lampepfl/dotty/releases/tag/3.1.1-RC2) |   33.3 MB   |   35.2 MB    |
-> |  [3.1.0](https://github.com/lampepfl/dotty/releases/tag/3.1.0) |   33.1 MB   |   35.0 MB    |
-> |  [3.0.2](https://github.com/lampepfl/dotty/releases/tag/3.0.2) |   31.1 MB   |   33.0 MB    |
-> |  [2.13.7](https://www.scala-lang.org/download/2.13.7.html), [2.13.8](https://www.scala-lang.org/download/2.13.8.html)     |   22.6 MB   |   24.1 MB    |
-> |  [2.13.6](https://www.scala-lang.org/download/2.13.6.html)     |   22.3 MB   |   23.8 MB    |
-> |  [2.12.15](https://www.scala-lang.org/download/2.12.15.html)   |   20.1 MB   |   21.5 MB    |
+> |  Version  | Release date | Zip archive | Installation |
+> |:----------|:------------:|:-----------:|:------------:|
+> |  [3.1.1](https://github.com/lampepfl/dotty/releases/tag/3.1.1-RC2) | Jan 2022 |   33.3 MB   |   35.2 MB    |
+> |  [3.1.0](https://github.com/lampepfl/dotty/releases/tag/3.1.0) | Oct 2021 |   33.1 MB   |   35.0 MB    |
+> |  [3.0.2](https://github.com/lampepfl/dotty/releases/tag/3.0.2) | Sep 2021 |   31.2 MB   |   33.0 MB    |
+> |  [3.0.1](https://github.com/lampepfl/dotty/releases/tag/3.0.1) | Jul 2021 |   29.8 MB   |   33.0 MB    |
+> |  [2.13.8](https://www.scala-lang.org/download/2.13.8.html)     | Jan 2022 |   22.6 MB   |   24.1 MB    |
+> |  [2.13.7](https://www.scala-lang.org/download/2.13.7.html)     | Nov 2021 |   22.6 MB   |   24.1 MB    |
+> |  [2.13.6](https://www.scala-lang.org/download/2.13.6.html)     | May 2021 |   22.3 MB   |   23.8 MB    |
+> |  [2.12.15](https://www.scala-lang.org/download/2.12.15.html)   | Sep 2021 |   20.1 MB   |   21.5 MB    |
 
 In the next sections we give more details on those dependencies for the three Scala distributions currently available, namely [3.x](#scala3_releases), [2.13](#scala213_releases) and [2.12](#scala212_releases).
 
@@ -43,7 +45,7 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
   <th style="padding:4px;"><a href="https://github.com/lampepfl/dotty/releases/tag/3.0.1">3.0.1</a><br/><span style="color:gray;">final</span></th>
   <th style="padding:4px;"><a href="https://github.com/lampepfl/dotty/releases/tag/3.0.2">3.0.2</a><br/><span style="color:gray;">final</span></th>
   <th style="padding:4px;"><a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0">3.1.0</a><br/><span style="color:gray;">final</span></th>
-  <th><a href="https://github.com/lampepfl/dotty/releases/tag/3.1.1-RC2">3.1.1</a><br/><span style="color:orange;">RC2</span></th>
+  <th><a href="https://github.com/lampepfl/dotty/releases/tag/3.1.1">3.1.1</a><br/><span style="color:gray;">final</span></th>
   <th><a href="https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler">3.1.2</a><br/><span style="color:red;">DEV</span></th>
 </tr>
 <tr>
@@ -350,8 +352,7 @@ Found ASM version "9.2.0-scala-1" in Scala 2 installation is "C:\opt\scala-2.13.
 Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.0.0"
 Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.0.2"
 Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.1.0"
-Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.1.1-RC1"
-Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.1.1-RC2"
+Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.1.1"
 </pre>
 </dd></dl>
 
