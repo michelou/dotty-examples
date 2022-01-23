@@ -68,19 +68,20 @@ if not exist "%JAVA_HOME%\bin\javac.exe" (
 )
 set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
 
-if not exist "%LOCALAPPDATA%\Coursier\data\bin\metac.bat" (
+set "_COURSIER_DATA_DIR=%LOCALAPPDATA%\Coursier\data"
+if not exist "%_COURSIER_DATA_DIR%\bin\metac.bat" (
     echo %_ERROR_LABEL% metac executable not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_METAC_CMD=%LOCALAPPDATA%\Coursier\data\bin\metac.bat"
+set "_METAC_CMD=%_COURSIER_DATA_DIR%\bin\metac.bat"
 
-if not exist "%LOCALAPPDATA%\Coursier\data\bin\metap.bat" (
+if not exist "%_COURSIER_DATA_DIR%\bin\metap.bat" (
     echo %_ERROR_LABEL% metap executable not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_METAP_CMD=%LOCALAPPDATA%\Coursier\data\bin\metap.bat"
+set "_METAP_CMD=%_COURSIER_DATA_DIR%\bin\metap.bat"
 
 set _PROTOC_CMD=
 if exist "%PROTOC_HOME%\bin\protoc.exe" (
@@ -224,6 +225,7 @@ if %_PROTOC%==1 (
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _CLEAN=%_CLEAN% _COMPILE=%_COMPILE% _PROTOC=%_PROTOC% _TEST=%_TEST% 1>&2
+    echo %_DEBUG_LABEL% Variables  : "_COURSIER_DATA_DIR=!_COURSIER_DATA_DIR:%LOCALAPPDATA%=%%LOCALAPPDATA%%!" 1>&2
     echo %_DEBUG_LABEL% Variables  : "JAVA_HOME=%JAVA_HOME%" 1>&2
     if defined _PROTOC_CMD echo %_DEBUG_LABEL% Variables  : "PROTOC_HOME=%PROTOC_HOME%" 1>&2
 )

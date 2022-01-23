@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="https://scalameta.org/docs/semanticdb/guide.html/" rel="external"><img style="border:0;width:120px;" src="https://scalameta.org/img/scalameta.png" alt="Dotty project" /></a>
+    <a href="https://scalameta.org/docs/semanticdb/guide.html" rel="external"><img style="border:0;width:120px;" src="https://scalameta.org/img/scalameta.png" alt="Scalameta project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>semanticdb-examples\</code></strong> contains <a href="https://scalameta.org/docs/semanticdb/guide.html" rel="external">SemanticDB</a> code examples coming from various websites - mostly from the <a href="https://scalameta.org/docs/semanticdb/guide.html" rel="external">SemanticDB project</a>.
@@ -14,15 +14,14 @@
 <!--
 https://geirsson.com/assets/scalasphere-2018.pdf
 -->
+We need to install additional command-line tools in order to work on our code examples.
+- [Metac] <sup id="anchor_01">[1](#footnote_01)</sup> &ndash; to generate `.semanticdb` files from `.scala` files.
+- [Metap] &ndash; to prettyprint `.semanticdb` files.
+- [Protoc] &ndash; to compile `.proto` files.
 
-> **:mag_right:** We need to install additional command-line tools in order to work on our code examples.
-> - [Metac] - generate `.semanticdb` files.
-> - [Metap] - prettyprint `.semanticdb` files.
-> - [Protoc] - compile `.proto` files.
-> 
-> We proceed in two ways to install the above tools:
-> - We rely on [Coursier] to install the tools **`metac`** and **`metap`** <sup id="anchor_01">[[1]](#footnote_01)</sup>.
-> - We extract the Zip archive **`protoc-3.yy.z-win64.zip`** (available from the GitHub project [`protocolbuffers/protobuf`](https://github.com/protocolbuffers/protobuf/releases)) into directory **`C:\opt\protoc-3.yy.z\`**.
+> **:mag_right:** The above tools must be installed in two different ways:
+> - We need [Coursier] to install the **`metac`** and **`metap`** comand line tools <sup id="anchor_02">[2](#footnote_02)</sup> (no Tgz/Zip archive available).
+> - We extract the Zip archive [**`protoc-3.yy.z-win64.zip`**](https://github.com/protocolbuffers/protobuf/) (available from GitHub project [`protocolbuffers/protobuf`](https://github.com/protocolbuffers/protobuf/releases)) into directory **`C:\opt\protoc-3.yy.z\`**.
 
 ## <span id="hello">`hello`</span>
 
@@ -41,7 +40,7 @@ Text =&gt; empty
 Language =&gt; Scala
 Symbols =&gt; 3 entries
 Occurrences =&gt; 7 entries
-&nbsp;
+
 Symbols:
 _empty_/Main. => final object Main extends AnyRef { +1 decls }
 _empty_/Main.main(). => method main(args: Array[String]): Unit
@@ -49,12 +48,12 @@ _empty_/Main.main().(args) => param args: Array[String]
 
 Occurrences:
 [0:7..0:11) <= _empty_/Main.
-[1:6..1:10) <= _empty_/Main.main().
-[1:11..1:15) <= _empty_/Main.main().(args)
-[1:17..1:22) => scala/Array#
-[1:23..1:29) => scala/Predef.String#
-[1:33..1:37) => scala/Unit#
-[2:4..2:11) => scala/Predef.println(+1).
+[2:6..2:10) <= _empty_/Main.main().
+[2:11..2:15) <= _empty_/Main.main().(args)
+[2:17..2:22) => scala/Array#
+[2:23..2:29) => scala/Predef.String#
+[2:33..2:37) => scala/Unit#
+[3:4..3:11) => scala/Predef.println(+1).
 </pre>
 
 We can also produce SemanticDB data from Java source code.
@@ -185,8 +184,37 @@ range {
 
 ## <span id="footnotes">Footnotes</span>
 
-<span name="footnote_01">[1]</span> ***Installation with Coursier*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Scalameta CLI tools*** [↩](#anchor_01)
 
+<dl><dd>
+<table style="font-size:90%;">
+<tr>
+  <th>CLI&nbsp;tool</th>
+  <th>Java&nbsp;archive</th>
+  <th>Entry&nbsp;point</th>
+</tr>
+<tr>
+  <td><code>metac.bat</code></td>
+  <td><a href="https://mvnrepository.com/artifact/org.scalameta/scalameta_2.13"><code>scalameta_2.13-X.Y.Z.jar</code></a></td>
+  <td><a href="https://github.com/scalameta/scalameta/blob/main/semanticdb/metac/src/main/scala/scala/meta/cli/Metac.scala"><code>scala.meta.cli.Metac</code></a></td>
+</tr>
+<tr>
+  <td><code>metap.bat</b></td>
+  <td><a href="https://mvnrepository.com/artifact/org.scalameta/scalameta_2.13"><code>scalameta_2.13-X.Y.Z.jar</code></a></td>
+  <td><a href="https://github.com/scalameta/scalameta/blob/main/semanticdb/metap/src/main/scala/scala/meta/cli/Metap.scala"><code>scala.meta.cli.Metap</code></a></td>
+</tr>
+</table>
+</dd>
+<dd>
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> /r %COURSIER_DATA_DIR% metac</b>
+%LOCALAPPDATA%\Coursier\data\bin\metac.bat
+</pre>
+</dd></dl>
+
+<span id="footnote_02">[2]</span> ***Installation with Coursier*** [↩](#anchor_02)
+
+<dl><dd>
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> cs</b>
 C:\opt\coursier-2.0.16\cs.exe
@@ -204,10 +232,11 @@ https://repo1.maven.org/maven2/com/thesamet/scalapb/scalapb-runtime_2.13/0.11.4/
 Wrote metap
 Warning: <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%LOCALAPPDATA%</a>\Coursier\data\bin is not in your PATH
 </pre>
+</dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2021* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
