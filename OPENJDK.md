@@ -29,14 +29,14 @@ This project depends on several external software for the **Microsoft Windows** 
 - [Dragonwell OpenJDK 17][dragonwell17_downloads] from [Alibaba][alibaba] ([*release notes*][dragonwell17_relnotes]).
 - [GraalVM OpenJDK 17][graalvm_downloads] from [Oracle] ([*release notes*][graalvm_relnotes]).
 - [Liberica OpenJDK 17][bellsoft17_downloads] from [BellSoft][bellsoft_about] ([*release notes*][bellsoft_relnotes]).
-- [Liberica NIK OpenJDK 11][bellsoft_nik_downloads] from [BellSoft][bellsoft_about] ([*release notes*][bellsoft_nik_relnotes]).
+- [Liberica NIK OpenJDK 17][bellsoft_nik_downloads] from [BellSoft][bellsoft_about] ([*release notes*][bellsoft_nik_relnotes]).
 - [Microsoft OpenJDK 17][microsoft_downloads] from [Microsoft][microsoft].
 - [OpenJ9 OpenJDK 17][openj9_downloads] from [IBM Developer](https://developer.ibm.com/) ([*release notes*][openj9_relnotes]).
 - [RedHat OpenJDK 17][redhat_downloads] from [RedHat].
 - [SapMachine OpenJDK 17](https://sap.github.io/SapMachine/) from [SAP][sap_home].
 - [Temurin OpenJDK 17][temurin11_downloads] from [Eclipse] ([*release notes*][temurin11_relnotes]).
 - [Trava OpenJDK 11][trava_downloads] from [Travis](https://travis-ci.com/) ([*release notes*][trava_relnotes]).
-- [Zulu OpenJDK 11][azul_downloads] from [Azul Systems][azul_systems] ([*release notes*][azul_relnotes]).
+- [Zulu OpenJDK 17][azul_downloads] from [Azul Systems][azul_systems] ([*release notes*][azul_relnotes]).
 
 <!--
 https://devblogs.microsoft.com/java/announcing-general-availability-of-microsoft-build-of-openjdk/
@@ -50,15 +50,15 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 - they support different sets of platform architectures (eg. [SapMachine](https://sap.github.io/SapMachine/) x64 only, [BellSoft][bellsoft_relnotes] also Raspberry Pi 2 &amp; 3).
 
 
-> **&#9755;** ***Installation policy***<br/>
+> **&#9755;** ***Installation policy***
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*January 2022*) <sup id="anchor_02">[[2]](#footnote_02)</sup>:
+For instance our development environment looks as follows (*January 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java11-21.3.0\        <i>(731 MB)</i>
+C:\opt\graalvm-ce-java17-21.3.0\        <i>(731 MB)</i>
 C:\opt\jdk-bellsoft-11.0.14\            <i>(301 MB)</i>
-C:\opt\jdk-bellsoft-nik-java11-21.3.0\  <i>(596 MB)</i>
+C:\opt\jdk-bellsoft-nik-java17-21.3.0\  <i>(596 MB)</i>
 C:\opt\jdk-corretto-11.0.14_9\          <i>(293 MB)</i>
 C:\opt\jdk-dcevm-11.0.11_1\             <i>(313 MB)</i>
 C:\opt\jdk-dragonwell-11.0.13.9_0\      <i>(290 MB)</i>
@@ -100,19 +100,20 @@ Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop 
 |-----------|---------------------|----------|---------------------|-------|---------------------|
 | [Corretto][corretto_8_downloads]<br/>(Amazon) | 27:00</br>27:27 | [Corretto][corretto_11_downloads]<br/>(Amazon) |   30:49<br/>30:42 | [Corretto][corretto_17_downloads]<br/>(Amazon)</span> | n.a. |
 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a. | [DCEVM][trava_downloads]<br/>(Trava) <a href="#a"><sup><b>a)</b></sup></a> | 31:10<br/>30:28 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a.           |
-| [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) | 31:54<br/>32:01 | [Dragonwell][dragonwell11_downloads]<br/>(Alibaba) | 30:41<br/>30:44 | [Dragonwell][dragonwell17_downloads]<br/>(Alibaba)</span> | n.a. |
+| [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) | 31:54<br/>32:01 | [Dragonwell][dragonwell11_downloads]<br/>(Alibaba) <a href="#b"><sup><b>b)</b></sup></a> | 30:41<br/>30:44 | [Dragonwell][dragonwell17_downloads]<br/>(Alibaba)</span> | n.a. |
 | [GraalVM][graalvm_downloads]<br/>(Oracle) | 26:09<br/>26:11 | [GraalVM][graalvm_downloads]<br/> (Oracle) | 31:34<br/>33:11 | [GraalVM][graalvm_downloads]<br/> (Oracle) | 33:30<br/>&nbsp; |
 | [Liberica][bellsoft8_downloads]<br/>(BellSoft) | 25:10<br/>25:41 | [Liberica][bellsoft11_downloads]<br/>(BellSoft) | 31:04<br/>30:33 | [Liberica][bellsoft17_downloads]<br/>(BellSoft) | 29:38<br/>31:17 |
-| Liberica NIK<br/>(BellSoft) | n.a. | [Liberica NIK][bellsoft_nik_downloads]<br/>(BellSoft) <a href="#b"><sup><b>b)</b></sup></a> | 31:29 | [Liberica NIK][bellsoft_nik_downloads]<br/>(BellSoft) | <i>todo</i> |
-| <span style="color:#aaaaaa;">Microsoft</span> | n.a. | [Microsoft][microsoft_downloads] | 30:16<br/>30:37 | [Microsoft][microsoft_downloads] | 29:41<br/>31:52 |
+| Liberica NIK<br/>(BellSoft) | n.a. | [Liberica NIK][bellsoft_nik_downloads]<br/>(BellSoft) <a href="#c"><sup><b>c)</b></sup></a> | 31:29 | [Liberica NIK][bellsoft_nik_downloads]<br/>(BellSoft) | <i>todo</i> |
+| <span style="color:#aaaaaa;">Microsoft</span> | n.a. | [Microsoft][microsoft_downloads] <a href="#b"><sup><b>b)</b></sup></a> | 30:16<br/>30:37 | [Microsoft][microsoft_downloads] | 29:41<br/>31:52 |
 | [OpenJ9][openj9_downloads]<br/>(IBM) | 33:30<br/>33:47 | [OpenJ9][openj9_downloads]<br/>(IBM) | 39:04<br/>39:17 | <span style="color:#aaaaaa;">OpenJ9<br/>(IBM)</span> | n.a. |
-| [RedHat][redhat_downloads] | 26:01<br/>26:09 | [RedHat][redhat_downloads] | 30:16<br/>30:51 | <span style="color:#aaaaaa;">RedHat</a> | n.a. |
+| [RedHat][redhat_downloads] | 26:01<br/>26:09 | [RedHat][redhat_downloads] <a href="#b"><sup><b>b)</b></sup></a> | 30:16<br/>30:51 | <span style="color:#aaaaaa;">RedHat</a> | n.a. |
 | <span style="color:#aaaaaa;">SapMachine<br/>(SAP)</span> | n.a. | [SapMachine][sapmachine_downloads]<br/>(SAP) | 31:33<br/>30:52 | [SapMachine][sapmachine_downloads]<br/>(SAP) | 28:43<br/>28:27 |
 | [Temurin][temurin_openjdk8_downloads]<br/>(Eclipse) | 25:46<br/>25:47 | [Temurin][temurin11_downloads]<br/>(Eclipse) | 29:59<br/>31:19 | [Temurin][temurin17_downloads]<br/>(Eclipse) | 28:52<br/>29:04 |
 | [Zulu][azul_downloads]<br/>(Azul)     | 25:39<br/>25:44 | [Zulu][azul_downloads]<br/>(Azul) | 31:38<br/>30:49 | [Zulu][azul_downloads]<br/>(Azul) | 28:59<br/>28:41 |
 <div style="font-size:80%;">
 <sup id="a"><b>a)</b></sup> Version 11.0.11 instead of 11.0.14.<br/>
-<sup id="b"><b>b)</b></sup> NIK = Native Image Kit.</div>
+<sup id="b"><b>b)</b></sup> Version 11.0.13 instead of 11.0.14.<br/>
+<sup id="c"><b>c)</b></sup> NIK = Native Image Kit.</div>
 
 Here are two observations about the above results :
 - Build times are ~10% longer with [OpenJ9 JDK][openj9_downloads] (for Java 8 and Java 11).
@@ -171,6 +172,9 @@ Build errors encountered on MS Windows on July 31, 2021, are :
 ## <span id="data_sharing">Data sharing</span>
 
 This section supplements my writing from page [Data Sharing and Scala 3 on Windows](CDS.md).
+
+> **&#9755;** ***Data Sharing and OpenJDK 17***
+> Data sharing is *enabled by default* starting with OpenJDK 17.
 
 An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For instance we proceed as follows to check if data sharing is enabled in [Temurin OpenJDK 11][temurin11_downloads] :
 
@@ -294,7 +298,7 @@ OpenJDK 64-Bit Server VM Microsoft-27990 (build 11.0.13+8-LTS, mixed mode, shari
 
 ### <span id="openj9">OpenJ9 OpenJDK 11</span> [**&#9650;**](#top)
 
-Compared to the other OpenJDK distributions OpenJ9 OpenJDK 11 provides advanced settings to manage shared data; it uses option [**`-Xshareclasses:<params>`**](https://www.eclipse.org/openj9/docs/xshareclasses/) instead of **`-Xshare:<param>`**.
+Compared to the other OpenJDK distributions [OpenJ9 OpenJDK 11][openj9_downloads] provides advanced settings to manage shared data; it uses option [**`-Xshareclasses:<params>`**](https://www.eclipse.org/openj9/docs/xshareclasses/) instead of **`-Xshare:<param>`**.
 > **:mag_right:** Execute **`java -Xshareclasses:help`** to list the settings.
 
 <pre style="font-size:80%;">
