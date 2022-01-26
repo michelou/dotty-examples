@@ -56,18 +56,25 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 For instance our development environment looks as follows (*January 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java17-21.3.0\        <i>(731 MB)</i>
+C:\opt\graalvm-ce-java11-21.3.0\        <i>(843 MB)</i>
+C:\opt\graalvm-ce-java17-21.3.0\        <i>(776 MB)</i>
 C:\opt\jdk-bellsoft-11.0.14\            <i>(301 MB)</i>
-C:\opt\jdk-bellsoft-nik-java17-21.3.0\  <i>(596 MB)</i>
+C:\opt\jdk-bellsoft-17.0.2\             <i>(302 MB)</i>
+C:\opt\jdk-bellsoft-nik-java11-21.3.0\  <i>(596 MB)</i>
+C:\opt\jdk-bellsoft-nik-java17-21.3.0\  <i>(657 MB)</i>
 C:\opt\jdk-corretto-11.0.14_9\          <i>(293 MB)</i>
+C:\opt\jdk-corretto-17.0.2_8\           <i>(300 MB)</i>
 C:\opt\jdk-dcevm-11.0.11_1\             <i>(313 MB)</i>
 C:\opt\jdk-dragonwell-11.0.13.9_0\      <i>(290 MB)</i>
 C:\opt\jdk-microsoft-11.0.13_8\         <i>(291 MB)</i>
 C:\opt\jdk-openj9-11.0.12_7\            <i>(295 MB)</i>
 C:\opt\jdk-redhat-11.0.13.8-1\          <i>(364 MB)</i>
+C:\opt\jdk-redhat-17.0.1.0.12-1\        <i>(377 MB)</i>
 C:\opt\jdk-sapmachine-11.0.14\          <i>(316 MB)</i>
+C:\opt\jdk-sapmachine-17.0.2\           <i>(325 MB)</i>
 C:\opt\jdk-temurin-11.0.14_9\           <i>(300 MB)</i>
 C:\opt\jdk-zulu-11.0.14-win_x64\        <i>(302 MB)</i>
+C:\opt\jdk-zulu-17.0.2-win_x64\         <i>(305 MB)</i>
 </pre>
 <!-- corretto  : 11.0.8 = 290 MB, 11.0.9 = 292 MB, 11.0.10 = 292 MB -->
 <!-- dcevm     : 11.0.8 = 296 MB, 11.0.9 = 296 MB, 11.0.10 = 313 MB-->
@@ -105,10 +112,10 @@ Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop 
 | [Liberica][bellsoft8_downloads]<br/>(BellSoft) | 25:10<br/>25:41 | [Liberica][bellsoft11_downloads]<br/>(BellSoft) | 31:04<br/>30:33 | [Liberica][bellsoft17_downloads]<br/>(BellSoft) | 29:38<br/>31:17 |
 | Liberica NIK<br/>(BellSoft) | n.a. | [Liberica NIK][bellsoft_nik_downloads]<br/>(BellSoft) <a href="#c"><sup><b>c)</b></sup></a> | 31:29 | [Liberica NIK][bellsoft_nik_downloads]<br/>(BellSoft) | <i>todo</i> |
 | <span style="color:#aaaaaa;">Microsoft</span> | n.a. | [Microsoft][microsoft_downloads] <a href="#b"><sup><b>b)</b></sup></a> | 30:16<br/>30:37 | [Microsoft][microsoft_downloads] | 29:41<br/>31:52 |
-| [OpenJ9][openj9_downloads]<br/>(IBM) | 33:30<br/>33:47 | [OpenJ9][openj9_downloads]<br/>(IBM) | 39:04<br/>39:17 | <span style="color:#aaaaaa;">OpenJ9<br/>(IBM)</span> | n.a. |
-| [RedHat][redhat_downloads] | 26:01<br/>26:09 | [RedHat][redhat_downloads] <a href="#b"><sup><b>b)</b></sup></a> | 30:16<br/>30:51 | <span style="color:#aaaaaa;">RedHat</a> | n.a. |
+| [OpenJ9][openj9_downloads]<br/>(IBM) | 33:30<br/>33:47 | [OpenJ9][openj9_downloads]<br/>(IBM) | 39:04<br/>39:17 | [OpenJ9][openj9_downloads]<br/>(IBM) | <i>todo</i> |
+| [RedHat][redhat_downloads] | 26:01<br/>26:09 | [RedHat][redhat_downloads] <a href="#b"><sup><b>b)</b></sup></a> | 30:16<br/>30:51 | [RedHat][redhat_downloads] | <i>todo</i> |
 | <span style="color:#aaaaaa;">SapMachine<br/>(SAP)</span> | n.a. | [SapMachine][sapmachine_downloads]<br/>(SAP) | 31:33<br/>30:52 | [SapMachine][sapmachine_downloads]<br/>(SAP) | 28:43<br/>28:27 |
-| [Temurin][temurin_openjdk8_downloads]<br/>(Eclipse) | 25:46<br/>25:47 | [Temurin][temurin11_downloads]<br/>(Eclipse) | 29:59<br/>31:19 | [Temurin][temurin17_downloads]<br/>(Eclipse) | 28:52<br/>29:04 |
+| [Temurin][temurin8_downloads]<br/>(Eclipse) | 25:46<br/>25:47 | [Temurin][temurin11_downloads]<br/>(Eclipse) | 29:59<br/>31:19 | [Temurin][temurin17_downloads]<br/>(Eclipse) | 28:52<br/>29:04 |
 | [Zulu][azul_downloads]<br/>(Azul)     | 25:39<br/>25:44 | [Zulu][azul_downloads]<br/>(Azul) | 31:38<br/>30:49 | [Zulu][azul_downloads]<br/>(Azul) | 28:59<br/>28:41 |
 <div style="font-size:80%;">
 <sup id="a"><b>a)</b></sup> Version 11.0.11 instead of 11.0.14.<br/>
@@ -605,10 +612,10 @@ scala3-3.1.2-RC1-bin-SNAPSHOT-zulu-11.zip
 [sap_home]: https://www.sap.com/
 [scala3_home]: https://dotty.epfl.ch/
 [scala3_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
-[temurin_openjdk8_downloads]: https://adoptium.net/
-[temurin11_downloads]: https://adoptium.net/
+[temurin8_downloads]: https://github.com/adoptium/temurin8-binaries
+[temurin11_downloads]: https://github.com/adoptium/temurin11-binaries
 [temurin11_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-July/006954.html
-[temurin17_downloads]: https://adoptium.net/
+[temurin17_downloads]: https://github.com/adoptium/temurin17-binaries
 [trava_downloads]: https://github.com/TravaOpenJDK/trava-jdk-11-dcevm
 [trava_relnotes]: https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
