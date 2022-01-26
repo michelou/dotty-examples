@@ -50,7 +50,7 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 - they support different sets of platform architectures (eg. [SapMachine](https://sap.github.io/SapMachine/) x64 only, [BellSoft][bellsoft_relnotes] also Raspberry Pi 2 &amp; 3).
 
 
-> **&#9755;** ***Installation policy***
+> **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
 For instance our development environment looks as follows (*January 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
@@ -173,7 +173,7 @@ Build errors encountered on MS Windows on July 31, 2021, are :
 
 This section supplements my writing from page [Data Sharing and Scala 3 on Windows](CDS.md).
 
-> **&#9755;** ***Data Sharing and OpenJDK 17***
+> **&#9755;** ***Data Sharing and OpenJDK 17***<br/>
 > Data sharing is *enabled by default* starting with OpenJDK 17.
 
 An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For instance we proceed as follows to check if data sharing is enabled in [Temurin OpenJDK 11][temurin11_downloads] :
