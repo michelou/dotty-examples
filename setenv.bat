@@ -37,15 +37,15 @@ set _SBT_PATH=
 set _VSCODE_PATH=
 
 @rem %1=vendor, %2=version
-@rem eg. openjdk, bellsoft, corretto, bellsoft, openj9, redhat, sapmachine, zulu
-call :java "openjdk" 17
+@rem eg. bellsoft, corretto, bellsoft, openj9, redhat, sapmachine, temurin, zulu
+call :java "temurin" 17
 if not %_EXITCODE%==0 goto end
 
-call :java "openjdk" 11
+call :java "temurin" 11
 if not %_EXITCODE%==0 goto end
 
 @rem last call to :java defines variable JAVA_HOME
-call :java "openjdk" 1.8
+call :java "temurin" 1.8
 if not %_EXITCODE%==0 goto end
 
 call :scala2

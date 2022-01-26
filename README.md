@@ -19,17 +19,16 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other trending topics we are continuously monitoring.
+[Ada][ada_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other trending topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [Git 2.34][git_releases] ([*release notes*][git_relnotes])
-- [Oracle OpenJDK 8 LTS][oracle_openjdk8] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk8_relnotes])
-- [Oracle OpenJDK 11 LTS][oracle_openjdk11] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk11_relnotes], [*bug fixes*][oracle_openjdk11_bugfixes])
-- [Oracle OpenJDK 17 LTS][oracle_openjdk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk17_relnotes], [*bug fixes*][oracle_openjdk17_bugfixes])
 - [Scala 3.1][scala3_releases] ([*release notes*][scala3_relnotes])
+- [Temurin OpenJDK 11 LTS][oracle_openjdk11] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk11_relnotes], [*bug fixes*][oracle_openjdk11_bugfixes])
+- [Temurin OpenJDK 17 LTS][oracle_openjdk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk17_relnotes], [*bug fixes*][oracle_openjdk17_bugfixes])
 <!--
 8u212   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
 8u222   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
@@ -68,6 +67,7 @@ Optionally one may also install the following software:
 - [MSYS2][msys2_releases] ([*change log*][msys2_changelog])
 - [sbt 1.6][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
+- [Temurin OpenJDK 8 LTS][temurin_openjdk8] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk8_relnotes])
 <!--
 - [Bloop 1.3][bloop_releases] (requires Java 8 and Python 2/3) ([*release notes*][bloop_relnotes])
 - [Python 3.8][python_release] ([*change log*][python_changelog])
@@ -87,10 +87,10 @@ C:\opt\Git-2.34.1\                 <i>(279 MB)</i>
 C:\opt\gradle-7.3.3\               <i>(122 MB)</i>
 C:\opt\jacoco-0.8.7\               <i>( 10 MB)</i>
 C:\opt\javafx-sdk-17.0.1\          <i>(115 MB)</i>
-C:\opt\jdk-openjdk-1.8.0_312-b08\  <i>(185 MB)</i>
-C:\opt\jdk-openjdk-11.0.13_8\      <i>(300 MB)</i>
-C:\opt\jdk-openjdk-17.0.1_12\      <i>(299 MB)</i>
-C:\opt\jitwatch-1.4.4\             <i>( 36 MB)</i>
+C:\opt\jdk-temurin-1.8.0_322-b06\  <i>(185 MB)</i>
+C:\opt\jdk-openjdk-11.0.14_9\      <i>(300 MB)</i>
+C:\opt\jdk-openjdk-17.0.2\         <i>(299 MB)</i>
+C:\opt\jitwatch-1.4.7\             <i>( 36 MB)</i>
 C:\opt\make-3.81\                  <i>(  2 MB)</i>
 C:\opt\mill-0.10.0\                <i>( 60 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
@@ -564,7 +564,7 @@ Searching for an unknown class name - e.g. **`BinarySearch`** - produces the fol
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> BinarySearch</b>
 Searching for class name BinarySearch in archive files C:\opt\scala3-3.1.1\lib\*.jar
 Searching for class name BinarySearch in archive files C:\opt\scala-2.13.8\lib\*.jar
-Searching for class name BinarySearch in archive files C:\opt\jdk-11.0.13_8\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\jdk-temurin-11.0.14_9\lib\*.jar
 </pre>
 
 Searching for **`FileSystem`** with option **`-artifact`** produces the following output:
@@ -573,7 +573,7 @@ Searching for **`FileSystem`** with option **`-artifact`** produces the followin
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> FileSystem -artifact</b>
 Searching for class name FileSystem in archive files C:\opt\scala3-3.1.1\lib\*.jar
 Searching for class name FileSystem in archive files C:\opt\scala-2.13.8\lib\*.jar
-Searching for class name FileSystem in archive files c:\opt\jdk-11.0.13_8\lib\*.jar
+Searching for class name FileSystem in archive files c:\opt\jdk-temurin-11.0.14_9\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystemProvider$1.class
@@ -718,7 +718,7 @@ The REPL has several commands available:
 :reset                   reset the repl to its initial state, forgetting all session entries
 
 <b>scala&gt;</b> System.getenv().get("JAVA_HOME")
-val res0: String = C:\opt\jdk-openjdk-11.0.13_8
+val res0: String = C:\opt\jdk-temurin-11.0.14_9
 
 <b>scala&gt;</b> System.getenv().get("SCALA3_HOME")
 val res1: String = C:\opt\scala3-3.1.1
@@ -812,7 +812,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-4.2.2-windows-x86_64.zip</a>                    <i>( 40 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.3.3-bin.zip</a>                              <i>(103 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.7.zip</a>                                  <i>(  4 MB)</i>
-<a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.4-shaded-win.jar</a>                  <i>( 36 MB)</i>
+<a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.7-shaded-win.jar</a>                  <i>( 36 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                 <i>( 10 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20210228.exe</a>                         <i>( 94 MB)</i>
 <a href="http://jdk.java.net/17/">openjdk-17_windows-x64_bin.zip</a>                    <i>(176 MB)</i>
@@ -822,7 +822,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://git-scm.com/download/win">PortableGit-2.34.1-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.6.1.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.8.zip</a>                                  <i>( 22 MB)</i>
-<a href="https://github.com/lampepfl/dotty/releases/tag/3.1.1">scala3-3.1.1.zip</a>                              <i>( 24 MB)</i>
+<a href="https://github.com/lampepfl/dotty/releases/tag/3.1.1">scala3-3.1.1.zip</a>                                  <i>( 33 MB)</i>
 </pre>
 </dd></dl>
 
@@ -839,6 +839,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 <!-- link refs -->
 
+[ada_examples]: https://github.com/michelou/ada-examples
 [apache_ant]: https://ant.apache.org/
 [apache_ant_cli]: https://ant.apache.org/manual/running.html
 [apache_ant_relnotes]: https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.12.html
@@ -905,8 +906,8 @@ Command Prompt has been around for as long as we can remember, but starting with
 [msys2_changelog]: https://github.com/msys2/setup-msys2/blob/master/CHANGELOG.md
 [msys2_releases]: https://github.com/msys2/msys2-installer/releases
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
-[oracle_openjdk8]: https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot
-[oracle_openjdk8_relnotes]: https://www.oracle.com/java/technologies/javase/8u311-relnotes.html
+[temurin_openjdk8]: https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot
+[temurin_openjdk8_relnotes]: https://www.oracle.com/java/technologies/javase/8u311-relnotes.html
 <!--
 jdk8 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-July/014118.html
 11.0.3 -> http://mail.openjdk.java.net/pipermail/jdk-updates-dev/2019-April/000951.html

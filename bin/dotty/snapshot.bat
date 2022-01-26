@@ -14,9 +14,9 @@ if not %_EXITCODE%==0 goto end
 @rem #########################################################################
 @rem ## Main
 
-set _EIGHT=bellsoft-08 corretto-08 dragonwell-08 graalvm-ce-08 openj9-08 openjdk-08 redhat-08 zulu-08
-set _ELEVEN=bellsoft-11 bellsoft-nik-11 corretto-11 dcevm-11 dragonwell-11 graalvm-ce-11 microsoft-11 openj9-11 openjdk-11 redhat-11 sapmachine-11 zulu-11
-set _SEVENTEEN=bellsoft-17 bellsoft-nik-17 corretto-17 graalvm-ce-17 microsoft-17 openjdk-17 sapmachine-17 zulu-17
+set _EIGHT=bellsoft-08 corretto-08 dragonwell-08 graalvm-ce-08 openj9-08 redhat-08 temurin-08 zulu-08
+set _ELEVEN=bellsoft-11 bellsoft-nik-11 corretto-11 dcevm-11 dragonwell-11 graalvm-ce-11 microsoft-11 openj9-11 redhat-11 sapmachine-11 temurin-11 zulu-11
+set _SEVENTEEN=bellsoft-17 bellsoft-nik-17 corretto-17 graalvm-ce-17 microsoft-17 sapmachine-17 temurin-17 zulu-17
 
 @rem for %%i in (%_EIGHT% %_ELEVEN% %_SEVENTEEN%) do (
 for %%i in (%_EIGHT%) do (
@@ -37,52 +37,51 @@ set "_ROOT_DIR=%~dp0"
 
 set _DEBUG_LABEL=[%_BASENAME%]
 set _ERROR_LABEL=Error:
-set _WARNING_LABEL=Warning:
 
 set "_TARGET_DIR=%_ROOT_DIR%dist\target"
 set "_SNAPSHOT_DIR=%_ROOT_DIR%__SNAPSHOT_LOCAL"
 set "_LOG_FILE=%_SNAPSHOT_DIR%\snapshot_log.txt"
 
 @rem map distro name to distro installation path
-call :env_set bellsoft-08 "c:\opt\jdk-bellsoft-1.8*"
-call :env_set bellsoft-11 "c:\opt\jdk-bellsoft-11*"
-call :env_set bellsoft-17 "c:\opt\jdk-bellsoft-17*"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-bellsoft-1.8*"') do set "_MAP[bellsoft-08]=c:\opt\%%d"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-bellsoft-11*"') do set "_MAP[bellsoft-11]=c:\opt\%%d"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-bellsoft-17*"') do set "_MAP[bellsoft-17]=c:\opt\%%d"
 
-call :env_set bellsoft-nik-11 "c:\opt\jdk-bellsoft-nik-java11*"
-call :env_set bellsoft-nik-17 "c:\opt\jdk-bellsoft-nik-java17*"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-bellsoft-nik-java11*"') do set "_MAP[bellsoft-nik-11]=c:\opt\%%d"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-bellsoft-nik-java17*"') do set "_MAP[bellsoft-nik-17]=c:\opt\%%d"
 
-call :env_set corretto-08 "c:\opt\jdk-corretto-1.8*"
-call :env_set corretto-11 "c:\opt\jdk-corretto-11*"
-call :env_set corretto-17 "c:\opt\jdk-corretto-17*"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-corretto-1.8*"') do set "_MAP[corretto-08]=c:\opt\%%d"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-corretto-11*"') do set "_MAP[corretto-11]=c:\opt\%%d"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-corretto-17*"') do set "_MAP[corretto-17]=c:\opt\%%d"
 
-call :env_set dragonwell-08 "c:\opt\jdk-dragonwell-1.8*"
-call :env_set dragonwell-11 "c:\opt\jdk-dragonwell-11*"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-dragonwell-1.8*"') do set "_MAP[dragonwell-08]=c:\opt\%%d"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-dragonwell-11*"') do set "_MAP[dragonwell-11]=c:\opt\%%d"
 
-call :env_set dcevm-11 "c:\opt\jdk-dcevm-11*"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-dcevm-11*"') do set "_MAP[dcevm-11]=c:\opt\%%d"
 
-call :env_set graalvm-ce-08 "c:\opt\graalvm-ce-java8*"
-call :env_set graalvm-ce-11 "c:\opt\graalvm-ce-java11*"
-call :env_set graalvm-ce-17 "c:\opt\graalvm-ce-java17*"
+for /f %%d in ('dir /ad /b "c:\opt\graalvm-ce-java8*"') do set "_MAP[graalvm-ce-08]=c:\opt\%%d"
+for /f %%d in ('dir /ad /b "c:\opt\graalvm-ce-java11*"') do set "_MAP[graalvm-ce-11]=c:\opt\%%d"
+for /f %%d in ('dir /ad /b "c:\opt\graalvm-ce-java17*"') do set "_MAP[graalvm-ce-17]=c:\opt\%%d"
 
-call :env_set microsoft-11 "c:\opt\jdk-microsoft-11*"
-call :env_set microsoft-17 "c:\opt\jdk-microsoft-17*"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-microsoft-11*"') do set "_MAP[microsoft-11]=c:\opt\%%d"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-microsoft-17*"') do set "_MAP[microsoft-17]=c:\opt\%%d"
 
-call :env_set openj9-08 "c:\opt\jdk-openj9-1.8*"
-call :env_set openj9-11 "c:\opt\jdk-openj9-11*"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-openj9-1.8*"') do set "_MAP[openj9-08]=c:\opt\%%d"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-openj9-11*"') do set "_MAP[openj9-11]=c:\opt\%%d"
 
-call :env_set openjdk-08 "c:\opt\jdk-openjdk-1.8*"
-call :env_set openjdk-11 "c:\opt\jdk-openjdk-11*"
-call :env_set openjdk-17 "c:\opt\jdk-openjdk-17*"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-redhat-1.8*"') do set "_MAP[redhat-08]=c:\opt\%%d"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-redhat-11*"') do set "_MAP[redhat-11]=c:\opt\%%d"
 
-call :env_set redhat-08 "c:\opt\jdk-redhat-1.8*"
-call :env_set redhat-11 "c:\opt\jdk-redhat-11*"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-sapmachine-11*"') do set "_MAP[sapmachine-11]=c:\opt\%%d"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-sapmachine-17*"') do set "_MAP[sapmachine-17]=c:\opt\%%d"
 
-call :env_set sapmachine-11 "c:\opt\jdk-sapmachine-11*"
-call :env_set sapmachine-17 "c:\opt\jdk-sapmachine-17*"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-temurin-1.8*"') do set "_MAP[temurin-08]=c:\opt\%%d"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-temurin-11*"') do set "_MAP[temurin-11]=c:\opt\%%d"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-temurin-17*"') do set "_MAP[temurin-17]=c:\opt\%%d"
 
-call :env_set zulu-08 "c:\opt\jdk-zulu-1.8*"
-call :env_set zulu-11 "c:\opt\jdk-zulu-11*"
-call :env_set zulu-17 "c:\opt\jdk-zulu-17*"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-zulu-1.8*"') do set "_MAP[zulu-08]=c:\opt\%%d"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-zulu-11*"') do set "_MAP[zulu-11]=c:\opt\%%d"
+for /f %%d in ('dir /ad /b "c:\opt\jdk-zulu-17*"') do set "_MAP[zulu-17]=C:\opt\%%d"
 
 if not exist "%_ROOT_DIR%build.bat" (
     echo %_ERROR_LABEL% Batch file build.bat not found 1>&2
@@ -105,23 +104,12 @@ for /f "delims=^= tokens=1,*" %%i in ('findstr /i "val.baseVersion" "%_ROOT_DIR%
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _BASE_VERSION=%_BASE_VERSION% 1>&2
 goto :eof
 
-@rem input parameter: %1=distro name, %2=file pattern
-:env_set
-set "__DISTRO_NAME=%~1"
-set "__FILE_PATTERN=%~2"
-if not exist "%__FILE_PATTERN%" (
-    echo %_WARNING_LABEL% No installation path found for "%__DISTRO_NAME%" distribution 1>&2
-    goto :eof
-)
-for /f %%d in ('dir /ad /b "%__FILE_PATTERN%"') do set "_MAP[%__DISTRO_NAME%]=c:\opt\%%d"
-goto :eof
-
 :build_snapshot
 set __DISTRO_NAME=%~1
 
 set "__JAVA_HOME=!_MAP[%__DISTRO_NAME%]!"
 if not exist "!__JAVA_HOME!\bin\java.exe" (
-    echo %_ERROR_LABEL% Java executable not found ^("!__DISTRO_NAME!"^) 1>&2
+    echo %_ERROR_LABEL% Java executable not found ^(__JAVA_HOME="!__JAVA_HOME!"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
