@@ -341,14 +341,14 @@ Command **`mvn clean test`** with option **`-debug`** produces additional debug 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/run.html">mvn</a> -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-openjdk-11.013_8\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-temurin-11.0.14_9\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.1.1 \
  -cp C:\opt\scala3-3.1.1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\opt\jdk-openjdk-11.013_8\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-temurin-11.0.14_9\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.1.1 [...]
 [DEBUG] [execute] C:\opt\jdk-11.013_8\bin\java.exe \
  -Xms64m -Xmx1024m -cp C:\opt\scala3-3.1.1\lib\*.jar;\
@@ -415,7 +415,7 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 > The plugin is available as <a href="https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/">Zip archive</a> and its installation is deliberately very simple:
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://linux.die.net/man/1/unzip">unzip</a> ..\bin\scala-maven-plugin-1.0.zip %USERPROFILE%\.m2\repository\</b>
-> <b>&gt; tree /a /f %USERPROFILE%\.m2\repository\ch\epfl\alumni | findstr /v "^[A-Z]"</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f %USERPROFILE%\.m2\repository\ch\epfl\alumni | findstr /v "^[A-Z]"</b>
 > |   maven-metadata-local.xml
 > |
 > \---scala-maven-plugin
@@ -454,7 +454,7 @@ Hello world!
 >   scala-library-2.13.6.jar:scala/collection/generic/DefaultSerializable.class
 > Searching for class name Serializable in library files C:\opt\scala-2.13.8\lib\*.jar
 >   scala-library.jar:scala/collection/generic/DefaultSerializable.class
-> Searching for class name Serializable in library files C:\opt\jdk-openjdk-11.013_8\lib\*.jar
+> Searching for class name Serializable in library files C:\opt\jdk-temurin-11.0.14_9\lib\*.jar
 > Searching for class name Serializable in archive files C:\opt\javafx-sdk-14.0.2.1\lib\*.jar
 > </pre>
 > Class **`scala.Serializable`** is part of **`C:\opt\scala3-3.1.1\lib\scala-library-2.13.8.jar`**, so let us add it to our classpath !
@@ -607,7 +607,7 @@ following parameters are passed as login shell command parameters.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

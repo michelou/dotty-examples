@@ -24,7 +24,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 
 Our [Dotty fork][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.34][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.35][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
 - [sbt 1.5][sbt_releases] (requires Java 8) ([*release notes*][sbt_relnotes])
 <!--
@@ -43,18 +43,18 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 -->
 Optionally one may also install the following software:
 
-- [Oracle OpenJDK 17][oracle_openjdk17] ([*release notes*][oracle_openjdk17_relnotes])
+- [Temurin OpenJDK 17][temurin_openjdk17] ([*release notes*][temurin_openjdk17_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*January 2022*):
+For instance our development environment looks as follows (*February 2022*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.34.1\                 <i>(279 MB)</i>
-C:\opt\jdk-openjdk-1.8.0u312-b07\  <i>(186 MB)</i>
-C:\opt\jdk-openjdk-11.0.13_8\      <i>(314 MB)</i>
-C:\opt\jdk-openjdk-17.0.1_12\      <i>(293 MB)</i>
+C:\opt\Git-2.35.1\                 <i>(282 MB)</i>
+C:\opt\jdk-temurin-1.8.0u322-b06\  <i>(186 MB)</i>
+C:\opt\jdk-temurin-11.0.14_9\      <i>(314 MB)</i>
+C:\opt\jdk-temurin-17.0.2_8\       <i>(293 MB)</i>
 C:\opt\sbt-1.6.1\                  <i>( 48 MB)</i>
 </pre>
 
@@ -251,7 +251,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
-   "GIT_CMD=C:\opt\Git-2.34.1\bin\git.exe"
+   "GIT_CMD=C:\opt\Git-2.35.1\bin\git.exe"
    "JAVA_CMD=C:\opt\jdk-openjdk-11.0.13_8\bin\java.exe"
    "SBT_CMD=C:\opt\sbt-1.6.1\bin\sbt.bat"
 Tool options
@@ -460,8 +460,8 @@ Command [**`project\scripts\bootstrapCmdTests.bat`**](bin/dotty/project/scripts/
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.33
-# VM version: JDK 11.0.13, VM 11.0.13+8
-# VM invoker: C:\opt\jdk-openjdk-11.0.13_8\bin\java.exe
+# VM version: JDK 11.0.14, VM 11.0.14+9
+# VM invoker: C:\opt\jdk-openjdk-11.0.14_9\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -490,8 +490,8 @@ Worker.compile  avgt       533.625          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.33
-# VM version: JDK 11.0.13, VM 11.0.13+8
-# VM invoker: C:\opt\jdk-openjdk-11.0.13_8\bin\java.exe
+# VM version: JDK 11.0.14, VM 11.0.14+9
+# VM invoker: C:\opt\jdk-openjdk-11.0.14_9\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -518,8 +518,8 @@ Worker.compile  avgt       361.619          ms/op
 [...]
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
 # JMH version: 1.33
-# VM version: JDK 11.0.13, VM 11.0.13+8
-# VM invoker: C:\opt\jdk-openjdk-11.0.13_8\bin\java.exe
+# VM version: JDK 11.0.14, VM 11.0.14+9
+# VM invoker: C:\opt\jdk-temurin-11.0.14_9\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -639,7 +639,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -651,7 +651,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.34.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.35.1.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/
@@ -675,8 +675,8 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 <!-- 8u232 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html -->
 <!-- 8u242 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html -->
 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
-[oracle_openjdk17]: https://adoptium.net/releases.html
-[oracle_openjdk17_relnotes]: https://github.com/openjdk/jdk/compare/jdk-17%2B20...jdk-17%2B21
+[temurin_openjdk17]: https://adoptium.net/releases.html
+[temurin_openjdk17_relnotes]: https://github.com/openjdk/jdk/compare/jdk-17%2B20...jdk-17%2B21
 [rust_examples]: https://github.com/michelou/rust-examples
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html

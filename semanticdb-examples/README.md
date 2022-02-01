@@ -194,12 +194,17 @@ range {
   <th>Entry&nbsp;point</th>
 </tr>
 <tr>
-  <td><code>metac.bat</code></td>
+  <td><a href="https://scalameta.org/docs/semanticdb/guide.html#metac"><code>metac.bat</code></a></td>
   <td><a href="https://mvnrepository.com/artifact/org.scalameta/scalameta_2.13"><code>scalameta_2.13-X.Y.Z.jar</code></a></td>
   <td><a href="https://github.com/scalameta/scalameta/blob/main/semanticdb/metac/src/main/scala/scala/meta/cli/Metac.scala"><code>scala.meta.cli.Metac</code></a></td>
 </tr>
 <tr>
-  <td><code>metap.bat</b></td>
+  <td><code>metacp.bat</code></td>
+  <td><a href="https://mvnrepository.com/artifact/org.scalameta/scalameta_2.13"><code>scalameta_2.13-X.Y.Z.jar</code></a></td>
+  <td><a href="https://github.com/scalameta/scalameta/blob/main/semanticdb/metacp/src/main/scala/scala/meta/cli/Metacp.scala"><code>scala.meta.cli.Metacp</code></a></td>
+</tr>
+<tr>
+  <td><a href="https://scalameta.org/docs/semanticdb/guide.html#metap"><code>metap.bat</code></a></td>
   <td><a href="https://mvnrepository.com/artifact/org.scalameta/scalameta_2.13"><code>scalameta_2.13-X.Y.Z.jar</code></a></td>
   <td><a href="https://github.com/scalameta/scalameta/blob/main/semanticdb/metap/src/main/scala/scala/meta/cli/Metap.scala"><code>scala.meta.cli.Metap</code></a></td>
 </tr>
@@ -236,7 +241,7 @@ Warning: <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_val
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

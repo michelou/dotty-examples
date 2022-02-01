@@ -53,7 +53,7 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*January 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*February 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java11-21.3.0\        <i>(843 MB)</i>
@@ -66,13 +66,16 @@ C:\opt\jdk-corretto-11.0.14_9\          <i>(293 MB)</i>
 C:\opt\jdk-corretto-17.0.2_8\           <i>(300 MB)</i>
 C:\opt\jdk-dcevm-11.0.11_1\             <i>(313 MB)</i>
 C:\opt\jdk-dragonwell-11.0.13.9_0\      <i>(290 MB)</i>
+C:\opt\jdk-dragonwell-17.0.1.0.1_12\    <i>(299 MB)</i>
 C:\opt\jdk-microsoft-11.0.13_8\         <i>(291 MB)</i>
-C:\opt\jdk-openj9-11.0.12_7\            <i>(295 MB)</i>
+C:\opt\jdk-openj9-11.0.14_9\            <i>(326 MB)</i>
+C:\opt\jdk-openj9-17.0.2_8\             <i>(334 MB)</i>
 C:\opt\jdk-redhat-11.0.13.8-1\          <i>(364 MB)</i>
 C:\opt\jdk-redhat-17.0.1.0.12-1\        <i>(377 MB)</i>
 C:\opt\jdk-sapmachine-11.0.14\          <i>(316 MB)</i>
 C:\opt\jdk-sapmachine-17.0.2\           <i>(325 MB)</i>
 C:\opt\jdk-temurin-11.0.14_9\           <i>(300 MB)</i>
+C:\opt\jdk-temurin-17.0.2_8\            <i>(299 MB)</i>
 C:\opt\jdk-zulu-11.0.14-win_x64\        <i>(302 MB)</i>
 C:\opt\jdk-zulu-17.0.2-win_x64\         <i>(305 MB)</i>
 </pre>
@@ -491,9 +494,9 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/alibaba/dragonwell11/releases">Alibaba_Dragonwell_11.0.12.8_x64_windows.zip</a>                   <i>(181 MB)</i>
-<a href="https://github.com/corretto/corretto-11/releases" rel="external">amazon-corretto-11.0.13.8.1-windows-x64-jdk.zip</a>                <i>(178 MB)</i>
-<a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.13+8-windows-amd64.zip</a>                        <i>(187 MB)</i>
+<a href="https://github.com/alibaba/dragonwell11/releases">Alibaba_Dragonwell_11.0.13.9_x64_windows.zip</a>                   <i>(181 MB)</i>
+<a href="https://github.com/corretto/corretto-11/releases" rel="external">amazon-corretto-11.0.14.9.1-windows-x64-jdk.zip</a>                <i>(178 MB)</i>
+<a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.14+9-windows-amd64.zip</a>                        <i>(187 MB)</i>
 <a href="https://libericajdk.ru/pages/downloads/native-image-kit/">bellsoft-liberica-vm-openjdk11-21.3.0-windows-amd64.zip</a>        <i>(291 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.2.0">graalvm-ce-java11-windows-amd64-21.3.0.zip</a>                     <i>(360 MB)</i>
 <a href="https://developer.ibm.com/languages/java/semeru-runtimes/downloads">ibm-semeru-open-jdk_x64_windows_11.0.13_8_openj9-0.29.0.zip</a>    <i>(198 MB)</i>
@@ -553,7 +556,7 @@ scala3-3.1.2-RC1-bin-SNAPSHOT-zulu-11.zip
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

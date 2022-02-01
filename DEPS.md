@@ -70,7 +70,7 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface"><code>compiler-interface</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.6.0"><b>1.6.0</b></a><br/><span style="color:gray;font-size:80%;">(Dec&nbsp;2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.6.1"><b>1.6.1</b></a><br/><span style="color:gray;font-size:80%;">(Jan&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.3.5">1.3.5</a><br/><span style="color:gray;font-size:80%;">(2020)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.3.5">1.3.5</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.3.5">1.3.5</a></td>
@@ -170,7 +170,7 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java"><code>protobuf-java</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java/3.19.3"><b>3.19.3</b></a><br/><span style="color:gray;font-size:80%;">(Jan&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java/3.19.4"><b>3.19.4</b></a><br/><span style="color:gray;font-size:80%;">(Jan&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java/3.7.0">3.7.0</a><br/><span style="color:gray;">(2019)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java/3.7.0">3.7.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java/3.7.0">3.7.0</a></td>
@@ -247,7 +247,7 @@ The following table presents the library dependencies of the Scala 2.13 distribu
   <th style="padding:4px;"><a href="https://app.travis-ci.com/github/scala/scala/branches">2.13.9</a><br/><span style="color:red;">DEV</span></th>
 </tr>
 <tr>
-  <td style="padding:4px;"><a href="hhttps://mvnrepository.com/artifact/org.jline/jline"><code>jline</code></a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline"><code>jline</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.21.0"><b>3.21.0</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.15.0">3.15.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.16.0">3.16.0</a></td>
@@ -469,7 +469,7 @@ Update 9.2.0 of the <a href="https://gitlab.ow2.org/asm/asm/-/commit/1412c76"><c
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

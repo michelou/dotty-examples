@@ -25,7 +25,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.34][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.35][git_releases] ([*release notes*][git_relnotes])
 - [Scala 3.1][scala3_releases] ([*release notes*][scala3_relnotes])
 - [Temurin OpenJDK 11 LTS][oracle_openjdk11] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk11_relnotes], [*bug fixes*][oracle_openjdk11_bugfixes])
 - [Temurin OpenJDK 17 LTS][oracle_openjdk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk17_relnotes], [*bug fixes*][oracle_openjdk17_bugfixes])
@@ -51,6 +51,7 @@ This project depends on the following external software for the **Microsoft Wind
 11.0.11 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-April/005860.html
 11.0.12 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-July/006954.html
 11.0.13 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-October/009368.html
+11.0.14 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2022-January/011643.html
 -->
 Optionally one may also install the following software:
 
@@ -76,20 +77,20 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*January 2022*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*February 2022*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant-1.10.12\         <i>( 40 MB)</i>
 C:\opt\apache-maven-3.8.4\         <i>( 10 MB)</i>
 C:\opt\bazel-4.2.2\                <i>( 41 MB)</i>
 C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
-C:\opt\Git-2.34.1\                 <i>(279 MB)</i>
+C:\opt\Git-2.35.1\                 <i>(279 MB)</i>
 C:\opt\gradle-7.3.3\               <i>(122 MB)</i>
 C:\opt\jacoco-0.8.7\               <i>( 10 MB)</i>
 C:\opt\javafx-sdk-17.0.1\          <i>(115 MB)</i>
 C:\opt\jdk-temurin-1.8.0_322-b06\  <i>(185 MB)</i>
-C:\opt\jdk-openjdk-11.0.14_9\      <i>(300 MB)</i>
-C:\opt\jdk-openjdk-17.0.2\         <i>(299 MB)</i>
+C:\opt\jdk-temurin-11.0.14_9\      <i>(300 MB)</i>
+C:\opt\jdk-temurin-17.0.2_8\       <i>(299 MB)</i>
 C:\opt\jitwatch-1.4.7\             <i>( 36 MB)</i>
 C:\opt\make-3.81\                  <i>(  2 MB)</i>
 C:\opt\mill-0.10.0\                <i>( 60 MB)</i>
@@ -332,8 +333,8 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 Tool versions:
    javac 1.8.0_312, java 1.8.0_312, scalac 2.13.8, scalac 3.1.1,
    ant 1.10.12, gradle 7.3.3, mill 0.10.0, mvn 3.8.4, sbt 1.6.1,
-   bazel 4.2.2, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.0,
-   git 2.34.1.windows.1, diff 3.8, bash 4.4.23(1)-release
+   bazel 4.2.2, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.2,
+   git 2.35.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
 C:\opt\sbt-1.6.1\bin\sbt
@@ -347,10 +348,10 @@ Other development tools such as [**`javac.exe`**][javac_cli] and [**`scalac.bat`
 INFO: Could not find files for the given pattern(s).
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> /r %JAVA_HOME% javac</b>
-c:\opt\jdk-openjdk-1.8.0_312-b08\bin\javac.exe
+c:\opt\jdk-temurin-1.8.0u322-b06\bin\javac.exe
 &nbsp;
 <b>&gt; %JAVA_HOME%\bin\<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html">javac</a> -version</b>
-javac 1.8.0_312
+javac 1.8.0_322
 </pre>
 
 Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and defined variables:
@@ -358,13 +359,13 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   javac 11.0.13, java 11.0.13, scalac 2.13.8, scalac 3.1.1,
+   javac 11.0.14, java 11.0.14, scalac 2.13.8, scalac 3.1.1,
    ant 1.10.12, gradle 7.3.3, mill 0.10.0, mvn 3.8.4, sbt 1.6.1,
-   bazel 4.2.2, cfr 0.152, make 3.81, python 3.10.0,
-   git 2.34.1.windows.1, diff 3.8, bash 4.4.23(1)-release
+   bazel 4.2.2, cfr 0.152, make 3.81, python 3.10.2,
+   git 2.35.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
-   C:\opt\jdk-openjdk-11.0.13_8\bin\javac.exe
-   C:\opt\jdk-openjdk-11.0.13_8\bin\java.exe
+   C:\opt\jdk-temurin-11.0.14_9\bin\javac.exe
+   C:\opt\jdk-temurin-11.0.14_9\bin\java.exe
    C:\opt\scala-2.13.8\bin\scalac.bat
    C:\opt\scala3-3.1.1\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
@@ -376,20 +377,20 @@ Tool paths:
    C:\opt\bazel-4.2.2\bazel.exe
    C:\opt\cfr-0.152\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
-   C:\opt\Python-3.10.0\python.exe
-   C:\opt\Git-2.34.1\bin\git.exe
-   C:\opt\Git-2.34.1\mingw64\bin\git.exe
-   C:\opt\Git-2.34.1\usr\bin\diff.exe
-   C:\opt\Git-2.34.1\bin\bash.exe
+   C:\opt\Python-3.10.2\python.exe
+   C:\opt\Git-2.35.1\bin\git.exe
+   C:\opt\Git-2.35.1\mingw64\bin\git.exe
+   C:\opt\Git-2.35.1\usr\bin\diff.exe
+   C:\opt\Git-2.35.1\bin\bash.exe
 Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.12"
    "BAZEL_HOME=c:\opt\bazel-4.2.2"
-   "GIT_HOME=C:\opt\Git-2.34.1"
-   "JAVA_HOME=C:\opt\jdk-openjdk-11.0.13_8"
+   "GIT_HOME=C:\opt\Git-2.35.1"
+   "JAVA_HOME=C:\opt\jdk-temurin-11.0.14_9"
    "JAVAFX_HOME=C:\opt\javafx-sdk-17.0.1"
    "MSVS_HOME=X:"
    "MSYS_HOME=C:\opt\msys64"
-   "PYTHON_HOME=C:\opt\Python-3.10.0"
+   "PYTHON_HOME=C:\opt\Python-3.10.2"
    "SBT_HOME=C:\opt\sbt-1.6.1"
    "SCALA_HOME=C:\opt\scala-2.13.8"
    "SCALA3_HOME=C:\opt\scala3-3.1.1"
@@ -411,11 +412,11 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.1.1 c:\opt\jdk-openjdk-11.0.13_8</b>
+<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.1.1 c:\opt\jdk-temurin-11.0.14_9</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
 Size of directory "c:\opt\scala3-3.1.1" is 31.4 Mb
-Size of directory "c:\opt\jdk-openjdk-11.0.13_8" is 184.2 Mb
+Size of directory "c:\opt\jdk-temurin-11.0.14_9" is 184.2 Mb
 </pre>
 
 ### **`getnightly.bat`**
@@ -817,9 +818,9 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20210228.exe</a>                         <i>( 94 MB)</i>
 <a href="http://jdk.java.net/17/">openjdk-17_windows-x64_bin.zip</a>                    <i>(176 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-17_windows-x64_bin-sdk.zip</a>                <i>( 39 MB)</i>
-<a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u312b07.zip</a>    <i>( 99 MB)</i>
-<a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.zip</a>  <i>( 99 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.34.1-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u322b06.zip</a>    <i>( 99 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.14_9.zip</a>  <i>( 99 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.35.1-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.6.1.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.8.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.1">scala3-3.1.1.zip</a>                                  <i>( 33 MB)</i>
@@ -834,7 +835,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -861,7 +862,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [git_bash]: https://www.atlassian.com/git/tutorials/git-bash
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.34.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.35.1.txt
 [github_guides]: https://guides.github.com/
 [github_lampepfl_dotty]: https://github.com/lampepfl/dotty
 [github_markdown]: https://github.github.com/gfm/
@@ -936,7 +937,7 @@ jdk8 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-July/014118.html
 [scala3_releases]: https://github.com/lampepfl/dotty/releases
 [scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.1.1
 [scala_releases]: https://www.scala-lang.org/files/archive/
-[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.6
+[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.8
 [scala_repl]: https://docs.scala-lang.org/overviews/repl/overview.html
 [scalac_cli]: https://docs.scala-lang.org/overviews/compiler-options/index.html
 [semanticdb_guide]: https://scalameta.org/docs/semanticdb/guide.html
