@@ -303,15 +303,17 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :update
-if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% fetch upstream master 1>&2
-call "%_GIT_CMD%" fetch upstream master
+set __REMOTE_BRANCH=main
+
+if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% fetch upstream %__REMOTE_BRANCH% 1>&2
+call "%_GIT_CMD%" fetch upstream %__REMOTE_BRANCH%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to fetch changes from upstream repository 1>&2
     set _EXITCODE=1
     goto :eof
 )
-if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% merge upstream/master 1>&2
-call "%_GIT_CMD%" merge upstream/master
+if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% merge upstream/%__REMOTE_BRANCH% 1>&2
+call "%_GIT_CMD%" merge upstream/%__REMOTE_BRANCH%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to merge changes from upstream repository 1>&2
     set _EXITCODE=1

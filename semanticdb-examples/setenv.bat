@@ -25,6 +25,9 @@ if %_HELP%==1 (
 set _COURSIER_PATH=
 set _PROTOC_PATH=
 
+call :kotlin
+if not %_EXITCODE%==0 goto end
+
 call :protoc
 if not %_EXITCODE%==0 goto end
 
@@ -148,6 +151,41 @@ echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%help%__END%        display this help message
 goto :eof
 
+@rem output parameter: _KOTLIN_HOME
+:kotlin
+set _KOTLIN_HOME=
+
+set __KOTLINC_CMD=
+for /f %%f in ('where kotlinc.bat 2^>NUL') do set "__KOTLINC_CMD=%%f"
+@rem We need to differentiate kotlinc-jvm from kotlinc-native
+if defined __KOTLINC_CMD (
+    for /f "tokens=1,2,*" %%i in ('%__KOTLINC_CMD% -version 2^>^&1') do (
+        if not "%%j"=="kotlinc-jvm" set __KOTLINC_CMD=
+    )
+)
+if defined __KOTLINC_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Kotlin executable found in PATH 1>&2
+    for %%i in ("%__KOTLINC_CMD%") do set "__KOTLINC_BIN_DIR=%%~dpi"
+    for %%f in ("!__KOTLINC_BIN_DIR!\.") do set "_KOTLIN_HOME=%%~dpf"
+    goto :eof
+) else if defined KOTLIN_HOME (
+    set "_KOTLIN_HOME=%KOTLIN_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable KOTLIN_HOME 1>&2
+) else (
+    set __PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!__PATH!\kotlinc*" 2^>NUL') do set "_KOTLIN_HOME=!__PATH!\%%f"
+    if not defined _KOTLIN_HOME (
+        set "__PATH=%ProgramFiles%"
+        for /f %%f in ('dir /ad /b "!__PATH!\kotlinc*" 2^>NUL') do set "_KOTLIN_HOME=!__PATH!\%%f"
+    )
+)
+if not exist "%_KOTLIN_HOME%\bin\kotlinc.bat" (
+    echo kotlinc not found in Kotlin installation directory ^(%_KOTLIN_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
 @rem output parameter: _PROTOC_HOME
 :protoc
 set _PROTOC_HOME=
@@ -226,6 +264,11 @@ if exist "%__COURSIER_CMD%" (
     for /f %%i in ('"%__COURSIER_CMD%" --version 2^>^&1') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% cs %%i,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%__COURSIER_CMD:bin\=bin:%"
 )
+where /q "%KOTLIN_HOME%\bin:kotlinc.bat"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,2,3,*" %%i in ('"%KOTLIN_HOME%\bin\kotlinc.bat" -version 2^>^&1 ^| findstr kotlinc') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% kotlinc %%k,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%KOTLIN_HOME%\bin:kotlinc.bat"
+)
 where /q "%GIT_HOME%\bin:git.exe"
 if %ERRORLEVEL%==0 (
    for /f "tokens=1,2,*" %%i in ('"%GIT_HOME%\bin\git.exe" --version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% git %%k,"
@@ -252,6 +295,7 @@ if %__VERBOSE%==1 (
     if defined COURSIER_HOME echo    "COURSIER_HOME=%COURSIER_HOME%" 1>&2
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
     if defined JAVA_HOME echo    "JAVA_HOME=%JAVA_HOME%" 1>&2
+    if defined KOTLIN_HOME echo    "KOTLIN_HOME=%KOTLIN_HOME%" 1>&2
     if defined PROTOC_HOME echo    "PROTOC_HOME=%PROTOC_HOME%" 1>&2
 )
 goto :eof
@@ -265,6 +309,7 @@ endlocal & (
         if not defined COURSIER_HOME set "COURSIER_HOME=%_COURSIER_HOME%"
         if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
         if not defined JAVA_HOME set "JAVA_HOME=%_JAVA_HOME%"
+        if not defined KOTLIN_HOME set "KOTLIN_HOME=%_KOTLIN_HOME%"
         if not defined PROTOC_HOME set "PROTOC_HOME=%_PROTOC_HOME%"
         set "PATH=%PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE%

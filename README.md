@@ -19,7 +19,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[Ada][ada_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other trending topics we are continuously monitoring.
+[Ada][ada_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other trending topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -95,7 +95,7 @@ C:\opt\jitwatch-1.4.7\             <i>( 36 MB)</i>
 C:\opt\make-3.81\                  <i>(  2 MB)</i>
 C:\opt\mill-0.10.0\                <i>( 60 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
-C:\opt\sbt-1.6.1\                  <i>( 48 MB)</i>
+C:\opt\sbt-1.6.2\                  <i>( 50 MB)</i>
 C:\opt\scala-2.13.8\               <i>( 24 MB)</i>
 C:\opt\scala3-3.1.1\               <i>( 35 MB)</i>
 </pre>
@@ -104,8 +104,9 @@ C:\opt\scala3-3.1.1\               <i>( 35 MB)</i>
  <!-- sbt: 1.3.6 = 55.1 MB, 1.3.7 = 60.9 MB, 1.3.8 = 61.0 MB -->
  <!-- sbt: 1.3.9 = 61.2 MB, 1.3.10 = 61.2 MB, 1.3.11 = 61.3 MB, 1.4.1 = 47.6 MB -->
  <!-- sbt: 1.4.2 = 47.7 MB, 1.4.3 = 47.7 MB, 1.4.6 -> 48 MB, 1.4.6 = MB -->
- <!-- sbt: 1.4.7 = 48.3 MB, 1.4.8 = 48.3 MB, 1.5.0 = 48.3 MB, 1.5.1 = 50.6 MB -->
- <!-- sbt: 1.5.2 = 50.6 MB, 1.5.3 = 50.6 MB, 1.5.4/1.5.5 = 50.6 MB -->
+ <!-- sbt: 1.4.7 = 48.3 MB, 1.4.8 = 48.3 MB, 1.5.0 = 48.3 MB -->
+ <!-- sbt: 1.5.1 to 1.5.5 = 50.6 MB -->
+ <!-- sbt: 1.6.1 = 50.6 MB, 1.6.2 = 50.6 MB -->
 
 > **:mag_right:** [Git for Windows][git_releases] provides a Bash emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
@@ -332,13 +333,13 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 1.8.0_312, java 1.8.0_312, scalac 2.13.8, scalac 3.1.1,
-   ant 1.10.12, gradle 7.3.3, mill 0.10.0, mvn 3.8.4, sbt 1.6.1,
+   ant 1.10.12, gradle 7.3.3, mill 0.10.0, mvn 3.8.4, sbt 1.6.2,
    bazel 4.2.2, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.2,
    git 2.35.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
-C:\opt\sbt-1.6.1\bin\sbt
-C:\opt\sbt-1.6.1\bin\sbt.bat
+C:\opt\sbt-1.6.2\bin\sbt
+C:\opt\sbt-1.6.2\bin\sbt.bat
 </pre>
 
 Other development tools such as [**`javac.exe`**][javac_cli] and [**`scalac.bat`**][scalac_cli] are accessible through the corresponding environment variable, e.g. **`JAVA_HOME`** for **`javac.exe`**, **`SCALA_HOME`** resp. **`SCALA3_HOME`** for **`scalac.bat`** and **`PYTHON_HOME`** for **`python.exe`**.
@@ -360,7 +361,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.14, java 11.0.14, scalac 2.13.8, scalac 3.1.1,
-   ant 1.10.12, gradle 7.3.3, mill 0.10.0, mvn 3.8.4, sbt 1.6.1,
+   ant 1.10.12, gradle 7.3.3, mill 0.10.0, mvn 3.8.4, sbt 1.6.2,
    bazel 4.2.2, cfr 0.152, make 3.81, python 3.10.2,
    git 2.35.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
@@ -373,7 +374,7 @@ Tool paths:
    C:\opt\gradle-7.3.3\bin\gradle.bat
    C:\opt\mill-0.10.0\mill.bat
    C:\opt\apache-maven-3.8.4\bin\mvn.cmd
-   C:\opt\sbt-1.6.1\bin\sbt.bat
+   C:\opt\sbt-1.6.2\bin\sbt.bat
    C:\opt\bazel-4.2.2\bazel.exe
    C:\opt\cfr-0.152\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
@@ -391,7 +392,7 @@ Environment variables:
    "MSVS_HOME=X:"
    "MSYS_HOME=C:\opt\msys64"
    "PYTHON_HOME=C:\opt\Python-3.10.2"
-   "SBT_HOME=C:\opt\sbt-1.6.1"
+   "SBT_HOME=C:\opt\sbt-1.6.2"
    "SCALA_HOME=C:\opt\scala-2.13.8"
    "SCALA3_HOME=C:\opt\scala3-3.1.1"
 </pre>
@@ -649,7 +650,7 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 | :----------- | :------: | :------ |
 | `build.sbt` | `dottyVersion` | `3.1.1-RC2` &rarr; `3.1.1`|
 | `build.sc` | `scalaVersion` | `3.1.1-RC2` &rarr; `3.1.1` |
-| `project\build.properties` | `sbt.version` | `1.5.8` &rarr; `1.6.1` |
+| `project\build.properties` | `sbt.version` | `1.6.1` &rarr; `1.6.2` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.5.4` &rarr; `0.5.5` |
 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
@@ -821,7 +822,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u322b06.zip</a>    <i>( 99 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.14_9.zip</a>  <i>( 99 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.35.1-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
-<a href="https://github.com/sbt/sbt/releases">sbt-1.6.1.zip</a>                                     <i>( 17 MB)</i>
+<a href="https://github.com/sbt/sbt/releases">sbt-1.6.2.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.8.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.1">scala3-3.1.1.zip</a>                                  <i>( 33 MB)</i>
 </pre>
@@ -930,7 +931,7 @@ jdk8 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-July/014118.html
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_downloads]: https://github.com/sbt/sbt/releases
 [sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.6.1
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.6.2
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala]: https://www.scala-lang.org/
 [scala3_home]: https://dotty.epfl.ch
@@ -941,6 +942,7 @@ jdk8 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-July/014118.html
 [scala_repl]: https://docs.scala-lang.org/overviews/repl/overview.html
 [scalac_cli]: https://docs.scala-lang.org/overviews/compiler-options/index.html
 [semanticdb_guide]: https://scalameta.org/docs/semanticdb/guide.html
+[spring_examples]: https://github.com/michelou/spring-examples
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_bash_script]: https://www.gnu.org/software/bash/manual/bash.html
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html

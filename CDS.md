@@ -19,7 +19,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - Data Sharing and Dotty on Windows [**&#9660;**](#bottom)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[Ada][ada_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
+[Ada][ada_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spring][spring_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
 
 
 ## <span id="proj_deps">Project dependencies</span>
@@ -27,16 +27,16 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [Git 2.35][git_downloads] ([*release notes*][git_relnotes])
-- [Oracle OpenJDK 11][openjdk_downloads] ([*release notes*][openjdk_relnotes])
 - [Scala 3][scala3_releases] ([*release notes*][scala3_relnotes])
+- [Temurin OpenJDK 11][temurin11_downloads] ([*release notes*][temurin11_relnotes])
 
-> **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Scala 3][scala_3] also support Java 9+. In the following we work with [Oracle OpenJDK 11][openjdk_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
+> **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Scala 3][scala_3] also support Java 9+. In the following we work with [Temurin OpenJDK 11][temurin11_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
 
 For instance our development environment looks as follows (*February 2022*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.35.1\             <i>(282 MB)</i>
-C:\opt\jdk-openjdk-11.0.14_9\  <i>(314 MB)</i>
+C:\opt\jdk-temurin-11.0.14_9\  <i>(314 MB)</i>
 C:\opt\scala3-3.1.1\           <i>( 57 MB)</i>
 </pre>
 
@@ -708,6 +708,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 
 <!-- link refs -->
 
+[ada_examples]: https://github.com/michelou/ada-examples
 [deno_examples]: https://github.com/michelou/deno-examples
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [scala3_home]: https://dotty.epfl.ch/
@@ -737,11 +738,12 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [man1_sed]: https://www.linux.org/docs/man1/sed.html
 [man1_wc]: https://www.linux.org/docs/man1/wc.html
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
-[openjdk_downloads]: https://adoptopenjdk.net/?variant=openjdk11&jvmVariant=hotspot
-[openjdk_relnotes]: https://jdk.java.net/11/release-notes
+[temurin11_downloads]: https://adoptium.net/?variant=openjdk11&jvmVariant=hotspot
+[temurin11_relnotes]: https://adoptium.net/release_notes.html
 [rust_examples]: https://github.com/michelou/rust-examples
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [scala_2_13]: https://www.scala-lang.org/news/roadmap-2.13.html
 [scala_3]: https://www.scala-lang.org/blog/2018/04/19/scala-3.html
 [scala_downloads]: https://www.scala-lang.org/download/
+[spring_examples]: https://github.com/michelou/spring-examples
 [wix_examples]: https://github.com/michelou/wix-examples

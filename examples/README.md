@@ -375,6 +375,12 @@ Command **` mvn compile test`** with option **`-debug`** produces additional deb
 W:\examples\hello-scala\target\classes hello
 </pre>
 
+> **:mag_right:** The following command outputs the classpath being used by <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html"><code>mvn</code></a> into the text file `classpath.txt` :
+> <pre style="font-size:80%;">
+> <b>&gt; mvn dependency:build-classpath -Dmdep.outputFile=classpath.txt</b>
+> </pre>
+<!-- https://stackoverflow.com/questions/16655010/in-maven-how-output-the-classpath-being-used -->
+
 Command [**`mvn --quiet clean test`**](enum-Planet/pom.xml) produces the following output:
 
 <pre style="font-size:80%;">

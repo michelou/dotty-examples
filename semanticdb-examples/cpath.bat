@@ -19,7 +19,7 @@ set _LIBS_CPATH=
 
 set __SCALA_BINARY_VERSION=2.13
 
-set __SCALAMETA_VERSION=4.4.29
+set __SCALAMETA_VERSION=4.4.33
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
 call :add_jar "org.scala-lang" "scala-reflect" "2.13.6"
@@ -38,7 +38,13 @@ call :add_jar "org.scalameta" "common_%__SCALA_BINARY_VERSION%" "%__SCALAMETA_VE
 call :add_jar "org.scalameta" "scalameta_%__SCALA_BINARY_VERSION%" "%__SCALAMETA_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scalameta/semanticdb-scalac
-call :add_jar "org.scalameta" "semanticdb-scalac_2.13.6" "%__SCALAMETA_VERSION%"
+call :add_jar "org.scalameta" "semanticdb-scalac_2.13.8" "%__SCALAMETA_VERSION%"
+
+@rem https://mvnrepository.com/artifact/com.sourcegraph/semanticdb-javac
+call :add_jar "com.sourcegraph" "semanticdb-javac" "0.7.4"
+
+@rem https://mvnrepository.com/artifact/com.sourcegraph/semanticdb-kotlinc
+call :add_jar "com.sourcegraph" "semanticdb-kotlinc" "0.2.0"
 
 goto end
 
@@ -72,10 +78,13 @@ if not exist "%__JAR_FILE%" (
             set _EXITCODE=1
             goto :eof
         )
-        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MVN_CMD%" install:install-file -Dfile="!__JAR_FILE!" -DgroupId="%__GROUP_ID%" -DartifactId=%__ARTIFACT_ID% -Dversion=%__VERSION% -Dpackaging=jar 1>&2
-        ) else if %_VERBOSE%==1 ( echo Install Maven archive into directory "!__LOCAL_REPO:%USERPROFILE%=%%USERPROFILE%%!\%__SCALA_XML_PATH%" 1>&2
-        )
-        call "%_MVN_CMD%" %_MVN_OPTS% install:install-file -Dfile="!__JAR_FILE!" -DgroupId="%__GROUP_ID%" -DartifactId=%__ARTIFACT_ID% -Dversion=%__VERSION% -Dpackaging=jar
+    )
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_MVN_CMD%" %_MVN_OPTS% install:install-file -Dfile="!__JAR_FILE!" -DgroupId="%__GROUP_ID%" -DartifactId=%__ARTIFACT_ID% -Dversion=%__VERSION% -Dpackaging=jar 1>&2
+    ) else if %_VERBOSE%==1 ( echo Install Maven artifact into directory "!__LOCAL_REPO:%USERPROFILE%=%%USERPROFILE%%!\%__SCALA_XML_PATH%" 1>&2
+    )
+    %_MVN_CMD% %_MVN_OPTS% install:install-file -Dfile="!__JAR_FILE!" -DgroupId="%__GROUP_ID%" -DartifactId=%__ARTIFACT_ID% -Dversion=%__VERSION% -Dpackaging=jar
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to install Maven artifact into directory "!__LOCAL_REPO:%USERPROFILE%=%%USERPROFILE%%!" ^(error:!ERRORLEVEL!^) 1>&2
     )
 )
 set "_LIBS_CPATH=%_LIBS_CPATH%%__JAR_FILE%;"
