@@ -60,9 +60,9 @@ Optionally one may also install the following software:
 - [Bazel 4.2][bazel_releases] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
 - [GNU Make 3.81][make_downloads]
-- [Gradle 7.3][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Gradle 7.4][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [JaCoCo 0.8][jacoco_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*change log*][jacoco_changelog])
-- [JavaFX 17][javafx_downloads] ([*release notes*][javafx_relnotes])
+- [JavaFX 17 LTS][javafx_downloads] ([*release notes*][javafx_relnotes])
 - [JITWatch 1.4][jitwatch_releases] (requires Java 11 or newer)
 - [Mill 0.10][mill_releases] ([*change log*][mill_changelog])
 - [MSYS2][msys2_releases] ([*change log*][msys2_changelog])
@@ -85,9 +85,9 @@ C:\opt\apache-maven-3.8.4\         <i>( 10 MB)</i>
 C:\opt\bazel-4.2.2\                <i>( 41 MB)</i>
 C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
 C:\opt\Git-2.35.1\                 <i>(279 MB)</i>
-C:\opt\gradle-7.3.3\               <i>(122 MB)</i>
+C:\opt\gradle-7.4\                 <i>(122 MB)</i>
 C:\opt\jacoco-0.8.7\               <i>( 10 MB)</i>
-C:\opt\javafx-sdk-17.0.1\          <i>(115 MB)</i>
+C:\opt\javafx-sdk-17.0.2\          <i>( 82 MB)</i>
 C:\opt\jdk-temurin-1.8.0_322-b06\  <i>(185 MB)</i>
 C:\opt\jdk-temurin-11.0.14_9\      <i>(300 MB)</i>
 C:\opt\jdk-temurin-17.0.2_8\       <i>(299 MB)</i>
@@ -332,8 +332,8 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   javac 1.8.0_312, java 1.8.0_312, scalac 2.13.8, scalac 3.1.1,
-   ant 1.10.12, gradle 7.3.3, mill 0.10.0, mvn 3.8.4, sbt 1.6.2,
+   javac 11.0.14, java 11.0.14, scalac 2.13.8, scalac 3.1.1,
+   ant 1.10.12, gradle 7.4, mill 0.10.0, mvn 3.8.4, sbt 1.6.2,
    bazel 4.2.2, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.2,
    git 2.35.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 
@@ -361,7 +361,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.14, java 11.0.14, scalac 2.13.8, scalac 3.1.1,
-   ant 1.10.12, gradle 7.3.3, mill 0.10.0, mvn 3.8.4, sbt 1.6.2,
+   ant 1.10.12, gradle 7.4, mill 0.10.0, mvn 3.8.4, sbt 1.6.2,
    bazel 4.2.2, cfr 0.152, make 3.81, python 3.10.2,
    git 2.35.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
@@ -371,7 +371,7 @@ Tool paths:
    C:\opt\scala3-3.1.1\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.12\bin\ant.bat
-   C:\opt\gradle-7.3.3\bin\gradle.bat
+   C:\opt\gradle-7.4\bin\gradle.bat
    C:\opt\mill-0.10.0\mill.bat
    C:\opt\apache-maven-3.8.4\bin\mvn.cmd
    C:\opt\sbt-1.6.2\bin\sbt.bat
@@ -388,7 +388,7 @@ Environment variables:
    "BAZEL_HOME=c:\opt\bazel-4.2.2"
    "GIT_HOME=C:\opt\Git-2.35.1"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.14_9"
-   "JAVAFX_HOME=C:\opt\javafx-sdk-17.0.1"
+   "JAVAFX_HOME=C:\opt\javafx-sdk-17.0.2"
    "MSVS_HOME=X:"
    "MSYS_HOME=C:\opt\msys64"
    "PYTHON_HOME=C:\opt\Python-3.10.2"
@@ -812,7 +812,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.12-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.8.4-bin.zip</a>                        <i>( 10 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-4.2.2-windows-x86_64.zip</a>                    <i>( 40 MB)</i>
-<a href="https://gradle.org/install/">gradle-7.3.3-bin.zip</a>                              <i>(103 MB)</i>
+<a href="https://gradle.org/install/">gradle-7.4-bin.zip</a>                              <i>(103 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.7.zip</a>                                  <i>(  4 MB)</i>
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.7-shaded-win.jar</a>                  <i>( 36 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                 <i>( 10 MB)</i>
@@ -874,7 +874,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 [gradle_install]: https://gradle.org/install/
-[gradle_relnotes]: https://docs.gradle.org/7.3.3/release-notes.html
+[gradle_relnotes]: https://docs.gradle.org/7.4/release-notes.html
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [jacoco_changelog]: https://www.jacoco.org/jacoco/trunk/doc/changes.html
 [jacoco_downloads]: https://www.eclemma.org/jacoco/
@@ -909,13 +909,16 @@ Command Prompt has been around for as long as we can remember, but starting with
 [msys2_releases]: https://github.com/msys2/msys2-installer/releases
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [temurin_openjdk8]: https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot
-[temurin_openjdk8_relnotes]: https://www.oracle.com/java/technologies/javase/8u311-relnotes.html
+[temurin_openjdk8_relnotes]: https://www.oracle.com/java/technologies/javase/8u322-relnotes.html
 <!--
-jdk8 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-July/014118.html
-11.0.3 -> http://mail.openjdk.java.net/pipermail/jdk-updates-dev/2019-April/000951.html
+8u302   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-July/014118.html
+8u312   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-October/014373.html
+8u321   -> https://www.oracle.com/java/technologies/javase/8u321-relnotes.html
+11.0.3  -> http://mail.openjdk.java.net/pipermail/jdk-updates-dev/2019-April/000951.html
 11.0.11 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-April/005860.html
 11.0.12 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-July/006954.html
 11.0.13 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-October/009368.html
+11.0.14 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2022-January/011643.html
 -->
 [oracle_openjdk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-13-bugfixes.html
 [oracle_openjdk11_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-October/009368.html
