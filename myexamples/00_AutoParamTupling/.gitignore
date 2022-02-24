@@ -1,3 +1,4 @@
 .gradle/
 .idea/
+src/build/
 target/

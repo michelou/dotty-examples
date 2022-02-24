@@ -1,4 +1,4 @@
-val scala3Version = "3.1.1" // = dottyLatestNightlyBuild.get
+val scala3Version = "3.1.2-RC1" // = dottyLatestNightlyBuild.get
 
 lazy val root = project
   .in(file("."))
@@ -26,7 +26,7 @@ lazy val aaa = project
     scalaVersion := scala3Version,
     scalacOptions ++= Seq(
       "-project",
-      name,
+      name.toString,
       "-siteroot " + createDocsDirectory.value
     ),
     createDocsDirectory := {

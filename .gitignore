@@ -7,6 +7,7 @@
 .idea/
 .metals/
 .project
+.scala-build/
 .settings/
 .vscode/
 *_LOCAL/
@@ -15,4 +16,5 @@ lib/
 nightly-jars/
 out/
 /project/
+src/build/
 target/

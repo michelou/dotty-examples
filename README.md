@@ -19,7 +19,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[Ada][ada_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other trending topics we are continuously monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other trending topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -27,8 +27,8 @@ This project depends on the following external software for the **Microsoft Wind
 
 - [Git 2.35][git_releases] ([*release notes*][git_relnotes])
 - [Scala 3.1][scala3_releases] ([*release notes*][scala3_relnotes])
-- [Temurin OpenJDK 11 LTS][oracle_openjdk11] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk11_relnotes], [*bug fixes*][oracle_openjdk11_bugfixes])
-- [Temurin OpenJDK 17 LTS][oracle_openjdk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk17_relnotes], [*bug fixes*][oracle_openjdk17_bugfixes])
+- [Temurin OpenJDK 11 LTS][temurin_opendjk11] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_opendjk11_relnotes], [*bug fixes*][temurin_opendjk11_bugfixes])
+- [Temurin OpenJDK 17 LTS][temurin_opendjk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_opendjk17_relnotes], [*bug fixes*][temurin_opendjk17_bugfixes])
 <!--
 8u212   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
 8u222   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
@@ -57,7 +57,7 @@ Optionally one may also install the following software:
 
 - [Apache Ant 1.10][apache_ant] (requires Java 8) ([*release notes*][apache_ant_relnotes])
 - [Apache Maven 3.8][apache_maven] ([requires Java 7][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
-- [Bazel 4.2][bazel_releases] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
+- [Bazel 5.0][bazel_releases] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
 - [GNU Make 3.81][make_downloads]
 - [Gradle 7.4][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
@@ -82,14 +82,14 @@ For instance our development environment looks as follows (*February 2022*) <sup
 <pre style="font-size:80%;">
 C:\opt\apache-ant-1.10.12\         <i>( 40 MB)</i>
 C:\opt\apache-maven-3.8.4\         <i>( 10 MB)</i>
-C:\opt\bazel-4.2.2\                <i>( 41 MB)</i>
+C:\opt\bazel-5.0.0\                <i>( 44 MB)</i>
 C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
 C:\opt\Git-2.35.1\                 <i>(279 MB)</i>
 C:\opt\gradle-7.4\                 <i>(122 MB)</i>
 C:\opt\jacoco-0.8.7\               <i>( 10 MB)</i>
 C:\opt\javafx-sdk-17.0.2\          <i>( 82 MB)</i>
 C:\opt\jdk-temurin-1.8.0_322-b06\  <i>(185 MB)</i>
-C:\opt\jdk-temurin-11.0.14_9\      <i>(300 MB)</i>
+C:\opt\jdk-temurin-11.0.14.1_1\    <i>(300 MB)</i>
 C:\opt\jdk-temurin-17.0.2_8\       <i>(299 MB)</i>
 C:\opt\jitwatch-1.4.7\             <i>( 36 MB)</i>
 C:\opt\make-3.81\                  <i>(  2 MB)</i>
@@ -97,7 +97,7 @@ C:\opt\mill-0.10.0\                <i>( 60 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
 C:\opt\sbt-1.6.2\                  <i>( 50 MB)</i>
 C:\opt\scala-2.13.8\               <i>( 24 MB)</i>
-C:\opt\scala3-3.1.1\               <i>( 35 MB)</i>
+C:\opt\scala3-3.1.2-RC1\           <i>( 35 MB)</i>
 </pre>
  <!-- jdk8: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
  <!-- jdk11: 11.0.8 = 314 MB, 11.0.9 = 316 MB, 11.0.11 = 300 MB -->
@@ -158,7 +158,7 @@ We also define a virtual drive **`W:`** in our working environment in order to r
 > **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst">subst</a> W: <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%USERPROFILE%</a>\workspace\dotty-examples</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst">subst</a> Y: <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%USERPROFILE%</a>\workspace\dotty-examples</b>
 > </pre>
 
 In the next section we give a brief description of the batch files present in this project.
@@ -194,7 +194,7 @@ We distinguish different sets of batch/bash commands:
     > **&#9755;** Starting with version 3.0.2 those batch files are included in the [Scala 3][scala3_releases] software distribution (see [PR#13006](https://github.com/lampepfl/dotty/pull/13006), itself based on [PR#5444][github_PR5444]).
 
     <pre style="font-size:80%;">
-    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3-3.1.1\bin</b>
+    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3-3.1.2-RC1\bin</b>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/common">common</a>
     <a href="bin/3.0/common.bat">common.bat</a>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/scala">scala</a>
@@ -332,9 +332,9 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   javac 11.0.14, java 11.0.14, scalac 2.13.8, scalac 3.1.1,
+   javac 11.0.14, java 11.0.14, scalac 2.13.8, scalac 3.1.2-RC1,
    ant 1.10.12, gradle 7.4, mill 0.10.0, mvn 3.8.4, sbt 1.6.2,
-   bazel 4.2.2, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.2,
+   bazel 5.0.0, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.2,
    git 2.35.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
@@ -360,22 +360,22 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   javac 11.0.14, java 11.0.14, scalac 2.13.8, scalac 3.1.1,
+   javac 11.0.14, java 11.0.14, scalac 2.13.8, scalac 3.1.2-RC1,
    ant 1.10.12, gradle 7.4, mill 0.10.0, mvn 3.8.4, sbt 1.6.2,
-   bazel 4.2.2, cfr 0.152, make 3.81, python 3.10.2,
+   bazel 5.0.0, cfr 0.152, make 3.81, python 3.10.2,
    git 2.35.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.14_9\bin\javac.exe
    C:\opt\jdk-temurin-11.0.14_9\bin\java.exe
    C:\opt\scala-2.13.8\bin\scalac.bat
-   C:\opt\scala3-3.1.1\bin\scalac.bat
+   C:\opt\scala3-3.1.2-RC1\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.12\bin\ant.bat
    C:\opt\gradle-7.4\bin\gradle.bat
    C:\opt\mill-0.10.0\mill.bat
    C:\opt\apache-maven-3.8.4\bin\mvn.cmd
    C:\opt\sbt-1.6.2\bin\sbt.bat
-   C:\opt\bazel-4.2.2\bazel.exe
+   C:\opt\bazel-5.0.0\bazel.exe
    C:\opt\cfr-0.152\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
    C:\opt\Python-3.10.2\python.exe
@@ -385,7 +385,7 @@ Tool paths:
    C:\opt\Git-2.35.1\bin\bash.exe
 Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.12"
-   "BAZEL_HOME=c:\opt\bazel-4.2.2"
+   "BAZEL_HOME=c:\opt\bazel-5.0.0"
    "GIT_HOME=C:\opt\Git-2.35.1"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.14_9"
    "JAVAFX_HOME=C:\opt\javafx-sdk-17.0.2"
@@ -394,7 +394,7 @@ Environment variables:
    "PYTHON_HOME=C:\opt\Python-3.10.2"
    "SBT_HOME=C:\opt\sbt-1.6.2"
    "SCALA_HOME=C:\opt\scala-2.13.8"
-   "SCALA3_HOME=C:\opt\scala3-3.1.1"
+   "SCALA3_HOME=C:\opt\scala3-3.1.2-RC1"
 </pre>
 
 ### **`cleanup.bat`**
@@ -403,9 +403,9 @@ Command [**`cleanup`**](bin/cleanup.bat) removes the output directories (ie. **`
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/cleanup.bat">cleanup</a></b>
-Finished to clean up 2 subdirectories in W:\dotty\cdsexamples
-Finished to clean up 16 subdirectories in W:\dotty\examples
-Finished to clean up 12 subdirectories in W:\dotty\myexamples
+Finished to clean up 2 subdirectories in Y:\dotty\cdsexamples
+Finished to clean up 16 subdirectories in Y:\dotty\examples
+Finished to clean up 12 subdirectories in Y:\dotty\myexamples
 </pre>
 
 ### **`dirsize.bat {<dir_name>}`**
@@ -413,10 +413,10 @@ Finished to clean up 12 subdirectories in W:\dotty\myexamples
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.1.1 c:\opt\jdk-temurin-11.0.14_9</b>
+<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.1.2-RC1 c:\opt\jdk-temurin-11.0.14_9</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
-Size of directory "c:\opt\scala3-3.1.1" is 31.4 Mb
+Size of directory "c:\opt\scala3-3.1.2-RC1" is 31.4 Mb
 Size of directory "c:\opt\jdk-temurin-11.0.14_9" is 184.2 Mb
 </pre>
 
@@ -444,20 +444,33 @@ Command [**`getnightly download`**](bin/getnightly.bat) with options **` -verbos
 
 <pre style="font-size:80%">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose download</b>
-Delete Java archive files in directory "out\nightly\lib"
-Download nightly files from Maven repository
-Downloading file scala3-library_3-3.1.2-RC1-bin-20211102-82172ed-NIGHTLY.jar ... 1.1 Mb
-Downloading file scala3-interfaces-3.1.2-RC1-bin-20211102-82172ed-NIGHTLY.jar ... 3.5 Kb
-Downloading file scala3-compiler_3-3.1.2-RC1-bin-20211102-82172ed-NIGHTLY.jar ... 16.3 Mb
-Downloading file scala3-staging_3-3.1.2-RC1-bin-20211102-82172ed-NIGHTLY.jar ... 37.9 Kb
-Downloading file scala3-language-server_3-3.1.2-RC1-bin-20211102-82172ed-NIGHTLY.jar ... 152.4 Kb
-Downloading file tasty-core_3-3.1.2-RC1-bin-20211102-82172ed-NIGHTLY.jar ... 72.1 Kb
-Downloading file scala3-library_sjs1_3-3.1.2-RC1-bin-20211102-82172ed-NIGHTLY.jar ... 1.9 Mb
-Downloading file scala3-sbt-bridge-3.1.2-RC1-bin-20211102-82172ed-NIGHTLY.jar ... 21.5 Kb
-Downloading file scala3-tasty-inspector_3-3.1.2-RC1-bin-20211102-82172ed-NIGHTLY.jar ... 17 Kb
-Finished to download 9 files to directory "W:\out\nightly\lib"
-Finished to download 37 files to directory "W:\out\nightly"
-Nightly version is 3.1.2-RC1-bin-20211102-82172ed-NIGHTLY
+Delete directory "out\nightly"
+Download Scala 3 nightly files from Maven repository
+Downloading file scaladoc_3-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar ... 3.6 Mb
+Downloading file scala3-interfaces-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar ... 3.5 Kb
+Downloading file scala3-library_3-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar ... 1.2 Mb
+Downloading file scala3-compiler_3-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar ... 16.6 Mb
+Downloading file scala3-language-server_3-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar ... 152.5 Kb
+Downloading file scala3-staging_3-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar ... 38 Kb
+Downloading file tasty-core_3-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar ... 72.5 Kb
+Downloading file scala3-library_sjs1_3-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar ... 1.9 Mb
+Downloading file scala3-sbt-bridge-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar ... 21.7 Kb
+Downloading file scala3-tasty-inspector_3-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar ... 17.4 Kb
+[...]
+Downloading file common ... 6 Kb
+Downloading file common.bat ... 3 Kb
+Downloading file scala ... 1.8 Kb
+Downloading file scala.bat ... 3.7 Kb
+Downloading file scalac ... 2.6 Kb
+Downloading file scalac.bat ... 5.2 Kb
+Downloading file scaladoc ... 4.4 Kb
+Downloading file scaladoc.bat ... 4.8 Kb
+Finished to download 53 files to directory "out\nightly"
+Retrieve revision for hash "8e2fab7" from GitHub repository "lampepfl/dotty"
+File "out\nightly\VERSION":
+version:=3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY
+revision:=8e2fab79dff16587cf74cc3149d71836ca070514
+buildTime:=2022-02-11 23:19:50+01:00
 </pre>
 
 Directory **`out\nightly\`** contains the two directories **`bin\`** and **`lib\`**:
@@ -477,17 +490,18 @@ autolink-0.6.0.jar
 [...]
 scala-asm-9.1.0-scala-1.jar
 scala-library-2.13.6.jar
-scala3-compiler_3-3.1.2-RC1-bin-20211102-82172ed-NIGHTLY.jar
-scala3-interfaces-3.1.2-RC1-bin-20211102-82172ed-NIGHTLY.jar
-scala3-language-server_3-3.1.2-RC1-bin-20211102-82172ed-NIGHTLY.jar
-scala3-library_3-3.1.2-RC1-bin-20211102-82172ed-NIGHTLY.jar
-scala3-library_sjs1_3-3.1.2-RC1-bin-20211102-82172ed-NIGHTLY.jar
-scala3-sbt-bridge-3.1.2-RC1-bin-20211102-82172ed-NIGHTLY.jar
-scala3-staging_3-3.1.2-RC1-bin-20211102-82172ed-NIGHTLY.jar
-scala3-tasty-inspector_3-3.1.2-RC1-bin-20211102-82172ed-NIGHTLY.jar
+scala3-compiler_3-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar
+scala3-interfaces-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar
+scala3-language-server_3-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar
+scala3-library_3-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar
+scala3-library_sjs1_3-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar
+scala3-sbt-bridge-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar
+scala3-staging_3-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar
+scala3-tasty-inspector_3-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar
+scaladoc_3-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar
 snakeyaml-1.23.jar
 ST4-4.0.7.jar
-tasty-core_3-3.1.2-RC1-bin-20211102-82172ed-NIGHTLY.jar
+tasty-core_3-3.1.3-RC1-bin-20220205-8e2fab7-NIGHTLY.jar
 </pre>
 <!--
 > **:mag_right:** A few notes about the distributed Java archives:
@@ -512,7 +526,7 @@ Active Scala 3 installation is 3.1.1
 Scala compiler version 3.1.1 -- Copyright 2002-2022, LAMP/EPFL
 </pre>
 
-> **:warning:** You need *write access* to the [Scala 3][scala3_home] installation directory (e.g. **`C:\opt\scala3-3.1.1\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
+> **:warning:** You need *write access* to the [Scala 3][scala3_home] installation directory (e.g. **`C:\opt\scala3-3.1.2-RC1\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
 
 ### `searchjars.bat <class_name>`
 
@@ -539,7 +553,7 @@ Passing argument **`System`** to command [**`searchjars`**](bin/searchjars.bat) 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> System</b>
-Searching for class name System in archive files C:\opt\scala3-3.1.1\lib\*.jar
+Searching for class name System in archive files C:\opt\scala3-3.1.2-RC1\lib\*.jar
   jline-reader-3.19.0.jar:org/jline/reader/impl/completer/SystemCompleter.class
   scala-library-2.13.6.jar:scala/sys/SystemProperties$.class
   scala-library-2.13.6.jar:scala/sys/SystemProperties.class
@@ -548,12 +562,12 @@ Searching for class name System in archive files C:\opt\scala-2.13.8\lib\*.jar
   [...]
   scala-library.jar:scala/sys/SystemProperties$.class
   scala-library.jar:scala/sys/SystemProperties.class
-Searching for class name System in archive files C:\opt\jdk-11.0.13_8\lib\*.jar
+Searching for class name System in archive files C:\opt\jdk-temurin-11.0.14.1_1\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   [...]
   jrt-fs.jar:jdk/internal/jrtfs/SystemImage$2.class
   jrt-fs.jar:jdk/internal/jrtfs/SystemImage.class
-Searching for class name System in archive files c:\opt\javafx-sdk-17\lib\*.jar
+Searching for class name System in archive files c:\opt\javafx-sdk-17.0.2\lib\*.jar
   javafx.graphics.jar:com/sun/glass/ui/SystemClipboard.class
   [...]
   javafx.graphics.jar:com/sun/javafx/tk/TKSystemMenu.class
@@ -564,18 +578,18 @@ Searching for an unknown class name - e.g. **`BinarySearch`** - produces the fol
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> BinarySearch</b>
-Searching for class name BinarySearch in archive files C:\opt\scala3-3.1.1\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\scala3-3.1.2-RC1\lib\*.jar
 Searching for class name BinarySearch in archive files C:\opt\scala-2.13.8\lib\*.jar
-Searching for class name BinarySearch in archive files C:\opt\jdk-temurin-11.0.14_9\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\jdk-temurin-11.0.14.1_1\lib\*.jar
 </pre>
 
 Searching for **`FileSystem`** with option **`-artifact`** produces the following output:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> FileSystem -artifact</b>
-Searching for class name FileSystem in archive files C:\opt\scala3-3.1.1\lib\*.jar
+Searching for class name FileSystem in archive files C:\opt\scala3-3.1.2-RC1\lib\*.jar
 Searching for class name FileSystem in archive files C:\opt\scala-2.13.8\lib\*.jar
-Searching for class name FileSystem in archive files c:\opt\jdk-temurin-11.0.14_9\lib\*.jar
+Searching for class name FileSystem in archive files c:\opt\jdk-temurin-11.0.14.1_1\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystemProvider$1.class
@@ -648,8 +662,8 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 
 | Project file | Variable | Example |
 | :----------- | :------: | :------ |
-| `build.sbt` | `dottyVersion` | `3.1.1-RC2` &rarr; `3.1.1`|
-| `build.sc` | `scalaVersion` | `3.1.1-RC2` &rarr; `3.1.1` |
+| `build.sbt` | `dottyVersion` | `3.1.1` &rarr; `3.1.2-RC1`|
+| `build.sc` | `scalaVersion` | `3.1.1` &rarr; `3.1.2-RC1` |
 | `project\build.properties` | `sbt.version` | `1.6.1` &rarr; `1.6.2` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.5.4` &rarr; `0.5.5` |
 
@@ -657,13 +671,13 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 
 <pre style="margin:10px 0 0 30px;font-size:80%;">
 <b>&gt; <a href="bin/updateprojs.bat">updateprojs</a></b>
-Parent directory: W:\dotty\examples
+Parent directory: Y:\dotty\examples
    Warning: Could not find file hello-scala\project\plugins.sbt
    Warning: Could not find file UnionTypes_0.4\project\plugins.sbt
    Updated 17 build.sbt files
    Updated 17 project\build.properties files
    Updated 15 project\plugins.sbt files
-Parent directory: W:\dotty\myexamples
+Parent directory: Y:\dotty\myexamples
    Warning: Could not find file 07_Value_Types\build.sbt
    Warning: Could not find file 07_Value_Types\project\build.properties
    Warning: Could not find file 07_Value_Types\project\plugins.sbt
@@ -701,11 +715,11 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> scala</b>
-C:\opt\scala3-3.1.1\bin\scala
-C:\opt\scala3-3.1.1\bin\scala.bat
+C:\opt\scala3-3.1.2-RC1\bin\scala
+C:\opt\scala3-3.1.2-RC1\bin\scala.bat
 
 <b>&gt; <a href="bin/3.0/scala.bat">scala</a> -version</b>
-Scala code runner version 3.1.1 -- Copyright 2002-2022, LAMP/EPFL
+Scala code runner version 3.1.2-RC1 -- Copyright 2002-2022, LAMP/EPFL
 
 <b>&gt; <a href="bin/3.0/scala.bat">scala</a></b>
 Starting scala REPL...
@@ -720,10 +734,10 @@ The REPL has several commands available:
 :reset                   reset the repl to its initial state, forgetting all session entries
 
 <b>scala&gt;</b> System.getenv().get("JAVA_HOME")
-val res0: String = C:\opt\jdk-temurin-11.0.14_9
+val res0: String = C:\opt\jdk-temurin-11.0.14.1_1
 
 <b>scala&gt;</b> System.getenv().get("SCALA3_HOME")
-val res1: String = C:\opt\scala3-3.1.1
+val res1: String = C:\opt\scala3-3.1.2-RC1
 
 <b>scala&gt;</b> :load myexamples/HelloWorld/src/main/scala/HelloWorld.scala
 // defined object HelloWorld
@@ -811,8 +825,8 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://github.com/lihaoyi/mill/releases">0.10.0-assembly</a> (<code>mill</code>)                            <i>( 60 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.12-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.8.4-bin.zip</a>                        <i>( 10 MB)</i>
-<a href="https://github.com/bazelbuild/bazel/releases">bazel-4.2.2-windows-x86_64.zip</a>                    <i>( 40 MB)</i>
-<a href="https://gradle.org/install/">gradle-7.4-bin.zip</a>                              <i>(103 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases">bazel-5.0.0-windows-x86_64.zip</a>                    <i>( 40 MB)</i>
+<a href="https://gradle.org/install/">gradle-7.4-bin.zip</a>                                <i>(103 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.7.zip</a>                                  <i>(  4 MB)</i>
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.7-shaded-win.jar</a>                  <i>( 36 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                 <i>( 10 MB)</i>
@@ -824,7 +838,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://git-scm.com/download/win">PortableGit-2.35.1-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.6.2.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.8.zip</a>                                  <i>( 22 MB)</i>
-<a href="https://github.com/lampepfl/dotty/releases/tag/3.1.1">scala3-3.1.1.zip</a>                                  <i>( 33 MB)</i>
+<a href="https://github.com/lampepfl/dotty/releases/tag/3.1.2-RC1">scala3-3.1.2-RC1.zip</a>                              <i>( 33 MB)</i>
 </pre>
 </dd></dl>
 
@@ -842,6 +856,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 <!-- link refs -->
 
 [ada_examples]: https://github.com/michelou/ada-examples
+[akka_examples]: https://github.com/michelou/akka-examples
 [apache_ant]: https://ant.apache.org/
 [apache_ant_cli]: https://ant.apache.org/manual/running.html
 [apache_ant_relnotes]: https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.12.html
@@ -851,7 +866,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [apache_maven_relnotes]: https://maven.apache.org/docs/3.8.4/release-notes.html
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [bazel_releases]: https://github.com/bazelbuild/bazel/releases
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/4.2.2
+[bazel_relnotes]: https://blog.bazel.build/2022/01/19/bazel-5.0.html
 [bloop_releases]: https://scalacenter.github.io/bloop/
 [bloop_relnotes]: https://github.com/scalacenter/bloop/releases/tag/v1.3.4
 [cfr_releases]: https://www.benf.org/other/cfr/
@@ -908,6 +923,22 @@ Command Prompt has been around for as long as we can remember, but starting with
 [msys2_changelog]: https://github.com/msys2/setup-msys2/blob/master/CHANGELOG.md
 [msys2_releases]: https://github.com/msys2/msys2-installer/releases
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
+[rust_examples]: https://github.com/michelou/rust-examples
+[sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
+[sbt_downloads]: https://github.com/sbt/sbt/releases
+[sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.6.2
+[sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
+[scala]: https://www.scala-lang.org/
+[scala3_home]: https://dotty.epfl.ch
+[scala3_releases]: https://github.com/lampepfl/dotty/releases
+[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.1.2-RC1
+[scala_releases]: https://www.scala-lang.org/files/archive/
+[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.8
+[scala_repl]: https://docs.scala-lang.org/overviews/repl/overview.html
+[scalac_cli]: https://docs.scala-lang.org/overviews/compiler-options/index.html
+[semanticdb_guide]: https://scalameta.org/docs/semanticdb/guide.html
+[spring_examples]: https://github.com/michelou/spring-examples
 [temurin_openjdk8]: https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot
 [temurin_openjdk8_relnotes]: https://www.oracle.com/java/technologies/javase/8u322-relnotes.html
 <!--
@@ -920,32 +951,16 @@ Command Prompt has been around for as long as we can remember, but starting with
 11.0.13 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-October/009368.html
 11.0.14 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2022-January/011643.html
 -->
-[oracle_openjdk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-13-bugfixes.html
-[oracle_openjdk11_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-October/009368.html
-[oracle_openjdk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
-[oracle_openjdk17]: https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot
-[oracle_openjdk17_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-1-bugfixes.html
-[oracle_openjdk17_relnotes]: https://github.com/openjdk/jdk/compare/jdk-17%2B20...jdk-17%2B21
+[temurin_opendjk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-14-bugfixes.html
+[temurin_opendjk11_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-October/009368.html
+[temurin_opendjk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
+[temurin_opendjk17]: https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot
+[temurin_opendjk17_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
+[temurin_opendjk17_relnotes]: https://github.com/openjdk/jdk/compare/jdk-17%2B20...jdk-17%2B21
 <!--
 [python_changelog]: https://docs.python.org/3.8/whatsnew/changelog.html#python-3-8-0-final
 [python_release]: https://www.python.org/downloads/release/python-380/
 -->
-[rust_examples]: https://github.com/michelou/rust-examples
-[sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
-[sbt_downloads]: https://github.com/sbt/sbt/releases
-[sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.6.2
-[sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
-[scala]: https://www.scala-lang.org/
-[scala3_home]: https://dotty.epfl.ch
-[scala3_releases]: https://github.com/lampepfl/dotty/releases
-[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.1.1
-[scala_releases]: https://www.scala-lang.org/files/archive/
-[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.8
-[scala_repl]: https://docs.scala-lang.org/overviews/repl/overview.html
-[scalac_cli]: https://docs.scala-lang.org/overviews/compiler-options/index.html
-[semanticdb_guide]: https://scalameta.org/docs/semanticdb/guide.html
-[spring_examples]: https://github.com/michelou/spring-examples
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_bash_script]: https://www.gnu.org/software/bash/manual/bash.html
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html

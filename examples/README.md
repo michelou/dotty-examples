@@ -15,7 +15,7 @@ Let's choose example [**`examples\enum-Planet`**](enum-Planet) to demonstrate th
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
-W:\examples\enum-Planet
+Y:\examples\enum-Planet
 </pre>
 
 Build tools rely on one or more configuration files to achieve their tasks. In our case we provide the following configuration files for [**`enum-Planet`**](enum-Planet):
@@ -45,10 +45,10 @@ Execution of [**`Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produ
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://ant.apache.org/manual/running.html">ant</a> clean run</b>
-Buildfile: W:\examples\enum-Planet\build.xml
+Buildfile: Y:\examples\enum-Planet\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">clean:</span>
-   [delete] Deleting directory W:\examples\enum-Planet\target
+   [delete] Deleting directory Y:\examples\enum-Planet\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
 
@@ -59,8 +59,8 @@ Buildfile: W:\examples\enum-Planet\build.xml
 <span style="font-weight:bold;color:#9966ff;">init:</span>
 
 <span style="font-weight:bold;color:#9966ff;">compile:</span>
-    [mkdir] Created dir: W:\examples\enum-Planet\target\classes
-   [scalac] Compiling 1 source file to W:\examples\enum-Planet/target/classes
+    [mkdir] Created dir: Y:\examples\enum-Planet\target\classes
+   [scalac] Compiling 1 source file to Y:\examples\enum-Planet/target/classes
 
 <span style="font-weight:bold;color:#9966ff;">run:</span>
      [java] Your weight on MERCURY (0) is 0.37775761520093526
@@ -90,21 +90,21 @@ We can set property **`-Duse.local=true`** to use [Scala 3][scala3_home] local i
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://ant.apache.org/manual/running.html">ant</a> -Duse.local=true clean run</b>
-Buildfile: W:\examples\enum-Planet\build.xml
+Buildfile: Y:\examples\enum-Planet\build.xml
 
 <span style="font-weight:bold;color:#9966ff;">clean:</span>
-   [delete] Deleting directory W:\examples\enum-Planet\target
+   [delete] Deleting directory Y:\examples\enum-Planet\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] SCALA3_HOME=C:\opt\scala3-3.1.1
+     [echo] SCALA3_HOME=C:\opt\scala3-3.1.2-RC1
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
 <span style="font-weight:bold;color:#9966ff;">init:</span>
 
 <span style="font-weight:bold;color:#9966ff;">compile:</span>
-    [mkdir] Created dir: W:\examples\enum-Planet\target\classes
-    [scalac] Compiling 1 source file to W:\examples\enum-Planet/target/classes
+    [mkdir] Created dir: Y:\examples\enum-Planet\target\classes
+    [scalac] Compiling 1 source file to Y:\examples\enum-Planet/target/classes
 
 <span style="font-weight:bold;color:#9966ff;">run:</span>
      [java] Your weight on MERCURY (0) is 0.37775761520093526
@@ -123,7 +123,7 @@ Total time: 14 seconds
 
 ## <span id="build">`build.bat` command</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
-Command [**`build.bat`**](enum-Planet/build.bat) is our basic build tool featuring subcommands **`clean`**, **`compile`**, **`decompile`**, **`doc`**, **`help`**, **`lint`**, **`run`** and **`test`**; the batch file consists of ~790 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup>.
+Command [**`build.bat`**](enum-Planet/build.bat) is our basic build tool featuring subcommands **`clean`**, **`compile`**, **`decompile`**, **`doc`**, **`help`**, **`lint`**, **`run`** and **`test`**; the batch file consists of ~790 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[1](#footnote_01)</sup>.
 
 Command [**`build clean run`**](enum-Planet/build.bat) produces the following output:
 
@@ -146,15 +146,15 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 > &nbsp;
 > <b>&gt; <a href="enum-Planet/build.bat">build</a> compile</b>
 > &nbsp;
-> <b>&gt; <a href="enum-Planet/build.bat">build</a> compile</b>
-> No compilation needed ("src\main\scala\*.scala")</pre>
+> <b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose compile</b>
+> No action required ("src\main\scala\*.scala")</pre>
 
 Command [**`build -verbose clean run`**](enum-Planet/build.bat) also displays progress messages:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose clean compile run</b>
 Delete directory "target"
-Compile 1 Scala sources to directory "target\classes"
+Compile 1 Scala source file to directory "target\classes"
 Execute Scala main class Planet
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
@@ -170,18 +170,19 @@ Command [**`build -debug clean compile run`**](enum-Planet/build.bat) also displ
 
 <pre style="font-size:80%;">
 <b/>&gt; <a href="enum-Planet/build.bat">build</a> -debug clean compile run</b>
+[build] Properties : _PROJECT_NAME=enum-Planet _PROJECT_VERSION=1.0-SNAPSHOT
 [build] Options    : _EXPLAIN=0 _PRINT=0 _SCALA_VERSION=3 _TASTY=0 _TIMER=0 _VERBOSE=0
-[build] Subcommands: _CLEAN=1 _COMPILE=1 _DECOMPILE=0 _DOC=0 _LINT=0 _RUN=1 _TEST=0
+[build] Subcommands:  clean compile run
 [build] Variables  : "CFR_HOME=C:\opt\cfr-0.152"
 [build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-11.0.14_9"
 [build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.1.1"
 [build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.8"
 [build] Variables  : _MAIN_CLASS=Planet _MAIN_ARGS=1
-[build] del /s /q W:\dotty\examples\enum-Planet\target\classes\*.class W:\dotty\examples\enum-Planet\target\classes\*.hasTasty W:\dotty\examples\enum-Planet\target\classes\.latest-build
-[build] 20180322224754 W:\dotty\examples\enum-Planet\src\main\scala\Planet.scala
-[build] 00000000000000 W:\dotty\examples\enum-Planet\target\classes\.latest-build
-[build] scalac "@W:\examples\enum-Planet\target\scalac_opts.txt" "@W:\examples\enum-Planet\target\scalac_sources.txt"
-[build] scala -classpath [...];W:\dotty\examples\enum-Planet\target\classes Planet 1
+[build] del /s /q Y:\dotty\examples\enum-Planet\target\classes\*.class Y:\dotty\examples\enum-Planet\target\classes\*.hasTasty Y:\dotty\examples\enum-Planet\target\classes\.latest-build
+[build] 20180322224754 Y:\dotty\examples\enum-Planet\src\main\scala\Planet.scala
+[build] 00000000000000 Y:\dotty\examples\enum-Planet\target\classes\.latest-build
+[build] scalac "@Y:\examples\enum-Planet\target\scalac_opts.txt" "@Y:\examples\enum-Planet\target\scalac_sources.txt"
+[build] scala -classpath [...];Y:\dotty\examples\enum-Planet\target\classes Planet 1
 Your weight on MERCURY is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
 Your weight on EARTH (2) is 0.9999999999999999
@@ -196,7 +197,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 > For simplicity the [**`build`**](enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/type">type</a> <a href="enum-Planet/project/build.properties">project\build.properties</a></b>
-> sbt.version=1.6.1
+> sbt.version=1.6.2
 > &nbsp;
 > main.class=Planet
 > main.args=1
@@ -219,16 +220,16 @@ Finally, command [**`build -verbose decompile`**](enum-Planet/build.bat) decompi
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose decompile</b>
-No compilation needed ("src\main\scala\*.scala")
+No action required ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
 Processing Planet$
 Processing Planet
-Save decompiled Java source files to "target\cfr-sources_scala3_3.1.1.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_3.1.2-RC1.java"
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b /s target\*.java</b>
-W:\examples\enum-Planet\target\cfr-sources_scala3_3.1.1.java
-W:\examples\enum-Planet\target\cfr-sources\Planet$.java
-W:\examples\enum-Planet\target\cfr-sources\Planet.java
+Y:\examples\enum-Planet\target\cfr-sources_scala3_3.1.2-RC1.java
+Y:\examples\enum-Planet\target\cfr-sources\Planet$.java
+Y:\examples\enum-Planet\target\cfr-sources\Planet.java
 </pre>
 
 If the two Java source files `src\build\cfr-sources_scala<n>_<version>.txt` (*check file*) and `target\cfr-sources_scala<n>_<version>.txt` (*output file*) are present subcommand **`decompile`** also invokes the [`diff`][man1_diff] command to show differences between the check file and the output file:
@@ -241,10 +242,10 @@ cfr-sources_scala3_3.1.0.java
 cfr-sources_scala3_3.1.1.java
 &nbsp;
 <b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose decompile</b>
-No compilation needed ("src\main\scala\*.scala")
+No action required ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
-Save decompiled Java source files to "target\cfr-sources_scala3_3.1.1.java"
-Compare output file with check file "src\build\cfr-sources_scala3_3.1.1.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_3.1.2-RC1.java"
+Compare output file with check file "src\build\cfr-sources_scala3_3.1.2-RC1.java"
 </pre>
 
 
@@ -290,7 +291,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 </pre>
 
 > **&#9755;** ***Gradle Wrappers***<br/>
-> We don't rely on them even if using [Gradle Wrapper][gradle_wrapper] is the  recommended way to execute a Gradle build.<br/>
+> We don't rely on them even if using [Gradle Wrapper][gradle_wrapper] is the  recommended way to execute a <a href="https://gradle.org/">Gradle</a> build.<br/>
 > Simply execute the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of [**`gradle`**][gradle_cli].
 
 
@@ -298,7 +299,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 
 The configuration file [**`enum-Planet\Makefile`**](enum-Planet/Makefile) depends on the parent file [**`examples\Makefile.inc`**](Makefile.inc) which defines common settings (i.e. tool and library paths).
 
-> **:mag_right:** Command [**`make`**][gmake_cli] is a build tool that automatically builds executable programs and libraries from source code by reading files called Makefiles which specify how to derive the target program. [Make] was originally created by Stuart Feldman in April 1976 at Bell Labs.
+> **:mag_right:** Command [**`make`**][gmake_cli] automatically builds executable programs and libraries from source code by reading files called Makefiles which specify how to derive the target program. [Make] was originally created by Stuart Feldman in April 1976 at Bell Labs.
 
 Command **`make clean run`** produces the following output ([**`Planet.scala`**](enum-Planet/src/main/scala/Planet.scala)):
 
@@ -365,14 +366,14 @@ Command **` mvn compile test`** with option **`-debug`** produces additional deb
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.1.1 \
  -cp C:\opt\scala3-3.1.1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
- -classpath W:\examples\hello-scala\target\classes \
- -d W:\examples\hello-scala\target\classes \
- W:\examples\hello-scala\src\main\scala\hello.scala
+ -classpath Y:\examples\hello-scala\target\classes \
+ -d Y:\examples\hello-scala\target\classes \
+ Y:\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-temurin-11.0.14_9\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.1.1 [...]
 [DEBUG] [execute] C:\opt\jdk-temurin-11.0.14_9\bin\java.exe \
  -Xms64m -Xmx1024m -cp C:\opt\scala3-3.1.1\lib\*.jar;\
-W:\examples\hello-scala\target\classes hello
+Y:\examples\hello-scala\target\classes hello
 </pre>
 
 > **:mag_right:** The following command outputs the classpath being used by <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html"><code>mvn</code></a> into the text file `classpath.txt` :
@@ -400,7 +401,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 ...
 [INFO]
 [INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ enum-Planet ---
-[INFO] Building jar: W:\examples\enum-Planet\target\enum-Planet-1.0-SNAPSHOT.jar
+[INFO] Building jar: Y:\examples\enum-Planet\target\enum-Planet-1.0-SNAPSHOT.jar
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
@@ -635,7 +636,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 [apache_foundation]: https://maven.apache.org/docs/history.html
 [apache_history]: https://ant.apache.org/faq.html#history
 [apache_maven_about]: https://maven.apache.org/what-is-maven.html
-[apache_maven_cli]: https://maven.apache.org/ref/3.8.2/maven-embedder/cli.html
+[apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
 [bash]: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [cfr_releases]: https://www.benf.org/other/cfr/

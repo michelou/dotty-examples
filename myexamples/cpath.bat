@@ -40,7 +40,7 @@ call :add_jar "com.novocode" "junit-interface" "0.11"
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest
 call :add_jar "org.hamcrest" "hamcrest" "2.2"
 
-set __SCALATEST_VERSION=3.2.10
+set __SCALATEST_VERSION=3.2.11
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
@@ -130,9 +130,12 @@ if not exist "%__JAR_FILE%" (
         ) else if %_VERBOSE%==1 ( echo Install Maven artifact into directory "!__LOCAL_REPO:%USERPROFILE%=%%USERPROFILE%%!\%__SCALA_XML_PATH%" 1>&2
         )
         @rem see https://stackoverflow.com/questions/16727941/how-do-i-execute-cmd-commands-through-a-batch-file
-        cmd /c ""%_MVN_CMD%" %_MVN_OPTS% install:install-file -Dfile="!__JAR_FILE!" -DgroupId="%__GROUP_ID%" -DartifactId=%__ARTIFACT_ID% -Dversion=%__VERSION% -Dpackaging=jar"
+        %_MVN_CMD% %_MVN_OPTS% install:install-file -Dfile="!__JAR_FILE!" -DgroupId="%__GROUP_ID%" -DartifactId=%__ARTIFACT_ID% -Dversion=%__VERSION% -Dpackaging=jar
         if not !ERRORLEVEL!==0 (
             echo %_ERROR_LABEL% Failed to install Maven artifact into directory "!__LOCAL_REPO:%USERPROFILE%=%%USERPROFILE%%!" ^(error:!ERRORLEVEL!^) 1>&2
+        )
+        for /f "usebackq delims=" %%f in (`where /r "%__LOCAL_REPO%\%__JAR_PATH%" %__JAR_NAME% 2^>NUL`) do (
+            set "__JAR_FILE=%%f"
         )
     )
 )

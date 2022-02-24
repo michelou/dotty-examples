@@ -54,13 +54,8 @@
         <ivy:resolve file="../ivy.xml" showprogress="false" log="download-only" />
         <ivy:cachepath pathid="scalac.classpath" conf="default"/>
         <path id="scala3.classpath">
-            <!--
-            <fileset dir="${ivy.cache}/ch.epfl.lamp" includes="**/jars/dotty-library*.jar">
-                <filename regex="_0\.(1[8-9]|2[0-9])-0\.(1[8-9]|2[0-9])\.[0-9]+" />  // e.g. _0.25-0.25.x
-            </fileset>
-            -->
-            <fileset dir="${ivy.cache}/org.scala-lang" includes="**/jars/scala3-library*.jar">
-                <filename regex="_3\.[0-9](-RC[1-9])?" />  <!-- e.g. _3-3.1.0-RC3 -->
+            <fileset dir="${ivy.cache}/org.scala-lang" includes="**/jars/scala3-library_3*.jar">
+                <filename regex="-3\.[0-9]\.[0-9]+(-RC[1-9])?" />  <!-- e.g. _3-3.1.0-RC3 -->
             </fileset>
             <fileset dir="${ivy.cache}/org.scala-lang" includes="**/jars/scala-library*.jar">
                 <filename regex="-2\.[1-2][3-9]\.[0-9]+" />  <!-- e.g. -2.13.6 -->

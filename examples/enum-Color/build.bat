@@ -926,7 +926,7 @@ if not %_EXITCODE%==0 goto :eof
 set __TEST_JAVA_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
 
 @rem see https://github.com/junit-team/junit4/wiki/Getting-started
-for /f "usebackq" %%f in (`dir /s /b "%_TEST_CLASSES_DIR%\*JUnitTest.class" 2^>NUL`) do (
+for /f "usebackq" %%f in (`dir /s /b "%_TEST_CLASSES_DIR%\*JUnitTest.class" "%_TEST_CLASSES_DIR%\*Specs2Test.class" 2^>NUL`) do (
     for %%i in (%%~dpf) do set __PKG_NAME=%%i
     set __PKG_NAME=!__PKG_NAME:%_TEST_CLASSES_DIR%\=!
     if defined __PKG_NAME ( set "__MAIN_CLASS=!__PKG_NAME:\=.!%%~nf"

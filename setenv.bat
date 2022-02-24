@@ -1197,6 +1197,8 @@ if %__VERBOSE%==1 (
     if defined SBT_HOME echo    "SBT_HOME=%SBT_HOME%" 1>&2
     if defined SCALA_HOME echo    "SCALA_HOME=%SCALA_HOME%" 1>&2
     if defined SCALA3_HOME echo    "SCALA3_HOME=%SCALA3_HOME%" 1>&2
+    echo Path associations: 1>&2
+    for /f "delims=" %%i in ('subst') do echo    %%i 1>&2
 )
 goto :eof
 

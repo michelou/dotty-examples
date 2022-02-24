@@ -389,7 +389,7 @@ set _MAIN_CLASS=%__ARG%
 goto :eof
 
 :clean
-call :rmdir "%_ROOT_DIR%out"
+call :rmdir "%_ROOT_DIR%project\target"
 call :rmdir "%_TARGET_DIR%"
 goto :eof
 

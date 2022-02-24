@@ -1,11 +1,11 @@
-val scala3Version = "3.1.1" // = dottyLatestNightlyBuild.get 
+val scala3Version = "3.1.2-RC1" // = dottyLatestNightlyBuild.get 
 
 lazy val root = project
   .in(file("."))
   .settings(
     name := "Union Types",
     description := "sbt example project to build/run Scala 3 applications",
-    version := "0.1.0",
+    version := "1.0.0",
     scalaVersion := scala3Version,
     scalacOptions ++= Seq(
       "-deprecation",

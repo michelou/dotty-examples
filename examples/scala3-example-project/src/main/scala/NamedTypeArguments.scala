@@ -1,5 +1,3 @@
-import scala.language.experimental.namedTypeArguments
-
 /**
  * Named Type Arguments: https://dotty.epfl.ch/docs/reference/other-new-features/named-typeargs.html
  */
