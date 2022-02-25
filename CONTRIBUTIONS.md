@@ -15,6 +15,7 @@
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Status | Context |
 | :------------------------: | :--------: | :--------- |
+| [#14559][dotty_pull_14559] | *pending* | Bash/batch files |
 | [#14191][dotty_pull_14191] | [merged](https://github.com/lampepfl/dotty/commit/c9c6de6) <span style="font-size:80%;">(Jan 2022)</span> | [Reference Documentation][scala3_reference] |
 | [#13806][dotty_pull_13806] | [merged](https://github.com/lampepfl/dotty/commit/608344a) <span style="font-size:80%;">(Oct 2021)</span> | [Batch files][scala3_commands] |
 | [#13791][dotty_pull_13791] | [merged](https://github.com/lampepfl/dotty/commit/8ee672c) <span style="font-size:80%;">(Nov 2021)</span> | Test suite |
@@ -126,7 +127,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -170,13 +171,14 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_pull_11480]: https://github.com/lampepfl/dotty/pull/11480 "more fixes in Markdown files"
 [dotty_pull_11728]: https://github.com/lampepfl/dotty/pull/11728 "more fixes in Markdown files"
 [dotty_pull_11833]: https://github.com/lampepfl/dotty/pull/11833 "add Wiki code blocks to Md syntax"
-[dotty_pull_13006]: https://github.com/lampepfl/dotty/pull/13006
-[dotty_pull_13577]: https://github.com/lampepfl/dotty/pull/13577
+[dotty_pull_13006]: https://github.com/lampepfl/dotty/pull/13006 "Fix for issue #12551"
+[dotty_pull_13577]: https://github.com/lampepfl/dotty/pull/13577 "batch files support installation path containing spaces"
 [dotty_pull_13790]: https://github.com/lampepfl/dotty/pull/13790
 [dotty_pull_13791]: https://github.com/lampepfl/dotty/pull/13791
 [dotty_pull_13806]: https://github.com/lampepfl/dotty/pull/13806
 [dotty_pull_14191]: https://github.com/lampepfl/dotty/pull/14191
 [dotty_pull_14247]: https://github.com/lampepfl/dotty/pull/14247
+[dotty_pull_14559]: https://github.com/lampepfl/dotty/pull/14559 "Fix function classpathArgs()"
 [scala_pull_9013]: https://github.com/scala/scala/pull/9013 "Close Source.fromFile"
 [scala3_commands]: https://github.com/lampepfl/dotty/tree/master/dist/bin "Batch files"
 [scala3_reference]: https://docs.scala-lang.org/scala3/reference/overview.html "Scala 3 Reference"
