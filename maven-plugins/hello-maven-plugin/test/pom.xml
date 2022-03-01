@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>sample.plugin</groupId>
+    <artifactId>hello-plugin-test</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <lib.path>${project.basedir}/lib</lib.path>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>local-repo</id>
+            <name>Local test repository</name>
+            <url>file:///${project.basedir}/lib</url>
+            <releases>
+                 <enabled>true</enabled>
+                 <updatePolicy>never</updatePolicy> <!-- always, never -->
+                 <checksumPolicy>warn</checksumPolicy>
+            </releases>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>sample.plugin</groupId>
+            <artifactId>hello-maven-plugin</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <!--
+            <scope>system</scope>
+            <systemPath>${lib.path}/sample/plugin/hello-maven-plugin/1.0-SNAPSHOT/hello-maven-plugin-1.0-SNAPSHOT.jar</systemPath>
+            -->
+        </dependency>    
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>sample.plugin</groupId>
+                <artifactId>hello-maven-plugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <executions>
+                        <execution>
+                        <phase>compile</phase>
+                        <goals>
+                          <goal>sayhi</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+		    <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<echo>project.artifactId = ${project.artifactId}</echo>
+                                <echo>project.basedir = ${project.basedir}</echo>
+                                <echo>project.repositories = ${project.repositories}</echo>
+                                <!--
+                                <!- - https://stackoverflow.com/questions/70983094/how-to-use-an-array-property-from-pom-xml - ->
+                                <echo>project.repositories@id='local-repo' = ${project.repositories@id='local-repo'}</echo>
+                                -->
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+        </plugins>
+    </build>
+
+</project>

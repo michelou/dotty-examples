@@ -1,0 +1,1 @@
+Source: http://books.sonatype.com/mvnref-book/reference/writing-plugins-sect-custom-plugin.html
