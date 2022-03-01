@@ -67,7 +67,7 @@
         <m2.scalatest-core.jar>${m2.directory}/org/scalatest/scalatest-core_3/${scalatest.version}/scalatest-core_3-${scalatest.version}.jar</m2.scalatest-core.jar>
         <m2.scalatest-funspec.jar>${m2.directory}/org/scalatest/scalatest-funspec_3/${scalatest.version}/scalatest-funspec_3-${scalatest.version}.jar</m2.scalatest-funspec.jar>
         <m2.scalatest-funsuite.jar>${m2.directory}/org/scalatest/scalatest-funsuite_3/${scalatest.version}/scalatest-funsuite_3-${scalatest.version}.jar</m2.scalatest-funsuite.jar>
-        <m2.specs2-common.jar>${m2.directory}/org/specs2/specs2-common_3/${specs2.version}/specs2-common_3-${specs2.version}.jar</m2.specs2-common.jar>
+        <m2.specs2-common.jar>${m2.directory}/org/specs2/specs2-common_2.13/${specs2.version}/specs2-common_2.13-${specs2.version}.jar</m2.specs2-common.jar>
         <m2.specs2-core.jar>${m2.directory}/org/specs2/specs2-core_2.13/${specs2.version}/specs2-core_2.13-${specs2.version}.jar</m2.specs2-core.jar>
         <m2.specs2-fp.jar>${m2.directory}/org/specs2/specs2-fp_2.13/${specs2.version}/specs2-fp_2.13-${specs2.version}.jar</m2.specs2-fp.jar>
         <m2.specs2-junit.jar>${m2.directory}/org/specs2/specs2-junit_2.13/${specs2.version}/specs2-junit_2.13-${specs2.version}.jar</m2.specs2-junit.jar>

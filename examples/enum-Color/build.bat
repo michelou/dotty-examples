@@ -876,7 +876,34 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% JaCoCo instrumentation report saved into fi
 )
 goto :eof
 
-:compile_test
+:test
+call :test_compile
+if not %_EXITCODE%==0 goto :eof
+
+call :libs_cpath includeScalaLibs
+if not %_EXITCODE%==0 goto :eof
+
+set __TEST_JAVA_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
+
+@rem see https://github.com/junit-team/junit4/wiki/Getting-started
+for /f "usebackq" %%f in (`dir /s /b "%_TEST_CLASSES_DIR%\*JUnitTest.class" "%_TEST_CLASSES_DIR%\*Specs2Test.class" 2^>NUL`) do (
+    for %%i in (%%~dpf) do set __PKG_NAME=%%i
+    set __PKG_NAME=!__PKG_NAME:%_TEST_CLASSES_DIR%\=!
+    if defined __PKG_NAME ( set "__MAIN_CLASS=!__PKG_NAME:\=.!%%~nf"
+    ) else ( set "__MAIN_CLASS=%%~nf"
+    )
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
+    ) else if %_VERBOSE%==1 ( echo Execute test !__MAIN_CLASS! 1>&2
+    )
+    call "%_JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS!
+    if not !ERRORLEVEL!==0 (
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+goto :eof
+
+:test_compile
 if not exist "%_TEST_CLASSES_DIR%" mkdir "%_TEST_CLASSES_DIR%" 1>NUL
 
 set "__TEST_TIMESTAMP_FILE=%_TEST_CLASSES_DIR%\.latest-build"
@@ -914,33 +941,6 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 echo. > "%__TEST_TIMESTAMP_FILE%"
-goto :eof
-
-:test
-call :compile_test
-if not %_EXITCODE%==0 goto :eof
-
-call :libs_cpath includeScalaLibs
-if not %_EXITCODE%==0 goto :eof
-
-set __TEST_JAVA_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
-
-@rem see https://github.com/junit-team/junit4/wiki/Getting-started
-for /f "usebackq" %%f in (`dir /s /b "%_TEST_CLASSES_DIR%\*JUnitTest.class" "%_TEST_CLASSES_DIR%\*Specs2Test.class" 2^>NUL`) do (
-    for %%i in (%%~dpf) do set __PKG_NAME=%%i
-    set __PKG_NAME=!__PKG_NAME:%_TEST_CLASSES_DIR%\=!
-    if defined __PKG_NAME ( set "__MAIN_CLASS=!__PKG_NAME:\=.!%%~nf"
-    ) else ( set "__MAIN_CLASS=%%~nf"
-    )
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
-    ) else if %_VERBOSE%==1 ( echo Execute test !__MAIN_CLASS! 1>&2
-    )
-    call "%_JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS!
-    if not !ERRORLEVEL!==0 (
-        set _EXITCODE=1
-        goto :eof
-    )
-)
 goto :eof
 
 @rem output parameter: _DURATION

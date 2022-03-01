@@ -17,11 +17,14 @@
 *.hpp text linguist-language=C++
 *.hs text linguist-language=Haskell
 *.hsc text linguist-language=Haskell
+*.inc text linguist-language=Makefile
 *.ini text linguist-language=INI
 *.java text linguist-language=Java
 *.js text linguist-language=JavaScript
 *.json text linguist-language=JSON
 *.jsx text linguist-language=JavaScript
+*.kt text linguist-vendored=Kotlin
+*.kts text linguist-vendored=Kotlin
 *.md text linguist-documentation=true
 *.properties text linguist-language=INI
 *.py text linguist-language=Python

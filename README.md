@@ -122,6 +122,7 @@ bin\dotty\
 docs\
 <a href="https://github.com/lampepfl/dotty">dotty</a>\     <i>(Git submodule)</i>
 examples\{<a href="examples/README.md">README.md</a>, <a href="examples/dotty-example-project/">dotty-example-project</a>, ..}
+maven-plugins\{<a href="maven-plugins/README.md">README.md</a>, <a href="./maven-plugins/scala-maven-plgin">scala-maven-plugin</a>, etc.}
 myexamples\{<a href="myexamples/README.md">README.md</a>, <a href="myexamples/00_AutoParamTupling/">00_AutoParamTupling</a>, ..}
 plugin-examples\{<a href="plugin-examples/README.md">README.md</a>, <a href="plugin-examples/DivideZero/">DivideZero</a>, ..}
 semanticdb-examples\{<a href="semanticdb-examples/README.md">README.md</a>, <a href="semanticdb-examples/hello/">hello</a>, ..}
@@ -141,6 +142,7 @@ where
 - directory [**`docs\`**](docs/) contains [Scala 3][scala3_home] related papers/articles (see file [**`docs\README.md`**](docs/README.md)).
 - directory **`dotty\`** contains our fork of the [lampepfl/dotty][github_lampepfl_dotty] repository as a [Github submodule](.gitmodules).
 - directory [**`examples\`**](examples/) contains [Scala 3][scala3_home] examples grabbed from various websites (see file [**`examples\README.md`**](examples/README.md)).
+- directory [**`maven-plugins\`**](maven-plugins) presents our Maven plugin [`scala-maven-plugin`](./maven-plugins/README.md#scala_maven_plugin).
 - directory [**`myexamples\`**](myexamples/) contains self-written [Scala 3][scala3_home] examples (see file [**`myexamples\README.md`**](myexamples/README.md)).
 - directory [**`plugin-examples\`**](plugin-examples/) contains [Scala 3][scala3_home] plugin examples (see file [**`plugin-examples\README.md`**](plugin-examples/README.md)).
 - directory [**`semanticdb-examples\`**](semanticdb-examples/) contains [SemanticDB][semanticdb_guide] code examples (see file [**`semanticdb-examples\README.md`**](semanticdb-examples/README.md)).

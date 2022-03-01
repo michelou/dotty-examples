@@ -65,6 +65,9 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
+                            <compilerArgs>
+                                <compilerArg>-deprecation</compilerArg>
+                            </compilerArgs>
                             <additionalClasspathElements>
                                 <additionalClasspathElement>${m2.hamcrest.jar}</additionalClasspathElement>
                                 <additionalClasspathElement>${m2.hamcrest-core.jar}</additionalClasspathElement>
@@ -151,7 +154,7 @@
                 <configuration>
                     <mainClass>org.junit.runner.JUnitCore</mainClass>
                     <arguments>
-                        <argument>ColorSpec2Test</argument>
+                        <argument>ColorSpecs2Test</argument>
                     </arguments>
                 </configuration>
             </plugin>
