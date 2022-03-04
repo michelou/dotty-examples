@@ -1,0 +1,1 @@
+Source: https://blog.rockthejvm.com/enums-scala-3/

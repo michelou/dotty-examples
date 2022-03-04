@@ -424,7 +424,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 </pre>
 
 > **&#9755;** **Scala Maven Plugin**<br/>
-> In the above [Maven][apache_maven_about] configuration file we note the presence of the Maven plugin [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip). In fact the parent file [**`examples\pom.xml`**](pom.xml) depends on [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip), a Maven plugin we developed specifically for this project:
+> In the above [Maven][apache_maven_about] configuration file we note the presence of the Maven plugin [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip). In fact the parent file [**`examples\pom.xml`**](pom.xml) depends on [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip), a Maven plugin we developed specifically for this project (see document [`maven-plugins\README.md`](../maven-plugins/README.md)):
 >
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/more">more</a> ..\pom.xml</b>
@@ -545,24 +545,24 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 <pre style="font-size:80%;">
 <b>@echo off</b>
 <b>setlocal enabledelayedexpansion</b>
-
+&nbsp;
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Environment setup</i>
-
+&nbsp;
 <b>set</b> _EXITCODE=0
-
+&nbsp;
 <b>call <span style="color:#9966ff;">:env</span></b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
-
+&nbsp;
 <b>call <span style="color:#9966ff;">:props</span></b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
-
+&nbsp;
 <b>call <span style="color:#9966ff;">:args</span> %*</b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
-
+&nbsp;
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Main</i>
-
+&nbsp;
 <b>if</b> <span style="color:#3333ff;">%_CLEAN%</span>==1 (
     <b>call :clean</b>
     <b>if not</b> <span style="color:#3333ff;">!_EXITCODE!</span>==0 <b>goto end</b>
@@ -584,10 +584,10 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
     <b>if not</b> <span style="color:#3333ff;">!_EXITCODE!</span>==0 <b>goto end</b>
 )
 <b>goto <span style="color:#9966ff;">end</span></b>
-
+&nbsp;
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Subroutines</i>
-
+&nbsp;
 <span style="color:#9966ff;">:env</span>
 ...<i>(variable initialization, eg. directory paths)</i>...
 <b>goto :eof</b>
@@ -612,10 +612,10 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 <span style="color:#9966ff;">:run</span>
 ...
 <b>goto :eof</b>
-
+&nbsp;
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Cleanups</i>
-
+&nbsp;
 <span style="color:#9966ff;">:end</span>
 ...
 <b>exit</b> /b <span style="color:#3333ff;">%_EXITCODE%</span>
@@ -624,7 +624,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

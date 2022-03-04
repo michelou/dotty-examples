@@ -508,21 +508,21 @@ Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</
 ...
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Environment setup</i>
-
+&nbsp;
 <b>set</b> _EXITCODE=0
-
+&nbsp;
 <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:env</span></b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
-
+&nbsp;
 <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:props</span></b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
-
+&nbsp;
 <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:args</span> %*</b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
-
+&nbsp;
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Main</i>
-
+&nbsp;
 <b>if</b> <span style="color:#3333ff;">%_CLEAN%</span>==1 (
     <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> :clean</b>
     <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
@@ -540,10 +540,10 @@ Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</
     <b>if not</b> <span style="color:#3333ff;">!_EXITCODE!</span>==0 <b>goto end</b>
 )
 <b>goto <span style="color:#9966ff;">end</span></b>
-
+&nbsp;
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Subroutines</i>
-
+&nbsp;
 <span style="color:#9966ff;">:env</span>
 ...<i>(variable initialization, eg. directory paths)</i>...
 <b>goto :eof</b>
@@ -565,10 +565,10 @@ Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</
 <span style="color:#9966ff;">:run</span>
 ...
 <b>goto :eof</b>
-
+&nbsp;
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Cleanups</i>
-
+&nbsp;
 <span style="color:#9966ff;">:end</span>
 ...
 <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/exit">exit</a></b> /b <span style="color:#3333ff;">%_EXITCODE%</span>
@@ -583,7 +583,7 @@ Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</
 $ c:\opt\msys64\msys2_shell.cmd --help
 Usage:
     msys2_shell.cmd [options] [login shell parameters]
-
+&nbsp;
 Options:
     -mingw32 | -mingw64 | -msys[2]   Set shell type
     -defterm | -mintty | -conemu     Set terminal type
@@ -607,7 +607,7 @@ following parameters are passed as login shell command parameters.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

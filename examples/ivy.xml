@@ -32,5 +32,7 @@
         <dependency org="org.benf" name="cfr" rev="0.151"/>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency org="junit" name="junit" rev="4.13.2"/>
+        <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-console-standalone -->
+        <dependency org="org.junit.platform" name="junit-platform-console-standalone" rev="1.8.2"/>
     </dependencies>
 </ivy-module>

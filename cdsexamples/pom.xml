@@ -37,10 +37,10 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId>
-        <scala.version>3.1.2-RC1</scala.version> <!-- eg. "3.1.1" or "2.13.3" -->
+        <scala.version>3.1.2-RC1</scala.version>
         <scala.local.install>true</scala.local.install>
         <scala2.binary.version>2.13</scala2.binary.version>
-        <scala2.version>${scala2.binary.version}.6</scala2.version>
+        <scala2.version>2.13.8</scala2.version>
 
         <!-- Maven plugin versions -->
         <scala.maven.version>1.0.0</scala.maven.version> <!-- Dec 2018 -->
@@ -52,9 +52,9 @@
         <!-- Note: JUnit 5 requires Surefire version 2.22.1 or higher -->
         <maven.surefire.version>2.22.2</maven.surefire.version> <!-- Oct 2018 -->
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
-        <specs2.version>4.14.0</specs2.version>
+        <specs2.version>4.14.1</specs2.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
-        <maven.jar.version>3.2.0</maven.jar.version>            <!-- May 2019 -->
+        <maven.jar.version>3.2.2</maven.jar.version>            <!-- May 2019 -->
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
         <exec.maven.version>3.0.0</exec.maven.version>          <!-- Jun 2020 -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->

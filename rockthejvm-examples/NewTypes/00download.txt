@@ -1,0 +1,2 @@
+Source: https://blog.rockthejvm.com/new-types-scala-3/
+Youtube: https://www.youtube.com/watch?v=orTmm6OMaLw

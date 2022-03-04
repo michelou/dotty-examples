@@ -67,7 +67,14 @@
                         <configuration>
                             <additionalClasspathElements>
                                 <additionalClasspathElement>${m2.junit.jar}</additionalClasspathElement>
+                                <!-- NB. specs2-core depends on scala-reflect -->
+                                <additionalClasspathElement>${m2.scala-reflect.jar}</additionalClasspathElement>
                                 <additionalClasspathElement>${m2.scalatest.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.specs2-common.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.specs2-core.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.specs2-fp.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.specs2-junit.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.specs2-matcher.jar}</additionalClasspathElement>
                             </additionalClasspathElements>
                             <includes>
                                 <include>scala/**/*.scala</include>

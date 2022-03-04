@@ -6,7 +6,7 @@
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:100px;" src="../docs/dotty.png" width="100" alt="Dotty project"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>maven-plugins\</code></strong> contains <a href="https://maven.apache.org/plugins">Maven plugin</a> examples found on the Web or written by ourself.
+    Directory <strong><code>maven-plugins\</code></strong> contains <a href="https://maven.apache.org/plugins">Maven plugin</a> examples found on the Web or written by ourself.<br/>Our final objective to compile Scala source files from a POM file using the <a href="https://maven.apache.org/ref/current/maven-embedder/cli.html">Maven command line tool</a>.
   </td>
   </tr>
 </table>
@@ -45,18 +45,45 @@ The project is organized as follows:
 
 The plugin project `hello-maven-plugin` is the code example presented in the online [*Maven Guide to Developing Java Plugins*](https://maven.apache.org/guides/plugin/guide-java-plugin-development.html).
 
-The project consists of one Java source file ([`GreetingMojo.java`](./hello-maven-plugin/src/main/java/sample/plugin/GreetingMojo.java)) and two POM files ([`pom.xml`](./hello-maven-plugin/pom.xml) and [`test\pom.xml`](./hello-maven-plugin/test/pom.xml)).
+The project is organized as follows :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="">tree</a> /a /f . |<a href="">findstr</a> /v /b [A-Z]</b>
+|   <a href="./hello-maven-plugin/00download.txt">00download.txt</a>
+|   <a href="./hello-maven-plugin/install-local.bat">install-local.bat</a>
+|   <a href="./hello-maven-plugin/pom.xml">pom.xml</a>
+|
++---src
+|   \---main
+|       +---java
+|           \---sample
+|               \---plugin
+|                       <a href="./hello-maven-plugin/src/main/java/sample/plugin/GreetingMojo.java">GreetingMojo.java</a>
+\---test
+    |   <a href="./hello-maven-plugin/test/pom.xml">test\pom.xml</a>
+    \---src
+        \---main
+            +---java
+                    Dummy.java
+</pre>
 
 *WIP*
 
 ## <span id="scala_maven_plugin">`scala-maven-plugin`</span>
 
-We started this project in late 2018; we use `scala-maven-plugin` in all Scala projects of our GitHub repository [`michelou/dotty-examples`](https://github.com/michelou/dotty-examples) (but not only).
+We started this project in late 2018; we use **`scala-maven-plugin`** in all Scala projects of our GitHub repository [`michelou/dotty-examples`](https://github.com/michelou/dotty-examples) (but not only).
+
+**`scala-maven-plugin`** features two goals with parameters similar to the [**`maven-compiler-plugin`**](https://maven.apache.org/plugins/maven-compiler-plugin/plugin-info.html):
+
+| Goal     | Parameters |
+|:---------|:-----------|
+| `compile`| `additionalClasspathElements`<br/>`addOutputToClasspath`<br/>`compilerArgs`<br/>`excludes`<br/>`includes` |
+| `run`    | `jvmArgs`|
 
 The project is organized as follows :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . |<a href="">findstr</a> /v /b [A-Z]</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . |<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
 |   <a href="./scala-maven-plugin/pom.xml">pom.xml</a>
 |
 +---src
@@ -71,7 +98,7 @@ The project is organized as follows :
                             <a href="./scala-maven-plugin/src/main/java/ch/epfl/alumni/ScalaRunMojo.java">ScalaRunMojo.java</a>
 </pre>
 
-Generation :
+Command [**`mvn`** `package`][apache_maven_cli] generates the JAR file `scala-maven-plugin-1.0.0.jar` to be deployed as Maven artifact :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/ref/current/maven-embedder/cli.html">mvn</a> clean compile package</b>
@@ -87,7 +114,7 @@ Generation :
 scala-maven-plugin-1.0.0.jar
 </pre>
 
-Installation into our local Maven repository <code><a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%USERPROFILE%</a>\\.m2\repository\\</code> :
+Command [**`mvn`** `deploy:deploy-file`][apache_maven_cli] installs the Maven artifact for our plugin into our local Maven repository <code><a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%USERPROFILE%</a>\\.m2\repository\\</code> :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/ref/current/maven-embedder/cli.html">mvn</a> deploy:deploy-file -DgroupId=ch.epfl.alumni -DartifactId=scala-maven-plugin -Dversion=1.0.0 -Durl=file://%USERPROFILE%/.m2/repository -DupdateReleaseInfo=true -Dfile=.\target\scala-maven-plugin-1.0.0.jar -Dpackaging=jar -DpomFile=.\pom.xml -DgeneratePom=true -DcreateChecksum=true</b>
@@ -131,25 +158,28 @@ Installation into our local Maven repository <code><a href="https://en.wikipedia
 <span id="footnote_01">[1]</span> ***pom.xml*** [↩](#anchor_01)
 
 <dl><dd>
+We give here the <code>&lt;plugin></code> section of a POM file.
+</dd>
+<dd>
 <pre style="font-size:80%;">
 <b>&lt;plugin></b>
-    &lt;groupId>ch.epfl.alumni&lt;/groupId>
-    &lt;artifactId>scala-maven-plugin&lt;/artifactId>
-    &lt;version>${scala.maven.version}&lt;/version>
+    <b>&lt;groupId></b>ch.epfl.alumni<b>&lt;/groupId></b>
+    <b>&lt;artifactId></b>scala-maven-plugin<b>&lt;/artifactId></b>
+    <b>&lt;version></b>${scala.maven.version}<b>&lt;/version></b>
     <b>&lt;executions></b>
         <b>&lt;execution></b>
             <b>&lt;id></b>scala-compile<b>&lt;/id></b>
             <b>&lt;phase></b>compile<b>&lt;/phase></b>
             &lt;goals>
                 <b>&lt;goal></b>compile<b>&lt;/goal></b>
-            &lt;/goals>
-            &lt;configuration>
+            <b>&lt;/goals></b>
+            <b>&lt;configuration></b>
                 &lt;additionalClasspathElements>
                     &lt;additionalClasspathElement>${m2.hamcrest.jar}&lt;/additionalClasspathElement>
                     &lt;!-- ...more additions.. -->
-                &lt;/additionalClasspathElements>
+                <b>&lt;/additionalClasspathElements></b>
                 &lt;includes>
-                    &lt;include>scala/**/*.scala</include>
+                    <b>&lt;include></b>scala/**/*.scala<b>&lt;/include></b>
                 &lt;/includes>
                 &lt;installDirectory>${env.SCALA3_HOME}</installDirectory>
             <b>&lt;/configuration></b>
