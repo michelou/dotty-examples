@@ -12,9 +12,6 @@ set _EXITCODE=0
 call :env
 if not %_EXITCODE%==0 goto end
 
-call :props
-if not %_EXITCODE%==0 goto end
-
 call :args %*
 if not %_EXITCODE%==0 goto end
 
@@ -46,7 +43,7 @@ if %_DOC%==1 (
     if not !_EXITCODE!==0 goto end
 )
 if %_RUN%==1 (
-    call :run%_INSTRUMENTED%
+    call :run
     if not !_EXITCODE!==0 goto end
 )
 if %_TEST%==1 (
@@ -158,36 +155,6 @@ set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
 goto :eof
 
-@rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
-@rem                    _PROJECT_NAME, _PROJECT_URL, _PROJECT_VERSION
-:props
-set _MAIN_CLASS_DEFAULT=rockthejvm.Main
-set _MAIN_ARGS_DEFAULT=
-
-for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
-set _PROJECT_URL=github.com/%USERNAME%/dotty-examples
-set _PROJECT_VERSION=1.0-SNAPSHOT
-
-set "__PROPS_FILE=%_ROOT_DIR%project\build.properties"
-if exist "%__PROPS_FILE%" (
-    for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
-        set __NAME=
-        set __VALUE=
-        for /f "delims= " %%n in ("%%i") do set __NAME=%%n
-        @rem line comments start with "#"
-        if defined __NAME if not "!__NAME:~0,1!"=="#" (
-            @rem trim value
-            for /f "tokens=*" %%v in ("%%~j") do set __VALUE=%%v
-            set "_!__NAME:.=_!=!__VALUE!"
-        )
-    )
-    if defined _main_class set _MAIN_CLASS_DEFAULT=!_main_class!
-    if defined _main_args set _MAIN_ARGS_DEFAULT=!_main_args!
-    if defined _project_name set _PROJECT_NAME=!_project_name!
-    if defined _project_url set _PROJECT_URL=!_project_url!
-    if defined _project_version set _PROJECT_VERSION=!_project_version!
-)
-goto :eof
 
 @rem input parameter: %*
 :args
@@ -196,10 +163,7 @@ set _COMPILE=0
 set _DECOMPILE=0
 set _DOC=0
 set _HELP=0
-set _INSTRUMENTED=
 set _LINT=0
-set _MAIN_CLASS=%_MAIN_CLASS_DEFAULT%
-set _MAIN_ARGS=%_MAIN_ARGS_DEFAULT%
 set _RUN=0
 set _SCALAC_OPTS=-deprecation -feature
 set _SCALAC_OPTS_EXPLAIN=0
@@ -226,9 +190,6 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-tasty" ( set _TASTY=1
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
-    ) else if "%__ARG:~0,6%"=="-main:" (
-        call :set_main "!__ARG:~6!"
-        if not !_EXITCODE!== 0 goto args_done
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
         set _EXITCODE=1
@@ -243,7 +204,6 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="help" ( set _HELP=1
     ) else if "%__ARG%"=="lint" ( set _LINT=1
     ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
-    ) else if "%__ARG%"=="run:i" ( set _COMPILE=1& set _RUN=1& set _INSTRUMENTED=_instrumented
     ) else if "%__ARG%"=="test" ( set _COMPILE=1& set _TEST=1
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
@@ -262,6 +222,13 @@ if %_DEBUG%==1 (
     set _STDERR_REDIRECT=2^>NUL
     set _STDOUT_REDIRECT=1^>NUL
 )
+set _MAIN_CLASS=rockthejvm.Main
+set _MAIN_ARGS=
+
+for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
+set _PROJECT_URL=github.com/%USERNAME%/dotty-examples
+set _PROJECT_VERSION=1.0-SNAPSHOT
+
 if %_DECOMPILE%==1 if not defined _CFR_CMD (
     echo %_WARNING_LABEL% cfr installation not found 1>&2
     set _DECOMPILE=0
@@ -435,12 +402,18 @@ for /f %%f in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
+if %__N%==0 (
+    echo %_WARNING_LABEL% No Java source files 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% Java source file
+) else ( set __N_FILES=%__N% Java source files
+)
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N% Java source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of %__N% Java source files failed 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -744,72 +717,6 @@ if not !ERRORLEVEL!==0 (
     echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
     set _EXITCODE=1
     goto :eof
-)
-goto :eof
-
-@rem experimental (see https://www.jacoco.org/jacoco/trunk/doc/agent.html)
-:run_instrumented
-set "__MAIN_CLASS_FILE=%_CLASSES_DIR%\%_MAIN_CLASS:.=\%.class"
-if not exist "%__MAIN_CLASS_FILE%" (
-    echo %_ERROR_LABEL% Main class '%_MAIN_CLASS%' not found ^(%__MAIN_CLASS_FILE%^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set "__JACOCO_AGENT_FILE=%JACOCO_HOME%\lib\jacocoagent.jar"
-set "__JACOCO_CLI_FILE=%JACOCO_HOME%\lib\jacococli.jar"
-if not exist "%__JACOCO_AGENT_FILE%" (
-    echo %_ERROR_LABEL% JaCoCo agent library not found 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set __CLASS_FILES=
-for /f "delims=" %%f in ('dir /s /b "%_CLASSES_DIR%\*.class" 2^>NUL') do (
-    set __CLASS_FILES=!__CLASS_FILES! "%%f"
-)
-for %%f in ("%_CLASSES_DIR%\.") do set "__INSTR_CLASSES_DIR=%%~dpfinstrumented-classes"
-if not exist "!__INSTR_CLASSES_DIR!" mkdir "!__INSTR_CLASSES_DIR!"
-
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" instrument --quiet --dest "!__INSTR_CLASSES_DIR!" %__CLASS_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Instrument Java class files 1>&2
-)
-call "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" instrument --quiet --dest "!__INSTR_CLASSES_DIR!" %__CLASS_FILES%
-if not %ERRORLEVEL%==0 (
-    set _EXITCODE=1
-    goto :eof
-)
-set __LIBS_CPATH=
-for %%f in ("%SCALA3_HOME%\lib\*.jar") do (
-    set "__JAR_FILE=%%~nxf"
-    if "!__JAR_FILE:~0,5!"=="dotty" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
-    ) else if "!__JAR_FILE:~0,5!"=="tasty" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
-    ) else if "!__JAR_FILE:~0,5!"=="scala" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
-    )
-)
-set "__EXEC_FILE=%_TARGET_DIR%\jacoco.exec"
-set __JAVA_OPTS=-Xmx768m -Xms768m -javaagent:"%__JACOCO_AGENT_FILE%=destfile=!__EXEC_FILE!,append=false" -classpath "%__LIBS_CPATH%%_CLASSES_DIR%"
-
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% 1>&2
-)
-call "%_JAVA_CMD%" %__JAVA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set "__TARGET_HTML_DIR=%_TARGET_DIR%\instrumented-html"
-if not exist "%__TARGET_HTML_DIR%\" mkdir "%__TARGET_HTML_DIR%" 1>NUL
-
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" report "%__EXEC_FILE%" --classfiles "%_CLASSES_DIR%" --encoding UTF8 --html "%__TARGET_HTML_DIR%" --name "%_PROJECT_NAME%" --quiet --sourcefiles "%_MAIN_SOURCE_DIR%" 1>&2
-) else if %_VERBOSE%==1 ( echo Generate HTML report in directory "!__TARGET_HTML_DIR:%_ROOT_DIR%=!" 1>&2
-)
-call "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" report "%__EXEC_FILE%" --classfiles "%_CLASSES_DIR%" --encoding UTF8 --html "%__TARGET_HTML_DIR%" --name "%_PROJECT_NAME%" --quiet --sourcefiles "%_MAIN_SOURCE_DIR%"
-if not %ERRORLEVEL%==0 (
-    set _EXITCODE=1
-    goto :eof
-)
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% JaCoCo instrumentation report saved into file "%__TARGET_HTML_DIR%\index.html" 1>&2
-) else if %_VERBOSE%==1 ( echo JaCoCo instrumentation report saved into file "!__TARGET_HTML_DIR:%_ROOT_DIR%=!\index.html" 1>&2
 )
 goto :eof
 

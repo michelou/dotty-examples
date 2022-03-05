@@ -21,6 +21,7 @@
 
     <properties>
         <mainClass>rockthejvm.Main</mainClass>
+        <testMainClass>rockthejvm.MainJUnitTest</testMainClass>
     </properties>
 
     <build>
@@ -132,7 +133,7 @@
                 <configuration>
                     <mainClass>org.junit.runner.JUnitCore</mainClass>
                     <arguments>
-                        <argument>rockthejvm.MainJUnitTest</argument>
+                        <argument>${testMainClass}</argument>
                     </arguments>
                 </configuration>
             </plugin>

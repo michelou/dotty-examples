@@ -21,6 +21,7 @@
 
     <properties>
         <mainClass>rockthejvm.Main</mainClass>
+        <testMainClass>rockthejvm.MainJUnitTest</testMainClass>
     </properties>
 
     <build>
@@ -70,6 +71,7 @@
                             </compilerArgs>
                             <additionalClasspathElements>
                                 <additionalClasspathElement>${m2.scala-reflect.jar}</additionalClasspathElement>
+                                <additionalClasspathElement>${m2.hamcrest-core.jar}</additionalClasspathElement>
                                 <additionalClasspathElement>${m2.junit.jar}</additionalClasspathElement>
                             </additionalClasspathElements>
                             <includes>
@@ -132,7 +134,7 @@
                 <configuration>
                     <mainClass>org.junit.runner.JUnitCore</mainClass>
                     <arguments>
-                        <argument>rockthejvm.MainJunitTest</argument>
+                        <argument>${testMainClass}</argument>
                     </arguments>
                 </configuration>
             </plugin>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="EtaExpansion" default="compile" basedir=".">
+<project name="TypeLevelProg_1" default="compile" basedir=".">
 
     <property name="scala-source.dir" value="${basedir}/src/main/scala" />
     <property name="target.dir" value="${basedir}/target" />

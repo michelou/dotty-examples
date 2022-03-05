@@ -807,42 +807,8 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% JaCoCo instrumentation report saved into fi
 )
 goto :eof
 
-:compile_test
-if not exist "%_TEST_CLASSES_DIR%" mkdir "%_TEST_CLASSES_DIR%" 1>NUL
-
-set "__TEST_TIMESTAMP_FILE=%_TEST_CLASSES_DIR%\.latest-build"
-
-call :action_required "%__TEST_TIMESTAMP_FILE%" "%_SOURCE_DIR%\test\scala\*.scala"
-if %_ACTION_REQUIRED%==0 goto :eof
-
-set "__SOURCES_FILE=%_TARGET_DIR%\test_scalac_sources.txt"
-if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
-set __N=0
-for /f %%i in ('dir /s /b "%_SOURCE_DIR%\test\scala\*.scala" 2^>NUL') do (
-    echo %%i >> "%__SOURCES_FILE%"
-    set /a __N+=1
-)
-call :libs_cpath includeScalaLibs
-if not %_EXITCODE%==0 goto :eof
-
-set "__OPTS_FILE=%_TARGET_DIR%\test_scalac_opts.txt"
-set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
-echo %_SCALAC_OPTS% -classpath "%__CPATH:\=\\%" -d "%_TEST_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
-
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N% Scala test source files to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
-)
-call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of %__N% Scala test source files failed 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-echo. > "%__TEST_TIMESTAMP_FILE%"
-goto :eof
-
 :test
-call :compile_test
+call :test_compile
 if not %_EXITCODE%==0 goto :eof
 
 call :libs_cpath includeScalaLibs
@@ -860,7 +826,7 @@ for /f "usebackq" %%f in (`dir /s /b "%_TEST_CLASSES_DIR%\*JUnitTest.class" 2^>N
     ) else ( set "__MAIN_CLASS=%%~nf"
     )
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
-    ) else if %_VERBOSE%==1 ( echo Execute test class !__MAIN_CLASS! 1>&2
+    ) else if %_VERBOSE%==1 ( echo Execute test class "!__MAIN_CLASS!" 1>&2
     )
     call "%_JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! %_STDOUT_REDIRECT%
     if not !ERRORLEVEL!==0 (
@@ -875,6 +841,46 @@ if %__ECHO_MSG%==0 goto :eof
 if %__N%==0 ( echo %_WARNING_LABEL% No test found 1>&2
 ) else if %__N%==1 ( echo %__FAILED% of 1 test failed
 ) else ( echo %__FAILED% of %__N% tests failed
+)
+goto :eof
+
+:test_compile
+if not exist "%_TEST_CLASSES_DIR%" mkdir "%_TEST_CLASSES_DIR%" 1>NUL
+
+set "__TEST_TIMESTAMP_FILE=%_TEST_CLASSES_DIR%\.latest-build"
+
+call :action_required "%__TEST_TIMESTAMP_FILE%" "%_SOURCE_DIR%\test\scala\*.scala"
+if %_ACTION_REQUIRED%==0 goto :eof
+
+call :test_compile_scala
+if not %_EXITCODE%==0 goto :eof
+
+echo. > "%__TEST_TIMESTAMP_FILE%"
+goto :eof
+
+:test_compile_scala
+set "__SOURCES_FILE=%_TARGET_DIR%\scalac_test_sources.txt"
+if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
+set __N=0
+for /f %%i in ('dir /s /b "%_SOURCE_DIR%\test\scala\*.scala" 2^>NUL') do (
+    echo %%i >> "%__SOURCES_FILE%"
+    set /a __N+=1
+)
+call :libs_cpath includeScalaLibs
+if not %_EXITCODE%==0 goto :eof
+
+set "__OPTS_FILE=%_TARGET_DIR%\scalac_test_opts.txt"
+set "__CPATH=%_LIBS_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
+echo %_SCALAC_OPTS% -classpath "%__CPATH:\=\\%" -d "%_TEST_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N% Scala test source files to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Compilation of %__N% Scala test source files failed 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 goto :eof
 

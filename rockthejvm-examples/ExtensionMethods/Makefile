@@ -34,7 +34,7 @@ clean:
 	"$(RM)" -rf "$(TARGET_DIR)"
 
 run: build
-	$(SCALA) $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
+	"$(SCALA)" $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
 
 help:
 	@$(ECHO) "Usage: make all|build|clean|doc|help|lint|run|test"

@@ -81,19 +81,6 @@
                             <installDirectory>${env.SCALA3_HOME}</installDirectory>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>scala-run</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <mainClass>${mainClass}</mainClass>
-                            <arguments>
-                                <argument></argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
                 </executions>
                 <configuration>
                     <scalaVersion>${scala.version}</scalaVersion>
@@ -126,6 +113,19 @@
                 <executions>
                     <execution>
                         <id>junit</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>org.junit.runner.JUnitCore</mainClass>
+                            <arguments>
+                                <argument>${testMainClass}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>scala</id>
                         <phase>exec</phase>
                         <goals>
                             <goal>java</goal>
@@ -133,9 +133,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>org.junit.runner.JUnitCore</mainClass>
+                    <mainClass>${mainClass}</mainClass>
                     <arguments>
-                        <argument>${testMainClass}</argument>
+                        <argument></argument>
                     </arguments>
                 </configuration>
             </plugin>
