@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:120px;" src="../docs/dotty.png" alt="Dotty project" /></a>
+    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:120px;" src="../docs/images/dotty.png" alt="Dotty project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>examples\</code></strong> contains <a href="https://dotty.epfl.ch/" rel="external">Scala 3</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/" rel="external">Dotty project</a>.

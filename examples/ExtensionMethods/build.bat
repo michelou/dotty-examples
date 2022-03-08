@@ -384,8 +384,10 @@ set _MAIN_CLASS=%__ARG%
 goto :eof
 
 :clean
-call :rmdir "%_ROOT_DIR%out"
 call :rmdir "%_TARGET_DIR%"
+@rem mill -> out\, sbt -> project\target\
+call :rmdir "%_ROOT_DIR%out"
+call :rmdir "%_ROOT_DIR%project\target"
 goto :eof
 
 @rem input parameter(s): %1=directory path

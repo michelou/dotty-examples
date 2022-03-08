@@ -1,0 +1,1 @@
+Source: https://www.scala-sbt.org/assets/sbt-logo.svg

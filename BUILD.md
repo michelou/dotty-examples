@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:60px;max-width:100px;">
-    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:80px;" src="docs/dotty.png" alt="Dotty project" /></a>
+    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:80px;" src="docs/images/dotty.png" alt="Dotty project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Source code of the <a href="https://dotty.epfl.ch/" rel="external">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/" rel="external">Github</a> and continuous delivery is performed on the <a href="https://dotty-ci.epfl.ch/lampepfl/dotty" rel="external">Dotty CI</a> server <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> from <a href="https://lamp.epfl.ch/" rel="external">LAMP/EPFL</a>.</br>This document describes changes we made to the <a href="https://github.com/lampepfl/dotty/" rel="external">lampepfl/dotty</a> repository in order to successfully execute the CI build/test steps on a Windows runner (GitHub-hosted) <b><i>and</i></b> to reproduce the same build/test steps on a <i>local</i> Windows machine.<br/>&nbsp;
@@ -18,7 +18,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[Deno][deno_examples], [GraalSqueak][graalsqueak_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodes_examples], [Rust][rust_examples] and [TruffleSqueak][trufflesqueak_examples] are other topics we are continuously investigating.
+[Ada][ada_examples], [Akka][akka_examples], [Deno][deno_examples], [GraalSqueak][graalsqueak_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodes_examples], [Rust][rust_examples], [Spring][spring_examples] and [TruffleSqueak][trufflesqueak_examples] are other topics we are continuously investigating.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -644,6 +644,8 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 
 <!-- link refs -->
 
+[ada_examples]: https://github.com/michelou/ada-examples
+[akka_examples]: https://github.com/michelou/akka-examples
 [deno_examples]: https://github.com/michelou/deno-examples
 [dotty_ci]: https://dotty-ci.epfl.ch/lampepfl/dotty
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
@@ -683,6 +685,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.6.2
 [scala3_docs]: https://dotty.epfl.ch/docs/
 [scala3_home]: https://dotty.epfl.ch/
+[spring_examples]: https://github.com/michelou/spring-examples
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/

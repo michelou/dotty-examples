@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
-    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:120px;" src="../docs/dotty.png" alt="Dotty project" /></a>
+    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:120px;" src="../docs/images/dotty.png" alt="Dotty project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>rockthejvm-examples\</code></strong> contains <a href="https://dotty.epfl.ch/" rel="external">Scala 3</a> code examples coming from Ciocîrlan's blog <a href="https://blog.rockthejvm.com/" rel="external"><i>Rock The JVM</i></a>.
@@ -22,8 +22,8 @@ Code examples presented below can be built/run with the following tools:
 | [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](Enums/pom.xml)     | [**`pom.xml`**](./pom.xml)                   | Any |
 | [**`sbt.bat`**][sbt_cli]          | [**`build.sbt`**](Enums/build.sbt) | n.a.                                         | Any |
 <div style="margin:0 10% 0 8px;font-size:90%;">
-<b><sup>a)</sup></b> Here "Any" means "tested on Windows, Cygwin, MSYS2 and Unix".<br/>
-<b><sup>b)</sup></b> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).<br/>&nbsp;</div>
+<sup><b>a)</b></sup> Here "Any" means "tested on Windows, Cygwin, MSYS2 and Unix".<br/>
+<sup><b>b)</b></sup> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).<br/>&nbsp;</div>
 
 ## <span id="extension-methods">ExtensionMethods</span>
 

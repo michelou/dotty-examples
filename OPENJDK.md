@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;max-width:100px;">
-    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:100px;" src="docs/dotty.png" /></a>
+    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:100px;" src="docs/images/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     <a href="https://openjdk.java.net/faq/" rel="external">OpenJDK</a> is an open-source project initiated by Oracle in 2010. Java 8 is the first LTS version of Java to be released <i>both</i> as a commercial product (<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Oracle Java SE 8 </a>) and as an open-source product (<a href="https://adoptium.net/" rel="external">Temurin OpenJDK 8</a>).<br/>In the following we focus on <a href="https://jdk.java.net/11/" rel="external">OpenJDK 11</a> and <a href="https://jdk.java.net/17/" rel="external">OpenJDK 17</a>, the current LTS version of Java.
@@ -18,7 +18,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - OpenJDK and Scala 3 on Windows [**&#9660;**](#bottom)
 
-[Ada][ada_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
 
 
 ## <span id="proj_deps">Project dependencies</span>
@@ -556,12 +556,13 @@ scala3-3.1.2-RC1-bin-SNAPSHOT-zulu-11.zip
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
 [ada_examples]: https://github.com/michelou/ada-examples
+[akka_examples]: https://github.com/michelou/akka-examples
 [alibaba]: https://www.alibabagroup.com/en/global/home
 [amazon_aws]: https://aws.amazon.com/
 [azul_downloads]: https://www.azul.com/downloads/?package=jdk#download-openjdk
@@ -615,6 +616,7 @@ scala3-3.1.2-RC1-bin-SNAPSHOT-zulu-11.zip
 [sap_home]: https://www.sap.com/
 [scala3_home]: https://dotty.epfl.ch/
 [scala3_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
+[spring_examples]: https://github.com/michelou/spring-examples
 [temurin8_downloads]: https://github.com/adoptium/temurin8-binaries
 [temurin11_downloads]: https://github.com/adoptium/temurin11-binaries
 [temurin11_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-July/006954.html

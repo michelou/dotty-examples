@@ -63,6 +63,9 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
+                            <compilerArgs>
+                                <compilerArg>-deprecation</compilerArg>
+                            </compilerArgs>
                             <includes>
                                 <include>scala/**/*.scala</include>
                             </includes>

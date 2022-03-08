@@ -359,8 +359,10 @@ set _MAIN_CLASS=%__ARG%
 goto :eof
 
 :clean
-call :rmdir "%_ROOT_DIR%out"
 call :rmdir "%_TARGET_DIR%"
+@rem mill -> out\, sbt -> project\target\
+call :rmdir "%_ROOT_DIR%out"
+call :rmdir "%_ROOT_DIR%project\target"
 if exist "%_ROOT_DIR%hotspot_pid*.log" del /q "%_ROOT_DIR%hotspot_pid*.log"
 goto :eof
 

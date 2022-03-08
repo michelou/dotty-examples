@@ -10,7 +10,7 @@ SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 ##############################################################################
 ## main rules
 
-SOURCES = $(shell $(FIND) $(SOURCE_DIR)/main/scala -type f -name *.scala)
+SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main/scala" -type f -name *.scala)
 TARGET  = $(TARGET_DIR)/.latest-build
 
 OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
@@ -64,7 +64,7 @@ DOC_OPTS_FILE    = $(TARGET_DIR)/scaladoc_opts.txt
 DOC_SOURCES_FILE = $(TARGET_DIR)/scaladoc_sources.txt
 
 $(DOC_TARGET): $(TARGET) $(DOC_SOURCES)
-	[ -d "$(DOC_TARGET_DIR)" ] || $(MKDIR) -p "$(DOC_TARGET_DIR)"
+	[ -d "$(DOC_TARGET_DIR)" ] || "$(MKDIR)" -p "$(DOC_TARGET_DIR)"
 	@$(ECHO) -siteroot "$(DOC_TARGET_DIR)" -d "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
 	@$(ECHO) $(DOC_SOURCES) > "$(DOC_SOURCES_FILE)"
 	"$(SCALADOC)" "@$(DOC_OPTS_FILE)" "@$(DOC_SOURCES_FILE)"
@@ -90,7 +90,7 @@ $(LINT_TARGET): $(LINT_SOURCES)
 ##############################################################################
 ## test rules
 
-TEST_SOURCES     = $(shell $(FIND) $(SOURCE_DIR)/test -type f -name *.scala)
+TEST_SOURCES     = $(shell $(FIND) "$(SOURCE_DIR)/test" -type f -name *.scala)
 TEST_CLASSES_DIR = $(TARGET_DIR)/test-classes
 TEST_TARGET      = $(TARGET_DIR)/.latest-test-build
 

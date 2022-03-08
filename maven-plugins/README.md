@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:100px;">
-    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:100px;" src="../docs/dotty.png" width="100" alt="Dotty project"/></a>
+    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:100px;" src="../docs/images/dotty.png" width="100" alt="Dotty project"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>maven-plugins\</code></strong> contains <a href="https://maven.apache.org/plugins">Maven plugin</a> examples found on the Web or written by ourself.<br/>Our final objective to compile Scala source files from a POM file using the <a href="https://maven.apache.org/ref/current/maven-embedder/cli.html">Maven command line tool</a>.
@@ -27,7 +27,7 @@ The project is organized as follows:
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . |<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
 |   <a href="./first-maven-plugin/00download.txt">00download.txt</a>
-|   build.bat
+|   <a href="./first-maven-plugin/build.bat">build.bat</a>
 |   <a href="./first-maven-plugin/pom.xml">pom.xml</a>
 |
 +---src
@@ -64,7 +64,7 @@ The project is organized as follows :
     \---src
         \---main
             +---java
-                    Dummy.java
+                    <a href="./hello-maven-plugin/test/src/main/java/Dummy.java">Dummy.java</a>
 </pre>
 
 *WIP*
@@ -214,7 +214,7 @@ We give here the <code>&lt;plugin></code> section of a POM file.
   <b>&lt;inheritedByDefault></b>true<b>&lt;/inheritedByDefault></b>
   <b>&lt;mojos></b>
     <b>&lt;mojo></b>
-      &lt;goal>sayhi&lt;/goal>
+      <b>&lt;goal></b>sayhi<b>&lt;/goal></b>
       &lt;description>Says &quot;Hi&quot; to the user.&lt;/description>
       &lt;requiresDirectInvocation>false&lt;/requiresDirectInvocation>
       &lt;requiresProject>true&lt;/requiresProject>
@@ -227,7 +227,7 @@ We give here the <code>&lt;plugin></code> section of a POM file.
       &lt;instantiationStrategy>per-lookup&lt;/instantiationStrategy>
       &lt;executionStrategy>once-per-session&lt;/executionStrategy>
       &lt;threadSafe>false&lt;/threadSafe>
-      &lt;parameters/>
+      <b>&lt;parameters/></b>
     <b>&lt;/mojo></b>
   <b>&lt;/mojos></b>
   <b>&lt;dependencies/></b>
@@ -237,7 +237,7 @@ We give here the <code>&lt;plugin></code> section of a POM file.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

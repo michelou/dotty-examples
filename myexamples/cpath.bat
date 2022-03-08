@@ -122,7 +122,7 @@ if not exist "%__JAR_FILE%" (
         )
         powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri '!__JAR_URL!' -Outfile '!__JAR_FILE!'"
         if not !ERRORLEVEL!==0 (
-            echo %_ERROR_LABEL% Failed to download file %__JAR_NAME% 1>&2
+            echo %_ERROR_LABEL% Failed to download file "%__JAR_NAME%" 1>&2
             set _EXITCODE=1
             goto :eof
         )

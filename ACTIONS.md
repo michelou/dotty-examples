@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;max-width:120px;">
-    <a href="https://github.com/" rel="external"><img style="border:0;width:120px;" src="https://github.githubassets.com/images/modules/logos_page/Octocat.png" alt="GitHub project"/></a>
+    <a href="https://github.com/" rel="external"><img style="border:0;width:120px;" src="./docs/images/Octocat.png" alt="GitHub project"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This page gathers informations about <a href="https://docs.github.com/en/free-pro-team@latest/actions" rel="external">GitHub Actions</a>, their associated <a href="https://github.com/actions/runner/releases">runners</a> and <a href="https://github.com/actions/virtual-environments" rel="external">virtual environments</a>, in particular the Windows runners.
@@ -19,11 +19,11 @@
 > **&#9755;** ***Default Windows shell***<br/>
 > On October 23, 2019, the default shell for the run step on Windows runners has changed to PowerShell (see [GitHub announcement](https://github.blog/changelog/2019-10-17-github-actions-default-shell-on-windows-runners-is-changing-to-powershell/)).
 
-## GitHub-hosted runners
+## <span id="runners">GitHub-hosted runners</span>
 
 [Supported runners and hardware resources][gh_resources]
 
-## GitHub workflows
+## <span id="workflows">GitHub workflows</span>
 
 [Ruby](https://github.com/ruby/ruby/tree/master/.github/workflows)
 
@@ -169,7 +169,7 @@ SBT_HOME=C:\Program Files (x86)\sbt\
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
