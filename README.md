@@ -85,7 +85,7 @@ C:\opt\apache-maven-3.8.5\         <i>( 10 MB)</i>
 C:\opt\bazel-5.0.0\                <i>( 44 MB)</i>
 C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
 C:\opt\Git-2.35.1\                 <i>(279 MB)</i>
-C:\opt\gradle-7.4\                 <i>(122 MB)</i>
+C:\opt\gradle-7.4.1\               <i>(122 MB)</i>
 C:\opt\jacoco-0.8.7\               <i>( 10 MB)</i>
 C:\opt\javafx-sdk-17.0.2\          <i>( 82 MB)</i>
 C:\opt\jdk-temurin-1.8.0_322-b06\  <i>(185 MB)</i>
@@ -337,7 +337,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.14, java 11.0.14, scalac 2.13.8, scalac 3.1.2-RC2,
-   ant 1.10.12, gradle 7.4, mill 0.10.1, mvn 3.8.5, sbt 1.6.2,
+   ant 1.10.12, gradle 7.4.1, mill 0.10.1, mvn 3.8.5, sbt 1.6.2,
    bazel 5.0.0, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.2,
    git 2.35.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 
@@ -365,7 +365,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.14, java 11.0.14, scalac 2.13.8, scalac 3.1.2-RC2,
-   ant 1.10.12, gradle 7.4, mill 0.10.1, mvn 3.8.5, sbt 1.6.2,
+   ant 1.10.12, gradle 7.4.1, mill 0.10.1, mvn 3.8.5, sbt 1.6.2,
    bazel 5.0.0, cfr 0.152, make 3.81, python 3.10.2,
    git 2.35.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
@@ -375,7 +375,7 @@ Tool paths:
    C:\opt\scala3-3.1.2-RC2\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.12\bin\ant.bat
-   C:\opt\gradle-7.4\bin\gradle.bat
+   C:\opt\gradle-7.4.1\bin\gradle.bat
    C:\opt\mill-0.10.1\mill.bat
    C:\opt\apache-maven-3.8.5\bin\mvn.cmd
    C:\opt\sbt-1.6.2\bin\sbt.bat
@@ -830,7 +830,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.12-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.8.5-bin.zip</a>                        <i>( 10 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-5.0.0-windows-x86_64.zip</a>                    <i>( 40 MB)</i>
-<a href="https://gradle.org/install/">gradle-7.4-bin.zip</a>                                <i>(103 MB)</i>
+<a href="https://gradle.org/install/">gradle-7.4.1-bin.zip</a>                              <i>(103 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.7.zip</a>                                  <i>(  4 MB)</i>
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.7-shaded-win.jar</a>                  <i>( 36 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                 <i>( 10 MB)</i>
@@ -894,7 +894,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 [gradle_install]: https://gradle.org/install/
-[gradle_relnotes]: https://docs.gradle.org/7.4/release-notes.html
+[gradle_relnotes]: https://docs.gradle.org/7.4.1/release-notes.html
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [jacoco_changelog]: https://www.jacoco.org/jacoco/trunk/doc/changes.html
 [jacoco_downloads]: https://www.eclemma.org/jacoco/
