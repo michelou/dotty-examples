@@ -3,11 +3,11 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:60px;max-width:100px;">
-    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;" src="docs/dotty.png" alt="Dotty project"/></a>
+    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;" src="docs/images/dotty.png" alt="Dotty project"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This repository gathers <a href="https://dotty.epfl.ch/" rel="external">Scala 3</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/" rel="external">Dotty</a> project - or written by myself.<br/>
-    In particular it includes build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch</a>, <a href="https://www.gnu.org/software/bash/manual/bash.html" rel="external">bash</a>, Maven POMs) for experimenting with the <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html" rel="external">Scala 3</a> language on a Windows machine.
+    In particular it includes build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch</a>, <a href="https://www.gnu.org/software/bash/manual/bash.html" rel="external">bash</a>, <a href="https://maven.apache.org/guides/introduction/introduction-to-the-pom.html" rel="external">Maven POMs</a>) for experimenting with the <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html" rel="external">Scala 3</a> language on a Windows machine.
   </td>
   </tr>
 </table>
