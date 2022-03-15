@@ -21,7 +21,7 @@
 ## <span id="blogs">Blogs</span>
 
 - [Databricks Blog][blog_databricks]
-   - [Scala at Scale at Databricks](https://databricks.com/blog/2021/12/03/scala-at-scale-at-databricks.html) by Li Haoyi, Decembre 2021.
+   - [Scala at Scale at Databricks](https://databricks.com/blog/2021/12/03/scala-at-scale-at-databricks.html) by Li Haoyi, December 2021.
 - [Scala 3 : un nouveau langage ?][blog_sarradin] by François Sarradin, May 2021.
 - [47 Degrees Blog][blog_47_degrees]
    - [Smart constructors for case classes][blog_markham] by Noel Markham, December 2021.
@@ -34,6 +34,11 @@
    - [Scala 3: Anti-Givens](https://blog.rockthejvm.com/anti-givens/), June 2021.
    - [Scala 3: Extension Methods](https://blog.rockthejvm.com/scala-3-extension-methods/), April 2021.
    - [Match Types in Scala 3](https://blog.rockthejvm.com/scala-3-match-types/), February 2021.
+- [Scala Blog](http://www.shivamkapoor.com/blogs/technology/tag/scala/) by Shivan Kapoor:
+  - [Making sense of Functors in Scala](http://www.shivamkapoor.com/blogs/technology/2021/06/04/making-sense-of-functors-in-scala/), June 2021.
+  - [Recursive Descent Parsers in Scala - Part 3](http://www.shivamkapoor.com/blogs/technology/2020/12/06/recursive-descent-parsers-in-scala-3-cross-compiling-scala-parser-library-to-javascript-using-scala-js/), December 2020.
+  - [Recursive Descent Parsers in Scala - Part 2](http://www.shivamkapoor.com/blogs/technology/2020/08/10/recursive-descent-parsers-in-scala-2-build-parser-using-fastparse-parser-combinators/), August 2020.
+  - [Recursive Descent Parsers in Scala - Part 1](http://www.shivamkapoor.com/blogs/technology/2020/06/02/recursive-descent-parsers-in-scala-1-writing-context-free-grammar/), June 2020.
 - [Figuring out Scala functional programming libraries](https://blog.softwaremill.com/figuring-out-scala-functional-programming-libraries-af8230efccb4) by Krzysztof Atłasik, March 2021.
 - [Higher-rank and higher-kinded types](https://www.stephanboyer.com/post/115/higher-rank-and-higher-kinded-types) by Stephan Boyer, April 2016.
 - [Sum Types Are Coming: What You Should Know](https://chadaustin.me/2015/07/sum-types/) by Chad Austin, July 2015.
