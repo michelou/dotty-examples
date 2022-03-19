@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:60px;max-width:100px;">
-    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:80px;" src="docs/dotty.png" alt="Dotty project" /></a>
+    <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:80px;" src="docs/images/dotty.png" alt="Dotty project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This document presents changes in library dependencies for the Scala 3 software distributions.<br/>&nbsp;
@@ -22,14 +22,15 @@ The [Scala 3](https://www.scala-lang.org/download/scala3.html) and [Scala 2](htt
 > **:mag_right:** We observe a jump in the increases in size of the software distributions : 
 > |  Version  | Release date | Zip archive | Installation |
 > |:----------|:------------:|:-----------:|:------------:|
+> |  [3.1.2](https://github.com/lampepfl/dotty/releases/tag/3.1.2-RC2) | Mar 2022 |   33.4 MB   |   35.3 MB    |
 > |  [3.1.1](https://github.com/lampepfl/dotty/releases/tag/3.1.1-RC2) | Jan 2022 |   33.3 MB   |   35.2 MB    |
-> |  [3.1.0](https://github.com/lampepfl/dotty/releases/tag/3.1.0) | Oct 2021 |   33.1 MB   |   35.0 MB    |
-> |  [3.0.2](https://github.com/lampepfl/dotty/releases/tag/3.0.2) | Sep 2021 |   31.2 MB   |   33.0 MB    |
-> |  [3.0.1](https://github.com/lampepfl/dotty/releases/tag/3.0.1) | Jul 2021 |   29.8 MB   |   33.0 MB    |
-> |  [2.13.8](https://www.scala-lang.org/download/2.13.8.html)     | Jan 2022 |   22.6 MB   |   24.1 MB    |
-> |  [2.13.7](https://www.scala-lang.org/download/2.13.7.html)     | Nov 2021 |   22.6 MB   |   24.1 MB    |
-> |  [2.13.6](https://www.scala-lang.org/download/2.13.6.html)     | May 2021 |   22.3 MB   |   23.8 MB    |
-> |  [2.12.15](https://www.scala-lang.org/download/2.12.15.html)   | Sep 2021 |   20.1 MB   |   21.5 MB    |
+> |  [3.1.0](https://github.com/lampepfl/dotty/releases/tag/3.1.0)     | Oct 2021 |   33.1 MB   |   35.0 MB    |
+> |  [3.0.2](https://github.com/lampepfl/dotty/releases/tag/3.0.2)     | Sep 2021 |   31.2 MB   |   33.0 MB    |
+> |  [3.0.1](https://github.com/lampepfl/dotty/releases/tag/3.0.1)     | Jul 2021 |   29.8 MB   |   33.0 MB    |
+> |  [2.13.8](https://www.scala-lang.org/download/2.13.8.html)         | Jan 2022 |   22.6 MB   |   24.1 MB    |
+> |  [2.13.7](https://www.scala-lang.org/download/2.13.7.html)         | Nov 2021 |   22.6 MB   |   24.1 MB    |
+> |  [2.13.6](https://www.scala-lang.org/download/2.13.6.html)         | May 2021 |   22.3 MB   |   23.8 MB    |
+> |  [2.12.15](https://www.scala-lang.org/download/2.12.15.html)       | Sep 2021 |   20.1 MB   |   21.5 MB    |
 
 In the next sections we give more details on those dependencies for the three Scala distributions currently available, namely [3.x](#scala3_releases), [2.13](#scala213_releases) and [2.12](#scala212_releases).
 
@@ -46,7 +47,8 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
   <th style="padding:4px;"><a href="https://github.com/lampepfl/dotty/releases/tag/3.0.2">3.0.2</a><br/><span style="color:gray;">final</span></th>
   <th style="padding:4px;"><a href="https://github.com/lampepfl/dotty/releases/tag/3.1.0">3.1.0</a><br/><span style="color:gray;">final</span></th>
   <th><a href="https://github.com/lampepfl/dotty/releases/tag/3.1.1">3.1.1</a><br/><span style="color:gray;">final</span></th>
-  <th><a href="https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler">3.1.2</a><br/><span style="color:red;">DEV</span></th>
+  <th><a href="https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler">3.1.2</a><br/><span style="color:darkorange;">RC2</span></th>
+  <th><a href="https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler">3.1.3</a><br/><span style="color:red;">DEV</span></th>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4"><code>antlr-*</code></a></td>
@@ -56,12 +58,14 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr/3.5.1">3.5.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr/3.5.1">3.5.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr/3.5.1">3.5.1</a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr/3.5.1">3.5.1</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr/4.7.2">4.7.2</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr/4.7.2">4.7.2</a></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.nibor.autolink/autolink"><code>autolink-*</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.nibor.autolink/autolink/0.10.0"><b>0.10.0</b></a><br/><span style="color:gray;font-size:80%;">(Jul 2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.nibor.autolink/autolink/0.6.0">0.6.0</a><br/><span style="color:gray;font-size:80%;">(2016)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.nibor.autolink/autolink/0.6.0">0.6.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.nibor.autolink/autolink/0.6.0">0.6.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.nibor.autolink/autolink/0.6.0">0.6.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.nibor.autolink/autolink/0.6.0">0.6.0</a></td>
@@ -77,11 +81,13 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.3.5">1.3.5</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.3.5">1.3.5</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.3.5">1.3.5</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.3.5">1.3.5</a></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark"><code>flexmark-*</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark/0.62.2"><b>0.62.2</b></a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2020)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark/0.64.0"><b>0.64.0</b></a><br/><span style="color:gray;font-size:80%;">(Feb&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark/0.42.12">0.42.12</a><br/><span style="color:gray;">(2019)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark/0.42.12">0.42.12</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark/0.42.12">0.42.12</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark/0.42.12">0.42.12</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark/0.42.12">0.42.12</a></td>
@@ -90,47 +96,52 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations"><code>jackson-annotations</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.13.1"><b>2.13.1</b></a><br/><span style="color:gray;font-size:80%;">(Dec&nbsp;2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.13.2"><b>2.13.2</b></a><br/><span style="color:gray;font-size:80%;">(Mar&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.2.3">2.2.3</a><br/><span style="color:gray;font-size:80%;">(2013)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.2.3">2.2.3</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.2.3">2.2.3</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.2.3">2.2.3</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.2.3">2.2.3</a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.2.3">2.2.3</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.12.1">2.12.1</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.12.1">2.12.1</a></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core"><code>jackson-core</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.13.1"><b>2.13.1</b></a><br/><span style="color:gray;font-size:80%;">(Dec&nbsp;2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.13.2"><b>2.13.2</b></a><br/><span style="color:gray;font-size:80%;">(Mar&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.9.8">2.9.8</a><br/><span style="color:gray;">(2018)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.9.8">2.9.8</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.9.8">2.9.8</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.9.8">2.9.8</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.9.8">2.9.8</a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.9.8">2.9.8</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.12.1">2.12.1</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core/2.12.1">2.12.1</a></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind"><code>jackson-databind</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind/2.13.1"><b>2.13.1</b></a><br/><span style="color:gray;font-size:80%;">(Dec&nbsp;2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind/2.13.2"><b>2.13.2</b></a><br/><span style="color:gray;font-size:80%;">(Mar&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind/2.2.3">2.2.3</a><br/><span style="color:gray;font-size:80%;">(Aug&nbsp;2013)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.2.3">2.2.3</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.2.3">2.2.3</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.2.3">2.2.3</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.2.3">2.2.3</a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.2.3">2.2.3</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.12.1">2.12.1</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations/2.12.1">2.12.1</a></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml"><code>jackson-dataformat-yaml</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.13.0"><b>2.13.1</b></a><br/><span style="color:gray;font-size:80%;">(Dec&nbsp;2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.13.2"><b>2.13.2</b></a><br/><span style="color:gray;font-size:80%;">(Mar&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.9.8">2.9.8</a><br/><span style="color:gray;">(2018)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.9.8">2.9.8</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.9.8">2.9.8</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.9.8">2.9.8</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.9.8">2.9.8</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.12.1">2.12.1</a></td></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/2.12.1">2.12.1</a></td></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline-reader"><code>jline-reader</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline-reader/3.21.0"><b>3.21.0</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;s2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline-reader/3.19.0">3.19.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline-reader/3.19.0">3.19.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline-reader/3.19.0">3.19.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline-reader/3.19.0">3.19.0</a></td>
@@ -147,6 +158,7 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna/5.3.1">5.3.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna/5.3.1">5.3.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna/5.3.1">5.3.1</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna/5.3.1">5.3.1</a></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jsoup/jsoup"><code>jsoup</code></a></td>
@@ -156,7 +168,8 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jsoup/jsoup/1.13.1">1.13.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jsoup/jsoup/1.13.1">1.13.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jsoup/jsoup/1.13.1">1.13.1</a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jsoup/jsoup/1.13.1">1.13.1</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jsoup/jsoup/1.14.3">1.14.3</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jsoup/jsoup/1.14.3">1.14.3</a></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/nl.big-o/liqp"><code>liqp</code></a></td>
@@ -167,11 +180,13 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/nl.big-o/liqp/0.6.7">0.6.7</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/nl.big-o/liqp/0.6.7">0.6.7</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/nl.big-o/liqp/0.8.2">0.8.2</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/nl.big-o/liqp/0.8.2">0.8.2</a></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java"><code>protobuf-java</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java/3.19.4"><b>3.19.4</b></a><br/><span style="color:gray;font-size:80%;">(Jan&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java/3.7.0">3.7.0</a><br/><span style="color:gray;">(2019)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java/3.7.0">3.7.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java/3.7.0">3.7.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java/3.7.0">3.7.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java/3.7.0">3.7.0</a></td>
@@ -187,6 +202,7 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.1.0-scala-1">9.1.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.1.0-scala-1">9.1.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.1.0-scala-1">9.1.0</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.2.0-scala-1">9.2.0</a> <sup id="anchor_03"><a href="#footnote_03">3</a></sup></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library"><code>scala-library</code></a></td>
@@ -196,7 +212,8 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.6">2.13.6</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.6">2.13.6</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.6">2.13.6</a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.6">2.13.6</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.8">2.13.8</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.8">2.13.8</a></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.yaml/snakeyaml"><code>snakeyaml</code></a></td>
@@ -206,7 +223,8 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.yaml/snakeyaml/1.23">1.23</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.yaml/snakeyaml/1.23">1.23</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.yaml/snakeyaml/1.23">1.23</a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.yaml/snakeyaml/1.23">1.23</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.yaml/snakeyaml/1.27">1.27</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.yaml/snakeyaml/1.27">1.27</a></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/ST4"><code>ST4</code></a></td>
@@ -217,11 +235,13 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/ST4/4.0.7">4.0.7</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/ST4/4.0.7">4.0.7</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/ST4/4.0.7">4.0.7</a></td>
+  <td style="padding:4px;color:red;"><b>removed</b></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface"><code>util-interface</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.6.1"><b>1.6.1</b></a><br/><span style="color:gray;font-size:80%;">(Dec&nbsp;2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.6.2"><b>1.6.2</b></a><br/><span style="color:gray;font-size:80%;">(Jan&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.3.0">1.3.0</a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2019)</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.3.0">1.3.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.3.0">1.3.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.3.0">1.3.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.3.0">1.3.0</a></td>
@@ -469,7 +489,7 @@ Update 9.2.0 of the <a href="https://gitlab.ow2.org/asm/asm/-/commit/1412c76"><c
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
