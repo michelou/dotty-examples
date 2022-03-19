@@ -58,8 +58,8 @@ As mentioned in the introduction the Scala 3 distributions depend on *many* exte
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr/3.5.1">3.5.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr/3.5.1">3.5.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr/3.5.1">3.5.1</a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr/4.7.2">4.7.2</a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr/4.7.2">4.7.2</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.7.2">4.7.2</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.7.2">4.7.2</a></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.nibor.autolink/autolink"><code>autolink-*</code></a></td>
