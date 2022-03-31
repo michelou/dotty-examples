@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-03-31" />
+  <meta name="dcterms.date" content="2022-04-01" />
   <title>cs(1) Coursier 2.0.13 | Third-Party Scala Commands</title>
   <style>
     html {
@@ -169,7 +169,7 @@
 <!--
 <h1 class="title">cs(1) Coursier 2.0.13 | Third-Party Scala
 Commands</h1>
-<p class="date">March 31, 2022</p>
+<p class="date">April 01, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">cs(1)</div>
@@ -182,7 +182,7 @@ Commands</h1>
 <p><strong>cs</strong> - Scala application and artifact manager</p>
 <h1 id="synopsis">SYNOPSIS</h1>
 <p><strong>cs</strong>
-<code>[</code><em><code>&lt;options&gt;</code></em><code>] [</code><em><code>&lt;command&gt;</code></em><code>] [</code><em><code>&lt;command-options&gt;</code></em><code>]</code></p>
+<code>[</code><em><code>&lt;coursier-options&gt;</code></em><code>] [</code><em><code>&lt;command&gt;</code></em><code>] [</code><em><code>&lt;command-options&gt;</code></em><code>]</code></p>
 <h1 id="description">DESCRIPTION</h1>
 <p><a href="https://get-coursier.io/"><em>Coursier</em></a> is the Scala
 application and artifact manager. It can install Scala applications and
@@ -239,7 +239,7 @@ files.
 See <a href="#update_options"><strong>Update Options</strong></a>).
 </dd>
 </dl>
-<h1 id="options">OPTIONS</h1>
+<h1 id="options"><span id="options">OPTIONS</span></h1>
 <h2 id="channel-options"><span id="channel-options">Channel
 Options</span></h2>
 <dl>
@@ -276,7 +276,7 @@ Log changing artifacts.
 <dt><strong>--log-channel-version</strong>
 <em><code>&lt;bool&gt;</code></em>, <strong>--log-index-version</strong>
 <em><code>&lt;bool&gt;</code></em>,
-<strong>–log-jvm-index-version</strong>
+<strong>--log-jvm-index-version</strong>
 <em><code>&lt;bool&gt;</code></em></dt>
 <dd>
 Log app channel or JVM index version.
@@ -316,14 +316,18 @@ fetch things missing from cache).
 <dt><strong>--ttl</strong>, <strong>-l</strong>
 <em><code>&lt;duration&gt;</code></em></dt>
 <dd>
-Set TTL duration (e.g. “24 hours”).
+Set the TTL duration (e.g. “24 hours”).
 </dd>
 <dt><strong>--parallel</strong>, <strong>-n</strong>
 <em><code>&lt;int&gt;</code></em></dt>
 <dd>
-Set maximum number of parallel downloads (default:
-<strong><code>6</code></strong>).
+Set maximum number of parallel downloads.
 </dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>6</code></strong>.</p>
+</blockquote>
+<dl>
 <dt><strong>--checksum</strong>
 <em><code>&lt;checksum1,checksum2,...&gt;</code></em></dt>
 <dd>
@@ -363,7 +367,8 @@ Set path to credential files to read credentials from.
 <dd>
 Whether to read credentials from COURSIER_CREDENTIALS (env) or
 coursier.credentials (Java property), along those passed with
-–credentials and –credential-file.
+<strong><code>--credentials</code></strong> and
+<strong><code>--credential-file</code></strong>.
 </dd>
 <dt><strong>--repository</strong>, <strong>-r</strong>
 <em><code>&lt;maven|sonatype:$repo|ivy2local|bintray:$org/$repo|bintray-ivy:$org/$repo|typesafe:ivy-$repo|typesafe:$repo|sbt-plugin:$repo|scala-integration|scala-nightlies|ivy:$pattern|jitpack|clojars|jcenter|apache:$repo&gt;</code></em></dt>
@@ -376,36 +381,83 @@ central,ivy2local,sonatype:snapshots)
 <dt><strong>--no-default</strong>
 <em><code>&lt;boolean&gt;</code></em></dt>
 <dd>
-Do not add default repositories (~/.ivy2/local, and Central)
+Do not add default repositories
+(<strong><code>~/.ivy2/local/</code></strong>, and Central)
+</dd>
+<dt><strong>--sbt-plugin-hack</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Modify names in <a href="https://mvnrepository.com/"><em>Maven
+repository</em></a> paths for sbt plugins.
+</dd>
+<dt><strong>–drop-info-attr</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Drop module attributes starting with ‘info.’ - these are sometimes used
+by projects built with <a href="./sbt.1.html"><strong>sbt</strong></a>.
+</dd>
+<dt><strong>–channel</strong>
+<em><code>&lt;org:name&gt;</code></em></dt>
+<dd>
+Set channel for apps.
+</dd>
+<dt><strong>–default-channels</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Add default channels.
+</dd>
+<dt><strong>–contrib</strong> <em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Add contrib channel.
+</dd>
+<dt><strong>–file-channels</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Add channels read from the configuration directory.
+</dd>
+<dt><strong>–keep-optional</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Keep optional dependencies (Maven).
+</dd>
+<dt><strong>–max-iterations</strong>, <strong>-N</strong>
+<em><code>&lt;int&gt;</code></em></dt>
+<dd>
+Set the maximum number of resolution iterations (specify a negative
+value for unlimited).
 </dd>
 </dl>
-<p><strong>--sbt-plugin-hack</strong>
-<em><code>&lt;boolean&gt;</code></em> Modify names in Maven repository
-paths for sbt plugins –drop-info-attr <bool> Drop module attributes
-starting with ‘info.’ - these are sometimes used by projects built with
-sbt –channel <org:name> Channel for apps –default-channels <bool> Add
-default channels –contrib <bool> Add contrib channel –file-channels
-<bool> Add channels read from the configuration directory –keep-optional
-<bool> Keep optional dependencies (Maven) –max-iterations | -N <int>
-Maximum number of resolution iterations (specify a negative value for
-unlimited, default: 100) –force-version | -V
-<organization:name:forcedVersion> Force module version –pom-property
-&lt;name=value&gt; Set property in POM files, if it’s not already set
-–force-pom-property &lt;name=value&gt; Force property in POM files
-–profile <profile> Enable profile –scala-version | -e | –scala
-&lt;string?&gt; Default scala version –force-scala-version &lt;bool?&gt;
-Ensure the scala version used by the scala-library/reflect/compiler JARs
-is coherent, and adjust the scala version for fully cross-versioned
-dependencies –typelevel <bool> Swap the mainline Scala JARs by Typelevel
-ones –rules | –rule &lt;string<em>&gt; Enforce resolution rules
-–reconciliation &lt;organization:name:(basic|relaxed)&gt; Choose
-reconciliation strategy –strict &lt;bool?&gt; –strict-include
-&lt;string</em>&gt; –strict-exclude &lt;string<em>&gt;
-–default-configuration | -c <configuration> Default configuration
-(default(compile) by default) –exclude | -E <organization:name> Exclude
-module –local-exclude-file | -x <string> Path to the local exclusion
-file. Syntax: <org:name>–<org:name>. <code>--</code> means minus.
-Example file content:
+<blockquote>
+<p>Default: <strong><code>100</code></strong>.</p>
+</blockquote>
+<dl>
+<dt><strong>-force-version</strong>, <strong>-V</strong>
+<em><code>&lt;organization:name:forcedVersion&gt;</code></em></dt>
+<dd>
+Force module version.
+</dd>
+<dt><strong>–pom-property</strong>
+<em><code>&lt;name&gt;=&lt;value&gt;</code></em></dt>
+<dd>
+Set property in POM files, if it’s not already set.
+</dd>
+</dl>
+<p><strong>–force-pom-property</strong> &lt;name=value&gt; Force
+property in POM files. –profile <profile> Enable profile. –scala-version
+| -e | –scala &lt;string?&gt; Default scala version.
+–force-scala-version &lt;bool?&gt; Ensure the scala version used by the
+scala-library/reflect/compiler JARs is coherent, and adjust the scala
+version for fully cross-versioned dependencies –typelevel <bool> Swap
+the mainline Scala JARs by Typelevel ones. –rules | –rule
+&lt;string<em>&gt; Enforce resolution rules –reconciliation
+&lt;organization:name:(basic|relaxed)&gt; Choose reconciliation strategy
+–strict &lt;bool?&gt; –strict-include &lt;string</em>&gt;
+–strict-exclude &lt;string<em>&gt; –default-configuration | -c
+<configuration> Default configuration (default(compile) by default)
+–exclude | -E <organization:name> Exclude module –local-exclude-file |
+-x <string> Path to the local exclusion file. Syntax:
+<org:name>–<org:name>. <code>--</code> means minus. Example file
+content:
 com.twitter.penguin:korean-text–com.twitter:util-tunable-internal_2.11
 org.apache.commons:commons-math–com.twitter.search:core-query-nodes
 Behavior: If root module A excludes module X, but root module B requires
@@ -622,8 +674,9 @@ Add contrib channel.
 <dl>
 <dt><strong>--cache</strong> <em><code>&lt;string&gt;</code></em></dt>
 <dd>
-Cache directory (defaults to environment variable COURSIER_CACHE, or
-~/.cache/coursier/v1 on Linux and ~/Library/Caches/Coursier/v1 on Mac).
+Cache directory (defaults to environment variable
+<strong><code>COURSIER_CACHE</code></strong>, or ~/.cache/coursier/v1 on
+Linux and ~/Library/Caches/Coursier/v1 on Mac).
 </dd>
 <dt><strong>-l</strong>, <strong>--ttl</strong>
 <em><code>&lt;duration&gt;</code></em></dt>
@@ -655,61 +708,137 @@ Path to credential files to read credentials from.
 <dd>
  
 </dd>
-<dt><strong>–jvm</strong> <em><code>&lt;string&gt;</code></em></dt>
+<dt><strong>--jvm</strong> <em><code>&lt;string&gt;</code></em></dt>
 <dd>
  
 </dd>
-<dt><strong>–jvm-dir</strong>
+<dt><strong>--jvm-dir</strong>
 <code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
 <dd>
  
 </dd>
-<dt><strong>–system-jvm</strong>
+<dt><strong>--system-jvm</strong>
 <code>[</code><em><code>&lt;boolean&gt;</code></em><code>]</code></dt>
 <dd>
  
 </dd>
+<dt><strong>--local-only</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+ 
+</dd>
+<dt><strong>--update</strong> <em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+ 
+</dd>
+<dt><strong>--jvm-index</strong>
+<code>[``*&lt;string&gt;</code>*<code>]</code></dt>
+<dd>
+ 
+</dd>
+<dt><strong>--repository</strong>, <strong>-r &lt;maven|sonatype:<span
+class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>i</em><em>v</em><em>y</em>2<em>l</em><em>o</em><em>c</em><em>a</em><em>l</em>|<em>b</em><em>i</em><em>n</em><em>t</em><em>r</em><em>a</em><em>y</em>:</span>org/<span
+class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>b</em><em>i</em><em>n</em><em>t</em><em>r</em><em>a</em><em>y</em> − <em>i</em><em>v</em><em>y</em>:</span>org/<span
+class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>t</em><em>y</em><em>p</em><em>e</em><em>s</em><em>a</em><em>f</em><em>e</em> : <em>i</em><em>v</em><em>y</em>−</span>repo|typesafe:<span
+class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>s</em><em>b</em><em>t</em> − <em>p</em><em>l</em><em>u</em><em>g</em><em>i</em><em>n</em>:</span>repo|scala-integration|scala-nightlies|ivy:<span
+class="math inline"><em>p</em><em>a</em><em>t</em><em>t</em><em>e</em><em>r</em><em>n</em>|<em>j</em><em>i</em><em>t</em><em>p</em><em>a</em><em>c</em><em>k</em>|<em>c</em><em>l</em><em>o</em><em>j</em><em>a</em><em>r</em><em>s</em>|<em>j</em><em>c</em><em>e</em><em>n</em><em>t</em><em>e</em><em>r</em>|<em>a</em><em>p</em><em>a</em><em>c</em><em>h</em><em>e</em>:</span>repo&gt;</strong></dt>
+<dd>
+Repository - for multiple repositories, separate with comma and/or add
+this option multiple times
+(e.g. <strong><code>-r central,ivy2local -r sonatype:snapshots</code></strong>,
+or equivalently
+<strong><code>-r central,ivy2local,sonatype:snapshots</code></strong>).
+</dd>
+<dt><strong>--no-default</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Do not add default repositories
+(<strong><code>~/.ivy2/local/</code></strong>, and Central).
+</dd>
+<dt><strong>--sbt-plugin-hack</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Modify names in Maven repository paths for sbt plugins.
+</dd>
+<dt><strong>--drop-info-attr</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Drop module attributes starting with ‘info.’ - these are sometimes used
+by projects built with <a href="./sbt.1.html"><strong>sbt</strong></a>.
+</dd>
+<dt><strong>--channel</strong>
+<em><code>&lt;org:name&gt;</code></em></dt>
+<dd>
+Specify channel for apps.
+</dd>
+<dt><strong>--default-channels</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Add default channels.
+</dd>
+<dt><strong>--contrib</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Add contrib channel.
+</dd>
+<dt><strong>--file-channels</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Add channels read from the configuration directory.
+</dd>
+<dt><strong>--repository</strong>, <strong>-r &lt;maven|sonatype:<span
+class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>i</em><em>v</em><em>y</em>2<em>l</em><em>o</em><em>c</em><em>a</em><em>l</em>|<em>b</em><em>i</em><em>n</em><em>t</em><em>r</em><em>a</em><em>y</em>:</span>org/<span
+class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>b</em><em>i</em><em>n</em><em>t</em><em>r</em><em>a</em><em>y</em> − <em>i</em><em>v</em><em>y</em>:</span>org/<span
+class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>t</em><em>y</em><em>p</em><em>e</em><em>s</em><em>a</em><em>f</em><em>e</em> : <em>i</em><em>v</em><em>y</em>−</span>repo|typesafe:<span
+class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>s</em><em>b</em><em>t</em> − <em>p</em><em>l</em><em>u</em><em>g</em><em>i</em><em>n</em>:</span>repo|scala-integration|scala-nightlies|ivy:<span
+class="math inline"><em>p</em><em>a</em><em>t</em><em>t</em><em>e</em><em>r</em><em>n</em>|<em>j</em><em>i</em><em>t</em><em>p</em><em>a</em><em>c</em><em>k</em>|<em>c</em><em>l</em><em>o</em><em>j</em><em>a</em><em>r</em><em>s</em>|<em>j</em><em>c</em><em>e</em><em>n</em><em>t</em><em>e</em><em>r</em>|<em>a</em><em>p</em><em>a</em><em>c</em><em>h</em><em>e</em>:</span>repo&gt;</strong></dt>
+<dd>
+Repository - for multiple repositories, separate with comma and/or add
+this option multiple times
+(e.g. <strong><code>-r central,ivy2local -r sonatype:snapshots</code></strong>,
+or equivalently
+<strong><code>-r central,ivy2local,sonatype:snapshots</code></strong>)
+</dd>
+<dt><strong>–no-default</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Do not add default repositories
+(<strong><code>~/.ivy2/local/</code></strong>, and Central).
+</dd>
+<dt><strong>–sbt-plugin-hack</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Modify names in Maven repository paths for sbt plugins.
+</dd>
+<dt><strong>–drop-info-attr</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Drop module attributes starting with ‘info.’ - these are sometimes used
+by projects built with sbt.
+</dd>
+<dt><strong>–channel</strong>
+<em><code>&lt;org:name&gt;</code></em></dt>
+<dd>
+Set the channel for apps.
+</dd>
+<dt><strong>–default-channels</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Add default channels.
+</dd>
+<dt><strong>–contrib</strong> <em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Add contrib channel.
+</dd>
 </dl>
-<p>–local-only <bool> –update <bool> –jvm-index &lt;string?&gt;
-–repository | -r &lt;maven|sonatype:<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>i</em><em>v</em><em>y</em>2<em>l</em><em>o</em><em>c</em><em>a</em><em>l</em>|<em>b</em><em>i</em><em>n</em><em>t</em><em>r</em><em>a</em><em>y</em>:</span>org/<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>b</em><em>i</em><em>n</em><em>t</em><em>r</em><em>a</em><em>y</em> − <em>i</em><em>v</em><em>y</em>:</span>org/<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>t</em><em>y</em><em>p</em><em>e</em><em>s</em><em>a</em><em>f</em><em>e</em> : <em>i</em><em>v</em><em>y</em>−</span>repo|typesafe:<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>s</em><em>b</em><em>t</em> − <em>p</em><em>l</em><em>u</em><em>g</em><em>i</em><em>n</em>:</span>repo|scala-integration|scala-nightlies|ivy:<span
-class="math inline"><em>p</em><em>a</em><em>t</em><em>t</em><em>e</em><em>r</em><em>n</em>|<em>j</em><em>i</em><em>t</em><em>p</em><em>a</em><em>c</em><em>k</em>|<em>c</em><em>l</em><em>o</em><em>j</em><em>a</em><em>r</em><em>s</em>|<em>j</em><em>c</em><em>e</em><em>n</em><em>t</em><em>e</em><em>r</em>|<em>a</em><em>p</em><em>a</em><em>c</em><em>h</em><em>e</em>:</span>repo&gt;
-Repository - for multiple repositories, separate with comma and/or add
-this option multiple times (e.g. -r central,ivy2local -r
-sonatype:snapshots, or equivalently -r
-central,ivy2local,sonatype:snapshots) –no-default <bool> Do not add
-default repositories (~/.ivy2/local, and Central) –sbt-plugin-hack
-<bool> Modify names in Maven repository paths for sbt plugins
-–drop-info-attr <bool> Drop module attributes starting with ‘info.’ -
-these are sometimes used by projects built with sbt –channel <org:name>
-Channel for apps –default-channels <bool> Add default channels –contrib
-<bool> Add contrib channel –file-channels <bool> Add channels read from
-the configuration directory –repository | -r &lt;maven|sonatype:<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>i</em><em>v</em><em>y</em>2<em>l</em><em>o</em><em>c</em><em>a</em><em>l</em>|<em>b</em><em>i</em><em>n</em><em>t</em><em>r</em><em>a</em><em>y</em>:</span>org/<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>b</em><em>i</em><em>n</em><em>t</em><em>r</em><em>a</em><em>y</em> − <em>i</em><em>v</em><em>y</em>:</span>org/<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>t</em><em>y</em><em>p</em><em>e</em><em>s</em><em>a</em><em>f</em><em>e</em> : <em>i</em><em>v</em><em>y</em>−</span>repo|typesafe:<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>s</em><em>b</em><em>t</em> − <em>p</em><em>l</em><em>u</em><em>g</em><em>i</em><em>n</em>:</span>repo|scala-integration|scala-nightlies|ivy:<span
-class="math inline"><em>p</em><em>a</em><em>t</em><em>t</em><em>e</em><em>r</em><em>n</em>|<em>j</em><em>i</em><em>t</em><em>p</em><em>a</em><em>c</em><em>k</em>|<em>c</em><em>l</em><em>o</em><em>j</em><em>a</em><em>r</em><em>s</em>|<em>j</em><em>c</em><em>e</em><em>n</em><em>t</em><em>e</em><em>r</em>|<em>a</em><em>p</em><em>a</em><em>c</em><em>h</em><em>e</em>:</span>repo&gt;
-Repository - for multiple repositories, separate with comma and/or add
-this option multiple times (e.g. -r central,ivy2local -r
-sonatype:snapshots, or equivalently -r
-central,ivy2local,sonatype:snapshots) –no-default <bool> Do not add
-default repositories (~/.ivy2/local, and Central) –sbt-plugin-hack
-<bool> Modify names in Maven repository paths for sbt plugins
-–drop-info-attr <bool> Drop module attributes starting with ‘info.’ -
-these are sometimes used by projects built with sbt –channel <org:name>
-Channel for apps –default-channels <bool> Add default channels –contrib
-<bool> Add contrib channel –file-channels <bool> Add channels read from
-the configuration directory –cache &lt;string?&gt; Cache directory
-(defaults to environment variable COURSIER_CACHE, or
-~/.cache/coursier/v1 on Linux and ~/Library/Caches/Coursier/v1 on Mac)
-–mode | -m &lt;offline|update-changing|update|missing|force&gt; Download
-mode (default: missing, that is fetch things missing from cache) –ttl |
--l <duration> TTL duration (e.g. “24 hours”) –parallel | -n <int>
-Maximum number of parallel downloads (default: 6) –checksum
+<p><strong>–file-channels <bool> Add channels read from the
+configuration directory –cache &lt;string?&gt; Cache directory (defaults
+to environment variable COURSIER_CACHE, or ~/.cache/coursier/v1 on Linux
+and ~/Library/Caches/Coursier/v1 on Mac) –mode | -m
+&lt;offline|update-changing|update|missing|force&gt; Download mode
+(default: missing, that is fetch things missing from cache). –ttl | -l
+<duration> TTL duration (e.g. “24 hours”). –parallel | -n <int> Maximum
+number of parallel downloads (default: 6) –checksum
 &lt;checksum1,checksum2,…&gt; Checksum types to check - end with none to
 allow for no checksum validation if no checksum is available, example:
 SHA-256,SHA-1,none –retry-count <int> Retry limit for Checksum error
@@ -719,8 +848,7 @@ specifies if a local artifact should be cached.
 redirections –credentials &lt;host(realm) user:pass|host user:pass&gt;
 Credentials to be used when fetching metadata or artifacts. Specify
 multiple times to pass multiple credentials. Alternatively, use the
-<strong><code>COURSIER_CREDENTIALS</code></strong> environment
-variable.</p>
+</strong><code>COURSIER_CREDENTIALS</code>** environment variable.</p>
 <dl>
 <dt><strong>--credential-file</strong>
 <code>[</code><em><code>&lt;string*&gt;</code></em><code>]</code></dt>
@@ -815,12 +943,12 @@ Set Java properties before launching the application.
 <em><code>&lt;target:dependency&gt;</code></em>
 (<em>deprecated</em>)</dt>
 <dd>
-Set dependencies to be put in shared class loaders
+Set dependencies to be put in shared class loaders.
 </dd>
 <dt><strong>--shared</strong>
 <em><code>&lt;dependency[@target]&gt;</code></em></dt>
 <dd>
-Specify dependencies to be put in shared class loaders
+Specify dependencies to be put in shared class loaders.
 </dd>
 <dt><strong>--shared-target</strong>, <strong>-i</strong>,
 <strong>--isolate-target</strong>
@@ -832,7 +960,7 @@ Comma-separated isolation targets
 <em><code>&lt;boolean&gt;</code></em></dt>
 <dd>
 Keep dependencies or artifacts in classpath order (that is, dependencies
-before dependees)
+before dependees).
 </dd>
 <dt><strong>–cache</strong>
 <code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
@@ -845,7 +973,7 @@ Linux and ~/Library/Caches/Coursier/v1 on Mac).
 <em><code>&lt;offline|update-changing|update|missing|force&gt;</code></em></dt>
 <dd>
 Download mode (default: missing, that is fetch things missing from
-cache)
+cache).
 </dd>
 <dt><strong>--ttl</strong>, <strong>-l</strong>
 <em><code>&lt;duration&gt;</code></em></dt>
@@ -855,8 +983,13 @@ Set the TTL duration (e.g. “24 hours”).
 <dt><strong>--parallel</strong>, <strong>-n</strong>
 <em><code>&lt;int&gt;</code></em></dt>
 <dd>
-Set the maximum number of parallel downloads (default: 6).
+Set the maximum number of parallel downloads.
 </dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>6</code></strong>.</p>
+</blockquote>
+<dl>
 <dt><strong>--checksum</strong>
 <em><code>&lt;checksum1,checksum2,...&gt;</code></em></dt>
 <dd>
@@ -912,8 +1045,8 @@ central,ivy2local,sonatype:snapshots)
 <dt><strong>--no-default</strong>
 <em><code>&lt;boolean&gt;</code></em></dt>
 <dd>
-Do not add default repositories (<code>~/.ivy2/local</code>, and
-Central)
+Do not add default repositories
+(<strong><code>~/.ivy2/local</code></strong>, and Central)
 </dd>
 <dt><strong>--sbt-plugin-hack</strong>
 <em><code>&lt;booleah&gt;</code></em></dt>
@@ -955,8 +1088,13 @@ Keep optional dependencies (Maven).
 <em><code>&lt;int&gt;</code></em></dt>
 <dd>
 Set the maximum number of resolution iterations (specify a negative
-value for unlimited, default: 100).
+value for unlimited).
 </dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>100</code></strong>.</p>
+</blockquote>
+<dl>
 <dt><strong>--force-version</strong>, <strong>-V</strong>
 <em><code>&lt;organization:name:forcedVersion&gt;</code></em></dt>
 <dd>
@@ -1005,7 +1143,8 @@ Enforce resolution rules.
 <dd>
 Choose reconciliation strategy.
 </dd>
-<dt><strong>--strict</strong> <em><code>&lt;bool?&gt;</code></em></dt>
+<dt><strong>--strict</strong>
+<code>[</code><em><code>&lt;bool&gt;</code></em><code>]</code></dt>
 <dd>
  
 </dd>
@@ -1018,17 +1157,20 @@ Choose reconciliation strategy.
 <p><strong>--strict-exclude</strong>
 <em><code>&lt;string&gt;</code></em><code>...</code></p>
 <dl>
-<dt><strong>--default-configuration</strong>, <strong>-c</strong>
+<dt><strong>--default-configuration</strong>
+<em><code>&lt;configuration&gt;</code></em>, <strong>-c</strong>
 <em><code>&lt;configuration&gt;</code></em></dt>
 <dd>
 Default configuration (default(compile) by default)
 </dd>
-<dt><strong>--exclude</strong>, <strong>-E</strong>
+<dt><strong>--exclude</strong>
+<em><code>&lt;organization:name&gt;</code></em>, <strong>-E</strong>
 <em><code>&lt;organization:name&gt;</code></em></dt>
 <dd>
 Exclude module
 </dd>
-<dt><strong>--local-exclude-file</strong>, <strong>-x</strong>
+<dt><strong>--local-exclude-file</strong>
+<em><code>&lt;string&gt;</code></em>, <strong>-x</strong>
 <em><code>&lt;string&gt;</code></em></dt>
 <dd>
 Specify the path to the local exclusion file. Syntax:
@@ -1076,22 +1218,84 @@ Enable scala-native.
 <dd>
 Quiet output.
 </dd>
+<dt><strong>–verbose</strong>, <strong>-v</strong>
+<em><code>&lt;counter&gt;</code></em></dt>
+<dd>
+Increase verbosity (specify several times to increase more).
+</dd>
+<dt><strong>–progress</strong>, <strong>-P</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Force display of progress bars.
+</dd>
+<dt><strong>--log-changing</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Log changing artifacts.
+</dd>
+<dt><strong>--log-channel-version</strong>,
+<strong>--log-index-version</strong>,
+<strong>--log-jvm-index-version</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Log app channel or JVM index version.
+</dd>
+<dt><strong>--classifier</strong>, <strong>-C</strong>
+<em><code>&lt;classifier1,classifier2,...&gt;</code></em></dt>
+<dd>
+Specify the classifiers that should be fetched.
+</dd>
+<dt><strong>--sources</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Fetch source artifacts.
+</dd>
+<dt><strong>--javadoc</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Fetch javadoc artifacts.
+</dd>
+<dt><strong>--default</strong>
+<code>[</code><em><code>&lt;boolean&gt;</code></em><code>]</code></dt>
+<dd>
+Fetch default artifacts.
+</dd>
 </dl>
-<p><strong>–verbose</strong> | -v <counter> Increase verbosity (specify
-several times to increase more) –progress | -P <bool> Force display of
-progress bars –log-changing <bool> Log changing artifacts
-–log-channel-version | –log-index-version | –log-jvm-index-version
-<bool> Log app channel or JVM index version –classifier | -C
-&lt;classifier1,classifier2,…&gt; Classifiers that should be fetched
-–sources <bool> Fetch source artifacts –javadoc <bool> Fetch javadoc
-artifacts –default &lt;bool?&gt; Fetch default artifacts (default: false
-if –sources or –javadoc or –classifier are passed, true else)
-–artifact-type | -A &lt;type1,type2,…&gt; Artifact types that should be
-retained (e.g. jar, src, doc, etc.) - defaults to jar,bundle
-–force-fetch <bool> Fetch artifacts even if the resolution is errored
-–jvm &lt;string?&gt; –jvm-dir &lt;string?&gt; –system-jvm &lt;bool?&gt;
-–local-only <bool> –update <bool> –jvm-index &lt;string?&gt; –repository
-| -r &lt;maven|sonatype:<span
+<blockquote>
+<p>Default: <strong><code>false</code></strong> if
+<strong><code>--sources</code></strong> or
+<strong><code>--javadoc</code></strong> or
+<strong><code>--classifier</code></strong> are passed,
+<strong><code>true</code></strong> otherwise.</p>
+</blockquote>
+<dl>
+<dt><strong>--artifact-type</strong>, <strong>-A</strong>
+<em><code>&lt;type1,type2,...&gt;</code></em></dt>
+<dd>
+Specify the artifact types that should be retained
+(e.g. <strong><code>jar</code></strong>,
+<strong><code>src</code></strong>, <strong><code>doc</code></strong>,
+etc.).
+</dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>jar,bundle</code></strong>.</p>
+</blockquote>
+<dl>
+<dt><strong>--force-fetch</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Fetch artifacts even if the resolution is errored.
+</dd>
+<dt><strong>--jvm</strong>
+<code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
+<dd>
+ 
+</dd>
+</dl>
+<p>–jvm-dir &lt;string?&gt; –system-jvm &lt;bool?&gt; –local-only <bool>
+–update <bool> –jvm-index &lt;string?&gt; –repository | -r
+&lt;maven|sonatype:<span
 class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>i</em><em>v</em><em>y</em>2<em>l</em><em>o</em><em>c</em><em>a</em><em>l</em>|<em>b</em><em>i</em><em>n</em><em>t</em><em>r</em><em>a</em><em>y</em>:</span>org/<span
 class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>b</em><em>i</em><em>n</em><em>t</em><em>r</em><em>a</em><em>y</em> − <em>i</em><em>v</em><em>y</em>:</span>org/<span
 class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>t</em><em>y</em><em>p</em><em>e</em><em>s</em><em>a</em><em>f</em><em>e</em> : <em>i</em><em>v</em><em>y</em>−</span>repo|typesafe:<span
@@ -1191,46 +1395,59 @@ Whether to read credentials from
 along those passed with <strong><code>--credentials</code></strong> and
 <strong><code>--credential-file</code></strong>.
 </dd>
-<dt><strong>–quiet</strong>, <strong>-q</strong>
+<dt><strong>--quiet</strong>, <strong>-q</strong>
 <em><code>&lt;counter&gt;</code></em></dt>
 <dd>
 Quiet output.
 </dd>
-<dt><strong>–verbose</strong>, <strong>-v</strong>
+<dt><strong>--verbose</strong>, <strong>-v</strong>
 <em><code>&lt;counter&gt;</code></em></dt>
 <dd>
 Increase verbosity (specify several times to increase more).
 </dd>
-<dt><strong>–progress</strong>, <strong>-P</strong>
+<dt><strong>--progress</strong>, <strong>-P</strong>
 <em><code>&lt;boolean&gt;</code></em></dt>
 <dd>
 Force display of progress bars.
 </dd>
-<dt><strong>–log-changing</strong>
+<dt><strong>--log-changing</strong>
 <em><code>&lt;boolean&gt;</code></em></dt>
 <dd>
 Log changing artifacts.
 </dd>
-<dt><strong>–log-channel-version</strong>,
-<strong>–log-index-version</strong>,
-<strong>–log-jvm-index-version</strong>
+<dt><strong>--log-channel-version</strong>,
+<strong>--log-index-version</strong>,
+<strong>--log-jvm-index-version</strong>
 <em><code>&lt;boolean&gt;</code></em></dt>
 <dd>
 Log app channel or JVM index version.
 </dd>
-<dt><strong>–graalvm-home</strong>
+<dt><strong>--graalvm-home</strong>
+<code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
+<dd>
+ 
+</dd>
+<dt><strong>--graalvm-option</strong>
+<em><code>&lt;string&gt;</code></em> <code>...</code></dt>
+<dd>
+ 
+</dd>
+<dt><strong>--graalvm-default-version</strong>
+<code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
+<dd>
+ 
+</dd>
+<dt><strong>–install-dir</strong>, <strong>–dir</strong>
 <code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
 <dd>
  
 </dd>
 </dl>
-<p>–graalvm-option &lt;string*&gt; –graalvm-default-version
-&lt;string?&gt; –install-dir | –dir &lt;string?&gt; –install-platform
-&lt;string?&gt; Platform for prebuilt binaries (e.g. “x86_64-pc-linux”,
-“x86_64-apple-darwin”, “x86_64-pc-win32”) –install-prefer-prebuilt
-<bool> –only-prebuilt <bool> Require prebuilt artifacts for native
-applications, don’t try to build native executable ourselves –repository
-| -r &lt;maven|sonatype:<span
+<p>–install-platform &lt;string?&gt; Platform for prebuilt binaries
+(e.g. “x86_64-pc-linux”, “x86_64-apple-darwin”, “x86_64-pc-win32”)
+–install-prefer-prebuilt <bool> –only-prebuilt <bool> Require prebuilt
+artifacts for native applications, don’t try to build native executable
+ourselves –repository | -r &lt;maven|sonatype:<span
 class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>i</em><em>v</em><em>y</em>2<em>l</em><em>o</em><em>c</em><em>a</em><em>l</em>|<em>b</em><em>i</em><em>n</em><em>t</em><em>r</em><em>a</em><em>y</em>:</span>org/<span
 class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>b</em><em>i</em><em>n</em><em>t</em><em>r</em><em>a</em><em>y</em> − <em>i</em><em>v</em><em>y</em>:</span>org/<span
 class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>t</em><em>y</em><em>p</em><em>e</em><em>s</em><em>a</em><em>f</em><em>e</em> : <em>i</em><em>v</em><em>y</em>−</span>repo|typesafe:<span

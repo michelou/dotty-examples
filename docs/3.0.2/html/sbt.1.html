@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-03-31" />
+  <meta name="dcterms.date" content="2022-04-01" />
   <title>sbt(1) Sbt 1.6.2 | Scala Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">sbt(1) Sbt 1.6.2 | Scala Commands</h1>
-<p class="date">March 31, 2022</p>
+<p class="date">April 01, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">sbt(1)</div>
@@ -207,7 +207,7 @@ edit-compile-test loop is fast and incremental.</p>
 <p>Adding support for new tasks and platforms (like <a
 href="https://www.scala-js.org/"
 title="Scala.js - for robust front-end web applications">Scala.js</a>)
-is as easy as writing <code>build.sbt</code>.</p>
+is as easy as writing <strong><code>build.sbt</code></strong>.</p>
 <p>Further features include :</p>
 <ul>
 <li>Library management support using <a href="https://get-coursier.io/"
@@ -216,8 +216,9 @@ title="Coursier - Pure Scala Artifact Fetching"><em>Coursier</em></a></li>
 <li>Supports testing with <a
 href="https://scalacheck.org/"><em>ScalaCheck</em></a>, <a
 href="https://etorreborre.github.io/specs2/"><em>specs2</em></a>, and <a
-href="https://www.scalatest.org/"><em>ScalaTest</em></a>. JUnit is
-supported by a plugin.</li>
+href="https://www.scalatest.org/"><em>ScalaTest</em></a>. <a
+href="https://junit.org/"><em>JUnit</em></a> is supported by a
+plugin.</li>
 <li>Starts the Scala REPL with project classes and dependencies on the
 classpath</li>
 <li>Modularization supported with sub-projects</li>
@@ -326,16 +327,21 @@ repository.
 <dl>
 <dt><strong>--mem</strong> <em><code>&lt;integer&gt;</code></em></dt>
 <dd>
-Set memory options (default: <code>1024</code> bytes).
+Set memory options.
 </dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>1024</code></strong> bytes.</p>
+</blockquote>
+<dl>
 <dt><strong>--no-share</strong></dt>
 <dd>
 Use all local caches; no sharing.
 </dd>
 <dt><strong>--no-global</strong></dt>
 <dd>
-Use global caches, but does not use global <code>~/.sbt</code>
-directory.
+Use global caches, but does not use global
+<strong><code>~/.sbt</code></strong> directory.
 </dd>
 <dt><strong>--jvm-debug</strong> <em><code>&lt;port&gt;</code></em></dt>
 <dd>
@@ -371,18 +377,18 @@ title="java command"><strong>java</strong></a> command from
 <dl>
 <dt><strong>JAVA_OPTS</strong></dt>
 <dd>
-Environment variable, if unset uses <code>-Dfile.encoding=UTF-8</code>.
+If unset uses <strong><code>-Dfile.encoding=UTF-8</code></strong>.
 </dd>
 <dt><strong>SBT_OPTS</strong></dt>
 <dd>
-Environment variable, if unset uses <code>""</code>.
+If unset uses <strong><code>""</code></strong>.
 </dd>
 </dl>
 <blockquote>
 <p><em><em>Note</em></em>: <strong><code>SBT_OPTS</code></strong> acts
 as a superset of <strong><code>JAVA_OPTS</code></strong> allowing
-<code>-X*</code> and <code>-Dkey=value</code> as well as sbt script
-specific features such as <code>-v</code> and
+<code>-X*</code> and <code>-D&lt;property&gt;=&lt;value&gt;</code> as
+well as sbt script specific features such as <code>-v</code> and
 <code>--supershell=false</code>.</p>
 </blockquote>
 <h2 id="system-properties">System Properties</h2>
@@ -396,7 +402,7 @@ Show a welcome banner advertising new features.
 </dd>
 </dl>
 <blockquote>
-<p>Default: <strong><code>true</code></strong> (in 1.3+).</p>
+<p>Default: <strong><code>true</code></strong> (in 1.3 and above).</p>
 </blockquote>
 <dl>
 <dt><strong>sbt.boot.directory</strong>
@@ -556,21 +562,26 @@ succeeds. Non zero is returned in case of any error. If a script or
 top-level object is executed and returns a value, then that return value
 is passed on to <strong>sbt</strong>.</p>
 <h1 id="authors">AUTHORS</h1>
+<p><strong>Mark Harrah</strong> and the <a
+href="https://www.lightbend.com/"><strong>Lightbend</strong></a>
+development team.</p>
 <h1 id="reporting-bugs">REPORTING BUGS</h1>
 <p>Please file bugs to <a
 href="https://github.com/sbt/sbt/issues">https://github.com/sbt/sbt/issues</a>.</p>
 <h1 id="copyright">COPYRIGHT</h1>
 <p><a href="https://github.com/sbt/sbt/blob/develop/LICENSE">The Apache
 License 2.0</a></p>
-<p>Copyright (c) 2008, 2009 <strong>Mark Harrah</strong></p>
+<p>Copyright (c) 2008-2009 <strong>Mark Harrah</strong></p>
 <!-- [The BSD License](https://www.lightbend.com/legal/licenses) -->
 <p>Copyright (c) 2016-2022 <a
 href="https://www.lightbend.com/legal/licenses"><strong>Lightbend,
 Inc.</strong></a></p>
 <h1 id="see-also">SEE ALSO</h1>
 <p><a href="./amm.1.html"><strong>amm</strong></a>(1), <a
-href="./mill.1.html"><strong>mill</strong></a>(1), <a
 href="./cs.1.html"><strong>cs</strong></a>(1), <a
+href="./mill.1.html"><strong>mill</strong></a>(1), <a
+href="./scala-cli.1.html"><strong>scala-cli</strong></a>(1),
+[<strong>scalafix</strong>][scalafix](1), <a
 href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <!-- hyperref -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
