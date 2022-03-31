@@ -7,8 +7,8 @@ We generate both versions of the manual pages with the [Pandoc][pandoc] tool <su
 Scala 3 commands :
 <pre>
 <a href="
-https://htmlpreview.github.io/?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scala.1.html"><b>scala</b>.1.html</a>, <a href="
-https://htmlpreview.github.io/?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalac.1.html"><b>scalac</b>.1.html</a>, <a href="
+https://htmlpreview.github.io/?https%3A%2F%2Ftinyurl.com%2F2p9f57et"><b>scala</b>.1.html</a>, <a href="
+https://htmlpreview.github.io/?https%3A%2F%2Fgithub.com%2Fmichelou%2Fdotty-examples%2Fblob%2Fmaster%2Fdocs%2F3.0.2%2Fhtml%2Fscalac.1.html"><b>scalac</b>.1.html</a>, <a href="
 https://htmlpreview.github.io/?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scaladoc.1.html"><b>scaladoc</b>.1.html</a>
 </pre>
 
