@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2022-03-31" />
+  <title>scaladoc(1) Scala 3.0.2 | Scala 3 Commands</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Courier;
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin:0 6em 4em 4em;
+      max-width: 40em;
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 5;
+      padding-bottom: 5;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      text-decoration: none;
+      color: [HTML]{66001E};
+    }
+    a:visited {
+      color: [HTML]{66001E};
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: -1em 0 -1em 1.5em;
+      padding-left: 1em;
+      border-left: none;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    dd p {
+      margin-top: 0em;
+      margin-bottom: -1em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<!--
+<h1 class="title">scaladoc(1) Scala 3.0.2 | Scala 3 Commands</h1>
+<p class="date">March 31, 2022</p>
+-->
+<div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;">scaladoc(1)</div>
+  <div style="float:right;">scaladoc(1) <a href="#title-block-footer" title="Go to bottom">⇩ </a></div>
+  <div style="text-align:center;">Scala 3 Commands</div>
+  <div style="clear:both;"/>
+</div>
+</header>
+<!--==========================================================================
+Similar man pages:
+* javadoc - https://www.manpagez.com/man/1/javadoc/
+* scaladoc - https://manpages.debian.org/stretch/scala/scaladoc.1
+===========================================================================-->
+<h1 id="name">NAME</h1>
+<p><strong>scaladoc</strong> - generate HTML pages of API documentation
+from Scala 3 source</p>
+<h1 id="synopsis">SYNOPSIS</h1>
+<p><strong>scaladoc</strong> &lt;options&gt; &lt;source files&gt;</p>
+<h1 id="description">DESCRIPTION</h1>
+<p>The <strong>scaladoc</strong> command reads class and object
+definitions, written in the Scala programming language, and generates
+their API as HTML files.</p>
+<p>By default, the generator puts each HTML file in the same directory
+as its source file. You can specify a separate destination directory
+with <strong>-d</strong> (see <a
+href="#options"><strong>OPTIONS</strong></a>, below).</p>
+<p>The recognised format of comments in source is described in the
+online documentation.</p>
+<!-- https://github.com/lampepfl/dotty/blob/main/compiler/src/dotty/tools/dotc/util/ParsedComment.scala -->
+<p>Supported comment tags are <code>@tparam</code>, <code>@param</code>,
+<code>@return</code>, <code>@throws</code>, <code>@see</code>,
+<code>@example</code>, <code>@note</code>, <code>@author</code>,
+<code>@since</code>, <code>@version</code>.</p>
+<h1 id="options">OPTIONS</h1>
+<p>The <strong>scaladoc</strong> command supports the same options as <a
+href="./scalac.1.html"><strong>scalac</strong></a>(1) and adds a few
+more options.</p>
+<h2 id="compiler-options">Compiler Options</h2>
+<dl>
+<dt><em><code>&lt;compiler-option&gt;</code></em></dt>
+<dd>
+Any compiler option. See <a
+href="./scalac.1.html#options"><strong>scalac</strong></a>(1).
+</dd>
+</dl>
+<!-- https://dotty.epfl.ch/docs/usage/scaladoc/settings.html -->
+<h2 id="doclet-options">Doclet Options</h2>
+<dl>
+<dt><strong>-author</strong></dt>
+<dd>
+Adding authors in docstring with <code>@author Name Surname</code> by
+default won’t be included in generated HTML documentation. If you would
+like to label classes with authors explicitly, run
+<strong>scaladoc</strong> with this flag.
+</dd>
+</dl>
+<blockquote>
+<p>Equivalent to option <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javadoc.html#standard-doclet-options"><code>-author</code></a>
+of <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javadoc.html"><strong>javadoc</strong></a>.</p>
+</blockquote>
+<dl>
+<dt><strong>-comment-syntax</strong>
+<em><code>&lt;syntax&gt;</code></em></dt>
+<dd>
+The styling language used for parsing comments.
+</dd>
+</dl>
+<blockquote>
+<p>Choices: <code>markdown</code> or <code>wiki</code>.<br />
+Default: <code>markdown</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>-doc-canonical-base-url</strong></dt>
+<dd>
+A base URL to use as prefix and add <code>canonical</code> URLs to all
+pages. The canonical URL may be used by search engines to choose the URL
+that you want people to see in search results. If unset no canonical
+URLs are generated.
+</dd>
+<dt><strong>-doc-root-content</strong>
+<em><code>&lt;filename&gt;</code></em></dt>
+<dd>
+The file from which the root package documentation should be imported.
+</dd>
+<dt><strong>-external-mappings:</strong><em><code>&lt;file_pattern&gt;::&lt;url&gt;, ..</code></em></dt>
+<dd>
+Mapping between regexes matching classpath entries and external
+documentation.
+</dd>
+</dl>
+<blockquote>
+<p>Usage example: <code>-external-mappings:.*scala.*::scaladoc3::https://scala-lang.org/api/3.x/,.*java.*::javadoc::https://docs.oracle.com/javase/8/docs/api/</code>.<br />
+A mapping is of the form
+<code>regex::[scaladoc|scaladoc|javadoc]::path</code>. You can supply
+several mappings, separated by commas, as shown in the example.</p>
+</blockquote>
+<dl>
+<dt><strong>-groups</strong></dt>
+<dd>
+Group similar functions together (based on the <code>@group</code>
+annotation)
+</dd>
+<dt><strong>-no-link-warnings</strong></dt>
+<dd>
+Avoid warnings for ambiguous and incorrect links in members look up.
+Doesn’t affect warnings for incorrect links of assets etc.
+</dd>
+<dt><strong>-private</strong></dt>
+<dd>
+Show all types and members. Unless specified, show only public and
+protected types and members.
+</dd>
+</dl>
+<blockquote>
+<p>Equivalent to option <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javadoc.html#standard-doclet-options"><code>-private</code></a>
+of <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javadoc.html"><strong>javadoc</strong></a>.</p>
+</blockquote>
+<dl>
+<dt><strong>-project</strong></dt>
+<dd>
+The name of the project. To provide compatibility with Scala 2 aliases
+with <code>-doc-title</code>.
+</dd>
+<dt><strong>-project-footer</strong></dt>
+<dd>
+The string message that appears in a footer section. To provide
+compatibility with Scala 2 aliases with <code>-doc-footer</code>.
+</dd>
+<dt><strong>-project-logo</strong></dt>
+<dd>
+The logo of your project that appears in a top left corner (in
+<code>/images</code>). To provide compatibility with Scala 2 aliases
+with <code>-doc-logo</code>.
+</dd>
+<dt><strong>-project-url</strong></dt>
+<dd>
+The source repository of your project.
+</dd>
+<dt><strong>-project-version</strong></dt>
+<dd>
+The current version of your project.
+</dd>
+</dl>
+<blockquote>
+<p>Equivalent to option <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javadoc.html#standard-doclet-options"><code>-version</code></a>
+of command <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javadoc.html"><strong>javadoc</strong></a>.</p>
+</blockquote>
+<dl>
+<dt><strong>-revision</strong></dt>
+<dd>
+Revision (branch or ref) used to build project. Useful with sourcelinks
+to prevent them from pointing always to the newest master that is
+subject to changes.
+</dd>
+<dt><strong>-siteroot</strong></dt>
+<dd>
+A directory containing static files from which to generate
+documentation. Default directory is <code>./docs</code>.
+</dd>
+<dt><strong>-skip-by-id</strong></dt>
+<dd>
+Identifiers of packages or top-level classes to skip when generating
+documentation.
+</dd>
+<dt><strong>-skip-by-regex</strong></dt>
+<dd>
+Regexes that match fully qualified names of packages or top-level
+classes to skip when generating documentation
+</dd>
+<dt><strong>-skip-packages</strong></dt>
+<dd>
+Deprecated, please use <code>-skip-by-id</code> or
+<code>-skip-by-regex</code>
+</dd>
+<dt><strong>-snippet-compiler</strong></dt>
+<dd>
+Snippet compiler arguments provide a way to configure snippet type
+checking.
+</dd>
+</dl>
+<blockquote>
+<p>Usage example:
+<code>-snippet-compiler:my/path/nc=nocompile,my/path/f=fail,compile</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>-social-links</strong></dt>
+<dd>
+Links to social sites.
+<code>[github|twitter|gitter|discord]::link</code> syntax is used.
+</dd>
+</dl>
+<blockquote>
+<p><code>custom::link::white_icon_name::black_icon_name</code> is also
+allowed, in this case icons must be present in <code>images/</code>
+directory.</p>
+</blockquote>
+<dl>
+<dt><strong>-source-links</strong></dt>
+<dd>
+Source links provide a mapping between file in documentation and code
+repository.
+</dd>
+<dt><strong>-versions-dictionary-url</strong></dt>
+<dd>
+A URL pointing to a JSON document containing a dictionary
+<code>version label -&gt; documentation location</code>. The JSON file
+has single property “versions” that holds dictionary of labels of
+specific docs and URL pointing to their <code>index.html</code>
+top-level file. Useful for libraries that maintain different versions of
+their documentation.
+</dd>
+</dl>
+<h2 id="advanced-options">Advanced Options</h2>
+<dl>
+<dt><strong>-Xwiki-syntax</strong></dt>
+<dd>
+Retains the Scala 2 behavior of using Wiki syntax in
+<strong>scaladoc</strong>.
+</dd>
+</dl>
+<blockquote>
+<p>See document <a
+href="https://docs.scala-lang.org/scala3/guides/migration/scaladoc-settings-compatibility.html">Scaladoc
+settings compatibility between Scala 2 and Scala 3</a> for more
+information.</p>
+</blockquote>
+<h2 id="private-options">Private Options</h2>
+<dl>
+<dt><strong>-Ysnippet-compiler-debug</strong></dt>
+<dd>
+Setting this option makes snippet compiler print the snippet as it is
+compiled (after wrapping).
+</dd>
+<dt><strong>-Ydocument-synthetic-types</strong></dt>
+<dd>
+Include pages providing documentation for the intrinsic types
+(e.g. <code>Any</code>, <code>Nothing</code>) to the docs. The setting
+is useful only for stdlib because scaladoc for Scala 3 relies on TASTy
+files, but we cannot provide them for intrinsic types since they are
+embedded in the compiler. All other users should not concern with this
+setting.
+</dd>
+</dl>
+<h1 id="examples">EXAMPLES</h1>
+<h1 id="exit-status">EXIT STATUS</h1>
+<p><strong>scaladoc</strong> returns a zero exit status if it succeeds
+at processing the specified input files. Non zero is returned in case of
+failure.</p>
+<h1 id="authors">AUTHORS</h1>
+<p>Written by <a
+href="https://en.wikipedia.org/wiki/Martin_Odersky">Martin Odersky</a>,
+the Scala team and the <a
+href="https://contributors.scala-lang.org/">Scala contributors</a>.</p>
+<h1 id="reporting-bugs">REPORTING BUGS</h1>
+<p>Report bugs to <a
+href="https://issues.scala-lang.org/">https://issues.scala-lang.org/</a>.</p>
+<h1 id="copyright">COPYRIGHT</h1>
+<p>This is open-source software, available to you under a BSD-like
+license. See accompanying “copyright” or “LICENSE” file for copying
+conditions. There is NO warranty; not even for MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.</p>
+<h1 id="see-also">SEE ALSO</h1>
+<p><a href="./scala.1.html"><strong>scala</strong></a>(1), <a
+href="./scalac.1.html"><strong>scalac</strong></a>(1)</p>
+<!-- hyperrefs -->
+<div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;">Scala 3.0.2</div>
+  <div style="float:right;">scaladoc(1) <a href="#title-block-header" title="Back to top">⇧ </a></div>
+  <div style="text-align:center;">March 31, 2022</div>
+</div>
+</body>
+</html>

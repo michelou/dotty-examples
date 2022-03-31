@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2022-03-31" />
+  <title>mill(1) Mill 0.10.0 | Scala Commands</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Courier;
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin:0 6em 4em 4em;
+      max-width: 40em;
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 5;
+      padding-bottom: 5;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      text-decoration: none;
+      color: [HTML]{66001E};
+    }
+    a:visited {
+      color: [HTML]{66001E};
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: -1em 0 -1em 1.5em;
+      padding-left: 1em;
+      border-left: none;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    dd p {
+      margin-top: 0em;
+      margin-bottom: -1em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<!--
+<h1 class="title">mill(1) Mill 0.10.0 | Scala Commands</h1>
+<p class="date">March 31, 2022</p>
+-->
+<div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;">mill(1)</div>
+  <div style="float:right;">mill(1) <a href="#title-block-footer" title="Go to bottom">⇩ </a></div>
+  <div style="text-align:center;">Scala Commands</div>
+  <div style="clear:both;"/>
+</div>
+</header>
+<h1 id="name">NAME</h1>
+<p><strong>mill</strong> - Mill build tool</p>
+<h1 id="synopsis">SYNOPSIS</h1>
+<p><strong>mill</strong>
+<code>[</code><em><code>&lt;options&gt;</code></em><code>] [[</code><em><code>&lt;target&gt;</code></em>
+<code>[</code><em><code>&lt;target-options&gt;</code></em><code>]] [+ [</code><em><code>&lt;target&gt;</code></em>
+<code>...]]]</code></p>
+<p>Open the Mill REPL and execute user input (interactive mode).</p>
+<p><strong>mill</strong> <em><code>-i</code></em>
+<code>[</code><em><code>&lt;options&gt;</code></em><code>] [[</code><em><code>&lt;target&gt;</code></em>
+<code>[</code><em><code>&lt;target-options&gt;</code></em><code>]] [+ [</code><em><code>&lt;target&gt;</code></em>
+<code>...]]]</code></p>
+<h1 id="description">DESCRIPTION</h1>
+<h1 id="options">OPTIONS</h1>
+<dl>
+<dt><strong>--no-default-predef</strong></dt>
+<dd>
+Disable the default predef and run Ammonite with the minimal predef
+possible.
+</dd>
+<dt><strong>-s</strong>, <strong>--silent</strong></dt>
+<dd>
+Make ivy logs go silent instead of printing though failures will still
+throw exception.
+</dd>
+<dt><strong>-w</strong>, <strong>--watch</strong></dt>
+<dd>
+Watch and re-run your scripts when they change.
+</dd>
+<dt><strong>–bsp</strong></dt>
+<dd>
+Run a BSP server against the passed scripts.
+</dd>
+<dt><strong>-c</strong> <em><code>&lt;string&gt;</code></em>,
+<strong>--code</strong> <em><code>&lt;string&gt;</code></em></dt>
+<dd>
+Pass in code to be run immediately in the REPL.
+</dd>
+<dt><strong>-h</strong>, <strong>--home</strong>
+<em><code>&lt;path&gt;</code></em></dt>
+<dd>
+Set the home directory of the REPL (where it looks for config and
+caches).
+</dd>
+<dt><strong>-p</strong>, <strong>--predef</strong>
+<em><code>&lt;path&gt;</code></em></dt>
+<dd>
+Let you load your predef from a custom location, rather than the
+“default” location in your <a href="https://ammonite.io/"
+title="Ammonite-REPL"><em>Ammonite</em></a> home.
+</dd>
+<dt><strong>--color</strong> <em><code>&lt;bool&gt;</code></em></dt>
+<dd>
+Enable or disable colored output; by default colors are enabled in both
+REPL and scripts if the console is interactive, and disabled otherwise
+</dd>
+<dt><strong>--thin</strong></dt>
+<dd>
+Hide parts of the core of Ammonite and some of its dependencies. By
+default, the core of Ammonite and all of its dependencies can be seen by
+users from the Ammonite session. This option mitigates that via class
+loader isolation.
+</dd>
+<dt><strong>--help</strong></dt>
+<dd>
+Print this message.
+</dd>
+<dt><strong>-v</strong>, <strong>--version</strong></dt>
+<dd>
+Show Ammonite’s version.
+</dd>
+<dt><strong>-h</strong> <em><code>&lt;path&gt;</code></em>,
+<strong>--home</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dd>
+The home directory of the REPL; where it looks for config and caches.
+</dd>
+<dt><strong>--repl</strong></dt>
+<dd>
+Run Mill in interactive mode and start a build REPL. In this mode, no
+mill server will be used. Must be the first argument.
+</dd>
+<dt><strong>--no-server</strong></dt>
+<dd>
+Run Mill in interactive mode, suitable for opening REPLs and taking user
+input. In this mode, no mill server will be used. Must be the first
+argument.
+</dd>
+<dt><strong>--bsp</strong></dt>
+<dd>
+Enable BSP server mode.
+</dd>
+<dt><strong>-i</strong>, <strong>--interactive</strong></dt>
+<dd>
+Run Mill in interactive mode, suitable for opening REPLs and taking user
+input. In this mode, no mill server will be used. Must be the first
+argument.
+</dd>
+<dt><strong>-v</strong>, <strong>--version</strong></dt>
+<dd>
+Show mill version and exit.
+</dd>
+<dt><strong>-b</strong>, <strong>--bell</strong></dt>
+<dd>
+Ring the bell once if the run completes successfully, twice if it fails.
+</dd>
+<dt><strong>--disable-ticker</strong></dt>
+<dd>
+Disable ticker log (e.g. short-lived prints of stages and progress bars)
+</dd>
+<dt><strong>-d</strong>, <strong>--debug</strong></dt>
+<dd>
+Show debug output on STDOUT
+</dd>
+<dt><strong>-k</strong>, <strong>--keep-going</strong></dt>
+<dd>
+Continue build, even after build failures
+</dd>
+<dt><strong>-D</strong>, <strong>--define</strong>
+<em><code>&lt;k=v&gt;</code></em></dt>
+<dd>
+Define (or overwrite) a system property.
+</dd>
+<dt><strong>-j</strong>, <strong>--jobs</strong> <em>^<int>`</em></dt>
+<dd>
+Allow processing N targets in parallel. Use 1 to disable parallel and 0
+to use as much threads as available processors.
+</dd>
+<dt><strong>--import</strong> <code>*</code><string>`*</dt>
+<dd>
+Additional ivy dependencies to load into mill, e.g. plugins.
+</dd>
+<dt><strong>rest</strong> <em><code>&lt;string&gt;...</code></em></dt>
+<dd>
+The name of the targets you want to build, followed by any parameters
+you wish to pass to those targets.
+</dd>
+</dl>
+<h1 id="environment">ENVIRONMENT</h1>
+<h2 id="environment-variables">Environment Variables</h2>
+<dl>
+<dt><strong>MILL_VERSION</strong></dt>
+<dd>
+ 
+</dd>
+</dl>
+<h2 id="configuration-files">Configuration Files</h2>
+<dl>
+<dt><strong>.mill-version</strong></dt>
+<dd>
+ 
+</dd>
+</dl>
+<h1 id="examples">EXAMPLES</h1>
+<p>Print the help message corresponding to this manual page.</p>
+<blockquote>
+<p><code>$MILL/mill -i help</code></p>
+</blockquote>
+<h1 id="exit-status">EXIT STATUS</h1>
+<p><strong>mill</strong> returns a zero exit status if it succeeds at
+processing the specified input files. Non zero is returned in case of
+failure.</p>
+<h1 id="authors">AUTHORS</h1>
+<p>Written by <strong>Hi Haoyi</strong> (<a
+href="https://www.lihaoyi.com/">https://www.lihaoyi.com/</a>).</p>
+<h1 id="reporting-bugs">REPORTING BUGS</h1>
+<p>Report bugs to <a
+href="https://github.com/com-lihaoyi/mill/issues">https://github.com/com-lihaoyi/mill/issues/</a>.</p>
+<h1 id="copyright">COPYRIGHT</h1>
+<p><a href="https://github.com/com-lihaoyi/mill/blob/main/LICENSE">The
+MIT License (MIT)</a></p>
+<p>Copyright (c) 2017-2022 <strong>Li Haoyi</strong>
+(haoyi.sg@gmail.com)</p>
+<h1 id="see-also">SEE ALSO</h1>
+<p><a href="./amm.1.html"><strong>amm</strong></a>(1), <a
+href="./cs.1.html"><strong>cs</strong></a>(1), <a
+href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
+href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
+href="./scalafix.1.html"><strong>scalafix</strong></a>(1), <a
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
+<!-- hyperref -->
+<div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;"><a href="https://com-lihaoyi.github.io/mill/">Mill 0.10.0</a></div>
+  <div style="float:right;">mill(1) <a href="#title-block-header" title="Back to top">⇧ </a></div>
+  <div style="text-align:center;">March 30, 2022</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2022-03-30" />
+  <title>scalac(1) Scala @@VERSION@@ | Scala 3 Commands</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Courier;
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin:0 6em 4em 4em;
+      max-width: 40em;
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 5;
+      padding-bottom: 5;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      text-decoration: none;
+      color: [HTML]{66001E};
+    }
+    a:visited {
+      color: [HTML]{66001E};
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: -1em 0 -1em 1.5em;
+      padding-left: 1em;
+      border-left: none;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    dd p {
+      margin-top: 0em;
+      margin-bottom: -1em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<!--
+<h1 class="title">scalac(1) Scala @<span class="citation"
+data-cites="VERSION">@VERSION</span>@@ | Scala 3 Commands</h1>
+<p class="date">March 30, 2022</p>
+-->
+<div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;">scalac(1)</div>
+  <div style="float:right;">scalac(1) <a href="#title-block-footer" title="Go to bottom">⇩ </a></div>
+  <div style="text-align:center;">Scala 3 Commands</div>
+  <div style="clear:both;"/>
+</div>
+</header>
+<!--==========================================================================
+Similar man pages:
+* javac - https://www.manpagez.com/man/1/javac/
+* scalac - https://manpages.debian.org/stretch/scala/scalac.1
+===========================================================================-->
+<h1 id="name">NAME</h1>
+<p><strong>scalac</strong> - Compiler for the <a
+href="https://dotty.epfl.ch/">Scala 3</a> language</p>
+<h1 id="synopsis">SYNOPSIS</h1>
+<p><strong>scalac</strong>
+<em><code>&lt;options&gt; &lt;source files&gt;</code></em></p>
+<p>Start the Scala 3 REPL. Same as <a
+href="./scala.1.html"><strong>scala</strong></a>(1).</p>
+<blockquote>
+<p><strong>scalac</strong> <em><code>-repl &lt;options&gt;</code></em>,
+<strong>scalac</strong> <em><code>-run &lt;options&gt;</code></em></p>
+</blockquote>
+<h1 id="description">DESCRIPTION</h1>
+<p>The <strong>scalac</strong> command reads class and object
+definitions, written in the Scala programming language, and compiles
+them into bytecode class files.</p>
+<p>By default, the compiler puts each class file in the same directory
+as its source file. You can specify a separate destination directory
+with <code>-d</code> (see <a
+href="#standard-options"><strong>OPTIONS</strong></a>, below).</p>
+<h1 id="options">OPTIONS</h1>
+<p>The <strong>scalac</strong> command supports a wide range of options
+that can be divided into the following categories: <a
+href="#standard-options">standard</a>, verbose, <a
+href="#warning-options">warning</a>, <a
+href="#advanced-options">advanced</a> and <a
+href="#private-options">private</a>.</p>
+<dl>
+<dt><strong>-help</strong>, <strong>--help</strong></dt>
+<dd>
+Print a synopsis of standard options.
+</dd>
+<dt><strong>-V</strong></dt>
+<dd>
+Print a synopsis of verbose options.
+</dd>
+<dt><strong>-W</strong></dt>
+<dd>
+Print a synopsis of warning options.
+</dd>
+<dt><strong>-X</strong></dt>
+<dd>
+Print a synopsis of advanced options.
+</dd>
+<dt><strong>-Y</strong></dt>
+<dd>
+Print a synopsis of private options.
+</dd>
+</dl>
+<!--
+https://github.com/lampepfl/dotty/blob/main/compiler/src/dotty/tools/MainGenericRunner.scala
+https://github.com/lampepfl/dotty/blob/main/compiler/src/dotty/tools/dotc/config/ScalaSettings.scala
+-->
+<h2 id="standard-options">Standard Options</h2>
+<dl>
+<dt><strong>-D</strong><em><code>&lt;property&gt;=&lt;value&gt;</code></em></dt>
+<dd>
+Pass
+<strong><code>-D</code></strong><em><code>&lt;property&gt;=&lt;value&gt;</code></em>
+directly to the runtime system.
+</dd>
+<dt><strong>-J</strong><em><code>&lt;option&gt;</code></em></dt>
+<dd>
+Pass <em><code>&lt;option&gt;</code></em> directly to the runtime
+system, where <em><code>&lt;option&gt;</code></em> is one of the Java
+options described on <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html"><strong>java</strong></a>
+command. For example, <code>-J-Xms24m</code> sets the startup memory to
+24 MB.
+</dd>
+<dt><strong>-P:</strong><em><code>&lt;plugin&gt;:&lt;opt&gt;</code></em></dt>
+<dd>
+Pass an option to a plugin.
+</dd>
+<dt><strong>-bootclasspath</strong> <em><code>&lt;path&gt;</code></em>,
+<strong>--boot-class-path</strong>
+<em><code>&lt;path&gt;</code></em></dt>
+<dd>
+Override location of bootstrap class files.
+</dd>
+<dt><strong>-classpath</strong> <em><code>&lt;path&gt;</code></em>,
+<strong>-cp</strong> <em><code>&lt;path&gt;</code></em>,
+<strong>--class-path</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dd>
+Specify where to find user class files.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>.</code></strong></p>
+</blockquote>
+<dl>
+<dt><strong>-color:</strong><em><code>&lt;mode&gt;</code></em>,
+<strong>--color:</strong><em><code>&lt;mode&gt;</code></em></dt>
+<dd>
+Colored output.
+</dd>
+</dl>
+<blockquote>
+<p>Choices: <code>always</code>, <code>never</code>.<br />
+Default: <code>always</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>-d</strong>
+<em><code>&lt;directory&gt;</code>|<code>&lt;jar&gt;</code></em></dt>
+<dd>
+Destination for generated class files.
+</dd>
+<dt><strong>-deprecation</strong>, <strong>--deprecation</strong></dt>
+<dd>
+Emit warning and location for usages of deprecated APIs.
+</dd>
+<dt><strong>-encoding</strong> <em><code>&lt;encoding&gt;</code></em>,
+<strong>--encoding</strong> <em><code>&lt;encoding&gt;</code></em></dt>
+<dd>
+Specify character encoding used by Scala source files.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>UTF-8</code></strong>.</p>
+</blockquote>
+<dl>
+<dt><strong>-explain</strong>, <strong>--explain</strong></dt>
+<dd>
+Explain errors in more detail.
+</dd>
+<dt><strong>-explain-types</strong>,
+<strong>--explain-types</strong></dt>
+<dd>
+Explain type errors in more detail (deprecated, use
+<code>-explain</code> instead).
+</dd>
+<dt><strong>-extdirs</strong> <em><code>&lt;dirs&gt;</code></em>,
+<strong>--extension-directories</strong>
+<em><code>&lt;dirs&gt;</code></em></dt>
+<dd>
+Override location of installed extensions.
+</dd>
+<dt><strong>-feature</strong>, <strong>--feature</strong></dt>
+<dd>
+Emit warning and location for usages of features that should be imported
+explicitly.
+</dd>
+<dt><strong>-from-tasty</strong></dt>
+<dd>
+Compile classes from tasty files. The arguments are <code>.tasty</code>
+or <code>.jar</code> files.
+</dd>
+<dt><strong>-indent</strong></dt>
+<dd>
+Together with <strong>-rewrite</strong>, remove {…} syntax when possible
+due to significant indentation.
+</dd>
+<dt><span
+id="java-output-version"><strong>-java-output-version</strong></span></dt>
+<dd>
+Compile code with classes specific to the given version of the Java
+platform available on the classpath and emit bytecode for this version.
+Corresponds to option <code>-release</code> from command <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javac.html"><strong>javac</strong></a>.
+</dd>
+<dt><strong>-javabootclasspath</strong>
+<em><code>&lt;path&gt;</code></em>,
+<strong>--java-boot-class-path</strong>
+<em><code>&lt;path&gt;</code></em></dt>
+<dd>
+Override <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html"><strong>java</strong></a>
+boot classpath.
+</dd>
+</dl>
+<blockquote>
+<p>Default (Windows): <strong><code>%JAVA_HOME%</code></strong><code>\lib\resources.jar;%JAVA_HOME%\lib\rt.jar;%JAVA_HOME%\lib\sunrsasign.jar;%JAVA_HOME%\lib\jsse.jar;%JAVA_HOME%\lib\jce.jar;</code><strong><code>%JAVA_HOME%</code></strong><code>\lib\charsets.jar;%JAVA_HOME%\lib\jfr.jar;%JAVA_HOME%\classes</code>.</p>
+</blockquote>
+<dl>
+<dt><span id="javaextdirs"><strong>-javaextdirs</strong>
+<em><code>&lt;path&gt;</code></em></span></dt>
+<dd>
+Override <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html"><strong>java</strong></a>
+extdirs classpath.
+</dd>
+</dl>
+<blockquote>
+<p>Libraries specified in <em><code>&lt;path&gt;</code></em> are loaded
+using the extension classloader
+(e.g. <code>sun.misc.Launcher.ExtClassLoader</code>) instead of the
+system classloader
+(e.g. <code>sun.misc.Launcher.AppClassLoader</code>).</p>
+</blockquote>
+<blockquote>
+<p>Default (Windows):
+<strong><code>%JAVA_HOME%</code></strong><code>\lib\ext;C:\WINDOWS\Sun\Java\lib\ext</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>-language:</strong><em><code>&lt;feature&gt;{,&lt;feature&gt;}</code></em>,
+<strong>--language:</strong><em><code>&lt;feature&gt;{,&lt;feature&gt;}</code></em></dt>
+<dd>
+Enable one or more language features; writing
+<code>-language:implicitConversions</code>
+<code>-language:dynamics</code> is equivalent to
+<code>-language:implicitConversions,dynamics</code>.
+<!-- https://github.com/lampepfl/dotty/blob/main/compiler/test/dotty/tools/dotc/config/ScalaSettingsTests.scala -->
+</dd>
+</dl>
+<blockquote>
+<p>Standard features:<br />
+- <code>existentials</code><br />
+- <code>fewerBraces</code><br />
+- <code>higherKinds</code><br />
+- <code>implicitConversions</code><br />
+- <code>postfixOps</code><br />
+- <code>strictEquality</code>.</p>
+</blockquote>
+<blockquote>
+<p>Loose equality using <code>eqAny</code> is disabled.<br />
+See section <a
+href="https://dotty.epfl.ch/docs/reference/contextual/multiversal-equality">Multiversal
+equality</a> of the online <a
+href="https://dotty.epfl.ch/docs/reference/">Scala 3 reference</a>.</p>
+</blockquote>
+<blockquote>
+<p>Experimental features:<br />
+- <code>experimental.erasedDefinitions</code><br />
+- <code>experimental.fewerBraces</code><br />
+- <code>experimental.genericNumberLiterals</code><br />
+- <code>experimental.namedTypeArguments</code><br />
+- <code>experimental.saferExceptions</code><br />
+<em>Note</em>: The user may also specify a language feature in Scala
+source file,
+e.g. <strong><code>import</code></strong> <code>language.implicitConversions</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>-new-syntax</strong></dt>
+<dd>
+Require <code>then</code> and <code>do</code> in control expressions.
+</dd>
+<dt><strong>-no-indent</strong></dt>
+<dd>
+Require classical {…} syntax, indentation is not significant.
+</dd>
+<dt><strong>-nowarn</strong>, <strong>--no-warnings</strong></dt>
+<dd>
+Silence all warnings. Similar to <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javac.html"><strong>javac</strong></a>
+option <code>-nowarn</code>.
+</dd>
+<dt><strong>-old-syntax</strong></dt>
+<dd>
+Require <code>(...)</code> around conditions.
+</dd>
+<dt><strong>-pagewidth</strong> <em><code>&lt;width&gt;</code></em>,
+<strong>--page-width</strong> <em><code>&lt;width&gt;</code></em></dt>
+<dd>
+Set page width in characters.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <code>133</code> characters.</p>
+</blockquote>
+<dl>
+<dt><strong>-print-lines</strong></dt>
+<dd>
+Show source code line numbers.
+</dd>
+<dt><strong>-print-tasty</strong></dt>
+<dd>
+Print the raw tasty.
+</dd>
+<dt><strong>-release</strong>, <strong>--release</strong></dt>
+<dd>
+Same as option <a
+href="#java-output-version"><strong>-java-output-version</strong></a>.
+</dd>
+<dt><strong>-rewrite</strong></dt>
+<dd>
+When used in conjunction with a <code>...-migration</code> source
+version, rewrites sources to migrate to new version.
+</dd>
+<dt><strong>-run</strong></dt>
+<dd>
+Start the Scala 3 REPL.
+</dd>
+</dl>
+<p><strong>-scala-output-version</strong></p>
+<dl>
+<dt><strong>-scalajs</strong>, <strong>--scalajs</strong></dt>
+<dd>
+Compile in Scala.js mode (requires <a
+href="https://mvnrepository.com/artifact/org.scala-js/scalajs-library"><code>scalajs-library.jar</code></a>
+on the classpath).
+</dd>
+<dt><strong>-scalajs-genStaticForwardersForNonTopLevelObjects</strong></dt>
+<dd>
+Generate static forwarders even for non-top-level objects (Scala.js
+only)
+</dd>
+<dt><strong>-scalajs-mapSourceURI</strong></dt>
+<dd>
+rebases source URIs from uri1 to uri2 (or to a relative URI) for source
+maps (Scala.js only)
+</dd>
+<dt><strong>-semanticdb-target</strong>
+<em><code>&lt;path&gt;</code></em></dt>
+<dd>
+Specify an alternative output directory for SemanticDB files.
+</dd>
+<dt><strong>-source</strong> <em><code>&lt;source&gt;</code></em></dt>
+<dd>
+source version.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <code>3.0</code>.<br />
+Choices: <code>3.0</code>, <code>future</code>,
+<code>3.0-migration</code>, <code>future-migration</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>-sourcepath</strong> <em><code>&lt;path&gt;</code></em>,
+<strong>--source-path</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dd>
+Specify location(s) of source files.
+</dd>
+<dt><strong>-sourceroot</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dd>
+Specify workspace root directory.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <code>.</code></p>
+</blockquote>
+<dl>
+<dt><strong>-unchecked</strong>, <strong>--unchecked</strong></dt>
+<dd>
+Enable additional warnings where generated code depends on assumptions.
+</dd>
+<dt><strong>-uniqid</strong></dt>
+<dd>
+Uniquely tag all identifiers in debugging output.
+</dd>
+<dt><strong>-usejavacp</strong>,
+<strong>--use-java-class-path</strong></dt>
+<dd>
+Utilize the Java system property <a
+href="https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html"><code>java.class.path</code></a>
+in classpath resolution.
+</dd>
+<dt><strong>-v</strong>, <strong>-verbose</strong>,
+<strong>--verbose</strong></dt>
+<dd>
+Output messages about what the compiler is doing.
+</dd>
+<dt><strong>-version</strong>, <strong>--version</strong></dt>
+<dd>
+Print product version and exit.
+</dd>
+<dt><strong>@</strong><em><code>&lt;filename&gt;</code></em></dt>
+<dd>
+A text file containing compiler arguments (options and source files).
+You can also pass multiple argument files, for example, to separate
+compiler options from source files.
+</dd>
+</dl>
+<blockquote>
+<p><em>Note</em>: Works the same way as <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javac.html"><strong>javac</strong></a>
+<a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javac.html#command-line-argument-files">argument
+files</a> or <a
+href="https://kotlinlang.org/docs/compiler-reference.html"><strong>kotlinc</strong></a>
+<a
+href="https://kotlinlang.org/docs/compiler-reference.html#argfile">argument
+files</a>.</p>
+</blockquote>
+<h2 id="warning-options">Warning options</h2>
+<dl>
+<dt><strong>-Wconf:</strong><em><code>&lt;filter&gt;{&amp;&lt;filter&gt;}:&lt;action&gt;,...</code></em></dt>
+<dd>
+Configure compiler warnings. Multiple
+<em><code>&lt;filter&gt;</code></em> are combined with
+<code>&amp;</code>,
+i.e. <em><code>&lt;filter&gt;&amp;...&amp;&lt;filter&gt;</code></em>.
+</dd>
+</dl>
+<blockquote>
+<p><em><code>&lt;filter&gt;</code></em> is one of:<br />
+- Any message: <code>any</code><br />
+- Message categories:
+<code>cat=deprecation|feature|unchecked</code><br />
+- Message content: <code>msg=regex</code><br />
+The <code>regex</code> need only match some part of the message, not all
+of it.<br />
+- Message id: <code>id=E129</code><br />
+The message id is printed with the warning.<br />
+- Message name:
+<code>name=PureExpressionInStatementPosition</code><br />
+The message name is printed with the warning in verbose warning
+mode<br />
+<em><code>&lt;action&gt;</code></em> is one of :<br />
+- <code>error</code> / <code>e</code><br />
+- <code>warning</code> / <code>w</code><br />
+- <code>verbose</code> / <code>v</code> (emit warning, show additional
+help for writing <code>-Wconf</code> filters)<br />
+- <code>info</code> / <code>i</code> (infos are not counted as warnings
+and not affected by <code>-Werror</code>)<br />
+- <code>silent</code> / <code>s</code><br />
+Examples:<br />
+- <code>-Wconf:any:error</code> : change every warning into an
+error.<br />
+- <code>-Wconf:cat=deprecation:s</code> : silence deprecations.</p>
+</blockquote>
+<dl>
+<dt><span id="werror"><strong>-Werror</strong></span>,
+<strong>-Xfatal-warnings</strong></dt>
+<dd>
+Fail the compilation if there are any warnings. Similar to <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javac.html"><strong>javac</strong></a>
+option <strong>-Werror</strong>.
+</dd>
+<dt><strong>-Wunused</strong> <em><code>&lt;choice&gt;</code></em></dt>
+<dd>
+Enable or disable specific <code>unused</code> warnings.
+</dd>
+</dl>
+<blockquote>
+<p>Choices: <code>nowarn</code>, <code>all</code>.</p>
+</blockquote>
+<h2 id="advanced-options">Advanced Options</h2>
+<dl>
+<dt><strong>-Xcheck-macros</strong>,
+<strong>--Xcheck-macros</strong></dt>
+<dd>
+Check some invariants of macro generated code while expanding macros.
+</dd>
+</dl>
+<!-- https://github.com/lampepfl/dotty/blob/main/compiler/src/scala/quoted/runtime/impl/ScopeException.scala -->
+<blockquote>
+<p><em>Example</em>: When option <code>-Xcheck-macros</code> is enabled,
+a <code>ScopeException</code> is thrown if a type created in a splice,
+extruded from that splice and then used in a subsequent evaluation of
+that same splice.</p>
+</blockquote>
+<dl>
+<dt><strong>-Xfatal-warnings</strong></dt>
+<dd>
+Alias for <a href="#werror"><strong>-Werror</strong></a>.
+</dd>
+<dt><strong>-Xignore-scala2-macros</strong></dt>
+<dd>
+Ignore errors when compiling code that calls Scala 2 macros, these will
+fail at runtime.
+</dd>
+<dt><strong>-Ximport-suggestion-timeout</strong>
+<em><code>&lt;timeout&gt;</code></em></dt>
+<dd>
+Timeout (in ms) for searching for import suggestions when errors are
+reported.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <code>8000</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>-Xmain-class</strong>
+<em><code>&lt;path&gt;</code></em></dt>
+<dd>
+Class for manifest’s <code>Main-Class</code> entry (only useful with
+<code>-d</code> <em><code>&lt;jar&gt;</code></em>).
+</dd>
+<dt><strong>-Xmax-inlined-trees:</strong><em><code>&lt;nr_of_trees&gt;</code></em></dt>
+<dd>
+Maximal number of inlined trees.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <code>2000000</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>-Xmax-inlines:</strong><em><code>&lt;nr_of_lines&gt;</code></em></dt>
+<dd>
+Maximal number of successive inlines.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <code>32</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>-Xmigration</strong></dt>
+<dd>
+Warn about constructs whose behavior may have changed since version.
+</dd>
+<dt><strong>-Xmixin-force-forwarders</strong>
+<em><code>&lt;mode&gt;</code></em></dt>
+<dd>
+Generate forwarder methods in classes inhering concrete methods from
+traits.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <code>true</code>.<br />
+Choices: <code>true</code>, <code>junit</code>, <code>false</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>-Xno-forwarders</strong></dt>
+<dd>
+Do not generate static forwarders in mirror classes.
+</dd>
+<dt><strong>-Xplugin:</strong><em><code>&lt;path1&gt;,&lt;path2&gt;,..</code></em></dt>
+<dd>
+Load a plugin from each classpath.
+</dd>
+<dt><strong>-Xplugin-disable</strong>
+<em><code>&lt;name1&gt;,&lt;name2&gt;,..</code></em></dt>
+<dd>
+Disable plugins by name.
+</dd>
+<dt><strong>-Xplugin-list</strong></dt>
+<dd>
+Print a synopsis of loaded plugins.
+</dd>
+<dt><strong>-Xplugin-require:</strong><em><code>&lt;name1&gt;,&lt;name2&gt;,..</code></em></dt>
+<dd>
+Abort if a named plugin is not loaded.
+</dd>
+<dt><strong>-Xpluginsdir</strong> <em><code>&lt;path&gt;</code></em>
+<!-- https://github.com/lampepfl/dotty/blob/main/compiler/src/dotty/tools/dotc/config/PathResolver.scala --></dt>
+<dd>
+Path to search for plugin archives.
+</dd>
+</dl>
+<blockquote>
+<p>Default (Windows):
+<strong><code>%SCALA_HOME%</code></strong><code>\misc\scala-devel\plugins</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>-Xprint:</strong><em><code>&lt;P&gt;</code></em></dt>
+<dd>
+Print the syntax trees at end of phase <em><code>P</code></em>.
+</dd>
+<dt><strong>-Xprint-diff</strong></dt>
+<dd>
+Print changed parts of the tree since last print.
+</dd>
+<dt><strong>-Xprint-diff-del</strong></dt>
+<dd>
+Print changed parts of the tree since last print including deleted
+parts.
+</dd>
+<dt><strong>-Xprint-inline</strong></dt>
+<dd>
+Show where inlined code comes from.
+</dd>
+<dt><strong>-Xprint-suspension</strong></dt>
+<dd>
+Show when code is suspended until macros are compiled.
+</dd>
+<dt><strong>-Xprint-types</strong></dt>
+<dd>
+Print tree types (debugging option).
+</dd>
+<dt><strong>-Xprompt</strong></dt>
+<dd>
+Display a prompt after each error (debugging option).
+</dd>
+<dt><strong>-Xrepl-disable-display</strong></dt>
+<dd>
+Do not display definitions in REPL.
+</dd>
+<dt><span id="xsemanticdb"><strong>-Xsemanticdb</strong></span></dt>
+<dd>
+Store information in <a
+href="https://scalameta.org/docs/semanticdb/guide.html"><strong>SemanticDB</strong></a>.
+</dd>
+<dt><strong>-Xshow-phases</strong></dt>
+<dd>
+Print all compiler phases.
+</dd>
+<dt><strong>-Xtarget</strong> <em><code>&lt;target&gt;</code></em>,
+<strong>--Xtarget</strong> <em><code>&lt;target&gt;</code></em></dt>
+<dd>
+Emit bytecode for the specified version of the Java platform. This might
+produce bytecode that will break at runtime. When on JDK 9+, consider
+<code>-release</code> as a safer alternative.
+</dd>
+</dl>
+<blockquote>
+<p>Choices: <code>8</code>, <code>9</code>, <code>10</code>,
+<code>11</code>, <code>12</code>, <code>13</code>, <code>14</code>,
+<code>15</code>, <code>16</code>, <code>17</code>.
+<!-- https://github.com/lampepfl/dotty/blob/main/compiler/src/dotty/tools/backend/jvm/BcodeIdiomatic.scala --><br />
+<em>Note</em>: The corresponding class file versions are 52 (8), …, 55
+(11), 61 (17).<br />
+One may print the version of a generated class file,
+e.g. <code>Hello.class</code>, with the folloging command:<br />
+<strong><code>$JAVA_HOME</code></strong><code>/bin/java -cp</code>
+<strong><code>$SCALA_HOME</code></strong><code>/lib/scala-asm-&lt;x.y.z&gt;-scala-1.jar scala.tools.asm.util.Textifier</code>
+Hello.class | grep version`<br />
+// class version 52.0 (52)</p>
+</blockquote>
+<dl>
+<dt><strong>-Xverify-signatures</strong></dt>
+<dd>
+Verify generic signatures in generated bytecode.
+</dd>
+</dl>
+<h2 id="private-options">Private Options</h2>
+<dl>
+<dt><strong>-Ycheck</strong></dt>
+<dd>
+Check the tree at the end of
+</dd>
+<dt><strong>-Ycheck-all-patmat</strong></dt>
+<dd>
+Check exhaustivity and redundancy of all pattern matching (used for
+testing the algorithm).
+</dd>
+<dt><strong>-Ycheck-mods</strong></dt>
+<dd>
+Check that symbols and their defining trees have modifiers in sync.
+</dd>
+<dt><strong>-Ycheck-reentrant</strong></dt>
+<dd>
+Check that compiled program does not contain vars that can be accessed
+from a global root.
+</dd>
+<dt><strong>-Ycook-docs</strong></dt>
+<dd>
+Cook the documentation (type check <code>@usecase</code>, etc.)
+</dd>
+<dt><strong>-Ydebug</strong></dt>
+<dd>
+Increase the quantity of debugging output.
+</dd>
+<dt><strong>-Ydebug-error</strong></dt>
+<dd>
+Print the stack trace when any error is caught.
+</dd>
+<dt><strong>-Ydebug-flags</strong></dt>
+<dd>
+Print all flags of definitions.
+</dd>
+<dt><strong>-Ydebug-missing-refs</strong></dt>
+<dd>
+Print a stacktrace when a required symbol is missing.
+</dd>
+<dt><strong>-Ydebug-names</strong></dt>
+<dd>
+Show internal representation of names.
+</dd>
+<dt><strong>-Ydebug-pos</strong></dt>
+<dd>
+Show full source positions including spans.
+</dd>
+<dt><strong>-Ydebug-trace</strong></dt>
+<dd>
+Trace core operations.
+</dd>
+<dt><strong>-Ydebug-tree-with-id</strong></dt>
+<dd>
+Print the stack trace when the tree with the given id is created.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <code>-2147483648</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>-Ydebug-type-error</strong></dt>
+<dd>
+Print the stack trace when a <code>TypeError</code> is caught
+</dd>
+<dt><strong>-Ydetailed-stats</strong></dt>
+<dd>
+Show detailed internal compiler stats (needs <code>Stats.enabled</code>
+to be set to <code>true</code>).
+</dd>
+<dt><strong>-YdisableFlatCpCaching</strong></dt>
+<dd>
+Do not cache flat classpath representation of classpath elements from
+jars across compiler instances.
+</dd>
+<dt><strong>-Ydrop-docs</strong></dt>
+<dd>
+Drop documentation when scanning source files.
+</dd>
+<dt><strong>-Ydump-classes</strong>
+<em><code>&lt;dir&gt;</code></em></dt>
+<dd>
+Dump the generated bytecode to .class files (useful for reflective
+compilation that utilizes in-memory classloaders).
+</dd>
+<dt><strong>-Ydump-sbt-inc</strong></dt>
+<dd>
+For every compiled <code>foo.scala</code>, output the API representation
+and dependencies used for <a
+href="https://www.scala-sbt.org/"><strong>sbt</strong></a> incremental
+compilation in <code>foo.inc</code>, implies <a
+href="#force-sbt-phases"><code>-Yforce-sbt-phases</code></a>.
+</dd>
+<dt><strong>-Yexplain-lowlevel</strong></dt>
+<dd>
+When explaining type errors, show types at a lower level.
+</dd>
+<dt><strong>-Yexplicit-nulls</strong></dt>
+<dd>
+Make reference types non-nullable. Nullable types can be expressed with
+unions: e.g. <code>String|Null</code>.
+</dd>
+<dt><strong>-Yforce-inline-while-typing</strong></dt>
+<dd>
+Make non-transparent inline methods inline when typing. Emulates the old
+inlining behavior of 3.0.0-M3.
+</dd>
+<dt><span
+id="force-sbt-phases"><strong>-Yforce-sbt-phases</strong></span></dt>
+<dd>
+Run the phases used by <a href="https://www.scala-sbt.org/">sbt</a> for
+incremental compilation (ExtractDependencies and ExtractAPI) even if the
+compiler is ran outside of sbt, for debugging.
+</dd>
+<dt><strong>-Yfrom-tasty-ignore-list</strong>
+<em><code>&lt;file, ..&gt;</code></em></dt>
+<dd>
+List of <code>tasty</code> files in jar files that will not be loaded
+when using <code>-from-tasty</code>.
+</dd>
+<dt><strong>-Yindent-colons</strong></dt>
+<dd>
+(disabled: use <code>-language:experimental.fewerBraces</code> instead)
+</dd>
+<dt><strong>-Yinstrument</strong></dt>
+<dd>
+Add instrumentation code that counts allocations and closure creations.
+</dd>
+<dt><strong>-Yinstrument-defs</strong></dt>
+<dd>
+Add instrumentation code that counts method calls; needs option
+<code>-Yinstrument</code> to be set, too.
+</dd>
+<dt><strong>-Ykind-projector:</strong><em><code>&lt;kind&gt;</code></em></dt>
+<dd>
+Allow <code>*</code> as type lambda placeholder to be compatible with
+kind projector. When invoked as
+<code>-Ykind-projector:underscores</code> will repurpose <code>_</code>
+to be a type parameter placeholder, this will disable usage of
+underscore as a wildcard.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <code>disable</code>.<br />
+Choices: <code>disable</code> , <code>underscores</code>.<br />
+See Scala 3 migration guide <a
+href="https://docs.scala-lang.org/scala3/guides/migration/plugin-kind-projector.html"><em>Kind
+project migration</em></a> for more information.</p>
+</blockquote>
+<dl>
+<dt><strong>-Ylog:</strong><em><code>&lt;phase&gt;</code></em></dt>
+<dd>
+Log operations during the specfied phase.
+</dd>
+</dl>
+<blockquote>
+<p>Example: <code>-Ylog:erasure+</code> logs the erasure phase and the
+phase after the erasure phase. This is useful because during the tree
+transform of phase X, we often already are in phase X + 1.</p>
+</blockquote>
+<dl>
+<dt><strong>-Ylog-classpath</strong></dt>
+<dd>
+Output information about what classpath is being applied.
+</dd>
+<dt><strong>-Yno-decode-stacktraces</strong></dt>
+<dd>
+Show raw StackOverflow stacktraces, instead of decoding them into
+triggering operations.
+</dd>
+<dt><strong>-Yno-deep-subtypes</strong></dt>
+<dd>
+Throw an exception on deep subtyping call stacks.
+</dd>
+<dt><strong>-Yno-double-bindings</strong></dt>
+<dd>
+Assert no namedtype is bound twice (should be enabled only if program is
+error-free).
+</dd>
+<dt><strong>-Yno-experimental</strong></dt>
+<dd>
+Disable experimental language features.
+</dd>
+<dt><strong>-Yno-generic-signatures</strong></dt>
+<dd>
+Suppress generation of generic signatures for Java.
+</dd>
+<dt><strong>-Yno-imports</strong></dt>
+<dd>
+Compile without importing <a
+href="https://scala-lang.org/api/3.0.2/scala.html"><code>scala.*</code></a>,
+<a
+href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/package-summary.html"><code>java.lang.*</code></a>,
+or <a
+href="https://scala-lang.org/api/3.0.2/scala/Predef$.html"><code>Predef</code></a>.
+</dd>
+<dt><strong>-Yno-kind-polymorphism</strong></dt>
+<dd>
+Disable kind polymorphism.
+</dd>
+<dt><strong>-Yno-patmat-opt</strong></dt>
+<dd>
+Disable all pattern matching optimizations.
+</dd>
+<dt><strong>-Yno-predef</strong></dt>
+<dd>
+Compile without importing Predef.
+</dd>
+<dt><strong>-Yplain-printer</strong></dt>
+<dd>
+Pretty-print using a plain printer.
+</dd>
+<dt><strong>-Yprint-debug</strong></dt>
+<dd>
+When printing trees, print some extra information useful for debugging.
+</dd>
+<dt><strong>-Yprint-debug-owners</strong></dt>
+<dd>
+When printing trees, print owners of definitions.
+</dd>
+<dt><strong>-Yprint-pos</strong></dt>
+<dd>
+Show tree positions.
+</dd>
+<dt><strong>-Yprint-pos-syms</strong></dt>
+<dd>
+Show symbol definitions positions.
+</dd>
+<dt><strong>-Yprint-syms</strong></dt>
+<dd>
+When printing trees print info in symbols instead of corresponding info
+in trees.
+</dd>
+<dt><strong>-Yprofile-destination</strong></dt>
+<dd>
+Where to send profiling output - specify a file, default is to the
+console.
+</dd>
+<dt><strong>-Yprofile-enabled</strong></dt>
+<dd>
+Enable profiling.
+</dd>
+<dt><strong>-Yprofile-external-tool</strong></dt>
+<dd>
+Enable profiling for a phase using an external tool hook. Generally only
+useful for a single phase.
+</dd>
+<dt><strong>-Yprofile-run-gc</strong></dt>
+<dd>
+Run a GC between phases - this allows heap size to be accurate at the
+expense of more time. Specify a list of phases, or *
+</dd>
+<dt><strong>-Yread-docs</strong></dt>
+<dd>
+Read documentation from tasty.
+</dd>
+<dt><strong>-Yrequire-targetName</strong></dt>
+<dd>
+Warn if an operator is defined without a <span class="citation"
+data-cites="targetName">@targetName</span> annotation
+</dd>
+<dt><strong>-Yresolve-term-conflict</strong></dt>
+<dd>
+Resolve term conflicts.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <code>error</code>.<br />
+Choices: <code>package</code>, <code>object</code>,
+<code>error</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>-Yretain-trees</strong></dt>
+<dd>
+Retain trees for top-level classes, accessible from
+<code>ClassSymbol#tree</code>.
+</dd>
+<dt><strong>-Ysafe-init</strong></dt>
+<dd>
+Ensure safe initialization of objects
+</dd>
+<dt><strong>-Yscala2-unpickler</strong>
+<em><code>&lt;value&gt;</code></em></dt>
+<dd>
+Control where we may get Scala 2 symbols from. This is either
+<code>always</code>, <code>never</code>, or a class path.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <code>always</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>-Ysemanticdb</strong></dt>
+<dd>
+Alias for option <a
+href="#xsemanticdb"><strong><em>-Xsemanticdb</em></strong></a>.
+</dd>
+<dt><strong>-Yshow-print-errors</strong></dt>
+<dd>
+Don’t suppress exceptions thrown during tree printing.
+</dd>
+<dt><strong>-Yshow-suppressed-errors</strong></dt>
+<dd>
+Also show follow-on errors and warnings that are normally suppressed.
+</dd>
+<dt><strong>-Yshow-tree-ids</strong></dt>
+<dd>
+Uniquely tag all tree nodes in debugging output.
+</dd>
+<dt><strong>-Yshow-var-bounds</strong></dt>
+<dd>
+Print type variables with their bounds.
+</dd>
+<dt><strong>-Yskip</strong></dt>
+<dd>
+Skip
+</dd>
+<dt><strong>-Ystop-after:</strong><em><code>&lt;P&gt;</code></em></dt>
+<dd>
+Stop after phase <code>P</code>.
+</dd>
+</dl>
+<blockquote>
+<p><em>Example</em>: <code>-Ystop-after:erasure</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>-Ystop-before:</strong><em><code>&lt;P&gt;</code></em></dt>
+<dd>
+Stop before phase <code>P</code>.
+</dd>
+<dt><strong>-Ytest-pickler</strong></dt>
+<dd>
+Self-test for pickling functionality; should be used with
+<code>-Ystop-after:pickler</code>.
+</dd>
+</dl>
+<h1 id="environment">ENVIRONMENT</h1>
+<h2 id="environment-variables">Environment Variables</h2>
+<dl>
+<dt><strong>JAVACMD</strong></dt>
+<dd>
+Specify the <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html"><strong>java</strong></a>
+command to be used for running the Scala code. Arguments may be
+specified as part of the environment variable; spaces, quotation marks,
+etc., will be passed directly to the shell for expansion.
+</dd>
+<dt><strong>JAVA_HOME</strong></dt>
+<dd>
+Specify JDK/JRE home directory. This directory is used to locate the <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html"><strong>java</strong></a>
+command unless <strong>JAVACMD</strong> variable is set.
+</dd>
+<dt><strong>JAVA_OPTS</strong></dt>
+<dd>
+Specify the options to be passed to the <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html"><strong>java</strong></a>
+command defined by <strong>JAVACMD</strong>. The <strong>scalac</strong>
+command takes <code>-Xmx768m -Xms768m</code> as default values.
+</dd>
+</dl>
+<blockquote>
+<p>With Java 1.8 (or newer) one may for example configure the memory
+usage of the JVM as follows:<br />
+Unix:
+<strong><code>export JAVA_OPTS</code></strong><code>="-Xmx512M -Xms16M -Xss16M"</code><br />
+Windows:
+<strong><code>set JAVA_OPTS</code></strong><code>=-Xmx512M -Xms16M -Xss16M</code></p>
+</blockquote>
+<dl>
+<dt><strong>SCALA_OPTS</strong></dt>
+<dd>
+Specify the options to be passed to the <strong>scala</strong> command.
+</dd>
+</dl>
+<!-- https://github.com/lampepfl/dotty/blob/main/compiler/src/dotty/tools/dotc/config/PathResolver.scala -->
+<h2 id="system-properties">System Properties</h2>
+<p>The Scala 3 commands have access to the <a
+href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/System.html#getProperties()">System
+properties</a> of the underlying Java platform.</p>
+<p>System properties include information about the current user, the
+current version of the Java runtime, and the character used to separate
+components of a file path name.</p>
+<p>Furthermore the Scala 3 commands work together with the following
+System properties, some of which are specific to Scala 3 :</p>
+<dl>
+<dt><strong>java.class.path</strong></dt>
+<dd>
+Path used to find directories and JAR archives containing class files.
+Elements of the class path are separated by a platform-specific
+character specified in the <code>path.separator</code> property.
+</dd>
+<dt><strong>java.ext.dirs</strong></dt>
+<dd>
+Same as compiler option <a
+href="#javaextdirs"><strong>-javaextdirs</strong></a>.
+</dd>
+</dl>
+<blockquote>
+<p>See Oracle’s guide <a
+href="https://docs.oracle.com/javase/8/docs/technotes/guides/extensions/spec.html">Extension
+Mechanism Architecture</a> for more information.</p>
+</blockquote>
+<dl>
+<dt><strong>scala.ext.dirs</strong></dt>
+<dd>
+ 
+</dd>
+<dt><strong>scala.home</strong></dt>
+<dd>
+Path of the Scala 3 software installation.
+</dd>
+<dt><strong>scala.usejavacp</strong></dt>
+<dd>
+ 
+</dd>
+<dt><strong>sun.boot.class.path</strong></dt>
+<dd>
+ 
+</dd>
+</dl>
+<h1 id="examples">EXAMPLES</h1>
+<p> </p>
+<h1 id="exit-status">EXIT STATUS</h1>
+<p><strong>scalac</strong> returns a zero exit status if it succeeds at
+processing the specified input files. Non zero is returned in case of
+failure.</p>
+<h1 id="authors">AUTHORS</h1>
+<p>Written by <a
+href="https://en.wikipedia.org/wiki/Martin_Odersky">Martin Odersky</a>,
+the Scala team and the <a
+href="https://contributors.scala-lang.org/">Scala contributors</a>.</p>
+<h1 id="reporting-bugs">REPORTING BUGS</h1>
+<p>Report bugs to <a
+href="https://issues.scala-lang.org/">https://issues.scala-lang.org/</a>.</p>
+<h1 id="copyright">COPYRIGHT</h1>
+<p>This is open-source software, available to you under a BSD-like
+license. See accompanying “copyright” or “LICENSE” file for copying
+conditions. There is NO warranty; not even for MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.</p>
+<h1 id="see-also">SEE ALSO</h1>
+<p><a href="./scala.1.html"><strong>scala</strong></a>(1), <a
+href="./scaladoc.1.html"><strong>scaladoc</strong></a>(1)</p>
+<!-- hyperrefs -->
+<div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;">Scala 3.0.2</div>
+  <div style="float:right;">scalac(1) <a href="#title-block-header" title="Back to top">⇧ </a></div>
+  <div style="text-align:center;">March 30, 2022</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2022-03-31" />
+  <title>scalafmt(1) Scalafmt 3.4.3 | Third-Party Scala Commands</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Courier;
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin:0 6em 4em 4em;
+      max-width: 40em;
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 5;
+      padding-bottom: 5;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      text-decoration: none;
+      color: [HTML]{66001E};
+    }
+    a:visited {
+      color: [HTML]{66001E};
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: -1em 0 -1em 1.5em;
+      padding-left: 1em;
+      border-left: none;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    dd p {
+      margin-top: 0em;
+      margin-bottom: -1em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<!--
+<h1 class="title">scalafmt(1) Scalafmt 3.4.3 | Third-Party Scala
+Commands</h1>
+<p class="date">March 31, 2022</p>
+-->
+<div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;">scalafmt(1)</div>
+  <div style="float:right;">scalafmt(1) <a href="#title-block-footer" title="Go to bottom">⇩ </a></div>
+  <div style="text-align:center;">Scala Commands</div>
+  <div style="clear:both;"/>
+</div>
+</header>
+<!--==========================================================================
+Similar man pages:
+* java - https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html
+* java - https://www.manpagez.com/man/1/java/
+* scala - https://manpages.debian.org/stretch/scala/scala.1
+===========================================================================-->
+<h1 id="name">NAME</h1>
+<p><strong>scalafmt</strong> - Source code formatter for the Scala
+language</p>
+<h1 id="synopsis">SYNOPSIS</h1>
+<p><strong>scalafmt</strong>
+<code>[</code><em><code>&lt;options&gt;</code></em><code>] [</code><em><code>&lt;file&gt;...</code></em><code>]</code></p>
+<h1 id="description">DESCRIPTION</h1>
+<p><em><code>&lt;file&gt;...</code></em> is a file or directory in which
+all <code>*.scala</code> files are to be formatted.</p>
+<p>If <em><code>&lt;file&gt;</code></em> starts with <code>@</code>,
+refers to path listing files to be formatted (with <code>@-</code>
+referring to standard input as a special case).</p>
+<h1 id="options">OPTIONS</h1>
+<dl>
+<dt><strong>-h</strong>, <strong>--help</strong></dt>
+<dd>
+Print this usage text.
+</dd>
+<dt><strong>-v</strong>, <strong>--version</strong></dt>
+<dd>
+Print version.
+</dd>
+<dt><strong>--stdout</strong></dt>
+<dd>
+Write formatted files to stdout.
+</dd>
+<dt><strong>--exclude</strong>
+<em><code>&lt;file&gt;</code></em>|<em><code>&lt;directory&gt;</code></em></dt>
+<dd>
+File or directory, when absent all <code>*.scala</code> files are
+formatted.
+</dd>
+<dt><strong>--respect-project-filters</strong></dt>
+<dd>
+Use project filters even when specific files to format are provided.
+</dd>
+<dt><strong>-c</strong> <em><code>&lt;path&gt;</code></em>,
+<strong>--config</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dd>
+A file path to <a
+href="#scalafmt_conf"><strong><code>.scalafmt.conf</code></strong></a>.
+</dd>
+<dt><strong>--config-str</strong>
+<em><code>&lt;value&gt;</code></em></dt>
+<dd>
+Configuration defined as a string.
+</dd>
+<dt><strong>--stdin</strong></dt>
+<dd>
+Read from stdin and print to stdout.
+</dd>
+<dt><strong>--no-stderr</strong></dt>
+<dd>
+Don’t use stdrerr for messages, output to stdout.
+</dd>
+<dt><strong>--assume-filename</strong> <code>&lt;value&gt;</code></dt>
+<dd>
+When using <code>--stdin</code>, use <code>--assume-filename</code> to
+hint to <strong>scalafmt</strong> that the input is an <code>.sbt</code>
+file.
+</dd>
+<dt><strong>--reportError</strong></dt>
+<dd>
+Exit with status 1 if any mis-formatted code found.
+</dd>
+<dt><strong>--test</strong></dt>
+<dd>
+Test for mis-formatted code only, exits with status 1 on failure.
+</dd>
+<dt><strong>--check</strong></dt>
+<dd>
+Test for mis-formatted code only, exits with status 1 on first failure.
+</dd>
+<dt><strong>--diff</strong></dt>
+<dd>
+Format files listed in <strong><code>git diff</code></strong> against
+master.
+</dd>
+</dl>
+<blockquote>
+<p><em>Deprecated</em>: use <strong><code>--mode diff</code></strong>
+instead.</p>
+</blockquote>
+<dl>
+<dt><strong>--mode</strong> <em><code>&lt;value&gt;</code></em></dt>
+<dd>
+Set the files to be formatted fetching mode.<br />
+</dd>
+</dl>
+<blockquote>
+<p>Choices:<br />
+<code>diff</code>: format files listed in <code>git diff</code> against
+master<br />
+<code>changed</code>: format files listed in <code>git status</code>
+(latest changes against previous commit)<br />
+<code>any</code>: format any files found in current directory<br />
+<code>anygit</code>: format any git-tracked files found in current
+directory</p>
+</blockquote>
+<dl>
+<dt><strong>--diff-branch</strong>
+<em><code>&lt;value&gt;</code></em></dt>
+<dd>
+If set, only format edited files in git diff against provided branch.
+Has no effect if mode set to <code>changed</code>.
+</dd>
+<dt><strong>--build-info</strong></dt>
+<dd>
+Print build information.
+</dd>
+<dt><strong>--quiet</strong></dt>
+<dd>
+Don’t print out stuff to console.
+</dd>
+<dt><strong>--debug</strong></dt>
+<dd>
+Print out diagnostics to console.
+</dd>
+<dt><strong>--non-interactive</strong></dt>
+<dd>
+Disable fancy progress bar, useful in ci or sbt plugin.
+</dd>
+<dt><strong>--list</strong></dt>
+<dd>
+List files that are different from scalafmt formatting.
+</dd>
+</dl>
+<h1 id="environment">ENVIRONMENT</h1>
+<h2 id="environment-variables">Environment Variables</h2>
+<dl>
+<dt><a
+href="https://docs.oracle.com/en/cloud/saas/enterprise-performance-management-common/diepm/epm_set_java_home_104x6dd63633_106x6dd6441c.html"><strong>JAVA_HOME</strong></a></dt>
+<dd>
+Specify JDK/JRE home directory. This directory is used to locate the <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html"><strong>java</strong></a>
+command.
+</dd>
+</dl>
+<h2 id="configuration-files"><span id="scalafmt_conf">Configuration
+Files</span></h2>
+<p>Configuration for the <strong>scalafmt</strong> command is defined in
+a plain text file <strong><code>.scalafmt.conf</code></strong> using the
+HOCON syntax.</p>
+<p><strong>scalafmt</strong> configuration is determined in this
+order:</p>
+<ol type="1">
+<li><code>.scalafmt.conf</code> file in current directory</li>
+<li><code>.scalafmt.conf</code> inside root directory of current git
+repo</li>
+<li>no configuration file, use default style.</li>
+</ol>
+<p>Here is an example <strong><code>.scalafmt.conf</code></strong> :</p>
+<blockquote>
+<pre><code>align.preset = more  // For pretty alignment.
+maxColumn = 100      // For my wide 30&quot; display.</code></pre>
+</blockquote>
+<h1 id="examples">EXAMPLES</h1>
+<p>Format all files in the current project.</p>
+<blockquote>
+<p><strong><code>scalafmt</code></strong></p>
+</blockquote>
+<p>Throw exception on mis-formatted files, won’t write to files.</p>
+<blockquote>
+<p><strong><code>scalafmt</code></strong> <code>--test</code></p>
+</blockquote>
+<p>Format all files that were edited in <code>git diff</code> against
+master branch.</p>
+<blockquote>
+<p><strong><code>scalafmt</code></strong> <code>--mode diff</code></p>
+</blockquote>
+<p>Format files listed in <code>git status</code> (latest changes
+against previous commit.</p>
+<blockquote>
+<p><strong><code>scalafmt</code></strong>
+<code>--mode changed</code></p>
+</blockquote>
+<p>Same as <code>--diff</code>, except against branch 2.x.</p>
+<blockquote>
+<p><strong><code>scalafmt</code></strong>
+<code>--diff-branch 2.x</code></p>
+</blockquote>
+<p>Read from stdin and print to stdout</p>
+<blockquote>
+<p><strong><code>scalafmt</code></strong> <code>--stdin</code></p>
+</blockquote>
+<p>Required when using <code>--stdin</code> to format <code>.sbt</code>
+files.</p>
+<blockquote>
+<p><strong><code>scalafmt</code></strong>
+<code>--stdin --assume-filename foo.sbt &lt; foo.sbt</code></p>
+</blockquote>
+<p>Write formatted contents to file.</p>
+<blockquote>
+<p><strong><code>scalafmt</code></strong>
+<code>Code1.scala A.scala</code></p>
+</blockquote>
+<p>Print formatted contents to stdout.</p>
+<blockquote>
+<p><strong><code>scalafmt</code></strong>
+<code>--stdout Code.scala</code></p>
+</blockquote>
+<p>Format all files in directory excluding target</p>
+<blockquote>
+<p><strong><code>scalafmt</code></strong>
+<code>--exclude target</code></p>
+</blockquote>
+<p>Read custom style from file.</p>
+<blockquote>
+<p><strong><code>scalafmt</code></strong>
+<code>--config .scalafmt.conf</code></p>
+</blockquote>
+<p>Define custom style as a flag, must be quoted:</p>
+<blockquote>
+<p><strong><code>scalafmt</code></strong>
+<code>--config-str "style=IntelliJ"</code></p>
+</blockquote>
+<h1 id="exit-status">EXIT STATUS</h1>
+<p>The <strong>scalafmt</strong> command returns a zero exit status if
+it succeeds. Non zero is returned in case of any error. If a script or
+top-level object is executed and returns a value, then that return value
+is passed on to <strong>scalafmt</strong>.</p>
+<h1 id="authors">AUTHORS</h1>
+<p>The current maintainers are :</p>
+<blockquote>
+<p>Ólafur Páll Geirsson - <a href="https://github.com/olafurpg"><span
+class="citation" data-cites="olafurpg">@olafurpg</span></a><br />
+Albert Meltzer - <a href="https://github.com/kitbellew"><span
+class="citation" data-cites="kitbellew">@kitbellew</span></a><br />
+Mikhail Chugunkov - <a href="https://github.com/poslegm"><span
+class="citation" data-cites="poslegm">@poslegm</span></a><br />
+Tomasz Godzik <a href="https://github.com/tgodzik"><span
+class="citation" data-cites="tgodzik">@tgodzik</span></a><br />
+Pedro J Rodriguez Tavarez - <a href="https://github.com/pjrt"><span
+class="citation" data-cites="pjrt">@pjrt</span></a><br />
+Iurii Susuk - <a href="http:"><span class="citation"
+data-cites="ysusuk">@ysusuk</span></a><br />
+Paul Draper - <a href="http:"><span class="citation"
+data-cites="pauldraper">@pauldraper</span></a><br />
+Rikito Taniguchi - <a href="http:"><span class="citation"
+data-cites="tanishiking">@tanishiking</span></a></p>
+</blockquote>
+<h1 id="reporting-bugs">REPORTING BUGS</h1>
+<p>Report bugs to <a
+href="https://github.com/scalameta/scalafmt/issues">https://github.com/scalameta/scalafmt/issues</a>.</p>
+<h1 id="copyright">COPYRIGHT</h1>
+<p><a
+href="https://github.com/scalameta/scalafmt/blob/master/LICENCE.md">The
+MIT License (MIT)</a></p>
+<p>Copyright (c) 2017-2022 <strong>Scalameta</strong></p>
+<h1 id="see-also">SEE ALSO</h1>
+<p><a href="./amm.1.html"><strong>amm</strong></a>(1), <a
+href="./cs.1.html"><strong>cs</strong></a>(1), <a
+href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
+href="./mill.1.html"><strong>mill</strong></a>(1), <a
+href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
+href="./scala-cli.1.html"><strong>scala-cli</strong></a>(1), <a
+href="./scalafix.1.html"><strong>scalafix</strong></a>(1).</p>
+<!-- hyperref -->
+<div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;"><a href="https://scalameta.org/scalafmt/">Scalafmt 3.4.3</a></div>
+  <div style="float:right;">scalafmt(1) <a href="#title-block-header" title="Back to top">⇧ </a></div>
+  <div style="text-align:center;">March 30, 2022</div>
+</div>
+</body>
+</html>

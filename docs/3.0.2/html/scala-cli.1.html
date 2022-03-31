@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2022-03-31" />
+  <title>scala-cli(1) Scala CLI 0.0.9 | Scala Commands</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Courier;
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin:0 6em 4em 4em;
+      max-width: 40em;
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 5;
+      padding-bottom: 5;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      text-decoration: none;
+      color: [HTML]{66001E};
+    }
+    a:visited {
+      color: [HTML]{66001E};
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: -1em 0 -1em 1.5em;
+      padding-left: 1em;
+      border-left: none;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    dd p {
+      margin-top: 0em;
+      margin-bottom: -1em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<!--
+<h1 class="title">scala-cli(1) Scala CLI 0.0.9 | Scala Commands</h1>
+<p class="date">March 31, 2022</p>
+-->
+<div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;">scala-cli(1)</div>
+  <div style="float:right;">scala-cli(1) <a href="#title-block-footer" title="Go to bottom">⇩ </a></div>
+  <div style="text-align:center;">Scala Commands</div>
+  <div style="clear:both;"/>
+</div>
+</header>
+<!--==========================================================================
+Similar man pages:
+* java - https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html
+* java - https://www.manpagez.com/man/1/java/
+* scala - https://manpages.debian.org/stretch/scala/scala.1
+===========================================================================-->
+<h1 id="name">NAME</h1>
+<p><strong>scala-cli</strong> - Command-line tool to interact with the
+Scala language</p>
+<h1 id="synopsis">SYNOPSIS</h1>
+<p><strong>scala-cli</strong> <em><code>&lt;command&gt;</code></em>
+<code>[</code><em><code>&lt;options&gt;</code></em><code>]</code></p>
+<h1 id="description">DESCRIPTION</h1>
+<p><a href="https://scala-cli.virtuslab.org/"><em>Scala CLI</em></a>
+combines all the features you need to learn and use Scala in your
+scripts, playgrounds and (single-module) projects.</p>
+<h1 id="commands">COMMANDS</h1>
+<h2 id="main-commands">Main Commands</h2>
+<dl>
+<dt><strong>clean</strong></dt>
+<dd>
+Clean the workspace
+</dd>
+<dt><strong>compile</strong></dt>
+<dd>
+Compile Scala code
+</dd>
+<dt><strong>console</strong>, <strong>repl</strong></dt>
+<dd>
+Fire-up a Scala REPL.
+</dd>
+<dt><strong>package</strong></dt>
+<dd>
+Compile and package Scala code.
+</dd>
+<dt><strong>run</strong></dt>
+<dd>
+Compile and run Scala code.
+</dd>
+<dt><strong>test</strong></dt>
+<dd>
+Compile and test Scala code.
+</dd>
+</dl>
+<h2 id="miscellaneous-commands">Miscellaneous Commands</h2>
+<dl>
+<dt><strong>about</strong></dt>
+<dd>
+Print details about this application.
+</dd>
+<dt><strong>fmt</strong>, <strong>format</strong>,
+<strong>scalafmt</strong></dt>
+<dd>
+Format Scala code.
+</dd>
+<dt><strong>browse</strong>, <strong>metabrowse</strong></dt>
+<dd>
+Browse Scala code and its dependencies in the browser.
+</dd>
+<dt><strong>version</strong></dt>
+<dd>
+Print <code>scala-cli</code> version.
+</dd>
+</dl>
+<h2 id="other-commands"><span id="other_commands">Other
+Commands</span></h2>
+<dl>
+<dt><strong>bsp</strong></dt>
+<dd>
+Start BSP server.
+</dd>
+<dt><strong>export</strong></dt>
+<dd>
+Export current project to sbt or [<em>Mill</em>][mill_home].
+</dd>
+<dt><strong>install completions</strong>,
+<strong>install-completions</strong></dt>
+<dd>
+Installs completions into your shell.
+</dd>
+<dt><strong>setup-ide</strong></dt>
+<dd>
+Generate a BSP file that you can import into your IDE.
+</dd>
+<dt><strong>shebang</strong></dt>
+<dd>
+This command is an equivalent of <code>run</code>, but it changes the
+way how.
+</dd>
+<dt><strong>update</strong></dt>
+<dd>
+Update <strong><code>scala-cli</code></strong> - it works only for
+installation script.
+</dd>
+</dl>
+<h1 id="options">OPTIONS</h1>
+<h2 id="help-options"><span id="help_options">Help Options</span></h2>
+<dl>
+<dt><strong>--usage</strong></dt>
+<dd>
+Print usage and exit.
+</dd>
+<dt><strong>-h</strong>, <strong>-help</strong>,
+<strong>--help</strong></dt>
+<dd>
+Print help message and exit.
+</dd>
+<dt><strong>--help-full</strong>, <strong>--full-help</strong></dt>
+<dd>
+Print help message, including hidden options, and exit.
+</dd>
+</dl>
+<h2 id="scala-options"><span id="scala_options">Scala
+options</span></h2>
+<dl>
+<dt><strong>--js</strong></dt>
+<dd>
+Enable Scala.JS.
+</dd>
+<dt><strong>--native</strong></dt>
+<dd>
+Enable Scala Native
+</dd>
+<dt><strong>-P</strong>, <strong>--plugin</strong>,
+<strong>--compiler-plugin string</strong></dt>
+<dd>
+Add compiler plugin dependencies
+</dd>
+<dt><strong>-O</strong>, <strong>--scala-opt</strong>,
+<strong>--scalac-option</strong>
+<em><code>&lt;option&gt;</code></em></dt>
+<dd>
+Add a <strong><code>scalac</code></strong> option. Note that options
+starting with <code>-g</code>, <code>-language</code>,
+<code>-opt</code>, <code>-P</code>, <code>-target</code>,
+<code>-V</code>, <code>-W</code>, <code>-X</code>, and <code>-Y</code>
+are assumed to be Scala compiler options and don’t require to be passed
+after <code>-O</code> or <code>--scalac-option</code>.
+</dd>
+<dt><strong>-S</strong>, <strong>--scala</strong>,
+<strong>--scala-version</strong><code>*</code><version>`*</dt>
+<dd>
+Set the Scala version.
+</dd>
+</dl>
+<h2 id="java-options"><span id="java_options">Java options</h2>
+<dl>
+<dt><strong>--java-home</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dd>
+Set the Java home directory.
+</dd>
+<dt><strong>-j</strong>, <strong>--jvm</strong>
+<em><code>&lt;jvm-name&gt;</code></em></dt>
+<dd>
+Use a specific JVM, such as <strong><code>14</code></strong>,
+<strong><code>adopt:11</code></strong>, or
+<strong><code>graalvm:21</code></strong>, or
+<strong><code>system</code></strong>.
+</dd>
+<dt><strong>--jar</strong>, <strong>–jars</strong>,
+<strong>--extra-jar</strong>, <strong>--extra-jars</strong>
+<em><code>&lt;paths&gt;</code></em></dt>
+<dd>
+Add extra JARs in the class path.
+</dd>
+<dt><strong>--compile-only-jar</strong>,
+<strong>--compile-only-jars</strong>,
+<strong>--extra-compile-only-jar</strong>,
+<strong>--extra-compile-only-jars</strong>
+<em><code>&lt;paths&gt;</code></em></dt>
+<dd>
+Add extra JARs in the class path, during compilation only.
+</dd>
+<dt><strong>--source-jar</strong>, <strong>--source-jars</strong>,
+<strong>--extra-source-jar</strong>,
+<strong>--extra-source-jars</strong>
+<em><code>&lt;paths&gt;</code></em></dt>
+<dd>
+Add extra source JARs.
+</dd>
+<dt><strong>--resource-dir</strong>, <strong>--resource-dirs</strong>
+<em><code>&lt;path&gt;</code></em></dt>
+<dd>
+Add a resource directory.
+</dd>
+<dt><strong>-J</strong>, <strong>--java-opt</strong>
+<em><code>&lt;java-options&gt;</code></em></dt>
+<dd>
+Set Java options, such as <strong><code>-Xmx1g</code></strong>.
+</dd>
+<dt><strong>--java-prop</strong>
+<em><code>&lt;key&gt;=&lt;value&gt;|&lt;key&gt;</code></em></dt>
+<dd>
+Set Java properties.
+</dd>
+</dl>
+<h2 id="logging-options"><span id="logging_options">Logging
+Options</span></h2>
+<dl>
+<dt><strong>-v</strong>, <strong>--verbose</strong></dt>
+<dd>
+Increase verbosity (can be specified multiple times).
+</dd>
+<dt><strong>-q</strong>, <strong>--quiet</strong></dt>
+<dd>
+Decrease verbosity.
+</dd>
+<dt><strong>--progress</strong></dt>
+<dd>
+Use progress bars.
+</dd>
+</dl>
+<h2 id="entrypoint-options"><span id="entrypoint_options">Entrypoint
+Options</span></h2>
+<dl>
+<dt><strong>-M</strong>, <strong>--main-class</strong>
+<em><code>&lt;main-class&gt;</code></em></dt>
+<dd>
+Specify which main class to run.
+</dd>
+</dl>
+<h2 id="scala.js-options"><span id="scalajs_options">Scala.JS
+options</span></h2>
+<dl>
+<dt><strong>--js-version</strong>
+<code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
+<dd>
+Set the Scala JS version.
+</dd>
+<dt><strong>--js-mode</strong>
+<code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
+<dd>
+Set the Scala JS mode, either <strong><code>dev</code></strong> or
+<strong><code>release</code></strong>.
+</dd>
+<dt><strong>--js-module-kind</strong>
+<code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
+<dd>
+Set the Scala JS module kind:
+<strong><code>commonjs</code></strong>/<strong><code>common</code></strong>,
+<strong><code>esmodule/es</code></strong>,
+<strong><code>nomodule/none</code></strong>.
+</dd>
+<dt><strong>--js-check-ir</strong></dt>
+<dd>
+ 
+</dd>
+<dt><strong>--js-emit-source-maps</strong></dt>
+<dd>
+Emit source maps.
+</dd>
+<dt><strong>--js-dom</strong></dt>
+<dd>
+Enable jsdom.
+</dd>
+</dl>
+<h2 id="benchmarking-options"><span
+id="benchmarging_options">Benchmarking options</span></h2>
+<dl>
+<dt><strong>--jmh</strong></dt>
+<dd>
+Run JMH benchmarks.
+</dd>
+<dt><strong>--jmh-version</strong>
+<em><code>&lt;version&gt;</code></em></dt>
+<dd>
+Set JMH version.
+</dd>
+</dl>
+<h2 id="scala-native-options">Scala Native options</span></h2>
+<dl>
+<dt><strong>--native-version</strong>
+<code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
+<dd>
+Set the Scala Native version.
+</dd>
+<dt><strong>--native-mode</strong>
+<code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
+<dd>
+Set Scala Native compilation mode.
+</dd>
+<dt><strong>--native-gc</strong>
+<code>[</code><em><code>&lt;string?</code></em><code>]</code></dt>
+<dd>
+Set the Scala Native garbage collector.
+</dd>
+<dt><strong>--native-clang</strong>
+<code>[</code><em><code>&lt;string&gt;</code></em><code>..]</code></dt>
+<dd>
+Set the path to the Clang command.
+</dd>
+<dt><strong>--native-clangpp</strong>
+<code>[</code><em><code>&lt;string&gt;</code></em><code>..]</code></dt>
+<dd>
+Set the path to the Clang++ command.
+</dd>
+<dt><strong>--native-linking</strong>
+<code>[</code><em><code>&lt;string&gt;</code></em><code>..]</code></dt>
+<dd>
+Set extra options passed to <code>clang</code> verbatim during linking.
+</dd>
+<dt><strong>--native-compile</strong>
+<code>[</code><em><code>&lt;string&gt;</code></em><code>..]</code></dt>
+<dd>
+List of compile options.
+</dd>
+</dl>
+<h2 id="dependency-options"><span id="dependency_options">Dependency
+Options</span></h2>
+<dl>
+<dt><strong>-d</strong>, <strong>--dep</strong>,
+<strong>--dependency</strong>
+<em><code>&lt;string&gt; ..</code></em></dt>
+<dd>
+Add dependencies.
+</dd>
+<dt><strong>-r</strong>, <strong>--repo</strong>,
+<strong>--repository</strong>
+<em><code>&lt;string&gt; ..</code></em></dt>
+<dd>
+Add repositories.
+</dd>
+</dl>
+<h2 id="other-options"><span id="other_options">Other
+options</span></h2>
+<dl>
+<dt><strong>–home</strong>, <strong>--home-directory</strong>
+<code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
+<dd>
+ 
+</dd>
+<dt><strong>-w</strong>, <strong>--watch</strong></dt>
+<dd>
+Watch source files for changes.
+</dd>
+</dl>
+<h1 id="environment">ENVIRONMENT</h1>
+<h1 id="examples">EXAMPLES</h1>
+<h1 id="exit-status">EXIT STATUS</h1>
+<p>The <strong>scala-cli</strong> command returns a zero exit status if
+it succeeds. Non zero is returned in case of any error. If a script or
+top-level object is executed and returns a value, then that return value
+is passed on to <strong>scala-cli</strong>.</p>
+<h1 id="authors">AUTHORS</h1>
+<p>Written by <strong>Hi Haoyi</strong> (<a
+href="https://www.lihaoyi.com/">https://www.lihaoyi.com/</a>).</p>
+<h1 id="reporting-bugs">REPORTING BUGS</h1>
+<p>Report bugs to <a
+href="https://github.com/VirtusLab/scala-cli/issues">https://github.com/VirtusLab/scala-cli/issues</a>.</p>
+<h1 id="copyright">COPYRIGHT</h1>
+<p><a
+href="https://github.com/VirtusLab/scala-cli/blob/main/LICENSE">The
+Apache License 2.0</a></p>
+<!-- Initial commit : https://github.com/VirtusLab/scala-cli/commit/c4852a7 -->
+<p>Copyright (c) 2021-2022 <a
+href="https://www.virtuslab.com/"><strong>VirtusLab</strong></a></p>
+<h1 id="see-also">SEE ALSO</h1>
+<p><a href="./amm.1.html"><strong>amm</strong></a>(1), <a
+href="./cs.1.html"><strong>cs</strong></a>(1), <a
+href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
+href="./mill.1.html"><strong>mill</strong></a>(1), <a
+href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
+href="./scalafix.1.html"><strong>scalafix</strong></a>(1), <a
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
+<!-- hyperref -->
+<div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;"><a href="https://scala-cli.virtuslab.org/">Scala CLI 0.0.9</a></div>
+  <div style="float:right;">scala-cli(1) <a href="#title-block-header" title="Back to top">⇧ </a></div>
+  <div style="text-align:center;">March 30, 2022</div>
+</div>
+</body>
+</html>

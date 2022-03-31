@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2022-03-31" />
+  <title>sbt(1) Sbt 1.6.2 | Scala Commands</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Courier;
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin:0 6em 4em 4em;
+      max-width: 40em;
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 5;
+      padding-bottom: 5;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      text-decoration: none;
+      color: [HTML]{66001E};
+    }
+    a:visited {
+      color: [HTML]{66001E};
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: -1em 0 -1em 1.5em;
+      padding-left: 1em;
+      border-left: none;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    dd p {
+      margin-top: 0em;
+      margin-bottom: -1em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<!--
+<h1 class="title">sbt(1) Sbt 1.6.2 | Scala Commands</h1>
+<p class="date">March 31, 2022</p>
+-->
+<div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;">sbt(1)</div>
+  <div style="float:right;">sbt(1) <a href="#title-block-footer" title="Go to bottom">⇩ </a></div>
+  <div style="text-align:center;">Scala Commands</div>
+  <div style="clear:both;"/>
+</div>
+</header>
+<!--==========================================================================
+Similar man pages:
+* java - https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html
+* java - https://www.manpagez.com/man/1/java/
+* scala - https://manpages.debian.org/stretch/scala/scala.1
+===========================================================================-->
+<h1 id="name">NAME</h1>
+<p><strong>sbt</strong> - Interactive build tool for <a
+href="https://www.scala-lang.org/"><em>Scala</em></a>, <a
+href="https://www.java.com/en/download/help/whatis_java.html"><em>Java</em></a>,
+and more.</p>
+<h1 id="synopsis">SYNOPSIS</h1>
+<p><strong>sbt</strong>
+<code>[</code><em><code>&lt;options&gt;</code></em><code>] [</code><em><code>&lt;file&gt;...</code></em><code>]</code></p>
+<h1 id="description">DESCRIPTION</h1>
+<h2 id="for-scala-and-java">For Scala and Java</h2>
+<p><strong>sbt</strong> is built for Scala and Java projects. One of the
+examples of Scala-specific feature is the ability to cross build your
+project against multiple Scala versions.</p>
+<h2 id="typesafe-and-parallel">Typesafe and parallel</h2>
+<p><strong>build.sbt</strong> is a Scala-based DSL to express parallel
+processing task graph. Typos in <code>build.sbt</code> will be caught as
+a compilation error.</p>
+<h2 id="speedy-iteration">Speedy iteration</h2>
+<p>With Zinc incremental compiler and file watch (<code>~</code>),
+edit-compile-test loop is fast and incremental.</p>
+<h2 id="extensible">Extensible</h2>
+<p>Adding support for new tasks and platforms (like <a
+href="https://www.scala-js.org/"
+title="Scala.js - for robust front-end web applications">Scala.js</a>)
+is as easy as writing <code>build.sbt</code>.</p>
+<p>Further features include :</p>
+<ul>
+<li>Library management support using <a href="https://get-coursier.io/"
+title="Coursier - Pure Scala Artifact Fetching"><em>Coursier</em></a></li>
+<li>Continuous compilation and testing with triggered execution</li>
+<li>Supports testing with <a
+href="https://scalacheck.org/"><em>ScalaCheck</em></a>, <a
+href="https://etorreborre.github.io/specs2/"><em>specs2</em></a>, and <a
+href="https://www.scalatest.org/"><em>ScalaTest</em></a>. JUnit is
+supported by a plugin.</li>
+<li>Starts the Scala REPL with project classes and dependencies on the
+classpath</li>
+<li>Modularization supported with sub-projects</li>
+<li>External project support (list a git repository as a
+dependency!)</li>
+<li>Parallel task execution, including parallel test execution.</li>
+</ul>
+<h1 id="options">OPTIONS</h1>
+<dl>
+<dt><strong>-D</strong><em><code>&lt;key&gt;</code></em><strong><code>=</code></strong><em><code>&lt;value&gt;</code></em></dt>
+<dd>
+Pass <strong><code>-D</code></strong><code>key=value</code> directly to
+the Java runtime.
+</dd>
+<dt><strong>-h</strong>, <strong>--help</strong></dt>
+<dd>
+Print this message.
+</dd>
+<dt><strong>-v</strong>, <strong>--verbose</strong></dt>
+<dd>
+This runner is chattier.
+</dd>
+<dt><strong>-V</strong>, <strong>--version</strong></dt>
+<dd>
+Print <strong>sbt</strong> version information.
+</dd>
+<dt><strong>--numeric-version</strong></dt>
+<dd>
+Print the numeric <strong>sbt</strong> version
+(<code>sbt sbtVersion</code>).
+</dd>
+<dt><strong>--script-version</strong></dt>
+<dd>
+Print the version of sbt script.
+</dd>
+<dt><strong>-d</strong>, <strong>--debug</strong></dt>
+<dd>
+Set <strong>sbt</strong> log level to debug.
+</dd>
+<dt><strong>-debug-inc</strong>, <strong>--debug-inc</strong></dt>
+<dd>
+Enable extra debugging for the incremental debugger.
+</dd>
+<dt><strong>--no-colors</strong></dt>
+<dd>
+Disable ANSI color codes.
+</dd>
+<dt><strong>--color=auto|always|true|false|never</strong></dt>
+<dd>
+Enable or disable ANSI color codes (sbt 1.3 and above).
+</dd>
+<dt><strong>--supershell=auto|always|true|false|never</strong></dt>
+<dd>
+Enable or disable supershell (sbt 1.3 and above).
+</dd>
+<dt><strong>--traces</strong></dt>
+<dd>
+Generate Trace Event report on shutdown (sbt 1.3 and above).
+</dd>
+<dt><strong>--timings</strong></dt>
+<dd>
+Display task timings report on shutdown.
+</dd>
+<dt><strong>--sbt-create</strong></dt>
+<dd>
+Start <strong>sbt</strong> command even if current directory contains no
+sbt project.
+</dd>
+<dt><strong>--sbt-dir</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dd>
+Set path to global settings/plugins directory.
+</dd>
+</dl>
+<blockquote>
+<p>Default (Unix): <code>~/.sbt</code>.<br />
+Default (Windows): <code>%USERPROFILE%\.sbt</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>--sbt-boot</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dd>
+Set path to shared boot directory.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <code>~/.sbt/boot</code> in 0.11 series.</p>
+</blockquote>
+<dl>
+<dt><strong>--sbt-cache</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dd>
+Set path to global cache directory.
+</dd>
+</dl>
+<blockquote>
+<p>Default: operating system specific.</p>
+</blockquote>
+<dl>
+<dt><strong>--ivy</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dd>
+Set path to local <a href="https://ant.apache.org/ivy/">Ivy</a>
+repository.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <code>~/.ivy2</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>--mem</strong> <em><code>&lt;integer&gt;</code></em></dt>
+<dd>
+Set memory options (default: <code>1024</code> bytes).
+</dd>
+<dt><strong>--no-share</strong></dt>
+<dd>
+Use all local caches; no sharing.
+</dd>
+<dt><strong>--no-global</strong></dt>
+<dd>
+Use global caches, but does not use global <code>~/.sbt</code>
+directory.
+</dd>
+<dt><strong>--jvm-debug</strong> <em><code>&lt;port&gt;</code></em></dt>
+<dd>
+Enable on JVM debugging, open at the given port.
+</dd>
+<dt><strong>--sbt-version</strong> <code>&lt;version&gt;</code></dt>
+<dd>
+Use the specified version of <strong>sbt</strong>.
+</dd>
+</dl>
+<blockquote>
+<p>Default: File <code>project/build.properties</code> if present,
+otherwise latest <strong>sbt</strong> release.</p>
+</blockquote>
+<dl>
+<dt><strong>--sbt-jar</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dd>
+Use the specified jar as the sbt launcher.
+</dd>
+<dt><strong>--java-home</strong> <code>&lt;path&gt;</code></dt>
+<dd>
+Alternate <code>JAVA_HOME</code>.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html"
+title="java command"><strong>java</strong></a> command from
+<strong><code>PATH</code></strong>.</p>
+</blockquote>
+<h1 id="environment">ENVIRONMENT</h1>
+<h2 id="environment-variables">Environment Variables</h2>
+<dl>
+<dt><strong>JAVA_OPTS</strong></dt>
+<dd>
+Environment variable, if unset uses <code>-Dfile.encoding=UTF-8</code>.
+</dd>
+<dt><strong>SBT_OPTS</strong></dt>
+<dd>
+Environment variable, if unset uses <code>""</code>.
+</dd>
+</dl>
+<blockquote>
+<p><em><em>Note</em></em>: <strong><code>SBT_OPTS</code></strong> acts
+as a superset of <strong><code>JAVA_OPTS</code></strong> allowing
+<code>-X*</code> and <code>-Dkey=value</code> as well as sbt script
+specific features such as <code>-v</code> and
+<code>--supershell=false</code>.</p>
+</blockquote>
+<h2 id="system-properties">System Properties</h2>
+<p>The following System properties influence Sbt execution :
+<!-- https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html#Command+Line+Options --></p>
+<dl>
+<dt><strong>sbt.banner</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Show a welcome banner advertising new features.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>true</code></strong> (in 1.3+).</p>
+</blockquote>
+<dl>
+<dt><strong>sbt.boot.directory</strong>
+<em><code>&lt;directory&gt;</code></em></dt>
+<dd>
+Set path to shared boot directory. You should define
+<strong><code>sbt.boot.directory</code></strong> explicitly if you are
+using sbt in a CI environment and want to cache sbt boot classes between
+runs.
+</dd>
+</dl>
+<blockquote>
+<p>Default (<em>Unix</em>): <code>~/.sbt/boot/</code><br />
+Default (<em>Windows</em>): <code>%USERPROFILE%\.sbt\boot\</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>sbt.coursier</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Use <a href="https://get-coursier.io/"
+title="Coursier - Pure Scala Artifact Fetching"><em>Coursier</em></a> to
+retrieve packages (see also <strong><code>sbt.ivy</code></strong>).
+</dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>true</code></strong> (in 1.3+).</p>
+</blockquote>
+<dl>
+<dt><strong>sbt.coursier.home</strong>
+<em><code>&lt;directory&gt;</code></em></dt>
+<dd>
+Set location of coursier artifact cache, where the default is defined by
+<a href="https://get-coursier.io/"
+title="Coursier - Pure Scala Artifact Fetching">Coursier</a> cache
+resolution logic. You can verify the value with the command
+<code>csrCacheDirectory</code>. You should define
+<strong><code>sbt.coursier.home</code></strong> explicitly if you are
+using coursier in a CI environment and want to cache artifacts between
+runs.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <code>CoursierDependencyResolution.defaultCacheLocation</code>
+(in 1.3 and above).</p>
+</blockquote>
+<dl>
+<dt><strong>sbt.ivy</strong> <em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Use <a href="https://ant.apache.org/ivy/"><em>Ivy</em></a> to retrieve
+packages.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>true</code></strong> (in &lt;1.3).</p>
+</blockquote>
+<dl>
+<dt><strong>sbt.ivy.home</strong>
+<em><code>&lt;directory</code></em></dt>
+<dd>
+Set the directory containing the local <a
+href="https://ant.apache.org/ivy/"><em>Ivy</em></a> repository and
+artifact cache. You should define
+<strong><code>sbt.ivy.home</code></strong> explicitly if you are using
+sbt in a CI environment and want to cache ivy artifacts between runs.
+</dd>
+</dl>
+<blockquote>
+<p>Default (<em>Unix</em>): <code>~/.ivy2/</code>.<br />
+Default (<em>Windows</em>): <code>%USERPROFILE%\.ivy2\</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>sbt.log.noformat</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+If <code>true</code>, disable ANSI color codes. Useful on build servers
+or terminals that do not support color.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>false</code></strong>.</p>
+</blockquote>
+<dl>
+<dt><strong>sbt.offline</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Avoid retrieving classes from repositories.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>false</code></strong>.</p>
+</blockquote>
+<dl>
+<dt><strong>sbt.supershell</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Use supershell (show progress at bottom of shell). <code>true</code> if
+<strong><code>color</code></strong> is enabled.
+</dd>
+<dt><strong>sbt.version</strong>
+<em><code>&lt;version&gt;</code></em></dt>
+<dd>
+Set <strong>sbt</strong> version to use, usually taken from file
+<code>project/build.properties</code>.
+</dd>
+</dl>
+<h2 id="configuration-files">Configuration Files</h2>
+<dl>
+<dt><strong><code>.jvmopts</code></strong></dt>
+<dd>
+If file <code>.jvmopts</code> exists in the current directory, its
+contents are appended to <strong><code>JAVA_OPTS</code></strong>.
+</dd>
+<dt><strong><code>.sbtopts</code></strong></dt>
+<dd>
+If file <code>.sbtopts</code> exists in the current directory, its
+contents are prepended to the runner arguments.
+</dd>
+<dt><strong><code>$SBT_HOME/conf/sbtconfig.txt</code></strong></dt>
+<dd>
+If this file exists, it is prepended to the runner arguments.
+</dd>
+</dl>
+<blockquote>
+<p><em><em>Note</em></em>: In the case of duplicated or conflicting
+options, the order above shows precedence:
+<strong><code>JAVA_OPTS</code></strong> lowest, command line options
+highest.</p>
+</blockquote>
+<h1 id="examples">EXAMPLES</h1>
+<p>Show the location of the <a href="https://get-coursier.io/"
+title="Coursier - Pure Scala Artifact Fetching"><em>Coursier</em></a>
+artifact cache (<em>Windows</em>).</p>
+<blockquote>
+<pre><code>sbt --sbt-create csrCacheDirectory | findstr Coursier
+[info] %LOCALAPPDATA%\Coursier\Cache\v1</code></pre>
+</blockquote>
+<!-- https://www.baeldung.com/scala/sbt-dependency-tree -->
+<p>Display the dependency tree of a simple Scala plugin project.</p>
+<blockquote>
+<pre><code>sbt dependencyTree
+[info] welcome to sbt 1.6.2 (Temurin Java 1.8.0_322)
+[info] ...
+[info] divide-by-zero-plugin:divide-by-zero-plugin_3:0.1.0
+[info]   +-org.scala-lang:scala3-compiler_3:3.0.2
+[info]   | +-org.jline:jline-reader:3.19.0
+[info]   | | +-org.jline:jline-terminal:3.19.0
+[info]   | | ...
+[info]   | +-org.scala-sbt:compiler-interface:1.3.5
+[info]   |   +-com.google.protobuf:protobuf-java:3.7.0
+[info]   |   +-org.scala-sbt:util-interface:1.3.0
+[info]   |
+[info]   +-org.scala-lang:scala3-library_3:3.0.2 [S]</code></pre>
+</blockquote>
+<h1 id="exit-status">EXIT STATUS</h1>
+<p>The <strong>sbt</strong> command returns a zero exit status if it
+succeeds. Non zero is returned in case of any error. If a script or
+top-level object is executed and returns a value, then that return value
+is passed on to <strong>sbt</strong>.</p>
+<h1 id="authors">AUTHORS</h1>
+<h1 id="reporting-bugs">REPORTING BUGS</h1>
+<p>Please file bugs to <a
+href="https://github.com/sbt/sbt/issues">https://github.com/sbt/sbt/issues</a>.</p>
+<h1 id="copyright">COPYRIGHT</h1>
+<p><a href="https://github.com/sbt/sbt/blob/develop/LICENSE">The Apache
+License 2.0</a></p>
+<p>Copyright (c) 2008, 2009 <strong>Mark Harrah</strong></p>
+<!-- [The BSD License](https://www.lightbend.com/legal/licenses) -->
+<p>Copyright (c) 2016-2022 <a
+href="https://www.lightbend.com/legal/licenses"><strong>Lightbend,
+Inc.</strong></a></p>
+<h1 id="see-also">SEE ALSO</h1>
+<p><a href="./amm.1.html"><strong>amm</strong></a>(1), <a
+href="./mill.1.html"><strong>mill</strong></a>(1), <a
+href="./cs.1.html"><strong>cs</strong></a>(1), <a
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
+<!-- hyperref -->
+<div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;"><a href="https://www.scala-sbt.org/">Sbt 1.6.2</a></div>
+  <div style="float:right;">sbt(1) <a href="#title-block-header" title="Back to top">⇧ </a></div>
+  <div style="text-align:center;">March 30, 2022</div>
+</div>
+</body>
+</html>

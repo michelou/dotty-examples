@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2022-03-31" />
+  <title>scalafix(1) Scalafix 0.9.34 | Scala Commands</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Courier;
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin:0 6em 4em 4em;
+      max-width: 40em;
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 5;
+      padding-bottom: 5;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      text-decoration: none;
+      color: [HTML]{66001E};
+    }
+    a:visited {
+      color: [HTML]{66001E};
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: -1em 0 -1em 1.5em;
+      padding-left: 1em;
+      border-left: none;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    dd p {
+      margin-top: 0em;
+      margin-bottom: -1em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<!--
+<h1 class="title">scalafix(1) Scalafix 0.9.34 | Scala Commands</h1>
+<p class="date">March 31, 2022</p>
+-->
+<div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;">scalafix(1)</div>
+  <div style="float:right;">scalafix(1) <a href="#title-block-footer" title="Go to bottom">⇩ </a></div>
+  <div style="text-align:center;">Scala Commands</div>
+  <div style="clear:both;"/>
+</div>
+</header>
+<!--==========================================================================
+Similar man pages:
+* java - https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html
+* java - https://www.manpagez.com/man/1/java/
+* scala - https://manpages.debian.org/stretch/scala/scala.1
+===========================================================================-->
+<h1 id="name">NAME</h1>
+<p><strong>scalafix</strong> - Rewrite and linting tool for Scala</p>
+<h1 id="synopsis">SYNOPSIS</h1>
+<p><strong>scalafix</strong>
+<code>[</code><em><code>&lt;options&gt;</code></em><code>] [</code><em><code>&lt;path&gt;</code></em>
+<code>...]</code></p>
+<h1 id="description">DESCRIPTION</h1>
+<p><a
+href="https://github.com/scalacenter/scalafix/"><em>Scalafix</em></a> is
+a refactoring and linting tool.</p>
+<p><a
+href="https://github.com/scalacenter/scalafix/"><em>Scalafix</em></a>
+supports both syntactic and semantic linter and rewrite rules. Syntactic
+rules can run on source code without compilation. Semantic rules can run
+on source code that has been compiled with the <a
+href="https://scalameta.org/docs/semanticdb/guide.html"><em>SemanticDB</em></a>
+compiler plugin.</p>
+<ul>
+<li>Automate day-to-day code health tasks or write one-time migrations
+scripts.</li>
+<li>Report error messages for code patterns that cause bugs in
+production or violate your coding style.</li>
+</ul>
+<h1 id="options">OPTIONS</h1>
+<h2 id="common-options">Common Options</h2>
+<dl>
+<dt><strong>–rules</strong>, <strong>-r</strong>
+<code>[</code><em><code>&lt;string&gt;</code></em> `…]</dt>
+<dd>
+Scalafix rules to run, for example <code>ExplicitResultTypes</code>. The
+syntax for rules is documented in <a
+href="https://scalacenter.github.io/scalafix/docs/users/configuration#rules">https://scalacenter.github.io/scalafix/docs/users/configuration#rules</a>.
+</dd>
+<dt><strong>–files</strong>, <strong>-f</strong>
+<code>[</code><em><code>&lt;path&gt;</code></em> <code>...]</code></dt>
+<dd>
+Specify files or directories (recursively visited) to fix.
+</dd>
+</dl>
+<p>–config <path> (default: null) File path to a .scalafix.conf
+configuration file. Defaults to .scalafix.conf in the current working
+directory, if any.</p>
+<p>–check Check that all files have been fixed with scalafix, exiting
+with non-zero code on violations. Won’t write to files.</p>
+<p>–stdout Print fixed output to stdout instead of writing in-place.</p>
+<p>–diff If set, only apply scalafix to added and edited files in git
+diff against the master branch.</p>
+<p>–diff-base String (default: null) If set, only apply scalafix to
+added and edited files in git diff against a provided branch, commit or
+tag.</p>
+<p>–syntactic Run only syntactic rules, ignore semantic rules even if
+they are explicitly configured in .scalafix.conf or via –rules</p>
+<p>–triggered Overlay the default rules &amp; rule settings in
+.scalafix.conf with the <code>triggered</code> section</p>
+<p>–verbose Print out additional diagnostics while running scalafix.</p>
+<p>–help | -h Print out this help message and exit</p>
+<p>–version | -v Print out version number and exit</p>
+<h2 id="semantic-options"><span id="semantic_options">Semantic
+Options</span></h2>
+<dl>
+<dt><strong>–classpath</strong> <em><code>&lt;classpath&gt;</code></em>
+(default: “<classpath>”)</dt>
+<dd>
+Specify the full class path of the files to fix, required for semantic
+rules. The source files that should be fixed must be compiled with
+semanticdb-scalac. Dependencies are required by rules like
+ExplicitResultTypes, but the dependencies do not need to be compiled
+with semanticdb-scalac.
+</dd>
+<dt><strong>–sourceroot</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dd>
+Set the absolute path passed to semanticdb with
+<em><code>-P:semanticdb:sourceroot:&lt;path&gt;</code></em>.
+</dd>
+</dl>
+<blockquote>
+<p>Relative filenames persisted in the Semantic DB are absolutized by
+the sourceroot. Defaults to current working directory if not
+provided.</p>
+</blockquote>
+<dl>
+<dt><strong>–semanticdb-targetroots</strong>
+<code>[</code><em><code>&lt;path&gt;</code></em> <code>...]</code></dt>
+<dd>
+Set the absolute paths passed to semanticdb with
+<code>-P:semanticdb:targetroot:&lt;path&gt;</code>. Used to locate
+semanticdb files. By default, Scalafix will try to locate semanticdb
+files in the classpath.
+</dd>
+<dt><strong>–auto-classpath</strong></dt>
+<dd>
+If set, automatically infer the
+<strong><code>--classpath</code></strong> flag by scanning for
+directories with <strong><code>META-INF/semanticdb</code></strong>.
+</dd>
+</dl>
+<p>–auto-classpath-roots [<path> …] (default: []) Additional directories
+to scan for –auto-classpath</p>
+<p>–scalac-options [String …] (default: []) The scala compiler options
+used to compile this –classpath, for example -Ywarn-unused-import</p>
+<p>–scala-version ScalaVersion (default: “2.13.8”) The major or binary
+Scala version that the provided files are targeting, or the full version
+that was used to compile them when a classpath is provided.</p>
+<p>Tab completions:</p>
+<p>–bash Print out bash tab completions. To install:
+<code># macOS, requires "brew install bash-completion"     scalafix --bash &gt; /usr/local/etc/bash_completion.d/scalafix     # Linux     scalafix --bash &gt; /etc/bash_completion.d/scalafix</code></p>
+<p>–zsh Print out zsh tab completions. To install:
+<code>scalafix --zsh &gt; /usr/local/share/zsh/site-functions/_scalafix     unfunction _scalafix     autoload -U _scalafix</code></p>
+<h2 id="less-common-options">Less Common Options</h2>
+<dl>
+<dt><strong>–exclude</strong>
+<code>[</code><em><code>&lt;glob&gt;</code></em> <code>...]</code></dt>
+<dd>
+Unix-style glob for files to exclude from fixing. The glob syntax is
+defined by <code>nio.FileSystem.getPathMatcher</code>.
+</dd>
+<dt><strong>–tool-classpath</strong> URLClassLoader (default:
+“<classloader>”)</dt>
+<dd>
+Set additional class path for compiling and class loading custom rules,
+as a set of filesystem paths, separated by <code>':'</code> on Unix or
+‘;’ on Windows.
+</dd>
+<dt><strong>–charset</strong> <em><code>&lt;charset&gt;</code></em></dt>
+<dd>
+Set the encoding to use for reading/writing files.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>UTF-8</code></strong>.</p>
+</blockquote>
+<dl>
+<dt><strong>–no-sys-exit</strong></dt>
+<dd>
+If set, throw exception in the end instead of <code>System.exit</code>.
+</dd>
+<dt><strong>–no-stale-semanticdb</strong></dt>
+<dd>
+Don’t error on stale semanticdb files.
+</dd>
+<dt><strong>–settings</strong>
+<em><code>&lt;scalafixConfig&gt;</code></em></dt>
+<dd>
+Custom settings to override
+<strong><code>.scalafix.conf</code></strong>.
+</dd>
+<dt><strong>–out-from</strong> <em><code>&lt;string&gt;</code></em></dt>
+<dd>
+Write fixed output to custom location instead of in-place. Regex is
+passed as first argument to file.replaceAll(–out-from, –out-to),
+requires <strong><code>--out-to</code></strong>.
+</dd>
+<dt><strong>–out-to</strong> <em><code>&lt;string&gt;</code></em></dt>
+<dd>
+Companion of –out-from, string that is passed as second argument to
+fileToFix.replaceAll(–out-from, –out-to).
+</dd>
+<dt><strong>–auto-suppress-linter-errors</strong></dt>
+<dd>
+Insert <strong><code>/*</code></strong> <code>scalafix:ok</code>
+<strong><code>*/</code></strong> suppressions instead of reporting
+linter errors.
+</dd>
+<dt><strong>–cwd</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dd>
+The current working directory.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>.</code></strong>.</p>
+</blockquote>
+<h1 id="environment">ENVIRONMENT</h1>
+<h2 id="configuration-files">Configuration Files</h2>
+<dl>
+<dt><strong>.scalafix.conf</strong></dt>
+<dd>
+ 
+</dd>
+</dl>
+<h1 id="examples">EXAMPLES</h1>
+<h1 id="exit-status">EXIT STATUS</h1>
+<h1 id="authors">AUTHORS</h1>
+<p>The current maintainers are :</p>
+<blockquote>
+<p>Brice Jaglin - <a href="https://github.com/bjaglin"><span
+class="citation" data-cites="bjaglin">@bjaglin</span></a><br />
+Gabriele Petronella - <a href="https://github.com/gabro"><span
+class="citation" data-cites="gabro">@gabro</span></a><br />
+Guillaume Massé - <a href="https://github.com/MasseGuillaume"><span
+class="citation"
+data-cites="MasseGuillaume">@MasseGuillaume</span></a><br />
+Ólafur Páll Geirsson - <a href="https://github.com/olafurpg"><span
+class="citation" data-cites="olafurpg">@olafurpg</span></a><br />
+Meriam Lachkar - <a href="https://github.com/mlachkar"><span
+class="citation" data-cites="mlachkar">@mlachkar</span></a><br />
+Shane Delmore - <a href="https://github.com/ShaneDelmore"><span
+class="citation" data-cites="ShaneDelmore">@ShaneDelmore</span></a></p>
+</blockquote>
+<h1 id="reporting-bugs">REPORTING BUGS</h1>
+<p>Report bugs to <a
+href="https://github.com/scalacenter/scalafix/issues">https://github.com/scalacenter/scalafix/issues</a>.</p>
+<h1 id="copyright">COPYRIGHT</h1>
+<p>Copyright (C) 2017-2022 <a
+href="https://github.com/scalacenter/scalafix#team">The Scalafix
+Maintainers</a></p>
+<h1 id="see-also">SEE ALSO</h1>
+<p><a href="./amm.1.html"><strong>amm</strong></a>(1), <a
+href="./cs.1.html"><strong>cs</strong></a>(1), <a
+href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
+href="./mill.1.html"><strong>mill</strong></a>(1), <a
+href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
+<!-- hyperref -->
+<div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;"><a href="https://scalacenter.github.io/scalafix/">Scalafix 0.9.34</a></div>
+  <div style="float:right;">scalafix(1) <a href="#title-block-header" title="Back to top">⇧ </a></div>
+  <div style="text-align:center;">March 30, 2022</div>
+</div>
+</body>
+</html>

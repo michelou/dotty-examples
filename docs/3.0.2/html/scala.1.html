@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2022-03-31" />
+  <title>scala(1) Scala 3.0.2 | Scala 3 Commands</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Courier;
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin:0 6em 4em 4em;
+      max-width: 40em;
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 5;
+      padding-bottom: 5;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      text-decoration: none;
+      color: [HTML]{66001E};
+    }
+    a:visited {
+      color: [HTML]{66001E};
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: -1em 0 -1em 1.5em;
+      padding-left: 1em;
+      border-left: none;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    dd p {
+      margin-top: 0em;
+      margin-bottom: -1em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<!--
+<h1 class="title">scala(1) Scala 3.0.2 | Scala 3 Commands</h1>
+<p class="date">March 31, 2022</p>
+-->
+<div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;">scala(1)</div>
+  <div style="float:right;">scala(1) <a href="#title-block-footer" title="Go to bottom">⇩ </a></div>
+  <div style="text-align:center;">Scala 3 Commands</div>
+  <div style="clear:both;"/>
+</div>
+</header>
+<!--==========================================================================
+Similar man pages:
+* java - https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html
+* java - https://www.manpagez.com/man/1/java/
+* scala - https://manpages.debian.org/stretch/scala/scala.1
+===========================================================================-->
+<h1 id="name">NAME</h1>
+<p><strong>scala</strong> - Code runner for the Scala 3 language</p>
+<h1 id="synopsis">SYNOPSIS</h1>
+<p><strong>scala</strong> <em><code>&lt;options&gt;</code></em>
+[<em><code>&lt;class name&gt;</code></em>|<em><code>&lt;source file&gt;</code></em>]</p>
+<h1 id="description">DESCRIPTION</h1>
+<p>The <strong>scala</strong> command starts a Scala application using a
+Java runtime environment (see section <a
+href="#environment"><strong>ENVIRONMENT</strong></a>). The Scala code to
+run is specified in one of three ways:</p>
+<ol type="1">
+<li>With no arguments specified, the Scala REPL starts and reads user
+commands interactively.</li>
+<li>A fully qualified name of a top-level Scala object is specified. The
+object should previously have been compiled using <a
+href="./scalac.1.html"><strong>scalac</strong></a>(1).</li>
+<li>A file containing Scala code is specified.</li>
+</ol>
+<p>The <strong>scala</strong> command checks whether a file of the
+specified name exists. If it does, then it will treat it as a script
+file; if it does not, then it will treat it as the name of an
+object.</p>
+<p>In all three cases, arbitrary <strong>scalac</strong> options may be
+specified. The most common option is to specify a class path with
+<code>-classpath</code>, but see the <a
+href="./scalac.1.html"><strong>scalac</strong></a>(1) page for full
+details.</p>
+<p>If an object is specified to run, then that object must be a
+top-level Scala object with the specified name. The object must define a
+method <code>main</code> with the following signature:</p>
+<p><strong>def</strong> main(args: Array[String]): Unit</p>
+<p>The method must return a <code>Unit</code> value, and it must accept
+a <code>String</code> array as a parameter. All arguments specified on
+the command line will be passed as arguments to the <code>main</code>
+method.</p>
+<p>If a script file is specified to run, then the file is read and all
+Scala statements and declarations in the file are processed in order.
+Any arguments specified will be available via the <code>args</code>
+variable.</p>
+<p>Script files may have an optional header that is ignored if present.
+There are two ways to format the header:</p>
+<ul>
+<li>either beginning with <code>#!</code> and ending with
+<code>!#</code>,</li>
+<li>or beginning with <code>::#!</code> and ending with
+<code>::!#</code>.</li>
+</ul>
+<p>Such a header must have each header boundary start at the beginning
+of a line. Headers can be used to make stand-alone script files, as
+shown in the <a href="#examples">examples</a> below.</p>
+<h1 id="options">OPTIONS</h1>
+<p>The <strong>scala</strong> command supports the same options as <a
+href="./scalac.1.html"><strong>scalac</strong></a>(1) and adds a few
+more options.</p>
+<h2 id="standard-options">Standard Options</h2>
+<dl>
+<dt><em><code>&lt;compiler-option&gt;</code></em></dt>
+<dd>
+Any standard compiler option. See <a
+href="./scalac.1.html#standard-options"><strong>scalac</strong></a>(1).
+</dd>
+<dt><strong>-nosave</strong></dt>
+<dd>
+ 
+</dd>
+<dt><strong>-save</strong></dt>
+<dd>
+Save this compiled version of a script in order to speed up its later
+executions. When running a script, save the compiled version in a file
+with the same name as the script but with a <code>.jar</code> extension.
+On subsequent runs of the same script, the pre-compiled
+<code>.jar</code> file is used if it is newer than the script file.
+</dd>
+</dl>
+<blockquote>
+<p>This is similar to Scala 2 option <a
+href="https://manpages.ubuntu.com/manpages/jammy/man1/scala.1.html#parameters"><strong><code>-savecompiled</code></strong></a>.</p>
+</blockquote>
+<dl>
+<dt><strong>-with-compiler</strong></dt>
+<dd>
+Extend the class path passed to the Java runtime with the compiler
+libraries (in the following
+<strong><code>LIB</code></strong><code>=$SCALA_HOME/lib</code>):
+</dd>
+</dl>
+<blockquote>
+<blockquote>
+<p><strong><code>$LIB</code></strong><code>/scala3-compiler_3-3.0.2.jar</code><br />
+<strong><code>$LIB</code></strong><code>/tasty-core_3-3.0.2.jar</code><br />
+<strong><code>$LIB</code></strong><code>/scala3-interfaces-3.0.2.jar</code><br />
+<strong><code>$LIB</code></strong><code>/scala-asm-3.0.2-scala-1.jar</code><br />
+<strong><code>$LIB</code></strong><code>/scala3-staging_3-3.0.2.jar</code><br />
+<strong><code>$LIB</code></strong><code>/scala3-tasty-inspector_3-3.0.2.jar</code></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p><em>Note</em>: Per default the class path is constructed as follows
+:</p>
+</blockquote>
+<blockquote>
+<ol type="1">
+<li>If the user specifies option
+<strong><code>-classpath</code></strong>
+<em><code>&lt;cpath&gt;</code></em> its value is appended to the base
+class path, i.e.</li>
+</ol>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><strong><code>$LIB</code></strong><code>/scala3-library_3-3.0.2.jar:</code><strong><code>$LIB</code></strong><code>/scala-library-2.13.6.jar:</code><em><code>&lt;cpath&gt;</code></em></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<ol start="2" type="1">
+<li>Otherwise the current directory (“<code>.</code>”) is appended to
+the base class path, i.e.</li>
+</ol>
+</blockquote>
+<blockquote>
+<blockquote>
+<p><strong><code>$LIB</code></strong><code>/scala3-library_3-3.0.2.jar:</code><strong><code>$LIB</code></strong><code>/scala-library-2.13.6.jar:.</code></p>
+</blockquote>
+</blockquote>
+<h2 id="warning-options">Warning Options</h2>
+<dl>
+<dt><strong>-W</strong><em><code>&lt;name&gt;</code></em></dt>
+<dd>
+Any warning compiler option. See <a
+href="./scalac.1.html#warning-options"><strong>scalac</strong></a>(1).
+</dd>
+</dl>
+<h2 id="advanced-options">Advanced Options</h2>
+<dl>
+<dt><strong>-X</strong><em><code>&lt;name&gt;</code></em></dt>
+<dd>
+Any advanced compiler option. See <a
+href="./scalac.1.html#advanced-options"><strong>scalac</strong></a>(1).
+</dd>
+</dl>
+<h2 id="private-options">Private Options</h2>
+<dl>
+<dt><strong>-Y</strong><em><code>&lt;name&gt;</code></em></dt>
+<dd>
+Any private compiler option. See <a
+href="./scalac.1.html#private-options"><strong>scalac</strong></a>(1).
+</dd>
+</dl>
+<h1 id="environment">ENVIRONMENT</h1>
+<h2 id="environment-variables">Environment Variables</h2>
+<dl>
+<dt><strong>JAVACMD</strong></dt>
+<dd>
+Specify the <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html"><strong>java</strong></a>
+command to be used for running the Scala code. Arguments may be
+specified as part of the environment variable; spaces, quotation marks,
+etc., will be passed directly to the shell for expansion.
+</dd>
+<dt><a
+href="https://docs.oracle.com/en/cloud/saas/enterprise-performance-management-common/diepm/epm_set_java_home_104x6dd63633_106x6dd6441c.html"><strong>JAVA_HOME</strong></a></dt>
+<dd>
+Specify JDK/JRE home directory. This directory is used to locate the <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html"><strong>java</strong></a>
+command unless the <strong>JAVACMD</strong> variable is set.
+</dd>
+<dt><strong>JAVA_OPTS</strong></dt>
+<dd>
+Specify the options to be passed to the <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html"><strong>java</strong></a>
+command defined by <strong>JAVACMD</strong>.
+</dd>
+</dl>
+<blockquote>
+<p>Example (Unix):
+<strong><code>export JAVA_OPTS</code></strong><code>="-Xmx512M -Xms16M -Xss16M"</code><br />
+Example (Windows):
+<strong><code>set JAVA_OPTS</code></strong><code>=-Xmx512M -Xms16M -Xss16M</code></p>
+</blockquote>
+<dl>
+<dt><strong>SCALA_OPTS</strong></dt>
+<dd>
+Specify the options to be passed to the <strong>scala</strong> command.
+</dd>
+</dl>
+<!-- https://github.com/lampepfl/dotty/blob/main/compiler/src/dotty/tools/dotc/config/PathResolver.scala -->
+<h2 id="system-properties">System Properties</h2>
+<p>The Scala 3 commands have access to the <a
+href="https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html">System
+properties</a> of the underlying Java platform. System properties
+include information about the current user, the current version of the
+Java runtime, and the character used to separate components of a file
+path name.</p>
+<p>Furthermore the <strong>scala</strong> command works together with
+the following System properties, some of which are specific to Scala 3
+:</p>
+<dl>
+<dt><strong>java.class.path</strong></dt>
+<dd>
+Path used to find directories and JAR archives containing class files.
+Elements of the class path are separated by a platform-specific
+character specified in the <code>path.separator</code> property.
+</dd>
+<dt><strong>java.ext.dirs</strong></dt>
+<dd>
+Same as compiler option <a
+href="#javaextdirs"><strong>-javaextdirs</strong></a>.
+</dd>
+</dl>
+<blockquote>
+<p>See Oracle’s guide <a
+href="https://docs.oracle.com/javase/8/docs/technotes/guides/extensions/spec.html">Extension
+Mechanism Architecture</a> for more information.</p>
+</blockquote>
+<dl>
+<dt><strong>scala.ext.dirs</strong></dt>
+<dd>
+ 
+</dd>
+<dt><strong>scala.home</strong></dt>
+<dd>
+Path of the Scala 3 software installation.
+</dd>
+<dt><strong>scala.usejavacp</strong></dt>
+<dd>
+ 
+</dd>
+<dt><strong>sun.boot.class.path</strong></dt>
+<dd>
+ 
+</dd>
+</dl>
+<h1 id="examples">EXAMPLES</h1>
+<p>Here are some examples of running Scala code:</p>
+<p>Execute a Scala program generated in the current directory</p>
+<blockquote>
+<p><strong><code>scala</code></strong> <code>hello.HelloWorld</code></p>
+</blockquote>
+<p>Execute a Scala program generated in the user-defined directory
+<code>classes</code></p>
+<blockquote>
+<p><strong><code>scala</code></strong>
+<code>-classpath classes hello.HelloWorld</code></p>
+</blockquote>
+<p>Execute a Scala program using a user-defined <strong>java</strong>
+command</p>
+<blockquote>
+<p><strong><code>env JAVACMD=</code></strong><code>/usr/local/bin/java</code>
+<strong><code>scala -classpath</code></strong>
+<code>classes hello.HelloWorld</code></p>
+</blockquote>
+<p>Execute a Scala program using JVM options</p>
+<blockquote>
+<p><strong><code>env JAVACMD=</code></strong><code>/usr/local/bin/java</code>
+<strong><code>JAVA_OPTS=</code></strong><code>"-Dmsg=hello -enableassertions"</code>
+<strong><code>scala -classpath</code></strong>
+<code>classes hello.HelloWorld</code><br> 
+<!-- increase vertical space with next example --></p>
+</blockquote>
+<p>Here is a complete Scala script for Unix:</p>
+<blockquote>
+<pre><code>#!/bin/sh
+exec scala &quot;$0&quot; &quot;$@&quot;
+!#
+Console.println(&quot;Hello, world!&quot;)
+args.toList foreach Console.println</code></pre>
+</blockquote>
+<p>Here is a complete Scala script for MS Windows:</p>
+<blockquote>
+<pre><code>::#!
+@echo off
+call scala %0 %*
+goto :eof
+::!#
+Console.println(&quot;Hello, world!&quot;)
+args.toList foreach Console.println</code></pre>
+</blockquote>
+<p>If you want to use the compilation cache to speed up multiple
+executions of the script, then add <code>-save</code> to the
+<strong>scala</strong> command:</p>
+<blockquote>
+<pre><code>#!/bin/sh
+exec scala -save &quot;$0&quot; &quot;$@&quot;
+!#
+Console.println(&quot;Hello, world!&quot;)
+args.toList foreach Console.println</code></pre>
+</blockquote>
+<h1 id="exit-status">EXIT STATUS</h1>
+<p>The <strong>scala</strong> command returns a zero exit status if it
+succeeds. Non zero is returned in case of any error. If a script or
+top-level object is executed and returns a value, then that return value
+is passed on to <strong>scala</strong>.</p>
+<h1 id="authors">AUTHORS</h1>
+<p>Written by <a
+href="https://en.wikipedia.org/wiki/Martin_Odersky">Martin Odersky</a>,
+the Scala team and the <a
+href="https://contributors.scala-lang.org/">Scala contributors</a>.</p>
+<h1 id="reporting-bugs">REPORTING BUGS</h1>
+<p>Report bugs to <a
+href="https://issues.scala-lang.org/">https://issues.scala-lang.org/</a>.</p>
+<h1 id="copyright">COPYRIGHT</h1>
+<p>This is open-source software, available to you under a BSD-like
+license. See accompanying “copyright” or “LICENSE” file for copying
+conditions. There is NO warranty; not even for MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.</p>
+<h1 id="see-also">SEE ALSO</h1>
+<p><a href="./scalac.1.html"><strong>scalac</strong></a>(1), <a
+href="./scaladoc.1.html"><strong>scaladoc</strong></a>(1)</p>
+<!-- hyperref -->
+<div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;">Scala 3.0.2</div>
+  <div style="float:right;">scala(1) <a href="#title-block-header" title="Back to top">⇧ </a></div>
+  <div style="text-align:center;">March 31, 2022</div>
+</div>
+</body>
+</html>
