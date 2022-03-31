@@ -1009,26 +1009,26 @@ Choose reconciliation strategy.
 <dd>
  
 </dd>
-<dt><strong>–strict-include</strong>
+<dt><strong>--strict-include</strong>
 <em><code>&lt;string&gt;</code></em></dt>
 <dd>
  
 </dd>
 </dl>
-<p><strong>–strict-exclude</strong>
+<p><strong>--strict-exclude</strong>
 <em><code>&lt;string&gt;</code></em><code>...</code></p>
 <dl>
-<dt><strong>–default-configuration</strong>, <strong>-c</strong>
+<dt><strong>--default-configuration</strong>, <strong>-c</strong>
 <em><code>&lt;configuration&gt;</code></em></dt>
 <dd>
 Default configuration (default(compile) by default)
 </dd>
-<dt><strong>–exclude</strong>, <strong>-E</strong>
+<dt><strong>--exclude</strong>, <strong>-E</strong>
 <em><code>&lt;organization:name&gt;</code></em></dt>
 <dd>
 Exclude module
 </dd>
-<dt><strong>–local-exclude-file</strong>, <strong>-x</strong>
+<dt><strong>--local-exclude-file</strong>, <strong>-x</strong>
 <em><code>&lt;string&gt;</code></em></dt>
 <dd>
 Specify the path to the local exclusion file. Syntax:
@@ -1045,31 +1045,49 @@ Specify the path to the local exclusion file. Syntax:
 requires X, module X will still be fetched.</p>
 </blockquote>
 <dl>
-<dt><strong>–sbt-version</strong>
+<dt><strong>--sbt-version</strong>
 <em><code>&lt;sbt version&gt;</code></em></dt>
 <dd>
 If –sbt-plugin options are passed: default sbt version (short version
 X.Y is enough - note that for sbt 1.x, this should be passed 1.0).
 </dd>
-<dt><strong>–intransitive</strong>
+<dt><strong>--intransitive</strong>
 *<code>&lt;string&gt;</code>**<code>..</code></dt>
 <dd>
-Add intransitive dependencies
+Add intransitive dependencies.
+</dd>
+<dt><strong>--sbt-plugin</strong>
+<em><code>&lt;string&gt;</code></em><code>..</code></dt>
+<dd>
+Add sbt plugin dependencies.
+</dd>
+<dt><strong>–scala-js</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+ 
+</dd>
+<dt><strong>–native</strong>, <strong>-S</strong>
+<em><code>&lt;boolean&gt;</code></em></dt>
+<dd>
+Enable scala-native.
+</dd>
+<dt><strong>–quiet</strong>, <strong>-q</strong>
+<em><code>&lt;counter&gt;</code></em></dt>
+<dd>
+Quiet output.
 </dd>
 </dl>
-<p><strong>–sbt-plugin</strong> &lt;string*&gt; Add sbt plugin
-dependencies –scala-js <bool> –native | -S <bool> Enable scala-native
-–quiet | -q <counter> Quiet output –verbose | -v <counter> Increase
-verbosity (specify several times to increase more) –progress | -P <bool>
-Force display of progress bars –log-changing <bool> Log changing
-artifacts –log-channel-version | –log-index-version |
-–log-jvm-index-version <bool> Log app channel or JVM index version
-–classifier | -C &lt;classifier1,classifier2,…&gt; Classifiers that
-should be fetched –sources <bool> Fetch source artifacts –javadoc <bool>
-Fetch javadoc artifacts –default &lt;bool?&gt; Fetch default artifacts
-(default: false if –sources or –javadoc or –classifier are passed, true
-else) –artifact-type | -A &lt;type1,type2,…&gt; Artifact types that
-should be retained (e.g. jar, src, doc, etc.) - defaults to jar,bundle
+<p><strong>–verbose</strong> | -v <counter> Increase verbosity (specify
+several times to increase more) –progress | -P <bool> Force display of
+progress bars –log-changing <bool> Log changing artifacts
+–log-channel-version | –log-index-version | –log-jvm-index-version
+<bool> Log app channel or JVM index version –classifier | -C
+&lt;classifier1,classifier2,…&gt; Classifiers that should be fetched
+–sources <bool> Fetch source artifacts –javadoc <bool> Fetch javadoc
+artifacts –default &lt;bool?&gt; Fetch default artifacts (default: false
+if –sources or –javadoc or –classifier are passed, true else)
+–artifact-type | -A &lt;type1,type2,…&gt; Artifact types that should be
+retained (e.g. jar, src, doc, etc.) - defaults to jar,bundle
 –force-fetch <bool> Fetch artifacts even if the resolution is errored
 –jvm &lt;string?&gt; –jvm-dir &lt;string?&gt; –system-jvm &lt;bool?&gt;
 –local-only <bool> –update <bool> –jvm-index &lt;string?&gt; –repository

@@ -193,15 +193,8 @@ href="https://groovy-lang.org/"
 title="Groovy - A multi-faceted language for the Java platform"><em>Groovy</em></a>
 and more.</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p>General form is</p>
 <p><strong>gradle</strong>
 <code>[</code><em><code>&lt;taskName&gt;</code></em><code>...] [</code><em><code>&lt;option&gt;</code></em><code>...]</code></p>
-<!-- https://docs.gradle.org/current/userguide/build_init_plugin.html -->
-<p>Create a new Gradle build; option <strong>--type</strong>
-<em><code>&lt;type&gt;</code></em> specifies the project type.</p>
-<p><strong>gradle init --type
-(scala-application|scala-library</strong><code>|..)</code>
-<em><code>&lt;options&gt;</code></em></p>
 <h1 id="description">DESCRIPTION</h1>
 <p><a href="https://gradle.org/"><em>Gradle</em></a> is a build tool
 with a focus on build automation and support for multi-language
@@ -220,7 +213,21 @@ title="Groovy - A multi-faceted language for the Java platform"><em>Groovy</em><
 and is closely integrated with development tools and continuous
 integration servers including <a href="https://"><em>Eclipse</em></a>,
 IntelliJ, and Jenkins.</p>
-<h1 id="options">OPTIONS</h1>
+<h1 id="commands"><span id="commands">COMMANDS</span></h1>
+<!-- https://docs.gradle.org/current/userguide/build_init_plugin.html -->
+<dl>
+<dt><strong>init</strong></dt>
+<dd>
+Create a new Gradle build; option <strong>--type</strong>
+<em><code>&lt;type&gt;</code></em> specifies the project type.
+</dd>
+</dl>
+<blockquote>
+<p>Example: <strong>gradle init --type
+(scala-application|scala-library</strong><code>|..)</code>
+<em><code>&lt;options&gt;</code></em></p>
+</blockquote>
+<h1 id="options"><span id="options">OPTIONS</span></h1>
 <h2 id="debugging-options"><span id="debugging_options">Debugging
 Options</span></h2>
 <dl>

@@ -77,7 +77,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*March 2022*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*April 2022*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant-1.10.12\         <i>( 40 MB)</i>
@@ -97,7 +97,7 @@ C:\opt\mill-0.10.2\                <i>( 64 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
 C:\opt\sbt-1.6.2\                  <i>( 50 MB)</i>
 C:\opt\scala-2.13.8\               <i>( 24 MB)</i>
-C:\opt\scala3-3.1.2-RC2\           <i>( 35 MB)</i>
+C:\opt\scala3-3.1.2-RC3\           <i>( 35 MB)</i>
 </pre>
  <!-- jdk8: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
  <!-- jdk11: 11.0.8 = 314 MB, 11.0.9 = 316 MB, 11.0.11 = 300 MB -->
@@ -198,7 +198,7 @@ We distinguish different sets of batch/bash commands:
     > **&#9755;** Starting with version 3.0.2 those batch files are included in the [Scala 3][scala3_releases] software distribution (see [PR#13006](https://github.com/lampepfl/dotty/pull/13006), itself based on [PR#5444][github_PR5444]).
 
     <pre style="font-size:80%;">
-    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3-3.1.2-RC2\bin</b>
+    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3-3.1.2-RC3\bin</b>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/common">common</a>
     <a href="bin/3.0/common.bat">common.bat</a>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/scala">scala</a>
@@ -336,9 +336,9 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   javac 11.0.14, java 11.0.14, scalac 2.13.8, scalac 3.1.2-RC2,
+   javac 11.0.14, java 11.0.14, scalac 2.13.8, scalac 3.1.2-RC3,
    ant 1.10.12, gradle 7.4.1, mill 0.10.2, mvn 3.8.5, sbt 1.6.2,
-   bazel 5.0.0, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.2,
+   bazel 5.0.0, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.4,
    git 2.35.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
@@ -364,15 +364,15 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   javac 11.0.14, java 11.0.14, scalac 2.13.8, scalac 3.1.2-RC2,
+   javac 11.0.14, java 11.0.14, scalac 2.13.8, scalac 3.1.2-RC3,
    ant 1.10.12, gradle 7.4.1, mill 0.10.2, mvn 3.8.5, sbt 1.6.2,
-   bazel 5.0.0, cfr 0.152, make 3.81, python 3.10.2,
+   bazel 5.0.0, cfr 0.152, make 3.81, python 3.10.4,
    git 2.35.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.14.1_1\bin\javac.exe
    C:\opt\jdk-temurin-11.0.14.1_1\bin\java.exe
    C:\opt\scala-2.13.8\bin\scalac.bat
-   C:\opt\scala3-3.1.2-RC2\bin\scalac.bat
+   C:\opt\scala3-3.1.2-RC3\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.12\bin\ant.bat
    C:\opt\gradle-7.4.1\bin\gradle.bat
@@ -382,7 +382,7 @@ Tool paths:
    C:\opt\bazel-5.0.0\bazel.exe
    C:\opt\cfr-0.152\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
-   C:\opt\Python-3.10.2\python.exe
+   C:\opt\Python-3.10.4\python.exe
    C:\opt\Git-2.35.1\bin\git.exe
    C:\opt\Git-2.35.1\mingw64\bin\git.exe
    C:\opt\Git-2.35.1\usr\bin\diff.exe
@@ -395,10 +395,10 @@ Environment variables:
    "JAVAFX_HOME=C:\opt\javafx-sdk-17.0.2"
    "MSVS_HOME=X:"
    "MSYS_HOME=C:\opt\msys64"
-   "PYTHON_HOME=C:\opt\Python-3.10.2"
+   "PYTHON_HOME=C:\opt\Python-3.10.4"
    "SBT_HOME=C:\opt\sbt-1.6.2"
    "SCALA_HOME=C:\opt\scala-2.13.8"
-   "SCALA3_HOME=C:\opt\scala3-3.1.2-RC2"
+   "SCALA3_HOME=C:\opt\scala3-3.1.2-RC3"
 </pre>
 
 ### **`cleanup.bat`**
@@ -417,10 +417,10 @@ Finished to clean up 12 subdirectories in Y:\dotty\myexamples
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.1.2-RC2 c:\opt\jdk-temurin-11.0.14.1_1</b>
+<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.1.2-RC3 c:\opt\jdk-temurin-11.0.14.1_1</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
-Size of directory "c:\opt\scala3-3.1.2-RC2" is 31.4 Mb
+Size of directory "c:\opt\scala3-3.1.2-RC3" is 31.4 Mb
 Size of directory "c:\opt\jdk-temurin-11.0.14.1_1" is 184.2 Mb
 </pre>
 
@@ -518,7 +518,7 @@ Concretely, subcommand **`activate`** switches to the nightly build version and 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> activate</b>
-Active Scala 3 installation is 3.1.2-RC2-bin-20211102-82172ed-NIGHTLY (was 3.1.1)
+Active Scala 3 installation is 3.1.2-RC2-bin-20211102-82172ed-NIGHTLY (was 3.1.2-RC3)
 
 <b>&gt; %SCALA3_HOME%\bin\<a href="bin/3.0/scalac.bat">scalac</a> -version</b>
 Scala compiler version 3.1.2-RC2-bin-20211102-82172ed-NIGHTLY-git-eb8773e -- Copyright 2002-2022, LAMP/EPFL
@@ -530,7 +530,7 @@ Active Scala 3 installation is 3.1.1
 Scala compiler version 3.1.1 -- Copyright 2002-2022, LAMP/EPFL
 </pre>
 
-> **:warning:** You need *write access* to the [Scala 3][scala3_home] installation directory (e.g. **`C:\opt\scala3-3.1.2-RC2\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
+> **:warning:** You need *write access* to the [Scala 3][scala3_home] installation directory (e.g. **`C:\opt\scala3-3.1.2-RC3\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
 
 ### `searchjars.bat <class_name>`
 
@@ -557,10 +557,10 @@ Passing argument **`System`** to command [**`searchjars`**](bin/searchjars.bat) 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> System</b>
-Searching for class name System in archive files C:\opt\scala3-3.1.2-RC2\lib\*.jar
+Searching for class name System in archive files C:\opt\scala3-3.1.2-RC3\lib\*.jar
   jline-reader-3.19.0.jar:org/jline/reader/impl/completer/SystemCompleter.class
-  scala-library-2.13.6.jar:scala/sys/SystemProperties$.class
-  scala-library-2.13.6.jar:scala/sys/SystemProperties.class
+  scala-library-2.13.8.jar:scala/sys/SystemProperties$.class
+  scala-library-2.13.8.jar:scala/sys/SystemProperties.class
 Searching for class name System in archive files C:\opt\scala-2.13.8\lib\*.jar
   jline-3.19.0.jar:org/jline/builtins/SystemRegistryImpl$CommandOutputStream.class
   [...]
@@ -582,7 +582,7 @@ Searching for an unknown class name - e.g. **`BinarySearch`** - produces the fol
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> BinarySearch</b>
-Searching for class name BinarySearch in archive files C:\opt\scala3-3.1.2-RC2\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\scala3-3.1.2-RC3\lib\*.jar
 Searching for class name BinarySearch in archive files C:\opt\scala-2.13.8\lib\*.jar
 Searching for class name BinarySearch in archive files C:\opt\jdk-temurin-11.0.14.1_1\lib\*.jar
 </pre>
@@ -591,7 +591,7 @@ Searching for **`FileSystem`** with option **`-artifact`** produces the followin
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> FileSystem -artifact</b>
-Searching for class name FileSystem in archive files C:\opt\scala3-3.1.2-RC2\lib\*.jar
+Searching for class name FileSystem in archive files C:\opt\scala3-3.1.2-RC3\lib\*.jar
 Searching for class name FileSystem in archive files C:\opt\scala-2.13.8\lib\*.jar
 Searching for class name FileSystem in archive files c:\opt\jdk-temurin-11.0.14.1_1\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
@@ -666,8 +666,8 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 
 | Project file | Variable | Example |
 | :----------- | :------: | :------ |
-| `build.sbt` | `dottyVersion` | `3.1.1` &rarr; `3.1.2-RC2`|
-| `build.sc` | `scalaVersion` | `3.1.1` &rarr; `3.1.2-RC2` |
+| `build.sbt` | `dottyVersion` | `3.1.2-RC2` &rarr; `3.1.2-RC3`|
+| `build.sc` | `scalaVersion` | `3.1.2-RC2` &rarr; `3.1.2-RC3` |
 | `project\build.properties` | `sbt.version` | `1.6.1` &rarr; `1.6.2` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.5.4` &rarr; `0.5.5` |
 
@@ -719,11 +719,11 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> scala</b>
-C:\opt\scala3-3.1.2-RC2\bin\scala
-C:\opt\scala3-3.1.2-RC2\bin\scala.bat
+C:\opt\scala3-3.1.2-RC3\bin\scala
+C:\opt\scala3-3.1.2-RC3\bin\scala.bat
 
 <b>&gt; <a href="bin/3.0/scala.bat">scala</a> -version</b>
-Scala code runner version 3.1.2-RC2 -- Copyright 2002-2022, LAMP/EPFL
+Scala code runner version 3.1.2-RC3 -- Copyright 2002-2022, LAMP/EPFL
 
 <b>&gt; <a href="bin/3.0/scala.bat">scala</a></b>
 Starting scala REPL...
@@ -741,7 +741,7 @@ The REPL has several commands available:
 val res0: String = C:\opt\jdk-temurin-11.0.14.1_1
 
 <b>scala&gt;</b> System.getenv().get("SCALA3_HOME")
-val res1: String = C:\opt\scala3-3.1.2-RC2
+val res1: String = C:\opt\scala3-3.1.2-RC3
 
 <b>scala&gt;</b> :load myexamples/HelloWorld/src/main/scala/HelloWorld.scala
 // defined object HelloWorld
@@ -842,7 +842,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://git-scm.com/download/win">PortableGit-2.35.1-64-bit.7z.exe</a>                  <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.6.2.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.8.zip</a>                                  <i>( 22 MB)</i>
-<a href="https://github.com/lampepfl/dotty/releases/tag/3.1.2-RC2">scala3-3.1.2-RC2.zip</a>                              <i>( 33 MB)</i>
+<a href="https://github.com/lampepfl/dotty/releases/tag/3.1.2-RC3">scala3-3.1.2-RC3.zip</a>                              <i>( 33 MB)</i>
 </pre>
 </dd></dl>
 
@@ -854,7 +854,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -937,7 +937,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [scala]: https://www.scala-lang.org/
 [scala3_home]: https://dotty.epfl.ch
 [scala3_releases]: https://github.com/lampepfl/dotty/releases
-[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.1.2-RC2
+[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.1.2-RC3
 [scala_releases]: https://www.scala-lang.org/files/archive/
 [scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.8
 [scala_repl]: https://docs.scala-lang.org/overviews/repl/overview.html
