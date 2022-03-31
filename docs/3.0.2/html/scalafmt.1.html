@@ -193,9 +193,10 @@ language</p>
 <h1 id="description">DESCRIPTION</h1>
 <p><em><code>&lt;file&gt;...</code></em> is a file or directory in which
 all <code>*.scala</code> files are to be formatted.</p>
-<p>If <em><code>&lt;file&gt;</code></em> starts with <code>@</code>,
-refers to path listing files to be formatted (with <code>@-</code>
-referring to standard input as a special case).</p>
+<p>If <em><code>&lt;file&gt;</code></em> starts with
+<strong><code>@</code></strong>, refers to path listing files to be
+formatted (with <strong><code>@-</code></strong> referring to standard
+input as a special case).</p>
 <h1 id="options">OPTIONS</h1>
 <dl>
 <dt><strong>-h</strong>, <strong>--help</strong></dt>
@@ -241,9 +242,9 @@ Don’t use stdrerr for messages, output to stdout.
 </dd>
 <dt><strong>--assume-filename</strong> <code>&lt;value&gt;</code></dt>
 <dd>
-When using <code>--stdin</code>, use <code>--assume-filename</code> to
-hint to <strong>scalafmt</strong> that the input is an <code>.sbt</code>
-file.
+When using <strong><code>-\-stdin</code></strong>, use
+<strong><code>-\-assume-filename</code></strong> to hint to
+<strong>scalafmt</strong> that the input is an <code>.sbt</code> file.
 </dd>
 <dt><strong>--reportError</strong></dt>
 <dd>
@@ -288,7 +289,7 @@ directory</p>
 <em><code>&lt;value&gt;</code></em></dt>
 <dd>
 If set, only format edited files in git diff against provided branch.
-Has no effect if mode set to <code>changed</code>.
+Has no effect if mode set to <strong><code>changed</code></strong>.
 </dd>
 <dt><strong>--build-info</strong></dt>
 <dd>
@@ -330,9 +331,10 @@ HOCON syntax.</p>
 <p><strong>scalafmt</strong> configuration is determined in this
 order:</p>
 <ol type="1">
-<li><code>.scalafmt.conf</code> file in current directory</li>
-<li><code>.scalafmt.conf</code> inside root directory of current git
-repo</li>
+<li><strong><code>.scalafmt.conf</code></strong> file in current
+directory</li>
+<li><strong><code>.scalafmt.conf</code></strong> inside root directory
+of current Git repository</li>
 <li>no configuration file, use default style.</li>
 </ol>
 <p>Here is an example <strong><code>.scalafmt.conf</code></strong> :</p>
@@ -355,7 +357,7 @@ master branch.</p>
 <p><strong><code>scalafmt</code></strong> <code>--mode diff</code></p>
 </blockquote>
 <p>Format files listed in <code>git status</code> (latest changes
-against previous commit.</p>
+against previous commit).</p>
 <blockquote>
 <p><strong><code>scalafmt</code></strong>
 <code>--mode changed</code></p>
@@ -365,12 +367,12 @@ against previous commit.</p>
 <p><strong><code>scalafmt</code></strong>
 <code>--diff-branch 2.x</code></p>
 </blockquote>
-<p>Read from stdin and print to stdout</p>
+<p>Read from stdin and print to stdout.</p>
 <blockquote>
 <p><strong><code>scalafmt</code></strong> <code>--stdin</code></p>
 </blockquote>
-<p>Required when using <code>--stdin</code> to format <code>.sbt</code>
-files.</p>
+<p>Required when using <strong><code>--stdin</code></strong> to format
+<strong><code>.sbt</code></strong> files.</p>
 <blockquote>
 <p><strong><code>scalafmt</code></strong>
 <code>--stdin --assume-filename foo.sbt &lt; foo.sbt</code></p>
@@ -401,10 +403,11 @@ files.</p>
 <code>--config-str "style=IntelliJ"</code></p>
 </blockquote>
 <h1 id="exit-status">EXIT STATUS</h1>
-<p>The <strong>scalafmt</strong> command returns a zero exit status if
-it succeeds. Non zero is returned in case of any error. If a script or
-top-level object is executed and returns a value, then that return value
-is passed on to <strong>scalafmt</strong>.</p>
+<p>The <strong><code>scalafmt</code></strong> command returns a zero
+exit status if it succeeds. Non zero is returned in case of any error.
+If a script or top-level object is executed and returns a value, then
+that return value is passed on to
+<strong><code>scalafmt</code></strong>.</p>
 <h1 id="authors">AUTHORS</h1>
 <p>The current maintainers are :</p>
 <blockquote>
