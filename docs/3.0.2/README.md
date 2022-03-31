@@ -23,7 +23,7 @@ https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/mas
 https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalafmt.1.html" rel="external"><b>scalafmt</b>.1.html</a>
 </pre>
 
-> **:mag_right:** We add the prefix [`https://htmlpreview.github.io/?<html_page_url>`](https://htmlpreview.github.io/) to the URL of the HTML pages from our GitHub repository in order the view them.
+> **:mag_right:** We add the prefix `https://htmlpreview.github.io/?<html_page_url>` to the URL of the HTML pages from our GitHub repository in order the view them.
 
 ## <span id="downloads">Downloads</span>
 
