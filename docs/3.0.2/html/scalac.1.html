@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-03-31" />
+  <meta name="dcterms.date" content="2022-04-01" />
   <title>scalac(1) Scala @@VERSION@@ | Scala 3 Commands</title>
   <style>
     html {
@@ -169,7 +169,7 @@
 <!--
 <h1 class="title">scalac(1) Scala @<span class="citation"
 data-cites="VERSION">@VERSION</span>@@ | Scala 3 Commands</h1>
-<p class="date">March 31, 2022</p>
+<p class="date">April 01, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">scalac(1)</div>
@@ -285,10 +285,10 @@ Colored output.
 Default: <code>always</code>.</p>
 </blockquote>
 <dl>
-<dt><strong>-d</strong>
-<em><code>&lt;directory&gt;</code>|<code>&lt;jar&gt;</code></em></dt>
+<dt><strong>-d</strong> <em><code>&lt;directory&gt;</code></em>
+<code>|</code><em><code>&lt;jar&gt;</code></em></dt>
 <dd>
-Destination for generated class files.
+Specify the destination for generated class files.
 </dd>
 <dt><strong>-deprecation</strong>, <strong>--deprecation</strong></dt>
 <dd>
@@ -308,11 +308,11 @@ Specify character encoding used by Scala source files.
 <dd>
 Explain errors in more detail.
 </dd>
-<dt><strong>-explain-types</strong>,
-<strong>--explain-types</strong></dt>
+<dt><strong>-explain-types</strong>, <strong>--explain-types</strong>
+(<em>deprecated</em>)</dt>
 <dd>
-Explain type errors in more detail (deprecated, use
-<code>-explain</code> instead).
+Explain type errors in more detail. Use
+<strong><code>-explain</code></strong> instead.
 </dd>
 <dt><strong>-extdirs</strong> <em><code>&lt;dirs&gt;</code></em>,
 <strong>--extension-directories</strong>
@@ -354,7 +354,7 @@ boot classpath.
 </dd>
 </dl>
 <blockquote>
-<p>Default (Windows): <strong><code>%JAVA_HOME%</code></strong><code>\lib\resources.jar;%JAVA_HOME%\lib\rt.jar;%JAVA_HOME%\lib\sunrsasign.jar;%JAVA_HOME%\lib\jsse.jar;%JAVA_HOME%\lib\jce.jar;</code><strong><code>%JAVA_HOME%</code></strong><code>\lib\charsets.jar;%JAVA_HOME%\lib\jfr.jar;%JAVA_HOME%\classes</code>.</p>
+<p>Default (Windows): <strong><code>%JAVA_HOME%</code></strong><code>\lib\resources.jar;</code><strong><code>%JAVA_HOME%</code></strong><code>\lib\rt.jar;</code><strong><code>%JAVA_HOME%</code></strong><code>\lib\sunrsasign.jar;</code><strong><code>%JAVA_HOME%</code></strong><code>\lib\jsse.jar;</code><strong><code>%JAVA_HOME%</code></strong><code>\lib\jce.jar;</code><strong><code>%JAVA_HOME%</code></strong><code>\lib\charsets.jar;</code><strong><code>%JAVA_HOME%</code></strong><code>\lib\jfr.jar;%JAVA_HOME%\classes</code>.</p>
 </blockquote>
 <dl>
 <dt><span id="javaextdirs"><strong>-javaextdirs</strong>
@@ -421,13 +421,14 @@ Require <code>then</code> and <code>do</code> in control expressions.
 </dd>
 <dt><strong>-no-indent</strong></dt>
 <dd>
-Require classical {…} syntax, indentation is not significant.
+Require classical <code>{...}</code> syntax, indentation is not
+significant.
 </dd>
 <dt><strong>-nowarn</strong>, <strong>--no-warnings</strong></dt>
 <dd>
 Silence all warnings. Similar to <a
 href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javac.html"><strong>javac</strong></a>
-option <code>-nowarn</code>.
+option <strong><code>-nowarn</code></strong>.
 </dd>
 <dt><strong>-old-syntax</strong></dt>
 <dd>
@@ -471,18 +472,18 @@ Start the Scala 3 REPL.
 <dt><strong>-scalajs</strong>, <strong>--scalajs</strong></dt>
 <dd>
 Compile in Scala.js mode (requires <a
-href="https://mvnrepository.com/artifact/org.scala-js/scalajs-library"><code>scalajs-library.jar</code></a>
+href="https://mvnrepository.com/artifact/org.scala-js/scalajs-library"><strong><code>scalajs-library.jar</code></strong></a>
 on the classpath).
 </dd>
 <dt><strong>-scalajs-genStaticForwardersForNonTopLevelObjects</strong></dt>
 <dd>
 Generate static forwarders even for non-top-level objects (Scala.js
-only)
+only).
 </dd>
 <dt><strong>-scalajs-mapSourceURI</strong></dt>
 <dd>
 rebases source URIs from uri1 to uri2 (or to a relative URI) for source
-maps (Scala.js only)
+maps (<a href="https://www.scala-js.org/">*Scala.js</a> only).
 </dd>
 <dt><strong>-semanticdb-target</strong>
 <em><code>&lt;path&gt;</code></em></dt>
@@ -495,9 +496,11 @@ source version.
 </dd>
 </dl>
 <blockquote>
-<p>Default: <code>3.0</code>.<br />
-Choices: <code>3.0</code>, <code>future</code>,
-<code>3.0-migration</code>, <code>future-migration</code>.</p>
+<p>Default: <strong><code>3.0</code></strong>.<br />
+Choices: <strong><code>3.0</code></strong>,
+<strong><code>future</code></strong>,
+<strong><code>3.0-migration</code></strong>,
+<strong><code>future-migration</code></strong>.</p>
 </blockquote>
 <dl>
 <dt><strong>-sourcepath</strong> <em><code>&lt;path&gt;</code></em>,
@@ -572,8 +575,8 @@ i.e. <em><code>&lt;filter&gt;&amp;...&amp;&lt;filter&gt;</code></em>.
 - Message categories:
 <code>cat=deprecation|feature|unchecked</code><br />
 - Message content: <code>msg=regex</code><br />
-The <code>regex</code> need only match some part of the message, not all
-of it.<br />
+   The <code>regex</code> need only match some part of the message, not
+all of it.<br />
 - Message id: <code>id=E129</code><br />
 The message id is printed with the warning.<br />
 - Message name:
@@ -607,7 +610,8 @@ Enable or disable specific <code>unused</code> warnings.
 </dd>
 </dl>
 <blockquote>
-<p>Choices: <code>nowarn</code>, <code>all</code>.</p>
+<p>Choices: <strong><code>nowarn</code></strong>,
+<strong><code>all</code></strong>.</p>
 </blockquote>
 <h2 id="advanced-options">Advanced Options</h2>
 <dl>
@@ -637,36 +641,37 @@ fail at runtime.
 <dt><strong>-Ximport-suggestion-timeout</strong>
 <em><code>&lt;timeout&gt;</code></em></dt>
 <dd>
-Timeout (in ms) for searching for import suggestions when errors are
-reported.
+Set the timeout (in ms) for searching for import suggestions when errors
+are reported.
 </dd>
 </dl>
 <blockquote>
-<p>Default: <code>8000</code>.</p>
+<p>Default: <strong><code>8000</code></strong>.</p>
 </blockquote>
 <dl>
 <dt><strong>-Xmain-class</strong>
 <em><code>&lt;path&gt;</code></em></dt>
 <dd>
-Class for manifest’s <code>Main-Class</code> entry (only useful with
-<code>-d</code> <em><code>&lt;jar&gt;</code></em>).
+Set the class for manifest’s <code>Main-Class</code> entry (only useful
+with <strong><code>-d</code></strong>
+<em><code>&lt;jar&gt;</code></em>).
 </dd>
 <dt><strong>-Xmax-inlined-trees:</strong><em><code>&lt;nr_of_trees&gt;</code></em></dt>
 <dd>
-Maximal number of inlined trees.
+Set the maximal number of inlined trees.
 </dd>
 </dl>
 <blockquote>
-<p>Default: <code>2000000</code>.</p>
+<p>Default: <strong><code>2000000</code></strong>.</p>
 </blockquote>
 <dl>
 <dt><strong>-Xmax-inlines:</strong><em><code>&lt;nr_of_lines&gt;</code></em></dt>
 <dd>
-Maximal number of successive inlines.
+Set the maximal number of successive inlines.
 </dd>
 </dl>
 <blockquote>
-<p>Default: <code>32</code>.</p>
+<p>Default: <strong><code>32</code></strong>.</p>
 </blockquote>
 <dl>
 <dt><strong>-Xmigration</strong></dt>
@@ -681,8 +686,10 @@ traits.
 </dd>
 </dl>
 <blockquote>
-<p>Default: <code>true</code>.<br />
-Choices: <code>true</code>, <code>junit</code>, <code>false</code>.</p>
+<p>Default: <strong><code>true</code></strong>.<br />
+Choices: <strong><code>true</code></strong>,
+<strong><code>junit</code></strong>,
+<strong><code>false</code></strong>.</p>
 </blockquote>
 <dl>
 <dt><strong>-Xno-forwarders</strong></dt>
@@ -777,14 +784,13 @@ produce bytecode that will break at runtime. When on JDK 9+, consider
 One may print the version of a generated class file,
 e.g. <code>Hello.class</code>, with the folloging command:<br />
 <strong><code>$JAVA_HOME</code></strong><code>/bin/java -cp</code>
-<strong><code>$SCALA_HOME</code></strong><code>/lib/scala-asm-&lt;x.y.z&gt;-scala-1.jar scala.tools.asm.util.Textifier</code>
-Hello.class | grep version`<br />
+<strong><code>$SCALA_HOME</code></strong><code>/lib/scala-asm-&lt;x.y.z&gt;-scala-1.jar scala.tools.asm.util.Textifier Hello.class | grep version</code><br />
 // class version 52.0 (52)</p>
 </blockquote>
 <dl>
 <dt><strong>-Xverify-signatures</strong></dt>
 <dd>
-Verify generic signatures in generated bytecode.
+Verify generic signatures in the generated bytecode.
 </dd>
 </dl>
 <h2 id="private-options">Private Options</h2>
@@ -839,9 +845,11 @@ Show full source positions including spans.
 <dd>
 Trace core operations.
 </dd>
-<dt><strong>-Ydebug-tree-with-id</strong></dt>
+<dt><strong>-Ydebug-tree-with-id</strong>
+<em><code>&lt;id&gt;</code></em></dt>
 <dd>
-Print the stack trace when the tree with the given id is created.
+Print the stack trace when the tree with the given
+<em><code>&lt;id&gt;</code></em> is created.
 </dd>
 </dl>
 <blockquote>
@@ -867,10 +875,10 @@ jars across compiler instances.
 Drop documentation when scanning source files.
 </dd>
 <dt><strong>-Ydump-classes</strong>
-<em><code>&lt;dir&gt;</code></em></dt>
+<em><code>&lt;directory&gt;</code></em></dt>
 <dd>
-Dump the generated bytecode to .class files (useful for reflective
-compilation that utilizes in-memory classloaders).
+Dump the generated bytecode to <code>.class</code> files (useful for
+reflective compilation that utilizes in-memory classloaders).
 </dd>
 <dt><strong>-Ydump-sbt-inc</strong></dt>
 <dd>
@@ -898,8 +906,11 @@ inlining behavior of 3.0.0-M3.
 id="force-sbt-phases"><strong>-Yforce-sbt-phases</strong></span></dt>
 <dd>
 Run the phases used by <a href="https://www.scala-sbt.org/">sbt</a> for
-incremental compilation (ExtractDependencies and ExtractAPI) even if the
-compiler is ran outside of sbt, for debugging.
+incremental compilation (<code>ExtractDependencies</code> and
+<code>ExtractAPI</code>) even if the compiler is ran outside of <a
+href="https://www.scala-sbt.org/"
+title="Sbt - The interactive build tool"><strong>sbt</strong></a>, for
+debugging.
 </dd>
 <dt><strong>-Yfrom-tasty-ignore-list</strong>
 <em><code>&lt;file, ..&gt;</code></em></dt>
@@ -1187,8 +1198,8 @@ href="#javaextdirs"><strong>-javaextdirs</strong></a>.
 </dl>
 <blockquote>
 <p>See Oracle’s guide <a
-href="https://docs.oracle.com/javase/8/docs/technotes/guides/extensions/spec.html">Extension
-Mechanism Architecture</a> for more information.</p>
+href="https://docs.oracle.com/javase/8/docs/technotes/guides/extensions/spec.html"><em>Extension
+Mechanism Architecture</em></a> for more information.</p>
 </blockquote>
 <dl>
 <dt><strong>scala.ext.dirs</strong></dt>
@@ -1216,12 +1227,12 @@ processing the specified input files. Non zero is returned in case of
 failure.</p>
 <h1 id="authors">AUTHORS</h1>
 <p>Written by <a
-href="https://en.wikipedia.org/wiki/Martin_Odersky">Martin Odersky</a>,
+href="https://en.wikipedia.org/wiki/Martin_Odersky"><strong>Martin Odersky</strong></a>,
 the Scala team and the <a
-href="https://contributors.scala-lang.org/">Scala contributors</a>.</p>
+href="https://contributors.scala-lang.org/"><strong>Scala contributors</strong></a>.</p>
 <h1 id="reporting-bugs">REPORTING BUGS</h1>
 <p>Report bugs to <a
-href="https://issues.scala-lang.org/">https://issues.scala-lang.org/</a>.</p>
+href="https://issues.scala-lang.org/"><strong>https://issues.scala-lang.org/</strong></a>.</p>
 <h1 id="copyright">COPYRIGHT</h1>
 <p>This is open-source software, available to you under a BSD-like
 license. See accompanying “copyright” or “LICENSE” file for copying
@@ -1229,12 +1240,12 @@ conditions. There is NO warranty; not even for MERCHANTABILITY or
 FITNESS FOR A PARTICULAR PURPOSE.</p>
 <h1 id="see-also">SEE ALSO</h1>
 <p><a href="./scala.1.html"><strong>scala</strong></a>(1), <a
-href="./scaladoc.1.html"><strong>scaladoc</strong></a>(1)</p>
+href="./scaladoc.1.html"><strong>scaladoc</strong></a>(1).</p>
 <!-- hyperrefs -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">Scala 3.0.2</div>
   <div style="float:right;">scalac(1) <a href="#title-block-header" title="Back to top">⇧ </a></div>
-  <div style="text-align:center;">March 31, 2022</div>
+  <div style="text-align:center;">April 01, 2022</div>
 </div>
 </body>
 </html>

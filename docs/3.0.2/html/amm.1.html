@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-03-31" />
+  <meta name="dcterms.date" content="2022-04-01" />
   <title>amm(1) Ammonite 2.5.2 | Third-Party Scala Commands</title>
   <style>
     html {
@@ -169,7 +169,7 @@
 <!--
 <h1 class="title">amm(1) Ammonite 2.5.2 | Third-Party Scala
 Commands</h1>
-<p class="date">March 31, 2022</p>
+<p class="date">April 01, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">amm(1)</div>
@@ -185,7 +185,7 @@ Similar man pages:
 * scala - https://manpages.debian.org/stretch/scala/scala.1
 ===========================================================================-->
 <h1 id="name">NAME</h1>
-<p><strong>amm</strong> - Ammonite REPL, a Scala REPL and script
+<p><strong>amm</strong> - Ammonite-REPL, a Scala REPL and script
 runner</p>
 <h1 id="synopsis">SYNOPSIS</h1>
 <p><strong>amm</strong>
@@ -220,13 +220,13 @@ Run a <a
 href="https://build-server-protocol.github.io/"><em>BSP</em></a> server
 against the passed scripts.
 </dd>
-<dt><strong>-c</strong> <em><code>&lt;string&gt;</code></em>,
-<strong>--code</strong> <em><code>&lt;string&gt;</code></em></dt>
+<dt><strong>-c</strong>, <strong>--code</strong>
+<em><code>&lt;string&gt;</code></em></dt>
 <dd>
 Pass in code to be run immediately in the REPL.
 </dd>
-<dt><strong>-h</strong> <em><code>&lt;path&gt;</code></em>,
-<strong>--home</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dt><strong>-h</strong>, <strong>--home</strong>
+<em><code>&lt;path&gt;</code></em></dt>
 <dd>
 The home directory of the Ammonite-REPL (where it looks for config and
 caches).
@@ -258,7 +258,8 @@ Print this message.
 </dd>
 <dt><strong>-v</strong>, <strong>--version</strong></dt>
 <dd>
-Show Ammonite’s version.
+Show <a href="https://ammonite.io/"
+title="Ammonite REPL"><em>Ammonite</em></a>’s version.
 </dd>
 <dt><strong>--predef-code</strong>
 <em><code>&lt;string&gt;</code></em></dt>
@@ -272,8 +273,8 @@ Disables the default behavior of loading predef files from your
 <code>predefShared.sc</code>. You can choose an additional predef to use
 using <a href="#predef"><strong><code>--predef</code></strong></a>.
 </dd>
-<dt><strong>-b</strong> <em><code>&lt;string&gt;</code></em>,
-<strong>--banner</strong> <em><code>&lt;string&gt;</code></em></dt>
+<dt><strong>-b</strong>, <strong>--banner</strong>
+<em><code>&lt;string&gt;</code></em></dt>
 <dd>
 Customize the welcome banner that gets shown when <a
 href="https://ammonite.io/" title="Ammonite REPL"><em>Ammonite</em></a>
@@ -294,15 +295,13 @@ serialization friendliness.
 <h1 id="examples">EXAMPLES</h1>
 <h1 id="exit-status">EXIT STATUS</h1>
 <p>The <strong>amm</strong> command returns a zero exit status if it
-succeeds. Non zero is returned in case of any error. If a script or
-top-level object is executed and returns a value, then that return value
-is passed on to <strong>amm</strong>.</p>
+succeeds. Non zero is returned in case of any error.</p>
 <h1 id="authors">AUTHORS</h1>
 <p>Written by <strong>Hi Haoyi</strong> (<a
 href="https://www.lihaoyi.com/">https://www.lihaoyi.com/</a>).</p>
 <h1 id="reporting-bugs">REPORTING BUGS</h1>
 <p>Report bugs to <a
-href="https://github.com/com-lihaoyi/Ammonite/issues">https://github.com/com-lihaoyi/Ammonite/issues</a>.</p>
+href="https://github.com/com-lihaoyi/Ammonite/issues"><strong>https://github.com/com-lihaoyi/Ammonite/issues</strong></a>.</p>
 <h1 id="copyright">COPYRIGHT</h1>
 <p><a
 href="https://github.com/com-lihaoyi/Ammonite/blob/master/LICENSE">The
@@ -316,7 +315,8 @@ href="./mill.1.html"><strong>mill</strong></a>(1), <a
 href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
 href="./scala-cli.1.html"><strong>scala-cli</strong></a>(1), <a
 href="./scalafix.1.html"><strong>scalafix</strong></a>(1), <a
-href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1), <a
+href="./sdkman.1.html"><strong>sdkman</strong></a>(1).</p>
 <!-- hyperref -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://ammonite.io/">Ammonite 2.5.2</a></div>

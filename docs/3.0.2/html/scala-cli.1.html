@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-03-31" />
+  <meta name="dcterms.date" content="2022-04-01" />
   <title>scala-cli(1) Scala CLI 0.0.9 | Scala Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">scala-cli(1) Scala CLI 0.0.9 | Scala Commands</h1>
-<p class="date">March 31, 2022</p>
+<p class="date">April 01, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">scala-cli(1)</div>
@@ -198,11 +198,11 @@ scripts, playgrounds and (single-module) projects.</p>
 <dl>
 <dt><strong>clean</strong></dt>
 <dd>
-Clean the workspace
+Clean the workspace.
 </dd>
 <dt><strong>compile</strong></dt>
 <dd>
-Compile Scala code
+Compile Scala code.
 </dd>
 <dt><strong>console</strong>, <strong>repl</strong></dt>
 <dd>
@@ -238,7 +238,7 @@ Browse Scala code and its dependencies in the browser.
 </dd>
 <dt><strong>version</strong></dt>
 <dd>
-Print <em><code>scala-cli</code></em> version.
+Print <strong><code>scala-cli</code></strong> version.
 </dd>
 </dl>
 <h2 id="other-commands"><span id="other_commands">Other
@@ -246,7 +246,8 @@ Commands</span></h2>
 <dl>
 <dt><strong>bsp</strong></dt>
 <dd>
-Start BSP server.
+Start <a
+href="https://build-server-protocol.github.io/"><em>BSP</em></a> server.
 </dd>
 <dt><strong>export</strong></dt>
 <dd>
@@ -310,7 +311,7 @@ Add compiler plugin dependencies
 <em><code>&lt;option&gt;</code></em></dt>
 <dd>
 Add a <strong><code>scalac</code></strong> option. Note that options
-starting with <code>-g</code>, <code>-language</code>,
+starting with <strong><code>-g</code></strong>, <code>-language</code>,
 <code>-opt</code>, <code>-P</code>, <code>-target</code>,
 <code>-V</code>, <code>-W</code>, <code>-X</code>, and <code>-Y</code>
 are assumed to be Scala compiler options and don’t require to be passed
@@ -517,17 +518,15 @@ Watch source files for changes.
 <h1 id="examples">EXAMPLES</h1>
 <h1 id="exit-status">EXIT STATUS</h1>
 <p>The <strong><code>scala-cli</code></strong> command returns a zero
-exit status if it succeeds. Non zero is returned in case of any error.
-If a script or top-level object is executed and returns a value, then
-that return value is passed on to
-<strong><code>scala-cli</code></strong>.</p>
+exit status if it succeeds. Non zero is returned in case of any
+error.</p>
 <h1 id="authors">AUTHORS</h1>
 <p>Written by the <a
 href="https://www.virtuslab.com/"><strong>VirtusLab</strong></a>
 team.</p>
 <h1 id="reporting-bugs">REPORTING BUGS</h1>
 <p>Report bugs to <a
-href="https://github.com/VirtusLab/scala-cli/issues">https://github.com/VirtusLab/scala-cli/issues</a>.</p>
+href="https://github.com/VirtusLab/scala-cli/issues"><strong>https://github.com/VirtusLab/scala-cli/issues</strong></a>.</p>
 <h1 id="copyright">COPYRIGHT</h1>
 <p><a
 href="https://github.com/VirtusLab/scala-cli/blob/main/LICENSE">The
@@ -542,7 +541,8 @@ href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
 href="./mill.1.html"><strong>mill</strong></a>(1), <a
 href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
 href="./scalafix.1.html"><strong>scalafix</strong></a>(1), <a
-href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1), <a
+href="./sdkman.1.html"><strong>sdkman</strong></a>(1).</p>
 <!-- hyperref -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://scala-cli.virtuslab.org/">Scala CLI 0.0.9</a></div>

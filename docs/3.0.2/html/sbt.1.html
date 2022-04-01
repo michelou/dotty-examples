@@ -415,8 +415,10 @@ runs.
 </dd>
 </dl>
 <blockquote>
-<p>Default (<em>Unix</em>): <code>~/.sbt/boot/</code><br />
-Default (<em>Windows</em>): <code>%USERPROFILE%\.sbt\boot\</code>.</p>
+<p>Default (<em>Unix</em>):
+<strong><code>~/.sbt/boot/</code></strong><br />
+Default (<em>Windows</em>):
+<strong><code>%USERPROFILE%\.sbt\boot\</code></strong>.</p>
 </blockquote>
 <dl>
 <dt><strong>sbt.coursier</strong>
@@ -470,15 +472,17 @@ sbt in a CI environment and want to cache ivy artifacts between runs.
 </dd>
 </dl>
 <blockquote>
-<p>Default (<em>Unix</em>): <code>~/.ivy2/</code>.<br />
-Default (<em>Windows</em>): <code>%USERPROFILE%\.ivy2\</code>.</p>
+<p>Default (<em>Unix</em>):
+<strong><code>~/.ivy2/</code></strong>.<br />
+Default (<em>Windows</em>):
+<strong><code>%USERPROFILE%\.ivy2\</code></strong>.</p>
 </blockquote>
 <dl>
 <dt><strong>sbt.log.noformat</strong>
 <em><code>&lt;boolean&gt;</code></em></dt>
 <dd>
-If <code>true</code>, disable ANSI color codes. Useful on build servers
-or terminals that do not support color.
+If <strong><code>true</code></strong>, disable ANSI color codes. Useful
+on build servers or terminals that do not support color.
 </dd>
 </dl>
 <blockquote>
@@ -505,7 +509,7 @@ Use supershell (show progress at bottom of shell). <code>true</code> if
 <em><code>&lt;version&gt;</code></em></dt>
 <dd>
 Set <strong>sbt</strong> version to use, usually taken from file
-<code>project/build.properties</code>.
+<strong><code>project/build.properties</code></strong>.
 </dd>
 </dl>
 <h2 id="configuration-files">Configuration Files</h2>
@@ -517,8 +521,8 @@ contents are appended to <strong><code>JAVA_OPTS</code></strong>.
 </dd>
 <dt><strong><code>.sbtopts</code></strong></dt>
 <dd>
-If file <code>.sbtopts</code> exists in the current directory, its
-contents are prepended to the runner arguments.
+If file <strong><code>.sbtopts</code></strong> exists in the current
+directory, its contents are prepended to the runner arguments.
 </dd>
 <dt><strong><code>$SBT_HOME/conf/sbtconfig.txt</code></strong></dt>
 <dd>
@@ -558,16 +562,14 @@ artifact cache (<em>Windows</em>).</p>
 </blockquote>
 <h1 id="exit-status">EXIT STATUS</h1>
 <p>The <strong>sbt</strong> command returns a zero exit status if it
-succeeds. Non zero is returned in case of any error. If a script or
-top-level object is executed and returns a value, then that return value
-is passed on to <strong>sbt</strong>.</p>
+succeeds. Non zero is returned in case of any error.</p>
 <h1 id="authors">AUTHORS</h1>
 <p><strong>Mark Harrah</strong> and the <a
 href="https://www.lightbend.com/"><strong>Lightbend</strong></a>
 development team.</p>
 <h1 id="reporting-bugs">REPORTING BUGS</h1>
 <p>Please file bugs to <a
-href="https://github.com/sbt/sbt/issues">https://github.com/sbt/sbt/issues</a>.</p>
+href="https://github.com/sbt/sbt/issues"><strong>https://github.com/sbt/sbt/issues</strong></a>.</p>
 <h1 id="copyright">COPYRIGHT</h1>
 <p><a href="https://github.com/sbt/sbt/blob/develop/LICENSE">The Apache
 License 2.0</a></p>
@@ -582,7 +584,8 @@ href="./cs.1.html"><strong>cs</strong></a>(1), <a
 href="./mill.1.html"><strong>mill</strong></a>(1), <a
 href="./scala-cli.1.html"><strong>scala-cli</strong></a>(1),
 [<strong>scalafix</strong>][scalafix](1), <a
-href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1), <a
+href="./sdkman.1.html"><strong>sdkman</strong></a>(1).</p>
 <!-- hyperref -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://www.scala-sbt.org/">Sbt 1.6.2</a></div>

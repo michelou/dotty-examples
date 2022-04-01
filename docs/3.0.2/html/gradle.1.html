@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-03-31" />
+  <meta name="dcterms.date" content="2022-04-01" />
   <title>gradle(1) Gradle 4.7.1 | Gradle Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">gradle(1) Gradle 4.7.1 | Gradle Commands</h1>
-<p class="date">March 31, 2022</p>
+<p class="date">April 01, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">gradle(1)</div>
@@ -184,7 +184,7 @@ Similar man pages:
 * scala - https://manpages.debian.org/stretch/scala/scala.1
 ===========================================================================-->
 <h1 id="name">NAME</h1>
-<p><strong>gradle</strong> - Open-source build automation tool for <a
+<p><strong>gradle</strong> - Build automation tool for <a
 href="https://www.java.com/en/download/help/whatis_java.html"
 title="The Java Programming Language"><em>Java</em></a>, <a
 href="https://www.scala-lang.org/"
@@ -197,7 +197,7 @@ and more.</p>
 <h1 id="synopsis">SYNOPSIS</h1>
 <p><strong>gradle</strong>
 <code>[</code><em><code>&lt;taskName&gt;</code></em><code>...] [</code><em><code>&lt;option&gt;</code></em><code>...]</code></p>
-<h1 id="description">DESCRIPTION</h1>
+<h1 id="description"><span id="description">DESCRIPTION</span></h1>
 <p><a href="https://gradle.org/"><em>Gradle</em></a> is a build tool
 with a focus on build automation and support for multi-language
 development. If you are building, testing, publishing, and deploying
@@ -227,8 +227,7 @@ Create a new Gradle build; option <strong>--type</strong>
 </dd>
 </dl>
 <blockquote>
-<p>Example: <strong>gradle init --type
-(scala-application|scala-library</strong><code>|..)</code>
+<p>Example: <strong>gradle init --type scala-application</strong>
 <em><code>&lt;options&gt;</code></em></p>
 </blockquote>
 <h1 id="options"><span id="options">OPTIONS</span></h1>
@@ -248,12 +247,12 @@ information.
 <dt><strong>-S</strong>, <strong>--full-stacktrace</strong></dt>
 <dd>
 Print out the full (very verbose) stacktrace for any exceptions. See
-also logging options.
+also <a href="#logging_options">logging options</a>.
 </dd>
 <dt><strong>-s</strong>, <strong>--stacktrace</strong></dt>
 <dd>
 Print out the stacktrace also for user exceptions (e.g. compile error).
-See also logging options.
+See also <a href="#logging_options">logging options</a>.
 </dd>
 <dt><strong>--scan</strong></dt>
 <dd>
@@ -383,7 +382,7 @@ Only displays daemons of the same Gradle version.
 <dd>
 Run gradle –stop to stop all Gradle Daemons of the same version.
 </dd>
-<dt><strong>-Dorg.gradle.daemon.idletimeout=</strong><em><code>&lt;nr_of_millis&gt;</code></em></dt>
+<dt><strong>-Dorg.gradle.daemon.idletimeout=</strong><em><code>&lt;millis&gt;</code></em></dt>
 <dd>
 Gradle Daemon will stop itself after this number of milliseconds of idle
 time.
@@ -475,7 +474,7 @@ Configures the dependency verification mode, see what the options mean
 here. The default mode is <strong><code>strict</code></strong>.
 </dd>
 <dt><strong>-M</strong>,
-<strong>–write-verification-metadata</strong></dt>
+<strong>--write-verification-metadata</strong></dt>
 <dd>
 Generates checksums for dependencies used in the project
 (comma-separated list) for dependency verification. See how to bootstrap
@@ -535,7 +534,7 @@ Specifies an initialization script. See Init Scripts.
 <dt><strong>-P</strong>, <strong>--project-prop</strong></dt>
 <dd>
 Set a project property of the root project, for example
--Pmyprop=myvalue. See Project Properties.
+<strong><code>-Pmyprop=myvalue</code></strong>. See Project Properties.
 </dd>
 <dt><strong>-Dorg.gradle.jvmargs</strong></dt>
 <dd>
@@ -557,6 +556,7 @@ Set JDK home directory.
 <h1 id="examples">EXAMPLES</h1>
 <h1 id="exit-status">EXIT STATUS</h1>
 <h1 id="authors">AUTHORS</h1>
+<p><a href="https://gradle.com/"><strong>Gradle, Inc.</strong></a></p>
 <h1 id="reporting-bugs">REPORTING BUGS</h1>
 <p>Report bugs to <a
 href="https://github.com/gradle/gradle/issues"><strong>https://github.com/gradle/gradle/issues</strong></a>.</p>
@@ -572,7 +572,8 @@ href="./mill.1.html"><strong>mill</strong></a>(1), <a
 href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
 href="./scala-cli.1.html"><strong>scala-cli</strong></a>(1), <a
 href="./scalafix.1.html"><strong>scalafix</strong></a>(1), <a
-href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1), <a
+href="./sdkman.1.html"><strong>sdkman</strong></a>(1).</p>
 <!-- hyperref -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://gradle.org/">Gradle 4.7.1</a></div>

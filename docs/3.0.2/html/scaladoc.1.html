@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-03-31" />
+  <meta name="dcterms.date" content="2022-04-01" />
   <title>scaladoc(1) Scala 3.0.2 | Scala 3 Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">scaladoc(1) Scala 3.0.2 | Scala 3 Commands</h1>
-<p class="date">March 31, 2022</p>
+<p class="date">April 01, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">scaladoc(1)</div>
@@ -222,7 +222,7 @@ href="./scalac.1.html#options"><strong>scalac</strong></a>(1).
 Adding authors in docstring with <code>@author Name Surname</code> by
 default won’t be included in generated HTML documentation. If you would
 like to label classes with authors explicitly, run
-<strong>scaladoc</strong> with this flag.
+<strong><code>scaladoc</code></strong> with this flag.
 </dd>
 </dl>
 <blockquote>
@@ -239,8 +239,9 @@ The styling language used for parsing comments.
 </dd>
 </dl>
 <blockquote>
-<p>Choices: <code>markdown</code> or <code>wiki</code>.<br />
-Default: <code>markdown</code>.</p>
+<p>Choices: <strong><code>markdown</code></strong> or
+<strong><code>wiki</code></strong>.<br />
+Default: <strong><code>markdown</code></strong>.</p>
 </blockquote>
 <dl>
 <dt><strong>-doc-canonical-base-url</strong></dt>
@@ -262,7 +263,7 @@ documentation.
 </dd>
 </dl>
 <blockquote>
-<p>Usage example: <code>-external-mappings:.*scala.*::scaladoc3::https://scala-lang.org/api/3.x/,.*java.*::javadoc::https://docs.oracle.com/javase/8/docs/api/</code>.<br />
+<p>Example: <code>-external-mappings:.*scala.*::scaladoc3::https://scala-lang.org/api/3.x/,.*java.*::javadoc::https://docs.oracle.com/javase/8/docs/api/</code>.<br />
 A mapping is of the form
 <code>regex::[scaladoc|scaladoc|javadoc]::path</code>. You can supply
 several mappings, separated by commas, as shown in the example.</p>
@@ -287,7 +288,7 @@ protected types and members.
 <blockquote>
 <p>Equivalent to option <a
 href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javadoc.html#standard-doclet-options"><code>-private</code></a>
-of <a
+of command <a
 href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javadoc.html"><strong>javadoc</strong></a>.</p>
 </blockquote>
 <dl>
@@ -425,12 +426,12 @@ at processing the specified input files. Non zero is returned in case of
 failure.</p>
 <h1 id="authors">AUTHORS</h1>
 <p>Written by <a
-href="https://en.wikipedia.org/wiki/Martin_Odersky">Martin Odersky</a>,
-the Scala team and the <a
-href="https://contributors.scala-lang.org/">Scala contributors</a>.</p>
+href="https://en.wikipedia.org/wiki/Martin_Odersky"><strong>Martin
+Odersky</strong></a>, the Scala team and the <a
+href="https://contributors.scala-lang.org/"><strong>Scala contributors</strong></a>.</p>
 <h1 id="reporting-bugs">REPORTING BUGS</h1>
 <p>Report bugs to <a
-href="https://issues.scala-lang.org/">https://issues.scala-lang.org/</a>.</p>
+href="https://issues.scala-lang.org/"><strong>https://issues.scala-lang.org/</strong></a>.</p>
 <h1 id="copyright">COPYRIGHT</h1>
 <p>This is open-source software, available to you under a BSD-like
 license. See accompanying “copyright” or “LICENSE” file for copying
@@ -438,12 +439,12 @@ conditions. There is NO warranty; not even for MERCHANTABILITY or
 FITNESS FOR A PARTICULAR PURPOSE.</p>
 <h1 id="see-also">SEE ALSO</h1>
 <p><a href="./scala.1.html"><strong>scala</strong></a>(1), <a
-href="./scalac.1.html"><strong>scalac</strong></a>(1)</p>
+href="./scalac.1.html"><strong>scalac</strong></a>(1).</p>
 <!-- hyperrefs -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">Scala 3.0.2</div>
   <div style="float:right;">scaladoc(1) <a href="#title-block-header" title="Back to top">⇧ </a></div>
-  <div style="text-align:center;">March 31, 2022</div>
+  <div style="text-align:center;">April 01, 2022</div>
 </div>
 </body>
 </html>

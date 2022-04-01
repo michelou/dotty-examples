@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-03-31" />
+  <meta name="dcterms.date" content="2022-04-01" />
   <title>scalafix(1) Scalafix 0.9.34 | Scala Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">scalafix(1) Scalafix 0.9.34 | Scala Commands</h1>
-<p class="date">March 31, 2022</p>
+<p class="date">April 01, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">scalafix(1)</div>
@@ -191,10 +191,10 @@ Similar man pages:
 <code>...]</code></p>
 <h1 id="description">DESCRIPTION</h1>
 <p><a
-href="https://github.com/scalacenter/scalafix/"><em>Scalafix</em></a> is
+href="https://scalacenter.github.io/scalafix/"><em>Scalafix</em></a> is
 a refactoring and linting tool.</p>
 <p><a
-href="https://github.com/scalacenter/scalafix/"><em>Scalafix</em></a>
+href="https://scalacenter.github.io/scalafix/"><em>Scalafix</em></a>
 supports both syntactic and semantic linter and rewrite rules. Syntactic
 rules can run on source code without compilation. Semantic rules can run
 on source code that has been compiled with the <a
@@ -209,9 +209,8 @@ production or violate your coding style.</li>
 <h1 id="options">OPTIONS</h1>
 <h2 id="common-options">Common Options</h2>
 <dl>
-<dt><strong>--rules</strong>
-<code>[</code><em><code>&lt;string&gt;</code></em> <code>...]</code>,
-<strong>-r</strong> <code>[</code><em><code>&lt;string&gt;</code></em>
+<dt><strong>--rules</strong>, <strong>-r</strong>
+<code>[</code><em><code>&lt;string&gt;</code></em>
 <code>...]</code></dt>
 <dd>
 Specify the Scalafix rules to run, for example
@@ -219,10 +218,8 @@ Specify the Scalafix rules to run, for example
 <a
 href="https://scalacenter.github.io/scalafix/docs/users/configuration#rules">https://scalacenter.github.io/scalafix/docs/users/configuration#rules</a>.
 </dd>
-<dt><strong>--files</strong>
-<code>[</code><em><code>&lt;path&gt;</code></em> <code>...]</code>,
-<strong>-f</strong> <code>[</code><em><code>&lt;path&gt;</code></em>
-<code>...]</code></dt>
+<dt><strong>--files</strong>, <strong>-f</strong>
+<code>[</code><em><code>&lt;path&gt;</code></em> <code>...]</code></dt>
 <dd>
 Specify files or directories (recursively visited) to fix.
 </dd>
@@ -235,7 +232,7 @@ directory, if any.
 </dd>
 <dt><strong>--check</strong></dt>
 <dd>
-Check that all files have been fixed with scalafix, exiting with
+Check that all files have been fixed with Scalafix, exiting with
 non-zero code on violations. Won’t write to files.
 </dd>
 <dt><strong>--stdout</strong></dt>
@@ -268,7 +265,7 @@ Overlay the default rules and rule settings in
 <dt><strong>-verbose</strong></dt>
 <dd>
 Print out additional diagnostics while running <a
-href="https://github.com/scalacenter/scalafix/"><em>Scalafix</em></a>.
+href="https://scalacenter.github.io/scalafix/"><em>Scalafix</em></a>.
 </dd>
 <dt><strong>--help</strong>, <strong>-h</strong></dt>
 <dd>
@@ -309,7 +306,7 @@ provided.</p>
 Set the absolute paths passed to semanticdb with
 <code>-P:semanticdb:targetroot:&lt;path&gt;</code>. Used to locate
 semanticdb files. By default, <a
-href="https://github.com/scalacenter/scalafix/"><em>Scalafix</em></a>
+href="https://scalacenter.github.io/scalafix/"><em>Scalafix</em></a>
 will try to locate semanticdb files in the classpath.
 </dd>
 <dt><strong>--auto-classpath</strong></dt>
@@ -376,13 +373,18 @@ autoload -U _scalafix</code></pre>
 Unix-style glob for files to exclude from fixing. The glob syntax is
 defined by <code>nio.FileSystem.getPathMatcher</code>.
 </dd>
-<dt><strong>--tool-classpath</strong> URLClassLoader (default:
-“<classloader>”)</dt>
+<dt><strong>--tool-classpath</strong>
+<em><code>&lt;uRLClassLoader&gt;</code></em></dt>
 <dd>
 Set additional class path for compiling and class loading custom rules,
 as a set of filesystem paths, separated by <code>':'</code> on Unix or
 ‘;’ on Windows.
 </dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>classloader</code></strong>.</p>
+</blockquote>
+<dl>
 <dt><strong>--charset</strong>
 <em><code>&lt;charset&gt;</code></em></dt>
 <dd>
@@ -395,7 +397,8 @@ Set the encoding to use for reading/writing files.
 <dl>
 <dt><strong>--no-sys-exit</strong></dt>
 <dd>
-If set, throw exception in the end instead of <code>System.exit</code>.
+If set, throw an exception in the end instead of <a
+href="https://docs.oracle.com/javase/7/docs/api/java/lang/System.html#exit(int)"><strong><code>System.exit</code></strong></a>.
 </dd>
 <dt><strong>--no-stale-semanticdb</strong></dt>
 <dd>
@@ -411,14 +414,26 @@ Custom settings to override
 <em><code>&lt;string&gt;</code></em></dt>
 <dd>
 Write fixed output to custom location instead of in-place. Regex is
-passed as first argument to file.replaceAll(–out-from, –out-to),
-requires <strong><code>--out-to</code></strong>.
+passed as first argument to
+<code>file.replaceAll(--out-from, --out-to)</code>.
 </dd>
+</dl>
+<blockquote>
+<p><strong>Note:</strong> Requires option
+<strong><code>--out-to</code></strong>.</p>
+</blockquote>
+<dl>
 <dt><strong>--out-to</strong> <em><code>&lt;string&gt;</code></em></dt>
 <dd>
-Companion of –out-from, string that is passed as second argument to
-fileToFix.replaceAll(–out-from, –out-to).
+Specify the string that is passed as second argument to
+<code>fileToFix.replaceAll(--out-from, --out-to)</code>.
 </dd>
+</dl>
+<blockquote>
+<p><strong>Note</strong>: Companion of option
+<strong><code>--out-from</code></strong>.</p>
+</blockquote>
+<dl>
 <dt><strong>--auto-suppress-linter-errors</strong></dt>
 <dd>
 Insert <strong><code>/*</code></strong> <code>scalafix:ok</code>
@@ -427,7 +442,7 @@ linter errors.
 </dd>
 <dt><strong>--cwd</strong> <em><code>&lt;path&gt;</code></em></dt>
 <dd>
-The current working directory.
+Set the current working directory.
 </dd>
 </dl>
 <blockquote>
@@ -462,18 +477,19 @@ class="citation" data-cites="ShaneDelmore">@ShaneDelmore</span></a></p>
 </blockquote>
 <h1 id="reporting-bugs">REPORTING BUGS</h1>
 <p>Report bugs to <a
-href="https://github.com/scalacenter/scalafix/issues">https://github.com/scalacenter/scalafix/issues</a>.</p>
+href="https://github.com/scalacenter/scalafix/issues"><strong>https://github.com/scalacenter/scalafix/issues</strong></a>.</p>
 <h1 id="copyright">COPYRIGHT</h1>
 <p>Copyright (C) 2017-2022 <a
-href="https://github.com/scalacenter/scalafix#team">The Scalafix
-Maintainers</a></p>
+href="https://github.com/scalacenter/scalafix#team"><strong>The Scalafix
+Maintainers</strong></a></p>
 <h1 id="see-also">SEE ALSO</h1>
 <p><a href="./amm.1.html"><strong>amm</strong></a>(1), <a
 href="./cs.1.html"><strong>cs</strong></a>(1), <a
 href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
 href="./mill.1.html"><strong>mill</strong></a>(1), <a
 href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
-href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1), <a
+href="./sdk.1.html"><strong>sdkman</strong></a>(1).</p>
 <!-- hyperref -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://scalacenter.github.io/scalafix/">Scalafix 0.9.34</a></div>

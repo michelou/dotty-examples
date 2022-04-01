@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-03-31" />
+  <meta name="dcterms.date" content="2022-04-01" />
   <title>mill(1) Mill 0.10.0 | Scala Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">mill(1) Mill 0.10.0 | Scala Commands</h1>
-<p class="date">March 31, 2022</p>
+<p class="date">April 01, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">mill(1)</div>
@@ -237,8 +237,9 @@ REPL and scripts if the console is interactive, and disabled otherwise
 <dd>
 Hide parts of the core of Ammonite and some of its dependencies. By
 default, the core of Ammonite and all of its dependencies can be seen by
-users from the Ammonite session. This option mitigates that via class
-loader isolation.
+users from the <a href="https://ammonite.io/"
+title="Ammonite-REPL"><em>Ammonite</em></a> session. This option
+mitigates that via class loader isolation.
 </dd>
 <dt><strong>--help</strong></dt>
 <dd>
@@ -271,12 +272,12 @@ Enable BSP server mode.
 <dt><strong>-i</strong>, <strong>--interactive</strong></dt>
 <dd>
 Run Mill in interactive mode, suitable for opening REPLs and taking user
-input. In this mode, no mill server will be used. Must be the first
+input. In this mode, no Mill server will be used. Must be the first
 argument.
 </dd>
 <dt><strong>-v</strong>, <strong>--version</strong></dt>
 <dd>
-Show mill version and exit.
+Show Mill version and exit.
 </dd>
 <dt><strong>-b</strong>, <strong>--bell</strong></dt>
 <dd>
@@ -295,7 +296,7 @@ Show debug output on STDOUT
 Continue build, even after build failures
 </dd>
 <dt><strong>-D</strong>, <strong>--define</strong>
-<em><code>&lt;k=v&gt;</code></em></dt>
+<em><code>&lt;property&gt;=&lt;value&gt;</code></em></dt>
 <dd>
 Define (or overwrite) a system property.
 </dd>
@@ -306,7 +307,7 @@ to use as much threads as available processors.
 </dd>
 <dt><strong>--import</strong> <code>*</code><string>`*</dt>
 <dd>
-Additional ivy dependencies to load into mill, e.g. plugins.
+Additional Ivy dependencies to load into Mill, e.g. plugins.
 </dd>
 <dt><strong>rest</strong> <em><code>&lt;string&gt;...</code></em></dt>
 <dd>
@@ -343,7 +344,7 @@ failure.</p>
 href="https://www.lihaoyi.com/">https://www.lihaoyi.com/</a>).</p>
 <h1 id="reporting-bugs">REPORTING BUGS</h1>
 <p>Report bugs to <a
-href="https://github.com/com-lihaoyi/mill/issues">https://github.com/com-lihaoyi/mill/issues/</a>.</p>
+href="https://github.com/com-lihaoyi/mill/issues"><strong>https://github.com/com-lihaoyi/mill/issues/</strong></a>.</p>
 <h1 id="copyright">COPYRIGHT</h1>
 <p><a href="https://github.com/com-lihaoyi/mill/blob/main/LICENSE">The
 MIT License (MIT)</a></p>
@@ -355,7 +356,8 @@ href="./cs.1.html"><strong>cs</strong></a>(1), <a
 href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
 href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
 href="./scalafix.1.html"><strong>scalafix</strong></a>(1), <a
-href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1), <a
+href="./sdkman.1.html"><strong>sdkman</strong></a>(1).</p>
 <!-- hyperref -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://com-lihaoyi.github.io/mill/">Mill 0.10.0</a></div>
