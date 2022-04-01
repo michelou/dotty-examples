@@ -2,6 +2,12 @@
 
 We generate both versions of the manual pages with the [Pandoc][pandoc] tool <sup id="anchor_01">[1](#footnote_01)</sup>.
 
+> **:mag_right:** 4 examples of online manual pages :
+> - [Ubuntu](https://manpages.ubuntu.com/) hosted [manual pages](http://manpages.ubuntu.com/manpages/jammy/) (includes [`scala.1`](https://manpages.ubuntu.com/manpages/jammy/en/man1/scala.1.html), Scala 2.11).
+> - [FreeBSD](https://www.freebsd.org/) hosted [manual pages](https://www.freebsd.org/cgi/man.cgi) (includes [`scala.1`](https://www.freebsd.org/cgi/man.cgi?query=scala&format=html), Scala 0.5).
+> - [Hurrican Electric](https://www.he.net/) hosted [manual pages](http://man.he.net/).
+> - [man7.org](https://man7.org/) hosted [manual pages](https://man7.org/linux/man-pages/index.html).
+
 ## <span id="previews">HTML Previews</span>
 
 Scala 3 commands :
@@ -23,7 +29,7 @@ https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/mas
 https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalafmt.1.html" rel="external"><b>scalafmt</b>.1.html</a>
 </pre>
 
-> **:mag_right:** We add the prefix `https://htmlpreview.github.io/?<html_page_url>` to the URL of the HTML pages from our GitHub repository in order the view them.
+> **:mag_right:** HTML pages hosted in a GitHub repository can be viewed by adding the prefix `https://htmlpreview.github.io/?` to their URL.
 
 ## <span id="downloads">Downloads</span>
 
@@ -36,7 +42,7 @@ We've grouped the generated manual pages in 4 Zip archives :
 
 ## <span id="footnotes">Footnotes</span>
 
-<span id="footnote_01">[1]</span> ***Pandoc*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Pandoc Generated Pages*** [↩](#anchor_01)
 
 <dl><dd>
 We generate the manual pages in 6 steps :
@@ -65,7 +71,7 @@ Patched source file<br/><code>target/src_gen/scala.1.md</code><br/>
 <b>&#8681;</b> (2)<br/>
 Manpage file<br/><code>target/man/man1/scala.1</code><br/>
 <b>&#8681;</b> (3)<br/>
-Gzipped file<br/><code>target/man/man1/scala.1.gz</code>
+GZ file<br/><code>target/man/man1/scala.1.gz</code>
 </td>
 <td style="width:180px;vertical-align:top;padding:0;">
 <b>&#8681;</b> (4)<br/>
@@ -76,7 +82,7 @@ Patched HTML file<br/><code>target/man/man1/scala.1.html</code>
 </tr>
 <tr><td style="width:180px;text-align:center;padding:0;">
 <b>&#8681;</b> (6)<br/>
-Zip archive<br/><code>target/scala3-html-3.0.2.zip</code>
+Zip archive<br/><code>target/scala3-man-3.0.2.zip</code>
 </td>
 <td style="width:180px;text-align:center;padding:0;">
 <b>&#8681;</b> (6)<br/>

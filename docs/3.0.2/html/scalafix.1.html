@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-01" />
+  <meta name="dcterms.date" content="2022-04-02" />
   <title>scalafix(1) Scalafix 0.9.34 | Scala Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">scalafix(1) Scalafix 0.9.34 | Scala Commands</h1>
-<p class="date">April 01, 2022</p>
+<p class="date">April 02, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">scalafix(1)</div>
@@ -186,19 +186,17 @@ Similar man pages:
 <h1 id="name">NAME</h1>
 <p><strong>scalafix</strong> - Rewrite and linting tool for Scala</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p><strong>scalafix</strong>
-<code>[</code><em><code>&lt;options&gt;</code></em><code>] [</code><em><code>&lt;path&gt;</code></em>
-<code>...]</code></p>
+<p><strong><code>scalafix</code></strong>
+<code>[</code><em><code>options</code></em><code>]</code>
+<code>[</code><em><code>path</code></em><code>...]</code></p>
 <h1 id="description">DESCRIPTION</h1>
-<p><a
-href="https://scalacenter.github.io/scalafix/"><em>Scalafix</em></a> is
-a refactoring and linting tool.</p>
-<p><a
-href="https://scalacenter.github.io/scalafix/"><em>Scalafix</em></a>
+<p><a href="https://scalacenter.github.io/scalafix/">Scalafix</a> is a
+refactoring and linting tool.</p>
+<p><a href="https://scalacenter.github.io/scalafix/">Scalafix</a>
 supports both syntactic and semantic linter and rewrite rules. Syntactic
 rules can run on source code without compilation. Semantic rules can run
 on source code that has been compiled with the <a
-href="https://scalameta.org/docs/semanticdb/guide.html"><em>SemanticDB</em></a>
+href="https://scalameta.org/docs/semanticdb/guide.html">SemanticDB</a>
 compiler plugin.</p>
 <ul>
 <li>Automate day-to-day code health tasks or write one-time migrations
@@ -210,8 +208,7 @@ production or violate your coding style.</li>
 <h2 id="common-options">Common Options</h2>
 <dl>
 <dt><strong>--rules</strong>, <strong>-r</strong>
-<code>[</code><em><code>&lt;string&gt;</code></em>
-<code>...]</code></dt>
+<code>[</code><em><code>string</code></em><code>...]</code></dt>
 <dd>
 Specify the Scalafix rules to run, for example
 <code>ExplicitResultTypes</code>. The syntax for rules is documented in
@@ -219,11 +216,11 @@ Specify the Scalafix rules to run, for example
 href="https://scalacenter.github.io/scalafix/docs/users/configuration#rules">https://scalacenter.github.io/scalafix/docs/users/configuration#rules</a>.
 </dd>
 <dt><strong>--files</strong>, <strong>-f</strong>
-<code>[</code><em><code>&lt;path&gt;</code></em> <code>...]</code></dt>
+<code>[</code><em><code>path</code></em><code>...]</code></dt>
 <dd>
 Specify files or directories (recursively visited) to fix.
 </dd>
-<dt><strong>--config</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dt><strong>--config</strong> <em><code>path</code></em></dt>
 <dd>
 Specify the file path to a <strong><code>.scalafix.conf</code></strong>
 configuration file. Defaults to
@@ -244,8 +241,7 @@ Print fixed output to stdout instead of writing in-place.
 If set, only apply scalafix to added and edited files in git diff
 against the master branch.
 </dd>
-<dt><strong>--diff-base</strong>
-<em><code>&lt;tring&gt;</code></em></dt>
+<dt><strong>--diff-base</strong> <em><code>string</code></em></dt>
 <dd>
 If set, only apply scalafix to added and edited files in git diff
 against a provided branch, commit or tag.
@@ -265,7 +261,7 @@ Overlay the default rules and rule settings in
 <dt><strong>-verbose</strong></dt>
 <dd>
 Print out additional diagnostics while running <a
-href="https://scalacenter.github.io/scalafix/"><em>Scalafix</em></a>.
+href="https://scalacenter.github.io/scalafix/">Scalafix</a>.
 </dd>
 <dt><strong>--help</strong>, <strong>-h</strong></dt>
 <dd>
@@ -279,8 +275,7 @@ Print out version number and exit.
 <h2 id="semantic-options"><span id="semantic_options">Semantic
 Options</span></h2>
 <dl>
-<dt><strong>--classpath</strong> <em><code>&lt;classpath&gt;</code></em>
-(default: “<classpath>”)</dt>
+<dt><strong>--classpath</strong> <em><code>classpath</code></em></dt>
 <dd>
 Specify the full class path of the files to fix, required for semantic
 rules. The source files that should be fixed must be compiled with
@@ -288,10 +283,13 @@ semanticdb-scalac. Dependencies are required by rules like
 <strong><code>ExplicitResultTypes</code></strong>, but the dependencies
 do not need to be compiled with semanticdb-scalac.
 </dd>
-<dt><strong>–sourceroot</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dd>
+<p>Default: <strong><code>""</code></strong>.</p>
+</dd>
+<dt><strong>–sourceroot</strong> <em><code>path</code></em></dt>
 <dd>
 Set the absolute path passed to semanticdb with
-<em><code>-P:semanticdb:sourceroot:&lt;path&gt;</code></em>.
+<strong><code>-P:semanticdb:sourceroot:</code></strong><em><code>path</code></em>.
 </dd>
 </dl>
 <blockquote>
@@ -301,36 +299,35 @@ provided.</p>
 </blockquote>
 <dl>
 <dt><strong>--semanticdb-targetroots</strong>
-<code>[</code><em><code>&lt;path&gt;</code></em> <code>...]</code></dt>
+<code>[</code><em><code>path</code></em><code>...]</code></dt>
 <dd>
 Set the absolute paths passed to semanticdb with
-<code>-P:semanticdb:targetroot:&lt;path&gt;</code>. Used to locate
-semanticdb files. By default, <a
-href="https://scalacenter.github.io/scalafix/"><em>Scalafix</em></a>
-will try to locate semanticdb files in the classpath.
+<code>-P:semanticdb:targetroot:</code><em><code>path</code></em>. Used
+to locate semanticdb files. By default, <a
+href="https://scalacenter.github.io/scalafix/">Scalafix</a> will try to
+locate semanticdb files in the classpath.
 </dd>
 <dt><strong>--auto-classpath</strong></dt>
 <dd>
 If set, automatically infer the
-<strong><code>-\-classpath</code></strong> flag by scanning for
+<strong><code>--classpath</code></strong> flag by scanning for
 directories with <strong><code>META-INF/semanticdb</code></strong>.
 </dd>
 <dt><strong>--auto-classpath-roots</strong>
-<code>[</code><em><code>&lt;path&gt;</code></em> <code>...]</code></dt>
+<code>[</code><em><code>path</code></em><code>...]</code></dt>
 <dd>
 Specify additional directories to scan for
 <strong><code>--auto-classpath</code></strong>.
 </dd>
 <dt><strong>--scalac-options</strong>
-<code>[</code><em><code>&lt;string&gt;</code></em>
-<code>...]</code></dt>
+<code>[</code><em><code>string</code></em><code>...]</code></dt>
 <dd>
 Specify the Scala compiler options used to compile this
-<strong><code>-\-classpath</code></strong>, for example
+<strong><code>--classpath</code></strong>, for example
 <strong><code>-Ywarn-unused-import</code></strong>.
 </dd>
 <dt><strong>--scala-version</strong>
-<em><code>&lt;scalaVersion&gt;</code></em></dt>
+<em><code>scalaVersion</code></em></dt>
 <dd>
 Set the major or binary Scala version that the provided files are
 targeting, or the full version that was used to compile them when a
@@ -368,25 +365,24 @@ autoload -U _scalafix</code></pre>
 <h2 id="less-common-options">Less Common Options</h2>
 <dl>
 <dt><strong>--exclude</strong>
-<code>[</code><em><code>&lt;glob&gt;</code></em> <code>...]</code></dt>
+<code>[</code><em><code>glob</code></em><code>...]</code></dt>
 <dd>
 Unix-style glob for files to exclude from fixing. The glob syntax is
 defined by <code>nio.FileSystem.getPathMatcher</code>.
 </dd>
 <dt><strong>--tool-classpath</strong>
-<em><code>&lt;uRLClassLoader&gt;</code></em></dt>
+<em><code>uRLClassLoader</code></em></dt>
 <dd>
 Set additional class path for compiling and class loading custom rules,
 as a set of filesystem paths, separated by <code>':'</code> on Unix or
-‘;’ on Windows.
+<code>';'</code> on Windows.
 </dd>
 </dl>
 <blockquote>
 <p>Default: <strong><code>classloader</code></strong>.</p>
 </blockquote>
 <dl>
-<dt><strong>--charset</strong>
-<em><code>&lt;charset&gt;</code></em></dt>
+<dt><strong>--charset</strong> <em><code>charset</code></em></dt>
 <dd>
 Set the encoding to use for reading/writing files.
 </dd>
@@ -405,13 +401,12 @@ href="https://docs.oracle.com/javase/7/docs/api/java/lang/System.html#exit(int)"
 Don’t error on stale semanticdb files.
 </dd>
 <dt><strong>--settings</strong>
-<em><code>&lt;scalafixConfig&gt;</code></em></dt>
+<em><code>scalafixConfig</code></em></dt>
 <dd>
 Custom settings to override
 <strong><code>.scalafix.conf</code></strong>.
 </dd>
-<dt><strong>--out-from</strong>
-<em><code>&lt;string&gt;</code></em></dt>
+<dt><strong>--out-from</strong> <em><code>string</code></em></dt>
 <dd>
 Write fixed output to custom location instead of in-place. Regex is
 passed as first argument to
@@ -436,11 +431,11 @@ Specify the string that is passed as second argument to
 <dl>
 <dt><strong>--auto-suppress-linter-errors</strong></dt>
 <dd>
-Insert <strong><code>/*</code></strong> <code>scalafix:ok</code>
-<strong><code>*/</code></strong> suppressions instead of reporting
-linter errors.
+Insert
+<strong><code>/*</code></strong><code>scalafix:ok</code><strong><code>*/</code></strong>
+suppressions instead of reporting linter errors.
 </dd>
-<dt><strong>--cwd</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dt><strong>--cwd</strong> <em><code>path</code></em></dt>
 <dd>
 Set the current working directory.
 </dd>
@@ -488,8 +483,7 @@ href="./cs.1.html"><strong>cs</strong></a>(1), <a
 href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
 href="./mill.1.html"><strong>mill</strong></a>(1), <a
 href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
-href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1), <a
-href="./sdk.1.html"><strong>sdkman</strong></a>(1).</p>
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <!-- hyperref -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://scalacenter.github.io/scalafix/">Scalafix 0.9.34</a></div>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-01" />
+  <meta name="dcterms.date" content="2022-04-02" />
   <title>scalafmt(1) Scalafmt 3.4.3 | Third-Party Scala Commands</title>
   <style>
     html {
@@ -169,7 +169,7 @@
 <!--
 <h1 class="title">scalafmt(1) Scalafmt 3.4.3 | Third-Party Scala
 Commands</h1>
-<p class="date">April 01, 2022</p>
+<p class="date">April 02, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">scalafmt(1)</div>
@@ -188,12 +188,13 @@ Similar man pages:
 <p><strong>scalafmt</strong> - Source code formatter for the Scala
 language</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p><strong>scalafmt</strong>
-<code>[</code><em><code>&lt;options&gt;</code></em><code>] [</code><em><code>&lt;file&gt;...</code></em><code>]</code></p>
+<p><strong><code>scalafmt</code></strong>
+<code>[</code><em><code>options</code></em><code>]</code>
+<code>[</code><em><code>file...</code></em><code>]</code></p>
 <h1 id="description">DESCRIPTION</h1>
-<p><em><code>&lt;file&gt;...</code></em> is a file or directory in which
-all <code>*.scala</code> files are to be formatted.</p>
-<p>If <em><code>&lt;file&gt;</code></em> starts with
+<p><em><code>file...</code></em> is a file or directory in which all
+<code>*.scala</code> files are to be formatted.</p>
+<p>If <em><code>file</code></em> starts with
 <strong><code>@</code></strong>, refers to path listing files to be
 formatted (with <strong><code>@-</code></strong> referring to standard
 input as a special case).</p>
@@ -214,7 +215,7 @@ version.
 Write formatted files to stdout.
 </dd>
 <dt><strong>--exclude</strong>
-<em><code>&lt;file&gt;</code></em>|<em><code>&lt;directory&gt;</code></em></dt>
+<em><code>file</code></em>|<em><code>directory</code></em></dt>
 <dd>
 File or directory, when absent all <code>*.scala</code> files are
 formatted.
@@ -224,15 +225,14 @@ formatted.
 Use project filters even when specific files to format are provided.
 </dd>
 <dt><strong>-c</strong> <em><code>&lt;path&gt;</code></em>,
-<strong>--config</strong> <em><code>&lt;path&gt;</code></em></dt>
+<strong>--config</strong> <em><code>path</code></em></dt>
 <dd>
-A file path to <a
+Specify a configration definad as <a
 href="#scalafmt_conf"><strong><code>.scalafmt.conf</code></strong></a>.
 </dd>
-<dt><strong>--config-str</strong>
-<em><code>&lt;value&gt;</code></em></dt>
+<dt><strong>--config-str</strong> <em><code>value</code></em></dt>
 <dd>
-Configuration defined as a string.
+Specify a configuration defined as a string.
 </dd>
 <dt><strong>--stdin</strong></dt>
 <dd>
@@ -242,10 +242,10 @@ Read from stdin and print to stdout.
 <dd>
 Don’t use stdrerr for messages, output to stdout.
 </dd>
-<dt><strong>--assume-filename</strong> <code>&lt;value&gt;</code></dt>
+<dt><strong>--assume-filename</strong> <code>value</code></dt>
 <dd>
-When using <strong><code>-\-stdin</code></strong>, use
-<strong><code>-\-assume-filename</code></strong> to hint to
+When using <strong><code>--stdin</code></strong>, use
+<strong><code>--assume-filename</code></strong> to hint to
 <strong>scalafmt</strong> that the input is an <code>.sbt</code> file.
 </dd>
 <dt><strong>--reportError</strong></dt>
@@ -271,9 +271,9 @@ master.
 instead.</p>
 </blockquote>
 <dl>
-<dt><strong>--mode</strong> <em><code>&lt;value&gt;</code></em></dt>
+<dt><strong>--mode</strong> <em><code>value</code></em></dt>
 <dd>
-Set the files to be formatted fetching mode.<br />
+Set the files to be formatted fetching mode.
 </dd>
 </dl>
 <blockquote>
@@ -287,8 +287,7 @@ master<br />
 directory</p>
 </blockquote>
 <dl>
-<dt><strong>--diff-branch</strong>
-<em><code>&lt;value&gt;</code></em></dt>
+<dt><strong>--diff-branch</strong> <em><code>value</code></em></dt>
 <dd>
 If set, only format edited files in git diff against provided branch.
 Has no effect if mode set to <strong><code>changed</code></strong>.
@@ -311,7 +310,10 @@ Disable fancy progress bar, useful in ci or sbt plugin.
 </dd>
 <dt><strong>--list</strong></dt>
 <dd>
-List files that are different from scalafmt formatting.
+List files that are different from <a
+href="https://scalameta.org/scalafmt/"
+title="Scalafmt - The code formatter for Scala"><em>Scalafmt</em></a>
+formatting.
 </dd>
 </dl>
 <h1 id="environment"><span id="environment">ENVIRONMENT</span></h1>
@@ -389,7 +391,7 @@ against previous commit).</p>
 <p><strong><code>scalafmt</code></strong>
 <code>--stdout Code.scala</code></p>
 </blockquote>
-<p>Format all files in directory excluding target</p>
+<p>Format all files in directory excluding <code>target</code></p>
 <blockquote>
 <p><strong><code>scalafmt</code></strong>
 <code>--exclude target</code></p>
@@ -406,10 +408,8 @@ against previous commit).</p>
 </blockquote>
 <h1 id="exit-status">EXIT STATUS</h1>
 <p>The <strong><code>scalafmt</code></strong> command returns a zero
-exit status if it succeeds. Non zero is returned in case of any error.
-If a script or top-level object is executed and returns a value, then
-that return value is passed on to
-<strong><code>scalafmt</code></strong>.</p>
+exit status if it succeeds. Non zero is returned in case of any
+error.</p>
 <h1 id="authors">AUTHORS</h1>
 <p>The current maintainers are :</p>
 <blockquote>

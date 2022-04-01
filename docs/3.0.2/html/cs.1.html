@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-01" />
+  <meta name="dcterms.date" content="2022-04-02" />
   <title>cs(1) Coursier 2.0.13 | Third-Party Scala Commands</title>
   <style>
     html {
@@ -169,7 +169,7 @@
 <!--
 <h1 class="title">cs(1) Coursier 2.0.13 | Third-Party Scala
 Commands</h1>
-<p class="date">April 01, 2022</p>
+<p class="date">April 02, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">cs(1)</div>
@@ -182,7 +182,7 @@ Commands</h1>
 <p><strong>cs</strong> - Scala application and artifact manager</p>
 <h1 id="synopsis">SYNOPSIS</h1>
 <p><strong>cs</strong>
-<code>[</code><em><code>&lt;coursier-options&gt;</code></em><code>] [</code><em><code>&lt;command&gt;</code></em><code>] [</code><em><code>&lt;command-options&gt;</code></em><code>]</code></p>
+<code>[</code><em><code>coursier-options</code></em><code>] [</code><em><code>command</code></em><code>] [</code><em><code>command-options</code></em><code>]</code></p>
 <h1 id="description">DESCRIPTION</h1>
 <p><a href="https://get-coursier.io/"><em>Coursier</em></a> is the Scala
 application and artifact manager. It can install Scala applications and
@@ -226,7 +226,7 @@ See <a href="#launch_options"><strong>Launch Options</strong></a>.
 </dl>
 <blockquote>
 <p>Example: <strong>cs launch</strong>
-<em><code>&lt;org:name:version|app-name[:version]*&gt;</code></em></p>
+<em><code>org:name:version</code>|<code>app-name[:version]</code></em></p>
 </blockquote>
 <dl>
 <dt><strong>resolve</strong></dt>
@@ -244,39 +244,38 @@ See <a href="#update_options"><strong>Update Options</strong></a>.
 Options</span></h2>
 <dl>
 <dt><strong>-a</strong>, <strong>--add</strong>
-<em><code>&lt;string&gt;..</code></em></dt>
+<em><code>string ...</code></em></dt>
 <dd>
 Add given URL based channels.
 </dd>
 <dt><strong>-l</strong>, <strong>--list</strong>
-<em><code>&lt;bool&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
 List down all added channels.
 </dd>
 <dt><strong>-q</strong>, <strong>--quiet</strong>
-<em><code>&lt;counter&gt;</code></em></dt>
+<em><code>counter</code></em></dt>
 <dd>
 Quiet output.
 </dd>
 <dt><strong>-v</strong>, <strong>--verbose</strong>
-<em><code>&lt;counter&gt;</code></em></dt>
+<em><code>counter</code></em></dt>
 <dd>
 Increase verbosity (specify several times to increase more).
 </dd>
 <dt><strong>-P</strong>, <strong>--progress</strong>
-<em><code>&lt;bool&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
 Force display of progress bars.
 </dd>
-<dt><strong>--log-changing</strong>
-<em><code>&lt;bool&gt;</code></em></dt>
+<dt><strong>--log-changing</strong> <em><code>boolean</code></em></dt>
 <dd>
 Log changing artifacts.
 </dd>
 <dt><strong>--log-channel-version</strong>,
 <strong>--log-index-version</strong>,
 <strong>--log-jvm-index-version</strong>
-<em><code>&lt;bool&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
 Log app channel or JVM index version.
 </dd>
@@ -285,40 +284,41 @@ Log app channel or JVM index version.
 Options</span></h2>
 <dl>
 <dt><strong>--classpath</strong>, <strong>-p</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
 Print Java <strong><code>-cp</code></strong> compatible output.
 </dd>
 <dt><strong>--json-output-file</strong>, <strong>-j</strong>
-<em><code>&lt;string&gt;</code></em></dt>
+<em><code>string</code></em></dt>
 <dd>
 Specify path for json output.
 </dd>
 <dt><strong>--classpath-order</strong>
-<em><code>&lt;bool?&gt;</code></em></dt>
+<code>[</code><em><code>boolean</code></em><code>]</code></dt>
 <dd>
 Keep dependencies or artifacts in classpath order (that is, dependencies
 before dependees).
 </dd>
-<dt><strong>--cache</strong> <em><code>&lt;string?&gt;</code></em></dt>
+<dt><strong>--cache</strong> <em><code>directory</code></em></dt>
 <dd>
-Cache directory (defaults to environment variable
-<strong><code>COURSIER_CACHE</code></strong>, or ~/.cache/coursier/v1 on
-Linux and ~/Library/Caches/Coursier/v1 on Mac).
+Specify the cache directory (defaults to environment variable
+<strong><code>COURSIER_CACHE</code></strong>, or
+<code>~/.cache/coursier/v1</code> on Linux and
+<code>~/Library/Caches/Coursier/v1</code> on Mac).
 </dd>
-<dt><strong>--mode</strong>, <strong>-m</strong>
-<em><code>&lt;offline|update-changing|update|missing|force&gt;</code></em></dt>
+<dt><strong>--mode</strong>, <strong>-m
+(offline|update-changing|update|missing|force)</strong></dt>
 <dd>
 Download mode (default: <strong><code>missing</code></strong>, that is
 fetch things missing from cache).
 </dd>
 <dt><strong>--ttl</strong>, <strong>-l</strong>
-<em><code>&lt;duration&gt;</code></em></dt>
+<em><code>duration</code></em></dt>
 <dd>
 Set the TTL duration (e.g. “24 hours”).
 </dd>
 <dt><strong>--parallel</strong>, <strong>-n</strong>
-<em><code>&lt;number&gt;</code></em></dt>
+<em><code>number</code></em></dt>
 <dd>
 Set the maximum number of parallel downloads.
 </dd>
@@ -328,7 +328,7 @@ Set the maximum number of parallel downloads.
 </blockquote>
 <dl>
 <dt><strong>--checksum</strong>
-<em><code>&lt;checksum1,checksum2,...&gt;</code></em></dt>
+<em><code>checksum1,checksum2,...</code></em></dt>
 <dd>
 Checksum types to check - end with none to allow for no checksum
 validation if no checksum is available.
@@ -338,69 +338,66 @@ validation if no checksum is available.
 <p>Example: <strong><code>SHA-256,SHA-1,none</code></strong>.</p>
 </blockquote>
 <dl>
-<dt><strong>--retry-count</strong>
-<em><code>&lt;number&gt;</code></em></dt>
+<dt><strong>--retry-count</strong> <em><code>number</code></em></dt>
 <dd>
 Retry limit for checksum error when fetching a file.
 </dd>
 <dt><strong>--cache-file-artifacts</strong>, <strong>--cfa</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
 Specify if a local artifact should be cached.
 </dd>
 <dt><strong>--follow-http-to-https-redirect</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
 Whether to follow http to https redirections
 </dd>
 <dt><strong>--credentials</strong>
-<em><code>&lt;host(realm) user:pass|host user:pass&gt;</code></em></dt>
+<em><code>host(realm) user:pass|host user:pass</code></em></dt>
 <dd>
 Set credentials to be used when fetching metadata or artifacts. Specify
 multiple times to pass multiple credentials. Alternatively, use the
-COURSIER_CREDENTIALS environment variable.
+<strong><code>COURSIER_CREDENTIALS</code></strong> environment variable.
 </dd>
-<dt><strong>--credential-file</strong>
-<em><code>&lt;string*&gt;</code></em></dt>
+<dt><strong>--credential-file</strong> <em><code>path</code></em></dt>
 <dd>
 Set path to credential files to read credentials from.
 </dd>
 <dt><strong>--use-env-credentials</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
-Whether to read credentials from COURSIER_CREDENTIALS (env) or
-coursier.credentials (Java property), along those passed with
-<strong><code>--credentials</code></strong> and
+Whether to read credentials from
+<strong><code>COURSIER_CREDENTIALS</code></strong> (env) or
+<strong><code>coursier.credentials</code></strong> (Java property),
+along those passed with <strong><code>--credentials</code></strong> and
 <strong><code>--credential-file</code></strong>.
 </dd>
 <dt><strong>--repository</strong>, <strong>-r</strong>
 <em><code>&lt;maven|sonatype:$repo|ivy2local|bintray:$org/$repo|bintray-ivy:$org/$repo|typesafe:ivy-$repo|typesafe:$repo|sbt-plugin:$repo|scala-integration|scala-nightlies|ivy:$pattern|jitpack|clojars|jcenter|apache:$repo&gt;</code></em></dt>
 <dd>
 Repository - for multiple repositories, separate with comma and/or add
-this option multiple times (e.g. -r central,ivy2local -r
-sonatype:snapshots, or equivalently -r
-central,ivy2local,sonatype:snapshots)
+this option multiple times
+(e.g. <strong><code>-r central,ivy2local -r sonatype:snapshots</code></strong>,
+or equivalently
+<strong><code>-r central,ivy2local,sonatype:snapshots</code></strong>).
 </dd>
-<dt><strong>--no-default</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--no-default</strong> <em><code>boolean</code></em></dt>
 <dd>
 Do not add default repositories
 (<strong><code>~/.ivy2/local/</code></strong>, and Central)
 </dd>
 <dt><strong>--sbt-plugin-hack</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
 Modify names in <a href="https://mvnrepository.com/"><em>Maven
 repository</em></a> paths for sbt plugins.
 </dd>
-<dt><strong>–drop-info-attr</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>–drop-info-attr</strong> <em><code>boolean</code></em></dt>
 <dd>
 Drop module attributes starting with ‘info.’ - these are sometimes used
 by projects built with <a href="./sbt.1.html"><strong>sbt</strong></a>.
 </dd>
-<dt><strong>–channel</strong>
-<em><code>&lt;org:name&gt;</code></em></dt>
+<dt><strong>–channel</strong> <em><code>org:name</code></em></dt>
 <dd>
 Set channel for apps.
 </dd>
@@ -413,18 +410,16 @@ Add default channels.
 <dd>
 Add contrib channel.
 </dd>
-<dt><strong>–file-channels</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>–file-channels</strong> <em><code>boolean</code></em></dt>
 <dd>
 Add channels read from the configuration directory.
 </dd>
-<dt><strong>–keep-optional</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>–keep-optional</strong> <em><code>boolean</code></em></dt>
 <dd>
 Keep optional dependencies (Maven).
 </dd>
 <dt><strong>–max-iterations</strong>, <strong>-N</strong>
-<em><code>&lt;int&gt;</code></em></dt>
+<em><code>number</code></em></dt>
 <dd>
 Set the maximum number of resolution iterations (specify a negative
 value for unlimited).
@@ -435,38 +430,37 @@ value for unlimited).
 </blockquote>
 <dl>
 <dt><strong>-force-version</strong>, <strong>-V</strong>
-<em><code>&lt;organization:name:forcedVersion&gt;</code></em></dt>
+<em><code>organization:name:forcedVersion</code></em></dt>
 <dd>
 Force module version.
 </dd>
 <dt><strong>–pom-property</strong>
-<em><code>&lt;property&gt;=&lt;value&gt;</code></em></dt>
+<em><code>property&gt;=&lt;value</code></em></dt>
 <dd>
 Set property in POM files, if it’s not already set.
 </dd>
-<dt><strong>–force-pom-property</strong><em><code>&lt;property=value&gt;</code></em></dt>
+<dt><strong>–force-pom-property</strong>
+<em><code>property=value</code></em></dt>
 <dd>
 Force property in POM files.
 </dd>
-<dt><strong>–profile</strong> <em><code>&lt;profile&gt;</code></em></dt>
+<dt><strong>–profile</strong> <em><code>profile</code></em></dt>
 <dd>
 Enable profile.
 </dd>
 <dt><strong>--scala-version</strong>, <strong>-e</strong>,
-<strong>–scala</strong>
-<code>[</code>*<code>&lt;string&gt;</code>**<code>]</code></dt>
+<strong>–scala</strong> <em><code>string</code></em></dt>
 <dd>
 Set the default Scala version.
 </dd>
 <dt><strong>--force-scala-version</strong>
-<code>[</code><em><code>&lt;boolean&gt;</code></em><code>]</code></dt>
+<code>[</code><em><code>boolean</code></em><code>]</code></dt>
 <dd>
 Ensure the Scala version used by the scala-library/reflect/compiler JARs
 is coherent, and adjust the Scala version for fully cross-versioned
 dependencies.
 </dd>
-<dt><strong>--typelevel</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--typelevel</strong> <em><code>boolean</code></em></dt>
 <dd>
 Swap the mainline Scala JARs by Typelevel ones.
 </dd>
@@ -476,24 +470,24 @@ Swap the mainline Scala JARs by Typelevel ones.
 Enforce resolution rules.
 </dd>
 <dt><strong>--reconciliation</strong>
-<em><code>&lt;organization:name:(basic|relaxed)&gt;</code></em></dt>
+<em><code>organization:name:</code></em>(basic|relaxed)</dt>
 <dd>
 Choose reconciliation strategy.
 </dd>
 <dt><strong>--strict</strong>
-<code>[</code><em><code>&lt;boolean&gt;</code></em><code>]</code></dt>
+<code>[</code><em><code>boolean</code></em><code>]</code></dt>
 <dd>
  
 </dd>
-<dt><strong>–strict-include</strong> &lt;string*&gt;</dt>
+<dt><strong>–strict-include</strong> <em><code>string</code></em></dt>
 <dd>
 &amp;nsp;
 </dd>
 </dl>
-<p><strong>--strict-exclude</strong> &lt;string*&gt;</p>
+<p><strong>--strict-exclude</strong> <em><code>string</code></em></p>
 <dl>
 <dt><strong>--default-configuration</strong>, <strong>-c</strong>
-<em><code>&lt;configuration&gt;</code></em></dt>
+<em><code>configuration</code></em></dt>
 <dd>
 Specify the default configuration.
 </dd>
@@ -503,91 +497,94 @@ Specify the default configuration.
 </blockquote>
 <dl>
 <dt><strong>--exclude</strong>, <strong>-E</strong>
-<em><code>&lt;organization:name&gt;</code></em></dt>
+<em><code>organization:name</code></em></dt>
 <dd>
-Exclude module.
+Exclude module <em><code>organization:name</code></em>.
 </dd>
 <dt><strong>--local-exclude-file</strong>, <strong>-x</strong>
-<em><code>&lt;string&gt;</code></em></dt>
+<em><code>path</code></em></dt>
 <dd>
-Path to the local exclusion file. Syntax: <org:name>–<org:name>.
-<code>--</code> means minus. Example file content:
-com.twitter.penguin:korean-text–com.twitter:util-tunable-internal_2.11
-org.apache.commons:commons-math–com.twitter.search:core-query-nodes
-Behavior: If root module A excludes module X, but root module B requires
-X, module X will still be fetched.
+Specify the path to the local exclusion file.
 </dd>
+</dl>
+<blockquote>
+<p>Syntax: <em><code>org:name--org:name</code></em>.
+<em><code>--</code></em> means minus.<br />
+Example file content:
+<code>com.twitter.penguin:korean-text--com.twitter:util-tunable-internal_2.11</code>
+<code>org.apache.commons:commons-math--com.twitter.search:core-query-nodes</code>
+Behavior: If root module <code>A</code> excludes module <code>X</code>,
+but root module B requires X, module <code>X</code> will still be
+fetched.</p>
+</blockquote>
+<dl>
 <dt><strong>--sbt-version</strong>
-<em><code>&lt;sbt version&gt;</code></em></dt>
+<em><code>sbt-version</code></em></dt>
 <dd>
 If <strong>–sbt-plugin</strong> options are passed: default sbt version
 (short version X.Y is enough - note that for sbt 1.x, this should be
 passed 1.0).
 </dd>
 <dt><strong>--intransitive</strong>
-<code>[</code><em><code>&lt;string&gt;</code></em>
-<code>...]</code></dt>
+<em><code>string</code></em><code>...</code></dt>
 <dd>
 Add intransitive dependencies.
 </dd>
-<dt><strong>--sbt-plugin</strong> <em><code>&lt;string&gt;</code></em>
-<code>...</code></dt>
+<dt><strong>--sbt-plugin</strong>
+<em><code>string</code></em><code>...</code></dt>
 <dd>
 Add sbt plugin dependencies.
 </dd>
-<dt><strong>--scala-js</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--scala-js</strong> <em><code>boolean</code></em></dt>
 <dd>
  
 </dd>
 <dt><strong>--native</strong>, <strong>-S</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
-Enable scala-native
+Enable scala-native.
 </dd>
 <dt><strong>--quiet</strong>, <strong>-q</strong>
-<em><code>&lt;counter&gt;</code></em></dt>
+<em><code>counter</code></em></dt>
 <dd>
-Quiet output
+Quiet output.
 </dd>
 <dt><strong>--verbose</strong>, <strong>-v</strong>
-<em><code>&lt;counter&gt;</code></em></dt>
+<em><code>counter</code></em></dt>
 <dd>
 Increase verbosity (specify several times to increase more).
 </dd>
 <dt><strong>--progress</strong>, <strong>-P</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
 Force display of progress bars.
 </dd>
-<dt><strong>--log-changing</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--log-changing</strong> <em><code>boolean</code></em></dt>
 <dd>
 Log changing artifacts.
 </dd>
 <dt><strong>--log-channel-version</strong>,
 <strong>--log-index-version</strong>,
 <strong>--log-jvm-index-version</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
 Log app channel or JVM index version.
 </dd>
 <dt><strong>--classifier</strong>, <strong>-C</strong>
-<em><code>&lt;classifier1,classifier2,...&gt;</code></em></dt>
+<em>&lt;classifier1,classifier2,…`</em></dt>
 <dd>
 Classifiers that should be fetched.
 </dd>
-<dt><strong>--sources</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--sources</strong> <em><code>boolean</code></em></dt>
 <dd>
 Fetch source artifacts
 </dd>
-<dt><strong>–javadoc</strong> <em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>–javadoc</strong> <em><code>boolean</code></em></dt>
 <dd>
 Fetch javadoc artifacts.
 </dd>
 <dt><strong>–default</strong>
-<code>[</code><em><code>&lt;bool?&gt;</code></em><code>]</code></dt>
+<code>[</code><em><code>boolean</code></em><code>]</code></dt>
 <dd>
 Fetch default artifacts.
 </dd>
@@ -595,22 +592,23 @@ Fetch default artifacts.
 <blockquote>
 <p>Default: <strong><code>false</code></strong> if
 <strong><code>--sources</code></strong> or
-<strong><code>--javadoc</code></strong> or –classifier are passed, true
-else)</p>
+<strong><code>--javadoc</code></strong> or
+<strong><code>--classifier</code></strong> are passed,
+<strong><code>true</code></strong> otherwise.</p>
 </blockquote>
 <dl>
 <dt><strong>–artifact-type</strong>, <strong>-A</strong>
-<em><code>&lt;type1,type2,...&gt;</code></em></dt>
+<em><code>type1,type2,...</code></em></dt>
 <dd>
-Artifact types that should be retained (e.g. jar, src, doc, etc.).
+Artifact types that should be retained (e.g. <code>jar</code>,
+<code>src</code>, <code>doc</code>, etc.).
 </dd>
 </dl>
 <blockquote>
 <p>Default: <strong><code>jar,bundle</code></strong>.</p>
 </blockquote>
 <dl>
-<dt><strong>–force-fetch</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>–force-fetch</strong> <em><code>boolean</code></em></dt>
 <dd>
 Fetch artifacts even if the resolution is errored.
 </dd>
@@ -620,22 +618,28 @@ Fetch artifacts even if the resolution is errored.
 <dt><strong>--cache</strong> <em><code>&lt;string&gt;</code></em></dt>
 <dd>
 Cache directory (defaults to environment variable
-<strong><code>COURSIER_CACHE</code></strong>, or ~/.cache/coursier/v1 on
-Linux and ~/Library/Caches/Coursier/v1 on Mac).
+<strong><code>COURSIER_CACHE</code></strong>, or
+<code>~/.cache/coursier/v1</code> on Linux and
+<code>~/Library/Caches/Coursier/v1</code> on Mac).
 </dd>
 <dt><strong>-m</strong>, <strong>--mode
-&lt;offline|update-changing|update|missing|force&gt;</strong></dt>
+(offline|update-changing|update|missing|force)</strong></dt>
 <dd>
-Download mode (default: missing, that is fetch things missing from
-cache).
+Specify the download mode.
 </dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>missing</code></strong>, that is fetch things
+missing from cache.</p>
+</blockquote>
+<dl>
 <dt><strong>-l</strong>, <strong>--ttl</strong>
-<em><code>&lt;duration&gt;</code></em></dt>
+<em><code>duration</code></em></dt>
 <dd>
 Set the TTL duration (e.g. “24 hours”).
 </dd>
 <dt><strong>-n</strong>, <strong>--parallel</strong>
-<em><code>&lt;int&gt;</code></em></dt>
+<em><code>number</code></em></dt>
 <dd>
 Set the maximum number of parallel downloads.
 </dd>
@@ -643,23 +647,22 @@ Set the maximum number of parallel downloads.
 <p>Default: <strong><code>6</code></strong>.</p>
 <dl>
 <dt><strong>--checksum</strong>
-<em><code>&lt;checksum1,checksum2,...&gt;</code></em></dt>
+<em><code>checksum1,checksum2,...</code></em></dt>
 <dd>
-Checksum types to check - end with none to allow for no checksum
-validation if no checksum is available.
+Specify the checksum types to check - end with none to allow for no
+checksum validation if no checksum is available.
 </dd>
 </dl>
 <blockquote>
-<p>Example: <code>SHA-256,SHA-1,none</code>.</p>
+<p>Example: <strong><code>SHA-256,SHA-1,none</code></strong>.</p>
 </blockquote>
 <dl>
-<dt><strong>--retry-count</strong>
-<em><code>&lt;int&gt;</code></em></dt>
+<dt><strong>--retry-count</strong> <em><code>count</code></em></dt>
 <dd>
-Retry limit for Checksum error when fetching a file.
+Set the retry limit for checksum error when fetching a file.
 </dd>
 <dt><strong>--cache-file-artifacts</strong>, <strong>--cfa</strong>
-<em><code>&lt;bool&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
 Specify if a local artifact should be cached.
 </dd>
@@ -767,29 +770,26 @@ Force display of progress bars.
 </dd>
 </dl>
 <p><strong>--dir</strong>, <strong>--install-dir</strong>
-<em><code>&lt;string&gt;</code></em></p>
+<em><code>string</code></em></p>
 <p><strong>-f</strong>, <strong>--force</strong></p>
 <!-- App channel options: -->
 <dl>
-<dt><strong>--channel</strong>
-<em><code>&lt;org&gt;:&lt;name&gt;</code></em></dt>
+<dt><strong>--channel</strong> <em><code>org:name</code></em></dt>
 <dd>
 Channel for apps.
 </dd>
-<dt><strong>--contrib</strong>
-<em><code>&lt;channel&gt;</code></em></dt>
+<dt><strong>--contrib</strong> <em><code>channel</code></em></dt>
 <dd>
 Add contrib channel.
 </dd>
 </dl>
 <!-- Java options: -->
 <dl>
-<dt><strong>--jvm</strong> <em><code>&lt;string&gt;</code></em></dt>
+<dt><strong>--jvm</strong> <em><code>string</code></em></dt>
 <dd>
  
 </dd>
-<dt><strong>--jvm-index</strong>
-<em><code>&lt;string&gt;</code></em></dt>
+<dt><strong>--jvm-index</strong> <em><code>string</code></em></dt>
 <dd>
  
 </dd>
@@ -837,17 +837,15 @@ Path to credential files to read credentials from.
 </dl>
 <h2 id="java-options"><span id="java_options">Java Options</span></h2>
 <dl>
-<dt><strong>--installed</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--installed</strong> <em><code>boolean</code></em></dt>
 <dd>
  
 </dd>
-<dt><strong>--available</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--available</strong> <em><code>boolean</code></em></dt>
 <dd>
  
 </dd>
-<dt><strong>--jvm</strong> <em><code>&lt;string&gt;</code></em></dt>
+<dt><strong>--jvm</strong> <em><code>string</code></em></dt>
 <dd>
  
 </dd>
@@ -866,21 +864,17 @@ Path to credential files to read credentials from.
 <dd>
  
 </dd>
-<dt><strong>--update</strong> <em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--update</strong> <em><code>boolean</code></em></dt>
 <dd>
  
 </dd>
 <dt><strong>--jvm-index</strong>
-<code>[``*&lt;string&gt;</code>*<code>]</code></dt>
+<code>[</code><em><code>string</code></em><code>]</code></dt>
 <dd>
  
 </dd>
-<dt><strong>--repository</strong>, <strong>-r &lt;maven|sonatype:<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>i</em><em>v</em><em>y</em>2<em>l</em><em>o</em><em>c</em><em>a</em><em>l</em>|<em>b</em><em>i</em><em>n</em><em>t</em><em>r</em><em>a</em><em>y</em>:</span>org/<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>b</em><em>i</em><em>n</em><em>t</em><em>r</em><em>a</em><em>y</em> − <em>i</em><em>v</em><em>y</em>:</span>org/<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>t</em><em>y</em><em>p</em><em>e</em><em>s</em><em>a</em><em>f</em><em>e</em> : <em>i</em><em>v</em><em>y</em>−</span>repo|typesafe:<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>s</em><em>b</em><em>t</em> − <em>p</em><em>l</em><em>u</em><em>g</em><em>i</em><em>n</em>:</span>repo|scala-integration|scala-nightlies|ivy:<span
-class="math inline"><em>p</em><em>a</em><em>t</em><em>t</em><em>e</em><em>r</em><em>n</em>|<em>j</em><em>i</em><em>t</em><em>p</em><em>a</em><em>c</em><em>k</em>|<em>c</em><em>l</em><em>o</em><em>j</em><em>a</em><em>r</em><em>s</em>|<em>j</em><em>c</em><em>e</em><em>n</em><em>t</em><em>e</em><em>r</em>|<em>a</em><em>p</em><em>a</em><em>c</em><em>h</em><em>e</em>:</span>repo&gt;</strong></dt>
+<dt><strong>--repository</strong>, <strong>-r
+&lt;maven|sonatype:$repo|ivy2local|bintray:$org/$repo|bintray-ivy:$org/$repo|typesafe:ivy-$repo|typesafe:$repo|sbt-plugin:$repo|scala-integration|scala-nightlies|ivy:$pattern|jitpack|clojars|jcenter|apache:$repo&gt;</strong></dt>
 <dd>
 Repository - for multiple repositories, separate with comma and/or add
 this option multiple times
@@ -888,20 +882,18 @@ this option multiple times
 or equivalently
 <strong><code>-r central,ivy2local,sonatype:snapshots</code></strong>).
 </dd>
-<dt><strong>--no-default</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--no-default</strong> <em><code>boolean</code></em></dt>
 <dd>
 Do not add default repositories
 (<strong><code>~/.ivy2/local/</code></strong>, and Central).
 </dd>
 <dt><strong>--sbt-plugin-hack</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
 Modify names in Maven repository paths for <a
 href="./sbt.1.html"><strong>sbt</strong></a> plugins.
 </dd>
-<dt><strong>--drop-info-attr</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--drop-info-attr</strong> <em><code>boolean</code></em></dt>
 <dd>
 Drop module attributes starting with ‘info.’ - these are sometimes used
 by projects built with <a href="./sbt.1.html"><strong>sbt</strong></a>.
@@ -1074,21 +1066,21 @@ Log changing artifacts.
 <dd>
 Log app channel or JVM index version.
 </dd>
-<dt><strong>--env</strong> <em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--env</strong> <em><code>boolean</code></em></dt>
 <dd>
  
 </dd>
 <dt><strong>--disable-env</strong>, <strong>--disable</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
  
 </dd>
-<dt><strong>--setup</strong><code>*</code><boolean>`*</dt>
+<dt><strong>--setup</strong> <em><code>boolean</code></em></dt>
 <dd>
  
 </dd>
 <dt><strong>--user-home</strong>
-<code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
+<code>[</code><em><code>string</code></em><code>]</code></dt>
 <dd>
  
 </dd>
@@ -1097,27 +1089,27 @@ Log app channel or JVM index version.
 Options</span></h2>
 <dl>
 <dt><strong>--main-class</strong>, <strong>-M</strong>,
-<strong>--main</strong> <em><code>&lt;string&gt;</code></em></dt>
+<strong>--main</strong> <em><code>string</code></em></dt>
 <dd>
  
 </dd>
-<dt><strong>--extra-jars</strong> *<code>&lt;string&gt;*</code></dt>
+<dt><strong>--extra-jars</strong> <em><code>string</code></em></dt>
 <dd>
-Extra JARs to be added to the classpath of the launched application.
-Directories accepted too.
+Specify extra JARs to be added to the classpath of the launched
+application. Directories accepted too.
 </dd>
 <dt><strong>--property</strong>, <strong>-D</strong>
-<em><code>&lt;property&gt;=&lt;value&gt;</code></em></dt>
+<em><code>property=value</code></em></dt>
 <dd>
 Set Java properties before launching the application.
 </dd>
 <dt><strong>--fork</strong>
-<code>[</code><em><code>&lt;boolean&gt;</code></em><code>]</code></dt>
+<code>[</code><em><code>boolean</code></em><code>]</code></dt>
 <dd>
  
 </dd>
 <dt><strong>--python</strong>
-<code>[</code><em><code>&lt;boolean&gt;</code></em><code>]</code></dt>
+<code>[</code><em><code>boolean</code></em><code>]</code></dt>
 <dd>
  
 </dd>
@@ -1206,13 +1198,12 @@ Specify multiple times to pass multiple credentials. Alternatively, use
 the <strong><code>COURSIER_CREDENTIALS</code></strong> environment
 variable.
 </dd>
-<dt><strong>--credential-file</strong>
-<em><code>&lt;string&gt;</code></em></dt>
+<dt><strong>--credential-file</strong> <em><code>string</code></em></dt>
 <dd>
 Set path to credential files to read credentials from.
 </dd>
 <dt><strong>--use-env-credentials</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
 Whether to read credentials from
 <strong><code>COURSIER_CREDENTIALS</code></strong> (env) or
@@ -1229,50 +1220,44 @@ this option multiple times
 or equivalently
 <strong><code>-r central,ivy2local,sonatype:snapshots</code></strong>).
 </dd>
-<dt><strong>--no-default</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--no-default</strong> <em><code>boolean</code></em></dt>
 <dd>
 Do not add default repositories
 (<strong><code>~/.ivy2/local</code></strong>, and Central).
 </dd>
 <dt><strong>--sbt-plugin-hack</strong>
-<em><code>&lt;booleah&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
 Modify names in Maven repository paths for sbt plugins.
 </dd>
-<dt><strong>--drop-info-attr</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--drop-info-attr</strong> <em><code>boolean</code></em></dt>
 <dd>
 Drop module attributes starting with ‘info.’ - these are sometimes used
 by projects built with <a href="./sbt.1.html"><strong>sbt</strong></a>.
 </dd>
-<dt><strong>--channel</strong>
-<em><code>&lt;org:name&gt;</code></em></dt>
+<dt><strong>--channel</strong> <em><code>org:name</code></em></dt>
 <dd>
 Set channel for applications.
 </dd>
 <dt><strong>--default-channels</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
 Add default channels.
 </dd>
-<dt><strong>--contrib</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--contrib</strong> <em><code>boolean</code></em></dt>
 <dd>
 Add contrib channel.
 </dd>
-<dt><strong>--file-channels</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--file-channels</strong> <em><code>boolean</code></em></dt>
 <dd>
 Add channels read from the configuration directory.
 </dd>
-<dt><strong>--keep-optional</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--keep-optional</strong> <em><code>boolean</code></em></dt>
 <dd>
 Keep optional dependencies (Maven).
 </dd>
 <dt><strong>--max-iterations</strong>, <strong>-N</strong>
-<em><code>&lt;int&gt;</code></em></dt>
+<em><code>number</code></em></dt>
 <dd>
 Set the maximum number of resolution iterations (specify a negative
 value for unlimited).
@@ -1288,40 +1273,38 @@ value for unlimited).
 Force module version.
 </dd>
 <dt><strong>--pom-property</strong>
-<em><code>&lt;property&gt;=&lt;value&gt;</code></em></dt>
+<em><code>property=value</code></em></dt>
 <dd>
 Set property in POM files, if it’s not already set.
 </dd>
 <dt><strong>--force-pom-property</strong>
-<em><code>&lt;property&gt;=&lt;value&gt;</code></em></dt>
+<em><code>property&gt;=&lt;value</code></em></dt>
 <dd>
 Force property in POM files.
 </dd>
-<dt><strong>--profile</strong>
-<em><code>&lt;profile&gt;</code></em></dt>
+<dt><strong>--profile</strong> <em><code>profile</code></em></dt>
 <dd>
 Enable profile.
 </dd>
 <dt><strong>--scala-version</strong>, <strong>-e</strong>,
-<strong>--scala</strong> <em><code>&lt;string&gt;</code></em></dt>
+<strong>--scala</strong> <em><code>string</code></em></dt>
 <dd>
 Set default scala version.
 </dd>
 <dt><strong>--force-scala-version</strong>
-<em><code>&lt;bool?&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
 Ensure the scala version used by the
 <code>scala-library</code>/<code>reflect</code>/<code>compiler</code>
 JARs is coherent, and adjust the scala version for fully cross-versioned
 dependencies.
 </dd>
-<dt><strong>--typelevel</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--typelevel</strong> <em><code>boolean</code></em></dt>
 <dd>
 Swap the mainline Scala JARs by Typelevel ones.
 </dd>
 <dt><strong>--rules</strong>, <strong>–rule</strong>
-<em><code>&lt;string&gt;</code></em></dt>
+<em><code>string</code></em></dt>
 <dd>
 Enforce resolution rules.
 </dd>
@@ -1331,21 +1314,20 @@ Enforce resolution rules.
 Choose reconciliation strategy.
 </dd>
 <dt><strong>--strict</strong>
-<code>[</code><em><code>&lt;bool&gt;</code></em><code>]</code></dt>
+<code>[</code><em><code>boolean</code></em><code>]</code></dt>
 <dd>
  
 </dd>
-<dt><strong>--strict-include</strong>
-<em><code>&lt;string&gt;</code></em></dt>
+<dt><strong>--strict-include</strong> <em><code>string</code></em></dt>
 <dd>
  
 </dd>
 </dl>
 <p><strong>--strict-exclude</strong>
-<em><code>&lt;string&gt;</code></em><code>...</code></p>
+<em><code>string</code></em><code>...</code></p>
 <dl>
 <dt><strong>--default-configuration</strong>, <strong>-c</strong>
-<em><code>&lt;configuration&gt;</code></em></dt>
+<em><code>configuration</code></em></dt>
 <dd>
 Set the default configuration.
 </dd>
@@ -1355,17 +1337,20 @@ Set the default configuration.
 </blockquote>
 <dl>
 <dt><strong>--exclude</strong>, <strong>-E</strong>
-<em><code>&lt;organization:name&gt;</code></em></dt>
+<em><code>organization:name</code></em></dt>
 <dd>
-Exclude module <em><code>&lt;organization:name&gt;</code></em>.
+Exclude module <em><code>organization:name</code></em>.
 </dd>
 <dt><strong>--local-exclude-file</strong>, <strong>-x</strong>
-<em><code>&lt;string&gt;</code></em></dt>
+<em><code>path</code></em></dt>
 <dd>
-Specify the path to the local exclusion file. Syntax:
-<org:name>–<org:name>. <code>--</code> means minus.
+Specify the path to the local exclusion file.
 </dd>
 </dl>
+<blockquote>
+<p>Syntax: <code>org:name&gt;--&lt;org:name</code>. <code>--</code>
+means minus.</p>
+</blockquote>
 <blockquote>
 <p>Example file content:<br />
 <code>com.twitter.penguin:korean-text--com.twitter:util-tunable-internal_2.11</code><br />
@@ -1398,22 +1383,22 @@ Add sbt plugin dependencies.
  
 </dd>
 <dt><strong>--native</strong>, <strong>-S</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
 Enable scala-native.
 </dd>
 <dt><strong>--quiet</strong>, <strong>-q</strong>
-<em><code>&lt;counter&gt;</code></em></dt>
+<em><code>counter</code></em></dt>
 <dd>
 Quiet output.
 </dd>
 <dt><strong>--verbose</strong>, <strong>-v</strong>
-<em><code>&lt;counter&gt;</code></em></dt>
+<em><code>counter</code></em></dt>
 <dd>
 Increase verbosity (specify several times to increase more).
 </dd>
 <dt><strong>--progress</strong>, <strong>-P</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
 Force display of progress bars.
 </dd>
@@ -1597,12 +1582,12 @@ missing from cache.</p>
 </blockquote>
 <dl>
 <dt><strong>--ttl</strong>, <strong>-l</strong>
-<em><code>&lt;duration&gt;</code></em></dt>
+<em><code>duration</code></em></dt>
 <dd>
 Set the TTL duration (e.g. “24 hours”).
 </dd>
 <dt><strong>--parallel</strong>, <strong>-n</strong>
-<em><code>&lt;int&gt;</code></em></dt>
+<em><code>number</code></em></dt>
 <dd>
 Set the maximum number of parallel downloads.
 </dd>
@@ -1720,71 +1705,137 @@ Specify the platform for prebuilt binaries
 Require prebuilt artifacts for native applications, don’t try to build
 native executable ourselves.
 </dd>
-</dl>
-<p>**–repository | -r &lt;maven|sonatype:<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>i</em><em>v</em><em>y</em>2<em>l</em><em>o</em><em>c</em><em>a</em><em>l</em>|<em>b</em><em>i</em><em>n</em><em>t</em><em>r</em><em>a</em><em>y</em>:</span>org/<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>b</em><em>i</em><em>n</em><em>t</em><em>r</em><em>a</em><em>y</em> − <em>i</em><em>v</em><em>y</em>:</span>org/<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>t</em><em>y</em><em>p</em><em>e</em><em>s</em><em>a</em><em>f</em><em>e</em> : <em>i</em><em>v</em><em>y</em>−</span>repo|typesafe:<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>s</em><em>b</em><em>t</em> − <em>p</em><em>l</em><em>u</em><em>g</em><em>i</em><em>n</em>:</span>repo|ivy:<span
-class="math inline"><em>p</em><em>a</em><em>t</em><em>t</em><em>e</em><em>r</em><em>n</em> &gt; <em>R</em><em>e</em><em>p</em><em>o</em><em>s</em><em>i</em><em>t</em><em>o</em><em>r</em><em>y</em> − <em>f</em><em>o</em><em>r</em><em>m</em><em>u</em><em>l</em><em>t</em><em>i</em><em>p</em><em>l</em><em>e</em><em>r</em><em>e</em><em>p</em><em>o</em><em>s</em><em>i</em><em>t</em><em>o</em><em>r</em><em>i</em><em>e</em><em>s</em>, <em>s</em><em>e</em><em>p</em><em>a</em><em>r</em><em>a</em><em>t</em><em>e</em><em>w</em><em>i</em><em>t</em><em>h</em><em>c</em><em>o</em><em>m</em><em>m</em><em>a</em><em>a</em><em>n</em><em>d</em>/<em>o</em><em>r</em><em>a</em><em>d</em><em>d</em><em>t</em><em>h</em><em>i</em><em>s</em><em>o</em><em>p</em><em>t</em><em>i</em><em>o</em><em>n</em><em>m</em><em>u</em><em>l</em><em>t</em><em>i</em><em>p</em><em>l</em><em>e</em><em>t</em><em>i</em><em>m</em><em>e</em><em>s</em>(<em>e</em>.<em>g</em>.−<em>r</em><em>c</em><em>e</em><em>n</em><em>t</em><em>r</em><em>a</em><em>l</em>,<em>i</em><em>v</em><em>y</em>2<em>l</em><em>o</em><em>c</em><em>a</em><em>l</em>−<em>r</em><em>s</em><em>o</em><em>n</em><em>a</em><em>t</em><em>y</em><em>p</em><em>e</em>:<em>s</em><em>n</em><em>a</em><em>p</em><em>s</em><em>h</em><em>o</em><em>t</em><em>s</em>,<em>o</em><em>r</em><em>e</em><em>q</em><em>u</em><em>i</em><em>v</em><em>a</em><em>l</em><em>e</em><em>n</em><em>t</em><em>l</em><em>y</em>−<em>r</em><em>c</em><em>e</em><em>n</em><em>t</em><em>r</em><em>a</em><em>l</em>,<em>i</em><em>v</em><em>y</em>2<em>l</em><em>o</em><em>c</em><em>a</em><em>l</em>,<em>s</em><em>o</em><em>n</em><em>a</em><em>t</em><em>y</em><em>p</em><em>e</em>:<em>s</em><em>n</em><em>a</em><em>p</em><em>s</em><em>h</em><em>o</em><em>t</em><em>s</em>) −  − <em>d</em><em>e</em><em>f</em><em>a</em><em>u</em><em>l</em><em>t</em> − <em>r</em><em>e</em><em>p</em><em>o</em><em>s</em><em>i</em><em>t</em><em>o</em><em>r</em><em>i</em><em>e</em><em>s</em> &lt; <em>b</em><em>o</em><em>o</em><em>l</em> &gt;  −  − <em>p</em><em>r</em><em>o</em><em>g</em><em>u</em><em>a</em><em>r</em><em>d</em><em>e</em><em>d</em> &lt; <em>b</em><em>o</em><em>o</em><em>l</em>? &gt;  −  − <em>j</em><em>v</em><em>m</em> &lt; <em>s</em><em>t</em><em>r</em><em>i</em><em>n</em><em>g</em>? &gt;  −  − <em>j</em><em>v</em><em>m</em> − <em>d</em><em>i</em><em>r</em> &lt; <em>s</em><em>t</em><em>r</em><em>i</em><em>n</em><em>g</em>? &gt;  −  − <em>s</em><em>y</em><em>s</em><em>t</em><em>e</em><em>m</em> − <em>j</em><em>v</em><em>m</em> &lt; <em>b</em><em>o</em><em>o</em><em>l</em>? &gt;  −  − <em>l</em><em>o</em><em>c</em><em>a</em><em>l</em> − <em>o</em><em>n</em><em>l</em><em>y</em> &lt; <em>b</em><em>o</em><em>o</em><em>l</em> &gt;  −  − <em>u</em><em>p</em><em>d</em><em>a</em><em>t</em><em>e</em> &lt; <em>b</em><em>o</em><em>o</em><em>l</em> &gt;  −  − <em>j</em><em>v</em><em>m</em> − <em>i</em><em>n</em><em>d</em><em>e</em><em>x</em> &lt; <em>s</em><em>t</em><em>r</em><em>i</em><em>n</em><em>g</em>? &gt;  −  − <em>r</em><em>e</em><em>p</em><em>o</em><em>s</em><em>i</em><em>t</em><em>o</em><em>r</em><em>y</em>|−<em>r</em>&lt;<em>m</em><em>a</em><em>v</em><em>e</em><em>n</em>|<em>s</em><em>o</em><em>n</em><em>a</em><em>t</em><em>y</em><em>p</em><em>e</em>:</span>repo|ivy2local|bintray:<span
-class="math inline"><em>o</em><em>r</em><em>g</em>/</span>repo|bintray-ivy:<span
-class="math inline"><em>o</em><em>r</em><em>g</em>/</span>repo|typesafe:ivy-<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>t</em><em>y</em><em>p</em><em>e</em><em>s</em><em>a</em><em>f</em><em>e</em>:</span>repo|sbt-plugin:<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>s</em><em>c</em><em>a</em><em>l</em><em>a</em>−<em>i</em><em>n</em><em>t</em><em>e</em><em>g</em><em>r</em><em>a</em><em>t</em><em>i</em><em>o</em><em>n</em>|<em>s</em><em>c</em><em>a</em><em>l</em><em>a</em> − <em>n</em><em>i</em><em>g</em><em>h</em><em>t</em><em>l</em><em>i</em><em>e</em><em>s</em>|<em>i</em><em>v</em><em>y</em>:</span>pattern|jitpack|clojars|jcenter|apache:<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em> &gt; <em>R</em><em>e</em><em>p</em><em>o</em><em>s</em><em>i</em><em>t</em><em>o</em><em>r</em><em>y</em> − <em>f</em><em>o</em><em>r</em><em>m</em><em>u</em><em>l</em><em>t</em><em>i</em><em>p</em><em>l</em><em>e</em><em>r</em><em>e</em><em>p</em><em>o</em><em>s</em><em>i</em><em>t</em><em>o</em><em>r</em><em>i</em><em>e</em><em>s</em>, <em>s</em><em>e</em><em>p</em><em>a</em><em>r</em><em>a</em><em>t</em><em>e</em><em>w</em><em>i</em><em>t</em><em>h</em><em>c</em><em>o</em><em>m</em><em>m</em><em>a</em><em>a</em><em>n</em><em>d</em>/<em>o</em><em>r</em><em>a</em><em>d</em><em>d</em><em>t</em><em>h</em><em>i</em><em>s</em><em>o</em><em>p</em><em>t</em><em>i</em><em>o</em><em>n</em><em>m</em><em>u</em><em>l</em><em>t</em><em>i</em><em>p</em><em>l</em><em>e</em><em>t</em><em>i</em><em>m</em><em>e</em><em>s</em>(<em>e</em>.<em>g</em>.−<em>r</em><em>c</em><em>e</em><em>n</em><em>t</em><em>r</em><em>a</em><em>l</em>,<em>i</em><em>v</em><em>y</em>2<em>l</em><em>o</em><em>c</em><em>a</em><em>l</em>−<em>r</em><em>s</em><em>o</em><em>n</em><em>a</em><em>t</em><em>y</em><em>p</em><em>e</em>:<em>s</em><em>n</em><em>a</em><em>p</em><em>s</em><em>h</em><em>o</em><em>t</em><em>s</em>,<em>o</em><em>r</em><em>e</em><em>q</em><em>u</em><em>i</em><em>v</em><em>a</em><em>l</em><em>e</em><em>n</em><em>t</em><em>l</em><em>y</em>−<em>r</em><em>c</em><em>e</em><em>n</em><em>t</em><em>r</em><em>a</em><em>l</em>,<em>i</em><em>v</em><em>y</em>2<em>l</em><em>o</em><em>c</em><em>a</em><em>l</em>,<em>s</em><em>o</em><em>n</em><em>a</em><em>t</em><em>y</em><em>p</em><em>e</em>:<em>s</em><em>n</em><em>a</em><em>p</em><em>s</em><em>h</em><em>o</em><em>t</em><em>s</em>) −  − <em>n</em><em>o</em> − <em>d</em><em>e</em><em>f</em><em>a</em><em>u</em><em>l</em><em>t</em> &lt; <em>b</em><em>o</em><em>o</em><em>l</em> &gt; <em>D</em><em>o</em><em>n</em><em>o</em><em>t</em><em>a</em><em>d</em><em>d</em><em>d</em><em>e</em><em>f</em><em>a</em><em>u</em><em>l</em><em>t</em><em>r</em><em>e</em><em>p</em><em>o</em><em>s</em><em>i</em><em>t</em><em>o</em><em>r</em><em>i</em><em>e</em><em>s</em>( /.<em>i</em><em>v</em><em>y</em>2/<em>l</em><em>o</em><em>c</em><em>a</em><em>l</em>,<em>a</em><em>n</em><em>d</em><em>C</em><em>e</em><em>n</em><em>t</em><em>r</em><em>a</em><em>l</em>) −  − <em>s</em><em>b</em><em>t</em> − <em>p</em><em>l</em><em>u</em><em>g</em><em>i</em><em>n</em> − <em>h</em><em>a</em><em>c</em><em>k</em> &lt; <em>b</em><em>o</em><em>o</em><em>l</em> &gt; <em>M</em><em>o</em><em>d</em><em>i</em><em>f</em><em>y</em><em>n</em><em>a</em><em>m</em><em>e</em><em>s</em><em>i</em><em>n</em><em>M</em><em>a</em><em>v</em><em>e</em><em>n</em><em>r</em><em>e</em><em>p</em><em>o</em><em>s</em><em>i</em><em>t</em><em>o</em><em>r</em><em>y</em><em>p</em><em>a</em><em>t</em><em>h</em><em>s</em><em>f</em><em>o</em><em>r</em><em>s</em><em>b</em><em>t</em><em>p</em><em>l</em><em>u</em><em>g</em><em>i</em><em>n</em><em>s</em> −  − <em>d</em><em>r</em><em>o</em><em>p</em> − <em>i</em><em>n</em><em>f</em><em>o</em> − <em>a</em><em>t</em><em>t</em><em>r</em> &lt; <em>b</em><em>o</em><em>o</em><em>l</em> &gt; <em>D</em><em>r</em><em>o</em><em>p</em><em>m</em><em>o</em><em>d</em><em>u</em><em>l</em><em>e</em><em>a</em><em>t</em><em>t</em><em>r</em><em>i</em><em>b</em><em>u</em><em>t</em><em>e</em><em>s</em><em>s</em><em>t</em><em>a</em><em>r</em><em>t</em><em>i</em><em>n</em><em>g</em><em>w</em><em>i</em><em>t</em><em>h</em>′<em>i</em><em>n</em><em>f</em><em>o</em>.′ − <em>t</em><em>h</em><em>e</em><em>s</em><em>e</em><em>a</em><em>r</em><em>e</em><em>s</em><em>o</em><em>m</em><em>e</em><em>t</em><em>i</em><em>m</em><em>e</em><em>s</em><em>u</em><em>s</em><em>e</em><em>d</em><em>b</em><em>y</em><em>p</em><em>r</em><em>o</em><em>j</em><em>e</em><em>c</em><em>t</em><em>s</em><em>b</em><em>u</em><em>i</em><em>l</em><em>t</em><em>w</em><em>i</em><em>t</em><em>h</em><em>s</em><em>b</em><em>t</em> −  − <em>c</em><em>h</em><em>a</em><em>n</em><em>n</em><em>e</em><em>l</em> &lt; <em>o</em><em>r</em><em>g</em> : <em>n</em><em>a</em><em>m</em><em>e</em> &gt; <em>C</em><em>h</em><em>a</em><em>n</em><em>n</em><em>e</em><em>l</em><em>f</em><em>o</em><em>r</em><em>a</em><em>p</em><em>p</em><em>s</em> −  − <em>d</em><em>e</em><em>f</em><em>a</em><em>u</em><em>l</em><em>t</em> − <em>c</em><em>h</em><em>a</em><em>n</em><em>n</em><em>e</em><em>l</em><em>s</em> &lt; <em>b</em><em>o</em><em>o</em><em>l</em> &gt; <em>A</em><em>d</em><em>d</em><em>d</em><em>e</em><em>f</em><em>a</em><em>u</em><em>l</em><em>t</em><em>c</em><em>h</em><em>a</em><em>n</em><em>n</em><em>e</em><em>l</em><em>s</em> −  − <em>c</em><em>o</em><em>n</em><em>t</em><em>r</em><em>i</em><em>b</em> &lt; <em>b</em><em>o</em><em>o</em><em>l</em> &gt; <em>A</em><em>d</em><em>d</em><em>c</em><em>o</em><em>n</em><em>t</em><em>r</em><em>i</em><em>b</em><em>c</em><em>h</em><em>a</em><em>n</em><em>n</em><em>e</em><em>l</em> −  − <em>f</em><em>i</em><em>l</em><em>e</em> − <em>c</em><em>h</em><em>a</em><em>n</em><em>n</em><em>e</em><em>l</em><em>s</em> &lt; <em>b</em><em>o</em><em>o</em><em>l</em> &gt; <em>A</em><em>d</em><em>d</em><em>c</em><em>h</em><em>a</em><em>n</em><em>n</em><em>e</em><em>l</em><em>s</em><em>r</em><em>e</em><em>a</em><em>d</em><em>f</em><em>r</em><em>o</em><em>m</em><em>t</em><em>h</em><em>e</em><em>c</em><em>o</em><em>n</em><em>f</em><em>i</em><em>g</em><em>u</em><em>r</em><em>a</em><em>t</em><em>i</em><em>o</em><em>n</em><em>d</em><em>i</em><em>r</em><em>e</em><em>c</em><em>t</em><em>o</em><em>r</em><em>y</em> −  − <em>r</em><em>e</em><em>p</em><em>o</em><em>s</em><em>i</em><em>t</em><em>o</em><em>r</em><em>y</em>|−<em>r</em>&lt;<em>m</em><em>a</em><em>v</em><em>e</em><em>n</em>|<em>s</em><em>o</em><em>n</em><em>a</em><em>t</em><em>y</em><em>p</em><em>e</em>:</span>repo|ivy2local|bintray:<span
-class="math inline"><em>o</em><em>r</em><em>g</em>/</span>repo|bintray-ivy:<span
-class="math inline"><em>o</em><em>r</em><em>g</em>/</span>repo|typesafe:ivy-<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>t</em><em>y</em><em>p</em><em>e</em><em>s</em><em>a</em><em>f</em><em>e</em>:</span>repo|sbt-plugin:<span
-class="math inline"><em>r</em><em>e</em><em>p</em><em>o</em>|<em>s</em><em>c</em><em>a</em><em>l</em><em>a</em>−<em>i</em><em>n</em><em>t</em><em>e</em><em>g</em><em>r</em><em>a</em><em>t</em><em>i</em><em>o</em><em>n</em>|<em>s</em><em>c</em><em>a</em><em>l</em><em>a</em> − <em>n</em><em>i</em><em>g</em><em>h</em><em>t</em><em>l</em><em>i</em><em>e</em><em>s</em>|<em>i</em><em>v</em><em>y</em>:</span>pattern|jitpack|clojars|jcenter|apache:$repo&gt;
-Repository - for multiple repositories, separate with comma and/or add
-this option multiple times (e.g. -r central,ivy2local -r
-sonatype:snapshots, or equivalently -r
-central,ivy2local,sonatype:snapshots)</p>
-<dl>
-<dt><strong>--no-default</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--repository</strong>, <strong>-r
+&lt;maven|sonatype:$repo|ivy2local|bintray:$org/$repo|bintray-ivy:$org/$repo|typesafe:ivy-$repo|typesafe:$repo|sbt-plugin:$repo|ivy:$pattern&gt;</strong></dt>
 <dd>
-Do not add default repositories (~/.ivy2/local, and Central).
+Repository - for multiple repositories, separate with comma and/or add
+this option multiple times
+(e.g. <strong><code>-r central,ivy2local -r sonatype:snapshots</code></strong>,
+or equivalently
+<strong><code>-r central,ivy2local,sonatype:snapshots</code></strong>).
 </dd>
-<dt><strong>–sbt-plugin-hack</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--default-repositories</strong>
+<em><code>boolean</code></em></dt>
+<dd>
+ 
+</dd>
+<dt><strong>--proguarded</strong> <em><code>boolean</code></em></dt>
+<dd>
+ 
+</dd>
+<dt><strong>--jvm</strong> <em><code>string</code></em></dt>
+<dd>
+ 
+</dd>
+<dt><strong>--jvm-dir</strong> <em><code>string</code></em></dt>
+<dd>
+ 
+</dd>
+<dt><strong>--system-jvm</strong> <em><code>booleab</code></em></dt>
+<dd>
+ 
+</dd>
+<dt><strong>--local-only</strong> <em><code>boolean</code></em></dt>
+<dd>
+ 
+</dd>
+<dt><strong>--update</strong> <em><code>boolean</code></em></dt>
+<dd>
+ 
+</dd>
+<dt><strong>--jvm-index</strong> <em><code>string</code></em></dt>
+<dd>
+ 
+</dd>
+<dt><strong>--repository</strong>, <strong>-r
+&lt;maven|sonatype:$repo|ivy2local|bintray:$org/$repo|bintray-ivy:$org/$repo|typesafe:ivy-$repo|typesafe:$repo|sbt-plugin:$repo|scala-integration|scala-nightlies|ivy:$pattern|jitpack|clojars|jcenter|apache:$repo&gt;</strong></dt>
+<dd>
+Repository - for multiple repositories, separate with comma and/or add
+this option multiple times
+(e.g. <strong><code>-r central,ivy2local -r sonatype:snapshots</code></strong>,
+or equivalently
+<strong><code>-r central,ivy2local,sonatype:snapshots</code></strong>).
+</dd>
+<dt><strong>--no-default</strong> <em><code>boolean</code></em></dt>
+<dd>
+Do not add default repositories (<code>~/.ivy2/local/</code>, and
+Central).
+</dd>
+<dt><strong>--sbt-plugin-hack</strong>
+<em><code>boolean</code></em></dt>
+<dd>
+Modify names in Maven repository paths for sbt plugins.
+</dd>
+<dt><strong>--drop-info-attr</strong> <em><code>boolean</code></em></dt>
+<dd>
+Drop module attributes starting with ‘info.’ - these are sometimes used
+by projects built with <a href="https://"><strong>sbt</strong></a>.
+</dd>
+<dt><strong>--channel</strong> <em><code>org:name</code></em></dt>
+<dd>
+Channel for apps
+</dd>
+<dt><strong>--default-channels</strong>
+<em><code>boolean</code></em></dt>
+<dd>
+Add default channels
+</dd>
+<dt><strong>--contrib</strong> <em><code>boolean</code></em></dt>
+<dd>
+Add contrib channel
+</dd>
+<dt><strong>--file-channels</strong> <em><code>boolean</code></em></dt>
+<dd>
+Add channels read from the configuration directory.
+</dd>
+<dt><strong>--repository</strong>, <strong>-r
+&lt;maven|sonatype:$repo|ivy2local|bintray:$org/$repo|bintray-ivy:$org/$repo|typesafe:ivy-$repo|typesafe:$repo|sbt-plugin:$repo|scala-integration|scala-nightlies|ivy:$pattern|jitpack|clojars|jcenter|apache:$repo&gt;</strong></dt>
+<dd>
+Repository - for multiple repositories, separate with comma and/or add
+this option multiple times
+(e.g. <strong><code>-r central,ivy2local -r sonatype:snapshots</code></strong>,
+or equivalently
+<strong><code>-r central,ivy2local,sonatype:snapshots</code></strong>).
+</dd>
+<dt><strong>--no-default</strong> <em><code>boolean</code></em></dt>
+<dd>
+Do not add default repositories (<code>~/.ivy2/local/</code>, and
+Central).
+</dd>
+<dt><strong>–sbt-plugin-hack</strong> <em><code>boolean</code></em></dt>
 <dd>
 Modify names in Maven repository paths for <a
 href="./sbt.1.html"><strong>sbt</strong></a> plugins.
 </dd>
-<dt><strong>–drop-info-attr</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>–drop-info-attr</strong> <em><code>boolean</code></em></dt>
 <dd>
 Drop module attributes starting with ‘info.’ - these are sometimes used
-by projects built with sbt.
+by projects built with <a href="https://"><strong>sbt</strong></a>.
 </dd>
-<dt><strong>--channel</strong>
-<em><code>&lt;org:name&gt;</code></em></dt>
+<dt><strong>--channel</strong> <em><code>org:name</code></em></dt>
 <dd>
 Set the channel for applications.
 </dd>
 <dt><strong>--default-channels</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
 Add default channels.
 </dd>
-<dt><strong>--contrib</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--contrib</strong> <em><code>boolean</code></em></dt>
 <dd>
 Add contrib channel.
 </dd>
-<dt><strong>--file-channels</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--file-channels</strong> <em><code>boolean</code></em></dt>
 <dd>
 Add channels read from the configuration directory.
 </dd>
 <dt><strong>--override-repositories</strong>
-<em><code>&lt;bool&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
  
 </dd>
 <dt><strong>--force</strong>, <strong>-f</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<em><code>boolean</code></em></dt>
 <dd>
  
 </dd>
@@ -1795,17 +1846,21 @@ Add channels read from the configuration directory.
 <h1 id="examples">EXAMPLES</h1>
 <p>Install the latest available version of the <a
 href="./scalafmt.1.html"><strong>scalafmt</strong></a> command.</p>
-<p><strong>cs install scalafmt</strong></p>
-<p><strong>cs install –channel io.get-coursier:apps-contrib
-proguard</strong></p>
-<p><strong>cs install –contrib proguard</strong></p>
+<blockquote>
+<p><strong><code>cs install scalafmt</code></strong></p>
+</blockquote>
+<blockquote>
+<p><strong><code>cs install --channel io.get-coursier:apps-contrib proguard</code></strong></p>
+</blockquote>
+<blockquote>
+<p><strong><code>cs install --contrib proguard</code></strong></p>
+</blockquote>
 <p>Identify the transitive dependencies of package <a
 href="https://mvnrepository.com/artifact/com.typesafe.akka/akka-actor"><strong><code>akka-actor:2.6.19</code></strong></a>
-available from the <a href="https://mvnrepository.com/"><em>Maven
-repository</em></a>:</p>
+available from the <a href="https://mvnrepository.com/">Maven
+repository</a>:</p>
 <blockquote>
-<p><strong>$ cs resolve
-com.typesafe.akka::akka-actor:2.6.19</strong><br />
+<p><strong><code>$ cs resolve com.typesafe.akka::akka-actor:2.6.19</code></strong><br />
 <code>com.typesafe:config:1.4.2:default</code><br />
 <code>com.typesafe.akka:akka-actor_2.13:2.6.19:default</code><br />
 <code>org.scala-lang:scala-library:2.13.8:default</code><br />
@@ -1814,7 +1869,7 @@ com.typesafe.akka::akka-actor:2.6.19</strong><br />
 </blockquote>
 <p>Update only Ammonite REPL to the latest available version.</p>
 <blockquote>
-<p><strong>$ cs update amm</strong></p>
+<p><strong><code>$ cs update amm</code></strong></p>
 </blockquote>
 <h1 id="exit-status">EXIT STATUS</h1>
 <p>The <strong>cs</strong> command returns a zero exit status if it
@@ -1840,8 +1895,7 @@ href="./mill.1.html"><strong>mill</strong></a>(1), <a
 href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
 href="./scala-cli.1.html"><strong>scala-cli</strong></a>(1), <a
 href="./scalafix.1.html"><strong>scalafix</strong></a>(1), <a
-href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1), <a
-href="./sdkman.1.html"><strong>sdkman</strong></a>(1).</p>
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <!-- hyperref -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://get-coursier.io/">Coursier 2.0.13</a></div>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-01" />
+  <meta name="dcterms.date" content="2022-04-02" />
   <title>mill(1) Mill 0.10.0 | Scala Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">mill(1) Mill 0.10.0 | Scala Commands</h1>
-<p class="date">April 01, 2022</p>
+<p class="date">April 02, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">mill(1)</div>
@@ -181,26 +181,77 @@
 <p><strong>mill</strong> - Mill build tool</p>
 <h1 id="synopsis">SYNOPSIS</h1>
 <p><strong>mill</strong>
-<code>[</code><em><code>&lt;options&gt;</code></em><code>] [[</code><em><code>&lt;target&gt;</code></em>
-<code>[</code><em><code>&lt;target-options&gt;</code></em><code>]] [+ [</code><em><code>&lt;target&gt;</code></em>
-<code>...]]]</code></p>
+<code>[</code><em><code>options</code></em><code>]</code>
+<code>[[</code><em><code>target</code></em><code>[</code><em><code>target-options</code></em><code>]]</code>
+<code>[+ [</code><em><code>target</code></em><code>...]]]</code></p>
 <p>Open the Mill REPL and execute user input (interactive mode).</p>
-<p><strong>mill</strong> <em><code>-i</code></em>
-<code>[</code><em><code>&lt;options&gt;</code></em><code>] [[</code><em><code>&lt;target&gt;</code></em>
-<code>[</code><em><code>&lt;target-options&gt;</code></em><code>]] [+ [</code><em><code>&lt;target&gt;</code></em>
-<code>...]]]</code></p>
+<p><strong>mill -i</strong>
+<code>[</code><em><code>options</code></em><code>]</code>
+<code>[[</code><em><code>target</code></em><code>[</code><em><code>target-options</code></em><code>]]</code>
+<code>[+ [</code><em><code>target</code></em><code>...]]]</code></p>
 <h1 id="description">DESCRIPTION</h1>
-<h1 id="options">OPTIONS</h1>
+<h1 id="commands"><span id="commands">COMMANDS</span></h1>
+<dl>
+<dt><strong>all</strong></dt>
+<dd>
+ 
+</dd>
+<dt><strong>clean</strong></dt>
+<dd>
+Delete all the cached outputs of previously executed tasks.
+</dd>
+<dt><strong>inspect</strong></dt>
+<dd>
+ 
+</dd>
+<dt><strong>path</strong></dt>
+<dd>
+ 
+</dd>
+<dt><strong>plan</strong></dt>
+<dd>
+ 
+</dd>
+<dt><strong>resolve</strong></dt>
+<dd>
+ 
+</dd>
+<dt><strong>show</strong></dt>
+<dd>
+Run a task and show its output. By default, <a
+href="https://com-lihaoyi.github.io/mill"><em>Mill</em></a> doesn’t
+print out the metadata from evaluating a task.
+</dd>
+<dt><strong>shutdown</strong></dt>
+<dd>
+ 
+</dd>
+<dt><strong>version</strong></dt>
+<dd>
+ 
+</dd>
+<dt><strong>visualize</strong></dt>
+<dd>
+ 
+</dd>
+<dt><strong>visualizePlan</strong></dt>
+<dd>
+ 
+</dd>
+</dl>
+<h1 id="options"><span id="options">OPTIONS</span></h1>
+<!-- https://github.com/com-lihaoyi/mill/blob/main/main/src/mill/MillConfig.scala -->
 <dl>
 <dt><strong>--no-default-predef</strong></dt>
 <dd>
-Disable the default predef and run Ammonite with the minimal predef
-possible.
+Disable the default predef and run <a href="https://ammonite.io/"
+title="Ammonite-REPL">Ammonite</a> with the minimal predef possible.
 </dd>
 <dt><strong>-s</strong>, <strong>--silent</strong></dt>
 <dd>
-Make ivy logs go silent instead of printing though failures will still
-throw exception.
+Make <a href="https://ant.apache.org/ivy/"
+title="Ivy - The agile dependency manager"><em>Ivy</em></a> logs go
+silent instead of printing though failures will still throw exception.
 </dd>
 <dt><strong>-w</strong>, <strong>--watch</strong></dt>
 <dd>
@@ -208,27 +259,29 @@ Watch and re-run your scripts when they change.
 </dd>
 <dt><strong>–bsp</strong></dt>
 <dd>
-Run a BSP server against the passed scripts.
+Run a <a href="https://build-server-protocol.github.io/"
+title="BSP - Protocol for IDEs and build tools"><em>BSP</em></a> server
+against the passed scripts.
 </dd>
-<dt><strong>-c</strong> <em><code>&lt;string&gt;</code></em>,
-<strong>--code</strong> <em><code>&lt;string&gt;</code></em></dt>
+<dt><strong>-c</strong>, <strong>--code</strong>
+<em><code>string</code></em></dt>
 <dd>
 Pass in code to be run immediately in the REPL.
 </dd>
 <dt><strong>-h</strong>, <strong>--home</strong>
-<em><code>&lt;path&gt;</code></em></dt>
+<em><code>path</code></em></dt>
 <dd>
 Set the home directory of the REPL (where it looks for config and
 caches).
 </dd>
 <dt><strong>-p</strong>, <strong>--predef</strong>
-<em><code>&lt;path&gt;</code></em></dt>
+<em><code>path</code></em></dt>
 <dd>
 Let you load your predef from a custom location, rather than the
 “default” location in your <a href="https://ammonite.io/"
-title="Ammonite-REPL"><em>Ammonite</em></a> home.
+title="Ammonite-REPL">Ammonite</a> home.
 </dd>
-<dt><strong>--color</strong> <em><code>&lt;bool&gt;</code></em></dt>
+<dt><strong>--color</strong> <em><code>boolean</code></em></dt>
 <dd>
 Enable or disable colored output; by default colors are enabled in both
 REPL and scripts if the console is interactive, and disabled otherwise
@@ -236,10 +289,11 @@ REPL and scripts if the console is interactive, and disabled otherwise
 <dt><strong>--thin</strong></dt>
 <dd>
 Hide parts of the core of Ammonite and some of its dependencies. By
-default, the core of Ammonite and all of its dependencies can be seen by
-users from the <a href="https://ammonite.io/"
-title="Ammonite-REPL"><em>Ammonite</em></a> session. This option
-mitigates that via class loader isolation.
+default, the core of <a href="https://ammonite.io/"
+title="Ammonite-REPL">Ammonite</a> and all of its dependencies can be
+seen by users from the <a href="https://ammonite.io/"
+title="Ammonite-REPL">Ammonite</a> session. This option mitigates that
+via class loader isolation.
 </dd>
 <dt><strong>--help</strong></dt>
 <dd>
@@ -249,21 +303,22 @@ Print this message.
 <dd>
 Show Ammonite’s version.
 </dd>
-<dt><strong>-h</strong> <em><code>&lt;path&gt;</code></em>,
-<strong>--home</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dt><strong>-h</strong>, <strong>--home</strong>
+<em><code>path</code></em></dt>
 <dd>
 The home directory of the REPL; where it looks for config and caches.
 </dd>
 <dt><strong>--repl</strong></dt>
 <dd>
-Run Mill in interactive mode and start a build REPL. In this mode, no
-mill server will be used. Must be the first argument.
+Run <a href="https://com-lihaoyi.github.io/mill">Mill</a> in interactive
+mode and start a build REPL. In this mode, no mill server will be used.
+Must be the first argument.
 </dd>
 <dt><strong>--no-server</strong></dt>
 <dd>
-Run Mill in interactive mode, suitable for opening REPLs and taking user
-input. In this mode, no mill server will be used. Must be the first
-argument.
+Run <a href="https://com-lihaoyi.github.io/mill">Mill</a> in interactive
+mode, suitable for opening REPLs and taking user input. In this mode, no
+mill server will be used. Must be the first argument.
 </dd>
 <dt><strong>--bsp</strong></dt>
 <dd>
@@ -271,13 +326,16 @@ Enable BSP server mode.
 </dd>
 <dt><strong>-i</strong>, <strong>--interactive</strong></dt>
 <dd>
-Run Mill in interactive mode, suitable for opening REPLs and taking user
-input. In this mode, no Mill server will be used. Must be the first
-argument.
+Run <a href="https://com-lihaoyi.github.io/mill"><em>Mill</em></a> in
+interactive mode, suitable for opening REPLs and taking user input. In
+this mode, no <a
+href="https://com-lihaoyi.github.io/mill"><em>Mill</em></a> server will
+be used. Must be the first argument.
 </dd>
 <dt><strong>-v</strong>, <strong>--version</strong></dt>
 <dd>
-Show Mill version and exit.
+Show <a href="https://com-lihaoyi.github.io/mill"><em>Mill</em></a>
+version and exit.
 </dd>
 <dt><strong>-b</strong>, <strong>--bell</strong></dt>
 <dd>
@@ -285,55 +343,69 @@ Ring the bell once if the run completes successfully, twice if it fails.
 </dd>
 <dt><strong>--disable-ticker</strong></dt>
 <dd>
-Disable ticker log (e.g. short-lived prints of stages and progress bars)
+Disable ticker log (e.g. short-lived prints of stages and progress
+bars).
 </dd>
 <dt><strong>-d</strong>, <strong>--debug</strong></dt>
 <dd>
-Show debug output on STDOUT
+Show debug output on STDOUT.
 </dd>
 <dt><strong>-k</strong>, <strong>--keep-going</strong></dt>
 <dd>
-Continue build, even after build failures
+Continue build, even after build failures.
 </dd>
 <dt><strong>-D</strong>, <strong>--define</strong>
-<em><code>&lt;property&gt;=&lt;value&gt;</code></em></dt>
+<em><code>property=value</code></em></dt>
 <dd>
-Define (or overwrite) a system property.
+Define (or overwrite) a Java system property.
 </dd>
-<dt><strong>-j</strong>, <strong>--jobs</strong> <em>^<int>`</em></dt>
+<dt><strong>-j</strong>, <strong>--jobs</strong>
+<em><code>n</code></em></dt>
 <dd>
-Allow processing N targets in parallel. Use 1 to disable parallel and 0
-to use as much threads as available processors.
+Allow processing <em><code>n</code></em> targets in parallel. Use
+<strong><code>1</code></strong> to disable parallel and
+<strong><code>0</code></strong> to use as much threads as available
+processors.
 </dd>
-<dt><strong>--import</strong> <code>*</code><string>`*</dt>
+<dt><strong>--import</strong> <em><code>string</code></em></dt>
 <dd>
-Additional Ivy dependencies to load into Mill, e.g. plugins.
+Additional <a href="https://ant.apache.org/ivy/"
+title="Ivy - The agile dependency manager"><em>Ivy</em></a> dependencies
+to load into <a
+href="https://com-lihaoyi.github.io/mill"><em>Mill</em></a>,
+e.g. plugins.
 </dd>
-<dt><strong>rest</strong> <em><code>&lt;string&gt;...</code></em></dt>
+<dt><strong>rest</strong> <em><code>string ...</code></em></dt>
 <dd>
 The name of the targets you want to build, followed by any parameters
 you wish to pass to those targets.
 </dd>
 </dl>
-<h1 id="environment">ENVIRONMENT</h1>
+<h1 id="environment"><span id="environment">ENVIRONMENT</span></h1>
 <h2 id="environment-variables">Environment Variables</h2>
+<!-- https://com-lihaoyi.github.io/mill/mill/Intro_to_Mill.html#_overriding_mill_versions -->
 <dl>
 <dt><strong>MILL_VERSION</strong></dt>
 <dd>
- 
+Take precedence over the version specified in <a
+href="https://com-lihaoyi.github.io/mill"><em>Mill</em></a> script or
+file <strong><code>.mill-version</code></strong>.
 </dd>
 </dl>
 <h2 id="configuration-files">Configuration Files</h2>
 <dl>
 <dt><strong>.mill-version</strong></dt>
 <dd>
- 
+If present in the workspace directory take precedence over the version
+of <a href="https://com-lihaoyi.github.io/mill"><em>Mill</em></a>
+specified in the <a
+href="https://com-lihaoyi.github.io/mill"><em>Mill</em></a> script.
 </dd>
 </dl>
 <h1 id="examples">EXAMPLES</h1>
 <p>Print the help message corresponding to this manual page.</p>
 <blockquote>
-<p><code>$MILL/mill -i help</code></p>
+<p><strong><code>mill -i help</code></strong></p>
 </blockquote>
 <h1 id="exit-status">EXIT STATUS</h1>
 <p><strong>mill</strong> returns a zero exit status if it succeeds at
@@ -344,7 +416,7 @@ failure.</p>
 href="https://www.lihaoyi.com/">https://www.lihaoyi.com/</a>).</p>
 <h1 id="reporting-bugs">REPORTING BUGS</h1>
 <p>Report bugs to <a
-href="https://github.com/com-lihaoyi/mill/issues"><strong>https://github.com/com-lihaoyi/mill/issues/</strong></a>.</p>
+href="https://github.com/com-lihaoyi/mill/issues"><strong>https://github.com/com-lihaoyi/mill/issues</strong></a>.</p>
 <h1 id="copyright">COPYRIGHT</h1>
 <p><a href="https://github.com/com-lihaoyi/mill/blob/main/LICENSE">The
 MIT License (MIT)</a></p>
@@ -356,8 +428,7 @@ href="./cs.1.html"><strong>cs</strong></a>(1), <a
 href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
 href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
 href="./scalafix.1.html"><strong>scalafix</strong></a>(1), <a
-href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1), <a
-href="./sdkman.1.html"><strong>sdkman</strong></a>(1).</p>
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <!-- hyperref -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://com-lihaoyi.github.io/mill/">Mill 0.10.0</a></div>

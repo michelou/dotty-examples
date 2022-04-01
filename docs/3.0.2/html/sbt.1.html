@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-01" />
+  <meta name="dcterms.date" content="2022-04-02" />
   <title>sbt(1) Sbt 1.6.2 | Scala Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">sbt(1) Sbt 1.6.2 | Scala Commands</h1>
-<p class="date">April 01, 2022</p>
+<p class="date">April 02, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">sbt(1)</div>
@@ -185,12 +185,13 @@ Similar man pages:
 ===========================================================================-->
 <h1 id="name">NAME</h1>
 <p><strong>sbt</strong> - Interactive build tool for <a
-href="https://www.scala-lang.org/"><em>Scala</em></a>, <a
-href="https://www.java.com/en/download/help/whatis_java.html"><em>Java</em></a>,
+href="https://www.scala-lang.org/">Scala</a>, <a
+href="https://www.java.com/en/download/help/whatis_java.html">Java</a>,
 and more.</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p><strong>sbt</strong>
-<code>[</code><em><code>&lt;options&gt;</code></em><code>] [</code><em><code>&lt;file&gt;...</code></em><code>]</code></p>
+<p><strong><code>sbt</code></strong>
+<code>[</code><em><code>options</code></em><code>]</code>
+<code>[</code><em><code>file</code></em><code>... ]</code></p>
 <h1 id="description">DESCRIPTION</h1>
 <h2 id="for-scala-and-java">For Scala and Java</h2>
 <p><strong>sbt</strong> is built for Scala and Java projects. One of the
@@ -211,14 +212,13 @@ is as easy as writing <strong><code>build.sbt</code></strong>.</p>
 <p>Further features include :</p>
 <ul>
 <li>Library management support using <a href="https://get-coursier.io/"
-title="Coursier - Pure Scala Artifact Fetching"><em>Coursier</em></a></li>
+title="Coursier - Pure Scala Artifact Fetching">Coursier</a></li>
 <li>Continuous compilation and testing with triggered execution</li>
 <li>Supports testing with <a
-href="https://scalacheck.org/"><em>ScalaCheck</em></a>, <a
-href="https://etorreborre.github.io/specs2/"><em>specs2</em></a>, and <a
-href="https://www.scalatest.org/"><em>ScalaTest</em></a>. <a
-href="https://junit.org/"><em>JUnit</em></a> is supported by a
-plugin.</li>
+href="https://scalacheck.org/">ScalaCheck</a>, <a
+href="https://etorreborre.github.io/specs2/">specs2</a>, and <a
+href="https://www.scalatest.org/">ScalaTest</a>. <a
+href="https://junit.org/">JUnit</a> is supported by a plugin.</li>
 <li>Starts the Scala REPL with project classes and dependencies on the
 classpath</li>
 <li>Modularization supported with sub-projects</li>
@@ -228,10 +228,11 @@ dependency!)</li>
 </ul>
 <h1 id="options">OPTIONS</h1>
 <dl>
-<dt><strong>-D</strong><em><code>&lt;key&gt;</code></em><strong><code>=</code></strong><em><code>&lt;value&gt;</code></em></dt>
+<dt><strong>-D</strong><em><code>property=value</code></em></dt>
 <dd>
-Pass <strong><code>-D</code></strong><code>key=value</code> directly to
-the Java runtime.
+Pass
+<strong><code>-D</code></strong><em><code>property=value</code></em>
+directly to the Java runtime.
 </dd>
 <dt><strong>-h</strong>, <strong>--help</strong></dt>
 <dd>
@@ -252,7 +253,7 @@ Print the numeric <strong>sbt</strong> version
 </dd>
 <dt><strong>--script-version</strong></dt>
 <dd>
-Print the version of sbt script.
+Print the version of <strong>sbt</strong> script.
 </dd>
 <dt><strong>-d</strong>, <strong>--debug</strong></dt>
 <dd>
@@ -287,7 +288,7 @@ Display task timings report on shutdown.
 Start <strong>sbt</strong> command even if current directory contains no
 sbt project.
 </dd>
-<dt><strong>--sbt-dir</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dt><strong>--sbt-dir</strong> <em><code>path</code></em></dt>
 <dd>
 Set path to global settings/plugins directory.
 </dd>
@@ -297,7 +298,7 @@ Set path to global settings/plugins directory.
 Default (Windows): <code>%USERPROFILE%\.sbt</code>.</p>
 </blockquote>
 <dl>
-<dt><strong>--sbt-boot</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dt><strong>--sbt-boot</strong> <em><code>path</code></em></dt>
 <dd>
 Set path to shared boot directory.
 </dd>
@@ -306,7 +307,7 @@ Set path to shared boot directory.
 <p>Default: <code>~/.sbt/boot</code> in 0.11 series.</p>
 </blockquote>
 <dl>
-<dt><strong>--sbt-cache</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dt><strong>--sbt-cache</strong> <em><code>path</code></em></dt>
 <dd>
 Set path to global cache directory.
 </dd>
@@ -315,7 +316,7 @@ Set path to global cache directory.
 <p>Default: operating system specific.</p>
 </blockquote>
 <dl>
-<dt><strong>--ivy</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dt><strong>--ivy</strong> <em><code>path</code></em></dt>
 <dd>
 Set path to local <a href="https://ant.apache.org/ivy/">Ivy</a>
 repository.
@@ -325,9 +326,9 @@ repository.
 <p>Default: <code>~/.ivy2</code>.</p>
 </blockquote>
 <dl>
-<dt><strong>--mem</strong> <em><code>&lt;integer&gt;</code></em></dt>
+<dt><strong>--mem</strong> <em><code>integer</code></em></dt>
 <dd>
-Set memory options.
+Set memory size.
 </dd>
 </dl>
 <blockquote>
@@ -343,11 +344,11 @@ Use all local caches; no sharing.
 Use global caches, but does not use global
 <strong><code>~/.sbt</code></strong> directory.
 </dd>
-<dt><strong>--jvm-debug</strong> <em><code>&lt;port&gt;</code></em></dt>
+<dt><strong>--jvm-debug</strong> <em><code>port</code></em></dt>
 <dd>
 Enable on JVM debugging, open at the given port.
 </dd>
-<dt><strong>--sbt-version</strong> <code>&lt;version&gt;</code></dt>
+<dt><strong>--sbt-version</strong> <em><code>version</code></em></dt>
 <dd>
 Use the specified version of <strong>sbt</strong>.
 </dd>
@@ -357,13 +358,13 @@ Use the specified version of <strong>sbt</strong>.
 otherwise latest <strong>sbt</strong> release.</p>
 </blockquote>
 <dl>
-<dt><strong>--sbt-jar</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dt><strong>--sbt-jar</strong> <em><code>path</code></em></dt>
 <dd>
 Use the specified jar as the sbt launcher.
 </dd>
-<dt><strong>--java-home</strong> <code>&lt;path&gt;</code></dt>
+<dt><strong>--java-home</strong> <code>path</code></dt>
 <dd>
-Alternate <code>JAVA_HOME</code>.
+Specify an alternate <strong><code>JAVA_HOME</code></strong>.
 </dd>
 </dl>
 <blockquote>
@@ -387,16 +388,15 @@ If unset uses <strong><code>""</code></strong>.
 <blockquote>
 <p><em><em>Note</em></em>: <strong><code>SBT_OPTS</code></strong> acts
 as a superset of <strong><code>JAVA_OPTS</code></strong> allowing
-<code>-X*</code> and <code>-D&lt;property&gt;=&lt;value&gt;</code> as
-well as sbt script specific features such as <code>-v</code> and
+<code>-X*</code> and <code>-D</code><em><code>property=value</code></em>
+as well as sbt script specific features such as <code>-v</code> and
 <code>--supershell=false</code>.</p>
 </blockquote>
 <h2 id="system-properties">System Properties</h2>
 <p>The following System properties influence Sbt execution :
 <!-- https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html#Command+Line+Options --></p>
 <dl>
-<dt><strong>sbt.banner</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>sbt.banner</strong> <em><code>boolean</code></em></dt>
 <dd>
 Show a welcome banner advertising new features.
 </dd>
@@ -406,7 +406,7 @@ Show a welcome banner advertising new features.
 </blockquote>
 <dl>
 <dt><strong>sbt.boot.directory</strong>
-<em><code>&lt;directory&gt;</code></em></dt>
+<em><code>directory</code></em></dt>
 <dd>
 Set path to shared boot directory. You should define
 <strong><code>sbt.boot.directory</code></strong> explicitly if you are
@@ -421,8 +421,7 @@ Default (<em>Windows</em>):
 <strong><code>%USERPROFILE%\.sbt\boot\</code></strong>.</p>
 </blockquote>
 <dl>
-<dt><strong>sbt.coursier</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>sbt.coursier</strong> <em><code>boolean</code></em></dt>
 <dd>
 Use <a href="https://get-coursier.io/"
 title="Coursier - Pure Scala Artifact Fetching"><em>Coursier</em></a> to
@@ -430,11 +429,11 @@ retrieve packages (see also <strong><code>sbt.ivy</code></strong>).
 </dd>
 </dl>
 <blockquote>
-<p>Default: <strong><code>true</code></strong> (in 1.3+).</p>
+<p>Default: <strong><code>true</code></strong> (in 1.3 and above).</p>
 </blockquote>
 <dl>
 <dt><strong>sbt.coursier.home</strong>
-<em><code>&lt;directory&gt;</code></em></dt>
+<em><code>directory</code></em></dt>
 <dd>
 Set location of coursier artifact cache, where the default is defined by
 <a href="https://get-coursier.io/"
@@ -451,7 +450,7 @@ runs.
 (in 1.3 and above).</p>
 </blockquote>
 <dl>
-<dt><strong>sbt.ivy</strong> <em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>sbt.ivy</strong> <em><code>boolean</code></em></dt>
 <dd>
 Use <a href="https://ant.apache.org/ivy/"><em>Ivy</em></a> to retrieve
 packages.
@@ -461,8 +460,7 @@ packages.
 <p>Default: <strong><code>true</code></strong> (in &lt;1.3).</p>
 </blockquote>
 <dl>
-<dt><strong>sbt.ivy.home</strong>
-<em><code>&lt;directory</code></em></dt>
+<dt><strong>sbt.ivy.home</strong> <em><code>directory</code></em></dt>
 <dd>
 Set the directory containing the local <a
 href="https://ant.apache.org/ivy/"><em>Ivy</em></a> repository and
@@ -478,8 +476,7 @@ Default (<em>Windows</em>):
 <strong><code>%USERPROFILE%\.ivy2\</code></strong>.</p>
 </blockquote>
 <dl>
-<dt><strong>sbt.log.noformat</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>sbt.log.noformat</strong> <em><code>boolean</code></em></dt>
 <dd>
 If <strong><code>true</code></strong>, disable ANSI color codes. Useful
 on build servers or terminals that do not support color.
@@ -489,8 +486,7 @@ on build servers or terminals that do not support color.
 <p>Default: <strong><code>false</code></strong>.</p>
 </blockquote>
 <dl>
-<dt><strong>sbt.offline</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>sbt.offline</strong> <em><code>boolean</code></em></dt>
 <dd>
 Avoid retrieving classes from repositories.
 </dd>
@@ -499,14 +495,13 @@ Avoid retrieving classes from repositories.
 <p>Default: <strong><code>false</code></strong>.</p>
 </blockquote>
 <dl>
-<dt><strong>sbt.supershell</strong>
-<em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>sbt.supershell</strong> <em><code>boolean</code></em></dt>
 <dd>
-Use supershell (show progress at bottom of shell). <code>true</code> if
+Use supershell (show progress at bottom of shell).
+<strong><code>true</code></strong> if
 <strong><code>color</code></strong> is enabled.
 </dd>
-<dt><strong>sbt.version</strong>
-<em><code>&lt;version&gt;</code></em></dt>
+<dt><strong>sbt.version</strong> <em><code>version</code></em></dt>
 <dd>
 Set <strong>sbt</strong> version to use, usually taken from file
 <strong><code>project/build.properties</code></strong>.
@@ -584,8 +579,7 @@ href="./cs.1.html"><strong>cs</strong></a>(1), <a
 href="./mill.1.html"><strong>mill</strong></a>(1), <a
 href="./scala-cli.1.html"><strong>scala-cli</strong></a>(1),
 [<strong>scalafix</strong>][scalafix](1), <a
-href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1), <a
-href="./sdkman.1.html"><strong>sdkman</strong></a>(1).</p>
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <!-- hyperref -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://www.scala-sbt.org/">Sbt 1.6.2</a></div>

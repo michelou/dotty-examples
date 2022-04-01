@@ -187,8 +187,8 @@ Similar man pages:
 <p><strong>scala-cli</strong> - Command-line tool to interact with the
 Scala language</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p><strong>scala-cli</strong> <em><code>&lt;command&gt;</code></em>
-<code>[</code><em><code>&lt;options&gt;</code></em><code>]</code></p>
+<p><strong><code>scala-cli</code></strong> <em><code>command</code></em>
+<code>[</code><em><code>options</code></em><code>]</code></p>
 <h1 id="description">DESCRIPTION</h1>
 <p><a href="https://scala-cli.virtuslab.org/"><em>Scala CLI</em></a>
 combines all the features you need to learn and use Scala in your
@@ -307,8 +307,7 @@ Enable Scala Native
 Add compiler plugin dependencies
 </dd>
 <dt><strong>-O</strong>, <strong>--scala-opt</strong>,
-<strong>--scalac-option</strong>
-<em><code>&lt;option&gt;</code></em></dt>
+<strong>--scalac-option</strong> <em><code>option</code></em></dt>
 <dd>
 Add a <strong><code>scalac</code></strong> option. Note that options
 starting with <strong><code>-g</code></strong>, <code>-language</code>,
@@ -318,19 +317,19 @@ are assumed to be Scala compiler options and don’t require to be passed
 after <code>-O</code> or <code>--scalac-option</code>.
 </dd>
 <dt><strong>-S</strong>, <strong>--scala</strong>,
-<strong>--scala-version</strong><code>*</code><version>`*</dt>
+<strong>--scala-version</strong> <em><code>version</code></em></dt>
 <dd>
 Set the Scala version.
 </dd>
 </dl>
 <h2 id="java-options"><span id="java_options">Java options</h2>
 <dl>
-<dt><strong>--java-home</strong> <em><code>&lt;path&gt;</code></em></dt>
+<dt><strong>--java-home</strong> <em><code>path</code></em></dt>
 <dd>
 Set the Java home directory.
 </dd>
 <dt><strong>-j</strong>, <strong>--jvm</strong>
-<em><code>&lt;jvm-name&gt;</code></em></dt>
+<em><code>jvm-name</code></em></dt>
 <dd>
 Use a specific JVM, such as <strong><code>14</code></strong>,
 <strong><code>adopt:11</code></strong>, or
@@ -339,7 +338,7 @@ Use a specific JVM, such as <strong><code>14</code></strong>,
 </dd>
 <dt><strong>--jar</strong>, <strong>–jars</strong>,
 <strong>--extra-jar</strong>, <strong>--extra-jars</strong>
-<em><code>&lt;paths&gt;</code></em></dt>
+<em><code>paths</code></em></dt>
 <dd>
 Add extra JARs in the class path.
 </dd>
@@ -353,13 +352,12 @@ Add extra JARs in the class path, during compilation only.
 </dd>
 <dt><strong>--source-jar</strong>, <strong>--source-jars</strong>,
 <strong>--extra-source-jar</strong>,
-<strong>--extra-source-jars</strong>
-<em><code>&lt;paths&gt;</code></em></dt>
+<strong>--extra-source-jars</strong> <em><code>paths</code></em></dt>
 <dd>
 Add extra source JARs.
 </dd>
 <dt><strong>--resource-dir</strong>, <strong>--resource-dirs</strong>
-<em><code>&lt;path&gt;</code></em></dt>
+<em><code>path</code></em></dt>
 <dd>
 Add a resource directory.
 </dd>
@@ -369,7 +367,7 @@ Add a resource directory.
 Set Java options, such as <strong><code>-Xmx1g</code></strong>.
 </dd>
 <dt><strong>--java-prop</strong>
-<em><code>&lt;key&gt;=&lt;value&gt;|&lt;key&gt;</code></em></dt>
+<em><code>property=value</code></em>|<em><code>property</code></em></dt>
 <dd>
 Set Java properties.
 </dd>
@@ -394,7 +392,7 @@ Use progress bars.
 Options</span></h2>
 <dl>
 <dt><strong>-M</strong>, <strong>--main-class</strong>
-<em><code>&lt;main-class&gt;</code></em></dt>
+<em><code>main-class</code></em></dt>
 <dd>
 Specify which main class to run.
 </dd>
@@ -403,18 +401,18 @@ Specify which main class to run.
 options</span></h2>
 <dl>
 <dt><strong>--js-version</strong>
-<code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
+<code>[</code><em><code>string</code></em><code>]</code></dt>
 <dd>
 Set the Scala JS version.
 </dd>
 <dt><strong>--js-mode</strong>
-<code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
+<code>[</code><em><code>string</code></em><code>]</code></dt>
 <dd>
 Set the Scala JS mode, either <strong><code>dev</code></strong> or
 <strong><code>release</code></strong>.
 </dd>
 <dt><strong>--js-module-kind</strong>
-<code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
+<code>[</code><em><code>string</code></em><code>]</code></dt>
 <dd>
 Set the Scala JS module kind:
 <strong><code>commonjs</code></strong>/<strong><code>common</code></strong>,
@@ -441,8 +439,7 @@ id="benchmarging_options">Benchmarking options</span></h2>
 <dd>
 Run JMH benchmarks.
 </dd>
-<dt><strong>--jmh-version</strong>
-<em><code>&lt;version&gt;</code></em></dt>
+<dt><strong>--jmh-version</strong> <em><code>version</code></em></dt>
 <dd>
 Set JMH version.
 </dd>
@@ -450,37 +447,39 @@ Set JMH version.
 <h2 id="scala-native-options">Scala Native options</span></h2>
 <dl>
 <dt><strong>--native-version</strong>
-<code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
+<code>[</code><em><code>string</code></em><code>]</code></dt>
 <dd>
 Set the Scala Native version.
 </dd>
 <dt><strong>--native-mode</strong>
-<code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
+<code>[</code><em><code>string</code></em><code>]</code></dt>
 <dd>
 Set Scala Native compilation mode.
 </dd>
 <dt><strong>--native-gc</strong>
-<code>[</code><em><code>&lt;string?</code></em><code>]</code></dt>
+<code>[</code><em><code>string</code></em><code>]</code></dt>
 <dd>
 Set the Scala Native garbage collector.
 </dd>
 <dt><strong>--native-clang</strong>
-<code>[</code><em><code>&lt;string&gt;</code></em><code>..]</code></dt>
+<code>[</code><em><code>string</code></em><code>...]</code></dt>
 <dd>
 Set the path to the Clang command.
 </dd>
 <dt><strong>--native-clangpp</strong>
-<code>[</code><em><code>&lt;string&gt;</code></em><code>..]</code></dt>
+<code>[</code><em><code>string</code></em><code>...]</code></dt>
 <dd>
 Set the path to the Clang++ command.
 </dd>
 <dt><strong>--native-linking</strong>
-<code>[</code><em><code>&lt;string&gt;</code></em><code>..]</code></dt>
+<code>[</code><em><code>string</code></em><code>...]</code></dt>
 <dd>
-Set extra options passed to <code>clang</code> verbatim during linking.
+Set extra options passed to <a
+href="https://clang.llvm.org/docs/ClangCommandLineReference.html#introduction"><strong><code>clang</code></strong></a>
+verbatim during linking.
 </dd>
 <dt><strong>--native-compile</strong>
-<code>[</code><em><code>&lt;string&gt;</code></em><code>..]</code></dt>
+<code>[</code><em><code>string</code></em><code>...]</code></dt>
 <dd>
 List of compile options.
 </dd>
@@ -489,14 +488,12 @@ List of compile options.
 Options</span></h2>
 <dl>
 <dt><strong>-d</strong>, <strong>--dep</strong>,
-<strong>--dependency</strong>
-<em><code>&lt;string&gt; ..</code></em></dt>
+<strong>--dependency</strong> <em><code>string ...</code></em></dt>
 <dd>
 Add dependencies.
 </dd>
 <dt><strong>-r</strong>, <strong>--repo</strong>,
-<strong>--repository</strong>
-<em><code>&lt;string&gt; ..</code></em></dt>
+<strong>--repository</strong> <em><code>string ...</code></em></dt>
 <dd>
 Add repositories.
 </dd>
@@ -505,7 +502,7 @@ Add repositories.
 options</span></h2>
 <dl>
 <dt><strong>–home</strong>, <strong>--home-directory</strong>
-<code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
+<code>[</code><em><code>string</code></em><code>]</code></dt>
 <dd>
  
 </dd>
@@ -541,8 +538,7 @@ href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
 href="./mill.1.html"><strong>mill</strong></a>(1), <a
 href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
 href="./scalafix.1.html"><strong>scalafix</strong></a>(1), <a
-href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1), <a
-href="./sdkman.1.html"><strong>sdkman</strong></a>(1).</p>
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <!-- hyperref -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://scala-cli.virtuslab.org/">Scala CLI 0.0.9</a></div>

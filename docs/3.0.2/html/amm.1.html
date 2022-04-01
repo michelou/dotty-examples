@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-01" />
+  <meta name="dcterms.date" content="2022-04-02" />
   <title>amm(1) Ammonite 2.5.2 | Third-Party Scala Commands</title>
   <style>
     html {
@@ -169,7 +169,7 @@
 <!--
 <h1 class="title">amm(1) Ammonite 2.5.2 | Third-Party Scala
 Commands</h1>
-<p class="date">April 01, 2022</p>
+<p class="date">April 02, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">amm(1)</div>
@@ -189,21 +189,20 @@ Similar man pages:
 runner</p>
 <h1 id="synopsis">SYNOPSIS</h1>
 <p><strong>amm</strong>
-<code>[</code><em><code>&lt;ammonite-options&gt;</code></em><code>] [</code><em><code>&lt;script-file&gt;</code></em>
-<code>[</code><em><code>&lt;script-options&gt;</code></em><code>]]</code></p>
+<code>[</code><em><code>ammonite-options</code></em><code>]</code>
+<code>[</code><em><code>script-file</code></em><code>[</code><em><code>script-options</code></em><code>]]</code></p>
 <h1 id="description">DESCRIPTION</h1>
 <p>Command <strong>amm</strong> is a modernized Scala REPL. It supports
 syntax highlighting, multi-line editing, loading of <a
-href="https://maven.apache.org/ref/current/maven-artifact/"><em>Maven
-artifacts</em></a> directly in the REPL, and many other quality-of-life
+href="https://maven.apache.org/ref/current/maven-artifact/">Maven
+artifacts</a> directly in the REPL, and many other quality-of-life
 improvements missing in the default Scala REPL.</p>
 <h1 id="options"><span id="options">OPTIONS</span></h1>
 <dl>
 <dt><strong>--no-default-predef</strong></dt>
 <dd>
 Disable the default predef and run <a href="https://ammonite.io/"
-title="Ammonite REPL"><em>Ammonite</em></a> with the minimal predef
-possible.
+title="Ammonite REPL">Ammonite</a> with the minimal predef possible.
 </dd>
 <dt><strong>-s</strong>, <strong>--silent</strong></dt>
 <dd>
@@ -216,30 +215,28 @@ Watch and re-run your scripts when they change.
 </dd>
 <dt><strong>--bsp</strong></dt>
 <dd>
-Run a <a
-href="https://build-server-protocol.github.io/"><em>BSP</em></a> server
+Run a <a href="https://build-server-protocol.github.io/">BSP</a> server
 against the passed scripts.
 </dd>
 <dt><strong>-c</strong>, <strong>--code</strong>
-<em><code>&lt;string&gt;</code></em></dt>
+<em><code>string</code></em></dt>
 <dd>
 Pass in code to be run immediately in the REPL.
 </dd>
 <dt><strong>-h</strong>, <strong>--home</strong>
-<em><code>&lt;path&gt;</code></em></dt>
+<em><code>path</code></em></dt>
 <dd>
 The home directory of the Ammonite-REPL (where it looks for config and
 caches).
 </dd>
-<dt><span id="predef"><strong>-p</strong>
-<em><code>&lt;path&gt;</code></em>, <strong>--predef</strong>
-<em><code>&lt;path&gt;</code></em></span></dt>
+<dt><span id="predef"><strong>-p</strong>, <strong>--predef</strong>
+<em><code>path</code></em></span></dt>
 <dd>
 Lets you load your predef from a custom location, rather than the
 “default” location in your <a href="https://ammonite.io/"
-title="Ammonite REPL"><em>Ammonite</em></a> home.
+title="Ammonite REPL">Ammonite</a> home.
 </dd>
-<dt><strong>--color</strong> <em><code>&lt;boolean&gt;</code></em></dt>
+<dt><strong>--color</strong> <em><code>boolean</code></em></dt>
 <dd>
 Enable or disable colored output; by default colors are enabled in both
 REPL and scripts if the console is interactive, and disabled otherwise.
@@ -247,10 +244,10 @@ REPL and scripts if the console is interactive, and disabled otherwise.
 <dt><strong>--thin</strong></dt>
 <dd>
 Hide parts of the core of <a href="https://ammonite.io/"
-title="Ammonite REPL"><em>Ammonite</em></a> and some of its
-dependencies. By default, the core of Ammonite and all of its
-dependencies can be seen by users from the Ammonite session. This option
-mitigates that via class loader isolation.
+title="Ammonite REPL">Ammonite</a> and some of its dependencies. By
+default, the core of Ammonite and all of its dependencies can be seen by
+users from the Ammonite session. This option mitigates that via class
+loader isolation.
 </dd>
 <dt><strong>--help</strong></dt>
 <dd>
@@ -258,27 +255,26 @@ Print this message.
 </dd>
 <dt><strong>-v</strong>, <strong>--version</strong></dt>
 <dd>
-Show <a href="https://ammonite.io/"
-title="Ammonite REPL"><em>Ammonite</em></a>’s version.
+Show <a href="https://ammonite.io/" title="Ammonite REPL">Ammonite</a>’s
+version.
 </dd>
-<dt><strong>--predef-code</strong>
-<em><code>&lt;string&gt;</code></em></dt>
+<dt><strong>--predef-code</strong> <em><code>string</code></em></dt>
 <dd>
-Any commands you want to execute at the start of the REPL session.
+Specify any commands you want to execute at the start of the REPL
+session.
 </dd>
 <dt><strong>--no-home-predef</strong></dt>
 <dd>
-Disables the default behavior of loading predef files from your
+Disable the default behavior of loading predef files from your
 <code>~/.ammonite/predef.sc</code>, <code>predefScript.sc</code>, or
 <code>predefShared.sc</code>. You can choose an additional predef to use
 using <a href="#predef"><strong><code>--predef</code></strong></a>.
 </dd>
 <dt><strong>-b</strong>, <strong>--banner</strong>
-<em><code>&lt;string&gt;</code></em></dt>
+<em><code>string</code></em></dt>
 <dd>
 Customize the welcome banner that gets shown when <a
-href="https://ammonite.io/" title="Ammonite REPL"><em>Ammonite</em></a>
-starts.
+href="https://ammonite.io/" title="Ammonite REPL">Ammonite</a> starts.
 </dd>
 <dt><strong>--no-remote-logging</strong> (<em>deprecated</em>)</dt>
 <dd>
@@ -315,8 +311,7 @@ href="./mill.1.html"><strong>mill</strong></a>(1), <a
 href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
 href="./scala-cli.1.html"><strong>scala-cli</strong></a>(1), <a
 href="./scalafix.1.html"><strong>scalafix</strong></a>(1), <a
-href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1), <a
-href="./sdkman.1.html"><strong>sdkman</strong></a>(1).</p>
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <!-- hyperref -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://ammonite.io/">Ammonite 2.5.2</a></div>

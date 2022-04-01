@@ -186,7 +186,8 @@ Similar man pages:
 <p><strong>scaladoc</strong> - generate HTML pages of API documentation
 from Scala 3 source</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p><strong>scaladoc</strong> &lt;options&gt; &lt;source files&gt;</p>
+<p><strong>scaladoc</strong> <code>options</code>
+<code>source_files</code></p>
 <h1 id="description">DESCRIPTION</h1>
 <p>The <strong>scaladoc</strong> command reads class and object
 definitions, written in the Scala programming language, and generates
@@ -208,16 +209,19 @@ href="./scalac.1.html"><strong>scalac</strong></a>(1) and adds a few
 more options.</p>
 <h2 id="compiler-options">Compiler Options</h2>
 <dl>
-<dt><em><code>&lt;compiler-option&gt;</code></em></dt>
+<dt><em><code>compiler-option</code></em></dt>
 <dd>
 Any compiler option. See <a
 href="./scalac.1.html#options"><strong>scalac</strong></a>(1).
 </dd>
 </dl>
-<!-- https://dotty.epfl.ch/docs/usage/scaladoc/settings.html -->
+<!--
+https://dotty.epfl.ch/docs/usage/scaladoc/settings.html
+https://github.com/lampepfl/dotty/blob/main/scaladoc/src/dotty/tools/scaladoc/ScaladocSettings.scala
+-->
 <h2 id="doclet-options">Doclet Options</h2>
 <dl>
-<dt><strong>-author</strong></dt>
+<dt><strong>-author</strong> <em><code>boolean</code></em></dt>
 <dd>
 Adding authors in docstring with <code>@author Name Surname</code> by
 default won’t be included in generated HTML documentation. If you would
@@ -226,14 +230,16 @@ like to label classes with authors explicitly, run
 </dd>
 </dl>
 <blockquote>
-<p>Equivalent to option <a
+<p>Default: <strong><code>false</code></strong>.</p>
+</blockquote>
+<blockquote>
+<p>Similar to option <a
 href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javadoc.html#standard-doclet-options"><code>-author</code></a>
-of <a
+of command <a
 href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javadoc.html"><strong>javadoc</strong></a>.</p>
 </blockquote>
 <dl>
-<dt><strong>-comment-syntax</strong>
-<em><code>&lt;syntax&gt;</code></em></dt>
+<dt><strong>-comment-syntax</strong> <em><code>syntax</code></em></dt>
 <dd>
 The styling language used for parsing comments.
 </dd>
@@ -244,7 +250,8 @@ The styling language used for parsing comments.
 Default: <strong><code>markdown</code></strong>.</p>
 </blockquote>
 <dl>
-<dt><strong>-doc-canonical-base-url</strong></dt>
+<dt><strong>-doc-canonical-base-url</strong>
+<em><code>url</code></em></dt>
 <dd>
 A base URL to use as prefix and add <code>canonical</code> URLs to all
 pages. The canonical URL may be used by search engines to choose the URL
@@ -252,11 +259,11 @@ that you want people to see in search results. If unset no canonical
 URLs are generated.
 </dd>
 <dt><strong>-doc-root-content</strong>
-<em><code>&lt;filename&gt;</code></em></dt>
+<em><code>filename</code></em></dt>
 <dd>
 The file from which the root package documentation should be imported.
 </dd>
-<dt><strong>-external-mappings:</strong><em><code>&lt;file_pattern&gt;::&lt;url&gt;, ..</code></em></dt>
+<dt><strong>-external-mappings:</strong><em><code>file_pattern::url, ..</code></em></dt>
 <dd>
 Mapping between regexes matching classpath entries and external
 documentation.
@@ -269,88 +276,135 @@ A mapping is of the form
 several mappings, separated by commas, as shown in the example.</p>
 </blockquote>
 <dl>
-<dt><strong>-groups</strong></dt>
+<dt><strong>-groups</strong> <em><code>boolean</code></em></dt>
 <dd>
 Group similar functions together (based on the <code>@group</code>
 annotation)
 </dd>
-<dt><strong>-no-link-warnings</strong></dt>
+</dl>
+<blockquote>
+<p>Default: <strong><code>false</code></strong>.</p>
+</blockquote>
+<dl>
+<dt><strong>-no-link-warnings</strong>
+<em><code>boolean</code></em></dt>
 <dd>
 Avoid warnings for ambiguous and incorrect links in members look up.
 Doesn’t affect warnings for incorrect links of assets etc.
 </dd>
-<dt><strong>-private</strong></dt>
+</dl>
+<blockquote>
+<p>Default: <strong><code>false</code></strong>.</p>
+</blockquote>
+<dl>
+<dt><strong>-private</strong> <em><code>boolean</code></em></dt>
 <dd>
 Show all types and members. Unless specified, show only public and
 protected types and members.
 </dd>
 </dl>
 <blockquote>
-<p>Equivalent to option <a
+<p>Default: <strong><code>false</code></strong>.</p>
+</blockquote>
+<blockquote>
+<p>Similar to option <a
 href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javadoc.html#standard-doclet-options"><code>-private</code></a>
 of command <a
 href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javadoc.html"><strong>javadoc</strong></a>.</p>
 </blockquote>
 <dl>
-<dt><strong>-project</strong></dt>
+<dt><strong>-project</strong>, <strong>-doc-title</strong>
+<em><code>string</code></em></dt>
 <dd>
-The name of the project. To provide compatibility with Scala 2 aliases
-with <code>-doc-title</code>.
+The name of the project.
 </dd>
-<dt><strong>-project-footer</strong></dt>
+</dl>
+<blockquote>
+<p>Aliases with <strong><code>-doc-title</code></strong> to provide
+compatibility with Scala 2.</p>
+</blockquote>
+<dl>
+<dt><strong>-project-footer</strong>, <strong>-doc-footer</strong>
+<em><code>string</code></em></dt>
 <dd>
-The string message that appears in a footer section. To provide
-compatibility with Scala 2 aliases with <code>-doc-footer</code>.
+The string message that appears in a footer section.
 </dd>
-<dt><strong>-project-logo</strong></dt>
+</dl>
+<blockquote>
+<p>Aliases with <strong><code>-doc-footer</code></strong> to provide
+compatibility with Scala 2.</p>
+</blockquote>
+<dl>
+<dt><strong>-project-logo</strong>, <strong>-doc-logo</strong>
+<em><code>path</code></em></dt>
 <dd>
 The logo of your project that appears in a top left corner (in
-<code>/images</code>). To provide compatibility with Scala 2 aliases
-with <code>-doc-logo</code>.
+<code>/images/</code> directory).
 </dd>
-<dt><strong>-project-url</strong></dt>
-<dd>
-The source repository of your project.
-</dd>
-<dt><strong>-project-version</strong></dt>
+</dl>
+<blockquote>
+<p>Aliases with <strong><code>-doc-logo</code></strong> to provide
+compatibility with Scala 2.</p>
+</blockquote>
+<dl>
+<dt><strong>-project-version</strong>, <strong>-doc-version</strong>
+<em><code>version</code></em></dt>
 <dd>
 The current version of your project.
 </dd>
 </dl>
 <blockquote>
-<p>Equivalent to option <a
+<p>Default: <strong><code>""</code></strong>.</p>
+</blockquote>
+<blockquote>
+<p>Similar to option <a
 href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javadoc.html#standard-doclet-options"><code>-version</code></a>
 of command <a
 href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javadoc.html"><strong>javadoc</strong></a>.</p>
 </blockquote>
 <dl>
-<dt><strong>-revision</strong></dt>
+<dt><strong>-revision</strong> <em><code>revision</code></em></dt>
 <dd>
 Revision (branch or ref) used to build project. Useful with sourcelinks
 to prevent them from pointing always to the newest master that is
 subject to changes.
 </dd>
-<dt><strong>-siteroot</strong></dt>
+</dl>
+<blockquote>
+<p>Default: <strong><code>""</code></strong>.</p>
+</blockquote>
+<dl>
+<dt><strong>-siteroot</strong> <em><code>directory</code></em></dt>
 <dd>
 A directory containing static files from which to generate
-documentation. Default directory is <code>./docs</code>.
+documentation.
 </dd>
-<dt><strong>-skip-by-id</strong></dt>
+</dl>
+<blockquote>
+<p>Default: <strong><code>./docs/</code></strong>.</p>
+</blockquote>
+<dl>
+<dt><strong>-skip-by-id</strong>
+<em><code>string</code></em>{,<em><code>string</code></em>}</dt>
 <dd>
 Identifiers of packages or top-level classes to skip when generating
 documentation.
 </dd>
-<dt><strong>-skip-by-regex</strong></dt>
+<dt><strong>-skip-by-regex</strong>
+<em><code>string</code></em>{,<em><code>string</code></em>}</dt>
 <dd>
 Regexes that match fully qualified names of packages or top-level
-classes to skip when generating documentation
+classes to skip when generating documentation.
 </dd>
-<dt><strong>-skip-packages</strong></dt>
+<dt><strong>-skip-packages</strong>
+<em><code>string</code></em>{,<em><code>string</code></em>}
+(<em>deprecated</em>)</dt>
 <dd>
-Deprecated, please use <code>-skip-by-id</code> or
-<code>-skip-by-regex</code>
+Use <strong><code>-skip-by-id</code></strong> or
+<strong><code>-skip-by-regex</code></strong> instead.
 </dd>
-<dt><strong>-snippet-compiler</strong></dt>
+<dt><strong>-snippet-compiler</strong>
+<em><code>string</code></em>{,<em><code>string</code></em>}</dt>
 <dd>
 Snippet compiler arguments provide a way to configure snippet type
 checking.
@@ -361,7 +415,8 @@ checking.
 <code>-snippet-compiler:my/path/nc=nocompile,my/path/f=fail,compile</code>.</p>
 </blockquote>
 <dl>
-<dt><strong>-social-links</strong></dt>
+<dt><strong>-social-links</strong>
+<em><code>string</code></em>{,<em><code>string</code></em>}</dt>
 <dd>
 Links to social sites.
 <code>[github|twitter|gitter|discord]::link</code> syntax is used.
@@ -369,16 +424,18 @@ Links to social sites.
 </dl>
 <blockquote>
 <p><code>custom::link::white_icon_name::black_icon_name</code> is also
-allowed, in this case icons must be present in <code>images/</code>
+allowed, in this case icons must be present in the <code>images/</code>
 directory.</p>
 </blockquote>
 <dl>
-<dt><strong>-source-links</strong></dt>
+<dt><strong>-source-links</strong>
+<em><code>string</code></em>{,<em><code>string</code></em>}</dt>
 <dd>
 Source links provide a mapping between file in documentation and code
 repository.
 </dd>
-<dt><strong>-versions-dictionary-url</strong></dt>
+<dt><strong>-versions-dictionary-url</strong>
+<em><code>url</code></em></dt>
 <dd>
 A URL pointing to a JSON document containing a dictionary
 <code>version label -&gt; documentation location</code>. The JSON file
@@ -388,6 +445,9 @@ top-level file. Useful for libraries that maintain different versions of
 their documentation.
 </dd>
 </dl>
+<blockquote>
+<p>Default: <strong><code>""</code></strong>.</p>
+</blockquote>
 <h2 id="advanced-options">Advanced Options</h2>
 <dl>
 <dt><strong>-Xwiki-syntax</strong></dt>
@@ -404,19 +464,42 @@ information.</p>
 </blockquote>
 <h2 id="private-options">Private Options</h2>
 <dl>
+<dt><strong>-Ydocument-synthetic-types</strong>
+<em><code>boolean</code></em></dt>
+<dd>
+Include pages providing documentation for the intrinsic types
+(e.g. <code>Any</code>, <code>Nothing</code>) to the docs. The setting
+is useful only for stdlib because <strong>scaladoc</strong> for Scala 3
+relies on TASTy files, but we cannot provide them for intrinsic types
+since they are embedded in the compiler. All other users should not
+concern with this setting.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>false</code></strong>.</p>
+</blockquote>
+<dl>
+<dt><strong>-Ygenerate-inkuire</strong>
+<em><code>boolean</code></em></dt>
+<dd>
+Generate <a
+href="https://dotty.epfl.ch/docs/usage/scaladoc/search-engine.html"><strong>InkuireDB</strong></a>
+and enables Hoogle-like searches.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>false</code></strong>.</p>
+</blockquote>
+<blockquote>
+<p><strong>Note</strong>:  Inkuire works as a JavaScript worker in the
+browser thanks to the power of <a href="https://www.scala-js.org/"
+title="Scala.js - Build robust front-end web applications"><strong>Scala.js</strong></a>.</p>
+</blockquote>
+<dl>
 <dt><strong>-Ysnippet-compiler-debug</strong></dt>
 <dd>
 Setting this option makes snippet compiler print the snippet as it is
 compiled (after wrapping).
-</dd>
-<dt><strong>-Ydocument-synthetic-types</strong></dt>
-<dd>
-Include pages providing documentation for the intrinsic types
-(e.g. <code>Any</code>, <code>Nothing</code>) to the docs. The setting
-is useful only for stdlib because scaladoc for Scala 3 relies on TASTy
-files, but we cannot provide them for intrinsic types since they are
-embedded in the compiler. All other users should not concern with this
-setting.
 </dd>
 </dl>
 <h1 id="examples">EXAMPLES</h1>
