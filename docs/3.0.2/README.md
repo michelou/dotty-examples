@@ -12,11 +12,11 @@ We generate both versions of the manual pages with the [Pandoc][pandoc] tool <su
 
 Scala 3 commands :
 <pre>
-<a href="https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scala.1.html" rel="external"><b>scala</b>.1.html</a>, <a href="https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalac.1.html" rel="external"><b>scalac</b>.1.html</a>, <a href="
-https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scaladoc.1.html" rel="external"><b>scaladoc</b>.1.html</a>
+<a href="https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scala.1.html" rel="external"><b>scala</b>.1.html</a>, <a href="https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalac.1.html" rel="external"><b>scalac</b>.1.html</a>, <a href="https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalac.1.html"><b>scalac</b>.1.html</a>, <a href="
+https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scaladoc.1.html"><b>scaladoc</b>.1.html</a>
 </pre>
 
-Third-Part Scala commands :
+Third-party Scala commands :
 <pre>
 <a href="
 https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/amm.1.html" rel="external"><b>amm</b>.1.html</a>, <a href="
@@ -35,7 +35,7 @@ https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-ex
 
 We've grouped the generated manual pages in 4 Zip archives :
 
-| &nbsp;     | Scala 3 Commands&nbsp;<sup id="anchor_02">[2](#footnote_02)</sup> | Third-Party&nbsp;Commands |
+| &nbsp;     | Scala 3 Commands&nbsp;<sup id="anchor_02">[2](#footnote_02)</sup> | Third-party&nbsp;Commands |
 |:-----------|:-----------------|:--------------------------|
 | **HTML&nbsp;files** | [`scala3-html-3.0.2.zip`](scala3-html-3.0.2.zip) | [`scala3-thirdparty-html-3.0.2.zip`](scala3-thirdparty-html-3.0.2.zip)  |
 | **GZ&nbsp;files**   | [`scala3-man-3.0.2.zip`](scala3-man-3.0.2.zip)| [`scala3-thirdparty-man-3.0.2.zip`](scala3-thirdparty-man-3.0.2.zip) |
@@ -77,7 +77,8 @@ GZ file<br/><code>target/man/man1/scala.1.gz</code>
 <b>&#8681;</b> (4)<br/>
 HTML file<br/><code>target/man/man1/scala.1.html</code><br/>
 <b>&#8681;</b> (5)<br/>
-Patched HTML file<br/><code>target/man/man1/scala.1.html</code>
+Patched HTML file<br/><code>target/man/man1/scala.1.html</code><br/>
+&nbsp;<br/>
 </td>
 </tr>
 <tr><td style="width:180px;text-align:center;padding:0;">
@@ -94,7 +95,7 @@ Zip archive<br/><code>target/scala3-html-3.0.2.zip</code>
 <span id="footnote_02">[2]</span> ***Zip Archives*** [↩](#anchor_02)
 
 <dl><dd>
-For instance, the two Zip archives for the [Scala 3][scala3_home] commands contain the following files :
+For instance, the two Zip archives for the <a href="https://dotty.epfl.ch/" rel="external">Scala 3</a> commands contain the following files :
 
 </dd>
 <dd>
