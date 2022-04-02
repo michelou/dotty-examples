@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-01" />
+  <meta name="dcterms.date" content="2022-04-02" />
   <title>scalac(1) Scala @@VERSION@@ | Scala 3 Commands</title>
   <style>
     html {
@@ -169,11 +169,11 @@
 <!--
 <h1 class="title">scalac(1) Scala @<span class="citation"
 data-cites="VERSION">@VERSION</span>@@ | Scala 3 Commands</h1>
-<p class="date">April 01, 2022</p>
+<p class="date">April 02, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">scalac(1)</div>
-  <div style="float:right;">scalac(1) <a href="#title-block-footer" title="Go to bottom">⇩ </a></div>
+  <div style="float:right;">scalac(1) <a href="#title-block-footer" title="Go to bottom">⭳</a></div>
   <div style="text-align:center;">Scala 3 Commands</div>
   <div style="clear:both;"/>
 </div>
@@ -249,9 +249,9 @@ directly to the runtime system.
 </dd>
 <dt><strong>-J</strong><em><code>option</code></em></dt>
 <dd>
-Pass <em><code>&lt;option&gt;</code></em> directly to the runtime
-system, where <em><code>&lt;option&gt;</code></em> is one of the Java
-options described on <a
+Pass <em><code>option</code></em> directly to the runtime system, where
+<em><code>&lt;option&gt;</code></em> is one of the Java options
+described on <a
 href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html"><strong>java</strong></a>
 command. For example, <code>-J-Xms24m</code> sets the startup memory to
 24 MB.
@@ -282,8 +282,9 @@ Colored output.
 </dd>
 </dl>
 <blockquote>
-<p>Choices: <code>always</code>, <code>never</code>.<br />
-Default: <code>always</code>.</p>
+<p>Choices: <strong><code>always</code></strong>,
+<strong><code>never</code></strong>.<br />
+Default: <strong><code>always</code></strong>.</p>
 </blockquote>
 <dl>
 <dt><strong>-d</strong>
@@ -432,8 +433,8 @@ option <strong><code>-nowarn</code></strong>.
 <dd>
 Require <code>(...)</code> around conditions.
 </dd>
-<dt><strong>-pagewidth</strong> <em><code>width</code></em>,
-<strong>--page-width</strong> <em><code>width</code></em></dt>
+<dt><strong>-pagewidth</strong>, <strong>--page-width</strong>
+<em><code>width</code></em></dt>
 <dd>
 Set page width in characters.
 </dd>
@@ -469,15 +470,15 @@ Start the Scala 3 REPL.
 <dl>
 <dt><strong>-scalajs</strong>, <strong>--scalajs</strong></dt>
 <dd>
-Compile in <a href="https://www.scala-js.org/"><em>Scala.js</em></a>
-mode (requires <a
+Compile in <a href="https://www.scala-js.org/">Scala.js</a> mode
+(requires <a
 href="https://mvnrepository.com/artifact/org.scala-js/scalajs-library"><strong><code>scalajs-library.jar</code></strong></a>
 on the classpath).
 </dd>
 <dt><strong>-scalajs-genStaticForwardersForNonTopLevelObjects</strong></dt>
 <dd>
-Generate static forwarders even for non-top-level objects (Scala.js
-only).
+Generate static forwarders even for non-top-level objects (<a
+href="https://www.scala-js.org/">Scala.js</a> only).
 </dd>
 <dt><strong>-scalajs-mapSourceURI</strong></dt>
 <dd>
@@ -572,13 +573,13 @@ i.e. <em><code>filter&amp;...&amp;filter</code></em>.
 - Message categories:
 <code>cat=deprecation|feature|unchecked</code><br />
 - Message content: <code>msg=regex</code><br />
-   The <code>regex</code> need only match some part of the message, not
+  The <code>regex</code> need only match some part of the message, not
 all of it.<br />
 - Message id: <code>id=E129</code><br />
-The message id is printed with the warning.<br />
+  The message id is printed with the warning.<br />
 - Message name:
 <code>name=PureExpressionInStatementPosition</code><br />
-The message name is printed with the warning in verbose warning
+  The message name is printed with the warning in verbose warning
 mode<br />
 <em><code>&lt;action&gt;</code></em> is one of :<br />
 - <code>error</code> / <code>e</code><br />
@@ -597,10 +598,15 @@ error.<br />
 <dt><span id="werror"><strong>-Werror</strong></span>,
 <strong>-Xfatal-warnings</strong></dt>
 <dd>
-Fail the compilation if there are any warnings. Similar to <a
-href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javac.html"><strong>javac</strong></a>
-option <strong>-Werror</strong>.
+Fail the compilation if there are any warnings.
 </dd>
+</dl>
+<blockquote>
+<p>Similar to <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javac.html"><strong>javac</strong></a>
+option <strong>-Werror</strong>.</p>
+</blockquote>
+<dl>
 <dt><strong>-Wunused</strong> <em><code>choice</code></em></dt>
 <dd>
 Enable or disable specific <code>unused</code> warnings.
@@ -761,7 +767,7 @@ Do not display definitions in the Scala 3 REPL.
 <dt><span id="xsemanticdb"><strong>-Xsemanticdb</strong></span></dt>
 <dd>
 Store information in <a
-href="https://scalameta.org/docs/semanticdb/guide.html"><strong>SemanticDB</strong></a>.
+href="https://scalameta.org/docs/semanticdb/guide.html">SemanticDB</a>.
 </dd>
 <dt><strong>-Xshow-phases</strong></dt>
 <dd>
@@ -816,7 +822,7 @@ from a global root.
 </dd>
 <dt><strong>-Ycook-docs</strong></dt>
 <dd>
-Cook the documentation (type check <code>@usecase</code>, etc.)
+Cook the documentation (type check <code>@usecase</code>, etc.).
 </dd>
 <dt><strong>-Ydebug</strong></dt>
 <dd>
@@ -858,12 +864,12 @@ Print the stack trace when the tree with the given
 <dl>
 <dt><strong>-Ydebug-type-error</strong></dt>
 <dd>
-Print the stack trace when a <code>TypeError</code> is caught
+Print the stack trace when a <code>TypeError</code> is caught.
 </dd>
 <dt><strong>-Ydetailed-stats</strong></dt>
 <dd>
 Show detailed internal compiler stats (needs <code>Stats.enabled</code>
-to be set to <code>true</code>).
+to be set to <strong><code>true</code></strong>).
 </dd>
 <dt><strong>-YdisableFlatCpCaching</strong></dt>
 <dd>
@@ -904,7 +910,8 @@ inlining behavior of 3.0.0-M3.
 <dt><span
 id="force-sbt-phases"><strong>-Yforce-sbt-phases</strong></span></dt>
 <dd>
-Run the phases used by <a href="https://www.scala-sbt.org/">sbt</a> for
+Run the phases used by <a href="https://www.scala-sbt.org/"
+title="Sbt - The interactive build tool"><strong>sbt</strong></a> for
 incremental compilation (<code>ExtractDependencies</code> and
 <code>ExtractAPI</code>) even if the compiler is ran outside of <a
 href="https://www.scala-sbt.org/"
@@ -992,7 +999,7 @@ href="https://scala-lang.org/api/3.0.2/scala.html"><code>scala.*</code></a>,
 <a
 href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/package-summary.html"><code>java.lang.*</code></a>,
 or <a
-href="https://scala-lang.org/api/3.0.2/scala/Predef$.html"><code>Predef</code></a>.
+href="https://dotty.epfl.ch/api/scala/Predef$.html"><code>Predef</code></a>.
 </dd>
 <dt><strong>-Yno-kind-polymorphism</strong></dt>
 <dd>
@@ -1005,7 +1012,7 @@ Disable all pattern matching optimizations.
 <dt><strong>-Yno-predef</strong></dt>
 <dd>
 Compile without importing <a
-href="https://scala-lang.org/api/3.0.2/scala/Predef$.html"><code>Predef</code></a>.
+href="https://dotty.epfl.ch/api/scala/Predef$.html"><code>Predef</code></a>.
 </dd>
 <dt><strong>-Yplain-printer</strong></dt>
 <dd>
@@ -1049,7 +1056,7 @@ useful for a single phase.
 <dt><strong>-Yprofile-run-gc</strong></dt>
 <dd>
 Run a GC between phases - this allows heap size to be accurate at the
-expense of more time. Specify a list of phases, or *
+expense of more time. Specify a list of phases, or <code>*</code>.
 </dd>
 <dt><strong>-Yread-docs</strong></dt>
 <dd>
@@ -1060,15 +1067,17 @@ Read documentation from tasty.
 Warn if an operator is defined without a <code>@targetName</code>
 annotation
 </dd>
-<dt><strong>-Yresolve-term-conflict</strong></dt>
+<dt><strong>-Yresolve-term-conflict</strong>
+<em><code>value</code></em></dt>
 <dd>
 Resolve term conflicts.
 </dd>
 </dl>
 <blockquote>
-<p>Default: <code>error</code>.<br />
-Choices: <code>package</code>, <code>object</code>,
-<code>error</code>.</p>
+<p>Default: <strong><code>error</code></strong>.<br />
+Choices: <strong><code>package</code></strong>,
+<strong><code>object</code></strong>,
+<strong><code>error</code></strong>.</p>
 </blockquote>
 <dl>
 <dt><strong>-Yretain-trees</strong></dt>
@@ -1245,8 +1254,8 @@ href="./scaladoc.1.html"><strong>scaladoc</strong></a>(1).</p>
 <!-- hyperrefs -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">Scala 3.0.2</div>
-  <div style="float:right;">scalac(1) <a href="#title-block-header" title="Back to top">⇧ </a></div>
-  <div style="text-align:center;">April 01, 2022</div>
+  <div style="float:right;">scalac(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
+  <div style="text-align:center;">April 02, 2022</div>
 </div>
 </body>
 </html>

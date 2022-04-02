@@ -173,7 +173,7 @@ Commands</h1>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">cs(1)</div>
-  <div style="float:right;">cs(1) <a href="#title-block-footer" title="Go to bottom">⇩ </a></div>
+  <div style="float:right;">cs(1) <a href="#title-block-footer" title="Go to bottom">⭳</a></div>
   <div style="text-align:center;">Scala Commands</div>
   <div style="clear:both;"/>
 </div>
@@ -198,7 +198,7 @@ See <a href="#channel_options"><strong>Channel Options</strong></a>.
 <dd>
 Download a particular library by providing the <a
 href="https://mvnrepository.com/">Maven coordinates</a>. See <a
-href="#fetch_options"><strong>Fecth Options</strong></a>).
+href="#fetch_options"><strong>Fetch Options</strong></a>).
 </dd>
 </dl>
 <blockquote>
@@ -389,8 +389,8 @@ Do not add default repositories
 <dt><strong>--sbt-plugin-hack</strong>
 <em><code>boolean</code></em></dt>
 <dd>
-Modify names in <a href="https://mvnrepository.com/"><em>Maven
-repository</em></a> paths for sbt plugins.
+Modify names in <a href="https://mvnrepository.com/">Maven
+repository</a> paths for sbt plugins.
 </dd>
 <dt><strong>–drop-info-attr</strong> <em><code>boolean</code></em></dt>
 <dd>
@@ -1567,8 +1567,9 @@ Options</span></h2>
 <code>[</code><em><code>&lt;string&gt;</code></em><code>]</code></dt>
 <dd>
 Set the cache directory (defaults to environment variable
-COURSIER_CACHE, or ~/.cache/coursier/v1 on Linux and
-~/Library/Caches/Coursier/v1 on Mac).
+<strong><code>COURSIER_CACHE</code></strong>, or
+<strong><code>~/.cache/coursier/v1</code></strong> on Linux and
+<strong><code>~/Library/Caches/Coursier/v1</code></strong> on Mac).
 </dd>
 <dt><strong>--mode</strong>, <strong>-m</strong>
 <em><code>&lt;offline|update-changing|update|missing|force&gt;</code></em></dt>
@@ -1692,7 +1693,8 @@ Log app channel or JVM index version.
 <dd>
 Specify the platform for prebuilt binaries
 (e.g. “<strong><code>x86_64-pc-linux</code></strong>”,
-“x86_64-apple-darwin”, “x86_64-pc-win32”).
+“<strong><code>x86_64-apple-darwin</code></strong>”,
+“<strong><code>x86_64-pc-win32</code></strong>”).
 </dd>
 <dt><strong>--install-prefer-prebuilt</strong>
 <em><code>&lt;boolean&gt;</code></em></dt>
@@ -1769,7 +1771,8 @@ Modify names in Maven repository paths for sbt plugins.
 <dt><strong>--drop-info-attr</strong> <em><code>boolean</code></em></dt>
 <dd>
 Drop module attributes starting with ‘info.’ - these are sometimes used
-by projects built with <a href="https://"><strong>sbt</strong></a>.
+by projects built with <a href="https://www.scala-sbt.org/"
+title="Sbt - The interactive build tool"><strong>sbt</strong></a>.
 </dd>
 <dt><strong>--channel</strong> <em><code>org:name</code></em></dt>
 <dd>
@@ -1810,7 +1813,8 @@ href="./sbt.1.html"><strong>sbt</strong></a> plugins.
 <dt><strong>–drop-info-attr</strong> <em><code>boolean</code></em></dt>
 <dd>
 Drop module attributes starting with ‘info.’ - these are sometimes used
-by projects built with <a href="https://"><strong>sbt</strong></a>.
+by projects built with <a href="https://www.scala-sbt.org/"
+title="Sbt - The interactive build tool"><strong>sbt</strong></a>.
 </dd>
 <dt><strong>--channel</strong> <em><code>org:name</code></em></dt>
 <dd>
@@ -1867,7 +1871,9 @@ repository</a>:</p>
 <code>org.scala-lang.modules:scala-java8-compat_2.13:1.0.0:default</code><br />
 <br></p>
 </blockquote>
-<p>Update only Ammonite REPL to the latest available version.</p>
+<p>Update only <a href="https://ammonite.io/"
+title="Ammonite REPL">Ammonite</a> REPL to the latest available
+version.</p>
 <blockquote>
 <p><strong><code>$ cs update amm</code></strong></p>
 </blockquote>
@@ -1899,7 +1905,7 @@ href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <!-- hyperref -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://get-coursier.io/">Coursier 2.0.13</a></div>
-  <div style="float:right;">cs(1) <a href="#title-block-header" title="Back to top">⇧ </a></div>
+  <div style="float:right;">cs(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
   <div style="text-align:center;">March 30, 2022</div>
 </div>
 </body>

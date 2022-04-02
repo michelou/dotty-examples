@@ -13,20 +13,20 @@ We generate both versions of the manual pages with the [Pandoc][pandoc] tool <su
 Scala 3 commands :
 <pre>
 <a href="https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scala.1.html" rel="external"><b>scala</b>.1.html</a>, <a href="https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalac.1.html" rel="external"><b>scalac</b>.1.html</a>, <a href="
-https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scaladoc.1.html" rel="external"><b>scaladoc</b>.1.html</a>
+https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scaladoc.1.html" rel="external"><b>scaladoc</b>.1.html</a>
 </pre>
 
 Third-Part Scala commands :
 <pre>
 <a href="
-https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/amm.1.html" rel="external"><b>amm</b>.1.html</a>, <a href="
-https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/cs.1.html" rel="external"><b>cs</b>.1.html</a>, <a href="
-https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/gradle.1.html" rel="external"><b>gradle</b>.1.html</a>,<br/><a href="
-https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/mill.1.html" rel="external"><b>mill</b>.1.html</a>, <a href="
-https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/sbt.1.html" rel="external"><b>sbt</b>.1.html</a>, <a href="
-https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scala-cli.1.html" rel="external"><b>scala-cli</b>.1.html</a><br/><a href="
-https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalafix.1.html" rel="external"><b>scalafix</b>.1.html</a>, <a href="
-https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalafmt.1.html" rel="external"><b>scalafmt</b>.1.html</a>
+https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/amm.1.html" rel="external"><b>amm</b>.1.html</a>, <a href="
+https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/cs.1.html" rel="external"><b>cs</b>.1.html</a>, <a href="
+https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/gradle.1.html" rel="external"><b>gradle</b>.1.html</a>,<br/><a href="
+https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/mill.1.html" rel="external"><b>mill</b>.1.html</a>, <a href="
+https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/sbt.1.html" rel="external"><b>sbt</b>.1.html</a>, <a href="
+https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scala-cli.1.html" rel="external"><b>scala-cli</b>.1.html</a><br/><a href="
+https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalafix.1.html" rel="external"><b>scalafix</b>.1.html</a>, <a href="
+https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalafmt.1.html" rel="external"><b>scalafmt</b>.1.html</a>
 </pre>
 
 > **:mag_right:** HTML pages hosted in a GitHub repository can be viewed by adding the prefix `https://htmlpreview.github.io/?` to their URL.
@@ -37,21 +37,21 @@ We've grouped the generated manual pages in 4 Zip archives :
 
 | &nbsp;     | Scala 3 Commands&nbsp;<sup id="anchor_02">[2](#footnote_02)</sup> | Third-Party&nbsp;Commands |
 |:-----------|:-----------------|:--------------------------|
-| HTML&nbsp;pages | [`scala3-html-3.0.2.zip`](scala3-html-3.0.2.zip) | [`scala3-thirdparty-html-3.0.2.zip`](scala3-thirdparty-html-3.0.2.zip)  |
-| GZ&nbsp;pages   | [`scala3-man-3.0.2.zip`](scala3-man-3.0.2.zip)| [`scala3-thirdparty-man-3.0.2.zip`](scala3-thirdparty-man-3.0.2.zip) |
+| **HTML&nbsp;files** | [`scala3-html-3.0.2.zip`](scala3-html-3.0.2.zip) | [`scala3-thirdparty-html-3.0.2.zip`](scala3-thirdparty-html-3.0.2.zip)  |
+| **GZ&nbsp;files**   | [`scala3-man-3.0.2.zip`](scala3-man-3.0.2.zip)| [`scala3-thirdparty-man-3.0.2.zip`](scala3-thirdparty-man-3.0.2.zip) |
 
 ## <span id="footnotes">Footnotes</span>
 
-<span id="footnote_01">[1]</span> ***Pandoc Generated Pages*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Generation of the Manual Pages*** [↩](#anchor_01)
 
 <dl><dd>
 We generate the manual pages in 6 steps :
 <ol>
 <li>We replace text placeholders (e.g. <code>@@DATE@@</code>) in the source file with <a href="https://www.gnu.org/software/sed/manual/sed.html#Command_002dLine-Options"><code>sed</code></a>.</li>
-<li>We generate the manual page with <a href="https://pandoc.org/MANUAL.html"><code>pandoc</code></a>.</li>
+<li>We generate the manual page with <a href="https://pandoc.org/MANUAL.html"><code>pandoc -s -t man</code></a>.</li>
 <li>We compress the manual page with <a href="https://www.gnu.org/software/gzip/manual/gzip.html#Sample"><code>gzip</code></a>.</li>
-<li>We generate the HTML manual page with <a href="https://pandoc.org/MANUAL.html"><code>pandoc</code></a>.</li>
-<li>We update headerand add footer in the generated HTML file with <a href="https://www.gnu.org/software/sed/manual/sed.html#Command_002dLine-Options"><code>sed</code></a>.</li>
+<li>We generate the HTML manual page with <a href="https://pandoc.org/MANUAL.html"><code>pandoc-s -t html</code></a>.</li>
+<li>We update the header and add a footer in the generated HTML file with <a href="https://www.gnu.org/software/sed/manual/sed.html#Command_002dLine-Options"><code>sed</code></a>.</li>
 <li>We create two Zip archives with manual pages with <a href="https://www.7-zip.org/"><code>7-Zip</code></a></li>
 </ol>
 </dd>
@@ -94,7 +94,7 @@ Zip archive<br/><code>target/scala3-html-3.0.2.zip</code>
 <span id="footnote_02">[2]</span> ***Zip Archives*** [↩](#anchor_02)
 
 <dl><dd>
-For instance, the Zip archives for Scala 3 commands contain the following files :
+For instance, the two Zip archives for the [Scala 3][scala3_home] commands contain the following files :
 
 </dd>
 <dd>
@@ -124,3 +124,4 @@ Archive:  scala3-man-3.0.2.zip
 <!-- link refs -->
 
 [pandoc]: https://pandoc.org/installing.html
+[scala3_home]: https://dotty.epfl.ch/
