@@ -12,21 +12,21 @@ We generate both versions of the manual pages with the [Pandoc][pandoc] tool <su
 
 Scala 3 commands :
 <pre>
-<a href="https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scala.1.html" rel="external"><b>scala</b>.1.html</a>, <a href="https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalac.1.html" rel="external"><b>scalac</b>.1.html</a>, <a href="https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalac.1.html"><b>scalac</b>.1.html</a>, <a href="
-https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scaladoc.1.html"><b>scaladoc</b>.1.html</a>
+<a href="https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scala.1.html" rel="external"><b>scala</b>.1.html</a>, <a href="https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalac.1.html" rel="external"><b>scalac</b>.1.html</a>, <a href="
+https://tinyurl.com/2p8zevyt?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scaladoc.1.html"><b>scaladoc</b>.1.html</a>
 </pre>
 
 Third-party Scala commands :
 <pre>
 <a href="
-https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/amm.1.html" rel="external"><b>amm</b>.1.html</a>, <a href="
-https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/cs.1.html" rel="external"><b>cs</b>.1.html</a>, <a href="
-https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/gradle.1.html" rel="external"><b>gradle</b>.1.html</a>,<br/><a href="
-https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/mill.1.html" rel="external"><b>mill</b>.1.html</a>, <a href="
-https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/sbt.1.html" rel="external"><b>sbt</b>.1.html</a>, <a href="
-https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scala-cli.1.html" rel="external"><b>scala-cli</b>.1.html</a><br/><a href="
-https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalafix.1.html" rel="external"><b>scalafix</b>.1.html</a>, <a href="
-https://tinyurl.com/2p9cn8ns?https://raw.githubusercontent.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalafmt.1.html" rel="external"><b>scalafmt</b>.1.html</a>
+https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/amm.1.html" rel="external"><b>amm</b>.1.html</a>, <a href="
+https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/cs.1.html" rel="external"><b>cs</b>.1.html</a>, <a href="
+https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/gradle.1.html" rel="external"><b>gradle</b>.1.html</a>,<br/><a href="
+https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/mill.1.html" rel="external"><b>mill</b>.1.html</a>, <a href="
+https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/sbt.1.html" rel="external"><b>sbt</b>.1.html</a>, <a href="
+https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scala-cli.1.html" rel="external"><b>scala-cli</b>.1.html</a><br/><a href="
+https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalafix.1.html" rel="external"><b>scalafix</b>.1.html</a>, <a href="
+https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalafmt.1.html" rel="external"><b>scalafmt</b>.1.html</a>
 </pre>
 
 > **:mag_right:** HTML pages hosted in a GitHub repository can be viewed by adding the prefix `https://htmlpreview.github.io/?` to their URL.
