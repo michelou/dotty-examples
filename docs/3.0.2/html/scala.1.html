@@ -213,7 +213,8 @@ details.</p>
 <p>If an object is specified to run, then that object must be a
 top-level Scala object with the specified name. The object must define a
 method <code>main</code> with the following signature:</p>
-<p><strong>def</strong> main(args: Array[String]): Unit</p>
+<p><strong><code>def</code></strong>
+<code>main(args: Array[String]): Unit</code></p>
 <p>The method must return a <code>Unit</code> value, and it must accept
 a <code>String</code> array as a parameter. All arguments specified on
 the command line will be passed as arguments to the <code>main</code>
@@ -232,11 +233,12 @@ There are two ways to format the header:</p>
 </ul>
 <p>Such a header must have each header boundary start at the beginning
 of a line. Headers can be used to make stand-alone script files, as
-shown in the <a href="#examples">examples</a> below.</p>
+shown in the <a href="#examples"><strong>EXAMPLES</strong></a> section
+below.</p>
 <h1 id="options">OPTIONS</h1>
-<p>The <strong>scala</strong> command supports the same options as <a
-href="./scalac.1.html"><strong>scalac</strong></a>(1) and adds a few
-more options.</p>
+<p>The <strong><code>scala</code></strong> command supports the same
+options as <a href="./scalac.1.html"><strong>scalac</strong></a>(1) and
+adds a few more options.</p>
 <h2 id="standard-options">Standard Options</h2>
 <dl>
 <dt><em><code>compiler-option</code></em></dt>
@@ -258,8 +260,10 @@ On subsequent runs of the same script, the pre-compiled
 </dd>
 </dl>
 <blockquote>
-<p>This is similar to Scala 2 option <a
-href="https://manpages.ubuntu.com/manpages/jammy/man1/scala.1.html#parameters"><strong><code>-savecompiled</code></strong></a>.</p>
+<p>This is similar to option <a
+href="https://manpages.ubuntu.com/manpages/jammy/man1/scala.1.html#parameters"><strong><code>-savecompiled</code></strong></a>
+of <a href="https://www.scala-lang.org/"
+title="The Scala Programming Language">Scala 2</a>.</p>
 </blockquote>
 <dl>
 <dt><strong>-with-compiler</strong></dt>
@@ -280,15 +284,14 @@ libraries (in the following
 </blockquote>
 </blockquote>
 <blockquote>
-<p><em>Note</em>: Per default the class path is constructed as follows
-:</p>
+<p><em>Reminder</em>: In normal case the class path is constructed as
+follows :</p>
 </blockquote>
 <blockquote>
 <ol type="1">
 <li>If the user specifies option
-<strong><code>-classpath</code></strong>
-<em><code>&lt;cpath&gt;</code></em> its value is appended to the base
-class path, i.e.</li>
+<strong><code>-classpath</code></strong> <em><code>cpath</code></em> its
+value is appended to the base class path, i.e.</li>
 </ol>
 </blockquote>
 <blockquote>
@@ -369,7 +372,8 @@ Specify the options to be passed to the <strong>scala</strong> command.
 </dd>
 </dl>
 <!-- https://github.com/lampepfl/dotty/blob/main/compiler/src/dotty/tools/dotc/config/PathResolver.scala -->
-<h2 id="system-properties">System Properties</h2>
+<h2 id="system-properties"><span id="system_properties">System
+Properties</span></h2>
 <p>The Scala 3 commands have access to the <a
 href="https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html">System
 properties</a> of the underlying Java platform. System properties
@@ -380,7 +384,8 @@ path name.</p>
 the following System properties, some of which are specific to Scala 3
 :</p>
 <dl>
-<dt><strong>java.class.path</strong></dt>
+<dt><a
+href="https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html"><strong>java.class.path</strong></a></dt>
 <dd>
 Path used to find directories and JAR archives containing class files.
 Elements of the class path are separated by a platform-specific
@@ -461,8 +466,8 @@ Console.println(&quot;Hello, world!&quot;)
 args.toList foreach Console.println</code></pre>
 </blockquote>
 <p>If you want to use the compilation cache to speed up multiple
-executions of the script, then add <code>-save</code> to the
-<strong>scala</strong> command:</p>
+executions of the script, then add <strong><code>-save</code></strong>
+to the <strong>scala</strong> command:</p>
 <blockquote>
 <pre><code>#!/bin/sh
 exec scala -save &quot;$0&quot; &quot;$@&quot;

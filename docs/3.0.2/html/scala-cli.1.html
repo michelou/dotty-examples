@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="dcterms.date" content="2022-04-02" />
-  <title>scala-cli(1) Scala CLI 0.0.9 | Scala Commands</title>
+  <title>scala-cli(1) Scala CLI 0.1.2 | Scala Commands</title>
   <style>
     html {
       line-height: 1.5;
@@ -167,7 +167,7 @@
 <body>
 <header id="title-block-header">
 <!--
-<h1 class="title">scala-cli(1) Scala CLI 0.0.9 | Scala Commands</h1>
+<h1 class="title">scala-cli(1) Scala CLI 0.1.2 | Scala Commands</h1>
 <p class="date">April 02, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
@@ -187,12 +187,19 @@ Similar man pages:
 <p><strong>scala-cli</strong> - Command-line tool to interact with the
 Scala language</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p><strong><code>scala-cli</code></strong> <em><code>command</code></em>
+<p><strong>scala-cli</strong> <em><code>command</code></em>
 <code>[</code><em><code>options</code></em><code>]</code></p>
-<h1 id="description">DESCRIPTION</h1>
-<p><a href="https://scala-cli.virtuslab.org/"><em>Scala CLI</em></a>
-combines all the features you need to learn and use Scala in your
-scripts, playgrounds and (single-module) projects.</p>
+<h1 id="description"><span id="description">DESCRIPTION</span></h1>
+<p><a href="https://scala-cli.virtuslab.org/">Scala CLI</a> combines all
+the features you need to learn and use Scala in your scripts,
+playgrounds and (single-module) projects.</p>
+<p><a href="https://scala-cli.virtuslab.org/">Scala CLI</a> 0.1.2
+supports the following versions of Scala:</p>
+<ul>
+<li>Scala 3    : versions 3.0.2 and 3.1.1</li>
+<li>Scala 2.13 : versions 2.13.7 and 2.13.8</li>
+<li>Scala 2.12 : versions 2.12.7 and 2.12.15.</li>
+</ul>
 <h1 id="commands"><span id="commands">COMMANDS</span></h1>
 <h2 id="main-commands">Main Commands</h2>
 <dl>
@@ -246,12 +253,14 @@ Commands</span></h2>
 <dl>
 <dt><strong>bsp</strong></dt>
 <dd>
-Start <a
-href="https://build-server-protocol.github.io/"><em>BSP</em></a> server.
+Start the <a href="https://build-server-protocol.github.io/">BSP</a>
+server.
 </dd>
 <dt><strong>export</strong></dt>
 <dd>
-Export current project to sbt or [<em>Mill</em>][mill_home].
+Export current project to <a href="https://www.scala-sbt.org/"
+title="Sbt - The interactive build tool">Sbt</a> or <a
+href="https://com-lihaoyi.github.io/mill">Mill</a>.
 </dd>
 <dt><strong>install completions</strong>,
 <strong>install-completions</strong></dt>
@@ -260,7 +269,8 @@ Installs completions into your shell.
 </dd>
 <dt><strong>setup-ide</strong></dt>
 <dd>
-Generate a BSP file that you can import into your IDE.
+Generate a <a href="https://build-server-protocol.github.io/">BSP</a>
+file that you can import into your IDE.
 </dd>
 <dt><strong>shebang</strong></dt>
 <dd>
@@ -295,11 +305,12 @@ options</span></h2>
 <dl>
 <dt><strong>--js</strong></dt>
 <dd>
-Enable Scala.JS.
+Enable <a href="https://www.scala-js.org/">Scala.js</a>. To show more
+options for Scala.Js pass <strong><code>--help-js</code></strong>.
 </dd>
 <dt><strong>--native</strong></dt>
 <dd>
-Enable Scala Native
+Enable <a href="https://scala-native.readthedocs.io/">Scala Native</a>.
 </dd>
 <dt><strong>-P</strong>, <strong>--plugin</strong>,
 <strong>--compiler-plugin string</strong></dt>
@@ -336,6 +347,17 @@ Use a specific JVM, such as <strong><code>14</code></strong>,
 <strong><code>graalvm:21</code></strong>, or
 <strong><code>system</code></strong>.
 </dd>
+</dl>
+<blockquote>
+<p><strong>Note</strong>: JVMs are managed by <a
+href="https://get-coursier.io/docs/cli-java#managed-jvms">Coursier</a>,
+and are based on the <a
+href="https://github.com/shyiko/jabba/blob/master/index.json">index</a>
+of the <a href="https://github.com/shyiko/jabba"
+title="Jabba - A Java Version Manager"><strong>jabba</strong></a>
+command-line tool.</p>
+</blockquote>
+<dl>
 <dt><strong>--jar</strong>, <strong>–jars</strong>,
 <strong>--extra-jar</strong>, <strong>--extra-jars</strong>
 <em><code>paths</code></em></dt>
@@ -362,7 +384,7 @@ Add extra source JARs.
 Add a resource directory.
 </dd>
 <dt><strong>-J</strong>, <strong>--java-opt</strong>
-<em><code>&lt;java-options&gt;</code></em></dt>
+<em><code>java-options</code></em></dt>
 <dd>
 Set Java options, such as <strong><code>-Xmx1g</code></strong>.
 </dd>
@@ -403,22 +425,30 @@ options</span></h2>
 <dt><strong>--js-version</strong>
 <code>[</code><em><code>string</code></em><code>]</code></dt>
 <dd>
-Set the Scala JS version.
+Set the <a href="https://www.scala-js.org/">Scala.js</a> version.
 </dd>
-<dt><strong>--js-mode</strong>
-<code>[</code><em><code>string</code></em><code>]</code></dt>
+<dt><strong>--js-mode</strong> <em><code>string</code></em></dt>
 <dd>
-Set the Scala JS mode, either <strong><code>dev</code></strong> or
-<strong><code>release</code></strong>.
+Set the <a href="https://www.scala-js.org/">Scala.js</a> mode.
 </dd>
+</dl>
+<blockquote>
+<p>Choices: <strong><code>dev</code></strong>,
+<strong><code>release</code></strong>.</p>
+</blockquote>
+<dl>
 <dt><strong>--js-module-kind</strong>
 <code>[</code><em><code>string</code></em><code>]</code></dt>
 <dd>
-Set the Scala JS module kind:
-<strong><code>commonjs</code></strong>/<strong><code>common</code></strong>,
-<strong><code>esmodule/es</code></strong>,
-<strong><code>nomodule/none</code></strong>.
+Set the <a href="https://www.scala-js.org/">Scala.js</a> module kind.
 </dd>
+</dl>
+<blockquote>
+<p>Choices: <strong><code>commonjs</code></strong>/<strong><code>common</code></strong>,
+<strong><code>esmodule/es</code></strong>,
+<strong><code>nomodule/none</code></strong>.</p>
+</blockquote>
+<dl>
 <dt><strong>--js-check-ir</strong></dt>
 <dd>
  
@@ -541,9 +571,9 @@ href="./scalafix.1.html"><strong>scalafix</strong></a>(1), <a
 href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <!-- hyperref -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
-  <div style="float:left;"><a href="https://scala-cli.virtuslab.org/">Scala CLI 0.0.9</a></div>
+  <div style="float:left;"><a href="https://scala-cli.virtuslab.org/">Scala CLI 0.1.2</a></div>
   <div style="float:right;">scala-cli(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
-  <div style="text-align:center;">March 30, 2022</div>
+  <div style="text-align:center;">April 02, 2022</div>
 </div>
 </body>
 </html>

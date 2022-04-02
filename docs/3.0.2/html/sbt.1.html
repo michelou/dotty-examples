@@ -189,7 +189,7 @@ href="https://www.scala-lang.org/">Scala</a>, <a
 href="https://www.java.com/en/download/help/whatis_java.html">Java</a>,
 and more.</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p><strong><code>sbt</code></strong>
+<p><strong>sbt</strong>
 <code>[</code><em><code>options</code></em><code>]</code>
 <code>[</code><em><code>file</code></em><code>... ]</code></p>
 <h1 id="description">DESCRIPTION</h1>
@@ -376,6 +376,12 @@ title="java command"><strong>java</strong></a> command from
 <h1 id="environment">ENVIRONMENT</h1>
 <h2 id="environment-variables">Environment Variables</h2>
 <dl>
+<dt><strong>JAVA_HOME</strong></dt>
+<dd>
+Specify JDK/JRE home directory. This directory is used to locate the <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html"
+title="java command"><strong>java</strong></a> command.
+</dd>
 <dt><strong>JAVA_OPTS</strong></dt>
 <dd>
 If unset uses <strong><code>-Dfile.encoding=UTF-8</code></strong>.
@@ -386,14 +392,16 @@ If unset uses <strong><code>""</code></strong>.
 </dd>
 </dl>
 <blockquote>
-<p><em><em>Note</em></em>: <strong><code>SBT_OPTS</code></strong> acts
-as a superset of <strong><code>JAVA_OPTS</code></strong> allowing
+<p><strong>Note</strong>: <strong><code>SBT_OPTS</code></strong> acts as
+a superset of <strong><code>JAVA_OPTS</code></strong> allowing
 <code>-X*</code> and <code>-D</code><em><code>property=value</code></em>
 as well as sbt script specific features such as <code>-v</code> and
 <code>--supershell=false</code>.</p>
 </blockquote>
 <h2 id="system-properties">System Properties</h2>
-<p>The following System properties influence Sbt execution :
+<p>The following System properties influence <a
+href="https://www.scala-sbt.org/"
+title="Sbt - The interactive build tool">Sbt</a> execution :
 <!-- https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html#Command+Line+Options --></p>
 <dl>
 <dt><strong>sbt.banner</strong> <em><code>boolean</code></em></dt>
@@ -463,10 +471,10 @@ packages.
 <dt><strong>sbt.ivy.home</strong> <em><code>directory</code></em></dt>
 <dd>
 Set the directory containing the local <a
-href="https://ant.apache.org/ivy/"><em>Ivy</em></a> repository and
-artifact cache. You should define
-<strong><code>sbt.ivy.home</code></strong> explicitly if you are using
-sbt in a CI environment and want to cache ivy artifacts between runs.
+href="https://ant.apache.org/ivy/">Ivy</a> repository and artifact
+cache. You should define <strong><code>sbt.ivy.home</code></strong>
+explicitly if you are using sbt in a CI environment and want to cache
+ivy artifacts between runs.
 </dd>
 </dl>
 <blockquote>
@@ -509,6 +517,17 @@ Set <strong>sbt</strong> version to use, usually taken from file
 </dl>
 <h2 id="configuration-files">Configuration Files</h2>
 <dl>
+<dt><strong><code>project/build.properties</code></strong></dt>
+<dd>
+If not present <strong>sbt</strong> creates file
+<code>project/build.properties</code> with the following initial
+contents :
+</dd>
+</dl>
+<blockquote>
+<p><code>sbt.version=1.6.2</code></p>
+</blockquote>
+<dl>
 <dt><strong><code>.jvmopts</code></strong></dt>
 <dd>
 If file <code>.jvmopts</code> exists in the current directory, its
@@ -525,7 +544,7 @@ If this file exists, it is prepended to the runner arguments.
 </dd>
 </dl>
 <blockquote>
-<p><em><em>Note</em></em>: In the case of duplicated or conflicting
+<p><strong>Note</strong>: In the case of duplicated or conflicting
 options, the order above shows precedence:
 <strong><code>JAVA_OPTS</code></strong> lowest, command line options
 highest.</p>
@@ -565,6 +584,11 @@ development team.</p>
 <h1 id="reporting-bugs">REPORTING BUGS</h1>
 <p>Please file bugs to <a
 href="https://github.com/sbt/sbt/issues"><strong>https://github.com/sbt/sbt/issues</strong></a>.</p>
+<p>Other sources of help :</p>
+<ul>
+<li><a href="https://gitter.im/sbt/home"><strong>sbt</strong></a> chat
+room on Gitter.</li>
+</ul>
 <h1 id="copyright">COPYRIGHT</h1>
 <p><a href="https://github.com/sbt/sbt/blob/develop/LICENSE">The Apache
 License 2.0</a></p>
@@ -577,14 +601,14 @@ Inc.</strong></a></p>
 <p><a href="./amm.1.html"><strong>amm</strong></a>(1), <a
 href="./cs.1.html"><strong>cs</strong></a>(1), <a
 href="./mill.1.html"><strong>mill</strong></a>(1), <a
-href="./scala-cli.1.html"><strong>scala-cli</strong></a>(1),
-[<strong>scalafix</strong>][scalafix](1), <a
+href="./scala-cli.1.html"><strong>scala-cli</strong></a>(1), <a
+href="./scalafix.1.html"><strong>scalafix</strong></a>(1), <a
 href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <!-- hyperref -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://www.scala-sbt.org/">Sbt 1.6.2</a></div>
   <div style="float:right;">sbt(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
-  <div style="text-align:center;">March 30, 2022</div>
+  <div style="text-align:center;">April 02, 2022</div>
 </div>
 </body>
 </html>

@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="dcterms.date" content="2022-04-02" />
-  <title>scalac(1) Scala @@VERSION@@ | Scala 3 Commands</title>
+  <title>scalac(1) Scala 3.0.2 | Scala 3 Commands</title>
   <style>
     html {
       line-height: 1.5;
@@ -167,8 +167,7 @@
 <body>
 <header id="title-block-header">
 <!--
-<h1 class="title">scalac(1) Scala @<span class="citation"
-data-cites="VERSION">@VERSION</span>@@ | Scala 3 Commands</h1>
+<h1 class="title">scalac(1) Scala 3.0.2 | Scala 3 Commands</h1>
 <p class="date">April 02, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
@@ -190,7 +189,7 @@ href="https://dotty.epfl.ch/">Scala 3</a> language</p>
 <p><strong><code>scalac</code></strong>
 <code>[</code><em><code>options</code></em><code>]</code>
 <code>[</code><em><code>source-files</code></em><code>]</code></p>
-<p>Start the Scala 3 REPL. Same as <a
+<p>Start the Scala 3 REPL. See <a
 href="./scala.1.html"><strong>scala</strong></a>(1).</p>
 <blockquote>
 <p><strong><code>scalac -repl</code></strong>
@@ -204,7 +203,7 @@ definitions, written in the Scala programming language, and compiles
 them into bytecode class files.</p>
 <p>By default, the compiler puts each class file in the same directory
 as its source file. You can specify a separate destination directory
-with <code>-d</code> (see <a
+with <strong><code>-d</code></strong> (see <a
 href="#standard-options"><strong>OPTIONS</strong></a>, below).</p>
 <h1 id="options">OPTIONS</h1>
 <p>The <strong>scalac</strong> command supports a wide range of options
@@ -288,7 +287,7 @@ Default: <strong><code>always</code></strong>.</p>
 </blockquote>
 <dl>
 <dt><strong>-d</strong>
-<em><code>directory</code></em><code>|</code><em><code>jar</code></em></dt>
+<em><code>directory</code></em>|<em><code>jar</code></em></dt>
 <dd>
 Specify the destination for generated class files.
 </dd>
@@ -337,19 +336,22 @@ Together with <strong>-rewrite</strong>, remove {…} syntax when possible
 due to significant indentation.
 </dd>
 <dt><span
-id="java-output-version"><strong>-java-output-version</strong></span></dt>
+id="java-output-version"><strong>-java-output-version:</strong><em><code>target</code></em></span></dt>
 <dd>
 Compile code with classes specific to the given version of the Java
 platform available on the classpath and emit bytecode for this version.
-Corresponds to option <code>-release</code> from command <a
-href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javac.html"><strong>javac</strong></a>.
 </dd>
+</dl>
+<blockquote>
+<p><strong>Note</strong>:  Similar to option <code>-release</code> from
+command <a
+href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javac.html"><strong>javac</strong></a>.</p>
+</blockquote>
+<dl>
 <dt><strong>-javabootclasspath</strong>,
 <strong>--java-boot-class-path</strong> <em><code>path</code></em></dt>
 <dd>
-Override <a
-href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html"><strong>java</strong></a>
-boot classpath.
+Override Java boot classpath.
 </dd>
 </dl>
 <blockquote>
@@ -359,14 +361,12 @@ boot classpath.
 <dt><span id="javaextdirs"><strong>-javaextdirs</strong>
 <em><code>path</code></em></span></dt>
 <dd>
-Override <a
-href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html"><strong>java</strong></a>
-extdirs classpath.
+Override the Java extdirs classpath.
 </dd>
 </dl>
 <blockquote>
-<p>Libraries specified in <em><code>&lt;path&gt;</code></em> are loaded
-using the extension classloader
+<p>Libraries specified in <em><code>path</code></em> are loaded using
+the extension classloader
 (e.g. <code>sun.misc.Launcher.ExtClassLoader</code>) instead of the
 system classloader
 (e.g. <code>sun.misc.Launcher.AppClassLoader</code>).</p>
@@ -393,11 +393,9 @@ Enable one or more language features; writing
 - <code>higherKinds</code><br />
 - <code>implicitConversions</code><br />
 - <code>postfixOps</code><br />
-- <code>strictEquality</code>.</p>
-</blockquote>
-<blockquote>
-<p>Loose equality using <code>eqAny</code> is disabled.<br />
-See section <a
+- <code>strictEquality</code>.<br />
+  Loose equality using <code>eqAny</code> is disabled.<br />
+  See section <a
 href="https://dotty.epfl.ch/docs/reference/contextual/multiversal-equality">Multiversal
 equality</a> of the online <a
 href="https://dotty.epfl.ch/docs/reference/">Scala 3 reference</a>.</p>
@@ -436,11 +434,11 @@ Require <code>(...)</code> around conditions.
 <dt><strong>-pagewidth</strong>, <strong>--page-width</strong>
 <em><code>width</code></em></dt>
 <dd>
-Set page width in characters.
+Set the page width in characters.
 </dd>
 </dl>
 <blockquote>
-<p>Default: <code>133</code> characters.</p>
+<p>Default: <strong><code>133</code></strong> characters.</p>
 </blockquote>
 <dl>
 <dt><strong>-print-lines</strong></dt>
@@ -451,9 +449,10 @@ Show source code line numbers.
 <dd>
 Print the raw tasty.
 </dd>
-<dt><strong>-release</strong>, <strong>--release</strong></dt>
+<dt><strong>-release</strong>,
+<strong>--release:</strong><em><code>number</code></em></dt>
 <dd>
-Same as option <a
+See <a
 href="#java-output-version"><strong>-java-output-version</strong></a>.
 </dd>
 <dt><strong>-rewrite</strong></dt>
@@ -587,7 +586,7 @@ mode<br />
 - <code>verbose</code> / <code>v</code> (emit warning, show additional
 help for writing <code>-Wconf</code> filters)<br />
 - <code>info</code> / <code>i</code> (infos are not counted as warnings
-and not affected by <code>-Werror</code>)<br />
+and not affected by <strong><code>-Werror</code></strong>)<br />
 - <code>silent</code> / <code>s</code><br />
 Examples:<br />
 - <code>-Wconf:any:error</code> : change every warning into an
@@ -607,7 +606,7 @@ href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javac.html"><stro
 option <strong>-Werror</strong>.</p>
 </blockquote>
 <dl>
-<dt><strong>-Wunused</strong> <em><code>choice</code></em></dt>
+<dt><strong>-Wunused:</strong><em><code>choice</code></em></dt>
 <dd>
 Enable or disable specific <code>unused</code> warnings.
 </dd>
@@ -616,7 +615,13 @@ Enable or disable specific <code>unused</code> warnings.
 <p>Choices: <strong><code>nowarn</code></strong>,
 <strong><code>all</code></strong>.</p>
 </blockquote>
-<h2 id="advanced-options">Advanced Options</h2>
+<blockquote>
+<p><strong>Note</strong>: <a href="https://www.scala-lang.org/">Scala
+2</a> supports more choices (see <a
+href="https://www.scala-lang.org/2021/01/12/configuring-and-suppressing-warnings.html"><code>-Wunused:help</code></a>).</p>
+</blockquote>
+<h2 id="advanced-options"><span id="advanced_options">Advanced
+Options</span></h2>
 <dl>
 <dt><strong>-Xcheck-macros</strong>,
 <strong>--Xcheck-macros</strong></dt>
@@ -657,7 +662,7 @@ are reported.
 Set the class for manifest’s <code>Main-Class</code> entry (only useful
 with <strong><code>-d</code></strong> <em><code>jar</code></em>).
 </dd>
-<dt><strong>-Xmax-inlined-trees:</strong><em><code>nr_of_trees</code></em></dt>
+<dt><strong>-Xmax-inlined-trees:</strong><em><code>number</code></em></dt>
 <dd>
 Set the maximal number of inlined trees.
 </dd>
@@ -666,7 +671,7 @@ Set the maximal number of inlined trees.
 <p>Default: <strong><code>2000000</code></strong>.</p>
 </blockquote>
 <dl>
-<dt><strong>-Xmax-inlines:</strong><em><code>nr_of_lines</code></em></dt>
+<dt><strong>-Xmax-inlines:</strong><em><code>number</code></em></dt>
 <dd>
 Set the maximal number of successive inlines.
 </dd>
@@ -717,7 +722,7 @@ Abort if a named plugin is not loaded.
 <dt><strong>-Xpluginsdir</strong> <em><code>path</code></em>
 <!-- https://github.com/lampepfl/dotty/blob/main/compiler/src/dotty/tools/dotc/config/PathResolver.scala --></dt>
 <dd>
-Path to search for plugin archives.
+Set the path to search for plugin archives.
 </dd>
 </dl>
 <blockquote>
@@ -725,14 +730,20 @@ Path to search for plugin archives.
 <strong><code>%SCALA_HOME%\misc\scala-devel\plugins</code></strong>.</p>
 </blockquote>
 <dl>
-<dt><strong>-Xprint:</strong><em><code>phase</code></em></dt>
+<dt><strong>-Xprint:</strong><em><code>name1,name2,..</code></em></dt>
 <dd>
-Print the syntax trees at end of phase <em><code>phase</code></em>.
+Print the syntax trees at end of phase(s)
+<em><code>name1,..</code></em>.
 </dd>
 </dl>
 <blockquote>
-<p>Use option <strong>-Xshow-phases</strong> to print all compiler
-phases.</p>
+<p>Example: <strong><code>-Xprint:typer,mixin</code></strong> prints the
+<strong><code>typer</code></strong> and
+<strong><code>mixin</code></strong> phases.</p>
+</blockquote>
+<blockquote>
+<p><em>Note</em>: Use option <strong>-Xshow-phases</strong> to print the
+name of all compiler phases.</p>
 </blockquote>
 <dl>
 <dt><strong>-Xprint-diff</strong></dt>
@@ -820,7 +831,7 @@ Check that symbols and their defining trees have modifiers in sync.
 Check that compiled program does not contain vars that can be accessed
 from a global root.
 </dd>
-<dt><strong>-Ycook-docs</strong></dt>
+<dt><strong>-Ycook-docs</strong>, <strong>-Ycook-comments</strong></dt>
 <dd>
 Cook the documentation (type check <code>@usecase</code>, etc.).
 </dd>
@@ -876,7 +887,7 @@ to be set to <strong><code>true</code></strong>).
 Do not cache flat classpath representation of classpath elements from
 jars across compiler instances.
 </dd>
-<dt><strong>-Ydrop-docs</strong></dt>
+<dt><strong>-Ydrop-docs</strong>, <strong>-Ydrop-comments</strong></dt>
 <dd>
 Drop documentation when scanning source files.
 </dd>
@@ -1239,10 +1250,12 @@ failure.</p>
 <p>Written by <a
 href="https://en.wikipedia.org/wiki/Martin_Odersky"><strong>Martin Odersky</strong></a>,
 the Scala team and the <a
-href="https://contributors.scala-lang.org/"><strong>Scala contributors</strong></a>.</p>
+href="https://contributors.scala-lang.org/categories"><strong>Scala contributors</strong></a>.</p>
 <h1 id="reporting-bugs">REPORTING BUGS</h1>
 <p>Report bugs to <a
 href="https://issues.scala-lang.org/"><strong>https://issues.scala-lang.org/</strong></a>.</p>
+<p>Find help on forums like Reddit <a
+href="https://www.reddit.com/r/scala/"><code>r/scala</code></a>.</p>
 <h1 id="copyright">COPYRIGHT</h1>
 <p>This is open-source software, available to you under a BSD-like
 license. See accompanying “copyright” or “LICENSE” file for copying
