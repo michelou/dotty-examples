@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-02" />
+  <meta name="dcterms.date" content="2022-04-04" />
   <title>sbt(1) Sbt 1.6.2 | Scala Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">sbt(1) Sbt 1.6.2 | Scala Commands</h1>
-<p class="date">April 02, 2022</p>
+<p class="date">April 04, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">sbt(1)</div>
@@ -193,18 +193,16 @@ and more.</p>
 <code>[</code><em><code>options</code></em><code>]</code>
 <code>[</code><em><code>file</code></em><code>... ]</code></p>
 <h1 id="description">DESCRIPTION</h1>
-<h2 id="for-scala-and-java">For Scala and Java</h2>
 <p><strong>sbt</strong> is built for Scala and Java projects. One of the
 examples of Scala-specific feature is the ability to cross build your
 project against multiple Scala versions.</p>
-<h2 id="typesafe-and-parallel">Typesafe and parallel</h2>
 <p><strong>build.sbt</strong> is a Scala-based DSL to express parallel
 processing task graph. Typos in <code>build.sbt</code> will be caught as
 a compilation error.</p>
-<h2 id="speedy-iteration">Speedy iteration</h2>
-<p>With Zinc incremental compiler and file watch (<code>~</code>),
-edit-compile-test loop is fast and incremental.</p>
-<h2 id="extensible">Extensible</h2>
+<p>With <a href="https://github.com/sbt/zinc"
+title="Zinc - a Scala incremental compiler library">Zinc</a> incremental
+compiler and file watch (<code>~</code>), edit-compile-test loop is fast
+and incremental.</p>
 <p>Adding support for new tasks and platforms (like <a
 href="https://www.scala-js.org/"
 title="Scala.js - for robust front-end web applications">Scala.js</a>)
@@ -212,16 +210,16 @@ is as easy as writing <strong><code>build.sbt</code></strong>.</p>
 <p>Further features include :</p>
 <ul>
 <li>Library management support using <a href="https://get-coursier.io/"
-title="Coursier - Pure Scala Artifact Fetching">Coursier</a></li>
-<li>Continuous compilation and testing with triggered execution</li>
+title="Coursier - Pure Scala Artifact Fetching">Coursier</a>.</li>
+<li>Continuous compilation and testing with triggered execution.</li>
 <li>Supports testing with <a
 href="https://scalacheck.org/">ScalaCheck</a>, <a
 href="https://etorreborre.github.io/specs2/">specs2</a>, and <a
 href="https://www.scalatest.org/">ScalaTest</a>. <a
 href="https://junit.org/">JUnit</a> is supported by a plugin.</li>
 <li>Starts the Scala REPL with project classes and dependencies on the
-classpath</li>
-<li>Modularization supported with sub-projects</li>
+classpath.</li>
+<li>Modularization supported with sub-projects.</li>
 <li>External project support (list a git repository as a
 dependency!)</li>
 <li>Parallel task execution, including parallel test execution.</li>
@@ -294,8 +292,8 @@ Set path to global settings/plugins directory.
 </dd>
 </dl>
 <blockquote>
-<p>Default (Unix): <code>~/.sbt</code>.<br />
-Default (Windows): <code>%USERPROFILE%\.sbt</code>.</p>
+<p>Default (Unix): <code>~/.sbt</code><br />
+Default (Windows): <code>%USERPROFILE%\.sbt</code></p>
 </blockquote>
 <dl>
 <dt><strong>--sbt-boot</strong> <em><code>path</code></em></dt>
@@ -323,7 +321,7 @@ repository.
 </dd>
 </dl>
 <blockquote>
-<p>Default: <code>~/.ivy2</code>.</p>
+<p>Default: <code>~/.ivy2/</code></p>
 </blockquote>
 <dl>
 <dt><strong>--mem</strong> <em><code>integer</code></em></dt>
@@ -394,9 +392,12 @@ If unset uses <strong><code>""</code></strong>.
 <blockquote>
 <p><strong>Note</strong>: <strong><code>SBT_OPTS</code></strong> acts as
 a superset of <strong><code>JAVA_OPTS</code></strong> allowing
-<code>-X*</code> and <code>-D</code><em><code>property=value</code></em>
-as well as sbt script specific features such as <code>-v</code> and
-<code>--supershell=false</code>.</p>
+<strong><code>-X*</code></strong> and
+<strong><code>-D</code></strong><em><code>property=value</code></em> as
+well as <a href="https://www.scala-sbt.org/"
+title="Sbt - The interactive build tool">Sbt</a> script specific
+features such as <strong><code>-v</code></strong> and
+<strong><code>--supershell=false</code></strong>.</p>
 </blockquote>
 <h2 id="system-properties">System Properties</h2>
 <p>The following System properties influence <a
@@ -478,10 +479,9 @@ ivy artifacts between runs.
 </dd>
 </dl>
 <blockquote>
-<p>Default (<em>Unix</em>):
-<strong><code>~/.ivy2/</code></strong>.<br />
+<p>Default (<em>Unix</em>): <strong><code>~/.ivy2/</code></strong><br />
 Default (<em>Windows</em>):
-<strong><code>%USERPROFILE%\.ivy2\</code></strong>.</p>
+<strong><code>%USERPROFILE%\.ivy2\</code></strong></p>
 </blockquote>
 <dl>
 <dt><strong>sbt.log.noformat</strong> <em><code>boolean</code></em></dt>
@@ -586,8 +586,12 @@ development team.</p>
 href="https://github.com/sbt/sbt/issues"><strong>https://github.com/sbt/sbt/issues</strong></a>.</p>
 <p>Other sources of help :</p>
 <ul>
-<li><a href="https://gitter.im/sbt/home"><strong>sbt</strong></a> chat
-room on Gitter.</li>
+<li><a href="https://gitter.im/">Gitter</a> : <a
+href="https://gitter.im/sbt/home"><strong>sbt</strong></a>.</li>
+<li><a
+href="https://stackoverflow.com/">stack<strong>overflow</strong></a> :
+<a
+href="https://stackoverflow.com/tags/sbt/"><strong>sbt</strong></a>.</li>
 </ul>
 <h1 id="copyright">COPYRIGHT</h1>
 <p><a href="https://github.com/sbt/sbt/blob/develop/LICENSE">The Apache
@@ -608,7 +612,7 @@ href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://www.scala-sbt.org/">Sbt 1.6.2</a></div>
   <div style="float:right;">sbt(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
-  <div style="text-align:center;">April 02, 2022</div>
+  <div style="text-align:center;">April 04, 2022</div>
 </div>
 </body>
 </html>

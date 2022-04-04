@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-02" />
+  <meta name="dcterms.date" content="2022-04-04" />
   <title>gradle(1) Gradle 4.7.1 | Gradle Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">gradle(1) Gradle 4.7.1 | Gradle Commands</h1>
-<p class="date">April 02, 2022</p>
+<p class="date">April 04, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">gradle(1)</div>
@@ -217,7 +217,9 @@ href="https://www.eclipse.org/ide/">Eclipse</a>, <a
 href="https://www.jetbrains.com/idea/"
 title="IntelliJ IDEA - Capable and Ergonomic IDE for JVM">IntelliJ</a>,
 and <a href="https://www.jenkins.io/"
-title="Jenkins - The leading automation server">Jenkins</a>.</p>
+title="Jenkins - The leading automation server">Jenkins</a>. <!--
+https://docs.gradle.org/current/userguide/core_dependency_management.html
+--></p>
 <h1 id="commands"><span id="commands">COMMANDS</span></h1>
 <!-- https://docs.gradle.org/current/userguide/build_init_plugin.html -->
 <dl>
@@ -266,7 +268,7 @@ Debug Gradle client (non-Daemon) process. Gradle will wait for you to
 attach a debugger at <strong><code>localhost:5005</code></strong> by
 default.
 </dd>
-<dt><strong>-Dorg.gradle.debug.port=</strong><em><code>&lt;port_number&gt;</code></em></dt>
+<dt><strong>-Dorg.gradle.debug.port=</strong><em><code>number</code></em></dt>
 <dd>
 Specify the port number to listen on when debug is enabled.
 </dd>
@@ -383,7 +385,7 @@ Only displays daemons of the same Gradle version.
 <dd>
 Run gradle –stop to stop all Gradle Daemons of the same version.
 </dd>
-<dt><strong>-Dorg.gradle.daemon.idletimeout=</strong><em><code>&lt;millis&gt;</code></em></dt>
+<dt><strong>-Dorg.gradle.daemon.idletimeout=</strong><em><code>millis</code></em></dt>
 <dd>
 Gradle Daemon will stop itself after this number of milliseconds of idle
 time.
@@ -452,7 +454,7 @@ Indicate that all resolved configurations that are lockable should have
 their lock state persisted. Learn more about this in dependency locking.
 </dd>
 <dt><strong>--update-locks</strong>
-<em><code>&lt;group:name&gt;</code></em><code>[,...]</code></dt>
+<em><code>group:name</code></em><code>[,...]</code></dt>
 <dd>
 Indicate that versions for the specified modules have to be updated in
 the lock file. This flag also implies
@@ -462,7 +464,8 @@ dependency locking.
 <dt><strong>-a</strong>, <strong>--no-rebuild</strong></dt>
 <dd>
 Do not rebuild project dependencies. Useful for debugging and
-fine-tuning buildSrc, but can lead to wrong results. Use with caution!
+fine-tuning <code>buildSrc</code>, but can lead to wrong results. Use
+with caution!
 </dd>
 </dl>
 <h2 id="dependency-verification-options"><span
@@ -496,23 +499,34 @@ Options</span></h2>
 <dt><strong>-b</strong>, <strong>--build-file</strong>
 (<em>deprecated</em>)</dt>
 <dd>
-Specify the build file. For example: gradle –build-file=foo.gradle. The
-default is build.gradle, then build.gradle.kts.
+Specify the build file.
 </dd>
-<dt><strong>-c</strong>, <strong>--settings-file</strong>
+</dl>
+<blockquote>
+<p>Example: <code>gradle --build-file=foo.gradle.</code></p>
+</blockquote>
+<blockquote>
+<p>Defaults: <code>build.gradle</code>, then
+<code>build.gradle.kts</code>.</p>
+</blockquote>
+<dl>
+<dt><strong>-c</strong>,
+<strong>--settings-file=</strong><em><code>file</code></em>
 (<em>deprecated</em>)</dt>
 <dd>
 Specify the settings file.
 </dd>
 </dl>
 <blockquote>
-<p>For example: gradle –settings-file=somewhere/else/settings.gradle</p>
+<p>For example:
+<code>gradle --settings-file=somewhere/else/settings.gradle</code></p>
 </blockquote>
 <dl>
 <dt><strong>-g</strong>, <strong>--gradle-user-home</strong></dt>
 <dd>
-Specify the Gradle user home directory. The default is the .gradle
-directory in the user’s home directory.
+Specify the Gradle user home directory. The default is the
+<strong><code>.gradle</code></strong> directory in the user’s home
+directory.
 </dd>
 <dt><strong>-p</strong>, <strong>--project-dir</strong></dt>
 <dd>
@@ -532,18 +546,19 @@ Set a system property of the JVM, for example
 <dd>
 Specifies an initialization script. See Init Scripts.
 </dd>
-<dt><strong>-P</strong>, <strong>--project-prop</strong></dt>
+<dt><strong>-P</strong>,
+<strong>--project-prop</strong><em><code>property=value</code></em></dt>
 <dd>
 Set a project property of the root project, for example
 <strong><code>-Pmyprop=myvalue</code></strong>. See Project Properties.
 </dd>
 <dt><strong>-Dorg.gradle.jvmargs</strong></dt>
 <dd>
-Set JVM arguments.
+Set the JVM arguments.
 </dd>
-<dt><strong>-Dorg.gradle.java.home=</strong><em><code>&lt;path&gt;</code></em></dt>
+<dt><strong>-Dorg.gradle.java.home=</strong><em><code>path</code></em></dt>
 <dd>
-Set JDK home directory.
+Set the JDK home directory.
 </dd>
 </dl>
 <h1 id="environment">ENVIRONMENT</h1>
@@ -579,7 +594,7 @@ href="./sdkman.1.html"><strong>sdkman</strong></a>(1).</p>
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://gradle.org/">Gradle 4.7.1</a></div>
   <div style="float:right;">gradle(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
-  <div style="text-align:center;">April 02, 2022</div>
+  <div style="text-align:center;">April 04, 2022</div>
 </div>
 </body>
 </html>

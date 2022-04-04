@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-02" />
+  <meta name="dcterms.date" content="2022-04-04" />
   <title>mill(1) Mill 0.10.0 | Scala Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">mill(1) Mill 0.10.0 | Scala Commands</h1>
-<p class="date">April 02, 2022</p>
+<p class="date">April 04, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">mill(1)</div>
@@ -194,8 +194,10 @@
 support for the <a href="https://www.scala-lang.org/"
 title="The Scala Programming Language">Scala</a> programming language,
 and can serve as a replacement for SBT. It can be extended to support
-any other language or platform via modules (written in Java or Scala) or
-through external subprocesses.</p>
+any other language or platform via modules (written in Java or <a
+href="https://www.scala-lang.org/"
+title="The Scala Programming Language">Scala</a>) or through external
+subprocesses.</p>
 <h1 id="commands"><span id="commands">COMMANDS</span></h1>
 <dl>
 <dt><strong>all</strong></dt>
@@ -266,8 +268,8 @@ Watch and re-run your scripts when they change.
 <dt><strong>–bsp</strong></dt>
 <dd>
 Run a <a href="https://build-server-protocol.github.io/"
-title="BSP - Protocol for IDEs and build tools"><em>BSP</em></a> server
-against the passed scripts.
+title="BSP - Protocol for IDEs and build tools">BSP</a> server against
+the passed scripts.
 </dd>
 <dt><strong>-c</strong>, <strong>--code</strong>
 <em><code>string</code></em></dt>
@@ -324,7 +326,7 @@ Must be the first argument.
 <dd>
 Run <a href="https://com-lihaoyi.github.io/mill">Mill</a> in interactive
 mode, suitable for opening REPLs and taking user input. In this mode, no
-mill server will be used. Must be the first argument.
+Mill server will be used. Must be the first argument.
 </dd>
 <dt><strong>--bsp</strong></dt>
 <dd>
@@ -375,8 +377,8 @@ processors.
 <dt><strong>--import</strong> <em><code>string</code></em></dt>
 <dd>
 Additional <a href="https://ant.apache.org/ivy/"
-title="Ivy - The agile dependency manager"><em>Ivy</em></a> dependencies
-to load into <a href="https://com-lihaoyi.github.io/mill">Mill</a>,
+title="Ivy - The agile dependency manager">Ivy</a> dependencies to load
+into <a href="https://com-lihaoyi.github.io/mill">Mill</a>,
 e.g. plugins.
 </dd>
 <dt><strong>rest</strong> <em><code>string ...</code></em></dt>
@@ -386,7 +388,8 @@ you wish to pass to those targets.
 </dd>
 </dl>
 <h1 id="environment"><span id="environment">ENVIRONMENT</span></h1>
-<h2 id="environment-variables">Environment Variables</h2>
+<h2 id="environment-variables"><span
+id="environment_variables">Environment Variables</span></h2>
 <!-- https://com-lihaoyi.github.io/mill/mill/Intro_to_Mill.html#_overriding_mill_versions -->
 <dl>
 <dt><strong>MILL_VERSION</strong></dt>
@@ -414,7 +417,7 @@ the <a href="https://com-lihaoyi.github.io/mill">Mill</a> script.
 <p><strong>mill</strong> returns a zero exit status if it succeeds at
 processing the specified input files. Non zero is returned in case of
 failure.</p>
-<h1 id="authors">AUTHORS</h1>
+<h1 id="authors"><span id="authors">AUTHORS</span></h1>
 <p>Written by <strong>Hi Haoyi</strong> (<a
 href="https://www.lihaoyi.com/">https://www.lihaoyi.com/</a>).</p>
 <h1 id="reporting-bugs">REPORTING BUGS</h1>
@@ -425,7 +428,13 @@ href="https://github.com/com-lihaoyi/mill/issues"><strong>https://github.com/com
 MIT License (MIT)</a></p>
 <p>Copyright (c) 2017-2022 <strong>Li Haoyi</strong>
 (haoyi.sg@gmail.com)</p>
-<h1 id="see-also">SEE ALSO</h1>
+<p>Other sources of help :</p>
+<ul>
+<li><a
+href="https://gitter.im/lihaoyi/mill"><strong>lihaoyi/mill</strong></a>
+on <a href="https://gitter.im/">Gitter</a>.</li>
+</ul>
+<h1 id="see-also"><span id="see_also">SEE ALSO</span></h1>
 <p><a href="./amm.1.html"><strong>amm</strong></a>(1), <a
 href="./cs.1.html"><strong>cs</strong></a>(1), <a
 href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
@@ -436,7 +445,7 @@ href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://com-lihaoyi.github.io/mill/">Mill 0.10.0</a></div>
   <div style="float:right;">mill(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
-  <div style="text-align:center;">April 02, 2022</div>
+  <div style="text-align:center;">April 04, 2022</div>
 </div>
 </body>
 </html>

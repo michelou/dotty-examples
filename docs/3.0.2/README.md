@@ -1,6 +1,6 @@
-# <span id="top">Scala Manual Pages</span> <span style="size:30%;"><a href="../../README.md">⬆</a></span>
+# <span id="top">Scala 3 Manual Pages</span> <span style="size:30%;"><a href="../../README.md">⬆</a></span>
 
-We generate both versions of the manual pages with the [Pandoc][pandoc] tool <sup id="anchor_01">[1](#footnote_01)</sup>.
+We use the [Pandoc][pandoc] tool <sup id="anchor_01">[1](#footnote_01)</sup> to generate the [HTML] and the [troff] versions of the manual pages.
 
 > **:mag_right:** 4 examples of online manual pages :
 > - [Ubuntu](https://manpages.ubuntu.com/) hosted [manual pages](http://manpages.ubuntu.com/manpages/jammy/) (includes [`scala.1`](https://manpages.ubuntu.com/manpages/jammy/en/man1/scala.1.html), Scala 2.11).
@@ -10,13 +10,16 @@ We generate both versions of the manual pages with the [Pandoc][pandoc] tool <su
 
 ## <span id="previews">HTML Previews</span>
 
-Scala 3 commands :
+The Scala 3 commands are :
 <pre>
 <a href="https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scala.1.html" rel="external"><b>scala</b>.1.html</a>, <a href="https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalac.1.html" rel="external"><b>scalac</b>.1.html</a>, <a href="
 https://tinyurl.com/2p8zevyt?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scaladoc.1.html"><b>scaladoc</b>.1.html</a>
 </pre>
 
-Third-party Scala commands :
+test: <a href="
+https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/amm.1.html" rel="external"><b>amm</b>.1.html</a>
+
+The third-party Scala commands are :
 <pre>
 <a href="
 https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/amm.1.html" rel="external"><b>amm</b>.1.html</a>, <a href="
@@ -29,7 +32,7 @@ https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/mas
 https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalafmt.1.html" rel="external"><b>scalafmt</b>.1.html</a>
 </pre>
 
-> **:mag_right:** HTML pages hosted in a GitHub repository can be viewed by adding the prefix `https://htmlpreview.github.io/?` to their URL.
+> **:mag_right:** HTML pages hosted in a GitHub repository can be viewed by adding the prefix [`https://htmlpreview.github.io/?`][github_htmlpreview] to their URL.
 
 ## <span id="downloads">Downloads</span>
 
@@ -42,18 +45,10 @@ We've grouped the generated manual pages in 4 Zip archives :
 
 ## <span id="footnotes">Footnotes</span>
 
-<span id="footnote_01">[1]</span> ***Generation of the Manual Pages*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Pandoc Generation*** [↩](#anchor_01)
 
 <dl><dd>
 We generate the manual pages in 6 steps :
-<ol>
-<li>We replace text placeholders (e.g. <code>@@DATE@@</code>) in the source file with <a href="https://www.gnu.org/software/sed/manual/sed.html#Command_002dLine-Options"><code>sed</code></a>.</li>
-<li>We generate the manual page with <a href="https://pandoc.org/MANUAL.html"><code>pandoc -s -t man</code></a>.</li>
-<li>We compress the manual page with <a href="https://www.gnu.org/software/gzip/manual/gzip.html#Sample"><code>gzip</code></a>.</li>
-<li>We generate the HTML manual page with <a href="https://pandoc.org/MANUAL.html"><code>pandoc-s -t html</code></a>.</li>
-<li>We update the header and add a footer in the generated HTML file with <a href="https://www.gnu.org/software/sed/manual/sed.html#Command_002dLine-Options"><code>sed</code></a>.</li>
-<li>We create two Zip archives with manual pages with <a href="https://www.7-zip.org/"><code>7-Zip</code></a></li>
-</ol>
 </dd>
 <dd>
 <table style="text-align:center;font-size:80%;">
@@ -69,7 +64,7 @@ Source file<br/><code>src/scala.1.md</code>
 <b>&#8681;</b> (1)<br/>
 Patched source file<br/><code>target/src_gen/scala.1.md</code><br/>
 <b>&#8681;</b> (2)<br/>
-Manpage file<br/><code>target/man/man1/scala.1</code><br/>
+troff file<br/><code>target/man/man1/scala.1</code><br/>
 <b>&#8681;</b> (3)<br/>
 GZ file<br/><code>target/man/man1/scala.1.gz</code>
 </td>
@@ -78,6 +73,7 @@ GZ file<br/><code>target/man/man1/scala.1.gz</code>
 HTML file<br/><code>target/man/man1/scala.1.html</code><br/>
 <b>&#8681;</b> (5)<br/>
 Patched HTML file<br/><code>target/man/man1/scala.1.html</code><br/>
+&nbsp;<br/>
 &nbsp;<br/>
 </td>
 </tr>
@@ -90,6 +86,16 @@ Zip archive<br/><code>target/scala3-man-3.0.2.zip</code>
 Zip archive<br/><code>target/scala3-html-3.0.2.zip</code>
 </td></tr>
 </table>
+</dd>
+<dd>
+<ol>
+<li>We replace text placeholders (e.g. <code>@@DATE@@</code>) in the source file with <a href="https://www.gnu.org/software/sed/manual/sed.html#Command_002dLine-Options"><code>sed</code></a>.</li>
+<li>We generate the <a href="https://en.wikipedia.org/wiki/Troff"> troff</a> manual page with <a href="https://pandoc.org/MANUAL.html"><code>pandoc -s -t man</code></a>.</li>
+<li>We compress the manual page with <a href="https://www.gnu.org/software/gzip/manual/gzip.html#Sample"><code>gzip</code></a>.</li>
+<li>We generate the <a href="https://html.spec.whatwg.org/multipage/">HTML</a> manual page with <a href="https://pandoc.org/MANUAL.html"><code>pandoc-s -t html</code></a>.</li>
+<li>We modify the header and add a footer to the generated HTML file with <a href="https://www.gnu.org/software/sed/manual/sed.html#Command_002dLine-Options"><code>sed</code></a>.</li>
+<li>We create a Zip archive for each set of manual pages with <a href="https://www.7-zip.org/"><code>7-Zip</code></a>.</li>
+</ol>
 </dd></dl>
 
 <span id="footnote_02">[2]</span> ***Zip Archives*** [↩](#anchor_02)
@@ -124,5 +130,8 @@ Archive:  scala3-man-3.0.2.zip
 
 <!-- link refs -->
 
+[github_htmlpreview]: https://htmlpreview.github.io/
+[html]: https://html.spec.whatwg.org/multipage/
 [pandoc]: https://pandoc.org/installing.html
 [scala3_home]: https://dotty.epfl.ch/
+[troff]: https://en.wikipedia.org/wiki/Troff
