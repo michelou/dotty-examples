@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-04" />
+  <meta name="dcterms.date" content="2022-04-06" />
   <title>gradle(1) Gradle 4.7.1 | Gradle Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">gradle(1) Gradle 4.7.1 | Gradle Commands</h1>
-<p class="date">April 04, 2022</p>
+<p class="date">April 06, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">gradle(1)</div>
@@ -195,8 +195,8 @@ href="https://groovy-lang.org/"
 title="Groovy - A multi-faceted language for the Java platform">Groovy</a>
 and more.</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p><strong><code>gradle</code></strong>
-<code>[</code><em><code>&lt;taskName&gt;</code></em><code>...] [</code><em><code>&lt;option&gt;</code></em><code>...]</code></p>
+<p><strong>gradle</strong>
+<code>[</code><em><code>taskName</code></em><code>...] [</code><em><code>option</code></em><code>...]</code></p>
 <h1 id="description"><span id="description">DESCRIPTION</span></h1>
 <p><a href="https://gradle.org/">Gradle</a> is a build tool with a focus
 on build automation and support for multi-language development. If you
@@ -207,7 +207,8 @@ and packaging code to publishing web sites. <a
 href="https://gradle.org/">Gradle</a> has been designed to support build
 automation across multiple languages and platforms including Java, <a
 href="https://www.scala-lang.org/"
-title="The Scala Programming Language">Scala</a>, Android, <a
+title="The Scala Programming Language">Scala</a>, <a
+href="https://www.android.com/">Android</a>, <a
 href="https://kotlinlang.org/">Kotlin</a>, C/C++, and <a
 href="https://groovy-lang.org/"
 title="Groovy - A multi-faceted language for the Java platform"><em>Groovy</em></a>,
@@ -226,12 +227,12 @@ https://docs.gradle.org/current/userguide/core_dependency_management.html
 <dt><strong>init</strong></dt>
 <dd>
 Create a new Gradle build; option <strong>--type</strong>
-<em><code>&lt;type&gt;</code></em> specifies the project type.
+<em><code>type</code></em> specifies the project type.
 </dd>
 </dl>
 <blockquote>
 <p>Example: <strong>gradle init --type scala-application</strong>
-<em><code>&lt;options&gt;</code></em></p>
+<em><code>options</code></em></p>
 </blockquote>
 <h1 id="options"><span id="options">OPTIONS</span></h1>
 <h2 id="debugging-options"><span id="debugging_options">Debugging
@@ -244,8 +245,8 @@ Show a help message with all available CLI options.
 </dd>
 <dt><strong>-v</strong>, <strong>--version</strong></dt>
 <dd>
-Print Gradle, Groovy, Ant, JVM, and operating system version
-information.
+Print Gradle, Groovy, <a href="https://ant.apache.org/">Ant</a>, JVM,
+and operating system version information.
 </dd>
 <dt><strong>-S</strong>, <strong>--full-stacktrace</strong></dt>
 <dd>
@@ -281,14 +282,23 @@ Specify the port number to listen on when debug is enabled.
 <dd>
 If set to true and debugging is enabled, Gradle will run the build with
 the socket-attach mode of the debugger. Otherwise, the socket-listen
-mode is used. Default is <strong><code>true</code></strong>.
+mode is used.
 </dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>true</code></strong></p>
+</blockquote>
+<dl>
 <dt><strong>-Dorg.gradle.debug.suspend=(true,false)</strong></dt>
 <dd>
 When set to true and debugging is enabled, the JVM running Gradle will
-suspend until a debugger is attached. Default is
-<strong><code>true</code></strong>.
+suspend until a debugger is attached.
 </dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>true</code></strong></p>
+</blockquote>
+<dl>
 <dt><strong>-Dorg.gradle.daemon.debug=true</strong></dt>
 <dd>
 Debug Gradle Daemon process.
@@ -301,20 +311,32 @@ Options</span></h2>
 <strong>--no-build-cache</strong></dt>
 <dd>
 Toggles the Gradle build cache. Gradle will try to reuse outputs from
-previous builds. Default is <strong><code>off</code></strong>.
+previous builds.
 </dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>off</code></strong>.</p>
+</blockquote>
+<dl>
 <dt><strong>--configuration-cache</strong>,
 <strong>--no-configuration-cache</strong></dt>
 <dd>
 Toggle the Configuration Cache. Gradle will try to reuse the build
-configuration from previous builds. Default is off.
-</dd>
-<dt><strong>--configuration-cache-problems=(fail,warn)</strong></dt>
-<dd>
-Configures how the configuration cache handles problems. Default is
-fail.
+configuration from previous builds.
 </dd>
 </dl>
+<blockquote>
+<p>Default: <strong><code>off</code></strong>.</p>
+</blockquote>
+<dl>
+<dt><strong>--configuration-cache-problems=(fail,warn)</strong></dt>
+<dd>
+Configures how the configuration cache handles problems.
+</dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>fail</code></strong></p>
+</blockquote>
 <blockquote>
 <p>Set to warn to report problems without failing the build.</p>
 </blockquote>
@@ -327,8 +349,13 @@ problems.</p>
 <strong>--no-configure-on-demand</strong></dt>
 <dd>
 Toggle Configure-on-demand. Only relevant projects are configured in
-this build run. Default is <strong><code>off</code></strong>.
+this build run.
 </dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>off</code></strong>.</p>
+</blockquote>
+<dl>
 <dt><strong>--max-workers</strong></dt>
 <dd>
 Set the maximum number of workers that Gradle may use. Default is number
@@ -337,16 +364,25 @@ of processors.
 <dt><strong>--parallel</strong>, <strong>--no-parallel</strong></dt>
 <dd>
 Build projects in parallel. For limitations of this option, see Parallel
-Project Execution. Default is <strong><code>off</code></strong>.
+Project Execution.
 </dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>off</code></strong>.</p>
+</blockquote>
+<dl>
 <dt><strong>--priority</strong>
 <em><code>&lt;priority&gt;</code></em></dt>
 <dd>
 Specify the scheduling priority for the Gradle daemon and all processes
 launched by it. Values are <strong><code>normal</code></strong> or
-<strong><code>low</code></strong>. Default is
-<strong><code>normal</code></strong>.
+<strong><code>low</code></strong>.
 </dd>
+</dl>
+<blockquote>
+<p>Default: <strong><code>normal</code></strong>.</p>
+</blockquote>
+<dl>
 <dt><strong>--profile</strong></dt>
 <dd>
 Generate a high-level performance report in the
@@ -370,8 +406,13 @@ Options</span></h2>
 <dt><strong>--daemon</strong>, <strong>--no-daemon</strong></dt>
 <dd>
 Use the Gradle Daemon to run the build. Starts the daemon if not running
-or existing daemon busy. Default is <strong><em>on</em></strong>.
+or existing daemon busy.
 </dd>
+</dl>
+<blockquote>
+<p>Default: <strong><em>on</em></strong>.</p>
+</blockquote>
+<dl>
 <dt><strong>--foreground</strong></dt>
 <dd>
 Starts the Gradle Daemon in a foreground process.
@@ -392,7 +433,7 @@ time.
 </dd>
 </dl>
 <blockquote>
-<p>Default is <strong><code>10800000</code></strong> (3 hours).</p>
+<p>Default: <strong><code>10800000</code></strong> (3 hours).</p>
 </blockquote>
 <h2 id="logging-options"><span id="logging_options">Logging
 Options</span></h2>
@@ -475,8 +516,13 @@ id="verfication_options">Dependency Verification Options</span></h2>
 <strong>--dependency-verification=(strict,lenient,off)</strong></dt>
 <dd>
 Configures the dependency verification mode, see what the options mean
-here. The default mode is <strong><code>strict</code></strong>.
+here.
 </dd>
+</dl>
+<blockquote>
+<p>Default mode: <strong><code>strict</code></strong>.</p>
+</blockquote>
+<dl>
 <dt><strong>-M</strong>,
 <strong>--write-verification-metadata</strong></dt>
 <dd>
@@ -530,8 +576,13 @@ directory.
 </dd>
 <dt><strong>-p</strong>, <strong>--project-dir</strong></dt>
 <dd>
-Specify the start directory for Gradle. Defaults to current directory.
+Specify the start directory for Gradle.
 </dd>
+</dl>
+<blockquote>
+<p>Default: current directory.</p>
+</blockquote>
+<dl>
 <dt><strong>--project-cache-dir</strong></dt>
 <dd>
 Specify the project-specific cache directory. Default value is
@@ -569,8 +620,16 @@ Set the JDK home directory.
  
 </dd>
 </dl>
-<h1 id="examples">EXAMPLES</h1>
+<h1 id="examples"><span id="examples">EXAMPLES</span></h1>
+<p><em>tbd</em></p>
 <h1 id="exit-status">EXIT STATUS</h1>
+<p>The <strong><code>gradle</code></strong> command returns a zero exit
+status if it succeeds. Non zero is returned in case of any error.</p>
+<blockquote>
+<p><strong>Note</strong>: See also <a
+href="https://github.com/gradle/gradle/issues/12374">Issue
+12374</a>.</p>
+</blockquote>
 <h1 id="authors">AUTHORS</h1>
 <p><a href="https://gradle.com/"><strong>Gradle, Inc.</strong></a></p>
 <h1 id="reporting-bugs">REPORTING BUGS</h1>
@@ -588,13 +647,12 @@ href="./mill.1.html"><strong>mill</strong></a>(1), <a
 href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
 href="./scala-cli.1.html"><strong>scala-cli</strong></a>(1), <a
 href="./scalafix.1.html"><strong>scalafix</strong></a>(1), <a
-href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1), <a
-href="./sdkman.1.html"><strong>sdkman</strong></a>(1).</p>
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <!-- hyperref -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://gradle.org/">Gradle 4.7.1</a></div>
   <div style="float:right;">gradle(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
-  <div style="text-align:center;">April 04, 2022</div>
+  <div style="text-align:center;">April 06, 2022</div>
 </div>
 </body>
 </html>

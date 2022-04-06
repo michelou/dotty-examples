@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-04" />
+  <meta name="dcterms.date" content="2022-04-06" />
   <title>scala-cli(1) Scala CLI 0.1.2 | Scala Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">scala-cli(1) Scala CLI 0.1.2 | Scala Commands</h1>
-<p class="date">April 04, 2022</p>
+<p class="date">April 06, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">scala-cli(1)</div>
@@ -187,20 +187,26 @@ Similar man pages:
 <p><strong>scala-cli</strong> - Command-line tool to interact with the
 Scala language</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p><strong>scala-cli</strong> <em><code>command</code></em>
-<code>[</code><em><code>options</code></em><code>]</code></p>
+<p><strong>scala-cli</strong> [<em><code>command</code></em>]
+[<em><code>options</code></em>]</p>
 <h1 id="description"><span id="description">DESCRIPTION</span></h1>
 <p><a href="https://scala-cli.virtuslab.org/">Scala CLI</a> combines all
 the features you need to learn and use Scala in your scripts,
 playgrounds and (single-module) projects.</p>
-<p><a href="https://scala-cli.virtuslab.org/">Scala CLI</a> 0.1.2
-supports the following versions of Scala:</p>
-<ul>
-<li>Scala 3    : versions 3.0.2 and 3.1.1</li>
-<li>Scala 2.13 : versions 2.13.7 and 2.13.8</li>
-<li>Scala 2.12 : versions 2.12.7 and 2.12.15.</li>
-</ul>
+<!--
+[Scala CLI][scalacli_home] 0.1.2 supports the following versions of Scala:
+
+- Scala 3&nbsp;&nbsp;&nbsp; : versions 3.0.2 and 3.1.1
+- Scala 2.13 : versions 2.13.7 and 2.13.8
+- Scala 2.12 : versions 2.12.7 and 2.12.15.
+-->
 <h1 id="commands"><span id="commands">COMMANDS</span></h1>
+<p>Run <strong><code>scala-cli</code></strong>
+<em><code>command</code></em> <strong><code>--help</code></strong> to
+read about a specific subcommand.<br />
+Run <strong><code>scala-cli</code></strong>
+<em><code>command</code></em> <strong><code>--help-full</code></strong>
+to see full help.</p>
 <h2 id="main-commands">Main Commands</h2>
 <dl>
 <dt><strong>clean</strong></dt>
@@ -283,7 +289,7 @@ Update <strong><code>scala-cli</code></strong> - it works only for
 installation script.
 </dd>
 </dl>
-<h1 id="options">OPTIONS</h1>
+<h1 id="options"><span id="options">OPTIONS</span></h1>
 <h2 id="help-options"><span id="help_options">Help Options</span></h2>
 <dl>
 <dt><strong>--usage</strong></dt>
@@ -368,7 +374,7 @@ Add extra JARs in the class path.
 <strong>--compile-only-jars</strong>,
 <strong>--extra-compile-only-jar</strong>,
 <strong>--extra-compile-only-jars</strong>
-<em><code>&lt;paths&gt;</code></em></dt>
+<em><code>paths</code></em></dt>
 <dd>
 Add extra JARs in the class path, during compilation only.
 </dd>
@@ -422,8 +428,7 @@ Specify which main class to run.
 <h2 id="scala.js-options"><span id="scalajs_options">Scala.JS
 options</span></h2>
 <dl>
-<dt><strong>--js-version</strong>
-<code>[</code><em><code>string</code></em><code>]</code></dt>
+<dt><strong>--js-version</strong> <em><code>string</code></em></dt>
 <dd>
 Set the <a href="https://www.scala-js.org/">Scala.js</a> version.
 </dd>
@@ -565,6 +570,7 @@ href="https://www.virtuslab.com/"><strong>VirtusLab</strong></a></p>
 <p><a href="./amm.1.html"><strong>amm</strong></a>(1), <a
 href="./cs.1.html"><strong>cs</strong></a>(1), <a
 href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
+href="./jabba.1.html"><strong>jabba</strong></a>(1), <a
 href="./mill.1.html"><strong>mill</strong></a>(1), <a
 href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
 href="./scalafix.1.html"><strong>scalafix</strong></a>(1), <a
@@ -573,7 +579,7 @@ href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://scala-cli.virtuslab.org/">Scala CLI 0.1.2</a></div>
   <div style="float:right;">scala-cli(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
-  <div style="text-align:center;">April 04, 2022</div>
+  <div style="text-align:center;">April 06, 2022</div>
 </div>
 </body>
 </html>

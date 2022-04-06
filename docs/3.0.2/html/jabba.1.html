@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2022-04-06" />
+  <title>jabba(1) Jabba 0.11.2 | Scala Commands</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Courier;
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin:0 6em 4em 4em;
+      max-width: 40em;
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 5;
+      padding-bottom: 5;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      text-decoration: none;
+      color: [HTML]{66001E};
+    }
+    a:visited {
+      color: [HTML]{66001E};
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: -1em 0 -1em 1.5em;
+      padding-left: 1em;
+      border-left: none;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    dd p {
+      margin-top: 0em;
+      margin-bottom: -1em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<!--
+<h1 class="title">jabba(1) Jabba 0.11.2 | Scala Commands</h1>
+<p class="date">April 06, 2022</p>
+-->
+<div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;">jabba(1)</div>
+  <div style="float:right;">jabba(1) <a href="#title-block-footer" title="Go to bottom">⭳</a></div>
+  <div style="text-align:center;">Scala Commands</div>
+  <div style="clear:both;"/>
+</div>
+</header>
+<!--==========================================================================
+Similar man pages:
+* java - https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html
+* java - https://www.manpagez.com/man/1/java/
+* scala - https://manpages.debian.org/stretch/scala/scala.1
+===========================================================================-->
+<h1 id="name">NAME</h1>
+<p><strong>jabba</strong> - Java Version Manager</p>
+<h1 id="synopsis">SYNOPSIS</h1>
+<p><strong>jabba</strong> [<em><code>jabba-options</code></em>]
+[<em><code>command</code></em>
+[<em><code>command-options</code></em>]]</p>
+<h1 id="description"><span id="description">DESCRIPTION</span></h1>
+<p><strong>jabba</strong> is written in <a href="https://go.dev/"
+title="Go - A Statically Typed Programming Language">Go</a> and is
+inspired by <a
+href="https://github.com/nvm-sh/nvm#intro"><strong>nvm</strong></a>
+(Node.js).</p>
+<p><strong>jabba</strong> keeps everything under <code>~/.jabba/</code>
+on Linux/MacOSX resp. <code>%USERPROFILE%\.jabba\</code> on Windows. If
+at any point of time you decide to uninstall <strong>jabba</strong> just
+remove this directory.</p>
+<h1 id="commands"><span id="commands">COMMANDS</span></h1>
+<h2 id="ls">ls</h2>
+<p>: List installed versions</p>
+<h1 id="options"><span id="options">OPTIONS</span></h1>
+<h1 id="environment"><span id="environment">ENVIRONMENT</span></h1>
+<dl>
+<dt><strong>.jabbarc</strong></dt>
+<dd>
+ 
+</dd>
+</dl>
+<h1 id="examples"><span id="examples">EXAMPLES</span></h1>
+<p>List available JDKs.</p>
+<blockquote>
+<p><strong><code>jabba ls-remote</code></strong></p>
+</blockquote>
+<blockquote>
+<p>You can use any valid semver range to narrow down the list.<br />
+<strong><code>jabba ls-remote</code></strong>
+<code>zulu@~1.8.60</code><br />
+<strong><code>jabba ls-remote</code></strong>
+<code>"*@&gt;=1.6.45 &lt;1.9" --latest=minor</code></p>
+</blockquote>
+<p>Install the Zulu JDK version 1.11.0-10.</p>
+<blockquote>
+<p><strong><code>jabba install</code></strong>
+<code>zulu@1.11.0-10</code></p>
+</blockquote>
+<p>Install Adopt OpenJDK (Hotspot)</p>
+<blockquote>
+<p><strong><code>jabba install</code></strong>
+<code>adopt@1.8-0</code></p>
+</blockquote>
+<p>Install GraalVM CE</p>
+<blockquote>
+<p><strong><code>jabba install</code></strong>
+<code>graalvm@1.0-0</code></p>
+</blockquote>
+<p>Install from custom URL (supported qualifiers: zip, tgz, tgx, dmg,
+bin, exe).</p>
+<blockquote>
+<p><strong><code>jabba install</code></strong>
+<code>1.8.0-custom=tgz+http://example.com/distribution.tar.gz</code>
+<strong><code>jabba install</code></strong>
+<code>1.8.0-custom=tgx+http://example.com/distribution.tar.xz</code>
+<strong><code>jabba install</code></strong>
+<code>1.8.0-custom=zip+file:///opt/distribution.zip</code></p>
+</blockquote>
+<p>Uninstall the Zulu JDK</p>
+<blockquote>
+<p><strong><code>jabba uninstall</code></strong>
+<code>zulu@1.6.77</code></p>
+</blockquote>
+<p>Link system JDK</p>
+<blockquote>
+<p><strong><code>jabba link</code></strong>
+<code>system@1.8.72 /Library/Java/JavaVirtualMachines/jdk1.8.0_72.jdk</code></p>
+</blockquote>
+<p>List the installed JDKs.</p>
+<blockquote>
+<p><strong><code>jabba ls</code></strong></p>
+</blockquote>
+<p>Switch to a different version of JDK (it must be already
+<code>install</code>ed)</p>
+<blockquote>
+<p><strong><code>jabba use</code></strong> <code>adopt@1.8</code><br />
+<strong><code>jabba use</code></strong> <code>zulu@~1.6.97</code></p>
+</blockquote>
+<p>Switch to the JDK specified in <code>.jabbarc</code> (since
+0.5.0).</p>
+<blockquote>
+<p><strong><code>echo</code></strong>
+<code>"1.8" &gt; .jabbarc</code><br />
+<strong><code>jabba use</code></strong></p>
+</blockquote>
+<p>Set default Java version on shell (since 0.2.0). This version will
+automatically be “jabba use”d every time you open up a new terminal.</p>
+<blockquote>
+<p><strong><code>jabba alias</code></strong>
+<code>default 1.8</code></p>
+</blockquote>
+<h1 id="exit-status">EXIT STATUS</h1>
+<p>The <strong><code>jabba</code></strong> command returns a zero exit
+status if it succeeds. Non zero is returned in case of any error.</p>
+<h1 id="authors">AUTHORS</h1>
+<p>Written by <strong>Stanley Shyiko</strong> (<a
+href="https://keybase.io/shyiko">https://keybase.io/shyiko</a>).</p>
+<h1 id="reporting-bugs">REPORTING BUGS</h1>
+<p>Report bugs to <a
+href="https://github.com/shyiko/jabba/issues"><strong>https://github.com/shyiko/jabba/issues</strong></a>.</p>
+<h1 id="copyright">COPYRIGHT</h1>
+<p><a
+href="https://github.com/VirtusLab/scala-cli/blob/main/LICENSE">The
+Apache License 2.0</a></p>
+<!-- Initial commit : https://github.com/shyiko/jabba/commit/ce9385f9 -->
+<p>Copyright (c) 2016-2022 <a
+href="https://github.com/shyiko/"><strong>Stanley
+Shyiko</strong></a></p>
+<h1 id="see-also">SEE ALSO</h1>
+<p><a href="./amm.1.html"><strong>amm</strong></a>(1), <a
+href="./cs.1.html"><strong>cs</strong></a>(1), <a
+href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
+href="./mill.1.html"><strong>mill</strong></a>(1), <a
+href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
+href="./scalafix.1.html"><strong>scalafix</strong></a>(1), <a
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
+<!-- hyperref -->
+<div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;"><a href="https://github.com/shyiko/jabba#jabba--">Jabba 0.11.2</a></div>
+  <div style="float:right;">jabba(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
+  <div style="text-align:center;">April 06, 2022</div>
+</div>
+</body>
+</html>

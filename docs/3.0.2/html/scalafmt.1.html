@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-04" />
+  <meta name="dcterms.date" content="2022-04-06" />
   <title>scalafmt(1) Scalafmt 3.4.3 | Third-Party Scala Commands</title>
   <style>
     html {
@@ -169,7 +169,7 @@
 <!--
 <h1 class="title">scalafmt(1) Scalafmt 3.4.3 | Third-Party Scala
 Commands</h1>
-<p class="date">April 04, 2022</p>
+<p class="date">April 06, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">scalafmt(1)</div>
@@ -249,15 +249,17 @@ When using <strong><code>--stdin</code></strong>, use
 </dd>
 <dt><strong>--reportError</strong></dt>
 <dd>
-Exit with status 1 if any mis-formatted code found.
+Exit with status <code>1</code> if any mis-formatted code found.
 </dd>
 <dt><strong>--test</strong></dt>
 <dd>
-Test for mis-formatted code only, exits with status 1 on failure.
+Test for mis-formatted code only, exits with status <code>1</code> on
+failure.
 </dd>
 <dt><strong>--check</strong></dt>
 <dd>
-Test for mis-formatted code only, exits with status 1 on first failure.
+Test for mis-formatted code only, exits with status <code>1</code> on
+first failure.
 </dd>
 <dt><strong>--diff</strong> (<em>Deprecated</em>)</dt>
 <dd>
@@ -357,12 +359,12 @@ maxColumn = 100      // For my wide 30&quot; display.</code></pre>
 </blockquote>
 <p>Throw exception on mis-formatted files, won’t write to files.</p>
 <blockquote>
-<p><strong><code>scalafmt</code></strong> <code>--test</code></p>
+<p><strong><code>scalafmt --test</code></strong></p>
 </blockquote>
 <p>Format all files that were edited in <code>git diff</code> against
 master branch.</p>
 <blockquote>
-<p><strong><code>scalafmt</code></strong> <code>--mode diff</code></p>
+<p><strong><code>scalafmt --mode diff</code></strong></p>
 </blockquote>
 <p>Format files listed in <code>git status</code> (latest changes
 against previous commit).</p>
@@ -392,23 +394,23 @@ against previous commit).</p>
 </blockquote>
 <p>Print formatted contents to stdout.</p>
 <blockquote>
-<p><strong><code>scalafmt</code></strong>
-<code>--stdout Code.scala</code></p>
+<p><strong><code>scalafmt --stdout</code></strong>
+<code>Code.scala</code></p>
 </blockquote>
 <p>Format all files in directory excluding <code>target</code></p>
 <blockquote>
-<p><strong><code>scalafmt</code></strong>
-<code>--exclude target</code></p>
+<p><strong><code>scalafmt --exclude</code></strong>
+<code>target</code></p>
 </blockquote>
 <p>Read custom style from file.</p>
 <blockquote>
-<p><strong><code>scalafmt</code></strong>
-<code>--config .scalafmt.conf</code></p>
+<p><strong><code>scalafmt --config</code></strong>
+<code>.scalafmt.conf</code></p>
 </blockquote>
 <p>Define custom style as a flag, must be quoted:</p>
 <blockquote>
-<p><strong><code>scalafmt</code></strong>
-<code>--config-str "style=IntelliJ"</code></p>
+<p><strong><code>scalafmt --config-str</code></strong>
+<code>"style=IntelliJ"</code></p>
 </blockquote>
 <h1 id="exit-status">EXIT STATUS</h1>
 <p>The <strong><code>scalafmt</code></strong> command returns a zero
@@ -447,6 +449,7 @@ href="https://scalameta.org/"><strong>Scalameta</strong></a></p>
 <p><a href="./amm.1.html"><strong>amm</strong></a>(1), <a
 href="./cs.1.html"><strong>cs</strong></a>(1), <a
 href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
+href="./jabba.1.html"><strong>jabba</strong></a>(1), <a
 href="./mill.1.html"><strong>mill</strong></a>(1), <a
 href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
 href="./scala-cli.1.html"><strong>scala-cli</strong></a>(1), <a
@@ -455,7 +458,7 @@ href="./scalafix.1.html"><strong>scalafix</strong></a>(1).</p>
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://scalameta.org/scalafmt/">Scalafmt 3.4.3</a></div>
   <div style="float:right;">scalafmt(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
-  <div style="text-align:center;">April 04, 2022</div>
+  <div style="text-align:center;">April 06, 2022</div>
 </div>
 </body>
 </html>
