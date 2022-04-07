@@ -1,12 +1,6 @@
 # <span id="top">Scala 3 Manual Pages</span> <span style="size:30%;"><a href="../../README.md">⬆</a></span>
 
-We use the [Pandoc][pandoc] tool <sup id="anchor_01">[1](#footnote_01)</sup> to generate the [HTML] and the [troff] versions of the manual pages.
-
-> **:mag_right:** 4 examples of online manual pages :
-> - [Ubuntu](https://manpages.ubuntu.com/) hosted [manual pages](http://manpages.ubuntu.com/manpages/jammy/) (includes [`scala.1`](https://manpages.ubuntu.com/manpages/jammy/en/man1/scala.1.html), Scala 2.11).
-> - [FreeBSD](https://www.freebsd.org/) hosted [manual pages](https://www.freebsd.org/cgi/man.cgi) (includes [`scala.1`](https://www.freebsd.org/cgi/man.cgi?query=scala&format=html), Scala 0.5).
-> - [Hurrican Electric](https://www.he.net/) hosted [manual pages](http://man.he.net/).
-> - [man7.org](https://man7.org/) hosted [manual pages](https://man7.org/linux/man-pages/index.html).
+We use the [Pandoc][pandoc] tool <sup id="anchor_01">[1](#footnote_01)</sup> to generate the [HTML] and the [troff] versions of the manual pages <sup id="anchor_02">[2](#footnote_02)</sup>.
 
 ## <span id="previews">HTML Previews</span>
 
@@ -15,9 +9,6 @@ The Scala 3 commands are :
 <a href="https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scala.1.html" rel="external"><b>scala</b>.1.html</a>, <a href="https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scalac.1.html" rel="external"><b>scalac</b>.1.html</a>, <a href="
 https://tinyurl.com/2p8zevyt?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/scaladoc.1.html"><b>scaladoc</b>.1.html</a>
 </pre>
-
-test: <a href="
-https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/master/docs/3.0.2/html/amm.1.html" rel="external"><b>amm</b>.1.html</a>
 
 The third-party Scala commands are :
 <pre>
@@ -39,7 +30,7 @@ https://tinyurl.com/2p9cn8ns?https://github.com/michelou/dotty-examples/blob/mas
 
 We've grouped the generated manual pages in 4 Zip archives :
 
-| &nbsp;     | Scala 3 Commands&nbsp;<sup id="anchor_02">[2](#footnote_02)</sup> | Third-party&nbsp;Commands |
+| &nbsp;     | Scala 3 Commands&nbsp;<sup id="anchor_03">[3](#footnote_03)</sup> | Third-party&nbsp;Commands |
 |:-----------|:-----------------|:--------------------------|
 | **HTML&nbsp;files** | [`scala3-html-3.0.2.zip`](scala3-html-3.0.2.zip) | [`scala3-thirdparty-html-3.0.2.zip`](scala3-thirdparty-html-3.0.2.zip)  |
 | **GZ&nbsp;files**   | [`scala3-man-3.0.2.zip`](scala3-man-3.0.2.zip)| [`scala3-thirdparty-man-3.0.2.zip`](scala3-thirdparty-man-3.0.2.zip) |
@@ -55,15 +46,15 @@ We generate the manual pages in 6 steps :
 <table style="text-align:center;font-size:80%;">
 <tr>
 <td style="width:360px;padding:0;">
-Source file<br/><code>src/scala.1.md</code>
+Source file<br/><code>src/scala.1.md</code><br/>
+<b>&#8681;</b> (1)<br/>
+Patched source file<br/><code>target/src_gen/scala.1.md</code><br/>
 </td>
 </tr>
 </table>
 <table style="margin-top:-16px;text-align:center;font-size:80%;">
 <tr>
 <td style="width:180px;vertical-align:top;padding:0;">
-<b>&#8681;</b> (1)<br/>
-Patched source file<br/><code>target/src_gen/scala.1.md</code><br/>
 <b>&#8681;</b> (2)<br/>
 troff file<br/><code>target/man/man1/scala.1</code><br/>
 <b>&#8681;</b> (3)<br/>
@@ -73,9 +64,7 @@ GZ file<br/><code>target/man/man1/scala.1.gz</code>
 <b>&#8681;</b> (4)<br/>
 HTML file<br/><code>target/man/man1/scala.1.html</code><br/>
 <b>&#8681;</b> (5)<br/>
-Patched HTML file<br/><code>target/man/man1/scala.1.html</code><br/>
-&nbsp;<br/>
-&nbsp;<br/>
+Patched HTML file<br/><code>target/man/man1/scala.1.html</code>
 </td>
 </tr>
 <tr><td style="width:180px;text-align:center;padding:0;">
@@ -99,7 +88,19 @@ Zip archive<br/><code>target/scala3-html-3.0.2.zip</code>
 </ol>
 </dd></dl>
 
-<span id="footnote_02">[2]</span> ***Zip Archives*** [↩](#anchor_02)
+<span id="footnote_02">[2]</span> ***Online Man Pages*** [↩](#anchor_02)
+
+<dl><dd>
+Here are 4 examples of online manual pages :
+<ul>
+<li><a href="https://manpages.ubuntu.com/">Ubuntu</a> hosted <a href="http://manpages.ubuntu.com/manpages/jammy/">manual pages</a> (includes <a href="https://manpages.ubuntu.com/manpages/jammy/en/man1/scala.1.html"><code>scala.1</code></a>, Scala 2.11).</li>
+<li><a href="https://www.freebsd.org/">FreeBSD</a> hosted <a href="https://www.freebsd.org/cgi/man.cgi">manual pages</a> (includes <a href="https://www.freebsd.org/cgi/man.cgi?query=scala&format=html"><code>scala.1</code></a>, Scala 0.5).</li>
+<li><a href="https://www.he.net/">Hurrican Electric</a> hosted <a href="http://man.he.net/">manual pages</a>.</li>
+<li><a href="https://man7.org/">man7.org</a> hosted <a href="https://man7.org/linux/man-pages/index.html">manual pages</a>.</li>
+</ul>
+</dd></dl>
+
+<span id="footnote_03">[3]</span> ***Zip Archives*** [↩](#anchor_03)
 
 <dl><dd>
 For instance, the two Zip archives for the <a href="https://dotty.epfl.ch/" rel="external">Scala 3</a> commands contain the following files :

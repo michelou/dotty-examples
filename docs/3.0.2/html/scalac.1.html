@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-06" />
+  <meta name="dcterms.date" content="2022-04-07" />
   <title>scalac(1) Scala 3.0.2 | Scala 3 Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">scalac(1) Scala 3.0.2 | Scala 3 Commands</h1>
-<p class="date">April 06, 2022</p>
+<p class="date">April 07, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">scalac(1)</div>
@@ -186,16 +186,12 @@ Similar man pages:
 <p><strong>scalac</strong> - Compiler for the <a
 href="https://dotty.epfl.ch/">Scala 3</a> language</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p><strong><code>scalac</code></strong> [<em><code>options</code></em>]
+<p><strong>scalac</strong> [<em><code>options</code></em>]
 [<em><code>source-files</code></em>]</p>
-<p>Start the Scala 3 REPL. See <a
+<p><strong>scalac -repl</strong> <em><code>options</code></em>],
+<strong>scalac -run</strong> [<em><code>options</code></em>]
+       Start the Scala 3 REPL. See <a
 href="./scala.1.html"><strong>scala</strong></a>(1).</p>
-<blockquote>
-<p><strong><code>scalac -repl</code></strong>
-<code>[</code><em><code>options</code></em><code>]</code>,
-<strong><code>scalac -run</code></strong>
-<code>[</code><em><code>options</code></em><code>]</code></p>
-</blockquote>
 <h1 id="description">DESCRIPTION</h1>
 <p>The <strong>scalac</strong> command reads class and object
 definitions, written in the Scala programming language, and compiles
@@ -301,7 +297,7 @@ Specify character encoding used by Scala source files.
 </dd>
 </dl>
 <blockquote>
-<p>Default: <strong><code>UTF-8</code></strong>.</p>
+<p>Default: <strong><code>UTF-8</code></strong></p>
 </blockquote>
 <dl>
 <dt><strong>-explain</strong>, <strong>--explain</strong></dt>
@@ -511,7 +507,8 @@ Specify the workspace root directory.
 </dd>
 </dl>
 <blockquote>
-<p>Default: <code>.</code></p>
+<p>Default: <strong><code>.</code></strong> (current working
+directory).</p>
 </blockquote>
 <dl>
 <dt><strong>-unchecked</strong>, <strong>--unchecked</strong></dt>
@@ -653,7 +650,7 @@ are reported.
 </dd>
 </dl>
 <blockquote>
-<p>Default: <strong><code>8000</code></strong>.</p>
+<p>Default: <strong><code>8000</code></strong></p>
 </blockquote>
 <dl>
 <dt><strong>-Xmain-class</strong> <em><code>path</code></em></dt>
@@ -667,7 +664,7 @@ Set the maximal number of inlined trees.
 </dd>
 </dl>
 <blockquote>
-<p>Default: <strong><code>2000000</code></strong>.</p>
+<p>Default: <strong><code>2000000</code></strong></p>
 </blockquote>
 <dl>
 <dt><strong>-Xmax-inlines:</strong><em><code>number</code></em></dt>
@@ -676,7 +673,7 @@ Set the maximal number of successive inlines.
 </dd>
 </dl>
 <blockquote>
-<p>Default: <strong><code>32</code></strong>.</p>
+<p>Default: <strong><code>32</code></strong></p>
 </blockquote>
 <dl>
 <dt><strong>-Xmigration</strong></dt>
@@ -691,10 +688,10 @@ traits.
 </dd>
 </dl>
 <blockquote>
-<p>Default: <strong><code>true</code></strong>.<br />
-Choices: <strong><code>true</code></strong>,
+<p>Choices: <strong><code>true</code></strong>,
 <strong><code>junit</code></strong>,
-<strong><code>false</code></strong>.</p>
+<strong><code>false</code></strong>.<br />
+Default: <strong><code>true</code></strong></p>
 </blockquote>
 <dl>
 <dt><strong>-Xno-forwarders</strong></dt>
@@ -741,8 +738,8 @@ Print the syntax trees at end of phase(s)
 <strong><code>mixin</code></strong> phases.</p>
 </blockquote>
 <blockquote>
-<p><em>Note</em>: Use option <strong>-Xshow-phases</strong> to print the
-name of all compiler phases.</p>
+<p><strong>Note</strong>: Use option <strong>-Xshow-phases</strong> to
+print the name of all compiler phases.</p>
 </blockquote>
 <dl>
 <dt><strong>-Xprint-diff</strong></dt>
@@ -1253,21 +1250,32 @@ href="https://contributors.scala-lang.org/categories"><strong>Scala contributor
 <h1 id="reporting-bugs">REPORTING BUGS</h1>
 <p>Report bugs to <a
 href="https://issues.scala-lang.org/"><strong>https://issues.scala-lang.org/</strong></a>.</p>
-<p>Find help on forums like Reddit <a
-href="https://www.reddit.com/r/scala/"><code>r/scala</code></a>.</p>
+<p>Other sources of help :</p>
+<ul>
+<li><a
+href="https://gitter.im/scala/scala"><strong>scala/scala</strong></a> on
+<a href="https://gitter.im/">Gitter</a>.</li>
+<li><a
+href="https://www.reddit.com/r/scala/"><strong>r/scala</strong></a> on
+<a href="https://www.reddit.com/">reddit</a>.</li>
+<li><a
+href="https://stackoverflow.com/tags/scala/"><strong>scala</strong></a>
+on <a
+href="https://stackoverflow.com/">stack<strong>overflow</strong></a>.</li>
+</ul>
 <h1 id="copyright">COPYRIGHT</h1>
 <p>This is open-source software, available to you under a BSD-like
 license. See accompanying “copyright” or “LICENSE” file for copying
 conditions. There is NO warranty; not even for MERCHANTABILITY or
 FITNESS FOR A PARTICULAR PURPOSE.</p>
-<h1 id="see-also">SEE ALSO</h1>
+<h1 id="see-also"><span id="see_also">SEE ALSO</span></h1>
 <p><a href="./scala.1.html"><strong>scala</strong></a>(1), <a
 href="./scaladoc.1.html"><strong>scaladoc</strong></a>(1).</p>
 <!-- hyperrefs -->
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">Scala 3.0.2</div>
   <div style="float:right;">scalac(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
-  <div style="text-align:center;">April 06, 2022</div>
+  <div style="text-align:center;">April 07, 2022</div>
 </div>
 </body>
 </html>
