@@ -187,10 +187,9 @@ Similar man pages:
 <p><strong>amm</strong> - Ammonite-REPL, a Scala REPL and script
 runner</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p><strong>amm</strong>
-<code>[</code><em><code>ammonite-options</code></em><code>]</code>
-<code>[</code><em><code>script-file</code></em>
-<code>[</code><em><code>script-options</code></em><code>]]</code></p>
+<p><strong>amm</strong> [<em><code>ammonite-options</code></em>]
+[<em><code>script-file</code></em>
+[<em><code>script-options</code></em>]]</p>
 <h1 id="description">DESCRIPTION</h1>
 <p>Command <strong>amm</strong> is a modernized Scala REPL. It supports
 syntax highlighting, multi-line editing, loading of <a
@@ -326,7 +325,39 @@ Windows: <code>%USERPROFILE%\.ammonite\predef.sc</code></p>
 </dd>
 </dl>
 <h1 id="examples"><span id="examples">EXAMPLES</span></h1>
-<p><em>tbd</em></p>
+<p><a href="https://ammonite.io/" title="Ammonite REPL">Ammonite</a>
+lets us break our scripts into multiple, smaller scripts with no need to
+set up a project:</p>
+<blockquote>
+<p><em><code>// Colors.sc</code></em> <strong><code>enum</code></strong>
+<code>Color(n: Long):</code><br />
+<strong><code>case</code></strong> <code>marron</code>
+<strong><code>extends</code></strong> <code>Color(0x800000)</code><br />
+<strong><code>case</code></strong> <code>red</code>
+<strong><code>extends</code></strong> <code>Color(0xFF0000)</code><br />
+<strong><code>case</code></strong> <code>orange</code>
+<strong><code>extends</code></strong> <code>Color(0xFFA500)</code><br />
+<strong><code>override def</code></strong>
+<code>toString = n.toHexString</code></p>
+<p><em><code>// Imports.sc</code></em>
+<strong><code>import $file</code></strong><code>.Colors, Colors.Color._</code>
+<code>println(s"Imported color: $red")</code>
+<em><code>// prints "FF0000"</code></em></p>
+</blockquote>
+<p>In addition to other scripts, <a href="https://ammonite.io/"
+title="Ammonite REPL">Ammonite</a> can also import external <a
+href="https://ant.apache.org/ivy/"
+title="Ivy - The agile dependency manager">Ivy</a> and <a
+href="https://maven.apache.org/"
+title="Maven - A Software Project Management Tool">Maven</a> libraries
+before compiling the script and show an error if it cannot find it.</p>
+<blockquote>
+<p><em><code>// imports2.sc</code></em>
+<strong><code>import $ivy.</code></strong><code>\</code>org.ow2.asm:asm:9.3`,
+org.objectweb.asm._<code>\ *</code>// prints “ACC_ABSTRACT
+=1024”<code>*\</code>println(s”ACC_ABSTRACT
+=${Opcodes.ACC_ABSTRACT}“)`</p>
+</blockquote>
 <h1 id="exit-status">EXIT STATUS</h1>
 <p>The <strong>amm</strong> command returns a zero exit status if it
 succeeds. Non zero is returned in case of any error.</p>

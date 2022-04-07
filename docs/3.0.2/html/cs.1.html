@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-07" />
+  <meta name="dcterms.date" content="2022-04-08" />
   <title>cs(1) Coursier 2.0.13 | User Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">cs(1) Coursier 2.0.13 | User Commands</h1>
-<p class="date">April 07, 2022</p>
+<p class="date">April 08, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">cs(1)</div>
@@ -180,8 +180,14 @@
 <h1 id="name">NAME</h1>
 <p><strong>cs</strong> - Scala application and artifact manager</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p><strong>cs</strong>
-<code>[</code><em><code>coursier-options</code></em><code>] [</code><em><code>command</code></em><code>] [</code><em><code>command-options</code></em><code>]</code></p>
+<p><strong>cs</strong> [<em><code>options</code></em>]
+[<em><code>command</code></em>]
+[<em><code>command-options</code></em>]<br />
+    Native Coursier</p>
+<p><strong>coursier</strong> [<em><code>options</code></em>]
+[<em><code>command</code></em>]
+[<em><code>command-options</code></em>]<br />
+    JVM based Coursier</p>
 <h1 id="description">DESCRIPTION</h1>
 <p><a href="https://get-coursier.io/">Coursier</a> is a dependency
 resolver similar to <a href="https://maven.apache.org/">Maven</a> or <a
@@ -189,8 +195,8 @@ href="https://ant.apache.org/ivy/"
 title="Ivy - The agile dependency manager">Ivy</a>, entirely rewritten
 from scratch in <a href="https://www.scala-lang.org/">Scala</a>. It aims
 at being fast and easy to embed in other contexts.</p>
-<p>It handles many features of the <a
-href="https://maven.apache.org/ref/current/maven-model/">Maven
+<p><a href="https://get-coursier.io/">Coursier</a> handles many features
+of the <a href="https://maven.apache.org/ref/current/maven-model/">Maven
 model</a>, and is able to fetch metadata and artifacts from both Maven
 and Ivy repositories. It handles parallel downloads out-of-the-box
 without resorting to global locks.</p>
@@ -205,8 +211,77 @@ dependencies.</p>
 <dl>
 <dt><strong>channel</strong></dt>
 <dd>
-See <a href="#channel_options"><strong>Channel Options</strong></a>.
+<em>tbd</em>
 </dd>
+</dl>
+<blockquote>
+<p><strong>Channel Options</strong></p>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>-a</strong>, <strong>--add</strong>
+<em><code>string ...</code></em></dt>
+<dd>
+Add given URL based channels.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>-l</strong>, <strong>--list</strong>
+<em><code>boolean</code></em></dt>
+<dd>
+List down all added channels.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>-q</strong>, <strong>--quiet</strong>
+<em><code>counter</code></em></dt>
+<dd>
+Quiet output.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>-v</strong>, <strong>--verbose</strong>
+<em><code>counter</code></em></dt>
+<dd>
+Increase verbosity (specify several times to increase more).
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>-P</strong>, <strong>--progress</strong>
+<em><code>boolean</code></em></dt>
+<dd>
+Force display of progress bars.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--log-changing</strong> <em><code>boolean</code></em></dt>
+<dd>
+Log changing artifacts.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--log-channel-version</strong>,
+<strong>--log-index-version</strong>,
+<strong>--log-jvm-index-version</strong>
+<em><code>boolean</code></em></dt>
+<dd>
+Log app channel or JVM index version.
+</dd>
+</dl>
+</blockquote>
+<dl>
 <dt><strong>complete</strong></dt>
 <dd>
 List of all published libraries by providing the <a
@@ -283,46 +358,6 @@ See <a href="#update_options"><strong>Update Options</strong></a>.
 </dd>
 </dl>
 <h1 id="options"><span id="options">OPTIONS</span></h1>
-<h2 id="channel-options"><span id="channel-options">Channel
-Options</span></h2>
-<dl>
-<dt><strong>-a</strong>, <strong>--add</strong>
-<em><code>string ...</code></em></dt>
-<dd>
-Add given URL based channels.
-</dd>
-<dt><strong>-l</strong>, <strong>--list</strong>
-<em><code>boolean</code></em></dt>
-<dd>
-List down all added channels.
-</dd>
-<dt><strong>-q</strong>, <strong>--quiet</strong>
-<em><code>counter</code></em></dt>
-<dd>
-Quiet output.
-</dd>
-<dt><strong>-v</strong>, <strong>--verbose</strong>
-<em><code>counter</code></em></dt>
-<dd>
-Increase verbosity (specify several times to increase more).
-</dd>
-<dt><strong>-P</strong>, <strong>--progress</strong>
-<em><code>boolean</code></em></dt>
-<dd>
-Force display of progress bars.
-</dd>
-<dt><strong>--log-changing</strong> <em><code>boolean</code></em></dt>
-<dd>
-Log changing artifacts.
-</dd>
-<dt><strong>--log-channel-version</strong>,
-<strong>--log-index-version</strong>,
-<strong>--log-jvm-index-version</strong>
-<em><code>boolean</code></em></dt>
-<dd>
-Log app channel or JVM index version.
-</dd>
-</dl>
 <h2 id="fetch-options"><span id="fetch_options">Fetch
 Options</span></h2>
 <dl>
@@ -2004,7 +2039,7 @@ href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://get-coursier.io/">Coursier 2.0.13</a></div>
   <div style="float:right;">cs(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
-  <div style="text-align:center;">April 07, 2022</div>
+  <div style="text-align:center;">April 08, 2022</div>
 </div>
 </body>
 </html>
