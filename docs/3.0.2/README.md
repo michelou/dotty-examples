@@ -1,6 +1,6 @@
 # <span id="top">Scala 3 Manual Pages</span> <span style="size:30%;"><a href="../../README.md">⬆</a></span>
 
-We use the [Pandoc][pandoc] tool <sup id="anchor_01">[1](#footnote_01)</sup> to generate the [HTML] and the [troff] versions of the manual pages <sup id="anchor_02">[2](#footnote_02)</sup>.
+We use the [Pandoc][pandoc_home] tool <sup id="anchor_01">[1](#footnote_01)</sup> to generate the [HTML] and the [troff][troff_home] versions of the manual pages <sup id="anchor_02">[2](#footnote_02)</sup>.
 
 ## <span id="previews">HTML Previews</span>
 
@@ -47,7 +47,11 @@ We generate the manual pages in 6 steps :
 <tr>
 <td style="width:360px;padding:0;">
 Source file<br/><code>src/scala.1.md</code><br/>
-<b>&#8681;</b> (1)<br/>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="24px" viewBox="4 1 4 6" enable-background="new 4 1 4 6" xml:space="preserve">
+  <!-- https://yqnn.github.io/svg-path-editor/ -->
+  <path d="M 4 5 L 4 1 L 5 1 L 5 5 L 6 5 L 4.5 7 L 3 5 L 4 5" fill="#666666"/>
+  <text x="7" y="5" style="font-size:0.25em;">(1)</text>
+</svg><br/>
 Patched source file<br/><code>target/src_gen/scala.1.md</code><br/>
 </td>
 </tr>
@@ -134,6 +138,6 @@ Archive:  scala3-man-3.0.2.zip
 
 [github_htmlpreview]: https://htmlpreview.github.io/
 [html]: https://html.spec.whatwg.org/multipage/
-[pandoc]: https://pandoc.org/installing.html
+[pandoc_home]: https://pandoc.org/installing.html "Pandoc - A Universal Document Converter"
 [scala3_home]: https://dotty.epfl.ch/
-[troff]: https://en.wikipedia.org/wiki/Troff
+[troff_home]: https://troff.org/ "troff - The Text Processor for Typesetters"

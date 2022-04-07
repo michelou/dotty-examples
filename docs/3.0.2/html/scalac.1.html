@@ -188,9 +188,9 @@ href="https://dotty.epfl.ch/">Scala 3</a> language</p>
 <h1 id="synopsis">SYNOPSIS</h1>
 <p><strong>scalac</strong> [<em><code>options</code></em>]
 [<em><code>source-files</code></em>]</p>
-<p><strong>scalac -repl</strong> <em><code>options</code></em>],
+<p><strong>scalac -repl</strong> [<em><code>options</code></em>],
 <strong>scalac -run</strong> [<em><code>options</code></em>]<br />
-       Start the Scala 3 REPL. See <a
+      Start the Scala 3 REPL. See <a
 href="./scala.1.html"><strong>scala</strong></a>(1).</p>
 <h1 id="description">DESCRIPTION</h1>
 <p>The <strong>scalac</strong> command reads class and object
@@ -266,7 +266,8 @@ Specify where to find user class files.
 </dd>
 </dl>
 <blockquote>
-<p>Default: <strong><code>.</code></strong></p>
+<p>Default: <strong><code>.</code></strong> (current working
+directory).</p>
 </blockquote>
 <dl>
 <dt><strong>-color:</strong>,
@@ -296,6 +297,17 @@ Emit warning and location for usages of deprecated APIs.
 Specify character encoding used by Scala source files.
 </dd>
 </dl>
+<blockquote>
+<p>Every implementation of the Java platform is required to support the
+following <a
+href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/charset/Charset.html">standard
+charsets</a>: <strong><code>US-ASCII</code></strong>,
+<strong><code>ISO-8859-1</code></strong>,
+<strong><code>UTF-8</code></strong>,
+<strong><code>UTF-16BE</code></strong>,
+<strong><code>UTF-16LE</code></strong>,
+<strong><code>UTF-16</code></strong>.</p>
+</blockquote>
 <blockquote>
 <p>Default: <strong><code>UTF-8</code></strong></p>
 </blockquote>
@@ -327,8 +339,8 @@ or <code>.jar</code> files.
 </dd>
 <dt><strong>-indent</strong></dt>
 <dd>
-Together with <strong>-rewrite</strong>, remove {…} syntax when possible
-due to significant indentation.
+Together with <strong>-rewrite</strong>, remove <code>{...}</code>
+syntax when possible due to significant indentation.
 </dd>
 <dt><span
 id="java-output-version"><strong>-java-output-version:</strong><em><code>target</code></em></span></dt>
@@ -489,11 +501,11 @@ Set the source version.
 </dd>
 </dl>
 <blockquote>
-<p>Default: <strong><code>3.0</code></strong>.<br />
-Choices: <strong><code>3.0</code></strong>,
+<p>Choices: <strong><code>3.0</code></strong>,
 <strong><code>future</code></strong>,
 <strong><code>3.0-migration</code></strong>,
-<strong><code>future-migration</code></strong>.</p>
+<strong><code>future-migration</code></strong>.<br />
+Default: <strong><code>3.0</code></strong></p>
 </blockquote>
 <dl>
 <dt><strong>-sourcepath</strong>, <strong>--source-path</strong>
@@ -793,8 +805,8 @@ produce bytecode that will break at runtime. When on JDK 9+, consider
 <code>11</code>, <code>12</code>, <code>13</code>, <code>14</code>,
 <code>15</code>, <code>16</code>, <code>17</code>.
 <!-- https://github.com/lampepfl/dotty/blob/main/compiler/src/dotty/tools/backend/jvm/BcodeIdiomatic.scala --><br />
-<em>Note</em>: The corresponding class file versions are 52 (8), …, 55
-(11), 61 (17).<br />
+<strong>Note</strong>: The corresponding class file versions are 52 (8),
+…, 55 (11), 61 (17).<br />
 One may print the version of a generated class file,
 e.g. <code>Hello.class</code>, with the folloging command:<br />
 <strong><code>$JAVA_HOME</code></strong><code>/bin/java -cp</code>
@@ -866,7 +878,7 @@ Print the stack trace when the tree with the given
 </dd>
 </dl>
 <blockquote>
-<p>Default: <code>-2147483648</code>.</p>
+<p>Default: <strong><code>-2147483648</code></strong></p>
 </blockquote>
 <dl>
 <dt><strong>-Ydebug-type-error</strong></dt>
@@ -1081,10 +1093,9 @@ Resolve term conflicts.
 </dd>
 </dl>
 <blockquote>
-<p>Default: <strong><code>error</code></strong>.<br />
-Choices: <strong><code>package</code></strong>,
+<p>Choices: <strong><code>package</code></strong>,
 <strong><code>object</code></strong>,
-<strong><code>error</code></strong>.</p>
+<strong><code>error</code></strong> (<em>default</em>).</p>
 </blockquote>
 <dl>
 <dt><strong>-Yretain-trees</strong></dt>
@@ -1104,7 +1115,7 @@ Control where we may get Scala 2 symbols from. This is either
 </dd>
 </dl>
 <blockquote>
-<p>Default: <strong><code>always</code></strong>.</p>
+<p>Default: <strong><code>always</code></strong></p>
 </blockquote>
 <dl>
 <dt><strong>-Ysemanticdb</strong></dt>

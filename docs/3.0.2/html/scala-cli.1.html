@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-06" />
-  <title>scala-cli(1) Scala CLI 0.1.2 | Scala Commands</title>
+  <meta name="dcterms.date" content="2022-04-07" />
+  <title>scala-cli(1) Scala CLI 0.1.2 | User Commands</title>
   <style>
     html {
       line-height: 1.5;
@@ -167,8 +167,8 @@
 <body>
 <header id="title-block-header">
 <!--
-<h1 class="title">scala-cli(1) Scala CLI 0.1.2 | Scala Commands</h1>
-<p class="date">April 06, 2022</p>
+<h1 class="title">scala-cli(1) Scala CLI 0.1.2 | User Commands</h1>
+<p class="date">April 07, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">scala-cli(1)</div>
@@ -200,6 +200,34 @@ playgrounds and (single-module) projects.</p>
 - Scala 2.13 : versions 2.13.7 and 2.13.8
 - Scala 2.12 : versions 2.12.7 and 2.12.15.
 -->
+<p><strong>scala-cli</strong> accepts Scala scripts as files that end in
+<code>.sc</code>. Unlike <code>.scala</code> files, in scripts, any kind
+of statement is accepted at the top-level:</p>
+<blockquote>
+<p><code>// hello.sc</code><br />
+<strong><code>val</code></strong>
+<code>message = "Hello from Scala script"</code><br />
+<code>println(message)</code></p>
+</blockquote>
+<p><strong>scala-cli</strong> and <a href="./amm.1.html">Ammonite</a>
+are similar, but differ significantly when the user’s code is split in
+multiple scripts:</p>
+<ul>
+<li>In <a href="./amm.1.html">Ammonite</a>, a script needs to use import
+<code>$file</code> directives to use values defined in another
+script.</li>
+<li>With <strong>scala-cli</strong>, all scripts passed can reference
+each other without such directives.</li>
+</ul>
+<p>On the other hand:</p>
+<ul>
+<li>You can pass a single “entry point” script as input to Ammonite, and
+<a href="./amm.1.html">Ammonite</a> finds the scripts it depends on via
+the import <code>$file</code> directives.</li>
+<li><strong>scala-cli</strong> requires all scripts to be passed
+beforehand, either one-by-one, or by putting them in a directory, and
+passing the directory to <strong>scala-cli</strong>.</li>
+</ul>
 <h1 id="commands"><span id="commands">COMMANDS</span></h1>
 <p>Run <strong><code>scala-cli</code></strong>
 <em><code>command</code></em> <strong><code>--help</code></strong> to
@@ -225,6 +253,17 @@ Fire-up a Scala REPL.
 <dd>
 Compile and package Scala code.
 </dd>
+</dl>
+<blockquote>
+<ul>
+<li>By default, the <strong>package</strong> command generates a
+<em>lightweight JAR</em> that contains only the user’s bytecode.</li>
+<li>Passing <strong>–assembly</strong> to the <strong>package</strong>
+command generates <em>fat JARs</em> (so-called
+<em>assemblies</em>).</li>
+</ul>
+</blockquote>
+<dl>
 <dt><strong>run</strong></dt>
 <dd>
 Compile and run Scala code.
@@ -243,7 +282,8 @@ Print details about this application.
 <dt><strong>fmt</strong>, <strong>format</strong>,
 <strong>scalafmt</strong></dt>
 <dd>
-Format Scala code.
+Format Scala code. See <a
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).
 </dd>
 <dt><strong>browse</strong>, <strong>metabrowse</strong></dt>
 <dd>
@@ -327,11 +367,13 @@ Add compiler plugin dependencies
 <strong>--scalac-option</strong> <em><code>option</code></em></dt>
 <dd>
 Add a <strong><code>scalac</code></strong> option. Note that options
-starting with <strong><code>-g</code></strong>, <code>-language</code>,
-<code>-opt</code>, <code>-P</code>, <code>-target</code>,
-<code>-V</code>, <code>-W</code>, <code>-X</code>, and <code>-Y</code>
-are assumed to be Scala compiler options and don’t require to be passed
-after <code>-O</code> or <code>--scalac-option</code>.
+starting with <strong><code>-g</code></strong>,
+<strong><code>-language</code></strong>, <code>-opt</code>,
+<code>-P</code>, <code>-target</code>, <code>-V</code>, <code>-W</code>,
+<code>-X</code>, and <strong><code>-Y</code></strong> are assumed to be
+Scala compiler options and don’t require to be passed after
+<strong><code>-O</code></strong> or
+<strong><code>--scalac-option</code></strong>.
 </dd>
 <dt><strong>-S</strong>, <strong>--scala</strong>,
 <strong>--scala-version</strong> <em><code>version</code></em></dt>
@@ -356,12 +398,10 @@ Use a specific JVM, such as <strong><code>14</code></strong>,
 </dl>
 <blockquote>
 <p><strong>Note</strong>: JVMs are managed by <a
-href="https://get-coursier.io/docs/cli-java#managed-jvms">Coursier</a>,
+href="https://get-coursier.io/docs/cli-java#managed-jvms">Coursier</a>
 and are based on the <a
 href="https://github.com/shyiko/jabba/blob/master/index.json">index</a>
-of the <a href="https://github.com/shyiko/jabba"
-title="Jabba - A Java Version Manager"><strong>jabba</strong></a>
-command-line tool.</p>
+of <a href="./jabba.1.html"><strong>jabba</strong></a>(1).</p>
 </blockquote>
 <dl>
 <dt><strong>--jar</strong>, <strong>–jars</strong>,
@@ -579,7 +619,7 @@ href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://scala-cli.virtuslab.org/">Scala CLI 0.1.2</a></div>
   <div style="float:right;">scala-cli(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
-  <div style="text-align:center;">April 06, 2022</div>
+  <div style="text-align:center;">April 07, 2022</div>
 </div>
 </body>
 </html>
