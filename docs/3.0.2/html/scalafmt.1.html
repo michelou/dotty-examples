@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-07" />
+  <meta name="dcterms.date" content="2022-04-09" />
   <title>scalafmt(1) Scalafmt 3.4.3 | User Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">scalafmt(1) Scalafmt 3.4.3 | User Commands</h1>
-<p class="date">April 07, 2022</p>
+<p class="date">April 09, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">scalafmt(1)</div>
@@ -177,12 +177,6 @@
   <div style="clear:both;"/>
 </div>
 </header>
-<!--==========================================================================
-Similar man pages:
-* java - https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html
-* java - https://www.manpagez.com/man/1/java/
-* scala - https://manpages.debian.org/stretch/scala/scala.1
-===========================================================================-->
 <h1 id="name">NAME</h1>
 <p><strong>scalafmt</strong> - Source code formatter for the Scala
 language</p>
@@ -239,7 +233,7 @@ Read from stdin and print to stdout.
 <dd>
 Don’t use stdrerr for messages, output to stdout.
 </dd>
-<dt><strong>--assume-filename</strong> <code>value</code></dt>
+<dt><strong>--assume-filename</strong> <em><code>value</code></em></dt>
 <dd>
 When using <strong><code>--stdin</code></strong>, use
 <strong><code>--assume-filename</code></strong> to hint to
@@ -308,7 +302,9 @@ Print out diagnostics to console.
 </dd>
 <dt><strong>--non-interactive</strong></dt>
 <dd>
-Disable fancy progress bar, useful in ci or sbt plugin.
+Disable fancy progress bar, useful in CI or <a
+href="https://www.scala-sbt.org/"
+title="Sbt - The Interactive Build Tool">Sbt</a> plugin.
 </dd>
 <dt><strong>--list</strong></dt>
 <dd>
@@ -367,17 +363,17 @@ master branch.</p>
 <p>Format files listed in <code>git status</code> (latest changes
 against previous commit).</p>
 <blockquote>
-<p><strong><code>scalafmt</code></strong>
-<code>--mode changed</code></p>
+<p><strong><code>scalafmt --mode</code></strong>
+<code>changed</code></p>
 </blockquote>
 <p>Same as <code>--diff</code>, except against branch 2.x.</p>
 <blockquote>
-<p><strong><code>scalafmt</code></strong>
-<code>--diff-branch 2.x</code></p>
+<p><strong><code>scalafmt --diff-branch</code></strong>
+<code>2.x</code></p>
 </blockquote>
 <p>Read from stdin and print to stdout.</p>
 <blockquote>
-<p><strong><code>scalafmt</code></strong> <code>--stdin</code></p>
+<p><strong><code>scalafmt --stdin</code></strong></p>
 </blockquote>
 <p>Required when using <strong><code>--stdin</code></strong> to format
 <strong><code>.sbt</code></strong> files.</p>
@@ -445,6 +441,7 @@ MIT License (MIT)</a></p>
 href="https://scalameta.org/"><strong>Scalameta</strong></a></p>
 <h1 id="see-also"><span id="see_also">SEE ALSO</span></h1>
 <p><a href="./amm.1.html"><strong>amm</strong></a>(1), <a
+href="./bloop.1.html"><strong>bloop</strong></a>(1), <a
 href="./cs.1.html"><strong>cs</strong></a>(1), <a
 href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
 href="./jabba.1.html"><strong>jabba</strong></a>(1), <a
@@ -456,7 +453,7 @@ href="./scalafix.1.html"><strong>scalafix</strong></a>(1).</p>
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://scalameta.org/scalafmt/">Scalafmt 3.4.3</a></div>
   <div style="float:right;">scalafmt(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
-  <div style="text-align:center;">April 07, 2022</div>
+  <div style="text-align:center;">April 09, 2022</div>
 </div>
 </body>
 </html>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-07" />
+  <meta name="dcterms.date" content="2022-04-09" />
   <title>jabba(1) Jabba 0.11.2 | User Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">jabba(1) Jabba 0.11.2 | User Commands</h1>
-<p class="date">April 07, 2022</p>
+<p class="date">April 09, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">jabba(1)</div>
@@ -177,12 +177,6 @@
   <div style="clear:both;"/>
 </div>
 </header>
-<!--==========================================================================
-Similar man pages:
-* java - https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html
-* java - https://www.manpagez.com/man/1/java/
-* scala - https://manpages.debian.org/stretch/scala/scala.1
-===========================================================================-->
 <h1 id="name">NAME</h1>
 <p><strong>jabba</strong> - Java Version Manager</p>
 <h1 id="synopsis">SYNOPSIS</h1>
@@ -200,9 +194,14 @@ on Linux/MacOSX resp. <code>%USERPROFILE%\.jabba\</code> on Windows. If
 at any point of time you decide to uninstall <strong>jabba</strong> just
 remove this directory.</p>
 <h1 id="commands"><span id="commands">COMMANDS</span></h1>
-<h2 id="ls">ls</h2>
-<p>: List installed versions</p>
+<dl>
+<dt><strong>ls</strong></dt>
+<dd>
+List installed versions
+</dd>
+</dl>
 <h1 id="options"><span id="options">OPTIONS</span></h1>
+<p><em>tbd</em></p>
 <h1 id="environment"><span id="environment">ENVIRONMENT</span></h1>
 <dl>
 <dt><strong>.jabbarc</strong></dt>
@@ -211,7 +210,7 @@ remove this directory.</p>
 </dd>
 </dl>
 <h1 id="examples"><span id="examples">EXAMPLES</span></h1>
-<p>List available JDKs.</p>
+<p>List the available JDKs.</p>
 <blockquote>
 <p><strong><code>jabba ls-remote</code></strong></p>
 </blockquote>
@@ -232,13 +231,13 @@ remove this directory.</p>
 <p><strong><code>jabba install</code></strong>
 <code>adopt@1.8-0</code></p>
 </blockquote>
-<p>Install GraalVM CE</p>
+<p>Install GraalVM CE version <code>21.1.0</code></p>
 <blockquote>
 <p><strong><code>jabba install</code></strong>
-<code>graalvm@1.0-0</code></p>
+<code>graalvm-ce-java11@21.1.0</code></p>
 </blockquote>
-<p>Install from custom URL (supported qualifiers: zip, tgz, tgx, dmg,
-bin, exe).</p>
+<p>Install from custom URL (supported qualifiers: <code>zip</code>, tgz,
+tgx, dmg, bin, exe).</p>
 <blockquote>
 <p><strong><code>jabba install</code></strong>
 <code>1.8.0-custom=tgz+http://example.com/distribution.tar.gz</code>
@@ -270,8 +269,8 @@ bin, exe).</p>
 <p>Switch to the JDK specified in <code>.jabbarc</code> (since
 0.5.0).</p>
 <blockquote>
-<p><strong><code>echo</code></strong>
-<code>"1.8" &gt; .jabbarc</code><br />
+<p><strong><code>echo</code></strong> <code>"1.8"</code>
+<strong><code>&gt;</code></strong> <code>.jabbarc</code><br />
 <strong><code>jabba use</code></strong></p>
 </blockquote>
 <p>Set default Java version on shell (since 0.2.0). This version will
@@ -299,6 +298,7 @@ href="https://github.com/shyiko/"><strong>Stanley
 Shyiko</strong></a></p>
 <h1 id="see-also">SEE ALSO</h1>
 <p><a href="./amm.1.html"><strong>amm</strong></a>(1), <a
+href="./bloop.1.html"><strong>bloop</strong></a>(1), <a
 href="./cs.1.html"><strong>cs</strong></a>(1), <a
 href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
 href="./mill.1.html"><strong>mill</strong></a>(1), <a
@@ -309,7 +309,7 @@ href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://github.com/shyiko/jabba#jabba--">Jabba 0.11.2</a></div>
   <div style="float:right;">jabba(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
-  <div style="text-align:center;">April 07, 2022</div>
+  <div style="text-align:center;">April 09, 2022</div>
 </div>
 </body>
 </html>

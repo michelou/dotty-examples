@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2022-04-10" />
+  <title>bloop(1) Bloop 2.5.2 | User Commands</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Courier;
+      font-size: 12pt;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin:0 6em 4em 4em;
+      max-width: 40em;
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 5;
+      padding-bottom: 5;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      text-decoration: none;
+      color: [HTML]{66001E};
+    }
+    a:visited {
+      color: [HTML]{66001E};
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: -1em 0 -1em 1.5em;
+      padding-left: 1em;
+      border-left: none;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    dd p {
+      margin-top: 0em;
+      margin-bottom: -1em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<!--
+<h1 class="title">bloop(1) Bloop 2.5.2 | User Commands</h1>
+<p class="date">April 10, 2022</p>
+-->
+<div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;">bloop(1)</div>
+  <div style="float:right;">bloop(1) <a href="#title-block-footer" title="Go to bottom">⭳</a></div>
+  <div style="text-align:center;">Scala Commands</div>
+  <div style="clear:both;"/>
+</div>
+</header>
+<h1 id="name">NAME</h1>
+<p><strong>bloop</strong> - Build server that runs in the backgroud and
+serves build requests</p>
+<h1 id="synopsis">SYNOPSIS</h1>
+<p><strong>bloop</strong> [<em><code>options</code></em>]
+[<em><code>command</code></em>
+[<em><code>command-options</code></em>]]</p>
+<h1 id="description">DESCRIPTION</h1>
+<p><a href="https://scalacenter.github.io/bloop/">Bloop</a> is a build
+server and CLI tool for the Scala programming language developed by the
+<a href="https://scala.epfl.ch">Scala Center</a>.</p>
+<p><a href="https://scalacenter.github.io/bloop/">Bloop</a> has two main
+goals:</p>
+<ul>
+<li>Compiles, tests and runs <a
+href="https://www.scala-lang.org/">Scala</a> code as fast as
+possible.</li>
+<li>Integrates easily with build tools, command-line applications,
+editors and custom tooling.</li>
+</ul>
+<h1 id="commands"><span id="commands">COMMANDS</span></h1>
+<dl>
+<dt><strong>clean</strong></dt>
+<dd>
+<em>tbd</em>
+</dd>
+</dl>
+<blockquote>
+<p><strong>Clean Options</strong></p>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--projects</strong>, <strong>-p</strong>,
+<strong>--project</strong> <em><code>value</code></em></dt>
+<dd>
+Set the projects to clean (you can specify multiple). If none, all are
+cleaned.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--include-dependencies</strong>,
+<strong>--propagate</strong></dt>
+<dd>
+Clean a project and all its dependencies.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Default: <strong><code>false</code></strong></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--cascade</strong></dt>
+<dd>
+Clean a project and all projects depending on it.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Default: <strong><code>false</code></strong></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--config-dir</strong>, <strong>-c</strong>
+<em><code>path</code></em></dt>
+<dd>
+Set the path to the <strong><code>bloop</code></strong> config directory
+(containing the <code>.bloop</code> file).
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Default: <strong><code>.bloop</code></strong> in the current working
+directory.</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--version</strong>, <strong>-v</strong></dt>
+<dd>
+If set, print the about section at the beginning of the execution.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Default: <strong><code>false</code></strong></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--verbose</strong></dt>
+<dd>
+If set, print out debugging information to stderr.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Default: <strong><code>false</code></strong></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--no-color</strong></dt>
+<dd>
+If set, do not color output.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Default: <strong><code>false</code></strong></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--debug</strong> <em><code>value</code></em></dt>
+<dd>
+Debug the execution of a concrete task.
+</dd>
+</dl>
+</blockquote>
+<!--############################# compile ################################ -->
+<dl>
+<dt><strong>compile</strong></dt>
+<dd>
+You can’t run <strong>bloop compile</strong> or <strong>bloop
+test</strong> without specifying a project. There is <em>no
+implicit</em> root project.
+</dd>
+</dl>
+<blockquote>
+<p><strong>Compile Options</strong></p>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--projects</strong>, <strong>-p</strong>,
+<strong>–project</strong> <em><code>value</code></em></dt>
+<dd>
+Defined the projects to compile (will be inferred from remaining cli
+args).
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--incremental</strong></dt>
+<dd>
+Compile the project incrementally.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Default: <strong><code>true</code></strong></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--pipeline</strong></dt>
+<dd>
+Pipeline the compilation of modules in your build.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Default: <strong><code>false</code></strong></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--reporter</strong> <em><code>value</code></em></dt>
+<dd>
+Pick reporter to show compilation messages. By default, bloop’s used.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--watch</strong>, <strong>-w</strong></dt>
+<dd>
+Run the command when projects’ source files change.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Default: <strong><code>false</code></strong></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--cascade</strong></dt>
+<dd>
+Compile a project and all projects depending on it.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Default: <strong><code>false</code></strong></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>–config-dir</strong>, <strong>-c</strong>
+<em><code>path</code></em></dt>
+<dd>
+Set the path to the <strong><code>bloop</code></strong> config directory
+(contain the <code>.bloop</code> file).
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Default: <strong><code>.bloop</code></strong> in the current working
+directory.</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--version</strong>, <strong>-v</strong></dt>
+<dd>
+If set, print the about section at the beginning of the execution.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Default: <strong><code>false</code></strong></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--verbose</strong></dt>
+<dd>
+If set, print out debugging information to stderr.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Default: <strong><code>false</code></strong></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--no-color</strong></dt>
+<dd>
+If set, do not color output.
+</dd>
+</dl>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Default: <strong><code>false</code></strong></p>
+</blockquote>
+</blockquote>
+<blockquote>
+<dl>
+<dt><strong>--debug</strong> <em><code>value</code></em></dt>
+<dd>
+Debug the execution of a concrete task.
+</dd>
+</dl>
+</blockquote>
+<h1 id="options"><span id="options">OPTIONS</span></h1>
+<dl>
+<dt><strong>--nailgun-help</strong></dt>
+<dd>
+Display the <a
+href="https://github.com/facebook/nailgun#nailgun">NailGun</a> specific
+options.
+</dd>
+<dt><strong>--nailgun-server=</strong><em><code>host</code></em></dt>
+<dd>
+Set the <a
+href="https://github.com/facebook/nailgun#nailgun">NailGun</a> server
+host.
+</dd>
+<dt><strong>--nailgun-port=</strong><em><code>port</code></em></dt>
+<dd>
+Set the NailGun server port.
+</dd>
+<dt><strong>--nailgun-filearg=</strong><em><code>path</code></em></dt>
+<dd>
+Specify the NailGun argument file.
+</dd>
+<dt><strong>--nailgun-showversion</strong></dt>
+<dd>
+Display the <a
+href="https://github.com/facebook/nailgun#nailgun">NailGun</a> client
+version.
+</dd>
+<dt><strong>--server-location=</strong><em><code>location</code></em></dt>
+<dd>
+Set the server location. <!-- ???? -->
+</dd>
+</dl>
+<h1 id="environment"><span id="environment">ENVIRONMENT</span></h1>
+<p><em>tbd</em></p>
+<h1 id="examples"><span id="examples">EXAMPLES</span></h1>
+<p>A <a href="https://scalacenter.github.io/bloop/">Bloop</a> server is
+running on port <code>8212</code> per default.</p>
+<ul>
+<li>To spawn a bloop server on another port run the command<br />
+<strong><code>bloop server</code></strong>
+<em><code>nailgun_port</code></em>.</li>
+<li>To kill the running server run the command<br />
+<strong><code>bloop ng-stop</code></strong></li>
+</ul>
+<p>Spawn the <a href="https://scalacenter.github.io/bloop/">Bloop</a>
+server on port <code>8888</code> (Windows)</p>
+<blockquote>
+<p><strong><code>start</code></strong> <code>"bloop:8888"</code>
+<strong><code>bloop server</code></strong> <code>8888</code><br />
+ <br />
+<code>There is no server running at port 8888</code><br />
+<code>Starting the bloop server... this may take a few seconds</code><br />
+<code>Running C:\opt\bloop-1.4.13\blp-server as a jar...</code><br />
+<code>Shelling out with '['java', '-jar', 'C:\\opt\\bloop-1.4.13\\blp-server', '8888']' ...</code><br />
+<code>Unable to load nailgun-version.properties.</code><br />
+<code>NGServer [UNKNOWN] started on address localhost/127.0.0.1 port 8888.</code></p>
+</blockquote>
+<h1 id="exit-status">EXIT STATUS</h1>
+<p><strong>bloop</strong> returns a zero exit status if it succeeds at
+processing the specified input files. Non zero is returned in case of
+failure.</p>
+<h1 id="authors"><span id="authors">AUTHORS</span></h1>
+<p><a href="https://github.com/Duhemm"><strong>Martin
+Duhem</strong></a>, <a href="https://github.com/jvican"><strong>Jorge
+Vicente Cantero</strong></a> and the <a
+href="https://scala.epfl.ch/"><strong>Scala Center</strong></a></p>
+<h1 id="reporting-bugs">REPORTING BUGS</h1>
+<p>Report bugs to <a
+href="https://github.com/scalacenter/bloop/issues"><strong>https://github.com/scalacenter/bloop/issues</strong></a>.</p>
+<h1 id="copyright">COPYRIGHT</h1>
+<p><a
+href="https://github.com/scalacenter/bloop/blob/main/LICENSE.md">The
+Apache License 2.0</a></p>
+<!--
+https://github.com/scalacenter/bloop/commit/58f74e082fe919e4ce351f833eb4d9b8d50f8b20
+-->
+<p>Copyright (c) 2017 <a href="https://github.com/Duhemm"><strong>Martin
+Duhem</strong></a> and <a href="https://github.com/jvican"><strong>Jorge
+Vicente Cantero</strong></a></p>
+<p>Copyright (c) 2018-2022 <a href="https://scala.epfl.ch"><strong>Scala
+Center</strong></a></p>
+<h1 id="see-also"><span id="see_also">SEE ALSO</span></h1>
+<p><a href="./amm.1.html"><strong>amm</strong></a>(1), <a
+href="./cs.1.html"><strong>cs</strong></a>(1), <a
+href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
+href="./jabba.1.html"><strong>jabba</strong></a>(1), <a
+href="./mill.1.html"><strong>mill</strong></a>(1), <a
+href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
+href="./scala-cli.1.html"><strong>scala-cli</strong></a>(1), <a
+href="./scalafix.1.html"><strong>scalafix</strong></a>(1), <a
+href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
+<!-- hyperref -->
+<div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
+  <div style="float:left;"><a href=""></a></div>
+  <div style="float:right;">bloop(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
+  <div style="text-align:center;">April 10, 2022</div>
+</div>
+</body>
+</html>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-07" />
+  <meta name="dcterms.date" content="2022-04-09" />
   <title>mill(1) Mill 0.10.0 | User Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">mill(1) Mill 0.10.0 | User Commands</h1>
-<p class="date">April 07, 2022</p>
+<p class="date">April 09, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">mill(1)</div>
@@ -180,15 +180,18 @@
 <h1 id="name">NAME</h1>
 <p><strong>mill</strong> - Mill build tool</p>
 <h1 id="synopsis">SYNOPSIS</h1>
-<p><strong>mill</strong>
-<code>[</code><em><code>options</code></em><code>]</code>
-<code>[[</code><em><code>target</code></em><code>[</code><em><code>target-options</code></em><code>]]</code>
-<code>[+ [</code><em><code>target</code></em><code>...]]]</code></p>
-<p>Open the Mill REPL and execute user input (interactive mode).</p>
-<p><strong>mill -i</strong>
-<code>[</code><em><code>options</code></em><code>]</code>
-<code>[[</code><em><code>target</code></em><code>[</code><em><code>target-options</code></em><code>]]</code>
-<code>[+ [</code><em><code>target</code></em><code>...]]]</code></p>
+<p><strong>mill</strong> [<em><code>options</code></em>] [
+[<em><code>target</code></em> [<em><code>target-options</code></em>] ]
+[+ [<em><code>target...</code></em>] ] ]</p>
+<p><strong>mill -i</strong> [<em><code>options</code></em>] [
+[<em><code>target</code></em> [<em><code>target-options</code></em>] ]
+[+ [<em><code>target...</code></em>] ] ]     Open the <a
+href="https://com-lihaoyi.github.io/mill">Mill</a> REPL and execute user
+input (interactive mode).<br />
+    Alternatives to <strong><code>-i</code></strong> are
+<strong><code>--interactive</code></strong> ,
+<strong><code>--no-server</code></strong>, or
+<strong><code>--repl</code></strong>.</p>
 <h1 id="description">DESCRIPTION</h1>
 <p><a href="https://com-lihaoyi.github.io/mill">Mill</a> has built-in
 support for the <a href="https://www.scala-lang.org/"
@@ -248,6 +251,7 @@ metadata from evaluating a task.
 </dd>
 </dl>
 <h1 id="options"><span id="options">OPTIONS</span></h1>
+<p>All options must be given before the first target.</p>
 <!-- https://github.com/com-lihaoyi/mill/blob/main/main/src/mill/MillConfig.scala -->
 <dl>
 <dt><strong>--no-default-predef</strong></dt>
@@ -330,7 +334,7 @@ Mill server will be used. Must be the first argument.
 </dd>
 <dt><strong>--bsp</strong></dt>
 <dd>
-Enable BSP server mode.
+Enable [BSP][bsp_home] server mode.
 </dd>
 <dt><strong>-i</strong>, <strong>--interactive</strong></dt>
 <dd>
@@ -408,7 +412,7 @@ of <a href="https://com-lihaoyi.github.io/mill">Mill</a> specified in
 the <a href="https://com-lihaoyi.github.io/mill">Mill</a> script.
 </dd>
 </dl>
-<h1 id="examples">EXAMPLES</h1>
+<h1 id="examples"><span id="examples">EXAMPLES</span></h1>
 <p>Print the help message corresponding to this manual page.</p>
 <blockquote>
 <p><strong><code>mill -i help</code></strong></p>
@@ -436,6 +440,7 @@ on <a href="https://gitter.im/">Gitter</a>.</li>
 </ul>
 <h1 id="see-also"><span id="see_also">SEE ALSO</span></h1>
 <p><a href="./amm.1.html"><strong>amm</strong></a>(1), <a
+href="./bloop.1.html"><strong>bloop</strong></a>(1), <a
 href="./cs.1.html"><strong>cs</strong></a>(1), <a
 href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
 href="./sbt.1.html"><strong>sbt</strong></a>(1), <a
@@ -445,7 +450,7 @@ href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://com-lihaoyi.github.io/mill/">Mill 0.10.0</a></div>
   <div style="float:right;">mill(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
-  <div style="text-align:center;">April 07, 2022</div>
+  <div style="text-align:center;">April 09, 2022</div>
 </div>
 </body>
 </html>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2022-04-07" />
+  <meta name="dcterms.date" content="2022-04-10" />
   <title>amm(1) Ammonite 2.5.2 | User Commands</title>
   <style>
     html {
@@ -168,7 +168,7 @@
 <header id="title-block-header">
 <!--
 <h1 class="title">amm(1) Ammonite 2.5.2 | User Commands</h1>
-<p class="date">April 07, 2022</p>
+<p class="date">April 10, 2022</p>
 -->
 <div style="margin-top:1em; border-bottom:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;">amm(1)</div>
@@ -177,16 +177,11 @@
   <div style="clear:both;"/>
 </div>
 </header>
-<!--==========================================================================
-Similar man pages:
-* java - https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html
-* java - https://www.manpagez.com/man/1/java/
-* scala - https://manpages.debian.org/stretch/scala/scala.1
-===========================================================================-->
 <h1 id="name">NAME</h1>
 <p><strong>amm</strong> - Ammonite-REPL, a Scala REPL and script
 runner</p>
 <h1 id="synopsis">SYNOPSIS</h1>
+<!-- synopsis taken as-is from --help option -->
 <p><strong>amm</strong> [<em><code>ammonite-options</code></em>]
 [<em><code>script-file</code></em>
 [<em><code>script-options</code></em>]]</p>
@@ -305,6 +300,18 @@ href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html"
 title="java command"><strong>java</strong></a> command.
 </dd>
 </dl>
+<!-- https://ammonite.io/#JVMFlags -->
+<dl>
+<dt><strong>JAVA_OPTS</strong></dt>
+<dd>
+Ppass arguments to the JVM.
+</dd>
+</dl>
+<blockquote>
+<p>Example:
+<strong><code>JAVA_OPTS=</code></strong><code>"-Xmx1024m"</code>
+<strong><code>amm</code></strong></p>
+</blockquote>
 <h2 id="configuration-files"><span
 id="configuration_files">Configuration Files</span></h2>
 <dl>
@@ -329,18 +336,18 @@ Windows: <code>%USERPROFILE%\.ammonite\predef.sc</code></p>
 lets us break our scripts into multiple, smaller scripts with no need to
 set up a project:</p>
 <blockquote>
-<p><em><code>// Colors.sc</code></em> <strong><code>enum</code></strong>
-<code>Color(n: Long):</code><br />
-<strong><code>case</code></strong> <code>marron</code>
+<p><em><code>// Colors.sc</code></em><br />
+<strong><code>enum</code></strong> <code>Color(n: Long):</code><br />
+  <strong><code>case</code></strong> <code>marron</code>
 <strong><code>extends</code></strong> <code>Color(0x800000)</code><br />
-<strong><code>case</code></strong> <code>red</code>
+  <strong><code>case</code></strong> <code>red</code>
 <strong><code>extends</code></strong> <code>Color(0xFF0000)</code><br />
-<strong><code>case</code></strong> <code>orange</code>
+  <strong><code>case</code></strong> <code>orange</code>
 <strong><code>extends</code></strong> <code>Color(0xFFA500)</code><br />
-<strong><code>override def</code></strong>
+  <strong><code>override def</code></strong>
 <code>toString = n.toHexString</code></p>
-<p><em><code>// Imports.sc</code></em>
-<strong><code>import $file</code></strong><code>.Colors, Colors.Color._</code>
+<p><em><code>// Imports.sc</code></em><br />
+<strong><code>import $file</code></strong><code>.Colors, Colors.Color._</code><br />
 <code>println(s"Imported color: $red")</code>
 <em><code>// prints "FF0000"</code></em></p>
 </blockquote>
@@ -352,11 +359,36 @@ href="https://maven.apache.org/"
 title="Maven - A Software Project Management Tool">Maven</a> libraries
 before compiling the script and show an error if it cannot find it.</p>
 <blockquote>
-<p><em><code>// imports2.sc</code></em>
-<strong><code>import $ivy.</code></strong><code>\</code>org.ow2.asm:asm:9.3`,
-org.objectweb.asm._<code>\ *</code>// prints “ACC_ABSTRACT
-=1024”<code>*\</code>println(s”ACC_ABSTRACT
-=${Opcodes.ACC_ABSTRACT}“)`</p>
+<p><em><code>// imports2.sc</code></em><br />
+<strong><code>import $ivy.</code>`</strong><code>org.ow2.asm:asm:9.3</code>`,
+<code>org.objectweb.asm._</code><br />
+<em><code>// prints "ACC_ABSTRACT=1024"</code></em><br />
+<code>println(s"ACC_ABSTRACT=${Opcodes.ACC_ABSTRACT}")</code></p>
+</blockquote>
+<!-- inspired from https://github.com/kciesielski/ammonite-predef/blob/master/predef.sc -->
+<p>Create a file <code>~/.ammonite/predef.sc</code> with a list of
+import clauses for asynchronous programming.</p>
+<blockquote>
+<p><code>// ~/.ammonite/predef.sc</code><br />
+<strong><code>import</code></strong>
+<code>scala.concurrent.ExecutionContext.Implicits.global</code><br />
+<strong><code>import</code></strong>
+<code>scala.concurrent.duration._</code><br />
+<strong><code>import</code></strong>
+<code>scala.concurrent.Future</code><br />
+<strong><code>import</code></strong>
+<code>scala.util.{Failure, Success}</code><br />
+<strong><code>import</code></strong>
+<code>scala.concurrent.Await</code></p>
+</blockquote>
+<p>Then (re-)start the Ammonite-REPL and write something like:</p>
+<blockquote>
+<p><strong><code>amm</code></strong><br />
+<code>Loading...</code><br />
+<code>Compiling ~\.ammonite\predef.sc</code><br />
+<code>Welcome to the Ammonite Repl 2.5.2 (Scala 3.1.1 Java 1.8.0_321)</code><br />
+<strong><code>@</code></strong> <code>3.seconds</code><br />
+<code>res0: FiniteDuration = 3 seconds</code></p>
 </blockquote>
 <h1 id="exit-status">EXIT STATUS</h1>
 <p>The <strong>amm</strong> command returns a zero exit status if it
@@ -384,7 +416,8 @@ MIT License (MIT)</a></p>
 <p>Copyright (c) 2017-2022 <strong>Li Haoyi</strong>
 (haoyi.sg@gmail.com)</p>
 <h1 id="see-also"><span id="see_also">SEE ALSO</span></h1>
-<p><a href="./cs.1.html"><strong>cs</strong></a>(1), <a
+<p><a href="./bloop.1.html"><strong>bloop</strong></a>(1), <a
+href="./cs.1.html"><strong>cs</strong></a>(1), <a
 href="./gradle.1.html"><strong>gradle</strong></a>(1), <a
 href="./jabba.1.html"><strong>jabba</strong></a>(1), <a
 href="./mill.1.html"><strong>mill</strong></a>(1), <a
@@ -396,7 +429,7 @@ href="./scalafmt.1.html"><strong>scalafmt</strong></a>(1).</p>
 <div id="title-block-footer" style="border-top:1px solid gray;font-size:90%;font-weight:bold;">
   <div style="float:left;"><a href="https://ammonite.io/">Ammonite 2.5.2</a></div>
   <div style="float:right;">amm(1) <a href="#title-block-header" title="Back to top">⭱</a></div>
-  <div style="text-align:center;">April 07, 2022</div>
+  <div style="text-align:center;">April 10, 2022</div>
 </div>
 </body>
 </html>
