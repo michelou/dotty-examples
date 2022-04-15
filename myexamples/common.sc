@@ -3,7 +3,7 @@ import mill._, api._, scalalib._
 //////////////////////////////////////////////////////////////////////////////
 // Project properties
 
-val scalaVersion = "3.1.2-RC1"  // "3.1.1", "3.0.1", "2.13.8"
+val scalaVersion = "3.1.3-RC2"  // "3.1.2", "3.1.1", "3.0.1", "2.13.8"
 val scalacOptions = Seq("-deprecation", "-encoding", "UTF8", "-feature")
 
 val forkArgs = Seq("-Xmx1g")
@@ -18,12 +18,10 @@ val scalaSourcePath = os.pwd / "src" / "main" / "scala"
 //////////////////////////////////////////////////////////////////////////////
 // Ivy dependencies
 
-val scalaBinaryVersion = "2.13"
-
 val junitVersion = "4.13.2"
 val jupiterVersion = "5.8.2"
 val scalatestVersion = "3.2.11"
-val specs2Version = "4.14.1"
+val specs2Version = "5.0.0"
 
 // https://mvnrepository.com/artifact/junit/junit
 val ivyJunit = ivy"org.junit:org.junit:$junitVersion"
@@ -44,16 +42,16 @@ val ivyScalatest = ivy"org.scalatest:scalatest_3:$scalatestVersion"
 val ivyScalactic = ivy"org.scalactic:scalactic_3:$scalatestVersion"
 
 // https://mvnrepository.com/artifact/org.specs2/specs2-common
-val ivySpecs2Common = ivy"org.specs2:specs2-common_$scalaBinaryVersion:$specs2Version"
+val ivySpecs2Common = ivy"org.specs2:specs2-common_3:$specs2Version"
 
 // https://mvnrepository.com/artifact/org.specs2/specs2-core
-val ivySpecs2Core = ivy"org.specs2:specs2-core_$scalaBinaryVersion:$specs2Version"
+val ivySpecs2Core = ivy"org.specs2:specs2-core_3:$specs2Version"
 
 // https://mvnrepository.com/artifact/org.specs2/specs2-junit
-val ivySpecs2JUnit = ivy"org.specs2:specs2-junit_$scalaBinaryVersion:$specs2Version"
+val ivySpecs2JUnit = ivy"org.specs2:specs2-junit_3:$specs2Version"
 
 // https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-val ivyScalaXml = ivy"org.scala-lang.modules:scala-xml_3:2.0.1"
+val ivyScalaXml = ivy"org.scala-lang.modules:scala-xml_3:2.1.0"
 
 // https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parser-combinators
 val ivyScalaParser = ivy"org.scala-lang.modules:scala-parser-combinators_3:2.1.1"

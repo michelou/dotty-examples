@@ -41,15 +41,15 @@ TOUCH      = touch
 endif
 
 SCALA_LIB_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala-library-2.13.8.jar)
-SCALA3_LIB_JAR     = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala3-library_3-3.1.2-RC1.jar)
+SCALA3_LIB_JAR     = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala3-library_3-3.1.3-RC2.jar)
 HAMCREST_JAR       = $(shell $(FIND) "$(LOCAL_REPO)/org/hamcrest" -name hamcrest-2.2.jar)
 JUNIT_JAR          = $(shell $(FIND) "$(LOCAL_REPO)/junit/junit" -name junit-4.13.2.jar)
 JUNIT_INTF_JAR     = $(shell $(FIND) "$(LOCAL_REPO)/com/novocode" -name junit-interface-0.11.jar)
 SCALATEST_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/scalatest" -name scalatest_3-3.2.11.jar)
 SCALACTIC_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/scalactic" -name scalactic_3-3.2.11.jar)
-SPECS2_CORE_JAR    = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-core_2.13-4.14.0.jar)
-SPECS2_JUNIT_JAR   = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-junit_2.13-4.14.0.jar)
-SPECS2_MATCHER_JAR = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-matcher_2.13-4.14.0.jar)
+SPECS2_CORE_JAR    = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-core_3-5.0.0.jar)
+SPECS2_JUNIT_JAR   = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-junit_3-5.0.0.jar)
+SPECS2_MATCHER_JAR = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-matcher_3-5.0.0.jar)
 
 ifeq (,$(wildcard $(SCALA3_LIB_JAR)))
 $(error Variable SCALA3_LIB_JAR is not set)

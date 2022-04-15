@@ -23,10 +23,10 @@ set __SCALA_BINARY_VERSION=2.13
 call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSION%" "1.1.1"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.0.1"
+call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.1.0"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parser-combinators
-call :add_jar "org.scala-lang.modules" "scala-parser-combinators_3" "2.1.0"
+call :add_jar "org.scala-lang.modules" "scala-parser-combinators_3" "2.1.1"
 
 @rem https://mvnrepository.com/artifact/junit/junit
 call :add_jar "junit" "junit" "4.13.2"
@@ -82,7 +82,7 @@ call :add_jar "org.specs2" "specs2-matcher_3" "%__SPECS2_VERSION%"
 call :add_jar "org.specs2" "specs2-fp_3" "%__SPECS2_VERSION%"
 
 @rem https://mvnrepository.com/artifact/com.chuusai/shapeless
-call :add_jar "com.chuusai" "shapeless_%__SCALA_BINARY_VERSION%" "2.3.8"
+call :add_jar "com.chuusai" "shapeless_%__SCALA_BINARY_VERSION%" "2.3.9"
 
 @rem https://mvnrepository.com/artifact/eu.timepit/refined
 call :add_jar "eu.timepit" "refined_3" "0.9.28"

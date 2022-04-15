@@ -19,17 +19,17 @@ set _LIBS_CPATH=
 
 set __SCALA_BINARY_VERSION=2.13
 
-set __SCALAMETA_VERSION=4.4.33
+set __SCALAMETA_VERSION=4.5.3
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
-call :add_jar "org.scala-lang" "scala-reflect" "2.13.6"
+call :add_jar "org.scala-lang" "scala-reflect" "2.13.8"
 
 @rem https://mvnrepository.com/artifact/com.lihaoyi/fansi
 @rem dependency of pprint
-call :add_jar "com.lihaoyi" "fansi_%__SCALA_BINARY_VERSION%" "0.2.14"
+call :add_jar "com.lihaoyi" "fansi_%__SCALA_BINARY_VERSION%" "0.3.1"
 
 @rem https://mvnrepository.com/artifact/com.lihaoyi/pprint
-call :add_jar "com.lihaoyi" "pprint_%__SCALA_BINARY_VERSION%" "0.6.6"
+call :add_jar "com.lihaoyi" "pprint_%__SCALA_BINARY_VERSION%" "0.7.3"
 
 @rem https://mvnrepository.com/artifact/org.scalameta/common
 call :add_jar "org.scalameta" "common_%__SCALA_BINARY_VERSION%" "%__SCALAMETA_VERSION%"
@@ -41,7 +41,7 @@ call :add_jar "org.scalameta" "scalameta_%__SCALA_BINARY_VERSION%" "%__SCALAMETA
 call :add_jar "org.scalameta" "semanticdb-scalac_2.13.8" "%__SCALAMETA_VERSION%"
 
 @rem https://mvnrepository.com/artifact/com.sourcegraph/semanticdb-javac
-call :add_jar "com.sourcegraph" "semanticdb-javac" "0.7.4"
+call :add_jar "com.sourcegraph" "semanticdb-javac" "0.7.8"
 
 @rem https://mvnrepository.com/artifact/com.sourcegraph/semanticdb-kotlinc
 call :add_jar "com.sourcegraph" "semanticdb-kotlinc" "0.2.0"

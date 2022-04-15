@@ -321,12 +321,18 @@ for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
+if %__N%==0 (
+    echo %_WARNING_LABEL% No Scala source file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% Scala source file
+) else ( set __N_FILES=%__N% Scala source files
+)
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N% Scala source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of %__N% Scala source files failed 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -466,10 +472,11 @@ for /f %%f in ('dir /s /b "%_CLASSES_DIR%\*.class" 2^>NUL') do (
     set __FILES=!__FILES! -C "%_CLASSES_DIR%" "!__CLASS_FILE:%_CLASSES_DIR%\=!"
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" %__JAR_OPTS% "%_PLUGIN_JAR_FILE%" "%_MANIFEST_FILE%" %__FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Create Java archive "!_PLUGIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Create plugin archive "!_PLUGIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_JAR_CMD%" %__JAR_OPTS% "%_PLUGIN_JAR_FILE%" "%_MANIFEST_FILE%" %__FILES% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to create plugin archive "!_PLUGIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -525,6 +532,12 @@ for /f %%i in ('dir /s /b "%_SOURCE_DIR%\test\scala\*.scala" 2^>NUL') do (
     echo %%i >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
+if %__N%==0 (
+    echo %_WARNING_LABEL% No Scala test source file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% Scala test source file
+) else ( set __N_FILES=%__N% Scala test source files
+)
 if %_TEST_PLUGIN%==0 ( set __SCALAC_OPTS=%_SCALAC_OPTS%
 ) else ( set __SCALAC_OPTS=%_SCALAC_OPTS% -Xplugin:"%_PLUGIN_JAR_FILE%" -Xplugin-require:%_PLUGIN_NAME% -P:"%_PLUGIN_NAME%:opt1=1"
 )
@@ -532,11 +545,11 @@ set "__OPTS_FILE=%_TARGET_DIR%\test_scalac_opts.txt"
 echo %__SCALAC_OPTS% -classpath "%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d "%_TEST_CLASSES_DIR%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N% Scala test source files to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
+call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of %__N% Scala test source files failed 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )

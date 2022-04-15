@@ -4,8 +4,8 @@
 #
 # ANTLR - https://mvnrepository.com/artifact/org.antlr
 #
-lib https://repo1.maven.org/maven2/org/antlr/antlr/3.5.1/antlr-3.5.1.jar
-lib https://repo1.maven.org/maven2/org/antlr/antlr-runtime/3.5.1/antlr-runtime-3.5.1.jar
+#lib https://repo1.maven.org/maven2/org/antlr/antlr/3.5.1/antlr-3.5.1.jar
+lib https://repo1.maven.org/maven2/org/antlr/antlr-runtime/3.5.1/antlr-runtime-4.7.2.jar
 #
 lib https://repo1.maven.org/maven2/org/nibor/autolink/autolink/0.6.0/autolink-0.6.0.jar
 lib https://repo1.maven.org/maven2/org/scala-sbt/compiler-interface/1.3.5/compiler-interface-1.3.5.jar
@@ -31,10 +31,11 @@ lib https://repo1.maven.org/maven2/com/vladsch/flexmark/flexmark-util/0.42.12/fl
 #
 # Jackson - https://mvnrepository.com/artifact/com.fasterxml.jackson.core
 #
-lib https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.2.3/jackson-annotations-2.2.3.jar
-lib https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.9.8/jackson-core-2.9.8.jar
-lib https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.2.3/jackson-databind-2.2.3.jar
-lib https://repo1.maven.org/maven2/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.9.8/jackson-dataformat-yaml-2.9.8.jar
+lib https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.12.1/jackson-annotations-2.12.1.jar
+lib https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.12.1/jackson-core-2.12.1.jar
+lib https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.12.1/jackson-databind-2.12.1.jar
+lib https://repo1.maven.org/maven2/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.12.1/jackson-dataformat-yaml-2.12.1.jar
+lib https://repo1.maven.org/maven2/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.12.1/jackson-datatype-jsr310-2.12.1.jar
 #
 # jline - https://mvnrepository.com/artifact/org.jline
 #
@@ -43,13 +44,16 @@ lib https://repo1.maven.org/maven2/org/jline/jline-terminal/3.19.0/jline-termina
 lib https://repo1.maven.org/maven2/org/jline/jline-terminal-jna/3.19.0/jline-terminal-jna-3.19.0.jar
 lib https://repo1.maven.org/maven2/net/java/dev/jna/jna/5.3.1/jna-5.3.1.jar
 #
-lib https://repo1.maven.org/maven2/org/jsoup/jsoup/1.13.1/jsoup-1.13.1.jar
-lib https://repo1.maven.org/maven2/nl/big-o/liqp/0.6.7/liqp-0.6.7.jar
+lib https://repo1.maven.org/maven2/org/jsoup/jsoup/1.14.3/jsoup-1.14.3.jar
+lib https://repo1.maven.org/maven2/nl/big-o/liqp/0.8.2/liqp-0.8.2.jar
 lib https://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/3.7.0/protobuf-java-3.7.0.jar
-lib https://repo1.maven.org/maven2/org/scala-lang/modules/scala-asm/9.1.0-scala-1/scala-asm-9.1.0-scala-1.jar
-lib https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.6/scala-library-2.13.6.jar
-lib https://repo1.maven.org/maven2/org/yaml/snakeyaml/1.23/snakeyaml-1.23.jar
-lib https://repo1.maven.org/maven2/org/antlr/ST4/4.0.7/ST4-4.0.7.jar
+lib https://repo1.maven.org/maven2/org/scala-lang/modules/scala-asm/9.2.0-scala-1/scala-asm-9.2.0-scala-1.jar
+lib https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.8/scala-library-2.13.8.jar
+lib https://repo1.maven.org/maven2/org/yaml/snakeyaml/1.27/snakeyaml-1.27.jar
+#
+# strftime4j - https://mvnrepository.com/artifact/ua.co.k/strftime4j
+#
+lib https://repo1.maven.org/maven2/ua/co/k/strftime4j/1.0.5/strftime4j-1.0.5.jar
 #
 ##############################################################################
 # binary files from GitHub project "lampepfl/dotty"

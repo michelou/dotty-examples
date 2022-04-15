@@ -17,7 +17,7 @@
         <os family="windows" />
     </condition>
 
-    <property name="cfr.version" value="0.151" />
+    <property name="cfr.version" value="0.152" />
     <property name="hamcrest.version" value="2.2" />
     <property name="junit.version" value="4.13.2" />
 

@@ -19,3 +19,4 @@ out/
 src/build/
 target/
 *.iml
+*.tasty
