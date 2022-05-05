@@ -10,6 +10,7 @@
 *.c text linguist-language=C
 *.cabal text linguist-language=Cabal Config
 *.cpp text linguist-language=C++
+*.cs text linguist-language=CSharp
 *.daml text linguist-language=Haskell
 *.es text linguist-language=JavaScript
 *.go text linguist-language=Go

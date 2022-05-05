@@ -346,33 +346,33 @@ if not exist "%_PYTHON_HOME%\python.exe" (
 )
 goto :eof
 
-@rem output parameter: _BLOOP_PATH
+@rem output parameters: _BLOOP_HOME, _BLOOP_PATH
 :bloop
+set _BLOOP_HOME=
 set _BLOOP_PATH=
 
-set __BLOOP_HOME=
 set __BLOOP_CMD=
-for /f %%f in ('where bloop.cmd 2^>NUL') do set "__BLOOP_CMD=%%f"
+for /f %%f in ('where bloop.exe 2^>NUL') do set "__BLOOP_CMD=%%f"
 if defined __BLOOP_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of bloop executable found in PATH 1>&2
-    @rem keep _BLOOP_PATH undefined since executable already in path
-    goto :eof
+    @rem for %%i in ("%__BLOOP_CMD%") do set "__BIN_DIR=%%~dpi"
+    for %%f in ("%__BLOOP_CMD%") do set "_BLOOP_HOME=%%~dpf"
 ) else if defined BLOOP_HOME (
-    set "__BLOOP_HOME=%BLOOP_HOME%"
+    set "_BLOOP_HOME=%BLOOP_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable BLOOP_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\bloop*" 2^>NUL') do set "__BLOOP_HOME=!_PATH!\%%f"
-    if defined __BLOOP_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Bloop installation directory !__BLOOP_HOME! 1>&2
+    for /f %%f in ('dir /ad /b "!_PATH!\bloop*" 2^>NUL') do set "_BLOOP_HOME=!_PATH!\%%f"
+    if defined _BLOOP_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Bloop installation directory !_BLOOP_HOME! 1>&2
     )
 )
-if not exist "%__BLOOP_HOME%\bloop.cmd" (
-    echo %_ERROR_LABEL% bloop executable not found ^(%__BLOOP_HOME%^) 1>&2
+if not exist "%_BLOOP_HOME%\bloop.exe" (
+    echo %_ERROR_LABEL% bloop executable not found ^(%_BLOOP_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
-set "_BLOOP_PATH=;%__BLOOP_HOME%"
+set "_BLOOP_PATH=;%_BLOOP_HOME%"
 goto :eof
 
 @rem input parameters: %1=vendor %2=required version
@@ -1210,6 +1210,7 @@ endlocal & (
     if %_EXITCODE%==0 (
         if not defined ANT_HOME set "ANT_HOME=%_ANT_HOME%"
         if not defined BAZEL_HOME set "BAZEL_HOME=%_BAZEL_HOME%"
+        if not defined BLOOP_HOME set "BLOOP_HOME=%_BLOOP_HOME%"
         if not defined CFR_HOME set "CFR_HOME=%_CFR_HOME%"
         if not defined COURSIER_HOME set "COURSIER_HOME=%_COURSIER_HOME%"
         if exist "%LOCALAPPDATA%\coursier\data" set "COURSIER_DATA_DIR=%LOCALAPPDATA%\coursier\data"
