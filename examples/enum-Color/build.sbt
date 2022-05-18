@@ -1,4 +1,4 @@
-val scala3Version = "3.1.2-RC1" // = dottyLatestNightlyBuild.get
+val scala3Version = "3.1.3-RC2" // = dottyLatestNightlyBuild.get
 
 lazy val root = project
   .in(file("."))
@@ -18,9 +18,9 @@ lazy val root = project
       // https://mvnrepository.com/artifact/com.novocode/junit-interface
       "com.novocode" % "junit-interface" % "0.11" % Test,
       // https://mvnrepository.com/artifact/org.scalacheck/scalacheck
-      "org.scalacheck" %% "scalacheck" % "1.15.4" % Test,
+      "org.scalacheck" %% "scalacheck" % "1.16.0" % Test,
       // https://mvnrepository.com/artifact/org.scalatest/scalatest
-      "org.scalatest" %% "scalatest" % "3.2.9" % Test
+      "org.scalatest" %% "scalatest" % "3.2.12" % Test
     ),
     testOptions ++= Seq(
       Tests.Setup(() => println("Setup JUnit tests")),

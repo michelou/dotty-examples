@@ -23,7 +23,7 @@ Build tools rely on one or more configuration files to achieve their tasks. In o
 | Build tool                    | Configuration file(s)                    | Parent file(s)                               | Environment(s) |
 |-------------------------------|------------------------------------------|----------------------------------------------|---------|
 | [**`ant.bat`**][apache_ant_cli]   | [**`build.xml`**](enum-Planet/build.xml) | [**`build.xml`**](./build.xml), [**`ivy.xml`**](ivy.xml) | Any <sup><b>a)</b></sup> |
-| [**`bazel.exe`**][bazel_cli]      | [**`BUILD`**](enum-Planet/BUILD), **`WORKSPACE`** | n.a.                                | Any |
+| [**`bazel.exe`**][bazel_cli]      | [**`BUILD`**](enum-Planet/BUILD), [**`WORKSPACE`**](enum-Planet/WORKSPACE) | n.a.                                | Any |
 | [**`build.bat`**](enum-Planet/build.bat) | [**`build.properties`**](enum-Planet/project/build.properties) | [**`cpath.bat`**](./cpath.bat) <sup><b>b)</b></sup>              | Windows only |
 | [**`build.sh`**](enum-Planet/build.sh) | [**`build.properties`**](enum-Planet/project/build.properties) |                   | [Cygwin]/[MSYS2]/Unix only |
 | [**`gradle.exe`**][gradle_cli]    | [**`build.gradle`**](enum-Planet/build.gradle) | [**`common.gradle`**](./common.gradle) | Any |
@@ -96,7 +96,7 @@ Buildfile: Y:\examples\enum-Planet\build.xml
    [delete] Deleting directory Y:\examples\enum-Planet\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] SCALA3_HOME=C:\opt\scala3-3.1.2-RC1
+     [echo] SCALA3_HOME=C:\opt\scala3-3.1.3-RC3
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -224,10 +224,10 @@ No action required ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
 Processing Planet$
 Processing Planet
-Save decompiled Java source files to "target\cfr-sources_scala3_3.1.2-RC1.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_3.1.3-RC3.java"
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b /s target\*.java</b>
-Y:\examples\enum-Planet\target\cfr-sources_scala3_3.1.2-RC1.java
+Y:\examples\enum-Planet\target\cfr-sources_scala3_3.1.3-RC3.java
 Y:\examples\enum-Planet\target\cfr-sources\Planet$.java
 Y:\examples\enum-Planet\target\cfr-sources\Planet.java
 </pre>
@@ -244,8 +244,8 @@ cfr-sources_scala3_3.1.1.java
 <b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose decompile</b>
 No action required ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
-Save decompiled Java source files to "target\cfr-sources_scala3_3.1.2-RC1.java"
-Compare output file with check file "src\build\cfr-sources_scala3_3.1.2-RC1.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_3.1.3-RC3.java"
+Compare output file with check file "src\build\cfr-sources_scala3_3.1.3-RC3.java"
 </pre>
 
 
@@ -325,7 +325,7 @@ Command **`make test`** executes the test suite [**`PlanetTest.scala`**](enum-Pl
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 scalac.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.6/scala-library-2.13.6.jar;%USERPROFILE%/.m2/repository/org.scala-lang/scala3-library_3/3.1.1/scala3-library_3-3.1.1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.8/scala-library-2.18.6.jar;%USERPROFILE%/.m2/repository/org.scala-lang/scala3-library_3/3.1.3-RC3/scala3-library_3-3.1.3-RC3.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
 JUnit version 4.13.2
 ..
 Time: 0.239
@@ -624,7 +624,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -82,12 +82,13 @@
 
 ## <span id="videos">Videos</span>
 
+- [Type Classes in Scala 3](https://www.youtube.com/watch?v=G5c0U69QaLE) by Ayush Mittal, March 2022 (Functional Conf 2022).
 - [Scala 3 has landed](https://youtu.be/JcLG9Ss9Y-w) by Martin Odersky, May 2021.
 - [Scala 3, Type Inference and You!](https://youtu.be/lMvOykNQ4zs) by Guillaume Martres, September 2019. 
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

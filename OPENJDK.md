@@ -18,7 +18,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - OpenJDK and Scala 3 on Windows [**&#9660;**](#bottom)
 
-[Ada][ada_examples], [Akka][akka_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
 
 
 ## <span id="proj_deps">Project dependencies</span>
@@ -56,14 +56,14 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 For instance our development environment looks as follows (*February 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java11-21.3.0\        <i>(843 MB)</i>
-C:\opt\graalvm-ce-java17-21.3.0\        <i>(776 MB)</i>
+C:\opt\graalvm-ce-java11-22.0.0.2\      <i>(890 MB)</i>
+C:\opt\graalvm-ce-java17-22.0.0.2\      <i>(937 MB)</i>
 C:\opt\jdk-bellsoft-11.0.14\            <i>(301 MB)</i>
-C:\opt\jdk-bellsoft-17.0.2\             <i>(302 MB)</i>
+C:\opt\jdk-bellsoft-17.0.3\             <i>(309 MB)</i>
 C:\opt\jdk-bellsoft-nik-java11-21.3.0\  <i>(596 MB)</i>
 C:\opt\jdk-bellsoft-nik-java17-21.3.0\  <i>(657 MB)</i>
 C:\opt\jdk-corretto-11.0.14_9\          <i>(293 MB)</i>
-C:\opt\jdk-corretto-17.0.2_8\           <i>(300 MB)</i>
+C:\opt\jdk-corretto-17.0.3_6\           <i>(299 MB)</i>
 C:\opt\jdk-dcevm-11.0.11_1\             <i>(313 MB)</i>
 C:\opt\jdk-dragonwell-11.0.13.9_0\      <i>(290 MB)</i>
 C:\opt\jdk-dragonwell-17.0.1.0.1_12\    <i>(299 MB)</i>
@@ -77,7 +77,7 @@ C:\opt\jdk-sapmachine-17.0.2\           <i>(325 MB)</i>
 C:\opt\jdk-temurin-11.0.14_9\           <i>(300 MB)</i>
 C:\opt\jdk-temurin-17.0.2_8\            <i>(299 MB)</i>
 C:\opt\jdk-zulu-11.0.14-win_x64\        <i>(302 MB)</i>
-C:\opt\jdk-zulu-17.0.2-win_x64\         <i>(305 MB)</i>
+C:\opt\jdk-zulu-17.0.3-win_x64\         <i>(306 MB)</i>
 </pre>
 <!-- corretto  : 11.0.8 = 290 MB, 11.0.9 = 292 MB, 11.0.10 = 292 MB -->
 <!-- dcevm     : 11.0.8 = 296 MB, 11.0.9 = 296 MB, 11.0.10 = 313 MB-->
@@ -106,7 +106,7 @@ Unfortunately a few tests still fail on Windows, so need to proceed in two steps
 
 Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop with an i7-8550U (1.8 GHz) processor and 16 Go of memory <sup id="anchor_03">[3](#footnote_03)</sup> (entries come from the log file [`snapshot_log.txt`](./docs/snapshot_log.txt)):
 
-| 8u322 | **Build&nbsp;time** | 11.0.14  | **Build&nbsp;time** | 17.0.2 | **Build&nbsp;time** |
+| 8u322 | **Build&nbsp;time** | 11.0.14  | **Build&nbsp;time** | 17.0.3 | **Build&nbsp;time** |
 |-----------|---------------------|----------|---------------------|-------|---------------------|
 | [Corretto][corretto_8_downloads]<br/>(Amazon) | 27:00</br>27:27 | [Corretto][corretto_11_downloads]<br/>(Amazon) |   30:49<br/>30:42 | [Corretto][corretto_17_downloads]<br/>(Amazon)</span> | n.a. |
 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a. | [DCEVM][trava_downloads]<br/>(Trava) <a href="#a"><sup><b>a)</b></sup></a> | 31:10<br/>30:28 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a.           |
@@ -556,7 +556,7 @@ scala3-3.1.2-RC1-bin-SNAPSHOT-zulu-11.zip
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -584,7 +584,8 @@ scala3-3.1.2-RC1-bin-SNAPSHOT-zulu-11.zip
 [corretto_11_relnotes]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html
 [corretto_17_downloads]: https://github.com/corretto/corretto-17/releases
 [corretto_17_relnotes]: https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/change-log.html
-[deno_examples]: https://github.com/michelou/llvm-examples
+[cpp_examples]: https://github.com/michelou/cpp-examples
+[deno_examples]: https://github.com/michelou/deno-examples
 [dragonwell11_downloads]: https://github.com/alibaba/dragonwell11/releases
 [dragonwell11_relnotes]: https://github.com/alibaba/dragonwell11/wiki/Alibaba-Dragonwell-11-Release-Notes#110117
 [dragonwell17_downloads]: https://github.com/alibaba/dragonwell17/releases

@@ -34,7 +34,7 @@ goto end
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 :env
 set _BASENAME=%~n0
-for %%f in ("%~dp0\.") do set "_ROOT_DIR=%%~dpf"
+for /f "delims=" %%f in ("%~dp0\.") do set "_ROOT_DIR=%%~dpf"
 @rem when using virtual drives substitute ":\\" by ":\".
 set "_ROOT_DIR=%_ROOT_DIR::\\=:\%"
 
@@ -154,7 +154,7 @@ goto :eof
 
 @rem input parameter: %1=parent directory
 :clean_dir
-set __PARENT_DIR=%~1
+set "__PARENT_DIR=%~1"
 if not exist "%__PARENT_DIR%" (
     echo %_WARNING_LABEL% Directory not found ^(%__PARENT_DIR%^) 1>&2
     set _EXITCODE=1
