@@ -19,7 +19,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other trending topics we are continuously monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other trending topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -94,7 +94,7 @@ C:\opt\jdk-temurin-11.0.15_10\     <i>(301 MB)</i>
 C:\opt\jdk-temurin-17.0.3_7\       <i>(299 MB)</i>
 C:\opt\jitwatch-1.4.7\             <i>( 36 MB)</i>
 C:\opt\make-3.81\                  <i>(  2 MB)</i>
-C:\opt\mill-0.10.2\                <i>( 64 MB)</i>
+C:\opt\mill-0.10.4\                <i>( 64 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
 C:\opt\sbt-1.6.2\                  <i>( 50 MB)</i>
 C:\opt\scala-2.13.8\               <i>( 24 MB)</i>
@@ -338,7 +338,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.15, java 11.0.15, scalac 2.13.8, scalac 3.1.3-RC3,
-   ant 1.10.12, gradle 7.4.2, mill 0.10.2, mvn 3.8.5, sbt 1.6.2,
+   ant 1.10.12, gradle 7.4.2, mill 0.10.4, mvn 3.8.5, sbt 1.6.2,
    bazel 5.1.1, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.4,
    git 2.36.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 
@@ -366,7 +366,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.15, java 11.0.15, scalac 2.13.8, scalac 3.1.3-RC3,
-   ant 1.10.12, gradle 7.4.2, mill 0.10.2, mvn 3.8.5, sbt 1.6.2,
+   ant 1.10.12, gradle 7.4.2, mill 0.10.4, mvn 3.8.5, sbt 1.6.2,
    bazel 5.1.1, cfr 0.152, make 3.81, python 3.10.4,
    git 2.36.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
@@ -377,7 +377,7 @@ Tool paths:
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.12\bin\ant.bat
    C:\opt\gradle-7.4.2\bin\gradle.bat
-   C:\opt\mill-0.10.2\mill.bat
+   C:\opt\mill-0.10.4\mill.bat
    C:\opt\apache-maven-3.8.5\bin\mvn.cmd
    C:\opt\sbt-1.6.2\bin\sbt.bat
    C:\opt\bazel-5.1.1\bazel.exe
@@ -833,7 +833,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/lihaoyi/mill/releases">0.10.2-assembly</a> (<code>mill</code>)                             <i>( 64 MB)</i>
+<a href="https://github.com/lihaoyi/mill/releases">0.10.4-assembly</a> (<code>mill</code>)                             <i>( 64 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.12-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.8.5-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-5.1.1-windows-x86_64.zip</a>                     <i>( 40 MB)</i>

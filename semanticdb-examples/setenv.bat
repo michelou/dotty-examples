@@ -247,7 +247,6 @@ if exist "%__METAC_CMD%" (
     for /f "tokens=1-3,4,*" %%i in ('"%__METAC_CMD%" -version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% metac %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%__METAC_CMD:bin\=bin:%"
 )
-echo 11111111111111
 set "__METAP_CMD=%LOCALAPPDATA%\Coursier\data\bin\metap.bat"
 if exist "%__METAP_CMD%" (
     for /f "tokens=1,2,*" %%i in ('"%__METAP_CMD%" -version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% metap %%j,"

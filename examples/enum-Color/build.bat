@@ -746,7 +746,7 @@ if not exist "%__MAIN_CLASS_FILE%" (
 @rem call :libs_cpath
 @rem if not %_EXITCODE%==0 goto :eof
 
-set __SCALA_OPTS=-classpath "%_CLASSES_DIR%"
+set __SCALA_OPTS="-Dmyprop=dummy" -classpath "%_CLASSES_DIR%"
 if %__DIAGNOSTIC%==1 (
     call :diagnostic_opts
     if not !_EXITCODE!==0 goto :eof

@@ -29,6 +29,7 @@
         <dependency org="org.scala-lang.modules" name="scala-xml_3" rev="2.0.0"/>
         <dependency org="org.scala-sbt" name="compiler-interface" rev="1.2.5"/>
         -->
+        <!-- https://mvnrepository.com/artifact/org.benf/cfr -->
         <dependency org="org.benf" name="cfr" rev="0.152"/>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency org="junit" name="junit" rev="4.13.2"/>

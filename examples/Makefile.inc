@@ -54,6 +54,7 @@ SCALATEST_FUNSPEC_JAR = $(shell $(FIND) "$(LOCAL_REPO)/org/scalatest" -name scal
 SCALACTIC_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scalactic" -name scalactic_3-3.2.12.jar)
 SPECS2_COMMON_JAR     = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-common_3-5.0.0.jar)
 SPECS2_CORE_JAR       = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-core_3-5.0.0.jar)
+SPECS2_FP_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-fp_3-5.0.0.jar)
 SPECS2_JUNIT_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-junit_3-5.0.0.jar)
 SPECS2_MATCHER_JAR    = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-matcher_3-5.0.0.jar)
 

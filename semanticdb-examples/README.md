@@ -58,7 +58,7 @@ Occurrences:
 
 We can also produce SemanticDB data from Java source code.
 
-Command [**`build.bat -lang:java run`**](hello/build.bat) generates and prettyprints the SemanticDB data for the Java program [**`Main.java`**](hello/src/main/java/Main.java) :
+Command [**`build.bat -lang:java run`**](hello/build.bat) generates and prettyprints the [SemanticDB data](https://scalameta.org/docs/semanticdb/specification.html) for the Java program [**`Main.java`**](hello/src/main/java/Main.java) :
 <pre style="font-size:80%;">
 <b>&gt; <a href="hello/build.bat">build</a> -lang:java run</b>
 Main.java
@@ -91,7 +91,7 @@ Occurrences:
 
 With tiny code examples such as [**`Main.scala`**](hello/src/main/scala/Main.scala) we could also update the **`PATH`** variable and work with the two commands **`metac`** and **`metap`** directly :
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> "PATH=%PATH%;%COURSIER_DATA_DIR%\bin;c:\opt\protoc-3.19.1"</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> "PATH=%PATH%;%COURSIER_DATA_DIR%\bin;c:\opt\protoc-3.20.1"</b>
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> metac</b>
 <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%LOCALAPPDATA%</a>\Coursier\data\bin\metac.bat
@@ -228,11 +228,11 @@ C:\opt\coursier-2.0.16\cs.exe
 https://repo1.maven.org/maven2/io/get-coursier/apps/maven-metadata.xml
   100.0% [##########] 2.0 KiB (18.6 KiB / s)
 [...]
-https://repo1.maven.org/maven2/org/scalameta/semanticdb-scalac_2.13.6/4.4.29/semanticdb-scalac_2.13.6-4.4.29.jar
+https://repo1.maven.org/maven2/org/scalameta/semanticdb-scalac_2.13.6/4.5.7/semanticdb-scalac_2.13.6-4.5.7.jar
   100.0% [##########] 14.6 MiB (1.2 MiB / s)
 Wrote metac
 [...]
-https://repo1.maven.org/maven2/com/thesamet/scalapb/scalapb-runtime_2.13/0.11.4/scalapb-runtime_2.13-0.11.4.jar
+https://repo1.maven.org/maven2/com/thesamet/scalapb/scalapb-runtime_2.13/0.11.10/scalapb-runtime_2.13-0.11.10.jar
   100.0% [##########] 2.3 MiB (1.1 MiB / s)
 Wrote metap
 Warning: <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%LOCALAPPDATA%</a>\Coursier\data\bin is not in your PATH
@@ -241,7 +241,7 @@ Warning: <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_val
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

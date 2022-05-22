@@ -41,11 +41,11 @@ set _VSCODE_PATH=
 call :java "temurin" 17
 if not %_EXITCODE%==0 goto end
 
-call :java "temurin" 11
+call :java "temurin" 1.8
 if not %_EXITCODE%==0 goto end
 
 @rem last call to :java defines variable JAVA_HOME
-call :java "temurin" 1.8
+call :java "temurin" 11
 if not %_EXITCODE%==0 goto end
 
 call :scala2
