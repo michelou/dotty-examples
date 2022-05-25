@@ -24,7 +24,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 
 Our [Dotty fork][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.35][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.36][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
 - [sbt 1.6][sbt_releases] (requires Java 8) ([*release notes*][sbt_relnotes])
 <!--
@@ -33,6 +33,7 @@ Our [Dotty fork][github_dotty_fork] depends on the following external software f
 8u232   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
 8u242   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
 8u252   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-April/011559.html
+8u322   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2022-January/014522.html
 11.0.7  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
 11.0.8  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-July/003498.html
 11.0.9  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-October/004007.html
@@ -48,13 +49,13 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*April 2022*):
+For instance our development environment looks as follows (*May 2022*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.35.1\                 <i>(282 MB)</i>
+C:\opt\Git-2.36.1\                 <i>(282 MB)</i>
 C:\opt\jdk-temurin-1.8.0u322-b06\  <i>(186 MB)</i>
-C:\opt\jdk-temurin-11.0.14.1_1\    <i>(314 MB)</i>
-C:\opt\jdk-temurin-17.0.2_8\       <i>(293 MB)</i>
+C:\opt\jdk-temurin-11.0.15_10\     <i>(314 MB)</i>
+C:\opt\jdk-temurin-17.0.3_7\       <i>(293 MB)</i>
 C:\opt\sbt-1.6.2\                  <i>( 48 MB)</i>
 </pre>
 
@@ -251,7 +252,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
-   "GIT_CMD=C:\opt\Git-2.35.1\bin\git.exe"
+   "GIT_CMD=C:\opt\Git-2.36.1\bin\git.exe"
    "JAVA_CMD=C:\opt\jdk-openjdk-11.0.13_8\bin\java.exe"
    "SBT_CMD=C:\opt\sbt-1.6.2\bin\sbt.bat"
 Tool options
@@ -334,8 +335,8 @@ Command **`build.bat archives`** works as follows:  ***if*** execution of the **
 [...]
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b dist\target</b>
-scala3-3.1.2-RC1-bin-SNAPSHOT.tar.gz
-scala3-3.1.2-RC1-bin-SNAPSHOT.zip
+scala3-3.2.0-RC1-bin-SNAPSHOT.tar.gz
+scala3-3.2.0-RC1-bin-SNAPSHOT.zip
 </pre>
 
 ### **`build.bat documentation`**
@@ -346,7 +347,7 @@ Command **`build.bat documentation`** works as follows: ***if*** execution of th
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -timer doc-only</b>
 Working directory: W:\dotty
 [...]
-[info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 3.1.2-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
+[info] Running (fork) dotty.tools.dottydoc.Main -siteroot docs -project Dotty -project-version 3.2.0-bin-SNAPSHOT -project-url https://github.com/lampepfl/dotty ...
 Compiling (1/406): AlternateConstructorsPhase.scala
 [...]
 Compiling (406/406): package.scala
@@ -639,13 +640,14 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
+[cpp_examples]: https://github.com/michelou/cpp-examples
 [deno_examples]: https://github.com/michelou/deno-examples
 [dotty_ci]: https://dotty-ci.epfl.ch/lampepfl/dotty
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
@@ -653,7 +655,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.35.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.36.1.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/
@@ -674,9 +676,12 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
 [nodes_examples]: https://github.com/michelou/nodejs-examples
 [openjdk_releases]: https://adoptium.net/releases.html
-<!-- 8u232 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html -->
-<!-- 8u242 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html -->
-[openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
+<!--
+8u232 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
+8u242 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
+8u322 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2022-January/014522.html
+-->
+[openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2022-January/014522.html
 [temurin_openjdk17]: https://adoptium.net/releases.html
 [temurin_openjdk17_relnotes]: https://github.com/openjdk/jdk/compare/jdk-17%2B20...jdk-17%2B21
 [rust_examples]: https://github.com/michelou/rust-examples
