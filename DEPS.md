@@ -319,7 +319,7 @@ As mentioned in the introduction the Scala 3.0 distributions depend on *many* ex
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm"><code>scala-asm</code></a> <sup id="anchor_02"><a href="#footnote_02">2</a></sup></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.2.0-scala-1"><b>9.2.0</b></a><br/><span style="color:gray;font-size:80%;">(Jul 2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.3.0-scala-1"><b>9.3.0</b></a><br/><span style="color:gray;font-size:80%;">(Apr 2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.1.0-scala-1">9.1.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.1.0-scala-1">9.1.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.1.0-scala-1">9.1.0</a></td>
@@ -394,7 +394,7 @@ The following table presents the library dependencies of the Scala 2.13 distribu
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm"><code>scala-asm</code></a> <sup id="anchor_02"><a href="#footnote_02">2</a></sup></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.2.0-scala-1"><b>9.2.0</b></a><br/><span style="color:gray;font-size:80%;">(Jul 2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.3.0-scala-1"><b>9.3.0</b></a><br/><span style="color:gray;font-size:80%;">(Jul 2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/7.3.1-scala-1">7.3.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/7.3.1-scala-1">7.3.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.1.0-scala-1">9.1.0</a></td>
@@ -405,7 +405,7 @@ The following table presents the library dependencies of the Scala 2.13 distribu
 </tr>
 </table>
 
-## <span id="scala212_releases">Dependencies in Scala 2.12 Releases</span>
+## <span id="scala212_releases">Dependencies in Scala 2.12 Releases</span>[**&#x25B4;**](#top)
 
 The following table presents the library dependencies of the Scala 2.12 distributions.
 
@@ -595,7 +595,7 @@ Update 9.2.0 of the <a href="https://gitlab.ow2.org/asm/asm/-/commit/1412c76" re
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

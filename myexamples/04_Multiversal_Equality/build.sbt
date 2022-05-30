@@ -1,4 +1,4 @@
-val scala3Version = "3.1.2-RC1"
+val scala3Version = "3.1.3-RC4" // = dottyLatestNightlyBuild.get
 
 lazy val root = project
   .in(file("."))
@@ -9,7 +9,8 @@ lazy val root = project
     scalaVersion := scala3Version,
     scalacOptions ++= Seq(
       "-deprecation",
-      "-encoding", "UTF-8",
+      "-encoding",
+      "UTF-8",
       "-feature"
     ),
     libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % "test"

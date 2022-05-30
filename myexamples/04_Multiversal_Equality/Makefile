@@ -27,7 +27,7 @@ $(TARGET): src/main/scala/*.scala
 	[ -d "$(CLASSES_DIR)" ] || "$(MKDIR)" -p "$(CLASSES_DIR)"
 	@$(ECHO) $(SCALAC_FLAGS) -d "$(CLASSES_DIR)" > "$(OPTS_FILE)"
 	@$(ECHO) $(SOURCES) > "$(SOURCES_FILE)"
-	$(SCALAC) "@$(OPTS_FILE)" "@$(SOURCES_FILE)"
+	"$(SCALAC)" "@$(OPTS_FILE)" "@$(SOURCES_FILE)"
 	@$(TOUCH) "$(TARGET)"
 
 clean:
@@ -84,7 +84,7 @@ lint:
 ##############################################################################
 ## test rules
 
-TEST_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/test/scala" -name *.scala)
+TEST_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/test/scala" -type f -name *.scala)
 TEST_TARGET  = $(TARGET_DIR)/.latest-test-build
 
 TEST_OPTS_FILE    = $(TARGET_DIR)/scalac_test_opts.txt

@@ -41,7 +41,7 @@ three=3
 three1=3
 </pre>
 
-## <span id="givens">Givens</span>
+## <span id="givens">Givens</span>[**&#x25B4;**](#top)
 
 Code example `Givens` is presented in Ciorcîlan's blog post [**Givens vs. Implicits in Scala 3**](https://blog.rockthejvm.com/givens-vs-implicits/) (November 2020).
 
@@ -70,7 +70,7 @@ Person(Mary)
 Mary likes Forrest Gump
 </pre>
 
-## <span id="enums">Enums</span>
+## <span id="enums">Enums</span>[**&#x25B4;**](#top)
 
 Code example `Enums` is presented in Ciorcîlan's blog post [**Enums in Scala 3**](https://blog.rockthejvm.com/enums-scala-3/) (September 2020).
 
@@ -104,7 +104,7 @@ ten=10
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -31,10 +31,10 @@ $(TARGET): src/main/scala/*.scala
 	@$(TOUCH) "$(TARGET)"
 
 clean:
-	rm -rf "$(TARGET_DIR)"
+	"$(RM)" -rf "$(TARGET_DIR)"
 
 run: build
-	$(SCALA) $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
+	"$(SCALA)" $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
 
 help:
 	@$(ECHO) "Usage: make all|build|clean|doc|help|lint|run|test)"
@@ -53,7 +53,7 @@ help:
 ## doc rules
 
 DOC_TARGET_DIR = $(TARGET_DIR)/docs
-DOC_SOURCES    = $(shell [ -d "$(CLASSES_DIR)" ] && $(FIND) $(CLASSES_DIR) -name *.tasty)
+DOC_SOURCES    = $(shell [ -d "$(CLASSES_DIR)" ] && $(FIND) "$(CLASSES_DIR)" -type f -name *.tasty)
 DOC_TARGET     = $(DOC_TARGET_DIR)/.latest-build
 
 PROJECT_NAME    ?= $(shell basename $(CURDIR))

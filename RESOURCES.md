@@ -13,10 +13,17 @@
 
 ## <span id="articles">Articles</span>
 
-- [Safer Exceptions in Scala](https://infoscience.epfl.ch/record/290885) by Martin Odersky et al., October 2021.
+- [Scala blog posts](https://alexn.org/blog/tag/scala/) from Alexandru Nedelcu :
+  - [Tracking Side Effects in Scala][article_nedelcu_tracking], May 2022.
+  - [OOP vs Type Classes, Part 1][article_nedelcu_ideology1], May 2022.
+  - [Implicit vs Scala 3's Given][article_nedelcu_given], May 2022.
+  - [Scala OOFP Design Sample][article_nedelcu_oofp], April 2022.
+- [Safer Exceptions in Scala][article_odersky] by Martin Odersky et al., October 2021.
+- [Die Top 5 der Neuerungen in Scala 3][article_hupel_top5] by Lars Hupel, August 2021.
+- [Stufe 3][article_hupel_stufe3] by Lars Hupel, June 2021.
 - [A Practical Unification of Multi-stage Programming and Macros](http://biboudis.github.io/papers/pcp-gpce18.pdf) by Nicolas Stucki et al., [GPCE'18](https://conf.researchr.org/track/gpce-2018/gpce-2018), November 2018.
 - [Dependent Object Types](https://infoscience.epfl.ch/record/183030) by Nada Amin et al., October 2012.
-- [Deriving Sesion and Union Types for Objects](http://www.di.unito.it/~capecchi/) by Lorenzo Bettini et al., September 2011.
+- [Deriving Sesion and Union Types for Objects][article_bettini] by Lorenzo Bettini et al., September 2011.
 
 ## <span id="blogs">Blogs</span>
 
@@ -47,7 +54,7 @@
 
 - [Beginning Scala 3][book_pollak] (3<sup>rd</sup> Edition) by David Pollak et al, 2022.<br/><span style="font-size:80%;">(Apress, ISBN 978-1-4842-7421-7)
 - [Scala Cookbook][book_alexander] (2<sup>nd</sup> Edition) by Alvin Alexander, August 2021.<br/><span style="font-size:80%;">(O'Reilly, ISBN 978-1-4920-5154-1, 802 pages)</span>
-- [Programming Scala](https://www.oreilly.com/library/view/programming-scala-2nd/9781491950135/) (3<sup>rd</sup> Edition) by Dean Wampler and Alex Payne, June 2021.<br/><span style="font-size:80%;">(O'Reilly, ISBN 978-1-4920-7789-3)</span>
+- [Programming Scala][book_wampler] (3<sup>rd</sup> Edition) by Dean Wampler and Alex Payne, June 2021.<br/><span style="font-size:80%;">(O'Reilly, ISBN 978-1-4920-7789-3)</span>
 - [Programming in Scala](https://www.artima.com/shop/programming_in_scala_5ed) (5<sup>th</sup> Edition) by Martin Odersky et al., May 2021.<br/><span style="font-size:80%;">(<a href="https://www.artima.com/about">Artima Press</a>, ISBN ‎ 978-0-9971-4800-8, 651 pages)</span>
 - [Hands-on Scala Programming][book_haoyi] by Li Haoyi, July 2020.<br/><span style="font-size:80%;">(Li Haoyli, ISBN 978-9-8114-5693-0, 414 pages)</span>
 - [Essential Scala](https://underscore.io/books/essential-scala/) (v1.3) by Noel Welsh and Dave Gurnell, April 2017.
@@ -64,16 +71,16 @@
 
 ## <span id="papers">Papers</span>
 
-- [Semantics-Preserving Inlining for Metaprogramming](https://dl.acm.org/doi/10.1145/3426426.3428486) by Nicolas Stucki et al., November 2020.
+- [Semantics-Preserving Inlining for Metaprogramming][paper_stucki] by Nicolas Stucki et al., November 2020.
 - [Towards Improved GADT Reasoning in Scala](http://lptk.github.io/files/%5Bv.2.0.1%5D%20scala19_gadt.pdf)] by L. Parreaux, A Boruch-Gruszecki and P.-G. Giarrusso, 2019.
 - [Initialization Patterns in Dotty](http://biboudis.github.io/papers/init-scala18.pdf) by F. Liu, A. Biboudis and M. Odersky, September 2018.
-- [Interactive Development using the Dotty Compiler](https://conf.researchr.org/details/scala-2017/scala-2017-papers/4/Interactive-Development-using-the-Dotty-Compiler-Tool-Paper-) by Guillaume Martres, October 2017.
-- [Implementing Higher-Kinded Types in Dotty](https://conf.researchr.org/details/scala-2016/scala-2016/5/Implementing-Higher-Kinded-Types-in-Dotty) by Martin Odersky et al., October 2016.
+- [Interactive Development using the Dotty Compiler][paper_martres] by Guillaume Martres, October 2017.
+- [Implementing Higher-Kinded Types in Dotty][paper_odersky_hkt] by Martin Odersky et al., October 2016.
 
 ## <span id="projects">Projects</span>
 
 - [Scala.js][project_scalajs] - a Scala backend to generate highly efficient JavaScript.
-- [ScalaStan](https://github.com/cibotech/scalastan) - a Scala DSL for [Stan](https://mc-stan.org/), an open-source software for statistical modeling and high-performance statistical computation.
+- [ScalaStan][project_scalastan] - a Scala DSL for [Stan](https://mc-stan.org/), an open-source software for statistical modeling and high-performance statistical computation.
 - [Woof](https://github.com/LEGO/woof) - a pure Scala 3 logging library with no reflection.
 
 ## <span id="shell">Shell Scripting</span>
@@ -82,24 +89,42 @@
 
 ## <span id="videos">Videos</span>
 
-- [Type Classes in Scala 3](https://www.youtube.com/watch?v=G5c0U69QaLE) by Ayush Mittal, March 2022 (Functional Conf 2022).
-- [Scala 3 has landed](https://youtu.be/JcLG9Ss9Y-w) by Martin Odersky, May 2021.
-- [Scala 3, Type Inference and You!](https://youtu.be/lMvOykNQ4zs) by Guillaume Martres, September 2019. 
+- [Type Classes in Scala 3][video_mittal] by Ayush Mittal, March 2022 (Functional Conf 2022).
+- [Typeclasses in Scala 3][video_markham] by Noel Markham, January 2022 (Colombia Scala neetup).
+- [Scala 3 has landed][video_odersky] by Martin Odersky, May 2021.
+- [Scala 3, Type Inference and You!][video_martres] by Guillaume Martres, September 2019. 
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
+[article_bettini]: http://www.di.unito.it/~capecchi/
+[article_hupel_stufe3]: https://www.innoq.com/de/articles/2021/06/stufe-3/
+[article_hupel_top5]: https://www.innoq.com/de/articles/2021/08/top5-neuerungen-scala/
+[article_nedelcu_given]: https://alexn.org/blog/2022/05/11/implicit-vs-scala-3-given/
+[article_nedelcu_ideology1]: https://alexn.org/blog/2022/05/13/oop-vs-type-classes-part-1-ideology/
+[article_nedelcu_oofp]: https://alexn.org/blog/2022/04/18/scala-oop-design-sample/
+[article_nedelcu_tracking]: https://alexn.org/blog/2022/05/23/tracking-effects-in-scala/
+[article_odersky]: https://infoscience.epfl.ch/record/290885
 [blog_47_degrees]: https://www.47deg.com/blog/tags/scala/
 [blog_databricks]: https://databricks.com/blog
 [blog_sarradin]: https://univalence.io/blog/articles/scala-3-un-nouveau-langage/
 [book_alexander]: https://www.oreilly.com/library/view/scala-cookbook-2nd/9781492051534/
 [book_haoyi]: https://www.handsonscala.com/
 [book_lewis]: https://www.routledge.com/Introduction-to-Programming-and-Problem-Solving-Using-Scala/Lewis-Lacher/p/book/9781498730952
+[book_wampler]: https://www.oreilly.com/library/view/programming-scala-2nd/9781491950135/
 [blog_markham]: https://www.47deg.com/blog/smart-constructors-in-scala/
 [book_pollak]: https://www.apress.com/gp/book/9781484274217
 [course_csci555]: https://john.cs.olemiss.edu/~hcc/csci555/notes/555lectureNotes.html
+[paper_martres]: https://conf.researchr.org/details/scala-2017/scala-2017-papers/4/Interactive-Development-using-the-Dotty-Compiler-Tool-Paper-
+[paper_odersky_hkt]: https://conf.researchr.org/details/scala-2016/scala-2016/5/Implementing-Higher-Kinded-Types-in-Dotty
+[paper_stucki]: https://dl.acm.org/doi/10.1145/3426426.3428486
 [project_scalajs]: https://www.scala-js.org/
+[project_scalastan]: https://github.com/cibotech/scalastan
+[video_martres]: https://youtu.be/lMvOykNQ4zs
+[video_markham]: https://www.47deg.com/media/2022/01/27/typeclasses-in-scala-3/
+[video_mittal]: https://www.youtube.com/watch?v=G5c0U69QaLE
+[video_odersky]: https://youtu.be/JcLG9Ss9Y-w

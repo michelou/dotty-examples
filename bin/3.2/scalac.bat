@@ -21,11 +21,11 @@ call :args %*
 
 call :compilerJavaClasspathArgs
 
-call "%_JAVACMD%" %_JAVA_ARGS% -classpath "%_JVM_CP_ARGS%" ^
-"-Dscala.usejavacp=true" "-Dscala.home=%_PROG_HOME%" ^
-dotty.tools.MainGenericCompiler %_SCALA_ARGS%
-if not %ERRORLEVEL%==0 ( set _EXITCODE=1& goto end )
-
+call "%_JAVACMD%" %_JAVA_ARGS% -classpath "%_JVM_CP_ARGS%" "-Dscala.usejavacp=true" "-Dscala.home=%_PROG_HOME%" dotty.tools.MainGenericCompiler %_SCALA_ARGS%
+if not %ERRORLEVEL%==0 (
+    set _EXITCODE=1
+    goto end
+)
 goto end
 
 @rem #########################################################################
@@ -107,7 +107,7 @@ set "__TOOLCHAIN=%__TOOLCHAIN%%_SCALA3_TASTY_INSPECTOR%%_PSEP%"
 set "__TOOLCHAIN=%__TOOLCHAIN%%_JLINE_READER%%_PSEP%"
 set "__TOOLCHAIN=%__TOOLCHAIN%%_JLINE_TERMINAL%%_PSEP%"
 set "__TOOLCHAIN=%__TOOLCHAIN%%_JLINE_TERMINAL_JNA%%_PSEP%"
-set "__TOOLCHAIN=%__TOOLCHAIN%%_JNA%"
+set "__TOOLCHAIN=%__TOOLCHAIN%%_JNA%%_PSEP%"
 
 if defined _SCALA_CPATH (
     set "_JVM_CP_ARGS=%__TOOLCHAIN%%_SCALA_CPATH%"

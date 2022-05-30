@@ -37,7 +37,7 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId>
-        <scala.version>3.1.3-RC2</scala.version>
+        <scala.version>3.1.3-RC4</scala.version>
         <scala.local.install>true</scala.local.install>
         <scala2.binary.version>2.13</scala2.binary.version>
         <scala2.version>2.13.8</scala2.version>

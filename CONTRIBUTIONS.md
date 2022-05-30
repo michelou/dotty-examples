@@ -15,6 +15,7 @@
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Status | Context |
 | :------------------------: | :--------: | :--------- |
+| [#15325][dotty_pull_15325] | *pending* | Batch files |
 | [#14559][dotty_pull_14559] | [merged](https://github.com/lampepfl/dotty/commit/d9b3271) <span style="font-size:80%;">(Mar 2022)</span>  | Bash/batch files |
 | [#14191][dotty_pull_14191] | [merged](https://github.com/lampepfl/dotty/commit/c9c6de6) <span style="font-size:80%;">(Jan 2022)</span> | [Reference Documentation][scala3_reference] |
 | [#13806][dotty_pull_13806] | [merged](https://github.com/lampepfl/dotty/commit/608344a) <span style="font-size:80%;">(Oct 2021)</span> | [Batch files][scala3_commands] |
@@ -63,7 +64,7 @@ Below we summarize changes we made to the [source code](https://github.com/lampe
 - Transformation of URL addresses to file system paths<br/>*Example*: [**`url.getFile`**](https://docs.oracle.com/javase/8/docs/api/java/net/URL.html#getFile) **&rarr;** **`Paths.get(url.toURI).toString`**.
 - Unspecified character encoding when piping stdout<br/>*Example*: **`new InputStreamReader(process.getInputStream)`** **&rarr;** **`new InputStreamReader(process.getInputStream, "UTF-8")`**<br/>where **`process`** has type [**`ProcessBuilder`**](https://docs.oracle.com/javase/8/docs/api/java/lang/ProcessBuilder.html).
 
-## <span id="issues">Reported Issues</span>
+## <span id="issues">Reported Issues</span>[**&#x25B4;**](#top)
 
 We have come across several issues <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup> while executing [Scala 3][scala3_home] commands on Microsoft Windows:
 
@@ -127,7 +128,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -179,6 +180,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 [dotty_pull_14191]: https://github.com/lampepfl/dotty/pull/14191
 [dotty_pull_14247]: https://github.com/lampepfl/dotty/pull/14247
 [dotty_pull_14559]: https://github.com/lampepfl/dotty/pull/14559 "Fix function classpathArgs()"
+[dotty_pull_15325]: https://github.com/lampepfl/dotty/pull/15325 
 [scala_pull_9013]: https://github.com/scala/scala/pull/9013 "Close Source.fromFile"
 [scala3_commands]: https://github.com/lampepfl/dotty/tree/master/dist/bin "Batch files"
 [scala3_reference]: https://docs.scala-lang.org/scala3/reference/overview.html "Scala 3 Reference"

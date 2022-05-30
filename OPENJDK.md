@@ -516,33 +516,33 @@ We run the batch file <a href="./bin/dotty/snapshot.bat"><code>snapshot.bat</cod
 <dd>
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b __SNAPSHOT_LOCAL\*.zip</b>
-scala3-3.1.2-RC1-bin-SNAPSHOT-bellsoft-08.zip
-scala3-3.1.2-RC1-bin-SNAPSHOT-bellsoft-11.zip
-<b style="color:#BB0066;">scala3-3.1.2-RC1-bin-SNAPSHOT-bellsoft-17.zip</b>
-scala3-3.1.2-RC1-bin-SNAPSHOT-bellsoft-nik-11.zip
-<b style="color:#BB0066;">scala3-3.1.2-RC1-bin-SNAPSHOT-bellsoft-nik-17.zip</b>
-scala3-3.1.2-RC1-bin-SNAPSHOT-corretto-11.zip
-<b style="color:#BB0066;">scala3-3.1.2-RC1-bin-SNAPSHOT-corretto-17.zip</b>
-scala3-3.1.2-RC1-bin-SNAPSHOT-dcevm-11.zip
-scala3-3.1.2-RC1-bin-SNAPSHOT-dragonwell-08.zip
-scala3-3.1.2-RC1-bin-SNAPSHOT-dragonwell-11.zip
-scala3-3.1.2-RC1-bin-SNAPSHOT-graalvm-ce-08.zip
-scala3-3.1.2-RC1-bin-SNAPSHOT-graalvm-ce-11.zip
-<b style="color:#BB0066;">scala3-3.1.2-RC1-bin-SNAPSHOT-graalvm-ce-17.zip</b>
-scala3-3.1.2-RC1-bin-SNAPSHOT-microsoft-11.zip
-scala3-3.1.2-RC1-bin-SNAPSHOT-microsoft-17.zip
-scala3-3.1.2-RC1-bin-SNAPSHOT-openj9-08.zip
-scala3-3.1.2-RC1-bin-SNAPSHOT-openj9-11.zip
-scala3-3.1.2-RC1-bin-SNAPSHOT-redhat-08.zip
-scala3-3.1.2-RC1-bin-SNAPSHOT-redhat-11.zip
-scala3-3.1.2-RC1-bin-SNAPSHOT-sapmachine-11.zip
-<b style="color:#BB0066;">scala3-3.1.2-RC1-bin-SNAPSHOT-sapmachine-17.zip</b>
-scala3-3.1.2-RC1-bin-SNAPSHOT-temurin-08.zip
-scala3-3.1.2-RC1-bin-SNAPSHOT-temurin-11.zip
-<b style="color:#BB0066;">scala3-3.1.2-RC1-bin-SNAPSHOT-temurin-17.zip</b>
-scala3-3.1.2-RC1-bin-SNAPSHOT-zulu-08.zip
-scala3-3.1.2-RC1-bin-SNAPSHOT-zulu-11.zip
-<b style="color:#BB0066;">scala3-3.1.2-RC1-bin-SNAPSHOT-zulu-17.zip</b>
+scala3-3.2.0-RC1-bin-SNAPSHOT-bellsoft-08.zip
+scala3-3.2.0-RC1-bin-SNAPSHOT-bellsoft-11.zip
+<b style="color:#BB0066;">scala3-3.2.0-RC1-bin-SNAPSHOT-bellsoft-17.zip</b>
+scala3-3.2.0-RC1-bin-SNAPSHOT-bellsoft-nik-11.zip
+<b style="color:#BB0066;">scala3-3.2.0-RC1-bin-SNAPSHOT-bellsoft-nik-17.zip</b>
+scala3-3.2.0-RC1-bin-SNAPSHOT-corretto-11.zip
+<b style="color:#BB0066;">scala3-3.2.0-RC1-bin-SNAPSHOT-corretto-17.zip</b>
+scala3-3.2.0-RC1-bin-SNAPSHOT-dcevm-11.zip
+scala3-3.2.0-RC1-bin-SNAPSHOT-dragonwell-08.zip
+scala3-3.2.0-RC1-bin-SNAPSHOT-dragonwell-11.zip
+scala3-3.2.0-RC1-bin-SNAPSHOT-graalvm-ce-08.zip
+scala3-3.2.0-RC1-bin-SNAPSHOT-graalvm-ce-11.zip
+<b style="color:#BB0066;">scala3-3.2.0-RC1-bin-SNAPSHOT-graalvm-ce-17.zip</b>
+scala3-3.2.0-RC1-bin-SNAPSHOT-microsoft-11.zip
+scala3-3.2.0-RC1-bin-SNAPSHOT-microsoft-17.zip
+scala3-3.2.0-RC1-bin-SNAPSHOT-openj9-08.zip
+scala3-3.2.0-RC1-bin-SNAPSHOT-openj9-11.zip
+scala3-3.2.0-RC1-bin-SNAPSHOT-redhat-08.zip
+scala3-3.2.0-RC1-bin-SNAPSHOT-redhat-11.zip
+scala3-3.2.0-RC1-bin-SNAPSHOT-sapmachine-11.zip
+<b style="color:#BB0066;">scala3-3.2.0-RC1-bin-SNAPSHOT-sapmachine-17.zip</b>
+scala3-3.2.0-RC1-bin-SNAPSHOT-temurin-08.zip
+scala3-3.2.0-RC1-bin-SNAPSHOT-temurin-11.zip
+<b style="color:#BB0066;">scala3-3.2.0-RC1-bin-SNAPSHOT-temurin-17.zip</b>
+scala3-3.2.0-RC1-bin-SNAPSHOT-zulu-08.zip
+scala3-3.2.0-RC1-bin-SNAPSHOT-zulu-11.zip
+<b style="color:#BB0066;">scala3-3.2.0-RC1-bin-SNAPSHOT-zulu-17.zip</b>
 </pre>
 </dd></dl>
 <!--
@@ -555,7 +555,7 @@ scala3-3.1.2-RC1-bin-SNAPSHOT-zulu-11.zip
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

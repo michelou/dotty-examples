@@ -49,7 +49,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*May 2022*):
+For instance our development environment looks as follows (*June 2022*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.36.1\                 <i>(282 MB)</i>
@@ -63,7 +63,7 @@ C:\opt\sbt-1.6.2\                  <i>( 48 MB)</i>
 
 ## Directory structure
 
-The directory structure of the [Dotty repository][github_dotty] <sup id="anchor_03">[[3]](#footnote_03)</sup> is quite complex but fortunately we only have to deal with three subdirectories. Concretely our additions affect two groups of directories :
+The directory structure of the [Dotty repository][github_dotty] <sup id="anchor_03">[3](#footnote_03)</sup> is quite complex but fortunately we only have to deal with three subdirectories. Concretely our additions affect two groups of directories :
 
 1. In directories [**`dotty\bin\`**](https://github.com/michelou/dotty/tree/master/bin) and [**`dotty\project\scripts\`**](https://github.com/michelou/dotty/tree/master/project/scripts) we add the batch files to support our build process on a Windows machine.
 
@@ -253,7 +253,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
    "GIT_CMD=C:\opt\Git-2.36.1\bin\git.exe"
-   "JAVA_CMD=C:\opt\jdk-openjdk-11.0.13_8\bin\java.exe"
+   "JAVA_CMD=C:\opt\jdk-openjdk-11.0.15_10\bin\java.exe"
    "SBT_CMD=C:\opt\sbt-1.6.2\bin\sbt.bat"
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
@@ -640,7 +640,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

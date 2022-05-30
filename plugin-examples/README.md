@@ -124,7 +124,7 @@ Command [**`build test`**](ModifyPipeline/build.bat) generates the [Scala 3][sca
 </pre>
 
 
-## <span id="multiplyone">MultiplyOne</span>
+## <span id="multiplyone">MultiplyOne</span>[**&#x25B4;**](#top)
 
 Command [**`build clean test`**](MultiplyOne/build.bat) generates the [Scala 3][scala3] plugin **`MultiplyOne.jar`** from source file [**`MultiplyOne.scala`**](MultiplyOne/src/main/scala/MultiplyOne.scala) and tests the plugin with source file [**`MultiplyOneTest.scala`**](MultiplyOne/src/test/scala/MultiplyOneTest.scala):
 
@@ -143,7 +143,7 @@ aaaaaaaaaa
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
