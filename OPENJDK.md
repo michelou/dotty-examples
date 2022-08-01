@@ -58,12 +58,12 @@ For instance our development environment looks as follows (*May 2022*) <sup id="
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java11-22.1.0\          <i>(890 MB)</i>
 C:\opt\graalvm-ce-java17-22.1.0\          <i>(937 MB)</i>
-C:\opt\jdk-bellsoft-11.0.15\              <i>(301 MB)</i>
-C:\opt\jdk-bellsoft-17.0.3\               <i>(309 MB)</i>
+C:\opt\jdk-bellsoft-11.0.16\              <i>(301 MB)</i>
+C:\opt\jdk-bellsoft-17.0.4\               <i>(309 MB)</i>
 C:\opt\jdk-bellsoft-nik-java11-22.0.0.2\  <i>(596 MB)</i>
 C:\opt\jdk-bellsoft-nik-java17-22.0.0.2\  <i>(657 MB)</i>
-C:\opt\jdk-corretto-11.0.15_9\            <i>(293 MB)</i>
-C:\opt\jdk-corretto-17.0.3_6\             <i>(299 MB)</i>
+C:\opt\jdk-corretto-11.0.16_8\            <i>(293 MB)</i>
+C:\opt\jdk-corretto-17.0.4_8\             <i>(299 MB)</i>
 C:\opt\jdk-dcevm-11.0.15_1\               <i>(313 MB)</i>
 C:\opt\jdk-dragonwell-11.0.15.11_9\       <i>(290 MB)</i>
 C:\opt\jdk-dragonwell-17.0.3.0.3_7\       <i>(299 MB)</i>
@@ -76,9 +76,9 @@ C:\opt\jdk-redhat-17.0.3.0.6-2\           <i>(377 MB)</i>
 C:\opt\jdk-sapmachine-11.0.15.0.1\        <i>(316 MB)</i>
 C:\opt\jdk-sapmachine-17.0.3.0.1\         <i>(325 MB)</i>
 C:\opt\jdk-temurin-11.0.15_10\            <i>(300 MB)</i>
-C:\opt\jdk-temurin-17.0.3_7\              <i>(299 MB)</i>
-C:\opt\jdk-zulu-11.0.15-win_x64\          <i>(302 MB)</i>
-C:\opt\jdk-zulu-17.0.3-win_x64\           <i>(306 MB)</i>
+C:\opt\jdk-temurin-17.0.4_8\              <i>(299 MB)</i>
+C:\opt\jdk-zulu-11.0.16-win_x64\          <i>(302 MB)</i>
+C:\opt\jdk-zulu-17.0.4-win_x64\           <i>(306 MB)</i>
 </pre>
 <!-- corretto  : 11.0.8 = 290 MB, 11.0.9 = 292 MB, 11.0.10 = 292 MB -->
 <!-- dcevm     : 11.0.8 = 296 MB, 11.0.9 = 296 MB, 11.0.10 = 313 MB-->
@@ -199,22 +199,22 @@ An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For
 ### <span id="corretto">Corretto OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-corretto-11.0.15_9\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-openjdk version "11.0.15" 2022-04-19 LTS
-OpenJDK Runtime Environment Corretto-11.0.15.9.1 (build 11.0.15+9-LTS)
-OpenJDK 64-Bit Server VM Corretto-11.0.15.9.1 (build 11.0.15+9-LTS, mixed mode)
+<b>&gt; c:\opt\jdk-corretto-11.0.16_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+openjdk version "11.0.16" 2022-07-19 LTS
+OpenJDK Runtime Environment Corretto-11.0.16.8.1 (build 11.0.16+8-LTS)
+OpenJDK 64-Bit Server VM Corretto-11.0.16.8.1 (build 11.0.16+8-LTS, mixed mode)
 
-<b>&gt; c:\opt\jdk-corretto-11.0.15_9\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-corretto-11.0.16_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
 [...]
 Number of classes 1217
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-corretto-11.0.15_9\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
-22.05.2022  14:39        17 694 720 classes.jsa
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-corretto-11.0.16_8\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
+01.08.2022  23:27        11 272 192 classes.jsa
 
-<b>&gt; c:\opt\jdk-corretto-11.0.15_9\bin\java -version</b>
-openjdk version "11.0.15" 2022-04-19 LTS
-OpenJDK Runtime Environment Corretto-11.0.15.9.1 (build 11.0.15+9-LTS)
-OpenJDK 64-Bit Server VM Corretto-11.0.15.9.1 (build 11.0.15+9-LTS, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-corretto-11.0.16_8\bin\java -version</b>
+openjdk version "11.0.16" 2022-07-19 LTS
+OpenJDK Runtime Environment Corretto-11.0.16.8.1 (build 11.0.16+8-LTS)
+OpenJDK 64-Bit Server VM Corretto-11.0.16.8.1 (build 11.0.16+8-LTS, mixed mode, sharing)
 </pre>
 
 > **:mag_right:** Amazon provides online documentation specific to Corretto 11 (eg. [change Log][corretto_changes], [patches][corretto11_patches] as well as Youtube videos (eg. Devoxx keynotes by [Arun Gupta][corretto_gupta] and [James Gosling][corretto_gosling]).
@@ -555,7 +555,7 @@ scala3-3.2.0-RC1-bin-SNAPSHOT-zulu-11.zip
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

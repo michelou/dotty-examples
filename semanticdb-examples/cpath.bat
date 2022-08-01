@@ -19,7 +19,7 @@ set _LIBS_CPATH=
 
 set __SCALA_BINARY_VERSION=2.13
 
-set __SCALAMETA_VERSION=4.5.3
+set __SCALAMETA_VERSION=4.5.11
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
 call :add_jar "org.scala-lang" "scala-reflect" "2.13.8"
@@ -41,7 +41,7 @@ call :add_jar "org.scalameta" "scalameta_%__SCALA_BINARY_VERSION%" "%__SCALAMETA
 call :add_jar "org.scalameta" "semanticdb-scalac_2.13.8" "%__SCALAMETA_VERSION%"
 
 @rem https://mvnrepository.com/artifact/com.sourcegraph/semanticdb-javac
-call :add_jar "com.sourcegraph" "semanticdb-javac" "0.7.8"
+call :add_jar "com.sourcegraph" "semanticdb-javac" "0.8.2"
 
 @rem https://mvnrepository.com/artifact/com.sourcegraph/semanticdb-kotlinc
 call :add_jar "com.sourcegraph" "semanticdb-kotlinc" "0.2.0"
