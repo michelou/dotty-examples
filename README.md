@@ -54,6 +54,7 @@ This project depends on the following external software for the **Microsoft Wind
 11.0.13 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-October/009368.html
 11.0.14 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2022-January/011643.html
 11.0.15 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2022-April/014104.html
+11.0.16 -> ???
 -->
 Optionally one may also install the following software:
 
@@ -62,7 +63,7 @@ Optionally one may also install the following software:
 - [Bazel 5.2][bazel_releases] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
 - [GNU Make 3.81][make_downloads]
-- [Gradle 7.4][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Gradle 7.5][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [JaCoCo 0.8][jacoco_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*change log*][jacoco_changelog])
 - [JavaFX 17 LTS][javafx_downloads] ([*release notes*][javafx_relnotes])
 - [JITWatch 1.4][jitwatch_releases] (requires Java 11 or newer)
@@ -86,13 +87,13 @@ C:\opt\apache-ant-1.10.12\         <i>( 40 MB)</i>
 C:\opt\apache-maven-3.8.6\         <i>( 10 MB)</i>
 C:\opt\bazel-5.2.0\                <i>( 44 MB)</i>
 C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
-C:\opt\Git-2.37.1\                 <i>(286 MB)</i>
-C:\opt\gradle-7.5\                 <i>(122 MB)</i>
+C:\opt\Git-2.37.2\                 <i>(289 MB)</i>
+C:\opt\gradle-7.5.1\               <i>(122 MB)</i>
 C:\opt\jacoco-0.8.8\               <i>( 10 MB)</i>
 C:\opt\javafx-sdk-17.0.2\          <i>( 82 MB)</i>
-C:\opt\jdk-temurin-1.8.0_322-b06\  <i>(185 MB)</i>
-C:\opt\jdk-temurin-11.0.15_10\     <i>(301 MB)</i>
-C:\opt\jdk-temurin-17.0.3_7\       <i>(299 MB)</i>
+C:\opt\jdk-temurin-1.8.0_345-b01\  <i>(185 MB)</i>
+C:\opt\jdk-temurin-11.0.16_8\      <i>(301 MB)</i>
+C:\opt\jdk-temurin-17.0.4_8\       <i>(299 MB)</i>
 C:\opt\jitwatch-1.4.7\             <i>( 36 MB)</i>
 C:\opt\make-3.81\                  <i>(  2 MB)</i>
 C:\opt\mill-0.10.5\                <i>( 64 MB)</i>
@@ -102,7 +103,9 @@ C:\opt\scala-2.13.8\               <i>( 24 MB)</i>
 C:\opt\scala3-3.2.0-RC3\           <i>( 35 MB)</i>
 </pre>
  <!-- jdk8: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
+ <!-- jdk8: 345-b01 = 186 MB -->
  <!-- jdk11: 11.0.8 = 314 MB, 11.0.9 = 316 MB, 11.0.11 = 300 MB -->
+ <!-- jdk11: 11.0.16 = 301 MB -->
  <!-- sbt: 1.3.6 = 55.1 MB, 1.3.7 = 60.9 MB, 1.3.8 = 61.0 MB -->
  <!-- sbt: 1.3.9 = 61.2 MB, 1.3.10 = 61.2 MB, 1.3.11 = 61.3 MB, 1.4.1 = 47.6 MB -->
  <!-- sbt: 1.4.2 = 47.7 MB, 1.4.3 = 47.7 MB, 1.4.6 -> 48 MB, 1.4.6 = MB -->
@@ -343,7 +346,7 @@ Tool versions:
    javac 11.0.16, java 11.0.16, scalac 2.13.8, scalac 3.2.0-RC3,
    ant 1.10.12, gradle 7.5, mill 0.10.5, mvn 3.8.6, sbt 1.7.1,
    bazel 5.2.0, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.4,
-   git 2.37.1.windows.1, diff 3.8, bash 4.4.23(1)-release
+   git 2.37.2.windows.1, diff 3.8, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
 C:\opt\sbt-1.7.1\bin\sbt
@@ -371,7 +374,7 @@ Tool versions:
    javac 11.0.16, java 11.0.16, scalac 2.13.8, scalac 3.2.0-RC3,
    ant 1.10.12, gradle 7.5, mill 0.10.5, mvn 3.8.6, sbt 1.7.1,
    bazel 5.2.0, cfr 0.152, make 3.81, python 3.10.5,
-   git 2.37.1.windows.1, diff 3.8, bash 4.4.23(1)-release
+   git 2.37.2.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.16_8\bin\javac.exe
    C:\opt\jdk-temurin-11.0.16_8\bin\java.exe
@@ -387,14 +390,14 @@ Tool paths:
    C:\opt\cfr-0.152\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
    C:\opt\Python-3.10.5\python.exe
-   C:\opt\Git-2.37.1\bin\git.exe
-   C:\opt\Git-2.37.1\mingw64\bin\git.exe
-   C:\opt\Git-2.37.1\usr\bin\diff.exe
-   C:\opt\Git-2.37.1\bin\bash.exe
+   C:\opt\Git-2.37.2\bin\git.exe
+   C:\opt\Git-2.37.2\mingw64\bin\git.exe
+   C:\opt\Git-2.37.2\usr\bin\diff.exe
+   C:\opt\Git-2.37.2\bin\bash.exe
 Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.12"
    "BAZEL_HOME=c:\opt\bazel-5.2.0"
-   "GIT_HOME=C:\opt\Git-2.37.1"
+   "GIT_HOME=C:\opt\Git-2.37.2"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.16_8"
    "JAVAFX_HOME=C:\opt\javafx-sdk-17.0.2"
    "MSVS_HOME=X:"
@@ -724,8 +727,8 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> scala</b>
-C:\opt\scala3-3.1.4-RC3\bin\scala
-C:\opt\scala3-3.1.4-RC3\bin\scala.bat
+C:\opt\scala3-3.2.0-RC3\bin\scala
+C:\opt\scala3-3.2.0-RC3\bin\scala.bat
 
 <b>&gt; <a href="bin/3.0/scala.bat">scala</a> -version</b>
 Scala code runner version 3.2.0-RC3 -- Copyright 2002-2022, LAMP/EPFL
@@ -743,7 +746,7 @@ The REPL has several commands available:
 :reset                   reset the repl to its initial state, forgetting all session entries
 
 <b>scala&gt;</b> System.getenv().get("JAVA_HOME")
-val res0: String = C:\opt\jdk-temurin-11.0.15_10
+val res0: String = C:\opt\jdk-temurin-11.0.16_8
 
 <b>scala&gt;</b> System.getenv().get("SCALA3_HOME")
 val res1: String = C:\opt\scala3-3.2.0-RC3
@@ -840,16 +843,16 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.12-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.8.6-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-5.2.0-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
-<a href="https://gradle.org/install/">gradle-7.5-bin.zip</a>                                 <i>(103 MB)</i>
+<a href="https://gradle.org/install/">gradle-7.5.1-bin.zip</a>                               <i>(103 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.8.zip</a>                                   <i>(  4 MB)</i>
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.7-shaded-win.jar</a>                   <i>( 36 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20210228.exe</a>                          <i>( 94 MB)</i>
 <a href="http://jdk.java.net/17/">openjdk-17_windows-x64_bin.zip</a>                     <i>(176 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-17_windows-x64_bin-sdk.zip</a>                 <i>( 39 MB)</i>
-<a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u322b06.zip</a>     <i>( 99 MB)</i>
-<a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.15_10.zip</a>  <i>( 99 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.37.1-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u345b01.zip</a>     <i>( 99 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.16_8.zip</a>   <i>( 99 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.37.2-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.7.1.zip</a>                                      <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.8.zip</a>                                   <i>( 22 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.2.0-RC3">scala3-3.2.0-RC3.zip</a>                               <i>( 34 MB)</i>
@@ -896,7 +899,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [git_bash]: https://www.atlassian.com/git/tutorials/git-bash
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.37.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.37.2.txt
 [github_guides]: https://guides.github.com/
 [github_lampepfl_dotty]: https://github.com/lampepfl/dotty
 [github_markdown]: https://github.github.com/gfm/
