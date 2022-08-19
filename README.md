@@ -100,7 +100,7 @@ C:\opt\mill-0.10.5\                <i>( 64 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
 C:\opt\sbt-1.7.1\                  <i>( 50 MB)</i>
 C:\opt\scala-2.13.8\               <i>( 24 MB)</i>
-C:\opt\scala3-3.2.0-RC3\           <i>( 35 MB)</i>
+C:\opt\scala3-3.2.0-RC4\           <i>( 35 MB)</i>
 </pre>
  <!-- jdk8: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
  <!-- jdk8: 345-b01 = 186 MB -->
@@ -205,7 +205,7 @@ We distinguish different sets of batch/bash commands:
     > **&#9755;** Starting with version 3.0.2 those batch files are included in the [Scala 3][scala3_releases] software distribution (see [PR#13006](https://github.com/lampepfl/dotty/pull/13006), itself based on [PR#5444][github_PR5444]).
 
     <pre style="font-size:80%;">
-    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3-3.2.0-RC3\bin</b>
+    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3-3.2.0-RC4\bin</b>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/common">common</a>
     <a href="bin/3.0/common.bat">common.bat</a>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/scala">scala</a>
@@ -343,7 +343,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   javac 11.0.16, java 11.0.16, scalac 2.13.8, scalac 3.2.0-RC3,
+   javac 11.0.16, java 11.0.16, scalac 2.13.8, scalac 3.2.0-RC4,
    ant 1.10.12, gradle 7.5, mill 0.10.5, mvn 3.8.6, sbt 1.7.1,
    bazel 5.2.0, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.4,
    git 2.37.2.windows.1, diff 3.8, bash 4.4.23(1)-release
@@ -371,7 +371,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   javac 11.0.16, java 11.0.16, scalac 2.13.8, scalac 3.2.0-RC3,
+   javac 11.0.16, java 11.0.16, scalac 2.13.8, scalac 3.2.0-RC4,
    ant 1.10.12, gradle 7.5, mill 0.10.5, mvn 3.8.6, sbt 1.7.1,
    bazel 5.2.0, cfr 0.152, make 3.81, python 3.10.5,
    git 2.37.2.windows.1, diff 3.8, bash 4.4.23(1)-release
@@ -379,7 +379,7 @@ Tool paths:
    C:\opt\jdk-temurin-11.0.16_8\bin\javac.exe
    C:\opt\jdk-temurin-11.0.16_8\bin\java.exe
    C:\opt\scala-2.13.8\bin\scalac.bat
-   C:\opt\scala3-3.2.0-RC3\bin\scalac.bat
+   C:\opt\scala3-3.2.0-RC4\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.12\bin\ant.bat
    C:\opt\gradle-7.5\bin\gradle.bat
@@ -405,7 +405,7 @@ Environment variables:
    "PYTHON_HOME=C:\opt\Python-3.10.4"
    "SBT_HOME=C:\opt\sbt-1.7.1"
    "SCALA_HOME=C:\opt\scala-2.13.8"
-   "SCALA3_HOME=C:\opt\scala3-3.2.0-RC3"
+   "SCALA3_HOME=C:\opt\scala3-3.2.0-RC4"
 </pre>
 
 ### **`cleanup.bat`**
@@ -424,10 +424,10 @@ Finished to clean up 12 subdirectories in Y:\dotty\myexamples
 Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.2.0-RC3 c:\opt\jdk-temurin-11.0.15_10</b>
+<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.2.0-RC4 c:\opt\jdk-temurin-11.0.16_8</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
-Size of directory "c:\opt\scala3-3.2.0-RC3" is 35.7 Mb
+Size of directory "c:\opt\scala3-3.2.0-RC4" is 35.7 Mb
 Size of directory "c:\opt\jdk-temurin-11.0.16_8" is 301.0 Mb
 </pre>
 
@@ -457,16 +457,16 @@ Command [**`getnightly download`**](bin/getnightly.bat) with options **` -verbos
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose download</b>
 Delete directory "out\nightly"
 Download Scala 3 nightly files from Maven repository
-Downloading file scaladoc_3-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar ... 3.7 Mb
-Downloading file scala3-interfaces-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar ... 3.5 Kb
-Downloading file scala3-library_3-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar ... 1.2 Mb
-Downloading file scala3-compiler_3-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar ... 16.8 Mb
-Downloading file scala3-language-server_3-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar ... 149.2 Kb
-Downloading file scala3-staging_3-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar ... 37.8 Kb
-Downloading file tasty-core_3-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar ... 72.4 Kb
-Downloading file scala3-library_sjs1_3-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar ... 1.9 Mb
-Downloading file scala3-tasty-inspector_3-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar ... 17.4 Kb
-Downloading file scala3-sbt-bridge-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar ... 21.8 Kb
+Downloading file scaladoc_3-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar ... 3.7 Mb
+Downloading file scala3-interfaces-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar ... 3.5 Kb
+Downloading file scala3-library_3-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar ... 1.2 Mb
+Downloading file scala3-compiler_3-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar ... 16.8 Mb
+Downloading file scala3-language-server_3-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar ... 149.2 Kb
+Downloading file scala3-staging_3-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar ... 37.8 Kb
+Downloading file tasty-core_3-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar ... 72.4 Kb
+Downloading file scala3-library_sjs1_3-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar ... 1.9 Mb
+Downloading file scala3-tasty-inspector_3-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar ... 17.4 Kb
+Downloading file scala3-sbt-bridge-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar ... 21.8 Kb
 Downloading file antlr-runtime-4.7.2.jar ... 0.5 Kb
 [...]
 Downloading file common ... 6 Kb
@@ -480,7 +480,7 @@ Downloading file scaladoc.bat ... 4.8 Kb
 Finished to download 53 files to directory "out\nightly"
 Retrieve revision for hash "93fc41f" from GitHub repository "lampepfl/dotty"
 File "out\nightly\VERSION":
-version:=3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY
+version:=3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY
 revision:=93fc41fcb624df73cc12d52b79d518a30a778a7c
 buildTime:=2022-04-15 21:48:29+02:00
 </pre>
@@ -502,18 +502,18 @@ autolink-0.6.0.jar
 [...]
 scala-asm-9.2.0-scala-1.jar
 scala-library-2.13.8.jar
-scala3-compiler_3-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar
-scala3-interfaces-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar
-scala3-language-server_3-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar
-scala3-library_3-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar
-scala3-library_sjs1_3-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar
-scala3-sbt-bridge-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar
-scala3-staging_3-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar
-scala3-tasty-inspector_3-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar
-scaladoc_3-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar
+scala3-compiler_3-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar
+scala3-interfaces-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar
+scala3-language-server_3-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar
+scala3-library_3-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar
+scala3-library_sjs1_3-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar
+scala3-sbt-bridge-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar
+scala3-staging_3-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar
+scala3-tasty-inspector_3-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar
+scaladoc_3-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar
 snakeyaml-1.27.jar
 strftime4j-1.0.5.jar
-tasty-core_3-3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY.jar
+tasty-core_3-3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY.jar
 </pre>
 <!--
 > **:mag_right:** A few notes about the distributed Java archives:
@@ -526,19 +526,19 @@ Concretely, subcommand **`activate`** switches to the nightly build version and 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> activate</b>
-Active Scala 3 installation is 3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY (was 3.2.0-RC3)
+Active Scala 3 installation is 3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY (was 3.2.0-RC4)
 
 <b>&gt; %SCALA3_HOME%\bin\<a href="bin/3.0/scalac.bat">scalac</a> -version</b>
-Scala compiler version 3.2.0-RC1-bin-20220413-93fc41f-NIGHTLY-git-93fc41f -- Copyright 2002-2022, LAMP/EPFL
+Scala compiler version 3.2.0-RC5-bin-20220413-93fc41f-NIGHTLY-git-93fc41f -- Copyright 2002-2022, LAMP/EPFL
 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> restore</b>
-Active Scala 3 installation is 3.2.0-RC3
+Active Scala 3 installation is 3.2.0-RC4
 
 <b>&gt; %SCALA3_HOME%\bin\<a href="bin/3.0/scalac.bat">scalac</a> -version</b>
-Scala compiler version 3.2.0-RC3 -- Copyright 2002-2022, LAMP/EPFL
+Scala compiler version 3.2.0-RC4 -- Copyright 2002-2022, LAMP/EPFL
 </pre>
 
-> **:warning:** You need *write access* to the [Scala 3][scala3_home] installation directory (e.g. **`C:\opt\scala3-3.2.0-RC3\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
+> **:warning:** You need *write access* to the [Scala 3][scala3_home] installation directory (e.g. **`C:\opt\scala3-3.2.0-RC4\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
 
 ### `searchjars.bat <class_name>`
 
@@ -565,7 +565,7 @@ Passing argument **`System`** to command [**`searchjars`**](bin/searchjars.bat) 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> System</b>
-Searching for class name System in archive files C:\opt\scala3-3.2.0-RC3\lib\*.jar
+Searching for class name System in archive files C:\opt\scala3-3.2.0-RC4\lib\*.jar
   jline-reader-3.19.0.jar:org/jline/reader/impl/completer/SystemCompleter.class
   scala-library-2.13.8.jar:scala/sys/SystemProperties$.class
   scala-library-2.13.8.jar:scala/sys/SystemProperties.class
@@ -574,7 +574,7 @@ Searching for class name System in archive files C:\opt\scala-2.13.8\lib\*.jar
   [...]
   scala-library.jar:scala/sys/SystemProperties$.class
   scala-library.jar:scala/sys/SystemProperties.class
-Searching for class name System in archive files C:\opt\jdk-temurin-11.0.15_10\lib\*.jar
+Searching for class name System in archive files C:\opt\jdk-temurin-11.0.16_8\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   [...]
   jrt-fs.jar:jdk/internal/jrtfs/SystemImage$2.class
@@ -592,16 +592,16 @@ Searching for an unknown class name - e.g. **`BinarySearch`** - produces the fol
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> BinarySearch</b>
 Searching for class name BinarySearch in archive files C:\opt\scala3-4\lib\*.jar
 Searching for class name BinarySearch in archive files C:\opt\scala-2.13.8\lib\*.jar
-Searching for class name BinarySearch in archive files C:\opt\jdk-temurin-11.0.15_10\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\jdk-temurin-11.0.16_8\lib\*.jar
 </pre>
 
 Searching for **`FileSystem`** with option **`-artifact`** produces the following output:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> FileSystem -artifact</b>
-Searching for class name FileSystem in archive files C:\opt\scala3-3.2.0-RC3\lib\*.jar
+Searching for class name FileSystem in archive files C:\opt\scala3-3.2.0-RC4\lib\*.jar
 Searching for class name FileSystem in archive files C:\opt\scala-2.13.8\lib\*.jar
-Searching for class name FileSystem in archive files c:\opt\jdk-temurin-11.0.15_10\lib\*.jar
+Searching for class name FileSystem in archive files c:\opt\jdk-temurin-11.0.16_8\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystemProvider$1.class
@@ -674,8 +674,8 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 
 | Project file | Variable | Example |
 | :----------- | :------: | :------ |
-| `build.sbt` | `dottyVersion` | `3.1.2-RC3` &rarr; `3.2.0-RC3`|
-| `build.sc` | `scalaVersion` | `3.1.2-RC3` &rarr; `3.2.0-RC3` |
+| `build.sbt` | `dottyVersion` | `3.1.2-RC3` &rarr; `3.2.0-RC4`|
+| `build.sc` | `scalaVersion` | `3.1.2-RC3` &rarr; `3.2.0-RC4` |
 | `project\build.properties` | `sbt.version` | `1.6.2` &rarr; `1.7.1` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.5.4` &rarr; `0.5.5` |
 
@@ -727,11 +727,11 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> scala</b>
-C:\opt\scala3-3.2.0-RC3\bin\scala
-C:\opt\scala3-3.2.0-RC3\bin\scala.bat
+C:\opt\scala3-3.2.0-RC4\bin\scala
+C:\opt\scala3-3.2.0-RC4\bin\scala.bat
 
 <b>&gt; <a href="bin/3.0/scala.bat">scala</a> -version</b>
-Scala code runner version 3.2.0-RC3 -- Copyright 2002-2022, LAMP/EPFL
+Scala code runner version 3.2.0-RC4 -- Copyright 2002-2022, LAMP/EPFL
 
 <b>&gt; <a href="bin/3.0/scala.bat">scala</a></b>
 Starting scala REPL...
@@ -749,7 +749,7 @@ The REPL has several commands available:
 val res0: String = C:\opt\jdk-temurin-11.0.16_8
 
 <b>scala&gt;</b> System.getenv().get("SCALA3_HOME")
-val res1: String = C:\opt\scala3-3.2.0-RC3
+val res1: String = C:\opt\scala3-3.2.0-RC4
 
 <b>scala&gt;</b> :load myexamples/HelloWorld/src/main/scala/HelloWorld.scala
 // defined object HelloWorld
@@ -855,7 +855,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://git-scm.com/download/win">PortableGit-2.37.2-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.7.1.zip</a>                                      <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.8.zip</a>                                   <i>( 22 MB)</i>
-<a href="https://github.com/lampepfl/dotty/releases/tag/3.2.0-RC3">scala3-3.2.0-RC3.zip</a>                               <i>( 34 MB)</i>
+<a href="https://github.com/lampepfl/dotty/releases/tag/3.2.0-RC4">scala3-3.2.0-RC4.zip</a>                               <i>( 34 MB)</i>
 </pre>
 </dd></dl>
 
@@ -953,7 +953,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [scala]: https://www.scala-lang.org/
 [scala3_home]: https://dotty.epfl.ch
 [scala3_releases]: https://github.com/lampepfl/dotty/releases
-[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.2.0-RC3
+[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.2.0-RC4
 [scala_releases]: https://www.scala-lang.org/files/archive/
 [scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.8
 [scala_repl]: https://docs.scala-lang.org/overviews/repl/overview.html

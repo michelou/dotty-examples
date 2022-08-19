@@ -19,14 +19,14 @@ set _LIBS_CPATH=
 
 set __SCALA_BINARY_VERSION=2.13
 
-set __SCALAMETA_VERSION=4.5.11
+set __SCALAMETA_VERSION=4.5.13
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
 call :add_jar "org.scala-lang" "scala-reflect" "2.13.8"
 
 @rem https://mvnrepository.com/artifact/com.lihaoyi/fansi
 @rem dependency of pprint
-call :add_jar "com.lihaoyi" "fansi_%__SCALA_BINARY_VERSION%" "0.3.1"
+call :add_jar "com.lihaoyi" "fansi_%__SCALA_BINARY_VERSION%" "0.4.0"
 
 @rem https://mvnrepository.com/artifact/com.lihaoyi/pprint
 call :add_jar "com.lihaoyi" "pprint_%__SCALA_BINARY_VERSION%" "0.7.3"

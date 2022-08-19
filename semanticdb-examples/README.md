@@ -91,7 +91,7 @@ Occurrences:
 
 With tiny code examples such as [**`Main.scala`**](hello/src/main/scala/Main.scala) we could also update the **`PATH`** variable and work with the two commands **`metac`** and **`metap`** directly :
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> "PATH=%PATH%;%COURSIER_DATA_DIR%\bin;c:\opt\protoc-3.21.4"</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> "PATH=%PATH%;%COURSIER_DATA_DIR%\bin;c:\opt\protoc-3.21.5"</b>
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> metac</b>
 <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%LOCALAPPDATA%</a>\Coursier\data\bin\metac.bat
@@ -228,11 +228,11 @@ C:\opt\coursier-2.0.16\cs.exe
 https://repo1.maven.org/maven2/io/get-coursier/apps/maven-metadata.xml
   100.0% [##########] 2.0 KiB (18.6 KiB / s)
 [...]
-https://repo1.maven.org/maven2/org/scalameta/semanticdb-scalac_2.13.6/4.5.7/semanticdb-scalac_2.13.6-4.5.7.jar
+https://repo1.maven.org/maven2/org/scalameta/semanticdb-scalac_2.13.8/4.5.13/semanticdb-scalac_2.13.8-4.5.13.jar
   100.0% [##########] 14.6 MiB (1.2 MiB / s)
 Wrote metac
 [...]
-https://repo1.maven.org/maven2/com/thesamet/scalapb/scalapb-runtime_2.13/0.11.10/scalapb-runtime_2.13-0.11.10.jar
+https://repo1.maven.org/maven2/com/thesamet/scalapb/scalapb-runtime_2.13/0.11.11/scalapb-runtime_2.13-0.11.11.jar
   100.0% [##########] 2.3 MiB (1.1 MiB / s)
 Wrote metap
 Warning: <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%LOCALAPPDATA%</a>\Coursier\data\bin is not in your PATH

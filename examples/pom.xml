@@ -14,7 +14,7 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId>
-        <scala.version>3.2.0-RC3</scala.version>
+        <scala.version>3.2.0-RC4</scala.version>
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugin versions -->

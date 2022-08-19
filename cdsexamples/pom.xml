@@ -37,7 +37,7 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId>
-        <scala.version>3.2.0-RC3</scala.version>
+        <scala.version>3.2.0-RC4</scala.version>
         <scala.local.install>true</scala.local.install>
         <scala2.binary.version>2.13</scala2.binary.version>
         <scala2.version>2.13.8</scala2.version>
@@ -45,7 +45,7 @@
         <!-- Maven plugin versions -->
         <scala.maven.version>1.0.0</scala.maven.version> <!-- Dec 2018 -->
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
-        <scalatest.version>3.2.12</scalatest.version>
+        <scalatest.version>3.2.13</scalatest.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven.compiler.version>3.10.1</maven.compiler.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
