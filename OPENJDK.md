@@ -53,11 +53,11 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*May 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*August 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java11-22.1.0\          <i>(890 MB)</i>
-C:\opt\graalvm-ce-java17-22.1.0\          <i>(937 MB)</i>
+C:\opt\graalvm-ce-java11-22.2.0\          <i>(890 MB)</i>
+C:\opt\graalvm-ce-java17-22.2.0\          <i>(937 MB)</i>
 C:\opt\jdk-bellsoft-11.0.16\              <i>(301 MB)</i>
 C:\opt\jdk-bellsoft-17.0.4\               <i>(309 MB)</i>
 C:\opt\jdk-bellsoft-nik-java11-22.0.0.2\  <i>(596 MB)</i>
@@ -65,17 +65,17 @@ C:\opt\jdk-bellsoft-nik-java17-22.0.0.2\  <i>(657 MB)</i>
 C:\opt\jdk-corretto-11.0.16_8\            <i>(293 MB)</i>
 C:\opt\jdk-corretto-17.0.4_8\             <i>(299 MB)</i>
 C:\opt\jdk-dcevm-11.0.15_1\               <i>(313 MB)</i>
-C:\opt\jdk-dragonwell-11.0.15.11_9\       <i>(290 MB)</i>
-C:\opt\jdk-dragonwell-17.0.3.0.3_7\       <i>(299 MB)</i>
-C:\opt\jdk-microsoft-11.0.15_10\          <i>(292 MB)</i>
-C:\opt\jdk-microsoft-17.0.3_7\            <i>(300 MB)</7i>
-C:\opt\jdk-openj9-11.0.15_10\             <i>(326 MB)</i>
-C:\opt\jdk-openj9-17.0.3_7\               <i>(334 MB)</i>
+C:\opt\jdk-dragonwell-11.0.16.12_8\       <i>(290 MB)</i>
+C:\opt\jdk-dragonwell-17.0.4.0.4_8\       <i>(299 MB)</i>
+C:\opt\jdk-microsoft-11.0.16_8\           <i>(292 MB)</i>
+C:\opt\jdk-microsoft-17.0.4_8\            <i>(300 MB)</i>
+C:\opt\jdk-openj9-11.0.16_8\              <i>(326 MB)</i>
+C:\opt\jdk-openj9-17.0.4_8\               <i>(334 MB)</i>
 C:\opt\jdk-redhat-11.0.15.9-3\            <i>(364 MB)</i>
 C:\opt\jdk-redhat-17.0.3.0.6-2\           <i>(377 MB)</i>
-C:\opt\jdk-sapmachine-11.0.15.0.1\        <i>(316 MB)</i>
-C:\opt\jdk-sapmachine-17.0.3.0.1\         <i>(325 MB)</i>
-C:\opt\jdk-temurin-11.0.15_10\            <i>(300 MB)</i>
+C:\opt\jdk-sapmachine-11.0.16\            <i>(316 MB)</i>
+C:\opt\jdk-sapmachine-17.0.4\             <i>(325 MB)</i>
+C:\opt\jdk-temurin-11.0.16_8\             <i>(300 MB)</i>
 C:\opt\jdk-temurin-17.0.4_8\              <i>(299 MB)</i>
 C:\opt\jdk-zulu-11.0.16-win_x64\          <i>(302 MB)</i>
 C:\opt\jdk-zulu-17.0.4-win_x64\           <i>(306 MB)</i>
@@ -92,8 +92,8 @@ C:\opt\jdk-zulu-17.0.4-win_x64\           <i>(306 MB)</i>
 
 We perform a quick comparison of the execution times to build the Scala 3 software distribution available as the following two archive files :
 <pre style="font-size:80%;">
-dist\target\scala3-3.2.0-RC1-bin-SNAPSHOT.tar.gz
-dist\target\scala3-3.2.0-RC1-bin-SNAPSHOT.zip
+dist\target\scala3-3.2.0-RC5-bin-SNAPSHOT.tar.gz
+dist\target\scala3-3.2.0-RC5-bin-SNAPSHOT.zip
 </pre>
 
 > **:mag_right:** Scala nightly builds are published on Maven as individual Java archive files, e.g.
@@ -107,24 +107,24 @@ Unfortunately a few tests still fail on Windows, so need to proceed in two steps
 
 Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop with an i7-8550U (1.8 GHz) processor and 16 Go of memory <sup id="anchor_03">[3](#footnote_03)</sup> (entries come from the log file [`snapshot_log.txt`](./docs/snapshot_log.txt)):
 
-| 8u322 | **Build&nbsp;time** | 11.0.15  | **Build&nbsp;time** | 17.0.3 | **Build&nbsp;time** |
+| 8u345 | **Build&nbsp;time** | 11.0.16  | **Build&nbsp;time** | 17.0.4 | **Build&nbsp;time** |
 |-----------|---------------------|----------|---------------------|-------|---------------------|
 | [Corretto][corretto_8_downloads]<br/>(Amazon) | 27:00</br>27:27 | [Corretto][corretto_11_downloads]<br/>(Amazon) |   30:49<br/>30:42 | [Corretto][corretto_17_downloads]<br/>(Amazon)</span> | n.a. |
 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a. | [DCEVM][trava_downloads]<br/>(Trava) <a href="#a"><sup><b>a)</b></sup></a> | 31:10<br/>30:28 | <span style="color:#aaaaaa;">DCEVM<br/>(Trava)</span> | n.a.           |
 | [Dragonwell][dragonwell8_downloads]<br/>(Alibaba) | 31:54<br/>32:01 | [Dragonwell][dragonwell11_downloads]<br/>(Alibaba) | 30:41<br/>30:44 | [Dragonwell][dragonwell17_downloads]<br/>(Alibaba)</span> | n.a. |
 | [GraalVM][graalvm_downloads]<br/>(Oracle) | 26:09<br/>26:11 | [GraalVM][graalvm_downloads]<br/> (Oracle) | 31:34<br/>33:11 | [GraalVM][graalvm_downloads]<br/> (Oracle) | 33:30<br/>&nbsp; |
 | [Liberica][bellsoft8_downloads]<br/>(BellSoft) | 25:10<br/>25:41 | [Liberica][bellsoft11_downloads]<br/>(BellSoft) | 31:04<br/>30:33 | [Liberica][bellsoft17_downloads]<br/>(BellSoft) | 29:38<br/>31:17 |
-| Liberica NIK<br/>(BellSoft) | n.a. | [Liberica NIK][bellsoft_nik_downloads]<br/>(BellSoft) <a href="#c"><sup><b>c)</b></sup></a> | 31:29 | [Liberica NIK][bellsoft_nik_downloads]<br/>(BellSoft) | <i>todo</i> |
+| Liberica NIK<br/>(BellSoft) | n.a. | [Liberica NIK][bellsoft_nik_downloads]<br/>(BellSoft) <a href="#b"><sup><b>b)</b></sup></a> | 31:29 | [Liberica NIK][bellsoft_nik_downloads]<br/>(BellSoft) | <i>todo</i> |
 | <span style="color:#aaaaaa;">Microsoft</span> | n.a. | [Microsoft][microsoft_downloads] | 30:16<br/>30:37 | [Microsoft][microsoft_downloads] | 29:41<br/>31:52 |
 | [OpenJ9][openj9_downloads]<br/>(IBM) | 33:30<br/>33:47 | [OpenJ9][openj9_downloads]<br/>(IBM) | 39:04<br/>39:17 | [OpenJ9][openj9_downloads]<br/>(IBM) | <i>todo</i> |
-| [RedHat][redhat_downloads] | 26:01<br/>26:09 | [RedHat][redhat_downloads] | 30:16<br/>30:51 | [RedHat][redhat_downloads] | <i>todo</i> |
+| [RedHat][redhat_downloads] | 26:01<br/>26:09 | [RedHat][redhat_downloads] | 30:16<br/>30:51 | [RedHat][redhat_downloads] <a href="#c"><sup><b>c)</b></sup> | <i>todo</i> |
 | <span style="color:#aaaaaa;">SapMachine<br/>(SAP)</span> | n.a. | [SapMachine][sapmachine_downloads]<br/>(SAP) | 31:33<br/>30:52 | [SapMachine][sapmachine_downloads]<br/>(SAP) | 28:43<br/>28:27 |
 | [Temurin][temurin8_downloads]<br/>(Eclipse) | 25:46<br/>25:47 | [Temurin][temurin11_downloads]<br/>(Eclipse) | 29:59<br/>31:19 | [Temurin][temurin17_downloads]<br/>(Eclipse) | 28:52<br/>29:04 |
 | [Zulu][azul_downloads]<br/>(Azul)     | 25:39<br/>25:44 | [Zulu][azul_downloads]<br/>(Azul) | 31:38<br/>30:49 | [Zulu][azul_downloads]<br/>(Azul) | 28:59<br/>28:41 |
 <div style="font-size:80%;">
-<sup id="a"><b>a)</b></sup> Version 11.0.11 instead of 11.0.15.<br/>
-<sup id="b"><b>b)</b></sup> Version 11.0.13 instead of 11.0.15.<br/>
-<sup id="c"><b>c)</b></sup> NIK = Native Image Kit.</div>
+<sup id="a"><b>a)</b></sup> Version 11.0.15 instead of 11.0.16.<br/>
+<sup id="b"><b>b)</b></sup> NIK = Native Image Kit.<br/>
+<sup id="c"><b>c)</b></sup> Version 17.0.3 instead of 17.0.4.</div>
 
 Here are two observations about the above results :
 - Build times are ~10% longer with [OpenJ9 JDK][openj9_downloads] (for Java 8 and Java 11).
@@ -493,18 +493,18 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/alibaba/dragonwell11/releases">Alibaba_Dragonwell_11.0.15.11.9_x64_windows.zip</a>                <i>(186 MB)</i>
-<a href="https://github.com/corretto/corretto-11/releases" rel="external">amazon-corretto-11.0.15.9.1-windows-x64-jdk.zip</a>                <i>(178 MB)</i>
-<a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.15+10-windows-amd64.zip</a>                       <i>(186 MB)</i>
+<a href="https://github.com/alibaba/dragonwell11/releases">Alibaba_Dragonwell_11.0.16.12.8_x64_windows.zip</a>                <i>(186 MB)</i>
+<a href="https://github.com/corretto/corretto-11/releases" rel="external">amazon-corretto-11.0.16.9.1-windows-x64-jdk.zip</a>                <i>(178 MB)</i>
+<a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.16.1+1-windows-amd64.zip</a>                      <i>(186 MB)</i>
 <a href="https://libericajdk.ru/pages/downloads/native-image-kit/">bellsoft-liberica-vm-openjdk11-22.0.0.2-windows-amd64.zip</a>      <i>(329 MB)</i>
-<a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.2.0">graalvm-ce-java11-windows-amd64-22.1.0.zip</a>                     <i>(335 MB)</i>
-<a href="https://developer.ibm.com/languages/java/semeru-runtimes/downloads">ibm-semeru-open-jdk_x64_windows_11.0.15_10_openj9-0.32.0.zip</a>   <i>(198 MB)</i>
-<a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.15.9-3.windows.redhat.x86_64.zip</a>          <i>(242 MB)</i>
-<a href="https://docs.microsoft.com/en-us/java/openjdk/">microsoft-jdk-11.0.15-windows-x64.zip</a>                          <i>(178 MB)</i>
+<a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-22.2.0">graalvm-ce-java11-windows-amd64-22.2.0.zip</a>                     <i>(335 MB)</i>
+<a href="https://developer.ibm.com/languages/java/semeru-runtimes/downloads">ibm-semeru-open-jdk_x64_windows_11.0.16_8_openj9-0.33.0.zip</a>    <i>(198 MB)</i>
+<a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.16.8-1.windows.redhat.x86_64.zip</a>          <i>(242 MB)</i>
+<a href="https://docs.microsoft.com/en-us/java/openjdk/">microsoft-jdk-11.0.16-windows-x64.zip</a>                          <i>(178 MB)</i>
 <a href="https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases/latest">Openjdk11u-dcevm-windows-x64.zip</a>                               <i>(187 MB)</i>
-<a href="https://adoptium.net/?variant=openjdk11">OpenJDK11U-jdk_x64_windows_hotspot_11.0.13_8.zip</a>               <i>(190 MB)</i>
-<a href="https://github.com/SAP/SapMachine/releases/tag/sapmachine-11.0.11" rel="external">sapmachine-jdk-11.0.15.0.1_windows-x64_bin.zip</a>                 <i>(189 MB)</i>
-<a href="https://www.azul.com/downloads/zulu-community/?version=java-11-lts" rel="external">zulu11.56.19-ca-jdk11.0.15-win_x64.zip</a>                         <i>(187 MB)</i>
+<a href="https://adoptium.net/?variant=openjdk11">OpenJDK11U-jdk_x64_windows_hotspot_11.0.16_8.zip</a>               <i>(190 MB)</i>
+<a href="https://github.com/SAP/SapMachine/releases/tag/sapmachine-11.0.11" rel="external">sapmachine-jdk-11.0.16.0.1_windows-x64_bin.zip</a>                 <i>(189 MB)</i>
+<a href="https://www.azul.com/downloads/zulu-community/?version=java-11-lts" rel="external">zulu11.58.19-ca-jdk11.0.16-win_x64.zip</a>                         <i>(187 MB)</i>
 </pre>
 </dd></dl>
 
@@ -516,33 +516,33 @@ We run the batch file <a href="./bin/dotty/snapshot.bat"><code>snapshot.bat</cod
 <dd>
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b __SNAPSHOT_LOCAL\*.zip</b>
-scala3-3.2.0-RC1-bin-SNAPSHOT-bellsoft-08.zip
-scala3-3.2.0-RC1-bin-SNAPSHOT-bellsoft-11.zip
-<b style="color:#BB0066;">scala3-3.2.0-RC1-bin-SNAPSHOT-bellsoft-17.zip</b>
-scala3-3.2.0-RC1-bin-SNAPSHOT-bellsoft-nik-11.zip
-<b style="color:#BB0066;">scala3-3.2.0-RC1-bin-SNAPSHOT-bellsoft-nik-17.zip</b>
-scala3-3.2.0-RC1-bin-SNAPSHOT-corretto-11.zip
-<b style="color:#BB0066;">scala3-3.2.0-RC1-bin-SNAPSHOT-corretto-17.zip</b>
-scala3-3.2.0-RC1-bin-SNAPSHOT-dcevm-11.zip
-scala3-3.2.0-RC1-bin-SNAPSHOT-dragonwell-08.zip
-scala3-3.2.0-RC1-bin-SNAPSHOT-dragonwell-11.zip
-scala3-3.2.0-RC1-bin-SNAPSHOT-graalvm-ce-08.zip
-scala3-3.2.0-RC1-bin-SNAPSHOT-graalvm-ce-11.zip
-<b style="color:#BB0066;">scala3-3.2.0-RC1-bin-SNAPSHOT-graalvm-ce-17.zip</b>
-scala3-3.2.0-RC1-bin-SNAPSHOT-microsoft-11.zip
-scala3-3.2.0-RC1-bin-SNAPSHOT-microsoft-17.zip
-scala3-3.2.0-RC1-bin-SNAPSHOT-openj9-08.zip
-scala3-3.2.0-RC1-bin-SNAPSHOT-openj9-11.zip
-scala3-3.2.0-RC1-bin-SNAPSHOT-redhat-08.zip
-scala3-3.2.0-RC1-bin-SNAPSHOT-redhat-11.zip
-scala3-3.2.0-RC1-bin-SNAPSHOT-sapmachine-11.zip
-<b style="color:#BB0066;">scala3-3.2.0-RC1-bin-SNAPSHOT-sapmachine-17.zip</b>
-scala3-3.2.0-RC1-bin-SNAPSHOT-temurin-08.zip
-scala3-3.2.0-RC1-bin-SNAPSHOT-temurin-11.zip
-<b style="color:#BB0066;">scala3-3.2.0-RC1-bin-SNAPSHOT-temurin-17.zip</b>
-scala3-3.2.0-RC1-bin-SNAPSHOT-zulu-08.zip
-scala3-3.2.0-RC1-bin-SNAPSHOT-zulu-11.zip
-<b style="color:#BB0066;">scala3-3.2.0-RC1-bin-SNAPSHOT-zulu-17.zip</b>
+scala3-3.2.0-RC5-bin-SNAPSHOT-bellsoft-08.zip
+scala3-3.2.0-RC5-bin-SNAPSHOT-bellsoft-11.zip
+<b style="color:#BB0066;">scala3-3.2.0-RC5-bin-SNAPSHOT-bellsoft-17.zip</b>
+scala3-3.2.0-RC5-bin-SNAPSHOT-bellsoft-nik-11.zip
+<b style="color:#BB0066;">scala3-3.2.0-RC5-bin-SNAPSHOT-bellsoft-nik-17.zip</b>
+scala3-3.2.0-RC5-bin-SNAPSHOT-corretto-11.zip
+<b style="color:#BB0066;">scala3-3.2.0-RC5-bin-SNAPSHOT-corretto-17.zip</b>
+scala3-3.2.0-RC5-bin-SNAPSHOT-dcevm-11.zip
+scala3-3.2.0-RC5-bin-SNAPSHOT-dragonwell-08.zip
+scala3-3.2.0-RC5-bin-SNAPSHOT-dragonwell-11.zip
+scala3-3.2.0-RC5-bin-SNAPSHOT-graalvm-ce-08.zip
+scala3-3.2.0-RC5-bin-SNAPSHOT-graalvm-ce-11.zip
+<b style="color:#BB0066;">scala3-3.2.0-RC5-bin-SNAPSHOT-graalvm-ce-17.zip</b>
+scala3-3.2.0-RC5-bin-SNAPSHOT-microsoft-11.zip
+scala3-3.2.0-RC5-bin-SNAPSHOT-microsoft-17.zip
+scala3-3.2.0-RC5-bin-SNAPSHOT-openj9-08.zip
+scala3-3.2.0-RC5-bin-SNAPSHOT-openj9-11.zip
+scala3-3.2.0-RC5-bin-SNAPSHOT-redhat-08.zip
+scala3-3.2.0-RC5-bin-SNAPSHOT-redhat-11.zip
+scala3-3.2.0-RC5-bin-SNAPSHOT-sapmachine-11.zip
+<b style="color:#BB0066;">scala3-3.2.0-RC5-bin-SNAPSHOT-sapmachine-17.zip</b>
+scala3-3.2.0-RC5-bin-SNAPSHOT-temurin-08.zip
+scala3-3.2.0-RC5-bin-SNAPSHOT-temurin-11.zip
+<b style="color:#BB0066;">scala3-3.2.0-RC5-bin-SNAPSHOT-temurin-17.zip</b>
+scala3-3.2.0-RC5-bin-SNAPSHOT-zulu-08.zip
+scala3-3.2.0-RC5-bin-SNAPSHOT-zulu-11.zip
+<b style="color:#BB0066;">scala3-3.2.0-RC5-bin-SNAPSHOT-zulu-17.zip</b>
 </pre>
 </dd></dl>
 <!--

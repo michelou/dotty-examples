@@ -22,7 +22,7 @@ The [Scala 3](https://www.scala-lang.org/download/scala3.html) and [Scala 2](htt
 > **:mag_right:** We observe a jump in the increases in size of the software distributions : 
 > |  Version  | Release date | Zip archive | Installation |
 > |:----------|:------------:|:-----------:|:------------:|
-> | [3.2.0](https://github.com/lampepfl/dotty/releases/tag/3.2.0-RC3) | Jul 2022 | 34.2 MB | 36.1 MB |
+> | [3.2.0](https://github.com/lampepfl/dotty/releases/tag/3.2.0-RC4) | Aug 2022 | 34.2 MB | 36.1 MB |
 > |  [3.1.3](https://github.com/lampepfl/dotty/releases/tag/3.1.3)     | Jun 2022 |   33.8 MB   |   35.7 MB    |
 > |  [3.1.2](https://github.com/lampepfl/dotty/releases/tag/3.1.2)     | Apr 2022 |   33.4 MB   |   35.3 MB    |
 > |  [3.1.1](https://github.com/lampepfl/dotty/releases/tag/3.1.1)     | Jan 2022 |   33.3 MB   |   35.2 MB    |
@@ -34,7 +34,7 @@ The [Scala 3](https://www.scala-lang.org/download/scala3.html) and [Scala 2](htt
 > |  [2.13.6](https://www.scala-lang.org/download/2.13.6.html)         | May 2021 |   22.3 MB   |   23.8 MB    |
 > |  [2.12.15](https://www.scala-lang.org/download/2.12.15.html)       | Sep 2021 |   20.1 MB   |   21.5 MB    |
 
-In the next sections we give more details on those dependencies for the three Scala distributions currently available, namely [3.1](#scala3_releases), [2.13](#scala213_releases) and [2.12](#scala212_releases).
+In the next sections we give more details on those dependencies for the three Scala distributions currently available, namely [3.1](#scala31_releases), [3.0](#scala30_releases), [2.13](#scala213_releases) and [2.12](#scala212_releases).
 
 ## <span id="scala32_releases">Dependencies in Scala 3.2 Releases</span>
 
@@ -44,7 +44,7 @@ As mentioned in the introduction the Scala 3.2 distributions depend on *many* ex
 <tr>
   <th style="padding:4px;min-width:115px;">Java Archive</th>
   <th style="padding:4px;">Current<br/>Version</th>
-  <th><a href="https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler">3.2.0</a><br/><span style="color:red;">RC3</span></th>
+  <th><a href="https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler">3.2.0</a><br/><span style="color:red;">RC4</span></th>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4"><code>antlr-*</code></a><br/>(<a href="https://github.com/antlr/antlr4/releases">relnotes</a>)</td>
@@ -560,16 +560,49 @@ Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.0.
 Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.1.0"
 Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.1.1"
 Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.1.2"
-Found ASM version "9.2.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.1.3-RC3"
+Found ASM version "9.2.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.1.3"
+Found ASM version "9.3.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.2.0-RC4"
 </pre>
 </dd></dl>
 
-<span id="footnote_03">[3]</span> **`scala-asm 9.2.0` *Library Update*** [↩](#anchor_03)
+<span id="footnote_03">[3]</span> **`scala-asm` *Library Updates*** [↩](#anchor_03)
 
 <!-- https://javaalmanac.io/ -->
 
 <dl><dd>
-Update 9.2.0 of the <a href="https://gitlab.ow2.org/asm/asm/-/commit/1412c76" rel="external"><code>scala-asm</code></a> library adds support of Java version 18 (version 62).
+Besides improvements and fixes <code>scala-asm</code> library updates also add support for the latest Java version:
+<table>
+<tr>
+  <th><a href="https://asm.ow2.io/versions.html"><code>scala-asm</code>&nbsp;update</a></th>
+  <th><a href="https://www.java.com/releases/">Java&nbsp;version</a></th>
+  <th><a href="https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html">Class&nbsp;file&nbsp;version</a></th>
+</tr>
+<tr>
+  <td><a href="https://asm.ow2.io/versions.html">9.3.0</a></td>
+  <td>19</td>
+  <td>63</td>
+</tr>
+<tr>
+  <td><a href="https://asm.ow2.io/versions.html">9.2.0</a></td>
+  <td>18</td>
+  <td>62</td>
+</tr>
+<tr>
+  <td><a href="https://asm.ow2.io/versions.html">9.1.0</a></td>
+  <td>17</td>
+  <td>61</td>
+</tr>
+<tr>
+  <td><a href="https://asm.ow2.io/versions.html">7.3.1</a></td>
+  <td>15</td>
+  <td>59</td>
+</tr>
+<tr>
+  <td><a href="https://asm.ow2.io/versions.html">7.0.0</a></td>
+  <td>11</td>
+  <td>55</td>
+</tr>
+</table>
 </dd></dl>
 
 <!--
@@ -677,7 +710,7 @@ Update 9.2.0 of the <a href="https://gitlab.ow2.org/asm/asm/-/commit/1412c76" re
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
