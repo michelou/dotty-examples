@@ -14,6 +14,8 @@
 ## <span id="articles">Articles</span>
 
 - [Scala blog posts](https://alexn.org/blog/tag/scala/) from Alexandru Nedelcu :
+  - [Scripting with Scala][article_nedelcu_scripting], September 2022.
+  - [Scala isn't fun anymore][article_nedelcu_isnt_fun], September 2022.
   - [Tracking Side Effects in Scala][article_nedelcu_tracking], May 2022.
   - [OOP vs Type Classes, Part 1][article_nedelcu_ideology1], May 2022.
   - [Implicit vs Scala 3's Given][article_nedelcu_given], May 2022.
@@ -96,7 +98,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -106,7 +108,9 @@
 [article_hupel_top5]: https://www.innoq.com/de/articles/2021/08/top5-neuerungen-scala/
 [article_nedelcu_given]: https://alexn.org/blog/2022/05/11/implicit-vs-scala-3-given/
 [article_nedelcu_ideology1]: https://alexn.org/blog/2022/05/13/oop-vs-type-classes-part-1-ideology/
+[article_nedelcu_isnt_fun]: https://alexn.org/blog/2022/09/09/scala-isnt-fun-anymore/
 [article_nedelcu_oofp]: https://alexn.org/blog/2022/04/18/scala-oop-design-sample/
+[article_nedelcu_scripting]: https://alexn.org/blog/2022/09/13/scripting-with-scala/
 [article_nedelcu_tracking]: https://alexn.org/blog/2022/05/23/tracking-effects-in-scala/
 [article_odersky]: https://infoscience.epfl.ch/record/290885
 [blog_47_degrees]: https://www.47deg.com/blog/tags/scala/

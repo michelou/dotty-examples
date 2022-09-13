@@ -40,7 +40,7 @@ call :add_jar "org.hamcrest" "hamcrest" "2.2"
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all
 call :add_jar "org.hamcrest" "hamcrest-all" "1.3"
 
-set __SCALATEST_VERSION=3.2.12
+set __SCALATEST_VERSION=3.2.13
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
@@ -60,7 +60,7 @@ call :add_jar "org.scalatest" "scalatest_3" "%__SCALATEST_VERSION%"
 @rem https://mvnrepository.com/artifact/org.scalactic
 call :add_jar "org.scalactic" "scalactic_3" "%__SCALATEST_VERSION%"
 
-set __SPECS2_VERSION=5.0.0
+set __SPECS2_VERSION=5.0.7
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
 @rem NB. dependency of specs2
@@ -82,7 +82,7 @@ call :add_jar "org.specs2" "specs2-matcher_3" "%__SPECS2_VERSION%"
 call :add_jar "org.specs2" "specs2-fp_3" "%__SPECS2_VERSION%"
 
 @rem https://mvnrepository.com/artifact/com.chuusai/shapeless
-call :add_jar "com.chuusai" "shapeless_%__SCALA_BINARY_VERSION%" "2.3.9"
+call :add_jar "com.chuusai" "shapeless_%__SCALA_BINARY_VERSION%" "2.3.10"
 
 @rem https://mvnrepository.com/artifact/eu.timepit/refined
 call :add_jar "eu.timepit" "refined_3" "0.9.28"

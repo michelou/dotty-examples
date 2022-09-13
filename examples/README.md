@@ -96,7 +96,7 @@ Buildfile: Y:\examples\enum-Planet\build.xml
    [delete] Deleting directory Y:\examples\enum-Planet\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] SCALA3_HOME=C:\opt\scala3-3.1.3-RC3
+     [echo] SCALA3_HOME=C:\opt\scala3-3.2.1-RC1
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -174,8 +174,8 @@ Command [**`build -debug clean compile run`**](enum-Planet/build.bat) also displ
 [build] Options    : _EXPLAIN=0 _PRINT=0 _SCALA_VERSION=3 _TASTY=0 _TIMER=0 _VERBOSE=0
 [build] Subcommands:  clean compile run
 [build] Variables  : "CFR_HOME=C:\opt\cfr-0.152"
-[build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-11.0.14_9"
-[build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.1.1"
+[build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-11.0.16_8"
+[build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.2.1-RC1"
 [build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.8"
 [build] Variables  : _MAIN_CLASS=Planet _MAIN_ARGS=1
 [build] del /s /q Y:\dotty\examples\enum-Planet\target\classes\*.class Y:\dotty\examples\enum-Planet\target\classes\*.hasTasty Y:\dotty\examples\enum-Planet\target\classes\.latest-build
@@ -224,10 +224,10 @@ No action required ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
 Processing Planet$
 Processing Planet
-Save decompiled Java source files to "target\cfr-sources_scala3_3.1.3-RC3.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_3.2.1-RC1.java"
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b /s target\*.java</b>
-Y:\examples\enum-Planet\target\cfr-sources_scala3_3.1.3-RC3.java
+Y:\examples\enum-Planet\target\cfr-sources_scala3_3.2.1-RC1.java
 Y:\examples\enum-Planet\target\cfr-sources\Planet$.java
 Y:\examples\enum-Planet\target\cfr-sources\Planet.java
 </pre>
@@ -239,13 +239,13 @@ If the two Java source files `src\build\cfr-sources_scala<n>_<version>.txt` (*ch
 cfr-sources_scala3_0.24.0-RC2.java
 cfr-sources_scala3_0.27.0-RC2.java
 cfr-sources_scala3_3.1.0.java
-cfr-sources_scala3_3.1.1.java
+cfr-sources_scala3_3.2.1-RC1.java
 &nbsp;
 <b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose decompile</b>
 No action required ("src\main\scala\*.scala")
 Decompile Java bytecode to directory "target\cfr-sources"
-Save decompiled Java source files to "target\cfr-sources_scala3_3.1.3-RC3.java"
-Compare output file with check file "src\build\cfr-sources_scala3_3.1.3-RC3.java"
+Save decompiled Java source files to "target\cfr-sources_scala3_3.2.1-RC1.java"
+Compare output file with check file "src\build\cfr-sources_scala3_3.2.1-RC1.java"
 </pre>
 
 
@@ -325,7 +325,7 @@ Command **`make test`** executes the test suite [**`PlanetTest.scala`**](enum-Pl
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 scalac.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.8/scala-library-2.18.6.jar;%USERPROFILE%/.m2/repository/org.scala-lang/scala3-library_3/3.1.3-RC3/scala3-library_3-3.1.3-RC3.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.8/scala-library-2.18.6.jar;%USERPROFILE%/.m2/repository/org.scala-lang/scala3-library_3/3.2.1-RC1/scala3-library_3-3.2.1-RC1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
 JUnit version 4.13.2
 ..
 Time: 0.239
@@ -362,17 +362,17 @@ Command **` mvn compile test`** with option **`-debug`** produces additional deb
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> -debug compile test | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-temurin-11.0.14_9\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.1.1 \
- -cp C:\opt\scala3-3.1.1\lib\*.jar -Dscala.usejavacp=true  \
+[DEBUG] [execute] C:\opt\jdk-temurin-11.0.16_8\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.2.1-RC1 \
+ -cp C:\opt\scala3-3.2.1-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath Y:\examples\hello-scala\target\classes \
  -d Y:\examples\hello-scala\target\classes \
  Y:\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\opt\jdk-temurin-11.0.14_9\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.1.1 [...]
-[DEBUG] [execute] C:\opt\jdk-temurin-11.0.14_9\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\scala3-3.1.1\lib\*.jar;\
+[DEBUG] [execute] C:\opt\jdk-temurin-11.0.16_8\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.2.1-RC1 [...]
+[DEBUG] [execute] C:\opt\jdk-temurin-11.0.16_8\bin\java.exe \
+ -Xms64m -Xmx1024m -cp C:\opt\scala3-3.2.1-RC1\lib\*.jar;\
 Y:\examples\hello-scala\target\classes hello
 </pre>
 
@@ -412,7 +412,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -version 2>&1 | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> version</b>
 openjdk version "11.0.14" 2022-01-18
 
-<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:"c:\opt\scala3-3.1.1\lib\scala3-library_3-3.1.1.jar;c:\opt\scala3-3.1.1\lib\scala-library-2.13.6.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
+<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:"c:\opt\scala3-3.2.1-RC1\lib\scala3-library_3-3.2.1-RC1.jar;c:\opt\scala3-3.2.1-RC1\lib\scala-library-2.13.6.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
 Your weight on EARTH (2) is 0.9999999999999999
@@ -435,7 +435,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 >         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>3.1.1<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.version&gt;</b>3.2.1-RC1<b>&lt;/scala.version&gt;</b>
 >         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
@@ -544,27 +544,27 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 <dd>
 <pre style="font-size:80%;">
 <b>@echo off</b>
-<b>setlocal enabledelayedexpansion</b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setlocal">setlocal</a> enabledelayedexpansion</b>
 &nbsp;
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Environment setup</i>
 &nbsp;
 <b>set</b> _EXITCODE=0
 &nbsp;
-<b>call <span style="color:#9966ff;">:env</span></b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:env</span></b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
 &nbsp;
-<b>call <span style="color:#9966ff;">:props</span></b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:props</span></b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
 &nbsp;
-<b>call <span style="color:#9966ff;">:args</span> %*</b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:args</span> %*</b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
 &nbsp;
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Main</i>
 &nbsp;
 <b>if</b> <span style="color:#3333ff;">%_CLEAN%</span>==1 (
-    <b>call :clean</b>
+    <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> :clean</b>
     <b>if not</b> <span style="color:#3333ff;">!_EXITCODE!</span>==0 <b>goto end</b>
 )
 <b>if</b> <span style="color:#3333ff;">%_COMPILE%</span>==1 (
@@ -583,7 +583,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
     <b>call <span style="color:#9966ff;">:run</span></b>
     <b>if not</b> <span style="color:#3333ff;">!_EXITCODE!</span>==0 <b>goto end</b>
 )
-<b>goto <span style="color:#9966ff;">end</span></b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/goto">goto</a> <span style="color:#9966ff;">end</span></b>
 &nbsp;
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Subroutines</i>
@@ -611,7 +611,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 <b>goto :eof</b>
 <span style="color:#9966ff;">:run</span>
 ...
-<b>goto :eof</b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/goto">goto</a> :eof</b>
 &nbsp;
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Cleanups</i>
@@ -624,7 +624,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
