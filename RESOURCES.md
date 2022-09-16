@@ -52,7 +52,7 @@
 - [Higher-rank and higher-kinded types](https://www.stephanboyer.com/post/115/higher-rank-and-higher-kinded-types) by Stephan Boyer, April 2016.
 - [Sum Types Are Coming: What You Should Know](https://chadaustin.me/2015/07/sum-types/) by Chad Austin, July 2015.
 
-## <span id="books">Books</span>
+## <span id="books">Books</span>[**&#x25B4;**](#top)
 
 - [Beginning Scala 3][book_pollak] (3<sup>rd</sup> Edition) by David Pollak et al, 2022.<br/><span style="font-size:80%;">(Apress, ISBN 978-1-4842-7421-7)
 - [Scala Cookbook][book_alexander] (2<sup>nd</sup> Edition) by Alvin Alexander, August 2021.<br/><span style="font-size:80%;">(O'Reilly, ISBN 978-1-4920-5154-1, 802 pages)</span>
@@ -62,7 +62,7 @@
 - [Essential Scala](https://underscore.io/books/essential-scala/) (v1.3) by Noel Welsh and Dave Gurnell, April 2017.
 - [Introduction to Programming and Problem-Solving Using Scala][book_lewis]  (2<sup>nd</sup> edition) by Mark C. Lewis and Lisa Lacher, August 2016.<br/><span style="font-size:80%;">(CRC Press, ISBN 978-1-4987-3095-2, 590 pages)</span>
 
-## <span id="courses">Courses</span>
+## <span id="courses">Courses</span>[**&#x25B4;**](#top)
 
 - [Learning to code in Scala](https://scala.zone/courses/scala): [Beginner](https://scala.zone/courses/scala/beginner), [Intermediate](https://scala.zone/courses/scala/intermediate), [Advanced](https://scala.zone/courses/scala/advanced).
 - [CSci 555 : Functional Programming][course_csci555] by Conrad Cunningham, Spring Semester 2019.
@@ -79,7 +79,7 @@
 - [Interactive Development using the Dotty Compiler][paper_martres] by Guillaume Martres, October 2017.
 - [Implementing Higher-Kinded Types in Dotty][paper_odersky_hkt] by Martin Odersky et al., October 2016.
 
-## <span id="projects">Projects</span>
+## <span id="projects">Projects</span>[**&#x25B4;**](#top)
 
 - [Scala.js][project_scalajs] - a Scala backend to generate highly efficient JavaScript.
 - [ScalaStan][project_scalastan] - a Scala DSL for [Stan](https://mc-stan.org/), an open-source software for statistical modeling and high-performance statistical computation.
