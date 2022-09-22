@@ -50,10 +50,10 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*June 2022*):
+For instance our development environment looks as follows (*September 2022*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.37.1\                 <i>(282 MB)</i>
+C:\opt\Git-2.37.3\                 <i>(289 MB)</i>
 C:\opt\jdk-temurin-1.8.0u322-b06\  <i>(186 MB)</i>
 C:\opt\jdk-temurin-11.0.16_8\      <i>(314 MB)</i>
 C:\opt\jdk-temurin-17.0.4_8\       <i>(293 MB)</i>
@@ -253,7 +253,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
-   "GIT_CMD=C:\opt\Git-2.37.1\bin\git.exe"
+   "GIT_CMD=C:\opt\Git-2.37.3\bin\git.exe"
    "JAVA_CMD=C:\opt\jdk-openjdk-11.0.16_8\bin\java.exe"
    "SBT_CMD=C:\opt\sbt-1.7.1\bin\sbt.bat"
 Tool options
@@ -641,7 +641,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -653,10 +653,11 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [dotty_ci]: https://dotty-ci.epfl.ch/lampepfl/dotty
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_releases]: https://github.com/lampepfl/dotty/releases
+[flix_examples]: https://github.com/michelou/flix-examples
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.37.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.37.3.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/

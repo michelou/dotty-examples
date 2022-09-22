@@ -27,7 +27,7 @@
 - [Dependent Object Types](https://infoscience.epfl.ch/record/183030) by Nada Amin et al., October 2012.
 - [Deriving Sesion and Union Types for Objects][article_bettini] by Lorenzo Bettini et al., September 2011.
 
-## <span id="blogs">Blogs</span>
+## <span id="blogs">Blogs</span>[**&#x25B4;**](#top)
 
 - [Databricks Blog][blog_databricks]
    - [Scala at Scale at Databricks](https://databricks.com/blog/2021/12/03/scala-at-scale-at-databricks.html) by Li Haoyi, December 2021.
