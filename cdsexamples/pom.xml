@@ -40,7 +40,7 @@
         <scala.version>3.2.1-RC1</scala.version>
         <scala.local.install>true</scala.local.install>
         <scala2.binary.version>2.13</scala2.binary.version>
-        <scala2.version>2.13.8</scala2.version>
+        <scala2.version>2.13.9</scala2.version>
 
         <!-- Maven plugin versions -->
         <scala.maven.version>1.0.0</scala.maven.version> <!-- Dec 2018 -->
