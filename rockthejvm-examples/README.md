@@ -56,7 +56,7 @@ Hey, I'm Alice. Scala rocks!
 
 ## <span id="infix-methods">InfixMethods</span>
 
-Code example `InfixMethods` is presented in Ciorcîlan's blog post [**Infix Methods in Scala 3 **](https://blog.rockthejvm.com/scala-3-infix-methods/) (November 2020).
+Code example `InfixMethods` is presented in Ciorcîlan's blog post [**Infix Methods in Scala 3**](https://blog.rockthejvm.com/scala-3-infix-methods/) (November 2020).
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./InfixMethods/build.bat">build</a> -verbose run</b>
@@ -104,7 +104,7 @@ ten=10
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

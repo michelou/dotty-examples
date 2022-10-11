@@ -9,7 +9,7 @@ $(error Variable SCALA3_HOME is not set)
 endif
 
 ifeq ($(OS),Windows_NT)
-JAR        = $(subst \,/,$(GRAALVM_HOME))/bin/jar.exe
+JAR        = $(subst \,/,$(JAVA_HOME))/bin/jar.exe
 JAVA       = $(subst \,/,$(JAVA_HOME))/bin/java.exe
 JAVAC      = $(subst \,/,$(JAVA_HOME))/bin/javac.exe
 SCALA      = $(subst \,/,$(SCALA3_HOME))/bin/scala.bat
@@ -26,7 +26,7 @@ MKDIR      = $(subst \,/,$(GIT_HOME))/usr/bin/mkdir.exe
 RM         = $(subst \,/,$(GIT_HOME))/usr/bin/rm.exe
 TOUCH      = $(subst \,/,$(GIT_HOME))/usr/bin/touch.exe
 else
-JAR        = $(GRAALVM_HOME)/bin/jar
+JAR        = $(JAVA_HOME)/bin/jar
 JAVA       = $(JAVA_HOME)/bin/java
 JAVAC      = $(JAVA_HOME)/bin/javac
 SCALA      = $(SCALA3_HOME)/bin/scala
@@ -43,15 +43,15 @@ RM         = rm
 TOUCH      = touch
 endif
 
-SCALA_LIB_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala-library-2.13.8.jar)
-SCALA3_LIB_JAR        = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala3-library_3-3.2.1-RC1.jar)
+SCALA_LIB_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala-library-2.13.9.jar)
+SCALA3_LIB_JAR        = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala3-library_3-3.2.1-RC2.jar)
 HAMCREST_JAR          = $(shell $(FIND) "$(LOCAL_REPO)/org/hamcrest" -name hamcrest-2.2.jar)
 HAMCREST_ALL_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/hamcrest" -name hamcrest-all-1.3.jar)
 JUNIT_JAR             = $(shell $(FIND) "$(LOCAL_REPO)/junit/junit" -name junit-4.13.2.jar)
 JUNIT_INTF_JAR        = $(shell $(FIND) "$(LOCAL_REPO)/com/novocode" -name junit-interface-0.11.jar)
-SCALATEST_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scalatest" -name scalatest_3-3.2.13.jar)
-SCALATEST_FUNSPEC_JAR = $(shell $(FIND) "$(LOCAL_REPO)/org/scalatest" -name scalatest-funspec_3-3.2.13.jar)
-SCALACTIC_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scalactic" -name scalactic_3-3.2.13.jar)
+SCALATEST_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scalatest" -name scalatest_3-3.2.14.jar)
+SCALATEST_FUNSPEC_JAR = $(shell $(FIND) "$(LOCAL_REPO)/org/scalatest" -name scalatest-funspec_3-3.2.14.jar)
+SCALACTIC_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scalactic" -name scalactic_3-3.2.14.jar)
 SPECS2_COMMON_JAR     = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-common_3-5.0.7.jar)
 SPECS2_CORE_JAR       = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-core_3-5.0.7.jar)
 SPECS2_FP_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-fp_3-5.0.7.jar)

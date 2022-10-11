@@ -53,7 +53,7 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*August 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*October 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java11-22.2.0\          <i>(890 MB)</i>
@@ -222,22 +222,22 @@ OpenJDK 64-Bit Server VM Corretto-11.0.16.8.1 (build 11.0.16+8-LTS, mixed mode, 
 ### <span id="dragonwell">Dragonwell OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-dragonwell-11.0.15.11_9\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-openjdk version "11.0.15.11" 2022-04-19
-OpenJDK Runtime Environment (Alibaba Dragonwell)-11.0.15.11+9-GA (build 11.0.15.11+9)
-OpenJDK 64-Bit Server VM (Alibaba Dragonwell)-11.0.15.11+9-GA (build 11.0.15.11+9, mixed mode)
+<b>&gt; c:\opt\jdk-dragonwell-11.0.16.12_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+openjdk version "11.0.16.12" 2022-07-19
+OpenJDK Runtime Environment (Alibaba Dragonwell)-11.0.16.12+8-GA (build 11.0.16.12+8)
+OpenJDK 64-Bit Server VM (Alibaba Dragonwell)-11.0.16.12+8-GA (build 11.0.16.12+8, mixed mode)
 &nbsp;
-<b>&gt; c:\opt\jdk-dragonwell-11.0.15.11_9\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-dragonwell-11.0.16.12_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
 [...]
 Number of classes 1241
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-dragonwell-11.0.15.11_9\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-dragonwell-11.0.16.12_8\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 22.05.2022  15:08        17 891 328 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-dragonwell-11.0.15.11_9\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-openjdk version "11.0.15.11" 2022-04-19
-OpenJDK Runtime Environment (Alibaba Dragonwell)-11.0.15.11+9-GA (build 11.0.15.11+9)
-OpenJDK 64-Bit Server VM (Alibaba Dragonwell)-11.0.15.11+9-GA (build 11.0.15.11+9, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-dragonwell-11.0.16.12_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+openjdk version "11.0.16.12" 2022-07-19
+OpenJDK Runtime Environment (Alibaba Dragonwell)-11.0.16.12+8-GA (build 11.0.16.12+8)
+OpenJDK 64-Bit Server VM (Alibaba Dragonwell)-11.0.16.12+8-GA (build 11.0.16.12+8, mixed mode, sharing)
 </pre>
 
 ### <span id="graalvm">GraalVM OpenJDK 11</span> [**&#9650;**](#top)
@@ -287,20 +287,20 @@ OpenJDK 64-Bit Server VM (build 11.0.15+10-LTS, mixed mode, sharing)
 ### <span id="microsoft">Microsoft OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-microsoft-11.0.15_10\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+<b>&gt; c:\opt\jdk-microsoft-11.0.16_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.15" 2022-04-19 LTS
 OpenJDK Runtime Environment Microsoft-32930 (build 11.0.15+10-LTS)
 OpenJDK 64-Bit Server VM Microsoft-32930 (build 11.0.15+10-LTS, mixed mode)
 
-<b>&gt; c:\opt\jdk-microsoft-11.0.15_10\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-microsoft-11.0.16_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
 [...]
 Number of classes 1220
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-microsoft-11.0.15_10\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-microsoft-11.0.16_8\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 22.05.2022  15:33        17 694 720 classes.jsa
 
-<b>&gt; c:\opt\jdk-microsoft-11.0.15_10\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-openjdk version "11.0.15" 2022-04-19 LTS
+<b>&gt; c:\opt\jdk-microsoft-11.0.16_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+openjdk version "11.0.16" 2022-04-19 LTS
 OpenJDK Runtime Environment Microsoft-32930 (build 11.0.15+10-LTS)
 OpenJDK 64-Bit Server VM Microsoft-32930 (build 11.0.15+10-LTS, mixed mode, sharing)
 </pre>
@@ -312,13 +312,13 @@ Compared to the other OpenJDK distributions [OpenJ9 OpenJDK 11][openj9_downloads
 > **:mag_right:** Execute **`java -Xshareclasses:help`** to list the settings.
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-openj9-11.0.15_10\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-openjdk version "11.0.15" 2022-04-19
-IBM Semeru Runtime Open Edition 11.0.15.0 (build 11.0.15+10)
-Eclipse OpenJ9 VM 11.0.15.0 (build openj9-0.32.0, JRE 11 Windows 10 amd64-64-Bit Compressed References 20220422_352 (JIT enabled, AOT enabled)
-OpenJ9   - 9a84ec34e
-OMR      - ab24b6666
-JCL      - b7b5b42ea6 based on jdk-11.0.15+10)
+<b>&gt; c:\opt\jdk-openj9-11.0.16_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+openjdk version "11.0.16" 2022-07-19
+IBM Semeru Runtime Open Edition 11.0.16.0 (build 11.0.16+8)
+Eclipse OpenJ9 VM 11.0.16.0 (build openj9-0.33.0, JRE 11 Windows 10 amd64-64-Bit Compressed References 20220804_420 (JIT enabled, AOT enabled)
+OpenJ9   - 04a55b45b
+OMR      - b58aa2708
+JCL      - ab74d97849 based on jdk-11.0.16+8)
 
 [XXXXXXXXXX -Xshareclasses:name=<name> ##########]
 </pre>
@@ -351,22 +351,22 @@ OpenJDK 64-Bit Server VM 18.9 (build 11.0.15+9-LTS, mixed mode, sharing)
 GitHub project repository is [`SAP/SapMachine`](https://github.com/SAP/SapMachine).
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-sapmachine-11.0.15.0.1\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-openjdk version "11.0.15.0.1" 2022-04-19 LTS
-OpenJDK Runtime Environment SapMachine (build 11.0.15.0.1+10-LTS-sapmachine)
-OpenJDK 64-Bit Server VM SapMachine (build 11.0.15.0.1+10-LTS-sapmachine, mixed mode)
+<b>&gt; c:\opt\jdk-sapmachine-11.0.16\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+openjdk version "11.0.16" 2022-07-19 LTS
+OpenJDK Runtime Environment SapMachine (build 11.0.16+8-LTS-sapmachine)
+OpenJDK 64-Bit Server VM SapMachine (build 11.0.16+8-LTS-sapmachine, mixed mode)
 &nbsp;
-<b>&gt; c:\opt\jdk-sapmachine-11.0.15.0.1\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-sapmachine-11.0.16\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
 [...]
 Number of classes 1217
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-sapmachine-11.0.15.0.1\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-sapmachine-11.0.16\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 22.05.2022  15:39        17 694 720 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-sapmachine-11.0.15.0.1\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-openjdk version "11.0.15.0.1" 2022-04-19 LTS
-OpenJDK Runtime Environment SapMachine (build 11.0.15.0.1+10-LTS-sapmachine)
-OpenJDK 64-Bit Server VM SapMachine (build 11.0.15.0.1+10-LTS-sapmachine, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-sapmachine-11.0.16\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+openjdk version "11.0.16" 2022-04-19 LTS
+OpenJDK Runtime Environment SapMachine (build 11.0.16+10-LTS-sapmachine)
+OpenJDK 64-Bit Server VM SapMachine (build 11.0.16+10-LTS-sapmachine, mixed mode, sharing)
 </pre>
 
 > **:mag_right:** SAP provides [online documentation](https://github.com/SAP/SapMachine/wiki) specific to SapMachine 11, e.g. [Differences between SapMachine and OpenJDK](https://github.com/SAP/SapMachine/wiki/Differences-between-SapMachine-and-OpenJDK).
@@ -379,19 +379,19 @@ OpenJDK 64-Bit Server VM SapMachine (build 11.0.15.0.1+10-LTS-sapmachine, mixed 
 
 Temurin OpenJDK is the [reference implementation][oracle_openjdk11_project]; the other OpenJDK distributions are derived from it.
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-temurin-11.0.15_10\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+<b>&gt; c:\opt\jdk-temurin-11.0.16_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.15" 2022-04-19
 OpenJDK Runtime Environment Temurin-11.0.15+10 (build 11.0.15+10)
 OpenJDK 64-Bit Server VM Temurin-11.0.15+10 (build 11.0.15+10, mixed mode)
 &nbsp;
-<b>&gt; c:\opt\jdk-temurin-11.0.15_10\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-temurin-11.0.16_8\bin\java -Xshare:dump</b>
 [...]
 Number of classes 1217
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-temurin-11.0.15_10\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-temurin-11.0.16_8\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 22.05.2022  15:40        17 694 720 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-temurin-11.0.15_10\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+<b>&gt; c:\opt\jdk-temurin-11.0.16_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
 openjdk version "11.0.15" 2022-04-19
 OpenJDK Runtime Environment Temurin-11.0.15+10 (build 11.0.15+10)
 OpenJDK 64-Bit Server VM Temurin-11.0.15+10 (build 11.0.15+10, mixed mode, sharing)
@@ -555,7 +555,7 @@ scala3-3.2.0-RC5-bin-SNAPSHOT-zulu-11.zip
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

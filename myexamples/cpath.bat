@@ -20,13 +20,13 @@ set _LIBS_CPATH=
 set __SCALA_BINARY_VERSION=2.13
 
 @rem https://mvnrepository.com/artifact/org.apiguardian/apiguardian-api
-call :add_jar "org.apiguardian" "apiguardian-api" "1.1.1"
+call :add_jar "org.apiguardian" "apiguardian-api" "1.1.2"
 
 @rem https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-call :add_jar "org.junit.jupiter" "junit-jupiter-api" "5.9.0"
+call :add_jar "org.junit.jupiter" "junit-jupiter-api" "5.9.1"
 
 @rem https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect
-call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSION%" "1.1.1"
+call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSION%" "1.1.2"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
 call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.1.0"
@@ -40,7 +40,7 @@ call :add_jar "com.novocode" "junit-interface" "0.11"
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest
 call :add_jar "org.hamcrest" "hamcrest" "2.2"
 
-set __SCALATEST_VERSION=3.2.13
+set __SCALATEST_VERSION=3.2.14
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"

@@ -81,9 +81,10 @@
 
 ## <span id="projects">Projects</span>[**&#x25B4;**](#top)
 
-- [Scala.js][project_scalajs] - a Scala backend to generate highly efficient JavaScript.
-- [ScalaStan][project_scalastan] - a Scala DSL for [Stan](https://mc-stan.org/), an open-source software for statistical modeling and high-performance statistical computation.
-- [Woof](https://github.com/LEGO/woof) - a pure Scala 3 logging library with no reflection.
+- [Scala.js][project_scalajs] &ndash; a Scala backend to generate highly efficient JavaScript.
+- [ScalaStan][project_scalastan] &ndash; a Scala DSL for [Stan](https://mc-stan.org/), an open-source software for statistical modeling and high-performance statistical computation.
+- [Scalalikejdbc](https://github.com/scalikejdbc/scalikejdbc) &ndash; a tidy SQL-based DB access library for Scala developers.
+- [Woof](https://github.com/LEGO/woof) &ndash; a pure Scala 3 logging library with no reflection.
 
 ## <span id="shell">Shell Scripting</span>
 
@@ -98,7 +99,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -295,7 +295,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCE
 )
 call "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to compile %__N_FILES% 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -356,7 +356,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -classpath
 )
 call "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -classpath "%_JAR_FILE%" %_REDIRECT_STDOUT%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to create shared archive %_JAR_FILE% 1>&2
+    echo %_ERROR_LABEL% Failed to create shared archive "%_JAR_FILE%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -458,7 +458,7 @@ set __N=1
 :run_iter
 call "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -jar "%_JAR_FILE%" %_RUN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to execute class %_MAIN_CLASS% 1>&2
+    echo %_ERROR_LABEL% Failed to execute class "%_MAIN_CLASS%" 1>&2
     set _EXITCODE=1
     goto :eof
 )

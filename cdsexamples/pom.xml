@@ -37,15 +37,15 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId>
-        <scala.version>3.2.1-RC1</scala.version>
+        <scala.version>3.2.1-RC2</scala.version>
         <scala.local.install>true</scala.local.install>
         <scala2.binary.version>2.13</scala2.binary.version>
-        <scala2.version>2.13.8</scala2.version>
+        <scala2.version>2.13.9</scala2.version>
 
         <!-- Maven plugin versions -->
         <scala.maven.version>1.0.0</scala.maven.version> <!-- Dec 2018 -->
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
-        <scalatest.version>3.2.13</scalatest.version>
+        <scalatest.version>3.2.14</scalatest.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven.compiler.version>3.10.1</maven.compiler.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
@@ -54,7 +54,7 @@
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
         <specs2.version>5.0.7</specs2.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
-        <maven.jar.version>3.2.2</maven.jar.version>
+        <maven.jar.version>3.3.0</maven.jar.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
         <exec.maven.version>3.1.0</exec.maven.version>
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
@@ -63,9 +63,9 @@
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
-        <junit.platform.version>1.9.0</junit.platform.version>
+        <junit.platform.version>1.9.1</junit.platform.version>
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <jupiter.version>5.9.0</jupiter.version>
+        <jupiter.version>5.9.1</jupiter.version>
 
         <m2.directory>${user.home}/.m2/repository</m2.directory>
 

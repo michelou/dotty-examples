@@ -17,10 +17,10 @@ https://geirsson.com/assets/scalasphere-2018.pdf
 We need to install additional command-line tools in order to work on our code examples.
 - [Metac] <sup id="anchor_01">[1](#footnote_01)</sup> &ndash; to generate `.semanticdb` files from `.scala` files.
 - [Metap] &ndash; to prettyprint `.semanticdb` files.
-- [Protoc] &ndash; to compile `.proto` files.
+- [Protoc] <sup id="anchor_02">[2](#footnote_02)</sup> &ndash; to compile `.proto` files.
 
 > **:mag_right:** The above tools must be installed in two different ways:
-> - We need [Coursier] to install the **`metac`** and **`metap`** comand line tools <sup id="anchor_02">[2](#footnote_02)</sup> (no Tgz/Zip archive available).
+> - We need [Coursier] to install the **`metac`** and **`metap`** comand line tools <sup id="anchor_03">[3](#footnote_03)</sup> (no Tgz/Zip archive available).
 > - We extract the Zip archive [**`protoc-3.yy.z-win64.zip`**](https://github.com/protocolbuffers/protobuf/) (available from GitHub project [`protocolbuffers/protobuf`](https://github.com/protocolbuffers/protobuf/releases)) into directory **`C:\opt\protoc-3.yy.z\`**.
 
 ## <span id="hello">`hello`</span>
@@ -217,7 +217,16 @@ range {
 </pre>
 </dd></dl>
 
-<span id="footnote_02">[2]</span> ***Installation with Coursier*** [↩](#anchor_02)
+<span id="footnote_02">[2]</span> **`protoc`** [↩](#anchor_02)
+
+<dl><dd>
+<pre style="font-size:80%;">
+<b>&gt; c:\opt\protoc-3.21.7\bin\protoc.exe --version</b>
+libprotoc 3.21.7
+</pre>
+</dd></dl>
+
+<span id="footnote_03">[3]</span> ***Installation with Coursier*** [↩](#anchor_03)
 
 <dl><dd>
 <pre style="font-size:80%;">
@@ -241,7 +250,7 @@ Warning: <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_val
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -50,11 +50,11 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*September 2022*):
+For instance our development environment looks as follows (*October 2022*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.37.3\                 <i>(289 MB)</i>
-C:\opt\jdk-temurin-1.8.0u322-b06\  <i>(186 MB)</i>
+C:\opt\jdk-temurin-1.8.0u345-b01\  <i>(186 MB)</i>
 C:\opt\jdk-temurin-11.0.16_8\      <i>(314 MB)</i>
 C:\opt\jdk-temurin-17.0.4_8\       <i>(293 MB)</i>
 C:\opt\sbt-1.7.1\                  <i>( 48 MB)</i>
@@ -99,7 +99,7 @@ We distinguish several sets of batch commands:
    > **:mag_right:** With the merge of [PR#13006](https://github.com/lampepfl/dotty/pull/13006) into the <a href="https://github.com/lampepfl/dotty/tree/release-3.0.2"><b><code>3.0.2</code></b> branch</a> of the [Dotty project][scala3_home] the copy operation below is no more required.
 
    <pre style="font-size:80%;">
-   <b>&gt; cp bin\3.0\*.bat dotty\dist\bin</b>
+   <b>&gt; <a href="https://man7.org/linux/man-pages/man1/cp.1.html">cp</a> bin\3.0\*.bat dotty\dist\bin</b>
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b dotty\dist\bin</b>
    common
    common.bat
@@ -116,8 +116,8 @@ We distinguish several sets of batch commands:
    > **:mag_right:** Scala users working in a Linux-like environment such as Cygwin or MSYS2 can perform the same tasks with the bash script [**`./build.sh`**](bin/dotty/build.sh).
 
    <pre style="font-size:80%;">
-   <b>&gt; cp bin\dotty\build.* dotty</b>
-   <b>&gt; cp bin\dotty\project\scripts\*.bat dotty\project\scripts\</b>
+   <b>&gt; <a href="https://man7.org/linux/man-pages/man1/cp.1.html">cp</a> bin\dotty\build.* dotty</b>
+   <b>&gt; <a href="https://man7.org/linux/man-pages/man1/cp.1.html">cp</a> bin\dotty\project\scripts\*.bat dotty\project\scripts\</b>
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a> dotty</b></pre>
 
    Command [**`build.bat help`**](bin/dotty/build.bat) display the help message.
@@ -641,7 +641,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
