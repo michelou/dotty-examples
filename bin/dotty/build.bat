@@ -335,9 +335,11 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+@rem set __GIT_OPTS=-c submodule."community-build/community-projects/libretto".update=none
+
 @rem "git submodule update" updates the contents of the submodules.
-if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% submodule update --init --recursive --jobs 7 1>&2
-call "%_GIT_CMD%" submodule update --init --recursive --jobs 7
+if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_CMD% %__GIT_OPTS% submodule update --init --recursive --jobs 7 1>&2
+call "%_GIT_CMD%" %__GIT_OPTS% submodule update --init --recursive --jobs 7
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to update Git submodules 1>&2
     set _EXITCODE=1
