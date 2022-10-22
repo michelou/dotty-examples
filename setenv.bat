@@ -1230,7 +1230,8 @@ endlocal & (
         if not defined SBT_HOME set "SBT_HOME=%_SBT_HOME%"
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
         if not defined SCALA3_HOME set "SCALA3_HOME=%_SCALA3_HOME%"
-        set "PATH=%PATH%%_ANT_PATH%%_BAZEL_PATH%%_COURSIER_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
+        @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
+        set "PATH=%_GIT_HOME%\bin;%PATH%%_ANT_PATH%%_BAZEL_PATH%%_COURSIER_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE%
         if not "%CD:~0,2%"=="%_DRIVE_NAME%:" (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME%: 1>&2
