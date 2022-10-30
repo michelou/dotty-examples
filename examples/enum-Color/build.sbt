@@ -1,4 +1,4 @@
-val scala3Version = "3.2.1-RC2" // = dottyLatestNightlyBuild.get
+val scala3Version = "3.2.1-RC4" // = dottyLatestNightlyBuild.get
 
 lazy val root = project
   .in(file("."))
@@ -22,6 +22,7 @@ lazy val root = project
       // https://mvnrepository.com/artifact/org.scalatest/scalatest
       "org.scalatest" %% "scalatest" % "3.2.14" % Test
     ),
+    wartremoverErrors ++= Warts.all,
     testOptions ++= Seq(
       Tests.Setup(() => println("Setup JUnit tests")),
       Tests.Cleanup(() => println("Cleanup JUnit tests")),

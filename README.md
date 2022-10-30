@@ -1,4 +1,4 @@
-# <span id="top">Running Scala 3 on Windows</span>
+# <span id="top">Playing with Scala 3 on Windows</span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -7,7 +7,7 @@
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This repository gathers <a href="https://dotty.epfl.ch/" rel="external">Scala 3</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/" rel="external">Dotty</a> project - or written by myself.<br/>
-    In particular it includes build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch</a>, <a href="https://www.gnu.org/software/bash/manual/bash.html" rel="external">bash</a>, <a href="https://maven.apache.org/guides/introduction/introduction-to-the-pom.html" rel="external">Maven POMs</a>) for experimenting with the <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html" rel="external">Scala 3</a> language on a Windows machine.
+    In particular it includes build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">Bash scripts</a>, <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html" rel="external">Gradle scripts</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>, <a href="https://maven.apache.org/guides/introduction/introduction-to-the-pom.html" rel="external">Maven scripts</a> and more) for experimenting with the <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html" rel="external">Scala 3</a> language on a Windows machine.
   </td>
   </tr>
 </table>
@@ -80,14 +80,14 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*October 2022*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*November 2022*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant-1.10.12\         <i>( 40 MB)</i>
 C:\opt\apache-maven-3.8.6\         <i>( 10 MB)</i>
-C:\opt\bazel-5.3.1\                <i>( 44 MB)</i>
+C:\opt\bazel-5.3.2\                <i>( 44 MB)</i>
 C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
-C:\opt\Git-2.38.0\                 <i>(317 MB)</i>
+C:\opt\Git-2.38.1\                 <i>(317 MB)</i>
 C:\opt\gradle-7.5.1\               <i>(122 MB)</i>
 C:\opt\jacoco-0.8.8\               <i>( 10 MB)</i>
 C:\opt\javafx-sdk-17.0.2\          <i>( 82 MB)</i>
@@ -267,7 +267,7 @@ We distinguish different sets of batch/bash commands:
 
 1. Build tools
 
-    Code examples in directories [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built with the following tools as an alternative to the **`build`** command (see [**`examples\README.md`**](examples/README.md) and [**`myexamples\README.md`**](myexamples/README.md) for more details):
+    Code examples in directories [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built with the following tools as an alternative to the **`build.bat`** command (see [**`examples\README.md`**](examples/README.md) and [**`myexamples\README.md`**](myexamples/README.md) for more details):
 
     | **Build tool** | **Configuration file** | **Parent file** | **Usage example** |
     | :------------- | :--------------------- | :-------------- | :---------------- |
@@ -281,7 +281,7 @@ We distinguish different sets of batch/bash commands:
 
 2. Decompiler tools
 
-    As an alternative to the standard [**`javap`**][javap_cli] class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.152.zip`**](bin/cfr-0.152.zip) to **`c:\opt\`**) which prints [Java source code][java_jls] instead of [Java bytecode][java_bytecode]:
+    As an alternative to the standard [**`javap.exe`**][javap_cli] class decompiler one may use **`cfr.bat`** (simply extract [**`bin\cfr-0.152.zip`**](bin/cfr-0.152.zip) to **`c:\opt\`**) which prints [Java source code][java_jls] instead of [Java bytecode][java_bytecode]:
 
     <pre style="font-size:80%;">
     <b>&gt; <a href="https://www.benf.org/other/cfr/">cfr</a> myexamples\00_AutoParamTupling\target\classes\myexamples\Main.class</b>
@@ -307,7 +307,7 @@ We distinguish different sets of batch/bash commands:
     }
     </pre>
 
-    Here is the console output from command [**`javap`**][javap_cli] with option **`-c`** for the same class file:
+    Here is the console output from command [**`javap.exe`**][javap_cli] with option **`-c`** for the same class file:
 
     <pre style="font-size:80%;">
     <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javap.html">javap</a> -c myexamples\00_AutoParamTupling\target\classes\myexamples\Main.class</b>
@@ -338,15 +338,15 @@ We distinguish different sets of batch/bash commands:
 
 ### **`setenv.bat`**
 
-Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`bazel.exe`**][bazel_cli], [**`mvn.cmd`**][apache_maven_cli], [**`sbt.bat`**][sbt_cli] and [**`git.exe`**][git_cli] directly available from the command prompt.
+Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`bazel.exe`**][bazel_cli], [**`mvn.cmd`**][apache_maven_cli], [**`sbt.bat`**][sbt_cli] and [**`git.exe`**][git_cli] directly available from the command prompt.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.16, java 11.0.16, scalac 2.13.10, scalac 3.2.1-RC4,
    ant 1.10.12, gradle 7.5.1, mill 0.10.8, mvn 3.8.6, sbt 1.7.2,
-   bazel 5.3.1, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.7,
-   git 2.38.0.windows.1, diff 3.8, bash 4.4.23(1)-release
+   bazel 5.3.2, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.7,
+   git 2.38.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
 C:\opt\sbt-1.7.2\bin\sbt
@@ -360,21 +360,21 @@ Other development tools such as [**`javac.exe`**][javac_cli] and [**`scalac.bat`
 INFO: Could not find files for the given pattern(s).
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> /r %JAVA_HOME% javac</b>
-c:\opt\jdk-temurin-1.8.0u345-b01\bin\javac.exe
+C:\opt\jdk-temurin-11.0.16.1_1\bin\javac.exe
 &nbsp;
 <b>&gt; %JAVA_HOME%\bin\<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html">javac</a> -version</b>
-javac 1.8.0_345
+javac 11.0.16.1
 </pre>
 
-Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and defined variables:
+Command [**`setenv.bat -verbose`**](setenv.bat) also displays the tool paths and defined variables:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.16, java 11.0.16, scalac 2.13.10, scalac 3.2.1-RC4,
    ant 1.10.12, gradle 7.5.1, mill 0.10.8, mvn 3.8.6, sbt 1.7.2,
-   bazel 5.3.1, cfr 0.152, make 3.81, python 3.10.5,
-   git 2.38.0.windows.1, diff 3.8, bash 4.4.23(1)-release
+   bazel 5.3.2, cfr 0.152, make 3.81, python 3.11.0,
+   git 2.38.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.16_8\bin\javac.exe
    C:\opt\jdk-temurin-11.0.16_8\bin\java.exe
@@ -386,18 +386,18 @@ Tool paths:
    C:\opt\mill-0.10.8\mill.bat
    C:\opt\apache-maven-3.8.6\bin\mvn.cmd
    C:\opt\sbt-1.7.2\bin\sbt.bat
-   C:\opt\bazel-5.3.1\bazel.exe
+   C:\opt\bazel-5.3.2\bazel.exe
    C:\opt\cfr-0.152\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
-   C:\opt\Python-3.10.5\python.exe
-   C:\opt\Git-2.38.0\bin\git.exe
-   C:\opt\Git-2.38.0\mingw64\bin\git.exe
-   C:\opt\Git-2.38.0\usr\bin\diff.exe
-   C:\opt\Git-2.38.0\bin\bash.exe
+   C:\opt\Python-3.11.0\python.exe
+   C:\opt\Git-2.38.1\bin\git.exe
+   C:\opt\Git-2.38.1\mingw64\bin\git.exe
+   C:\opt\Git-2.38.1\usr\bin\diff.exe
+   C:\opt\Git-2.38.1\bin\bash.exe
 Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.12"
-   "BAZEL_HOME=c:\opt\bazel-5.3.1"
-   "GIT_HOME=C:\opt\Git-2.38.0"
+   "BAZEL_HOME=c:\opt\bazel-5.3.2"
+   "GIT_HOME=C:\opt\Git-2.38.1"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.16_8"
    "JAVAFX_HOME=C:\opt\javafx-sdk-17.0.2"
    "MSVS_HOME=X:"
@@ -410,7 +410,7 @@ Environment variables:
 
 ### **`cleanup.bat`**
 
-Command [**`cleanup`**](bin/cleanup.bat) removes the output directories (ie. **`target\`**) from the example projects: 
+Command [**`cleanup.bat`**](bin/cleanup.bat) removes the output directories (ie. **`target\`**) from the example projects: 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/cleanup.bat">cleanup</a></b>
@@ -421,7 +421,7 @@ Finished to clean up 12 subdirectories in Y:\dotty\myexamples
 
 ### **`dirsize.bat {<dir_name>}`**
 
-Command [**`dirsize`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
+Command [**`dirsize.bat`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.2.1-RC4 c:\opt\jdk-temurin-11.0.16_8</b>
@@ -433,7 +433,7 @@ Size of directory "c:\opt\jdk-temurin-11.0.16_8" is 301.0 Mb
 
 ### **`getnightly.bat`**
 
-By default command [**`getnightly`**](bin/getnightly.bat) downloads the library files of the latest [Dotty nightly build][dotty_nightly] available from the [Maven Central Repository][maven_lamp] and saves them into directory **`out\nightly\`**.
+By default command [**`getnightly.bat`**](bin/getnightly.bat) downloads the library files of the latest [Dotty nightly build][dotty_nightly] available from the [Maven Central Repository][maven_lamp] and saves them into directory **`out\nightly\`**.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a></b>
@@ -451,7 +451,7 @@ Usage: getnightly { &lt;option&gt; | &lt;subcommand&gt; }
     restore     restore the default Scala library files
 </pre>
 
-Command [**`getnightly download`**](bin/getnightly.bat) with options **` -verbose`** also displays the download progress:
+Command [**`getnightly.bat download`**](bin/getnightly.bat) with options **` -verbose`** also displays the download progress:
 
 <pre style="font-size:80%">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose download</b>
@@ -542,7 +542,7 @@ Scala compiler version 3.2.1-RC4 -- Copyright 2002-2022, LAMP/EPFL
 
 ### `searchjars.bat <class_name>`
 
-Command [**`searchjars`**](bin/searchjars.bat) helps us to search for class file names in the following directories: project's **`lib\`** directory (*if present*), Dotty's **`lib\`** directory, Java's **`lib\`** directory and Ivy/Maven default directories.
+Command [**`searchjars.bat`**](bin/searchjars.bat) helps us to search for class file names in the following directories: project's **`lib\`** directory (*if present*), Dotty's **`lib\`** directory, Java's **`lib\`** directory and Ivy/Maven default directories.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> -help</b>
@@ -561,7 +561,7 @@ Usage: searchjars { &lt;option&gt; | &lt;class_name&gt; }
     &lt;class_name&gt;     class name
 </pre>
 
-Passing argument **`System`** to command [**`searchjars`**](bin/searchjars.bat) prints the following output (class file names are printed with full path and are prefixed with their containing [JAR file][jar_file]:
+Passing argument **`System`** to command [**`searchjars.bat`**](bin/searchjars.bat) prints the following output (class file names are printed with full path and are prefixed with their containing [JAR file][jar_file]:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> System</b>
@@ -627,7 +627,7 @@ Searching for class name FileSystem in archive files %USERPROFILE%\.m2\repositor
 
 ### `timeit.bat <cmd_1> { & <cmd_i> }`
 
-Command [**`timeit`**](bin/timeit.bat) prints the execution time (`hh:MM:ss` format) of the specified command (possibly given with options and parameters):
+Command [**`timeit.bat`**](bin/timeit.bat) prints the execution time (`hh:MM:ss` format) of the specified command (possibly given with options and parameters):
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/timeit.bat">timeit</a> dir /b</b>
@@ -820,15 +820,16 @@ For instance, for Visual Studio 2019, we set variable <b><code>BAZEL_VC</code></
   <th>Supported Java version</th>
   <th>Depends on <a href="https://asm.ow2.io/" rel="external">ASM</a></th>
 </tr>
-<tr><td>0.8.8 <i style="font-size:80%;">(April 2022)</i></td><td>17 and 18</td><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">9.2</a></td></tr>
-<tr><td>0.8.7 <i style="font-size:80%;">(May 2021)</i></td><td>15 and 16</td><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">9.1</a></td></tr>
-<tr><td>0.8.6 <i style="font-size:80%;">(Sept 2020)</i></td><td>14</td><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">8.0.1</a></td></tr>
-<tr><td>0.8.5 <i style="font-size:80%;">(Oct 2019)</i></td><td>13</td><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">7.2</a></td></tr>
-<tr><td>0.8.4 <i style="font-size:80%;">(May 2019)</i></td><td>12</td><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">7.1</a></td></tr>
-<tr><td>0.8.3 <i style="font-size:80%;">(Jan 2019)</i></td><td>11</td><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">7.0</a></td></tr>
-<tr><td>0.8.2 <i style="font-size:80%;">(Aug 2018)</i></td><td>&nbsp;</td><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">6.2.1</a></td></tr>
-<tr><td>0.8.1 <i style="font-size:80%;">(March 2018)</i></td><td>10</td><td>&nbsp;</td></tr>
-<tr><td>0.8.0 <i style="font-size:80%;">(Jan 2018)</i></td><td>9</td><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">6.0</a></td></tr>
+<tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.9</a>&nbsp;<i style="font-size:80%;">(October&nbsp;2022)</i></td><td>19 and 20</td><td><a href="https://asm.ow2.io/versions.html">9.4</a></td></tr>
+<tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.8</a> <i style="font-size:80%;">(April 2022)</i></td><td>17 and 18</td><td><a href="https://asm.ow2.io/versions.html">9.2</a></td></tr>
+<tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.7</a> <i style="font-size:80%;">(May 2021)</i></td><td>15 and 16</td><td><a href="https://asm.ow2.io/versions.html">9.1</a></td></tr>
+<tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.6</a> <i style="font-size:80%;">(Sept 2020)</i></td><td>14</td><td><a href="https://asm.ow2.io/versions.html">8.0.1</a></td></tr>
+<tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.5</a> <i style="font-size:80%;">(Oct 2019)</i></td><td>13</td><td><a href="https://asm.ow2.io/versions.html">7.2</a></td></tr>
+<tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.4</a> <i style="font-size:80%;">(May 2019)</i></td><td>12</td><td><a href="https://asm.ow2.io/versions.html">7.1</a></td></tr>
+<tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.3</a> <i style="font-size:80%;">(Jan 2019)</i></td><td>11</td><td><a href="https://asm.ow2.io/versions.html">7.0</a></td></tr>
+<tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.2</a> <i style="font-size:80%;">(Aug 2018)</i></td><td>&nbsp;</td><td><a href="https://asm.ow2.io/versions.html">6.2.1</a></td></tr>
+<tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.1</a> <i style="font-size:80%;">(March 2018)</i></td><td>10</td><td>&nbsp;</td></tr>
+<tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.0</a> <i style="font-size:80%;">(Jan 2018)</i></td><td>9</td><td><a href="https://asm.ow2.io/versions.html">6.0</a></td></tr>
 </table>
 </dd></dl>
 
@@ -842,7 +843,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://github.com/lihaoyi/mill/releases">0.10.8-assembly</a> (<code>mill</code>)                             <i>( 64 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.12-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.8.6-bin.zip</a>                         <i>( 10 MB)</i>
-<a href="https://github.com/bazelbuild/bazel/releases">bazel-5.3.1-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases">bazel-5.3.2-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.5.1-bin.zip</a>                               <i>(103 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.8.zip</a>                                   <i>(  4 MB)</i>
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.7-shaded-win.jar</a>                   <i>( 36 MB)</i>
@@ -852,7 +853,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://gluonhq.com/products/javafx/">openjfx-17_windows-x64_bin-sdk.zip</a>                 <i>( 39 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u345b01.zip</a>     <i>( 99 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.16_8.zip</a>   <i>( 99 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.38.0-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.38.1-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.7.2.zip</a>                                      <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.10.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.2.1-RC4">scala3-3.2.1-RC4.zip</a>                               <i>( 34 MB)</i>
@@ -867,7 +868,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -903,7 +904,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [git_bash]: https://www.atlassian.com/git/tutorials/git-bash
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.38.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.38.1.txt
 [github_guides]: https://guides.github.com/
 [github_lampepfl_dotty]: https://github.com/lampepfl/dotty
 [github_markdown]: https://github.github.com/gfm/

@@ -39,7 +39,7 @@ Build tools rely on one or more configuration files to achieve their tasks. In o
 
 The configuration file [**`enum-Planet\build.xml`**](enum-Planet/build.xml) depends on the parent file [**`examples\build.xml`**](build.xml) which provides the macro definition **`dotc`** to compile the [Scala] source files.
 
-> **:mag_right:** Command [**`ant`**][apache_ant_cli] (["Another Neat Tool"][apache_ant_faq]) is a Java-based build tool maintained by the [Apache Software Foundation][apache_history] (tool created in 2000). It works with XML-based configuration files.
+> **:mag_right:** Command [**`ant.bat`**][apache_ant_cli] (["Another Neat Tool"][apache_ant_faq]) is a Java-based build tool maintained by the [Apache Software Foundation][apache_history] (tool created in 2000). It works with XML-based configuration files.
 
 Execution of [**`Planet.scala`**](enum-Planet/src/main/scala/Planet.scala) produces the following output ([Ivy][apache_ant_ivy] support is enabled by default):
 
@@ -125,7 +125,7 @@ Total time: 14 seconds
 
 Command [**`build.bat`**](enum-Planet/build.bat) is our basic build tool featuring subcommands **`clean`**, **`compile`**, **`decompile`**, **`doc`**, **`help`**, **`lint`**, **`run`** and **`test`**; the batch file consists of ~790 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[1](#footnote_01)</sup>.
 
-Command [**`build clean run`**](enum-Planet/build.bat) produces the following output:
+Command [**`build.bat clean run`**](enum-Planet/build.bat) produces the following output:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="enum-Planet/build.bat">build</a> clean run</b>
@@ -358,7 +358,7 @@ The [Maven][apache_maven_about] configuration file [**`enum-Planet\pom.xml`**](e
 
 > **:mag_right:** Command [**`mvn`**][mvn_cli] is a Java-based build tool maintained by the [Apache Software Foundation][apache_foundation]. Created in 2002 it works with XML-based configuration files and provides a way to share JARs across several projects.
 
-Command **` mvn compile test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our [Maven][apache_maven_about] plugin **`scala-maven-plugin`**:
+Command **` mvn.cmd compile test`** with option **`-debug`** produces additional debug information, including the underlying command lines executed by our [Maven][apache_maven_about] plugin **`scala-maven-plugin`**:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> -debug compile test | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
@@ -378,14 +378,14 @@ Y:\examples\hello-scala\target\classes hello
 
 > **:mag_right:** The following command outputs the classpath being used by <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html"><code>mvn</code></a> into the text file `classpath.txt` :
 > <pre style="font-size:80%;">
-> <b>&gt; mvn dependency:build-classpath -Dmdep.outputFile=classpath.txt</b>
+> <b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html" rel="external">mvn</a> dependency:build-classpath -Dmdep.outputFile=classpath.txt</b>
 > </pre>
 <!-- https://stackoverflow.com/questions/16655010/in-maven-how-output-the-classpath-being-used -->
 
 Command [**`mvn --quiet clean test`**](enum-Planet/pom.xml) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> --quiet clean test</b>
+<b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html" rel="external">mvn</a> --quiet clean test</b>
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
 Your weight on EARTH (2) is 0.9999999999999999
@@ -409,10 +409,10 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 [INFO] Finished at: 2019-07-27T19:53:09+01:00
 [INFO] ------------------------------------------------------------------------
 
-<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -version 2>&1 | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> version</b>
+<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html" rel="external">java</a> -version 2>&1 | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> version</b>
 openjdk version "11.0.16" 2022-07-19
 
-<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:"c:\opt\scala3-3.2.1-RC4\lib\scala3-library_3-3.2.1-RC4.jar;c:\opt\scala3-3.2.1-RC4\lib\scala-library-2.13.6.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
+<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html" rel="external">java</a> -Xbootclasspath/a:"c:\opt\scala3-3.2.1-RC4\lib\scala3-library_3-3.2.1-RC4.jar;c:\opt\scala3-3.2.1-RC4\lib\scala-library-2.13.6.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
 Your weight on EARTH (2) is 0.9999999999999999
@@ -427,7 +427,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 > In the above [Maven][apache_maven_about] configuration file we note the presence of the Maven plugin [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip). In fact the parent file [**`examples\pom.xml`**](pom.xml) depends on [**`scala-maven-plugin`**](../bin/scala-maven-plugin-1.0.zip), a Maven plugin we developed specifically for this project (see document [`maven-plugins\README.md`](../maven-plugins/README.md)):
 >
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/more">more</a> ..\pom.xml</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/more" rel="external">more</a> ..\pom.xml</b>
 > &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 > ...
 >     <b>&lt;properties&gt;</b>
@@ -455,8 +455,8 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 > </pre>
 > The plugin is available as [Zip archive][zip_archive] and its installation is deliberately very simple:
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://linux.die.net/man/1/unzip">unzip</a> ..\bin\scala-maven-plugin-1.0.zip %USERPROFILE%\.m2\repository\</b>
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f %USERPROFILE%\.m2\repository\ch\epfl\alumni | findstr /v "^[A-Z]"</b>
+> <b>&gt; <a href="https://linux.die.net/man/1/unzip" rel="external">unzip</a> ..\bin\scala-maven-plugin-1.0.zip %USERPROFILE%\.m2\repository\</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f %USERPROFILE%\.m2\repository\ch\epfl\alumni | findstr /v "^[A-Z]"</b>
 > \---scala-maven-plugin
 >     |   maven-metadata.xml
 >     |   maven-metadata.xml.md5
@@ -477,10 +477,10 @@ The Mill configuration file [**`enum-Planet\build.sc`**](enum-Planet/build.sc) d
 
 > **:mag_right:** Command [**`mill`**][mill_cli] is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
 
-Command [**`mill -i app`**](enum-Planet/build.sc) produces the following output:
+Command [**`mill.bat -i app`**](enum-Planet/build.sc) produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://www.lihaoyi.com/mill/#command-line-tools">mill</a> -i app.run 1</b>
+<b>&gt; <a href="https://www.lihaoyi.com/mill/#command-line-tools" rel="external">mill</a> -i app.run 1</b>
 [38/38] app.run
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
@@ -494,7 +494,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 
 > **:mag_right:** The user has to execute two `mill` commands to perform a clean build and run the application :
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://www.lihaoyi.com/mill/#command-line-tools">mill</a> -i app.clean &amp; <a href="https://www.lihaoyi.com/mill/#command-line-tools">mill</a> -i app.run 1</b>
+> <b>&gt; <a href="https://www.lihaoyi.com/mill/#command-line-tools" rel="external">mill</a> -i app.clean &amp; <a href="https://www.lihaoyi.com/mill/#command-line-tools" rel="external">mill</a> -i app.run 1</b>
 > [1/1] app.clean
 > [27/39] app.compile
 > [info] compiling 1 Scala source to Y:\examples\enum-Planet\out\app\compile\dest\classes ...
@@ -511,10 +511,10 @@ The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is written in [S
 
 > **:mag_right:** [Lightbend] provides commercial support for the [**`sbt`**][sbt_cli] build tool.
 
-Command **<code>[sbt](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) -warn clean "run 1"</code>** produces the following output:
+Command **<code>[sbt.bat](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html) -warn clean "run 1"</code>** produces the following output:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html">sbt</a> -warn clean "run 1"</b>
+<b>&gt; <a href="https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html" rel="external">sbt</a> -warn clean "run 1"</b>
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
 Your weight on EARTH (2) is 0.9999999999999999
@@ -535,7 +535,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 </dd>
 <dd>
 <ul>
-<li>We use at most 80 characters per line. In general we would say that 80 characters fit well with 4:3 screens and 100 characters fit well with 16:9 screens (both <a href="https://github.com/databricks/scala-style-guide#line-length">Databricks</a> and <a href="https://google.github.io/styleguide/javaguide.html#s4.4-column-limit">Google</a> use the convention of 100 characters).</li>
+<li>We use at most 80 characters per line. In general we would say that 80 characters fit well with 4:3 screens and 100 characters fit well with 16:9 screens (both <a href="https://github.com/databricks/scala-style-guide#line-length" rel="external">Databricks</a> and <a href="https://google.github.io/styleguide/javaguide.html#s4.4-column-limit" rel="external">Google</a> use the convention of 100 characters).</li>
 <li>We organize our code in 4 sections: <code>Environment setup</code>, <code>Main</code>, <code>Subroutines</code> and <code>Cleanups</code>.</li>
 <li>We write exactly <b><i>one exit instruction</i></b> (label <b><code>end</code></b> in section <b><code>Cleanups</code></b>).</li>
 <li>We adopt the following naming conventions: global variables start with character <code>_</code> (shell variables defined in the user environment start with a letter) and local variables (e.g. inside subroutines or <b><code>if/for</code></b> constructs) start with <code>__</code> (two <code>_</code> characters).</li>
@@ -544,14 +544,14 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 <dd>
 <pre style="font-size:80%;">
 <b>@echo off</b>
-<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setlocal">setlocal</a> enabledelayedexpansion</b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setlocal" rel="external">setlocal</a> enabledelayedexpansion</b>
 &nbsp;
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Environment setup</i>
 &nbsp;
 <b>set</b> _EXITCODE=0
 &nbsp;
-<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:env</span></b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call" rel="external">call</a> <span style="color:#9966ff;">:env</span></b>
 <b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
 &nbsp;
 <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:props</span></b>
@@ -583,7 +583,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
     <b>call <span style="color:#9966ff;">:run</span></b>
     <b>if not</b> <span style="color:#3333ff;">!_EXITCODE!</span>==0 <b>goto end</b>
 )
-<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/goto">goto</a> <span style="color:#9966ff;">end</span></b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/goto" rel="external">goto</a> <span style="color:#9966ff;">end</span></b>
 &nbsp;
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Subroutines</i>
@@ -611,7 +611,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 <b>goto :eof</b>
 <span style="color:#9966ff;">:run</span>
 ...
-<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/goto">goto</a> :eof</b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/goto" rel="external">goto</a> :eof</b>
 &nbsp;
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Cleanups</i>
@@ -624,7 +624,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

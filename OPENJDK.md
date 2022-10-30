@@ -18,7 +18,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - OpenJDK and Scala 3 on Windows [**&#9660;**](#bottom)
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other trending topics we are currently monitoring.
 
 
 ## <span id="proj_deps">Project dependencies</span>
@@ -53,7 +53,7 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*October 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*November 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java11-22.2.0\          <i>(890 MB)</i>
@@ -92,8 +92,8 @@ C:\opt\jdk-zulu-17.0.4-win_x64\           <i>(306 MB)</i>
 
 We perform a quick comparison of the execution times to build the Scala 3 software distribution available as the following two archive files :
 <pre style="font-size:80%;">
-dist\target\scala3-3.2.0-RC5-bin-SNAPSHOT.tar.gz
-dist\target\scala3-3.2.0-RC5-bin-SNAPSHOT.zip
+dist\target\scala3-3.2.2-RC1-bin-SNAPSHOT.tar.gz
+dist\target\scala3-3.2.2-RC1-bin-SNAPSHOT.zip
 </pre>
 
 > **:mag_right:** Scala nightly builds are published on Maven as individual Java archive files, e.g.
@@ -516,33 +516,33 @@ We run the batch file <a href="./bin/dotty/snapshot.bat"><code>snapshot.bat</cod
 <dd>
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b __SNAPSHOT_LOCAL\*.zip</b>
-scala3-3.2.0-RC5-bin-SNAPSHOT-bellsoft-08.zip
-scala3-3.2.0-RC5-bin-SNAPSHOT-bellsoft-11.zip
-<b style="color:#BB0066;">scala3-3.2.0-RC5-bin-SNAPSHOT-bellsoft-17.zip</b>
-scala3-3.2.0-RC5-bin-SNAPSHOT-bellsoft-nik-11.zip
-<b style="color:#BB0066;">scala3-3.2.0-RC5-bin-SNAPSHOT-bellsoft-nik-17.zip</b>
-scala3-3.2.0-RC5-bin-SNAPSHOT-corretto-11.zip
-<b style="color:#BB0066;">scala3-3.2.0-RC5-bin-SNAPSHOT-corretto-17.zip</b>
-scala3-3.2.0-RC5-bin-SNAPSHOT-dcevm-11.zip
-scala3-3.2.0-RC5-bin-SNAPSHOT-dragonwell-08.zip
-scala3-3.2.0-RC5-bin-SNAPSHOT-dragonwell-11.zip
-scala3-3.2.0-RC5-bin-SNAPSHOT-graalvm-ce-08.zip
-scala3-3.2.0-RC5-bin-SNAPSHOT-graalvm-ce-11.zip
-<b style="color:#BB0066;">scala3-3.2.0-RC5-bin-SNAPSHOT-graalvm-ce-17.zip</b>
-scala3-3.2.0-RC5-bin-SNAPSHOT-microsoft-11.zip
-scala3-3.2.0-RC5-bin-SNAPSHOT-microsoft-17.zip
-scala3-3.2.0-RC5-bin-SNAPSHOT-openj9-08.zip
-scala3-3.2.0-RC5-bin-SNAPSHOT-openj9-11.zip
-scala3-3.2.0-RC5-bin-SNAPSHOT-redhat-08.zip
-scala3-3.2.0-RC5-bin-SNAPSHOT-redhat-11.zip
-scala3-3.2.0-RC5-bin-SNAPSHOT-sapmachine-11.zip
-<b style="color:#BB0066;">scala3-3.2.0-RC5-bin-SNAPSHOT-sapmachine-17.zip</b>
-scala3-3.2.0-RC5-bin-SNAPSHOT-temurin-08.zip
-scala3-3.2.0-RC5-bin-SNAPSHOT-temurin-11.zip
-<b style="color:#BB0066;">scala3-3.2.0-RC5-bin-SNAPSHOT-temurin-17.zip</b>
-scala3-3.2.0-RC5-bin-SNAPSHOT-zulu-08.zip
-scala3-3.2.0-RC5-bin-SNAPSHOT-zulu-11.zip
-<b style="color:#BB0066;">scala3-3.2.0-RC5-bin-SNAPSHOT-zulu-17.zip</b>
+scala3-3.2.2-RC1-bin-SNAPSHOT-bellsoft-08.zip
+scala3-3.2.2-RC1-bin-SNAPSHOT-bellsoft-11.zip
+<b style="color:#BB0066;">scala3-3.2.2-RC1-bin-SNAPSHOT-bellsoft-17.zip</b>
+scala3-3.2.2-RC1-bin-SNAPSHOT-bellsoft-nik-11.zip
+<b style="color:#BB0066;">scala3-3.2.2-RC1-bin-SNAPSHOT-bellsoft-nik-17.zip</b>
+scala3-3.2.2-RC1-bin-SNAPSHOT-corretto-11.zip
+<b style="color:#BB0066;">scala3-3.2.2-RC1-bin-SNAPSHOT-corretto-17.zip</b>
+scala3-3.2.2-RC1-bin-SNAPSHOT-dcevm-11.zip
+scala3-3.2.2-RC1-bin-SNAPSHOT-dragonwell-08.zip
+scala3-3.2.2-RC1-bin-SNAPSHOT-dragonwell-11.zip
+scala3-3.2.2-RC1-bin-SNAPSHOT-graalvm-ce-08.zip
+scala3-3.2.2-RC1-bin-SNAPSHOT-graalvm-ce-11.zip
+<b style="color:#BB0066;">scala3-3.2.2-RC1-bin-SNAPSHOT-graalvm-ce-17.zip</b>
+scala3-3.2.2-RC1-bin-SNAPSHOT-microsoft-11.zip
+scala3-3.2.2-RC1-bin-SNAPSHOT-microsoft-17.zip
+scala3-3.2.2-RC1-bin-SNAPSHOT-openj9-08.zip
+scala3-3.2.2-RC1-bin-SNAPSHOT-openj9-11.zip
+scala3-3.2.2-RC1-bin-SNAPSHOT-redhat-08.zip
+scala3-3.2.2-RC1-bin-SNAPSHOT-redhat-11.zip
+scala3-3.2.2-RC1-bin-SNAPSHOT-sapmachine-11.zip
+<b style="color:#BB0066;">scala3-3.2.2-RC1-bin-SNAPSHOT-sapmachine-17.zip</b>
+scala3-3.2.2-RC1-bin-SNAPSHOT-temurin-08.zip
+scala3-3.2.2-RC1-bin-SNAPSHOT-temurin-11.zip
+<b style="color:#BB0066;">scala3-3.2.2-RC1-bin-SNAPSHOT-temurin-17.zip</b>
+scala3-3.2.2-RC1-bin-SNAPSHOT-zulu-08.zip
+scala3-3.2.2-RC1-bin-SNAPSHOT-zulu-11.zip
+<b style="color:#BB0066;">scala3-3.2.2-RC1-bin-SNAPSHOT-zulu-17.zip</b>
 </pre>
 </dd></dl>
 <!--
@@ -555,7 +555,7 @@ scala3-3.2.0-RC5-bin-SNAPSHOT-zulu-11.zip
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -591,6 +591,7 @@ scala3-3.2.0-RC5-bin-SNAPSHOT-zulu-11.zip
 [dragonwell17_relnotes]: https://github.com/alibaba/dragonwell17/wiki/Alibaba-Dragonwell-17-Release-Notes
 [dragonwell8_downloads]: https://github.com/alibaba/dragonwell8/releases
 [eclipse]: https://www.eclipse.org/org/foundation/
+[flix_examples]: https://github.com/michelou/flix-examples
 [graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples

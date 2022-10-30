@@ -42,7 +42,7 @@ goto end
 
 :env
 set _BASENAME=%~n0
-for %%f in ("%~dp0\.") do set "_ROOT_DIR=%%~dpf"
+set "_ROOT_DIR=%~dp0"
 set _TIMER=0
 
 call :env_colors
@@ -50,7 +50,7 @@ set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
 set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
-set "_PS1_FILE=%_ROOT_DIR%bin\%_BASENAME%.ps1"
+set "_PS1_FILE=%_ROOT_DIR%%_BASENAME%.ps1"
 if not exist "%_PS1_FILE%" (
     echo %_ERROR_LABEL% PS1 file %_PS1_FILE% not found 1>&2
     set _EXITCODE=1
@@ -260,11 +260,12 @@ for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%"
     @rem NB. curl is faster than wget
     @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -c "wget -uri !__URL! -Outfile '!__JAR_FILE!'" 1>&2
     @rem powershell -c "$progressPreference='silentlyContinue';wget -uri !__URL! -Outfile '!__JAR_FILE!'"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_CURL_CMD%" --silent --url "!__URL!" ^> "!__JAR_FILE!" 1>&2
-    call "%_CURL_CMD%" --silent --url "!__URL!" > "!__JAR_FILE!"
+    set __CURL_OPTS=--silent --insecure --url "!__URL!"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_CURL_CMD%" !__CURL_OPTS! ^> "!__JAR_FILE!" 1>&2
+    call "%_CURL_CMD%" !__CURL_OPTS! > "!__JAR_FILE!"
     if not !ERRORLEVEL!==0 (
         echo.
-        echo %_ERROR_LABEL% Failed to download file "!__JAR_FILE!" 1>&2
+        echo %_ERROR_LABEL% Failed to download file "!__JAR_FILE!" ^(error: !ERRORLEVEL!^) 1>&2
         set _EXITCODE=1
         goto :eof
     )

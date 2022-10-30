@@ -6,8 +6,8 @@
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:80px;" src="docs/images/dotty.png" alt="Dotty project"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Introduced in <a href="https://openjdk.java.net/groups/hotspot/docs/RuntimeOverview.html#Class%20Data%20Sharing|outline">J2SE 5.0</a>, <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/class-data-sharing.html">Java class data sharing</a> (CDS) helps reduce the startup time for Java applications as well as reduce their memory footprint.<br/>
-    This page presents findings from our experiments with <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/class-data-sharing.html">CDS</a> and <a href="https://dotty.epfl.ch/" rel="external">Dotty</a> on the Windows platform. 
+    Introduced in <a href="https://openjdk.java.net/groups/hotspot/docs/RuntimeOverview.html#Class%20Data%20Sharing|outline">J2SE 5.0</a>, <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/class-data-sharing.html" rel="external">Java class data sharing</a> (CDS) helps reduce the startup time for Java applications as well as reduce their memory footprint.<br/>
+    This page presents findings from our experiments with <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/class-data-sharing.html" rel="external">CDS</a> and <a href="https://dotty.epfl.ch/" rel="external">Dotty</a> on the Windows platform. 
   </td>
   </tr>
 </table>
@@ -19,25 +19,25 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - Data Sharing and Dotty on Windows [**&#9660;**](#bottom)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Flix][flix_examples] [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spring][spring_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spring][spring_examples] and [WiX][wix_examples] are other trending topics we are currently monitoring.
 
 
 ## <span id="proj_deps">Project dependencies</span>
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.37][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.38][git_downloads] ([*release notes*][git_relnotes])
 - [Scala 3][scala3_releases] ([*release notes*][scala3_relnotes])
 - [Temurin OpenJDK 11][temurin11_downloads] ([*release notes*][temurin11_relnotes])
 
 > **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Scala 3][scala_3] also support Java 9+. In the following we work with [Temurin OpenJDK 11][temurin11_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
 
-For instance our development environment looks as follows (*October 2022*):
+For instance our development environment looks as follows (*November 2022*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.37.3\              <i>(282 MB)</i>
+C:\opt\Git-2.38.1\              <i>(317 MB)</i>
 C:\opt\jdk-temurin-11.0.16_8\   <i>(314 MB)</i>
-C:\opt\scala3-3.2.1-RC2\        <i>( 57 MB)</i>
+C:\opt\scala3-3.2.1-RC4\        <i>( 57 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_downloads] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -79,7 +79,7 @@ Source file [**`src\main\java\Main.java`**](cdsexamples/JavaExample/src/main/jav
     }
 }</pre>
 
-Batch command  [**`build`**](cdsexamples/JavaExample/build.bat) has two new options working with the **`run`** subcommand:
+Batch command  [**`build.bat`**](cdsexamples/JavaExample/build.bat) has two new options working with the **`run`** subcommand:
 
 - Option **`-iter:<n>`** specifies the number of run iterations (for calculating meaningful average load times).
 - Option **`-share`** enables/disables data sharing.
@@ -215,15 +215,15 @@ Let's check the contents of the output directory **`target\`**:
 |   JavaExample.jsa
 |   MANIFEST.MF
 |
-+---classes
++---<b>classes</b>
 |   |   .latest-build
 |   |
-|   \---cdsexamples
+|   \---<b>cdsexamples</b>
 |           JavaExample.classs
 |           ScriptEngineTest.class
 |           VMOptions.class
 |
-\---logs
+\---<b>logs</b>
         log_classlist.log
         log_dump.log
         log_share_off.log
@@ -423,10 +423,10 @@ Finally we can check the contents of the output directory **`target\`**:
 |   DottyExample.jsa
 |   MANIFEST.MF
 |
-+---classes
++---<b>classes</b>
 |   |   .latest-build
 |   |
-|   \---cdsexamples
+|   \---<b>cdsexamples</b>
 |           Main$.class
 |           Main.class
 |           Main.tasty
@@ -437,7 +437,7 @@ Finally we can check the contents of the output directory **`target\`**:
 |           VMOptions.class
 |           VMOptions.tasty
 |
-\---logs
+\---<b>logs</b>
         log_classlist.log
         log_dump.log
         log_share_off.log
@@ -577,12 +577,12 @@ Classes per package (888):
 > 3. Repeat command from point 1. 
 > 
 > <pre style="font-size:80%;">
-> <b>&gt; c:\opt\jdk-temurin-11.0.16_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+> <b>&gt; c:\opt\jdk-temurin-11.0.16_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html" rel="external">java</a> -version</b>
 > openjdk version "11.0.16" 2022-07-19
 > OpenJDK Runtime Environment Temurin-11.0.16+8 (build 11.0.16+8)
 > OpenJDK 64-Bit Server VM Temurin-11.0.16+8 (build 11.0.16+8, mixed mode, sharing)
 > &nbsp;
-> <b>&gt; c:\opt\jdk-temurin-11.0.16_8\bin\java -Xshare:dump</b>
+> <b>&gt; c:\opt\jdk-temurin-11.0.16_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html" rel="external">java</a> -Xshare:dump</b>
 > [...]
 > Number of classes 1272
 > [...]
@@ -703,7 +703,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -716,7 +716,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [flix_examples]: https://github.com/michelou/flix-examples
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.37.3.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.38.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples

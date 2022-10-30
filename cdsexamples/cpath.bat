@@ -18,7 +18,7 @@ if not exist "%__TEMP_DIR%" mkdir "%__TEMP_DIR%"
 set _LIBS_CPATH=
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-library
-call :add_jar "org.scala-lang" "scala-library" "2.13.9"
+call :add_jar "org.scala-lang" "scala-library" "2.13.10"
 
 goto end
 

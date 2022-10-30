@@ -6,7 +6,7 @@
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:100px;" src="../docs/images/dotty.png" width="100" alt="Dotty project"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>maven-plugins\</code></strong> contains <a href="https://maven.apache.org/plugins">Maven plugin</a> examples found on the Web or written by ourself.<br/>Our final objective to compile Scala source files from a POM file using the <a href="https://maven.apache.org/ref/current/maven-embedder/cli.html">Maven command line tool</a>.
+    Directory <strong><code>maven-plugins\</code></strong> contains <a href="https://maven.apache.org/plugins" rel="external">Maven plugin</a> examples found on the Web or written by ourself.<br/>Our final objective to compile Scala source files from a POM file using the <a href="https://maven.apache.org/ref/current/maven-embedder/cli.html" rel="external">Maven command line tool</a>.
   </td>
   </tr>
 </table>
@@ -83,7 +83,7 @@ We started this project in late 2018; we use **`scala-maven-plugin`** in all Sca
 The project is organized as follows :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . |<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . |<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
 |   <a href="./scala-maven-plugin/pom.xml">pom.xml</a>
 |
 +---src
@@ -110,7 +110,7 @@ Command [**`mvn`** `package`][apache_maven_cli] generates the JAR file `scala-ma
 [INFO] java-annotations mojo extractor found 3 mojo descriptors.
 [...]
 &nbsp;
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b target\*.jar</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir" rel="external">dir</a> /b target\*.jar</b>
 scala-maven-plugin-1.0.0.jar
 </pre>
 
@@ -129,7 +129,7 @@ Command [**`mvn`** `deploy:deploy-file`][apache_maven_cli] installs the Maven ar
 >
 > The plugin installation should look as follows :
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%USERPROFILE%</a>\.m2\repository\ch\epfl\alumni |<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%USERPROFILE%</a>\.m2\repository\ch\epfl\alumni |<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
 > \---scala-maven-plugin
 >     |   maven-metadata-remote-repository.xml
 >     |   maven-metadata-remote-repository.xml.sha1
@@ -237,7 +237,7 @@ We give here the <code>&lt;plugin></code> section of a POM file.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
