@@ -14,7 +14,8 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId>
-        <scala.version>3.2.1-RC4</scala.version>
+        <scala.version>2.13.10</scala.version>
+        <scala3.version>3.2.1-RC4</scala3.version>
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugin versions -->
@@ -80,25 +81,25 @@
         <dependency>
             <groupId>${scala.groupId}</groupId>
             <artifactId>scala3-interfaces</artifactId>
-            <version>${scala.version}</version>
+            <version>${scala3.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala3-library -->
         <dependency>
             <groupId>${scala.groupId}</groupId>
             <artifactId>scala3-library_3</artifactId>
-            <version>${scala.version}</version>
+            <version>${scala3.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/tasty-core -->
         <dependency>
             <groupId>${scala.groupId}</groupId>
             <artifactId>tasty-core_3</artifactId>
-            <version>${scala.version}</version>
+            <version>${scala3.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
         <dependency>
             <groupId>${scala.groupId}</groupId>
             <artifactId>scala-library</artifactId>
-            <version>2.13.9</version>
+            <version>${scala.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-exec -->
         <dependency>
