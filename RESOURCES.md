@@ -84,6 +84,7 @@
 - [Scala.js][project_scalajs] &ndash; a Scala backend to generate highly efficient JavaScript.
 - [ScalaStan][project_scalastan] &ndash; a Scala DSL for [Stan](https://mc-stan.org/), an open-source software for statistical modeling and high-performance statistical computation.
 - [Scalalikejdbc](https://github.com/scalikejdbc/scalikejdbc) &ndash; a tidy SQL-based DB access library for Scala developers.
+- [WartRemover](https://github.com/wartremover/wartremover) &ndash; a flexible Scala code linting tool.
 - [Woof](https://github.com/LEGO/woof) &ndash; a pure Scala 3 logging library with no reflection.
 
 ## <span id="shell">Shell Scripting</span>
