@@ -27,7 +27,7 @@
 - [Dependent Object Types](https://infoscience.epfl.ch/record/183030) by Nada Amin et al., October 2012.
 - [Deriving Sesion and Union Types for Objects][article_bettini] by Lorenzo Bettini et al., September 2011.
 
-## <span id="blogs">Blogs</span>[**&#x25B4;**](#top)
+## <span id="blogs">Blogs</span> [**&#x25B4;**](#top)
 
 - [Databricks Blog][blog_databricks]
    - [Scala at Scale at Databricks](https://databricks.com/blog/2021/12/03/scala-at-scale-at-databricks.html) by Li Haoyi, December 2021.
@@ -52,7 +52,7 @@
 - [Higher-rank and higher-kinded types](https://www.stephanboyer.com/post/115/higher-rank-and-higher-kinded-types) by Stephan Boyer, April 2016.
 - [Sum Types Are Coming: What You Should Know](https://chadaustin.me/2015/07/sum-types/) by Chad Austin, July 2015.
 
-## <span id="books">Books</span>[**&#x25B4;**](#top)
+## <span id="books">Books</span> [**&#x25B4;**](#top)
 
 - [Beginning Scala 3][book_pollak] (3<sup>rd</sup> Edition) by David Pollak et al, 2022.<br/><span style="font-size:80%;">(Apress, ISBN 978-1-4842-7421-7)
 - [Scala Cookbook][book_alexander] (2<sup>nd</sup> Edition) by Alvin Alexander, August 2021.<br/><span style="font-size:80%;">(O'Reilly, ISBN 978-1-4920-5154-1, 802 pages)</span>
@@ -79,7 +79,7 @@
 - [Interactive Development using the Dotty Compiler][paper_martres] by Guillaume Martres, October 2017.
 - [Implementing Higher-Kinded Types in Dotty][paper_odersky_hkt] by Martin Odersky et al., October 2016.
 
-## <span id="projects">Projects</span>[**&#x25B4;**](#top)
+## <span id="projects">Projects</span> [**&#x25B4;**](#top)
 
 - [Scala.js][project_scalajs] &ndash; a Scala backend to generate highly efficient JavaScript.
 - [ScalaStan][project_scalastan] &ndash; a Scala DSL for [Stan](https://mc-stan.org/), an open-source software for statistical modeling and high-performance statistical computation.
