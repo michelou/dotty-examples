@@ -8,7 +8,7 @@ java {
 
 project.ext {
     // sanetize properties from gradle.properties
-    scalaVersion = hasProperty("scalaVersion") ? scalaVersion : "3.2.1-RC4"
+    scalaVersion = hasProperty("scalaVersion") ? scalaVersion : "3.2.2-RC1"
     scalaLocalInstall = hasProperty("scalaLocalInstall") ? scalaLocalInstall.toBoolean() : false
     isScala3 = scalaVersion.startsWith("3")
     scalacMainClass = isScala3 ? "dotty.tools.dotc.Main": "scala.tools.nsc.Main"
@@ -19,7 +19,7 @@ project.ext {
 
     scalaBinaryVersion = isScala3 ? "3" : "2.13"
     scalatestVersion = "3.2.14"
-    specs2Version = isScala3 ? "5.0.7" : "4.17.0"
+    specs2Version = isScala3 ? "5.1.0" : "4.17.0"
     dependencies {
         if (isScala3) {
             implementation "org.scala-lang:scala3-compiler_3:$scalaVersion"
@@ -119,14 +119,14 @@ task compileTest(type: JavaExec) {
 
     description "Compile Scala test source files"
 
-    classpath = testClasspath
+    classpath = files(buildClasspath, testClasspath)
 
     jvmArgs "-Dscala.usejavacp=true"
 
     mainClass = scalacMainClass
 
     String sourceFiles = testSourceTree.files.join("\" \"").replaceAll("\\\\", "/")
-    args "-deprecation", "-encoding", "UTF8", "-d", testClassesDir, sourceFiles
+    args "-deprecation", "-encoding", "UTF8", "-feature", "-language:implicitConversions", "-d", testClassesDir, sourceFiles
 }
 
 compileTest.doFirst {

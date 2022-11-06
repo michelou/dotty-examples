@@ -653,10 +653,10 @@ goto :eof
 set _COURSIER_HOME=
 set _COURSIER_PATH=
 
-set __COURSIER_CMD=
-for /f %%f in ('where coursier.bat 2^>NUL') do set "__COURSIER_CMD=%%f"
-if defined __COURSIER_CMD (
-    for %%i in ("%__COURSIER_CMD%") do set "_COURSIER_HOME=%%~dpf"
+set __CS_CMD=
+for /f %%f in ('where cs.exe 2^>NUL') do set "__CS_CMD=%%f"
+if defined __CS_CMD (
+    for %%i in ("%__CS_CMD%") do set "_COURSIER_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Coursier executable found in PATH 1>&2
     goto :eof
 ) else if defined COURSIER_HOME (
@@ -676,7 +676,7 @@ if defined __COURSIER_CMD (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Coursier installation directory !_COURSIER_HOME! 1>&2
     )
 )
-if not exist "%_COURSIER_HOME%\coursier.bat" (
+if not exist "%_COURSIER_HOME%\cs.exe" (
     echo %_ERROR_LABEL% Coursier executable not found ^(%_COURSIER_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof

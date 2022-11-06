@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="monoid-Group" default="compile" basedir="."
+    xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    <property name="scala-source.dir" value="${basedir}/src/main/scala" />
+    <property name="target.dir" value="${basedir}/target" />
+    <property name="build.dir" value="${target.dir}/classes" />
+    <property name="main.class" value="Test" />
+
+    <!-- task 'init' and macro 'dotc' are defined in parent build.xml -->
+    <import file="../build.xml" />
+
+    <target name="compile" depends="init">
+        <mkdir dir="${build.dir}" />
+        <dotc srcdir="${scala-source.dir}"
+              destdir="${build.dir}"
+              classpathref="build.classpath" />
+    </target>
+
+    <target name="run" depends="compile">
+        <java classname="${main.class}">
+            <classpath>
+                <path refid="scala3.classpath" />
+                <path refid="build.classpath" />
+            </classpath>
+        </java>
+    </target>
+
+    <target name="clean">
+        <delete dir="${target.dir}"/>
+    </target>
+
+    <target name="cleanall" depends="clean">
+        <ivy:cleancache/>
+    </target>
+
+</project>

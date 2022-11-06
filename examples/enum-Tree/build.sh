@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2021 Stéphane Micheloud
+# Copyright (c) 2018-2022 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -112,7 +112,7 @@ Usage: $BASENAME { <option> | <subcommand> }
     doc          generate HTML documentation
     help         display this help message
     lint         analyze Scala source files with Scalafmt
-    run          execute main class $MAIN_CLASS
+    run          execute main class "$MAIN_CLASS"
 EOS
 }
 
@@ -203,7 +203,7 @@ compile_java() {
     fi
     eval "$JAVAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Compilation of $n Java source files failed"
+        error "Failed to compile $n Java source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
@@ -241,7 +241,7 @@ compile_scala() {
     fi
     eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Compilation of $n Scala source files failed"
+        error "Failed to compile $n Scala source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
@@ -414,11 +414,11 @@ run() {
     if $DEBUG; then
         debug "$SCALA_CMD $scala_opts $MAIN_CLASS $MAIN_ARGS"
     elif $VERBOSE; then
-        echo "Execute Scala main class $MAIN_CLASS" 1>&2
+        echo "Execute Scala main class \"$MAIN_CLASS\"" 1>&2
     fi
     eval "$SCALA_CMD" $scala_opts $MAIN_CLASS $MAIN_ARGS
     if [[ $? -ne 0 ]]; then
-        error "Program execution failed ($MAIN_CLASS)"
+        error "Failed to execute Scala main class \"$MAIN_CLASS\""
         cleanup 1
     fi
     if $TASTY; then

@@ -43,8 +43,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                     <!-- starting with Java 11
                     <release>${java.version}</release>
                     -->
@@ -55,7 +55,7 @@
                     </includes>
                 </configuration>
             </plugin>
-            <!-- local Maven plugin for Scala 2.x/3.x (see ${scala.version})-->
+            <!-- local Maven plugin for Scala 2.x/3.x (see ${scala.version}) -->
             <!-- (see directory /plugins/scala-maven-plugin/) -->
             <plugin>
                 <groupId>ch.epfl.alumni</groupId>
@@ -86,6 +86,9 @@
                         </goals>
                         <configuration>
                             <mainClass>${mainClass}</mainClass>
+                            <arguments>
+                                <argument></argument>
+                            </arguments>
                         </configuration>
                     </execution>
                 </executions>

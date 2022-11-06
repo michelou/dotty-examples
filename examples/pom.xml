@@ -15,7 +15,7 @@
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId>
         <scala.version>2.13.10</scala.version>
-        <scala3.version>3.2.1-RC4</scala3.version>
+        <scala3.version>3.2.2-RC1</scala3.version>
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugin versions -->
@@ -30,7 +30,7 @@
         <!-- Note: JUnit 5 requires Surefire version 2.22.1 or higher -->
         <maven.surefire.version>2.22.2</maven.surefire.version>
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
-        <specs2.version>5.0.7</specs2.version>
+        <specs2.version>5.1.0</specs2.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
         <maven.jar.version>3.3.0</maven.jar.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
