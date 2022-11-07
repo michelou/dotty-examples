@@ -28,7 +28,7 @@
 		<!-- https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect -->
 		<scala-reflect.version>1.1.1</scala-reflect.version>
         <!-- https://mvnrepository.com/artifact/org.apache.ivy/ivy -->
-        <ivy.version>2.5.0</ivy.version>
+        <ivy.version>2.5.1</ivy.version>
         <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-core -->
         <hamcrest.version>2.2</hamcrest.version>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
