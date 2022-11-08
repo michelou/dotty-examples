@@ -30,7 +30,7 @@
         <!-- Note: JUnit 5 requires Surefire version 2.22.1 or higher -->
         <maven.surefire.version>2.22.2</maven.surefire.version>
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
-        <specs2.version>5.0.7</specs2.version>
+        <specs2.version>5.1.0</specs2.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
         <maven.jar.version>3.3.0</maven.jar.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
@@ -38,7 +38,7 @@
         <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-core -->
         <hamcrest.version>2.2</hamcrest.version>
         <!-- https://mvnrepository.com/artifact/org.apache.ivy/ivy -->
-        <ivy.version>2.5.0</ivy.version>
+        <ivy.version>2.5.1</ivy.version>
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
         <jmh.version>1.35</jmh.version>

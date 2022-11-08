@@ -13,7 +13,9 @@
         <java.version>11</java.version>
 
         <!-- Scala settings -->
-        <scala.version>3.2.1-RC2</scala.version>
+        <scala.groupId>org.scala-lang</scala.groupId>
+        <scala.version>2.13.10</scala.version>
+        <scala3.version>3.2.2-RC1</scala3.version>
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugin versions -->
@@ -26,9 +28,9 @@
         <!-- local -->
         <scala.maven.version>1.0.0</scala.maven.version>
 		<!-- https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect -->
-		<scala-reflect.version>1.1.1</scala-reflect.version>
+		<scala-reflect.version>1.1.2</scala-reflect.version>
         <!-- https://mvnrepository.com/artifact/org.apache.ivy/ivy -->
-        <ivy.version>2.5.0</ivy.version>
+        <ivy.version>2.5.1</ivy.version>
         <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-core -->
         <hamcrest.version>2.2</hamcrest.version>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
@@ -50,27 +52,27 @@
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala3-interfaces -->
         <dependency>
-            <groupId>org.scala-lang</groupId>
+            <groupId>${scala.groupId}</groupId>
             <artifactId>scala3-interfaces</artifactId>
-            <version>${scala.version}</version>
+            <version>${scala3.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala3-library -->
         <dependency>
-            <groupId>org.scala-lang</groupId>
+            <groupId>${scala.groupId}</groupId>
             <artifactId>scala3-library_3</artifactId>
-            <version>${scala.version}</version>
+            <version>${scala3.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/tasty-core -->
         <dependency>
-            <groupId>org.scala-lang</groupId>
+            <groupId>${scala.groupId}</groupId>
             <artifactId>tasty-core_3</artifactId>
-            <version>${scala.version}</version>
+            <version>${scala3.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.scala-lang/scala-library -->
         <dependency>
-            <groupId>org.scala-lang</groupId>
+            <groupId>${scala.groupId}</groupId>
             <artifactId>scala-library</artifactId>
-            <version>2.13.10</version>
+            <version>${scala.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-exec -->
         <dependency>

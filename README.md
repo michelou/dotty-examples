@@ -7,7 +7,7 @@
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This repository gathers <a href="https://dotty.epfl.ch/" rel="external">Scala 3</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/" rel="external">Dotty</a> project - or written by myself.<br/>
-    In particular it includes build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">Bash scripts</a>, <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html" rel="external">Gradle scripts</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>, <a href="https://maven.apache.org/guides/introduction/introduction-to-the-pom.html" rel="external">Maven scripts</a> and more) for experimenting with the <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html" rel="external">Scala 3</a> language on a Windows machine.
+    In particular it includes build scripts (<a href="https://ant.apache.org/manual/using.html" rel="external">Ant files</a>, <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">Bash scripts</a>, <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html" rel="external">Gradle scripts</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>, <a href="https://maven.apache.org/guides/introduction/introduction-to-the-pom.html" rel="external">Maven scripts</a> and more) for experimenting with the <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html" rel="external">Scala 3</a> language on a Windows machine.
   </td>
   </tr>
 </table>
@@ -181,7 +181,7 @@ In the next section we give a brief description of the batch files present in th
 
 We distinguish different sets of batch/bash commands:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`maven.cmd`**][apache_maven_cli], [**`mill.bat`**][mill_cli] and [**`sbt.bat`**][sbt_cli] directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
+1. [**`setenv.bat`**](setenv.bat) &ndash; This batch command makes external tools such as [**`maven.cmd`**][apache_maven_cli], [**`mill.bat`**][mill_cli] and [**`sbt.bat`**][sbt_cli] directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
 
    <pre style="font-size:80%;">
    <b>&gt; <a href="setenv.bat">setenv</a> help</b>
@@ -196,7 +196,7 @@ We distinguish different sets of batch/bash commands:
        help        display this help message
    </pre>
 
-2. Directory [**`bin\`**](bin/) - This directory contains several utility batch files:
+2. Directory [**`bin\`**](bin/) &ndash; This directory contains several utility batch files:
    - [**`cleanup.bat`**](bin/cleanup.bat) removes the generated class files from every example directory (both in [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) directories).
    - [**`dirsize.bat <dir_path_1> ..`**](bin/dirsize.bat) prints the size in Kb/Mb/Gb of the specified directory paths.
    - [**`getnightly.bat`**](bin/getnightly.bat) downloads/installs the distribution from the latest [Dotty nightly build](https://search.maven.org/search?q=g:ch.epfl.lamp).
@@ -882,6 +882,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [apache_ant]: https://ant.apache.org/
 [apache_ant_cli]: https://ant.apache.org/manual/running.html
 [apache_ant_relnotes]: https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.12.html
+[apache_ant_scripting]: https://ant.apache.org/manual/using.html "Writing a Simple Buildfile"
 [apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
