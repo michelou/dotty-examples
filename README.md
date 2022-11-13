@@ -96,7 +96,7 @@ C:\opt\jdk-temurin-11.0.17_8\      <i>(301 MB)</i>
 C:\opt\jdk-temurin-17.0.5_8\       <i>(299 MB)</i>
 C:\opt\jitwatch-1.4.7\             <i>( 36 MB)</i>
 C:\opt\make-3.81\                  <i>(  2 MB)</i>
-C:\opt\mill-0.10.8\                <i>( 64 MB)</i>
+C:\opt\mill-0.10.9\                <i>( 67 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
 C:\opt\sbt-1.7.3\                  <i>( 50 MB)</i>
 C:\opt\scala-2.13.10\              <i>( 24 MB)</i>
@@ -116,7 +116,7 @@ C:\opt\scala3-3.2.1\               <i>( 35 MB)</i>
 
 > **:mag_right:** [Git for Windows][git_releases] provides a Bash emulation used to run [**`git.exe`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
-## <span id="structure">Directory structure</span>
+## <span id="structure">Directory structure</span> [**&#x25B4;**](#top)
 
 This project is organized as follows:
 
@@ -266,7 +266,7 @@ We distinguish different sets of batch/bash commands:
         main.args        list of arguments to be passed to main class
     </pre>
 
-## <span id="tools">Optional tools</span>
+## <span id="tools">Optional tools</span> [**&#x25B4;**](#top)
 
 1. Build tools
 
@@ -347,7 +347,7 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.17, java 11.0.17, scalac 2.13.10, scalac 3.2.1,
-   ant 1.10.12, gradle 7.5.1, mill 0.10.8, mvn 3.8.6, sbt 1.7.3,
+   ant 1.10.12, gradle 7.5.1, mill 0.10.9, mvn 3.8.6, sbt 1.7.3,
    bazel 5.3.2, bloop v1.3.4, cfr 0.152, make 3.81, python 3.10.7,
    git 2.38.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 
@@ -375,7 +375,7 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also displays the tool paths and
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.17, java 11.0.17, scalac 2.13.10, scalac 3.2.1,
-   ant 1.10.12, gradle 7.5.1, mill 0.10.8, mvn 3.8.6, sbt 1.7.3,
+   ant 1.10.12, gradle 7.5.1, mill 0.10.9, mvn 3.8.6, sbt 1.7.3,
    bazel 5.3.2, cfr 0.152, make 3.81, python 3.11.0,
    git 2.38.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
@@ -386,7 +386,7 @@ Tool paths:
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.12\bin\ant.bat
    C:\opt\gradle-7.5.1\bin\gradle.bat
-   C:\opt\mill-0.10.8\mill.bat
+   C:\opt\mill-0.10.9\mill.bat
    C:\opt\apache-maven-3.8.6\bin\mvn.cmd
    C:\opt\sbt-1.7.3\bin\sbt.bat
    C:\opt\bazel-5.3.2\bazel.exe
@@ -763,7 +763,7 @@ Hello world!
 <b>scala&gt;</b>:quit
 </pre>
 
-## <span id="footnotes">Footnotes</span>
+## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
 <span id="footnote_01">[1]</span> ***Java LTS versions*** [↩](#anchor_01) <!-- 2018-11-18 -->
 
@@ -843,7 +843,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/lihaoyi/mill/releases">0.10.8-assembly</a> (<code>mill</code>)                             <i>( 64 MB)</i>
+<a href="https://github.com/lihaoyi/mill/releases">0.10.9-assembly</a> (<code>mill</code>)                             <i>( 64 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.12-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.8.6-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-5.3.2-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
@@ -1002,4 +1002,5 @@ Command Prompt has been around for as long as we can remember, but starting with
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
 [windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst
 [wix_examples]: https://github.com/michelou/wix-examples
-[zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/
+[wsl]: https://ubuntu.com/wsl "Ubuntu WSL"
+[zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/ "Everything You Need to Know About Zip Files"
