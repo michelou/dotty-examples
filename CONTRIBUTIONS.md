@@ -64,7 +64,7 @@ Below we summarize changes we made to the [source code](https://github.com/lampe
 - Transformation of URL addresses to file system paths<br/>*Example*: [**`url.getFile`**](https://docs.oracle.com/javase/8/docs/api/java/net/URL.html#getFile) **&rarr;** **`Paths.get(url.toURI).toString`**.
 - Unspecified character encoding when piping stdout<br/>*Example*: **`new InputStreamReader(process.getInputStream)`** **&rarr;** **`new InputStreamReader(process.getInputStream, "UTF-8")`**<br/>where **`process`** has type [**`ProcessBuilder`**](https://docs.oracle.com/javase/8/docs/api/java/lang/ProcessBuilder.html).
 
-## <span id="issues">Reported Issues</span>[**&#x25B4;**](#top)
+## <span id="issues">Reported Issues</span> [**&#x25B4;**](#top)
 
 We have come across several issues <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup> while executing [Scala 3][scala3_home] commands on Microsoft Windows:
 
@@ -128,7 +128,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

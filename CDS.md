@@ -32,11 +32,11 @@ This project depends on the following external software for the **Microsoft Wind
 
 > **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Scala 3][scala_3] also support Java 9+. In the following we work with [Temurin OpenJDK 11][temurin11_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
 
-For instance our development environment looks as follows (*November 2022*):
+For instance our development environment looks as follows (*December 2022*):
 
 <pre style="font-size:80%;">
 C:\opt\Git-2.38.1\              <i>(317 MB)</i>
-C:\opt\jdk-temurin-11.0.16_8\   <i>(314 MB)</i>
+C:\opt\jdk-temurin-11.0.17_8\   <i>(314 MB)</i>
 C:\opt\scala3-3.2.1-RC4\        <i>( 57 MB)</i>
 </pre>
 
@@ -240,7 +240,7 @@ Note the following about the generated files:
 For instance we can read from file **`logs\log_share_off.log`** that  source of **`cdsexamples.Main`** is **`file:/`** and that the total load time on the last line is **`0.124s`**:
 
 <pre style="font-size:80%;">
-[0.008s][info][class,load] opened: c:\opt\jdk-11.0.10+9\lib\modules
+[0.008s][info][class,load] opened: c:\opt\jdk-11.0.18+8\lib\modules
 [0.018s][info][class,load] java.lang.Object source: jrt:/java.base
 [...]
 [0.121s][info][class,load] cdsexamples.Main source: file:/&lt;project_path&gt;/target/JavaExample.jar
@@ -268,7 +268,7 @@ We can also execute the [**`java`**](https://docs.oracle.com/en/java/javase/11/t
 > </pre>
 
 
-## <span id="dotty_example">Scala 3 example</span>
+## <span id="dotty_example">Scala 3 example</span> [**&#x25B4;**](#top)
 
 Source file [**`src\main\scala\Main.scala`**](cdsexamples/DottyExample/src/main/scala/Main.scala) is the main program of our [Scala 3][scala3_home] code example:
 
@@ -577,12 +577,12 @@ Classes per package (888):
 > 3. Repeat command from point 1. 
 > 
 > <pre style="font-size:80%;">
-> <b>&gt; c:\opt\jdk-temurin-11.0.16_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html" rel="external">java</a> -version</b>
-> openjdk version "11.0.16" 2022-07-19
-> OpenJDK Runtime Environment Temurin-11.0.16+8 (build 11.0.16+8)
-> OpenJDK 64-Bit Server VM Temurin-11.0.16+8 (build 11.0.16+8, mixed mode, sharing)
+> <b>&gt; c:\opt\jdk-temurin-11.0.17_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html" rel="external">java</a> -version</b>
+> openjdk version "11.0.17" 2022-10-18
+> OpenJDK Runtime Environment Temurin-11.0.17+8 (build 11.0.17+8)
+> OpenJDK 64-Bit Server VM Temurin-11.0.17+8 (build 11.0.17+8, mixed mode, sharing)
 > &nbsp;
-> <b>&gt; c:\opt\jdk-temurin-11.0.16_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html" rel="external">java</a> -Xshare:dump</b>
+> <b>&gt; c:\opt\jdk-temurin-11.0.17_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html" rel="external">java</a> -Xshare:dump</b>
 > [...]
 > Number of classes 1272
 > [...]
@@ -593,12 +593,12 @@ Classes per package (888):
 > od  space:   6534648 [ 36.1% of total] [...]
 > total    :  17873816 [100.0% of total] [...]
 > &nbsp;
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\jdk-temurin-11.0.16_8\bin\server</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\jdk-temurin-11.0.17_8\bin\server</b>
 > classes.jsa
 > jvm.dll
 > &nbsp;
-> <b>&gt; c:\opt\jdk-temurin-11.0.16_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-> openjdk version "11.0.16" 2022-07-19
+> <b>&gt; c:\opt\jdk-temurin-11.0.17_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+> openjdk version "11.0.17" 2022-07-19
 > OpenJDK Runtime Environment Temurin-11.0.15+10 (build 11.0.15+10)
 > OpenJDK 64-Bit Server VM Temurin-11.0.15+10 (build 11.0.15+10, mixed mode, sharing)
 > </pre>
@@ -703,7 +703,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

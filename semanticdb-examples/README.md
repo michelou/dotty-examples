@@ -221,8 +221,8 @@ range {
 
 <dl><dd>
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\protoc-3.21.9\bin\protoc.exe --version</b>
-libprotoc 3.21.9
+<b>&gt; c:\opt\protoc-3.21.10\bin\protoc.exe --version</b>
+libprotoc 3.21.10
 </pre>
 </dd></dl>
 
@@ -250,7 +250,7 @@ Warning: <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_val
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

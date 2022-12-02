@@ -23,7 +23,7 @@ Then we execute our Bash script [**`setenv.sh`**](./setenv.sh) to set up our Uni
 <b>$ . <a href="./examples/setenv.sh">./setenv.sh</a></b>
 <b>$ <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/which.1.html" rel="external">which</a> bash gradle make mvn</b>
 /bin/bash
-/opt/gradle-7.5.1/bin/gradle
+/opt/gradle-7.6/bin/gradle
 /usr/bin/make
 /opt/apache-maven-3.8.6/bin/mvn
 <b>$ <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/env.1.html" rel="external">env</a> | <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/grep.1.html" rel="external">grep</a> _HOME</b>
@@ -31,8 +31,8 @@ JAVA_HOME=/opt/jdk-temurin-11
 MAVEN_HOME=/opt/apache-maven-3.8.6
 SCALA_HOME=/opt/scala-2.13.10
 SCALA3_HOME=/opt/scala3-3.2.1
-GRADLE_HOME=/opt/gradle-7.5.1
-SBT_HOME=/opt/sbt-1.7.3
+GRADLE_HOME=/opt/gradle-7.6
+SBT_HOME=/opt/sbt-1.8.0
 ANT_HOME=/opt/apache-ant-1.10.12
 </pre>
 
@@ -44,14 +44,14 @@ ANT_HOME=/opt/apache-ant-1.10.12
 > 44M     /opt/apache-ant-1.10.12
 > 9.9M    /opt/apache-maven-3.8.6
 > 2.4G    /opt/archives
-> 2.2M    /opt/cfr-0.151
-> 36M     /opt/flix-0.33.0
+> 2.2M    /opt/cfr-0.152
+> 36M     /opt/flix-0.34.0
 > 51M     /opt/git-2.38.1
-> 129M    /opt/gradle-7.5.1
-> 308M    /opt/jdk-11.0.11+9
+> 129M    /opt/gradle-7.6
+> 308M    /opt/jdk-11.0.17_8
 > 103M    /opt/ktlint-0.41
-> 61M     /opt/mill-0.9.8
-> 81M     /opt/sbt-1.7.3
+> 61M     /opt/mill-0.10.9
+> 81M     /opt/sbt-1.8.0
 > 25M     /opt/scala-2.13.10
 > 36M     /opt/scala3-3.2.1
 > 15M     /opt/wabt-1.0.23
@@ -200,12 +200,13 @@ done.ing certificates in /etc/ssl/certs.../cloud/cloud.cfg ...
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
 [adts]: https://wiki.haskell.org/Algebraic_data_type
+[ant_script]: https://ant.apache.org/manual/using.html "Using Apache Ant"
 [apache_ant_cli]: https://ant.apache.org/manual/running.html
 [bash_script]: https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html "Bash - Creating and running a script"
 [flix]: https://flix.dev/ "Flix Programming Language"

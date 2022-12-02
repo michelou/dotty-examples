@@ -53,7 +53,7 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*November 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*December 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java11-22.2.0\          <i>(890 MB)</i>
@@ -62,7 +62,7 @@ C:\opt\jdk-bellsoft-11.0.16\              <i>(301 MB)</i>
 C:\opt\jdk-bellsoft-17.0.4\               <i>(309 MB)</i>
 C:\opt\jdk-bellsoft-nik-java11-22.0.0.2\  <i>(596 MB)</i>
 C:\opt\jdk-bellsoft-nik-java17-22.0.0.2\  <i>(657 MB)</i>
-C:\opt\jdk-corretto-11.0.16_8\            <i>(293 MB)</i>
+C:\opt\jdk-corretto-11.0.17_8\            <i>(293 MB)</i>
 C:\opt\jdk-corretto-17.0.4_8\             <i>(299 MB)</i>
 C:\opt\jdk-dcevm-11.0.15_1\               <i>(313 MB)</i>
 C:\opt\jdk-dragonwell-11.0.16.12_8\       <i>(290 MB)</i>
@@ -75,10 +75,10 @@ C:\opt\jdk-redhat-11.0.15.9-3\            <i>(364 MB)</i>
 C:\opt\jdk-redhat-17.0.3.0.6-2\           <i>(377 MB)</i>
 C:\opt\jdk-sapmachine-11.0.16\            <i>(316 MB)</i>
 C:\opt\jdk-sapmachine-17.0.4\             <i>(325 MB)</i>
-C:\opt\jdk-temurin-11.0.16_8\             <i>(300 MB)</i>
+C:\opt\jdk-temurin-11.0.17_8\             <i>(300 MB)</i>
 C:\opt\jdk-temurin-17.0.4_8\              <i>(299 MB)</i>
-C:\opt\jdk-zulu-11.0.16-win_x64\          <i>(302 MB)</i>
-C:\opt\jdk-zulu-17.0.4-win_x64\           <i>(306 MB)</i>
+C:\opt\jdk-zulu-11.0.17-win_x64\          <i>(302 MB)</i>
+C:\opt\jdk-zulu-17.0.5-win_x64\           <i>(306 MB)</i>
 </pre>
 <!-- corretto  : 11.0.8 = 290 MB, 11.0.9 = 292 MB, 11.0.10 = 292 MB -->
 <!-- dcevm     : 11.0.8 = 296 MB, 11.0.9 = 296 MB, 11.0.10 = 313 MB-->
@@ -199,20 +199,20 @@ An OpenJDK installation contains the file **`<install_dir>\lib\classlist`**. For
 ### <span id="corretto">Corretto OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-corretto-11.0.16_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-openjdk version "11.0.16" 2022-07-19 LTS
-OpenJDK Runtime Environment Corretto-11.0.16.8.1 (build 11.0.16+8-LTS)
-OpenJDK 64-Bit Server VM Corretto-11.0.16.8.1 (build 11.0.16+8-LTS, mixed mode)
+<b>&gt; c:\opt\jdk-corretto-11.0.17_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+openjdk version "11.0.17" 2022-10-18 LTS
+OpenJDK Runtime Environment Corretto-11.0.17.8.1 (build 11.0.17+8-LTS)
+OpenJDK 64-Bit Server VM Corretto-11.0.17.8.1 (build 11.0.17+8-LTS, mixed mode)
 
-<b>&gt; c:\opt\jdk-corretto-11.0.16_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-corretto-11.0.17_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
 [...]
 Number of classes 1217
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-corretto-11.0.16_8\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-corretto-11.0.17_8\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
 01.08.2022  23:27        11 272 192 classes.jsa
 
-<b>&gt; c:\opt\jdk-corretto-11.0.16_8\bin\java -version</b>
-openjdk version "11.0.16" 2022-07-19 LTS
+<b>&gt; c:\opt\jdk-corretto-11.0.17_8\bin\java -version</b>
+openjdk version "11.0.17" 2022-10-18 LTS
 OpenJDK Runtime Environment Corretto-11.0.16.8.1 (build 11.0.16+8-LTS)
 OpenJDK 64-Bit Server VM Corretto-11.0.16.8.1 (build 11.0.16+8-LTS, mixed mode, sharing)
 </pre>
@@ -493,7 +493,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/alibaba/dragonwell11/releases">Alibaba_Dragonwell_11.0.16.12.8_x64_windows.zip</a>                <i>(186 MB)</i>
+<a href="https://github.com/alibaba/dragonwell11/releases">Alibaba_Dragonwell_11.0.17.13.8_x64_windows.zip</a>                <i>(186 MB)</i>
 <a href="https://github.com/corretto/corretto-11/releases" rel="external">amazon-corretto-11.0.16.9.1-windows-x64-jdk.zip</a>                <i>(178 MB)</i>
 <a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.16.1+1-windows-amd64.zip</a>                      <i>(186 MB)</i>
 <a href="https://libericajdk.ru/pages/downloads/native-image-kit/">bellsoft-liberica-vm-openjdk11-22.0.0.2-windows-amd64.zip</a>      <i>(329 MB)</i>
@@ -555,7 +555,7 @@ scala3-3.2.2-RC1-bin-SNAPSHOT-zulu-11.zip
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

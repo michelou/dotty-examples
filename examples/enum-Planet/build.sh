@@ -156,8 +156,8 @@ compile() {
     if [[ $is_required -eq 1 ]]; then
         compile_scala
         [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
+        touch "$timestamp_file"
     fi
-    touch "$timestamp_file"
 }
 
 action_required() {

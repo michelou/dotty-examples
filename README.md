@@ -63,13 +63,13 @@ Optionally one may also install the following software:
 - [Bazel 5.3][bazel_releases] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
 - [GNU Make 3.81][make_downloads]
-- [Gradle 7.5][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Gradle 7.6][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [JaCoCo 0.8][jacoco_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*change log*][jacoco_changelog])
 - [JavaFX 17 LTS][javafx_downloads] ([*release notes*][javafx_relnotes])
 - [JITWatch 1.4][jitwatch_releases] (requires Java 11 or newer)
 - [Mill 0.10][mill_releases] ([*change log*][mill_changelog])
 - [MSYS2][msys2_releases] ([*change log*][msys2_changelog])
-- [sbt 1.7][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
+- [sbt 1.8][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
 - [Temurin OpenJDK 8 LTS][temurin_openjdk8] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk8_relnotes])
 <!--
@@ -920,7 +920,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 [gradle_install]: https://gradle.org/install/
-[gradle_relnotes]: https://docs.gradle.org/7.5.1/release-notes.html
+[gradle_relnotes]: https://docs.gradle.org/7.6/release-notes.html
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [jacoco_changelog]: https://www.jacoco.org/jacoco/trunk/doc/changes.html
 [jacoco_downloads]: https://www.eclemma.org/jacoco/
@@ -958,7 +958,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_downloads]: https://github.com/sbt/sbt/releases
 [sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.7.3
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.8
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala]: https://www.scala-lang.org/
 [scala3_home]: https://dotty.epfl.ch

@@ -174,7 +174,7 @@ Command [**`build -debug clean compile run`**](enum-Planet/build.bat) also displ
 [build] Options    : _EXPLAIN=0 _PRINT=0 _SCALA_VERSION=3 _TASTY=0 _TIMER=0 _VERBOSE=0
 [build] Subcommands:  clean compile run
 [build] Variables  : "CFR_HOME=C:\opt\cfr-0.152"
-[build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-11.0.16_8"
+[build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-11.0.17_8"
 [build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.2.1"
 [build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.10"
 [build] Variables  : _MAIN_CLASS=Planet _MAIN_ARGS=1
@@ -362,16 +362,16 @@ Command **` mvn.cmd compile test`** with option **`-debug`** produces additional
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> -debug compile test | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-temurin-11.0.16_8\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-temurin-11.0.17_8\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.2.1 \
  -cp C:\opt\scala3-3.2.1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath Y:\examples\hello-scala\target\classes \
  -d Y:\examples\hello-scala\target\classes \
  Y:\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\opt\jdk-temurin-11.0.16_8\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-temurin-11.0.17_8\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.2.1 [...]
-[DEBUG] [execute] C:\opt\jdk-temurin-11.0.16_8\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-temurin-11.0.17_8\bin\java.exe \
  -Xms64m -Xmx1024m -cp C:\opt\scala3-3.2.1\lib\*.jar;\
 Y:\examples\hello-scala\target\classes hello
 </pre>
@@ -410,9 +410,9 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 [INFO] ------------------------------------------------------------------------
 
 <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html" rel="external">java</a> -version 2>&1 | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> version</b>
-openjdk version "11.0.16" 2022-07-19
+openjdk version "11.0.17" 2022-10-18
 
-<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html" rel="external">java</a> -Xbootclasspath/a:"c:\opt\scala3-3.2.1\lib\scala3-library_3-3.2.1.jar;c:\opt\scala3-3.2.1\lib\scala-library-2.13.6.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
+<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html" rel="external">java</a> -Xbootclasspath/a:"c:\opt\scala3-3.2.1\lib\scala3-library_3-3.2.1.jar;c:\opt\scala3-3.2.1\lib\scala-library-2.13.10.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
 Your weight on EARTH (2) is 0.9999999999999999
@@ -624,7 +624,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
