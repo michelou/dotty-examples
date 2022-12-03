@@ -54,6 +54,7 @@
 
 ## <span id="books">Books</span> [**&#x25B4;**](#top)
 
+- [Functional Programming in Scala][book_pilquist] (2<sup>nd</sup> Edition) by Michael Pilquist and al., Spring 2023.<br/><span style="font-size:80%;">(Manning, ISBN 978-1-6172-9958-2, 543 pages)</span>
 - [Beginning Scala 3][book_pollak] (3<sup>rd</sup> Edition) by David Pollak et al, 2022.<br/><span style="font-size:80%;">(Apress, ISBN 978-1-4842-7421-7)
 - [Scala Cookbook][book_alexander] (2<sup>nd</sup> Edition) by Alvin Alexander, August 2021.<br/><span style="font-size:80%;">(O'Reilly, ISBN 978-1-4920-5154-1, 802 pages)</span>
 - [Programming Scala][book_wampler] (3<sup>rd</sup> Edition) by Dean Wampler and Alex Payne, June 2021.<br/><span style="font-size:80%;">(O'Reilly, ISBN 978-1-4920-7789-3)</span>
@@ -121,6 +122,7 @@
 [book_alexander]: https://www.oreilly.com/library/view/scala-cookbook-2nd/9781492051534/
 [book_haoyi]: https://www.handsonscala.com/
 [book_lewis]: https://www.routledge.com/Introduction-to-Programming-and-Problem-Solving-Using-Scala/Lewis-Lacher/p/book/9781498730952
+[book_pilquist]: https://www.manning.com/books/functional-programming-in-scala-second-edition
 [book_wampler]: https://www.oreilly.com/library/view/programming-scala-2nd/9781491950135/
 [blog_markham]: https://www.47deg.com/blog/smart-constructors-in-scala/
 [book_pollak]: https://www.apress.com/gp/book/9781484274217
