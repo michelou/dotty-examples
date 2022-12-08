@@ -80,17 +80,18 @@
 - [Interactive Development using the Dotty Compiler][paper_martres] by Guillaume Martres, October 2017.
 - [Implementing Higher-Kinded Types in Dotty][paper_odersky_hkt] by Martin Odersky et al., October 2016.
 
-## <span id="projects">Projects</span> [**&#x25B4;**](#top)
+## <span id="shell">Shell Scripting</span>
 
+- [Google Shell Guide](https://google.github.io/styleguide/shellguide.html)
+
+## <span id="tools">Tools and Frameworks</span> [**&#x25B4;**](#top)
+
+- [Decline](https://github.com/bkirwi/decline) &ndash; a composable command-line parser for Scala.
 - [Scala.js][project_scalajs] &ndash; a Scala backend to generate highly efficient JavaScript.
 - [ScalaStan][project_scalastan] &ndash; a Scala DSL for [Stan](https://mc-stan.org/), an open-source software for statistical modeling and high-performance statistical computation.
 - [Scalalikejdbc](https://github.com/scalikejdbc/scalikejdbc) &ndash; a tidy SQL-based DB access library for Scala developers.
 - [WartRemover](https://github.com/wartremover/wartremover) &ndash; a flexible Scala code linting tool.
 - [Woof](https://github.com/LEGO/woof) &ndash; a pure Scala 3 logging library with no reflection.
-
-## <span id="shell">Shell Scripting</span>
-
-- [Google Shell Guide](https://google.github.io/styleguide/shellguide.html)
 
 ## <span id="videos">Videos</span>
 
