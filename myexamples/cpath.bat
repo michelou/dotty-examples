@@ -60,7 +60,7 @@ call :add_jar "org.scalatest" "scalatest_3" "%__SCALATEST_VERSION%"
 @rem https://mvnrepository.com/artifact/org.scalactic
 call :add_jar "org.scalactic" "scalactic_3" "%__SCALATEST_VERSION%"
 
-set __SPECS2_VERSION=5.1.0
+set __SPECS2_VERSION=5.2.0
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-core
 call :add_jar "org.specs2" "specs2-core_3" "%__SPECS2_VERSION%"
@@ -77,8 +77,8 @@ call :add_jar "org.specs2" "specs2-matcher_3" "%__SPECS2_VERSION%"
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-fp
 call :add_jar "org.specs2" "specs2-fp_3" "%__SPECS2_VERSION%"
 
-set __JMH_VERSION=1.35
-@rem JMH 1.34/1.35 depends on Jopt 5.0.4
+set __JMH_VERSION=1.36
+@rem JMH 1.34/1.35/1.36 depends on Jopt 5.0.4
 @rem (previously : JMH 1.27, 1.29, 1.31-33 depend on Jopt 4.6)
 set __JOPT_VERSION=5.0.4
 

@@ -41,7 +41,7 @@ three=3
 three1=3
 </pre>
 
-## <span id="givens">Givens</span>[**&#x25B4;**](#top)
+## <span id="givens">Givens</span> [**&#x25B4;**](#top)
 
 Code example `Givens` is presented in Ciorcîlan's blog post [**Givens vs. Implicits in Scala 3**](https://blog.rockthejvm.com/givens-vs-implicits/) (November 2020).
 
@@ -104,7 +104,7 @@ ten=10
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -47,9 +47,9 @@ JUNIT_JAR          = $(shell $(FIND) "$(LOCAL_REPO)/junit/junit" -name junit-4.1
 JUNIT_INTF_JAR     = $(shell $(FIND) "$(LOCAL_REPO)/com/novocode" -name junit-interface-0.11.jar)
 SCALATEST_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/scalatest" -name scalatest_3-3.2.14.jar)
 SCALACTIC_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/scalactic" -name scalactic_3-3.2.14.jar)
-SPECS2_CORE_JAR    = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-core_3-5.0.7.jar)
-SPECS2_JUNIT_JAR   = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-junit_3-5.0.7.jar)
-SPECS2_MATCHER_JAR = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-matcher_3-5.0.7.jar)
+SPECS2_CORE_JAR    = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-core_3-5.2.0.jar)
+SPECS2_JUNIT_JAR   = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-junit_3-5.2.0.jar)
+SPECS2_MATCHER_JAR = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-matcher_3-5.2.0.jar)
 
 ifeq (,$(wildcard $(SCALA3_LIB_JAR)))
 $(error Variable SCALA3_LIB_JAR is not set)

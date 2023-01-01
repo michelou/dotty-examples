@@ -91,7 +91,7 @@ Occurrences:
 
 With tiny code examples such as [**`Main.scala`**](hello/src/main/scala/Main.scala) we could also update the **`PATH`** variable and work with the two commands **`metac`** and **`metap`** directly :
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> "PATH=%PATH%;%COURSIER_DATA_DIR%\bin;c:\opt\protoc-3.21.9"</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> "PATH=%PATH%;%COURSIER_DATA_DIR%\bin;c:\opt\protoc-3.21.12"</b>
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> metac</b>
 <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%LOCALAPPDATA%</a>\Coursier\data\bin\metac.bat
@@ -221,8 +221,8 @@ range {
 
 <dl><dd>
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\protoc-3.21.10\bin\protoc.exe --version</b>
-libprotoc 3.21.10
+<b>&gt; c:\opt\protoc-3.21.12\bin\<a href="https://manpages.ubuntu.com/manpages/kinetic/man1/protoc.1.html" rel="external">protoc.exe</a> --version</b>
+libprotoc 3.21.12
 </pre>
 </dd></dl>
 
@@ -250,7 +250,7 @@ Warning: <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_val
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

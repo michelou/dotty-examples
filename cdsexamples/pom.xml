@@ -39,7 +39,7 @@
         <scala.groupId>org.scala-lang</scala.groupId>
         <scala.version>2.13.10</scala.version>
         <scala.binary.version>2.13</scala.binary.version>
-        <scala3.version>3.2.2-RC1</scala3.version>
+        <scala3.version>3.2.2-RC2</scala3.version>
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugin versions -->
@@ -52,14 +52,15 @@
         <!-- Note: JUnit 5 requires Surefire version 2.22.1 or higher -->
         <maven.surefire.version>2.22.2</maven.surefire.version>
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
-        <specs2.version>5.1.0</specs2.version>
+        <!-- Note: Specs2 5.x depends on Scala 3 while Specs2 4.x depends on Scala 2 or Scala 3 -->
+        <specs2.version>4.19.0</specs2.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
         <maven.jar.version>3.3.0</maven.jar.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
         <exec.maven.version>3.1.0</exec.maven.version>
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
-        <jmh.version>1.35</jmh.version>
+        <jmh.version>1.36</jmh.version>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
@@ -181,25 +182,25 @@
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-common -->
         <dependency>
             <groupId>org.specs2</groupId>
-            <artifactId>specs2-common_${scala.binary.version}</artifactId>
+            <artifactId>specs2-common_3</artifactId>
             <version>${specs2.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-core -->
         <dependency>
             <groupId>org.specs2</groupId>
-            <artifactId>specs2-core_${scala.binary.version}</artifactId>
+            <artifactId>specs2-core_3</artifactId>
             <version>${specs2.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
         <dependency>
             <groupId>org.specs2</groupId>
-            <artifactId>specs2-junit_${scala.binary.version}</artifactId>
+            <artifactId>specs2-junit_3</artifactId>
             <version>${specs2.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-matcher -->
         <dependency>
             <groupId>org.specs2</groupId>
-            <artifactId>specs2-matcher_${scala.binary.version}</artifactId>
+            <artifactId>specs2-matcher_3</artifactId>
             <version>${specs2.version}</version>
         </dependency>
         <dependency>

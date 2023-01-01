@@ -22,10 +22,10 @@ set __SCALATEST_VERSION=3.2.14
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
 @rem import scala.reflect.runtime.universe._
-call :add_jar "org.scala-lang" "scala-reflect" "2.13.9"
+call :add_jar "org.scala-lang" "scala-reflect" "2.13.10"
 
 @rem https://mvnrepository.com/artifact/org.portable-scala
-call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSION%" "1.1.0"
+call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSION%" "1.1.2"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
 call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.1.0"
@@ -61,8 +61,8 @@ call :add_jar "org.scalatest" "scalatest_3" "%__SCALATEST_VERSION%"
 @rem https://mvnrepository.com/artifact/org.scalactic
 call :add_jar "org.scalactic" "scalactic_3" "%__SCALATEST_VERSION%"
 
-@rem Scala binary 2.13 -> 4.17.0, Scala binary 3 -> 5.0.7
-set __SPECS2_VERSION=5.0.7
+@rem Scala binary 2.13 -> 4.17.0, Scala binary 3 -> 5.0.7, 5.1.0, 5.2.0
+set __SPECS2_VERSION=5.2.0
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-core
 call :add_jar "org.specs2" "specs2-core_3" "%__SPECS2_VERSION%"
