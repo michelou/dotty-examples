@@ -65,7 +65,7 @@ set "_GIT_CMD=%GIT_HOME%\bin\git.exe"
 set "_SED_CMD=%GIT_HOME%\usr\bin\sed.exe"
 set "_UNIX2DOS_CMD=%GIT_HOME%\usr\bin\unix2dos.exe"
 
-set "_NIGHTLY_DIR=%_ROOT_DIR%out\nightly"
+set "_NIGHTLY_DIR=%TEMP%\scala3-nightly"
 set "_NIGHTLY_BIN_DIR=%_NIGHTLY_DIR%\bin"
 set "_NIGHTLY_LIB_DIR=%_NIGHTLY_DIR%\lib"
 goto :eof
@@ -237,11 +237,15 @@ goto :eof
 :download
 set _NIGHTLY_VERSION=
 
+for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%" %_DEBUG%') do (
+    for %%f in ("%%i") do set "__FILE_BASENAME=%%~nxf"
+    if exist "%_NIGHTLY_DIR%\lib\!__FILE_BASENAME!" goto :eof
+    goto :download_nightly
+)
+:download_nightly
 call :rmdir "%_NIGHTLY_DIR%"
 if not %_EXITCODE%==0 goto :eof
 
-:download_nightly
-if not exist "%_NIGHTLY_LIB_DIR%" mkdir "%_NIGHTLY_LIB_DIR%" 1>NUL
 set __N=0
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%" %_DEBUG% 1>&2
 ) else if %_VERBOSE%== 1 ( echo Download Scala 3 nightly files from Maven repository 1>&2
@@ -256,6 +260,7 @@ for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%"
         goto :eof
     )
     if %_VERBOSE%==1 <NUL set /p=Downloading file !__FILE_BASENAME! ... 
+    if not exist "%_NIGHTLY_LIB_DIR%" mkdir "%_NIGHTLY_LIB_DIR%" 1>NUL
     set "__JAR_FILE=%_NIGHTLY_LIB_DIR%\!__FILE_BASENAME!"
     @rem NB. curl is faster than wget
     @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -c "wget -uri !__URL! -Outfile '!__JAR_FILE!'" 1>&2
@@ -303,11 +308,11 @@ for /f "tokens=1,*" %%i in (%__LST_FILE%) do (
         @rem NB. curl is faster than wget
         @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -C "wget -uri '!__URI!' -outfile '!__OUTFILE!'"
         @rem powershell -C "$progressPreference='silentlyContinue';wget -uri '!__URI!' -outfile '!__OUTFILE!'"
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_CURL_CMD%" --silent --url "!__URI!" ^> "!__OUTFILE!" 1>&2
-        call "%_CURL_CMD%" --silent --url "!__URI!" > "!__OUTFILE!"
-        if !ERRORLEVEL!==0  if "!__NAME:~-4!"==".bat" (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_CURL_CMD%" --silent --insecure  --url "!__URI!" ^> "!__OUTFILE!" 1>&2
+        call "%_CURL_CMD%" --silent --insecure --url "!__URI!" > "!__OUTFILE!"
+        if !ERRORLEVEL!==0 if "!__NAME:~-4!"==".bat" (
             if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_UNIX2DOS_CMD%" "!__OUTFILE!" 1^>NUL 1>&2
-            @rem ) else if %_VERBOSE%==1 ( echo Convert file !__NAME! to DOS format 2>&2
+            ) else if %_VERBOSE%==1 ( echo Convert file !__NAME! to DOS format 1>&2
             )
             call "%_UNIX2DOS_CMD%" "!__OUTFILE!" 2>NUL
         )
@@ -364,6 +369,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" --silent --url "%__URL%"^| "%
 )
 call "%_CURL_CMD%" --silent --url "%__URL%" | "%_SED_CMD%" -e "s#/><#\n#g" > "%__OUTPUT_FILE%"
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to download hash %__HASH% 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -386,8 +392,10 @@ for /f "delims=^:^= tokens=1,*" %%i in ('findstr version "%_NIGHTLY_DIR%\VERSION
     set "__NIGHTLY_VERSION=%%j"
 )
 set "__NIGHTLY_HOME=C:\opt\scala3-%__NIGHTLY_VERSION%"
-if /i "%SCALA3_HOME%"=="%__NIGHTLY_HOME%" goto :eof
-
+if /i "%SCALA3_HOME%"=="%__NIGHTLY_HOME%" (
+    echo 0000000000000000
+    goto :eof
+)
 if not exist "%__NIGHTLY_HOME%\lib" mkdir "%__NIGHTLY_HOME%\lib"
 if not exist "%__NIGHTLY_HOME%\bin" mkdir "%__NIGHTLY_HOME%\bin"
 
@@ -399,10 +407,10 @@ xcopy /q /y "%_NIGHTLY_BIN_DIR%\common*" "%__NIGHTLY_HOME%\bin\" 1>NUL
 xcopy /q /y "%_NIGHTLY_BIN_DIR%\scala*" "%__NIGHTLY_HOME%\bin\" 1>NUL
 
 @rem copy VERSION file
-xcopy /q /y "%_NIGHTLY_DIR%\VERSION" "%__NIGHTLY_HOME%\VERSION"
+xcopy /q /y "%_NIGHTLY_DIR%\VERSION" "%__NIGHTLY_HOME%\VERSION*" 1>NUL
 if defined SCALA3_HOME (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Create file "%__NIGHTLY_HOME%\SCALA3_HOME_BACKUP" 1>&2
-    echo %SCALA3_HOME%> "%__NIGHTLY_HOME%\SCALA3_HOME_BACKUP"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Create file "%__NIGHTLY_HOME%\SCALA3_HOME.txt" 1>&2
+    echo %SCALA3_HOME%> "%__NIGHTLY_HOME%\SCALA3_HOME.txt"
     call :version
     echo Active Scala 3 installation is %__NIGHTLY_VERSION% ^(was !_VERSION!^)
 )
@@ -417,8 +425,8 @@ goto :eof
 
 @rem output parameter: _SCALA3_HOME
 :restore
-if exist "%SCALA3_HOME%\SCALA3_HOME_BACKUP" (
-    set /p _SCALA3_HOME=< "%SCALA3_HOME%\SCALA3_HOME_BACKUP"
+if exist "%SCALA3_HOME%\SCALA3_HOME.txt" (
+    set /p _SCALA3_HOME=< "%SCALA3_HOME%\SCALA3_HOME.txt"
 ) else if exist "%SCALA3_HOME%\bin\scala.bat" (
     set "_SCALA3_HOME=%SCALA3_HOME%"
 ) else (

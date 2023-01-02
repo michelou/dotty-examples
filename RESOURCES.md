@@ -86,6 +86,7 @@
 
 ## <span id="tools">Tools and Frameworks</span> [**&#x25B4;**](#top)
 
+- [borer](https://sirthias.github.io/borer/) &ndash; an efficient [CBOR](https://cbor.io/) and JSON (de)serialization for Scala.
 - [Decline](https://github.com/bkirwi/decline) &ndash; a composable command-line parser for Scala.
 - [Scala.js][project_scalajs] &ndash; a Scala backend to generate highly efficient JavaScript.
 - [ScalaStan][project_scalastan] &ndash; a Scala DSL for [Stan](https://mc-stan.org/), an open-source software for statistical modeling and high-performance statistical computation.
@@ -102,7 +103,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
