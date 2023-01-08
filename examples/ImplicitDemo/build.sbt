@@ -1,5 +1,4 @@
-val dottyVersion = "3.2.1-RC4"
-// val dottyVersion = dottyLatestNightlyBuild.get 
+val scala3Version = "3.2.2-RC2" // dottyLatestNightlyBuild.get 
 
 lazy val root = project
   .in(file("."))
@@ -8,10 +7,11 @@ lazy val root = project
     description := "sbt example project to build/run Scala 3 applications",
     version := "1.0.0",
 
-    scalaVersion := dottyVersion,
+    scalaVersion := scala3Version,
     scalacOptions ++= Seq(
       "-deprecation",
-      "-encoding", "UTF-8",
+      "-encoding",
+      "UTF-8",
       "-feature"
     ),
 
@@ -21,9 +21,9 @@ lazy val root = project
       // https://mvnrepository.com/artifact/com.novocode/junit-interface
       "com.novocode" % "junit-interface" % "0.11" % Test,
       // https://mvnrepository.com/artifact/org.scalacheck/scalacheck
-      "org.scalacheck" % "scalacheck_2.13" % "1.15.3" % Test,
+      "org.scalacheck" % "scalacheck_2.13" % "1.17.0" % Test,
       // https://mvnrepository.com/artifact/org.scalatest/scalatest
-      "org.scalatest" % "scalatest_2.13" % "3.2.13" % "test"
+      "org.scalatest" % "scalatest_2.13" % "3.2.14" % "test"
     ),
 
     testOptions ++= Seq(

@@ -14,6 +14,7 @@
 ## <span id="articles">Articles</span>
 
 - [Scala blog posts](https://alexn.org/blog/tag/scala/) from Alexandru Nedelcu :
+  - [Immutable Collections should be Your Default][article_nedelcu_immutable], October 2022.
   - [Scripting with Scala][article_nedelcu_scripting], September 2022.
   - [Scala isn't fun anymore][article_nedelcu_isnt_fun], September 2022.
   - [Tracking Side Effects in Scala][article_nedelcu_tracking], May 2022.
@@ -96,9 +97,10 @@
 
 ## <span id="videos">Videos</span>
 
+- [Simply Scala Martin Odersky][video_odersky_2022] by Martin Odersky, October 2022 ([ScalaCon 2022](https://www.scalacon.org/)).
 - [Type Classes in Scala 3][video_mittal] by Ayush Mittal, March 2022 (Functional Conf 2022).
 - [Typeclasses in Scala 3][video_markham] by Noel Markham, January 2022 (Colombia Scala neetup).
-- [Scala 3 has landed][video_odersky] by Martin Odersky, May 2021.
+- [Scala 3 has landed][video_odersky_2021] by Martin Odersky, May 2021.
 - [Scala 3, Type Inference and You!][video_martres] by Guillaume Martres, September 2019. 
 
 ***
@@ -113,6 +115,7 @@
 [article_hupel_top5]: https://www.innoq.com/de/articles/2021/08/top5-neuerungen-scala/
 [article_nedelcu_given]: https://alexn.org/blog/2022/05/11/implicit-vs-scala-3-given/
 [article_nedelcu_ideology1]: https://alexn.org/blog/2022/05/13/oop-vs-type-classes-part-1-ideology/
+[article_nedelcu_immutable]: https://alexn.org/blog/2022/10/27/immutable-collections-your-default/
 [article_nedelcu_isnt_fun]: https://alexn.org/blog/2022/09/09/scala-isnt-fun-anymore/
 [article_nedelcu_oofp]: https://alexn.org/blog/2022/04/18/scala-oop-design-sample/
 [article_nedelcu_scripting]: https://alexn.org/blog/2022/09/13/scripting-with-scala/
@@ -137,4 +140,5 @@
 [video_martres]: https://youtu.be/lMvOykNQ4zs
 [video_markham]: https://www.47deg.com/media/2022/01/27/typeclasses-in-scala-3/
 [video_mittal]: https://www.youtube.com/watch?v=G5c0U69QaLE
-[video_odersky]: https://youtu.be/JcLG9Ss9Y-w
+[video_odersky2022]: https://www.youtube.com/watch?v=QRcD9Zc7eq4
+[video_odersky2021]: https://youtu.be/JcLG9Ss9Y-w

@@ -18,7 +18,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - OpenJDK and Scala 3 on Windows [**&#9660;**](#bottom)
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other trending topics we are currently monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other trending topics we are currently monitoring.
 
 
 ## <span id="proj_deps">Project dependencies</span>
@@ -379,22 +379,22 @@ OpenJDK 64-Bit Server VM SapMachine (build 11.0.16+10-LTS-sapmachine, mixed mode
 
 Temurin OpenJDK is the [reference implementation][oracle_openjdk11_project]; the other OpenJDK distributions are derived from it.
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-temurin-11.0.16_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-openjdk version "11.0.15" 2022-04-19
-OpenJDK Runtime Environment Temurin-11.0.15+10 (build 11.0.15+10)
-OpenJDK 64-Bit Server VM Temurin-11.0.15+10 (build 11.0.15+10, mixed mode)
+<b>&gt; c:\opt\jdk-temurin-11.0.17_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+openjdk version "11.0.17" 2022-10-18
+OpenJDK Runtime Environment Temurin-11.0.17+8 (build 11.0.17+8)
+OpenJDK 64-Bit Server VM Temurin-11.0.17+8 (build 11.0.17+8, mixed mode)
 &nbsp;
-<b>&gt; c:\opt\jdk-temurin-11.0.16_8\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-temurin-11.0.17_8\bin\java -Xshare:dump</b>
 [...]
-Number of classes 1217
+Number of classes 1229
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-temurin-11.0.16_8\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
-22.05.2022  15:40        17 694 720 classes.jsa
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-temurin-11.0.17_8\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
+01/05/2023  01:00 PM        11,403,264 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-temurin-11.0.16_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-openjdk version "11.0.15" 2022-04-19
-OpenJDK Runtime Environment Temurin-11.0.15+10 (build 11.0.15+10)
-OpenJDK 64-Bit Server VM Temurin-11.0.15+10 (build 11.0.15+10, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-temurin-11.0.17_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+openjdk version "11.0.17" 2022-10-18
+OpenJDK Runtime Environment Temurin-11.0.17+8 (build 11.0.17+8)
+OpenJDK 64-Bit Server VM Temurin-11.0.17+8 (build 11.0.17+8, mixed mode, sharing)
 </pre>
 
 
@@ -502,7 +502,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.16.8-1.windows.redhat.x86_64.zip</a>          <i>(242 MB)</i>
 <a href="https://docs.microsoft.com/en-us/java/openjdk/">microsoft-jdk-11.0.16-windows-x64.zip</a>                          <i>(178 MB)</i>
 <a href="https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases/latest">Openjdk11u-dcevm-windows-x64.zip</a>                               <i>(187 MB)</i>
-<a href="https://adoptium.net/?variant=openjdk11">OpenJDK11U-jdk_x64_windows_hotspot_11.0.16_8.zip</a>               <i>(190 MB)</i>
+<a href="https://adoptium.net/?variant=openjdk11">OpenJDK11U-jdk_x64_windows_hotspot_11.0.17_8.zip</a>               <i>(190 MB)</i>
 <a href="https://github.com/SAP/SapMachine/releases/tag/sapmachine-11.0.11" rel="external">sapmachine-jdk-11.0.16.0.1_windows-x64_bin.zip</a>                 <i>(189 MB)</i>
 <a href="https://www.azul.com/downloads/zulu-community/?version=java-11-lts" rel="external">zulu11.58.19-ca-jdk11.0.16-win_x64.zip</a>                         <i>(187 MB)</i>
 </pre>
@@ -555,7 +555,7 @@ scala3-3.2.2-RC1-bin-SNAPSHOT-zulu-11.zip
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -617,6 +617,7 @@ scala3-3.2.2-RC1-bin-SNAPSHOT-zulu-11.zip
 [sap_home]: https://www.sap.com/
 [scala3_home]: https://dotty.epfl.ch/
 [scala3_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
+[spark_examples]: https://github.com/michelou/spark-examples
 [spring_examples]: https://github.com/michelou/spring-examples
 [temurin8_downloads]: https://github.com/adoptium/temurin8-binaries
 [temurin11_downloads]: https://github.com/adoptium/temurin11-binaries

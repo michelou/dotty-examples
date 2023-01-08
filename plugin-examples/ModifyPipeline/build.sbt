@@ -3,7 +3,7 @@ val scala3Version = "3.2.2-RC2" // = dottyLatestNightlyBuild.get
 lazy val root = project
   .in(file("."))
   .settings(
-    name := "Divide by zero plugin",
+    name := "Modify pipeline plugin",
     description := "sbt example project to build/run Scala 3 applications",
     version := "0.1.0",
 

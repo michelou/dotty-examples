@@ -84,7 +84,7 @@ For instance our development environment looks as follows (*January 2023*) <sup 
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant-1.10.12\         <i>( 40 MB)</i>
-C:\opt\apache-maven-3.8.6\         <i>( 10 MB)</i>
+C:\opt\apache-maven-3.8.7\         <i>( 10 MB)</i>
 C:\opt\bazel-6.0.0\                <i>( 45 MB)</i>
 C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
 C:\opt\Git-2.39.0\                 <i>(317 MB)</i>
@@ -98,7 +98,7 @@ C:\opt\jitwatch-1.4.7\             <i>( 36 MB)</i>
 C:\opt\make-3.81\                  <i>(  2 MB)</i>
 C:\opt\mill-0.10.10\               <i>( 67 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
-C:\opt\sbt-1.8.0\                  <i>( 80 MB)</i>
+C:\opt\sbt-1.8.2\                  <i>( 80 MB)</i>
 C:\opt\scala-2.13.10\              <i>( 24 MB)</i>
 C:\opt\scala3-3.2.2-RC2\           <i>( 35 MB)</i>
 </pre>
@@ -112,7 +112,7 @@ C:\opt\scala3-3.2.2-RC2\           <i>( 35 MB)</i>
  <!-- sbt: 1.4.7 = 48.3 MB, 1.4.8 = 48.3 MB, 1.5.0 = 48.3 MB -->
  <!-- sbt: 1.5.1 to 1.5.5 = 50.6 MB -->
  <!-- sbt: 1.6.1 = 50.6 MB, 1.6.2 = 50.6 MB -->
- <!-- sbt: 1.7.1 = 80.6 MB, 1.7.2 = 80.6 MB, 1.8.0 = 80.6 MB -->
+ <!-- sbt: 1.7.1 = 80.6 MB, 1.7.2 = 80.6 MB, 1.8.0 = 80.6 MB, 1.8.2 = 110.0 MB -->
 
 > **:mag_right:** [Git for Windows][git_releases] provides a Bash emulation used to run [**`git.exe`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
@@ -147,7 +147,7 @@ where
 
 - directory [**`bin\`**](bin/) provides several utility [batch files][windows_batch_file].
 - file [**`bin\cfr-0.152.zip`**](bin/cfr-0.152.zip) contains a zipped distribution of [CFR][cfr_releases].
-- directory [**`bin\3.0\`**](bin/3.0/) contains the batch commands for [Scala 3][scala3_relnotes].
+- directory [**`bin\3.2\`**](bin/3.2/) contains the batch commands for [Scala 3][scala3_relnotes].
 - directory [**`bin\dotty\`**](bin/dotty/) contains several [batch files][windows_batch_file]/[bash scripts][unix_bash_script] for building the [Scala 3][scala3_home] software distribution on a Windows machine.
 - directory [**`docs\`**](docs/) contains [Scala 3][scala3_home] related papers/articles (see file [**`docs\README.md`**](docs/README.md)).
 - directory **`dotty\`** contains our fork of the [lampepfl/dotty][github_lampepfl_dotty] repository as a [Github submodule](.gitmodules).
@@ -347,7 +347,7 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.17, java 11.0.17, scalac 2.13.10, scalac 3.2.2-RC2,
-   ant 1.10.12, gradle 7.6, mill 0.10.10, mvn 3.8.6, sbt 1.8.0,
+   ant 1.10.12, gradle 7.6, mill 0.10.10, mvn 3.8.7, sbt 1.8.0,
    bazel 6.0.0, bloop v1.3.4, cfr 0.152, make 3.81, python 3.11.0,
    git 2.39.0.windows.1, diff 3.8, bash 4.4.23(1)-release
 
@@ -375,7 +375,7 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also displays the tool paths and
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.17, java 11.0.17, scalac 2.13.10, scalac 3.2.2-RC2,
-   ant 1.10.12, gradle 7.6, mill 0.10.10, mvn 3.8.6, sbt 1.8.0,
+   ant 1.10.12, gradle 7.6, mill 0.10.10, mvn 3.8.7, sbt 1.8.0,
    bazel 6.0.0, cfr 0.152, make 3.81, python 3.11.0,
    git 2.39.0.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
@@ -387,7 +387,7 @@ Tool paths:
    C:\opt\apache-ant-1.10.12\bin\ant.bat
    C:\opt\gradle-7.6\bin\gradle.bat
    C:\opt\mill-0.10.10\mill.bat
-   C:\opt\apache-maven-3.8.6\bin\mvn.cmd
+   C:\opt\apache-maven-3.8.7\bin\mvn.cmd
    C:\opt\sbt-1.8.0\bin\sbt.bat
    C:\opt\bazel-6.0.0\bazel.exe
    C:\opt\cfr-0.152\bin\cfr.bat
@@ -679,7 +679,7 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 | :----------- | :------: | :------ |
 | `build.sbt` | `dottyVersion` | `3.2.2-RC2-RC1` &rarr; `3.2.2-RC2`|
 | `build.sc` | `scalaVersion` | `3.2.2-RC2-RC1` &rarr; `3.2.2-RC2` |
-| `project\build.properties` | `sbt.version` | `1.6.2` &rarr; `1.8.0` |
+| `project\build.properties` | `sbt.version` | `1.8.0` &rarr; `1.8.2` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.5.4` &rarr; `0.5.5` |
 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
@@ -845,7 +845,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <pre style="font-size:80%;">
 <a href="https://github.com/lihaoyi/mill/releases">0.10.10-assembly</a> (<code>mill</code>)                            <i>( 64 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.12-bin.zip</a>                         <i>(  9 MB)</i>
-<a href="https://maven.apache.org/download.cgi">apache-maven-3.8.6-bin.zip</a>                         <i>( 10 MB)</i>
+<a href="https://maven.apache.org/download.cgi">apache-maven-3.8.7-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-6.0.0-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.6-bin.zip</a>                                 <i>(103 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.8.zip</a>                                   <i>(  4 MB)</i>
@@ -858,7 +858,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.17_8.zip</a>   <i>(188 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_17.0.5_8.zip</a>    <i>(188 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.39.0-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
-<a href="https://github.com/sbt/sbt/releases">sbt-1.8.0.zip</a>                                      <i>( 17 MB)</i>
+<a href="https://github.com/sbt/sbt/releases">sbt-1.8.2.zip</a>                                      <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.10.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.2.2-RC2">scala3-3.2.2-RC2.zip</a>                               <i>( 34 MB)</i>
 </pre>
@@ -886,7 +886,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
-[apache_maven_relnotes]: https://maven.apache.org/docs/3.8.6/release-notes.html
+[apache_maven_relnotes]: https://maven.apache.org/docs/3.8.7/release-notes.html
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [bazel_releases]: https://github.com/bazelbuild/bazel/releases
 <!--
@@ -985,8 +985,8 @@ Command Prompt has been around for as long as we can remember, but starting with
 11.0.13 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-October/009368.html
 11.0.14 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2022-January/011643.html
 -->
-[temurin_opendjk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-14-bugfixes.html
-[temurin_opendjk11_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2022-July/016017.html
+[temurin_opendjk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-17-bugfixes.html
+[temurin_opendjk11_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2022-October/018119.html
 [temurin_opendjk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
 [temurin_opendjk17]: https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot
 [temurin_opendjk17_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
