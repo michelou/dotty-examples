@@ -53,30 +53,30 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*December 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*January 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java11-22.2.0\          <i>(890 MB)</i>
-C:\opt\graalvm-ce-java17-22.2.0\          <i>(937 MB)</i>
-C:\opt\jdk-bellsoft-11.0.16\              <i>(301 MB)</i>
-C:\opt\jdk-bellsoft-17.0.4\               <i>(309 MB)</i>
+C:\opt\graalvm-ce-java11-22.3.0\          <i>(890 MB)</i>
+C:\opt\graalvm-ce-java17-22.3.0\          <i>(937 MB)</i>
+C:\opt\jdk-bellsoft-11.0.17\              <i>(301 MB)</i>
+C:\opt\jdk-bellsoft-17.0.5\               <i>(309 MB)</i>
 C:\opt\jdk-bellsoft-nik-java11-22.0.0.2\  <i>(596 MB)</i>
 C:\opt\jdk-bellsoft-nik-java17-22.0.0.2\  <i>(657 MB)</i>
 C:\opt\jdk-corretto-11.0.17_8\            <i>(293 MB)</i>
-C:\opt\jdk-corretto-17.0.4_8\             <i>(299 MB)</i>
+C:\opt\jdk-corretto-17.0.5_8\             <i>(299 MB)</i>
 C:\opt\jdk-dcevm-11.0.15_1\               <i>(313 MB)</i>
-C:\opt\jdk-dragonwell-11.0.16.12_8\       <i>(290 MB)</i>
-C:\opt\jdk-dragonwell-17.0.4.0.4_8\       <i>(299 MB)</i>
-C:\opt\jdk-microsoft-11.0.16_8\           <i>(292 MB)</i>
-C:\opt\jdk-microsoft-17.0.4_8\            <i>(300 MB)</i>
-C:\opt\jdk-openj9-11.0.16_8\              <i>(326 MB)</i>
-C:\opt\jdk-openj9-17.0.4_8\               <i>(334 MB)</i>
-C:\opt\jdk-redhat-11.0.15.9-3\            <i>(364 MB)</i>
-C:\opt\jdk-redhat-17.0.3.0.6-2\           <i>(377 MB)</i>
-C:\opt\jdk-sapmachine-11.0.16\            <i>(316 MB)</i>
-C:\opt\jdk-sapmachine-17.0.4\             <i>(325 MB)</i>
+C:\opt\jdk-dragonwell-11.0.17.13_8\       <i>(290 MB)</i>
+C:\opt\jdk-dragonwell-17.0.5.0.5_8\       <i>(299 MB)</i>
+C:\opt\jdk-microsoft-11.0.17_8\           <i>(292 MB)</i>
+C:\opt\jdk-microsoft-17.0.5_8\            <i>(300 MB)</i>
+C:\opt\jdk-openj9-11.0.17_8\              <i>(326 MB)</i>
+C:\opt\jdk-openj9-17.0.5_8\               <i>(334 MB)</i>
+C:\opt\jdk-redhat-11.0.17.8-2\            <i>(364 MB)</i>
+C:\opt\jdk-redhat-17.0.5.0.8-2\           <i>(377 MB)</i>
+C:\opt\jdk-sapmachine-11.0.17\            <i>(316 MB)</i>
+C:\opt\jdk-sapmachine-17.0.5\             <i>(325 MB)</i>
 C:\opt\jdk-temurin-11.0.17_8\             <i>(300 MB)</i>
-C:\opt\jdk-temurin-17.0.4_8\              <i>(299 MB)</i>
+C:\opt\jdk-temurin-17.0.5_8\              <i>(299 MB)</i>
 C:\opt\jdk-zulu-11.0.17-win_x64\          <i>(302 MB)</i>
 C:\opt\jdk-zulu-17.0.5-win_x64\           <i>(306 MB)</i>
 </pre>
@@ -88,7 +88,7 @@ C:\opt\jdk-zulu-17.0.5-win_x64\           <i>(306 MB)</i>
 <!-- temurin   : 11.0.8 = 297 MB, 11.0.9 = 299 MB, 11.0.10 = 300 MB -->
 <!-- zulu      : 11.0.8 = 299 MB, 11.0.9 = 300 MB, 11.0.10 = 301 MB -->
 
-## <span id="build_times">Scala 3 build times</span>
+## <span id="build_times">Scala 3 build times</span> [**&#x25B4;**](#top)
 
 We perform a quick comparison of the execution times to build the Scala 3 software distribution available as the following two archive files :
 <pre style="font-size:80%;">
@@ -180,7 +180,7 @@ Build errors encountered on MS Windows on July 31, 2021, are :
 | <a href="https://jdk.java.net/17/">temurin-17</a>  | Failed       | Failed     |
 | <a href="https://www.azul.com/downloads/?version=java-17-ea&package=jdk">zulu-17</a> | Failed        | Failed     |
 
-## <span id="data_sharing">Data sharing</span>
+## <span id="data_sharing">Data sharing</span> [**&#x25B4;**](#top)
 
 This section supplements my writing from page [Data Sharing and Scala 3 on Windows](CDS.md).
 
@@ -324,7 +324,7 @@ JCL      - ab74d97849 based on jdk-11.0.16+8)
 </pre>
 
 
-### <span id="redhat">RedHat OpenJDK 11</span> [**&#9650;**](#top)
+### <span id="redhat">RedHat OpenJDK 11</span> [**&#x25B4;**](#top)
 
 <pre style="font-size:80%;">
 <b>&gt; c:\opt\jdk-redhat-11.0.15.9-3\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>

@@ -64,7 +64,7 @@
 - [Essential Scala](https://underscore.io/books/essential-scala/) (v1.3) by Noel Welsh and Dave Gurnell, April 2017.
 - [Introduction to Programming and Problem-Solving Using Scala][book_lewis]  (2<sup>nd</sup> edition) by Mark C. Lewis and Lisa Lacher, August 2016.<br/><span style="font-size:80%;">(CRC Press, ISBN 978-1-4987-3095-2, 590 pages)</span>
 
-## <span id="courses">Courses</span>[**&#x25B4;**](#top)
+## <span id="courses">Courses</span> [**&#x25B4;**](#top)
 
 - [Learning to code in Scala](https://scala.zone/courses/scala): [Beginner](https://scala.zone/courses/scala/beginner), [Intermediate](https://scala.zone/courses/scala/intermediate), [Advanced](https://scala.zone/courses/scala/advanced).
 - [CSci 555 : Functional Programming][course_csci555] by Conrad Cunningham, Spring Semester 2019.
@@ -97,10 +97,10 @@
 
 ## <span id="videos">Videos</span>
 
-- [Simply Scala Martin Odersky][video_odersky_2022] by Martin Odersky, October 2022 ([ScalaCon 2022](https://www.scalacon.org/)).
+- [Simply Scala Martin Odersky][video_odersky2022] by Martin Odersky, October 2022 ([ScalaCon 2022](https://www.scalacon.org/)).
 - [Type Classes in Scala 3][video_mittal] by Ayush Mittal, March 2022 (Functional Conf 2022).
 - [Typeclasses in Scala 3][video_markham] by Noel Markham, January 2022 (Colombia Scala neetup).
-- [Scala 3 has landed][video_odersky_2021] by Martin Odersky, May 2021.
+- [Scala 3 has landed][video_odersky2021] by Martin Odersky, May 2021.
 - [Scala 3, Type Inference and You!][video_martres] by Guillaume Martres, September 2019. 
 
 ***

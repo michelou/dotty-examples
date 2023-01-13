@@ -1,4 +1,4 @@
-val dottyVersion = "3.2.2-RC2" // dottyLatestNightlyBuild.get 
+val scala3Version = "3.2.2" // dottyLatestNightlyBuild.get 
 
 lazy val root = project
   .in(file("."))
@@ -6,7 +6,7 @@ lazy val root = project
     name := "hello-scala",
     description := "sbt example project to build/run Scala 3 applications",
     version := "1.0.0",
-    scalaVersion := dottyVersion,
+    scalaVersion := scala3Version,
     scalacOptions ++= Seq(
       "-deprecation",
       "-encoding",

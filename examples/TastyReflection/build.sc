@@ -1,7 +1,7 @@
 import mill._, scalalib._
 
 object go extends ScalaModule {
-  def scalaVersion = "3.2.2-RC2"  // "2.12.18"
+  def scalaVersion = "3.2.2"  // "2.12.18"
   def scalacOptions = Seq("-deprecation", "-feature")
   def forkArgs = Seq("-Xmx1g")
   def mainClass = Some("Main")

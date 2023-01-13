@@ -24,7 +24,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 
 Our [Dotty fork][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.38][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.39][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
 - [sbt 1.8][sbt_releases] (requires Java 8) ([*release notes*][sbt_relnotes])
 <!--
@@ -213,7 +213,7 @@ We distinguish several sets of batch commands:
 
 > **:mag_right:** From me reported issues and pull requests are listed in document <a href="./CONTRIBUTIONS.md"><code>CONTRIBUTIONS.md</code></a>.
 
-## <span id="usage_examples">Usage examples</span>
+## <span id="usage_examples">Usage examples</span> [**&#x25B4;**](#top)
 
 Command [**`build.bat`**](bin/dotty/build.bat) consists of ~400 lines of batch/[Powershell ][microsoft_powershell] code and features the following subcommands:
 
@@ -590,7 +590,7 @@ total warnings with regards to compilation and documentation: 29
 [success] Total time: 135 s, completed 3 déc. 2018 15:05:04
 </pre>
 
-## <span id="footnotes">Footnotes</span>
+## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
 <span id="footnote_01">[1]</span> ***Continuous Integration/Delivery*** (CI/CD) [↩](#anchor_01)
 
@@ -641,7 +641,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

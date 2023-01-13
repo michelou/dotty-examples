@@ -90,7 +90,7 @@ Buildfile: W:\myexamples\HelloWorld\build.xml
    [delete] Deleting directory W:\myexamples\HelloWorld\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] SCALA3_HOME=C:\opt\scala3-3.2.2-RC2
+     [echo] SCALA3_HOME=C:\opt\scala3-3.2.2
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -134,8 +134,8 @@ Command [**`setenv -bash`**](setenv.bat) starts a [Cygwin] Bash session:
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -bash</b>
 Tool versions:
-   javac 11.0.17 java 11.0.17 scalac 2.13.10, scalac 3.2.2-RC2,
-   ant 1.10.12, gradle 7.6, mill 0.10.10, mvn 3.8.6, sbt 1.8.0,
+   javac 11.0.17 java 11.0.17 scalac 2.13.10, scalac 3.2.2,
+   ant 1.10.12, gradle 7.6, mill 0.10.10, mvn 3.8.7, sbt 1.8.2,
    bazel 6.0.0, cfr 0.152, coursier 2.0.16, make 3.81, python 3.11.1,
    git 2.39.0.windows.1, diff 3.8, bash 4.4.23(1)-release
 &nbsp;
@@ -147,8 +147,8 @@ user@host MSYS /w
 <b>$ env | <a href="https://man7.org/linux/man-pages/man1/grep.1.html">grep</a> _HOME | <a href="https://man7.org/linux/man-pages/man1/sort.1.html">sort</a></b>
 ANT_HOME=C:\opt\apache-ant-1.10.12
 [...]
-SBT_HOME=C:\opt\sbt-1.8.0
-SCALA3_HOME=C:\opt\scala3-3.2.2-RC2
+SBT_HOME=C:\opt\sbt-1.8.2
+SCALA3_HOME=C:\opt\scala3-3.2.2
 SCALA_HOME=C:\opt\scala-2.13.10
 </pre>
 
@@ -170,8 +170,8 @@ Similarly, command [**`setenv -msys`**](setenv.bat) starts a [MSYS2] Bash sessio
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -msys</b>
 Tool versions:
-   javac 11.0.17 java 11.0.17 scalac 2.13.10, scalac 3.2.2-RC2,
-   ant 1.10.12, gradle 7.6, mill 0.10.10, mvn 3.8.6, sbt 1.8.0,
+   javac 11.0.17 java 11.0.17 scalac 2.13.10, scalac 3.2.2,
+   ant 1.10.12, gradle 7.6, mill 0.10.10, mvn 3.8.7, sbt 1.8.2,
    bazel 6.0.0, cfr 0.152, coursier 2.0.16, make 3.81, python 3.11.1,
    git 2.39.0.windows.1, diff 3.8, bash 4.4.23(1)-release
 &nbsp;
@@ -181,8 +181,8 @@ GNU bash, version 5.3.26(1)-release (x86_64-pc-msys)
 <b>$ <a href="https://man7.org/linux/man-pages/man1/env.1.html">env</a> | <a href="https://man7.org/linux/man-pages/man1/grep.1.html">grep</a> _HOME | <a href="https://man7.org/linux/man-pages/man1/sort.1.html">sort</a></b>
 ANT_HOME=C:\opt\apache-ant-1.10.12
 [...]
-SBT_HOME=C:\opt\sbt-1.8.0
-SCALA3_HOME=C:\opt\scala3-3.2.2-RC2
+SBT_HOME=C:\opt\sbt-1.8.2
+SCALA3_HOME=C:\opt\scala3-3.2.2
 SCALA_HOME=C:\opt\scala-2.13.10
 </pre>
 
@@ -302,7 +302,7 @@ Command **`make test`** executes the test suite [**`HelloWorldTest.scala`**](Hel
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 scalac.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.10/scala-library-2.13.10.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_3/3.2.2-RC2/scala3-library_3-3.2.2-RC2.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.9/scalatest_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.9/scalactic_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.11.0/specs2-core_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.11.0/specs2-junit_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.11.0/specs2-matcher_2.13-4.11.0.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.10/scala-library-2.13.10.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_3/3.2.2/scala3-library_3-3.2.2.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.9/scalatest_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.9/scalactic_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.11.0/specs2-core_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.11.0/specs2-junit_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.11.0/specs2-matcher_2.13-4.11.0.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
 JUnit version 4.13.2
 .
 Time: 0.201
@@ -338,16 +338,16 @@ Command **`mvn clean test`** with option **`-debug`** produces additional debug 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/run.html">mvn</a> -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-temurin-11.0.17_8\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.2.2-RC2 \
- -cp C:\opt\scala3-3.2.2-RC2\lib\*.jar -Dscala.usejavacp=true  \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.2.2 \
+ -cp C:\opt\scala3-3.2.2\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-temurin-11.0.14_9\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.2.2-RC2 [...]
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.2.2 [...]
 [DEBUG] [execute] C:\opt\jdk-temurin-11.0.17_8\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\scala3-3.2.2-RC2\lib\*.jar;\
+ -Xms64m -Xmx1024m -cp C:\opt\scala3-3.2.2\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -368,7 +368,7 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 [INFO] Building HelloWorld 0.1-SNAPSHOT
 [INFO] --------------------------------[ jar ]---------------------------------
 [..]
-[INFO] --- maven-jar-plugin:3.2.2-RC2:jar (default-jar) @ HelloWorld ---
+[INFO] --- maven-jar-plugin:3.2.2:jar (default-jar) @ HelloWorld ---
 [INFO] Building jar: W:\myexamples\HelloWorld\target\HelloWorld-0.1-SNAPSHOT.jar
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
@@ -390,7 +390,7 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 >         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>3.2.2-RC2<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.version&gt;</b>3.2.2<b>&lt;/scala.version&gt;</b>
 >         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
@@ -427,15 +427,15 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 Finally can check the Java manifest in **`HelloWorld-1.0-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.2.2-RC2\lib\dotty-library_3-3.2.2-RC2.jar;^
-c:\opt\scala3-3.2.2-RC2\lib\scala-library-2.13.10.jar ^
+<b>&gt;</b> <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.2.2\lib\dotty-library_3-3.2.2.jar;^
+c:\opt\scala3-3.2.2\lib\scala-library-2.13.10.jar ^
 -jar target\HelloWorld-1.0-SNAPSHOT.jar
 Hello world!
 </pre>
 
 > **:mag_right:** We can use batch script [**`searchjars`**](../bin/searchjars.bat) in case some class is missing in the specified classpath, e.g.
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.2.2-RC2\lib\scala3-library_3-3.2.2-RC2.jar -jar target\enum-Color-1.0-SNAPSHOT.jar</b>
+> <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.2.2\lib\scala3-library_3-3.2.2.jar -jar target\enum-Color-1.0-SNAPSHOT.jar</b>
 > Exception in thread "main" java.lang.NoClassDefFoundError: scala/Serializable
 >         [...]
 >         at Main.main(Main.scala)
@@ -444,7 +444,7 @@ Hello world!
 >         ... 13 more
 > 
 > <b>&gt; <a href="../bin/searchjars.bat">searchjars</a> Serializable</b>
-> Searching for class name Serializable in library files C:\opt\scala3-3.2.2-RC2\lib\*.jar
+> Searching for class name Serializable in library files C:\opt\scala3-3.2.2\lib\*.jar
 >   jackson-core-2.13.3.jar:com/fasterxml/jackson/core/SerializableString.class
 >   [...]
 >   scala-library-2.13.10.jar:scala/collection/generic/DefaultSerializable.class
@@ -453,7 +453,7 @@ Hello world!
 > Searching for class name Serializable in library files C:\opt\jdk-temurin-11.0.17_8\lib\*.jar
 > Searching for class name Serializable in archive files C:\opt\javafx-sdk-17.0.1\lib\*.jar
 > </pre>
-> Class **`scala.Serializable`** is part of **`C:\opt\scala3-3.2.2-RC2\lib\scala-library-2.13.10.jar`**, so let us add it to our classpath !
+> Class **`scala.Serializable`** is part of **`C:\opt\scala3-3.2.2\lib\scala-library-2.13.10.jar`**, so let us add it to our classpath !
 
 
 ## <span id="mill">Mill build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
@@ -519,19 +519,19 @@ Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Main</i>
 &nbsp;
-<b>if</b> <span style="color:#3333ff;">%_CLEAN%</span>==1 (
+<a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/if" rel="external"><b>if</b></a> <span style="color:#3333ff;">%_CLEAN%</span>==1 (
     <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> :clean</b>
     <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
-<b>if</b> <span style="color:#3333ff;">%_COMPILE%</span>==1 (
+<a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/if" rel="external"><b>if</b></a> <span style="color:#3333ff;">%_COMPILE%</span>==1 (
     <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:compile</span></b>
     <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
-<b>if</b> <span style="color:#3333ff;">%_DOC%</span>==1 (
+<a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/if" rel="external"><b>if</b></a> <span style="color:#3333ff;">%_DOC%</span>==1 (
     <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:doc</span></b>
     <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
 )
-<b>if</b> <span style="color:#3333ff;">%_RUN%</span>==1 (
+<a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/if" rel="external"><b>if</b></a> <span style="color:#3333ff;">%_RUN%</span>==1 (
     <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:run</span></b>
     <b>if not</b> <span style="color:#3333ff;">!_EXITCODE!</span>==0 <b>goto end</b>
 )
@@ -576,7 +576,7 @@ Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</
 
 <dl><dd>
 <pre style="font-size:80%;">
-$ c:\opt\msys64\msys2_shell.cmd --help
+<b>$ c:\opt\msys64\msys2_shell.cmd --help</b>
 Usage:
     msys2_shell.cmd [options] [login shell parameters]
 &nbsp;
@@ -613,7 +613,7 @@ following parameters are passed as login shell command parameters.
 [apache_ant_history]: https://ant.apache.org/faq.html#history
 [apache_ant_ivy]: https://ant.apache.org/ivy/
 [apache_ant_ivy_relnotes]: https://ant.apache.org/ivy/history/2.5.0/release-notes.html
-[apache_maven_cli]: https://maven.apache.org/ref/3.8.6/maven-embedder/cli.html
+[apache_maven_cli]: https://maven.apache.org/ref/3.8.7/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
 [bash]: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html

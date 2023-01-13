@@ -96,7 +96,7 @@ Buildfile: Y:\examples\enum-Planet\build.xml
    [delete] Deleting directory Y:\examples\enum-Planet\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] SCALA3_HOME=C:\opt\scala3-3.2.2-RC2
+     [echo] SCALA3_HOME=C:\opt\scala3-3.2.2
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -175,7 +175,7 @@ Command [**`build -debug clean compile run`**](enum-Planet/build.bat) also displ
 [build] Subcommands:  clean compile run
 [build] Variables  : "CFR_HOME=C:\opt\cfr-0.152"
 [build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-11.0.17_8"
-[build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.2.2-RC2"
+[build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.2.2"
 [build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.10"
 [build] Variables  : _MAIN_CLASS=Planet _MAIN_ARGS=1
 [build] del /s /q Y:\dotty\examples\enum-Planet\target\classes\*.class Y:\dotty\examples\enum-Planet\target\classes\*.hasTasty Y:\dotty\examples\enum-Planet\target\classes\.latest-build
@@ -240,7 +240,7 @@ cfr-sources_scala3_0.24.0-RC2.java
 cfr-sources_scala3_0.27.0-RC2.java
 cfr-sources_scala3_3.1.0.java
 cfr-sources_scala3_3.2.1.java
-cfr-sources_scala3_3.2.2-RC2.java
+cfr-sources_scala3_3.2.2.java
 &nbsp;
 <b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose decompile</b>
 No action required ("src\main\scala\*.scala")
@@ -326,7 +326,7 @@ Command **`make test`** executes the test suite [**`PlanetTest.scala`**](enum-Pl
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 scalac.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.10/scala-library-2.18.6.jar;%USERPROFILE%/.m2/repository/org.scala-lang/scala3-library_3/3.2.1/scala3-library_3-3.2.2-RC2.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.10/scala-library-2.18.6.jar;%USERPROFILE%/.m2/repository/org.scala-lang/scala3-library_3/3.2.1/scala3-library_3-3.2.2.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
 JUnit version 4.13.2
 ..
 Time: 0.239
@@ -364,16 +364,16 @@ Command **` mvn.cmd compile test`** with option **`-debug`** produces additional
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> -debug compile test | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-temurin-11.0.17_8\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.2.2-RC2 \
- -cp C:\opt\scala3-3.2.2-RC2\lib\*.jar -Dscala.usejavacp=true  \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.2.2 \
+ -cp C:\opt\scala3-3.2.2\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath Y:\examples\hello-scala\target\classes \
  -d Y:\examples\hello-scala\target\classes \
  Y:\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-temurin-11.0.17_8\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.2.2-RC2 [...]
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.2.2 [...]
 [DEBUG] [execute] C:\opt\jdk-temurin-11.0.17_8\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\scala3-3.2.2-RC2\lib\*.jar;\
+ -Xms64m -Xmx1024m -cp C:\opt\scala3-3.2.2\lib\*.jar;\
 Y:\examples\hello-scala\target\classes hello
 </pre>
 
@@ -413,7 +413,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html" rel="external">java</a> -version 2>&1 | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> version</b>
 openjdk version "11.0.17" 2022-10-18
 
-<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html" rel="external">java</a> -Xbootclasspath/a:"c:\opt\scala3-3.2.2-RC2\lib\scala3-library_3-3.2.2-RC2.jar;c:\opt\scala3-3.2.2-RC2\lib\scala-library-2.13.10.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
+<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html" rel="external">java</a> -Xbootclasspath/a:"c:\opt\scala3-3.2.2\lib\scala3-library_3-3.2.2.jar;c:\opt\scala3-3.2.2\lib\scala-library-2.13.10.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
 Your weight on EARTH (2) is 0.9999999999999999

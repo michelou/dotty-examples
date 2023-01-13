@@ -36,7 +36,7 @@
 
 [GitHub Actions Tricks](https://rammusxu.github.io/toolkit/snippets/github-action/)
 
-## <span id="footnotes">Footnotes</span>
+## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
 <span id="footnote_01">[1]</span> ***Preinstalled software*** [↩](#anchor_01)
 
