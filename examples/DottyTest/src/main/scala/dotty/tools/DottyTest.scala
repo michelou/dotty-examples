@@ -55,10 +55,9 @@ class DottyTest extends ContextEscapeDetection {
   }
 
   def checkCompile(checkAfterPhase: String, source: String)(assertion: (tpd.Tree, Context) => Unit): Context = {
-    println("44444444444")
     val c = compilerWithChecker(checkAfterPhase)(assertion)
     val run = c.newRun
-    run.compile(List(source))
+    run.compile(List(io.AbstractFile.getFile(source)))
     run.runContext
   }
 
@@ -66,7 +65,7 @@ class DottyTest extends ContextEscapeDetection {
     println("55555555555")
     val c = compilerWithChecker(checkAfterPhase)(assertion)
     val run = c.newRun
-    run.compile(sources)
+    run.compile(sources.map(s => io.AbstractFile.getFile(s)))
     run.runContext
   }
 

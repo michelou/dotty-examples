@@ -161,23 +161,22 @@ compile() {
 }
 
 action_required() {
-    local timestamp_file=$1
+    local target_file=$1
     local search_path=$2
     local search_pattern=$3
-    local latest=
-    for f in $(find $search_path -name $search_pattern 2>/dev/null); do
-        [[ $f -nt $latest ]] && latest=$f
+    local source_file=
+    for f in $(find "$search_path" -type f -name "$search_pattern"); do
+        [[ $f -nt $source_file ]] && source_file=$f
     done
-    if [ -z "$latest" ]; then
+    if [ -z "$source_file" ]; then
         ## Do not compile if no source file
         echo 0
-    elif [ ! -f "$timestamp_file" ]; then
-        ## Do compile if timestamp file doesn't exist
+    elif [ ! -f "$target_file" ]; then
+        ## Do compile if target file doesn't exist
         echo 1
     else
-        ## Do compile if timestamp file is older than most recent source file
-        local timestamp=$(stat -c %Y $timestamp_file)
-        [[ $timestamp_file -nt $latest ]] && echo 1 || echo 0
+        ## Do compile if target file is older than most recent source file
+        [[ $source_file -nt $target_file ]] && echo 1 || echo 0
     fi
 }
 
@@ -192,7 +191,7 @@ compile_java() {
     local sources_file="$TARGET_DIR/javac_sources.txt"
     [[ -f "$sources_file" ]] && rm "$sources_file"
     local n=0
-    for f in $(find $SOURCE_DIR/main/java/ -name *.java 2>/dev/null); do
+    for f in $(find "$SOURCE_DIR/main/java/" -type f -name "*.java" 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
@@ -219,7 +218,7 @@ compile_scala() {
     local sources_file="$TARGET_DIR/scalac_sources.txt"
     [[ -f "$sources_file" ]] && rm "$sources_file"
     local n=0
-    for f in $(find $SOURCE_DIR/main/scala/ -name *.scala 2>/dev/null); do
+    for f in $(find "$SOURCE_DIR/main/scala/" -type f -name "*.scala" 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
@@ -387,7 +386,7 @@ doc() {
     fi
     eval "$SCALADOC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Generation of HTML documentation failed"
+        error "Failed to generate HTML documentation into directory \"${TARGET_DOCS_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     if $DEBUG; then

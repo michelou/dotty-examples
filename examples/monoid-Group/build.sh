@@ -121,7 +121,7 @@ clean() {
         if $DEBUG; then
             debug "Delete directory $TARGET_DIR"
         elif $VERBOSE; then
-            echo "Delete directory ${TARGET_DIR/$ROOT_DIR\//}" 1>&2
+            echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
         fi
         rm -rf "$TARGET_DIR"
         [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
@@ -161,23 +161,22 @@ compile() {
 }
 
 action_required() {
-    local timestamp_file=$1
+    local target_file=$1
     local search_path=$2
     local search_pattern=$3
-    local latest=
-    for f in $(find $search_path -name $search_pattern 2>/dev/null); do
-        [[ $f -nt $latest ]] && latest=$f
+    local source_file=
+    for f in $(find "$search_path" -type f -name $search_pattern 2>/dev/null); do
+        [[ $f -nt $source_file ]] && source_file=$f
     done
-    if [ -z "$latest" ]; then
+    if [ -z "$source_file" ]; then
         ## Do not compile if no source file
         echo 0
-    elif [ ! -f "$timestamp_file" ]; then
-        ## Do compile if timestamp file doesn't exist
+    elif [ ! -f "$target_file" ]; then
+        ## Do compile if target file doesn't exist
         echo 1
     else
-        ## Do compile if timestamp file is older than most recent source file
-        local timestamp=$(stat -c %Y $timestamp_file)
-        [[ $timestamp_file -nt $latest ]] && echo 1 || echo 0
+        ## Do compile if target file is older than most recent source file
+        [[ $source_file -nt $target_file ]] && echo 1 || echo 0
     fi
 }
 
@@ -274,7 +273,7 @@ decompile() {
         debug "$CFR_CMD $cfr_opts $(mixed_path $f)/*.class"
         eval "$CFR_CMD" $cfr_opts "$(mixed_path $f)/*.class" $STDERR_REDIRECT
         if [[ $? -ne 0 ]]; then
-            error "Failed to decompile generated code in directory $f"
+            error "Failed to decompile generated code in directory \"$f\""
             cleanup 1
         fi
     done
@@ -453,7 +452,7 @@ DECOMPILE=false
 DOC=false
 HELP=false
 LINT=false
-MAIN_CLASS=Main
+MAIN_CLASS=Test
 MAIN_ARGS=
 RUN=false
 SCALA_VERSION=3

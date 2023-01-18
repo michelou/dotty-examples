@@ -193,7 +193,7 @@ if exist "%__PROPS_FILE%" (
             set "_!__NAME:.=_!=!__VALUE!"
         )
     )
-    if defined _main_class set _MAIN_CLASS_DEFAULT=!_main_class!
+    rem if defined _main_class set _MAIN_CLASS_DEFAULT=!_main_class!
     if defined _main_args set _MAIN_ARGS_DEFAULT=!_main_args!
     if defined _project_name set _PROJECT_NAME=!_project_name!
     if defined _project_url set _PROJECT_URL=!_project_url!
