@@ -343,12 +343,12 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%           show commands executed by this script
-echo     %__BEG_O%-dotty%__END%           use Scala 3 tools ^(default^)
 echo     %__BEG_O%-explain%__END%         set compiler option %__BEG_O%-explain%__END%
 echo     %__BEG_O%-explain-types%__END%   set compiler option %__BEG_O%-explain-types%__END%
 echo     %__BEG_O%-main:^<name^>%__END%     define main class name ^(default: %__BEG_O%%_MAIN_CLASS_DEFAULT%%__END%^)
 echo     %__BEG_O%-print%__END%           print IR after compilation phase 'lambdaLift'
-echo     %__BEG_O%-scala%__END%           use Scala 2 tools
+echo     %__BEG_O%-scala2%__END%          use Scala 2 tools
+echo     %__BEG_O%-scala3%__END%          use Scala 3 tools ^(default^)
 echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
 echo     %__BEG_O%-timer%__END%           display total elapsed time
 echo     %__BEG_O%-verbose%__END%         display progress messages
@@ -493,12 +493,15 @@ echo %_SCALAC_OPTS% -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__O
 set "__SOURCES_FILE=%_TARGET_DIR%\scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
-for /f %%f in ('dir /s /b "%_MAIN_SOURCE_DIR%\*.scala" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_MAIN_SOURCE_DIR%\*.scala" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
-if %__N% gtr 1 ( set __N_FILES=%__N% Scala source files
-) else ( set __N_FILES=%__N% Scala source file
+if %__N%==0 (
+    echo %_WARNING_LABEL% No Scala source file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% Scala source file
+) else ( set __N_FILES=%__N% Scala source files
 )
 set __PRINT_FILE_REDIRECT=
 if %_SCALAC_OPTS_PRINT%==1 (
@@ -586,10 +589,10 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 )
 goto :eof
 
-@rem input parameter: %1=flag to add Dotty libs
+@rem input parameter: %1=flag to add Scala 3 libs
 @rem output parameter: _LIBS_CPATH
 :libs_cpath
-set __ADD_DOTTY_LIBS=%~1
+set __ADD_SCALA3_LIBS=%~1
 
 for %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
 if not exist "%__BATCH_FILE%" (
@@ -601,7 +604,7 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__BATCH_FILE%" %_DEBUG% 1>&2
 call "%__BATCH_FILE%" %_DEBUG%
 set "_LIBS_CPATH=%_CPATH%"
 
-if defined __ADD_DOTTY_LIBS (
+if defined __ADD_SCALA3_LIBS (
     if not defined SCALA3_HOME (
         echo %_ERROR_LABEL% Variable SCALA3_HOME not defined 1>&2
         set _EXITCODE=1

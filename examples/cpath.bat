@@ -40,7 +40,7 @@ call :add_jar "org.hamcrest" "hamcrest" "2.2"
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all
 call :add_jar "org.hamcrest" "hamcrest-all" "1.3"
 
-set __SCALATEST_VERSION=3.2.14
+set __SCALATEST_VERSION=3.2.15
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
@@ -60,7 +60,7 @@ call :add_jar "org.scalatest" "scalatest_3" "%__SCALATEST_VERSION%"
 @rem https://mvnrepository.com/artifact/org.scalactic
 call :add_jar "org.scalactic" "scalactic_3" "%__SCALATEST_VERSION%"
 
-set __SPECS2_VERSION=5.1.0
+set __SPECS2_VERSION=5.2.0
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
 @rem NB. dependency of specs2

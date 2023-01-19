@@ -298,7 +298,7 @@ goto :eof
 
 :help
 if %_VERBOSE%==1 (
-    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __BEG_P=%_STRONG_FG_CYAN%
     set __BEG_O=%_STRONG_FG_GREEN%
     set __BEG_N=%_NORMAL_FG_YELLOW%
     set __END=%_RESET%
@@ -365,7 +365,7 @@ call :rmdir "%_ROOT_DIR%out"
 call :rmdir "%_TARGET_DIR%"
 goto :eof
 
-@rem input parameter(s): %1=directory path
+@rem input parameter: %1=directory path
 :rmdir
 set "__DIR=%~1"
 if not exist "%__DIR%\" goto :eof
@@ -450,7 +450,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCE
 )
 call "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of %__N_FILES% failed 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -557,7 +557,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: %__PATH_ARRAY:~1% 1>&2
     echo %_DEBUG_LABEL% _ACTION_REQUIRED=%_ACTION_REQUIRED% 1>&2
 ) else if %_VERBOSE%==1 if %_ACTION_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
-    echo No action required ^(%__PATH_ARRAY1:~1%^) 1>&2
+    echo No action required ^("%__PATH_ARRAY1:~1%"^) 1>&2
 )
 goto :eof
 
