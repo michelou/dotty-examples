@@ -19,7 +19,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other trending topics we are continuously monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other trending topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -88,7 +88,7 @@ C:\opt\apache-ant-1.10.12\         <i>( 40 MB)</i>
 C:\opt\apache-maven-3.8.7\         <i>( 10 MB)</i>
 C:\opt\bazel-6.0.0\                <i>( 45 MB)</i>
 C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
-C:\opt\Git-2.39.0\                 <i>(317 MB)</i>
+C:\opt\Git-2.39.1\                 <i>(317 MB)</i>
 C:\opt\gradle-7.6\                 <i>(129 MB)</i>
 C:\opt\jacoco-0.8.8\               <i>( 10 MB)</i>
 C:\opt\javafx-sdk-17.0.2\          <i>( 82 MB)</i>
@@ -338,7 +338,7 @@ We distinguish different sets of batch/bash commands:
     }
     </pre>
 
-## <span id="examples">Usage examples</span>
+## <span id="examples">Usage examples</span> [**&#x25B4;**](#top)
 
 ### **`setenv.bat`**
 
@@ -350,7 +350,7 @@ Tool versions:
    javac 11.0.17, java 11.0.17, scalac 2.13.10, scalac 3.2.2,
    ant 1.10.12, gradle 7.6, mill 0.10.10, mvn 3.8.7, sbt 1.8.2,
    bazel 6.0.0, bloop v1.3.4, cfr 0.152, make 3.81, python 3.11.0,
-   git 2.39.0.windows.1, diff 3.8, bash 4.4.23(1)-release
+   git 2.39.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
 C:\opt\sbt-1.8.2\bin\sbt
@@ -378,7 +378,7 @@ Tool versions:
    javac 11.0.17, java 11.0.17, scalac 2.13.10, scalac 3.2.2,
    ant 1.10.12, gradle 7.6, mill 0.10.10, mvn 3.8.7, sbt 1.8.2,
    bazel 6.0.0, cfr 0.152, make 3.81, python 3.11.0,
-   git 2.39.0.windows.1, diff 3.8, bash 4.4.23(1)-release
+   git 2.39.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.17_8\bin\javac.exe
    C:\opt\jdk-temurin-11.0.17_8\bin\java.exe
@@ -394,14 +394,14 @@ Tool paths:
    C:\opt\cfr-0.152\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
    C:\opt\Python-3.11.0\python.exe
-   C:\opt\Git-2.39.0\bin\git.exe
-   C:\opt\Git-2.39.0\mingw64\bin\git.exe
-   C:\opt\Git-2.39.0\usr\bin\diff.exe
-   C:\opt\Git-2.39.0\bin\bash.exe
+   C:\opt\Git-2.39.1\bin\git.exe
+   C:\opt\Git-2.39.1\mingw64\bin\git.exe
+   C:\opt\Git-2.39.1\usr\bin\diff.exe
+   C:\opt\Git-2.39.1\bin\bash.exe
 Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.12"
    "BAZEL_HOME=c:\opt\bazel-6.0.0"
-   "GIT_HOME=C:\opt\Git-2.39.0"
+   "GIT_HOME=C:\opt\Git-2.39.1"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.17_8"
    "JAVAFX_HOME=C:\opt\javafx-sdk-17.0.2"
    "MSVS_HOME=X:"
@@ -858,7 +858,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u345b01.zip</a>     <i>( 99 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.17_8.zip</a>   <i>(188 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_17.0.5_8.zip</a>    <i>(188 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.39.0-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.39.1-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.8.2.zip</a>                                      <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.10.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.2.2">scala3-3.2.2.zip</a>                               <i>( 34 MB)</i>
@@ -902,6 +902,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [bloop_relnotes]: https://github.com/scalacenter/bloop/releases/tag/v1.3.4
 [cfr_releases]: https://www.benf.org/other/cfr/
 [cpp_examples]: https://github.com/michelou/cpp-examples
+[dart_examples]: https://github.com/michelou/dart-examples
 [deno_examples]: https://github.com/michelou/deno-examples
 [dotty]: https://dotty.epfl.ch
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
@@ -911,7 +912,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [git_bash]: https://www.atlassian.com/git/tutorials/git-bash
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.1.txt
 [github_guides]: https://guides.github.com/
 [github_lampepfl_dotty]: https://github.com/lampepfl/dotty
 [github_markdown]: https://github.github.com/gfm/
