@@ -56,6 +56,7 @@ This project depends on the following external software for the **Microsoft Wind
 11.0.15 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2022-April/014104.html
 11.0.16 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2022-July/016017.html
 11.0.17 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2022-October/018119.html
+11.0.18 -> https://
 -->
 Optionally one may also install the following software:
 
@@ -84,7 +85,7 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*January 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\apache-ant-1.10.12\         <i>( 40 MB)</i>
+C:\opt\apache-ant-1.10.13\         <i>( 40 MB)</i>
 C:\opt\apache-maven-3.8.7\         <i>( 10 MB)</i>
 C:\opt\bazel-6.0.0\                <i>( 45 MB)</i>
 C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
@@ -92,12 +93,12 @@ C:\opt\Git-2.39.1\                 <i>(317 MB)</i>
 C:\opt\gradle-7.6\                 <i>(129 MB)</i>
 C:\opt\jacoco-0.8.8\               <i>( 10 MB)</i>
 C:\opt\javafx-sdk-17.0.2\          <i>( 82 MB)</i>
-C:\opt\jdk-temurin-1.8.0_345-b01\  <i>(185 MB)</i>
-C:\opt\jdk-temurin-11.0.17_8\      <i>(301 MB)</i>
-C:\opt\jdk-temurin-17.0.5_8\       <i>(299 MB)</i>
+C:\opt\jdk-temurin-1.8.0_352-b08\  <i>(185 MB)</i>
+C:\opt\jdk-temurin-11.0.18_10\     <i>(302 MB)</i>
+C:\opt\jdk-temurin-17.0.6_10\      <i>(299 MB)</i>
 C:\opt\jitwatch-1.4.7\             <i>( 36 MB)</i>
 C:\opt\make-3.81\                  <i>(  2 MB)</i>
-C:\opt\mill-0.10.10\               <i>( 67 MB)</i>
+C:\opt\mill-0.10.11\               <i>( 67 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
 C:\opt\sbt-1.8.2\                  <i>( 80 MB)</i>
 C:\opt\scala-2.13.10\              <i>( 24 MB)</i>
@@ -106,7 +107,7 @@ C:\opt\scala3-3.2.2\               <i>( 35 MB)</i>
  <!-- jdk8: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
  <!-- jdk8: 345-b01 = 186 MB -->
  <!-- jdk11: 11.0.8 = 314 MB, 11.0.9 = 316 MB, 11.0.11 = 300 MB -->
- <!-- jdk11: 11.0.16 = 301 MB, 11.0.17 = 301 MB -->
+ <!-- jdk11: 11.0.16 = 301 MB, 11.0.18 = 301 MB -->
  <!-- sbt: 1.3.6 = 55.1 MB, 1.3.7 = 60.9 MB, 1.3.8 = 61.0 MB -->
  <!-- sbt: 1.3.9 = 61.2 MB, 1.3.10 = 61.2 MB, 1.3.11 = 61.3 MB, 1.4.1 = 47.6 MB -->
  <!-- sbt: 1.4.2 = 47.7 MB, 1.4.3 = 47.7 MB, 1.4.6 -> 48 MB, 1.4.6 = MB -->
@@ -347,8 +348,8 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   javac 11.0.17, java 11.0.17, scalac 2.13.10, scalac 3.2.2,
-   ant 1.10.12, gradle 7.6, mill 0.10.10, mvn 3.8.7, sbt 1.8.2,
+   javac 11.0.18, java 11.0.18, scalac 2.13.10, scalac 3.2.2,
+   ant 1.10.13, gradle 7.6, mill 0.10.11, mvn 3.8.7, sbt 1.8.2,
    bazel 6.0.0, bloop v1.3.4, cfr 0.152, make 3.81, python 3.11.0,
    git 2.39.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 
@@ -364,10 +365,10 @@ Other development tools such as [**`javac.exe`**][javac_cli] and [**`scalac.bat`
 INFO: Could not find files for the given pattern(s).
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> /r %JAVA_HOME% javac</b>
-C:\opt\jdk-temurin-11.0.17_8\bin\javac.exe
+C:\opt\jdk-temurin-11.0.18_10\bin\javac.exe
 &nbsp;
 <b>&gt; %JAVA_HOME%\bin\<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html">javac</a> -version</b>
-javac 11.0.17
+javac 11.0.18
 </pre>
 
 Command [**`setenv.bat -verbose`**](setenv.bat) also displays the tool paths and defined variables:
@@ -375,19 +376,19 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also displays the tool paths and
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   javac 11.0.17, java 11.0.17, scalac 2.13.10, scalac 3.2.2,
-   ant 1.10.12, gradle 7.6, mill 0.10.10, mvn 3.8.7, sbt 1.8.2,
+   javac 11.0.18, java 11.0.18, scalac 2.13.10, scalac 3.2.2,
+   ant 1.10.13, gradle 7.6, mill 0.10.11, mvn 3.8.7, sbt 1.8.2,
    bazel 6.0.0, cfr 0.152, make 3.81, python 3.11.0,
    git 2.39.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
-   C:\opt\jdk-temurin-11.0.17_8\bin\javac.exe
-   C:\opt\jdk-temurin-11.0.17_8\bin\java.exe
+   C:\opt\jdk-temurin-11.0.18_10\bin\javac.exe
+   C:\opt\jdk-temurin-11.0.18_10\bin\java.exe
    C:\opt\scala-2.13.10\bin\scalac.bat
    C:\opt\scala3-3.2.2\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
-   C:\opt\apache-ant-1.10.12\bin\ant.bat
+   C:\opt\apache-ant-1.10.13\bin\ant.bat
    C:\opt\gradle-7.6\bin\gradle.bat
-   C:\opt\mill-0.10.10\mill.bat
+   C:\opt\mill-0.10.11\mill.bat
    C:\opt\apache-maven-3.8.7\bin\mvn.cmd
    C:\opt\sbt-1.8.2\bin\sbt.bat
    C:\opt\bazel-6.0.0\bazel.exe
@@ -399,10 +400,10 @@ Tool paths:
    C:\opt\Git-2.39.1\usr\bin\diff.exe
    C:\opt\Git-2.39.1\bin\bash.exe
 Environment variables:
-   "ANT_HOME=C:\opt\apache-ant-1.10.12"
+   "ANT_HOME=C:\opt\apache-ant-1.10.13"
    "BAZEL_HOME=c:\opt\bazel-6.0.0"
    "GIT_HOME=C:\opt\Git-2.39.1"
-   "JAVA_HOME=C:\opt\jdk-temurin-11.0.17_8"
+   "JAVA_HOME=C:\opt\jdk-temurin-11.0.18_10"
    "JAVAFX_HOME=C:\opt\javafx-sdk-17.0.2"
    "MSVS_HOME=X:"
    "MSYS_HOME=C:\opt\msys64"
@@ -428,11 +429,11 @@ Finished to clean up 12 subdirectories in Y:\dotty\myexamples
 Command [**`dirsize.bat`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.2.2 c:\opt\jdk-temurin-11.0.17_8</b>
+<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.2.2 c:\opt\jdk-temurin-11.0.18_10</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
 Size of directory "c:\opt\scala3-3.2.2" is 35.7 Mb
-Size of directory "c:\opt\jdk-temurin-11.0.17_8" is 301.0 Mb
+Size of directory "c:\opt\jdk-temurin-11.0.18_10" is 301.0 Mb
 </pre>
 
 ### **`getnightly.bat`**
@@ -578,7 +579,7 @@ Searching for class name System in archive files C:\opt\scala-2.13.10\lib\*.jar
   [...]
   scala-library.jar:scala/sys/SystemProperties$.class
   scala-library.jar:scala/sys/SystemProperties.class
-Searching for class name System in archive files C:\opt\jdk-temurin-11.0.17_8\lib\*.jar
+Searching for class name System in archive files C:\opt\jdk-temurin-11.0.18_10\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   [...]
   jrt-fs.jar:jdk/internal/jrtfs/SystemImage$2.class
@@ -596,7 +597,7 @@ Searching for an unknown class name - e.g. **`BinarySearch`** - produces the fol
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> BinarySearch</b>
 Searching for class name BinarySearch in archive files C:\opt\scala3-4\lib\*.jar
 Searching for class name BinarySearch in archive files C:\opt\scala-2.13.10\lib\*.jar
-Searching for class name BinarySearch in archive files C:\opt\jdk-temurin-11.0.17_8\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\jdk-temurin-11.0.18_10\lib\*.jar
 </pre>
 
 Searching for **`FileSystem`** with option **`-artifact`** produces the following output:
@@ -605,7 +606,7 @@ Searching for **`FileSystem`** with option **`-artifact`** produces the followin
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> FileSystem -artifact</b>
 Searching for class name FileSystem in archive files C:\opt\scala3-3.2.2\lib\*.jar
 Searching for class name FileSystem in archive files C:\opt\scala-2.13.10\lib\*.jar
-Searching for class name FileSystem in archive files c:\opt\jdk-temurin-11.0.17_8\lib\*.jar
+Searching for class name FileSystem in archive files c:\opt\jdk-temurin-11.0.18_10\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystemProvider$1.class
@@ -750,7 +751,7 @@ The REPL has several commands available:
 :reset                   reset the repl to its initial state, forgetting all session entries
 
 <b>scala&gt;</b> System.getenv().get("JAVA_HOME")
-val res0: String = C:\opt\jdk-temurin-11.0.17_8
+val res0: String = C:\opt\jdk-temurin-11.0.18_10
 
 <b>scala&gt;</b> System.getenv().get("SCALA3_HOME")
 val res1: String = C:\opt\scala3-3.2.2
@@ -844,8 +845,8 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/lihaoyi/mill/releases">0.10.10-assembly</a> (<code>mill</code>)                            <i>( 64 MB)</i>
-<a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.12-bin.zip</a>                         <i>(  9 MB)</i>
+<a href="https://github.com/lihaoyi/mill/releases">0.10.11-assembly</a> (<code>mill</code>)                            <i>( 64 MB)</i>
+<a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.13-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.8.7-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-6.0.0-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.6-bin.zip</a>                                 <i>(103 MB)</i>
@@ -855,13 +856,13 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20210228.exe</a>                          <i>( 94 MB)</i>
 <a href="http://jdk.java.net/17/">openjdk-17_windows-x64_bin.zip</a>                     <i>(176 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-17_windows-x64_bin-sdk.zip</a>                 <i>( 39 MB)</i>
-<a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u345b01.zip</a>     <i>( 99 MB)</i>
-<a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.17_8.zip</a>   <i>(188 MB)</i>
-<a href="https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_17.0.5_8.zip</a>    <i>(188 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u352b08.zip</a>     <i>( 99 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.18_10.zip</a>  <i>(188 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_17.0.6_10.zip</a>   <i>(188 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.39.1-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.8.2.zip</a>                                      <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.10.zip</a>                                  <i>( 22 MB)</i>
-<a href="https://github.com/lampepfl/dotty/releases/tag/3.2.2">scala3-3.2.2.zip</a>                               <i>( 34 MB)</i>
+<a href="https://github.com/lampepfl/dotty/releases/tag/3.2.2">scala3-3.2.2.zip</a>                                   <i>( 34 MB)</i>
 </pre>
 </dd></dl>
 
@@ -882,7 +883,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [akka_examples]: https://github.com/michelou/akka-examples
 [apache_ant]: https://ant.apache.org/
 [apache_ant_cli]: https://ant.apache.org/manual/running.html
-[apache_ant_relnotes]: https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.12.html
+[apache_ant_relnotes]: https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.13.html
 [apache_ant_scripting]: https://ant.apache.org/manual/using.html "Writing a Simple Buildfile"
 [apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
