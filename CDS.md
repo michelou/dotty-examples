@@ -35,8 +35,8 @@ This project depends on the following external software for the **Microsoft Wind
 For instance our development environment looks as follows (*January 2023*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.39.0\              <i>(317 MB)</i>
-C:\opt\jdk-temurin-11.0.17_8\   <i>(314 MB)</i>
+C:\opt\Git-2.39.1\              <i>(314 MB)</i>
+C:\opt\jdk-temurin-11.0.18_10\  <i>(302 MB)</i>
 C:\opt\scala3-3.2.2\            <i>( 57 MB)</i>
 </pre>
 
@@ -703,7 +703,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -716,7 +716,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [flix_examples]: https://github.com/michelou/flix-examples
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
@@ -746,7 +746,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [scala_downloads]: https://www.scala-lang.org/download/
 [scala3_home]: https://dotty.epfl.ch/
 [scala3_releases]: https://github.com/lampepfl/dotty/releases
-[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.2.1-RC1
+[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.2.2
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
 [spring_examples]: https://github.com/michelou/spring-examples
 [wix_examples]: https://github.com/michelou/wix-examples

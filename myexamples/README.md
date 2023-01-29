@@ -54,8 +54,8 @@ Buildfile: W:\myexamples\HelloWorld\build.xml
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
-[ivy:resolve] :: Apache Ivy 2.5.0 - 20191020104435 :: https://ant.apache.org/ivy/ ::
-[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.12/lib/ivy-2.5.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
+[ivy:resolve] :: Apache Ivy 2.5.1 - 20221101102211 :: https://ant.apache.org/ivy/ ::
+[ivy:resolve] :: loading settings :: url = jar:file:/C:/opt/apache-ant-1.10.13/lib/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
 
 <span style="font-weight:bold;color:#9966ff;">init:</span>
 
@@ -71,13 +71,13 @@ Total time: 3 seconds
 </pre>
 
 > **&#9755;** **Apache Ivy**<br/>
-> We observe from task **`init.ivy`** that the [Apache Ivy][apache_ant_ivy] library has been added to the [Ant](https://ant.apache.org/) installation directory. In our case we installed [version 2.5.0][apache_ant_ivy_relnotes] of the [Apache Ivy][apache_ant_ivy] library.
+> We observe from task **`init.ivy`** that the [Apache Ivy][apache_ant_ivy] library has been added to the [Ant](https://ant.apache.org/) installation directory. In our case we installed [version 2.5.1][apache_ant_ivy_relnotes] of the [Apache Ivy][apache_ant_ivy] library.
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://curl.haxx.se/docs/manual.html">curl</a> -sL -o c:\Temp\apache-ivy-2.5.0.zip https://www-eu.apache.org/dist//ant/ivy/2.5.0/apache-ivy-2.5.0-bin.zip</b>
-> <b>&gt; <a href="https://linux.die.net/man/1/unzip">unzip</a> c:\temp\apache-ivy-2.5.0.zip -d c:\opt</b>
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/copy">copy</a> c:\opt\apache-ivy-2.5.0\ivy-2.5.0.jar c:\opt\apache-ant-1.10.12\lib</b>
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\apache-ant-1.10.12\lib | findstr ivy</b>
-> 20.10.2019  09:44         1 402 646 ivy-2.5.0.jar
+> <b>&gt; <a href="https://curl.haxx.se/docs/manual.html">curl</a> -sL -o c:\Temp\apache-ivy-2.5.1.zip https://www-eu.apache.org/dist//ant/ivy/2.5.1/apache-ivy-2.5.1-bin.zip</b>
+> <b>&gt; <a href="https://linux.die.net/man/1/unzip">unzip</a> c:\temp\apache-ivy-2.5.1.zip -d c:\opt</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/copy">copy</a> c:\opt\apache-ivy-2.5.1\ivy-2.5.1.jar c:\opt\apache-ant-1.10.13\lib</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\apache-ant-1.10.13\lib | findstr ivy</b>
+> 20.10.2019  09:44         1 402 646 ivy-2.5.1.jar
 > </pre>
 
 We can set property **`-Duse.local=true`** to use the Scala 3 local installation (*reminder*: variable **`SCALA3_HOME`** is set by command **`setenv`**):
@@ -134,10 +134,10 @@ Command [**`setenv -bash`**](setenv.bat) starts a [Cygwin] Bash session:
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -bash</b>
 Tool versions:
-   javac 11.0.17 java 11.0.17 scalac 2.13.10, scalac 3.2.2,
-   ant 1.10.12, gradle 7.6, mill 0.10.10, mvn 3.8.7, sbt 1.8.2,
+   javac 11.0.18, java 11.0.18, scalac 2.13.10, scalac 3.2.2,
+   ant 1.10.13, gradle 7.6, mill 0.10.11, mvn 3.8.7, sbt 1.8.2,
    bazel 6.0.0, cfr 0.152, coursier 2.0.16, make 3.81, python 3.11.1,
-   git 2.39.0.windows.1, diff 3.8, bash 4.4.23(1)-release
+   git 2.39.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 &nbsp;
 user@host MSYS /w
 <b>$ <a href="https://www.man7.org/linux/man-pages/man1/bash.1.html">bash</a> --version | <a href="https://man7.org/linux/man-pages/man1/grep.1.html">grep</a> bash</b>
@@ -145,7 +145,7 @@ GNU bash, version 4.4.23(1)-release (x86_64-pc-msys)
 &nbsp;
 user@host MSYS /w
 <b>$ env | <a href="https://man7.org/linux/man-pages/man1/grep.1.html">grep</a> _HOME | <a href="https://man7.org/linux/man-pages/man1/sort.1.html">sort</a></b>
-ANT_HOME=C:\opt\apache-ant-1.10.12
+ANT_HOME=C:\opt\apache-ant-1.10.13
 [...]
 SBT_HOME=C:\opt\sbt-1.8.2
 SCALA3_HOME=C:\opt\scala3-3.2.2
@@ -170,16 +170,16 @@ Similarly, command [**`setenv -msys`**](setenv.bat) starts a [MSYS2] Bash sessio
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -msys</b>
 Tool versions:
-   javac 11.0.17 java 11.0.17 scalac 2.13.10, scalac 3.2.2,
-   ant 1.10.12, gradle 7.6, mill 0.10.10, mvn 3.8.7, sbt 1.8.2,
+   javac 11.0.18 java 11.0.18 scalac 2.13.10, scalac 3.2.2,
+   ant 1.10.13, gradle 7.6, mill 0.10.11, mvn 3.8.7, sbt 1.8.2,
    bazel 6.0.0, cfr 0.152, coursier 2.0.16, make 3.81, python 3.11.1,
-   git 2.39.0.windows.1, diff 3.8, bash 4.4.23(1)-release
+   git 2.39.1.windows.1, diff 3.8, bash 4.4.23(1)-release
 &nbsp;
 <b>$ <a href="https://www.man7.org/linux/man-pages/man1/bash.1.html">bash</a> --version | <a href="https://man7.org/linux/man-pages/man1/grep.1.html">grep</a> bash</b>
 GNU bash, version 5.3.26(1)-release (x86_64-pc-msys)
 &nbsp;
 <b>$ <a href="https://man7.org/linux/man-pages/man1/env.1.html">env</a> | <a href="https://man7.org/linux/man-pages/man1/grep.1.html">grep</a> _HOME | <a href="https://man7.org/linux/man-pages/man1/sort.1.html">sort</a></b>
-ANT_HOME=C:\opt\apache-ant-1.10.12
+ANT_HOME=C:\opt\apache-ant-1.10.13
 [...]
 SBT_HOME=C:\opt\sbt-1.8.2
 SCALA3_HOME=C:\opt\scala3-3.2.2
@@ -337,7 +337,7 @@ Command **`mvn clean test`** with option **`-debug`** produces additional debug 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/run.html">mvn</a> -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-temurin-11.0.17_8\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-temurin-11.0.18_8\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.2.2 \
  -cp C:\opt\scala3-3.2.2\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
@@ -346,7 +346,7 @@ Command **`mvn clean test`** with option **`-debug`** produces additional debug 
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-temurin-11.0.14_9\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.2.2 [...]
-[DEBUG] [execute] C:\opt\jdk-temurin-11.0.17_8\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-temurin-11.0.18_8\bin\java.exe \
  -Xms64m -Xmx1024m -cp C:\opt\scala3-3.2.2\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
@@ -450,7 +450,7 @@ Hello world!
 >   scala-library-2.13.10.jar:scala/collection/generic/DefaultSerializable.class
 > Searching for class name Serializable in library files C:\opt\scala-2.13.10\lib\*.jar
 >   scala-library.jar:scala/collection/generic/DefaultSerializable.class
-> Searching for class name Serializable in library files C:\opt\jdk-temurin-11.0.17_8\lib\*.jar
+> Searching for class name Serializable in library files C:\opt\jdk-temurin-11.0.18_8\lib\*.jar
 > Searching for class name Serializable in archive files C:\opt\javafx-sdk-17.0.1\lib\*.jar
 > </pre>
 > Class **`scala.Serializable`** is part of **`C:\opt\scala3-3.2.2\lib\scala-library-2.13.10.jar`**, so let us add it to our classpath !
@@ -603,7 +603,7 @@ following parameters are passed as login shell command parameters.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
