@@ -11,7 +11,7 @@ SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 ##############################################################################
 ## main rules
 
-JAVA_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name *.java 2>/dev/null)
+JAVA_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name "*.java" 2>/dev/null)
 JAVA_TARGET  = $(TARGET_DIR)/.latest-java-build
 
 JAVAC_OPTS_FILE    = $(TARGET_DIR)/javac_opts.txt
@@ -20,7 +20,7 @@ JAVAC_SOURCES_FILE = $(TARGET_DIR)/javac_sources.txt
 OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
 SOURCES_FILE = $(TARGET_DIR)/scalac_sources.txt
 
-SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main/scala" -name *.scala)
+SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main/scala" -name "*.scala")
 TARGET  = $(TARGET_DIR)/.latest-build
 
 MAIN_CLASS = Test
@@ -69,7 +69,7 @@ help:
 ## doc rules
 
 DOC_TARGET_DIR = $(TARGET_DIR)/docs
-DOC_SOURCES    = $(shell $(FIND) "$(CLASSES_DIR)" -type f -name *.tasty 2>/dev/null)
+DOC_SOURCES    = $(shell $(FIND) "$(CLASSES_DIR)" -type f -name "*.tasty" 2>/dev/null)
 DOC_TARGET     = $(DOC_TARGET_DIR)/.latest-build
 
 PROJECT_NAME    ?= $(shell basename $(CURDIR))
@@ -100,7 +100,7 @@ lint:
 ##############################################################################
 ## test rules
 
-TEST_SOURCES     = $(shell $(FIND) "$(SOURCE_DIR)/test" -name *.scala 2>/dev/null)
+TEST_SOURCES     = $(shell $(FIND) "$(SOURCE_DIR)/test" -name "*.scala" 2>/dev/null)
 TEST_CLASSES_DIR = $(TARGET_DIR)/test-classes
 TEST_TARGET      = $(TARGET_DIR)/.latest-test-build
 

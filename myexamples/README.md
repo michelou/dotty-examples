@@ -20,17 +20,17 @@ W:\myexamples\HelloWorld
 
 Build tools rely on one or more configuration files to achieve their tasks. In our case we provide the following configuration files for [**`HelloWorld`**](HelloWorld):
 
-| Build tool                    | Configuration file(s)                                   | Parent file(s)                       | Environment(s) |
-|-------------------------------|---------------------------------------------------------|--------------------------------------|---------|
-| [**`ant.bat`**][apache_ant_cli]   | [**`build.xml`**](HelloWorld/build.xml)                 | [**`build.xml`**](build.xml), [**`ivy.xml`**](ivy.xml) | Any <sup><b>a)</b></sup> |
-| [**`bazel.exe`**][bazel_cli]      | [**`BUILD`**](HelloWorld/BUILD), **`WORKSPACE`**        | n.a.                                 | Any |
-| [**`build.bat`**](HelloWorld/build.bat) | [**`build.properties`**](HelloWorld/project/build.properties) |  [**`cpath.bat`**](./cpath.bat) <sup><b>b)</b></sup>        | Windows only |
-| [**`build.sh`**](HelloWorld/build.sh) | [**`build.properties`**](HelloWorld/project/build.properties) |         | [Cygwin]/[MSYS2]/Unix only |
-| [**`gradle.bat`**][gradle_cli]    | [**`build.gradle`**](HelloWorld/build.gradle)           | [**`common.gradle`**](common.gradle) | Any |
-| [**`make.exe`**][gmake_cli]       | [**`Makefile`**](HelloWorld/Makefile)                   | [**`Makefile.inc`**](Makefile.inc)   | Any |
-| [**`mill.bat`**][mill_cli]        | [**`build.sc`**](HelloWorld/build.sc)                   | [**`common.sc`**](common.sc)         | Any |
-| [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](HelloWorld/pom.xml)                     | [**`pom.xml`**](pom.xml)             | Any |
-| [**`sbt.bat`**][sbt_cli]          | [**`build.sbt`**](HelloWorld/build.sbt)                 | n.a.                                 | Any |
+| Build tool                    | | Configuration file(s)                                   | Parent file(s)                       | Environment(s) |
+|-------------------------------|-|---------------------------------------------------------|--------------------------------------|---------|
+| [**`ant.bat`**][apache_ant_cli] | [**&#9660;**](#ant) | [**`build.xml`**](HelloWorld/build.xml)                 | [**`build.xml`**](build.xml), [**`ivy.xml`**](ivy.xml) | Any <sup><b>a)</b></sup> |
+| [**`bazel.exe`**][bazel_cli]    | | [**`BUILD`**](HelloWorld/BUILD), **`WORKSPACE`**        | n.a.                                 | Any |
+| [**`build.bat`**](HelloWorld/build.bat) | [**&#9660;**](#batch) | [**`build.properties`**](HelloWorld/project/build.properties) |  [**`cpath.bat`**](./cpath.bat) <sup><b>b)</b></sup>        | Windows only |
+| [**`build.sh`**](HelloWorld/build.sh) | [**&#9660;**](#shell) | [**`build.properties`**](HelloWorld/project/build.properties) |         | [Cygwin]/[MSYS2]/Unix only |
+| [**`gradle.bat`**][gradle_cli] | [**&#9660;**](#gradle) | [**`build.gradle`**](HelloWorld/build.gradle)           | [**`common.gradle`**](common.gradle) | Any |
+| [**`make.exe`**][gmake_cli] | [**&#9660;**](#gmake) | [**`Makefile`**](HelloWorld/Makefile)                   | [**`Makefile.inc`**](Makefile.inc)   | Any |
+| [**`mill.bat`**][mill_cli]| [**&#9660;**](#mill) | [**`build.sc`**](HelloWorld/build.sc)                   | [**`common.sc`**](common.sc)         | Any |
+| [**`mvn.cmd`**][apache_maven_cli] | [**&#9660;**](#maven) | [**`pom.xml`**](HelloWorld/pom.xml)                     | [**`pom.xml`**](pom.xml)             | Any |
+| [**`sbt.bat`**][sbt_cli] | [**&#9660;**](#sbt) | [**`build.sbt`**](HelloWorld/build.sbt)                 | n.a.                                 | Any |
 <div style="margin:0 10% 0 8px;font-size:90%;">
 <b><sup>a)</sup></b> Here "Any" means "tested on Windows, Cygwin, M2SYS and Unix".<br/>
 <b><sup>b)</sup></b> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).<br/>&nbsp;</div>
@@ -108,7 +108,7 @@ Total time: 14 seconds
 </pre>
 
 
-## <span id="build">`build.bat` command</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
+## <span id="batch">Batch command</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 Command [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~800 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`decompile`**, **`doc`**, **`help`**, **`lint`** and **`run`**.
 
@@ -123,7 +123,7 @@ Hello world!
 </pre>
 
 
-## <span id="build.sh">`build.sh` command</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
+## <span id="shell">Shell command</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 Command [**`build.sh`**](HelloWorld/build.sh) is our basic build tool for Unix environments like [Cygwin], Linux or [MSYS2]; it features subcommands **`clean`**, **`compile`**, **`doc`**, **`help`**, **`lint`** and **`run`**; our Bash script consists of ~530 lines of [Bash] code.
 

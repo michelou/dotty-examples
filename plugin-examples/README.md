@@ -21,7 +21,7 @@ We present how to write/execute [Scala 3][scala3] plugins in the following code 
 > 1. compilation of the *plugin source files* (e.g. `target\DivideZero.jar`)
 > 2. compilation ot the *test source files* with the plugin enabled/disabled.
 
-## <span id="dividezero">DivideZero</span>
+## <span id="dividezero">`DivideZero` Example</span>
 
 Command [`build`](DivideZero/build.bat) with no parameter displays the help message:
 
@@ -113,7 +113,7 @@ Error: Compilation of test Scala source files failed
 > </pre>
 > In particular we observe the usage of the two plugin options **`-Xplugin:<plugin_jar_file>`** and **`-Xplugin-require:<plugin_name> -P:"divideZero:opt1=1"`**.
 
-## <span id="modifypipeline">ModifyPipeline</span>
+## <span id="modifypipeline">`ModifyPipeline` Example</span>
 
 Command [**`build test`**](ModifyPipeline/build.bat) generates the [Scala 3][scala3] plugin **`ModifyPipeline.jar`** from source file [**`ModifyPipeline.scala`**](ModifyPipeline/src/main/scala/ModifyPipeline.scala) and tests the plugin with source file [**`ModifyPipelineTest.scala`**](ModifyPipeline/src/test/scala/ModifyPipelineTest.scala):
 
@@ -124,7 +124,7 @@ Command [**`build test`**](ModifyPipeline/build.bat) generates the [Scala 3][sca
 </pre>
 
 
-## <span id="multiplyone">MultiplyOne</span>[**&#x25B4;**](#top)
+## <span id="multiplyone">`MultiplyOne` Example</span> [**&#x25B4;**](#top)
 
 Command [**`build clean test`**](MultiplyOne/build.bat) generates the [Scala 3][scala3] plugin **`MultiplyOne.jar`** from source file [**`MultiplyOne.scala`**](MultiplyOne/src/main/scala/MultiplyOne.scala) and tests the plugin with source file [**`MultiplyOneTest.scala`**](MultiplyOne/src/test/scala/MultiplyOneTest.scala):
 

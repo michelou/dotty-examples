@@ -56,7 +56,7 @@ This project depends on the following external software for the **Microsoft Wind
 11.0.15 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2022-April/014104.html
 11.0.16 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2022-July/016017.html
 11.0.17 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2022-October/018119.html
-11.0.18 -> https://
+11.0.18 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2020-July/003498.html
 -->
 Optionally one may also install the following software:
 
@@ -73,6 +73,7 @@ Optionally one may also install the following software:
 - [MSYS2][msys2_releases] ([*change log*][msys2_changelog])
 - [sbt 1.8][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
+- [scala-cli 0.1][scala_cli_downloads] ([*release notes*][scala_cli_relnotes])
 - [Temurin OpenJDK 8 LTS][temurin_openjdk8] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk8_relnotes])
 <!--
 - [Bloop 1.5][bloop_releases] (requires Java 8 and Python 2/3) ([*release notes*][bloop_relnotes])
@@ -102,6 +103,7 @@ C:\opt\mill-0.10.11\               <i>( 67 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
 C:\opt\sbt-1.8.2\                  <i>( 80 MB)</i>
 C:\opt\scala-2.13.10\              <i>( 24 MB)</i>
+C:\opt\scala-cli-0.1.20\           <i>( 92 MB)</i>
 C:\opt\scala3-3.2.2\               <i>( 35 MB)</i>
 </pre>
  <!-- jdk8: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
@@ -965,12 +967,14 @@ Command Prompt has been around for as long as we can remember, but starting with
 [sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.8
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala]: https://www.scala-lang.org/
-[scala3_home]: https://dotty.epfl.ch
-[scala3_releases]: https://github.com/lampepfl/dotty/releases
-[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.2.2
+[scala_cli_downloads]: https://scala-cli.virtuslab.org/install
+[scala_cli_relnotes]: https://github.com/VirtusLab/scala-cli/releases/tag/v0.1.20
 [scala_releases]: https://www.scala-lang.org/files/archive/
 [scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.10
 [scala_repl]: https://docs.scala-lang.org/overviews/repl/overview.html
+[scala3_home]: https://dotty.epfl.ch
+[scala3_releases]: https://github.com/lampepfl/dotty/releases
+[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.2.2
 [scalac_cli]: https://docs.scala-lang.org/overviews/compiler-options/index.html
 [semanticdb_guide]: https://scalameta.org/docs/semanticdb/guide.html
 [spark_examples]: https://github.com/michelou/spark-examples

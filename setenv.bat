@@ -136,6 +136,12 @@ if not %_EXITCODE%==0 goto end
 call :git
 if not %_EXITCODE%==0 goto end
 
+call :maven_plugin
+if not %_EXITCODE%==0 (
+    @rem optional
+    echo %_WARNING_LABEL% Scala Maven plugin installation not found 1>&2
+    set _EXITCODE=0
+)
 if "%~1"=="clean" call :clean
 
 goto end
@@ -874,6 +880,17 @@ if not exist "%_MAVEN_HOME%\bin\mvn.cmd" (
     goto :eof
 )
 set "_MAVEN_PATH=;%_MAVEN_HOME%\bin"
+goto :eof
+
+:maven_plugin
+set __JAR_FILE=
+for /f "delims=" %%f in ('dir /s /b "%USERPROFILE%\.m2\repository\scala-maven-plugin-*.jar" 2^>NUL') do (
+    set "__JAR_FILE=%%f"
+)
+if not defined __JAR_FILE (
+    echo %_WARNING_LABEL% Scala Maven plugin not found 1>&2
+    echo ^(archive file is https://github.com/michelou/dotty-examples/tree/master/bin/scala-maven-plugin-1.0.zip^)
+)
 goto :eof
 
 @rem output parameters: _MILL_HOME, _MILL_PATH

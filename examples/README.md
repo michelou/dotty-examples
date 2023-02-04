@@ -20,17 +20,18 @@ Y:\examples\enum-Planet
 
 Build tools rely on one or more configuration files to achieve their tasks. In our case we provide the following configuration files for [**`enum-Planet`**](enum-Planet):
 
-| Build tool                    | Configuration file(s)                    | Parent file(s)                               | Environment(s) |
-|-------------------------------|------------------------------------------|----------------------------------------------|---------|
-| [**`ant.bat`**][apache_ant_cli]   | [**`build.xml`**](enum-Planet/build.xml) | [**`build.xml`**](./build.xml), [**`ivy.xml`**](ivy.xml) | Any <sup><b>a)</b></sup> |
-| [**`bazel.exe`**][bazel_cli]      | [**`BUILD`**](enum-Planet/BUILD), [**`WORKSPACE`**](enum-Planet/WORKSPACE) | n.a.                                | Any |
-| [**`build.bat`**](enum-Planet/build.bat) | [**`build.properties`**](enum-Planet/project/build.properties) | [**`cpath.bat`**](./cpath.bat) <sup><b>b)</b></sup>              | Windows only |
-| [**`build.sh`**](enum-Planet/build.sh) | [**`build.properties`**](enum-Planet/project/build.properties) |                   | [Cygwin]/[MSYS2]/Unix only |
-| [**`gradle.exe`**][gradle_cli]    | [**`build.gradle`**](enum-Planet/build.gradle) | [**`common.gradle`**](./common.gradle) | Any |
-| [**`make.exe`**][gmake_cli]       | [**`Makefile`**](enum-Planet/Makefile)   | [**`Makefile.inc`**](./Makefile.inc)         | Any|
-| [**`mill.bat`**][mill_cli]        | [**`build.sc`**](enum-Planet/build.sc)   | [**`common.sc`**](./common.sc)               | Any |
-| [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](enum-Planet/pom.xml)     | [**`pom.xml`**](./pom.xml)                   | Any |
-| [**`sbt.bat`**][sbt_cli]          | [**`build.sbt`**](enum-Planet/build.sbt) | n.a.                                         | Any |
+| Build tool                    | | Configuration file(s)                    | Parent file(s)                               | Environment(s) |
+|-------------------------------|-|------------------------------------------|----------------------------------------------|---------|
+| [**`ant.bat`**][apache_ant_cli] | [**&#9660;**](#ant) | [**`build.xml`**](enum-Planet/build.xml) | [**`build.xml`**](./build.xml), [**`ivy.xml`**](ivy.xml) | Any <sup><b>a)</b></sup> |
+| [**`bazel.exe`**][bazel_cli] | | [**`BUILD`**](enum-Planet/BUILD), [**`WORKSPACE`**](enum-Planet/WORKSPACE) | n.a.                                | Any |
+| [**`build.bat`**](enum-Planet/build.bat) | [**&#9660;**](#batch) | [**`build.properties`**](enum-Planet/project/build.properties) | [**`cpath.bat`**](./cpath.bat) <sup><b>b)</b></sup>              | Windows only |
+| [**`build.sh`**](enum-Planet/build.sh) | [**&#9660;**](#shell) | [**`build.properties`**](enum-Planet/project/build.properties) |                   | [Cygwin]/[MSYS2]/Unix only |
+| [**`gradle.exe`**][gradle_cli] | [**&#9660;**](#gradle) | [**`build.gradle`**](enum-Planet/build.gradle) | [**`common.gradle`**](./common.gradle) | Any |
+| [**`make.exe`**][gmake_cli] | [**&#9660;**](#gmake) | [**`Makefile`**](enum-Planet/Makefile)   | [**`Makefile.inc`**](./Makefile.inc)         | Any|
+| [**`mill.bat`**][mill_cli] | [**&#9660;**](#mill) | [**`build.sc`**](enum-Planet/build.sc)   | [**`common.sc`**](./common.sc)               | Any |
+| [**`mvn.cmd`**][apache_maven_cli] | [**&#9660;**](#maven) | [**`pom.xml`**](enum-Planet/pom.xml)     | [**`pom.xml`**](./pom.xml)                   | Any |
+| [**`sbt.bat`**][sbt_cli] | [**&#9660;**](#sbt) | [**`build.sbt`**](enum-Planet/build.sbt) | n.a.                                         | Any |
+| [**`scala-cli.exe`**][scala_cli] | [**&#9660;**](#scala_cli) | | | Any |
 <div style="margin:0 10% 0 8px;font-size:90%;">
 <b><sup>a)</sup></b> Here "Any" means "tested on Windows, Cygwin, MSYS2 and Unix".<br/>
 <b><sup>b)</sup></b> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).<br/>&nbsp;</div>
@@ -121,7 +122,7 @@ Total time: 14 seconds
 </pre>
 
 
-## <span id="build">`build.bat` command</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
+## <span id="batch">Batch command</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 Command [**`build.bat`**](enum-Planet/build.bat) is our basic build tool featuring subcommands **`clean`**, **`compile`**, **`decompile`**, **`doc`**, **`help`**, **`lint`**, **`run`** and **`test`**; the batch file consists of ~790 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[1](#footnote_01)</sup>.
 
@@ -250,7 +251,7 @@ Compare output file with check file "src\build\cfr-sources_scala3_3.2.2.java"
 </pre>
 
 
-## <span id="build.sh">`build.sh` command</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
+## <span id="shell">Shell command</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 Command [**`build.sh`**](enum-Planet/build.sh) is our basic build tool for Unix environments like [Cygwin], Linux or [MSYS2]; it features subcommands **`clean`**, **`compile`**, **`doc`**, **`help`**, **`lint`** and **`run`**; the Bash script consists of ~500 lines of [Bash] code.
 
@@ -474,7 +475,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 
 ## <span id="mill">Mill build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
-The Mill configuration file [**`enum-Planet\build.sc`**](enum-Planet/build.sc) depends on the parent file [**`examples\common.sc`**](common.sc) which defines the common settings.
+The [Mill][mill_cli] configuration file [**`enum-Planet\build.sc`**](enum-Planet/build.sc) depends on the parent file [**`examples\common.sc`**](common.sc) which defines the common settings.
 
 > **:mag_right:** Command [**`mill`**][mill_cli] is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
 
@@ -506,7 +507,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 > [...]
 > </pre>
 
-## <span id="sbt">SBT build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
+## <span id="sbt">SBT build tool</span> [**&#x25B4;**](#top)
 
 The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is written in [Scala] and obeys the [sbt build definitions][sbt_docs_defs].
 
@@ -526,8 +527,41 @@ Your weight on URANUS (6) is 0.9051271993894251
 Your weight on NEPTUNE (7) is 1.1383280724696578
 </pre>
 
+## <span id="scala_cli">scala-cli tool</span>
 
-## <span id="footnotes">Footnotes</span>
+Specifying option `-cli` in command [`build.bat`](./enum-Planet/build.bat) does call [`scala-cli`][scala_cli] with the appropriate options:
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./enum-Planet/build.bat">build</a> -cli -debug run</b>
+[build] Properties : _PROJECT_NAME=enum-Planet _PROJECT_VERSION=1.0-SNAPSHOT
+[build] Options    : _EXPLAIN=0 _PRINT=0 _SCALA_VERSION=3 _TASTY=0 _TIMER=0 _VERBOSE=0
+[build] Subcommands:  compile run
+[build] Variables  : "CFR_HOME=C:\opt\cfr-0.152"
+[build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-11.0.18_10"
+[build] Variables  : "SCALA_CLI_HOME=c:\opt\scala-cli-0.1.20"
+[build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.10"
+[build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.3.0-RC2"
+[build] Variables  : _MAIN_CLASS=Planet _MAIN_ARGS=1
+[build] "c:\opt\scala-cli-0.1.20\scala-cli.exe" compile -v -O -deprecation --scala 3 "Y:\examples\enum-Planet\src\main\scala"
+Compiling project (Scala 3.2.2, JVM)
+Compiled project (Scala 3.2.2, JVM)
+[build] "c:\opt\scala-cli-0.1.20\scala-cli.exe" run -v --scala 3 --main-class "Planet" "Y:\examples\enum-Planet\src\main\scala" -- 1
+Compiling project (Scala 3.2.2, JVM)
+Compiled project (Scala 3.2.2, JVM)
+Running C:\opt\jdk-temurin-11.0.18_10\bin\java.exe -cp Y:\examples\enum-Planet\src\main\scala\.scala-build\project_909ac66893\classes\main;C:\Users\michelou\AppData\Local\Coursier\cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala3-library_3\3.2.2\scala3-library_3-3.2.2.jar;C:\Users\michelou\AppData\Local\Coursier\cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala-library\2.13.10\scala-library-2.13.10.jar Planet 1
+Mass of earth is 0.1020132025669991
+Your weight on MERCURY (0) is 0.37775761520093526
+Your weight on VENUS (1) is 0.9049990998410455
+Your weight on EARTH (2) is 0.9999999999999999
+Your weight on MARS (3) is 0.37873718403712886
+Your weight on JUPITER (4) is 2.5305575254957406
+Your weight on SATURN (5) is 1.0660155388115666
+Your weight on URANUS (6) is 0.9051271993894251
+Your weight on NEPTUNE (7) is 1.1383280724696578
+[build] _EXITCODE=0
+</pre>
+
+## <span id="footnotes">Footnotes</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
 <span id="footnote_01">[1]</span> ***Batch files and coding conventions*** [↩](#anchor_01)
 
@@ -659,6 +693,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_docs_defs]: https://www.scala-sbt.org/1.0/docs/Basic-Def.html
 [scala]: https://www.scala-lang.org/
+[scala_cli]: https://scala-cli.virtuslab.org/docs/commands/basics
 [scala3_home]: https://dotty.epfl.ch/
 [windows_stderr]: https://support.microsoft.com/en-us/help/110930/redirecting-error-messages-from-command-prompt-stderr-stdout
 [zip_archive]: https://www.howtogeek.com/178146/
