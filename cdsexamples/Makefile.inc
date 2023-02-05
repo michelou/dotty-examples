@@ -41,14 +41,14 @@ TOUCH      = touch
 endif
 
 SCALA_LIB_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala-library-2.13.10.jar)
-SCALA3_LIB_JAR        = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala3-library_3-3.2.2-RC2.jar)
+SCALA3_LIB_JAR        = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala3-library_3-3.2.2.jar)
 HAMCREST_JAR          = $(shell $(FIND) "$(LOCAL_REPO)/org/hamcrest" -name hamcrest-2.2.jar)
 HAMCREST_ALL_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/hamcrest" -name hamcrest-all-1.3.jar)
 JUNIT_JAR             = $(shell $(FIND) "$(LOCAL_REPO)/junit/junit" -name junit-4.13.2.jar)
 JUNIT_INTF_JAR        = $(shell $(FIND) "$(LOCAL_REPO)/com/novocode" -name junit-interface-0.11.jar)
-SCALATEST_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scalatest" -name scalatest_3-3.2.14.jar)
-SCALATEST_FUNSPEC_JAR = $(shell $(FIND) "$(LOCAL_REPO)/org/scalatest" -name scalatest-funspec_3-3.2.14.jar)
-SCALACTIC_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scalactic" -name scalactic_3-3.2.14.jar)
+SCALATEST_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scalatest" -name scalatest_3-3.2.15.jar)
+SCALATEST_FUNSPEC_JAR = $(shell $(FIND) "$(LOCAL_REPO)/org/scalatest" -name scalatest-funspec_3-3.2.15.jar)
+SCALACTIC_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scalactic" -name scalactic_3-3.2.15.jar)
 SPECS2_COMMON_JAR     = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-common_3-5.2.0.jar)
 SPECS2_CORE_JAR       = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-core_3-5.2.0.jar)
 SPECS2_JUNIT_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name specs2-junit_3-5.2.0.jar)
@@ -62,4 +62,7 @@ $(error Variable JUNIT_JAR is not set)
 endif
 ifeq (,$(wildcard $(JUNIT_INTF_JAR)))
 $(error Variable JUNIT_INTF_JAR is not set)
+endif
+ifeq (,$(wildcard $(SCALATEST_JAR)))
+$(error Variable SCALATEST_JAR is not set)
 endif
