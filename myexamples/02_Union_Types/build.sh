@@ -272,7 +272,7 @@ decompile() {
         debug "$CFR_CMD $cfr_opts $(mixed_path $f)/*.class"
         exec "$CFR_CMD" $cfr_opts $(mixed_path $f)/\\*.class
         if [[ $? -ne 0 ]]; then
-            error "Failed to decompile generated code in directory $f"
+            error "Failed to decompile generated code in directory \"$f\""
             cleanup 1
         fi
     done
@@ -287,7 +287,7 @@ decompile() {
     if $DEBUG; then
         debug "cat $output_dir/*.java >> $output_file"
     elif $VERBOSE; then
-        echo "Save generated Java source files to file ${output_file/$ROOT_DIR\//}" 1>&2
+        echo "Save generated Java source files to file \"${output_file/$ROOT_DIR\//}\"" 1>&2
     fi
     local java_files=
     for f in $(find $output_dir/ -name *.java 2>/dev/null); do
