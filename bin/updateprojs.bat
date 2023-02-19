@@ -10,8 +10,8 @@ set _DEBUG=0
 set _EXITCODE=0
 
 @rem files build.sbt, build.sc and ivy.xml
-set _DOTTY_VERSION_OLD="3.2.2-RC2"
-set _DOTTY_VERSION_NEW="3.2.2"
+set _DOTTY_VERSION_OLD="3.2.2"
+set _DOTTY_VERSION_NEW="3.3.0-RC3"
 
 @rem files project\build.properties
 set _SBT_VERSION_OLD=sbt.version=1.7.2
@@ -27,22 +27,22 @@ set _SCALATEST_VERSION_OLD=^(\"scalatest_2.13\"^)^(.+\"3.2.13\"^)
 set _SCALATEST_VERSION_NEW=$1 %%%% \"3.2.15\"
 
 @rem files ivy.xml (NB. PS regex)
-set _IVY_DOTTY_VERSION_OLD=^(scala3-[a-z]+^)_3.2.2-RC2
-set _IVY_DOTTY_VERSION_NEW=$1_3.2.2
+set _IVY_DOTTY_VERSION_OLD=^(scala3-[a-z]+^)_3.2.2
+set _IVY_DOTTY_VERSION_NEW=$1_3.3.0-RC3
 
-set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_3.2.2-RC2
-set _IVY_TASTY_VERSION_NEW=$1_3.2.2
+set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_3.2.2
+set _IVY_TASTY_VERSION_NEW=$1_3.3.0-RC3
 
 @rem files pom.xml (NB. PS regex)
 set _POM_SCALA2_VERSION_OLD=scala.version^>2.13.9
 set _POM_SCALA2_VERSION_NEW=scala.version^>2.13.10
 
-set _POM_SCALA3_VERSION_OLD=scala3.version^>3.2.2-RC2
-set _POM_SCALA3_VERSION_NEW=scala3.version^>3.2.2
+set _POM_SCALA3_VERSION_OLD=scala3.version^>3.2.2
+set _POM_SCALA3_VERSION_NEW=scala3.version^>3.3.0-RC3
 
 @rem files common.gradle
-set _GRADLE_DOTTY_VERSION_OLD=scala3-compiler_3:3.2.2-RC2
-set _GRADLE_DOTTY_VERSION_NEW=scala3-compiler_3:3.2.2
+set _GRADLE_DOTTY_VERSION_OLD=scala3-compiler_3:3.2.2
+set _GRADLE_DOTTY_VERSION_NEW=scala3-compiler_3:3.3.0-RC3
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -170,7 +170,7 @@ goto :eof
 
 :help
 if %_VERBOSE%==1 (
-    set __BEG_P=%_STRONG_FG_CYAN%%_UNDERSCORE%
+    set __BEG_P=%_STRONG_FG_CYAN%
     set __BEG_O=%_STRONG_FG_GREEN%
     set __BEG_N=%_NORMAL_FG_YELLOW%
     set __END=%_RESET%

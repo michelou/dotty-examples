@@ -11,7 +11,7 @@
   </tr>
 </table>
 
-Let's choose example [**`examples\enum-Planet`**](enum-Planet) to demonstrate the usage of the build tools we do support:
+Let's choose [**`examples\enum-Planet`**](enum-Planet) to demonstrate the usage of the build tools we do support:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a></b>
@@ -20,18 +20,18 @@ Y:\examples\enum-Planet
 
 Build tools rely on one or more configuration files to achieve their tasks. In our case we provide the following configuration files for [**`enum-Planet`**](enum-Planet):
 
-| Build tool                    | | Configuration file(s)                    | Parent file(s)                               | Environment(s) |
-|-------------------------------|-|------------------------------------------|----------------------------------------------|---------|
-| [**`ant.bat`**][apache_ant_cli] | [**&#9660;**](#ant) | [**`build.xml`**](enum-Planet/build.xml) | [**`build.xml`**](./build.xml), [**`ivy.xml`**](ivy.xml) | Any <sup><b>a)</b></sup> |
-| [**`bazel.exe`**][bazel_cli] | | [**`BUILD`**](enum-Planet/BUILD), [**`WORKSPACE`**](enum-Planet/WORKSPACE) | n.a.                                | Any |
-| [**`build.bat`**](enum-Planet/build.bat) | [**&#9660;**](#batch) | [**`build.properties`**](enum-Planet/project/build.properties) | [**`cpath.bat`**](./cpath.bat) <sup><b>b)</b></sup>              | Windows only |
-| [**`build.sh`**](enum-Planet/build.sh) | [**&#9660;**](#shell) | [**`build.properties`**](enum-Planet/project/build.properties) |                   | [Cygwin]/[MSYS2]/Unix only |
-| [**`gradle.exe`**][gradle_cli] | [**&#9660;**](#gradle) | [**`build.gradle`**](enum-Planet/build.gradle) | [**`common.gradle`**](./common.gradle) | Any |
-| [**`make.exe`**][gmake_cli] | [**&#9660;**](#gmake) | [**`Makefile`**](enum-Planet/Makefile)   | [**`Makefile.inc`**](./Makefile.inc)         | Any|
-| [**`mill.bat`**][mill_cli] | [**&#9660;**](#mill) | [**`build.sc`**](enum-Planet/build.sc)   | [**`common.sc`**](./common.sc)               | Any |
-| [**`mvn.cmd`**][apache_maven_cli] | [**&#9660;**](#maven) | [**`pom.xml`**](enum-Planet/pom.xml)     | [**`pom.xml`**](./pom.xml)                   | Any |
-| [**`sbt.bat`**][sbt_cli] | [**&#9660;**](#sbt) | [**`build.sbt`**](enum-Planet/build.sbt) | n.a.                                         | Any |
-| [**`scala-cli.exe`**][scala_cli] | [**&#9660;**](#scala_cli) | | | Any |
+| | Build tool                    | Configuration file(s)                    | Parent file(s)                               | Environment(s) |
+|-|-------------------------------|------------------------------------------|----------------------------------------------|---------|
+| [**&#9660;**](#ant) | [**`ant.bat`**][apache_ant_cli] | [**`build.xml`**](enum-Planet/build.xml) | [**`build.xml`**](./build.xml), [**`ivy.xml`**](ivy.xml) | Any <sup><b>a)</b></sup> |
+| | [**`bazel.exe`**][bazel_cli] | [**`BUILD`**](enum-Planet/BUILD), [**`WORKSPACE`**](enum-Planet/WORKSPACE) | n.a.                                | Any |
+| [**&#9660;**](#batch) | [**`build.bat`**](enum-Planet/build.bat) | [**`build.properties`**](enum-Planet/project/build.properties) | [**`cpath.bat`**](./cpath.bat) <sup><b>b)</b></sup>              | Windows only |
+| [**&#9660;**](#shell) | [**`build.sh`**](enum-Planet/build.sh) | [**`build.properties`**](enum-Planet/project/build.properties) |                   | [Cygwin]/[MSYS2]/Unix only |
+| [**&#9660;**](#gradle) | [**`gradle.exe`**][gradle_cli] | [**`build.gradle`**](enum-Planet/build.gradle) | [**`common.gradle`**](./common.gradle) | Any |
+| [**&#9660;**](#gmake) | [**`make.exe`**][gmake_cli] | [**`Makefile`**](enum-Planet/Makefile)   | [**`Makefile.inc`**](./Makefile.inc)         | Any|
+| [**&#9660;**](#mill) | [**`mill.bat`**][mill_cli] | [**`build.sc`**](enum-Planet/build.sc)   | [**`common.sc`**](./common.sc)               | Any |
+| [**&#9660;**](#maven) | [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](enum-Planet/pom.xml)     | [**`pom.xml`**](./pom.xml)                   | Any |
+| [**&#9660;**](#sbt) | [**`sbt.bat`**][sbt_cli] | [**`build.sbt`**](enum-Planet/build.sbt) | n.a.                                         | Any |
+| [**&#9660;**](#scala_cli) | [**`scala-cli.exe`**][scala_cli] | | | Any |
 <div style="margin:0 10% 0 8px;font-size:90%;">
 <b><sup>a)</sup></b> Here "Any" means "tested on Windows, Cygwin, MSYS2 and Unix".<br/>
 <b><sup>b)</sup></b> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).<br/>&nbsp;</div>
@@ -97,7 +97,7 @@ Buildfile: Y:\examples\enum-Planet\build.xml
    [delete] Deleting directory Y:\examples\enum-Planet\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] SCALA3_HOME=C:\opt\scala3-3.2.2
+     [echo] SCALA3_HOME=C:\opt\scala3-3.3.0-RC3
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -126,7 +126,7 @@ Total time: 14 seconds
 
 Command [**`build.bat`**](enum-Planet/build.bat) is our basic build tool featuring subcommands **`clean`**, **`compile`**, **`decompile`**, **`doc`**, **`help`**, **`lint`**, **`run`** and **`test`**; the batch file consists of ~790 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[1](#footnote_01)</sup>.
 
-Command [**`build.bat clean run`**](enum-Planet/build.bat) produces the following output:
+Command [**`build.bat clean run`**](enum-Planet/build.bat) generates the following output:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="enum-Planet/build.bat">build</a> clean run</b>
@@ -153,7 +153,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 Command [**`build -verbose clean run`**](enum-Planet/build.bat) also displays progress messages:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose clean compile run</b>
+<b>&gt; <a href="enum-Planet/build.bat">build</a> -verbose clean run</b>
 Delete directory "target"
 Compile 1 Scala source file to directory "target\classes"
 Execute Scala main class Planet
@@ -167,16 +167,16 @@ Your weight on URANUS (6) is 0.9051271993894251
 Your weight on NEPTUNE (7) is 1.1383280724696578
 </pre>
 
-Command [**`build -debug clean compile run`**](enum-Planet/build.bat) also displays internal steps of the build process:
+Command [**`build -debug clean run`**](enum-Planet/build.bat) also displays internal steps of the build process:
 
 <pre style="font-size:80%;">
-<b/>&gt; <a href="enum-Planet/build.bat">build</a> -debug clean compile run</b>
+<b/>&gt; <a href="enum-Planet/build.bat">build</a> -debug clean run</b>
 [build] Properties : _PROJECT_NAME=enum-Planet _PROJECT_VERSION=1.0-SNAPSHOT
 [build] Options    : _EXPLAIN=0 _PRINT=0 _SCALA_VERSION=3 _TASTY=0 _TIMER=0 _VERBOSE=0
 [build] Subcommands:  clean compile run
 [build] Variables  : "CFR_HOME=C:\opt\cfr-0.152"
 [build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-11.0.18_10"
-[build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.2.2"
+[build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.3.0-RC3"
 [build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.10"
 [build] Variables  : _MAIN_CLASS=Planet _MAIN_ARGS=1
 [build] del /s /q Y:\dotty\examples\enum-Planet\target\classes\*.class Y:\dotty\examples\enum-Planet\target\classes\*.hasTasty Y:\dotty\examples\enum-Planet\target\classes\.latest-build
@@ -198,13 +198,13 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 > For simplicity the [**`build`**](enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/type">type</a> <a href="enum-Planet/project/build.properties">project\build.properties</a></b>
-> sbt.version=1.7.2
+> sbt.version=1.8.2
 > &nbsp;
 > main.class=Planet
 > main.args=1
 > </pre>
 
-> **:mag_right:** Output generated with options **`-verbose`** and **`-debug`** are redirected to [stderr][windows_stderr] and can be discarded by adding **`2>NUL`**, e.g.:
+> **:mag_right:** The output generated with options **`-verbose`** and **`-debug`** are redirected to [stderr][windows_stderr] and can be discarded by adding **`2>NUL`**, e.g.:
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="enum-Planet/build.bat">build</a> clean run -debug 2>NUL</b>
 > Your weight on MERCURY (0) is 0.37775761520093526
@@ -327,7 +327,7 @@ Command **`make test`** executes the test suite [**`PlanetTest.scala`**](enum-Pl
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 scalac.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.10/scala-library-2.18.6.jar;%USERPROFILE%/.m2/repository/org.scala-lang/scala3-library_3/3.2.2/scala3-library_3-3.2.2.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.10/scala-library-2.13.10.jar;%USERPROFILE%/.m2/repository/org.scala-lang/scala3-library_3/3.3.0-RC3/scala3-library_3-3.3.0-RC3.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
 JUnit version 4.13.2
 ..
 Time: 0.239
@@ -365,16 +365,16 @@ Command **` mvn.cmd compile test`** with option **`-debug`** produces additional
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> -debug compile test | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-temurin-11.0.18_10\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.2.2 \
- -cp C:\opt\scala3-3.2.2\lib\*.jar -Dscala.usejavacp=true  \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.3.0-RC3 \
+ -cp C:\opt\scala3-3.3.0-RC3\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath Y:\examples\hello-scala\target\classes \
  -d Y:\examples\hello-scala\target\classes \
  Y:\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-temurin-11.0.18_10\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.2.2 [...]
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.3.0-RC3 [...]
 [DEBUG] [execute] C:\opt\jdk-temurin-11.0.18_10\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\scala3-3.2.2\lib\*.jar;\
+ -Xms64m -Xmx1024m -cp C:\opt\scala3-3.3.0-RC3\lib\*.jar;\
 Y:\examples\hello-scala\target\classes hello
 </pre>
 
@@ -414,7 +414,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html" rel="external">java</a> -version 2>&1 | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> version</b>
 openjdk version "11.0.18" 2023-01-17
 
-<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html" rel="external">java</a> -Xbootclasspath/a:"c:\opt\scala3-3.2.2\lib\scala3-library_3-3.2.2.jar;c:\opt\scala3-3.2.2\lib\scala-library-2.13.10.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
+<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html" rel="external">java</a> -Xbootclasspath/a:"c:\opt\scala3-3.3.0-RC3\lib\scala3-library_3-3.3.0-RC3.jar;c:\opt\scala3-3.3.0-RC3\lib\scala-library-2.13.10.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
 Your weight on EARTH (2) is 0.9999999999999999
@@ -540,15 +540,15 @@ Specifying option `-cli` in command [`build.bat`](./enum-Planet/build.bat) does 
 [build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-11.0.18_10"
 [build] Variables  : "SCALA_CLI_HOME=c:\opt\scala-cli-0.1.20"
 [build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.10"
-[build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.3.0-RC2"
+[build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.3.0-RC3"
 [build] Variables  : _MAIN_CLASS=Planet _MAIN_ARGS=1
 [build] "c:\opt\scala-cli-0.1.20\scala-cli.exe" compile -v -O -deprecation --scala 3 "Y:\examples\enum-Planet\src\main\scala"
-Compiling project (Scala 3.2.2, JVM)
-Compiled project (Scala 3.2.2, JVM)
+Compiling project (Scala 3.3.0-RC3, JVM)
+Compiled project (Scala 3.3.0-RC3, JVM)
 [build] "c:\opt\scala-cli-0.1.20\scala-cli.exe" run -v --scala 3 --main-class "Planet" "Y:\examples\enum-Planet\src\main\scala" -- 1
-Compiling project (Scala 3.2.2, JVM)
-Compiled project (Scala 3.2.2, JVM)
-Running C:\opt\jdk-temurin-11.0.18_10\bin\java.exe -cp Y:\examples\enum-Planet\src\main\scala\.scala-build\project_909ac66893\classes\main;C:\Users\michelou\AppData\Local\Coursier\cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala3-library_3\3.2.2\scala3-library_3-3.2.2.jar;C:\Users\michelou\AppData\Local\Coursier\cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala-library\2.13.10\scala-library-2.13.10.jar Planet 1
+Compiling project (Scala 3.3.0-RC3, JVM)
+Compiled project (Scala 3.3.0-RC3, JVM)
+Running C:\opt\jdk-temurin-11.0.18_10\bin\java.exe -cp Y:\examples\enum-Planet\src\main\scala\.scala-build\project_909ac66893\classes\main;C:\Users\michelou\AppData\Local\Coursier\cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala3-library_3\3.3.0-RC3\scala3-library_3-3.3.0-RC3.jar;C:\Users\michelou\AppData\Local\Coursier\cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala-library\2.13.10\scala-library-2.13.10.jar Planet 1
 Mass of earth is 0.1020132025669991
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
