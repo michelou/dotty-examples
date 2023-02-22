@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2021 Stéphane Micheloud
+# Copyright (c) 2018-2023 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -112,7 +112,7 @@ Usage: $BASENAME { <option> | <subcommand> }
     doc          generate HTML documentation
     help         display this help message
     lint         analyze Scala source files with Scalafmt
-    run          execute main class $MAIN_CLASS
+    run          execute main class "$MAIN_CLASS"
 EOS
 }
 
@@ -168,10 +168,10 @@ action_required() {
     for f in $(find $search_path -name $search_pattern 2>/dev/null); do
         [[ $f -nt $latest_file ]] && latest_file=$f
     done
-    if [ -z "$latest_file" ]; then
+    if [[ -z "$latest_file" ]]; then
         ## Do not compile if no source file
         echo 0
-    elif [ ! -f "$timestamp_file" ]; then
+    elif [[ ! -f "$timestamp_file" ]]; then
         ## Do compile if timestamp file doesn't exist
         echo 1
     else
@@ -201,14 +201,20 @@ compile_java() {
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
+    if [[ $n -eq 0 ]]; then
+        warning "No Java source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Java source file$s"
     if $DEBUG; then
         debug "$JAVAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Java source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Compilation of $n Java source files failed"
+        error "Failed to compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
@@ -228,6 +234,12 @@ compile_scala() {
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
+    if [[ $n -eq 0 ]]; then
+        warning "No Scala source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Scala source file$s"
     local print_file_redirect=
     if $SCALAC_OPTS_PRINT; then
         # call :version_string
@@ -242,11 +254,11 @@ compile_scala() {
     if $DEBUG; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Scala source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Compilation of $n Scala source files failed"
+        error "Failed to compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
@@ -300,7 +312,7 @@ decompile() {
     done
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
 
-    if [ ! -x "$DIFF_CMD" ]; then
+    if [[ ! -x "$DIFF_CMD" ]]; then
         if $DEBUG; then
             warning "diff command not found"
         elif $VERBOSE; then
@@ -327,7 +339,7 @@ decompile() {
 
 ## output parameter: _EXTRA_CPATH
 extra_cpath() {
-    if [ $SCALA_VERSION==3 ]; then
+    if [[ $SCALA_VERSION==3 ]]; then
         lib_path="$SCALA3_HOME/lib"
     else
         lib_path="$SCALA_HOME/lib"
@@ -494,7 +506,7 @@ else
     DIFF_CMD="$(which diff)"
     SCALAFMT_CMD="$HOME/.local/share/coursier/bin/scalafmt"
 fi
-if [ ! -x "$JAVA_HOME/bin/javac" ]; then
+if [[ ! -x "$JAVA_HOME/bin/javac" ]]; then
     error "Java SDK installation not found"
     cleanup 1
 fi
@@ -502,7 +514,7 @@ JAVA_CMD="$JAVA_HOME/bin/java"
 JAVAC_CMD="$JAVA_HOME/bin/javac"
 JAVADOC_CMD="$JAVA_HOME/bin/javadoc"
 
-if [ ! -x "$SCALA3_HOME/bin/scalac" ]; then
+if [[ ! -x "$SCALA3_HOME/bin/scalac" ]]; then
     error "Scala 3 installation not found"
     cleanup 1
 fi

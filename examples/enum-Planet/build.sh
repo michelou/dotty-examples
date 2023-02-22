@@ -195,14 +195,20 @@ compile_java() {
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
+    if [[ $n -eq 0 ]]; then
+        warning "No Java source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Java source file$s"
     if $DEBUG; then
         debug "$JAVAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Java source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to compile $n Java source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\""
+        error "Failed to compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
@@ -222,6 +228,12 @@ compile_scala() {
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
+    if [[ $n -eq 0 ]]; then
+        warning "No Scala source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Scala source file$s"
     local print_file_redirect=
     if $SCALAC_OPTS_PRINT; then
         # call :version_string
@@ -236,11 +248,11 @@ compile_scala() {
     if $DEBUG; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Scala source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to compile $n Scala source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\""
+        error "Failed to compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
@@ -323,7 +335,7 @@ decompile() {
 
 ## output parameter: _EXTRA_CPATH
 extra_cpath() {
-    if [ $SCALA_VERSION==3 ]; then
+    if [[ $SCALA_VERSION==3 ]]; then
         lib_path="$SCALA3_HOME/lib"
     else
         lib_path="$SCALA_HOME/lib"
@@ -376,7 +388,7 @@ doc() {
         echo $(mixed_path $f) >> "$sources_file"
     done
     local opts_file="$TARGET_DIR/scaladoc_opts.txt"
-    if [ $SCALA_VERSION -eq 2 ]; then
+    if [[ $SCALA_VERSION -eq 2 ]]; then
         echo -d "$(mixed_path $TARGET_DOCS_DIR)" -doc-title "$PROJECT_NAME" -doc-footer "$PROJECT_URL" -doc-version "$PROJECT_VERSION" > "$opts_file"
     else
         echo -d "$(mixed_path $TARGET_DOCS_DIR)" -project "$PROJECT_NAME" -project-version "$PROJECT_VERSION" > "$opts_file"

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2022 Stéphane Micheloud
+# Copyright (c) 2018-2023 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -74,15 +74,15 @@ args() {
             ;;
         esac
     done
-    if $DECOMPILE && [ ! -x "$CFR_CMD" ]; then
+    if $DECOMPILE && [[ ! -x "$CFR_CMD" ]]; then
         warning "cfr installation not found"
         DECOMPILE=false
     fi
     if $LINT; then
-        if [ ! -x "$SCALAFMT_CMD" ]; then
+        if [[ ! -x "$SCALAFMT_CMD" ]]; then
             warning "Scalafmt installation not found"
             LINT=false
-        elif [ ! -f "$SCALAFMT_CONFIG_FILE" ]; then
+        elif [[ ! -f "$SCALAFMT_CONFIG_FILE" ]]; then
             warning "Scalafmt configuration file not found"
             LINT=false
         fi
@@ -112,7 +112,7 @@ Usage: $BASENAME { <option> | <subcommand> }
     doc          generate HTML documentation
     help         display this help message
     lint         analyze Scala source files with Scalafmt
-    run          execute main class $MAIN_CLASS
+    run          execute main class "$MAIN_CLASS"
 EOS
 }
 
@@ -196,14 +196,20 @@ compile_java() {
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
+    if [[ $n -eq 0 ]]; then
+        warning "No Java source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Java source file$s"
     if $DEBUG; then
         debug "$JAVAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Java source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Compilation of $n Java source files failed"
+        error "Failed to compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
@@ -223,6 +229,12 @@ compile_scala() {
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
+    if [[ $n -eq 0 ]]; then
+        warning "No Scala source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Scala source file$s"
     local print_file_redirect=
     if $SCALAC_OPTS_PRINT; then
         # call :version_string
@@ -237,11 +249,11 @@ compile_scala() {
     if $DEBUG; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Scala source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Compilation of $n Scala source files failed"
+        error "Failed to compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
@@ -324,7 +336,7 @@ decompile() {
 
 ## output parameter: _EXTRA_CPATH
 extra_cpath() {
-    if [ $SCALA_VERSION==3 ]; then
+    if [[ $SCALA_VERSION==3 ]]; then
         lib_path="$SCALA3_HOME/lib"
     else
         lib_path="$SCALA_HOME/lib"
@@ -491,7 +503,7 @@ else
     DIFF_CMD="$(which diff)"
     SCALAFMT_CMD="$HOME/.local/share/coursier/bin/scalafmt"
 fi
-if [ ! -x "$JAVA_HOME/bin/javac" ]; then
+if [[ ! -x "$JAVA_HOME/bin/javac" ]]; then
     error "Java SDK installation not found"
     cleanup 1
 fi
@@ -499,7 +511,7 @@ JAVA_CMD="$JAVA_HOME/bin/java"
 JAVAC_CMD="$JAVA_HOME/bin/javac"
 JAVADOC_CMD="$JAVA_HOME/bin/javadoc"
 
-if [ ! -x "$SCALA3_HOME/bin/scalac" ]; then
+if [[ ! -x "$SCALA3_HOME/bin/scalac" ]]; then
     error "Scala 3 installation not found"
     cleanup 1
 fi
@@ -510,7 +522,7 @@ SCALADOC3="$SCALA3_HOME/bin/scaladoc"
 SCALAFMT_CONFIG_FILE="$(dirname $ROOT_DIR)/.scalafmt.conf"
 
 unset CFR_CMD
-[ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
+[[ -x "$CFR_HOME/bin/cfr" ]] && CFR_CMD="$CFR_HOME/bin/cfr"
 
 PROJECT_NAME="$(basename $ROOT_DIR)"
 PROJECT_URL="github.com/$USER/dotty-examples"

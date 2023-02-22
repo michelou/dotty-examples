@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2022 Stéphane Micheloud
+# Copyright (c) 2018-2023 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -197,7 +197,7 @@ compile_java() {
     done
     if [[ $n -eq 0 ]]; then
         warning "No Java source file found"
-        return
+        return 1
     fi
     local s=; [[ $n -gt 1 ]] && s="s"
     local n_files="$n Java source file$s"

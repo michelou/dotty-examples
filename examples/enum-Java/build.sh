@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2022 Stéphane Micheloud
+# Copyright (c) 2018-2023 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -117,7 +117,7 @@ EOS
 }
 
 clean() {
-    if [ -d "$TARGET_DIR" ]; then
+    if [[ -d "$TARGET_DIR" ]]; then
         if $DEBUG; then
             debug "Delete directory \"$TARGET_DIR\""
         elif $VERBOSE; then
@@ -168,10 +168,10 @@ action_required() {
     for f in $(find "$search_path" -type f -name "$search_pattern" 2>/dev/null); do
         [[ $f -nt $source_file ]] && source_file=$f
     done
-    if [ -z "$source_file" ]; then
+    if [[ -z "$source_file" ]]; then
         ## Do not compile if no source file
         echo 0
-    elif [ ! -f "$target_file" ]; then
+    elif [[ ! -f "$target_file" ]]; then
         ## Do compile if target file doesn't exist
         echo 1
     else
@@ -195,14 +195,20 @@ compile_java() {
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
+    if [[ $n -eq 0 ]]; then
+        warning "No Java source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Java source file$s"
     if $DEBUG; then
         debug "$JAVAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Java source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to compile $n Java source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\""
+        error "Failed to compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
@@ -222,6 +228,12 @@ compile_scala() {
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
+    if [[ $n -eq 0 ]]; then
+        warning "No Scala source file found"
+        return
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Scala source file$s"
     local print_file_redirect=
     if $SCALAC_OPTS_PRINT; then
         # call :version_string
@@ -236,17 +248,17 @@ compile_scala() {
     if $DEBUG; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Scala source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to compile $n Scala source files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\""
+        error "Failed to compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
 
 mixed_path() {
-    if [ -x "$CYGPATH_CMD" ]; then
+    if [[ -x "$CYGPATH_CMD" ]]; then
         $CYGPATH_CMD -am $1
     elif $mingw || $msys; then
         echo $1 | sed 's|/|\\\\|g'
@@ -307,7 +319,7 @@ decompile() {
     local diff_opts=--strip-trailing-cr
 
     local check_file="$SOURCE_DIR/build/cfr-source$version_suffix.java"
-    if [ -f "$check_file" ]; then
+    if [[ -f "$check_file" ]]; then
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
         elif $VERBOSE; then
