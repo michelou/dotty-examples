@@ -246,7 +246,7 @@ compile_scala() {
 }
 
 mixed_path() {
-    if [ -x "$CYGPATH_CMD" ]; then
+    if [[ -x "$CYGPATH_CMD" ]]; then
         $CYGPATH_CMD -am $1
     elif $mingw || $msys; then
         echo $1 | sed 's|/|\\\\|g'
@@ -300,7 +300,7 @@ decompile() {
     done
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
 
-    if [ ! -x "$DIFF_CMD" ]; then
+    if [[ ! -x "$DIFF_CMD" ]]; then
         if $DEBUG; then
             warning "diff command not found"
         elif $VERBOSE; then
@@ -311,7 +311,7 @@ decompile() {
     local diff_opts=--strip-trailing-cr
 
     local check_file="$SOURCE_DIR/build/cfr-source$version_suffix.java"
-    if [ -f "$check_file" ]; then
+    if [[ -f "$check_file" ]]; then
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
         elif $VERBOSE; then
@@ -327,7 +327,7 @@ decompile() {
 
 ## output parameter: _EXTRA_CPATH
 extra_cpath() {
-    if [ $SCALA_VERSION==3 ]; then
+    if [[ $SCALA_VERSION==3 ]]; then
         lib_path="$SCALA3_HOME/lib"
     else
         lib_path="$SCALA_HOME/lib"
@@ -495,7 +495,7 @@ else
     DIFF_CMD="$(which diff)"
     SCALAFMT_CMD="$HOME/.local/share/coursier/bin/scalafmt"
 fi
-if [ ! -x "$JAVA_HOME/bin/javac" ]; then
+if [[ ! -x "$JAVA_HOME/bin/javac" ]]; then
     error "Java SDK installation not found"
     cleanup 1
 fi
@@ -503,7 +503,7 @@ JAVA_CMD="$JAVA_HOME/bin/java"
 JAVAC_CMD="$JAVA_HOME/bin/javac"
 JAVADOC_CMD="$JAVA_HOME/bin/javadoc"
 
-if [ ! -x "$SCALA3_HOME/bin/scalac" ]; then
+if [[ ! -x "$SCALA3_HOME/bin/scalac" ]]; then
     error "Scala 3 installation not found"
     cleanup 1
 fi
@@ -514,7 +514,7 @@ SCALADOC3="$SCALA3_HOME/bin/scaladoc"
 SCALAFMT_CONFIG_FILE="$(dirname $ROOT_DIR)/.scalafmt.conf"
 
 unset CFR_CMD
-[ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
+[[ -x "$CFR_HOME/bin/cfr" ]] && CFR_CMD="$CFR_HOME/bin/cfr"
 
 PROJECT_NAME="$(basename $ROOT_DIR)"
 PROJECT_URL="github.com/$USER/dotty-examples"
