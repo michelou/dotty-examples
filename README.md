@@ -83,7 +83,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*February 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*March 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant-1.10.13\         <i>( 40 MB)</i>
@@ -91,7 +91,7 @@ C:\opt\apache-maven-3.9.0\         <i>( 10 MB)</i>
 C:\opt\bazel-6.0.0\                <i>( 45 MB)</i>
 C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
 C:\opt\Git-2.39.2\                 <i>(314 MB)</i>
-C:\opt\gradle-8.0\                 <i>(129 MB)</i>
+C:\opt\gradle-8.0.1\               <i>(129 MB)</i>
 C:\opt\jacoco-0.8.8\               <i>( 10 MB)</i>
 C:\opt\javafx-sdk-17.0.2\          <i>( 82 MB)</i>
 C:\opt\jdk-temurin-1.8.0_352-b08\  <i>(185 MB)</i>
@@ -182,7 +182,7 @@ We also define a virtual drive **`W:`** in our working environment in order to r
 
 In the next section we give a brief description of the batch files present in this project.
 
-## <span id="commands">Batch/Bash commands</span>
+## <span id="commands">Batch/Bash commands</span> [**&#x25B4;**](#top)
 
 We distinguish different sets of batch/bash commands:
 
@@ -352,7 +352,7 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.18, java 11.0.18, scalac 2.13.10, scalac 3.3.0-RC3,
-   ant 1.10.13, gradle 8.0, mill 0.10.11, mvn 3.9.0, sbt 1.8.2,
+   ant 1.10.13, gradle 8.0.1, mill 0.10.11, mvn 3.9.0, sbt 1.8.2,
    bazel 6.0.0, bloop v1.3.4, cfr 0.152, make 3.81, python 3.11.1,
    git 2.39.2.windows.1, diff 3.8, bash 4.4.23(1)-release
 
@@ -380,7 +380,7 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also displays the tool paths and
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.18, java 11.0.18, scalac 2.13.10, scalac 3.3.0-RC3,
-   ant 1.10.13, gradle 8.0, mill 0.10.11, mvn 3.9.0, sbt 1.8.2,
+   ant 1.10.13, gradle 8.0.1, mill 0.10.11, mvn 3.9.0, sbt 1.8.2,
    bazel 6.0.0, cfr 0.152, make 3.81, python 3.11.1,
    git 2.39.2.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
@@ -390,7 +390,7 @@ Tool paths:
    C:\opt\scala3-3.3.0-RC3\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.13\bin\ant.bat
-   C:\opt\gradle-8.0\bin\gradle.bat
+   C:\opt\gradle-8.0.1\bin\gradle.bat
    C:\opt\mill-0.10.11\mill.bat
    C:\opt\apache-maven-3.9.0\bin\mvn.cmd
    C:\opt\sbt-1.8.2\bin\sbt.bat
@@ -465,32 +465,36 @@ Command [**`getnightly.bat download`**](bin/getnightly.bat) with options **` -ve
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose download</b>
 Delete directory "out\nightly"
 Download Scala 3 nightly files from Maven repository
-Downloading file scaladoc_3-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar ... 3.7 Mb
-Downloading file scala3-interfaces-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar ... 3.5 Kb
-Downloading file scala3-library_3-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar ... 1.2 Mb
-Downloading file scala3-compiler_3-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar ... 16.8 Mb
-Downloading file scala3-language-server_3-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar ... 149.2 Kb
-Downloading file scala3-staging_3-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar ... 37.8 Kb
-Downloading file tasty-core_3-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar ... 72.4 Kb
-Downloading file scala3-library_sjs1_3-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar ... 1.9 Mb
-Downloading file scala3-tasty-inspector_3-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar ... 17.4 Kb
-Downloading file scala3-sbt-bridge-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar ... 21.8 Kb
-Downloading file antlr-runtime-4.7.2.jar ... 0.5 Kb
+Downloading file scaladoc_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar ... 4.6 Mb
+Downloading file scala3-compiler_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar ... 18.3 Mb
+Downloading file scala3-interfaces-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar ... 3.9 Kb
+Downloading file scala3-library_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar ... 1.2 Mb
+Downloading file scala3-language-server_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar ... 148.9 Kb
+Downloading file scala3-staging_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar ... 38.1 Kb
+Downloading file tasty-core_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar ... 72.5 Kb
+Downloading file scala3-library_sjs1_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar ... 2 Mb
+Downloading file scala3-tasty-inspector_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar ... 17.4 Kb
+Downloading file scala3-sbt-bridge-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar ... 22.6 Kb
+Downloading file antlr4-runtime-4.7.2.jar ... 330 Kb
 [...]
 Downloading file common ... 6 Kb
 Downloading file common.bat ... 3 Kb
+Converting file common.bat to DOS format
 Downloading file scala ... 1.8 Kb
-Downloading file scala.bat ... 3.7 Kb
-Downloading file scalac ... 2.6 Kb
-Downloading file scalac.bat ... 5.2 Kb
-Downloading file scaladoc ... 4.4 Kb
+Downloading file scala.bat ... 2.7 Kb
+Converting file scala.bat to DOS format
+Downloading file scalac ... 2.5 Kb
+Downloading file scalac.bat ... 3.8 Kb
+Converting file scalac.bat to DOS format
+Downloading file scaladoc ... 4.3 Kb
 Downloading file scaladoc.bat ... 4.8 Kb
-Finished to download 53 files to directory "out\nightly"
-Retrieve revision for hash "93fc41f" from GitHub repository "lampepfl/dotty"
-File "out\nightly\VERSION":
-version:=3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY
-revision:=93fc41fcb624df73cc12d52b79d518a30a778a7c
-buildTime:=2022-04-15 21:48:29+02:00
+Converting file scaladoc.bat to DOS format
+Finished to download 53 files to directory "C:\Users\michelou\AppData\Local\Temp\scala3-nightly"
+Retrieve revision for hash "c1809bc" from GitHub repository "lampepfl/dotty"
+File "C:\Users\michelou\AppData\Local\Temp\scala3-nightly\VERSION":
+version:=3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY
+revision:=c1809bc
+buildTime:=2023-02-28 18:43:12+01:00
 </pre>
 
 Directory **`out\nightly\`** contains the two directories **`bin\`** and **`lib\`**:
@@ -510,18 +514,18 @@ autolink-0.6.0.jar
 [...]
 scala-asm-9.4.0-scala-1.jar
 scala-library-2.13.10.jar
-scala3-compiler_3-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar
-scala3-interfaces-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar
-scala3-language-server_3-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar
-scala3-library_3-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar
-scala3-library_sjs1_3-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar
-scala3-sbt-bridge-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar
-scala3-staging_3-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar
-scala3-tasty-inspector_3-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar
-scaladoc_3-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar
+scala3-compiler_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar
+scala3-interfaces-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar
+scala3-language-server_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar
+scala3-library_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar
+scala3-library_sjs1_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar
+scala3-sbt-bridge-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar
+scala3-staging_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar
+scala3-tasty-inspector_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar
+scaladoc_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar
 snakeyaml-1.27.jar
 strftime4j-1.0.5.jar
-tasty-core_3-3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY.jar
+tasty-core_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar
 </pre>
 <!--
 > **:mag_right:** A few notes about the distributed Java archives:
@@ -534,10 +538,10 @@ Concretely, subcommand **`activate`** switches to the nightly build version and 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> activate</b>
-Active Scala 3 installation is 3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY (was 3.3.0-RC3)
+Active Scala 3 installation is 3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY (was 3.3.0-RC3)
 
 <b>&gt; %SCALA3_HOME%\bin\<a href="bin/3.0/scalac.bat">scalac</a> -version</b>
-Scala compiler version 3.3.0-RC4-bin-20221130-72c4ffd-NIGHTLY-git-93fc41f -- Copyright 2002-2023, LAMP/EPFL
+Scala compiler version 3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY-git-93fc41f -- Copyright 2002-2023, LAMP/EPFL
 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> restore</b>
 Active Scala 3 installation is 3.3.0-RC3
@@ -852,7 +856,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.13-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.0-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-6.0.0-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
-<a href="https://gradle.org/install/">gradle-8.0-bin.zip</a>                                 <i>(103 MB)</i>
+<a href="https://gradle.org/install/">gradle-8.0.1-bin.zip</a>                               <i>(103 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.8.zip</a>                                   <i>(  4 MB)</i>
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.7-shaded-win.jar</a>                   <i>( 36 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
@@ -877,7 +881,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
