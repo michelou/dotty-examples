@@ -109,7 +109,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <scalaVersion>${scala.version}</scalaVersion>
+                    <scalaVersion>${scala3.version}</scalaVersion>
                     <localInstall>${scala.local.install}</localInstall>
                     <!-- <debug>true</debug> -->
                     <jvmArgs>
