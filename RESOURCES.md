@@ -30,6 +30,10 @@
 
 ## <span id="blogs">Blogs</span> [**&#x25B4;**](#top)
 
+- [SOFTWARE**MILL**](https://softwaremill.com/blog/?search=scala) :
+   - [Prototype Loom-based concurrency API for Scala][blog_warski_2] by Adam Warski, February 2023.
+   - [A solid checklist for configuring new Scala projects][blog_ciesielski] by Krzysztof Ciesielski, February 2023.
+   - [The future of effects in Scala?][blog_warski_1] by Adam Warski, July 2022.
 - [Databricks Blog][blog_databricks]
    - [Scala at Scale at Databricks](https://databricks.com/blog/2021/12/03/scala-at-scale-at-databricks.html) by Li Haoyi, December 2021.
 - [Scala 3 : un nouveau langage ?][blog_sarradin] by François Sarradin, May 2021.
@@ -124,11 +128,14 @@
 [blog_47_degrees]: https://www.47deg.com/blog/tags/scala/
 [blog_databricks]: https://databricks.com/blog
 [blog_sarradin]: https://univalence.io/blog/articles/scala-3-un-nouveau-langage/
+[blog_warski_2]: https://softwaremill.com/prototype-loom-based-concurrency-api-for-scala/
+[blog_warski_1]: https://softwaremill.com/the-future-of-effects-in-scala/
 [book_alexander]: https://www.oreilly.com/library/view/scala-cookbook-2nd/9781492051534/
 [book_haoyi]: https://www.handsonscala.com/
 [book_lewis]: https://www.routledge.com/Introduction-to-Programming-and-Problem-Solving-Using-Scala/Lewis-Lacher/p/book/9781498730952
 [book_pilquist]: https://www.manning.com/books/functional-programming-in-scala-second-edition
 [book_wampler]: https://www.oreilly.com/library/view/programming-scala-2nd/9781491950135/
+[blog_ciesielski]: https://softwaremill.com/new-scala-project-checklist/
 [blog_markham]: https://www.47deg.com/blog/smart-constructors-in-scala/
 [book_pollak]: https://www.apress.com/gp/book/9781484274217
 [course_csci555]: https://john.cs.olemiss.edu/~hcc/csci555/notes/555lectureNotes.html

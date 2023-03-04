@@ -18,7 +18,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Flix][flix_examples], [GraalSqueak][graalsqueak_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodes_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [Wix toolset][wix_examples] are other topics we are continuously investigating.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalSqueak][graalsqueak_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodes_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [Wix toolset][wix_examples] are other topics we are continuously investigating.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -650,6 +650,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
 [cpp_examples]: https://github.com/michelou/cpp-examples
+[dart_examples]: https://github.com/michelou/dart-examples
 [deno_examples]: https://github.com/michelou/deno-examples
 [dotty_ci]: https://dotty-ci.epfl.ch/lampepfl/dotty
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
@@ -662,6 +663,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/
+[golang_examples]: https://github.com/michelou/golang-examples
 [graalsqueak_examples]: https://github.com/michelou/graalsqueak-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [jmh]: https://openjdk.java.net/projects/code-tools/jmh/
