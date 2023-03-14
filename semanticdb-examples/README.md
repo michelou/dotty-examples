@@ -1,6 +1,6 @@
 # <span id="top">SemanticDB examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
     <a href="https://scalameta.org/docs/semanticdb/guide.html" rel="external"><img style="border:0;width:120px;" src="https://scalameta.org/img/scalameta.png" alt="Scalameta project" /></a>
@@ -21,7 +21,7 @@ We need to install additional command-line tools in order to work on our code ex
 
 > **:mag_right:** The above tools must be installed in two different ways:
 > - We need [Coursier] to install the **`metac`** and **`metap`** comand line tools <sup id="anchor_03">[3](#footnote_03)</sup> (no Tgz/Zip archive available).
-> - We extract the Zip archive [**`protoc-3.yy.z-win64.zip`**](https://github.com/protocolbuffers/protobuf/) (available from GitHub project [`protocolbuffers/protobuf`](https://github.com/protocolbuffers/protobuf/releases)) into directory **`C:\opt\protoc-3.yy.z\`**.
+> - We extract the Zip archive [**`protoc-yy.z-win64.zip`**](https://github.com/protocolbuffers/protobuf/) (available from GitHub project [`protocolbuffers/protobuf`](https://github.com/protocolbuffers/protobuf/releases)) into directory **`C:\opt\protoc-yy.z\`**.
 
 ## <span id="hello">`hello`</span>
 
@@ -91,7 +91,7 @@ Occurrences:
 
 With tiny code examples such as [**`Main.scala`**](hello/src/main/scala/Main.scala) we could also update the **`PATH`** variable and work with the two commands **`metac`** and **`metap`** directly :
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> "PATH=%PATH%;%COURSIER_DATA_DIR%\bin;c:\opt\protoc-3.21.12"</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> "PATH=%PATH%;%COURSIER_DATA_DIR%\bin;c:\opt\protoc-22.0"</b>
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> metac</b>
 <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%LOCALAPPDATA%</a>\Coursier\data\bin\metac.bat
@@ -221,8 +221,8 @@ range {
 
 <dl><dd>
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\protoc-3.21.12\bin\<a href="https://manpages.ubuntu.com/manpages/kinetic/man1/protoc.1.html" rel="external">protoc.exe</a> --version</b>
-libprotoc 3.21.12
+<b>&gt; c:\opt\protoc-22.0\bin\<a href="https://manpages.ubuntu.com/manpages/kinetic/man1/protoc.1.html" rel="external">protoc.exe</a> --version</b>
+libprotoc 22.0
 </pre>
 </dd></dl>
 
@@ -250,7 +250,7 @@ Warning: <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_val
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

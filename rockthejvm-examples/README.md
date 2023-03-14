@@ -1,6 +1,6 @@
 # <span id="top">Blog <i>Rock the JVM</i></span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:120px;" src="../docs/images/dotty.png" alt="Dotty project" /></a>
@@ -25,7 +25,7 @@ Code examples presented below can be built/run with the following tools:
 <sup><b>a)</b></sup> Here "Any" means "tested on Windows, Cygwin, MSYS2 and Unix".<br/>
 <sup><b>b)</b></sup> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).<br/>&nbsp;</div>
 
-## <span id="extension-methods">ExtensionMethods</span>
+## <span id="extension-methods">`ExtensionMethods` Example</span>
 
 Code example `ExtensionMethods` is presented in Ciorcîlan's blog post [**Scala 3: Extension Methods**](https://blog.rockthejvm.com/scala-3-extension-methods/) (April 2021).
 
@@ -41,7 +41,7 @@ three=3
 three1=3
 </pre>
 
-## <span id="givens">Givens</span> [**&#x25B4;**](#top)
+## <span id="givens">`Givens` Example</span> [**&#x25B4;**](#top)
 
 Code example `Givens` is presented in Ciorcîlan's blog post [**Givens vs. Implicits in Scala 3**](https://blog.rockthejvm.com/givens-vs-implicits/) (November 2020).
 
@@ -54,7 +54,7 @@ Hey, I'm Alice. Scala rocks!
 Hey, I'm Alice. Scala rocks!
 </pre>
 
-## <span id="infix-methods">InfixMethods</span>
+## <span id="infix-methods">`InfixMethods` Example</span>
 
 Code example `InfixMethods` is presented in Ciorcîlan's blog post [**Infix Methods in Scala 3**](https://blog.rockthejvm.com/scala-3-infix-methods/) (November 2020).
 
@@ -70,7 +70,7 @@ Person(Mary)
 Mary likes Forrest Gump
 </pre>
 
-## <span id="enums">Enums</span> [**&#x25B4;**](#top)
+## <span id="enums">`Enums` Example</span> [**&#x25B4;**](#top)
 
 Code example `Enums` is presented in Ciorcîlan's blog post [**Enums in Scala 3**](https://blog.rockthejvm.com/enums-scala-3/) (September 2020).
 
@@ -86,7 +86,7 @@ allPermissions=READ WRITE EXEC NONE
 fromBits(2)=WRITE
 </pre>
 
-## <span id="eta-expansion">EtaExpansion</span>
+## <span id="eta-expansion">`EtaExpansion` Example</span>
 
 Code example `EtaExpansion` is presented in Ciorcîlan's blog post [**Eta-Expansion and Partially Applied Functions in Scala**](https://blog.rockthejvm.com/eta-expansion-and-paf/) (August 2020).
 
@@ -104,7 +104,7 @@ ten=10
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
