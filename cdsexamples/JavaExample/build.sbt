@@ -1,4 +1,4 @@
-val scala3Version = "3.2.2"
+val scala3Version = "3.3.0-RC3"
 
 lazy val root = project
   .in(file("."))
@@ -20,7 +20,7 @@ lazy val root = project
       // https://mvnrepository.com/artifact/org.scalacheck/scalacheck
       "org.scalacheck" %% "scalacheck" % "1.17.0" % Test,
       // https://mvnrepository.com/artifact/org.scalatest/scalatest
-      "org.scalatest" %% "scalatest" % "3.2.14" % "test"
+      "org.scalatest" %% "scalatest" % "3.2.15" % "test"
     ),
     testOptions ++= Seq(
       Tests.Setup(() => println("Setup JUnit tests")),

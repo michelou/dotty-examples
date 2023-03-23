@@ -18,13 +18,13 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalSqueak][graalsqueak_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodes_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [Wix toolset][wix_examples] are other topics we are continuously investigating.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalSqueak][graalsqueak_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodes_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [Wix Toolset][wix_examples] are other topics we are continuously investigating.
 
 ## <span id="proj_deps">Project dependencies</span>
 
 Our [Dotty fork][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.39][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.40][git_releases] ([*release notes*][git_relnotes])
 - [Oracle OpenJDK 11][openjdk_releases] <sup id="anchor_02">[[2]](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
 - [sbt 1.8][sbt_releases] (requires Java 8) ([*release notes*][sbt_relnotes])
 <!--
@@ -54,8 +54,8 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*March 2023*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.39.2\                 <i>(317 MB)</i>
-C:\opt\jdk-temurin-1.8.0u345-b01\  <i>(186 MB)</i>
+C:\opt\Git-2.40.0\                 <i>(314 MB)</i>
+C:\opt\jdk-temurin-1.8.0u362-b09\  <i>(186 MB)</i>
 C:\opt\jdk-temurin-11.0.18_10\     <i>(314 MB)</i>
 C:\opt\jdk-temurin-17.0.6_10\      <i>(293 MB)</i>
 C:\opt\sbt-1.8.2\                  <i>( 48 MB)</i>
@@ -254,7 +254,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
-   "GIT_CMD=C:\opt\Git-2.39.2\bin\git.exe"
+   "GIT_CMD=C:\opt\Git-2.40.0\bin\git.exe"
    "JAVA_CMD=C:\opt\jdk-openjdk-11.0.18_10\bin\java.exe"
    "SBT_CMD=C:\opt\sbt-1.8.2\bin\sbt.bat"
 Tool options
@@ -659,7 +659,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.2.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.40.0.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/
