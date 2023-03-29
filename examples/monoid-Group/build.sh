@@ -224,13 +224,13 @@ compile_scala() {
     local sources_file="$TARGET_DIR/scalac_sources.txt"
     [[ -f "$sources_file" ]] && rm "$sources_file"
     local n=0
-    for f in $(find $SOURCE_DIR/main/scala/ -name *.scala 2>/dev/null); do
+    for f in $(find "$SOURCE_DIR/main/scala/" -type f -name "*.scala" 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
     if [[ $n -eq 0 ]]; then
         warning "No Scala source file found"
-        return
+        return 1
     fi
     local s=; [[ $n -gt 1 ]] && s="s"
     local n_files="$n Scala source file$s"
@@ -239,7 +239,7 @@ compile_scala() {
         # call :version_string
         # if not !_EXITCODE!==0 goto :eof
         local print_file="$TARGET_DIR/scalac-print${VERSION_SUFFIX}.scala"
-        #if [ $SCALA_VERSION -eq 3 ]; then
+        #if [[ $SCALA_VERSION -eq 3 ]]; then
         #    set __PRINT_FILE_REDIRECT=2^> "$print_file"
         #else
         #    set __PRINT_FILE_REDIRECT=1^> "$print_file"
@@ -258,7 +258,7 @@ compile_scala() {
 }
 
 mixed_path() {
-    if [ -x "$CYGPATH_CMD" ]; then
+    if [[ -x "$CYGPATH_CMD" ]]; then
         $CYGPATH_CMD -am $1
     elif $mingw || $msys; then
         echo $1 | sed 's|/|\\\\|g'
@@ -323,7 +323,7 @@ decompile() {
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
         elif $VERBOSE; then
-            echo "Compare output file with check file ${check_file/$ROOT_DIR\//}" 1>&2
+            echo "Compare output file with check file \"${check_file/$ROOT_DIR\//}\"" 1>&2
         fi
         eval "$DIFF_CMD" $diff_opts "$(mixed_path $output_file)" "$(mixed_path $check_file)"
         if [[ $? -ne 0 ]]; then
@@ -341,7 +341,7 @@ extra_cpath() {
         lib_path="$SCALA_HOME/lib"
     fi
     local extra_cpath=
-    for f in $(find $lib_path/ -name *.jar); do
+    for f in $(find "$lib_path/" -name "*.jar"); do
         extra_cpath="$extra_cpath$(mixed_path $f)$PSEP"
     done
     echo $extra_cpath
@@ -384,11 +384,11 @@ doc() {
     # for f in $(find $SOURCE_DIR/main/java/ -name *.java 2>/dev/null); do
     #     echo $(mixed_path $f) >> "$sources_file"
     # done
-    for f in $(find $SOURCE_DIR/main/scala/ -name *.scala 2>/dev/null); do
+    for f in $(find "$SOURCE_DIR/main/scala/" -type f -name "*.scala" 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
     done
     local opts_file="$TARGET_DIR/scaladoc_opts.txt"
-    if [ $SCALA_VERSION -eq 3 ]; then
+    if [[ $SCALA_VERSION -eq 3 ]]; then
         echo -d "$(mixed_path $TARGET_DOCS_DIR)" -doc-title "$PROJECT_NAME" -doc-footer "$PROJECT_URL" -doc-version "$PROJECT_VERSION" > "$opts_file"
     else
         echo -siteroot "$(mixed_path $TARGET_DOCS_DIR)" -project "$PROJECT_NAME" -project-url "$PROJECT_URL" -project-version "$PROJECT_VERSION" > "$opts_file"
@@ -425,11 +425,11 @@ run() {
     if $DEBUG; then
         debug "$SCALA_CMD $scala_opts $MAIN_CLASS $MAIN_ARGS"
     elif $VERBOSE; then
-        echo "Execute Scala main class $MAIN_CLASS" 1>&2
+        echo "Execute Scala main class \"$MAIN_CLASS\"" 1>&2
     fi
     eval "$SCALA_CMD" $scala_opts $MAIN_CLASS $MAIN_ARGS
     if [[ $? -ne 0 ]]; then
-        error "Program execution failed ($MAIN_CLASS)"
+        error "Failed to execute Scala main class \"$MAIN_CLASS\"" 1>&2
         cleanup 1
     fi
     if $TASTY; then
