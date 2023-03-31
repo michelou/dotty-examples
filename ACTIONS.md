@@ -1,6 +1,6 @@
 # <span id="top">GitHub Actions</span> <span style="size:30%;"><a href="README.md">↩</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;max-width:120px;">
     <a href="https://github.com/" rel="external"><img style="border:0;width:120px;" src="./docs/images/Octocat.png" alt="GitHub project"/></a>
@@ -169,7 +169,7 @@ SBT_HOME=C:\Program Files (x86)\sbt\
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

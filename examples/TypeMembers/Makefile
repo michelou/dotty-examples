@@ -11,13 +11,13 @@ SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 ##############################################################################
 ## main rules
 
-JAVA_SOURCES = $(shell $(FIND) $(SOURCE_DIR)/main/java -name *.java)
+JAVA_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main/java" -name "*.java")
 JAVA_TARGET  = $(TARGET_DIR)/.latest-java-build
 
 JAVA_OPTS_FILE    = $(TARGET_DIR)/javac_opts.txt
 JAVA_SOURCES_FILE = $(TARGET_DIR)/javac_sources.txt
 
-SOURCES      = $(shell $(FIND) $(SOURCE_DIR)/main/scala -name *.scala 2>/dev/null)
+SOURCES      = $(shell $(FIND) "$(SOURCE_DIR)/main/scala" -name "*.scala" 2>/dev/null)
 TARGET       = $(TARGET_DIR)/.latest-build
 
 OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
@@ -31,7 +31,7 @@ all: build
 build: $(JAVA_TARGET) $(TARGET)
 
 $(JAVA_TARGET): $(JAVA_SOURCES)
-	[ -d "$(CLASSES_DIR)" ] || $(MKDIR) -p "$(CLASSES_DIR)"
+	[ -d "$(CLASSES_DIR)" ] || "$(MKDIR)" -p "$(CLASSES_DIR)"
 	@$(ECHO) $(JAVAC_FLAGS) -d "$(CLASSES_DIR)" > "$(JAVA_OPTS_FILE)"
 	@$(ECHO) $(JAVA_SOURCES) > "$(JAVA_SOURCES_FILE)"
 	"$(JAVAC)" "@$(JAVA_OPTS_FILE)" "@$(JAVA_SOURCES_FILE)"
@@ -67,7 +67,7 @@ help:
 ## doc rules
 
 DOC_TARGET_DIR = $(TARGET_DIR)/docs
-DOC_SOURCES    = $(shell $(FIND) $(CLASSES_DIR) -name *.tasty 2>/dev/null)
+DOC_SOURCES    = $(shell $(FIND) "$(CLASSES_DIR)" -name "*.tasty" 2>/dev/null)
 DOC_TARGET     = $(DOC_TARGET_DIR)/.latest-build
 
 PROJECT_NAME    ?= $(shell basename $(CURDIR))
@@ -98,7 +98,7 @@ lint:
 ##############################################################################
 ## test rules
 
-TEST_SOURCES     = $(shell $(FIND) $(SOURCE_DIR)/test -name *.scala 2>/dev/null)
+TEST_SOURCES     = $(shell $(FIND) "$(SOURCE_DIR)/test" -name "*.scala" 2>/dev/null)
 TEST_CLASSES_DIR = $(TARGET_DIR)/test-classes
 TEST_TARGET      = $(TARGET_DIR)/.latest-test-build
 

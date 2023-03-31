@@ -57,11 +57,13 @@ if not exist "%_PS1_FILE%" (
     goto :eof
 )
 if not exist "%GIT_HOME%\usr\bin\unix2dos.exe" (
+    echo %_ERROR_LABEL% Executable unix2dos not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
 set "_CURL_CMD=%GIT_HOME%\mingw64\bin\curl.exe"
 set "_GIT_CMD=%GIT_HOME%\bin\git.exe"
+set "_GREP_CMD=%GIT_HOME%\usr\bin\grep.exe"
 set "_SED_CMD=%GIT_HOME%\usr\bin\sed.exe"
 set "_UNIX2DOS_CMD=%GIT_HOME%\usr\bin\unix2dos.exe"
 
@@ -117,10 +119,11 @@ set _STRONG_BG_BLUE=[104m
 goto :eof
 
 @rem input parameter: %*
-@rem output parameter: _HELP, _TIMER, _VERBOSE
+@rem output parameter: _FORCE, _HELP, _TIMER, _VERBOSE
 :args
 set _ACTIVATE=0
 set _DOWNLOAD=0
+set _FORCE=0
 set _HELP=0
 set _RESTORE=0
 set _TIMER=0
@@ -135,6 +138,7 @@ if not defined __ARG (
 if "%__ARG:~0,1%"=="-" (
     @rem option
     if "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if "%__ARG%"=="-force" ( set _FORCE=1
     ) else if "%__ARG%"=="-help" ( set _HELP=1
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
@@ -163,7 +167,7 @@ if %_DEBUG%==1 ( set _STDOUT_REDIRECT=1^>CON
 ) else ( set _STDOUT_REDIRECT=1^>NUL
 )
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Options    : _FORCE=%_FORCE% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _DOWNLOAD=%_DOWNLOAD% _ACTIVATE=%_ACTIVATE% _RESTORE=%_RESTORE% 1>&2
     if defined SCALA3_HOME echo %_DEBUG_LABEL% Variables  : "SCALA3_HOME=%SCALA3_HOME%" 1>&2
 )
@@ -185,7 +189,8 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%      show commands executed by this script
+echo     %__BEG_O%-debug%__END%      display commands executed by this script
+echo     %__BEG_O%-force%__END%      force download even if already locally available
 echo     %__BEG_O%-timer%__END%      display total elapsed time
 echo     %__BEG_O%-verbose%__END%    display download progress
 echo.
@@ -224,7 +229,7 @@ goto :eof
 set "__DIR=%~1"
 if not exist "%__DIR%\" goto :eof
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
-) else if %_VERBOSE%==1 ( echo Delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Delete directory "!__DIR:%LOCALAPPDATA%=%%LOCALAPPDATA%%!" 1>&2
 )
 rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
@@ -239,7 +244,12 @@ set _NIGHTLY_VERSION=
 
 for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%" %_DEBUG%') do (
     for %%f in ("%%i") do set "__FILE_BASENAME=%%~nxf"
-    if exist "%_NIGHTLY_DIR%\lib\!__FILE_BASENAME!" goto :eof
+    if exist "%_NIGHTLY_DIR%\lib\!__FILE_BASENAME!" if %_FORCE%==0 (
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_NIGHTLY_DIR%\lib\!__FILE_BASENAME!" already exists 1>&2
+        ) else if %_VERBOSE%==1 ( echo "%_NIGHTLY_DIR%\lib\!__FILE_BASENAME!" already exists 1>&2
+        )
+        goto :eof
+    )
     goto :download_nightly
 )
 :download_nightly
@@ -310,20 +320,20 @@ for /f "tokens=1,*" %%i in (%__LST_FILE%) do (
         @rem powershell -C "$progressPreference='silentlyContinue';wget -uri '!__URI!' -outfile '!__OUTFILE!'"
         if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_CURL_CMD%" --silent --insecure  --url "!__URI!" ^> "!__OUTFILE!" 1>&2
         call "%_CURL_CMD%" --silent --insecure --url "!__URI!" > "!__OUTFILE!"
-        if !ERRORLEVEL!==0 if "!__NAME:~-4!"==".bat" (
-            if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_UNIX2DOS_CMD%" "!__OUTFILE!" 1^>NUL 1>&2
-            ) else if %_VERBOSE%==1 ( echo Convert file !__NAME! to DOS format 1>&2
-            )
-            call "%_UNIX2DOS_CMD%" "!__OUTFILE!" 2>NUL
-        )
         if %_VERBOSE%==1 (
             call :file_size "!__OUTFILE!"
-            echo !_FILE_SIZE!
+            echo !_FILE_SIZE! 1>&2
+        )
+        if !ERRORLEVEL!==0 if "!__NAME:~-4!"==".bat" (
+            if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_UNIX2DOS_CMD%" "!__OUTFILE!" 1^>NUL 1>&2
+            ) else if %_VERBOSE%==1 ( echo Converting file !__NAME! to DOS format 1>&2
+            )
+            call "%_UNIX2DOS_CMD%" "!__OUTFILE!" 2>NUL
         )
         set /a __N+=1
     )
 )
-if %_VERBOSE%==1 echo Finished to download %__N% files to directory "!_NIGHTLY_DIR:%_ROOT_DIR%=!" 1>&2
+if %_VERBOSE%==1 echo Finished to download %__N% files to directory "!_NIGHTLY_DIR:%LOCALAPPDATA%=%%LOCALAPPDATA%%!" 1>&2
 
 @rem create VERSION file in %__NIGHTLY_HOME% directory.
 call :github_revision "%_NIGHTLY_VERSION%"
@@ -337,7 +347,7 @@ for /f "usebackq delims=" %%i in (`powershell -C "Get-Date -Format 'yyyy-MM-dd H
 ) > "%_NIGHTLY_DIR%\VERSION"
 set /a __SHOW=%_VERBOSE%+%_DEBUG%
 if not %__SHOW%==0 (
-    echo File "!_NIGHTLY_DIR:%_ROOT_DIR%=!\VERSION": 1>&2
+    echo File "!_NIGHTLY_DIR:%LOCALAPPDATA%=%%LOCALAPPDATA%%!\VERSION": 1>&2
     type "%_NIGHTLY_DIR%\VERSION" 1>&2
 )
 goto :eof
@@ -363,22 +373,24 @@ set "__HASH=!__NIGHTLY_VERSION:-NIGHTLY=!"
 set "__HASH=%__HASH:~-7%"
 set "__URL=https://github.com/lampepfl/dotty/commit/%__HASH%"
 set "__OUTPUT_FILE=%TEMP%\%_BASENAME%_curl.txt"
+echo 000000000000 "__OUTPUT_FILE=%__OUTPUT_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" --silent --url "%__URL%"^| "%_SED_CMD%" -e "s#/><#\n#g" ^> "%__OUTPUT_FILE%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_CURL_CMD%" --insecure --silent --url "%__URL%"^| "%_SED_CMD%" ... 1>&2
 ) else if %_VERBOSE%==1 ( echo Retrieve revision for hash "%__HASH%" from GitHub repository "lampepfl/dotty" 1>&2
 )
-call "%_CURL_CMD%" --silent --url "%__URL%" | "%_SED_CMD%" -e "s#/><#\n#g" > "%__OUTPUT_FILE%"
+"%_CURL_CMD%" --insecure --silent --url "%__URL%" | "%_GREP_CMD%" "property=\"og:url\"" | "%_SED_CMD%" "s#<meta#\n<meta#g" | "%_GREP_CMD%" "og:url" | "%_SED_CMD%" -n -e 's/.*content="\/lampepfl\/dotty\/commit\/\([^^"]*\)^".*./\1/p'  > "%__OUTPUT_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to download hash %__HASH% 1>&2
     set _EXITCODE=1
     goto :eof
 )
 @rem Make sure findstr output does NOT contain any '<' or '>' characters
-for /f "delims=^= tokens=1,2,*" %%i in ('findstr og:url "%__OUTPUT_FILE%"') do (
+for /f "delims=^= tokens=1,2,*" %%i in ("%__OUTPUT_FILE%") do (
     set _GITHUB_REVISION=%%~k
     set "_GITHUB_REVISION=!_GITHUB_REVISION:"=!"
     set "_GITHUB_REVISION=!_GITHUB_REVISION:/lampepfl/dotty/commit/=!"
 )
+echo 11111111111 _GITHUB_REVISION=%_GITHUB_REVISION%
 goto :eof
 
 @rem output parameter: _SCALA3_HOME

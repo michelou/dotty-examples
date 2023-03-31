@@ -34,6 +34,7 @@ set _MAKE_PATH=
 set _MAVEN_PATH=
 set _MILL_PATH=
 set _SBT_PATH=
+set _SCALA_CLI_PATH=
 set _VSCODE_PATH=
 
 @rem %1=vendor, %2=version
@@ -130,6 +131,12 @@ if not %_EXITCODE%==0 (
 call :msvs
 if not %_EXITCODE%==0 goto end
 
+call :scala_cli
+if not %_EXITCODE%==0 (
+    @rem optional
+    echo %_WARNING_LABEL% Scala-CLI installation not found 1>&2
+    set _EXITCODE=0
+)
 call :vscode
 if not %_EXITCODE%==0 goto end
 
@@ -996,6 +1003,32 @@ if not exist "%_MSYS_HOME%\msys2_shell.cmd" if %_MSYS%==1 (
 )
 goto :eof
 
+@rem output parameters: _SCALA_CLI_HOME
+:scala_cli
+set _SCALA_CLI_HOME=
+
+set __SCALA_CLI_CMD=
+for /f %%f in ('where scala-cli.exe 2^>NUL') do set "__SCALA_CLI_CMD=%%f"
+if defined __SCALA_CLI_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Scala CLI command found in PATH 1>&2
+    goto :eof
+) else if defined SCALA_CLI_HOME (
+    set "_SCALA_CLI_HOME=%SCALA_CLI_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SCALA_CLI_HOME 1>&2
+) else (
+    set _PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!_PATH!\scala-cli*" 2^>NUL') do set "_SCALA_CLI_HOME=!_PATH!\%%f"
+    if defined _SCALA_CLI_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala CLI installation directory !_SCALA_CLI_HOME! 1>&2
+    )
+)
+if not exist "%_SCALA_CLI_HOME%\scala-cli.exe" (
+    echo %_ERROR_LABEL% Scala CLI command not found ^(%_SCALA_CLI_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
 @rem output parameters: _VSCODE_HOME, _VSCODE_PATH
 :vscode
 set _VSCODE_HOME=
@@ -1136,6 +1169,11 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1-3,*" %%i in ('"%SBT_HOME%\bin\sbt.bat" --version ^| findstr script') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% sbt %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%SBT_HOME%\bin:sbt.bat"
 )
+where /q "%SCALA_CLI_HOME%:scala-cli.exe"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1-3,*" %%i in ('"%SCALA_CLI_HOME%\scala-cli.exe" -version ^| findstr CLI') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% scala-cli %%l,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%SCALA_CLI_HOME%:scala-cli.exe"
+)
 where /q "%BAZEL_HOME%:bazel.exe"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('"%BAZEL_HOME%\bazel.exe" --version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% bazel %%j,"
@@ -1212,6 +1250,7 @@ if %__VERBOSE%==1 (
     if defined MSYS_HOME echo    "MSYS_HOME=%MSYS_HOME%" 1>&2
     if defined PYTHON_HOME echo    "PYTHON_HOME=%PYTHON_HOME%" 1>&2
     if defined SBT_HOME echo    "SBT_HOME=%SBT_HOME%" 1>&2
+    if defined SCALA_CLI_HOME echo    "SCALA_CLI_HOME=%SCALA_CLI_HOME%" 1>&2
     if defined SCALA_HOME echo    "SCALA_HOME=%SCALA_HOME%" 1>&2
     if defined SCALA3_HOME echo    "SCALA3_HOME=%SCALA3_HOME%" 1>&2
     echo Path associations: 1>&2
@@ -1246,9 +1285,10 @@ endlocal & (
         if not defined PYTHON_HOME set "PYTHON_HOME=%_PYTHON_HOME%"
         if not defined SBT_HOME set "SBT_HOME=%_SBT_HOME%"
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
+        if not defined SCALA_CLI_HOME set "SCALA_CLI_HOME=%_SCALA_CLI_HOME%"
         if not defined SCALA3_HOME set "SCALA3_HOME=%_SCALA3_HOME%"
         @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
-        set "PATH=%_GIT_HOME%\bin;%PATH%%_ANT_PATH%%_BAZEL_PATH%%_COURSIER_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
+        set "PATH=%_GIT_HOME%\bin;%PATH%%_ANT_PATH%%_BAZEL_PATH%%_COURSIER_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%;%_SCALA_CLI_HOME%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE%
         if not "%CD:~0,2%"=="%_DRIVE_NAME%:" (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME%: 1>&2

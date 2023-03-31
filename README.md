@@ -25,7 +25,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.39][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.40][git_releases] ([*release notes*][git_relnotes])
 - [Scala 3.3][scala3_releases] ([*release notes*][scala3_relnotes])
 - [Temurin OpenJDK 11 LTS][temurin_opendjk11] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_opendjk11_relnotes], [*bug fixes*][temurin_opendjk11_bugfixes])
 - [Temurin OpenJDK 17 LTS][temurin_opendjk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_opendjk17_relnotes], [*bug fixes*][temurin_opendjk17_bugfixes])
@@ -62,7 +62,7 @@ Optionally one may also install the following software:
 
 - [Apache Ant 1.10][apache_ant] (requires Java 8) ([*release notes*][apache_ant_relnotes])
 - [Apache Maven 3.9][apache_maven] ([requires Java 8 or newer][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
-- [Bazel 6.0 LTS][bazel_releases] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
+- [Bazel 6.1 LTS][bazel_releases] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
 - [GNU Make 3.81][make_downloads]
 - [Gradle 8.0][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
@@ -72,8 +72,8 @@ Optionally one may also install the following software:
 - [Mill 0.10][mill_releases] ([*change log*][mill_changelog])
 - [MSYS2][msys2_releases] ([*change log*][msys2_changelog])
 - [sbt 1.8][sbt_downloads] (requires Java 8) ([*release notes*][sbt_relnotes])
-- [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes])
-- [scala-cli 0.1][scala_cli_downloads] ([*release notes*][scala_cli_relnotes])
+- [Scala 2.13][scala_releases] (requires Java 8) ([*release notes*][scala_relnotes], [*Scala API*][scala_api])
+- [scala-cli 0.2][scala_cli_downloads] ([*release notes*][scala_cli_relnotes])
 - [Temurin OpenJDK 8 LTS][temurin_openjdk8] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk8_relnotes])
 <!--
 - [Bloop 1.5][bloop_releases] (requires Java 8 and Python 2/3) ([*release notes*][bloop_relnotes])
@@ -87,24 +87,24 @@ For instance our development environment looks as follows (*March 2023*) <sup id
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant-1.10.13\         <i>( 40 MB)</i>
-C:\opt\apache-maven-3.9.0\         <i>( 10 MB)</i>
-C:\opt\bazel-6.0.0\                <i>( 45 MB)</i>
+C:\opt\apache-maven-3.9.1\         <i>( 10 MB)</i>
+C:\opt\bazel-6.1.1\                <i>( 45 MB)</i>
 C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
-C:\opt\Git-2.39.2\                 <i>(314 MB)</i>
-C:\opt\gradle-8.0.1\               <i>(129 MB)</i>
+C:\opt\Git-2.40.0\                 <i>(314 MB)</i>
+C:\opt\gradle-8.0.2\               <i>(129 MB)</i>
 C:\opt\jacoco-0.8.8\               <i>( 10 MB)</i>
 C:\opt\javafx-sdk-17.0.2\          <i>( 82 MB)</i>
-C:\opt\jdk-temurin-1.8.0_352-b08\  <i>(185 MB)</i>
+C:\opt\jdk-temurin-1.8.0u362-b09\  <i>(189 MB)</i>
 C:\opt\jdk-temurin-11.0.18_10\     <i>(302 MB)</i>
 C:\opt\jdk-temurin-17.0.6_10\      <i>(299 MB)</i>
 C:\opt\jitwatch-1.4.7\             <i>( 36 MB)</i>
 C:\opt\make-3.81\                  <i>(  2 MB)</i>
-C:\opt\mill-0.10.11\               <i>( 67 MB)</i>
+C:\opt\mill-0.10.12\               <i>( 67 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
 C:\opt\Python-3.11.1\              <i>(299 MB)</i>
 C:\opt\sbt-1.8.2\                  <i>( 80 MB)</i>
 C:\opt\scala-2.13.10\              <i>( 24 MB)</i>
-C:\opt\scala-cli-0.1.20\           <i>( 92 MB)</i>
+C:\opt\scala-cli-0.2.1\            <i>( 92 MB)</i>
 C:\opt\scala3-3.3.0-RC3\           <i>( 38 MB)</i>
 </pre>
  <!-- jdk8: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
@@ -173,7 +173,7 @@ where
 > **:mag_right:** We use [VS Code][microsoft_vscode] with the extension [Markdown Preview Github Styling](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-preview-github-styles) to edit our Markdown files (see article ["Mastering Markdown"](https://guides.github.com/features/mastering-markdown/) from [GitHub Guides][github_guides].
 -->
 
-We also define a virtual drive **`W:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
+We also define a virtual drive **`Y:`** in our working environment in order to reduce/hide the real path of our project directory (see article ["Windows command prompt limitation"][windows_limitation] from Microsoft Support).
 > **:mag_right:** We use the Windows external command [**`subst`**][windows_subst] to create virtual drives; for instance:
 >
 > <pre style="font-size:80%;">
@@ -194,7 +194,7 @@ We distinguish different sets of batch/bash commands:
    &nbsp;
      Options:
        -bash       start Git bash shell instead of Windows command prompt
-       -debug      show commands executed by this script
+       -debug      display commands executed by this script
        -verbose    display environment settings
    &nbsp;
      Subcommands:
@@ -244,7 +244,7 @@ We distinguish different sets of batch/bash commands:
     Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
     &nbsp;
       Options:
-        -debug           show commands executed by this script
+        -debug           display commands executed by this script
         -explain         set compiler option -explain
         -explain-types   set compiler option -explain-types
         -main:&lt;name&gt;     define main class name (default: Main)
@@ -277,8 +277,8 @@ We distinguish different sets of batch/bash commands:
 
     Code examples in directories [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built with the following tools as an alternative to the **`build.bat`** command (see [**`examples\README.md`**](examples/README.md) and [**`myexamples\README.md`**](myexamples/README.md) for more details):
 
-    | **Build tool** | **Configuration file** | **Parent file** | **Usage example** |
-    | :------------- | :--------------------- | :-------------- | :---------------- |
+    | Build&nbsp;tool | Configuration file | Parent file | Usage example |
+    |:----------------|:-------------------|:------------|:--------------|
     | [**`ant.bat`**][apache_ant_cli] | [**`build.xml`**](examples/enum-Planet/build.xml) | [**`build.xml`**](examples/build.xml) | **`ant clean compile run`** |
     | [**`bazel.exe`**][bazel_cli] | [**`BUILD`**](examples/enum-Planet/BUILD) | n.a. | **`bazel run :enum-Planet`** |
     | [**`gradle.bat`**][gradle_cli] | [**`build.gradle`**](examples/enum-Planet/build.gradle) | [**`common.gradle`**](examples/common.gradle) | **`gradle clean build run`** |
@@ -351,14 +351,15 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   javac 11.0.18, java 11.0.18, scalac 2.13.10, scalac 3.3.0-RC3,
-   ant 1.10.13, gradle 8.0.1, mill 0.10.11, mvn 3.9.0, sbt 1.8.2,
-   bazel 6.0.0, bloop v1.3.4, cfr 0.152, make 3.81, python 3.11.1,
-   git 2.39.2.windows.1, diff 3.8, bash 4.4.23(1)-release
+   javac 11.0.18, java 11.0.18, scalac 2.13.10, scalac 3.3.0-RC3, scalafmt 3.7.2,
+   ant 1.10.13, gradle 8.0.2, mill 0.10.12, mvn 3.9.1, sbt 1.8.2, scala-cli 0.2.1,
+   bazel 6.1.1, bloop v1.3.4, cfr 0.152, make 3.81, python 3.11.1,
+   git 2.40.0.windows.1, diff 3.8, bash 4.4.23(1)-release
 
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt scala-cli</b>
 C:\opt\sbt-1.8.2\bin\sbt
 C:\opt\sbt-1.8.2\bin\sbt.bat
+C:\opt\scala-cli-0.2.1\scala-cli.ex
 </pre>
 
 Other development tools such as [**`javac.exe`**][javac_cli] and [**`scalac.bat`**][scalac_cli] are accessible through the corresponding environment variable, e.g. **`JAVA_HOME`** for **`javac.exe`**, **`SCALA_HOME`** resp. **`SCALA3_HOME`** for **`scalac.bat`** and **`PYTHON_HOME`** for **`python.exe`**.
@@ -380,9 +381,9 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also displays the tool paths and
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.18, java 11.0.18, scalac 2.13.10, scalac 3.3.0-RC3,
-   ant 1.10.13, gradle 8.0.1, mill 0.10.11, mvn 3.9.0, sbt 1.8.2,
-   bazel 6.0.0, cfr 0.152, make 3.81, python 3.11.1,
-   git 2.39.2.windows.1, diff 3.8, bash 4.4.23(1)-release
+   ant 1.10.13, gradle 8.0.2, mill 0.10.12, mvn 3.9.1, sbt 1.8.2,
+   bazel 6.1.1, cfr 0.152, make 3.81, python 3.11.1,
+   git 2.40.0.windows.1, diff 3.8, bash 4.4.23(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.18_10\bin\javac.exe
    C:\opt\jdk-temurin-11.0.18_10\bin\java.exe
@@ -390,22 +391,22 @@ Tool paths:
    C:\opt\scala3-3.3.0-RC3\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.13\bin\ant.bat
-   C:\opt\gradle-8.0.1\bin\gradle.bat
-   C:\opt\mill-0.10.11\mill.bat
-   C:\opt\apache-maven-3.9.0\bin\mvn.cmd
+   C:\opt\gradle-8.0.2\bin\gradle.bat
+   C:\opt\mill-0.10.12\mill.bat
+   C:\opt\apache-maven-3.9.1\bin\mvn.cmd
    C:\opt\sbt-1.8.2\bin\sbt.bat
-   C:\opt\bazel-6.0.0\bazel.exe
+   C:\opt\bazel-6.1.1\bazel.exe
    C:\opt\cfr-0.152\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
    C:\opt\Python-3.11.1\python.exe
-   C:\opt\Git-2.39.2\bin\git.exe
-   C:\opt\Git-2.39.2\mingw64\bin\git.exe
-   C:\opt\Git-2.39.2\usr\bin\diff.exe
-   C:\opt\Git-2.39.2\bin\bash.exe
+   C:\opt\Git-2.40.0\bin\git.exe
+   C:\opt\Git-2.40.0\mingw64\bin\git.exe
+   C:\opt\Git-2.40.0\usr\bin\diff.exe
+   C:\opt\Git-2.40.0\bin\bash.exe
 Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.13"
-   "BAZEL_HOME=c:\opt\bazel-6.0.0"
-   "GIT_HOME=C:\opt\Git-2.39.2"
+   "BAZEL_HOME=c:\opt\bazel-6.1.1"
+   "GIT_HOME=C:\opt\Git-2.40.0"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.18_10"
    "JAVAFX_HOME=C:\opt\javafx-sdk-17.0.2"
    "MSVS_HOME=X:"
@@ -448,7 +449,7 @@ By default command [**`getnightly.bat`**](bin/getnightly.bat) downloads the libr
 Usage: getnightly { &lt;option&gt; | &lt;subcommand&gt; }
 &nbsp;
   Options:
-    -debug      show commands executed by this script
+    -debug      display commands executed by this script
     -timer      display total elapsed time
     -verbose    display download progress
 &nbsp;
@@ -602,7 +603,7 @@ Searching for an unknown class name - e.g. **`BinarySearch`** - produces the fol
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> BinarySearch</b>
-Searching for class name BinarySearch in archive files C:\opt\scala3-4\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\scala3-3.3.0-RC3\lib\*.jar
 Searching for class name BinarySearch in archive files C:\opt\scala-2.13.10\lib\*.jar
 Searching for class name BinarySearch in archive files C:\opt\jdk-temurin-11.0.18_10\lib\*.jar
 </pre>
@@ -835,7 +836,7 @@ For instance, for Visual Studio 2019, we set variable <b><code>BAZEL_VC</code></
 <tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.9</a>&nbsp;<i style="font-size:80%;">(October&nbsp;2022)</i></td><td>19 and 20</td><td><a href="https://asm.ow2.io/versions.html">9.4</a></td></tr>
 <tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.8</a> <i style="font-size:80%;">(April 2022)</i></td><td>17 and 18</td><td><a href="https://asm.ow2.io/versions.html">9.2</a></td></tr>
 <tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.7</a> <i style="font-size:80%;">(May 2021)</i></td><td>15 and 16</td><td><a href="https://asm.ow2.io/versions.html">9.1</a></td></tr>
-<tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.6</a> <i style="font-size:80%;">(Sept 2020)</i></td><td>14</td><td><a href="https://asm.ow2.io/versions.html">8.0.1</a></td></tr>
+<tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.6</a> <i style="font-size:80%;">(Sept 2020)</i></td><td>14</td><td><a href="https://asm.ow2.io/versions.html">8.0.2</a></td></tr>
 <tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.5</a> <i style="font-size:80%;">(Oct 2019)</i></td><td>13</td><td><a href="https://asm.ow2.io/versions.html">7.2</a></td></tr>
 <tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.4</a> <i style="font-size:80%;">(May 2019)</i></td><td>12</td><td><a href="https://asm.ow2.io/versions.html">7.1</a></td></tr>
 <tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.3</a> <i style="font-size:80%;">(Jan 2019)</i></td><td>11</td><td><a href="https://asm.ow2.io/versions.html">7.0</a></td></tr>
@@ -852,11 +853,11 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/lihaoyi/mill/releases">0.10.11-assembly</a> (<code>mill</code>)                            <i>( 64 MB)</i>
+<a href="https://github.com/lihaoyi/mill/releases">0.10.12-assembly</a> (<code>mill</code>)                            <i>( 64 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.13-bin.zip</a>                         <i>(  9 MB)</i>
-<a href="https://maven.apache.org/download.cgi">apache-maven-3.9.0-bin.zip</a>                         <i>( 10 MB)</i>
-<a href="https://github.com/bazelbuild/bazel/releases">bazel-6.0.0-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
-<a href="https://gradle.org/install/">gradle-8.0.1-bin.zip</a>                               <i>(103 MB)</i>
+<a href="https://maven.apache.org/download.cgi">apache-maven-3.9.1-bin.zip</a>                         <i>( 10 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases">bazel-6.1.1-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
+<a href="https://gradle.org/install/">gradle-8.0.2-bin.zip</a>                               <i>(103 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.8.zip</a>                                   <i>(  4 MB)</i>
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.7-shaded-win.jar</a>                   <i>( 36 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
@@ -866,10 +867,10 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u352b08.zip</a>     <i>( 99 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.18_10.zip</a>  <i>(188 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_17.0.6_10.zip</a>   <i>(188 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.39.2-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.40.0-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.8.2.zip</a>                                      <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.10.zip</a>                                  <i>( 22 MB)</i>
-<a href="https://github.com/lampepfl/dotty/releases/tag/3.2.2">scala3-3.3.0-RC3.zip</a>                                   <i>( 34 MB)</i>
+<a href="https://github.com/lampepfl/dotty/releases/tag/3.2.2">scala3-3.3.0-RC3.zip</a>                               <i>( 34 MB)</i>
 </pre>
 </dd></dl>
 
@@ -895,7 +896,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
-[apache_maven_relnotes]: https://maven.apache.org/docs/3.9.0/release-notes.html
+[apache_maven_relnotes]: https://maven.apache.org/docs/3.9.1/release-notes.html
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [bazel_releases]: https://github.com/bazelbuild/bazel/releases
 <!--
@@ -920,7 +921,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [git_bash]: https://www.atlassian.com/git/tutorials/git-bash
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.2.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.40.0.txt
 [github_guides]: https://guides.github.com/
 [github_lampepfl_dotty]: https://github.com/lampepfl/dotty
 [github_markdown]: https://github.github.com/gfm/
@@ -931,7 +932,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 [gradle_install]: https://gradle.org/install/
-[gradle_relnotes]: https://docs.gradle.org/8.0/release-notes.html
+[gradle_relnotes]: https://docs.gradle.org/8.0.2/release-notes.html
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [jacoco_changelog]: https://www.jacoco.org/jacoco/trunk/doc/changes.html
 [jacoco_downloads]: https://www.eclemma.org/jacoco/
@@ -972,8 +973,9 @@ Command Prompt has been around for as long as we can remember, but starting with
 [sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.8
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala]: https://www.scala-lang.org/
+[scala_api]: https://www.scala-lang.org/files/archive/api/current/
 [scala_cli_downloads]: https://scala-cli.virtuslab.org/install
-[scala_cli_relnotes]: https://github.com/VirtusLab/scala-cli/releases/tag/v0.1.20
+[scala_cli_relnotes]: https://github.com/VirtusLab/scala-cli/releases/tag/v0.2.1
 [scala_releases]: https://www.scala-lang.org/files/archive/
 [scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.10
 [scala_repl]: https://docs.scala-lang.org/overviews/repl/overview.html

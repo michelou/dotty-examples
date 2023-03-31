@@ -39,7 +39,7 @@
         <scala.groupId>org.scala-lang</scala.groupId>
         <scala.version>2.13.10</scala.version>
         <scala.binary.version>2.13</scala.binary.version>
-        <scala3.version>3.2.2-RC2</scala3.version>
+        <scala3.version>3.3.0-RC3</scala3.version>
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugin versions -->
@@ -47,13 +47,13 @@
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
         <scalatest.version>3.2.15</scalatest.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
-        <maven.compiler.version>3.10.1</maven.compiler.version>
+        <maven.compiler.version>3.11.0</maven.compiler.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
         <!-- Note: JUnit 5 requires Surefire version 2.22.1 or higher -->
         <maven.surefire.version>2.22.2</maven.surefire.version>
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
         <!-- Note: Specs2 5.x depends on Scala 3 while Specs2 4.x depends on Scala 2 or Scala 3 -->
-        <specs2.version>4.19.0</specs2.version>
+        <specs2.version>4.19.2</specs2.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
         <maven.jar.version>3.3.0</maven.jar.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
