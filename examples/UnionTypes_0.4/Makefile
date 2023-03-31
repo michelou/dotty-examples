@@ -1,10 +1,3 @@
-##
-## Copyright (c) 2018-2023 Stéphane Micheloud
-##
-## Licensed under the MIT License.
-##
-##############################################################################
-
 include ../Makefile.inc
 
 SOURCE_DIR  = src
@@ -77,12 +70,12 @@ $(DOC_TARGET): $(TARGET) $(DOC_SOURCES)
 	"$(SCALADOC)" "@$(DOC_OPTS_FILE)" "@$(DOC_SOURCES_FILE)"
 	@$(TOUCH) "$(DOC_TARGET)"
 
-doc: $(TARGET) $(DOC_TARGET)
+doc: build $(DOC_TARGET)
 
 ##############################################################################
 ## lint rules
 
-LINT_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name "*.scala")
+LINT_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)" -type f -name "*.scala")
 LINT_TARGET  = $(TARGET_DIR)/.latest-lint
 
 SCALAFMT_CONFIG_FILE = $(shell dirname $(CURDIR))/.scalafmt.conf
@@ -91,21 +84,20 @@ SCALAFMT_OPTS = --test --config "$(SCALAFMT_CONFIG_FILE)"
 lint: $(LINT_TARGET)
 
 $(LINT_TARGET): $(LINT_SOURCES)
-	[ -d "$(TARGET_DIR)" ] || "$(MKDIR)" -p "$(TARGET_DIR)"
 	"$(SCALAFMT)" $(SCALAFMT_OPTS) $(SOURCE_DIR)
 	@$(TOUCH) "$(LINT_TARGET)"
 
 ##############################################################################
 ## test rules
 
-TEST_SOURCES     = $(shell $(FIND) "$(SOURCE_DIR)/test/scala" -type f -name "*.scala" 2>/dev/null)
+TEST_SOURCES     = $(shell $(FIND) "$(SOURCE_DIR)/test/scala" -type f -name "*.scala")
 TEST_CLASSES_DIR = $(TARGET_DIR)/test-classes
 TEST_TARGET      = $(TARGET_DIR)/.latest-test-build
 
 TEST_OPTS_FILE    = $(TARGET_DIR)/scalac_test_opts.txt
 TEST_SOURCES_FILE = $(TARGET_DIR)/scalac_test_sources.txt
 
-TEST_MAIN_CLASS = $(MAIN_CLASS)Test
+TEST_MAIN_CLASS = $(MAIN_CLASS)JUnitTest
 TEST_CPATH      = $(SCALA_LIB_JAR)$(PSEP)$(SCALA3_LIB_JAR)$(PSEP)$(HAMCREST_JAR)$(PSEP)$(JUNIT_JAR)$(PSEP)$(JUNIT_INTF_JAR)$(PSEP)$(CLASSES_DIR)$(PSEP)$(TEST_CLASSES_DIR)
 
 $(TEST_TARGET): $(TEST_SOURCES)
@@ -122,6 +114,3 @@ test: $(TARGET) $(TEST_TARGET)
 ## phony
 
 .PHONY: all build clean doc help lint run test
-
-.SUFFIXES:
-.SUFFIXES: .classes *.jar *.java

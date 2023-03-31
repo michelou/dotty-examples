@@ -1,3 +1,10 @@
+##
+## Copyright (c) 2018-2023 Stéphane Micheloud
+##
+## Licensed under the MIT License.
+##
+##############################################################################
+
 include ../Makefile.inc
 
 SOURCE_DIR  = src
@@ -11,7 +18,7 @@ SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 ##############################################################################
 ## main rules
 
-JAVA_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main/java" -name "*.java")
+JAVA_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main/java" -type f -name "*.java")
 JAVA_TARGET  = $(TARGET_DIR)/.latest-java-build
 
 JAVA_OPTS_FILE    = $(TARGET_DIR)/javac_opts.txt
@@ -67,7 +74,7 @@ help:
 ## doc rules
 
 DOC_TARGET_DIR = $(TARGET_DIR)/docs
-DOC_SOURCES    = $(shell $(FIND) "$(CLASSES_DIR)" -name "*.tasty" 2>/dev/null)
+DOC_SOURCES    = $(shell $(FIND) "$(CLASSES_DIR)" -name -type f "*.tasty" 2>/dev/null)
 DOC_TARGET     = $(DOC_TARGET_DIR)/.latest-build
 
 PROJECT_NAME    ?= $(shell basename $(CURDIR))
@@ -122,3 +129,6 @@ test: build $(TEST_TARGET)
 ## phony
 
 .PHONY: all build clean doc help lint run test
+
+.SUFFIXES:
+.SUFFIXES: .classes *.jar *.java

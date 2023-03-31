@@ -1,3 +1,10 @@
+##
+## Copyright (c) 2018-2023 Stéphane Micheloud
+##
+## Licensed under the MIT License.
+##
+##############################################################################
+
 include ../Makefile.inc
 
 SOURCE_DIR  = src
@@ -114,3 +121,6 @@ test: $(TARGET) $(TEST_TARGET)
 ## phony
 
 .PHONY: all build clean doc help lint run test
+
+.SUFFIXES:
+.SUFFIXES: .classes *.jar *.java

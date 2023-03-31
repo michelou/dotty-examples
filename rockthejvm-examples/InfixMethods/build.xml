@@ -38,7 +38,7 @@
         </java>
     </target>
 
-    <target name="test-compile" depends="init, compile">
+    <target name="test-compile" depends="compile">
         <mkdir dir="${test-build.dir}" />
         <pathconvert property="test.classpath" refid="test.classpath" />
         <pathconvert property="test.sources" pathsep=" ">

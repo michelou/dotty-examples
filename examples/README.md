@@ -1,6 +1,6 @@
 # <span id="top">Scala 3 examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:120px;">
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:120px;" src="../docs/images/dotty.png" alt="Dotty project" /></a>
@@ -625,25 +625,25 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 &nbsp;
 <span style="color:#9966ff;">:env</span>
 ...<i>(variable initialization, eg. directory paths)</i>...
-<b>goto :eof</b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/goto" rel="external">goto</a> :eof</b>
 <span style="color:#9966ff;">:props</span>
 ...<i>(read file build.properties if present)</i>...
-<b>goto :eof</b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/goto" rel="external">goto</a> :eof</b>
 <span style="color:#9966ff;">:args</span>
 ...<i>(command line options/subcommands)</i>...
-<b>goto :eof</b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/goto" rel="external">goto</a> :eof</b>
 <span style="color:#9966ff;">:clean</span>
 ...<i>(delete generated files/directories)</i>...
-<b>goto :eof</b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/goto" rel="external">goto</a> :eof</b>
 <span style="color:#9966ff;">:compile</span>
 ...
-<b>goto :eof</b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/goto" rel="external">goto</a> :eof</b>
 <span style="color:#9966ff;">:lint</span>
 ...
-<b>goto :eof</b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/goto" rel="external">goto</a> :eof</b>
 <span style="color:#9966ff;">:doc</span>
 ...
-<b>goto :eof</b>
+<b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/goto" rel="external">goto</a> :eof</b>
 <span style="color:#9966ff;">:run</span>
 ...
 <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/goto" rel="external">goto</a> :eof</b>
@@ -659,7 +659,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/April 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
