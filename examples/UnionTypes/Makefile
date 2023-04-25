@@ -123,4 +123,4 @@ test: $(TARGET) $(TEST_TARGET)
 .PHONY: all build clean doc help lint run test
 
 .SUFFIXES:
-.SUFFIXES: .classes *.jar *.java
+.SUFFIXES: .classes *.jar *.java *.scala

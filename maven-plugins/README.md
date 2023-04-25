@@ -215,18 +215,18 @@ We give here the <code>&lt;plugin></code> section of a POM file.
   <b>&lt;mojos></b>
     <b>&lt;mojo></b>
       <b>&lt;goal></b>sayhi<b>&lt;/goal></b>
-      &lt;description>Says &quot;Hi&quot; to the user.&lt;/description>
-      &lt;requiresDirectInvocation>false&lt;/requiresDirectInvocation>
-      &lt;requiresProject>true&lt;/requiresProject>
-      &lt;requiresReports>false&lt;/requiresReports>
-      &lt;aggregator>false&lt;/aggregator>
-      &lt;requiresOnline>false&lt;/requiresOnline>
-      &lt;inheritedByDefault>true&lt;/inheritedByDefault>
-      &lt;implementation>sample.plugin.GreetingMojo&lt;/implementation>
-      &lt;language>java&lt;/language>
-      &lt;instantiationStrategy>per-lookup&lt;/instantiationStrategy>
-      &lt;executionStrategy>once-per-session&lt;/executionStrategy>
-      &lt;threadSafe>false&lt;/threadSafe>
+      <b>&lt;description></b>Says &quot;Hi&quot; to the user.<b>&lt;/description></b>
+      <b>&lt;requiresDirectInvocation></b>false<b>&lt;/requiresDirectInvocation></b>
+      <b>&lt;requiresProject></b>true<b>&lt;/requiresProject></b>
+      <b>&lt;requiresReports></b>false<b>&lt;/requiresReports></b>
+      <b>&lt;aggregator></b>false<b>&lt;/aggregator></b>
+      <b>&lt;requiresOnline></b>false<b>&lt;/requiresOnline></b>
+      <b>&lt;inheritedByDefault></b>true<b>&lt;/inheritedByDefault></b>
+      <b>&lt;implementation></b>sample.plugin.GreetingMojo<b>&lt;/implementation></b>
+      <b>&lt;language></b>java<b>&lt;/language></b>
+      <b>&lt;instantiationStrategy></b>per-lookup<b>&lt;/instantiationStrategy></b>
+      <b>&lt;executionStrategy></b>once-per-session<b>&lt;/executionStrategy></b>
+      <b>&lt;threadSafe></b>false<b>&lt;/threadSafe></b>
       <b>&lt;parameters/></b>
     <b>&lt;/mojo></b>
   <b>&lt;/mojos></b>
@@ -237,7 +237,7 @@ We give here the <code>&lt;plugin></code> section of a POM file.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/April 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -20,9 +20,12 @@ set "_TEMP_DIR=%TEMP%\lib"
 if not exist "%_TEMP_DIR%" mkdir "%_TEMP_DIR%"
 if %_DEBUG%==1 echo [%~n0] "_TEMP_DIR=%_TEMP_DIR%"
 
-set _LIBS_CPATH=
-
 set __SCALA_BINARY_VERSION=2.13
+
+@rem #########################################################################
+@rem ## Libraries to be added to _LIBS_CPATH
+
+set _LIBS_CPATH=
 
 @rem https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect
 call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSION%" "1.1.2"
@@ -119,7 +122,7 @@ if not exist "%__JAR_FILE%" (
         ) else if %_VERBOSE%==1 ( echo Download file "%__JAR_NAME%" to directory "!_TEMP_DIR:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
         )
         powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri '!__JAR_URL!' -Outfile '!__JAR_FILE!'"
-        if not errorlevel 0 (
+        if not !ERRORLEVEL!==0 (
             echo %_ERROR_LABEL% Failed to download file "%__JAR_NAME%" 1>&2
             set _EXITCODE=1
             goto :eof
@@ -129,7 +132,7 @@ if not exist "%__JAR_FILE%" (
         )
         @rem see https://stackoverflow.com/questions/16727941/how-do-i-execute-cmd-commands-through-a-batch-file
         call "%_MVN_CMD%" %_MVN_OPTS% install:install-file -Dfile="!__JAR_FILE!" -DgroupId="%__GROUP_ID%" -DartifactId=%__ARTIFACT_ID% -Dversion=%__VERSION% -Dpackaging=jar
-        if not errorlevel 0 (
+        if not !ERRORLEVEL!==0 (
             echo %_ERROR_LABEL% Failed to install Maven artifact into directory "!_LOCAL_REPO:%USERPROFILE%=%%USERPROFILE%%!" ^(error:!ERRORLEVEL!^) 1>&2
         )
         for /f "usebackq delims=" %%f in (`where /r "%_LOCAL_REPO%\%__JAR_PATH%" %__JAR_NAME% 2^>NUL`) do (
