@@ -1,3 +1,10 @@
+##
+## Copyright (c) 2018-2023 Stéphane Micheloud
+##
+## Licensed under the MIT License.
+##
+##############################################################################
+
 include ../Makefile.inc
 
 SOURCE_DIR  = src
@@ -46,14 +53,14 @@ help:
 	@$(ECHO) "    doc    generate HTML documentation"
 	@$(ECHO) "    help   display this help message"
 	@$(ECHO) "    lint   analyze Scala source files with Scalafmt"
-	@$(ECHO) "    run    execute main program $(MAIN_CLASS)"
+	@$(ECHO) "    run    execute main program \"$(MAIN_CLASS)\""
 	@$(ECHO) "    test   execute unit tests with JUnit"
 
 ##############################################################################
 ## doc rules
 
 DOC_TARGET_DIR = $(TARGET_DIR)/docs
-DOC_SOURCES    = $(shell [ -d "$(CLASSES_DIR)" ] && $(FIND) $(CLASSES_DIR) -name "*.tasty")
+DOC_SOURCES    = $(shell [ -d "$(CLASSES_DIR)" ] && $(FIND) "$(CLASSES_DIR)" -type f -name "*.tasty")
 DOC_TARGET     = $(DOC_TARGET_DIR)/.latest-build
 
 PROJECT_NAME    ?= $(shell basename $(CURDIR))
@@ -75,11 +82,17 @@ doc: build $(DOC_TARGET)
 ##############################################################################
 ## lint rules
 
+LINT_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)" -type f -name "*.scala")
+LINT_TARGET  = $(TARGET_DIR)/.latest-lint
+
 SCALAFMT_CONFIG_FILE = $(shell dirname $(CURDIR))/.scalafmt.conf
 SCALAFMT_OPTS = --test --config "$(SCALAFMT_CONFIG_FILE)"
 
-lint:
+lint: $(LINT_TARGET)
+
+$(LINT_TARGET): $(LINT_SOURCES)
 	"$(SCALAFMT)" $(SCALAFMT_OPTS) $(SOURCE_DIR)
+	@$(TOUCH) "$(LINT_TARGET)"
 
 ##############################################################################
 ## test rules
@@ -108,3 +121,6 @@ test: build $(TEST_TARGET)
 ## phony
 
 .PHONY: all build clean doc help lint run test
+
+.SUFFIXES:
+.SUFFIXES: .classes .jar .java .scala .tasty

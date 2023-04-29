@@ -41,7 +41,7 @@ clean:
 	"$(RM)" -rf "$(TARGET_DIR)"
 
 run: build
-	"$(SCALA)" $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS) $(MAIN_ARGS)
+	"$(SCALA)" $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
 
 help:
 	@$(ECHO) "Usage: make all|build|clean|doc|help|lint|run|test"
@@ -60,7 +60,7 @@ help:
 ## doc rules
 
 DOC_TARGET_DIR = $(TARGET_DIR)/docs
-DOC_SOURCES    = $(shell $(FIND) "$(CLASSES_DIR)" -type f -name "*.tasty")
+DOC_SOURCES    = $(shell [ -d "$(CLASSES_DIR)" ] && $(FIND) "$(CLASSES_DIR)" -type f -name "*.tasty")
 DOC_TARGET     = $(DOC_TARGET_DIR)/.latest-build
 
 PROJECT_NAME    ?= $(shell basename $(CURDIR))
@@ -72,7 +72,7 @@ DOC_SOURCES_FILE = $(TARGET_DIR)/scaladoc_sources.txt
 
 $(DOC_TARGET): $(DOC_SOURCES)
 	[ -d "$(DOC_TARGET_DIR)" ] || "$(MKDIR)" -p "$(DOC_TARGET_DIR)"
-	@$(ECHO) -siteroot "$(DOC_TARGET_DIR)" -d "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
+	@$(ECHO) -d "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
 	@$(ECHO) $(DOC_SOURCES) > "$(DOC_SOURCES_FILE)"
 	"$(SCALADOC)" "@$(DOC_OPTS_FILE)" "@$(DOC_SOURCES_FILE)"
 	@$(TOUCH) "$(DOC_TARGET)"
@@ -82,16 +82,22 @@ doc: build $(DOC_TARGET)
 ##############################################################################
 ## lint rules
 
+LINT_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)" -type f -name "*.scala")
+LINT_TARGET  = $(TARGET_DIR)/.latest-lint
+
 SCALAFMT_CONFIG_FILE = $(shell dirname $(CURDIR))/.scalafmt.conf
 SCALAFMT_OPTS = --test --config "$(SCALAFMT_CONFIG_FILE)"
 
-lint:
+lint: $(LINT_TARGET)
+
+$(LINT_TARGET): $(LINT_SOURCES)
 	"$(SCALAFMT)" $(SCALAFMT_OPTS) $(SOURCE_DIR)
+	@$(TOUCH) "$(LINT_TARGET)"
 
 ##############################################################################
 ## test rules
 
-TEST_SOURCES     = $(shell $(FIND) "$(SOURCE_DIR)/test" -type f -name "*.scala" 2>/dev/null)
+TEST_SOURCES     = $(shell [ -d "$(SOURCE_DIR)/test" ] && $(FIND) "$(SOURCE_DIR)/test" -type f -name "*.scala" 2>/dev/null)
 TEST_CLASSES_DIR = $(TARGET_DIR)/test-classes
 TEST_TARGET      = $(TARGET_DIR)/.latest-test-build
 
@@ -117,4 +123,4 @@ test: build $(TEST_TARGET)
 .PHONY: all build clean doc help lint run test
 
 .SUFFIXES:
-.SUFFIXES: .classes *.flix *.jar
+.SUFFIXES: .classes .jar .java .scala .tasty

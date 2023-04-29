@@ -114,10 +114,13 @@ $(TEST_TARGET): $(TEST_SOURCES)
 	"$(SCALAC)" "@$(TEST_OPTS_FILE)" "@$(TEST_SOURCES_FILE)"
 	@$(TOUCH) "$(TEST_TARGET)"
 
-test: $(TARGET) $(TEST_TARGET)
+test: build $(TEST_TARGET)
 	"$(JAVA)" -classpath "$(TEST_CPATH)" org.junit.runner.JUnitCore $(TEST_MAIN_CLASS)
 
 ##############################################################################
 ## phony
 
 .PHONY: all build clean doc help lint run test
+
+.SUFFIXES:
+.SUFFIXES: .classes .jar .java .scala .tasty

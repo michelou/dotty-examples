@@ -429,7 +429,7 @@ doc() {
 }
 
 run() {
-    local main_class_file="$CLASSES_DIR/${MAIN_CLASS/.//}.class"
+    local main_class_file="$CLASSES_DIR/${MAIN_CLASS//.//}.class"
     if [[ ! -f "$main_class_file" ]]; then
         error "Scala main class \"$MAIN_CLASS\" not found ($main_class_file)"
         cleanup 1

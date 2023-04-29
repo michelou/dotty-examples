@@ -1,7 +1,15 @@
+##
+## Copyright (c) 2018-2023 Stéphane Micheloud
+##
+## Licensed under the MIT License.
+##
+##############################################################################
+
 include ../Makefile.inc
 
 SOURCE_DIR  = src
 TARGET_DIR  = target
+CLASSES_DIR = $(TARGET_DIR)/classes
 
 SCALAC_FLAGS = -deprecation -feature
 SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
@@ -9,22 +17,24 @@ SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 ##############################################################################
 ## main rules
 
+SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main/scala" -type f -name "*.scala")
+TARGET  = $(TARGET_DIR)/.latest-build
+
+OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
+SOURCES_FILE = $(TARGET_DIR)/scalac_sources.txt
+
 MAIN_CLASS = Main
 MAIN_ARGS ?= 
 
-SOURCES     = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name *.scala)
-TARGET      = $(TARGET_DIR)/.latest-build
-CLASSES_DIR = $(TARGET_DIR)/classes
-
 all: build
 
-build: $(JAVA_TARGET) $(TARGET)
+build: $(TARGET)
 
 $(TARGET): $(SOURCES)
 	[ -d "$(CLASSES_DIR)" ] || "$(MKDIR)" -p "$(CLASSES_DIR)"
-	@$(ECHO) $(SCALAC_FLAGS) -d "$(CLASSES_DIR)" > "$(TARGET_DIR)/scalac_opts.txt"
-	@$(ECHO) $(SOURCES) > "$(TARGET_DIR)/scalac_sources.txt"
-	"$(SCALAC)" "@$(TARGET_DIR)/scalac_opts.txt" "@$(TARGET_DIR)/scalac_sources.txt"
+	@$(ECHO) $(SCALAC_FLAGS) -d "$(CLASSES_DIR)" > "$(OPTS_FILE)"
+	@$(ECHO) $(SOURCES) > "$(SOURCES_FILE)"
+	"$(SCALAC)" "@$(OPTS_FILE)" "@$(SOURCES_FILE)"
 	@$(TOUCH) "$(TARGET)"
 
 clean:
@@ -50,7 +60,7 @@ help:
 ## doc rules
 
 DOC_TARGET_DIR = $(TARGET_DIR)/docs
-DOC_SOURCES    = $(shell $(FIND) $(CLASSES_DIR) -type f -name *.tasty)
+DOC_SOURCES    = $(shell [ -d "$(CLASSES_DIR)" ] && $(FIND) "$(CLASSES_DIR)" -type f -name "*.tasty" 2>/dev/null)
 DOC_TARGET     = $(DOC_TARGET_DIR)/.latest-build
 
 PROJECT_NAME    ?= $(shell basename $(CURDIR))
@@ -72,24 +82,30 @@ doc: build $(DOC_TARGET)
 ##############################################################################
 ## lint rules
 
+LINT_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)" -type f -name "*.scala")
+LINT_TARGET  = $(TARGET_DIR)/.latest-lint
+
 SCALAFMT_CONFIG_FILE = $(shell dirname $(CURDIR))/.scalafmt.conf
 SCALAFMT_OPTS = --test --config "$(SCALAFMT_CONFIG_FILE)"
 
-lint:
+lint: $(LINT_TARGET)
+
+$(LINT_TARGET): $(LINT_SOURCES)
 	"$(SCALAFMT)" $(SCALAFMT_OPTS) $(SOURCE_DIR)
+	@$(TOUCH) "$(LINT_TARGET)"
 
 ##############################################################################
 ## test rules
 
-TEST_SOURCES     = $(shell $(FIND) "$(SOURCE_DIR)/test" -type f -name *.scala)
+TEST_SOURCES     = $(shell [ -d "$(SOURCE_DIR)/test" ] && $(FIND) "$(SOURCE_DIR)/test/scala" -type f -name "*.scala")
 TEST_CLASSES_DIR = $(TARGET_DIR)/test-classes
 TEST_TARGET      = $(TARGET_DIR)/.latest-test-build
 
 TEST_OPTS_FILE    = $(TARGET_DIR)/scalac_test_opts.txt
 TEST_SOURCES_FILE = $(TARGET_DIR)/scalac_test_sources.txt
 
-TEST_MAIN_CLASS  = IntersectionTypesJUnitTest
-TEST_CPATH       = $(SCALA_LIB_JAR)$(PSEP)$(SCALA3_LIB_JAR)$(PSEP)$(HAMCREST_JAR)$(PSEP)$(HAMCREST_ALL_JAR)$(PSEP)$(JUNIT_JAR)$(PSEP)$(JUNIT_INTF_JAR)$(PSEP)$(CLASSES_DIR)
+TEST_MAIN_CLASS = IntersectionTypesJUnitTest
+TEST_CPATH      = $(SCALA_LIB_JAR)$(PSEP)$(SCALA3_LIB_JAR)$(PSEP)$(HAMCREST_JAR)$(PSEP)$(HAMCREST_ALL_JAR)$(PSEP)$(JUNIT_JAR)$(PSEP)$(JUNIT_INTF_JAR)$(PSEP)$(CLASSES_DIR)$(PSEP)$(TEST_CLASSES_DIR)
 
 $(TEST_TARGET): $(TEST_SOURCES)
 	[ -d "$(TEST_CLASSES_DIR)" ] || "$(MKDIR)" -p "$(TEST_CLASSES_DIR)"
@@ -99,9 +115,12 @@ $(TEST_TARGET): $(TEST_SOURCES)
 	@$(TOUCH) "$(TEST_TARGET)"
 
 test: build $(TEST_TARGET)
-	"$(JAVA)" -classpath "$(TEST_CPATH)$(PSEP)$(TEST_CLASSES_DIR)" org.junit.runner.JUnitCore $(TEST_MAIN_CLASS)
+	"$(JAVA)" -classpath "$(TEST_CPATH)" org.junit.runner.JUnitCore $(TEST_MAIN_CLASS)
 
 ##############################################################################
 ## phony
 
 .PHONY: all build clean doc help lint run test
+
+.SUFFIXES:
+.SUFFIXES: .classes .jar .java .scala .tasty

@@ -27,7 +27,7 @@ JAVAC_SOURCES_FILE = $(TARGET_DIR)/javac_sources.txt
 OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
 SOURCES_FILE = $(TARGET_DIR)/scalac_sources.txt
 
-SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main/scala" -name "*.scala")
+SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main/scala" -type f -name "*.scala")
 TARGET  = $(TARGET_DIR)/.latest-build
 
 MAIN_CLASS = Test
@@ -107,7 +107,7 @@ lint:
 ##############################################################################
 ## test rules
 
-TEST_SOURCES     = $(shell $(FIND) "$(SOURCE_DIR)/test" -name "*.scala" 2>/dev/null)
+TEST_SOURCES     = $(shell $(FIND) "$(SOURCE_DIR)/test" -type f -name "*.scala" 2>/dev/null)
 TEST_CLASSES_DIR = $(TARGET_DIR)/test-classes
 TEST_TARGET      = $(TARGET_DIR)/.latest-test-build
 
@@ -133,4 +133,4 @@ test: build $(TEST_TARGET)
 .PHONY: all build clean compile doc help lint run test
 
 .SUFFIXES:
-.SUFFIXES: .classes *.jar *.java
+.SUFFIXES: .classes .jar .java .scala .tasty

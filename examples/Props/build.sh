@@ -405,7 +405,7 @@ doc() {
         cleanup 1
     fi
     if $DEBUG; then
-        debug "HTML documentation saved into directory $TARGET_DOCS_DIR"
+        debug "HTML documentation saved into directory \"$TARGET_DOCS_DIR\""
     elif $VERBOSE; then
         echo "HTML documentation saved into directory \"${TARGET_DOCS_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
@@ -413,9 +413,9 @@ doc() {
 }
 
 run() {
-    local main_class_file="$CLASSES_DIR/${MAIN_CLASS/.//}.class"
+    local main_class_file="$CLASSES_DIR/${MAIN_CLASS//.//}.class"
     if [[ ! -f "$main_class_file" ]]; then
-        error "Scala main class '$MAIN_CLASS' not found ($main_class_file)"
+        error "Scala main class \"$MAIN_CLASS\" not found ($main_class_file)"
         cleanup 1
     fi
     # call :libs_cpath

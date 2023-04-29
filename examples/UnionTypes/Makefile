@@ -60,7 +60,7 @@ help:
 ## doc rules
 
 DOC_TARGET_DIR = $(TARGET_DIR)/docs
-DOC_SOURCES    = $(shell [ -d "$(CLASSES_DIR)" ] && $(FIND) "$(CLASSES_DIR)" -name "*.tasty" 2>/dev/null)
+DOC_SOURCES    = $(shell [ -d "$(CLASSES_DIR)" ] && $(FIND) "$(CLASSES_DIR)" -type f -name "*.tasty" 2>/dev/null)
 DOC_TARGET     = $(DOC_TARGET_DIR)/.latest-build
 
 PROJECT_NAME    ?= $(shell basename $(CURDIR))
@@ -114,7 +114,7 @@ $(TEST_TARGET): $(TEST_SOURCES)
 	"$(SCALAC)" "@$(TEST_OPTS_FILE)" "@$(TEST_SOURCES_FILE)"
 	@$(TOUCH) "$(TEST_TARGET)"
 
-test: $(TARGET) $(TEST_TARGET)
+test: build $(TEST_TARGET)
 	"$(JAVA)" -classpath "$(TEST_CPATH)" org.junit.runner.JUnitCore $(TEST_MAIN_CLASS)
 
 ##############################################################################
@@ -123,4 +123,4 @@ test: $(TARGET) $(TEST_TARGET)
 .PHONY: all build clean doc help lint run test
 
 .SUFFIXES:
-.SUFFIXES: .classes *.jar *.java *.scala
+.SUFFIXES: .classes .jar .java .scala .tasty

@@ -3,7 +3,7 @@ import mill._, api._, scalalib._
 //////////////////////////////////////////////////////////////////////////////
 // Project properties
 
-val scalaVersion = "3.3.0-RC3"  // "3.2.2", "3.1.3", "3.0.1", "2.13.10"
+val scalaVersion = "3.3.0-RC5"  // "3.2.2", "3.1.3", "3.0.1", "2.13.10"
 val scalacOptions = Seq("-deprecation", "-encoding", "UTF8", "-feature")
 
 val forkArgs = Seq("-Xmx1g")
@@ -54,7 +54,7 @@ val ivySpecs2JUnit = ivy"org.specs2:specs2-junit_3:$specs2Version"
 val ivyScalaXml = ivy"org.scala-lang.modules:scala-xml_3:2.1.0"
 
 // https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parser-combinators
-val ivyScalaParser = ivy"org.scala-lang.modules:scala-parser-combinators_3:2.1.1"
+val ivyScalaParser = ivy"org.scala-lang.modules:scala-parser-combinators_3:2.3.0"
 
 //////////////////////////////////////////////////////////////////////////////
 // Helper functions

@@ -1,4 +1,4 @@
-val scala3Version = "3.1.2-RC1" // = dottyLatestNightlyBuild.get
+val scala3Version = "3.3.0-RC5" // = dottyLatestNightlyBuild.get
 
 lazy val root = project
   .in(file("."))

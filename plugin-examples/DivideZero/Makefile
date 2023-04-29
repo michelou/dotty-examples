@@ -1,3 +1,10 @@
+##
+## Copyright (c) 2018-2023 Stéphane Micheloud
+##
+## Licensed under the MIT License.
+##
+##############################################################################
+
 include ../Makefile.inc
 
 SOURCE_DIR  = src
@@ -15,9 +22,6 @@ TARGET  = $(TARGET_DIR)/.latest-build
 
 OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
 SOURCES_FILE = $(TARGET_DIR)/scalac_sources.txt
-
-MAIN_CLASS = Main
-MAIN_ARGS ?=
 
 all: build
 
@@ -49,7 +53,7 @@ help:
 ## doc rules
 
 DOC_TARGET_DIR = $(TARGET_DIR)/docs
-DOC_SOURCES    = $(shell [ -d "$(CLASSES_DIR)" ] && $(FIND) $(CLASSES_DIR) -name "*.tasty")
+DOC_SOURCES    = $(shell [ -d "$(CLASSES_DIR)" ] && $(FIND) "$(CLASSES_DIR)" -type f -name "*.tasty")
 DOC_TARGET     = $(DOC_TARGET_DIR)/.latest-build
 
 PROJECT_NAME    ?= $(shell basename $(CURDIR))
@@ -59,7 +63,7 @@ PROJECT_VERSION ?= 1.0.0
 DOC_OPTS_FILE    = $(TARGET_DIR)/scaladoc_opts.txt
 DOC_SOURCES_FILE = $(TARGET_DIR)/scaladoc_sources.txt
 
-$(DOC_TARGET): $(TARGET) $(DOC_SOURCES)
+$(DOC_TARGET): $(DOC_SOURCES)
 	[ -d "$(DOC_TARGET_DIR)" ] || "$(MKDIR)" -p "$(DOC_TARGET_DIR)"
 	@$(ECHO) -siteroot "$(DOC_TARGET_DIR)" -d "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
 	@$(ECHO) $(DOC_SOURCES) > "$(DOC_SOURCES_FILE)"
@@ -71,7 +75,7 @@ doc: build $(DOC_TARGET)
 ##############################################################################
 ## lint rules
 
-LINT_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)" -type f -name *.scala)
+LINT_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)" -type f -name "*.scala")
 LINT_TARGET  = $(TARGET_DIR)/.latest-lint
 
 SCALAFMT_CONFIG_FILE = $(shell dirname $(CURDIR))/.scalafmt.conf
@@ -103,10 +107,13 @@ $(TEST_TARGET): $(TEST_SOURCES)
 	"$(SCALAC)" "@$(TEST_OPTS_FILE)" "@$(TEST_SOURCES_FILE)"
 	@$(TOUCH) "$(TEST_TARGET)"
 
-test: $(TARGET) $(TEST_TARGET)
+test: build $(TEST_TARGET)
 	"$(SCALA)" -classpath "$(TEST_CPATH)" $(TEST_MAIN_CLASS)
 
 ##############################################################################
 ## phony
 
 .PHONY: all build clean doc help lint test
+
+.SUFFIXES:
+.SUFFIXES: .classes .jar .java .scala .tasty
