@@ -51,13 +51,16 @@ SPECS2_VERSION = 5.2.0
 
 SCALA_LIB_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name "scala-library-2.13.".jar" | tail -1)
 SCALA3_LIB_JAR        = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name "scala3-library_3-3.3.*.jar" | tail -1)
+
 HAMCREST_JAR          = $(shell $(FIND) "$(LOCAL_REPO)/org/hamcrest" -name "hamcrest-2.2.jar")
 HAMCREST_ALL_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/hamcrest" -name "hamcrest-all-1.3.jar")
 JUNIT_JAR             = $(shell $(FIND) "$(LOCAL_REPO)/junit/junit" -name "junit-4.13.2.jar")
 JUNIT_INTF_JAR        = $(shell $(FIND) "$(LOCAL_REPO)/com/novocode" -name "junit-interface-0.11.jar")
+
 SCALATEST_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scalatest" -name "scalatest_3-$(SCALATEST_VERSION).jar")
 SCALATEST_FUNSPEC_JAR = $(shell $(FIND) "$(LOCAL_REPO)/org/scalatest" -name "scalatest-funspec_3-$(SCALATEST_VERSION).jar")
 SCALACTIC_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scalactic" -name "scalactic_3-$(SCALATEST_VERSION).jar")
+
 SPECS2_COMMON_JAR     = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name "specs2-common_3-$(SPECS2_VERSION).jar")
 SPECS2_CORE_JAR       = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name "specs2-core_3-$(SPECS2_VERSION).jar")
 SPECS2_FP_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name "specs2-fp_3-$(SPECS2_VERSION).jar")
@@ -66,6 +69,9 @@ SPECS2_MATCHER_JAR    = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name "specs2
 
 ifeq (,$(wildcard $(SCALA3_LIB_JAR)))
 $(error Variable SCALA3_LIB_JAR is not set)
+endif
+ifeq (,$(wildcard $(JUNIT_JAR)))
+$(error Variable JUNIT_JAR is not set)
 endif
 ifeq (,$(wildcard $(SCALATEST_JAR)))
 $(error Variable SCALATEST_JAR is not set)

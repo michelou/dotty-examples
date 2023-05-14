@@ -26,18 +26,18 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.39][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.40][git_downloads] ([*release notes*][git_relnotes])
 - [Scala 3][scala3_releases] ([*release notes*][scala3_relnotes])
 - [Temurin OpenJDK 11][temurin11_downloads] ([*release notes*][temurin11_relnotes])
 
 > **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Scala 3][scala_3] also support Java 9+. In the following we work with [Temurin OpenJDK 11][temurin11_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
 
-For instance our development environment looks as follows (*April 2023*):
+For instance our development environment looks as follows (*May 2023*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.40.0\              <i>(314 MB)</i>
-C:\opt\jdk-temurin-11.0.18_10\  <i>(302 MB)</i>
-C:\opt\scala3-3.3.0-RC3\        <i>( 57 MB)</i>
+C:\opt\Git-2.40.1\              <i>(315 MB)</i>
+C:\opt\jdk-temurin-11.0.19_7\   <i>(302 MB)</i>
+C:\opt\scala3-3.3.0-RC5\        <i>( 57 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_downloads] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -703,7 +703,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -717,7 +717,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [flix_examples]: https://github.com/michelou/flix-examples
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.40.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.40.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples

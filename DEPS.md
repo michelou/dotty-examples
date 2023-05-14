@@ -20,9 +20,9 @@ The [Scala 3](https://www.scala-lang.org/download/scala3.html) and [Scala 2](htt
 - Depencencies *common* to both software distributions include [`jline`](https://github.com/jline/jline3#jline----) ([Scala REPL](https://docs.scala-lang.org/scala3/book/taste-repl.html)) and [`scala-asm`](https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm) ([JVM backend](https://dotty.epfl.ch/docs/internals/backend.html)).
 
 > **:mag_right:** We observe a jump in the increases in size of the software distributions : 
-> |  Version  | Release&nbsp;date | Zip&nbsp;archive | Installation |
+> |  Scala 3  | Release&nbsp;date | Zip&nbsp;archive | Installation |
 > |:----------|:------------:|:-----------:|:------------:|
-> | [**3.3.0-RC3**](https://github.com/lampepfl/dotty/releases/tag/3.3.0-RC3) | Feb&nbsp;2023 | 36.0 MB | **38.1 MB** |
+> | [**3.3.0-RC5**](https://github.com/lampepfl/dotty/releases/tag/3.3.0-RC5) | Apr&nbsp;2023 | 36.0 MB | **38.1 MB** |
 > | [3.2.2](https://github.com/lampepfl/dotty/releases/tag/3.2.2) | Jan&nbsp;2023 | 35.5 MB | 37.6 MB |
 > | [3.2.1](https://github.com/lampepfl/dotty/releases/tag/3.2.1) | Sep 2022 | 35.5 MB | 37.6 MB |
 > | [3.2.0](https://github.com/lampepfl/dotty/releases/tag/3.2.0) | Sep 2022 | 34.2 MB | 36.1 MB |
@@ -32,6 +32,9 @@ The [Scala 3](https://www.scala-lang.org/download/scala3.html) and [Scala 2](htt
 > |  [3.1.0](https://github.com/lampepfl/dotty/releases/tag/3.1.0)     | Oct 2021 |   33.1 MB   |   35.0 MB    |
 > |  [3.0.2](https://github.com/lampepfl/dotty/releases/tag/3.0.2)     | Sep 2021 |   31.2 MB   |   33.0 MB    |
 > |  [3.0.1](https://github.com/lampepfl/dotty/releases/tag/3.0.1)     | Jul 2021 |   29.8 MB   |   33.0 MB    |
+>
+> |  Scala 2  | Release&nbsp;date | Zip&nbsp;archive | Installation |
+> |:----------|:------------:|:-----------:|:------------:|
 > |  [**2.13.10**](https://www.scala-lang.org/download/2.13.10.html)         | Oct 2022 |   22.5 MB   | **24.0 MB**  |
 > |  [2.13.9](https://www.scala-lang.org/download/2.13.9.html)         | Sep 2022 |   22.5 MB   |   24.0 MB    |
 > |  [2.13.8](https://www.scala-lang.org/download/2.13.8.html)         | Jan 2022 |   22.6 MB   |   24.1 MB    |
@@ -50,7 +53,7 @@ As mentioned in the introduction the Scala 3.3 distributions depend on *many* ex
 <tr>
   <th style="padding:4px;min-width:115px;">Java&nbsp;Archive</th>
   <th style="padding:4px;">Current<br/>Version</th>
-  <th><a href="https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler">3.3.0</a><br/><span style="color:red;">RC3</span></th>
+  <th><a href="https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler">3.3.0</a><br/><span style="color:red;">RC5</span></th>
 </tr>
 
 <tr>
@@ -824,7 +827,7 @@ Besides improvements and fixes <code>scala-asm</code> library updates also add s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

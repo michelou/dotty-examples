@@ -6,7 +6,7 @@
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:80px;" src="docs/images/dotty.png" alt="Dotty project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Source code of the <a href="https://dotty.epfl.ch/" rel="external">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/" rel="external">Github</a> and continuous delivery is performed on the <a href="https://dotty-ci.epfl.ch/lampepfl/dotty" rel="external">Dotty CI</a> server <sup id="anchor_01"><a href="#footnote_01">[1]</a></sup> from <a href="https://lamp.epfl.ch/" rel="external">LAMP/EPFL</a>.</br>This document describes changes we made to the <a href="https://github.com/lampepfl/dotty/" rel="external">lampepfl/dotty</a> repository in order to successfully execute the CI build/test steps on a Windows runner (GitHub-hosted) <b><i>and</i></b> to reproduce the same build/test steps on a <i>local</i> Windows machine.<br/>&nbsp;
+    Source code of the <a href="https://dotty.epfl.ch/" rel="external">Dotty project</a> is hosted on <a href="https://github.com/lampepfl/dotty/" rel="external">Github</a> and continuous delivery is performed on the <a href="https://dotty-ci.epfl.ch/lampepfl/dotty" rel="external">Dotty CI</a> server <sup id="anchor_01"><a href="#footnote_01">1</a></sup> from <a href="https://lamp.epfl.ch/" rel="external">LAMP/EPFL</a>.</br>This document describes changes we made to the <a href="https://github.com/lampepfl/dotty/" rel="external">lampepfl/dotty</a> repository in order to successfully execute the CI build/test steps on a Windows runner (GitHub-hosted) <b><i>and</i></b> to reproduce the same build/test steps on a <i>local</i> Windows machine.<br/>&nbsp;
   </td>
   </tr>
 </table>
@@ -51,13 +51,13 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*March 2023*):
+For instance our development environment looks as follows (*May 2023*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.40.0\                 <i>(314 MB)</i>
-C:\opt\jdk-temurin-1.8.0u362-b09\  <i>(186 MB)</i>
-C:\opt\jdk-temurin-11.0.18_10\     <i>(314 MB)</i>
-C:\opt\jdk-temurin-17.0.6_10\      <i>(293 MB)</i>
+C:\opt\Git-2.40.1\                 <i>(315 MB)</i>
+C:\opt\jdk-temurin-1.8.0u372-b07\  <i>(186 MB)</i>
+C:\opt\jdk-temurin-11.0.19_7\      <i>(314 MB)</i>
+C:\opt\jdk-temurin-17.0.7_7\       <i>(293 MB)</i>
 C:\opt\sbt-1.8.2\                  <i>( 48 MB)</i>
 </pre>
 
@@ -254,8 +254,8 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
-   "GIT_CMD=C:\opt\Git-2.40.0\bin\git.exe"
-   "JAVA_CMD=C:\opt\jdk-openjdk-11.0.18_10\bin\java.exe"
+   "GIT_CMD=C:\opt\Git-2.40.1\bin\git.exe"
+   "JAVA_CMD=C:\opt\jdk-openjdk-11.0.19_7\bin\java.exe"
    "SBT_CMD=C:\opt\sbt-1.8.2\bin\sbt.bat"
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
@@ -464,7 +464,7 @@ Command [**`project\scripts\bootstrapCmdTests.bat`**](bin/dotty/project/scripts/
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.35
 # VM version: JDK 11.0.18, VM 11.0.18+10
-# VM invoker: C:\opt\jdk-temurin-11.0.18_10\bin\java.exe
+# VM invoker: C:\opt\jdk-temurin-11.0.19_7\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -494,7 +494,7 @@ Worker.compile  avgt       533.625          ms/op
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 tests/pos/alias.scala
 # JMH version: 1.35
 # VM version: JDK 11.0.18, VM 11.0.18+10
-# VM invoker: C:\opt\jdk-temurin-11.0.18_10\bin\java.exe
+# VM invoker: C:\opt\jdk-temurin-11.0.19_7\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -522,7 +522,7 @@ Worker.compile  avgt       361.619          ms/op
 [info] Running (fork) dotty.tools.benchmarks.Bench 1 1 -with-compiler compiler/src/dotty/tools/dotc/core/Types.scala
 # JMH version: 1.35
 # VM version: JDK 11.0.18, VM 11.0.18+10
-# VM invoker: C:\opt\jdk-temurin-11.0.18_10\bin\java.exe
+# VM invoker: C:\opt\jdk-temurin-11.0.19_7\bin\java.exe
 # VM options: -Xms2G -Xmx2G
 # Warmup: 1 iterations, 1 s each
 # Measurement: 1 iterations, 1 s each
@@ -642,7 +642,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -659,7 +659,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.40.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.40.1.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/

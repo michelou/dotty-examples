@@ -218,7 +218,7 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> } ^<class_name^> [ ^<meth_name^> ]
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-artifact%__END%     search in %__BEG_O%~\.ivy2%__END% and %__BEG_O%~\.m2%__END% directories
-echo     %__BEG_O%-debug%__END%        show commands executed by this script
+echo     %__BEG_O%-debug%__END%        display commands executed by this script
 echo     %__BEG_O%-help%__END%         display this help message
 echo     %__BEG_O%-ivy%__END%          search in %__BEG_O%~\.ivy%__END% directory
 echo     %__BEG_O%-java%__END%         search in Java library directories
