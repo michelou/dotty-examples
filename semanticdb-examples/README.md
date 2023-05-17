@@ -25,7 +25,7 @@ We need to install additional command-line tools in order to work on our code ex
 
 ## <span id="hello">`hello`</span>
 
-Command [**`build.bat run`**](hello/build.bat) generates and prettyprints the SemanticDB data for the Scala program [**`Main.scala`**](hello/src/main/scala/Main.scala) :
+Command [**`build.bat run`**](hello/build.bat) generates and prettyprints the [SemanticDB](https://scalameta.org/docs/semanticdb/guide.html) data for the Scala program [**`Main.scala`**](hello/src/main/scala/Main.scala) :
 <pre style="font-size:80%;">
 <b>&gt; <a href="hello/build.bat">build</a> -verbose run</b>
 Create semanticdb file
@@ -89,9 +89,9 @@ Occurrences:
 [3:19..3:26) => java/io/PrintStream#println(+8).
 </pre>
 
-With tiny code examples such as [**`Main.scala`**](hello/src/main/scala/Main.scala) we could also update the **`PATH`** variable and work with the two commands **`metac`** and **`metap`** directly :
+With tiny code examples such as [**`Main.scala`**](hello/src/main/scala/Main.scala) we could also update the **`PATH`** variable and work with the two commands [**`metac`**](https://github.com/scalameta/scalameta/blob/main/semanticdb/semanticdb3/guide.md#metac) and [**`metap`**](https://github.com/scalameta/scalameta/blob/main/semanticdb/semanticdb3/guide.md#metap) directly :
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> "PATH=%PATH%;%COURSIER_DATA_DIR%\bin;c:\opt\protoc-22.0"</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a> "PATH=%PATH%;%COURSIER_DATA_DIR%\bin;c:\opt\protoc-23.1"</b>
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> metac</b>
 <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%LOCALAPPDATA%</a>\Coursier\data\bin\metac.bat
@@ -221,8 +221,8 @@ range {
 
 <dl><dd>
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\protoc-22.0\bin\<a href="https://manpages.ubuntu.com/manpages/kinetic/man1/protoc.1.html" rel="external">protoc.exe</a> --version</b>
-libprotoc 22.0
+<b>&gt; c:\opt\protoc-23.1\bin\<a href="https://manpages.ubuntu.com/manpages/kinetic/man1/protoc.1.html" rel="external">protoc.exe</a> --version</b>
+libprotoc 23.1
 </pre>
 </dd></dl>
 
@@ -250,7 +250,7 @@ Warning: <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_val
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

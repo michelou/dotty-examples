@@ -13,6 +13,7 @@
 
 ## <span id="articles">Articles</span>
 
+- [Unlocking the Power of SBT][article_yadukrishnan] by Yadukrishnan, April 2023.
 - [Scala blog posts](https://alexn.org/blog/tag/scala/) from Alexandru Nedelcu :
   - [Immutable Collections should be Your Default][article_nedelcu_immutable], October 2022.
   - [Scripting with Scala][article_nedelcu_scripting], September 2022.
@@ -48,6 +49,8 @@
    - [Scala 3: Anti-Givens](https://blog.rockthejvm.com/anti-givens/), June 2021.
    - [Scala 3: Extension Methods](https://blog.rockthejvm.com/scala-3-extension-methods/), April 2021.
    - [Match Types in Scala 3](https://blog.rockthejvm.com/scala-3-match-types/), February 2021.
+   - [Enums in Scala 3](https://blog.rockthejvm.com/enums-scala-3/), September 2020.
+   - [New Types in Scala 3](https://blog.rockthejvm.com/new-types-scala-3/), September 2020.
 - [Scala Blog](http://www.shivamkapoor.com/blogs/technology/tag/scala/) by Shivan Kapoor:
   - [Making sense of Functors in Scala](http://www.shivamkapoor.com/blogs/technology/2021/06/04/making-sense-of-functors-in-scala/), June 2021.
   - [Recursive Descent Parsers in Scala - Part 3](http://www.shivamkapoor.com/blogs/technology/2020/12/06/recursive-descent-parsers-in-scala-3-cross-compiling-scala-parser-library-to-javascript-using-scala-js/), December 2020.
@@ -96,12 +99,13 @@
 - [Scala.js][project_scalajs] &ndash; a Scala backend to generate highly efficient JavaScript.
 - [ScalaStan][project_scalastan] &ndash; a Scala DSL for [Stan](https://mc-stan.org/), an open-source software for statistical modeling and high-performance statistical computation.
 - [Scalalikejdbc](https://github.com/scalikejdbc/scalikejdbc) &ndash; a tidy SQL-based DB access library for Scala developers.
+- [Tyrian](https://tyrian.indigoengine.io/) &ndash; an Elm-inspired, purely functional UI library for Scala 3.
 - [WartRemover](https://github.com/wartremover/wartremover) &ndash; a flexible Scala code linting tool.
 - [Woof](https://github.com/LEGO/woof) &ndash; a pure Scala 3 logging library with no reflection.
 
 ## <span id="videos">Videos</span>
 
-- [Simply Scala Martin Odersky][video_odersky2022] by Martin Odersky, October 2022 ([ScalaCon 2022](https://www.scalacon.org/)).
+- [Simply Scala][video_odersky2022] by Martin Odersky, October 2022 ([ScalaCon 2022](https://www.scalacon.org/)).
 - [Type Classes in Scala 3][video_mittal] by Ayush Mittal, March 2022 (Functional Conf 2022).
 - [Typeclasses in Scala 3][video_markham] by Noel Markham, January 2022 (Colombia Scala neetup).
 - [Scala 3 has landed][video_odersky2021] by Martin Odersky, May 2021.
@@ -109,7 +113,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -125,6 +129,7 @@
 [article_nedelcu_scripting]: https://alexn.org/blog/2022/09/13/scripting-with-scala/
 [article_nedelcu_tracking]: https://alexn.org/blog/2022/05/23/tracking-effects-in-scala/
 [article_odersky]: https://infoscience.epfl.ch/record/290885
+[article_yadukrishnan]: https://yadukrishnan.live/unlocking-the-power-of-sbt-a-beginners-guide-to-understanding-not-so-common-features
 [blog_47_degrees]: https://www.47deg.com/blog/tags/scala/
 [blog_databricks]: https://databricks.com/blog
 [blog_sarradin]: https://univalence.io/blog/articles/scala-3-un-nouveau-langage/
