@@ -103,7 +103,7 @@ C:\opt\mill-0.11.0\                <i>( 67 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
 C:\opt\Python-3.11.1\              <i>(299 MB)</i>
 C:\opt\sbt-1.9.0\                  <i>(110 MB)</i>
-C:\opt\scala-2.13.10\              <i>( 24 MB)</i>
+C:\opt\scala-2.13.11\              <i>( 24 MB)</i>
 C:\opt\scala-cli-1.0.0\            <i>( 92 MB)</i>
 C:\opt\scala3-3.3.1-RC1\           <i>( 38 MB)</i>
 </pre>
@@ -351,7 +351,7 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   javac 11.0.19, java 11.0.19, scalac 2.13.10, scalac 3.3.1-RC1, scalafmt 3.7.2,
+   javac 11.0.19, java 11.0.19, scalac 2.13.11, scalac 3.3.1-RC1, scalafmt 3.7.2,
    ant 1.10.13, gradle 8.1.1, mill 0.11.0, mvn 3.9.2, sbt 1.9.0-RC3, scala-cli 1.0.0,
    bazel 6.2.1, bloop v1.3.4, cfr 0.152, make 3.81, python 3.11.1,
    git 2.41.0.windows.1, diff 3.9, bash 5.2.15(1)-release
@@ -380,14 +380,14 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also displays the tool paths and
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   javac 11.0.18, java 11.0.18, scalac 2.13.10, scalac 3.3.1-RC1,
+   javac 11.0.18, java 11.0.18, scalac 2.13.11, scalac 3.3.1-RC1,
    ant 1.10.13, gradle 8.1.1, mill 0.11.0, mvn 3.9.2, sbt 1.9.0-RC3,
    bazel 6.2.1, cfr 0.152, make 3.81, python 3.11.1,
    git 2.41.0.windows.1, diff 3.9, bash 5.2.15(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.19_7\bin\javac.exe
    C:\opt\jdk-temurin-11.0.19_7\bin\java.exe
-   C:\opt\scala-2.13.10\bin\scalac.bat
+   C:\opt\scala-2.13.11\bin\scalac.bat
    C:\opt\scala3-3.3.1-RC1\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.13\bin\ant.bat
@@ -413,7 +413,7 @@ Environment variables:
    "MSYS_HOME=C:\opt\msys64"
    "PYTHON_HOME=C:\opt\Python-3.11.1"
    "SBT_HOME=C:\opt\sbt-1.9.0"
-   "SCALA_HOME=C:\opt\scala-2.13.10"
+   "SCALA_HOME=C:\opt\scala-2.13.11"
    "SCALA3_HOME=C:\opt\scala3-3.3.1-RC1"
 </pre>
 
@@ -514,7 +514,7 @@ antlr-runtime-3.5.1.jar
 autolink-0.6.0.jar
 [...]
 scala-asm-9.4.0-scala-1.jar
-scala-library-2.13.10.jar
+scala-library-2.13.11.jar
 scala3-compiler_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar
 scala3-interfaces-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar
 scala3-language-server_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar
@@ -580,9 +580,9 @@ Passing argument **`System`** to command [**`searchjars.bat`**](bin/searchjars.b
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> System</b>
 Searching for class name System in archive files C:\opt\scala3-3.3.1-RC1\lib\*.jar
   jline-reader-3.19.0.jar:org/jline/reader/impl/completer/SystemCompleter.class
-  scala-library-2.13.10.jar:scala/sys/SystemProperties$.class
-  scala-library-2.13.10.jar:scala/sys/SystemProperties.class
-Searching for class name System in archive files C:\opt\scala-2.13.10\lib\*.jar
+  scala-library-2.13.11.jar:scala/sys/SystemProperties$.class
+  scala-library-2.13.11.jar:scala/sys/SystemProperties.class
+Searching for class name System in archive files C:\opt\scala-2.13.11\lib\*.jar
   jline-3.19.0.jar:org/jline/builtins/SystemRegistryImpl$CommandOutputStream.class
   [...]
   scala-library.jar:scala/sys/SystemProperties$.class
@@ -604,7 +604,7 @@ Searching for an unknown class name - e.g. **`BinarySearch`** - produces the fol
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> BinarySearch</b>
 Searching for class name BinarySearch in archive files C:\opt\scala3-3.3.1-RC1\lib\*.jar
-Searching for class name BinarySearch in archive files C:\opt\scala-2.13.10\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\scala-2.13.11\lib\*.jar
 Searching for class name BinarySearch in archive files C:\opt\jdk-temurin-11.0.19_7\lib\*.jar
 </pre>
 
@@ -613,7 +613,7 @@ Searching for **`FileSystem`** with option **`-artifact`** produces the followin
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> FileSystem -artifact</b>
 Searching for class name FileSystem in archive files C:\opt\scala3-3.3.1-RC1\lib\*.jar
-Searching for class name FileSystem in archive files C:\opt\scala-2.13.10\lib\*.jar
+Searching for class name FileSystem in archive files C:\opt\scala-2.13.11\lib\*.jar
 Searching for class name FileSystem in archive files c:\opt\jdk-temurin-11.0.19_7\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem.class
@@ -855,12 +855,12 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/lihaoyi/mill/releases">0.11.0-assembly</a> (<code>mill</code>)                            <i>( 64 MB)</i>
+<a href="https://github.com/lihaoyi/mill/releases">0.11.0-assembly</a> (<code>mill</code>)                             <i>( 64 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.13-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.2-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-6.2.1-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
 <a href="https://gradle.org/install/">gradle-8.1.1-bin.zip</a>                               <i>(103 MB)</i>
-<a href="https://www.eclemma.org/jacoco/">jacoco-0.8.9.zip</a>                                   <i>(  4 MB)</i>
+<a href="https://www.eclemma.org/jacoco/">jacoco-0.8.10.zip</a>                                  <i>(  4 MB)</i>
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.7-shaded-win.jar</a>                   <i>( 36 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20210228.exe</a>                          <i>( 94 MB)</i>
@@ -871,7 +871,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_17.0.7_7.zip</a>    <i>(188 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.41.0-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.9.0.zip</a>                                      <i>( 17 MB)</i>
-<a href="https://www.scala-lang.org/files/archive/">scala-2.13.10.zip</a>                                  <i>( 22 MB)</i>
+<a href="https://www.scala-lang.org/files/archive/">scala-2.13.11.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.1.1-RC1">scala3-3.3.1-RC1.zip</a>                               <i>( 34 MB)</i>
 </pre>
 </dd></dl>
@@ -979,7 +979,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [scala_cli_downloads]: https://github.com/VirtusLab/scala-cli/releases
 [scala_cli_relnotes]: https://github.com/VirtusLab/scala-cli/releases/tag/v1.0.0-RC1
 [scala_releases]: https://www.scala-lang.org/files/archive/
-[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.10
+[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.11
 [scala_repl]: https://docs.scala-lang.org/overviews/repl/overview.html
 [scala3_home]: https://dotty.epfl.ch
 [scala3_releases]: https://github.com/lampepfl/dotty/releases

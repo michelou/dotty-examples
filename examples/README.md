@@ -97,7 +97,7 @@ Buildfile: Y:\examples\enum-Planet\build.xml
    [delete] Deleting directory Y:\examples\enum-Planet\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] SCALA3_HOME=C:\opt\scala3-3.3.0-RC6
+     [echo] SCALA3_HOME=C:\opt\scala3-3.3.1-RC1
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -176,8 +176,8 @@ Command [**`build -debug clean run`**](enum-Planet/build.bat) also displays inte
 [build] Subcommands:  clean compile run
 [build] Variables  : "CFR_HOME=C:\opt\cfr-0.152"
 [build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-11.0.19_7"
-[build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.3.0-RC6"
-[build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.10"
+[build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.3.1-RC1"
+[build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.11"
 [build] Variables  : _MAIN_CLASS=Planet _MAIN_ARGS=1
 [build] del /s /q Y:\dotty\examples\enum-Planet\target\classes\*.class Y:\dotty\examples\enum-Planet\target\classes\*.hasTasty Y:\dotty\examples\enum-Planet\target\classes\.latest-build
 [build] 20180322224754 Y:\dotty\examples\enum-Planet\src\main\scala\Planet.scala
@@ -327,7 +327,7 @@ Command **`make test`** executes the test suite [**`PlanetTest.scala`**](enum-Pl
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 scalac.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.10/scala-library-2.13.10.jar;%USERPROFILE%/.m2/repository/org.scala-lang/scala3-library_3/3.3.0-RC6/scala3-library_3-3.3.0-RC6.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.10/scala-library-2.13.10.jar;%USERPROFILE%/.m2/repository/org.scala-lang/scala3-library_3/3.3.1-RC1/scala3-library_3-3.3.1-RC1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore PlanetTest
 JUnit version 4.13.2
 ..
 Time: 0.239
@@ -365,16 +365,16 @@ Command **` mvn.cmd compile test`** with option **`-debug`** produces additional
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> -debug compile test | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
 [DEBUG] [execute] C:\opt\jdk-temurin-11.0.19_7\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.3.0-RC6 \
- -cp C:\opt\scala3-3.3.0-RC6\lib\*.jar -Dscala.usejavacp=true  \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.3.1-RC1 \
+ -cp C:\opt\scala3-3.3.1-RC1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath Y:\examples\hello-scala\target\classes \
  -d Y:\examples\hello-scala\target\classes \
  Y:\examples\hello-scala\src\main\scala\hello.scala
 [DEBUG] [execute] C:\opt\jdk-temurin-11.0.19_7\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.3.0-RC6 [...]
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.3.1-RC1 [...]
 [DEBUG] [execute] C:\opt\jdk-temurin-11.0.19_7\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\scala3-3.3.0-RC6\lib\*.jar;\
+ -Xms64m -Xmx1024m -cp C:\opt\scala3-3.3.1-RC1\lib\*.jar;\
 Y:\examples\hello-scala\target\classes hello
 </pre>
 
@@ -414,7 +414,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html" rel="external">java</a> -version 2>&1 | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> version</b>
 openjdk version "11.0.18" 2023-01-17
 
-<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html" rel="external">java</a> -Xbootclasspath/a:"c:\opt\scala3-3.3.0-RC6\lib\scala3-library_3-3.3.0-RC6.jar;c:\opt\scala3-3.3.0-RC6\lib\scala-library-2.13.10.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
+<b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html" rel="external">java</a> -Xbootclasspath/a:"c:\opt\scala3-3.3.1-RC1\lib\scala3-library_3-3.3.1-RC1.jar;c:\opt\scala3-3.3.1-RC1\lib\scala-library-2.13.10.jar" -jar target\enum-Planet-1.0-SNAPSHOT.jar 1</b>
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
 Your weight on EARTH (2) is 0.9999999999999999
@@ -539,16 +539,16 @@ Specifying option `-cli` in command [`build.bat`](./enum-Planet/build.bat) does 
 [build] Variables  : "CFR_HOME=C:\opt\cfr-0.152"
 [build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-11.0.19_7"
 [build] Variables  : "SCALA_CLI_HOME=c:\opt\scala-cli-1.0.0"
-[build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.10"
-[build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.3.0-RC6"
+[build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.11"
+[build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.3.1-RC1"
 [build] Variables  : _MAIN_CLASS=Planet _MAIN_ARGS=1
 [build] "c:\opt\scala-cli-1.0.0\scala-cli.exe" compile -v -O -deprecation --scala 3 "Y:\examples\enum-Planet\src\main\scala"
-Compiling project (Scala 3.3.0-RC6, JVM)
-Compiled project (Scala 3.3.0-RC6, JVM)
+Compiling project (Scala 3.3.1-RC1, JVM)
+Compiled project (Scala 3.3.1-RC1, JVM)
 [build] "c:\opt\scala-cli-1.0.0\scala-cli.exe" run -v --scala 3 --main-class "Planet" "Y:\examples\enum-Planet\src\main\scala" -- 1
-Compiling project (Scala 3.3.0-RC6, JVM)
-Compiled project (Scala 3.3.0-RC6, JVM)
-Running C:\opt\jdk-temurin-11.0.19_7\bin\java.exe -cp Y:\examples\enum-Planet\src\main\scala\.scala-build\project_909ac66893\classes\main;C:\Users\michelou\AppData\Local\Coursier\cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala3-library_3\3.3.0-RC6\scala3-library_3-3.3.0-RC6.jar;C:\Users\michelou\AppData\Local\Coursier\cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala-library\2.13.10\scala-library-2.13.10.jar Planet 1
+Compiling project (Scala 3.3.1-RC1, JVM)
+Compiled project (Scala 3.3.1-RC1, JVM)
+Running C:\opt\jdk-temurin-11.0.19_7\bin\java.exe -cp Y:\examples\enum-Planet\src\main\scala\.scala-build\project_909ac66893\classes\main;C:\Users\michelou\AppData\Local\Coursier\cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala3-library_3\3.3.1-RC1\scala3-library_3-3.3.1-RC1.jar;C:\Users\michelou\AppData\Local\Coursier\cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala-library\2.13.10\scala-library-2.13.10.jar Planet 1
 Mass of earth is 0.1020132025669991
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
@@ -659,7 +659,7 @@ We strive to obey the following coding conventions in our batch files (e.g. <a h
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
