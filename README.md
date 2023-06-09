@@ -515,7 +515,7 @@ antlr-runtime-3.5.1.jar
 autolink-0.6.0.jar
 [...]
 scala-asm-9.4.0-scala-1.jar
-scala-library-2.13.10.jar
+scala-library-2.13.11.jar
 scala3-compiler_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar
 scala3-interfaces-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar
 scala3-language-server_3-3.3.1-RC1-bin-20230224-c1809bc-NIGHTLY.jar
@@ -581,9 +581,9 @@ Passing argument **`System`** to command [**`searchjars.bat`**](bin/searchjars.b
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> System</b>
 Searching for class name System in archive files C:\opt\scala3-3.3.1-RC1\lib\*.jar
   jline-reader-3.19.0.jar:org/jline/reader/impl/completer/SystemCompleter.class
-  scala-library-2.13.10.jar:scala/sys/SystemProperties$.class
-  scala-library-2.13.10.jar:scala/sys/SystemProperties.class
-Searching for class name System in archive files C:\opt\scala-2.13.10\lib\*.jar
+  scala-library-2.13.11.jar:scala/sys/SystemProperties$.class
+  scala-library-2.13.11.jar:scala/sys/SystemProperties.class
+Searching for class name System in archive files C:\opt\scala-2.13.11\lib\*.jar
   jline-3.19.0.jar:org/jline/builtins/SystemRegistryImpl$CommandOutputStream.class
   [...]
   scala-library.jar:scala/sys/SystemProperties$.class
@@ -874,7 +874,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://git-scm.com/download/win">PortableGit-2.41.0-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.9.0.zip</a>                                      <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.11.zip</a>                                  <i>( 22 MB)</i>
-<a href="https://github.com/lampepfl/dotty/releases/tag/3.2.2">scala3-3.3.1-RC1.zip</a>                               <i>( 34 MB)</i>
+<a href="https://github.com/lampepfl/dotty/releases/tag/3.3.1-RC1">scala3-3.3.1-RC1.zip</a>                               <i>( 34 MB)</i>
 </pre>
 </dd></dl>
 
