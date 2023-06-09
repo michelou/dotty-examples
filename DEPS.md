@@ -22,7 +22,7 @@ The [Scala 3](https://www.scala-lang.org/download/scala3.html) and [Scala 2](htt
 > **:mag_right:** We observe a jump in the increases in size of the software distributions : 
 > |  Scala 3  | Release&nbsp;date | Zip&nbsp;archive | Installation |
 > |:----------|:------------:|:-----------:|:------------:|
-> | [**3.3.0-RC5**](https://github.com/lampepfl/dotty/releases/tag/3.3.0-RC5) | Apr&nbsp;2023 | 36.0 MB | **38.1 MB** |
+> | [**3.3.0**](https://github.com/lampepfl/dotty/releases/tag/3.3.0) | May&nbsp;2023 | 36.0 MB | **38.1 MB** |
 > | [3.2.2](https://github.com/lampepfl/dotty/releases/tag/3.2.2) | Jan&nbsp;2023 | 35.5 MB | 37.6 MB |
 > | [3.2.1](https://github.com/lampepfl/dotty/releases/tag/3.2.1) | Sep 2022 | 35.5 MB | 37.6 MB |
 > | [3.2.0](https://github.com/lampepfl/dotty/releases/tag/3.2.0) | Sep 2022 | 34.2 MB | 36.1 MB |
@@ -53,7 +53,7 @@ As mentioned in the introduction the Scala 3.3 distributions depend on *many* ex
 <tr>
   <th style="padding:4px;min-width:115px;">Java&nbsp;Archive</th>
   <th style="padding:4px;">Current<br/>Version</th>
-  <th><a href="https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler">3.3.0</a><br/><span style="color:red;">RC5</span></th>
+  <th><a href="https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler">3.3.0</a><br/>&nbsp;</th>
 </tr>
 
 <tr>
@@ -827,7 +827,7 @@ Besides improvements and fixes <code>scala-asm</code> library updates also add s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

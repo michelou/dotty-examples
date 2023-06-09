@@ -14,14 +14,6 @@
 ## <span id="articles">Articles</span>
 
 - [Unlocking the Power of SBT][article_yadukrishnan] by Yadukrishnan, April 2023.
-- [Scala blog posts](https://alexn.org/blog/tag/scala/) from Alexandru Nedelcu :
-  - [Immutable Collections should be Your Default][article_nedelcu_immutable], October 2022.
-  - [Scripting with Scala][article_nedelcu_scripting], September 2022.
-  - [Scala isn't fun anymore][article_nedelcu_isnt_fun], September 2022.
-  - [Tracking Side Effects in Scala][article_nedelcu_tracking], May 2022.
-  - [OOP vs Type Classes, Part 1][article_nedelcu_ideology1], May 2022.
-  - [Implicit vs Scala 3's Given][article_nedelcu_given], May 2022.
-  - [Scala OOFP Design Sample][article_nedelcu_oofp], April 2022.
 - [Safer Exceptions in Scala][article_odersky] by Martin Odersky et al., October 2021.
 - [Die Top 5 der Neuerungen in Scala 3][article_hupel_top5] by Lars Hupel, August 2021.
 - [Stufe 3][article_hupel_stufe3] by Lars Hupel, June 2021.
@@ -31,6 +23,15 @@
 
 ## <span id="blogs">Blogs</span> [**&#x25B4;**](#top)
 
+- [Scala blog posts](https://alexn.org/blog/tag/scala/) from Alexandru Nedelcu :
+  - [Scala 3 Enums][blog_nedelcu_enums], May 2023.
+  - [Immutable Collections should be Your Default][blog_nedelcu_immutable], October 2022.
+  - [Scripting with Scala][blog_nedelcu_scripting], September 2022.
+  - [Scala isn't fun anymore][blog_nedelcu_isnt_fun], September 2022.
+  - [Tracking Side Effects in Scala][blog_nedelcu_tracking], May 2022.
+  - [OOP vs Type Classes, Part 1][blog_nedelcu_ideology1], May 2022.
+  - [Implicit vs Scala 3's Given][blog_nedelcu_given], May 2022.
+  - [Scala OOFP Design Sample][blog_nedelcu_oofp], April 2022.
 - [SOFTWARE**MILL**](https://softwaremill.com/blog/?search=scala) :
    - [Prototype Loom-based concurrency API for Scala][blog_warski_2] by Adam Warski, February 2023.
    - [A solid checklist for configuring new Scala projects][blog_ciesielski] by Krzysztof Ciesielski, February 2023.
@@ -88,20 +89,21 @@
 - [Interactive Development using the Dotty Compiler][paper_martres] by Guillaume Martres, October 2017.
 - [Implementing Higher-Kinded Types in Dotty][paper_odersky_hkt] by Martin Odersky et al., October 2016.
 
-## <span id="shell">Shell Scripting</span>
-
-- [Google Shell Guide](https://google.github.io/styleguide/shellguide.html)
-
-## <span id="tools">Tools and Frameworks</span> [**&#x25B4;**](#top)
+## <span id="projects">Projects</span> [**&#x25B4;**](#top)
 
 - [borer](https://sirthias.github.io/borer/) &ndash; an efficient [CBOR](https://cbor.io/) and JSON (de)serialization for Scala.
 - [Decline](https://github.com/bkirwi/decline) &ndash; a composable command-line parser for Scala.
+- [enumeratum](https://github.com/lloydmeta/enumeratum) &ndash; a type-safe, reflection-free, powerful enumeration implementation for Scala.
 - [Scala.js][project_scalajs] &ndash; a Scala backend to generate highly efficient JavaScript.
 - [ScalaStan][project_scalastan] &ndash; a Scala DSL for [Stan](https://mc-stan.org/), an open-source software for statistical modeling and high-performance statistical computation.
 - [Scalalikejdbc](https://github.com/scalikejdbc/scalikejdbc) &ndash; a tidy SQL-based DB access library for Scala developers.
 - [Tyrian](https://tyrian.indigoengine.io/) &ndash; an Elm-inspired, purely functional UI library for Scala 3.
 - [WartRemover](https://github.com/wartremover/wartremover) &ndash; a flexible Scala code linting tool.
 - [Woof](https://github.com/LEGO/woof) &ndash; a pure Scala 3 logging library with no reflection.
+
+## <span id="shell">Shell Scripting</span>
+
+- [Google Shell Guide](https://google.github.io/styleguide/shellguide.html)
 
 ## <span id="videos">Videos</span>
 
@@ -113,7 +115,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -121,17 +123,18 @@
 [article_bettini]: http://www.di.unito.it/~capecchi/
 [article_hupel_stufe3]: https://www.innoq.com/de/articles/2021/06/stufe-3/
 [article_hupel_top5]: https://www.innoq.com/de/articles/2021/08/top5-neuerungen-scala/
-[article_nedelcu_given]: https://alexn.org/blog/2022/05/11/implicit-vs-scala-3-given/
-[article_nedelcu_ideology1]: https://alexn.org/blog/2022/05/13/oop-vs-type-classes-part-1-ideology/
-[article_nedelcu_immutable]: https://alexn.org/blog/2022/10/27/immutable-collections-your-default/
-[article_nedelcu_isnt_fun]: https://alexn.org/blog/2022/09/09/scala-isnt-fun-anymore/
-[article_nedelcu_oofp]: https://alexn.org/blog/2022/04/18/scala-oop-design-sample/
-[article_nedelcu_scripting]: https://alexn.org/blog/2022/09/13/scripting-with-scala/
-[article_nedelcu_tracking]: https://alexn.org/blog/2022/05/23/tracking-effects-in-scala/
 [article_odersky]: https://infoscience.epfl.ch/record/290885
 [article_yadukrishnan]: https://yadukrishnan.live/unlocking-the-power-of-sbt-a-beginners-guide-to-understanding-not-so-common-features
 [blog_47_degrees]: https://www.47deg.com/blog/tags/scala/
 [blog_databricks]: https://databricks.com/blog
+[blog_nedelcu_enums]: https://alexn.org/blog/2023/05/25/scala-enums/
+[blog_nedelcu_given]: https://alexn.org/blog/2022/05/11/implicit-vs-scala-3-given/
+[blog_nedelcu_ideology1]: https://alexn.org/blog/2022/05/13/oop-vs-type-classes-part-1-ideology/
+[blog_nedelcu_immutable]: https://alexn.org/blog/2022/10/27/immutable-collections-your-default/
+[blog_nedelcu_isnt_fun]: https://alexn.org/blog/2022/09/09/scala-isnt-fun-anymore/
+[blog_nedelcu_oofp]: https://alexn.org/blog/2022/04/18/scala-oop-design-sample/
+[blog_nedelcu_scripting]: https://alexn.org/blog/2022/09/13/scripting-with-scala/
+[blog_nedelcu_tracking]: https://alexn.org/blog/2022/05/23/tracking-effects-in-scala/
 [blog_sarradin]: https://univalence.io/blog/articles/scala-3-un-nouveau-langage/
 [blog_warski_2]: https://softwaremill.com/prototype-loom-based-concurrency-api-for-scala/
 [blog_warski_1]: https://softwaremill.com/the-future-of-effects-in-scala/

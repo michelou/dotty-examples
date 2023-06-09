@@ -1154,11 +1154,6 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('"%GRADLE_HOME%\bin\gradle.bat" -version ^| findstr Gradle') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GRADLE_HOME%\bin:gradle.bat"
 )
-where /q "%MILL_HOME%:mill.bat"
-if %ERRORLEVEL%==0 (
-    for /f "tokens=*" %%i in ('"%MILL_HOME%\mill.bat" -i version 2^>NUL') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% mill %%i,"
-    set __WHERE_ARGS=%__WHERE_ARGS% "%MILL_HOME%:mill.bat"
-)
 where /q "%MAVEN_HOME%\bin:mvn.cmd"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,3,*" %%i in ('"%MAVEN_HOME%\bin\mvn.cmd" -version ^| findstr Apache') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% mvn %%k,"
@@ -1173,6 +1168,11 @@ where /q "%SCALA_CLI_HOME%:scala-cli.exe"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1-3,*" %%i in ('"%SCALA_CLI_HOME%\scala-cli.exe" -version ^| findstr CLI') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% scala-cli %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%SCALA_CLI_HOME%:scala-cli.exe"
+)
+where /q "%MILL_HOME%:mill.bat"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1-4,*" %%i in ('"%MILL_HOME%\mill.bat" --version ^| findstr /i mill') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% mill %%m,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%MILL_HOME%:mill.bat"
 )
 where /q "%BAZEL_HOME%:bazel.exe"
 if %ERRORLEVEL%==0 (

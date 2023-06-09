@@ -53,11 +53,11 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*January 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*June 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java11-22.3.0\          <i>(890 MB)</i>
-C:\opt\graalvm-ce-java17-22.3.0\          <i>(937 MB)</i>
+C:\opt\graalvm-ce-java11-22.3.2\          <i>(890 MB)</i>
+C:\opt\graalvm-ce-java17-22.3.2\          <i>(937 MB)</i>
 C:\opt\jdk-bellsoft-11.0.17\              <i>(301 MB)</i>
 C:\opt\jdk-bellsoft-17.0.5\               <i>(309 MB)</i>
 C:\opt\jdk-bellsoft-nik-java11-22.0.0.2\  <i>(596 MB)</i>
@@ -67,17 +67,17 @@ C:\opt\jdk-corretto-17.0.5_8\             <i>(299 MB)</i>
 C:\opt\jdk-dcevm-11.0.15_1\               <i>(313 MB)</i>
 C:\opt\jdk-dragonwell-11.0.17.13_8\       <i>(290 MB)</i>
 C:\opt\jdk-dragonwell-17.0.5.0.5_8\       <i>(299 MB)</i>
-C:\opt\jdk-microsoft-11.0.17_8\           <i>(292 MB)</i>
-C:\opt\jdk-microsoft-17.0.5_8\            <i>(300 MB)</i>
+C:\opt\jdk-microsoft-11.0.19_7\           <i>(292 MB)</i>
+C:\opt\jdk-microsoft-17.0.7_7\            <i>(300 MB)</i>
 C:\opt\jdk-openj9-11.0.17_8\              <i>(326 MB)</i>
 C:\opt\jdk-openj9-17.0.5_8\               <i>(334 MB)</i>
 C:\opt\jdk-redhat-11.0.17.8-2\            <i>(364 MB)</i>
 C:\opt\jdk-redhat-17.0.5.0.8-2\           <i>(377 MB)</i>
-C:\opt\jdk-sapmachine-11.0.17\            <i>(316 MB)</i>
-C:\opt\jdk-sapmachine-17.0.5\             <i>(325 MB)</i>
-C:\opt\jdk-temurin-11.0.17_8\             <i>(300 MB)</i>
-C:\opt\jdk-temurin-17.0.5_8\              <i>(299 MB)</i>
-C:\opt\jdk-zulu-11.0.17-win_x64\          <i>(302 MB)</i>
+C:\opt\jdk-sapmachine-11.0.20\            <i>(316 MB)</i>
+C:\opt\jdk-sapmachine-17.0.8\             <i>(325 MB)</i>
+C:\opt\jdk-temurin-11.0.19_7\             <i>(300 MB)</i>
+C:\opt\jdk-temurin-17.0.7_7\              <i>(299 MB)</i>
+C:\opt\jdk-zulu-11.0.19-win_x64\          <i>(302 MB)</i>
 C:\opt\jdk-zulu-17.0.5-win_x64\           <i>(306 MB)</i>
 </pre>
 <!-- corretto  : 11.0.8 = 290 MB, 11.0.9 = 292 MB, 11.0.10 = 292 MB -->
@@ -92,8 +92,8 @@ C:\opt\jdk-zulu-17.0.5-win_x64\           <i>(306 MB)</i>
 
 We perform a quick comparison of the execution times to build the Scala 3 software distribution available as the following two archive files :
 <pre style="font-size:80%;">
-dist\target\scala3-3.2.2-RC1-bin-SNAPSHOT.tar.gz
-dist\target\scala3-3.2.2-RC1-bin-SNAPSHOT.zip
+dist\target\scala3-3.3.1-RC1-bin-SNAPSHOT.tar.gz
+dist\target\scala3-3.3.1-RC1-bin-SNAPSHOT.zip
 </pre>
 
 > **:mag_right:** Scala nightly builds are published on Maven as individual Java archive files, e.g.
@@ -351,22 +351,22 @@ OpenJDK 64-Bit Server VM 18.9 (build 11.0.15+9-LTS, mixed mode, sharing)
 GitHub project repository is [`SAP/SapMachine`](https://github.com/SAP/SapMachine).
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-sapmachine-11.0.16\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-openjdk version "11.0.16" 2022-07-19 LTS
-OpenJDK Runtime Environment SapMachine (build 11.0.16+8-LTS-sapmachine)
-OpenJDK 64-Bit Server VM SapMachine (build 11.0.16+8-LTS-sapmachine, mixed mode)
+<b>&gt; c:\opt\jdk-sapmachine-11.0.20\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+openjdk version "11.0.20-ea" 2023-07-18
+OpenJDK Runtime Environment SapMachine (build 11.0.20-ea+4-sapmachine)
+OpenJDK 64-Bit Server VM SapMachine (build 11.0.20-ea+4-sapmachine, mixed mode)
 &nbsp;
-<b>&gt; c:\opt\jdk-sapmachine-11.0.16\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-sapmachine-11.0.20\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
 [...]
-Number of classes 1217
+Number of classes 1222
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-sapmachine-11.0.16\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
-22.05.2022  15:39        17 694 720 classes.jsa
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-sapmachine-11.0.20\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
+05/29/2023  10:49 PM        11,337,728 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-sapmachine-11.0.16\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-openjdk version "11.0.16" 2022-04-19 LTS
-OpenJDK Runtime Environment SapMachine (build 11.0.16+10-LTS-sapmachine)
-OpenJDK 64-Bit Server VM SapMachine (build 11.0.16+10-LTS-sapmachine, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-sapmachine-11.0.20\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+openjdk version "11.0.20-ea" 2023-07-18
+OpenJDK Runtime Environment SapMachine (build 11.0.20-ea+4-sapmachine)
+OpenJDK 64-Bit Server VM SapMachine (build 11.0.20-ea+4-sapmachine, mixed mode, sharing)
 </pre>
 
 > **:mag_right:** SAP provides [online documentation](https://github.com/SAP/SapMachine/wiki) specific to SapMachine 11, e.g. [Differences between SapMachine and OpenJDK](https://github.com/SAP/SapMachine/wiki/Differences-between-SapMachine-and-OpenJDK).
@@ -379,22 +379,22 @@ OpenJDK 64-Bit Server VM SapMachine (build 11.0.16+10-LTS-sapmachine, mixed mode
 
 Temurin OpenJDK is the [reference implementation][oracle_openjdk11_project]; the other OpenJDK distributions are derived from it.
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-temurin-11.0.17_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-openjdk version "11.0.17" 2022-10-18
-OpenJDK Runtime Environment Temurin-11.0.17+8 (build 11.0.17+8)
-OpenJDK 64-Bit Server VM Temurin-11.0.17+8 (build 11.0.17+8, mixed mode)
+<b>&gt; c:\opt\jdk-temurin-11.0.19_7\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+openjdk version "11.0.19" 2023-04-18
+OpenJDK Runtime Environment Temurin-11.0.19+7 (build 11.0.19+7)
+OpenJDK 64-Bit Server VM Temurin-11.0.19+7 (build 11.0.19+7, mixed mode)
 &nbsp;
-<b>&gt; c:\opt\jdk-temurin-11.0.17_8\bin\java -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-temurin-11.0.19_7\bin\java -Xshare:dump</b>
 [...]
-Number of classes 1229
+Number of classes 1217
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-temurin-11.0.17_8\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
-01/05/2023  01:00 PM        11,403,264 classes.jsa
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-temurin-11.0.19_7\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
+05/29/2023  10:50 PM        11,272,192 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-temurin-11.0.17_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-openjdk version "11.0.17" 2022-10-18
-OpenJDK Runtime Environment Temurin-11.0.17+8 (build 11.0.17+8)
-OpenJDK 64-Bit Server VM Temurin-11.0.17+8 (build 11.0.17+8, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-temurin-11.0.19_7\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+openjdk version "11.0.19" 2023-04-18
+OpenJDK Runtime Environment Temurin-11.0.19+7 (build 11.0.19+7)
+OpenJDK 64-Bit Server VM Temurin-11.0.19+7 (build 11.0.19+7, mixed mode, sharing)
 </pre>
 
 
@@ -436,22 +436,22 @@ Dynamic Code Evolution 64-Bit Server VM AdoptOpenJDK-dcevm-11.0.15+1-20220428150
 ### <span id="zulu">Zulu OpenJDK 11</span> [**&#9650;**](#top)
 
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\jdk-zulu-11.0.15-win_x64\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-openjdk version "11.0.15" 2022-04-19 LTS
-OpenJDK Runtime Environment Zulu11.56+19-CA (build 11.0.15+10-LTS)
-OpenJDK 64-Bit Server VM Zulu11.56+19-CA (build 11.0.15+10-LTS, mixed mode)
+<b>&gt; c:\opt\jdk-zulu-11.0.19-win_x64\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+openjdk version "11.0.19" 2023-04-18 LTS
+OpenJDK Runtime Environment Zulu11.64+19-CA (build 11.0.19+7-LTS)
+OpenJDK 64-Bit Server VM Zulu11.64+19-CA (build 11.0.19+7-LTS, mixed mode)
 &nbsp;
-<b>&gt; c:\opt\jdk-zulu-11.0.15-win_x64\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
+<b>&gt; c:\opt\jdk-zulu-11.0.19-win_x64\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -Xshare:dump</b>
 [...]
 Number of classes 1223
 [...]
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-zulu-11.0.15-win_x64\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
-22.05.2022  15:43        17 825 792 classes.jsa
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\jdk-zulu-11.0.19-win_x64\bin\server | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> jsa</b>
+05/29/2023  10:52 PM        11,534,336 classes.jsa
 &nbsp;
-<b>&gt; c:\opt\jdk-zulu-11.0.15-win_x64\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-openjdk version "11.0.15" 2022-04-19 LTS
-OpenJDK Runtime Environment Zulu11.56+19-CA (build 11.0.15+10-LTS)
-OpenJDK 64-Bit Server VM Zulu11.56+19-CA (build 11.0.15+10-LTS, mixed mode, sharing)
+<b>&gt; c:\opt\jdk-zulu-11.0.19-win_x64\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
+openjdk version "11.0.19" 2023-04-18 LTS
+OpenJDK Runtime Environment Zulu11.64+19-CA (build 11.0.19+7-LTS)
+OpenJDK 64-Bit Server VM Zulu11.64+19-CA (build 11.0.19+7-LTS, mixed mode, sharing)
 </pre>
 
 ## <span id="related">Related reading</span> [**&#9650;**](#top)
@@ -493,18 +493,18 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/alibaba/dragonwell11/releases">Alibaba_Dragonwell_11.0.17.13.8_x64_windows.zip</a>                <i>(186 MB)</i>
+<a href="https://github.com/alibaba/dragonwell11/releases">Alibaba_Dragonwell_Standard_11.0.19.15.7_x64_windows.zip</a>       <i>(186 MB)</i>
 <a href="https://github.com/corretto/corretto-11/releases" rel="external">amazon-corretto-11.0.16.9.1-windows-x64-jdk.zip</a>                <i>(178 MB)</i>
 <a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.16.1+1-windows-amd64.zip</a>                      <i>(186 MB)</i>
 <a href="https://libericajdk.ru/pages/downloads/native-image-kit/">bellsoft-liberica-vm-openjdk11-22.0.0.2-windows-amd64.zip</a>      <i>(329 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-22.2.0">graalvm-ce-java11-windows-amd64-22.2.0.zip</a>                     <i>(335 MB)</i>
 <a href="https://developer.ibm.com/languages/java/semeru-runtimes/downloads">ibm-semeru-open-jdk_x64_windows_11.0.16_8_openj9-0.33.0.zip</a>    <i>(198 MB)</i>
 <a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.16.8-1.windows.redhat.x86_64.zip</a>          <i>(242 MB)</i>
-<a href="https://docs.microsoft.com/en-us/java/openjdk/">microsoft-jdk-11.0.16-windows-x64.zip</a>                          <i>(178 MB)</i>
+<a href="https://docs.microsoft.com/en-us/java/openjdk/">microsoft-jdk-11.0.19-windows-x64.zip</a>                          <i>(178 MB)</i>
 <a href="https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases/latest">Openjdk11u-dcevm-windows-x64.zip</a>                               <i>(187 MB)</i>
 <a href="https://adoptium.net/?variant=openjdk11">OpenJDK11U-jdk_x64_windows_hotspot_11.0.17_8.zip</a>               <i>(190 MB)</i>
-<a href="https://github.com/SAP/SapMachine/releases/tag/sapmachine-11.0.11" rel="external">sapmachine-jdk-11.0.16.0.1_windows-x64_bin.zip</a>                 <i>(189 MB)</i>
-<a href="https://www.azul.com/downloads/zulu-community/?version=java-11-lts" rel="external">zulu11.58.19-ca-jdk11.0.16-win_x64.zip</a>                         <i>(187 MB)</i>
+<a href="https://github.com/SAP/SapMachine/releases/tag/sapmachine-11.0.11" rel="external">sapmachine-jdk-11.0.20-ea.4_windows-x64_bin.zip</a>                <i>(189 MB)</i>
+<a href="https://www.azul.com/downloads/zulu-community/?version=java-11-lts" rel="external">zulu11.64.19-ca-jdk11.0.19-win_x64.zip</a>                         <i>(187 MB)</i>
 </pre>
 </dd></dl>
 
@@ -516,33 +516,33 @@ We run the batch file <a href="./bin/dotty/snapshot.bat"><code>snapshot.bat</cod
 <dd>
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b __SNAPSHOT_LOCAL\*.zip</b>
-scala3-3.2.2-RC1-bin-SNAPSHOT-bellsoft-08.zip
-scala3-3.2.2-RC1-bin-SNAPSHOT-bellsoft-11.zip
-<b style="color:#BB0066;">scala3-3.2.2-RC1-bin-SNAPSHOT-bellsoft-17.zip</b>
-scala3-3.2.2-RC1-bin-SNAPSHOT-bellsoft-nik-11.zip
-<b style="color:#BB0066;">scala3-3.2.2-RC1-bin-SNAPSHOT-bellsoft-nik-17.zip</b>
-scala3-3.2.2-RC1-bin-SNAPSHOT-corretto-11.zip
-<b style="color:#BB0066;">scala3-3.2.2-RC1-bin-SNAPSHOT-corretto-17.zip</b>
-scala3-3.2.2-RC1-bin-SNAPSHOT-dcevm-11.zip
-scala3-3.2.2-RC1-bin-SNAPSHOT-dragonwell-08.zip
-scala3-3.2.2-RC1-bin-SNAPSHOT-dragonwell-11.zip
-scala3-3.2.2-RC1-bin-SNAPSHOT-graalvm-ce-08.zip
-scala3-3.2.2-RC1-bin-SNAPSHOT-graalvm-ce-11.zip
-<b style="color:#BB0066;">scala3-3.2.2-RC1-bin-SNAPSHOT-graalvm-ce-17.zip</b>
-scala3-3.2.2-RC1-bin-SNAPSHOT-microsoft-11.zip
-scala3-3.2.2-RC1-bin-SNAPSHOT-microsoft-17.zip
-scala3-3.2.2-RC1-bin-SNAPSHOT-openj9-08.zip
-scala3-3.2.2-RC1-bin-SNAPSHOT-openj9-11.zip
-scala3-3.2.2-RC1-bin-SNAPSHOT-redhat-08.zip
-scala3-3.2.2-RC1-bin-SNAPSHOT-redhat-11.zip
-scala3-3.2.2-RC1-bin-SNAPSHOT-sapmachine-11.zip
-<b style="color:#BB0066;">scala3-3.2.2-RC1-bin-SNAPSHOT-sapmachine-17.zip</b>
-scala3-3.2.2-RC1-bin-SNAPSHOT-temurin-08.zip
-scala3-3.2.2-RC1-bin-SNAPSHOT-temurin-11.zip
-<b style="color:#BB0066;">scala3-3.2.2-RC1-bin-SNAPSHOT-temurin-17.zip</b>
-scala3-3.2.2-RC1-bin-SNAPSHOT-zulu-08.zip
-scala3-3.2.2-RC1-bin-SNAPSHOT-zulu-11.zip
-<b style="color:#BB0066;">scala3-3.2.2-RC1-bin-SNAPSHOT-zulu-17.zip</b>
+scala3-3.3.1-RC1-bin-SNAPSHOT-bellsoft-08.zip
+scala3-3.3.1-RC1-bin-SNAPSHOT-bellsoft-11.zip
+<b style="color:#BB0066;">scala3-3.3.1-RC1-bin-SNAPSHOT-bellsoft-17.zip</b>
+scala3-3.3.1-RC1-bin-SNAPSHOT-bellsoft-nik-11.zip
+<b style="color:#BB0066;">scala3-3.3.1-RC1-bin-SNAPSHOT-bellsoft-nik-17.zip</b>
+scala3-3.3.1-RC1-bin-SNAPSHOT-corretto-11.zip
+<b style="color:#BB0066;">scala3-3.3.1-RC1-bin-SNAPSHOT-corretto-17.zip</b>
+scala3-3.3.1-RC1-bin-SNAPSHOT-dcevm-11.zip
+scala3-3.3.1-RC1-bin-SNAPSHOT-dragonwell-08.zip
+scala3-3.3.1-RC1-bin-SNAPSHOT-dragonwell-11.zip
+scala3-3.3.1-RC1-bin-SNAPSHOT-graalvm-ce-08.zip
+scala3-3.3.1-RC1-bin-SNAPSHOT-graalvm-ce-11.zip
+<b style="color:#BB0066;">scala3-3.3.1-RC1-bin-SNAPSHOT-graalvm-ce-17.zip</b>
+scala3-3.3.1-RC1-bin-SNAPSHOT-microsoft-11.zip
+scala3-3.3.1-RC1-bin-SNAPSHOT-microsoft-17.zip
+scala3-3.3.1-RC1-bin-SNAPSHOT-openj9-08.zip
+scala3-3.3.1-RC1-bin-SNAPSHOT-openj9-11.zip
+scala3-3.3.1-RC1-bin-SNAPSHOT-redhat-08.zip
+scala3-3.3.1-RC1-bin-SNAPSHOT-redhat-11.zip
+scala3-3.3.1-RC1-bin-SNAPSHOT-sapmachine-11.zip
+<b style="color:#BB0066;">scala3-3.3.1-RC1-bin-SNAPSHOT-sapmachine-17.zip</b>
+scala3-3.3.1-RC1-bin-SNAPSHOT-temurin-08.zip
+scala3-3.3.1-RC1-bin-SNAPSHOT-temurin-11.zip
+<b style="color:#BB0066;">scala3-3.3.1-RC1-bin-SNAPSHOT-temurin-17.zip</b>
+scala3-3.3.1-RC1-bin-SNAPSHOT-zulu-08.zip
+scala3-3.3.1-RC1-bin-SNAPSHOT-zulu-11.zip
+<b style="color:#BB0066;">scala3-3.3.1-RC1-bin-SNAPSHOT-zulu-17.zip</b>
 </pre>
 </dd></dl>
 <!--
@@ -555,7 +555,7 @@ scala3-3.2.2-RC1-bin-SNAPSHOT-zulu-11.zip
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -48,7 +48,7 @@ call :add_jar "org.hamcrest" "hamcrest" "2.2"
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all
 call :add_jar "org.hamcrest" "hamcrest-all" "1.3"
 
-set __SCALATEST_VERSION=3.2.15
+set __SCALATEST_VERSION=3.2.16
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
