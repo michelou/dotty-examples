@@ -19,8 +19,8 @@ val scalaSourcePath = os.pwd / "src" / "main" / "scala"
 // Ivy dependencies
 
 val junitVersion = "4.13.2"
-val jupiterVersion = "5.9.2"
-val scalatestVersion = "3.2.15"
+val jupiterVersion = "5.9.3"
+val scalatestVersion = "3.2.16"
 val specs2Version = "5.2.0"
 
 // https://mvnrepository.com/artifact/junit/junit

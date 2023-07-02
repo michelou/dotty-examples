@@ -15,7 +15,7 @@
 
 | [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Status | Context |
 | :------------------------: | :--------: | :--------- |
-| [#15325][dotty_pull_15325] | *pending* | Batch files |
+| [#15325][dotty_pull_15325] | [merged](https://github.com/lampepfl/dotty/commit/9caafb9f) <span style="font-size:80%;">(May 2022)</span> | Batch files |
 | [#14559][dotty_pull_14559] | [merged](https://github.com/lampepfl/dotty/commit/d9b3271) <span style="font-size:80%;">(Mar 2022)</span>  | Bash/batch files |
 | [#14191][dotty_pull_14191] | [merged](https://github.com/lampepfl/dotty/commit/c9c6de6) <span style="font-size:80%;">(Jan 2022)</span> | [Reference Documentation][scala3_reference] |
 | [#13806][dotty_pull_13806] | [merged](https://github.com/lampepfl/dotty/commit/608344a) <span style="font-size:80%;">(Oct 2021)</span> | [Batch files][scala3_commands] |
@@ -70,7 +70,7 @@ We have come across several issues <sup id="anchor_02"><a href="#footnote_02">[2
 
 | [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Status&nbsp;&nbsp;&nbsp; | Context |
 | :-------------------------: | :--------: | :--------- |
-| [#14251][dotty_issue_14251] | *open* | Library dependencies |
+| [#14251][dotty_issue_14251] | closed  <span style="font-size:80%;">(Jan 2022)</span> | Library dependencies |
 | [#14235][dotty_issue_14235] | [fixed][dotty_pull_14247] <span style="font-size:80%;">(Jan 2022)</span> | Library dependencies |
 | [#11454][dotty_issue_11454] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
 | [#11453][dotty_issue_11453] | [fixed][dotty_pull_11476] <span style="font-size:80%;">(Feb 2021)</span> | Command tools |
@@ -83,7 +83,7 @@ We have come across several issues <sup id="anchor_02"><a href="#footnote_02">[2
 | [#7720][dotty_issue_7720] | [fixed][dotty_pull_7691] <span style="font-size:80%;">(Dec 2019)</span> | Staging |
 | [#7148][dotty_issue_7146] | [fixed](https://github.com/dotty-staging/dotty/commit/2c529c6) <span style="font-size:80%;">(Sep 2019)</span> | Shell scripts |
 | [#6868][dotty_issue_6868] | [fixed](https://github.com/lampepfl/dotty/commit/0ea949a) <span style="font-size:80%;">(Jul 2019)</span> | Class file parser |
-| [#6367][dotty_issue_6367] | *open* | Dotty REPL |
+| [#6367][dotty_issue_6367] | closed <span style="font-size:80%;">(Dec 2021)</span> | Dotty REPL |
 | [#4356][dotty_issue_4356] | [won't fix](https://github.com/lampepfl/dotty/issues/4356#event-2098905156) <span style="font-size:80%;">(Jan 2019)</span> | Windows batch command |
 | [#4272][dotty_issue_4272] | [fixed](https://github.com/lampepfl/dotty/commit/9723748) <span style="font-size:80%;">(Apr 2018)</span> | Type constraints|
 

@@ -221,8 +221,8 @@ range {
 
 <dl><dd>
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\protoc-23.2\bin\<a href="https://manpages.ubuntu.com/manpages/kinetic/man1/protoc.1.html" rel="external">protoc.exe</a> --version</b>
-libprotoc 23.2
+<b>&gt; c:\opt\protoc-23.3\bin\<a href="https://manpages.ubuntu.com/manpages/kinetic/man1/protoc.1.html" rel="external">protoc.exe</a> --version</b>
+libprotoc 23.3
 </pre>
 </dd></dl>
 
@@ -231,13 +231,13 @@ libprotoc 23.2
 <dl><dd>
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> cs</b>
-C:\opt\coursier-2.0.16\cs.exe
+C:\opt\coursier-2.1.15\cs.exe
 &nbsp;
 <b>&gt; <a href="https://get-coursier.io/docs/cli-overview">cs</a> install metac metap</b>
 https://repo1.maven.org/maven2/io/get-coursier/apps/maven-metadata.xml
   100.0% [##########] 2.0 KiB (18.6 KiB / s)
 [...]
-https://repo1.maven.org/maven2/org/scalameta/semanticdb-scalac_2.13.8/4.5.13/semanticdb-scalac_2.13.8-4.5.13.jar
+https://repo1.maven.org/maven2/org/scalameta/semanticdb-scalac_2.13.11/4.7.8/semanticdb-scalac_2.13.11-4.7.8.jar
   100.0% [##########] 14.6 MiB (1.2 MiB / s)
 Wrote metac
 [...]

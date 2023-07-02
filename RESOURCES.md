@@ -113,6 +113,12 @@
 - [Scala 3 has landed][video_odersky2021] by Martin Odersky, May 2021.
 - [Scala 3, Type Inference and You!][video_martres] by Guillaume Martres, September 2019. 
 
+<!--
+## <span id="git">Git</span>
+
+- [Advanced Git: Power Commands Beyond the Basics](https://kinsta.com/blog/advanced-git/) by Jeremy Holcombe, June 2023.
+-->
+
 ***
 
 *[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)

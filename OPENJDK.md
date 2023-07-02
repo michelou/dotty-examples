@@ -6,7 +6,7 @@
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:100px;" src="docs/images/dotty.png" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    <a href="https://openjdk.java.net/faq/" rel="external">OpenJDK</a> is an open-source project initiated by Oracle in 2010. Java 8 is the first LTS version of Java to be released <i>both</i> as a commercial product (<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Oracle Java SE 8 </a>) and as an open-source product (<a href="https://adoptium.net/" rel="external">Temurin OpenJDK 8</a>).<br/>In the following we focus on <a href="https://jdk.java.net/11/" rel="external">OpenJDK 11</a> and <a href="https://jdk.java.net/17/" rel="external">OpenJDK 17</a>, the current LTS version of Java.
+    <a href="https://openjdk.java.net/faq/" rel="external">OpenJDK</a> is an open-source project initiated by Oracle in 2010. Java 8 is the first LTS version of Java to be released <i>both</i> as a commercial product (<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Oracle Java SE 8 </a>) and as an open-source product (<a href="https://adoptium.net/" rel="external">Temurin OpenJDK 8</a>) <sup id="anchor_01"><a href="#footnote_01">1</a></sup>.<br/>In the following we focus on <a href="https://jdk.java.net/11/" rel="external">OpenJDK 11</a> and <a href="https://jdk.java.net/17/" rel="external">OpenJDK 17</a>, the current LTS version of Java.
   </td>
   </tr>
 </table>
@@ -44,7 +44,7 @@ https://devblogs.microsoft.com/java/announcing-general-availability-of-microsoft
 
 The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in several ways:
 
-- they are tested and certified for [JCK][openjdk_jck] <sup id="anchor_01">[1](#footnote_01)</sup> compliance excepted for Trava OpenJDK.
+- they are tested and certified for [JCK][openjdk_jck] <sup id="anchor_02">[2](#footnote_02)</sup> compliance excepted for Trava OpenJDK.
 - they include different [backports](https://builds.shipilev.net/backports-monitor/) of fixes from OpenJDK 12 or newer (eg. [Corretto][corretto11_patches]).
 - they include additional modules (eg. Device IO API on Linux ARMv7) or integrate special tools (eg. HotswapAgent in [Trava](https://github.com/TravaOpenJDK/trava-jdk-11-dcevm)).
 - they support different sets of platform architectures (eg. [SapMachine](https://sap.github.io/SapMachine/) x64 only, [BellSoft][bellsoft_relnotes] also Raspberry Pi 2 &amp; 3).
@@ -53,7 +53,7 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*June 2023*) <sup id="anchor_02">[2](#footnote_02)</sup>:
+For instance our development environment looks as follows (*June 2023*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\graalvm-ce-java11-22.3.2\          <i>(890 MB)</i>
@@ -105,7 +105,7 @@ We ideally would run the command [`build archives`](./bin/dotty/build.bat) to ge
 
 Unfortunately a few tests still fail on Windows, so need to proceed in two steps, running the command [`build boot & build arch-only`](./bin/dotty/build.bat), in order to achieve our goal. 
 
-Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop with an i7-8550U (1.8 GHz) processor and 16 Go of memory <sup id="anchor_03">[3](#footnote_03)</sup> (entries come from the log file [`snapshot_log.txt`](./docs/snapshot_log.txt)):
+Let's compare the build times for Java 8, Java 11 and Java 17 on a Win10 laptop with an i7-8550U (1.8 GHz) processor and 16 Go of memory <sup id="anchor_04">[4](#footnote_04)</sup> (entries come from the log file [`snapshot_log.txt`](./docs/snapshot_log.txt)):
 
 | 8u345 | **Build&nbsp;time** | 11.0.16  | **Build&nbsp;time** | 17.0.4 | **Build&nbsp;time** |
 |-----------|---------------------|----------|---------------------|-------|---------------------|
@@ -479,14 +479,20 @@ OpenJDK 64-Bit Server VM Zulu11.64+19-CA (build 11.0.19+7-LTS, mixed mode, shari
 
 ## <span id="footnotes">Footnotes</span> [**&#9650;**](#top)
 
-<span id="footnote_01" tooltip="[1]">[1]</span> ***JCK Compliance** (2018-04-06)* [↩](#anchor_01)
+<span id="footnote_01" tooltip="[1]">[1]</span> ***Oracle JDK vs OpenJDK*** [↩](#anchor_01)
+
+<dl><dd>
+Oracle's release notes for Java version 11 gives several <a href="https://www.oracle.com/java/technologies/javase/11-relnote-issues.html#Diffs">Differences between Oracle JDK and OpenJDK</a>.
+</dd></dl>
+
+<span id="footnote_02" tooltip="[2]">[2]</span> ***JCK Compliance** (2018-04-06)* [↩](#anchor_02)
 
 <dl><dd>
 The JCK is a proprietary test suite, <a href="https://openjdk.java.net/groups/conformance/JckAccess/index.html" rel="external">accessible under license from Oracle</a>.<br/>
 The role of the JCK is not to determine <i>quality</i>, but rather to provide a binary indication of compatibility with the Java SE specification. As such, the JCK only tests functional behaviour, and only such functional behaviour that is given in the Java specification.<br/><i>(see <a href="https://github.com/AdoptOpenJDK/TSC/issues/19">issue 19</a> from <a href="https://github.com/AdoptOpenJDK/TSC">OpenJDK TSC</a>)</i>
 </dd></dl>
 
-<span id="footnote_02">[2]</span> ***Downloads*** [↩](#anchor_02)
+<span id="footnote_03">[3]</span> ***Downloads*** [↩](#anchor_03)
 
 <dl><dd>
 In our case we downloaded the following installation files (<a href="#proj_deps">see section 1</a>):
@@ -495,8 +501,8 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <pre style="font-size:80%;">
 <a href="https://github.com/alibaba/dragonwell11/releases">Alibaba_Dragonwell_Standard_11.0.19.15.7_x64_windows.zip</a>       <i>(186 MB)</i>
 <a href="https://github.com/corretto/corretto-11/releases" rel="external">amazon-corretto-11.0.16.9.1-windows-x64-jdk.zip</a>                <i>(178 MB)</i>
-<a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.16.1+1-windows-amd64.zip</a>                      <i>(186 MB)</i>
-<a href="https://libericajdk.ru/pages/downloads/native-image-kit/">bellsoft-liberica-vm-openjdk11-22.0.0.2-windows-amd64.zip</a>      <i>(329 MB)</i>
+<a href="https://bell-sw.com/pages/downloads/#/java-11-lts">bellsoft-jdk11.0.19+7-windows-amd64.zip</a>                        <i>(186 MB)</i>
+<a href="https://libericajdk.ru/pages/downloads/native-image-kit/">bellsoft-liberica-vm-openjdk11.0.19+7-22.3.2+1-windows-amd64.zip</a>  <i>(329 MB)</i>
 <a href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-22.2.0">graalvm-ce-java11-windows-amd64-22.2.0.zip</a>                     <i>(335 MB)</i>
 <a href="https://developer.ibm.com/languages/java/semeru-runtimes/downloads">ibm-semeru-open-jdk_x64_windows_11.0.16_8_openj9-0.33.0.zip</a>    <i>(198 MB)</i>
 <a href="https://developers.redhat.com/products/openjdk/download">java-11-openjdk-11.0.16.8-1.windows.redhat.x86_64.zip</a>          <i>(242 MB)</i>
@@ -508,7 +514,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </pre>
 </dd></dl>
 
-<span id="footnote_03">[3]</span> ***Snapshot builds*** [↩](#anchor_03)
+<span id="footnote_04">[4]</span> ***Snapshot builds*** [↩](#anchor_04)
 
 <dl><dd>
 We run the batch file <a href="./bin/dotty/snapshot.bat"><code>snapshot.bat</code></a> (which calls <a href="./bin/dotty/build.bat"><code>build.bat</code></a>) to generate <b>26</b> Scala 3 software distributions based on <b>8</b>, <b>11</b> and <b>17</b> OpenJDK implementations (see also snyk report "<a href="https://snyk.io/jvm-ecosystem-report-2021/">JVM Ecosystem report 2021"</a>).

@@ -18,7 +18,7 @@ project.ext {
     }
 
     scalaBinaryVersion = isScala3 ? "3" : "2.13"
-    scalatestVersion = "3.2.15"
+    scalatestVersion = "3.2.16"
     specs2Version = isScala3 ? "5.2.0" : "4.17.0"
     dependencies {
         if (isScala3) {

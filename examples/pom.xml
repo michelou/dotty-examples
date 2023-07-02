@@ -23,7 +23,7 @@
         <!-- https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect -->
         <scala-reflect.version>1.1.2</scala-reflect.version>
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
-        <scalatest.version>3.2.15</scalatest.version>
+        <scalatest.version>3.2.16</scalatest.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven.compiler.version>3.11.0</maven.compiler.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
