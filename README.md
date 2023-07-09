@@ -19,7 +19,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other trending topics we are continuously monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other trending topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -65,7 +65,7 @@ Optionally one may also install the following software:
 - [Bazel 6.2 LTS][bazel_releases] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
 - [GNU Make 3.81][make_downloads]
-- [Gradle 8.1][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Gradle 8.2][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [JaCoCo 0.8][jacoco_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*change log*][jacoco_changelog])
 - [JavaFX 17 LTS][javafx_downloads] ([*release notes*][javafx_relnotes])
 - [JITWatch 1.4][jitwatch_releases] (requires Java 11 or newer)
@@ -84,15 +84,15 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*June 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*July 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant-1.10.13\         <i>( 40 MB)</i>
-C:\opt\apache-maven-3.9.2\         <i>( 10 MB)</i>
+C:\opt\apache-maven-3.9.3\         <i>( 10 MB)</i>
 C:\opt\bazel-6.2.1\                <i>( 45 MB)</i>
 C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
 C:\opt\Git-2.41.0\                 <i>(314 MB)</i>
-C:\opt\gradle-8.1.1\               <i>(129 MB)</i>
+C:\opt\gradle-8.2\                 <i>(129 MB)</i>
 C:\opt\jacoco-0.8.10\              <i>( 10 MB)</i>
 C:\opt\javafx-sdk-17.0.2\          <i>( 82 MB)</i>
 C:\opt\jdk-temurin-1.8.0u372-b07\  <i>(189 MB)</i>
@@ -100,7 +100,7 @@ C:\opt\jdk-temurin-11.0.19_7\      <i>(302 MB)</i>
 C:\opt\jdk-temurin-17.0.7_7\       <i>(299 MB)</i>
 C:\opt\jitwatch-1.4.7\             <i>( 36 MB)</i>
 C:\opt\make-3.81\                  <i>(  2 MB)</i>
-C:\opt\mill-0.11.0\                <i>( 67 MB)</i>
+C:\opt\mill-0.11.1\                <i>( 67 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
 C:\opt\Python-3.11.1\              <i>(299 MB)</i>
 C:\opt\sbt-1.9.0\                  <i>(110 MB)</i>
@@ -353,8 +353,8 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.19, java 11.0.19, scalac 2.13.11, scalac 3.3.1-RC1, scalafmt 3.7.2,
-   ant 1.10.13, gradle 8.1.1, mill 0.11.0, mvn 3.9.2, sbt 1.9.0, scala-cli 1.0.1,
-   mill 0.11.0, bazel 6.2.1, bloop v1.3.4, cfr 0.152, make 3.81, python 3.11.1,
+   ant 1.10.13, gradle 8.2, mill 0.11.1, mvn 3.9.3, sbt 1.9.0, scala-cli 1.0.1,
+   bazel 6.2.1, bloop v1.3.4, cfr 0.152, make 3.81, python 3.11.1,
    git 2.41.0.windows.1, diff 3.9, bash 5.2.15(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt scala-cli</b>
@@ -373,7 +373,7 @@ INFO: Could not find files for the given pattern(s).
 C:\opt\jdk-temurin-11.0.19_7\bin\javac.exe
 &nbsp;
 <b>&gt; %JAVA_HOME%\bin\<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html">javac</a> -version</b>
-javac 11.0.18
+javac 11.0.19
 </pre>
 
 Command [**`setenv.bat -verbose`**](setenv.bat) also displays the tool paths and defined variables:
@@ -381,8 +381,8 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also displays the tool paths and
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   javac 11.0.18, java 11.0.18, scalac 2.13.11, scalac 3.3.1-RC1,
-   ant 1.10.13, gradle 8.1.1, mill 0.11.0, mvn 3.9.2, sbt 1.9.0,
+   javac 11.0.19, java 11.0.19, scalac 2.13.11, scalac 3.3.1-RC1,
+   ant 1.10.13, gradle 8.2, mill 0.11.1, mvn 3.9.3, sbt 1.9.0,
    bazel 6.2.1, cfr 0.152, make 3.81, python 3.11.1,
    git 2.41.0.windows.1, diff 3.9, bash 5.2.15(1)-release
 Tool paths:
@@ -392,9 +392,9 @@ Tool paths:
    C:\opt\scala3-3.3.1-RC1\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.13\bin\ant.bat
-   C:\opt\gradle-8.1.1\bin\gradle.bat
-   C:\opt\mill-0.11.0\mill.bat
-   C:\opt\apache-maven-3.9.2\bin\mvn.cmd
+   C:\opt\gradle-8.2\bin\gradle.bat
+   C:\opt\mill-0.11.1\mill.bat
+   C:\opt\apache-maven-3.9.3\bin\mvn.cmd
    C:\opt\sbt-1.9.0\bin\sbt.bat
    C:\opt\bazel-6.2.1\bazel.exe
    C:\opt\cfr-0.152\bin\cfr.bat
@@ -840,7 +840,7 @@ For instance, for Visual Studio 2019, we set variable <b><code>BAZEL_VC</code></
 <tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.9</a>&nbsp;<i style="font-size:80%;">(March&nbsp;2023)</i></td><td>19 and 20</td><td><a href="https://asm.ow2.io/versions.html">9.5</a></td></tr>
 <tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.8</a> <i style="font-size:80%;">(April 2022)</i></td><td>17 and 18</td><td><a href="https://asm.ow2.io/versions.html">9.2</a></td></tr>
 <tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.7</a> <i style="font-size:80%;">(May 2021)</i></td><td>15 and 16</td><td><a href="https://asm.ow2.io/versions.html">9.1</a></td></tr>
-<tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.6</a> <i style="font-size:80%;">(Sept 2020)</i></td><td>14</td><td><a href="https://asm.ow2.io/versions.html">8.1.1</a></td></tr>
+<tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.6</a> <i style="font-size:80%;">(Sept 2020)</i></td><td>14</td><td><a href="https://asm.ow2.io/versions.html">8.2</a></td></tr>
 <tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.5</a> <i style="font-size:80%;">(Oct 2019)</i></td><td>13</td><td><a href="https://asm.ow2.io/versions.html">7.2</a></td></tr>
 <tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.4</a> <i style="font-size:80%;">(May 2019)</i></td><td>12</td><td><a href="https://asm.ow2.io/versions.html">7.1</a></td></tr>
 <tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.3</a> <i style="font-size:80%;">(Jan 2019)</i></td><td>11</td><td><a href="https://asm.ow2.io/versions.html">7.0</a></td></tr>
@@ -857,11 +857,11 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/lihaoyi/mill/releases">0.11.0-assembly</a> (<code>mill</code>)                             <i>( 64 MB)</i>
+<a href="https://github.com/lihaoyi/mill/releases">0.11.1-assembly</a> (<code>mill</code>)                             <i>( 64 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.13-bin.zip</a>                         <i>(  9 MB)</i>
-<a href="https://maven.apache.org/download.cgi">apache-maven-3.9.2-bin.zip</a>                         <i>( 10 MB)</i>
+<a href="https://maven.apache.org/download.cgi">apache-maven-3.9.3-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-6.2.1-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
-<a href="https://gradle.org/install/">gradle-8.1.1-bin.zip</a>                               <i>(103 MB)</i>
+<a href="https://gradle.org/install/">gradle-8.2-bin.zip</a>                                 <i>(103 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.10.zip</a>                                  <i>(  4 MB)</i>
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.7-shaded-win.jar</a>                   <i>( 36 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
@@ -886,7 +886,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -900,7 +900,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
-[apache_maven_relnotes]: https://maven.apache.org/docs/3.9.2/release-notes.html
+[apache_maven_relnotes]: https://maven.apache.org/docs/3.9.3/release-notes.html
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [bazel_releases]: https://github.com/bazelbuild/bazel/releases
 <!--
@@ -936,7 +936,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 [gradle_install]: https://gradle.org/install/
-[gradle_relnotes]: https://docs.gradle.org/8.1.1/release-notes.html
+[gradle_relnotes]: https://docs.gradle.org/8.2/release-notes.html
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [jacoco_changelog]: https://www.jacoco.org/jacoco/trunk/doc/changes.html
 [jacoco_downloads]: https://www.eclemma.org/jacoco/
@@ -949,6 +949,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [javap_cli]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html
 [jitwatch_releases]: https://github.com/AdoptOpenJDK/jitwatch/releases
 [jmh]: https://openjdk.java.net/projects/code-tools/jmh/
+[kafka_examples]: https://github.com/michelou/kafka-examples
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
 [llvm_examples]: https://github.com/michelou/llvm-examples
 [make_downloads]: https://sourceforge.net/projects/gnuwin32/files/make/3.81/

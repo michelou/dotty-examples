@@ -23,7 +23,7 @@ We need to install additional command-line tools in order to work on our code ex
 > - We need [Coursier] to install the **`metac`** and **`metap`** comand line tools <sup id="anchor_03">[3](#footnote_03)</sup> (no Tgz/Zip archive available).
 > - We extract the Zip archive [**`protoc-yy.z-win64.zip`**](https://github.com/protocolbuffers/protobuf/) (available from GitHub project [`protocolbuffers/protobuf`](https://github.com/protocolbuffers/protobuf/releases)) into directory **`C:\opt\protoc-yy.z\`**.
 
-## <span id="hello">`hello`</span>
+## <span id="hello">`hello` Example</span>
 
 Command [**`build.bat run`**](hello/build.bat) generates and prettyprints the [SemanticDB](https://scalameta.org/docs/semanticdb/guide.html) data for the Scala program [**`Main.scala`**](hello/src/main/scala/Main.scala) :
 <pre style="font-size:80%;">
@@ -136,7 +136,8 @@ Occurrences:
 </pre>
 
 > **:mag_right:** By default command **`metap <classpath>`** prints only the most important parts of the SemanticDB payload (default option is **`-compact`**).
-## <span id="semanticdb-example">`semanticdb-example`</span>
+
+## <span id="semanticdb-example">`semanticdb-example`</span> [**&#x25B4;**](#top)
 
 This code example is an updated version of Geirsson's example (May 2018) available from his GitHub project [`olafurpg/semantic-example`](https://github.com/olafurpg/semanticdb-example).
 
@@ -182,7 +183,7 @@ range {
   start_character: 57
 </pre>
 
-## <span id="footnotes">Footnotes</span>
+## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
 <span id="footnote_01">[1]</span> ***Scalameta CLI tools*** [↩](#anchor_01)
 
@@ -250,7 +251,7 @@ Warning: <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_val
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
