@@ -31,7 +31,7 @@ set _LIBS_CPATH=
 call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSION%" "1.1.2"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.1.0"
+call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.2.0"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parser-combinators
 call :add_jar "org.scala-lang.modules" "scala-parser-combinators_%__SCALA_BINARY_VERSION%" "2.2.0"

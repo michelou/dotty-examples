@@ -30,11 +30,11 @@ class DivideZero extends PluginPhase with StandardPlugin {
 
   // Exception: assertion failed: phase divideZero has unmet requirement: firstTransform should precede this phase
   //override val runsAfter = Set("firstTransform")
-  //override val runsBefore = Set("checkStatic") // or Set("checkReentrant") or Set("betaReduce")
+  //override val runsBefore = Set("checkStatic") // or Set("checkReentrant") or Set("betaReduce") or Set(typer.RefChecks.name)
 
   // WITH error output !!!
   override val runsAfter = Set("firstTransform") // or Set(Pickler.name)
-  override val runsBefore = Set(typer.RefChecks.name) // or Set("erasure")
+  override val runsBefore = Set("protectedAccessors") // or Set("erasure")
 
   override def init(options: List[String]): List[PluginPhase] = this :: Nil
 

@@ -44,7 +44,7 @@ MKFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 MKFILE_DIR  := $(dir $(MKFILE_PATH))
 
 ## https://mvnrepository.com/artifact/org.scalatest/scalatest
-SCALATEST_VERSION = 3.2.15
+SCALATEST_VERSION = 3.2.16
 ## https://mvnrepository.com/artifact/org.specs2/specs2-core
 ## Note: Specs2 5.x depends on Scala 3 while Specs2 4.x depends on Scala 2 or Scala 3
 SPECS2_VERSION = 5.2.0
@@ -59,3 +59,13 @@ SCALACTIC_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/scalactic" -name "scalac
 SPECS2_CORE_JAR    = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name "specs2-core_3-$(SPECS2_VERSION).jar")
 SPECS2_JUNIT_JAR   = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name "specs2-junit_3-$(SPECS2_VERSION).jar")
 SPECS2_MATCHER_JAR = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name "specs2-matcher_3-$(SPECS2_VERSION).jar")
+
+ifeq (,$(wildcard $(SCALA3_LIB_JAR)))
+$(error Variable SCALA3_LIB_JAR is not set)
+endif
+ifeq (,$(wildcard $(SCALATEST_JAR)))
+$(error Variable SCALATEST_JAR is not set)
+endif
+ifeq (,$(wildcard $(SPECS2_CORE_JAR)))
+$(error Variable SPECS2_CORE_JAR is not set)
+endif

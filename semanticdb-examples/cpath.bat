@@ -19,10 +19,10 @@ set _LIBS_CPATH=
 
 set __SCALA_BINARY_VERSION=2.13
 
-set __SCALAMETA_VERSION=4.7.1
+set __SCALAMETA_VERSION=4.8.4
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
-call :add_jar "org.scala-lang" "scala-reflect" "2.13.8"
+call :add_jar "org.scala-lang" "scala-reflect" "2.13.11"
 
 @rem https://mvnrepository.com/artifact/com.lihaoyi/fansi
 @rem dependency of pprint
@@ -38,13 +38,13 @@ call :add_jar "org.scalameta" "common_%__SCALA_BINARY_VERSION%" "%__SCALAMETA_VE
 call :add_jar "org.scalameta" "scalameta_%__SCALA_BINARY_VERSION%" "%__SCALAMETA_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scalameta/semanticdb-scalac
-call :add_jar "org.scalameta" "semanticdb-scalac_2.13.10" "%__SCALAMETA_VERSION%"
+call :add_jar "org.scalameta" "semanticdb-scalac_2.13.11" "%__SCALAMETA_VERSION%"
 
 @rem https://mvnrepository.com/artifact/com.sourcegraph/semanticdb-javac
-call :add_jar "com.sourcegraph" "semanticdb-javac" "0.8.9"
+call :add_jar "com.sourcegraph" "semanticdb-javac" "0.8.24"
 
 @rem https://mvnrepository.com/artifact/com.sourcegraph/semanticdb-kotlinc
-call :add_jar "com.sourcegraph" "semanticdb-kotlinc" "0.2.0"
+call :add_jar "com.sourcegraph" "semanticdb-kotlinc" "0.3.0"
 
 goto end
 

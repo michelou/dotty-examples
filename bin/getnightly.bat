@@ -191,7 +191,7 @@ echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%      display commands executed by this script
 echo     %__BEG_O%-force%__END%      force download even if already locally available
-echo     %__BEG_O%-timer%__END%      display total elapsed time
+echo     %__BEG_O%-timer%__END%      display total execution time
 echo     %__BEG_O%-verbose%__END%    display download progress
 echo.
 echo   %__BEG_P%Subcommands:%__END%
