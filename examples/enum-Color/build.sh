@@ -102,7 +102,7 @@ Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
     -debug       display commands executed by this script
-    -timer       display total elapsed time
+    -timer       display total execution time
     -verbose     display progress messages
 
   Subcommands:
@@ -168,10 +168,10 @@ action_required() {
     for f in $(find "$search_path" -type f -name "$search_pattern" 2>/dev/null); do
         [[ $f -nt $source_file ]] && source_file=$f
     done
-    if [ -z "$source_file" ]; then
+    if [[ -z "$source_file" ]]; then
         ## Do not compile if no source file
         echo 0
-    elif [ ! -f "$target_file" ]; then
+    elif [[ ! -f "$target_file" ]]; then
         ## Do compile if target file doesn't exist
         echo 1
     else

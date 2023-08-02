@@ -34,7 +34,7 @@ call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSI
 call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.2.0"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parser-combinators
-call :add_jar "org.scala-lang.modules" "scala-parser-combinators_%__SCALA_BINARY_VERSION%" "2.2.0"
+call :add_jar "org.scala-lang.modules" "scala-parser-combinators_%__SCALA_BINARY_VERSION%" "2.3.0"
 
 @rem https://mvnrepository.com/artifact/junit/junit
 call :add_jar "junit" "junit" "4.13.2"

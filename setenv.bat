@@ -214,7 +214,7 @@ set _STRONG_BG_BLUE=[104m
 goto :eof
 
 @rem input parameter: %*
-@rem output parameter: _HELP, _VERBOSE
+@rem output parameters: _BASH, _HELP, _VERBOSE
 :args
 set _BASH=0
 set _HELP=0
@@ -251,7 +251,7 @@ goto args_loop
 call :drive_name "%_ROOT_DIR%"
 if not %_EXITCODE%==0 goto :eof
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Options    : _BASH=%_BASH% _HELP=%_HELP% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Options    : _BASH=%_BASH% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _HELP=%_HELP% 1>&2
     echo %_DEBUG_LABEL% Variables  : _DRIVE_NAME=%_DRIVE_NAME% 1>&2
 )
@@ -986,7 +986,7 @@ set __ASSIGNED_PATH=
 for /f "tokens=1,2,*" %%f in ('subst ^| findstr /b "%__DRIVE_NAME%" 2^>NUL') do (
     if not "%%h"=="%_SUBST_PATH%" (
         echo %_WARNING_LABEL% Drive %__DRIVE_NAME% already assigned to %%h 1>&2
-        goto :eof
+        goto subst_path_end
     )
     set "__ASSIGNED_PATH=%%h"
 )
@@ -998,7 +998,8 @@ if not defined __ASSIGNED_PATH (
         goto :eof
     )
 )
-set _SUBST_PATH=%__DRIVE_NAME%
+:subst_path_end
+set "_SUBST_PATH=%__DRIVE_NAME%"
 goto :eof
 
 @rem output parameter: _MSYS_HOME
@@ -1015,7 +1016,7 @@ if defined __MSYS2_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MSYS_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\msys64*" 2^>NUL') do set "_MSYS_HOME=!_PATH!\%%f"
+    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\msys64*" 2^>NUL') do set "_MSYS_HOME=!_PATH!\%%f"
     if defined _MSYS_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default MSYS2 installation directory !_MSYS_HOME! 1>&2
     )
@@ -1098,11 +1099,11 @@ set _GIT_PATH=
 set __GIT_CMD=
 for /f %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
 if defined __GIT_CMD (
-    for %%i in ("%__GIT_CMD%") do set "__GIT_BIN_DIR=%%~dpi"
+    for /f "delims=" %%i in ("%__GIT_CMD%") do set "__GIT_BIN_DIR=%%~dpi"
     for %%f in ("!__GIT_BIN_DIR!\.") do set "_GIT_HOME=%%~dpf"
     @rem Executable git.exe is present both in bin\ and \mingw64\bin\
     if not "!_GIT_HOME:mingw=!"=="!_GIT_HOME!" (
-        for %%f in ("!_GIT_HOME!\..") do set "_GIT_HOME=%%f"
+        for %%f in ("!_GIT_HOME!\.") do set "_GIT_HOME=%%~dpf"
     )
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
     @rem keep _GIT_PATH undefined since executable already in path

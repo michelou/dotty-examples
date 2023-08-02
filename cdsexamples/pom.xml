@@ -53,7 +53,7 @@
         <maven.surefire.version>2.22.2</maven.surefire.version>
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
         <!-- Note: Specs2 5.x depends on Scala 3 while Specs2 4.x depends on Scala 2 or Scala 3 -->
-        <specs2.version>4.19.2</specs2.version>
+        <specs2.version>4.20.0</specs2.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
         <maven.jar.version>3.3.0</maven.jar.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
@@ -64,9 +64,9 @@
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
-        <junit.platform.version>1.9.3</junit.platform.version>
+        <junit.platform.version>1.10.0</junit.platform.version>
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <jupiter.version>5.9.3</jupiter.version>
+        <jupiter.version>5.10.0</jupiter.version>
 
         <m2.directory>${user.home}/.m2/repository</m2.directory>
 

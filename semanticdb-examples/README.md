@@ -232,7 +232,7 @@ libprotoc 23.4
 <dl><dd>
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> cs</b>
-C:\opt\coursier-2.1.15\cs.exe
+C:\opt\coursier-2.1.15\<a href="https://get-coursier.io/docs/cli-overview">cs.exe</a>
 &nbsp;
 <b>&gt; <a href="https://get-coursier.io/docs/cli-overview">cs</a> install metac metap</b>
 https://repo1.maven.org/maven2/io/get-coursier/apps/maven-metadata.xml
@@ -251,7 +251,7 @@ Warning: <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_val
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

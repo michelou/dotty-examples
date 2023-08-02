@@ -3,7 +3,7 @@ import mill._, api._, scalalib._
 //////////////////////////////////////////////////////////////////////////////
 // Project properties
 
-val scalaVersion = "3.3.1-RC4"  // "3.3.0", "3.2.2", "3.1.3", "3.0.1", "2.13.8"
+val scalaVersion = "3.3.1-RC4"  // "3.3.0", "3.2.2", "3.1.3", "3.0.1", "2.13.11"
 val scalacOptions = Seq("-deprecation", "-encoding", "UTF8", "-feature")
 
 val forkArgs = Seq("-Xmx1g")
@@ -19,7 +19,7 @@ val scalaSourcePath = os.pwd / "src" / "main" / "scala"
 // Ivy dependencies
 
 val junitVersion = "4.13.2"
-val jupiterVersion = "5.9.3"
+val jupiterVersion = "5.10.0"
 val scalatestVersion = "3.2.16"
 val specs2Version = "5.2.0"
 
@@ -51,10 +51,10 @@ val ivySpecs2Core = ivy"org.specs2:specs2-core_3:$specs2Version"
 val ivySpecs2JUnit = ivy"org.specs2:specs2-junit_3:$specs2Version"
 
 // https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-val ivyScalaXml = ivy"org.scala-lang.modules:scala-xml_3:2.1.0"
+val ivyScalaXml = ivy"org.scala-lang.modules:scala-xml_3:2.2.0"
 
 // https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parser-combinators
-val ivyScalaParser = ivy"org.scala-lang.modules:scala-parser-combinators_3:2.1.1"
+val ivyScalaParser = ivy"org.scala-lang.modules:scala-parser-combinators_3:2.3.0"
 
 //////////////////////////////////////////////////////////////////////////////
 // Helper functions

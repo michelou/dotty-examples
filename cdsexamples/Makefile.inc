@@ -60,6 +60,12 @@ SPECS2_CORE_JAR       = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name "specs2
 SPECS2_JUNIT_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name "specs2-junit_3-$(SPECS2_VERSION).jar")
 SPECS2_MATCHER_JAR    = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name "specs2-matcher_3-$(SPECS2_VERSION).jar")
 
+ifeq (,$(wildcard $(SCALA_LIB_JAR)))
+$(error Variable SCALA_LIB_JAR is not set)
+endif
+ifeq (,$(wildcard $(SCALA3_LIB_JAR)))
+$(error Variable SCALA3_LIB_JAR is not set)
+endif
 ifeq (,$(wildcard $(HAMCREST_ALL_JAR)))
 $(error Variable HAMCREST_ALL_JAR is not set)
 endif

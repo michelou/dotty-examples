@@ -1,6 +1,6 @@
 # <span id="top">OpenJDK and Scala 3 on Windows</span> <span style="size:30%;"><a href="README.md">↩</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;max-width:100px;">
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:100px;" src="docs/images/dotty.png" /></a>
@@ -561,7 +561,7 @@ scala3-3.3.1-RC1-bin-SNAPSHOT-zulu-11.zip
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
