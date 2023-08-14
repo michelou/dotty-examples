@@ -11,21 +11,14 @@ SOURCE_DIR  = src
 TARGET_DIR  = target
 CLASSES_DIR = $(TARGET_DIR)/classes
 
-JAVAC_FLAGS  = -deprecation
 SCALAC_FLAGS = -deprecation -feature
 SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 
 ##############################################################################
 ## main rules
 
-JAVA_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main/java" -type f -name "*.java")
-JAVA_TARGET  = $(TARGET_DIR)/.latest-java-build
-
-JAVA_OPTS_FILE    = $(TARGET_DIR)/javac_opts.txt
-JAVA_SOURCES_FILE = $(TARGET_DIR)/javac_sources.txt
-
-SOURCES      = $(shell $(FIND) "$(SOURCE_DIR)/main/scala" -name "*.scala" 2>/dev/null)
-TARGET       = $(TARGET_DIR)/.latest-build
+SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main/scala" -type f -name "*.scala" 2>/dev/null)
+TARGET  = $(TARGET_DIR)/.latest-build
 
 OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
 SOURCES_FILE = $(TARGET_DIR)/scalac_sources.txt
@@ -35,24 +28,17 @@ MAIN_ARGS ?=
 
 all: build
 
-build: $(JAVA_TARGET) $(TARGET)
-
-$(JAVA_TARGET): $(JAVA_SOURCES)
-	[ -d "$(CLASSES_DIR)" ] || "$(MKDIR)" -p "$(CLASSES_DIR)"
-	@$(ECHO) $(JAVAC_FLAGS) -d "$(CLASSES_DIR)" > "$(JAVA_OPTS_FILE)"
-	@$(ECHO) $(JAVA_SOURCES) > "$(JAVA_SOURCES_FILE)"
-	"$(JAVAC)" "@$(JAVA_OPTS_FILE)" "@$(JAVA_SOURCES_FILE)"
-	@$(TOUCH) "$(JAVA_TARGET)"
+build: $(TARGET)
 
 $(TARGET): $(SOURCES)
 	[ -d "$(CLASSES_DIR)" ] || "$(MKDIR)" -p "$(CLASSES_DIR)"
-	@$(ECHO) $(SCALAC_FLAGS) -classpath "$(CLASSES_DIR)" -d "$(CLASSES_DIR)" > "$(OPTS_FILE)"
+	@$(ECHO) $(SCALAC_FLAGS) -d "$(CLASSES_DIR)" > "$(OPTS_FILE)"
 	@$(ECHO) $(SOURCES) > "$(SOURCES_FILE)"
 	"$(SCALAC)" "@$(OPTS_FILE)" "@$(SOURCES_FILE)"
 	@$(TOUCH) "$(TARGET)"
 
 clean:
-	$(RM) -rf "$(TARGET_DIR)"
+	"$(RM)" -rf "$(TARGET_DIR)"
 
 run: build
 	"$(SCALA)" $(SCALA_FLAGS) $(MAIN_CLASS) $(MAIN_ARGS)
@@ -74,38 +60,45 @@ help:
 ## doc rules
 
 DOC_TARGET_DIR = $(TARGET_DIR)/docs
-DOC_SOURCES    = $(shell $(FIND) "$(CLASSES_DIR)" -type f -name "*.tasty" 2>/dev/null)
+DOC_SOURCES    = $(shell [ -d "$(CLASSES_DIR)" ] && $(FIND) "$(CLASSES_DIR)" -type f -name "*.tasty" 2>/dev/null)
 DOC_TARGET     = $(DOC_TARGET_DIR)/.latest-build
 
-PROJECT_NAME    ?= $(shell basename $(CURDIR))
+PROJECT_NAME    ?= $(shell basename "$(CURDIR)")
 PROJECT_URL     ?= https://github.com/$(USERNAME)/dotty-examples
 PROJECT_VERSION ?= 1.0.0
 
 DOC_OPTS_FILE    = $(TARGET_DIR)/scaladoc_opts.txt
 DOC_SOURCES_FILE = $(TARGET_DIR)/scaladoc_sources.txt
 
-$(DOC_TARGET): $(DOC_SOURCES)
+$(DOC_TARGET): $(TARGET) $(DOC_SOURCES)
 	[ -d "$(DOC_TARGET_DIR)" ] || "$(MKDIR)" -p "$(DOC_TARGET_DIR)"
 	@$(ECHO) -siteroot "$(DOC_TARGET_DIR)" -d "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
 	@$(ECHO) $(DOC_SOURCES) > "$(DOC_SOURCES_FILE)"
 	"$(SCALADOC)" "@$(DOC_OPTS_FILE)" "@$(DOC_SOURCES_FILE)"
 	@$(TOUCH) "$(DOC_TARGET)"
 
-doc: build $(DOC_TARGET)
+doc: $(TARGET) $(DOC_TARGET)
 
 ##############################################################################
 ## lint rules
 
+LINT_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name "*.scala")
+LINT_TARGET  = $(TARGET_DIR)/.latest-lint
+
 SCALAFMT_CONFIG_FILE = $(shell dirname $(CURDIR))/.scalafmt.conf
 SCALAFMT_OPTS = --test --config "$(SCALAFMT_CONFIG_FILE)"
 
-lint:
+lint: $(LINT_TARGET)
+
+$(LINT_TARGET): $(LINT_SOURCES)
+	[ -d "$(TARGET_DIR)" ] || "$(MKDIR)" -p "$(TARGET_DIR)"
 	"$(SCALAFMT)" $(SCALAFMT_OPTS) $(SOURCE_DIR)
+	@$(TOUCH) "$(LINT_TARGET)"
 
 ##############################################################################
 ## test rules
 
-TEST_SOURCES     = $(shell $(FIND) "$(SOURCE_DIR)/test" -type f -name "*.scala" 2>/dev/null)
+TEST_SOURCES     = $(shell $(FIND) "$(SOURCE_DIR)/test/scala" -type f -name "*.scala" 2>/dev/null)
 TEST_CLASSES_DIR = $(TARGET_DIR)/test-classes
 TEST_TARGET      = $(TARGET_DIR)/.latest-test-build
 
@@ -131,4 +124,4 @@ test: build $(TEST_TARGET)
 .PHONY: all build clean doc help lint run test
 
 .SUFFIXES:
-.SUFFIXES: .classes .jar .java .scala .tasty
+.SUFFIXES: .class .jar .java .scala .tasty

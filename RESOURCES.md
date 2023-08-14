@@ -36,6 +36,8 @@
    - [Prototype Loom-based concurrency API for Scala][blog_warski_2] by Adam Warski, February 2023.
    - [A solid checklist for configuring new Scala projects][blog_ciesielski] by Krzysztof Ciesielski, February 2023.
    - [The future of effects in Scala?][blog_warski_1] by Adam Warski, July 2022.
+- [**VIRTUSLAB**][virtuslab] [Scala Blog][blog_virtuslab] :
+  - [How to build a simple Scala application with Bazel](https://www.virtuslab.com/blog/introduction-to-bazel-for-scala-developers/), February 2023.
 - [Databricks Blog][blog_databricks]
    - [Scala at Scale at Databricks](https://databricks.com/blog/2021/12/03/scala-at-scale-at-databricks.html) by Li Haoyi, December 2021.
 - [Scala 3 : un nouveau langage ?][blog_sarradin] by François Sarradin, May 2021.
@@ -121,7 +123,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -143,6 +145,7 @@
 [blog_nedelcu_tracking]: https://alexn.org/blog/2022/05/23/tracking-effects-in-scala/
 [blog_sarradin]: https://univalence.io/blog/articles/scala-3-un-nouveau-langage/
 [blog_warski_2]: https://softwaremill.com/prototype-loom-based-concurrency-api-for-scala/
+[blog_virtuslab]: https://www.virtuslab.com/tag/scala/
 [blog_warski_1]: https://softwaremill.com/the-future-of-effects-in-scala/
 [book_alexander]: https://www.oreilly.com/library/view/scala-cookbook-2nd/9781492051534/
 [book_haoyi]: https://www.handsonscala.com/
@@ -163,3 +166,4 @@
 [video_mittal]: https://www.youtube.com/watch?v=G5c0U69QaLE
 [video_odersky2022]: https://www.youtube.com/watch?v=QRcD9Zc7eq4
 [video_odersky2021]: https://youtu.be/JcLG9Ss9Y-w
+[virtuslab]: https://www.virtuslab.com/

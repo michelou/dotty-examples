@@ -37,7 +37,7 @@ http_archive(
 # 2.12 is a default version, other versions can be use by passing them explicitly:
 # scala_config(scala_version = "2.11.12")
 load("@io_bazel_rules_scala//:scala_config.bzl", "scala_config")
-scala_config(scala_version = "2.13.6")
+scala_config(scala_version = "2.13.10")
 
 load("@io_bazel_rules_scala//scala:scala.bzl", "rules_scala_setup", "scala_repositories")
 rules_scala_setup()
@@ -54,19 +54,6 @@ scala_register_toolchains()
 load("@io_bazel_rules_scala//testing:scalatest.bzl", "scalatest_repositories", "scalatest_toolchain")
 scalatest_repositories()
 scalatest_toolchain()
-
-##############################################################################
-## see https://github.com/protocolbuffers/protobuf/releases
-
-protobuf_version = "3.20.1"
-protobuf_sha256 = "36f81e03a0702f8f935fffd5a486dac1c0fc6d4bae1cd02c7a32448ad6e63bcb"
-
-http_archive(
-    name = "com_google_protobuf",
-    url = "https://github.com/protocolbuffers/protobuf/archive/v%s.tar.gz" % protobuf_version,
-    strip_prefix = "protobuf-%s" % protobuf_version,
-    sha256 = protobuf_sha256,
-)
 
 ##############################################################################
 ## END

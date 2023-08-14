@@ -83,7 +83,7 @@ doc: build $(DOC_TARGET)
 ## lint rules
 
 SCALAFMT_CONFIG_FILE = $(shell dirname $(CURDIR))/.scalafmt.conf
-SCALAFMT_OPTS = --test --config "$(SCALAFMT_CONFIG_FILE)"
+SCALAFMT_OPTS = --config "$(SCALAFMT_CONFIG_FILE)"
 
 lint:
 	"$(SCALAFMT)" $(SCALAFMT_OPTS) "$(SOURCE_DIR)"

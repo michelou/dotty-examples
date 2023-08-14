@@ -10,12 +10,12 @@ set _DEBUG=0
 set _EXITCODE=0
 
 @rem files build.sbt, build.sc and ivy.xml
-set _DOTTY_VERSION_OLD="3.2.2"
-set _DOTTY_VERSION_NEW="3.3.1-RC4"
+set _DOTTY_VERSION_OLD="3.3.1-RC4"
+set _DOTTY_VERSION_NEW="3.3.1-RC5"
 
 @rem files project\build.properties
-set _SBT_VERSION_OLD=sbt.version=1.8.2
-set _SBT_VERSION_NEW=sbt.version=1.9.2
+set _SBT_VERSION_OLD=sbt.version=1.9.2
+set _SBT_VERSION_NEW=sbt.version=1.9.3
 
 @rem files project\plugins.sbt
 @rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/
@@ -23,26 +23,26 @@ set _SBT_DOTTY_VERSION_OLD="0.5.4"
 set _SBT_DOTTY_VERSION_NEW="0.5.5"
 
 @rem see https://mvnrepository.com/artifact/org.scalatest/scalatest
-set _SCALATEST_VERSION_OLD=^(\"scalatest_2.13\"^)^(.+\"3.2.13\"^)
-set _SCALATEST_VERSION_NEW=$1 %%%% \"3.2.15\"
+set _SCALATEST_VERSION_OLD=^(\"scalatest_2.13\"^)^(.+\"3.2.15\"^)
+set _SCALATEST_VERSION_NEW=$1 %%%% \"3.2.16\"
 
 @rem files ivy.xml (NB. PS regex)
-set _IVY_DOTTY_VERSION_OLD=^(scala3-[a-z]+^)_3.3.0-RC3
-set _IVY_DOTTY_VERSION_NEW=$1_3.3.1-RC4
+set _IVY_DOTTY_VERSION_OLD=^(scala3-[a-z]+^)_3.3.1-RC4
+set _IVY_DOTTY_VERSION_NEW=$1_3.3.1-RC5
 
-set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_3.3.0-RC3
-set _IVY_TASTY_VERSION_NEW=$1_3.3.1-RC4
+set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_3.3.1-RC4
+set _IVY_TASTY_VERSION_NEW=$1_3.3.1-RC5
 
 @rem files pom.xml (NB. PS regex)
 set _POM_SCALA2_VERSION_OLD=scala.version^>2.13.10
 set _POM_SCALA2_VERSION_NEW=scala.version^>2.13.11
 
-set _POM_SCALA3_VERSION_OLD=scala3.version^>3.3.0-RC3
-set _POM_SCALA3_VERSION_NEW=scala3.version^>3.3.1-RC4
+set _POM_SCALA3_VERSION_OLD=scala3.version^>3.3.1-RC4
+set _POM_SCALA3_VERSION_NEW=scala3.version^>3.3.1-RC5
 
 @rem files common.gradle
-set _GRADLE_DOTTY_VERSION_OLD=scala3-compiler_3:3.3.0-RC3
-set _GRADLE_DOTTY_VERSION_NEW=scala3-compiler_3:3.3.1-RC4
+set _GRADLE_DOTTY_VERSION_OLD=scala3-compiler_3:3.3.1-RC4
+set _GRADLE_DOTTY_VERSION_NEW=scala3-compiler_3:3.3.1-RC5
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -61,7 +61,6 @@ if %_RUN%==1 (
     call :run
     if not !_EXITCODE!==0 goto end
 )
-
 goto end
 
 @rem #########################################################################
@@ -70,7 +69,7 @@ goto end
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 :env
 set _BASENAME=%~n0
-for %%f in ("%~dp0\.") do set "_ROOT_DIR=%%~dpf"
+set "_ROOT_DIR=%%~dp0"
 @rem remove trailing backslash for virtual drives
 if "%_ROOT_DIR:~-2%"==":\" set "_ROOT_DIR=%_ROOT_DIR:~0,-1%"
 
@@ -183,8 +182,8 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%       show commands executed by this script
-echo     %__BEG_O%-timer%__END%       display total elapsed time
+echo     %__BEG_O%-debug%__END%       display commands executed by this script
+echo     %__BEG_O%-timer%__END%       display total execution time
 echo     %__BEG_O%-verbose%__END%     display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
@@ -199,7 +198,7 @@ for %%i in (cdsexamples examples meta-examples myexamples plugin-examples) do (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% call :update_project "!__PROJECT_DIR!" 1>&2
         call :update_project "!__PROJECT_DIR!"
     ) else (
-        echo %_WARNING_LABEL% Project directory not found ^(!__PROJECT_DIR!^) 1>&2
+        echo %_WARNING_LABEL% Project directory not found ^("!__PROJECT_DIR!"^) 1>&2
     )
 )
 goto :eof
@@ -278,7 +277,7 @@ if exist "%__IVY_XML%" (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "%__IVY_XML%" "%_IVY_DOTTY_VERSION_OLD%" "%_IVY_DOTTY_VERSION_NEW%" 1>&2
     call :replace "%__IVY_XML%" "%_IVY_DOTTY_VERSION_OLD%" "%_IVY_DOTTY_VERSION_NEW%"
 ) else (
-   echo    %_WARNING_LABEL% Could not find file %__IVY_XML% 1>&2
+   echo    %_WARNING_LABEL% Could not find file "%__IVY_XML%" 1>&2
 )
 set "__POM_XML=%__PARENT_DIR%\pom.xml"
 if exist "%__POM_XML%" (
@@ -294,7 +293,7 @@ if exist "%__POM_XML%" (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "%__POM_XML%" "%_IVY_TASTY_VERSION_OLD%" "%_IVY_TASTY_VERSION_NEW%" 1>&2
     call :replace "%__POM_XML%" "%_IVY_TASTY_VERSION_OLD%" "%_IVY_TASTY_VERSION_NEW%"
 ) else (
-    echo    %_WARNING_LABEL% Could not find file %__POM_XML% 1>&2
+    echo    %_WARNING_LABEL% Could not find file "%__POM_XML%" 1>&2
 )
 set "__COMMON_GRADLE=%__PARENT_DIR%\common.gradle"
 if exist "%__COMMON_GRADLE%" (
@@ -302,7 +301,7 @@ if exist "%__COMMON_GRADLE%" (
     call :replace "%__COMMON_GRADLE%" "%_GRADLE_DOTTY_VERSION_OLD%" "%_GRADLE_DOTTY_VERSION_NEW%"
     set /a __N7+=1
 ) else (
-    echo    %_WARNING_LABEL% Could not find file %__COMMON_GRADLE% 1>&2
+    echo    %_WARNING_LABEL% Could not find file "%__COMMON_GRADLE%" 1>&2
 )
 call :message %__N1% "build.sbt"
 call :message %__N2% "project\build.properties"
@@ -336,7 +335,7 @@ goto :eof
 if %_TIMER%==1 (
     for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
     call :duration "%_TIMER_START%" "!__TIMER_END!"
-    echo Total elapsed time: !_DURATION! 1>&2
+    echo Total execution time: !_DURATION! 1>&2
 )
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%

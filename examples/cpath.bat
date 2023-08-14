@@ -68,7 +68,7 @@ call :add_jar "org.scalatest" "scalatest_3" "%__SCALATEST_VERSION%"
 @rem https://mvnrepository.com/artifact/org.scalactic
 call :add_jar "org.scalactic" "scalactic_3" "%__SCALATEST_VERSION%"
 
-set __SPECS2_VERSION=5.2.0
+set __SPECS2_VERSION=5.3.2
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
 @rem NB. dependency of specs2
@@ -93,7 +93,7 @@ call :add_jar "org.specs2" "specs2-fp_3" "%__SPECS2_VERSION%"
 call :add_jar "com.chuusai" "shapeless_%__SCALA_BINARY_VERSION%" "2.3.10"
 
 @rem https://mvnrepository.com/artifact/eu.timepit/refined
-call :add_jar "eu.timepit" "refined_3" "0.10.1"
+call :add_jar "eu.timepit" "refined_3" "0.11.0"
 
 goto end
 

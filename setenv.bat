@@ -42,7 +42,7 @@ set _VSCODE_PATH=
 call :java "temurin" 17
 if not %_EXITCODE%==0 goto end
 
-call :java "temurin" 1.8
+call :java "oracle" 21
 if not %_EXITCODE%==0 goto end
 
 @rem last call to :java defines variable JAVA_HOME
@@ -424,7 +424,7 @@ if not defined __VENDOR ( set __JDK_NAME=jdk-%__VERSION%
 ) else ( set __JDK_NAME=jdk-%__VENDOR%-%__VERSION%
 )
 set __JAVAC_CMD=
-for /f %%f in ('where javac.exe 2^>NUL') do (
+for /f "delims=" %%f in ('where javac.exe 2^>NUL') do (
     set "__JAVAC_CMD=%%f"
     @rem we ignore Scoop managed Java installation
     if not "!__JAVAC_CMD:scoop=!"=="!__JAVAC_CMD!" set __JAVAC_CMD=
@@ -448,7 +448,7 @@ if defined JAVA_HOME (
     for /f "delims=" %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f"
     if not defined _JAVA_HOME (
         set "_PATH=%ProgramFiles%\Java"
-        for /f %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f"
     )
     if defined _JAVA_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Java SDK installation directory !_JAVA_HOME! 1>&2
@@ -486,7 +486,7 @@ goto :eof
 set _SCALA_HOME=
 
 set __SCALAC_CMD=
-for /f %%f in ('where scalac.bat 2^>NUL') do (
+for /f "delims=" %%f in ('where scalac.bat 2^>NUL') do (
     set __VERSION=
     for /f "tokens=1,2,3,4,*" %%i in ('scalac.bat -version 2^>^&1') do set "__VERSION=%%l"
     if defined __VERSION if "!__VERSION:~0,1!"=="2" set "__SCALAC_CMD=%%f"
@@ -561,7 +561,7 @@ set _SBT_HOME=
 set _SBT_PATH=
 
 set __SBT_CMD=
-for /f %%f in ('where sbt.bat 2^>NUL') do set "__SBT_CMD=%%f"
+for /f "delims=" %%f in ('where sbt.bat 2^>NUL') do set "__SBT_CMD=%%f"
 if defined __SBT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of sbt executable found in PATH 1>&2
     @rem keep _SBT_PATH undefined since executable already in path
@@ -576,7 +576,7 @@ if defined __SBT_CMD (
         for /f %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!__PATH!\%%f"
         if not defined _SBT_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!__PATH!\%%f"
         )
     )
 )
@@ -594,7 +594,7 @@ set _ANT_HOME=
 set _ANT_PATH=
 
 set __ANT_CMD=
-for /f %%f in ('where ant.bat 2^>NUL') do set "__ANT_CMD=%%f"
+for /f "delims=" %%f in ('where ant.bat 2^>NUL') do set "__ANT_CMD=%%f"
 if defined __ANT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Ant executable found in PATH 1>&2
     for %%i in ("%__ANT_CMD%") do set "__ANT_BIN_DIR=%%~dpi"
@@ -611,7 +611,7 @@ if defined __ANT_CMD (
         for /f %%f in ('dir /ad /b "!__PATH!\apache-ant-*" 2^>NUL') do set "_ANT_HOME=!__PATH!\%%f"
         if not defined _ANT_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\apache-ant-*" 2^>NUL') do set "_ANT_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\apache-ant-*" 2^>NUL') do set "_ANT_HOME=!__PATH!\%%f"
         )
     )
     if defined _ANT_HOME (
@@ -632,7 +632,7 @@ set _BAZEL_HOME=
 set _BAZEL_PATH=
 
 set __BAZEL_CMD=
-for /f %%f in ('where bazel.exe 2^>NUL') do set "__BAZEL_CMD=%%f"
+for /f "delims=" %%f in ('where bazel.exe 2^>NUL') do set "__BAZEL_CMD=%%f"
 if defined __BAZEL_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Bazel executable found in PATH 1>&2
     for /f "delims=" %%i in ("%__BAZEL_CMD%") do set "_BAZEL_HOME=%%~dpi"
@@ -663,7 +663,7 @@ goto :eof
 set _CFR_HOME=
 
 set __CFR_CMD=
-for /f %%f in ('where cfr.bat 2^>NUL') do set "__CFR_CMD=%%f"
+for /f "delims=" %%f in ('where cfr.bat 2^>NUL') do set "__CFR_CMD=%%f"
 if defined __CFR_CMD (
     for %%i in ("%__CFR_CMD%") do set "__CFR_BIN_DIR=%%~dpi"
     for %%f in ("!__CFR_BIN_DIR!\.") do set "_CFR_HOME=%%~dpf"
@@ -692,7 +692,7 @@ set _COURSIER_HOME=
 set _COURSIER_PATH=
 
 set __CS_CMD=
-for /f %%f in ('where cs.exe 2^>NUL') do set "__CS_CMD=%%f"
+for /f "delims=" %%f in ('where cs.exe 2^>NUL') do set "__CS_CMD=%%f"
 if defined __CS_CMD (
     for %%i in ("%__CS_CMD%") do set "_COURSIER_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Coursier executable found in PATH 1>&2
@@ -728,7 +728,7 @@ set _GRADLE_HOME=
 set _GRADLE_PATH=
 
 set __GRADLE_CMD=
-for /f %%f in ('where gradle.bat 2^>NUL') do set "__GRADLE_CMD=%%f"
+for /f "delims=" %%f in ('where gradle.bat 2^>NUL') do set "__GRADLE_CMD=%%f"
 if defined __GRADLE_CMD (
     for %%i in ("%__GRADLE_CMD%") do set "__GRADLE_BIN_DIR=%%~dpi"
     for %%f in ("!__GRADLE_BIN_DIR!\.") do set "_GRADLE_HOME=%%~dpf"
@@ -821,7 +821,7 @@ set _JMC_HOME=
 set _JMC_PATH=
 
 set __JMC_CMD=
-for /f %%f in ('where jmc.exe 2^>NUL') do set "__JMC_CMD=%%f"
+for /f "delims=" %%f in ('where jmc.exe 2^>NUL') do set "__JMC_CMD=%%f"
 if defined __JMC_CMD (
     for %%i in ("%__JMC_CMD%") do set "__JMC_BIN_DIR=%%~dpi"
     for %%f in ("!__JMC_BIN_DIR!\.") do set "_JMC_HOME=%%~dpf"
@@ -858,7 +858,7 @@ set _MAKE_HOME=
 set _MAKE_PATH=
 
 set __MAKE_CMD=
-for /f %%f in ('where make.exe 2^>NUL') do set "__MAKE_CMD=%%f"
+for /f "delims=" %%f in ('where make.exe 2^>NUL') do set "__MAKE_CMD=%%f"
 if defined __MAKE_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Make executable found in PATH 1>&2
     rem keep _MAKE_PATH undefined since executable already in path
@@ -887,7 +887,7 @@ set _MAVEN_HOME=
 set _MAVEN_PATH=
 
 set __MVN_CMD=
-for /f %%f in ('where mvn.cmd 2^>NUL') do (
+for /f "delims=" %%f in ('where mvn.cmd 2^>NUL') do (
     set "__MVN_CMD=%%f"
     @rem we ignore Scoop managed Maven installation
     if not "!__MVN_CMD:scoop=!"=="!__MVN_CMD!" set __MVN_CMD=
@@ -931,7 +931,7 @@ set _MILL_HOME=
 set _MILL_PATH=
 
 set __MILL_CMD=
-for /f %%f in ('where mill.bat 2^>NUL') do set "__MILL_CMD=%%f"
+for /f "delims=" %%f in ('where mill.bat 2^>NUL') do set "__MILL_CMD=%%f"
 if defined __MILL_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Mill executable found in PATH 1>&2
     for %%i in ("%__MILL_CMD%") do set "_MILL_HOME=%%~dpi"
@@ -1007,7 +1007,7 @@ goto :eof
 set _MSYS_HOME=
 
 set __MSYS2_CMD=
-for /f %%f in ('where msy2_shell.cmd 2^>NUL') do set "__MSYS2_CMD=%%f"
+for /f "delims=" %%f in ('where msy2_shell.cmd 2^>NUL') do set "__MSYS2_CMD=%%f"
 if defined __MSYS2_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of msys2 command found in PATH 1>&2
     goto :eof
@@ -1034,7 +1034,7 @@ goto :eof
 set _SCALA_CLI_HOME=
 
 set __SCALA_CLI_CMD=
-for /f %%f in ('where scala-cli.exe 2^>NUL') do set "__SCALA_CLI_CMD=%%f"
+for /f "delims=" %%f in ('where scala-cli.exe 2^>NUL') do set "__SCALA_CLI_CMD=%%f"
 if defined __SCALA_CLI_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Scala CLI command found in PATH 1>&2
     goto :eof
@@ -1061,7 +1061,7 @@ set _VSCODE_HOME=
 set _VSCODE_PATH=
 
 set __CODE_CMD=
-for /f %%f in ('where code.exe 2^>NUL') do set "__CODE_CMD=%%f"
+for /f "delims=" %%f in ('where code.exe 2^>NUL') do set "__CODE_CMD=%%f"
 if defined __CODE_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of VSCode executable found in PATH 1>&2
     @rem keep _VSCODE_PATH undefined since executable already in path
@@ -1076,7 +1076,7 @@ if defined __CODE_CMD (
         for /f %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
         if not defined _VSCODE_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
         )
     )
 )
@@ -1097,7 +1097,7 @@ set _GIT_HOME=
 set _GIT_PATH=
 
 set __GIT_CMD=
-for /f %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
+for /f "delims=" %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
 if defined __GIT_CMD (
     for /f "delims=" %%i in ("%__GIT_CMD%") do set "__GIT_BIN_DIR=%%~dpi"
     for %%f in ("!__GIT_BIN_DIR!\.") do set "_GIT_HOME=%%~dpf"
@@ -1118,7 +1118,7 @@ if defined __GIT_CMD (
         for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         if not defined _GIT_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         )
     )
     if defined _GIT_HOME (
@@ -1267,6 +1267,7 @@ if %__VERBOSE%==1 (
     if defined JAVA_HOME echo    "JAVA_HOME=%JAVA_HOME%" 1>&2
     if defined JAVA11_HOME echo    "JAVA11_HOME=%JAVA11_HOME%" 1>&2
     if defined JAVA17_HOME echo    "JAVA17_HOME=%JAVA17_HOME%" 1>&2
+    if defined JAVA21_HOME echo    "JAVA21_HOME=%JAVA21_HOME%" 1>&2
     if defined JAVACOCO_HOME echo    "JAVACOCO_HOME=%JAVACOCO_HOME%" 1>&2
     if defined JAVAFX_HOME echo    "JAVAFX_HOME=%JAVAFX_HOME%" 1>&2
     if defined MAKE_HOME echo    "MAKE_HOME=%MAKE_HOME%" 1>&2
@@ -1302,6 +1303,7 @@ endlocal & (
         if not defined JAVA_HOME set "JAVA_HOME=%_JAVA_HOME%"
         if not defined JAVA11_HOME set "JAVA11_HOME=%_JAVA11_HOME%"
         if not defined JAVA17_HOME set "JAVA17_HOME=%_JAVA17_HOME%"
+        if not defined JAVA21_HOME set "JAVA21_HOME=%_JAVA21_HOME%"
         if not defined JAVAFX_HOME set "JAVAFX_HOME=%_JAVAFX_HOME%"
         if not defined MAKE_HOME set "MAKE_HOME=%_MAKE_HOME%"
         if not defined MAVEN_HOME set "MAVEN_HOME=%_MAVEN_HOME%"

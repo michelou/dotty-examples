@@ -44,6 +44,8 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
                     <includes>
                         <include>java/**/*.java</include>
                     </includes>
@@ -63,6 +65,9 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
+                            <compilerArgs>
+                                <compilerArg>-deprecation</compilerArg>
+                            </compilerArgs>
                             <includes>
                                 <include>scala/**/*.scala</include>
                             </includes>
@@ -86,7 +91,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <scalaVersion>${scala.version}</scalaVersion>
+                    <scalaVersion>${scala3.version}</scalaVersion>
                     <localInstall>${scala.local.install}</localInstall>
                     <jvmArgs>
                         <jvmArg>-Xms64m</jvmArg>

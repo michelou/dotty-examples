@@ -242,7 +242,7 @@ echo     %__BEG_O%-debug%__END%        show commands executed by this script
 echo     %__BEG_O%-lang:java%__END%    select Java source files
 echo     %__BEG_O%-lang:kotlin%__END%  select Kotlin source files
 echo     %__BEG_O%-lang:scala%__END%   select Scala source files ^(default^)
-echo     %__BEG_O%-timer%__END%        display total elapsed time
+echo     %__BEG_O%-timer%__END%        display total execution time
 echo     %__BEG_O%-verbose%__END%      display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
@@ -266,6 +266,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 )
 rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -302,8 +303,9 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" %__JAVAC_OPTS% "@%__SOURCES_
 )
 call "%_JAVAC_CMD%" %__JAVAC_OPTS% "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-   set _EXITCODE=1
-   goto :eof
+    echo %_ERROR_LABEL% Failed to create semanticdb file 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 echo. > "%__TIMESTAMP_FILE%"
 goto :eof
@@ -354,8 +356,9 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_KOTLINC_CMD%" "@%__OPTS_FILE%" "@%__SOUR
 )
 call "%_KOTLINC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-   set _EXITCODE=1
-   goto :eof
+    echo %_ERROR_LABEL% Failed to create semanticdb file 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 echo. > "%__TIMESTAMP_FILE%"
 goto :eof
@@ -377,8 +380,9 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_METAC_CMD%" -d "%_CLASSES_DIR%" %__SOURC
 )
 call "%_METAC_CMD%" -d "%_CLASSES_DIR%" %__SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-   set _EXITCODE=1
-   goto :eof
+    echo %_ERROR_LABEL% Failed to create semanticdb file 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 echo. > "%__TIMESTAMP_FILE%"
 goto :eof

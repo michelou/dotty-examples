@@ -19,4 +19,5 @@ object Main {
     println(Main.Green.x)
     println(Main.Violet.x)
   }
+
 }
