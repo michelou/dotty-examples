@@ -20,12 +20,12 @@ Y:\examples\enum-Planet
 
 Build tools rely on one or more configuration files to achieve their tasks. In our case we provide the following configuration files for [**`enum-Planet`**](enum-Planet):
 
-| | Build&nbsp;tool               | Configuration file(s)                    | Parent file(s)                               | Environment(s) |
+| | Build&nbsp;tool               | Build file(s)                    | Parent file(s)                               | Environment(s) |
 |-|-------------------------------|------------------------------------------|----------------------------------------------|---------|
 | [**&#9660;**](#ant) | [**`ant.bat`**][apache_ant_cli] | [**`build.xml`**](enum-Planet/build.xml) | [**`build.xml`**](./build.xml), [**`ivy.xml`**](ivy.xml) | Any <sup><b>a)</b></sup> |
 | | [**`bazel.exe`**][bazel_cli] | [**`BUILD`**](enum-Planet/BUILD), [**`WORKSPACE`**](enum-Planet/WORKSPACE) | n.a.                                | Any |
-| [**&#9660;**](#batch) | [**`build.bat`**](enum-Planet/build.bat) | [**`build.properties`**](enum-Planet/project/build.properties) | [**`cpath.bat`**](./cpath.bat) <sup><b>b)</b></sup>              | Windows only |
-| [**&#9660;**](#shell) | [**`build.sh`**](enum-Planet/build.sh) | [**`build.properties`**](enum-Planet/project/build.properties) |                   | [Cygwin]/[MSYS2]/Unix only |
+| [**&#9660;**](#batch) | [**`cmd.exe`**][cmd_cli] | [**`build.bat`**](enum-Planet/build.bat)<br/>([**`build.properties`**](enum-Planet/project/build.properties)) | [**`cpath.bat`**](./cpath.bat) <sup><b>b)</b></sup>              | Windows only |
+| [**&#9660;**](#shell) | [**`sh.exe`**][sh_cli] | [**`build.sh`**](enum-Planet/build.sh)<br/>([**`build.properties`**](enum-Planet/project/build.properties)) |                   | [Cygwin]/[MSYS2]/Unix only |
 | [**&#9660;**](#gradle) | [**`gradle.exe`**][gradle_cli] | [**`build.gradle`**](enum-Planet/build.gradle) | [**`common.gradle`**](./common.gradle) | Any |
 | [**&#9660;**](#gmake) | [**`make.exe`**][gmake_cli] <sup><b>c)</b></sup> | [**`Makefile`**](enum-Planet/Makefile)   | [**`Makefile.inc`**](./Makefile.inc)         | Any|
 | [**&#9660;**](#mill) | [**`mill.bat`**][mill_cli] | [**`build.sc`**](enum-Planet/build.sc)   | [**`common.sc`**](./common.sc)               | Any |
@@ -40,7 +40,7 @@ Build tools rely on one or more configuration files to achieve their tasks. In o
 
 ## <span id="ant">Ant build tool</span>
 
-The configuration file [**`enum-Planet\build.xml`**](enum-Planet/build.xml) depends on the parent file [**`examples\build.xml`**](build.xml) which provides the macro definition **`dotc`** to compile the [Scala] source files.
+The Ant build file [**`enum-Planet\build.xml`**](enum-Planet/build.xml) depends on the parent file [**`examples\build.xml`**](build.xml) which provides the macro definition **`dotc`** to compile the [Scala] source files.
 
 > **:mag_right:** Command [**`ant.bat`**][apache_ant_cli] (["Another Neat Tool"][apache_ant_faq]) is a Java-based build tool maintained by the [Apache Software Foundation][apache_history] (tool created in 2000). It works with XML-based configuration files.
 
@@ -200,7 +200,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 > For simplicity the [**`build`**](enum-Planet/build.bat) command currently relies on the property `main.args` defined in file [**`project\build.properties`**](enum-Planet/project/build.properties) (part of the SBT configuration) to specify program arguments.<br/>
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/type">type</a> <a href="enum-Planet/project/build.properties">project\build.properties</a></b>
-> sbt.version=1.9.0
+> sbt.version=1.9.3
 > &nbsp;
 > main.class=Planet
 > main.args=1
@@ -256,11 +256,10 @@ Compare output file with check file "src\build\cfr-sources_scala3_3.3.1-RC5.java
 
 Command [**`build.sh`**](enum-Planet/build.sh) is our basic build tool for Unix environments like [Cygwin], Linux or [MSYS2]; it features subcommands **`clean`**, **`compile`**, **`doc`**, **`help`**, **`lint`** and **`run`**; the Bash script consists of ~500 lines of [Bash] code.
 
-Command [**`build clean run`**](enum-Planet/build.sh) produces the following output:
+Command [**`sh build.sh clean run`**](enum-Planet/build.sh) produces the following output:
 
 <pre style="font-size:80%;">
-user@host MINGW64 /w/examples/enum-Planet
-<b>$ <a href="enum-Planet/build.sh">./build.sh</a> clean run</b>
+<b>&gt; <a href="https://man7.org/linux/man-pages/man1/sh.1p.html">sh</a> <a href="enum-Planet/build.sh">./build.sh</a> clean run</b>
 Mass of earth is 0.1020132025669991
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
@@ -275,7 +274,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 
 ## <span id="gradle">Gradle build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
-The configuration file [**`enum-Planet\build.gradle`**](enum-Planet/build.gradle) depends on the parent file [**`examples\common.gradle`**](common.gradle) which defines the task **`compileDotty`** and manages the task dependencies.
+The Gradle build file [**`enum-Planet\build.gradle`**](enum-Planet/build.gradle) depends on the parent file [**`examples\common.gradle`**](common.gradle) which defines the task **`compileDotty`** and manages the task dependencies.
 
 > **:mag_right:** Command [**`gradle`**][gradle_cli] is the official build tool for Android applications. Created in 2007 it replaces XML-based build scripts with a [Groovy][gradle_groovy]-based DSL.
 
@@ -300,7 +299,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 
 ## <span id="gmake">Make build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
-The configuration file [**`enum-Planet\Makefile`**](enum-Planet/Makefile) depends on the parent file [**`examples\Makefile.inc`**](Makefile.inc) which defines common settings (i.e. tool and library paths).
+The Make build file [**`enum-Planet\Makefile`**](enum-Planet/Makefile) depends on the parent file [**`examples\Makefile.inc`**](Makefile.inc) which defines common settings (i.e. tool and library paths).
 
 > **:mag_right:** Command [**`make`**][gmake_cli] automatically builds executable programs and libraries from source code by reading files called Makefiles which specify how to derive the target program. [Make] was originally created by Stuart Feldman in April 1976 at Bell Labs.
 
@@ -358,7 +357,7 @@ private members with docstrings:   0/3 (0%)
 
 ## <span id="maven">Maven build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
-The [Maven][apache_maven_about] configuration file [**`enum-Planet\pom.xml`**](enum-Planet/pom.xml) depends on the parent file [**`../pom.xml`**](pom.xml) which defines common properties <sup id="anchor_02">[2](#footnote_02)</sup> (eg. **`java.version`**, **`scala.version`**).
+The [Maven][apache_maven_about] build file [**`enum-Planet\pom.xml`**](enum-Planet/pom.xml) depends on the parent file [**`../pom.xml`**](pom.xml) which defines common properties <sup id="anchor_02">[2](#footnote_02)</sup> (eg. **`java.version`**, **`scala.version`**).
 
 > **:mag_right:** Command [**`mvn`**][mvn_cli] is a Java-based build tool maintained by the [Apache Software Foundation][apache_foundation]. Created in 2002 it works with XML-based configuration files and provides a way to share JARs across several projects.
 
@@ -477,7 +476,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 
 ## <span id="mill">Mill build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
-The [Mill][mill_cli] configuration file [**`enum-Planet\build.sc`**](enum-Planet/build.sc) depends on the parent file [**`examples\common.sc`**](common.sc) which defines the common settings.
+The [Mill][mill_cli] build file [**`enum-Planet\build.sc`**](enum-Planet/build.sc) depends on the parent file [**`examples\common.sc`**](common.sc) which defines the common settings.
 
 > **:mag_right:** Command [**`mill`**][mill_cli] is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
 
@@ -511,7 +510,7 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 
 ## <span id="sbt">SBT build tool</span> [**&#x25B4;**](#top)
 
-The configuration file [**`build.sbt`**](enum-Planet/build.sbt) is written in [Scala] and obeys the [sbt build definitions][sbt_docs_defs].
+The SBT build file [**`build.sbt`**](enum-Planet/build.sbt) is written in [Scala] and obeys the [sbt build definitions][sbt_docs_defs].
 
 > **:mag_right:** [Lightbend] provides commercial support for the [**`sbt`**][sbt_cli] build tool.
 
@@ -687,6 +686,7 @@ The following command performs all substitutions for user-defined properties and
 [bash]: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [cfr_releases]: https://www.benf.org/other/cfr/
+[cmd_cli]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd
 [cygwin]: https://cygwin.com/install.html
 [gmake_cli]: http://www.glue.umd.edu/lsf-docs/man/gmake.html
 [gradle_groovy]: https://www.groovy-lang.org/
@@ -707,5 +707,6 @@ The following command performs all substitutions for user-defined properties and
 [scala]: https://www.scala-lang.org/
 [scala_cli]: https://scala-cli.virtuslab.org/docs/commands/basics
 [scala3_home]: https://dotty.epfl.ch/
+[sh_cli]: https://man7.org/linux/man-pages/man1/sh.1p.html
 [windows_stderr]: https://support.microsoft.com/en-us/help/110930/redirecting-error-messages-from-command-prompt-stderr-stdout
 [zip_archive]: https://www.howtogeek.com/178146/
