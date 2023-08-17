@@ -95,7 +95,7 @@ C:\opt\apache-maven-3.9.4\         <i>( 10 MB)</i>
 C:\opt\bazel-6.3.2\                <i>( 45 MB)</i>
 C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
 C:\opt\Git-2.41.0\                 <i>(314 MB)</i>
-C:\opt\gradle-8.2.1\               <i>(129 MB)</i>
+C:\opt\gradle\                     <i>(129 MB)</i>
 C:\opt\jacoco-0.8.10\              <i>( 10 MB)</i>
 C:\opt\javafx-sdk-17.0.2\          <i>( 82 MB)</i>
 C:\opt\jdk-oracle-21-ea-35\        <i>(320 MB)</i>
@@ -282,8 +282,8 @@ We distinguish different sets of batch/bash commands:
 
     Code examples in directories [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built with the following tools as an alternative to the **`build.bat`** command (see [**`examples\README.md`**](examples/README.md) and [**`myexamples\README.md`**](myexamples/README.md) for more details):
 
-    | Build&nbsp;tool | Configuration file | Parent file | Usage example |
-    |:----------------|:-------------------|:------------|:--------------|
+    | Build&nbsp;tool | Build file | Parent file | Usage example |
+    |:----------------|:-----------|:------------|:--------------|
     | [**`ant.bat`**][apache_ant_cli] | [**`build.xml`**](examples/enum-Planet/build.xml) | [**`build.xml`**](examples/build.xml) | **`ant clean compile run`** |
     | [**`bazel.exe`**][bazel_cli] | [**`BUILD`**](examples/enum-Planet/BUILD) | n.a. | **`bazel run :enum-Planet`** |
     | [**`gradle.bat`**][gradle_cli] | [**`build.gradle`**](examples/enum-Planet/build.gradle) | [**`common.gradle`**](examples/common.gradle) | **`gradle clean build run`** |
@@ -396,7 +396,7 @@ Tool paths:
    C:\opt\scala3-3.3.1-RC5\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.13\bin\ant.bat
-   C:\opt\gradle-8.2\bin\gradle.bat
+   C:\opt\gradle\bin\gradle.bat
    C:\opt\mill-0.11.1\mill.bat
    C:\opt\apache-maven-3.9.4\bin\mvn.cmd
    C:\opt\sbt-1.9.3\bin\sbt.bat
@@ -412,7 +412,7 @@ Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.13"
    "BAZEL_HOME=c:\opt\bazel-6.3.2"
    "GIT_HOME=C:\opt\Git-2.41.0"
-   "GRADLE_HOME=C:\opt\gradle-8.2.1"
+   "GRADLE_HOME=C:\opt\gradle"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.20_8"
    "JAVAFX_HOME=C:\opt\javafx-sdk-17.0.2"
    "MSVS_HOME=X:"
@@ -1018,13 +1018,14 @@ Command Prompt has been around for as long as we can remember, but starting with
 11.0.18 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-January/020111.html
 11.0.19 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-April/021900.html
 11.0.20 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024064.html
-17.0.7  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-April/021899.html
-17.0.8  -> 
-20.0.2  -> https://mail.openjdk.org/pipermail/jdk-dev/2023-March/007517.html
 -->
 [temurin_openjdk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-17-bugfixes.html
 [temurin_openjdk11_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024064.html
 [temurin_openjdk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
+<!--
+17.0.7  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-April/021899.html
+17.0.8  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024063.html
+-->
 [temurin_openjdk17]: https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot
 [temurin_openjdk17_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
 [temurin_openjdk17_relnotes]: https://github.com/openjdk/jdk/compare/jdk-17%2B20...jdk-17%2B21

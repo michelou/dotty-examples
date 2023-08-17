@@ -375,7 +375,7 @@ version_string() {
 libs_cpath() {
     local cpath=
 	local jar_file=
-    for f in $(find "$HOME/.m2/repository/junit/" -name junit-4*.jar 2>/dev/null); do 
+    for f in $(find "$HOME/.m2/repository/junit/" -type f -name "junit-4*.jar" 2>/dev/null); do 
         jar_file="$f"
     done
 	[[ -f "$jar_file" ]] && cpath="$cpath$(mixed_path $jar_file)$PSEP"
