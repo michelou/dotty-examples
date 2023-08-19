@@ -984,7 +984,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_downloads]: https://github.com/sbt/sbt/releases
 [sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.8
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.9.3
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala]: https://www.scala-lang.org/
 [scala_api]: https://www.scala-lang.org/files/archive/api/current/
@@ -1028,7 +1028,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 -->
 [temurin_openjdk17]: https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot
 [temurin_openjdk17_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
-[temurin_openjdk17_relnotes]: https://github.com/openjdk/jdk/compare/jdk-17%2B20...jdk-17%2B21
+[temurin_openjdk17_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024063.html
 [temurin_openjdk20]: https://adoptium.net/releases.html?variant=openjdk20&jvmVariant=hotspot
 [temurin_openjdk20_relnotes]: https://mail.openjdk.org/pipermail/jdk-dev/2023-March/007517.html
 <!--

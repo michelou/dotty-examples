@@ -303,11 +303,11 @@ set "_DRIVE_NAME=!__DRIVE_NAMES:~0,2!"
 if /i "%_DRIVE_NAME%"=="%__GIVEN_PATH:~0,2%" goto :eof
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% subst "%_DRIVE_NAME%" "%__GIVEN_PATH%" 1>&2
-) else if %_VERBOSE%==1 ( echo Assign path "%__GIVEN_PATH%" to drive %_DRIVE_NAME% 1>&2
+) else if %_VERBOSE%==1 ( echo Assign drive %_DRIVE_NAME% to path "%__GIVEN_PATH%" 1>&2
 )
 subst "%_DRIVE_NAME%" "%__GIVEN_PATH%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to assign drive %_DRIVE_NAME% to path 1>&2
+    echo %_ERROR_LABEL% Failed to assign drive %_DRIVE_NAME% to path "%__GIVEN_PATH%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -349,7 +349,7 @@ goto :eof
 set _PYTHON_HOME=
 
 set __PYTHON_CMD=
-for /f %%f in ('where python.exe 2^>NUL') do (
+for /f "delims=" %%f in ('where python.exe 2^>NUL') do (
     set "__PYTHON_CMD=%%f"
     @rem we ignore Scoop/Windows managed Python installation
     if not "!__PYTHON_CMD:scoop=!"=="!__PYTHON_CMD!" ( set __PYTHON_CMD=
@@ -370,7 +370,7 @@ if defined __PYTHON_CMD (
         for /f %%f in ('dir /ad /b "!__PATH!\Python-3*" 2^>NUL') do set "_PYTHON_HOME=!__PATH!\%%f"
         if not defined _PYTHON_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\Python-3*" 2^>NUL') do set "_PYTHON_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Python-3*" 2^>NUL') do set "_PYTHON_HOME=!__PATH!\%%f"
         )
     )
     if defined _PYTHON_HOME (
@@ -390,7 +390,7 @@ set _BLOOP_HOME=
 set _BLOOP_PATH=
 
 set __BLOOP_CMD=
-for /f %%f in ('where bloop.exe 2^>NUL') do set "__BLOOP_CMD=%%f"
+for /f "delims=" %%f in ('where bloop.exe 2^>NUL') do set "__BLOOP_CMD=%%f"
 if defined __BLOOP_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of bloop executable found in PATH 1>&2
     @rem for %%i in ("%__BLOOP_CMD%") do set "__BIN_DIR=%%~dpi"
@@ -528,7 +528,7 @@ goto :eof
 set _SCALA3_HOME=
 
 set __SCALAC_CMD=
-for /f %%f in ('where scalac.bat 2^>NUL') do (
+for /f "delims=" %%f in ('where scalac.bat 2^>NUL') do (
     set __VERSION=
     for /f "tokens=1,2,3,4,*" %%i in ('scalac.bat -version 2^>^&1') do set "__VERSION=%%l"
     if defined __VERSION if "!__VERSION:~0,1!"=="3" set "__SCALAC_CMD=%%f"
@@ -707,7 +707,7 @@ if defined __CS_CMD (
         for /f %%f in ('dir /ad /b "!__PATH!\coursier-*" 2^>NUL') do set "_COURSIER_HOME=!__PATH!\%%f"
         if not defined _COURSIER_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\coursier-*" 2^>NUL') do set "_COURSIER_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\coursier-*" 2^>NUL') do set "_COURSIER_HOME=!__PATH!\%%f"
         )
     )
     if defined _COURSIER_HOME (
@@ -744,7 +744,7 @@ if defined __GRADLE_CMD (
         for /f %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set "_GRADLE_HOME=!__PATH!\%%f"
         if not defined _GRADLE_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set "_GRADLE_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set "_GRADLE_HOME=!__PATH!\%%f"
         )
     )
     if defined _GRADLE_HOME (
@@ -759,7 +759,7 @@ if not exist "%_GRADLE_HOME%\bin\gradle.bat" (
 set "_GRADLE_PATH=;%_GRADLE_HOME%\bin"
 goto :eof
 
-@rem output parameter(s): _JACOCO_HOME
+@rem output parameters: _JACOCO_HOME
 :jacoco
 set _JACOCO_HOME=
 
@@ -837,7 +837,7 @@ if defined __JMC_CMD (
         for /f %%f in ('dir /ad /b "!__PATH!\jmc-*" 2^>NUL') do set "_JMC_HOME=!__PATH!\%%f"
         if not defined _JMC_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\jmc-*" 2^>NUL') do set "_JMC_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\jmc-*" 2^>NUL') do set "_JMC_HOME=!__PATH!\%%f"
         )
     )
     if defined _JMC_HOME (
@@ -945,7 +945,7 @@ if defined __MILL_CMD (
         for /f %%f in ('dir /ad /b "!__PATH!\mill-*" 2^>NUL') do set "_MILL_HOME=!__PATH!\%%f"
         if not defined _MILL_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\mill-*" 2^>NUL') do set "_MILL_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\mill-*" 2^>NUL') do set "_MILL_HOME=!__PATH!\%%f"
         )
     )
     if defined _MILL_HOME (
@@ -1197,7 +1197,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%MILL_HOME%:mill.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-4,*" %%i in ('"%MILL_HOME%\mill.bat" --version ^| findstr /i mill') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% mill %%m,"
+    for /f "tokens=1-4,*" %%i in ('"%MILL_HOME%\mill.bat" --no-server --version ^| findstr /i mill') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% mill %%m,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%MILL_HOME%:mill.bat"
 )
 where /q "%BAZEL_HOME%:bazel.exe"

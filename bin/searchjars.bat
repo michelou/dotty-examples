@@ -235,31 +235,34 @@ goto :eof
 set "__LIB_DIR=%~1"
 set __RECURSIVE=%~2
 
-if defined __RECURSIVE ( set __DIR_OPTS=/s /b
-) else ( set __DIR_OPTS=/b
+if defined __RECURSIVE (
+    set __DIR_OPTS=/s /b
+    set __SEARCH_FOR=Search recursively for
+) else (
+    set __DIR_OPTS=/b
+    set __SEARCH_FOR=Search for
 )
-echo Searching for class "%_CLASS_NAME%" in files "!__LIB_DIR:%USERPROFILE%=%%USERPROFILE%%!\*.jar"
 for /f "delims=" %%i in ('dir %__DIR_OPTS% "%__LIB_DIR%\*.jar" ') do (
     if defined __RECURSIVE ( set "__JAR_FILE=%%i"
     ) else ( set "__JAR_FILE=%__LIB_DIR%\%%i"
     )
     for /f "delims=" %%f in ("!__JAR_FILE!") do set "_JAR_FILENAME=%%~nxf"
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" -tf "!__JAR_FILE!" 1>&2
-    ) else if %_VERBOSE%==1 ( echo    Search for class name %_CLASS_NAME% in file "!__JAR_FILE:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
+    ) else if %_VERBOSE%==1 ( echo %__SEARCH_FOR% class name %_CLASS_NAME% in file "!__JAR_FILE:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
     )
     for /f "delims=" %%f in ('call "%_JAR_CMD%" -tf "!__JAR_FILE!" ^| findstr /e /r "%_CLASS_NAME%.*\.class"') do (
         for /f "delims=" %%x in ("%%f") do set "__LAST=%%x"
         if defined _METH_NAME (
             set "__CLASS_NAME=!__LAST:~0,-6!"
             if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAP_CMD%" -cp "!__JAR_FILE!" "!__CLASS_NAME:/=.!" ^| findstr "%_METH_NAME%" 1>&2
-            ) else if %_VERBOSE%==1 ( echo Search for method %_METH_NAME% in class !__CLASS_NAME:/=.! 1>&2
+            ) else if %_VERBOSE%==1 ( echo %__SEARCH_FOR% method %_METH_NAME% in class !__CLASS_NAME:/=.! 1>&2
             )
-            for /f "delims=" %%y in ('"%_JAVAP_CMD%" -cp "!__JAR_FILE!" "!__CLASS_NAME:/=.!" ^| findstr "%_METH_NAME%"') do (
-                echo   !_JAR_FILENAME!:!__LAST!
-                echo   %%y
+            for /f "delims=" %%y in ('call "%_JAVAP_CMD%" -cp "!__JAR_FILE!" "!__CLASS_NAME:/=.!" ^| findstr "%_METH_NAME%"') do (
+                echo    !_JAR_FILENAME!:!__LAST!
+                echo    %%y
             )
         ) else (
-            echo   !_JAR_FILENAME!:!__LAST!
+            echo    !_JAR_FILENAME!:!__LAST!
         )
     )
 )
