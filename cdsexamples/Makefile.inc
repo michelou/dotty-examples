@@ -11,6 +11,7 @@ endif
 ifeq ($(OS),Windows_NT)
 JAVA       = $(subst \,/,$(JAVA_HOME))/bin/java.exe
 JAVAC      = $(subst \,/,$(JAVA_HOME))/bin/javac.exe
+JAVADOC    = $(subst \,/,$(JAVA_HOME))/bin/javadoc.exe
 SCALA      = $(subst \,/,$(SCALA3_HOME))/bin/scala.bat
 SCALAC     = $(subst \,/,$(SCALA3_HOME))/bin/scalac.bat
 SCALADOC   = $(subst \,/,$(SCALA3_HOME))/bin/scaladoc.bat
@@ -26,6 +27,7 @@ TOUCH      = $(subst \,/,$(GIT_HOME))/usr/bin/touch.exe
 else
 JAVA       = $(JAVA_HOME)/bin/java
 JAVAC      = $(JAVA_HOME)/bin/javac
+JAVADOC    = $(JAVA_HOME)/bin/javadoc
 SCALA      = $(SCALA3_HOME)/bin/scala
 SCALAC     = $(SCALA3_HOME)/bin/scalac
 SCALADOC   = $(SCALA3_HOME)/bin/scaladoc
@@ -44,7 +46,7 @@ endif
 SCALATEST_VERSION = 3.2.16
 ## https://mvnrepository.com/artifact/org.specs2/specs2-core
 ## Note: Specs2 5.x depends on Scala 3 while Specs2 4.x depends on Scala 2 or Scala 3
-SPECS2_VERSION = 5.2.0
+SPECS2_VERSION = 5.3.2
 
 SCALA_LIB_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name "scala-library-2.13.*.jar" | tail -1)
 SCALA3_LIB_JAR        = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name "scala3-library_3-3.3.*.jar" | tail -1)

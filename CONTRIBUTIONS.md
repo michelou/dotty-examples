@@ -66,7 +66,7 @@ Below we summarize changes we made to the [source code](https://github.com/lampe
 
 ## <span id="issues">Reported Issues</span> [**&#x25B4;**](#top)
 
-We have come across several issues <sup id="anchor_02"><a href="#footnote_02">[2]</a></sup> while executing [Scala 3][scala3_home] commands on Microsoft Windows:
+We have come across several issues <sup id="anchor_02">[2](#footnote_02)</a></sup> while executing [Scala 3][scala3_home] commands on Microsoft Windows:
 
 | [ &nbsp;&nbsp;&nbsp;&nbsp;Issues&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ](https://github.com/lampepfl/dotty/issues?q=is%3Aissue+author%3Amichelou) | &nbsp;&nbsp;Status&nbsp;&nbsp;&nbsp; | Context |
 | :-------------------------: | :--------: | :--------- |
@@ -87,7 +87,7 @@ We have come across several issues <sup id="anchor_02"><a href="#footnote_02">[2
 | [#4356][dotty_issue_4356] | [won't fix](https://github.com/lampepfl/dotty/issues/4356#event-2098905156) <span style="font-size:80%;">(Jan 2019)</span> | Windows batch command |
 | [#4272][dotty_issue_4272] | [fixed](https://github.com/lampepfl/dotty/commit/9723748) <span style="font-size:80%;">(Apr 2018)</span> | Type constraints|
 
-## <span id="footnotes">Footnotes</span>
+## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
 <span id="footnote_01">[1]</span> ***Batch files*** [↩](#anchor_01)
 
@@ -128,7 +128,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

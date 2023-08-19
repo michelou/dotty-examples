@@ -1,4 +1,4 @@
-val scala3Version = "3.3.0-RC3"
+val scala3Version = "3.3.1-RC5"
 
 lazy val root = project
   .in(file("."))
@@ -22,7 +22,7 @@ lazy val root = project
       // https://mvnrepository.com/artifact/org.scalacheck/scalacheck
       "org.scalacheck" %% "scalacheck" % "1.17.0" % Test,
       // https://mvnrepository.com/artifact/org.scalatest/scalatest
-      "org.scalatest" %% "scalatest" % "3.2.15" % Test
+      "org.scalatest" %% "scalatest" % "3.2.16" % Test
     ),
 
     testOptions ++= Seq(

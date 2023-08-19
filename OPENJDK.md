@@ -53,13 +53,11 @@ The above implementations of OpenJDK[&trade;][openjdk_trademark] differ in sever
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*July 2023*) <sup id="anchor_03">[3](#footnote_03)</sup>:
+For instance our development environment looks as follows (*August 2023*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\graalvm-ce-java11-22.3.2\          <i>(890 MB)</i>
-C:\opt\graalvm-ce-java17-22.3.2\          <i>(937 MB)</i>
-C:\opt\jdk-bellsoft-11.0.17\              <i>(301 MB)</i>
-C:\opt\jdk-bellsoft-17.0.5\               <i>(309 MB)</i>
+C:\opt\jdk-bellsoft-11.0.19\              <i>(301 MB)</i>
+C:\opt\jdk-bellsoft-17.0.7\               <i>(309 MB)</i>
 C:\opt\jdk-bellsoft-nik-java11-22.0.0.2\  <i>(596 MB)</i>
 C:\opt\jdk-bellsoft-nik-java17-22.0.0.2\  <i>(657 MB)</i>
 C:\opt\jdk-corretto-11.0.17_8\            <i>(293 MB)</i>
@@ -67,18 +65,21 @@ C:\opt\jdk-corretto-17.0.5_8\             <i>(299 MB)</i>
 C:\opt\jdk-dcevm-11.0.15_1\               <i>(313 MB)</i>
 C:\opt\jdk-dragonwell-11.0.17.13_8\       <i>(290 MB)</i>
 C:\opt\jdk-dragonwell-17.0.5.0.5_8\       <i>(299 MB)</i>
+C:\opt\jdk-graalvm-ce-17.0.8_7.1\         <i>(591 MB)</i>
+C:\opt\jdk-graalvm-ce-20.0.2_9.1\         <i>(624 MB)</i>
+C:\opt\jdk-graalvm-ce-21-dev_30.1\        <i>(632 MB)</i>
 C:\opt\jdk-microsoft-11.0.19_7\           <i>(292 MB)</i>
 C:\opt\jdk-microsoft-17.0.7_7\            <i>(300 MB)</i>
 C:\opt\jdk-openj9-11.0.17_8\              <i>(326 MB)</i>
 C:\opt\jdk-openj9-17.0.5_8\               <i>(334 MB)</i>
-C:\opt\jdk-redhat-11.0.17.8-2\            <i>(364 MB)</i>
-C:\opt\jdk-redhat-17.0.5.0.8-2\           <i>(377 MB)</i>
+C:\opt\jdk-redhat-11.0.20.8-1\            <i>(364 MB)</i>
+C:\opt\jdk-redhat-17.0.8.0.7-1\           <i>(377 MB)</i>
 C:\opt\jdk-sapmachine-11.0.20\            <i>(316 MB)</i>
 C:\opt\jdk-sapmachine-17.0.8\             <i>(325 MB)</i>
-C:\opt\jdk-temurin-11.0.19_7\             <i>(300 MB)</i>
-C:\opt\jdk-temurin-17.0.7_7\              <i>(299 MB)</i>
+C:\opt\jdk-temurin-11.0.20_8\             <i>(300 MB)</i>
+C:\opt\jdk-temurin-17.0.8_7\              <i>(299 MB)</i>
 C:\opt\jdk-zulu-11.0.19-win_x64\          <i>(302 MB)</i>
-C:\opt\jdk-zulu-17.0.5-win_x64\           <i>(306 MB)</i>
+C:\opt\jdk-zulu-17.0.8-win_x64\           <i>(306 MB)</i>
 </pre>
 <!-- corretto  : 11.0.8 = 290 MB, 11.0.9 = 292 MB, 11.0.10 = 292 MB -->
 <!-- dcevm     : 11.0.8 = 296 MB, 11.0.9 = 296 MB, 11.0.10 = 313 MB-->

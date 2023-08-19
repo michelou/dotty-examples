@@ -254,7 +254,7 @@ Compare output file with check file "src\build\cfr-sources_scala3_3.3.1-RC5.java
 
 ## <span id="shell">Shell command</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
-Command [**`build.sh`**](enum-Planet/build.sh) is our basic build tool for Unix environments like [Cygwin], Linux or [MSYS2]; it features subcommands **`clean`**, **`compile`**, **`doc`**, **`help`**, **`lint`** and **`run`**; the Bash script consists of ~500 lines of [Bash] code.
+Bash script [**`build.sh`**](enum-Planet/build.sh) is our basic build tool for Unix environments like [Cygwin], Linux or [MSYS2]; it features subcommands **`clean`**, **`compile`**, **`doc`**, **`help`**, **`lint`** and **`run`**; the Bash script consists of ~500 lines of [Bash] code.
 
 Command [**`sh build.sh clean run`**](enum-Planet/build.sh) produces the following output:
 

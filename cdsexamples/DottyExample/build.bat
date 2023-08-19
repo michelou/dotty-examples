@@ -231,7 +231,7 @@ echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-iter:1..99%__END%        set number of run iterations ^(default:%__BEG_O%%_RUN_ITER_DEFAULT%%__END%^)
 echo     %__BEG_O%-share[:^(on^|off^)]%__END%  enable/disable data sharing ^(default:%__BEG_O%off%__END%^)
-echo     %__BEG_O%-timer%__END%             display total elapsed time
+echo     %__BEG_O%-timer%__END%             display total execution time
 echo     %__BEG_O%-verbose%__END%           display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
@@ -305,7 +305,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURC
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to compile %__N_FILES% 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -371,7 +371,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -classpath
 )
 call "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -classpath "%__CPATH%" %_MAIN_CLASS% %_REDIRECT_STDOUT%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to create shared archive %_JAR_FILE% 1>&2
+    echo %_ERROR_LABEL% Failed to create shared archive "%_JAR_FILE%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -454,7 +454,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOU
 )
 call "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to generate HTML documentation 1>&2
+    echo %_ERROR_LABEL% Failed to generate HTML documentation into directory "!_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )

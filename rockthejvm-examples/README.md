@@ -13,11 +13,11 @@
 
 Code examples presented below can be built/run with the following tools:
 
-| Build tool                    | Configuration file(s)                    | Parent file(s)                               | Environment(s) |
+| Build tool                    | Build file(s)                    | Parent file(s)                               | Environment(s) |
 |-------------------------------|------------------------------------------|----------------------------------------------|---------|
 | [**`ant.bat`**][apache_ant_cli]   | [**`build.xml`**](Enums/build.xml) | [**`build.xml`**](./build.xml), [**`ivy.xml`**](ivy.xml) | Any <sup><b>a)</b></sup> |
-| [**`build.bat`**](Enums/build.bat) | [**`build.properties`**](Enums/project/build.properties) | [**`cpath.bat`**](./cpath.bat) <sup><b>b)</b></sup>              | Windows only |
-| [**`build.sh`**](Enums/build.sh) | [**`build.properties`**](Enums/project/build.properties) |                   | [Cygwin]/[MSYS2]/Unix only |
+| [**`cmd.exe`**][cmd_cli] | [**`build.bat`**](Enums/build.bat)<br/>([**`build.properties`**](Enums/project/build.properties)) | [**`cpath.bat`**](./cpath.bat) <sup><b>b)</b></sup>              | Windows only |
+| [**`sh.exe`**][sh_cli] | [**`build.sh`**](Enums/build.sh)<br/>([**`build.properties`**](Enums/project/build.properties)) |                   | [Cygwin]/[MSYS2]/Unix only |
 | [**`make.exe`**][gmake_cli]       | [**`Makefile`**](Enums/Makefile)   | [**`Makefile.inc`**](./Makefile.inc)         | Any|
 | [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](Enums/pom.xml)     | [**`pom.xml`**](./pom.xml)                   | Any |
 | [**`sbt.bat`**][sbt_cli]          | [**`build.sbt`**](Enums/build.sbt) | n.a.                                         | Any |
@@ -120,6 +120,7 @@ ten=10
 [bash]: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [cfr_releases]: https://www.benf.org/other/cfr/
+[cmd_cli]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd
 [cygwin]: https://cygwin.com/install.html
 [gmake_cli]: http://www.glue.umd.edu/lsf-docs/man/gmake.html
 [gradle_groovy]: https://www.groovy-lang.org/
@@ -139,5 +140,6 @@ ten=10
 [sbt_docs_defs]: https://www.scala-sbt.org/1.0/docs/Basic-Def.html
 [scala]: https://www.scala-lang.org/
 [scala3_home]: https://dotty.epfl.ch/
+[sh_cli]: https://man7.org/linux/man-pages/man1/sh.1p.html
 [windows_stderr]: https://support.microsoft.com/en-us/help/110930/redirecting-error-messages-from-command-prompt-stderr-stdout
 [zip_archive]: https://www.howtogeek.com/178146/

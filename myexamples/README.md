@@ -20,12 +20,12 @@ W:\myexamples\HelloWorld
 
 Build tools rely on one or more configuration files to achieve their tasks. In our case we provide the following configuration files for [**`HelloWorld`**](HelloWorld):
 
-| | Build tool                    | Configuration file(s)                                   | Parent file(s)                       | Environment(s) |
+| | Build tool                    | Build file(s)                                   | Parent file(s)                       | Environment(s) |
 |-|-------------------------------|---------------------------------------------------------|--------------------------------------|---------|
 | [**&#9660;**](#ant) | [**`ant.bat`**][apache_ant_cli] | [**`build.xml`**](HelloWorld/build.xml)                 | [**`build.xml`**](build.xml), [**`ivy.xml`**](ivy.xml) | Any <sup><b>a)</b></sup> |
 | | [**`bazel.exe`**][bazel_cli]    | [**`BUILD`**](HelloWorld/BUILD), **`WORKSPACE`**        | n.a.                                 | Any |
-| [**&#9660;**](#batch) | [**`build.bat`**](HelloWorld/build.bat) | [**`build.properties`**](HelloWorld/project/build.properties) |  [**`cpath.bat`**](./cpath.bat) <sup><b>b)</b></sup>        | Windows only |
-| [**&#9660;**](#shell) | [**`build.sh`**](HelloWorld/build.sh) | [**`build.properties`**](HelloWorld/project/build.properties) |         | [Cygwin]/[MSYS2]/Unix only |
+| [**&#9660;**](#batch) | [**`cmd.exe`**][cmd_cli] | [**`build.bat`**](HelloWorld/build.bat)<br/>([**`build.properties`**](HelloWorld/project/build.properties)) |  [**`cpath.bat`**](./cpath.bat) <sup><b>b)</b></sup>        | Windows only |
+| [**&#9660;**](#shell) | [**`sh.exe`**][sh_cli] | [**`build.sh`**](HelloWorld/build.sh)<br/>([**`build.properties`**](HelloWorld/project/build.properties)) |         | [Cygwin]/[MSYS2]/Unix only |
 | [**&#9660;**](#gradle) | [**`gradle.bat`**][gradle_cli] | [**`build.gradle`**](HelloWorld/build.gradle)           | [**`common.gradle`**](common.gradle) | Any |
 | [**&#9660;**](#gmake) | [**`make.exe`**][gmake_cli] | [**`Makefile`**](HelloWorld/Makefile)                   | [**`Makefile.inc`**](Makefile.inc)   | Any |
 | [**&#9660;**](#mill) | [**`mill.bat`**][mill_cli] | [**`build.sc`**](HelloWorld/build.sc)                   | [**`common.sc`**](common.sc)         | Any |
@@ -38,7 +38,7 @@ Build tools rely on one or more configuration files to achieve their tasks. In o
 
 ## <span id="ant">Ant build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
-The configuration file [**`HelloWorld\build.xml`**](HelloWorld/build.xml) depends on the parent file [**`myexamples\build.xml`**](build.xml) which provides several macro definitions such as **`dotc`**, **`dotd`** and **`cfr`** to process Scala source files.
+The Ant build file [**`HelloWorld\build.xml`**](HelloWorld/build.xml) depends on the parent file [**`myexamples\build.xml`**](build.xml) which provides several macro definitions such as **`dotc`**, **`dotd`** and **`cfr`** to process Scala source files.
 
 > **:mag_right:** Command [**`ant`**][apache_ant_cli] (["Another Neat Tool"][apache_ant_faq]) is a Java-based build maintained by the [Apache Software Foundation][apache_ant_history] (tool created in 2000). It works with XML-based configuration files.
 
@@ -90,7 +90,7 @@ Buildfile: W:\myexamples\HelloWorld\build.xml
    [delete] Deleting directory W:\myexamples\HelloWorld\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] SCALA3_HOME=C:\opt\scala3-3.3.1-RC4
+     [echo] SCALA3_HOME=C:\opt\scala3-3.3.1-RC5
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -110,7 +110,7 @@ Total time: 14 seconds
 
 ## <span id="batch">Batch command</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
-Command [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~800 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`decompile`**, **`doc`**, **`help`**, **`lint`** and **`run`**.
+Batch file [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~800 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`decompile`**, **`doc`**, **`help`**, **`lint`** and **`run`**.
 
 Command [**`build clean run`**](HelloWorld/build.bat) produces the following output:
 
@@ -125,7 +125,7 @@ Hello world!
 
 ## <span id="shell">Shell command</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
-Command [**`build.sh`**](HelloWorld/build.sh) is our basic build tool for Unix environments like [Cygwin], Linux or [MSYS2]; it features subcommands **`clean`**, **`compile`**, **`doc`**, **`help`**, **`lint`** and **`run`**; our Bash script consists of ~530 lines of [Bash] code.
+Bash script [**`build.sh`**](HelloWorld/build.sh) is our basic build tool for Unix environments like [Cygwin], Linux or [MSYS2]; it features subcommands **`clean`**, **`compile`**, **`doc`**, **`help`**, **`lint`** and **`run`**; our Bash script consists of ~530 lines of [Bash] code.
 
 ### <span id="build-git">Git Bash session</span>
 
@@ -134,7 +134,7 @@ Command [**`setenv -bash`**](setenv.bat) starts a [Cygwin] Bash session:
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -bash</b>
 Tool versions:
-   javac 11.0.19, java 11.0.19, scalac 2.13.11, scalac 3.3.1-RC4,
+   javac 11.0.19, java 11.0.19, scalac 2.13.11, scalac 3.3.1-RC5,
    ant 1.10.13, gradle 8.2.1, mill 0.11.0, mvn 3.9.3, sbt 1.9.2,
    bazel 6.2.1, cfr 0.152, coursier 2.1.5, make 3.81, python 3.11.1,
    git 2.41.0.windows.1, diff 3.8, bash 5.2.15(1)-release
@@ -148,7 +148,7 @@ user@host MSYS /w
 ANT_HOME=C:\opt\apache-ant-1.10.13
 [...]
 SBT_HOME=C:\opt\sbt-1.9.2
-SCALA3_HOME=C:\opt\scala3-3.3.1-RC4
+SCALA3_HOME=C:\opt\scala3-3.3.1-RC5
 SCALA_HOME=C:\opt\scala-2.13.11
 </pre>
 
@@ -170,7 +170,7 @@ Similarly, command [**`setenv -msys`**](setenv.bat) starts a [MSYS2] Bash sessio
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -msys</b>
 Tool versions:
-   javac 11.0.19 java 11.0.19 scalac 2.13.11, scalac 3.3.1-RC4,
+   javac 11.0.19 java 11.0.19 scalac 2.13.11, scalac 3.3.1-RC5,
    ant 1.10.13, gradle 8.2.1, mill 0.11.0, mvn 3.9.3, sbt 1.9.2,
    bazel 6.2.1, cfr 0.152, coursier 2.1.5, make 3.81, python 3.11.1,
    git 2.41.0.windows.1, diff 3.9, bash 5.2.15(1)-release
@@ -182,7 +182,7 @@ GNU bash, version 5.3.26(1)-release (x86_64-pc-msys)
 ANT_HOME=C:\opt\apache-ant-1.10.13
 [...]
 SBT_HOME=C:\opt\sbt-1.9.2
-SCALA3_HOME=C:\opt\scala3-3.3.1-RC4
+SCALA3_HOME=C:\opt\scala3-3.3.1-RC5
 SCALA_HOME=C:\opt\scala-2.13.11
 </pre>
 
@@ -203,7 +203,7 @@ Command [**`gradle`**][gradle_cli] is the official build tool for Android applic
 > We don't rely on them even if using [Gradle Wrapper][gradle_wrapper] is the  recommended way to execute a Gradle build.<br/>
 > Simply execute the **`gradle wrapper`** command to generate the wrapper files; you can then run **`gradlew`** instead of [**`gradle`**][gradle_cli].
 
-The configuration file [**`HelloWorld\build.gradle`**](HelloWorld/build.gradle) looks as follows:
+The Gradle build file [**`HelloWorld\build.gradle`**](HelloWorld/build.gradle) looks as follows:
 
 <pre style="font-size:80%;">
 <b>plugins</b> {
@@ -281,7 +281,7 @@ BUILD SUCCESSFUL in 4s
 
 ## <span id="gmake">Make build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
-The configuration file [**`HelloWorld\Makefile`**](HelloWorld/Makefile) depends on the parent file [**`myexamples\Makefile.inc`**](Makefile.inc) which defines common settings (i.e. tool and library paths).
+The Make build file [**`HelloWorld\Makefile`**](HelloWorld/Makefile) depends on the parent file [**`myexamples\Makefile.inc`**](Makefile.inc) which defines common settings (i.e. tool and library paths).
 
 > **:mag_right:** Command [**`make`**][gmake_cli] is a build tool that automatically builds executable programs and libraries from source code by reading files called Makefiles which specify how to derive the target program. [Make] was originally created by Stuart Feldman in April 1976 at Bell Labs.
 
@@ -302,7 +302,7 @@ Command **`make test`** executes the test suite [**`HelloWorldTest.scala`**](Hel
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 scalac.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.11/scala-library-2.13.11.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_3/3.3.1-RC4/scala3-library_3-3.3.1-RC4.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.9/scalatest_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.9/scalactic_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.11.0/specs2-core_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.11.0/specs2-junit_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.11.0/specs2-matcher_2.13-4.11.0.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.11/scala-library-2.13.11.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_3/3.3.1-RC5/scala3-library_3-3.3.1-RC5.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.9/scalatest_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.9/scalactic_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.11.0/specs2-core_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.11.0/specs2-junit_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.11.0/specs2-matcher_2.13-4.11.0.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
 JUnit version 4.13.2
 .
 Time: 0.201
@@ -329,7 +329,7 @@ private members with docstrings:   0
 
 ## <span id="maven">Maven build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
-The configuration file [**`HelloWorld\pom.xml`**](HelloWorld/pom.xml) depends on the parent file [**`myexamples\pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**).
+The [Maven][apache_maven_about] build file [**`HelloWorld\pom.xml`**](HelloWorld/pom.xml) depends on the parent file [**`myexamples\pom.xml`**](pom.xml) which defines common properties (eg. **`java.version`**, **`scala.version`**).
 
 > **:mag_right:** Command [**`mvn`**][apache_maven_cli] is a Java-based build tool maintained by the [Apache Software Foundation][apache_maven_history] (tool created in 2002). It works with XML-based configuration files and provides a way to share JARs across several projects.
 
@@ -337,17 +337,17 @@ Command **`mvn clean test`** with option **`-debug`** produces additional debug 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/run.html">mvn</a> -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-temurin-11.0.19_7\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.3.1-RC4 \
- -cp C:\opt\scala3-3.3.1-RC4\lib\*.jar -Dscala.usejavacp=true  \
+[DEBUG] [execute] C:\opt\jdk-temurin-11.0.20_8\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.3.1-RC5 \
+ -cp C:\opt\scala3-3.3.1-RC5\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\opt\jdk-temurin-11.0.19_7\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.3.1-RC4 [...]
-[DEBUG] [execute] C:\opt\jdk-temurin-11.0.19_7\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\scala3-3.3.1-RC4\lib\*.jar;\
+[DEBUG] [execute] C:\opt\jdk-temurin-11.0.20_8\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.3.1-RC5 [...]
+[DEBUG] [execute] C:\opt\jdk-temurin-11.0.20_8\bin\java.exe \
+ -Xms64m -Xmx1024m -cp C:\opt\scala3-3.3.1-RC5\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -368,7 +368,7 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 [INFO] Building HelloWorld 0.1-SNAPSHOT
 [INFO] --------------------------------[ jar ]---------------------------------
 [..]
-[INFO] --- maven-jar-plugin:3.3.1-RC4:jar (default-jar) @ HelloWorld ---
+[INFO] --- maven-jar-plugin:3.3.1-RC5:jar (default-jar) @ HelloWorld ---
 [INFO] Building jar: W:\myexamples\HelloWorld\target\HelloWorld-0.1-SNAPSHOT.jar
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
@@ -390,7 +390,7 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 >         <b>&lt;java.version&gt;</b>1.8<b>&lt;/java.version&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Scala settings --&gt;</i>
->         <b>&lt;scala.version&gt;</b>3.3.1-RC4<b>&lt;/scala.version&gt;</b>
+>         <b>&lt;scala.version&gt;</b>3.3.1-RC5<b>&lt;/scala.version&gt;</b>
 >         <b>&lt;scala.local.install&gt;</b>true<b>&lt;/scala.local.install&gt;</b>
 > &nbsp;
 >         <i style="color:#66aa66;">&lt;!-- Maven plugins --&gt;</i>
@@ -427,15 +427,15 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 Finally can check the Java manifest in **`HelloWorld-1.0-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.3.1-RC4\lib\dotty-library_3-3.3.1-RC4.jar;^
-c:\opt\scala3-3.3.1-RC4\lib\scala-library-2.13.11.jar ^
+<b>&gt;</b> <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.3.1-RC5\lib\dotty-library_3-3.3.1-RC5.jar;^
+c:\opt\scala3-3.3.1-RC5\lib\scala-library-2.13.11.jar ^
 -jar target\HelloWorld-1.0-SNAPSHOT.jar
 Hello world!
 </pre>
 
 > **:mag_right:** We can use batch script [**`searchjars`**](../bin/searchjars.bat) in case some class is missing in the specified classpath, e.g.
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.3.1-RC4\lib\scala3-library_3-3.3.1-RC4.jar -jar target\enum-Color-1.0-SNAPSHOT.jar</b>
+> <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.3.1-RC5\lib\scala3-library_3-3.3.1-RC5.jar -jar target\enum-Color-1.0-SNAPSHOT.jar</b>
 > Exception in thread "main" java.lang.NoClassDefFoundError: scala/Serializable
 >         [...]
 >         at Main.main(Main.scala)
@@ -444,21 +444,21 @@ Hello world!
 >         ... 13 more
 > 
 > <b>&gt; <a href="../bin/searchjars.bat">searchjars</a> Serializable</b>
-> Searching for class name Serializable in library files C:\opt\scala3-3.3.1-RC4\lib\*.jar
+> Searching for class name Serializable in library files C:\opt\scala3-3.3.1-RC5\lib\*.jar
 >   jackson-core-2.13.3.jar:com/fasterxml/jackson/core/SerializableString.class
 >   [...]
 >   scala-library-2.13.11.jar:scala/collection/generic/DefaultSerializable.class
 > Searching for class name Serializable in library files C:\opt\scala-2.13.11\lib\*.jar
 >   scala-library.jar:scala/collection/generic/DefaultSerializable.class
-> Searching for class name Serializable in library files C:\opt\jdk-temurin-11.0.19_7\lib\*.jar
+> Searching for class name Serializable in library files C:\opt\jdk-temurin-11.0.20_8\lib\*.jar
 > Searching for class name Serializable in archive files C:\opt\javafx-sdk-17.0.1\lib\*.jar
 > </pre>
-> Class **`scala.Serializable`** is part of **`C:\opt\scala3-3.3.1-RC4\lib\scala-library-2.13.11.jar`**, so let us add it to our classpath !
+> Class **`scala.Serializable`** is part of **`C:\opt\scala3-3.3.1-RC5\lib\scala-library-2.13.11.jar`**, so let us add it to our classpath !
 
 
 ## <span id="mill">Mill build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
-The configuration file [**`build.sc`**](HelloWorld/build.sc) depends on the parent file [**`myexamples\common.sc`**](common.sc) which defines the common settings.
+The Mill build file [**`build.sc`**](HelloWorld/build.sc) depends on the parent file [**`myexamples\common.sc`**](common.sc) which defines the common settings.
 It is a standalone file written in Scala (with direct access to [OS-Lib][os_lib]).
 
 > **:mag_right:** Command [**`mill`**][mill_cli] is a Scala-based build tool which aims for simplicity to build projects in a fast and predictable manner.
@@ -474,7 +474,7 @@ Hello world!
 
 ## <span id="sbt">SBT build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
-The configuration file [**`build.sbt`**](HelloWorld/build.sbt) is written in [Scala] and obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
+The SBT build file [**`build.sbt`**](HelloWorld/build.sbt) is written in [Scala] and obeys the [sbt build definitions](https://www.scala-sbt.org/1.0/docs/Basic-Def.html).
 
 > **:mag_right:** [Lightbend] provides commercial support for the [**`sbt`**][sbt_cli] build tool.
 
@@ -576,7 +576,7 @@ Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</
 
 <dl><dd>
 <pre style="font-size:80%;">
-<b>$ c:\opt\msys64\msys2_shell.cmd --help</b>
+<b>&gt; c:\opt\msys64\<a href="https://www.msys2.org/wiki/Launchers/" rel="external">msys2_shell.cmd</a> --help</b>
 Usage:
     msys2_shell.cmd [options] [login shell parameters]
 &nbsp;
@@ -603,7 +603,7 @@ following parameters are passed as login shell command parameters.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -612,11 +612,13 @@ following parameters are passed as login shell command parameters.
 [apache_ant_faq]: https://ant.apache.org/faq.html#ant-name
 [apache_ant_history]: https://ant.apache.org/faq.html#history
 [apache_ant_ivy]: https://ant.apache.org/ivy/
-[apache_ant_ivy_relnotes]: https://ant.apache.org/ivy/history/2.5.0/release-notes.html
+[apache_ant_ivy_relnotes]: https://ant.apache.org/ivy/history/2.5.1/release-notes.html
+[apache_maven_about]: https://maven.apache.org/what-is-maven.html
 [apache_maven_cli]: https://maven.apache.org/ref/3.9.3/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
 [bash]: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
+[cmd_cli]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd
 [cygwin]: https://cygwin.com/install.html
 [gmake_cli]: http://www.glue.umd.edu/lsf-docs/man/gmake.html
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
@@ -632,3 +634,4 @@ following parameters are passed as login shell command parameters.
 [os_lib]: https://github.com/lihaoyi/os-lib
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [scala]: https://www.scala-lang.org/
+[sh_cli]: https://man7.org/linux/man-pages/man1/sh.1p.html

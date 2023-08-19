@@ -7,7 +7,7 @@
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This repository gathers <a href="https://dotty.epfl.ch/" rel="external">Scala 3</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/" rel="external">Dotty</a> project - or written by myself.<br/>
-    In particular it includes build scripts (<a href="https://ant.apache.org/manual/using.html" rel="external">Ant files</a>, <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">Bash scripts</a>, <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html" rel="external">Gradle scripts</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>, <a href="https://maven.apache.org/guides/introduction/introduction-to-the-pom.html" rel="external">Maven scripts</a>) for experimenting with the <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html" rel="external">Scala 3</a> language on a Windows machine.
+    In particular it includes build scripts (<a href="https://ant.apache.org/manual/using.html" rel="external">Ant files</a>, <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">Bash scripts</a>, <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html" rel="external">Gradle scripts</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>, <a href="https://maven.apache.org/guides/introduction/introduction-to-the-pom.html" rel="external">Maven scripts</a>) for experimenting with the <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html" rel="external">Scala 3</a> language on a Windows machine.
   </td>
   </tr>
 </table>
@@ -73,7 +73,7 @@ Optionally one may also install the following software:
 - [JITWatch 1.4][jitwatch_releases] (requires Java 11+)
 - [Mill 0.11][mill_releases] ([*change log*][mill_changelog])
 - [MSYS2][msys2_releases] ([*change log*][msys2_changelog])
-- [Oracle OpenJDK 21 LTS][oracle_openjdk21] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk21_relnotes])
+- [Oracle OpenJDK 21 LTS][oracle_openjdk21] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk21_relnotes], [*Java 21 API*][oracle_openjdk21_api])
 - [sbt 1.9][sbt_downloads] (requires Java 8+) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8+) ([*release notes*][scala_relnotes], [*Scala API*][scala_api])
 - [Scala 2.13 DEV][scala_snapshots]
@@ -95,9 +95,9 @@ C:\opt\apache-maven-3.9.4\         <i>( 10 MB)</i>
 C:\opt\bazel-6.3.2\                <i>( 45 MB)</i>
 C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
 C:\opt\Git-2.41.0\                 <i>(314 MB)</i>
-C:\opt\gradle\                     <i>(129 MB)</i>
+C:\opt\gradle\                     <i>(138 MB)</i>
 C:\opt\jacoco-0.8.10\              <i>( 10 MB)</i>
-C:\opt\javafx-sdk-17.0.2\          <i>( 82 MB)</i>
+C:\opt\javafx-sdk-17.0.8\          <i>(127 MB)</i>
 C:\opt\jdk-oracle-21-ea-35\        <i>(320 MB)</i>
 C:\opt\jdk-temurin-1.8.0u382-b05\  <i>(189 MB)</i>
 C:\opt\jdk-temurin-11.0.20_8\      <i>(302 MB)</i>
@@ -107,7 +107,7 @@ C:\opt\make-3.81\                  <i>(  2 MB)</i>
 C:\opt\mill-0.11.1\                <i>( 67 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
 C:\opt\Python-3.11.1\              <i>(299 MB)</i>
-C:\opt\sbt-1.9.3\                  <i>(110 MB)</i>
+C:\opt\sbt\                        <i>(110 MB)</i>
 C:\opt\scala-2.13.11\              <i>( 24 MB)</i>
 C:\opt\scala-cli\                  <i>( 95 MB)</i>
 C:\opt\scala3-3.3.1-RC5\           <i>( 38 MB)</i>
@@ -351,19 +351,19 @@ We distinguish different sets of batch/bash commands:
 
 ### **`setenv.bat`**
 
-Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`bazel.exe`**][bazel_cli], [**`mvn.cmd`**][apache_maven_cli], [**`sbt.bat`**][sbt_cli] and [**`git.exe`**][git_cli] directly available from the command prompt.
+We execute command [**`setenv.bat`**](setenv.bat) once to setup our development environment; it makes external tools such as [**`bazel.exe`**][bazel_cli], [**`mvn.cmd`**][apache_maven_cli], [**`sbt.bat`**][sbt_cli] and [**`git.exe`**][git_cli] directly available from the command prompt.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.20, java 11.0.20, scalac 2.13.11, scalac 3.3.1-RC5, scalafmt 3.7.2,
-   ant 1.10.13, gradle 8.2.1, mill 0.11.1, mvn 3.9.4, sbt 1.9.3, scala-cli 1.0.4,
+   ant 1.10.13, gradle 8,3, mill 0.11.1, mvn 3.9.4, sbt 1.9.3, scala-cli 1.0.4,
    bazel 6.3.2, bloop v1.3.4, cfr 0.152, make 3.81, python 3.11.1,
    git 2.41.0.windows.1, diff 3.9, bash 5.2.15(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt scala-cli</b>
-C:\opt\sbt-1.9.3\bin\sbt
-C:\opt\sbt-1.9.3\bin\sbt.bat
+C:\opt\sbt\bin\sbt
+C:\opt\sbt\bin\sbt.bat
 C:\opt\scala-cli\<a href="https://scala-cli.virtuslab.org/docs/commands/basics">scala-cli.exe</a>
 </pre>
 
@@ -386,7 +386,7 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also displays the tool paths and
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.20, java 11.0.20, scalac 2.13.11, scalac 3.3.1-RC5,
-   ant 1.10.13, gradle 8.2.1, mill 0.11.1, mvn 3.9.4, sbt 1.9.3,
+   ant 1.10.13, gradle 8,3, mill 0.11.1, mvn 3.9.4, sbt 1.9.3,
    bazel 6.3.2, cfr 0.152, make 3.81, python 3.11.1,
    git 2.41.0.windows.1, diff 3.9, bash 5.2.15(1)-release
 Tool paths:
@@ -399,7 +399,7 @@ Tool paths:
    C:\opt\gradle\bin\gradle.bat
    C:\opt\mill-0.11.1\mill.bat
    C:\opt\apache-maven-3.9.4\bin\mvn.cmd
-   C:\opt\sbt-1.9.3\bin\sbt.bat
+   C:\opt\sbt\bin\sbt.bat
    C:\opt\bazel-6.3.2\bazel.exe
    C:\opt\cfr-0.152\bin\cfr.bat
    C:\opt\make-3.81\bin\make.exe
@@ -414,11 +414,11 @@ Environment variables:
    "GIT_HOME=C:\opt\Git-2.41.0"
    "GRADLE_HOME=C:\opt\gradle"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.20_8"
-   "JAVAFX_HOME=C:\opt\javafx-sdk-17.0.2"
+   "JAVAFX_HOME=C:\opt\javafx-sdk-17.0.8"
    "MSVS_HOME=X:"
    "MSYS_HOME=C:\opt\msys64"
    "PYTHON_HOME=C:\opt\Python-3.11.1"
-   "SBT_HOME=C:\opt\sbt-1.9.3"
+   "SBT_HOME=C:\opt\sbt"
    "SCALA_HOME=C:\opt\scala-2.13.11"
    "SCALA3_HOME=C:\opt\scala3-3.3.1-RC5"
 </pre>
@@ -456,7 +456,7 @@ Usage: getnightly { &lt;option&gt; | &lt;subcommand&gt; }
 &nbsp;
   Options:
     -debug      display commands executed by this script
-    -timer      display total elapsed time
+    -timer      display total execution time
     -verbose    display download progress
 &nbsp;
   Subcommands:
@@ -472,42 +472,43 @@ Command [**`getnightly.bat download`**](bin/getnightly.bat) with options **` -ve
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose download</b>
 Delete directory "out\nightly"
 Download Scala 3 nightly files from Maven repository
-Downloading file scaladoc_3-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar ... 4.6 Mb
-Downloading file scala3-compiler_3-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar ... 18.3 Mb
-Downloading file scala3-interfaces-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar ... 3.9 Kb
-Downloading file scala3-library_3-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar ... 1.2 Mb
-Downloading file scala3-language-server_3-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar ... 148.9 Kb
-Downloading file scala3-staging_3-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar ... 38.1 Kb
-Downloading file tasty-core_3-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar ... 72.5 Kb
-Downloading file scala3-library_sjs1_3-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar ... 2 Mb
-Downloading file scala3-tasty-inspector_3-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar ... 17.4 Kb
-Downloading file scala3-sbt-bridge-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar ... 22.6 Kb
+Downloading file scala3-language-server_3-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar ... 149 Kb
+Downloading file scala3-compiler_3-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar ... 19 Mb
+Downloading file scala3-sbt-bridge-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar ... 30.3 Kb
+Downloading file scala3-library_3-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar ... 1.2 Mb
+Downloading file scala3-tasty-inspector_3-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar ... 17.9 Kb
+Downloading file scala3-staging_3-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar ... 38.2 Kb
+Downloading file scala3-library_sjs1_3-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar ... 1.9 Mb
+Downloading file scala3-presentation-compiler_3-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar ... 1.5 Mb
+Downloading file scala3-interfaces-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar ... 3.9 Kb
+Downloading file scaladoc_3-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar ... 4.6 Mb
+Downloading file tasty-core_3-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar ... 72.8 Kb
 Downloading file antlr4-runtime-4.7.2.jar ... 330 Kb
 [...]
 Downloading file common ... 6 Kb
-Downloading file common.bat ... 3 Kb
+Downloading file common.bat ... 2.9 Kb
 Converting file common.bat to DOS format
 Downloading file scala ... 1.8 Kb
-Downloading file scala.bat ... 2.7 Kb
+Downloading file scala.bat ... 2.6 Kb
 Converting file scala.bat to DOS format
 Downloading file scalac ... 2.5 Kb
-Downloading file scalac.bat ... 3.8 Kb
+Downloading file scalac.bat ... 3.7 Kb
 Converting file scalac.bat to DOS format
-Downloading file scaladoc ... 4.3 Kb
-Downloading file scaladoc.bat ... 4.8 Kb
+Downloading file scaladoc ... 5 Kb
+Downloading file scaladoc.bat ... 4.6 Kb
 Converting file scaladoc.bat to DOS format
-Finished to download 53 files to directory "C:\Users\michelou\AppData\Local\Temp\scala3-nightly"
-Retrieve revision for hash "c1809bc" from GitHub repository "lampepfl/dotty"
-File "C:\Users\michelou\AppData\Local\Temp\scala3-nightly\VERSION":
-version:=3.3.2-RC1-bin-20230715-4851278-NIGHTLY
-revision:=c1809bc
-buildTime:=2023-02-28 18:43:12+01:00
+Finished to download 54 files to directory "%LOCALAPPDATA%\Temp\scala3-nightly"
+Retrieve revision for hash "932c10d" from GitHub repository "lampepfl/dotty"
+File "%LOCALAPPDATA%\Temp\scala3-nightly\VERSION":
+version:=3.4.0-RC1-bin-20230818-932c10d-NIGHTLY
+revision:=932c10d
+buildTime:=2023-08-19 19:35:41+02:00
 </pre>
 
-Directory **`out\nightly\`** contains the two directories **`bin\`** and **`lib\`**:
+Output directory **`%TEMP%\scala3-nightly\`** contains the two subdirectories **`bin\`** and **`lib\`**:
 
 <pre style="font-size:80%">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b out\nightly\bin out\nightly\lib</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b %TEMP%\scala3-nightly\bin %TEMP%\scala3-nightly\lib</b>
 common
 common.bat
 scala
@@ -516,23 +517,24 @@ scalac
 scalac.bat
 scaladoc
 scaladoc.bat
-antlr-runtime-3.5.1.jar
+antlr-runtime-4.7.2.jar
 autolink-0.6.0.jar
 [...]
 scala-asm-9.5.0-scala-1.jar
 scala-library-2.13.10.jar
-scala3-compiler_3-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar
-scala3-interfaces-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar
-scala3-language-server_3-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar
-scala3-library_3-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar
-scala3-library_sjs1_3-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar
-scala3-sbt-bridge-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar
-scala3-staging_3-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar
-scala3-tasty-inspector_3-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar
-scaladoc_3-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar
-snakeyaml-1.27.jar
+scala3-compiler_3-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar
+scala3-interfaces-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar
+scala3-language-server_3-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar
+scala3-library_3-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar
+scala3-library_sjs1_3-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar
+scala3-presentation-compiler_3-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar
+scala3-sbt-bridge-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar
+scala3-staging_3-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar
+scala3-tasty-inspector_3-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar
+scaladoc_3-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar
+snakeyaml-2.0.jar
 strftime4j-1.0.5.jar
-tasty-core_3-3.3.2-RC1-bin-20230715-4851278-NIGHTLY.jar
+tasty-core_3-3.4.0-RC1-bin-20230818-932c10d-NIGHTLY.jar
 </pre>
 <!--
 > **:mag_right:** A few notes about the distributed Java archives:
@@ -598,7 +600,7 @@ Searching for class name System in archive files C:\opt\jdk-temurin-11.0.20_8\li
   [...]
   jrt-fs.jar:jdk/internal/jrtfs/SystemImage$2.class
   jrt-fs.jar:jdk/internal/jrtfs/SystemImage.class
-Searching for class name System in archive files c:\opt\javafx-sdk-17.0.2\lib\*.jar
+Searching for class name System in archive files c:\opt\javafx-sdk-17.0.8\lib\*.jar
   javafx.graphics.jar:com/sun/glass/ui/SystemClipboard.class
   [...]
   javafx.graphics.jar:com/sun/javafx/tk/TKSystemMenu.class
@@ -866,17 +868,17 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.13-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.4-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-6.3.2-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
-<a href="https://gradle.org/install/">gradle-8.2.1-bin.zip</a>                               <i>(103 MB)</i>
+<a href="https://gradle.org/install/">gradle-8,3-bin.zip</a>                                 <i>(124 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.10.zip</a>                                  <i>(  4 MB)</i>
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.7-shaded-win.jar</a>                   <i>( 36 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
-<a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20210228.exe</a>                          <i>( 94 MB)</i>
-<a href="http://jdk.java.net/17/">openjdk-17_windows-x64_bin.zip</a>                     <i>(176 MB)</i>
-<a href="https://gluonhq.com/products/javafx/">openjfx-17_windows-x64_bin-sdk.zip</a>                 <i>( 39 MB)</i>
+<a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20230718.exe</a>                          <i>( 94 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u372b07.zip</a>     <i>( 99 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.20_8.zip</a>   <i>(188 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot">OpenJDK17U-jdk_x64_windows_hotspot_17.0.8_7.zip</a>    <i>(188 MB)</i>
 <a href="https://jdk.java.net/21/">openjdk-21_windows-x64_bin_build_35.zip</a>            <i>(191 MB)</i>
+<a href="https://gluonhq.com/products/javafx/">openjfx-17.0.8_windows-x64_bin-sdk.zip</a>             <i>( 39 MB)</i>
+<a href="https://gluonhq.com/products/javafx/">openjfx-17.0.8_windows-x64_bin-jmods.zip</a>           <i>( 37 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.41.0-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.9.3.zip</a>                                      <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.11.zip</a>                                  <i>( 22 MB)</i>
@@ -979,6 +981,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [msys2_releases]: https://github.com/msys2/msys2-installer/releases
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [oracle_openjdk21]: https://jdk.java.net/21/
+[oracle_openjdk21_api]: https://download.java.net/java/early_access/jdk21/docs/api/
 [oracle_openjdk21_relnotes]: https://jdk.java.net/21/release-notes
 [rust_examples]: https://github.com/michelou/rust-examples
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
