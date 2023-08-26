@@ -30,9 +30,9 @@ set _COURSIER_PATH=
 set _GIT_PATH=
 set _GRADLE_PATH=
 set _JMC_PATH=
-set _MAKE_PATH=
 set _MAVEN_PATH=
 set _MILL_PATH=
+set _MSYS_PATH=
 set _SBT_PATH=
 set _SCALA_CLI_PATH=
 set _VSCODE_PATH=
@@ -113,9 +113,6 @@ if not %_EXITCODE%==0 (
     echo %_WARNING_LABEL% Java Mission Control installation not found 1>&2
     set _EXITCODE=0
 )
-call :make
-if not %_EXITCODE%==0 goto end
-
 call :maven
 if not %_EXITCODE%==0 goto end
 
@@ -852,35 +849,6 @@ if not exist "%_JMC_HOME%\bin\jmc.exe" (
 set "_JMC_PATH=;%_JMC_HOME%\bin"
 goto :eof
 
-@rem output parameters: _MAKE_HOME, _MAKE_PATH
-:make
-set _MAKE_HOME=
-set _MAKE_PATH=
-
-set __MAKE_CMD=
-for /f "delims=" %%f in ('where make.exe 2^>NUL') do set "__MAKE_CMD=%%f"
-if defined __MAKE_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Make executable found in PATH 1>&2
-    rem keep _MAKE_PATH undefined since executable already in path
-    goto :eof
-) else if defined MAKE_HOME (
-    set "_MAKE_HOME=%MAKE_HOME%"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MAKE_HOME 1>&2
-) else (
-    set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\make-3*" 2^>NUL') do set "_MAKE_HOME=!_PATH!\%%f"
-    if defined _MAKE_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Make installation directory !_MAKE_HOME! 1>&2
-    )
-)
-if not exist "%_MAKE_HOME%\bin\make.exe" (
-    echo %_ERROR_LABEL% Make executable not found ^(%_MAKE_HOME%^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set "_MAKE_PATH=;%_MAKE_HOME%\bin"
-goto :eof
-
 @rem output parameters: _MAVEN_HOME, _MAVEN_PATH
 :maven
 set _MAVEN_HOME=
@@ -1002,9 +970,10 @@ if not defined __ASSIGNED_PATH (
 set "_SUBST_PATH=%__DRIVE_NAME%"
 goto :eof
 
-@rem output parameter: _MSYS_HOME
+@rem output parameters: _MSYS_HOME, _MSYS_PATH
 :msys
 set _MSYS_HOME=
+set _MSYS_PATH=
 
 set __MSYS2_CMD=
 for /f "delims=" %%f in ('where msy2_shell.cmd 2^>NUL') do set "__MSYS2_CMD=%%f"
@@ -1018,15 +987,16 @@ if defined __MSYS2_CMD (
     set _PATH=C:\opt
     for /f "delims=" %%f in ('dir /ad /b "!_PATH!\msys64*" 2^>NUL') do set "_MSYS_HOME=!_PATH!\%%f"
     if defined _MSYS_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default MSYS2 installation directory !_MSYS_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default MSYS2 installation directory "!_MSYS_HOME!" 1>&2
     )
 )
 if not exist "%_MSYS_HOME%\msys2_shell.cmd" if %_MSYS%==1 (
     set _MSYS=0
-    echo %_ERROR_LABEL% MSYS2 command not found ^(%_MSYS_HOME%^) 1>&2
+    echo %_ERROR_LABEL% MSYS2 command not found ^("%_MSYS_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
+set "_MSYS_PATH=%_MSYS_HOME%\usr\bin"
 goto :eof
 
 @rem output parameters: _SCALA_CLI_HOME
@@ -1045,11 +1015,11 @@ if defined __SCALA_CLI_CMD (
     set _PATH=C:\opt
     for /f %%f in ('dir /ad /b "!_PATH!\scala-cli*" 2^>NUL') do set "_SCALA_CLI_HOME=!_PATH!\%%f"
     if defined _SCALA_CLI_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala CLI installation directory !_SCALA_CLI_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala CLI installation directory "!_SCALA_CLI_HOME!" 1>&2
     )
 )
 if not exist "%_SCALA_CLI_HOME%\scala-cli.exe" (
-    echo %_ERROR_LABEL% Scala CLI command not found ^(%_SCALA_CLI_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Scala CLI command not found ^("%_SCALA_CLI_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -1081,7 +1051,7 @@ if defined __CODE_CMD (
     )
 )
 if not exist "%_VSCODE_HOME%\code.exe" (
-    echo %_ERROR_LABEL% VSCode executable not found ^(%_VSCODE_HOME%^) 1>&2
+    echo %_ERROR_LABEL% VSCode executable not found ^("%_VSCODE_HOME%"^) 1>&2
     if exist "%_VSCODE_HOME%\Code - Insiders.exe" (
         echo %_WARNING_LABEL% It looks like you've installed an Insider version of VSCode 1>&2
     )
@@ -1157,27 +1127,27 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%SCALA_HOME%\bin:scalac.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,4,*" %%i in ('"%SCALA_HOME%\bin\scalac.bat" -version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalac %%l,"
+    for /f "tokens=1,2,3,4,*" %%i in ('call "%SCALA_HOME%\bin\scalac.bat" -version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalac %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%SCALA_HOME%\bin:scalac.bat"
 )
 where /q "%SCALA3_HOME%\bin:scalac.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,4,*" %%i in ('"%SCALA3_HOME%\bin\scalac.bat" -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalac %%l,"
+    for /f "tokens=1,2,3,4,*" %%i in ('call "%SCALA3_HOME%\bin\scalac.bat" -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalac %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%SCALA3_HOME%\bin:scalac.bat"
 )
 set "__SCALAFMT_CMD=%LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat"
 if exist "%__SCALAFMT_CMD%" (
-    for /f "tokens=1,2,*" %%i in ('"%__SCALAFMT_CMD%" -version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalafmt %%j,"
+    for /f "tokens=1,2,*" %%i in ('call "%__SCALAFMT_CMD%" -version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalafmt %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%__SCALAFMT_CMD:bin\=bin:%"
 )
 where /q "%ANT_HOME%\bin:ant.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,4,*" %%i in ('"%ANT_HOME%\bin\ant.bat" -version ^| findstr version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% ant %%l,"
+    for /f "tokens=1,2,3,4,*" %%i in ('call "%ANT_HOME%\bin\ant.bat" -version ^| findstr version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% ant %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%ANT_HOME%\bin:ant.bat"
 )
 where /q "%GRADLE_HOME%\bin:gradle.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('"%GRADLE_HOME%\bin\gradle.bat" -version ^| findstr Gradle') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j,"
+    for /f "tokens=1,*" %%i in ('call "%GRADLE_HOME%\bin\gradle.bat" -version ^| findstr Gradle') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GRADLE_HOME%\bin:gradle.bat"
 )
 where /q "%MAVEN_HOME%\bin:mvn.cmd"
@@ -1187,7 +1157,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%SBT_HOME%\bin:sbt.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-3,*" %%i in ('"%SBT_HOME%\bin\sbt.bat" --version ^| findstr script') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% sbt %%l,"
+    for /f "tokens=1-3,*" %%i in ('call "%SBT_HOME%\bin\sbt.bat" --version ^| findstr script') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% sbt %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%SBT_HOME%\bin:sbt.bat"
 )
 where /q "%SCALA_CLI_HOME%:scala-cli.exe"
@@ -1197,7 +1167,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%MILL_HOME%:mill.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-4,*" %%i in ('"%MILL_HOME%\mill.bat" --no-server --version ^| findstr /i mill') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% mill %%m,"
+    for /f "tokens=1-4,*" %%i in ('call "%MILL_HOME%\mill.bat" --no-server --version ^| findstr /i mill') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% mill %%m,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%MILL_HOME%:mill.bat"
 )
 where /q "%BAZEL_HOME%:bazel.exe"
@@ -1215,18 +1185,18 @@ if %ERRORLEVEL%==0 (
 @rem )
 where /q "%CFR_HOME%\bin:cfr.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('"%CFR_HOME%\bin\cfr.bat" 2^>^&1 ^| findstr /b CFR') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% cfr %%j,"
+    for /f "tokens=1,*" %%i in ('call "%CFR_HOME%\bin\cfr.bat" 2^>^&1 ^| findstr /b CFR') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% cfr %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%CFR_HOME%\bin:cfr.bat"
 )
 where /q "%COURSIER_HOME%:coursier.bat"
 if %ERRORLEVEL%==0 (
-    for /f %%i in ('"%COURSIER_HOME%\coursier.bat" --version 2^>^&1') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% coursier %%i,"
+    for /f %%i in ('call "%COURSIER_HOME%\coursier.bat" --version 2^>^&1') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% coursier %%i,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%COURSIER_HOME%:coursier.bat"
 )
-where /q "%MAKE_HOME%\bin:make.exe"
+where /q "%MSYS_HOME%\usr\bin:make.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,*" %%i in ('"%MAKE_HOME%\bin\make.exe" --version 2^>^&1 ^| findstr Make') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% make %%k,"
-    set __WHERE_ARGS=%__WHERE_ARGS% "%MAKE_HOME%\bin:make.exe"
+    for /f "tokens=1,2,*" %%i in ('"%MSYS_HOME%\usr\bin\make.exe" --version 2^>^&1 ^| findstr Make') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% make %%k,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%MSYS_HOME%\usr\bin:make.exe"
 )
 where /q "%PYTHON_HOME%:python.exe"
 if %ERRORLEVEL%==0 (
@@ -1270,7 +1240,6 @@ if %__VERBOSE%==1 (
     if defined JAVA21_HOME echo    "JAVA21_HOME=%JAVA21_HOME%" 1>&2
     if defined JAVACOCO_HOME echo    "JAVACOCO_HOME=%JAVACOCO_HOME%" 1>&2
     if defined JAVAFX_HOME echo    "JAVAFX_HOME=%JAVAFX_HOME%" 1>&2
-    if defined MAKE_HOME echo    "MAKE_HOME=%MAKE_HOME%" 1>&2
     if defined MAVEN_HOME echo    "MAVEN_HOME=%MAVEN_HOME%" 1>&2
     if defined MILL_HOME echo    "MILL_HOME=%MILL_HOME%" 1>&2
     if defined MSVS_HOME echo    "MSVS_HOME=%MSVS_HOME%" 1>&2
@@ -1305,7 +1274,6 @@ endlocal & (
         if not defined JAVA17_HOME set "JAVA17_HOME=%_JAVA17_HOME%"
         if not defined JAVA21_HOME set "JAVA21_HOME=%_JAVA21_HOME%"
         if not defined JAVAFX_HOME set "JAVAFX_HOME=%_JAVAFX_HOME%"
-        if not defined MAKE_HOME set "MAKE_HOME=%_MAKE_HOME%"
         if not defined MAVEN_HOME set "MAVEN_HOME=%_MAVEN_HOME%"
         if not defined MILL_HOME set "MILL_HOME=%_MILL_HOME%"
         if not defined MSVS_HOME set "MSVS_HOME=%_MSVS_HOME%"
@@ -1316,7 +1284,7 @@ endlocal & (
         if not defined SCALA_CLI_HOME set "SCALA_CLI_HOME=%_SCALA_CLI_HOME%"
         if not defined SCALA3_HOME set "SCALA3_HOME=%_SCALA3_HOME%"
         @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
-        set "PATH=%_GIT_HOME%\bin;%PATH%%_ANT_PATH%%_BAZEL_PATH%%_COURSIER_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%;%_SCALA_CLI_HOME%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
+        set "PATH=%_GIT_HOME%\bin;%PATH%%_ANT_PATH%%_BAZEL_PATH%%_COURSIER_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_MSYS_PATH%;%_SCALA_CLI_HOME%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE%
         if not "%CD:~0,2%"=="%_DRIVE_NAME%" (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME% 1>&2

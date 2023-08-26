@@ -13,6 +13,7 @@
 *.cs text linguist-language=CSharp
 *.daml text linguist-language=Haskell
 *.es text linguist-language=JavaScript
+*.flix text linguist-language=Flix
 *.go text linguist-language=Go
 *.h text linguist-language=C
 *.hpp text linguist-language=C++
