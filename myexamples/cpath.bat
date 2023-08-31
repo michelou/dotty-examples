@@ -27,13 +27,13 @@ set __SCALA_BINARY_VERSION=2.13
 call :add_jar "org.apiguardian" "apiguardian-api" "1.1.2"
 
 @rem https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-call :add_jar "org.junit.jupiter" "junit-jupiter-api" "5.9.1"
+call :add_jar "org.junit.jupiter" "junit-jupiter-api" "5.10.0"
 
 @rem https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect
 call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSION%" "1.1.2"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.1.0"
+call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.2.0"
 
 @rem https://mvnrepository.com/artifact/junit/junit
 call :add_jar "junit" "junit" "4.13.2"
@@ -44,7 +44,7 @@ call :add_jar "com.novocode" "junit-interface" "0.11"
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest
 call :add_jar "org.hamcrest" "hamcrest" "2.2"
 
-set __SCALATEST_VERSION=3.2.15
+set __SCALATEST_VERSION=3.2.16
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
@@ -64,7 +64,7 @@ call :add_jar "org.scalatest" "scalatest_3" "%__SCALATEST_VERSION%"
 @rem https://mvnrepository.com/artifact/org.scalactic
 call :add_jar "org.scalactic" "scalactic_3" "%__SCALATEST_VERSION%"
 
-set __SPECS2_VERSION=5.2.0
+set __SPECS2_VERSION=5.3.2
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-core
 call :add_jar "org.specs2" "specs2-core_3" "%__SPECS2_VERSION%"
@@ -81,7 +81,7 @@ call :add_jar "org.specs2" "specs2-matcher_3" "%__SPECS2_VERSION%"
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-fp
 call :add_jar "org.specs2" "specs2-fp_3" "%__SPECS2_VERSION%"
 
-set __JMH_VERSION=1.36
+set __JMH_VERSION=1.37
 @rem JMH 1.34/1.35/1.36 depends on Jopt 5.0.4
 @rem (previously : JMH 1.27, 1.29, 1.31-33 depend on Jopt 4.6)
 set __JOPT_VERSION=5.0.4

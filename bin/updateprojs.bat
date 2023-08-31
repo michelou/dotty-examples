@@ -10,12 +10,12 @@ set _DEBUG=0
 set _EXITCODE=0
 
 @rem files build.sbt, build.sc and ivy.xml
-set _DOTTY_VERSION_OLD="3.3.1-RC4"
-set _DOTTY_VERSION_NEW="3.3.1-RC5"
+set _DOTTY_VERSION_OLD="3.3.1-RC5"
+set _DOTTY_VERSION_NEW="3.3.1-RC7"
 
 @rem files project\build.properties
-set _SBT_VERSION_OLD=sbt.version=1.9.2
-set _SBT_VERSION_NEW=sbt.version=1.9.3
+set _SBT_VERSION_OLD=sbt.version=1.9.3
+set _SBT_VERSION_NEW=sbt.version=1.9.4
 
 @rem files project\plugins.sbt
 @rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/
@@ -27,22 +27,22 @@ set _SCALATEST_VERSION_OLD=^(\"scalatest_2.13\"^)^(.+\"3.2.15\"^)
 set _SCALATEST_VERSION_NEW=$1 %%%% \"3.2.16\"
 
 @rem files ivy.xml (NB. PS regex)
-set _IVY_DOTTY_VERSION_OLD=^(scala3-[a-z]+^)_3.3.1-RC4
-set _IVY_DOTTY_VERSION_NEW=$1_3.3.1-RC5
+set _IVY_DOTTY_VERSION_OLD=^(scala3-[a-z]+^)_3.3.1-RC5
+set _IVY_DOTTY_VERSION_NEW=$1_3.3.1-RC7
 
-set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_3.3.1-RC4
-set _IVY_TASTY_VERSION_NEW=$1_3.3.1-RC5
+set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_3.3.1-RC5
+set _IVY_TASTY_VERSION_NEW=$1_3.3.1-RC7
 
 @rem files pom.xml (NB. PS regex)
 set _POM_SCALA2_VERSION_OLD=scala.version^>2.13.10
 set _POM_SCALA2_VERSION_NEW=scala.version^>2.13.11
 
-set _POM_SCALA3_VERSION_OLD=scala3.version^>3.3.1-RC4
-set _POM_SCALA3_VERSION_NEW=scala3.version^>3.3.1-RC5
+set _POM_SCALA3_VERSION_OLD=scala3.version^>3.3.1-RC5
+set _POM_SCALA3_VERSION_NEW=scala3.version^>3.3.1-RC7
 
 @rem files common.gradle
-set _GRADLE_DOTTY_VERSION_OLD=scala3-compiler_3:3.3.1-RC4
-set _GRADLE_DOTTY_VERSION_NEW=scala3-compiler_3:3.3.1-RC5
+set _GRADLE_DOTTY_VERSION_OLD=scala3-compiler_3:3.3.1-RC5
+set _GRADLE_DOTTY_VERSION_NEW=scala3-compiler_3:3.3.1-RC7
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -69,7 +69,7 @@ goto end
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
 :env
 set _BASENAME=%~n0
-set "_ROOT_DIR=%%~dp0"
+for /f "delims=" %%f in ("%~dp0\.") do set "_ROOT_DIR=%%~dpf"
 @rem remove trailing backslash for virtual drives
 if "%_ROOT_DIR:~-2%"==":\" set "_ROOT_DIR=%_ROOT_DIR:~0,-1%"
 
