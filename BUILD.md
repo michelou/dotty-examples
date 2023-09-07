@@ -1,6 +1,6 @@
 # <span id="top">Building Scala 3 on Windows</span> <span style="size:25%;"><a href="README.md">↩</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:60px;max-width:100px;">
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:80px;" src="docs/images/dotty.png" alt="Dotty project" /></a>
@@ -24,7 +24,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 
 Our [Dotty fork][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.41][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.42][git_releases] ([*release notes*][git_relnotes])
 - [sbt 1.9][sbt_releases] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Temurin OpenJDK 11][openjdk_releases] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
 <!--
@@ -51,14 +51,14 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*August 2023*):
+For instance our development environment looks as follows (*September 2023*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.41.0\                 <i>(315 MB)</i>
+C:\opt\Git\                        <i>(367 MB)</i>
 C:\opt\jdk-temurin-1.8.0u372-b07\  <i>(186 MB)</i>
 C:\opt\jdk-temurin-11.0.20_8\      <i>(314 MB)</i>
 C:\opt\jdk-temurin-17.0.8_7\       <i>(293 MB)</i>
-C:\opt\sbt-1.9.3\                  <i>( 48 MB)</i>
+C:\opt\sbt\                        <i>( 48 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -254,9 +254,9 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
-   "GIT_CMD=C:\opt\Git-2.41.0\bin\git.exe"
+   "GIT_CMD=C:\opt\Git\bin\git.exe"
    "JAVA_CMD=C:\opt\jdk-openjdk-11.0.20_8\bin\java.exe"
-   "SBT_CMD=C:\opt\sbt-1.9.3\bin\sbt.bat"
+   "SBT_CMD=C:\opt\sbt\bin\sbt.bat"
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m
    SBT_OPTS=-Ddotty.drone.mem=4096m -Dsbt.ivy.home=U:\.ivy2\ -Dsbt.log.noformat=true
@@ -642,7 +642,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

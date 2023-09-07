@@ -72,7 +72,7 @@ set __SPECS2_VERSION=5.3.2
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
 @rem NB. dependency of specs2
-call :add_jar "org.scala-lang" "scala-reflect" "2.13.10"
+call :add_jar "org.scala-lang" "scala-reflect" "2.13.11"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-core
 call :add_jar "org.specs2" "specs2-core_3" "%__SPECS2_VERSION%"

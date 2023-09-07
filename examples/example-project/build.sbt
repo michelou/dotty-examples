@@ -1,4 +1,4 @@
-val dottyVersion = "3.3.1-RC7"
+val dottyVersion = "3.3.1"
 // val dottyVersion = dottyLatestNightlyBuild.get 
 
 lazy val root = project

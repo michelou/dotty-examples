@@ -25,7 +25,7 @@ The [Scala 3](https://www.scala-lang.org/download/scala3.html) and [Scala 2](htt
 > **:mag_right:** We observe a jump in the increases in size of the software distributions : 
 > |  Scala 3  | Release&nbsp;date | Zip&nbsp;archive | Installation |
 > |:----------|:------------:|:-----------:|:------------:|
-> | [**3.3.1-RC5**](https://github.com/lampepfl/dotty/releases/tag/3.3.1-RC5) | Aug&nbsp;2023 | 36.6 MB | **38.7 MB** |
+> | [**3.3.1-RC7**](https://github.com/lampepfl/dotty/releases/tag/3.3.1-RC7) | Aug&nbsp;2023 | 36.6 MB | **38.7 MB** |
 > | [3.3.0](https://github.com/lampepfl/dotty/releases/tag/3.3.0) | May&nbsp;2023 | 36.0 MB | 38.1 MB |
 > | [3.2.2](https://github.com/lampepfl/dotty/releases/tag/3.2.2) | Jan&nbsp;2023 | 35.5 MB | 37.6 MB |
 > | [3.2.1](https://github.com/lampepfl/dotty/releases/tag/3.2.1) | Sep 2022 | 35.5 MB | 37.6 MB |
@@ -865,7 +865,7 @@ Besides improvements and fixes <code>scala-asm</code> library updates also add s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

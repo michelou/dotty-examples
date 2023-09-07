@@ -3,7 +3,7 @@ import mill._, api._, scalalib._
 //////////////////////////////////////////////////////////////////////////////
 // Project properties
 
-val scalaVersion = "3.3.1-RC4"  // "3.3.0", "3.2.2", "3.1.3", "3.0.1", "2.13.11"
+val scalaVersion = "3.3.1"  // "3.3.0", "3.2.2", "3.1.3", "3.0.1", "2.13.11"
 val scalacOptions = Seq("-deprecation", "-encoding", "UTF8", "-feature")
 
 val forkArgs = Seq("-Xmx1g")
@@ -21,7 +21,7 @@ val scalaSourcePath = os.pwd / "src" / "main" / "scala"
 val junitVersion = "4.13.2"
 val jupiterVersion = "5.10.0"
 val scalatestVersion = "3.2.16"
-val specs2Version = "5.2.0"
+val specs2Version = "5.3.2"
 
 // https://mvnrepository.com/artifact/junit/junit
 val ivyJunit = ivy"org.junit:org.junit:$junitVersion"

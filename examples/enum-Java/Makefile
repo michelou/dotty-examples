@@ -133,4 +133,4 @@ test: build $(TEST_TARGET)
 .PHONY: all build clean compile doc help lint run test
 
 .SUFFIXES:
-.SUFFIXES: .classes .jar .java .scala .tasty
+.SUFFIXES: .class .jar .java .scala .tasty

@@ -34,7 +34,7 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
     -explain         set compiler option -explain
     -explain-types   set compiler option -explain-types
     -tasty           compile both from source and TASTy files
-    -timer           display total elapsed time
+    -timer           display total execution time
     -verbose         display progress messages
 
   Subcommands:
@@ -143,7 +143,7 @@ aaaaaaaaaa
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
