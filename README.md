@@ -78,6 +78,8 @@ Optionally one may also install the following software:
 - [Scala 2.13 DEV][scala_snapshots]
 - [scala-cli 1.0][scala_cli_downloads] ([*release notes*][scala_cli_relnotes])
 - [Temurin OpenJDK 8 LTS][temurin_openjdk8] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk8_relnotes])
+- [Visual Studio Code 1.82][vscode_downloads] ([*release notes*][vscode_relnotes])
+
 <!--
 - [Bloop 1.5][bloop_releases] (requires Java 8 and Python 2/3) ([*release notes*][bloop_relnotes])
 - [Python 3.8][python_release] ([*change log*][python_changelog])
@@ -106,9 +108,10 @@ C:\opt\mill\                       <i>( 67 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
 C:\opt\Python-3.11.1\              <i>(299 MB)</i>
 C:\opt\sbt\                        <i>(110 MB)</i>
-C:\opt\scala-2.13.11\              <i>( 24 MB)</i>
+C:\opt\scala-2.13.12\              <i>( 24 MB)</i>
 C:\opt\scala-cli\                  <i>( 95 MB)</i>
 C:\opt\scala3-3.3.1\               <i>( 38 MB)</i>
+C:\opt\VSCode\                     <i>(341 MB)</i>
 </pre>
  <!-- jdk8: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
  <!-- jdk8: 345-b01 = 186 MB -->
@@ -284,6 +287,7 @@ We distinguish different sets of batch/bash commands:
     |:----------------|:-----------|:------------|:--------------|
     | [**`ant.bat`**][apache_ant_cli] | [**`build.xml`**](examples/enum-Planet/build.xml) | [**`build.xml`**](examples/build.xml) | **`ant clean compile run`** |
     | [**`bazel.exe`**][bazel_cli] | [**`BUILD`**](examples/enum-Planet/BUILD) | n.a. | **`bazel run :enum-Planet`** |
+    | [**`cmd.exe`**][cmd_cli] | [**`build.bat`**](examples/enum-Planet/build.bat) | | |
     | [**`gradle.bat`**][gradle_cli] | [**`build.gradle`**](examples/enum-Planet/build.gradle) | [**`common.gradle`**](examples/common.gradle) | **`gradle clean build run`** |
     | [**`make.exe`**][gmake_cli] | [**`Makefile`**](examples/enum-Planet/Makefile) | [**`Makefile.inc`**](examples/Makefile.inc) | **`make clean run`** |
     | [**`mill.bat`**][mill_cli] | [**`build.sc`**](examples/enum-Planet/build.sc) | [**`common.sc`**](examples/common.sc) | **`mill -i app`** |
@@ -354,7 +358,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   javac 11.0.20, java 11.0.20, scalac 2.13.11, scalac 3.3.1, scalafmt 3.7.2,
+   javac 11.0.20, java 11.0.20, scalac 2.13.12, scalac 3.3.1, scalafmt 3.7.2,
    ant 1.10.14, gradle 8.3, mill 0.11.2, mvn 3.9.4, sbt 1.9.3, scala-cli 1.0.4,
    bazel 6.3.2, bloop v1.3.4, cfr 0.152, make 3.81, python 3.11.1,
    git 2.42.0.windows.1, diff 3.10, bash 5.2.15(1)-release
@@ -383,14 +387,14 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also displays the tool paths and
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   javac 11.0.20, java 11.0.20, scalac 2.13.11, scalac 3.3.1,
+   javac 11.0.20, java 11.0.20, scalac 2.13.12, scalac 3.3.1,
    ant 1.10.14, gradle 8.3, mill 0.11.2, mvn 3.9.4, sbt 1.9.3,
    bazel 6.3.2, cfr 0.152, make 3.81, python 3.11.1,
    git 2.42.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.20_8\bin\javac.exe
    C:\opt\jdk-temurin-11.0.20_8\bin\java.exe
-   C:\opt\scala-2.13.11\bin\scalac.bat
+   C:\opt\scala-2.13.12\bin\scalac.bat
    C:\opt\scala3-3.3.1\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant-1.10.14\bin\ant.bat
@@ -417,7 +421,7 @@ Environment variables:
    "MSYS_HOME=C:\opt\msys64"
    "PYTHON_HOME=C:\opt\Python-3.11.1"
    "SBT_HOME=C:\opt\sbt"
-   "SCALA_HOME=C:\opt\scala-2.13.11"
+   "SCALA_HOME=C:\opt\scala-2.13.12"
    "SCALA3_HOME=C:\opt\scala3-3.3.1"
 </pre>
 
@@ -561,7 +565,7 @@ Scala compiler version 3.3.1 -- Copyright 2002-2023, LAMP/EPFL
 
 ### `searchjars.bat <class_name>`
 
-Command [**`searchjars.bat`**](bin/searchjars.bat) helps us to search for class file names in the following directories: project's **`lib\`** directory (*if present*), Dotty's **`lib\`** directory, Java's **`lib\`** directory and Ivy/Maven default directories.
+Command [**`searchjars.bat`**](bin/searchjars.bat) helps us to search for class file names in the following directories: project's **`lib\`** directory (*if present*), Scala's **`lib\`** directory, Java's **`lib\`** directory and Ivy/Maven default directories.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> -help</b>
@@ -586,9 +590,9 @@ Passing argument **`System`** to command [**`searchjars.bat`**](bin/searchjars.b
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> System</b>
 Searching for class name System in archive files C:\opt\scala3-3.3.1\lib\*.jar
   jline-reader-3.19.0.jar:org/jline/reader/impl/completer/SystemCompleter.class
-  scala-library-2.13.11.jar:scala/sys/SystemProperties$.class
-  scala-library-2.13.11.jar:scala/sys/SystemProperties.class
-Searching for class name System in archive files C:\opt\scala-2.13.11\lib\*.jar
+  scala-library-2.13.12.jar:scala/sys/SystemProperties$.class
+  scala-library-2.13.12.jar:scala/sys/SystemProperties.class
+Searching for class name System in archive files C:\opt\scala-2.13.12\lib\*.jar
   jline-3.19.0.jar:org/jline/builtins/SystemRegistryImpl$CommandOutputStream.class
   [...]
   scala-library.jar:scala/sys/SystemProperties$.class
@@ -610,7 +614,7 @@ Searching for an unknown class name - e.g. **`BinarySearch`** - produces the fol
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> BinarySearch</b>
 Searching for class name BinarySearch in archive files C:\opt\scala3-3.3.1\lib\*.jar
-Searching for class name BinarySearch in archive files C:\opt\scala-2.13.11\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\scala-2.13.12\lib\*.jar
 Searching for class name BinarySearch in archive files C:\opt\jdk-temurin-11.0.20_8\lib\*.jar
 </pre>
 
@@ -619,7 +623,7 @@ Searching for **`FileSystem`** with option **`-artifact`** produces the followin
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> FileSystem -artifact</b>
 Searching for class name FileSystem in archive files C:\opt\scala3-3.3.1\lib\*.jar
-Searching for class name FileSystem in archive files C:\opt\scala-2.13.11\lib\*.jar
+Searching for class name FileSystem in archive files C:\opt\scala-2.13.12\lib\*.jar
 Searching for class name FileSystem in archive files c:\opt\jdk-temurin-11.0.20_8\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem.class
@@ -878,7 +882,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://gluonhq.com/products/javafx/">openjfx-17.0.8_windows-x64_bin-jmods.zip</a>           <i>( 37 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.42.0-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases">sbt-1.9.3.zip</a>                                      <i>( 17 MB)</i>
-<a href="https://www.scala-lang.org/files/archive/">scala-2.13.11.zip</a>                                  <i>( 22 MB)</i>
+<a href="https://www.scala-lang.org/files/archive/">scala-2.13.12.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.3.1">scala3-3.3.1.zip</a>                                   <i>( 34 MB)</i>
 </pre>
 </dd></dl>
@@ -919,6 +923,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [bloop_releases]: https://scalacenter.github.io/bloop/
 [bloop_relnotes]: https://github.com/scalacenter/bloop/releases/tag/v1.3.4
 [cfr_releases]: https://www.benf.org/other/cfr/
+[cmd_cli]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd
 [cpp_examples]: https://github.com/michelou/cpp-examples
 [dart_examples]: https://github.com/michelou/dart-examples
 [deno_examples]: https://github.com/michelou/deno-examples
@@ -991,7 +996,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [scala_cli_downloads]: https://github.com/VirtusLab/scala-cli/releases
 [scala_cli_relnotes]: https://github.com/VirtusLab/scala-cli/releases/tag/v1.0.4
 [scala_releases]: https://www.scala-lang.org/files/archive/
-[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.11
+[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.12
 [scala_repl]: https://docs.scala-lang.org/overviews/repl/overview.html
 [scala_snapshots]: https://scala-ci.typesafe.com/ui/native/scala-pr-validation-snapshots/org/scala-lang
 [scala3_home]: https://dotty.epfl.ch
@@ -1038,6 +1043,8 @@ Command Prompt has been around for as long as we can remember, but starting with
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_bash_script]: https://www.gnu.org/software/bash/manual/bash.html
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
+[vscode_downloads]: https://code.visualstudio.com/#alt-downloads
+[vscode_relnotes]: https://code.visualstudio.com/updates
 [windows_batch_file]: https://en.wikibooks.org/wiki/Windows_Batch_Scripting
 [windows_installer]: https://docs.microsoft.com/en-us/windows/win32/msi/windows-installer-portal
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation

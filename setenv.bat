@@ -375,7 +375,7 @@ if defined __PYTHON_CMD (
     )
 )
 if not exist "%_PYTHON_HOME%\python.exe" (
-    echo %_ERROR_LABEL% Python executable not found ^(%_PYTHON_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Python executable not found ^("%_PYTHON_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -399,11 +399,11 @@ if defined __BLOOP_CMD (
     set _PATH=C:\opt
     for /f %%f in ('dir /ad /b "!_PATH!\bloop*" 2^>NUL') do set "_BLOOP_HOME=!_PATH!\%%f"
     if defined _BLOOP_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Bloop installation directory !_BLOOP_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Bloop installation directory "!_BLOOP_HOME!" 1>&2
     )
 )
 if not exist "%_BLOOP_HOME%\bloop.exe" (
-    echo %_ERROR_LABEL% bloop executable not found ^(%_BLOOP_HOME%^) 1>&2
+    echo %_ERROR_LABEL% bloop executable not found ^("%_BLOOP_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -448,11 +448,11 @@ if defined JAVA_HOME (
         for /f "delims=" %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f"
     )
     if defined _JAVA_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Java SDK installation directory !_JAVA_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Java SDK installation directory "!_JAVA_HOME!" 1>&2
     )
 )
 if not exist "%_JAVA_HOME%\bin\javac.exe" (
-    echo %_ERROR_LABEL% Executable javac.exe not found ^(%_JAVA_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Executable javac.exe not found ^("%_JAVA_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -489,8 +489,8 @@ for /f "delims=" %%f in ('where scalac.bat 2^>NUL') do (
     if defined __VERSION if "!__VERSION:~0,1!"=="2" set "__SCALAC_CMD=%%f"
 )
 if defined __SCALAC_CMD (
-    for %%i in ("%__SCALAC_CMD%") do set "__SCALA_BIN_DIR=%%~dpi"
-    for %%f in ("!__SCALA_BIN_DIR!..") do set "_SCALA_HOME=%%f"
+    for /f "delims=" %%i in ("%__SCALAC_CMD%") do set "__SCALA_BIN_DIR=%%~dpi"
+    for /f "delims=" %%f in ("!__SCALA_BIN_DIR!..") do set "_SCALA_HOME=%%f"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Scala 2 executable found in PATH 1>&2
     goto :eof
 ) else if defined SCALA_HOME (
@@ -498,13 +498,13 @@ if defined __SCALAC_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SCALA_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\scala-2*" 2^>NUL') do set _SCALA_HOME=!_PATH!\%%f
+    for /f %%f in ('dir /ad /b "!_PATH!\scala-2*" 2^>NUL') do set "_SCALA_HOME=!_PATH!\%%f"
     if defined _SCALA_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala 2 installation directory !_SCALA_HOME!
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala 2 installation directory "!_SCALA_HOME!" 1>&2
     )
 )
 if not exist "%_SCALA_HOME%\bin\scalac.bat" (
-    echo %_ERROR_LABEL% Scala executable not found ^(%_SCALA_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Scala executable not found ^("%_SCALA_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -542,11 +542,11 @@ if defined __SCALAC_CMD (
     set _PATH=C:\opt
     for /f %%f in ('dir /ad /b "!_PATH!\scala3-3*" 2^>NUL') do set "_SCALA3_HOME=!_PATH!\%%f"
     if defined _SCALA3_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala 3 installation directory !_SCALA3_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala 3 installation directory "!_SCALA3_HOME!" 1>&2
     )
 )
 if not exist "%_SCALA3_HOME%\bin\scalac.bat" (
-    echo %_ERROR_LABEL% Scala 3 executable not found ^(%_SCALA3_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Scala 3 executable not found ^("%_SCALA3_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -578,7 +578,7 @@ if defined __SBT_CMD (
     )
 )
 if not exist "%_SBT_HOME%\bin\sbt.bat" (
-    echo %_ERROR_LABEL% sbt executable not found ^(%_SBT_HOME%^) 1>&2
+    echo %_ERROR_LABEL% sbt executable not found ^("%_SBT_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -612,11 +612,11 @@ if defined __ANT_CMD (
         )
     )
     if defined _ANT_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Ant installation directory !_ANT_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Ant installation directory "!_ANT_HOME!" 1>&2
     )
 )
 if not exist "%_ANT_HOME%\bin\ant.cmd" (
-    echo %_ERROR_LABEL% Ant executable not found ^(%_ANT_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Ant executable not found ^("%_ANT_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -673,11 +673,11 @@ if defined __CFR_CMD (
     set _PATH=C:\opt
     for /f %%f in ('dir /ad /b "!_PATH!\cfr*" 2^>NUL') do set "_CFR_HOME=!_PATH!\%%f"
     if defined _CFR_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default cfr installation directory !_CFR_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default cfr installation directory "!_CFR_HOME!" 1>&2
     )
 )
 if not exist "%_CFR_HOME%\bin\cfr.bat" (
-    echo %_ERROR_LABEL% cfr executable not found ^(%_CFR_HOME%^) 1>&2
+    echo %_ERROR_LABEL% cfr executable not found ^("%_CFR_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -708,11 +708,11 @@ if defined __CS_CMD (
         )
     )
     if defined _COURSIER_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Coursier installation directory !_COURSIER_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Coursier installation directory "!_COURSIER_HOME!" 1>&2
     )
 )
 if not exist "%_COURSIER_HOME%\cs.exe" (
-    echo %_ERROR_LABEL% Coursier executable not found ^(%_COURSIER_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Coursier executable not found ^("%_COURSIER_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -745,11 +745,11 @@ if defined __GRADLE_CMD (
         )
     )
     if defined _GRADLE_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Gradle installation directory !_GRADLE_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Gradle installation directory "!_GRADLE_HOME!" 1>&2
     )
 )
 if not exist "%_GRADLE_HOME%\bin\gradle.bat" (
-    echo %_ERROR_LABEL% Gradle executable not found ^(%_GRADLE_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Gradle executable not found ^("%_GRADLE_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -774,11 +774,11 @@ if defined JACOCO_HOME (
         )
     )
     if defined _JACOCO_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default JaCoCo installation directory !_JACOCO_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default JaCoCo installation directory "!_JACOCO_HOME!" 1>&2
     )
 )
 if not exist "%_JACOCO_HOME%\lib\jacococli.jar" (
-    echo %_ERROR_LABEL% JaCoCo library not found ^(%_JACOCO_HOME%^) 1>&2
+    echo %_ERROR_LABEL% JaCoCo library not found ^("%_JACOCO_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -806,7 +806,7 @@ if defined JAVAFX_HOME (
     )
 )
 if not exist "%_JAVAFX_HOME%\lib\javafx.graphics.jar" (
-    echo %_ERROR_LABEL% JavaFX Graphics library not found ^(%_JAVAFX_HOME%^) 1>&2
+    echo %_ERROR_LABEL% JavaFX Graphics library not found ^("%_JAVAFX_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -842,7 +842,7 @@ if defined __JMC_CMD (
     )
 )
 if not exist "%_JMC_HOME%\bin\jmc.exe" (
-    echo %_ERROR_LABEL% JMC executable not found ^(%_JMC_HOME%^) 1>&2
+    echo %_ERROR_LABEL% JMC executable not found ^("%_JMC_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -871,11 +871,11 @@ if defined __MVN_CMD (
     set _PATH=C:\opt
     for /f %%f in ('dir /ad /b "!_PATH!\apache-maven-*" 2^>NUL') do set "_MAVEN_HOME=!_PATH!\%%f"
     if defined _MAVEN_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Maven installation directory !_MAVEN_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Maven installation directory "!_MAVEN_HOME!" 1>&2
     )
 )
 if not exist "%_MAVEN_HOME%\bin\mvn.cmd" (
-    echo %_ERROR_LABEL% Maven executable not found ^(%_MAVEN_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Maven executable not found ^("%_MAVEN_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -917,11 +917,11 @@ if defined __MILL_CMD (
         )
     )
     if defined _MILL_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Mill installation directory !_MILL_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Mill installation directory "!_MILL_HOME!" 1>&2
     )
 )
 if not exist "%_MILL_HOME%\mill.bat" (
-    echo %_ERROR_LABEL% Mill executable not found ^(%_MILL_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Mill executable not found ^("%_MILL_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -953,7 +953,7 @@ set __DRIVE_NAME=X:
 set __ASSIGNED_PATH=
 for /f "tokens=1,2,*" %%f in ('subst ^| findstr /b "%__DRIVE_NAME%" 2^>NUL') do (
     if not "%%h"=="%_SUBST_PATH%" (
-        echo %_WARNING_LABEL% Drive %__DRIVE_NAME% already assigned to %%h 1>&2
+        echo %_WARNING_LABEL% Drive %__DRIVE_NAME% already assigned to "%%h" 1>&2
         goto subst_path_end
     )
     set "__ASSIGNED_PATH=%%h"
@@ -1025,42 +1025,6 @@ if not exist "%_SCALA_CLI_HOME%\scala-cli.exe" (
 )
 goto :eof
 
-@rem output parameters: _VSCODE_HOME, _VSCODE_PATH
-:vscode
-set _VSCODE_HOME=
-set _VSCODE_PATH=
-
-set __CODE_CMD=
-for /f "delims=" %%f in ('where code.exe 2^>NUL') do set "__CODE_CMD=%%f"
-if defined __CODE_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of VSCode executable found in PATH 1>&2
-    @rem keep _VSCODE_PATH undefined since executable already in path
-    goto :eof
-) else if defined VSCODE_HOME (
-    set "_VSCODE_HOME=%VSCODE_HOME%"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable VSCODE_HOME 1>&2
-) else (
-    set __PATH=C:\opt
-    if exist "!__PATH!\VSCode\" ( set "_VSCODE_HOME=!__PATH!\VSCode"
-    ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
-        if not defined _VSCODE_HOME (
-            set "__PATH=%ProgramFiles%"
-            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
-        )
-    )
-)
-if not exist "%_VSCODE_HOME%\code.exe" (
-    echo %_ERROR_LABEL% VSCode executable not found ^("%_VSCODE_HOME%"^) 1>&2
-    if exist "%_VSCODE_HOME%\Code - Insiders.exe" (
-        echo %_WARNING_LABEL% It looks like you've installed an Insider version of VSCode 1>&2
-    )
-    set _EXITCODE=1
-    goto :eof
-)
-set "_VSCODE_PATH=;%_VSCODE_HOME%"
-goto :eof
-
 @rem output parameters: _GIT_HOME, _GIT_PATH
 :git
 set _GIT_HOME=
@@ -1101,6 +1065,42 @@ if not exist "%_GIT_HOME%\bin\git.exe" (
     goto :eof
 )
 set "_GIT_PATH=;%_GIT_HOME%\bin;%_GIT_HOME%\mingw64\bin;%_GIT_HOME%\usr\bin"
+goto :eof
+
+@rem output parameters: _VSCODE_HOME, _VSCODE_PATH
+:vscode
+set _VSCODE_HOME=
+set _VSCODE_PATH=
+
+set __CODE_CMD=
+for /f "delims=" %%f in ('where code.exe 2^>NUL') do set "__CODE_CMD=%%f"
+if defined __CODE_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of VSCode executable found in PATH 1>&2
+    @rem keep _VSCODE_PATH undefined since executable already in path
+    goto :eof
+) else if defined VSCODE_HOME (
+    set "_VSCODE_HOME=%VSCODE_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable VSCODE_HOME 1>&2
+) else (
+    set __PATH=C:\opt
+    if exist "!__PATH!\VSCode\" ( set "_VSCODE_HOME=!__PATH!\VSCode"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
+        if not defined _VSCODE_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
+        )
+    )
+)
+if not exist "%_VSCODE_HOME%\code.exe" (
+    echo %_ERROR_LABEL% VSCode executable not found ^("%_VSCODE_HOME%"^) 1>&2
+    if exist "%_VSCODE_HOME%\Code - Insiders.exe" (
+        echo %_WARNING_LABEL% It looks like you've installed an Insider version of VSCode 1>&2
+    )
+    set _EXITCODE=1
+    goto :eof
+)
+set "_VSCODE_PATH=;%_VSCODE_HOME%"
 goto :eof
 
 :clean
@@ -1249,8 +1249,13 @@ if %__VERBOSE%==1 (
     if defined SCALA_CLI_HOME echo    "SCALA_CLI_HOME=%SCALA_CLI_HOME%" 1>&2
     if defined SCALA_HOME echo    "SCALA_HOME=%SCALA_HOME%" 1>&2
     if defined SCALA3_HOME echo    "SCALA3_HOME=%SCALA3_HOME%" 1>&2
+    if defined VSCODE_HOME echo    "VSCODE_HOME=%VSCODE_HOME%" 1>&2
     echo Path associations: 1>&2
-    for /f "delims=" %%i in ('subst') do echo    %%i 1>&2
+    for /f "delims=" %%i in ('subst') do (
+        set "__LINE=%%i"
+        setlocal enabledelayedexpansion
+        echo    !__LINE:%USERPROFILE%=%%USERPROFILE%%! 1>&2
+    )
 )
 goto :eof
 
@@ -1283,8 +1288,9 @@ endlocal & (
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
         if not defined SCALA_CLI_HOME set "SCALA_CLI_HOME=%_SCALA_CLI_HOME%"
         if not defined SCALA3_HOME set "SCALA3_HOME=%_SCALA3_HOME%"
+        if not defined VSCODE_HOME set "VSCODE_HOME=%VSCODE_HOME%"
         @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
-        set "PATH=%_GIT_HOME%\bin;%PATH%%_ANT_PATH%%_BAZEL_PATH%%_COURSIER_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_MSYS_PATH%;%_SCALA_CLI_HOME%%_BLOOP_PATH%%_VSCODE_PATH%%_GIT_PATH%;%~dp0bin"
+        set "PATH=%_GIT_HOME%\bin;%PATH%%_ANT_PATH%%_BAZEL_PATH%%_COURSIER_PATH%%_GRADLE_PATH%%_JMC_PATH%%_MAVEN_PATH%%_MILL_PATH%%_SBT_PATH%%_MSYS_PATH%;%_SCALA_CLI_HOME%%_BLOOP_PATH%%_GIT_PATH%%_VSCODE_PATH%;%~dp0bin"
         call :print_env %_VERBOSE%
         if not "%CD:~0,2%"=="%_DRIVE_NAME%" (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME% 1>&2
