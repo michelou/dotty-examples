@@ -91,7 +91,7 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*September 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\apache-ant-1.10.14\         <i>( 40 MB)</i>
+C:\opt\apache-ant\                 <i>( 40 MB)</i>
 C:\opt\apache-maven-3.9.4\         <i>( 10 MB)</i>
 C:\opt\bazel-6.3.2\                <i>( 45 MB)</i>
 C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
@@ -99,7 +99,7 @@ C:\opt\Git\                        <i>(367 MB)</i>
 C:\opt\gradle\                     <i>(138 MB)</i>
 C:\opt\jacoco-0.8.10\              <i>( 10 MB)</i>
 C:\opt\javafx-sdk-17.0.8\          <i>(127 MB)</i>
-C:\opt\jdk-oracle-21-ea-35\        <i>(320 MB)</i>
+C:\opt\jdk-oracle-21-ga\           <i>(320 MB)</i>
 C:\opt\jdk-temurin-1.8.0u382-b05\  <i>(189 MB)</i>
 C:\opt\jdk-temurin-11.0.20_8\      <i>(302 MB)</i>
 C:\opt\jdk-temurin-17.0.8_7\       <i>(299 MB)</i>
@@ -200,11 +200,11 @@ We distinguish different sets of batch/bash commands:
    &nbsp;
      Options:
        -bash       start Git bash shell instead of Windows command prompt
-       -debug      display commands executed by this script
-       -verbose    display environment settings
+       -debug      print commands executed by this script
+       -verbose    print progress messages
    &nbsp;
      Subcommands:
-       help        display this help message
+       help        print this help message
    </pre>
 
 2. Directory [**`bin\`**](bin/) &ndash; This directory contains several utility batch files:
@@ -250,7 +250,7 @@ We distinguish different sets of batch/bash commands:
     Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
     &nbsp;
       Options:
-        -debug           display commands executed by this script
+        -debug           print commands executed by this script
         -explain         set compiler option -explain
         -explain-types   set compiler option -explain-types
         -main:&lt;name&gt;     define main class name (default: Main)
@@ -258,15 +258,15 @@ We distinguish different sets of batch/bash commands:
         -scala2          use Scala 2 tools
         -scala3          use Scala 3 tools (default)
         -tasty           compile both from source and <a href="https://github.com/lampepfl/dotty/blob/master/tasty/src/dotty/tools/tasty/TastyFormat.scala">TASTy files</a>
-        -timer           display the execution time
-        -verbose         display progress messages
+        -timer           print the execution time
+        -verbose         print progress messages
     &nbsp;
       Subcommands:
         clean            delete generated class files
         compile          compile Java/Scala source files
         decompile        decompile generated code with <a href="https://www.benf.org/other/cfr/"><b>CFR</b></a>
         doc              generate HTML documentation
-        help             display this help message
+        help             print this help message
         lint             analyze Scala source files with <a href="https://scalameta.org/scalafmt/">Scalafmt</a>
         run[:i]          execute main class (instrumented execution: :i)
         test             execute unit tests with <a href="https://junit.org/junit4/">JUnit</a>
@@ -283,8 +283,8 @@ We distinguish different sets of batch/bash commands:
 
     Code examples in directories [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built with the following tools as an alternative to the **`build.bat`** command (see [**`examples\README.md`**](examples/README.md) and [**`myexamples\README.md`**](myexamples/README.md) for more details):
 
-    | Build&nbsp;tool | Build file | Parent file | Usage example |
-    |:----------------|:-----------|:------------|:--------------|
+    | Build&nbsp;tool | Build&nbsp;file | Parent file | Usage example |
+    |:----------------|:----------------|:------------|:--------------|
     | [**`ant.bat`**][apache_ant_cli] | [**`build.xml`**](examples/enum-Planet/build.xml) | [**`build.xml`**](examples/build.xml) | **`ant clean compile run`** |
     | [**`bazel.exe`**][bazel_cli] | [**`BUILD`**](examples/enum-Planet/BUILD) | n.a. | **`bazel run :enum-Planet`** |
     | [**`cmd.exe`**][cmd_cli] | [**`build.bat`**](examples/enum-Planet/build.bat) | | |
@@ -359,7 +359,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.20, java 11.0.20, scalac 2.13.12, scalac 3.3.1, scalafmt 3.7.2,
-   ant 1.10.14, gradle 8.3, mill 0.11.2, mvn 3.9.4, sbt 1.9.3, scala-cli 1.0.4,
+   ant 1.10.14, gradle 8.3, mill 0.11.2, mvn 3.9.4, sbt 1.9.6, scala-cli 1.0.4,
    bazel 6.3.2, bloop v1.3.4, cfr 0.152, make 3.81, python 3.11.1,
    git 2.42.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 
@@ -388,7 +388,7 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also displays the tool paths and
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.20, java 11.0.20, scalac 2.13.12, scalac 3.3.1,
-   ant 1.10.14, gradle 8.3, mill 0.11.2, mvn 3.9.4, sbt 1.9.3,
+   ant 1.10.14, gradle 8.3, mill 0.11.2, mvn 3.9.4, sbt 1.9.6,
    bazel 6.3.2, cfr 0.152, make 3.81, python 3.11.1,
    git 2.42.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 Tool paths:
@@ -397,10 +397,10 @@ Tool paths:
    C:\opt\scala-2.13.12\bin\scalac.bat
    C:\opt\scala3-3.3.1\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
-   C:\opt\apache-ant-1.10.14\bin\ant.bat
+   C:\opt\apache-ant\bin\ant.bat
    C:\opt\gradle\bin\gradle.bat
    C:\opt\mill\mill.bat
-   C:\opt\apache-maven-3.9.4\bin\mvn.cmd
+   C:\opt\apache-maven\bin\mvn.cmd
    C:\opt\sbt\bin\sbt.bat
    C:\opt\bazel-6.3.2\bazel.exe
    C:\opt\cfr-0.152\bin\cfr.bat
@@ -411,7 +411,7 @@ Tool paths:
    C:\opt\Git\usr\bin\diff.exe
    C:\opt\Git\bin\bash.exe
 Environment variables:
-   "ANT_HOME=C:\opt\apache-ant-1.10.14"
+   "ANT_HOME=C:\opt\apache-ant"
    "BAZEL_HOME=c:\opt\bazel-6.3.2"
    "GIT_HOME=C:\opt\Git"
    "GRADLE_HOME=C:\opt\gradle"
@@ -457,14 +457,14 @@ By default command [**`getnightly.bat`**](bin/getnightly.bat) downloads the libr
 Usage: getnightly { &lt;option&gt; | &lt;subcommand&gt; }
 &nbsp;
   Options:
-    -debug      display commands executed by this script
-    -timer      display total execution time
-    -verbose    display download progress
+    -debug      print commands executed by this script
+    -timer      print total execution time
+    -verbose    print download progress
 &nbsp;
   Subcommands:
     activate    activate the nightly build library files
     download    download nighty build files and quit (default)
-    help        display this help message
+    help        print this help message
     restore     restore the default Scala library files
 </pre>
 
@@ -573,12 +573,12 @@ Usage: searchjars { &lt;option&gt; | &lt;class_name&gt; }
 &nbsp;
   Options:
     -artifact        search in ~\.ivy2 and ~\.m2 directories
-    -help            display this help message
+    -help            print this help message
     -ivy             search in ~\.ivy directory
     -java            search in Java library directories
     -maven           search in ~\.m2 directory
     -scala           search in Scala library directories
-    -verbose         display download progress
+    -verbose         print download progress
 &nbsp;
   Arguments:
     &lt;class_name&gt;     class name
@@ -699,7 +699,7 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 | :----------- | :------: | :------ |
 | `build.sbt` | `dottyVersion` | `3.2.2` &rarr; `3.3.1` |
 | `build.sc` | `scalaVersion` | `3.2.2` &rarr; `3.3.1` |
-| `project\build.properties` | `sbt.version` | `1.9.0` &rarr; `1.9.3` |
+| `project\build.properties` | `sbt.version` | `1.9.5` &rarr; `1.9.6` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.5.4` &rarr; `0.5.5` |
 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
@@ -881,7 +881,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://gluonhq.com/products/javafx/">openjfx-17.0.8_windows-x64_bin-sdk.zip</a>             <i>( 39 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-17.0.8_windows-x64_bin-jmods.zip</a>           <i>( 37 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.42.0-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
-<a href="https://github.com/sbt/sbt/releases">sbt-1.9.3.zip</a>                                      <i>( 17 MB)</i>
+<a href="https://github.com/sbt/sbt/releases">sbt-1.9.6.zip</a>                                      <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.12.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.3.1">scala3-3.3.1.zip</a>                                   <i>( 34 MB)</i>
 </pre>
@@ -989,7 +989,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_downloads]: https://github.com/sbt/sbt/releases
 [sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.9.3
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.9.6
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala]: https://www.scala-lang.org/
 [scala_api]: https://www.scala-lang.org/files/archive/api/current/

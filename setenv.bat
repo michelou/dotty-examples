@@ -670,8 +670,8 @@ if defined __CFR_CMD (
     set "_CFR_HOME=%CFR_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable CFR_HOME 1>&2
 ) else (
-    set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\cfr*" 2^>NUL') do set "_CFR_HOME=!_PATH!\%%f"
+    set __PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!__PATH!\cfr*" 2^>NUL') do set "_CFR_HOME=!__PATH!\%%f"
     if defined _CFR_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default cfr installation directory "!_CFR_HOME!" 1>&2
     )
@@ -730,6 +730,7 @@ if defined __GRADLE_CMD (
     for %%i in ("%__GRADLE_CMD%") do set "__GRADLE_BIN_DIR=%%~dpi"
     for %%f in ("!__GRADLE_BIN_DIR!\.") do set "_GRADLE_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Gradle executable found in PATH 1>&2
+    @rem keep _GRADLE_PATH undefined since executable already in path
     goto :eof
 ) else if defined GRADLE_HOME (
     set "_GRADLE_HOME=%GRADLE_HOME%"
@@ -823,6 +824,7 @@ if defined __JMC_CMD (
     for %%i in ("%__JMC_CMD%") do set "__JMC_BIN_DIR=%%~dpi"
     for %%f in ("!__JMC_BIN_DIR!\.") do set "_JMC_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of JMC executable found in PATH 1>&2
+    @rem keep _JMC_PATH undefined since executable already in path
     goto :eof
 ) else if defined JMC_HOME (
     set "_JMC_HOME=%JMC_HOME%"
@@ -861,15 +863,20 @@ for /f "delims=" %%f in ('where mvn.cmd 2^>NUL') do (
     if not "!__MVN_CMD:scoop=!"=="!__MVN_CMD!" set __MVN_CMD=
 )
 if defined __MVN_CMD (
+    for /f "delims=" %%i in ("%__MVN_CMD%") do set "__MAVEN_BIN_DIR=%%~dpi"
+    for /f "delims=" %%f in ("!__MAVEN_BIN_DIR!\.") do set "_MAVEN_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Maven executable found in PATH 1>&2
-    for %%i in ("%__MVN_CMD%") do set "__MAVEN_BIN_DIR=%%~dpi"
-    for %%f in ("!__MAVEN_BIN_DIR!\.") do set "_MAVEN_HOME=%%~dpf"
+    @rem keep _MAVEN_PATH undefined since executable already in path
+    goto :eof
 ) else if defined MAVEN_HOME (
     set "_MAVEN_HOME=%MAVEN_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MAVEN_HOME 1>&2
 ) else (
-    set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\apache-maven-*" 2^>NUL') do set "_MAVEN_HOME=!_PATH!\%%f"
+    set __PATH=C:\opt
+    if exist "!__PATH!\apache-maven\" ( set "_MAVEN_HOME=!__PATH!\apache-maven"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\apache-maven-*" 2^>NUL') do set "_MAVEN_HOME=!__PATH!\%%f"
+    )
     if defined _MAVEN_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Maven installation directory "!_MAVEN_HOME!" 1>&2
     )
@@ -902,7 +909,9 @@ set __MILL_CMD=
 for /f "delims=" %%f in ('where mill.bat 2^>NUL') do set "__MILL_CMD=%%f"
 if defined __MILL_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Mill executable found in PATH 1>&2
-    for %%i in ("%__MILL_CMD%") do set "_MILL_HOME=%%~dpi"
+    for /f "delims=" %%i in ("%__MILL_CMD%") do set "_MILL_HOME=%%~dpi"
+    @rem keep _MILL_PATH undefined since executable already in path
+    goto :eof
 ) else if defined MILL_HOME (
     set "_MILL_HOME=%MILL_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MILL_HOME 1>&2
@@ -1034,7 +1043,7 @@ set __GIT_CMD=
 for /f "delims=" %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
 if defined __GIT_CMD (
     for /f "delims=" %%i in ("%__GIT_CMD%") do set "__GIT_BIN_DIR=%%~dpi"
-    for %%f in ("!__GIT_BIN_DIR!\.") do set "_GIT_HOME=%%~dpf"
+    for /f "delims=" %%f in ("!__GIT_BIN_DIR!\.") do set "_GIT_HOME=%%~dpf"
     @rem Executable git.exe is present both in bin\ and \mingw64\bin\
     if not "!_GIT_HOME:mingw=!"=="!_GIT_HOME!" (
         for %%f in ("!_GIT_HOME!\.") do set "_GIT_HOME=%%~dpf"
@@ -1090,6 +1099,9 @@ if defined __CODE_CMD (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
         )
+    )
+    if defined _VSCODE_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default VSCode installation directory "!_VSCODE_HOME!" 1>&2
     )
 )
 if not exist "%_VSCODE_HOME%\code.exe" (
