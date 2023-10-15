@@ -17,7 +17,7 @@ SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 ##############################################################################
 ## main rules
 
-SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main/scala" -type f -name "*.scala")
+SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main/scala" -type f -name "*.scala" 2>/dev/null)
 TARGET  = $(TARGET_DIR)/.latest-build
 
 OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
@@ -63,7 +63,7 @@ DOC_TARGET_DIR = $(TARGET_DIR)/docs
 DOC_SOURCES    = $(shell [ -d "$(CLASSES_DIR)" ] && $(FIND) "$(CLASSES_DIR)" -type f -name "*.tasty" 2>/dev/null)
 DOC_TARGET     = $(DOC_TARGET_DIR)/.latest-build
 
-PROJECT_NAME    ?= $(shell basename $(CURDIR))
+PROJECT_NAME    ?= $(shell basename "$(CURDIR)")
 PROJECT_URL     ?= https://github.com/$(USERNAME)/dotty-examples
 PROJECT_VERSION ?= 1.0.0
 
@@ -77,12 +77,12 @@ $(DOC_TARGET): $(TARGET) $(DOC_SOURCES)
 	"$(SCALADOC)" "@$(DOC_OPTS_FILE)" "@$(DOC_SOURCES_FILE)"
 	@$(TOUCH) "$(DOC_TARGET)"
 
-doc: build $(DOC_TARGET)
+doc: $(TARGET) $(DOC_TARGET)
 
 ##############################################################################
 ## lint rules
 
-LINT_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)" -type f -name "*.scala")
+LINT_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name "*.scala")
 LINT_TARGET  = $(TARGET_DIR)/.latest-lint
 
 SCALAFMT_CONFIG_FILE = $(shell dirname $(CURDIR))/.scalafmt.conf
@@ -91,20 +91,21 @@ SCALAFMT_OPTS = --test --config "$(SCALAFMT_CONFIG_FILE)"
 lint: $(LINT_TARGET)
 
 $(LINT_TARGET): $(LINT_SOURCES)
+	[ -d "$(TARGET_DIR)" ] || "$(MKDIR)" -p "$(TARGET_DIR)"
 	"$(SCALAFMT)" $(SCALAFMT_OPTS) $(SOURCE_DIR)
 	@$(TOUCH) "$(LINT_TARGET)"
 
 ##############################################################################
 ## test rules
 
-TEST_SOURCES     = $(shell $(FIND) "$(SOURCE_DIR)/test/scala" -type f -name "*.scala")
+TEST_SOURCES     = $(shell $(FIND) "$(SOURCE_DIR)/test/scala" -type f -name "*.scala" 2>/dev/null)
 TEST_CLASSES_DIR = $(TARGET_DIR)/test-classes
 TEST_TARGET      = $(TARGET_DIR)/.latest-test-build
 
 TEST_OPTS_FILE    = $(TARGET_DIR)/scalac_test_opts.txt
 TEST_SOURCES_FILE = $(TARGET_DIR)/scalac_test_sources.txt
 
-TEST_MAIN_CLASS = $(MAIN_CLASS)JUnitTest
+TEST_MAIN_CLASS = HelloTest
 TEST_CPATH      = $(SCALA_LIB_JAR)$(PSEP)$(SCALA3_LIB_JAR)$(PSEP)$(HAMCREST_JAR)$(PSEP)$(JUNIT_JAR)$(PSEP)$(JUNIT_INTF_JAR)$(PSEP)$(CLASSES_DIR)$(PSEP)$(TEST_CLASSES_DIR)
 
 $(TEST_TARGET): $(TEST_SOURCES)
