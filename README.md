@@ -66,7 +66,7 @@ Optionally one may also install the following software:
 - [Apache Maven 3.9][apache_maven] ([requires Java 8+][apache_maven_history]) ([*release notes*][apache_maven_relnotes])
 - [Bazel 6.3 LTS][bazel_releases] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
-- [Gradle 8.3][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Gradle 8.4][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [JaCoCo 0.8][jacoco_downloads] <sup id="anchor_03">[3](#footnote_03)</sup> ([*change log*][jacoco_changelog])
 - [JavaFX 17 LTS][javafx_downloads] ([*release notes*][javafx_relnotes])
 - [JITWatch 1.4][jitwatch_releases] (requires Java 11+)
@@ -88,11 +88,11 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*September 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*October 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant\                 <i>( 40 MB)</i>
-C:\opt\apache-maven-3.9.4\         <i>( 10 MB)</i>
+C:\opt\apache-maven\               <i>( 10 MB)</i>
 C:\opt\bazel-6.3.2\                <i>( 45 MB)</i>
 C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
 C:\opt\Git\                        <i>(367 MB)</i>
@@ -283,11 +283,11 @@ We distinguish different sets of batch/bash commands:
 
     Code examples in directories [**`examples\`**](examples/) and [**`myexamples\`**](myexamples/) can also be built with the following tools as an alternative to the **`build.bat`** command (see [**`examples\README.md`**](examples/README.md) and [**`myexamples\README.md`**](myexamples/README.md) for more details):
 
-    | Build&nbsp;tool | Build&nbsp;file | Parent file | Usage example |
-    |:----------------|:----------------|:------------|:--------------|
+    | Build&nbsp;tool | Build&nbsp;file | Parent&nbsp;file | Usage example |
+    |:----------------|:----------------|:-----------------|:--------------|
     | [**`ant.bat`**][apache_ant_cli] | [**`build.xml`**](examples/enum-Planet/build.xml) | [**`build.xml`**](examples/build.xml) | **`ant clean compile run`** |
     | [**`bazel.exe`**][bazel_cli] | [**`BUILD`**](examples/enum-Planet/BUILD) | n.a. | **`bazel run :enum-Planet`** |
-    | [**`cmd.exe`**][cmd_cli] | [**`build.bat`**](examples/enum-Planet/build.bat) | | |
+    | [**`cmd.exe`**][cmd_cli] | [**`build.bat`**](examples/enum-Planet/build.bat) | | **`build clean run`** |
     | [**`gradle.bat`**][gradle_cli] | [**`build.gradle`**](examples/enum-Planet/build.gradle) | [**`common.gradle`**](examples/common.gradle) | **`gradle clean build run`** |
     | [**`make.exe`**][gmake_cli] | [**`Makefile`**](examples/enum-Planet/Makefile) | [**`Makefile.inc`**](examples/Makefile.inc) | **`make clean run`** |
     | [**`mill.bat`**][mill_cli] | [**`build.sc`**](examples/enum-Planet/build.sc) | [**`common.sc`**](examples/common.sc) | **`mill -i app`** |
@@ -359,7 +359,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.20, java 11.0.20, scalac 2.13.12, scalac 3.3.1, scalafmt 3.7.2,
-   ant 1.10.14, gradle 8.3, mill 0.11.2, mvn 3.9.4, sbt 1.9.6, scala-cli 1.0.4,
+   ant 1.10.14, gradle 8.4, mill 0.11.5, mvn 3.9.5, sbt 1.9.6, scala-cli 1.0.4,
    bazel 6.3.2, bloop v1.3.4, cfr 0.152, make 3.81, python 3.11.1,
    git 2.42.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 
@@ -388,7 +388,7 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also displays the tool paths and
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.20, java 11.0.20, scalac 2.13.12, scalac 3.3.1,
-   ant 1.10.14, gradle 8.3, mill 0.11.2, mvn 3.9.4, sbt 1.9.6,
+   ant 1.10.14, gradle 8.4, mill 0.11.5, mvn 3.9.5, sbt 1.9.6,
    bazel 6.3.2, cfr 0.152, make 3.81, python 3.11.1,
    git 2.42.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 Tool paths:
@@ -578,7 +578,7 @@ Usage: searchjars { &lt;option&gt; | &lt;class_name&gt; }
     -java            search in Java library directories
     -maven           search in ~\.m2 directory
     -scala           search in Scala library directories
-    -verbose         print download progress
+    -verbose         print progress messages
 &nbsp;
   Arguments:
     &lt;class_name&gt;     class name
@@ -845,8 +845,21 @@ For instance, for Visual Studio 2019, we set variable <b><code>BAZEL_VC</code></
   <th>Supported Java version</th>
   <th>Depends on <a href="https://asm.ow2.io/" rel="external">ASM</a></th>
 </tr>
-<tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.10</a>&nbsp;<i style="font-size:80%;">(April&nbsp;2023)</i></td><td>19 and 20</td><td><a href="https://asm.ow2.io/versions.html">9.5</a></td></tr>
-<tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.9</a>&nbsp;<i style="font-size:80%;">(March&nbsp;2023)</i></td><td>19 and 20</td><td><a href="https://asm.ow2.io/versions.html">9.5</a></td></tr>
+<tr>
+  <td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.11</a>&nbsp;<i style="font-size:80%;">(Oct&nbsp;2023)</i></td>
+  <td>21 and 22</td>
+  <td><a href="https://asm.ow2.io/versions.html">9.6</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.10</a>&nbsp;<i style="font-size:80%;">(April&nbsp;2023)</i></td>
+  <td>19 and 20</td>
+  <td><a href="https://asm.ow2.io/versions.html">9.5</a></td>
+</tr>
+<tr>
+  <td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.9</a>&nbsp;<i style="font-size:80%;">(March&nbsp;2023)</i></td>
+  <td>19 and 20</td>
+  <td><a href="https://asm.ow2.io/versions.html">9.5</a></td>
+</tr>
 <tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.8</a> <i style="font-size:80%;">(April 2022)</i></td><td>17 and 18</td><td><a href="https://asm.ow2.io/versions.html">9.2</a></td></tr>
 <tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.7</a> <i style="font-size:80%;">(May 2021)</i></td><td>15 and 16</td><td><a href="https://asm.ow2.io/versions.html">9.1</a></td></tr>
 <tr><td><a href="https://www.jacoco.org/jacoco/trunk/doc/changes.html">0.8.6</a> <i style="font-size:80%;">(Sept 2020)</i></td><td>14</td><td><a href="https://asm.ow2.io/versions.html">8.2</a></td></tr>
@@ -866,11 +879,11 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/lihaoyi/mill/releases">0.11.2-assembly</a> (<code>mill</code>)                             <i>( 64 MB)</i>
+<a href="https://github.com/lihaoyi/mill/releases">0.11.5-assembly</a> (<code>mill</code>)                             <i>( 64 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.14-bin.zip</a>                         <i>(  9 MB)</i>
-<a href="https://maven.apache.org/download.cgi">apache-maven-3.9.4-bin.zip</a>                         <i>( 10 MB)</i>
+<a href="https://maven.apache.org/download.cgi">apache-maven-3.9.5-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-6.3.2-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
-<a href="https://gradle.org/install/">gradle-8.3-bin.zip</a>                                 <i>(124 MB)</i>
+<a href="https://gradle.org/install/">gradle-8.4-bin.zip</a>                                 <i>(124 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.10.zip</a>                                  <i>(  4 MB)</i>
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.7-shaded-win.jar</a>                   <i>( 36 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20230718.exe</a>                          <i>( 94 MB)</i>
@@ -895,7 +908,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -909,7 +922,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
-[apache_maven_relnotes]: https://maven.apache.org/docs/3.9.4/release-notes.html
+[apache_maven_relnotes]: https://maven.apache.org/docs/3.9.5/release-notes.html
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [bazel_releases]: https://github.com/bazelbuild/bazel/releases
 <!--

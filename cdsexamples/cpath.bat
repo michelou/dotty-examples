@@ -23,7 +23,7 @@ if %_DEBUG%==1 echo [%~n0] "_TEMP_DIR=%_TEMP_DIR%"
 set _LIBS_CPATH=
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-library
-call :add_jar "org.scala-lang" "scala-library" "2.13.11"
+call :add_jar "org.scala-lang" "scala-library" "2.13.12"
 
 goto end
 

@@ -82,6 +82,7 @@
 ## <span id="news">News</span>
 
 - [Scala Times](https://scalatimes.com/) - Weekly Scala Newspaper.
+- [This week in #Scala](https://petr-zapletal.medium.com/) by Petr Zapletal.
 
 ## <span id="papers">Papers</span>
 
@@ -94,6 +95,7 @@
 ## <span id="projects">Projects</span> [**&#x25B4;**](#top)
 
 - [borer](https://sirthias.github.io/borer/) &ndash; an efficient [CBOR](https://cbor.io/) and JSON (de)serialization for Scala.
+- [Cask](https://github.com/com-lihaoyi/cask) &ndash; a Scala HTTP micro-framework.
 - [Decline](https://github.com/bkirwi/decline) &ndash; a composable command-line parser for Scala.
 - [enumeratum](https://github.com/lloydmeta/enumeratum) &ndash; a type-safe, reflection-free, powerful enumeration implementation for Scala.
 - [Scala.js][project_scalajs] &ndash; a Scala backend to generate highly efficient JavaScript.
@@ -109,11 +111,13 @@
 
 ## <span id="videos">Videos</span>
 
+- [Debugging Scala 3 in VSCode][video_piquerez] by Adrien Piquerez, January 2023.
 - [Simply Scala][video_odersky2022] by Martin Odersky, October 2022 ([ScalaCon 2022](https://www.scalacon.org/)).
 - [Type Classes in Scala 3][video_mittal] by Ayush Mittal, March 2022 (Functional Conf 2022).
 - [Typeclasses in Scala 3][video_markham] by Noel Markham, January 2022 (Colombia Scala neetup).
 - [Scala 3 has landed][video_odersky2021] by Martin Odersky, May 2021.
-- [Scala 3, Type Inference and You!][video_martres] by Guillaume Martres, September 2019. 
+- [Scala 3, Type Inference and You!][video_martres] by Guillaume Martres, September 2019.
+- [Reflection and Compilers][video_odersky2012] by Martin Odersky, April 2012.
 
 <!--
 ## <span id="git">Git</span>
@@ -123,7 +127,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -166,4 +170,6 @@
 [video_mittal]: https://www.youtube.com/watch?v=G5c0U69QaLE
 [video_odersky2022]: https://www.youtube.com/watch?v=QRcD9Zc7eq4
 [video_odersky2021]: https://youtu.be/JcLG9Ss9Y-w
+[video_odersky2012]: https://learn.microsoft.com/en-us/events/lang-next-2012/reflection-compilers
+[video_piquerez]: https://www.47deg.com/blog/lets-talk-scala-3-debugging-scala3-vscode/
 [virtuslab]: https://www.virtuslab.com/

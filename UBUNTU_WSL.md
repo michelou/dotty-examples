@@ -8,7 +8,7 @@
   </tr>
 </table>
 
-> **&#9755;** We assume the [Ubuntu WSL][wsl] <sup id="anchor_01">[1](#footnote_01)</sup> is installed on the user's Windows machine.
+> **&#9755;** In the following we assume the [Ubuntu WSL][wsl] <sup id="anchor_01">[1](#footnote_01)</sup> is installed on the user's Windows machine.
 
 We open a Ubuntu terminal and navigate to directory **`dotty-examples/`** which contains our local checkout of the GitHub project [**`dotty-examples`**](https://github.com/michelou/dotty-examples) :
 <pre style="font-size:80%;">
@@ -23,17 +23,17 @@ Then we execute our Bash script [**`setenv.sh`**](./setenv.sh) to set up our Uni
 <b>$ . <a href="./examples/setenv.sh">./setenv.sh</a></b>
 <b>$ <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/which.1.html" rel="external">which</a> bash gradle make mvn</b>
 /bin/bash
-/opt/gradle-8.0.2/bin/gradle
+/opt/gradle/bin/gradle
 /usr/bin/make
-/opt/apache-maven-3.9.1/bin/mvn
+/opt/apache-maven/bin/mvn
 <b>$ <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/env.1.html" rel="external">env</a> | <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/grep.1.html" rel="external">grep</a> _HOME</b>
 JAVA_HOME=/opt/jdk-temurin-11
-MAVEN_HOME=/opt/apache-maven-3.9.1
-SCALA_HOME=/opt/scala-2.13.10
-SCALA3_HOME=/opt/scala3-3.3.0-RC3
-GRADLE_HOME=/opt/gradle-8.0.2
-SBT_HOME=/opt/sbt-1.8.2
-ANT_HOME=/opt/apache-ant-1.10.13
+MAVEN_HOME=/opt/apache-maven
+SCALA_HOME=/opt/scala-2.13.12
+SCALA3_HOME=/opt/scala3-3.3.1
+GRADLE_HOME=/opt/gradle
+SBT_HOME=/opt/sbt
+ANT_HOME=/opt/apache-ant
 </pre>
 
 <!-- https://mirrors.edge.kernel.org/pub/software/scm/git/ -->
@@ -41,19 +41,19 @@ ANT_HOME=/opt/apache-ant-1.10.13
 > **:mag_right:** We install additional software tools such as [Ant][apache_ant_cli] <sup id="anchor_02">[2](#footnote_02)</sup>, [Gradle][gradle_cli] or [Scala][scala_getting_started] into root directory **`/opt/`**:
 > <pre style="font-size:80%;">
 > <b>$ <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/find.1.html" rel="external">find</a> /opt -maxdepth 1 -type d -print | <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/sort.1.html" rel="external">sort</a> | <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/xargs.1.html" rel="external">xargs</a> -i sh -c 'du -sh {}'</b>
-> 44M     /opt/apache-ant-1.10.13
-> 9.9M    /opt/apache-maven-3.9.1
+> 44M     /opt/apache-ant
+> 9.9M    /opt/apache-maven
 > 2.4G    /opt/archives
 > 2.2M    /opt/cfr-0.152
-> 36M     /opt/flix-0.34.0
-> 51M     /opt/git-2.40.0
-> 129M    /opt/gradle-8.0.2
-> 308M    /opt/jdk-11.0.18_10
-> 103M    /opt/ktlint-0.48.2
-> 61M     /opt/mill-0.10.11
-> 81M     /opt/sbt-1.8.2
-> 25M     /opt/scala-2.13.10
-> 36M     /opt/scala3-3.3.0-RC3
+> 36M     /opt/flix-0.40.0
+> 51M     /opt/git
+> 129M    /opt/gradle
+> 308M    /opt/jdk-11.0.20_8
+> 103M    /opt/ktlint-0.50.0
+> 61M     /opt/mill
+> 81M     /opt/sbt
+> 25M     /opt/scala-2.13.12
+> 36M     /opt/scala3-3.3.1
 > 15M     /opt/wabt-1.0.23
 > </pre>
 
@@ -104,8 +104,8 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 <b>$ <a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make</a> clean run</b>
 rm -rf "target"
 [ -d "target/classes" ] || "mkdir" -p "target/classes"
-"/opt/scala3-3.3.0-RC3/bin/scalac" "@target/scalac_opts.txt" "@target/scalac_sources.txt"
-"/opt/scala3-3.3.0-RC3/bin/scala" -classpath "target/classes" Planet 1
+"/opt/scala3-3.3.1/bin/scalac" "@target/scalac_opts.txt" "@target/scalac_sources.txt"
+"/opt/scala3-3.3.1/bin/scala" -classpath "target/classes" Planet 1
 Mass of earth is 0.1020132025669991
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
@@ -194,13 +194,13 @@ done.ing certificates in /etc/ssl/certs.../cloud/cloud.cfg ...
 
 <dl><dd>
 <pre style="font-size:80%;">
-<b>$ <a href="https://manpages.ubuntu.com/manpages/bionic/en/man8/sudo.8.html" rel="external">sudo</a> cp /mnt/c/opt/apache-ant-1.10.13/lib/ivy-2.5.1.jar /opt/apache-ant-1.10.13/lib/</b>
+<b>$ <a href="https://manpages.ubuntu.com/manpages/bionic/en/man8/sudo.8.html" rel="external">sudo</a> cp /mnt/c/opt/apache-ant/lib/ivy-2.5.2.jar /opt/apache-ant/lib/</b>
 </pre>
 </dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

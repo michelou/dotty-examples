@@ -101,16 +101,16 @@ help() {
 Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
-    -debug       display commands executed by this script
-    -timer       display total execution time
-    -verbose     display progress messages
+    -debug       print commands executed by this script
+    -timer       print total execution time
+    -verbose     print progress messages
 
   Subcommands:
     clean        delete generated files
     compile      compile Java/Scala source files
     decompile    decompile generated code with CFR
     doc          generate HTML documentation
-    help         display this help message
+    help         print this help message
     lint         analyze Scala source files with Scalafmt
     run          execute main class
 EOS
@@ -275,7 +275,7 @@ decompile() {
     local cfr_opts="--extraclasspath \"$(extra_cpath)\" --outputdir $(mixed_path $output_dir)"
 
     local class_dirs=
-    for f in $(find $CLASSES_DIR -type d -print); do
+    for f in $(find "$CLASSES_DIR" -type d -print); do
         n="$(ls -n $f/*.class 2>/dev/null | wc -l)"
         [[ $n -gt 0 ]] && class_dirs="$class_dirs $f"
     done
@@ -481,10 +481,10 @@ mingw=false
 msys=false
 darwin=false
 case "$(uname -s)" in
-  CYGWIN*) cygwin=true ;;
-  MINGW*)  mingw=true ;;
-  MSYS*)   msys=true ;;
-  Darwin*) darwin=true      
+    CYGWIN*) cygwin=true ;;
+    MINGW*)  mingw=true ;;
+    MSYS*)   msys=true ;;
+    Darwin*) darwin=true      
 esac
 unset CYGPATH_CMD
 PSEP=":"

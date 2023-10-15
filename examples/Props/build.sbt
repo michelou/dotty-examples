@@ -20,7 +20,7 @@ lazy val root = project
       // https://mvnrepository.com/artifact/org.scalacheck/scalacheck
       "org.scalacheck" %% "scalacheck" % "1.17.0" % Test,
       // https://mvnrepository.com/artifact/org.scalatest/scalatest
-      "org.scalatest" %% "scalatest" % "3.2.16" % Test
+      "org.scalatest" %% "scalatest" % "3.2.17" % Test
     ),
     testOptions ++= Seq(
       Tests.Setup(() => println("Setup JUnit tests")),

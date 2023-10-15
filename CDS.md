@@ -19,7 +19,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - Data Sharing and Dotty on Windows [**&#9660;**](#bottom)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples] and [WiX Toolset][wix_examples] are other trending topics we are currently monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other trending topics we are currently monitoring.
 
 
 ## <span id="proj_deps">Project dependencies</span>
@@ -452,7 +452,7 @@ Note the following about the generated files:
 - File **`logs\log_share_off.log`** is generated when option **`-share:off`** is passed to the **`run`** subcommand.
 - File **`logs\log_share_on.log`** is generated when option **`-share:on`** is passed to the **`run`** subcommand.
 
-## Batch command `sharedata`
+## Batch command `sharedata` [**&#x25B4;**](#top)
 
 Command [**`sharedata`**](bin/sharedata.bat) creates and (un-)installs Java shared archives for both **`scala`** and **`scalac`**:
 
@@ -572,13 +572,13 @@ Classes per package (888):
 > **&#9755;** ***Data Sharing and Oracle OpenJDK 11*** <br/>
 > The [Oracle OpenJDK 11](https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot) installation contains the file **`<install_dir>\lib\classlist`**. Let's check if data sharing is enabled:
 > 
-> 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last displayed line ends with  **`(build 11.0.8+10, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.8+10, mixed mode)`** otherwise.
+> 1. Command **`java.exe -version`** displays the OpenJDK version amongst other information; in particular, the last displayed line ends with  **`(build 11.0.20+8, mixed mode, sharing)`** if data sharing is enabled, with **`(build 11.0.20+8, mixed mode)`** otherwise.
 > 2. Command **`java.exe -Xshare:dump`** generates the 17.3 Mb Java shared archive **`<install_dir>\bin\server\classes.jsa`** from file **`<install_dir>\lib\classlist`**.
 > 3. Repeat command from point 1. 
 > 
 > <pre style="font-size:80%;">
 > <b>&gt; c:\opt\jdk-temurin-11.0.20_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html" rel="external">java</a> -version</b>
-> openjdk version "11.0.19" 2023-04-18
+> openjdk version "11.0.20" 2023-07-18
 > OpenJDK Runtime Environment Temurin-11.0.19+7 (build 11.0.19+7)
 > OpenJDK 64-Bit Server VM Temurin-11.0.19+7 (build 11.0.19+7, mixed mode)
 > &nbsp;
@@ -598,15 +598,15 @@ Classes per package (888):
 > jvm.dll
 > &nbsp;
 > <b>&gt; c:\opt\jdk-temurin-11.0.20_8\bin\<a href="https://docs.oracle.com/en/java/javase/11/tools/java.html">java</a> -version</b>
-> openjdk version "11.0.19" 2023-04-18
-> OpenJDK Runtime Environment Temurin-11.0.19+7 (build 11.0.19+7)
-> OpenJDK 64-Bit Server VM Temurin-11.0.19+7 (build 11.0.19+7, mixed mode, sharing)
+> openjdk version "11.0.20" 2023-07-18
+> OpenJDK Runtime Environment Temurin-11.0.20+8 (build 11.0.20+8)
+> OpenJDK 64-Bit Server VM Temurin-11.0.20+8 (build 11.0.20+8, mixed mode, sharing)
 > </pre>
 > Java 12 introduces default CDS archives ([JEP 341][java_jep_341])
 > to improve out-of-the-box startup time and to get rid of the need to run
 > **`-Xshare: dump`** to benefit from the CDS.
 
-## Usage example
+## <span id="example">Usage example</span> [**&#x25B4;**](#top)
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cd">cd</a> examples\enum-Planet</b>
@@ -642,7 +642,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 </pre>
 
 
-## <span id="related">Related reading</span>
+## <span id="related">Related reading</span> [**&#x25B4;**](#top)
 
 ### 2019
 <dl>
@@ -703,7 +703,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -747,8 +747,9 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [scala_downloads]: https://www.scala-lang.org/download/
 [scala3_home]: https://dotty.epfl.ch/
 [scala3_releases]: https://github.com/lampepfl/dotty/releases
-[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.3.1-RC5
+[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.3.1
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
 [spark_examples]: https://github.com/michelou/spark-examples
 [spring_examples]: https://github.com/michelou/spring-examples
+[trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [wix_examples]: https://github.com/michelou/wix-examples

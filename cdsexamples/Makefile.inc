@@ -43,7 +43,7 @@ TOUCH      = touch
 endif
 
 ## https://mvnrepository.com/artifact/org.scalatest/scalatest
-SCALATEST_VERSION = 3.2.16
+SCALATEST_VERSION = 3.2.17
 ## https://mvnrepository.com/artifact/org.specs2/specs2-core
 ## Note: Specs2 5.x depends on Scala 3 while Specs2 4.x depends on Scala 2 or Scala 3
 SPECS2_VERSION = 5.3.2
@@ -79,4 +79,7 @@ $(error Variable JUNIT_INTF_JAR is not set)
 endif
 ifeq (,$(wildcard $(SCALATEST_JAR)))
 $(error Variable SCALATEST_JAR is not set)
+endif
+ifeq (,$(wildcard $(SCALACTIC_JAR)))
+$(error Variable SCALACTIC_JAR is not set)
 endif

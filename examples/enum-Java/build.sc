@@ -4,7 +4,7 @@ import $file.^.common
 object javaApp extends JavaModule {
 
   def mainClass = T.input {
-    Some(common.getBuildProp("javaMainClassName", "EnumTest", T.ctx))
+    Some(common.getBuildProp("javaMainClassName", "EnumTest", T.ctx()))
   }
 
   def sources = T.sources { common.javaSourcePath }
@@ -19,7 +19,7 @@ object app extends ScalaModule {
   def forkArgs = common.forkArgs
 
   def mainClass = T.input {
-    Some(common.getBuildProp("mainClassName", "Test", T.ctx))
+    Some(common.getBuildProp("mainClassName", "Test", T.ctx()))
   }
 
   def sources = T.sources { common.scalaSourcePath }
@@ -31,20 +31,21 @@ object app extends ScalaModule {
     os.walk(path, skip = _.last == "clean").foreach(os.remove.all)
   }
 
-  object test extends Tests {
+  // https://mill-build.com/mill/Scala_Module_Config.html#_test_dependencies
+  object test extends ScalaTests {
 
     def ivyDeps = Agg(
       common.ivyJunitInterface,
-      common.ivyScalatest,
-      common.ivySpecs2Common,
-      common.ivySpecs2Core
+      //common.ivyScalatest,
+      //common.ivySpecs2Common,
+      //common.ivySpecs2Core
     )
-
-    def testFrameworks = Seq(
-      "com.novocode.junit.JUnitFramework",
-      "org.scalatest.tools.Framework"
-    )
-
+    // def testFrameworks = Seq(
+      // "com.novocode.junit.JUnitFramework",
+      // "org.scalatest.tools.Framework"
+    // )
+    def testFramework = "com.novocode.junit.JUnitFramework"
+    //def moduleDeps = super.moduleDeps ++ Seq(baz.test)
   }
 
 }

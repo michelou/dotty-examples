@@ -1,15 +1,39 @@
 import mill._, scalalib._
+import $file.^.common
 
-object go extends ScalaModule {
-  def scalaVersion = "3.3.1"  // "3.3.1", "3.1.2", "3.0.2", "2.12.18"
-  def scalacOptions = Seq("-deprecation", "-feature")
-  def forkArgs = Seq("-Xmx1g")
-  def mainClass = Some("Main")
-  def sources = T.sources { os.pwd / "src" }
-  def ivyDeps =
-    Agg(Dep(org = "junit", name = "junit", version="4.12", CrossVersion.empty(false)))
+object javaApp extends JavaModule {
+
+  def sources = T.sources { common.javaSourcePath }
+
+  def ivyDeps = Agg(
+    Dep(org = "org.scala-lang", name="scala3-compiler_3", version="3.3.1", CrossVersion.empty(false)),
+    Dep(org = "junit", name = "junit", version="4.12", CrossVersion.empty(false))
+  )
+
+}
+
+object app extends ScalaModule {
+  def moduleDeps = Seq(javaApp)
+
+  def scalaVersion = common.scalaVersion
+  def scalacOptions = common.scalacOptions
+
+  def forkArgs = common.forkArgs
+
+  def mainClass = T.input {
+      Some("Main")
+  }
+
+  def sources = T.sources { common.scalaSourcePath }
+
+  def ivyDeps = Agg(
+    Dep(org = "org.scala-lang", name="scala3-compiler_3", version="3.3.1", CrossVersion.empty(false)),
+    Dep(org = "junit", name = "junit", version="4.12", CrossVersion.empty(false))
+  )
+
   def clean() = T.command {
     val path = os.pwd / "out" / "go"
     os.walk(path, skip = _.last == "clean").foreach(os.remove.all)
   }
+
 }

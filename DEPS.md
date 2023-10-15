@@ -25,7 +25,7 @@ The [Scala 3](https://www.scala-lang.org/download/scala3.html) and [Scala 2](htt
 > **:mag_right:** We observe a jump in the increases in size of the software distributions : 
 > |  Scala 3  | Release&nbsp;date | Zip&nbsp;archive | Installation |
 > |:----------|:------------:|:-----------:|:------------:|
-> | [**3.3.1-RC7**](https://github.com/lampepfl/dotty/releases/tag/3.3.1-RC7) | Aug&nbsp;2023 | 36.6 MB | **38.7 MB** |
+> | [**3.3.1**](https://github.com/lampepfl/dotty/releases/tag/3.3.1) | Sep&nbsp;2023 | 36.6 MB | **38.7 MB** |
 > | [3.3.0](https://github.com/lampepfl/dotty/releases/tag/3.3.0) | May&nbsp;2023 | 36.0 MB | 38.1 MB |
 > | [3.2.2](https://github.com/lampepfl/dotty/releases/tag/3.2.2) | Jan&nbsp;2023 | 35.5 MB | 37.6 MB |
 > | [3.2.1](https://github.com/lampepfl/dotty/releases/tag/3.2.1) | Sep 2022 | 35.5 MB | 37.6 MB |
@@ -39,7 +39,8 @@ The [Scala 3](https://www.scala-lang.org/download/scala3.html) and [Scala 2](htt
 >
 > | Scala 2.13 | Release&nbsp;date | Zip&nbsp;archive | Installation |
 > |:----------|:------------:|:-----------:|:------------:|
-> |  [**2.13.11**](https://www.scala-lang.org/download/2.13.11.html)         | Jun 2023 |   22.9 MB   | **24.4 MB**  |
+> |  [**2.13.12**](https://www.scala-lang.org/download/2.13.12.html)         | Sep&nbsp;2023 |   22.9 MB   | **24.4 MB**  |
+> |  [2.13.11](https://www.scala-lang.org/download/2.13.11.html)         | Jun 2023 |   22.9 MB   | 24.4 MB  |
 > |  [2.13.10](https://www.scala-lang.org/download/2.13.10.html)         | Oct 2022 |   22.6 MB   |   24.0 MB    |
 > |  [2.13.9](https://www.scala-lang.org/download/2.13.9.html)         | Sep 2022 |   22.5 MB   |   24.0 MB    |
 > |  [2.13.8](https://www.scala-lang.org/download/2.13.8.html)         | Jan 2022 |   22.6 MB   |   24.1 MB    |
@@ -63,12 +64,12 @@ As mentioned in the introduction the Scala 3.3 distributions depend on *many* ex
   <th style="padding:4px;min-width:115px;">Java&nbsp;Archive</th>
   <th style="padding:4px;">Current<br/>Version</th>
   <th><a href="https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler">3.3.0</a><br/><span style="color:gray;">final</span></th>
-  <th><a href="https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler">3.3.1</a><br/><span style="color:red;">RC4</span></th>
+  <th><a href="https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler">3.3.1</a><br/><span style="color:gray;">final</span></th>
 </tr>
 
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4"><code>antlr4-*</code></a><br/>(<a href="https://github.com/antlr/antlr4/releases">relnotes</a>)</td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.13.0"><b>4.13.0</b></a><br/><span style="color:gray;font-size:80%;">(May&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.13.1"><b>4.13.1</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2023)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.7.2">4.7.2</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.7.2">4.7.2</a></td>
 </tr>
@@ -80,7 +81,7 @@ As mentioned in the introduction the Scala 3.3 distributions depend on *many* ex
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface" rel="external"><code>compiler-interface</code></a><br/>(<a href="https://github.com/sbt/zinc/releases" rel="external">relnotes</a>)</td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.9.3"><b>1.9.3</b></a><br/><span style="color:gray;font-size:80%;">(Jul&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.9.5"><b>1.9.5</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2023)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.3.5">1.3.5</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.3.5">1.3.5</a></td>
 </tr>
@@ -99,7 +100,7 @@ As mentioned in the introduction the Scala 3.3 distributions depend on *many* ex
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface"><code>util-interface</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.9.3"><b>1.9.3</b></a><br/><span style="color:gray;font-size:80%;">(Jul&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.9.6"><b>1.9.6</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2023)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.3.0">1.3.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.3.0">1.3.0</a></td>
 </tr>
@@ -121,7 +122,7 @@ As mentioned in the introduction the Scala 3.2 distributions depend on *many* ex
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4"><code>antlr4-*</code></a><br/>(<a href="https://github.com/antlr/antlr4/releases">relnotes</a>)</td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.13.0"><b>4.13.0</b></a><br/><span style="color:gray;font-size:80%;">(May&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.13.1"><b>4.13.1</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2023)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.7.2">4.7.2</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.7.2">4.7.2</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.7.2">4.7.2</a></td>
@@ -257,7 +258,7 @@ As mentioned in the introduction the Scala 3.1 distributions depend on *many* ex
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4"><code>antlr-*</code></a><br/>(<a href="https://github.com/antlr/antlr4/releases">relnotes</a>)</td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.13.0"><b>4.13.0</b></a><br/><span style="color:gray;font-size:80%;">(May&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.13.1"><b>4.13.1</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2023)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr/3.5.1">3.5.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr/3.5.1">3.5.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.7.2">4.7.2</a></td>
@@ -417,7 +418,7 @@ As mentioned in the introduction the Scala 3.0 distributions depend on *many* ex
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4"><code>antlr-*</code></a><br/>(<a href="https://github.com/antlr/antlr4/releases">relnotes</a>)</td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.13.0"><b>4.13.0</b></a><br/><span style="color:gray;font-size:80%;">(May&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.13.1"><b>4.13.1</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2023)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr/3.5.1">3.5.1</a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2013)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr/3.5.1">3.5.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr/3.5.1">3.5.1</a></td>
@@ -560,7 +561,7 @@ The following table presents the library dependencies of the Scala 2.13 distribu
   <th style="padding:4px;"><a href="https://www.scala-lang.org/download/2.13.9.html">2.13.9</a><br/><span style="color:gray;">final</span></th>
   <th style="padding:4px;"><a href="https://www.scala-lang.org/download/2.13.10.html">2.13.10</a><br/><span style="color:gray;">final</span></th>
   <th style="padding:4px;"><a href="https://www.scala-lang.org/download/2.13.11.html">2.13.11</a><br/><span style="color:gray;">final</span></th>
-  <th style="padding:4px;"><a href="https://www.scala-lang.org/download/2.13.12.html">2.13.12</a><br/><span style="color:red;">DEV</span></th>
+  <th style="padding:4px;"><a href="https://www.scala-lang.org/download/2.13.12.html">2.13.12</a><br/><span style="color:gray;">final</span></th>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline" rel="external"><code>jline</code></a></td>
@@ -574,7 +575,7 @@ The following table presents the library dependencies of the Scala 2.13 distribu
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.21.0" rel="external">3.21.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.21.0" rel="external">3.21.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.22.0" rel="external">3.22.0</a></td>
-  <td style="padding:4px;">-</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.22.0" rel="external">3.22.0</a></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna"><code>jna</code></a></td>
@@ -588,7 +589,7 @@ The following table presents the library dependencies of the Scala 2.13 distribu
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna/5.9.0">5.9.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna/5.9.0">5.9.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna/5.13.0">5.13.0</a></td>
-  <td style="padding:4px;">-</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/net.java.dev.jna/jna/5.13.0">5.13.0</a></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm"><code>scala-asm</code></a> <sup id="anchor_02"><a href="#footnote_02">2</a></sup></td>
@@ -602,7 +603,7 @@ The following table presents the library dependencies of the Scala 2.13 distribu
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.3.0-scala-1">9.3.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.3.0-scala-1">9.3.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.5.0-scala-1">9.5.0</a></td>
-  <td style="padding:4px;">-</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-asm/9.5.0-scala-1">9.5.0</a></td>
 </tr>
 </table>
 
@@ -691,7 +692,8 @@ Found ASM version "9.2.0-scala-1" in Scala 2 installation is "C:\opt\scala-2.13.
 Found ASM version "9.2.0-scala-1" in Scala 2 installation is "C:\opt\scala-2.13.8"
 Found ASM version "9.3.0-scala-1" in Scala 2 installation is "C:\opt\scala-2.13.9"
 Found ASM version "9.3.0-scala-1" in Scala 2 installation is "C:\opt\scala-2.13.10"
-<b>Found ASM version "9.5.0-scala-1" in Scala 2 installation is "C:\opt\scala-2.13.11"</b>
+Found ASM version "9.5.0-scala-1" in Scala 2 installation is "C:\opt\scala-2.13.11"
+<b>Found ASM version "9.5.0-scala-1" in Scala 2 installation is "C:\opt\scala-2.13.12"</b>
 Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.0.0"
 Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.0.2"
 Found ASM version "9.1.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.1.0"
@@ -701,7 +703,7 @@ Found ASM version "9.2.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.1.
 Found ASM version "9.3.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.2.0"
 Found ASM version "9.3.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.2.2"
 Found ASM version "9.4.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.3.0"
-<b>Found ASM version "9.5.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.3.1-RC1"</b>
+<b>Found ASM version "9.5.0-scala-1" in Scala 3 installation is "C:\opt\scala3-3.3.1"</b>
 </pre>
 </dd></dl>
 
@@ -718,7 +720,7 @@ Besides improvements and fixes <code>scala-asm</code> library updates also add s
   <th><a href="https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html">Class&nbsp;file&nbsp;version</a></th>
 </tr>
 <tr>
-  <td><a href="https://gitlab.ow2.org/asm/asm/-/commit/2a772ae8"><i>(to be released)</i></a></td>
+  <td><a href="https://asm.ow2.io/versions.html">9.6.0</a></td>
   <td>22</td>
   <td><a href="https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/lang/reflect/ClassFileFormatVersion.java#L296" rel="external">66</a></td>
 </tr>
@@ -865,7 +867,7 @@ Besides improvements and fixes <code>scala-asm</code> library updates also add s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

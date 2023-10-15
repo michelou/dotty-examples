@@ -20,7 +20,7 @@ W:\myexamples\HelloWorld
 
 Build tools rely on one or more configuration files to achieve their tasks. In our case we provide the following configuration files for [**`HelloWorld`**](HelloWorld):
 
-| | Build tool                    | Build file(s)                                   | Parent file(s)                       | Environment(s) |
+| | Build&nbsp;tool              | Build file(s)                                   | Parent file(s)                       | Environment(s) |
 |-|-------------------------------|---------------------------------------------------------|--------------------------------------|---------|
 | [**&#9660;**](#ant) | [**`ant.bat`**][apache_ant_cli] | [**`build.xml`**](HelloWorld/build.xml)                 | [**`build.xml`**](build.xml), [**`ivy.xml`**](ivy.xml) | Any <sup><b>a)</b></sup> |
 | | [**`bazel.exe`**][bazel_cli]    | [**`BUILD`**](HelloWorld/BUILD), **`WORKSPACE`**        | n.a.                                 | Any |
@@ -134,8 +134,8 @@ Command [**`setenv -bash`**](setenv.bat) starts a [Cygwin] Bash session:
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -bash</b>
 Tool versions:
-   javac 11.0.20, java 11.0.20, scalac 2.13.11, scalac 3.3.1,
-   ant 1.10.14, gradle 8.3, mill 0.11.2, mvn 3.9.4, sbt 1.9.4,
+   javac 11.0.20, java 11.0.20, scalac 2.13.12, scalac 3.3.1,
+   ant 1.10.14, gradle 8.4, mill 0.11.5, mvn 3.9.5, sbt 1.9.6,
    bazel 6.3.2, cfr 0.152, coursier 2.1.5, make 3.81, python 3.11.1,
    git 2.42.0.windows.1, diff 3.8, bash 5.2.15(1)-release
 &nbsp;
@@ -149,7 +149,7 @@ ANT_HOME=C:\opt\apache-ant-1.10.14
 [...]
 SBT_HOME=C:\opt\sbt
 SCALA3_HOME=C:\opt\scala3-3.3.1
-SCALA_HOME=C:\opt\scala-2.13.11
+SCALA_HOME=C:\opt\scala-2.13.12
 </pre>
 
 Command [**`build clean run`**](HelloWorld/build.sh) produces the following output for project [**`HelloWorld`**](./HelloWorld/):
@@ -170,8 +170,8 @@ Similarly, command [**`setenv -msys`**](setenv.bat) starts a [MSYS2] Bash sessio
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -msys</b>
 Tool versions:
-   javac 11.0.20 java 11.0.20 scalac 2.13.11, scalac 3.3.1,
-   ant 1.10.14, gradle 8.3, mill 0.11.2, mvn 3.9.4, sbt 1.9.4,
+   javac 11.0.20 java 11.0.20 scalac 2.13.12, scalac 3.3.1,
+   ant 1.10.14, gradle 8.4, mill 0.11.5, mvn 3.9.5, sbt 1.9.6,
    bazel 6.3.2, cfr 0.152, coursier 2.1.5, make 3.81, python 3.11.1,
    git 2.42.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 &nbsp;
@@ -183,7 +183,7 @@ ANT_HOME=C:\opt\apache-ant-1.10.14
 [...]
 SBT_HOME=C:\opt\sbt
 SCALA3_HOME=C:\opt\scala3-3.3.1
-SCALA_HOME=C:\opt\scala-2.13.11
+SCALA_HOME=C:\opt\scala-2.13.12
 </pre>
 
 Command [**`build clean run`**](HelloWorld/build.sh) produces the following output for project [**`HelloWorld`**](./HelloWorld/):
@@ -302,7 +302,7 @@ Command **`make test`** executes the test suite [**`HelloWorldTest.scala`**](Hel
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 scalac.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.11/scala-library-2.13.11.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_3/3.3.1/scala3-library_3-3.3.1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.9/scalatest_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.9/scalactic_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.11.0/specs2-core_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.11.0/specs2-junit_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.11.0/specs2-matcher_2.13-4.11.0.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.12/scala-library-2.13.12.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_3/3.3.1/scala3-library_3-3.3.1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.9/scalatest_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.9/scalactic_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.11.0/specs2-core_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.11.0/specs2-junit_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.11.0/specs2-matcher_2.13-4.11.0.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
 JUnit version 4.13.2
 .
 Time: 0.201
@@ -428,7 +428,7 @@ Finally can check the Java manifest in **`HelloWorld-1.0-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
 <b>&gt;</b> <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.3.1\lib\dotty-library_3-3.3.1.jar;^
-c:\opt\scala3-3.3.1\lib\scala-library-2.13.11.jar ^
+c:\opt\scala3-3.3.1\lib\scala-library-2.13.12.jar ^
 -jar target\HelloWorld-1.0-SNAPSHOT.jar
 Hello world!
 </pre>
@@ -447,13 +447,13 @@ Hello world!
 > Searching for class name Serializable in library files C:\opt\scala3-3.3.1\lib\*.jar
 >   jackson-core-2.13.3.jar:com/fasterxml/jackson/core/SerializableString.class
 >   [...]
->   scala-library-2.13.11.jar:scala/collection/generic/DefaultSerializable.class
-> Searching for class name Serializable in library files C:\opt\scala-2.13.11\lib\*.jar
+>   scala-library-2.13.12.jar:scala/collection/generic/DefaultSerializable.class
+> Searching for class name Serializable in library files C:\opt\scala-2.13.12\lib\*.jar
 >   scala-library.jar:scala/collection/generic/DefaultSerializable.class
 > Searching for class name Serializable in library files C:\opt\jdk-temurin-11.0.20_8\lib\*.jar
 > Searching for class name Serializable in archive files C:\opt\javafx-sdk-17.0.1\lib\*.jar
 > </pre>
-> Class **`scala.Serializable`** is part of **`C:\opt\scala3-3.3.1\lib\scala-library-2.13.11.jar`**, so let us add it to our classpath !
+> Class **`scala.Serializable`** is part of **`C:\opt\scala3-3.3.1\lib\scala-library-2.13.12.jar`**, so let us add it to our classpath !
 
 
 ## <span id="mill">Mill build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
@@ -508,32 +508,32 @@ Batch files (e.g. <a href="HelloWorld/build.bat"><b><code>HelloWorld\build.bat</
 <b>set</b> _EXITCODE=0
 &nbsp;
 <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:env</span></b>
-<b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
+<b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/goto"><b>goto</b></a> <span style="color:#9966ff;">end</span>
 &nbsp;
 <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:props</span></b>
-<b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
+<b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/goto"><b>goto</b></a> <span style="color:#9966ff;">end</span>
 &nbsp;
 <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:args</span> %*</b>
-<b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <b>goto <span style="color:#9966ff;">end</span></b>
+<b>if not</b> <span style="color:#3333ff;">%_EXITCODE%</span>==0 <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/goto"><b>goto</b></a> <span style="color:#9966ff;">end</span>
 &nbsp;
 <i style="color:#66aa66;">@rem ##########################################################################
 @rem ## Main</i>
 &nbsp;
 <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/if" rel="external"><b>if</b></a> <span style="color:#3333ff;">%_CLEAN%</span>==1 (
     <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> :clean</b>
-    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
+    <b>if not</b> !_EXITCODE!==0 <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/goto"><b>goto</b></a> <span style="color:#9966ff;">end</span>
 )
 <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/if" rel="external"><b>if</b></a> <span style="color:#3333ff;">%_COMPILE%</span>==1 (
     <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:compile</span></b>
-    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
+    <b>if not</b> !_EXITCODE!==0 <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/goto"><b>goto</b></a> <span style="color:#9966ff;">end</span>
 )
 <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/if" rel="external"><b>if</b></a> <span style="color:#3333ff;">%_DOC%</span>==1 (
     <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:doc</span></b>
-    <b>if not</b> !_EXITCODE!==0 <b>goto end</b>
+    <b>if not</b> !_EXITCODE!==0 <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/goto"><b>goto</b></a> <span style="color:#9966ff;">end</span>
 )
 <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/if" rel="external"><b>if</b></a> <span style="color:#3333ff;">%_RUN%</span>==1 (
     <b><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/call">call</a> <span style="color:#9966ff;">:run</span></b>
-    <b>if not</b> <span style="color:#3333ff;">!_EXITCODE!</span>==0 <b>goto end</b>
+    <b>if not</b> <span style="color:#3333ff;">!_EXITCODE!</span>==0 <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/goto"><b>goto</b></a> <span style="color:#9966ff;">end</span>
 )
 <b>goto <span style="color:#9966ff;">end</span></b>
 &nbsp;
@@ -603,7 +603,7 @@ following parameters are passed as login shell command parameters.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -614,7 +614,7 @@ following parameters are passed as login shell command parameters.
 [apache_ant_ivy]: https://ant.apache.org/ivy/
 [apache_ant_ivy_relnotes]: https://ant.apache.org/ivy/history/2.5.2/release-notes.html
 [apache_maven_about]: https://maven.apache.org/what-is-maven.html
-[apache_maven_cli]: https://maven.apache.org/ref/3.9.4/maven-embedder/cli.html
+[apache_maven_cli]: https://maven.apache.org/ref/3.9.5/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
 [bash]: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
