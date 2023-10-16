@@ -14,7 +14,7 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId>
-        <scala.version>2.13.11</scala.version>
+        <scala.version>2.13.12</scala.version>
         <scala3.version>3.3.1</scala3.version>
         <scala.local.install>true</scala.local.install>
 
@@ -23,7 +23,7 @@
         <!-- https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect -->
         <scala-reflect.version>1.1.2</scala-reflect.version>
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
-        <scalatest.version>3.2.16</scalatest.version>
+        <scalatest.version>3.2.17</scalatest.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven.compiler.version>3.11.0</maven.compiler.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
