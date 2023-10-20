@@ -334,7 +334,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
 )
 rmdir /s /q "%__DIR%"
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
@@ -351,7 +351,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% %_MAIN_
 @rem Scalafmt throws a java.nio.file.InvalidPathException
 @rem if source directory is surrounded with double quotes.
 call "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% %_MAIN_SOURCE_DIR%\
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to analyze Scala source files with Scalafmt 1>&2
     set _EXITCODE=1
     goto :eof
@@ -414,7 +414,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCE
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
@@ -453,7 +453,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURC
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" %__PRINT_FILE_REDIRECT%
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
@@ -547,7 +547,7 @@ goto :eof
 :libs_cpath
 set __ADD_SCALA3_LIBS=%~1
 
-for %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
+for /f "delims=" %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
 if not exist "%__BATCH_FILE%" (
     echo %_ERROR_LABEL% Batch file "%__BATCH_FILE%" not found 1>&2
     set _EXITCODE=1
@@ -563,7 +563,7 @@ if defined __ADD_SCALA3_LIBS (
         set _EXITCODE=1
         goto :eof
     )
-    for %%f in ("%SCALA3_HOME%\lib\*.jar") do (
+    for /f "delims=" %%f in ("%SCALA3_HOME%\lib\*.jar") do (
         set "_LIBS_CPATH=!_LIBS_CPATH!%%f;"
     )
 )
@@ -573,7 +573,7 @@ goto :eof
 :extra_cpath
 set "__LIB_PATH=%SCALA3_HOME%\lib"
 set _EXTRA_CPATH=
-for %%f in (%__LIB_PATH%\*.jar) do set "_EXTRA_CPATH=!_EXTRA_CPATH!%%f;"
+for /f "delims=" %%f in (%__LIB_PATH%\*.jar) do set "_EXTRA_CPATH=!_EXTRA_CPATH!%%f;"
 goto :eof
 
 @rem output parameters: _VERSION_STRING, _VERSION_SUFFIX
@@ -670,7 +670,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOU
 ) else if %_VERBOSE%==1 ( echo Generate HTML documentation into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to generate HTML documentation into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
@@ -697,7 +697,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS%
 ) else if %_VERBOSE%==1 ( echo Execute Scala main class "%_MAIN_CLASS%" 1>&2
 )
 call "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to execute Scala main class "%_MAIN_CLASS%" 1>&2
     set _EXITCODE=1
     goto :eof
@@ -788,10 +788,10 @@ for /f "delims=" %%i in ('dir /s /b "%_SOURCE_DIR%\test\scala\*.scala" 2^>NUL') 
     set /a __N+=1
 )
 if %__N%==0 (
-    echo %_WARNING_LABEL% No Scala source files 1>&2
+    echo %_WARNING_LABEL% No Scala test source files 1>&2
     goto :eof
-) else if %__N%==1 ( set __N_FILES=%__N% Scala source file
-) else ( set __N_FILES=%__N% Scala source files
+) else if %__N%==1 ( set __N_FILES=%__N% Scala test source file
+) else ( set __N_FILES=%__N% Scala test source files
 )
 call :libs_cpath includeScalaLibs
 if not %_EXITCODE%==0 goto :eof
@@ -804,7 +804,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURC
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof

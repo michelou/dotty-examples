@@ -501,7 +501,7 @@ goto :eof
 :libs_cpath
 set __ADD_SCALA3_LIBS=%~1
 
-for %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
+for /f "delims=" %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
 if not exist "%__BATCH_FILE%" (
     echo %_ERROR_LABEL% Batch file "%__BATCH_FILE%" not found 1>&2
     set _EXITCODE=1
@@ -517,7 +517,7 @@ if defined __ADD_SCALA3_LIBS (
         set _EXITCODE=1
         goto :eof
     )
-    for %%f in ("%SCALA3_HOME%\lib\*.jar") do (
+    for /f "delims=" %%f in ("%SCALA3_HOME%\lib\*.jar") do (
         set "_LIBS_CPATH=!_LIBS_CPATH!%%f;"
     )
 )

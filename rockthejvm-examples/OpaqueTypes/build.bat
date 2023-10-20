@@ -504,12 +504,18 @@ for /f %%f in ('dir /s /b "%_CLASSES_DIR%\*.tasty" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
+if %__N%==0 (
+    echo %_WARNING_LABEL% No TASTy files 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% TASTy file
+) else ( set __N_FILES=%__N% TASTy files
+)
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N% TASTy files to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not !ERRORLEVEL!==0 (
-    echo %_ERROR_LABEL% Failed to compile %__N% TASTy files to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -573,7 +579,7 @@ goto :eof
 :libs_cpath
 set __ADD_SCALA3_LIBS=%~1
 
-for %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
+for /f "delims=" %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
 if not exist "%__BATCH_FILE%" (
     echo %_ERROR_LABEL% Batch file "%__BATCH_FILE%" not found 1>&2
     set _EXITCODE=1
@@ -589,7 +595,7 @@ if defined __ADD_SCALA3_LIBS (
         set _EXITCODE=1
         goto :eof
     )
-    for %%f in ("%SCALA3_HOME%\lib\*.jar") do (
+    for /f "delims=" %%f in ("%SCALA3_HOME%\lib\*.jar") do (
         set "_LIBS_CPATH=!_LIBS_CPATH!%%f;"
     )
 )
@@ -599,7 +605,7 @@ goto :eof
 :extra_cpath
 set "__LIB_PATH=%SCALA3_HOME%\lib"
 set _EXTRA_CPATH=
-for %%f in (%__LIB_PATH%\*.jar) do set "_EXTRA_CPATH=!_EXTRA_CPATH!%%f;"
+for /f "delims=" %%f in (%__LIB_PATH%\*.jar) do set "_EXTRA_CPATH=!_EXTRA_CPATH!%%f;"
 goto :eof
 
 @rem output parameters: _VERSION_STRING, _VERSION_SUFFIX
@@ -777,10 +783,11 @@ for %%f in ("%_CLASSES_DIR%\.") do set "__INSTR_CLASSES_DIR=%%~dpfinstrumented-c
 if not exist "!__INSTR_CLASSES_DIR!" mkdir "!__INSTR_CLASSES_DIR!"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" instrument --quiet --dest "!__INSTR_CLASSES_DIR!" %__CLASS_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Instrument Java class files 1>&2
+) else if %_VERBOSE%==1 ( echo Instrument Java class files in directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" instrument --quiet --dest "!__INSTR_CLASSES_DIR!" %__CLASS_FILES%
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to instrument Java class files in directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -796,11 +803,11 @@ set "__EXEC_FILE=%_TARGET_DIR%\jacoco.exec"
 set __JAVA_OPTS=-Xmx768m -Xms768m -javaagent:"%__JACOCO_AGENT_FILE%=destfile=!__EXEC_FILE!,append=false" -classpath "%__LIBS_CPATH%%_CLASSES_DIR%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Scala main class "%_MAIN_CLASS%" 1>&2
 )
 call "%_JAVA_CMD%" %__JAVA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
+    echo %_ERROR_LABEL% Failed to execute Scala main class "%_MAIN_CLASS%" 1>&2
     set _EXITCODE=1
     goto :eof
 )

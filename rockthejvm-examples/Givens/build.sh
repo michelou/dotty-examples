@@ -197,7 +197,7 @@ compile_java() {
     local sources_file="$TARGET_DIR/javac_sources.txt"
     [[ -f "$sources_file" ]] && rm "$sources_file"
     local n=0
-    for f in $(find $SOURCE_DIR/main/java/ -name *.java 2>/dev/null); do
+    for f in $(find "$SOURCE_DIR/main/java/" -type f -name "*.java" 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
@@ -345,7 +345,7 @@ extra_cpath() {
         lib_path="$SCALA_HOME/lib"
     fi
     local extra_cpath=
-    for f in $(find $lib_path/ -name *.jar); do
+    for f in $(find "$lib_path/" -type f -name "*.jar"); do
         extra_cpath="$extra_cpath$(mixed_path $f)$PSEP"
     done
     echo $extra_cpath

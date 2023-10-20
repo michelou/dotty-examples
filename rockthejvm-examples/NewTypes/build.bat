@@ -188,7 +188,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -203,7 +203,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
     ) else if "%__ARG%"=="test" ( set _COMPILE=1& set _TEST=1
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -269,19 +269,19 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%           show commands executed by this script
+echo     %__BEG_O%-debug%__END%           print commands executed by this script
 echo     %__BEG_O%-explain%__END%         set compiler option %__BEG_O%-explain%__END%
 echo     %__BEG_O%-explain-types%__END%   set compiler option %__BEG_O%-explain-types%__END%
 echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
-echo     %__BEG_O%-timer%__END%           display total elapsed time
-echo     %__BEG_O%-verbose%__END%         display progress messages
+echo     %__BEG_O%-timer%__END%           print total execution time
+echo     %__BEG_O%-verbose%__END%         print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%            delete generated files
 echo     %__BEG_O%compile%__END%          compile Java/Scala source files
 echo     %__BEG_O%decompile%__END%        decompile generated code with %__BEG_N%CFR%__END%
 echo     %__BEG_O%doc%__END%              generate HTML documentation
-echo     %__BEG_O%help%__END%             display this help message
+echo     %__BEG_O%help%__END%             print this help message
 echo     %__BEG_O%lint%__END%             analyze Scala source files with %__BEG_N%Scalafmt%__END%
 echo     %__BEG_O%run[:i]%__END%          execute main class ^(instrumented execution: %__BEG_O%:i%__END%^)
 echo     %__BEG_O%test%__END%             execute unit tests with %__BEG_N%JUnit%__END%
@@ -322,6 +322,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 )
 rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -385,7 +386,7 @@ echo -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 set "__SOURCES_FILE=%_TARGET_DIR%\javac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
-for /f %%f in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
@@ -417,7 +418,7 @@ echo %_SCALAC_OPTS% -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__O
 set "__SOURCES_FILE=%_TARGET_DIR%\scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
-for /f %%f in ('dir /s /b "%_MAIN_SOURCE_DIR%\*.scala" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_MAIN_SOURCE_DIR%\*.scala" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
@@ -446,16 +447,22 @@ echo -from-tasty -classpath "%__CPATH:\=\\%" -d "%_TASTY_CLASSES_DIR:\=\\%" > "%
 set "__SOURCES_FILE=%_TARGET_DIR%\tasty_scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
-for /f %%f in ('dir /s /b "%_CLASSES_DIR%\*.tasty" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_CLASSES_DIR%\*.tasty" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
+if %__N%==0 (
+    echo %_WARNING_LABEL% No TASTy files 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% TASTy file
+) else ( set __N_FILES=%__N% TASTy files
+)
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N% TASTy files to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not !ERRORLEVEL!==0 (
-    echo %_ERROR_LABEL% Compilation of %__N% TASTy files failed 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -514,12 +521,12 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 )
 goto :eof
 
-@rem input parameter: %1=flag to add Dotty libs
+@rem input parameter: %1=flag to add Scala 3 libs
 @rem output parameter: _LIBS_CPATH
 :libs_cpath
 set __ADD_SCALA3_LIBS=%~1
 
-for %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
+for /f "delims=" %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
 if not exist "%__BATCH_FILE%" (
     echo %_ERROR_LABEL% Batch file "%__BATCH_FILE%" not found 1>&2
     set _EXITCODE=1
@@ -535,7 +542,7 @@ if defined __ADD_SCALA3_LIBS (
         set _EXITCODE=1
         goto :eof
     )
-    for %%f in ("%SCALA3_HOME%\lib\*.jar") do (
+    for /f "delims=" %%f in ("%SCALA3_HOME%\lib\*.jar") do (
         set "_LIBS_CPATH=!_LIBS_CPATH!%%f;"
     )
 )
@@ -545,7 +552,7 @@ goto :eof
 :extra_cpath
 set "__LIB_PATH=%SCALA3_HOME%\lib"
 set _EXTRA_CPATH=
-for %%f in (%__LIB_PATH%\*.jar) do set "_EXTRA_CPATH=!_EXTRA_CPATH!%%f;"
+for /f "delims=" %%f in (%__LIB_PATH%\*.jar) do set "_EXTRA_CPATH=!_EXTRA_CPATH!%%f;"
 goto :eof
 
 @rem output parameters: _VERSION_STRING, _VERSION_SUFFIX
@@ -632,7 +639,7 @@ if %_ACTION_REQUIRED%==0 goto :eof
 
 set "__SOURCES_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
-for /f %%i in ('dir /s /b "%_CLASSES_DIR%\*.tasty" 2^>NUL') do (
+for /f "delims=" %%i in ('dir /s /b "%_CLASSES_DIR%\*.tasty" 2^>NUL') do (
     echo %%i>> "%__SOURCES_FILE%"
 )
 set "__OPTS_FILE=%_TARGET_DIR%\scaladoc_opts.txt"
@@ -643,7 +650,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOU
 )
 call "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Generation of HTML documentation failed 1>&2
+    echo %_ERROR_LABEL% Failed to generate HTML documentation into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -666,11 +673,11 @@ if not exist "%__MAIN_CLASS_FILE%" (
 set __SCALA_OPTS=-classpath "%_CLASSES_DIR%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Scala main class "%_MAIN_CLASS%" 1>&2
 )
 call "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
+    echo %_ERROR_LABEL% Failed to execute Scala main class "%_MAIN_CLASS%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -690,11 +697,11 @@ if not exist "%_TASTY_CLASSES_DIR%" (
 set __SCALA_OPTS=-classpath "%_LIBS_CPATH%%_TASTY_CLASSES_DIR%;%_CLASSES_DIR%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% ^(compiled from TASTy^) 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Scala main class "%_MAIN_CLASS%" ^(compiled from TASTy^) 1>&2
 )
 call "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
-if not !ERRORLEVEL!==0 (
-    echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to execute Scala main class "%_MAIN_CLASS%" ^(compiled from TASTy^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -755,7 +762,7 @@ goto :eof
 set "__SOURCES_FILE=%_TARGET_DIR%\test_scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
-for /f %%i in ('dir /s /b "%_SOURCE_DIR%\test\scala\*.scala" 2^>NUL') do (
+for /f "delims=" %%i in ('dir /s /b "%_SOURCE_DIR%\test\scala\*.scala" 2^>NUL') do (
     echo %%i >> "%__SOURCES_FILE%"
     set /a __N+=1
 )

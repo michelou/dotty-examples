@@ -173,7 +173,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -186,7 +186,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _TEST=1
     ) else if "%__ARG%"=="test" ( set _COMPILE=1& set _TEST=1
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -238,17 +238,17 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%        show commands executed by this script
+echo     %__BEG_O%-debug%__END%        print commands executed by this script
 echo     %__BEG_O%-lang:java%__END%    select Java source files
 echo     %__BEG_O%-lang:kotlin%__END%  select Kotlin source files
 echo     %__BEG_O%-lang:scala%__END%   select Scala source files ^(default^)
-echo     %__BEG_O%-timer%__END%        display total execution time
-echo     %__BEG_O%-verbose%__END%      display progress messages
+echo     %__BEG_O%-timer%__END%        print total execution time
+echo     %__BEG_O%-verbose%__END%      print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%         delete generated files
 echo     %__BEG_O%compile%__END%       compile Scala source files
-echo     %__BEG_O%help%__END%          display this help message
+echo     %__BEG_O%help%__END%          print this help message
 echo     %__BEG_O%run%__END%           prettyprint contents of semanticdb files
 echo     %__BEG_O%test%__END%          prettyprint contents of semanticdb files
 goto :eof

@@ -74,15 +74,15 @@ args() {
             ;;
         esac
     done
-    if $DECOMPILE && [ ! -x "$CFR_CMD" ]; then
+    if $DECOMPILE && [[ ! -x "$CFR_CMD" ]]; then
         warning "cfr installation not found"
         DECOMPILE=false
     fi
     if $LINT; then
-        if [ ! -x "$SCALAFMT_CMD" ]; then
+        if [[ ! -x "$SCALAFMT_CMD" ]]; then
             warning "Scalafmt installation not found"
             LINT=false
-        elif [ ! -f "$SCALAFMT_CONFIG_FILE" ]; then
+        elif [[ ! -f "$SCALAFMT_CONFIG_FILE" ]]; then
             warning "Scalafmt configuration file not found"
             LINT=false
         fi
@@ -117,7 +117,7 @@ EOS
 }
 
 clean() {
-    if [ -d "$TARGET_DIR" ]; then
+    if [[ -d "$TARGET_DIR" ]]; then
         if $DEBUG; then
             debug "Delete directory $TARGET_DIR"
         elif $VERBOSE; then
@@ -287,7 +287,7 @@ decompile() {
 
     ## output file contains Scala and CFR headers
     local output_file="$TARGET_DIR/cfr-sources$version_suffix.java"
-    echo // Compiled with $version_string > "$output_file"
+    echo "// Compiled with $version_string" > "$output_file"
 
     if $DEBUG; then
         debug "cat $output_dir/*.java >> $output_file"
@@ -327,7 +327,7 @@ decompile() {
 
 ## output parameter: _EXTRA_CPATH
 extra_cpath() {
-    if [ $SCALA_VERSION==3 ]; then
+    if [[ $SCALA_VERSION==3 ]]; then
         lib_path="$SCALA3_HOME/lib"
     else
         lib_path="$SCALA_HOME/lib"

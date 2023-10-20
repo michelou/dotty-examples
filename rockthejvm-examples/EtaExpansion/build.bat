@@ -529,12 +529,18 @@ for /f "delims=" %%f in ('dir /s /b "%_CLASSES_DIR%\*.tasty" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
+if %__N%==0 (
+    echo %_WARNING_LABEL% No TASTy files 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% TASTy file
+) else ( set __N_FILES=%__N% TASTy files
+)
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N% TASTy files to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not !ERRORLEVEL!==0 (
-    echo %_ERROR_LABEL% Compilation of %__N% TASTy files failed 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -624,7 +630,7 @@ goto :eof
 :extra_cpath
 set "__LIB_PATH=%SCALA3_HOME%\lib"
 set _EXTRA_CPATH=
-for %%f in (%__LIB_PATH%\*.jar) do set "_EXTRA_CPATH=!_EXTRA_CPATH!%%f;"
+for /f "delims=" %%f in (%__LIB_PATH%\*.jar) do set "_EXTRA_CPATH=!_EXTRA_CPATH!%%f;"
 goto :eof
 
 @rem output parameters: _VERSION_STRING, _VERSION_SUFFIX
@@ -772,11 +778,11 @@ if not exist "%_TASTY_CLASSES_DIR%" (
 set __SCALA_OPTS=-classpath "%_LIBS_CPATH%%_TASTY_CLASSES_DIR%;%_CLASSES_DIR%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% ^(compiled from TASTy^) 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Scala main class "%_MAIN_CLASS%" ^(compiled from TASTy^) 1>&2
 )
 call "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 if not !ERRORLEVEL!==0 (
-    echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
+    echo %_ERROR_LABEL% Failed to execute Scala main class "%_MAIN_CLASS%" ^(compiled from TASTy^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -813,7 +819,7 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 set __LIBS_CPATH=
-for %%f in ("%SCALA3_HOME%\lib\*.jar") do (
+for /f "delims=" %%f in ("%SCALA3_HOME%\lib\*.jar") do (
     set "__JAR_FILE=%%~nxf"
     if "!__JAR_FILE:~0,5!"=="dotty" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
     ) else if "!__JAR_FILE:~0,5!"=="tasty" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"

@@ -144,11 +144,11 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%      show commands executed by this script
-echo     %__BEG_O%-verbose%__END%    display environment settings
+echo     %__BEG_O%-debug%__END%      print commands executed by this script
+echo     %__BEG_O%-verbose%__END%    print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
-echo     %__BEG_O%help%__END%        display this help message
+echo     %__BEG_O%help%__END%        print this help message
 goto :eof
 
 @rem output parameter: _KOTLIN_HOME
@@ -156,7 +156,7 @@ goto :eof
 set _KOTLIN_HOME=
 
 set __KOTLINC_CMD=
-for /f %%f in ('where kotlinc.bat 2^>NUL') do set "__KOTLINC_CMD=%%f"
+for /f "delims=" %%f in ('where kotlinc.bat 2^>NUL') do set "__KOTLINC_CMD=%%f"
 @rem We need to differentiate kotlinc-jvm from kotlinc-native
 if defined __KOTLINC_CMD (
     for /f "tokens=1,2,*" %%i in ('%__KOTLINC_CMD% -version 2^>^&1') do (
@@ -164,10 +164,9 @@ if defined __KOTLINC_CMD (
     )
 )
 if defined __KOTLINC_CMD (
+    for /f "delims=" %%i in ("%__KOTLINC_CMD%") do set "__KOTLINC_BIN_DIR=%%~dpi"
+    for /f "delims=" %%f in ("!__KOTLINC_BIN_DIR!\.") do set "_KOTLIN_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Kotlin executable found in PATH 1>&2
-    for %%i in ("%__KOTLINC_CMD%") do set "__KOTLINC_BIN_DIR=%%~dpi"
-    for %%f in ("!__KOTLINC_BIN_DIR!\.") do set "_KOTLIN_HOME=%%~dpf"
-    goto :eof
 ) else if defined KOTLIN_HOME (
     set "_KOTLIN_HOME=%KOTLIN_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable KOTLIN_HOME 1>&2
@@ -176,11 +175,11 @@ if defined __KOTLINC_CMD (
     for /f %%f in ('dir /ad /b "!__PATH!\kotlinc*" 2^>NUL') do set "_KOTLIN_HOME=!__PATH!\%%f"
     if not defined _KOTLIN_HOME (
         set "__PATH=%ProgramFiles%"
-        for /f %%f in ('dir /ad /b "!__PATH!\kotlinc*" 2^>NUL') do set "_KOTLIN_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\kotlinc*" 2^>NUL') do set "_KOTLIN_HOME=!__PATH!\%%f"
     )
 )
 if not exist "%_KOTLIN_HOME%\bin\kotlinc.bat" (
-    echo kotlinc not found in Kotlin installation directory ^(%_KOTLIN_HOME%^) 1>&2
+    echo kotlinc not found in Kotlin installation directory ^("%_KOTLIN_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -191,11 +190,10 @@ goto :eof
 set _PROTOC_HOME=
 
 set __PROTOC_CMD=
-for /f %%f in ('where protoc.exe 2^>NUL') do set "__PROTOC_CMD=%%f"
+for /f "delims=" %%f in ('where protoc.exe 2^>NUL') do set "__PROTOC_CMD=%%f"
 if defined __PROTOC_CMD (
+    for /f "delims=" %%i in ("%__PROTOC_CMD%") do set "_PROTOC_HOME=%%~dpi"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Protoc executable found in PATH 1>&2
-    for %%i in ("%__PROTOC_CMD%") do set "_PROTOC_HOME=%%~dpi"
-    goto :eof
 ) else if defined PROTOC_HOME (
     set "_PROTOC_HOME=%PROTOC_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable PROTOC_HOME 1>&2
@@ -206,7 +204,7 @@ if defined __PROTOC_CMD (
         for /f %%f in ('dir /ad /b "!__PATH!\protoc-3*" 2^>NUL') do set "_PROTOC_HOME=!__PATH!\%%f"
         if not defined _PROTOC_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\protoc-3*" 2^>NUL') do set "_PROTOC_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\protoc-3*" 2^>NUL') do set "_PROTOC_HOME=!__PATH!\%%f"
         )
     )
     if defined _PROTOC_HOME (
@@ -214,7 +212,7 @@ if defined __PROTOC_CMD (
     )
 )
 if not exist "%_PROTOC_HOME%\bin\protoc.exe" (
-    echo %_ERROR_LABEL% Protoc executable not found ^(%_PROTOC_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Protoc executable not found ^("%_PROTOC_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -238,18 +236,18 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%SCALA3_HOME%\bin:scalac.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-3,4,*" %%i in ('"%SCALA3_HOME%\bin\scalac.bat" -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalac %%l,"
+    for /f "tokens=1-3,4,*" %%i in ('call "%SCALA3_HOME%\bin\scalac.bat" -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalac %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%SCALA3_HOME%\bin:scalac.bat"
 )
 goto xxx
 set "__METAC_CMD=%LOCALAPPDATA%\Coursier\data\bin\metac.bat"
 if exist "%__METAC_CMD%" (
-    for /f "tokens=1-3,4,*" %%i in ('"%__METAC_CMD%" -version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% metac %%l,"
+    for /f "tokens=1-3,4,*" %%i in ('call "%__METAC_CMD%" -version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% metac %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%__METAC_CMD:bin\=bin:%"
 )
 set "__METAP_CMD=%LOCALAPPDATA%\Coursier\data\bin\metap.bat"
 if exist "%__METAP_CMD%" (
-    for /f "tokens=1,2,*" %%i in ('"%__METAP_CMD%" -version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% metap %%j,"
+    for /f "tokens=1,2,*" %%i in ('call "%__METAP_CMD%" -version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% metap %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%__METAP_CMD:bin\=bin:%"
 )
 :xxx
@@ -260,12 +258,12 @@ if %ERRORLEVEL%==0 (
 )
 set "__COURSIER_CMD=%LOCALAPPDATA%\Coursier\data\bin\cs.bat"
 if exist "%__COURSIER_CMD%" (
-    for /f %%i in ('"%__COURSIER_CMD%" --version 2^>^&1') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% cs %%i,"
+    for /f %%i in ('call "%__COURSIER_CMD%" --version 2^>^&1') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% cs %%i,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%__COURSIER_CMD:bin\=bin:%"
 )
 where /q "%KOTLIN_HOME%\bin:kotlinc.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,*" %%i in ('"%KOTLIN_HOME%\bin\kotlinc.bat" -version 2^>^&1 ^| findstr kotlinc') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% kotlinc %%k,"
+    for /f "tokens=1,2,3,*" %%i in ('call "%KOTLIN_HOME%\bin\kotlinc.bat" -version 2^>^&1 ^| findstr kotlinc') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% kotlinc %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%KOTLIN_HOME%\bin:kotlinc.bat"
 )
 where /q "%GIT_HOME%\bin:git.exe"
@@ -296,6 +294,12 @@ if %__VERBOSE%==1 (
     if defined JAVA_HOME echo    "JAVA_HOME=%JAVA_HOME%" 1>&2
     if defined KOTLIN_HOME echo    "KOTLIN_HOME=%KOTLIN_HOME%" 1>&2
     if defined PROTOC_HOME echo    "PROTOC_HOME=%PROTOC_HOME%" 1>&2
+    echo Path associations: 1>&2
+    for /f "delims=" %%i in ('subst') do (
+        set "__LINE=%%i"
+        setlocal enabledelayedexpansion
+        echo    !__LINE:%USERPROFILE%=%%USERPROFILE%%! 1>&2
+    )
 )
 goto :eof
 

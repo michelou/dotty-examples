@@ -37,16 +37,16 @@ set _SBT_PATH=
 set _SCALA_CLI_PATH=
 set _VSCODE_PATH=
 
-@rem %1=vendor, %2=version
+@rem %1=version, %2=vendor
 @rem eg. bellsoft, corretto, bellsoft, openj9, redhat, sapmachine, temurin, zulu
-call :java "temurin" 17
+call :java 17 "temurin"
 if not %_EXITCODE%==0 goto end
 
-call :java "oracle" 21
+call :java 21 "temurin"
 if not %_EXITCODE%==0 goto end
 
 @rem last call to :java defines variable JAVA_HOME
-call :java "temurin" 11
+call :java 11 "temurin"
 if not %_EXITCODE%==0 goto end
 
 call :scala2
@@ -333,12 +333,12 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-bash%__END%       start Git bash shell instead of Windows command prompt
-echo     %__BEG_O%-debug%__END%      display commands executed by this script
+echo     %__BEG_O%-debug%__END%      print commands executed by this script
 echo     %__BEG_O%-msys%__END%       start MSYS2 bash shell instead of Windows command prompt
-echo     %__BEG_O%-verbose%__END%    display environment settings
+echo     %__BEG_O%-verbose%__END%    print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
-echo     %__BEG_O%help%__END%        display this help message
+echo     %__BEG_O%help%__END%        print this help message
 goto :eof
 
 @rem output parameter: _PYTHON_HOME
@@ -354,8 +354,8 @@ for /f "delims=" %%f in ('where python.exe 2^>NUL') do (
     )
 )
 if defined __PYTHON_CMD (
+    for /f "delims=" %%i in ("%__PYTHON_CMD%") do set "_PYTHON_HOME=%%~dpi"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Python executable found in PATH 1>&2
-    for %%i in ("%__PYTHON_CMD%") do set "_PYTHON_HOME=%%~dpi"
     goto :eof
 ) else if defined PYTHON_HOME (
     set "_PYTHON_HOME=%PYTHON_HOME%"
@@ -389,9 +389,11 @@ set _BLOOP_PATH=
 set __BLOOP_CMD=
 for /f "delims=" %%f in ('where bloop.exe 2^>NUL') do set "__BLOOP_CMD=%%f"
 if defined __BLOOP_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of bloop executable found in PATH 1>&2
     @rem for %%i in ("%__BLOOP_CMD%") do set "__BIN_DIR=%%~dpi"
-    for %%f in ("%__BLOOP_CMD%") do set "_BLOOP_HOME=%%~dpf"
+    for /f "delims=" %%f in ("%__BLOOP_CMD%") do set "_BLOOP_HOME=%%~dpf"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of bloop executable found in PATH 1>&2
+    @rem keep _BLOOP_PATH undefined since executable already in path
+    goto :eof
 ) else if defined BLOOP_HOME (
     set "_BLOOP_HOME=%BLOOP_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable BLOOP_HOME 1>&2
@@ -410,13 +412,13 @@ if not exist "%_BLOOP_HOME%\bloop.exe" (
 set "_BLOOP_PATH=;%_BLOOP_HOME%"
 goto :eof
 
-@rem input parameters: %1=vendor %2=required version
+@rem input parameters:%1=required version %2=vendor 
 @rem output parameter: _JAVA_HOME (resp. JAVA11_HOME)
 :java
 set _JAVA_HOME=
 
-set __VENDOR=%~1
-set __VERSION=%~2
+set __VERSION=%~1
+set __VENDOR=%~2
 if not defined __VENDOR ( set __JDK_NAME=jdk-%__VERSION%
 ) else ( set __JDK_NAME=jdk-%__VENDOR%-%__VERSION%
 )
@@ -429,10 +431,10 @@ for /f "delims=" %%f in ('where javac.exe 2^>NUL') do (
 if defined __JAVAC_CMD (
     call :jdk_version "%__JAVAC_CMD%"
     if !_JDK_VERSION!==%__VERSION% (
-        for %%i in ("%__JAVAC_CMD%") do set "__BIN_DIR=%%~dpi"
-        for %%f in ("%__BIN_DIR%") do set "_JAVA_HOME=%%~dpf"
+        for /f "delims=" %%i in ("%__JAVAC_CMD%") do set "__BIN_DIR=%%~dpi"
+        for /f "delims=" %%f in ("%__BIN_DIR%") do set "_JAVA_HOME=%%~dpf"
     ) else (
-        echo %_ERROR_LABEL% Required JDK installation not found ^(%__JDK_NAME%^) 1>&2
+        echo %_ERROR_LABEL% Required JDK installation not found ^("%__JDK_NAME%"^) 1>&2
         set _EXITCODE=1
         goto :eof
     )
@@ -531,8 +533,8 @@ for /f "delims=" %%f in ('where scalac.bat 2^>NUL') do (
     if defined __VERSION if "!__VERSION:~0,1!"=="3" set "__SCALAC_CMD=%%f"
 )
 if defined __SCALAC_CMD (
-    for %%i in ("%__SCALAC_CMD%") do set "__SCALA3_BIN_DIR=%%~dpi"
-    for %%f in ("!__SCALA3_BIN_DIR!\.") do set "_SCALA3_HOME=%%~dpf"
+    for /f "delims=" %%i in ("%__SCALAC_CMD%") do set "__SCALA3_BIN_DIR=%%~dpi"
+    for /f "delims=" %%f in ("!__SCALA3_BIN_DIR!\.") do set "_SCALA3_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Scala 3 executable found in PATH 1>&2
     goto :eof
 ) else if defined SCALA3_HOME (
@@ -593,9 +595,9 @@ set _ANT_PATH=
 set __ANT_CMD=
 for /f "delims=" %%f in ('where ant.bat 2^>NUL') do set "__ANT_CMD=%%f"
 if defined __ANT_CMD (
+    for /f "delims=" %%i in ("%__ANT_CMD%") do set "__ANT_BIN_DIR=%%~dpi"
+    for /f "delims=" %%f in ("!__ANT_BIN_DIR!\.") do set "_ANT_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Ant executable found in PATH 1>&2
-    for %%i in ("%__ANT_CMD%") do set "__ANT_BIN_DIR=%%~dpi"
-    for %%f in ("!__ANT_BIN_DIR!\.") do set "_ANT_HOME=%%~dpf"
     @rem keep _ANT_PATH undefined since executable already in path
     goto :eof
 ) else if defined ANT_HOME (
@@ -631,19 +633,25 @@ set _BAZEL_PATH=
 set __BAZEL_CMD=
 for /f "delims=" %%f in ('where bazel.exe 2^>NUL') do set "__BAZEL_CMD=%%f"
 if defined __BAZEL_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Bazel executable found in PATH 1>&2
     for /f "delims=" %%i in ("%__BAZEL_CMD%") do set "_BAZEL_HOME=%%~dpi"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Bazel executable found in PATH 1>&2
     @rem keep _BAZEL_PATH undefined since executable already in path
     goto :eof
 ) else if defined BAZEL_HOME (
     set "_BAZEL_HOME=%BAZEL_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable BAZEL_HOME 1>&2
 ) else (
-    set "__PATH=%ProgramFiles%"
-    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "_BAZEL_HOME=!__PATH!\%%f"
-    if not defined _BAZEL_HOME (
+    if exist "!__PATH!\bazel\" ( set "_BAZEL_HOME=!__PATH!\bazel"
+    ) else (
         set __PATH=C:\opt
         for /f %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "_BAZEL_HOME=!__PATH!\%%f"
+        if not defined _BAZEL_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "_BAZEL_HOME=!__PATH!\%%f"
+        )
+    )
+    if defined _BAZEL_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Bazel installation directory "!_BAZEL_HOME!" 1>&2
     )
 )
 if not exist "%_BAZEL_HOME%\bazel.exe" (
@@ -662,8 +670,8 @@ set _CFR_HOME=
 set __CFR_CMD=
 for /f "delims=" %%f in ('where cfr.bat 2^>NUL') do set "__CFR_CMD=%%f"
 if defined __CFR_CMD (
-    for %%i in ("%__CFR_CMD%") do set "__CFR_BIN_DIR=%%~dpi"
-    for %%f in ("!__CFR_BIN_DIR!\.") do set "_CFR_HOME=%%~dpf"
+    for /f "delims=" %%i in ("%__CFR_CMD%") do set "__CFR_BIN_DIR=%%~dpi"
+    for /f "delims=" %%f in ("!__CFR_BIN_DIR!\.") do set "_CFR_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of CFR executable found in PATH 1>&2
     goto :eof
 ) else if defined CFR_HOME (
@@ -691,7 +699,7 @@ set _COURSIER_PATH=
 set __CS_CMD=
 for /f "delims=" %%f in ('where cs.exe 2^>NUL') do set "__CS_CMD=%%f"
 if defined __CS_CMD (
-    for %%i in ("%__CS_CMD%") do set "_COURSIER_HOME=%%~dpf"
+    for /f "delims=" %%i in ("%__CS_CMD%") do set "_COURSIER_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Coursier executable found in PATH 1>&2
     goto :eof
 ) else if defined COURSIER_HOME (
@@ -727,8 +735,8 @@ set _GRADLE_PATH=
 set __GRADLE_CMD=
 for /f "delims=" %%f in ('where gradle.bat 2^>NUL') do set "__GRADLE_CMD=%%f"
 if defined __GRADLE_CMD (
-    for %%i in ("%__GRADLE_CMD%") do set "__GRADLE_BIN_DIR=%%~dpi"
-    for %%f in ("!__GRADLE_BIN_DIR!\.") do set "_GRADLE_HOME=%%~dpf"
+    for /f "delims=" %%i in ("%__GRADLE_CMD%") do set "__GRADLE_BIN_DIR=%%~dpi"
+    for /f "delims=" %%f in ("!__GRADLE_BIN_DIR!\.") do set "_GRADLE_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Gradle executable found in PATH 1>&2
     @rem keep _GRADLE_PATH undefined since executable already in path
     goto :eof
@@ -799,7 +807,7 @@ if defined JAVAFX_HOME (
         for /f %%f in ('dir /ad /b "!__PATH!\javafx-*" 2^>NUL') do set "_JAVAFX_HOME=!__PATH!\%%f"
         if not defined _JAVAFX_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\javafx-*" 2^>NUL') do set "_JAVAFX_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\javafx-*" 2^>NUL') do set "_JAVAFX_HOME=!__PATH!\%%f"
         )
     )
     if defined _JAVAFX_HOME (
@@ -821,8 +829,8 @@ set _JMC_PATH=
 set __JMC_CMD=
 for /f "delims=" %%f in ('where jmc.exe 2^>NUL') do set "__JMC_CMD=%%f"
 if defined __JMC_CMD (
-    for %%i in ("%__JMC_CMD%") do set "__JMC_BIN_DIR=%%~dpi"
-    for %%f in ("!__JMC_BIN_DIR!\.") do set "_JMC_HOME=%%~dpf"
+    for /f "delims=" %%i in ("%__JMC_CMD%") do set "__JMC_BIN_DIR=%%~dpi"
+    for /f "delims=" %%f in ("!__JMC_BIN_DIR!\.") do set "_JMC_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of JMC executable found in PATH 1>&2
     @rem keep _JMC_PATH undefined since executable already in path
     goto :eof
@@ -908,8 +916,8 @@ set _MILL_PATH=
 set __MILL_CMD=
 for /f "delims=" %%f in ('where mill.bat 2^>NUL') do set "__MILL_CMD=%%f"
 if defined __MILL_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Mill executable found in PATH 1>&2
     for /f "delims=" %%i in ("%__MILL_CMD%") do set "_MILL_HOME=%%~dpi"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Mill executable found in PATH 1>&2
     @rem keep _MILL_PATH undefined since executable already in path
     goto :eof
 ) else if defined MILL_HOME (
@@ -1046,7 +1054,7 @@ if defined __GIT_CMD (
     for /f "delims=" %%f in ("!__GIT_BIN_DIR!\.") do set "_GIT_HOME=%%~dpf"
     @rem Executable git.exe is present both in bin\ and \mingw64\bin\
     if not "!_GIT_HOME:mingw=!"=="!_GIT_HOME!" (
-        for %%f in ("!_GIT_HOME!\.") do set "_GIT_HOME=%%~dpf"
+        for /f "delims=" %%f in ("!_GIT_HOME!\.") do set "_GIT_HOME=%%~dpf"
     )
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
     @rem keep _GIT_PATH undefined since executable already in path

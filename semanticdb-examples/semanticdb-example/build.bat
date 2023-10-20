@@ -227,14 +227,14 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%      show commands executed by this script
-echo     %__BEG_O%-timer%__END%      display total execution time
-echo     %__BEG_O%-verbose%__END%    display progress messages
+echo     %__BEG_O%-debug%__END%      print commands executed by this script
+echo     %__BEG_O%-timer%__END%      print total execution time
+echo     %__BEG_O%-verbose%__END%    print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%       delete generated files
 echo     %__BEG_O%compile%__END%     compile Scala source files
-echo     %__BEG_O%help%__END%        display this help message
+echo     %__BEG_O%help%__END%        print this help message
 echo     %__BEG_O%run%__END%         execute main %__BEG_O%%_MAIN_CLASS%%__END%
 echo     %__BEG_O%test%__END%        execute unit tests
 goto :eof
@@ -253,6 +253,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 )
 rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -352,7 +353,7 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SCALA_CMD%" -cp "%__CPATH%" %_MAIN_CLASS% 
 )
 call "%_SCALA_CMD%" -cp "%__CPATH%" %_MAIN_CLASS% "%_EXAMPLE_TARGET_DIR%\classes"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Execution of main program "%_MAIN_CLASS%" failed 1>&2
+    echo %_ERROR_LABEL% Failed to execute main program "%_MAIN_CLASS%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -366,8 +367,9 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_METAP_CMD%" %__METAP_OPTS% "%_EXAMPLE_TA
 )
 call "%_METAP_CMD%" %__METAP_OPTS% "%_EXAMPLE_TARGET_DIR%\classes"
 if not %ERRORLEVEL%==0 (
-   set _EXITCODE=1
-   goto :eof
+    echo %_ERROR_LABEL% Failed to pretty print contents of semanticdb files 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 if %_PROTOC%==1 (
     call :protoc
@@ -378,7 +380,7 @@ goto :eof
 :protoc
 set __SEMANTICDB_FILES=
 set __N=0
-for /f %%f in ('dir /a-d /b /s "%_EXAMPLE_TARGET_DIR%\classes\*.semanticdb"') do (
+for /f "delims=" %%f in ('dir /a-d /b /s "%_EXAMPLE_TARGET_DIR%\classes\*.semanticdb"') do (
     set __SEMANTICDB_FILES=!__SEMANTICDB_FILES! "%%f"
     set /a __N+=1
 )
@@ -461,12 +463,12 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 )
 goto :eof
 
-@rem input parameter: %1=flag to add Dotty libs
+@rem input parameter: %1=flag to add Scala 3 libs
 @rem output parameter: _LIBS_CPATH
 :libs_cpath
 set __ADD_SCALA3_LIBS=%~1
 
-for %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
+for /f "delims=" %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
 if not exist "%__BATCH_FILE%" (
     echo %_ERROR_LABEL% Batch file "%__BATCH_FILE%" not found 1>&2
     set _EXITCODE=1
@@ -482,7 +484,7 @@ if defined __ADD_SCALA3_LIBS (
         set _EXITCODE=1
         goto :eof
     )
-    for %%f in ("%SCALA3_HOME%\lib\*.jar") do (
+    for /f "delims=" %%f in ("%SCALA3_HOME%\lib\*.jar") do (
         set "_LIBS_CPATH=!_LIBS_CPATH!%%f;"
     )
 )

@@ -504,12 +504,18 @@ for /f "delims=" %%f in ('dir /s /b "%_CLASSES_DIR%\*.tasty" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
+if %__N%==0 (
+    echo %_WARNING_LABEL% No TASTy files 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% TASTy file
+) else ( set __N_FILES=%__N% TASTy files
+)
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N% TASTy files to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not !ERRORLEVEL!==0 (
-    echo %_ERROR_LABEL% Failed to compile %__N% TASTy files to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -573,7 +579,7 @@ goto :eof
 :libs_cpath
 set __ADD_SCALA3_LIBS=%~1
 
-for %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
+for /f "delims=" %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
 if not exist "%__BATCH_FILE%" (
     echo %_ERROR_LABEL% Batch file "%__BATCH_FILE%" not found 1>&2
     set _EXITCODE=1
@@ -589,7 +595,7 @@ if defined __ADD_SCALA3_LIBS (
         set _EXITCODE=1
         goto :eof
     )
-    for %%f in ("%SCALA3_HOME%\lib\*.jar") do (
+    for /f "delims=" %%f in ("%SCALA3_HOME%\lib\*.jar") do (
         set "_LIBS_CPATH=!_LIBS_CPATH!%%f;"
     )
 )
@@ -697,7 +703,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOU
 )
 call "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Generation of HTML documentation failed 1>&2
+    echo %_ERROR_LABEL% Failed to generate HTML documentation into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -724,7 +730,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS%
 )
 call "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
+    echo %_ERROR_LABEL% Failed to execute Scala main class "%_MAIN_CLASS%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -744,11 +750,11 @@ if not exist "%_TASTY_CLASSES_DIR%" (
 set __SCALA_OPTS=-classpath "%_LIBS_CPATH%%_TASTY_CLASSES_DIR%;%_CLASSES_DIR%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% ^(compiled from TASTy^) 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Scala main class "%_MAIN_CLASS%" ^(compiled from TASTy^) 1>&2
 )
 call "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
-if not !ERRORLEVEL!==0 (
-    echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to execute Scala main class "%_MAIN_CLASS%" ^(compiled from TASTy^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -785,7 +791,7 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 set __LIBS_CPATH=
-for %%f in ("%SCALA3_HOME%\lib\*.jar") do (
+for /f "delims=" %%f in ("%SCALA3_HOME%\lib\*.jar") do (
     set "__JAR_FILE=%%~nxf"
     if "!__JAR_FILE:~0,5!"=="dotty" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
     ) else if "!__JAR_FILE:~0,5!"=="tasty" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
@@ -796,11 +802,11 @@ set "__EXEC_FILE=%_TARGET_DIR%\jacoco.exec"
 set __JAVA_OPTS=-Xmx768m -Xms768m -javaagent:"%__JACOCO_AGENT_FILE%=destfile=!__EXEC_FILE!,append=false" -classpath "%__LIBS_CPATH%%_CLASSES_DIR%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Scala main class "%_MAIN_CLASS%" 1>&2
 )
 call "%_JAVA_CMD%" %__JAVA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
+    echo %_ERROR_LABEL% Failed to execute Scala main class "%_MAIN_CLASS%" 1>&2
     set _EXITCODE=1
     goto :eof
 )

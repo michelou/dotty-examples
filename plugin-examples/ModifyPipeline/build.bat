@@ -250,18 +250,18 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%           show commands executed by this script
+echo     %__BEG_O%-debug%__END%           print commands executed by this script
 echo     %__BEG_O%-explain%__END%         set compiler option %__BEG_O%-explain%__END%
 echo     %__BEG_O%-explain-types%__END%   set compiler option %__BEG_O%-explain-types%__END%
 echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
-echo     %__BEG_O%-timer%__END%           display total elapsed time
-echo     %__BEG_O%-verbose%__END%         display progress messages
+echo     %__BEG_O%-timer%__END%           print total execution time
+echo     %__BEG_O%-verbose%__END%         print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%            delete generated class files
 echo     %__BEG_O%compile%__END%          compile Scala source files
 echo     %__BEG_O%doc%__END%              generate HTML documentation
-echo     %__BEG_O%help%__END%             display this help message
+echo     %__BEG_O%help%__END%             print this help message
 echo     %__BEG_O%pack%__END%             create Java archive file
 echo     %__BEG_O%test%__END%             execute unit tests
 echo     %__BEG_O%test:noplugin%__END%    execute unit tests with NO plugin
@@ -272,7 +272,7 @@ call :rmdir "%_ROOT_DIR%out"
 call :rmdir "%_TARGET_DIR%"
 goto :eof
 
-@rem input parameter(s): %1=directory path
+@rem input parameter: %1=directory path
 :rmdir
 set "__DIR=%~1"
 if not exist "%__DIR%\" goto :eof
@@ -281,6 +281,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 )
 rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -306,7 +307,7 @@ echo %_SCALAC_OPTS% -language:implicitConversions -classpath "%_CLASSES_DIR:\=\\
 set "__SOURCES_FILE=%_TARGET_DIR%\scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
-for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
+for /f "delims=" %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
@@ -315,7 +316,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURC
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of %__N% Scala source files failed 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N% Scala source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -374,12 +375,12 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 )
 goto :eof
 
-@rem input parameter: %1=flag to add Dotty libs
+@rem input parameter: %1=flag to add Scala 3 libs
 @rem output parameter: _LIBS_CPATH
 :libs_cpath
-set __ADD_DOTTY_LIBS=%~1
+set __ADD_SCALA3_LIBS=%~1
 
-for %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
+for /f "delims=" %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
 if not exist "%__BATCH_FILE%" (
     echo %_ERROR_LABEL% Batch file "%__BATCH_FILE%" not found 1>&2
     set _EXITCODE=1
@@ -389,13 +390,13 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__BATCH_FILE%" %_DEBUG% 1>&2
 call "%__BATCH_FILE%" %_DEBUG%
 set _LIBS_CPATH=%_CPATH%
 
-if defined __ADD_DOTTY_LIBS (
+if defined __ADD_SCALA3_LIBS (
     if not defined SCALA3_HOME (
         echo %_ERROR_LABEL% Variable SCALA3_HOME not defined 1>&2
         set _EXITCODE=1
         goto :eof
     )
-    for %%f in ("%SCALA3_HOME%\lib\*.jar") do (
+    for /f "delims=" %%f in ("%SCALA3_HOME%\lib\*.jar") do (
         set _LIBS_CPATH=!_LIBS_CPATH!%%f;
     )
 )
@@ -413,7 +414,7 @@ set "__OPTS_FILE=%_TARGET_DIR%\scaladoc_opts.txt"
 echo -siteroot "%_TARGET_DOCS_DIR%" -project "%_PROJECT_NAME%" -project-url "%_PROJECT_URL%" -project-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
-for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
+for /f "delims=" %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i>> "%__SOURCES_FILE%"
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
@@ -421,7 +422,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOU
 )
 call "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Generation of HTML documentation failed 1>&2
+    echo %_ERROR_LABEL% Failed to generate HTML documentation into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -446,7 +447,7 @@ call :pack_manifest
 if not %_EXITCODE%==0 goto :eof
 
 set __FILES=-C "%_TARGET_DIR%" "%__PROP_FILENAME%"
-for /f %%f in ('dir /s /b "%_CLASSES_DIR%\*.class" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_CLASSES_DIR%\*.class" 2^>NUL') do (
     set "__CLASS_FILE=%%f"
     set __FILES=!__FILES! -C "%_CLASSES_DIR%" "!__CLASS_FILE:%_CLASSES_DIR%\=!"
 )
@@ -455,6 +456,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" %__JAR_OPTS% "%_PLUGIN_JAR_FIL
 )
 call "%_JAR_CMD%" %__JAR_OPTS% "%_PLUGIN_JAR_FILE%" "%_MANIFEST_FILE%" %__FILES% %_STDOUT_REDIRECT%
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to create Java archive "!_PLUGIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -505,9 +507,15 @@ if not exist "%_TEST_CLASSES_DIR%" mkdir "%_TEST_CLASSES_DIR%" 1>NUL
 set "__SOURCES_FILE=%_TARGET_DIR%\test_scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
-for /f %%i in ('dir /s /b "%_SOURCE_DIR%\test\scala\*.scala" 2^>NUL') do (
+for /f "delims=" %%i in ('dir /s /b "%_SOURCE_DIR%\test\scala\*.scala" 2^>NUL') do (
     echo %%i >> "%__SOURCES_FILE%"
     set /a __N+=1
+)
+if %__N%==0 (
+    echo %_WARNING_LABEL% No Scala test source file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% Scala test source file
+) else ( set __N_FILES=%__N% Scala test source files
 )
 if %_TEST_PLUGIN%==0 ( set __SCALAC_OPTS=%_SCALAC_OPTS%
 ) else ( set __SCALAC_OPTS=%_SCALAC_OPTS% -Xplugin:"%_PLUGIN_JAR_FILE%" -Xplugin-require:%_PLUGIN_NAME% -P:"%_PLUGIN_NAME%:opt1=1"
@@ -516,11 +524,11 @@ set "__OPTS_FILE=%_TARGET_DIR%\test_scalac_opts.txt"
 echo %__SCALAC_OPTS% -classpath "%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d "%_TEST_CLASSES_DIR%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N% Scala test source files to "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of %__N% Scala test source files failed 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -533,7 +541,7 @@ if not %_EXITCODE%==0 goto :eof
 
 set __TEST_SCALA_OPTS=-classpath "%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
 
-for %%i in (%_TEST_CLASSES_DIR%\*Test.class) do (
+for /f "delims=" %%i in (%_TEST_CLASSES_DIR%\*Test.class) do (
     set "__MAIN_CLASS=%%~ni"
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__TEST_SCALA_OPTS% !__MAIN_CLASS! 1>&2
     ) else if %_VERBOSE%==1 ( echo Execute test !__MAIN_CLASS! 1>&2

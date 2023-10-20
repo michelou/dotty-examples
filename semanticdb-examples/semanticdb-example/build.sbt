@@ -1,4 +1,4 @@
-ThisBuild / version := "2.13.6"
+ThisBuild / version := "2.13.12"
 
 commands += Command.command("runExample") { s =>
   val dir = classDirectory.in(example, Compile).value
@@ -10,7 +10,8 @@ commands += Command.command("runExample") { s =>
 lazy val example = project
   .settings(
     addCompilerPlugin(
-      "org.scalameta" % "semanticdb-scalac" % "4.4.28" cross CrossVersion.full),
+      // https://mvnrepository.com/artifact/org.scalameta/semanticdb-scalac
+      "org.scalameta" % "semanticdb-scalac" % "4.8.11" cross CrossVersion.full),
     scalacOptions += "-Yrangepos"
   )
 

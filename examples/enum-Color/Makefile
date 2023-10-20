@@ -77,12 +77,12 @@ $(DOC_TARGET): $(TARGET) $(DOC_SOURCES)
 	"$(SCALADOC)" "@$(DOC_OPTS_FILE)" "@$(DOC_SOURCES_FILE)"
 	@$(TOUCH) "$(DOC_TARGET)"
 
-doc: $(TARGET) $(DOC_TARGET)
+doc: build $(DOC_TARGET)
 
 ##############################################################################
 ## lint rules
 
-LINT_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name "*.scala")
+LINT_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)" -type f -name "*.scala")
 LINT_TARGET  = $(TARGET_DIR)/.latest-lint
 
 SCALAFMT_CONFIG_FILE = $(shell dirname $(CURDIR))/.scalafmt.conf
