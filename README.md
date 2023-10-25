@@ -28,38 +28,8 @@ This project depends on the following external software for the **Microsoft Wind
 - [Git 2.42][git_releases] ([*release notes*][git_relnotes])
 - [Scala 3.3][scala3_releases] ([*release notes*][scala3_relnotes])
 - [Temurin OpenJDK 11 LTS][temurin_openjdk11] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk11_relnotes], [*bug fixes*][temurin_openjdk11_bugfixes])
-- [Temurin OpenJDK 17 LTS][temurin_openjdk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk17_relnotes], [*bug fixes*][temurin_openjdk17_bugfixes])
-<!--
-8u212   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
-8u222   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
-8u232   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
-8u242   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
-8u252   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-April/011559.html
-8u262   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-July/012143.html
-8u272   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-October/012817.html
-8u282   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-January/013337.html
-8u292   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-April/013680.html
-8u302   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-July/014118.html
-8u322   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2022-January/014522.html
-11.0.3  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2019-April/000951.html
-11.0.4  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2019-July/001423.html
-11.0.5  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2019-October/002025.html
-11.0.6  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-January/002374.html
-11.0.7  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
-11.0.8  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-July/003498.html
-11.0.9  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-October/004007.html
-11.0.10 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-January/004689.html
-11.0.11 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-April/005860.html
-11.0.12 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-July/006954.html
-11.0.13 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-October/009368.html
-11.0.14 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2022-January/011643.html
-11.0.15 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2022-April/014104.html
-11.0.16 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2022-July/016017.html
-11.0.17 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2022-October/018119.html
-11.0.18 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2020-July/003498.html
-11.0.19 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-April/021900.html
-11.0.20 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024064.html
--->
+- [Temurin OpenJDK 17 LTS][temurin_openjdk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk17_relnotes], [*bug fixes*][temurin_openjdk17_bugfixes], [Java 17 API][oracle_openjdk17_api])
+
 Optionally one may also install the following software:
 
 - [Apache Ant 1.10][apache_ant] (requires Java 8) ([*release notes*][apache_ant_relnotes])
@@ -72,13 +42,13 @@ Optionally one may also install the following software:
 - [JITWatch 1.4][jitwatch_releases] (requires Java 11+)
 - [Mill 0.11][mill_releases] ([*change log*][mill_changelog])
 - [MSYS2][msys2_releases] ([*change log*][msys2_changelog])
-- [Oracle OpenJDK 21 LTS][oracle_openjdk21] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][oracle_openjdk21_relnotes], [*Java 21 API*][oracle_openjdk21_api])
 - [sbt 1.9][sbt_downloads] (requires Java 8+) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8+) ([*release notes*][scala_relnotes], [*Scala API*][scala_api])
 - [Scala 2.13 DEV][scala_snapshots]
 - [scala-cli 1.0][scala_cli_downloads] ([*release notes*][scala_cli_relnotes])
 - [Temurin OpenJDK 8 LTS][temurin_openjdk8] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk8_relnotes])
-- [Visual Studio Code 1.82][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Temurin OpenJDK 21 LTS][temurin_openjdk21] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk21_relnotes], [*Java 21 API*][oracle_openjdk21_api])
+- [Visual Studio Code 1.83][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 <!--
 - [Bloop 1.5][bloop_releases] (requires Java 8 and Python 2/3) ([*release notes*][bloop_relnotes])
@@ -124,6 +94,7 @@ C:\opt\VSCode\                     <i>(341 MB)</i>
  <!-- sbt: 1.5.1 to 1.5.5 = 50.6 MB -->
  <!-- sbt: 1.6.1 = 50.6 MB, 1.6.2 = 50.6 MB -->
  <!-- sbt: 1.7.1 = 80.6 MB, 1.7.2 = 80.6 MB, 1.8.0 = 80.6 MB, 1.9.3 = 110.0 MB -->
+ <!-- sbt: 1.9.6 = 136 MB -->
 
 > **:mag_right:** [Git for Windows][git_releases] provides a Bash emulation used to run [**`git.exe`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
@@ -573,7 +544,7 @@ Scala compiler version 3.3.1 -- Copyright 2002-2023, LAMP/EPFL
 
 ### `searchjars.bat <class_name>`
 
-Command [**`searchjars.bat`**](bin/searchjars.bat) helps us to search for class file names in the following directories: project's **`lib\`** directory (*if present*), Scala's **`lib\`** directory, Java's **`lib\`** directory and Ivy/Maven default directories.
+Command [**`searchjars.bat`**](bin/searchjars.bat) helps us to search for class file names in the following directories: project's **`lib\`** directory (*if present*), Scala's **`lib\`** directory, Java's **`lib\`** directory and Ivy/Maven default local directories.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> -help</b>
@@ -592,7 +563,7 @@ Usage: searchjars { &lt;option&gt; | &lt;class_name&gt; }
     &lt;class_name&gt;     class name
 </pre>
 
-Passing argument **`System`** to command [**`searchjars.bat`**](bin/searchjars.bat) prints the following output (class file names are printed with full path and are prefixed with their containing [JAR file][jar_file]:
+For instance we get the following output when passing class name **`System`** to command [**`searchjars.bat`**](bin/searchjars.bat) (class file names are printed with full path and are prefixed with their containing [JAR file][jar_file]):
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> System</b>
@@ -804,22 +775,22 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 <table>
 <tr><th>Java LTS Version</th><th>GA</th><th>End of life</th></tr>
 <tr>
-  <td><a href="https://jdk.java.net/21/" rel="external">21</a></td>
+  <td><a href="https://www.oracle.com/java/technologies/downloads/#java21" rel="external">21</a></td>
   <td>September 2023</td>
   <td>September 2031</td>
 </tr>
 <tr>
-  <td><a href="https://www.oracle.com/java/technologies/downloads/#java17">17</a></td>
+  <td><a href="https://www.oracle.com/java/technologies/downloads/#java17" rel="external">17</a></td>
   <td>September 2021</td>
   <td>September 2029</td>
 </tr>
 <tr>
-  <td><a href="https://www.oracle.com/java/technologies/downloads/#java11">11</a></td>
+  <td><a href="https://www.oracle.com/java/technologies/downloads/#java11" rel="external">11</a></td>
   <td>September 2018</td>
   <td>September 2026</td>
 </tr>
 <tr>
-  <td><a href="https://www.oracle.com/java/technologies/downloads/#java8">8</a></td>
+  <td><a href="https://www.oracle.com/java/technologies/downloads/#java8" rel="external">8</a></td>
   <td> March 2014</td>
   <td>December 2030 <sup>(1)</sup></td>
 </tr>
@@ -827,7 +798,7 @@ Oracle annonces in his <a href="https://www.oracle.com/technetwork/java/java-se-
 <div style="font-size:80%;"><sup>(1)</sup> The Extended Support uplift fee will be waived for the period March 2022 - December 2030 for Java SE 8.
 </dd>
 <dd>
-<b>NB.</b> See also <a href="https://www.azul.com/products/azul-support-roadmap/">Zulu's support roadmap</a>.
+<b>NB.</b> See also <a href="https://www.azul.com/products/azul-support-roadmap/" rel="external">Zulu's support roadmap</a>.
 </dd></dl>
 
 <span id="footnote_02">[2]</b> ***Using Bazel on Windows*** [↩](#anchor_02)
@@ -840,7 +811,7 @@ For instance, for Visual Studio 2019, we set variable <b><code>BAZEL_VC</code></
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1">set</a></b> "BAZEL_VC=C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC"
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/set_1" rel="external">set</a></b> "BAZEL_VC=C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC"
 </pre>
 </dd></dl>
 
@@ -934,13 +905,14 @@ Command Prompt has been around for as long as we can remember, but starting with
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [bazel_releases]: https://github.com/bazelbuild/bazel/releases
 <!--
-[bazel_relnotes]: https://blog.bazel.build/2022/01/19/bazel-5.0.html
-[bazel_relnotes]: https://blog.bazel.build/2022/03/24/bazel-5.1.html
-[bazel_relnotes]: https://blog.bazel.build/2022/06/08/bazel-5.2.html
-[bazel_relnotes]: https://blog.bazel.build/2022/08/23/bazel-5.3.html
-[bazel-relnotes]: https://blog.bazel.build/2022/12/19/bazel-6.0.html
+5.0 -> https://blog.bazel.build/2022/01/19/bazel-5.0.html
+5.1 -> https://blog.bazel.build/2022/03/24/bazel-5.1.html
+5.2 -> https://blog.bazel.build/2022/06/08/bazel-5.2.html
+5.3 -> https://blog.bazel.build/2022/08/23/bazel-5.3.html
+6.0 -> https://blog.bazel.build/2022/12/19/bazel-6.0.html
+6.4 -> https://github.com/bazelbuild/bazel/releases/tag/6.4.0
 -->
-[bazel_relnotes]: https://blog.bazel.build/2022/12/19/bazel-6.0.html
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/6.4.0
 [bloop_releases]: https://scalacenter.github.io/bloop/
 [bloop_relnotes]: https://github.com/scalacenter/bloop/releases/tag/v1.3.4
 [cfr_releases]: https://www.benf.org/other/cfr/
@@ -1003,8 +975,9 @@ Command Prompt has been around for as long as we can remember, but starting with
 [msys2_changelog]: https://github.com/msys2/setup-msys2/blob/master/CHANGELOG.md
 [msys2_releases]: https://github.com/msys2/msys2-installer/releases
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
+[oracle_openjdk17_api]: https://docs.oracle.com/en/java/javase/17/docs/api/
 [oracle_openjdk21]: https://jdk.java.net/21/
-[oracle_openjdk21_api]: https://download.java.net/java/early_access/jdk21/docs/api/
+[oracle_openjdk21_api]: https://docs.oracle.com/en/java/javase/21/docs/api/
 [oracle_openjdk21_relnotes]: https://jdk.java.net/21/release-notes
 [rust_examples]: https://github.com/michelou/rust-examples
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
@@ -1027,37 +1000,61 @@ Command Prompt has been around for as long as we can remember, but starting with
 [semanticdb_guide]: https://scalameta.org/docs/semanticdb/guide.html
 [spark_examples]: https://github.com/michelou/spark-examples
 [spring_examples]: https://github.com/michelou/spring-examples
-[temurin_openjdk8]: https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot
-[temurin_openjdk8_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2022-January/014522.html
 <!--
+8u212   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
+8u222   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
+8u232   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
+8u242   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-January/010979.html
+8u252   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-April/011559.html
+8u262   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-July/012143.html
+8u272   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2020-October/012817.html
+8u282   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-January/013337.html
+8u292   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-April/013680.html
 8u302   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-July/014118.html
 8u312   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2021-October/014373.html
 8u321   -> https://www.oracle.com/java/technologies/javase/8u321-relnotes.html
 8u322   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2022-January/014522.html
-11.0.3  -> http://mail.openjdk.java.net/pipermail/jdk-updates-dev/2019-April/000951.html
+-->
+[temurin_openjdk8]: https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot
+[temurin_openjdk8_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2022-January/014522.html
+<!--
+11.0.3  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2019-April/000951.html
+11.0.4  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2019-July/001423.html
+11.0.5  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2019-October/002025.html
+11.0.6  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-January/002374.html
+11.0.7  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-April/003019.html
+11.0.8  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-July/003498.html
+11.0.9  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2020-October/004007.html
+11.0.10 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-January/004689.html
 11.0.11 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-April/005860.html
 11.0.12 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-July/006954.html
 11.0.13 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-October/009368.html
 11.0.14 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2022-January/011643.html
+11.0.15 -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2022-April/014104.html
 11.0.16 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2022-July/016017.html
 11.0.17 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2022-October/018119.html
 11.0.18 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-January/020111.html
 11.0.19 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-April/021900.html
 11.0.20 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024064.html
-11.0.21 ->
+11.0.21 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026351.html
 -->
+[temurin_openjdk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
 [temurin_openjdk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-17-bugfixes.html
 [temurin_openjdk11_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024064.html
-[temurin_openjdk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
 <!--
 17.0.7  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-April/021899.html
 17.0.8  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024063.html
+17.0.9  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026352.html
 -->
 [temurin_openjdk17]: https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot
 [temurin_openjdk17_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
-[temurin_openjdk17_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024063.html
-[temurin_openjdk20]: https://adoptium.net/releases.html?variant=openjdk20&jvmVariant=hotspot
-[temurin_openjdk20_relnotes]: https://mail.openjdk.org/pipermail/jdk-dev/2023-March/007517.html
+[temurin_openjdk17_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026352.html
+<!--
+21_35   -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026351.html
+-->
+[temurin_openjdk21]: https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot
+[temurin_openjdk21_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
+[temurin_openjdk21_relnotes]: https://jdk.java.net/21/release-notes
 <!--
 [python_changelog]: https://docs.python.org/3.8/whatsnew/changelog.html#python-3-8-0-final
 [python_release]: https://www.python.org/downloads/release/python-380/

@@ -20,7 +20,7 @@ W:\myexamples\HelloWorld
 
 Build tools rely on one or more configuration files to achieve their tasks. In our case we provide the following configuration files for [**`HelloWorld`**](HelloWorld):
 
-| | Build&nbsp;tool              | Build file(s)                                   | Parent file(s)                       | Environment(s) |
+| | Build&nbsp;tool              | Build&nbsp;file(s)                              | Parent file(s)                       | Environment(s) |
 |-|-------------------------------|---------------------------------------------------------|--------------------------------------|---------|
 | [**&#9660;**](#ant) | [**`ant.bat`**][apache_ant_cli] | [**`build.xml`**](HelloWorld/build.xml)                 | [**`build.xml`**](build.xml), [**`ivy.xml`**](ivy.xml) | Any <sup><b>a)</b></sup> |
 | | [**`bazel.exe`**][bazel_cli]    | [**`BUILD`**](HelloWorld/BUILD), **`WORKSPACE`**        | n.a.                                 | Any |
