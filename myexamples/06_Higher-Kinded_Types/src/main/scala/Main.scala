@@ -9,31 +9,30 @@ object test01 {
   def hk1[S, T >: S](x: S, g: S => T): Unit = {
     type Y = [X] =>> (X, T)
     def f: Y[S] = (x, g(x))
-    println("f="+f)
+    println("f=" + f)
   }
 
   def run: Unit = {
     println("------ test01 ------")
-    hk1('a', s => (s.toInt+1).toChar)
-    hk1(Foo(0), _ match { case Foo(x) => Bar(x+1) /* or Foo(x+1) */ })
+    hk1('a', s => (s.toInt + 1).toChar)
+    hk1(Foo(0), _ match { case Foo(x) => Bar(x + 1) /* or Foo(x+1) */ })
     println()
   }
 
 }
-
 
 object test02 {
 
   def hk2[S, T <: S](x: T, g: S => T): Unit = {
     type Y = [X] =>> (X, T)
     def f: Y[S] = (x, g(x))
-    println("f="+f)
+    println("f=" + f)
   }
 
   def run: Unit = {
     println("------ test02 ------")
-    hk2(1.0, _+1)
-    hk2(Bar(1), _ match { case Bar(y) => Bar(y+1) /* but not Foo(y+1) */ })
+    hk2(1.0, _ + 1)
+    hk2(Bar(1), _ match { case Bar(y) => Bar(y + 1) /* but not Foo(y+1) */ })
     println()
   }
 
@@ -49,16 +48,18 @@ object test03 {
   }
 
   implicit val demoFunctor: Functor[Container] = new Functor[Container] {
+
     def map[A, B](fn: A => B)(fa: Container[A]): Container[B] =
       Container(fn(fa.first), fn(fa.second))
+
   }
-  
+
   def run: Unit = {
     println("------ test03 ------")
     val xs = List(Container('a', 'b'), Container('x', 'z'))
 
-    println("xs="+xs)
-    println("xs.map(_.first.toUpper)="+xs.map(_.first.toUpper))
+    println("xs=" + xs)
+    println("xs.map(_.first.toUpper)=" + xs.map(_.first.toUpper))
     println()
   }
 

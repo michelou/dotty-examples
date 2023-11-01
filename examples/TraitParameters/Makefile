@@ -28,7 +28,7 @@ MAIN_ARGS ?=
 
 all: build
 
-build: $(TARGET)
+build: deps $(TARGET)
 
 $(TARGET): $(SOURCES)
 	[ -d "$(CLASSES_DIR)" ] || "$(MKDIR)" -p "$(CLASSES_DIR)"
@@ -53,7 +53,7 @@ help:
 	@$(ECHO) "    build  compile Java/Scala source files"
 	@$(ECHO) "    clean  delete generated files"
 	@$(ECHO) "    doc    generate HTML documentation"
-	@$(ECHO) "    help   display this help message"
+	@$(ECHO) "    help   print this help message"
 	@$(ECHO) "    lint   analyze Scala source files with Scalafmt"
 	@$(ECHO) "    run    execute main program \"$(MAIN_CLASS)\""
 	@$(ECHO) "    test   execute unit tests with JUnit"
@@ -84,17 +84,15 @@ doc: build $(DOC_TARGET)
 ##############################################################################
 ## lint rules
 
-LINT_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)" -type f -name "*.scala")
-LINT_TARGET  = $(TARGET_DIR)/.latest-lint
-
 SCALAFMT_CONFIG_FILE = $(shell dirname $(CURDIR))/.scalafmt.conf
+ifdef DEBUG
+SCALAFMT_OPTS = --debug --test --config "$(SCALAFMT_CONFIG_FILE)"
+else
 SCALAFMT_OPTS = --test --config "$(SCALAFMT_CONFIG_FILE)"
+endif
 
-lint: $(LINT_TARGET)
-
-$(LINT_TARGET): $(LINT_SOURCES)
+lint:
 	"$(SCALAFMT)" $(SCALAFMT_OPTS) $(SOURCE_DIR)
-	@$(TOUCH) "$(LINT_TARGET)"
 
 ##############################################################################
 ## test rules
@@ -122,7 +120,7 @@ test: build $(TEST_TARGET)
 ##############################################################################
 ## phony
 
-.PHONY: all build clean compile doc help lint run test
+.PHONY: all build clean compile deps doc help lint run test
 
 .SUFFIXES:
-.SUFFIXES: .classes .jar .java .scala .tasty
+.SUFFIXES: .class .jar .java .scala .tasty

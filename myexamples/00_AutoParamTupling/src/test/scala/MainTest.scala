@@ -10,7 +10,11 @@ class MainTest {
   @Test
   def test01(): Unit = {
     val stdout = captureStdout { Main.test01 }
-    assertEquals("test01", stdout, s": d : o : t : t : y ${eol}0: d 1: o 2: t 3: t 4: y $eol")
+    assertEquals(
+      "test01",
+      stdout,
+      s": d : o : t : t : y ${eol}0: d 1: o 2: t 3: t 4: y $eol"
+    )
   }
 
   @Test

@@ -25,7 +25,7 @@ SOURCES_FILE = $(TARGET_DIR)/scalac_sources.txt
 
 all: build
 
-build: $(TARGET)
+build: deps $(TARGET)
 
 $(TARGET): $(SOURCES)
 	[ -d "$(CLASSES_DIR)" ] || "$(MKDIR)" -p "$(CLASSES_DIR)"
@@ -45,7 +45,7 @@ help:
 	@$(ECHO) "    build  compile Java/Scala source files"
 	@$(ECHO) "    clean  delete generated files"
 	@$(ECHO) "    doc    generate HTML documentation"
-	@$(ECHO) "    help   display this help message"
+	@$(ECHO) "    help   print this help message"
 	@$(ECHO) "    lint   analyze Scala source files with Scalafmt"
 	@$(ECHO) "    test   execute unit tests with JUnit"
 
@@ -63,7 +63,7 @@ PROJECT_VERSION ?= 1.0.0
 DOC_OPTS_FILE    = $(TARGET_DIR)/scaladoc_opts.txt
 DOC_SOURCES_FILE = $(TARGET_DIR)/scaladoc_sources.txt
 
-$(DOC_TARGET): $(DOC_SOURCES)
+$(DOC_TARGET): $(TARGET) $(DOC_SOURCES)
 	[ -d "$(DOC_TARGET_DIR)" ] || "$(MKDIR)" -p "$(DOC_TARGET_DIR)"
 	@$(ECHO) -siteroot "$(DOC_TARGET_DIR)" -d "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
 	@$(ECHO) $(DOC_SOURCES) > "$(DOC_SOURCES_FILE)"
@@ -75,17 +75,15 @@ doc: build $(DOC_TARGET)
 ##############################################################################
 ## lint rules
 
-LINT_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)" -type f -name "*.scala")
-LINT_TARGET  = $(TARGET_DIR)/.latest-lint
-
 SCALAFMT_CONFIG_FILE = $(shell dirname $(CURDIR))/.scalafmt.conf
+ifdef DEBUG
+SCALAFMT_OPTS = --debug --test --config "$(SCALAFMT_CONFIG_FILE)"
+else
 SCALAFMT_OPTS = --test --config "$(SCALAFMT_CONFIG_FILE)"
+endif
 
-lint: $(LINT_TARGET)
-
-$(LINT_TARGET): $(LINT_SOURCES)
+lint:
 	"$(SCALAFMT)" $(SCALAFMT_OPTS) $(SOURCE_DIR)
-	@$(TOUCH) "$(LINT_TARGET)"
 
 ##############################################################################
 ## test rules
@@ -113,7 +111,7 @@ test: build $(TEST_TARGET)
 ##############################################################################
 ## phony
 
-.PHONY: all build clean doc help lint test
+.PHONY: all build clean deps doc help lint test
 
 .SUFFIXES:
-.SUFFIXES: .classes .jar .java .scala .tasty
+.SUFFIXES: .class .jar .java .scala .tasty

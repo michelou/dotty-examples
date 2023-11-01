@@ -48,7 +48,7 @@ ANT_HOME=/opt/apache-ant
 > 36M     /opt/flix-0.40.0
 > 51M     /opt/git
 > 129M    /opt/gradle
-> 308M    /opt/jdk-11.0.20_8
+> 308M    /opt/jdk-11.0.21_9
 > 103M    /opt/ktlint-0.50.0
 > 61M     /opt/mill
 > 81M     /opt/sbt
@@ -200,7 +200,7 @@ done.ing certificates in /etc/ssl/certs.../cloud/cloud.cfg ...
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

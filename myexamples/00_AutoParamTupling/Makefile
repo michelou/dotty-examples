@@ -28,7 +28,7 @@ MAIN_ARGS ?=
 
 all: build
 
-build: $(TARGET)
+build: deps $(TARGET)
 
 $(TARGET): $(SOURCES)
 	[ -d "$(CLASSES_DIR)" ] || "$(MKDIR)" -p "$(CLASSES_DIR)"
@@ -83,7 +83,11 @@ doc: build $(DOC_TARGET)
 ## lint rules
 
 SCALAFMT_CONFIG_FILE = $(shell dirname $(CURDIR))/.scalafmt.conf
+ifdef DEBUG
+SCALAFMT_OPTS = --debug --test --config "$(SCALAFMT_CONFIG_FILE)"
+else
 SCALAFMT_OPTS = --test --config "$(SCALAFMT_CONFIG_FILE)"
+endif
 
 lint:
 	"$(SCALAFMT)" $(SCALAFMT_OPTS) $(SOURCE_DIR)
@@ -114,7 +118,7 @@ test: build $(TEST_TARGET)
 ##############################################################################
 ## phony
 
-.PHONY: all build clean doc help lint run test
+.PHONY: all build clean deps doc help lint run test
 
 .SUFFIXES:
 .SUFFIXES: .class .jar .java .scala .tasty

@@ -76,7 +76,7 @@ Total time: 3 seconds
 > <b>&gt; <a href="https://curl.haxx.se/docs/manual.html">curl</a> -sL -o c:\Temp\apache-ivy-2.5.2.zip https://www-eu.apache.org/dist//ant/ivy/2.5.2/apache-ivy-2.5.2-bin.zip</b>
 > <b>&gt; <a href="https://linux.die.net/man/1/unzip">unzip</a> c:\temp\apache-ivy-2.5.2.zip -d c:\opt</b>
 > <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/copy">copy</a> c:\opt\apache-ivy-2.5.2\ivy-2.5.2.jar c:\opt\apache-ant-1.10.14\lib</b>
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\apache-ant-1.10.14\lib | findstr ivy</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> c:\opt\apache-ant\lib | findstr ivy</b>
 > 09/06/2023  11:25 PM         1,405,631 ivy-2.5.2.jar
 > </pre>
 
@@ -134,9 +134,9 @@ Command [**`setenv -bash`**](setenv.bat) starts a [Cygwin] Bash session:
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -bash</b>
 Tool versions:
-   javac 11.0.20, java 11.0.20, scalac 2.13.12, scalac 3.3.1,
-   ant 1.10.14, gradle 8.4, mill 0.11.5, mvn 3.9.5, sbt 1.9.6,
-   bazel 6.3.2, cfr 0.152, coursier 2.1.5, make 3.81, python 3.11.1,
+   javac 11.0.21, java 11.0.21, scalac 2.13.12, scalac 3.3.1,
+   ant 1.10.14, gradle 8.4, mill 0.11.5, mvn 3.9.5, sbt 1.9.7,
+   bazel 6.4.0, cfr 0.152, coursier 2.1.5, make 3.81, python 3.11.1,
    git 2.42.0.windows.1, diff 3.8, bash 5.2.15(1)-release
 &nbsp;
 user@host MSYS /w
@@ -170,9 +170,9 @@ Similarly, command [**`setenv -msys`**](setenv.bat) starts a [MSYS2] Bash sessio
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -msys</b>
 Tool versions:
-   javac 11.0.20 java 11.0.20 scalac 2.13.12, scalac 3.3.1,
-   ant 1.10.14, gradle 8.4, mill 0.11.5, mvn 3.9.5, sbt 1.9.6,
-   bazel 6.3.2, cfr 0.152, coursier 2.1.5, make 3.81, python 3.11.1,
+   javac 11.0.21 java 11.0.21 scalac 2.13.12, scalac 3.3.1,
+   ant 1.10.14, gradle 8.4, mill 0.11.5, mvn 3.9.5, sbt 1.9.7,
+   bazel 6.4.0, cfr 0.152, coursier 2.1.5, make 3.81, python 3.11.1,
    git 2.42.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 &nbsp;
 <b>$ <a href="https://www.man7.org/linux/man-pages/man1/bash.1.html">bash</a> --version | <a href="https://man7.org/linux/man-pages/man1/grep.1.html">grep</a> bash</b>
@@ -210,12 +210,12 @@ The Gradle build file [**`HelloWorld\build.gradle`**](HelloWorld/build.gradle) l
     id <span style="color:#990000;">"java"</span>
 }
 &nbsp;
-group <span style="color:#990000;">"$appGroup"</span>
-version <span style="color:#990000;">"$appVersion"</span>
+<b>group</b> <span style="color:#990000;">"$appGroup"</span>
+<b>version</b> <span style="color:#990000;">"$appVersion"</span>
 &nbsp;
-description <span style="color:#990000;">"""Gradle example project to build/run Scala 3 applications"""</span>
+<b>description</b> <span style="color:#990000;">"""Gradle example project to build/run Scala 3 applications"""</span>
 &nbsp;
-apply from: <span style="color:#990000;">"../common.gradle"</span>
+<b>apply from</b>: <span style="color:#990000;">"../common.gradle"</span>
 &nbsp;
 <b>run.doFirst</b> {
     args <span style="color:#990000;">""</span>
@@ -247,22 +247,22 @@ buildDir file(<span style="color:#990000;">"/target"</span>)
     targetDir.deleteDir()
 }
 <b>task</b> compileDotty(type: JavaExec) {
-    dependsOn compileJava
+    <b>dependsOn</b> compileJava
     ...
     main <span style="color:#990000;">"dotty.tools.dotc.Main"</span>
 }
 <b>compileDotty.doFirst</b> {
-    if (!classesDir.exists()) classesDir.mkdirs()
+    <b>if</b> (!classesDir.exists()) classesDir.mkdirs()
 }
 <b>build</b> {
-    dependsOn compileDotty
+    <b>dependsOn</b> compileDotty
 }
 <b>task</b> run(type: JavaExec) {
-    dependsOn build
+    <b>dependsOn</b> build
     ...
     <b>if</b> (mainClassName?.trim()) main mainClassName
     <b>else</b> main <span style="color:#990000;">"Main"</span>
-    if (args == null) args <span style="color:#990000;">""</span>
+    <b>if</b> (args == null) args <span style="color:#990000;">""</span>
 }
 ...
 </pre>
@@ -337,16 +337,16 @@ Command **`mvn clean test`** with option **`-debug`** produces additional debug 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/run.html">mvn</a> -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-temurin-11.0.20_8\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-temurin-11.0.21_9\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.3.1 \
  -cp C:\opt\scala3-3.3.1\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\opt\jdk-temurin-11.0.20_8\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-temurin-11.0.21_9\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.3.1 [...]
-[DEBUG] [execute] C:\opt\jdk-temurin-11.0.20_8\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-temurin-11.0.21_9\bin\java.exe \
  -Xms64m -Xmx1024m -cp C:\opt\scala3-3.3.1\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
@@ -450,7 +450,7 @@ Hello world!
 >   scala-library-2.13.12.jar:scala/collection/generic/DefaultSerializable.class
 > Searching for class name Serializable in library files C:\opt\scala-2.13.12\lib\*.jar
 >   scala-library.jar:scala/collection/generic/DefaultSerializable.class
-> Searching for class name Serializable in library files C:\opt\jdk-temurin-11.0.20_8\lib\*.jar
+> Searching for class name Serializable in library files C:\opt\jdk-temurin-11.0.21_9\lib\*.jar
 > Searching for class name Serializable in archive files C:\opt\javafx-sdk-17.0.1\lib\*.jar
 > </pre>
 > Class **`scala.Serializable`** is part of **`C:\opt\scala3-3.3.1\lib\scala-library-2.13.12.jar`**, so let us add it to our classpath !
@@ -603,7 +603,7 @@ following parameters are passed as login shell command parameters.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

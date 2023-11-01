@@ -28,7 +28,7 @@ MAIN_ARGS ?=
 
 all: build
 
-build: $(TARGET)
+build: deps $(TARGET)
 
 $(TARGET): $(SOURCES)
 	[ -d "$(CLASSES_DIR)" ] || "$(MKDIR)" -p "$(CLASSES_DIR)"
@@ -51,7 +51,7 @@ help:
 	@$(ECHO) "    build  compile Java/Scala source files"
 	@$(ECHO) "    clean  delete generated files"
 	@$(ECHO) "    doc    generate HTML documentation"
-	@$(ECHO) "    help   display this help message"
+	@$(ECHO) "    help   print this help message"
 	@$(ECHO) "    lint   analyze Scala source files with Scalafmt"
 	@$(ECHO) "    run    execute the main program \"$(MAIN_CLASS)\""
 	@$(ECHO) "    test   execute unit tests with JUnit"
@@ -83,7 +83,11 @@ doc: build $(DOC_TARGET)
 ## lint rules
 
 SCALAFMT_CONFIG_FILE = $(shell dirname $(CURDIR))/.scalafmt.conf
-SCALAFMT_OPTS = --test --config "$(SCALAFMT_CONFIG_FILE)"
+ifdef DEBUG
+SCALAFMT_OPTS = --debug --config "$(SCALAFMT_CONFIG_FILE)"
+else
+SCALAFMT_OPTS = --config "$(SCALAFMT_CONFIG_FILE)"
+endif
 
 lint:
 	"$(SCALAFMT)" $(SCALAFMT_OPTS) $(SOURCE_DIR)
@@ -115,7 +119,7 @@ test: build $(TEST_TARGET)
 ##############################################################################
 ## phony
 
-.PHONY: all build clean doc help lint run test
+.PHONY: all build clean deps doc help lint run test
 
 .SUFFIXES:
 .SUFFIXES: .class .jar .java .scala .tasty

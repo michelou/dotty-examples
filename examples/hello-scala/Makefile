@@ -35,7 +35,7 @@ MAIN_ARGS ?=
 
 all: build
 
-build: $(JAVA_TARGET) $(TARGET)
+build: deps $(JAVA_TARGET) $(TARGET)
 
 $(JAVA_TARGET): $(JAVA_SOURCES)
 	[ -d "$(CLASSES_DIR)" ] || "$(MKDIR)" -p "$(CLASSES_DIR)"
@@ -128,7 +128,7 @@ test: build $(TEST_TARGET)
 ##############################################################################
 ## phony
 
-.PHONY: all build clean doc help lint run test
+.PHONY: all build clean deps doc help lint run test
 
 .SUFFIXES:
 .SUFFIXES: .class .jar .java .scala .tasty

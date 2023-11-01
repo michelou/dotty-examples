@@ -462,11 +462,11 @@ Usage: sharedata { &lt;option&gt; | &lt;subcommand&gt; }
 &nbsp;
   Options:
     -share[:&lt;on|off&gt;]  set the share flag (default:off)
-    -verbose           display generation progress
+    -verbose           print progress messages
   Subcommands:
     activate           install the Java shared archive
     dump               create the Java shared archive
-    help               display this help message
+    help               print this help message
     reset              uninstall the Java shared archive
     test               execute test application (depends on dump)
 </pre>
@@ -703,7 +703,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

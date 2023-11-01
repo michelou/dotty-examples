@@ -26,7 +26,7 @@ object Main {
     val b = a.legsCount
     (a, b) match {
       case (a @ Biped(), _) => println(s"A $a has two legs")
-      case (a, _)           => println(s"A $a doesn't have two legs")
+      case (a, _) => println(s"A $a doesn't have two legs")
     }
   }
 
@@ -76,11 +76,11 @@ object Main {
   def nameBasedPattern: Unit = {
     5 match {
       case Nat(n) => println(s"$n is a natural number")
-      case _      => ()
+      case _ => ()
     }
   }
 
-  class Person(val name: String, val children: Person *)
+  class Person(val name: String, val children: Person*)
 
   object Person {
     def unapply(p: Person) = Some((p.name, p.children))
@@ -93,8 +93,8 @@ object Main {
   def varargPattern: Unit = {
     val xs = List(1, 2, 3, 4)
     xs match {
-      case List(1, 2, xs: _*) => println(xs)    // binds xs
-      case List(1, _ : _*) =>                   // wildcard pattern
+      case List(1, 2, xs: _*) => println(xs) // binds xs
+      case List(1, _: _*) => // wildcard pattern
       case ys => // for exhaustivity
     }
   }

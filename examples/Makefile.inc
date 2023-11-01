@@ -1,6 +1,3 @@
-ifndef GIT_HOME
-$(error Variable GIT_HOME is not set)
-endif
 ifndef JAVA_HOME
 $(error Variable JAVA_HOME is not set)
 endif
@@ -12,19 +9,21 @@ ifeq ($(OS),Windows_NT)
 JAR        = $(subst \,/,$(JAVA_HOME))/bin/jar.exe
 JAVA       = $(subst \,/,$(JAVA_HOME))/bin/java.exe
 JAVAC      = $(subst \,/,$(JAVA_HOME))/bin/javac.exe
+MVN        = $(subst \,/,$(MAVEN_HOME))/bin/mvn.cmd
 SCALA      = $(subst \,/,$(SCALA3_HOME))/bin/scala.bat
 SCALAC     = $(subst \,/,$(SCALA3_HOME))/bin/scalac.bat
 SCALADOC   = $(subst \,/,$(SCALA3_HOME))/bin/scaladoc.bat
 SCALAFMT   = $(subst \,/,$(LOCALAPPDATA))/Coursier/data/bin/scalafmt.bat
 LOCAL_REPO = $(subst \,/,$(USERPROFILE))/.m2/repository
 PSEP       = ;
-CP         = $(subst \,/,$(GIT_HOME))/usr/bin/cp.exe
-ECHO       = $(subst \,/,$(GIT_HOME))/usr/bin/echo.exe
-## We grab Mingw version instead of C:\Windows\System32\find.exe
-FIND       = $(subst \,/,$(GIT_HOME))/usr/bin/find.exe
-MKDIR      = $(subst \,/,$(GIT_HOME))/usr/bin/mkdir.exe
-RM         = $(subst \,/,$(GIT_HOME))/usr/bin/rm.exe
-TOUCH      = $(subst \,/,$(GIT_HOME))/usr/bin/touch.exe
+## $(MSYS_HOME)\usr\bin\{cp.exe, make.exe, wget.exe}
+CP         = /usr/bin/cp.exe
+ECHO       = /usr/bin/echo.exe
+FIND       = /usr/bin/find.exe
+MKDIR      = /usr/bin/mkdir.exe
+RM         = /usr/bin/rm.exe
+TOUCH      = /usr/bin/touch.exe
+WGET       = /usr/bin/wget
 else
 JAR        = $(JAVA_HOME)/bin/jar
 JAVA       = $(JAVA_HOME)/bin/java
@@ -39,10 +38,14 @@ CP         = cp
 ECHO       = echo
 FIND       = find
 MKDIR      = mkdir
+MVN        = mvn
 RM         = rm
 TOUCH      = touch
+WGET       = wget
 endif
 
+## https://mvnrepository.com/artifact/junit/junit
+JUNIT_VERSION = 4.13.2
 ## https://mvnrepository.com/artifact/org.scalatest/scalatest
 SCALATEST_VERSION = 3.2.17
 ## https://mvnrepository.com/artifact/org.specs2/specs2-core
@@ -54,7 +57,7 @@ SCALA3_LIB_JAR        = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name "sc
 
 HAMCREST_JAR          = $(shell $(FIND) "$(LOCAL_REPO)/org/hamcrest" -name "hamcrest-2.2.jar")
 HAMCREST_ALL_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/hamcrest" -name "hamcrest-all-1.3.jar")
-JUNIT_JAR             = $(shell $(FIND) "$(LOCAL_REPO)/junit/junit" -name "junit-4.13.2.jar")
+JUNIT_JAR             = $(shell $(FIND) "$(LOCAL_REPO)/junit/junit" -name "junit-$(JUNIT_VERSION).jar")
 JUNIT_INTF_JAR        = $(shell $(FIND) "$(LOCAL_REPO)/com/novocode" -name "junit-interface-0.11.jar")
 
 SCALATEST_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scalatest" -name "scalatest_3-$(SCALATEST_VERSION).jar")
@@ -67,21 +70,99 @@ SPECS2_FP_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name "specs2
 SPECS2_JUNIT_JAR      = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name "specs2-junit_3-$(SPECS2_VERSION).jar")
 SPECS2_MATCHER_JAR    = $(shell $(FIND) "$(LOCAL_REPO)/org/specs2" -name "specs2-matcher_3-$(SPECS2_VERSION).jar")
 
+deps:
+	$(eval MVN_OPTS := -quiet)
+	$(eval REMOTE_REPO := https://repo1.maven.org/maven2)
+	$(eval WGET_OPTS := --user-agent="Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0)" --no-check-certificate --directory-prefix="$(TMP)")
+	@$(ECHO) "## Check Maven dependencies on $(REMOTE_REPO)"
 ifeq (,$(wildcard $(SCALA_LIB_JAR)))
-$(error Variable SCALA_LIB_JAR is not set)
+	$(eval GROUP_ID := org.scala-lang)
+	$(eval ARTIFACT_ID := scala-library)
+    $(eval SCALA_VERSION := 2.13.12)
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(SCALA_VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(SCALA_VERSION)/$(ARTIFACT_ID)-$(SCALA_VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(SCALA_VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(SCALA_VERSION) -Dpackaging=jar
+	$(eval SCALA_LIB_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(SCALA_VERSION).jar))
 endif
 ifeq (,$(wildcard $(SCALA3_LIB_JAR)))
-$(error Variable SCALA3_LIB_JAR is not set)
+	$(eval GROUP_ID := org.scala-lang)
+	$(eval ARTIFACT_ID := scala3-library_3)
+    $(eval SCALA3_VERSION := 3.3.1)
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(SCALA3_VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(SCALA3_VERSION)/$(ARTIFACT_ID)-$(SCALA3_VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(SCALA3_VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(SCALA3_VERSION) -Dpackaging=jar
+	$(eval SCALA3_LIB_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(SCALA3_VERSION).jar))
 endif
 ifeq (,$(wildcard $(JUNIT_JAR)))
-$(error Variable JUNIT_JAR is not set)
+	$(eval GROUP_ID := junit)
+	$(eval ARTIFACT_ID := junit)
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(JUNIT_VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(JUNIT_VERSION)/$(ARTIFACT_ID)-$(JUNIT_VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(JUNIT_VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(JUNIT_VERSION) -Dpackaging=jar
+	$(eval JUNIT_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(JUNIT_VERSION).jar))
 endif
 ifeq (,$(wildcard $(SCALATEST_JAR)))
-$(error Variable SCALATEST_JAR is not set)
+	$(eval GROUP_ID := org.scalatest)
+	$(eval ARTIFACT_ID := scalatest_3)
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(SCALATEST_VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(SCALATEST_VERSION)/$(ARTIFACT_ID)-$(SCALATEST_VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(SCALATEST_VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(SCALATEST_VERSION) -Dpackaging=jar
+	$(eval SCALATEST_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(SCALATEST_VERSION).jar))
+endif
+ifeq (,$(wildcard $(SCALATEST_FUNSPEC_JAR)))
+	$(eval GROUP_ID := org.scalatest)
+	$(eval ARTIFACT_ID := scalatest-funspec_3)
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(SCALATEST_VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(SCALATEST_VERSION)/$(ARTIFACT_ID)-$(SCALATEST_VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(SCALATEST_VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(SCALATEST_VERSION) -Dpackaging=jar
+endif
+ifeq (,$(wildcard $(SCALACTIC_JAR)))
+	$(eval GROUP_ID := org.scalactic)
+	$(eval ARTIFACT_ID := scalactic_3)
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(SCALATEST_VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(SCALATEST_VERSION)/$(ARTIFACT_ID)-$(SCALATEST_VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(SCALATEST_VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(SCALATEST_VERSION) -Dpackaging=jar
+	$(eval SCALACTIC_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(SCALATEST_VERSION).jar))
 endif
 ifeq (,$(wildcard $(SPECS2_COMMON_JAR)))
-$(error Variable SPECS2_COMMON_JAR is not set)
+	$(eval GROUP_ID := org.specs2)
+	$(eval ARTIFACT_ID := specs2-common_3)
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(SPECS2_VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(SPECS2_VERSION)/$(ARTIFACT_ID)-$(SPECS2_VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(SPECS2_VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(SPECS2_VERSION) -Dpackaging=jar
+	$(eval SPECS2_COMMON_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(SPECS2_VERSION).jar))
 endif
 ifeq (,$(wildcard $(SPECS2_CORE_JAR)))
-$(error Variable SPECS2_CORE_JAR is not set)
+	$(eval GROUP_ID := org.specs2)
+	$(eval ARTIFACT_ID := specs2-core_3)
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(SPECS2_VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(SPECS2_VERSION)/$(ARTIFACT_ID)-$(SPECS2_VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(SPECS2_VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(SPECS2_VERSION) -Dpackaging=jar
+	$(eval SPECS2_CORE_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(SPECS2_VERSION).jar))
+endif
+ifeq (,$(wildcard $(SPECS2_JUNIT_JAR)))
+	$(eval GROUP_ID := org.specs2)
+	$(eval ARTIFACT_ID := specs2-junit_3)
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(SPECS2_VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(SPECS2_VERSION)/$(ARTIFACT_ID)-$(SPECS2_VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(SPECS2_VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(SPECS2_VERSION) -Dpackaging=jar
+	$(eval SPECS2_JUNIT_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(SPECS2_VERSION).jar))
+endif
+ifeq (,$(wildcard $(SPECS2_MATCHER_JAR)))
+	$(eval GROUP_ID := org.specs2)
+	$(eval ARTIFACT_ID := specs2-matcher_3)
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(SPECS2_VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(SPECS2_VERSION)/$(ARTIFACT_ID)-$(SPECS2_VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(SPECS2_VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(SPECS2_VERSION) -Dpackaging=jar
+	$(eval SPECS2_MATCHER_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(SPECS2_VERSION).jar))
 endif
