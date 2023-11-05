@@ -1,6 +1,9 @@
 ifndef JAVA_HOME
 $(error Variable JAVA_HOME is not set)
 endif
+ifndef MAVEN_HOME
+$(error Variable MAVEN_HOME is not set)
+endif
 ifndef SCALA3_HOME
 $(error Variable SCALA3_HOME is not set)
 endif

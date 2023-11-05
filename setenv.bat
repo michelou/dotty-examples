@@ -399,7 +399,10 @@ if defined __BLOOP_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable BLOOP_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\bloop*" 2^>NUL') do set "_BLOOP_HOME=!_PATH!\%%f"
+    if exist "!__PATH!\bloop\" ( set "_BLOOP_HOME=!__PATH!\bloop"
+    ) else (
+       for /f %%f in ('dir /ad /b "!_PATH!\bloop*" 2^>NUL') do set "_BLOOP_HOME=!_PATH!\%%f"
+    )
     if defined _BLOOP_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Bloop installation directory "!_BLOOP_HOME!" 1>&2
     )
@@ -499,8 +502,11 @@ if defined __SCALAC_CMD (
     set "_SCALA_HOME=%SCALA_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SCALA_HOME 1>&2
 ) else (
-    set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\scala-2*" 2^>NUL') do set "_SCALA_HOME=!_PATH!\%%f"
+    set __PATH=C:\opt
+    if exist "!__PATH!\scala\" ( set "_SCALA_HOME=!__PATH!\scala"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\scala-2*" 2^>NUL') do set "_SCALA_HOME=!__PATH!\%%f"
+    )
     if defined _SCALA_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala 2 installation directory "!_SCALA_HOME!" 1>&2
     )
@@ -541,8 +547,15 @@ if defined __SCALAC_CMD (
     set "_SCALA3_HOME=%SCALA3_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SCALA3_HOME 1>&2
 ) else (
-    set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\scala3-3*" 2^>NUL') do set "_SCALA3_HOME=!_PATH!\%%f"
+    set __PATH=C:\opt
+    if exist "!__PATH!\scala3\" ( set "_SCALA3_HOME=!__PATH!\scala3"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\scala3-3*" 2^>NUL') do set "_SCALA3_HOME=!__PATH!\%%f"
+        if not defined _SCALA3_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\scala3-3*" 2^>NUL') do set "_SCALA3_HOME=!__PATH!\%%f"
+        )
+    )
     if defined _SCALA3_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala 3 installation directory "!_SCALA3_HOME!" 1>&2
     )
@@ -577,6 +590,9 @@ if defined __SBT_CMD (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!__PATH!\%%f"
         )
+    )
+    if defined _SBT_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default sbt installation directory "!_SBT_HOME!" 1>&2
     )
 )
 if not exist "%_SBT_HOME%\bin\sbt.bat" (
@@ -681,11 +697,11 @@ if defined __CFR_CMD (
     set __PATH=C:\opt
     for /f %%f in ('dir /ad /b "!__PATH!\cfr*" 2^>NUL') do set "_CFR_HOME=!__PATH!\%%f"
     if defined _CFR_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default cfr installation directory "!_CFR_HOME!" 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default CFR installation directory "!_CFR_HOME!" 1>&2
     )
 )
 if not exist "%_CFR_HOME%\bin\cfr.bat" (
-    echo %_ERROR_LABEL% cfr executable not found ^("%_CFR_HOME%"^) 1>&2
+    echo %_ERROR_LABEL% CFR executable not found ^("%_CFR_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -774,12 +790,12 @@ if defined JACOCO_HOME (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable JACOCO_HOME 1>&2
 ) else (
     set __PATH=C:\opt
-    if exist "!__PATH!\jacoco\" ( set "_JACOCO_HOME=!__PATH!\jmc"
+    if exist "!__PATH!\jacoco\" ( set "_JACOCO_HOME=!__PATH!\jacoco"
     ) else (
         for /f %%f in ('dir /ad /b "!__PATH!\jacoco-*" 2^>NUL') do set "_JACOCO_HOME=!__PATH!\%%f"
         if not defined _JACOCO_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\jacoco-*" 2^>NUL') do set "_JACOCO_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\jacoco-*" 2^>NUL') do set "_JACOCO_HOME=!__PATH!\%%f"
         )
     )
     if defined _JACOCO_HOME (
@@ -884,6 +900,10 @@ if defined __MVN_CMD (
     if exist "!__PATH!\apache-maven\" ( set "_MAVEN_HOME=!__PATH!\apache-maven"
     ) else (
         for /f %%f in ('dir /ad /b "!__PATH!\apache-maven-*" 2^>NUL') do set "_MAVEN_HOME=!__PATH!\%%f"
+        if not defined _MAVEN_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\apache-maven-*" 2^>NUL') do set "_MAVEN_HOME=!__PATH!\%%f"
+        )
     )
     if defined _MAVEN_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Maven installation directory "!_MAVEN_HOME!" 1>&2
@@ -962,7 +982,7 @@ if not %_EXITCODE%==0 goto :eof
 set "_MSVS_HOME=%_SUBST_PATH%"
 goto :eof
 
-@rem input parameter(s): %1=directory path
+@rem input parameter: %1=directory path
 @rem output parameter: _SUBST_PATH
 :subst_path
 set "_SUBST_PATH=%~1"
@@ -1001,8 +1021,11 @@ if defined __MSYS2_CMD (
     set "_MSYS_HOME=%MSYS_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MSYS_HOME 1>&2
 ) else (
-    set _PATH=C:\opt
-    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\msys64*" 2^>NUL') do set "_MSYS_HOME=!_PATH!\%%f"
+    set __PATH=C:\opt
+    if exist "!__PATH!\msys64\" ( set "_MSYS2_HOME=!__PATH!\msys64"
+    ) else (
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\msys64*" 2^>NUL') do set "_MSYS_HOME=!__PATH!\%%f"
+    )
     if defined _MSYS_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default MSYS2 installation directory "!_MSYS_HOME!" 1>&2
     )
@@ -1029,8 +1052,11 @@ if defined __SCALA_CLI_CMD (
     set "_SCALA_CLI_HOME=%SCALA_CLI_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SCALA_CLI_HOME 1>&2
 ) else (
-    set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\scala-cli*" 2^>NUL') do set "_SCALA_CLI_HOME=!_PATH!\%%f"
+    set __PATH=C:\opt
+    if exist "!__PATH!\scala-cli\" ( set "_SCALA_CLI_HOME=!__PATH!\scala-cli"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\scala-cli*" 2^>NUL') do set "_SCALA_CLI_HOME=!__PATH!\%%f"
+    )
     if defined _SCALA_CLI_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala CLI installation directory "!_SCALA_CLI_HOME!" 1>&2
     )
@@ -1124,9 +1150,9 @@ set "_VSCODE_PATH=;%_VSCODE_HOME%"
 goto :eof
 
 :clean
-for %%f in ("%~dp0") do set __ROOT_DIR=%%~sf
-for /f %%i in ('dir /ad /b "%__ROOT_DIR%\" 2^>NUL') do (
-    for /f %%j in ('dir /ad /b "%%i\target\scala-*" 2^>NUL') do (
+set "__ROOT_DIR=%~dp0"
+for /f "delims=" %%i in ('dir /ad /b "%__ROOT_DIR%\" 2^>NUL') do (
+    for /f "delims=" %%j in ('dir /ad /b "%%i\target\scala-*" 2^>NUL') do (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% rmdir /s /q %__ROOT_DIR%%%i\target\%%j\classes 1^>NUL 2^>^&1 1>&2
         rmdir /s /q "%__ROOT_DIR%%%i\target\%%j\classes" 1>NUL 2>&1
     )

@@ -1,6 +1,9 @@
 ifndef JAVA_HOME
 $(error Variable JAVA_HOME is not set)
 endif
+ifndef MAVEN_HOME
+$(error Variable MAVEN_HOME is not set)
+endif
 ifndef SCALA3_HOME
 $(error Variable SCALA3_HOME is not set)
 endif
@@ -78,7 +81,7 @@ deps:
 ifeq (,$(wildcard $(SCALA_LIB_JAR)))
 	$(eval GROUP_ID := org.scala-lang)
 	$(eval ARTIFACT_ID := scala-library)
-    $(eval SCALA_VERSION := 2.13.12)
+	$(eval SCALA_VERSION := 2.13.12)
 	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(SCALA_VERSION).jar)
 	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(SCALA_VERSION)/$(ARTIFACT_ID)-$(SCALA_VERSION).jar)
 	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(SCALA_VERSION).jar)
@@ -88,7 +91,7 @@ endif
 ifeq (,$(wildcard $(SCALA3_LIB_JAR)))
 	$(eval GROUP_ID := org.scala-lang)
 	$(eval ARTIFACT_ID := scala3-library_3)
-    $(eval SCALA3_VERSION := 3.3.1)
+	$(eval SCALA3_VERSION := 3.3.1)
 	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(SCALA3_VERSION).jar)
 	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(SCALA3_VERSION)/$(ARTIFACT_ID)-$(SCALA3_VERSION).jar)
 	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(SCALA3_VERSION).jar)

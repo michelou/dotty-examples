@@ -347,11 +347,11 @@ if not %_EXITCODE%==0 goto :eof
 set "__CPATH=%_LIBS_CPATH%%_JAR_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -classpath "%__CPATH%" %_MAIN_CLASS% 1>&2
-) else if %_VERBOSE%==1 ( echo Create class list file !_CLASSLIST_FILE:%_ROOT_DIR%=! 1>&2
+) else if %_VERBOSE%==1 ( echo Create class list file "!_CLASSLIST_FILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -classpath "%__CPATH%" %_MAIN_CLASS% %_REDIRECT_STDOUT%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to create file %_CLASSLIST_FILE% 1>&2
+    echo %_ERROR_LABEL% Failed to create file "%_CLASSLIST_FILE%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -382,7 +382,7 @@ goto :eof
 @rem MANDATORY: the order of the Scala library files must be the same as in scala.bat 
 :libs_cpath
 set _LIBS_CPATH=
-for /f %%f in ('dir /b /s "%SCALA3_HOME%\lib\scala3-library*.jar" "%SCALA3_HOME%\lib\scala-library*.jar" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /b /s "%SCALA3_HOME%\lib\scala3-library*.jar" "%SCALA3_HOME%\lib\scala-library*.jar" 2^>NUL') do (
     set "_LIBS_CPATH=!_LIBS_CPATH!%%f;"
 )
 goto :eof
@@ -483,7 +483,7 @@ set __N=1
 :run_iter
 call "%_SCALA_CMD%" %__JAVA_TOOL_OPTS% -classpath "%_JAR_FILE%" %_MAIN_CLASS% %_RUN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to execute class %_MAIN_CLASS% 1>&2
+    echo %_ERROR_LABEL% Failed to execute class "%_MAIN_CLASS%" 1>&2
     set _EXITCODE=1
     goto :eof
 )

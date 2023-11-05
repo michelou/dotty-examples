@@ -171,7 +171,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -185,7 +185,7 @@ if "%__ARG:~0,1%"=="-" (
         set _RUN_ARGS=%__ARG:~4%& set _COMPILE=1& set _RUN=1
     ) else if "%__ARG%"=="run" ( set _COMPILE=1& set _RUN=1
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -223,14 +223,14 @@ echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-iter:1..99%__END%        set number of run iterations ^(default:%__BEG_O%%_RUN_ITER_DEFAULT%%__END%^)
 echo     %__BEG_O%-share[:^(on^|off^)]%__END%  enable/disable data sharing ^(default:%__BEG_O%off%__END%^)
-echo     %__BEG_O%-timer%__END%             display total execution time
-echo     %__BEG_O%-verbose%__END%           display progress messages
+echo     %__BEG_O%-timer%__END%             print total execution time
+echo     %__BEG_O%-verbose%__END%           print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%              delete generated files
 echo     %__BEG_O%compile%__END%            compile Java source files
 echo     %__BEG_O%doc%__END%                generate HTML documentation
-echo     %__BEG_O%help%__END%               display this help message
+echo     %__BEG_O%help%__END%               print this help message
 echo     %__BEG_O%run[:arg]%__END%          execute main class with 1 optional argument
 goto :eof
 

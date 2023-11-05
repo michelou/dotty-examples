@@ -14,8 +14,8 @@ set _DOTTY_VERSION_OLD="3.3.1-RC7"
 set _DOTTY_VERSION_NEW="3.3.1"
 
 @rem files project\build.properties
-set _SBT_VERSION_OLD=sbt.version=1.9.3
-set _SBT_VERSION_NEW=sbt.version=1.9.4
+set _SBT_VERSION_OLD=sbt.version=1.9.4
+set _SBT_VERSION_NEW=sbt.version=1.9.7
 
 @rem files project\plugins.sbt
 @rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/
@@ -23,8 +23,8 @@ set _SBT_DOTTY_VERSION_OLD="0.5.4"
 set _SBT_DOTTY_VERSION_NEW="0.5.5"
 
 @rem see https://mvnrepository.com/artifact/org.scalatest/scalatest
-set _SCALATEST_VERSION_OLD=^(\"scalatest_2.13\"^)^(.+\"3.2.15\"^)
-set _SCALATEST_VERSION_NEW=$1 %%%% \"3.2.16\"
+set _SCALATEST_VERSION_OLD=^(\"scalatest_2.13\"^)^(.+\"3.2.16\"^)
+set _SCALATEST_VERSION_NEW=$1 %%%% \"3.2.17\"
 
 @rem files ivy.xml (NB. PS regex)
 set _IVY_DOTTY_VERSION_OLD=^(scala3-[a-z]+^)_3.3.1-RC7
@@ -34,8 +34,8 @@ set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_3.3.1-RC7
 set _IVY_TASTY_VERSION_NEW=$1_3.3.1
 
 @rem files pom.xml (NB. PS regex)
-set _POM_SCALA2_VERSION_OLD=scala.version^>2.13.10
-set _POM_SCALA2_VERSION_NEW=scala.version^>2.13.11
+set _POM_SCALA2_VERSION_OLD=scala.version^>2.13.11
+set _POM_SCALA2_VERSION_NEW=scala.version^>2.13.12
 
 set _POM_SCALA3_VERSION_OLD=scala3.version^>3.3.1-RC7
 set _POM_SCALA3_VERSION_NEW=scala3.version^>3.3.1
@@ -142,7 +142,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-help" ( set _HELP=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -151,7 +151,7 @@ if "%__ARG:~0,1%"=="-" (
     if "%__ARG%"=="help" ( set _HELP=1
     ) else if "%__ARG%"=="run" ( set _RUN=1
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -182,12 +182,12 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%       display commands executed by this script
-echo     %__BEG_O%-timer%__END%       display total execution time
-echo     %__BEG_O%-verbose%__END%     display progress messages
+echo     %__BEG_O%-debug%__END%       print commands executed by this script
+echo     %__BEG_O%-timer%__END%       print total execution time
+echo     %__BEG_O%-verbose%__END%     print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
-echo     %__BEG_O%help%__END%         display this help message
+echo     %__BEG_O%help%__END%         print this help message
 echo     %__BEG_O%run%__END%          execute main class
 goto :eof
 

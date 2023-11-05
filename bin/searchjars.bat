@@ -171,7 +171,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-scala" ( set _SEARCH_SCALA=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -179,7 +179,7 @@ if "%__ARG:~0,1%"=="-" (
     if not defined _CLASS_NAME ( set _CLASS_NAME=%__ARG%
     ) else if not defined _METH_NAME ( set _METH_NAME=%__ARG%
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -218,13 +218,13 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> } ^<class_name^> [ ^<meth_name^> ]
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-artifact%__END%     search in %__BEG_O%~\.ivy2%__END% and %__BEG_O%~\.m2%__END% directories
-echo     %__BEG_O%-debug%__END%        display commands executed by this script
-echo     %__BEG_O%-help%__END%         display this help message
+echo     %__BEG_O%-debug%__END%        print commands executed by this script
+echo     %__BEG_O%-help%__END%         print this help message
 echo     %__BEG_O%-ivy%__END%          search in %__BEG_O%~\.ivy%__END% directory
 echo     %__BEG_O%-java%__END%         search in Java library directories
 echo     %__BEG_O%-maven%__END%        search in %__BEG_O%~\.m2%__END% directory
 echo     %__BEG_O%-scala%__END%        search in Scala 2 and Scala library directories
-echo     %__BEG_O%-verbose%__END%      display download progress
+echo     %__BEG_O%-verbose%__END%      print download progress
 echo.
 echo   %__BEG_P%Arguments:%__END%
 echo     %__BEG_O%^<class_name^>%__END%  class name

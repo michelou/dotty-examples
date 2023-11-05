@@ -40,6 +40,7 @@
   - [How to build a simple Scala application with Bazel](https://www.virtuslab.com/blog/introduction-to-bazel-for-scala-developers/), February 2023.
 - [Databricks Blog][blog_databricks]
    - [Scala at Scale at Databricks](https://databricks.com/blog/2021/12/03/scala-at-scale-at-databricks.html) by Li Haoyi, December 2021.
+   - [Speedy Scala Builds with Bazel at Databricks](https://www.databricks.com/blog/2019/02/27/speedy-scala-builds-with-bazel-at-databricks.html) by Li Haoyi and Ahir Reddy, February 2019.
 - [Scala 3 : un nouveau langage ?][blog_sarradin] by François Sarradin, May 2021.
 - [47 Degrees Blog][blog_47_degrees]
    - [Smart constructors for case classes][blog_markham] by Noel Markham, December 2021.
