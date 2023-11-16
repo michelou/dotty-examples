@@ -300,11 +300,11 @@ set "_DRIVE_NAME=!__DRIVE_NAMES:~0,2!"
 if /i "%_DRIVE_NAME%"=="%__GIVEN_PATH:~0,2%" goto :eof
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% subst "%_DRIVE_NAME%" "%__GIVEN_PATH%" 1>&2
-) else if %_VERBOSE%==1 ( echo Assign drive %_DRIVE_NAME% to path "%__GIVEN_PATH%" 1>&2
+) else if %_VERBOSE%==1 ( echo Assign drive %_DRIVE_NAME% to path "!__GIVEN_PATH.%USERPROFILE%=%%USERPROFILE%%!" 1>&2
 )
 subst "%_DRIVE_NAME%" "%__GIVEN_PATH%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to assign drive %_DRIVE_NAME% to path "%__GIVEN_PATH%" 1>&2
+    echo %_ERROR_LABEL% Failed to assign drive %_DRIVE_NAME% to path "!__GIVEN_PATH.%USERPROFILE%=%%USERPROFILE%%!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -364,7 +364,7 @@ if defined __PYTHON_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\Python\" ( set "_PYTHON_HOME=!__PATH!\Python"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\Python-3*" 2^>NUL') do set "_PYTHON_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Python-3*" 2^>NUL') do set "_PYTHON_HOME=!__PATH!\%%f"
         if not defined _PYTHON_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Python-3*" 2^>NUL') do set "_PYTHON_HOME=!__PATH!\%%f"
@@ -446,11 +446,11 @@ if defined JAVA_HOME (
     set "_JAVA_HOME=%JAVA_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable JAVA_HOME 1>&2
 ) else (
-    set _PATH=C:\opt
-    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f"
+    set __PATH=C:\opt
+    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!__PATH!\%%f"
     if not defined _JAVA_HOME (
-        set "_PATH=%ProgramFiles%\Java"
-        for /f "delims=" %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f"
+        set "__PATH=%ProgramFiles%\Java"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!__PATH!\%%f"
     )
     if defined _JAVA_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Java SDK installation directory "!_JAVA_HOME!" 1>&2
@@ -542,7 +542,6 @@ if defined __SCALAC_CMD (
     for /f "delims=" %%i in ("%__SCALAC_CMD%") do set "__SCALA3_BIN_DIR=%%~dpi"
     for /f "delims=" %%f in ("!__SCALA3_BIN_DIR!\.") do set "_SCALA3_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Scala 3 executable found in PATH 1>&2
-    goto :eof
 ) else if defined SCALA3_HOME (
     set "_SCALA3_HOME=%SCALA3_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SCALA3_HOME 1>&2
@@ -585,7 +584,7 @@ if defined __SBT_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\sbt\" ( set "_SBT_HOME=!__PATH!\sbt"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!__PATH!\%%f"
         if not defined _SBT_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\sbt-1*" 2^>NUL') do set "_SBT_HOME=!__PATH!\%%f"
@@ -1056,6 +1055,10 @@ if defined __SCALA_CLI_CMD (
     if exist "!__PATH!\scala-cli\" ( set "_SCALA_CLI_HOME=!__PATH!\scala-cli"
     ) else (
         for /f %%f in ('dir /ad /b "!__PATH!\scala-cli*" 2^>NUL') do set "_SCALA_CLI_HOME=!__PATH!\%%f"
+        if not defined _SCALA_CLI_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\scala-cli*" 2^>NUL') do set "_SCALA_CLI_HOME=!__PATH!\%%f"
+        )
     )
     if defined _SCALA_CLI_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala CLI installation directory "!_SCALA_CLI_HOME!" 1>&2

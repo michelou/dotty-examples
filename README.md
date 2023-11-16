@@ -48,7 +48,7 @@ Optionally one may also install the following software:
 - [scala-cli 1.0][scala_cli_downloads] ([*release notes*][scala_cli_relnotes])
 - [Temurin OpenJDK 8 LTS][temurin_openjdk8] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk8_relnotes])
 - [Temurin OpenJDK 21 LTS][temurin_openjdk21] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk21_relnotes], [*Java 21 API*][oracle_openjdk21_api])
-- [Visual Studio Code 1.83][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.84][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 <!--
 - [Bloop 1.5][bloop_releases] (requires Java 8 and Python 2/3) ([*release notes*][bloop_relnotes])
@@ -330,7 +330,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 11.0.21, scalac 2.13.12, scalac 3.3.1, scalafmt 3.7.2,
-   ant 1.10.14, gradle 8.4, mvn 3.9.5, sbt 1.9.7, scala-cli 1.0.5,
+   ant 1.10.14, gradle 8.4, mvn 3.9.5, sbt 1.9.7, scala-cli 1.0.6,
    mill 0.11.5, bazel 6.4.0, cfr 0.152, make 3.81, python 3.11.1,
    git 2.42.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 
@@ -359,7 +359,7 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also prints the tool paths and d
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 11.0.21, scalac 2.13.12, scalac 3.3.1, scalafmt 3.7.12,
-   ant 1.10.14, gradle 8.4, mvn 3.9.5, sbt 1.9.7, scala-cli 1.0.5,
+   ant 1.10.14, gradle 8.4, mvn 3.9.5, sbt 1.9.7, scala-cli 1.0.6,
    mill 0.11.5, bazel 6.4.0, cfr 0.152, make 3.81, python 3.11.1,
    git 2.42.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 Tool paths:
@@ -989,7 +989,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [scala]: https://www.scala-lang.org/
 [scala_api]: https://www.scala-lang.org/files/archive/api/current/
 [scala_cli_downloads]: https://github.com/VirtusLab/scala-cli/releases
-[scala_cli_relnotes]: https://github.com/VirtusLab/scala-cli/releases/tag/v1.0.5
+[scala_cli_relnotes]: https://github.com/VirtusLab/scala-cli/releases/tag/v1.0.6
 [scala_releases]: https://www.scala-lang.org/files/archive/
 [scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.12
 [scala_repl]: https://docs.scala-lang.org/overviews/repl/overview.html
