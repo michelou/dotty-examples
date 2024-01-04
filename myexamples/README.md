@@ -110,7 +110,7 @@ Total time: 14 seconds
 
 ## <span id="batch">Batch command</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
 
-Batch file [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~800 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[[1]](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`decompile`**, **`doc`**, **`help`**, **`lint`** and **`run`**.
+Batch file [**`build`**](HelloWorld/build.bat) is a basic build tool consisting of ~800 lines of batch/[Powershell ][microsoft_powershell] code <sup id="anchor_01">[1](#footnote_01)</sup> featuring subcommands **`clean`**, **`compile`**, **`decompile`**, **`doc`**, **`help`**, **`lint`** and **`run`**.
 
 Command [**`build clean run`**](HelloWorld/build.bat) produces the following output:
 
@@ -135,9 +135,9 @@ Command [**`setenv -bash`**](setenv.bat) starts a [Cygwin] Bash session:
 <b>&gt; <a href="setenv.bat">setenv</a> -bash</b>
 Tool versions:
    javac 11.0.21, java 11.0.21, scalac 2.13.12, scalac 3.3.1,
-   ant 1.10.14, gradle 8.4, mill 0.11.5, mvn 3.9.5, sbt 1.9.7,
-   bazel 6.4.0, cfr 0.152, coursier 2.1.5, make 3.81, python 3.11.1,
-   git 2.42.0.windows.1, diff 3.8, bash 5.2.15(1)-release
+   ant 1.10.14, gradle 8.5, mill 0.11.5, mvn 3.9.6, sbt 1.9.7,
+   bazel 7.0.0, cfr 0.152, coursier 2.1.5, make 3.81, python 3.11.1,
+   git 2.43.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 &nbsp;
 user@host MSYS /w
 <b>$ <a href="https://www.man7.org/linux/man-pages/man1/bash.1.html">bash</a> --version | <a href="https://man7.org/linux/man-pages/man1/grep.1.html">grep</a> bash</b>
@@ -171,9 +171,9 @@ Similarly, command [**`setenv -msys`**](setenv.bat) starts a [MSYS2] Bash sessio
 <b>&gt; <a href="setenv.bat">setenv</a> -msys</b>
 Tool versions:
    javac 11.0.21 java 11.0.21 scalac 2.13.12, scalac 3.3.1,
-   ant 1.10.14, gradle 8.4, mill 0.11.5, mvn 3.9.5, sbt 1.9.7,
+   ant 1.10.14, gradle 8.5, mill 0.11.5, mvn 3.9.6, sbt 1.9.7,
    bazel 6.4.0, cfr 0.152, coursier 2.1.5, make 3.81, python 3.11.1,
-   git 2.42.0.windows.1, diff 3.10, bash 5.2.15(1)-release
+   git 2.43.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 &nbsp;
 <b>$ <a href="https://www.man7.org/linux/man-pages/man1/bash.1.html">bash</a> --version | <a href="https://man7.org/linux/man-pages/man1/grep.1.html">grep</a> bash</b>
 GNU bash, version 5.3.26(1)-release (x86_64-pc-msys)
@@ -603,7 +603,7 @@ following parameters are passed as login shell command parameters.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -614,7 +614,7 @@ following parameters are passed as login shell command parameters.
 [apache_ant_ivy]: https://ant.apache.org/ivy/
 [apache_ant_ivy_relnotes]: https://ant.apache.org/ivy/history/2.5.2/release-notes.html
 [apache_maven_about]: https://maven.apache.org/what-is-maven.html
-[apache_maven_cli]: https://maven.apache.org/ref/3.9.5/maven-embedder/cli.html
+[apache_maven_cli]: https://maven.apache.org/ref/3.9.6/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
 [bash]: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html

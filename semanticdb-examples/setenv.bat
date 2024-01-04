@@ -201,10 +201,10 @@ if defined __PROTOC_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\protoc\" ( set "_PROTOC_HOME=!__PATH!\protoc"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\protoc-3*" 2^>NUL') do set "_PROTOC_HOME=!__PATH!\%%f"
+        for /f %%f in ('dir /ad /b "!__PATH!\protoc-2*" 2^>NUL') do set "_PROTOC_HOME=!__PATH!\%%f"
         if not defined _PROTOC_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\protoc-3*" 2^>NUL') do set "_PROTOC_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\protoc-2*" 2^>NUL') do set "_PROTOC_HOME=!__PATH!\%%f"
         )
     )
     if defined _PROTOC_HOME (

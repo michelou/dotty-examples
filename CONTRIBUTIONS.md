@@ -13,7 +13,7 @@
 
 ## <span id="pull_requests">Pull Requests</span>
 
-| [Pull request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Status | Context |
+| [Pull&nbsp;request](https://github.com/lampepfl/dotty/pulls?q=is%3Apr+author%3Amichelou) | Status | Context |
 | :------------------------: | :--------: | :--------- |
 | [#15325][dotty_pull_15325] | [merged](https://github.com/lampepfl/dotty/commit/9caafb9f) <span style="font-size:80%;">(May 2022)</span> | Batch files |
 | [#14559][dotty_pull_14559] | [merged](https://github.com/lampepfl/dotty/commit/d9b3271) <span style="font-size:80%;">(Mar 2022)</span>  | Bash/batch files |
@@ -128,7 +128,7 @@ We fixed our local <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-C
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -24,7 +24,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 
 Our [Dotty fork][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.42][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.43][git_releases] ([*release notes*][git_relnotes])
 - [sbt 1.9][sbt_releases] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Temurin OpenJDK 11][openjdk_releases] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
 <!--
@@ -337,8 +337,8 @@ Command **`build.bat archives`** works as follows:  ***if*** execution of the **
 [...]
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /a-d /b dist\target</b>
-scala3-3.3.1-RC1-bin-SNAPSHOT.tar.gz
-scala3-3.3.1-RC1-bin-SNAPSHOT.zip
+scala3-3.4.0-RC1-bin-SNAPSHOT.tar.gz
+scala3-3.4.0-RC1-bin-SNAPSHOT.zip
 </pre>
 
 ### **`build.bat documentation`**
@@ -642,7 +642,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -659,7 +659,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.41.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.43.0.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/

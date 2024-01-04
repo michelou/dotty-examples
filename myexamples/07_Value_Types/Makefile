@@ -1,5 +1,5 @@
 ##
-## Copyright (c) 2018-2023 Stéphane Micheloud
+## Copyright (c) 2018-2024 Stéphane Micheloud
 ##
 ## Licensed under the MIT License.
 ##
@@ -17,7 +17,7 @@ SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 ##############################################################################
 ## main rules
 
-SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name "*.scala")
+SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main/scala" -type f -name "*.scala")
 TARGET  = $(TARGET_DIR)/.latest-build
 
 OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
@@ -28,7 +28,7 @@ MAIN_ARGS ?=
 
 all: build
 
-build: $(TARGET)
+build: deps $(TARGET)
 
 $(TARGET): $(SOURCES)
 	[ -d "$(CLASSES_DIR)" ] || "$(MKDIR)" -p "$(CLASSES_DIR)"
@@ -53,7 +53,7 @@ help:
 	@$(ECHO) "    doc    generate HTML documentation"
 	@$(ECHO) "    help   print this help message"
 	@$(ECHO) "    lint   analyze Scala source files with Scalafmt"
-	@$(ECHO) "    run    execute the main program \"$(MAIN_CLASS)\""
+	@$(ECHO) "    run    execute main program \"$(MAIN_CLASS)\""
 	@$(ECHO) "    test   execute unit tests with JUnit"
 
 ##############################################################################
@@ -70,9 +70,9 @@ PROJECT_VERSION ?= 1.0.0
 DOC_OPTS_FILE    = $(TARGET_DIR)/scaladoc_opts.txt
 DOC_SOURCES_FILE = $(TARGET_DIR)/scaladoc_sources.txt
 
-$(DOC_TARGET): $(DOC_SOURCES)
+$(DOC_TARGET): $(TARGET) $(DOC_SOURCES)
 	[ -d "$(DOC_TARGET_DIR)" ] || "$(MKDIR)" -p "$(DOC_TARGET_DIR)"
-	@$(ECHO) -siteroot "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
+	@$(ECHO) -siteroot "$(DOC_TARGET_DIR)" -d "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
 	@$(ECHO) $(DOC_SOURCES) > "$(DOC_SOURCES_FILE)"
 	"$(SCALADOC)" "@$(DOC_OPTS_FILE)" "@$(DOC_SOURCES_FILE)"
 	@$(TOUCH) "$(DOC_TARGET)"
@@ -82,17 +82,11 @@ doc: build $(DOC_TARGET)
 ##############################################################################
 ## lint rules
 
-LINT_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)" -type f -name "*.scala")
-LINT_TARGET  = $(TARGET_DIR)/.latest-lint
-
 SCALAFMT_CONFIG_FILE = $(shell dirname $(CURDIR))/.scalafmt.conf
 SCALAFMT_OPTS = --test --config "$(SCALAFMT_CONFIG_FILE)"
 
-lint: $(LINT_TARGET)
-
-$(LINT_TARGET): $(LINT_SOURCES)
+lint:
 	"$(SCALAFMT)" $(SCALAFMT_OPTS) $(SOURCE_DIR)
-	@$(TOUCH) "$(LINT_TARGET)"
 
 ##############################################################################
 ## test rules
@@ -103,7 +97,7 @@ TEST_TARGET  = $(TARGET_DIR)/.latest-test-build
 TEST_OPTS_FILE    = $(TARGET_DIR)/scalac_test_opts.txt
 TEST_SOURCES_FILE = $(TARGET_DIR)/scalac_test_sources.txt
 
-TEST_MAIN_CLASS  = $(MAIN_CLASS)Test
+TEST_MAIN_CLASS  = $(MAIN_CLASS)JUnitTest
 TEST_CLASSES_DIR = $(TARGET_DIR)/test-classes
 TEST_CPATH       = $(SCALA_LIB_JAR)$(PSEP)$(SCALA3_LIB_JAR)$(PSEP)$(HAMCREST_JAR)$(PSEP)$(JUNIT_JAR)$(PSEP)$(JUNIT_INTF_JAR)$(PSEP)$(SCALATEST_JAR)$(PSEP)$(SCALACTIC_JAR)$(PSEP)$(SPECS2_CORE_JAR)$(PSEP)$(SPECS2_JUNIT_JAR)$(PSEP)$(SPECS2_MATCHER_JAR)$(PSEP)$(CLASSES_DIR)$(PSEP)$(TEST_CLASSES_DIR)
 
@@ -121,7 +115,7 @@ test: build $(TEST_TARGET)
 ##############################################################################
 ## phony
 
-.PHONY: all build clean doc help lint run test
+.PHONY: all build clean deps doc help lint run test
 
 .SUFFIXES:
-.SUFFIXES: .class .jar .java .scala .tasty
+.SUFFIXES: .class .html .jar .java .scala .tasty .xml

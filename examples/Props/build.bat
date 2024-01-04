@@ -193,7 +193,7 @@ if exist "%__PROPS_FILE%" (
             set "_!__NAME:.=_!=!__VALUE!"
         )
     )
-    rem if defined _main_class set _MAIN_CLASS_DEFAULT=!_main_class!
+    @rem if defined _main_class set _MAIN_CLASS_DEFAULT=!_main_class!
     if defined _main_args set _MAIN_ARGS_DEFAULT=!_main_args!
     if defined _project_name set _PROJECT_NAME=!_project_name!
     if defined _project_url set _PROJECT_URL=!_project_url!
@@ -725,7 +725,7 @@ if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 for /f "delims=" %%i in ('dir /s /b "%_SOURCE_DIR%\main\java\*.java" 2^>NUL') do (
     echo %%i>> "%__SOURCES_FILE%"
 )
-for /f %%i in ('dir /s /b "%_MAIN_SOURCE_DIR%\*.scala" 2^>NUL') do (
+for /f "delims=" %%i in ('dir /s /b "%_MAIN_SOURCE_DIR%\*.scala" 2^>NUL') do (
     echo %%i>> "%__SOURCES_FILE%"
 )
 set "__OPTS_FILE=%_TARGET_DIR%\scaladoc_opts.txt"

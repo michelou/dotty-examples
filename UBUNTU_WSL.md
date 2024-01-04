@@ -30,7 +30,7 @@ Then we execute our Bash script [**`setenv.sh`**](./setenv.sh) to set up our Uni
 JAVA_HOME=/opt/jdk-temurin-11
 MAVEN_HOME=/opt/apache-maven
 SCALA_HOME=/opt/scala-2.13.12
-SCALA3_HOME=/opt/scala3-3.3.1
+SCALA3_HOME=/opt/scala3-3.3.2-RC1
 GRADLE_HOME=/opt/gradle
 SBT_HOME=/opt/sbt
 ANT_HOME=/opt/apache-ant
@@ -45,15 +45,15 @@ ANT_HOME=/opt/apache-ant
 > 9.9M    /opt/apache-maven
 > 2.4G    /opt/archives
 > 2.2M    /opt/cfr-0.152
-> 36M     /opt/flix-0.40.0
+> 36M     /opt/flix-0.43.0
 > 51M     /opt/git
 > 129M    /opt/gradle
 > 308M    /opt/jdk-11.0.21_9
-> 103M    /opt/ktlint-0.50.0
+> 103M    /opt/ktlint
 > 61M     /opt/mill
 > 81M     /opt/sbt
 > 25M     /opt/scala-2.13.12
-> 36M     /opt/scala3-3.3.1
+> 36M     /opt/scala3-3.3.2-RC1
 > 15M     /opt/wabt-1.0.23
 > </pre>
 
@@ -104,8 +104,8 @@ Your weight on NEPTUNE (7) is 1.1383280724696578
 <b>$ <a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make</a> clean run</b>
 rm -rf "target"
 [ -d "target/classes" ] || "mkdir" -p "target/classes"
-"/opt/scala3-3.3.1/bin/scalac" "@target/scalac_opts.txt" "@target/scalac_sources.txt"
-"/opt/scala3-3.3.1/bin/scala" -classpath "target/classes" Planet 1
+"/opt/scala3-3.3.2-RC1/bin/scalac" "@target/scalac_opts.txt" "@target/scalac_sources.txt"
+"/opt/scala3-3.3.2-RC1/bin/scala" -classpath "target/classes" Planet 1
 Mass of earth is 0.1020132025669991
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
@@ -200,7 +200,7 @@ done.ing certificates in /etc/ssl/certs.../cloud/cloud.cfg ...
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

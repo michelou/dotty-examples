@@ -1,5 +1,5 @@
 ##
-## Copyright (c) 2018-2023 Stéphane Micheloud
+## Copyright (c) 2018-2024 Stéphane Micheloud
 ##
 ## Licensed under the MIT License.
 ##
@@ -121,4 +121,4 @@ test: build $(TEST_TARGET)
 .PHONY: all build clean deps doc help lint run test
 
 .SUFFIXES:
-.SUFFIXES: .class .jar .java .scala .tasty
+.SUFFIXES: .class .html .jar .java .scala .tasty .xml

@@ -26,18 +26,21 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.41][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.43][git_downloads] ([*release notes*][git_relnotes])
 - [Scala 3][scala3_releases] ([*release notes*][scala3_relnotes])
+- [Temurin OpenJDK 17 LTS][temurin_openjdk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk17_relnotes], [*bug fixes*][temurin_openjdk17_bugfixes], [Java 17 API][oracle_openjdk17_api])
+<!--
 - [Temurin OpenJDK 11][temurin11_downloads] ([*release notes*][temurin11_relnotes])
+-->
 
 > **:mag_right:** [Scala 2.12][scala_downloads] is a software product announced to require Java 8. In contrast [Scala 2.13][scala_2_13] and [Scala 3][scala_3] also support Java 9+. In the following we work with [Temurin OpenJDK 11][temurin11_downloads], the 2<sup>nd</sup> [LTS][java_lts] version after Java 8.
 
-For instance our development environment looks as follows (*August 2023*):
+For instance our development environment looks as follows (*January 2024*):
 
 <pre style="font-size:80%;">
-C:\opt\Git-2.41.0\              <i>(315 MB)</i>
-C:\opt\jdk-temurin-11.0.20_8\   <i>(302 MB)</i>
-C:\opt\scala3-3.3.1-RC5\        <i>( 57 MB)</i>
+C:\opt\Git\                     <i>(315 MB)</i>
+C:\opt\jdk-temurin-17.0.9_9\    <i>(302 MB)</i>
+C:\opt\scala3-3.3.2-RC1\        <i>( 57 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_downloads] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -91,13 +94,13 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
   Options:
     -iter:&lt;1..99&gt;      set number of run iterations
     -share[:&lt;on|off&gt;]  enable/disable data sharing (default:off)
-    -verbose           display progress messages
+    -verbose           print progress messages
 &nbsp;
   Subcommands:
     clean              delete generated files
     compile            compile Java source files
     doc                generate Java documentation
-    help               display this help message
+    help               print this help message
     run[:&lt;arg&gt;]        execute main class with 1 optional argument
 </pre>
 
@@ -240,7 +243,7 @@ Note the following about the generated files:
 For instance we can read from file **`logs\log_share_off.log`** that  source of **`cdsexamples.Main`** is **`file:/`** and that the total load time on the last line is **`0.124s`**:
 
 <pre style="font-size:80%;">
-[0.008s][info][class,load] opened: c:\opt\jdk-11.0.18+8\lib\modules
+[0.008s][info][class,load] opened: c:\opt\jdk-temurin-17.0.9_9\lib\modules
 [0.018s][info][class,load] java.lang.Object source: jrt:/java.base
 [...]
 [0.121s][info][class,load] cdsexamples.Main source: file:/&lt;project_path&gt;/target/JavaExample.jar
@@ -296,13 +299,13 @@ Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
   Options:
     -iter:&lt;1..99&gt;      set number of run iterations
     -share[:&lt;on|off&gt;]  enable/disable data sharing (default:off)
-    -verbose           display progress messages
+    -verbose           print progress messages
 &nbsp;
   Subcommands:
     clean              delete generated files
     compile            compile Scala source files
     doc                generate Scala documentation
-    help               display this help message
+    help               print this help message
     run[:&lt;arg&gt;]        execute main class with 1 optional argument
 </pre>
 
@@ -703,7 +706,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 -->
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -717,7 +720,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [flix_examples]: https://github.com/michelou/flix-examples
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.41.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.43.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
@@ -738,6 +741,7 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [man1_sed]: https://www.linux.org/docs/man1/sed.html
 [man1_wc]: https://www.linux.org/docs/man1/wc.html
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
+[oracle_openjdk17_api]: https://docs.oracle.com/en/java/javase/17/docs/api/
 [temurin11_downloads]: https://adoptium.net/?variant=openjdk11&jvmVariant=hotspot
 [temurin11_relnotes]: https://adoptium.net/release_notes.html
 [rust_examples]: https://github.com/michelou/rust-examples
@@ -751,5 +755,13 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
 [spark_examples]: https://github.com/michelou/spark-examples
 [spring_examples]: https://github.com/michelou/spring-examples
+<!--
+17.0.7  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-April/021899.html
+17.0.8  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024063.html
+17.0.9  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026352.html
+-->
+[temurin_openjdk17]: https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot
+[temurin_openjdk17_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
+[temurin_openjdk17_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026352.html
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [wix_examples]: https://github.com/michelou/wix-examples

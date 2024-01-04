@@ -1,5 +1,5 @@
 ##
-## Copyright (c) 2018-2023 Stéphane Micheloud
+## Copyright (c) 2018-2024 Stéphane Micheloud
 ##
 ## Licensed under the MIT License.
 ##
@@ -17,7 +17,7 @@ SCALA_FLAGS  = -classpath "$(CLASSES_DIR)"
 ##############################################################################
 ## main rules
 
-SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name "*.scala")
+SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main/scala" -type f -name "*.scala")
 TARGET  = $(TARGET_DIR)/.latest-build
 
 OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
@@ -60,7 +60,7 @@ help:
 ## doc rules
 
 DOC_TARGET_DIR = $(TARGET_DIR)/docs
-DOC_SOURCES    = $(shell $(FIND) "$(CLASSES_DIR)" -type f -name "*.tasty")
+DOC_SOURCES    = $(shell [ -d "$(CLASSES_DIR)" ] && $(FIND) "$(CLASSES_DIR)" -type f -name "*.tasty")
 DOC_TARGET     = $(DOC_TARGET_DIR)/.latest-build
 
 PROJECT_NAME    ?= $(shell basename $(CURDIR))
@@ -70,9 +70,9 @@ PROJECT_VERSION ?= 1.0.0
 DOC_OPTS_FILE    = $(TARGET_DIR)/scaladoc_opts.txt
 DOC_SOURCES_FILE = $(TARGET_DIR)/scaladoc_sources.txt
 
-$(DOC_TARGET): $(DOC_SOURCES)
+$(DOC_TARGET): $(TARGET) $(DOC_SOURCES)
 	[ -d "$(DOC_TARGET_DIR)" ] || "$(MKDIR)" -p "$(DOC_TARGET_DIR)"
-	@$(ECHO) -d "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
+	@$(ECHO) -siteroot "$(DOC_TARGET_DIR)" -d "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
 	@$(ECHO) $(DOC_SOURCES) > "$(DOC_SOURCES_FILE)"
 	"$(SCALADOC)" "@$(DOC_OPTS_FILE)" "@$(DOC_SOURCES_FILE)"
 	@$(TOUCH) "$(DOC_TARGET)"
@@ -83,7 +83,11 @@ doc: build $(DOC_TARGET)
 ## lint rules
 
 SCALAFMT_CONFIG_FILE = $(shell dirname $(CURDIR))/.scalafmt.conf
+ifdef DEBUG
+SCALAFMT_OPTS = --debug --test --config "$(SCALAFMT_CONFIG_FILE)"
+else
 SCALAFMT_OPTS = --test --config "$(SCALAFMT_CONFIG_FILE)"
+endif
 
 lint:
 	"$(SCALAFMT)" $(SCALAFMT_OPTS) $(SOURCE_DIR)
@@ -91,7 +95,7 @@ lint:
 ##############################################################################
 ## test rules
 
-TEST_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/test" -type f -name "*.scala")
+TEST_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/test/scala" -type f -name "*.scala")
 TEST_TARGET  = $(TARGET_DIR)/.latest-test-build
 
 TEST_OPTS_FILE    = $(TARGET_DIR)/scalac_test_opts.txt
@@ -118,4 +122,4 @@ test: build $(TEST_TARGET)
 .PHONY: all build clean deps doc help lint run test
 
 .SUFFIXES:
-.SUFFIXES: .class .jar .java .scala .tasty
+.SUFFIXES: .class .html .jar .java .scala .tasty .xml

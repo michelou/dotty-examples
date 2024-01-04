@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2023 Stéphane Micheloud
+# Copyright (c) 2018-2024 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -101,16 +101,16 @@ help() {
 Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
-    -debug       display commands executed by this script
-    -timer       display total execution time
-    -verbose     display progress messages
+    -debug       print commands executed by this script
+    -timer       print total execution time
+    -verbose     print progress messages
 
   Subcommands:
     clean        delete generated files
     compile      compile Java/Scala source files
     decompile    decompile generated code with CFR
     doc          generate HTML documentation
-    help         display this help message
+    help         print this help message
     lint         analyze Scala source files with Scalafmt
     run          execute main class "$MAIN_CLASS"
 EOS
@@ -301,7 +301,7 @@ decompile() {
         echo "Save generated Java source files to file \"${output_file/$ROOT_DIR\//}\"" 1>&2
     fi
     local java_files=
-    for f in $(find $output_dir/ -name *.java 2>/dev/null); do
+    for f in $(find $output_dir/ -type f -name "*.java" 2>/dev/null); do
         java_files="$java_files $(mixed_path $f)"
     done
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
@@ -386,7 +386,7 @@ doc() {
         echo $(mixed_path $f) >> "$sources_file"
     done
     local opts_file="$TARGET_DIR/scaladoc_opts.txt"
-    if [ $SCALA_VERSION -eq 2 ]; then
+    if [[ $SCALA_VERSION -eq 2 ]]; then
         echo -d "$(mixed_path $TARGET_DOCS_DIR)" -doc-title "$PROJECT_NAME" -doc-footer "$PROJECT_URL" -doc-version "$PROJECT_VERSION" > "$opts_file"
     else
         echo -d "$(mixed_path $TARGET_DOCS_DIR)" -project "$PROJECT_NAME" -project-version "$PROJECT_VERSION" > "$opts_file"
@@ -480,10 +480,10 @@ mingw=false
 msys=false
 darwin=false
 case "$(uname -s)" in
-  CYGWIN*) cygwin=true ;;
-  MINGW*)  mingw=true ;;
-  MSYS*)   msys=true ;;
-  Darwin*) darwin=true
+    CYGWIN*) cygwin=true ;;
+    MINGW*)  mingw=true ;;
+    MSYS*)   msys=true ;;
+    Darwin*) darwin=true
 esac
 unset CYGPATH_CMD
 PSEP=":"

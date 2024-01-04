@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2023 Stéphane Micheloud
+# Copyright (c) 2018-2024 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -239,7 +239,7 @@ compile_scala() {
         # call :version_string
         # if not !_EXITCODE!==0 goto :eof
         local print_file="$TARGET_DIR/scalac-print${VERSION_SUFFIX}.scala"
-        #if [ $SCALA_VERSION -eq 3 ]; then
+        #if [[ $SCALA_VERSION -eq 3 ]]; then
         #    set __PRINT_FILE_REDIRECT=2^> "$print_file"
         #else
         #    set __PRINT_FILE_REDIRECT=1^> "$print_file"
@@ -392,7 +392,7 @@ doc() {
         echo $(mixed_path $f) >> "$sources_file"
     done
     local opts_file="$TARGET_DIR/scaladoc_opts.txt"
-    if [ $SCALA_VERSION -eq 2 ]; then
+    if [[ $SCALA_VERSION -eq 2 ]]; then
         echo -d "$(mixed_path $TARGET_DOCS_DIR)" -project "$PROJECT_NAME" -project-version "$PROJECT_VERSION" > "$opts_file"
     else
         echo -d "$(mixed_path $TARGET_DOCS_DIR)" -project "$PROJECT_NAME" -project-version "$PROJECT_VERSION" > "$opts_file"

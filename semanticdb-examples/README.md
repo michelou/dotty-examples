@@ -23,6 +23,34 @@ We need to install additional command-line tools in order to work on our code ex
 > - We need [Coursier] to install the **`metac`** and **`metap`** comand line tools <sup id="anchor_03">[3](#footnote_03)</sup> (no Tgz/Zip archive available).
 > - We extract the Zip archive [**`protoc-yy.z-win64.zip`**](https://github.com/protocolbuffers/protobuf/) (available from GitHub project [`protocolbuffers/protobuf`](https://github.com/protocolbuffers/protobuf/releases)) into directory **`C:\opt\protoc-yy.z\`**.
 
+In our case we execute the batch command [**`semanticdb-examples\setenv.bat`**](./setenv.bat) to provide additional settings to our environment :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./setenv.bat">setenv.bat</a> -verbose</b>
+Tool versions:
+   java 17.0.9, javac 17.0.9, scalac 3.3.2-RC1,
+   protoc 25.1, cs 2.0.13, kotlinc 1.9.22,
+   git 2.43.0.windows.1, diff 3.10, bash 5.2.21(1)-release
+Tool paths:
+   C:\opt\jdk-temurin-17.0.9_9\bin\java.exe
+   C:\opt\jdk-temurin-17.0.9_9\bin\javac.exe
+   C:\opt\scala3-3.3.2-RC1\bin\scalac.bat
+   C:\opt\protoc\bin\protoc.exe
+   <a href="">%LOCALAPPDATA%</a>\Coursier\data\bin\cs.bat
+   C:\opt\kotlinc-1.9.22\bin\kotlinc.bat
+   C:\opt\Git\bin\git.exe
+   C:\opt\Git\usr\bin\diff.exe
+   C:\opt\Git\bin\bash.exe
+Environment variables:
+   "COURSIER_HOME=C:\opt\coursier-2.1.7"
+   "GIT_HOME=C:\opt\Git"
+   "JAVA_HOME=C:\opt\jdk-temurin-17.0.9_9"
+   "KOTLIN_HOME=C:\opt\kotlinc-1.9.22"
+   "PROTOC_HOME=C:\opt\protoc"
+Path associations:
+   I:\: => %USERPROFILE%\workspace-perso\dotty-examples
+</pre>
+
 ## <span id="hello">`hello` Example</span>
 
 Command [**`build.bat run`**](hello/build.bat) generates and prettyprints the [SemanticDB](https://scalameta.org/docs/semanticdb/guide.html) data for the Scala program [**`Main.scala`**](hello/src/main/scala/Main.scala) :
@@ -56,9 +84,8 @@ Occurrences:
 [3:4..3:11) => scala/Predef.println(+1).
 </pre>
 
-We can also produce SemanticDB data from Java source code.
+Similarly command [**`build.bat -lang:java run`**](hello/build.bat) generates and prettyprints the [SemanticDB data](https://scalameta.org/docs/semanticdb/specification.html) for the Java program [**`Main.java`**](hello/src/main/java/Main.java) :
 
-Command [**`build.bat -lang:java run`**](hello/build.bat) generates and prettyprints the [SemanticDB data](https://scalameta.org/docs/semanticdb/specification.html) for the Java program [**`Main.java`**](hello/src/main/java/Main.java) :
 <pre style="font-size:80%;">
 <b>&gt; <a href="hello/build.bat">build</a> -lang:java run</b>
 Main.java
@@ -137,6 +164,24 @@ Occurrences:
 
 > **:mag_right:** By default command **`metap <classpath>`** prints only the most important parts of the SemanticDB payload (default option is **`-compact`**).
 
+Finally command [**`build.bat -lang:kotlin run`**](hello/build.bat) fails to generate the [SemanticDB data](https://scalameta.org/docs/semanticdb/specification.html) for the Kotlin program [**`Main.kt`**](hello/src/main/kotlin/Main.kt) :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./hello/build.bat">build</a> -verbose -lang:kotlin clean run</b>
+Delete directory "target"
+Create semanticdb file
+warning: flag is not supported by this version of the compiler: \
+-Xplugin:semanticdb \
+-sourceroot:%USERPROFILE%\workspace-perso\dotty-examples\semanticdb-examples\hello\src\main\kotlin \
+-targetroot:%USERPROFILE%\workspace-perso\dotty-examples\semanticdb-examples\hello\target\kotlin-classes
+Prettyprint contents of semanticdb files
+&nbsp;
+<b>&gt; C:\opt\kotlinc-1.9.22\bin\kotlinc -version</b>
+info: kotlinc-jvm 1.9.22 (JRE 17.0.9+9)
+</pre>
+
+<!--=======================================================================-->
+
 ## <span id="semanticdb-example">`semanticdb-example`</span> [**&#x25B4;**](#top)
 
 This code example is an updated version of Geirsson's example (May 2018) available from his GitHub project [`olafurpg/semantic-example`](https://github.com/olafurpg/semanticdb-example).
@@ -183,6 +228,8 @@ range {
   start_character: 57
 </pre>
 
+<!--=======================================================================-->
+
 ## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
 <span id="footnote_01">[1]</span> ***Scalameta CLI tools*** [↩](#anchor_01)
@@ -222,8 +269,8 @@ range {
 
 <dl><dd>
 <pre style="font-size:80%;">
-<b>&gt; c:\opt\protoc-23.4\bin\<a href="https://manpages.ubuntu.com/manpages/kinetic/man1/protoc.1.html" rel="external">protoc.exe</a> --version</b>
-libprotoc 23.4
+<b>&gt; c:\opt\protoc\bin\<a href="https://manpages.ubuntu.com/manpages/kinetic/man1/protoc.1.html" rel="external">protoc.exe</a> --version</b>
+libprotoc 25.1
 </pre>
 </dd></dl>
 
@@ -232,7 +279,7 @@ libprotoc 23.4
 <dl><dd>
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> cs</b>
-C:\opt\coursier-2.1.15\<a href="https://get-coursier.io/docs/cli-overview">cs.exe</a>
+C:\opt\coursier-2.1.7\<a href="https://get-coursier.io/docs/cli-overview">cs.exe</a>
 &nbsp;
 <b>&gt; <a href="https://get-coursier.io/docs/cli-overview">cs</a> install metac metap</b>
 https://repo1.maven.org/maven2/io/get-coursier/apps/maven-metadata.xml
@@ -251,7 +298,7 @@ Warning: <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_val
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

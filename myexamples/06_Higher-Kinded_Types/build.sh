@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2023 Stéphane Micheloud
+# Copyright (c) 2018-2024 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -10,7 +10,7 @@
 
 getHome() {
     local source="${BASH_SOURCE[0]}"
-    while [ -h "$source" ] ; do
+    while [[ -h "$source" ]]; do
         local linked="$(readlink "$source")"
         local dir="$( cd -P $(dirname "$source") && cd -P $(dirname "$linked") && pwd )"
         source="$dir/$(basename "$linked")"
@@ -74,12 +74,12 @@ args() {
             ;;
         esac
     done
-    if $DECOMPILE && [ ! -x "$CFR_CMD" ]; then
+    if $DECOMPILE && [[ ! -x "$CFR_CMD" ]]; then
         warning "cfr installation not found"
         DECOMPILE=false
     fi
     if $LINT; then
-        if [ ! -x "$SCALAFMT_CMD" ]; then
+        if [[ ! -x "$SCALAFMT_CMD" ]]; then
             warning "Scalafmt installation not found"
             LINT=false
         elif [ ! -f "$SCALAFMT_CONFIG_FILE" ]; then
@@ -101,16 +101,16 @@ help() {
 Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
-    -debug       show commands executed by this script
-    -timer       display total elapsed time
-    -verbose     display progress messages
+    -debug       print commands executed by this script
+    -timer       print total execution time
+    -verbose     print progress messages
 
   Subcommands:
     clean        delete generated files
     compile      compile Java/Scala source files
     decompile    decompile generated code with CFR
     doc          generate HTML documentation
-    help         display this help message
+    help         print this help message
     lint         analyze Scala source files with Scalafmt
     run          execute main class
 EOS
@@ -133,11 +133,11 @@ lint() {
     $DEBUG && scalfmt_opts="--debug $scalfmt_opts"
 
     if $DEBUG; then
-        debug "$SCALAFMT_CMD $scalfmt_opts $(mixed_path $MAIN_SOURCE_DIR)"
+        debug "$SCALAFMT_CMD $scalfmt_opts $(mixed_path $SOURCE_MAIN_DIR)"
     elif $VERBOSE; then
         echo "Analyze Scala source files with Scalafmt" 1>&2
     fi
-    eval "$SCALAFMT_CMD" $scalfmt_opts "$(mixed_path $MAIN_SOURCE_DIR)"
+    eval "$SCALAFMT_CMD" $scalfmt_opts "$(mixed_path $SOURCE_MAIN_DIR)"
     [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 }
 
@@ -152,7 +152,7 @@ compile() {
         compile_java
         [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
     fi
-    is_required="$(action_required "$timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
+    is_required="$(action_required "$timestamp_file" "$SOURCE_MAIN_DIR/" "*.scala")"
     if [[ $is_required -eq 1 ]]; then
         compile_scala
         [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
@@ -168,10 +168,10 @@ action_required() {
     for f in $(find $search_path -name $search_pattern 2>/dev/null); do
         [[ $f -nt $latest ]] && latest=$f
     done
-    if [ -z "$latest" ]; then
+    if [[ -z "$latest" ]]; then
         ## Do not compile if no source file
         echo 0
-    elif [ ! -f "$timestamp_file" ]; then
+    elif [[ ! -f "$timestamp_file" ]]; then
         ## Do compile if timestamp file doesn't exist
         echo 1
     else
@@ -192,7 +192,7 @@ compile_java() {
     local sources_file="$TARGET_DIR/javac_sources.txt"
     [[ -f "$sources_file" ]] && rm "$sources_file"
     local n=0
-    for f in $(find $SOURCE_DIR/main/java/ -name *.java 2>/dev/null); do
+    for f in $(find "$SOURCE_DIR/main/java/" -type f -name "*.java" 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
@@ -219,7 +219,7 @@ compile_scala() {
     local sources_file="$TARGET_DIR/scalac_sources.txt"
     [[ -f "$sources_file" ]] && rm "$sources_file"
     local n=0
-    for f in $(find $SOURCE_DIR/main/scala/ -name *.scala 2>/dev/null); do
+    for f in $(find "$SOURCE_DIR/main/scala/" -type f -name "*.scala" 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
@@ -247,7 +247,7 @@ compile_scala() {
 }
 
 mixed_path() {
-    if [ -x "$CYGPATH_CMD" ]; then
+    if [[ -x "$CYGPATH_CMD" ]]; then
         $CYGPATH_CMD -am $1
     elif $mingw || $msys; then
         echo $1 | sed 's|/|\\\\|g'
@@ -290,12 +290,12 @@ decompile() {
         echo "Save generated Java source files to file ${output_file/$ROOT_DIR\//}" 1>&2
     fi
     local java_files=
-    for f in $(find $output_dir/ -name *.java 2>/dev/null); do
+    for f in $(find "$output_dir/" -type f -name "*.java" 2>/dev/null); do
         java_files="$java_files $(mixed_path $f)"
     done
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
 
-    if [ ! -x "$DIFF_CMD" ]; then
+    if [[ ! -x "$DIFF_CMD" ]]; then
         if $DEBUG; then
             warning "diff command not found"
         elif $VERBOSE; then
@@ -306,7 +306,7 @@ decompile() {
     local diff_opts=--strip-trailing-cr
 
     local check_file="$SOURCE_DIR/build/cfr-source$version_suffix.java"
-    if [ -f "$check_file" ]; then
+    if [[ -f "$check_file" ]]; then
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
         elif $VERBOSE; then
@@ -322,13 +322,13 @@ decompile() {
 
 ## output parameter: _EXTRA_CPATH
 extra_cpath() {
-    if [ $SCALA_VERSION==3 ]; then
+    if [[ $SCALA_VERSION==3 ]]; then
         lib_path="$SCALA3_HOME/lib"
     else
         lib_path="$SCALA_HOME/lib"
     fi
     local extra_cpath=
-    for f in $(find $lib_path/ -name *.jar); do
+    for f in $(find "$lib_path/" -type f -name "*.jar"); do
         extra_cpath="$extra_cpath$(mixed_path $f)$PSEP"
     done
     echo $extra_cpath
@@ -363,7 +363,7 @@ doc() {
 
     local doc_timestamp_file="$TARGET_DOCS_DIR/.latest-build"
 
-    local is_required="$(action_required "$doc_timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
+    local is_required="$(action_required "$doc_timestamp_file" "$SOURCE_MAIN_DIR/" "*.scala")"
     [[ $is_required -eq 0 ]] && return 1
 
     local sources_file="$TARGET_DIR/scaladoc_sources.txt"
@@ -375,7 +375,7 @@ doc() {
         echo $(mixed_path $f) >> "$sources_file"
     done
     local opts_file="$TARGET_DIR/scaladoc_opts.txt"
-    if [ $SCALA_VERSION -eq 3 ]; then
+    if [[ $SCALA_VERSION -eq 3 ]]; then
         echo -d "$(mixed_path $TARGET_DOCS_DIR)" -doc-title "$PROJECT_NAME" -doc-footer "$PROJECT_URL" -doc-version "$PROJECT_VERSION" > "$opts_file"
     else
         echo -siteroot "$(mixed_path $TARGET_DOCS_DIR)" -project "$PROJECT_NAME" -project-url "$PROJECT_URL" -project-version "$PROJECT_VERSION" > "$opts_file"
@@ -425,8 +425,35 @@ run() {
     fi
 }
 
-run_tests() {
-    echo "tests"
+test_compile() {
+    [[ -d "$TEST_CLASSES_DIR" ]] || mkdir -p "$TEST_CLASSES_DIR"
+
+    local timestamp_file="$TARGET_DIR/.latest-test-build"
+
+    local is_required=0
+    is_required="$(action_required "$timestamp_file" "$SOURCE_DIR/main/java/" "*.java")"
+    if [[ $is_required -eq 1 ]]; then
+        test_compile_java
+        [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
+    fi
+    is_required="$(action_required "$timestamp_file" "$SOURCE_MAIN_DIR/" "*.scala")"
+    if [[ $is_required -eq 1 ]]; then
+        test_compile_scala
+        [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
+    fi
+    touch "$timestamp_file"
+}
+
+test_compile_java() {
+    echo "nyi"
+}
+
+test_compile_scala() {
+    echo "nyi"
+}
+
+test_run() {
+    test_compile
 }
 
 ##############################################################################
@@ -439,10 +466,11 @@ EXITCODE=0
 ROOT_DIR="$(getHome)"
 
 SOURCE_DIR=$ROOT_DIR/src
-MAIN_SOURCE_DIR=$SOURCE_DIR/main/scala
+SOURCE_MAIN_DIR=$SOURCE_DIR/main/scala
 TARGET_DIR=$ROOT_DIR/target
 TARGET_DOCS_DIR=$TARGET_DIR/docs
 CLASSES_DIR=$TARGET_DIR/classes
+TEST_CLASSES_DIR=$TARGET_DIR/test-classes
 
 CLEAN=false
 COMPILE=false
@@ -468,11 +496,11 @@ cygwin=false
 mingw=false
 msys=false
 darwin=false
-case "`uname -s`" in
-  CYGWIN*) cygwin=true ;;
-  MINGW*)  mingw=true ;;
-  MSYS*)   msys=true ;;
-  Darwin*) darwin=true
+case "$(uname -s)" in
+    CYGWIN*) cygwin=true ;;
+    MINGW*)  mingw=true ;;
+    MSYS*)   msys=true ;;
+    Darwin*) darwin=true
 esac
 unset CYGPATH_CMD
 PSEP=":"
@@ -497,7 +525,7 @@ JAVA_CMD="$JAVA_HOME/bin/java"
 JAVAC_CMD="$JAVA_HOME/bin/javac"
 JAVADOC_CMD="$JAVA_HOME/bin/javadoc"
 
-if [ ! -x "$SCALA3_HOME/bin/scalac" ]; then
+if [[ ! -x "$SCALA3_HOME/bin/scalac" ]]; then
     error "Scala 3 installation not found"
     cleanup 1
 fi
@@ -508,7 +536,7 @@ SCALADOC3="$SCALA3_HOME/bin/scaladoc"
 SCALAFMT_CONFIG_FILE="$(dirname $ROOT_DIR)/.scalafmt.conf"
 
 unset CFR_CMD
-[ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
+[[ -x "$CFR_HOME/bin/cfr" ]] && CFR_CMD="$CFR_HOME/bin/cfr"
 
 PROJECT_NAME="$(basename $ROOT_DIR)"
 PROJECT_URL="github.com/$USER/dotty-examples"
@@ -545,6 +573,6 @@ if $RUN; then
     run || cleanup 1
 fi
 if $TEST; then
-    run_tests || cleanup 1
+    test_run || cleanup 1
 fi
 cleanup

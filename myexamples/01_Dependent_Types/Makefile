@@ -1,5 +1,5 @@
 ##
-## Copyright (c) 2018-2023 Stéphane Micheloud
+## Copyright (c) 2018-2024 Stéphane Micheloud
 ##
 ## Licensed under the MIT License.
 ##
@@ -53,7 +53,7 @@ help:
 	@$(ECHO) "    doc    generate HTML documentation"
 	@$(ECHO) "    help   print this help message"
 	@$(ECHO) "    lint   analyze Scala source files with Scalafmt"
-	@$(ECHO) "    run    execute the main program \"$(MAIN_CLASS)\""
+	@$(ECHO) "    run    execute main program \"$(MAIN_CLASS)\""
 	@$(ECHO) "    test   execute unit tests with JUnit"
 
 ##############################################################################
@@ -70,7 +70,7 @@ PROJECT_VERSION ?= 1.0.0
 DOC_OPTS_FILE    = $(TARGET_DIR)/scaladoc_opts.txt
 DOC_SOURCES_FILE = $(TARGET_DIR)/scaladoc_sources.txt
 
-$(DOC_TARGET): $(DOC_SOURCES)
+$(DOC_TARGET): $(TARGET) $(DOC_SOURCES)
 	[ -d "$(DOC_TARGET_DIR)" ] || "$(MKDIR)" -p "$(DOC_TARGET_DIR)"
 	@$(ECHO) -siteroot "$(DOC_TARGET_DIR)" -d "$(DOC_TARGET_DIR)" -project "$(PROJECT_NAME)" -project-version "$(PROJECT_VERSION)" > "$(DOC_OPTS_FILE)"
 	@$(ECHO) $(DOC_SOURCES) > "$(DOC_SOURCES_FILE)"
@@ -122,4 +122,4 @@ test: build $(TEST_TARGET)
 .PHONY: all build clean deps doc help lint run test
 
 .SUFFIXES:
-.SUFFIXES: .class .jar .java .scala .tasty
+.SUFFIXES: .class .html .jar .java .scala .tasty .xml

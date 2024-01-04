@@ -67,6 +67,7 @@ if not exist "%JAVA_HOME%\bin\javac.exe" (
     set _EXITCODE=1
     goto :eof
 )
+set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
 set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
 
 set "_COURSIER_DATA_DIR=%LOCALAPPDATA%\Coursier\data"
@@ -173,7 +174,9 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
-        echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
+        if "%__ARG%"=="-java" ( echo %_ERROR_LABEL% Unknown option "%__ARG%" ^(did you mean "-lang:java"?^) 1>&2
+        ) else ( echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
+        )
         set _EXITCODE=1
         goto args_done
     )
@@ -283,7 +286,7 @@ if %_ACTION_REQUIRED%==0 goto :eof
 call :cpath
 if not %_EXITCODE%==0 goto :eof
 
-set __JAVAC_OPTS=-cp "%_CPATH%" -Xplugin:"semanticdb -sourceroot:%_SOURCE_DIR%\main\java -targetroot:%_JAVA_CLASSES_DIR%" -d "%_JAVA_CLASSES_DIR%"
+set __JAVAC_OPTS=-cp "%_CPATH_JAVA%" -Xplugin:"semanticdb -sourceroot:%_SOURCE_DIR%\main\java -targetroot:%_JAVA_CLASSES_DIR%" -d "%_JAVA_CLASSES_DIR%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\javac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
@@ -326,17 +329,13 @@ goto :eof
 if not exist "%_KOTLIN_CLASSES_DIR%" mkdir "%_KOTLIN_CLASSES_DIR%"
 
 set "__TIMESTAMP_FILE=%_KOTLIN_CLASSES_DIR%\.latest-build"
-
 call :action_required "%__TIMESTAMP_FILE%" "%_SOURCE_DIR%\main\kotlin\*.kt"
 if %_ACTION_REQUIRED%==0 goto :eof
 
 call :cpath
 if not %_EXITCODE%==0 goto :eof
 
-set "__PLUGIN_JAR=%USERPROFILE%\.m2\repository\com\sourcegraph\semanticdb-kotlinc\0.2.0\semanticdb-kotlinc-0.2.0.jar"
-
-set "__OPTS_FILE=%_TARGET_DIR%\kotlinc_opts.txt"
-echo -cp "%_CPATH:\=\\%" "-Xplugin=%__PLUGIN_JAR%" -d "%_KOTLIN_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
+set __KOTLINC_OPTS=-cp "%KOTLIN_HOME%\lib\kotlin-compiler.jar;%_CPATH_KOTLIN%" -Xplugin:"semanticdb -sourceroot:%_SOURCE_DIR%\main\kotlin -targetroot:%_KOTLIN_CLASSES_DIR%" -d "%_KOTLIN_CLASSES_DIR%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\kotlinc_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
@@ -351,10 +350,11 @@ if %__N%==0 (
 ) else if %__N%==1 ( set __N_FILES=%__N% Kotlin source file
 ) else ( set __N_FILES=%__N% Kotlin source files
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_KOTLINC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
+set "__JAVA_CPATH=%KOTLIN_HOME%\lib\kotlin-compiler.jar"
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -cp "%__JAVA_CPATH%" org.jetbrains.kotlin.cli.jvm.K2JVMCompiler %__KOTLINC_OPTS% "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Create semanticdb file 1>&2
 )
-call "%_KOTLINC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
+call "%_JAVA_CMD%" -cp "%__JAVA_CPATH%" org.jetbrains.kotlin.cli.jvm.K2JVMCompiler %__KOTLINC_OPTS% "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to create semanticdb file 1>&2
     set _EXITCODE=1

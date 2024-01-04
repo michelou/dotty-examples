@@ -325,7 +325,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" cfm "%_JAR_FILE%" "%__MANIFEST
 )
 call "%_JAR_CMD%" cfm "%_JAR_FILE%" "%__MANIFEST_FILE%" -C "%_CLASSES_DIR%" .
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to generate Java archive file "%_JAR_FILE%" 1>&2
+    echo %_ERROR_LABEL% Failed to create Java archive file "!_JAR_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -351,7 +351,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -classpath
 )
 call "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -classpath "%__CPATH%" %_MAIN_CLASS% %_REDIRECT_STDOUT%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to create file "%_CLASSLIST_FILE%" 1>&2
+    echo %_ERROR_LABEL% Failed to create class list file "%_CLASSLIST_FILE%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -371,7 +371,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -classpath
 )
 call "%_JAVA_CMD%" %__JAVA_TOOL_OPTS% -classpath "%__CPATH%" %_MAIN_CLASS% %_REDIRECT_STDOUT%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to create shared archive "%_JAR_FILE%" 1>&2
+    echo %_ERROR_LABEL% Failed to create Java shared archive "!_JSA_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )

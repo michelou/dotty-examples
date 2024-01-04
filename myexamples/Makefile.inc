@@ -57,7 +57,7 @@ JUNIT_VERSION = 4.13.2
 SCALATEST_VERSION = 3.2.17
 ## https://mvnrepository.com/artifact/org.specs2/specs2-core
 ## Note: Specs2 5.x depends on Scala 3 while Specs2 4.x depends on Scala 2 or Scala 3
-SPECS2_VERSION = 5.3.2
+SPECS2_VERSION = 5.4.1
 
 SCALA_LIB_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name "scala-library-2.13.*.jar" | tail -1)
 SCALA3_LIB_JAR        = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name "scala3-library_3-3.3.*.jar" | tail -1)
@@ -84,75 +84,81 @@ deps:
 ifeq (,$(wildcard $(SCALA_LIB_JAR)))
 	$(eval GROUP_ID := org.scala-lang)
 	$(eval ARTIFACT_ID := scala-library)
-    $(eval SCALA_VERSION := 2.13.12)
-	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(SCALA_VERSION).jar)
-	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(SCALA_VERSION)/$(ARTIFACT_ID)-$(SCALA_VERSION).jar)
-	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(SCALA_VERSION).jar)
-	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(SCALA_VERSION) -Dpackaging=jar
-	$(eval SCALA_LIB_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(SCALA_VERSION).jar))
+	$(eval VERSION := 2.13.12)
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(VERSION)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(VERSION) -Dpackaging=jar
+	$(eval SCALA_LIB_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(VERSION).jar))
 endif
 ifeq (,$(wildcard $(SCALA3_LIB_JAR)))
 	$(eval GROUP_ID := org.scala-lang)
 	$(eval ARTIFACT_ID := scala3-library_3)
-    $(eval SCALA3_VERSION := 3.3.1)
-	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(SCALA3_VERSION).jar)
-	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(SCALA3_VERSION)/$(ARTIFACT_ID)-$(SCALA3_VERSION).jar)
-	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(SCALA3_VERSION).jar)
-	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(SCALA3_VERSION) -Dpackaging=jar
-	$(eval SCALA3_LIB_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(SCALA3_VERSION).jar))
+	$(eval VERSION := 3.3.1)
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(VERSION)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(VERSION) -Dpackaging=jar
+	$(eval SCALA3_LIB_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(VERSION).jar))
 endif
 ifeq (,$(wildcard $(HAMCREST_JAR)))
 	$(eval GROUP_ID := org/hamcrest)
 	$(eval ARTIFACT_ID := hamcrest)
-	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(HAMCREST_VERSION).jar)
-	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(HAMCREST_VERSION)/$(ARTIFACT_ID)-$(HAMCREST_VERSION).jar)
-	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(HAMCREST_VERSION).jar)
-	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(HAMCREST_VERSION) -Dpackaging=jar
-	$(eval HAMCREST_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(HAMCREST_VERSION).jar))
+	$(eval VERSION := $(HAMCREST_VERSION))
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(VERSION)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(VERSION) -Dpackaging=jar
+	$(eval HAMCREST_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(VERSION).jar))
 endif
 ifeq (,$(wildcard $(HAMCREST_ALL_JAR)))
 	$(eval GROUP_ID := org/hamcrest)
 	$(eval ARTIFACT_ID := hamcrest-all)
-	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(HAMCREST_ALL_VERSION).jar)
-	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(HAMCREST_ALL_VERSION)/$(ARTIFACT_ID)-$(HAMCREST_ALL_VERSION).jar)
-	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(HAMCREST_ALL_VERSION).jar)
-	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(HAMCREST_ALL_VERSION) -Dpackaging=jar
-	$(eval SCALA3_LIB_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(SCALA3_VERSION).jar))
+	$(eval VERSION := $(HAMCREST_ALL_VERSION))
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(VERSION)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(VERSION) -Dpackaging=jar
+	$(eval HAMCREST_ALL_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(VERSION).jar))
 endif
 ifeq (,$(wildcard $(JUNIT_JAR)))
 	$(eval GROUP_ID := junit)
 	$(eval ARTIFACT_ID := junit)
-	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(JUNIT_VERSION).jar)
-	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(JUNIT_VERSION)/$(ARTIFACT_ID)-$(JUNIT_VERSION).jar)
-	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(JUNIT_VERSION).jar)
-	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(JUNIT_VERSION) -Dpackaging=jar
-	$(eval JUNIT_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(JUNIT_VERSION).jar))
+	$(eval VERSION := $(JUNIT_VERSION))
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(VERSION)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(VERSION) -Dpackaging=jar
+	$(eval JUNIT_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(VERSION).jar))
 endif
 ifeq (,$(wildcard $(SCALATEST_JAR)))
 	$(eval GROUP_ID := org.scalatest)
 	$(eval ARTIFACT_ID := scalatest_3)
-	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(SCALATEST_VERSION).jar)
-	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(SCALATEST_VERSION)/$(ARTIFACT_ID)-$(SCALATEST_VERSION).jar)
-	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(SCALATEST_VERSION).jar)
-	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(SCALATEST_VERSION) -Dpackaging=jar
-	$(eval SCALATEST_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(SCALATEST_VERSION).jar))
+	$(eval VERSION := $(SCALATEST_VERSION))
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(VERSION)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(VERSION) -Dpackaging=jar
+	$(eval SCALATEST_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(VERSION).jar))
 endif
 ifeq (,$(wildcard $(SCALATEST_FUNSPEC_JAR)))
 	$(eval GROUP_ID := org.scalatest)
 	$(eval ARTIFACT_ID := scalatest-funspec_3)
-	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(SCALATEST_VERSION).jar)
-	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(SCALATEST_VERSION)/$(ARTIFACT_ID)-$(SCALATEST_VERSION).jar)
-	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(SCALATEST_VERSION).jar)
-	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(SCALATEST_VERSION) -Dpackaging=jar
+	$(eval VERSION := $(SCALATEST_VERSION))
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(VERSION)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(VERSION) -Dpackaging=jar
 endif
 ifeq (,$(wildcard $(SCALACTIC_JAR)))
 	$(eval GROUP_ID := org.scalactic)
 	$(eval ARTIFACT_ID := scalactic_3)
-	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(SCALATEST_VERSION).jar)
-	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(SCALATEST_VERSION)/$(ARTIFACT_ID)-$(SCALATEST_VERSION).jar)
-	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(SCALATEST_VERSION).jar)
-	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(SCALATEST_VERSION) -Dpackaging=jar
-	$(eval SCALACTIC_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(SCALATEST_VERSION).jar))
+	$(eval VERSION := $(SCALATEST_VERSION))
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(VERSION)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(VERSION) -Dpackaging=jar
+	$(eval SCALACTIC_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name $(ARTIFACT_ID)-$(VERSION).jar))
 endif
 ifeq (,$(wildcard $(SPECS2_COMMON_JAR)))
 	$(eval GROUP_ID := org.specs2)

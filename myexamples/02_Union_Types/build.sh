@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2023 Stéphane Micheloud
+# Copyright (c) 2018-2024 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -339,7 +339,7 @@ extra_cpath() {
         lib_path="$SCALA_HOME/lib"
     fi
     local extra_cpath=
-    for f in $(find $lib_path/ -name *.jar); do
+    for f in $(find "$lib_path/" -type f -name "*.jar"); do
         extra_cpath="$extra_cpath$(mixed_path $f)$PSEP"
     done
     echo $extra_cpath
@@ -382,7 +382,7 @@ doc() {
     # for f in $(find $SOURCE_DIR/main/java/ -name *.java 2>/dev/null); do
     #     echo $(mixed_path $f) >> "$sources_file"
     # done
-    for f in $(find "$CLASSES_DIR/" -name "*.tasty" 2>/dev/null); do
+    for f in $(find "$CLASSES_DIR/" -type f -name "*.tasty" 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
     done
     local opts_file="$TARGET_DIR/scaladoc_opts.txt"

@@ -19,10 +19,10 @@ set _LIBS_CPATH=
 
 set __SCALA_BINARY_VERSION=2.13
 
-set __SCALAMETA_VERSION=4.8.4
+set __SCALAMETA_VERSION=4.8.14
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
-call :add_jar "org.scala-lang" "scala-reflect" "2.13.11"
+call :add_jar "org.scala-lang" "scala-reflect" "2.13.12"
 
 @rem https://mvnrepository.com/artifact/com.lihaoyi/fansi
 @rem dependency of pprint
@@ -38,13 +38,39 @@ call :add_jar "org.scalameta" "common_%__SCALA_BINARY_VERSION%" "%__SCALAMETA_VE
 call :add_jar "org.scalameta" "scalameta_%__SCALA_BINARY_VERSION%" "%__SCALAMETA_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scalameta/semanticdb-scalac
-call :add_jar "org.scalameta" "semanticdb-scalac_2.13.11" "%__SCALAMETA_VERSION%"
+call :add_jar "org.scalameta" "semanticdb-scalac_2.13.12" "%__SCALAMETA_VERSION%"
+
+set "__LIBS_CPATH_SCALA=%_LIBS_CPATH%"
+
+@rem #########################################################################
+
+set _LIBS_CPATH=
+
+@rem https://mvnrepository.com/artifact/org.scalameta/common
+call :add_jar "org.scalameta" "common_%__SCALA_BINARY_VERSION%" "%__SCALAMETA_VERSION%"
+
+@rem https://mvnrepository.com/artifact/org.scalameta/scalameta
+call :add_jar "org.scalameta" "scalameta_%__SCALA_BINARY_VERSION%" "%__SCALAMETA_VERSION%"
 
 @rem https://mvnrepository.com/artifact/com.sourcegraph/semanticdb-javac
-call :add_jar "com.sourcegraph" "semanticdb-javac" "0.8.24"
+call :add_jar "com.sourcegraph" "semanticdb-javac" "0.9.8"
+
+set "__LIBS_CPATH_JAVA=%_LIBS_CPATH%"
+
+@rem #########################################################################
+
+set _LIBS_CPATH=
+
+@rem https://mvnrepository.com/artifact/org.scalameta/common
+call :add_jar "org.scalameta" "common_%__SCALA_BINARY_VERSION%" "%__SCALAMETA_VERSION%"
+
+@rem https://mvnrepository.com/artifact/org.scalameta/scalameta
+call :add_jar "org.scalameta" "scalameta_%__SCALA_BINARY_VERSION%" "%__SCALAMETA_VERSION%"
 
 @rem https://mvnrepository.com/artifact/com.sourcegraph/semanticdb-kotlinc
-call :add_jar "com.sourcegraph" "semanticdb-kotlinc" "0.3.0"
+call :add_jar "com.sourcegraph" "semanticdb-kotlinc" "0.3.2"
+
+set "__LIBS_CPATH_KOTLIN=%_LIBS_CPATH%"
 
 goto end
 
@@ -95,5 +121,7 @@ goto :eof
 
 :end
 endlocal & (
-    set "_CPATH=%_LIBS_CPATH%"
+    set "_CPATH=%__LIBS_CPATH_SCALA%"
+    set "_CPATH_JAVA=%__LIBS_CPATH_JAVA%"
+    set "_CPATH_KOTLIN=%__LIBS_CPATH_KOTLIN%"
 )

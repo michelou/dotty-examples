@@ -2,13 +2,13 @@
 buildDir file("target")
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 project.ext {
     // sanetize properties from gradle.properties
-    scalaVersion = hasProperty("scalaVersion") ? scalaVersion : "3.3.1-RC7"
+    scalaVersion = hasProperty("scalaVersion") ? scalaVersion : "3.3.2-RC1"
     scalaLocalInstall = hasProperty("scalaLocalInstall") ? scalaLocalInstall.toBoolean() : false
     isScala3 = scalaVersion.startsWith("3")
     scalacMainClass = isScala3 ? "dotty.tools.dotc.Main": "scala.tools.nsc.Main"
@@ -18,8 +18,8 @@ project.ext {
     }
 
     scalaBinaryVersion = isScala3 ? "3" : "2.13"
-    scalatestVersion = "3.2.16"
-    specs2Version = "5.3.2"
+    scalatestVersion = "3.2.17"
+    specs2Version = "5.4.1"
     dependencies {
         if (isScala3) {
             implementation "org.scala-lang:scala3-compiler_3:$scalaVersion"

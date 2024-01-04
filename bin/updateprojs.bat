@@ -10,12 +10,12 @@ set _DEBUG=0
 set _EXITCODE=0
 
 @rem files build.sbt, build.sc and ivy.xml
-set _DOTTY_VERSION_OLD="3.3.1-RC7"
-set _DOTTY_VERSION_NEW="3.3.1"
+set _DOTTY_VERSION_OLD="3.3.1"
+set _DOTTY_VERSION_NEW="3.3.2-RC1"
 
 @rem files project\build.properties
-set _SBT_VERSION_OLD=sbt.version=1.9.4
-set _SBT_VERSION_NEW=sbt.version=1.9.7
+set _SBT_VERSION_OLD=sbt.version=1.9.7
+set _SBT_VERSION_NEW=sbt.version=1.9.8
 
 @rem files project\plugins.sbt
 @rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/
@@ -27,22 +27,26 @@ set _SCALATEST_VERSION_OLD=^(\"scalatest_2.13\"^)^(.+\"3.2.16\"^)
 set _SCALATEST_VERSION_NEW=$1 %%%% \"3.2.17\"
 
 @rem files ivy.xml (NB. PS regex)
-set _IVY_DOTTY_VERSION_OLD=^(scala3-[a-z]+^)_3.3.1-RC7
-set _IVY_DOTTY_VERSION_NEW=$1_3.3.1
+set _IVY_DOTTY_VERSION_OLD=^(scala3-[a-z]+^)_3.3.1
+set _IVY_DOTTY_VERSION_NEW=$1_3.3.2-RC1
 
-set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_3.3.1-RC7
-set _IVY_TASTY_VERSION_NEW=$1_3.3.1
+set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_3.3.1
+set _IVY_TASTY_VERSION_NEW=$1_3.3.2-RC1
 
 @rem files pom.xml (NB. PS regex)
 set _POM_SCALA2_VERSION_OLD=scala.version^>2.13.11
 set _POM_SCALA2_VERSION_NEW=scala.version^>2.13.12
 
-set _POM_SCALA3_VERSION_OLD=scala3.version^>3.3.1-RC7
-set _POM_SCALA3_VERSION_NEW=scala3.version^>3.3.1
+set _POM_SCALA3_VERSION_OLD=scala3.version^>3.3.1
+set _POM_SCALA3_VERSION_NEW=scala3.version^>3.3.2-RC1
 
 @rem files common.gradle
-set _GRADLE_DOTTY_VERSION_OLD=scala3-compiler_3:3.3.1-RC7
-set _GRADLE_DOTTY_VERSION_NEW=scala3-compiler_3:3.3.1
+set _GRADLE_DOTTY_VERSION_OLD=scala3-compiler_3:3.3.1
+set _GRADLE_DOTTY_VERSION_NEW=scala3-compiler_3:3.3.2-RC1
+
+@rem copyright dates
+set _COPYRIGHT_DATES_OLD=2018-2023
+set _COPYRIGHT_DATES_NEW=2018-2024
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -215,7 +219,7 @@ Set-Content '%__FILE%'
 if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -C "%__PS1_SCRIPT%" 1>&2
 powershell -C "%__PS1_SCRIPT%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Execution of ps1 cmdlet failed 1>&2
+    echo %_ERROR_LABEL% Failed to execute ps1 cmdlet 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -226,7 +230,8 @@ set __PARENT_DIR=%~1
 set __N1=0
 set __N2=0
 set __N3=0
-set __N4=0
+set __N_SC=0
+set __N_SH=0
 set __N5=0
 set __N6=0
 set __N7=0
@@ -263,9 +268,18 @@ for /f %%i in ('dir /ad /b "%__PARENT_DIR%" ^| findstr /v /c:"lib"') do (
     if exist "!__BUILD_SC!" (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "!__BUILD_SC!" "%_DOTTY_VERSION_OLD%" "%_DOTTY_VERSION_NEW%" 1>&2
         call :replace "!__BUILD_SC!" "%_DOTTY_VERSION_OLD%" "%_DOTTY_VERSION_NEW%"
-        set /a __N4+=1
+        set /a __N_SC+=1
     ) else (
        echo    %_WARNING_LABEL% Could not find file "%%i\build.sc" 1>&2
+    )
+    set "__BUILD_SH=%__PARENT_DIR%\%%i\build.sh"
+    if exist "!__BUILD_SH!" (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "!__BUILD_SH!" "%_COPYRIGHT_DATES_OLD%" "%_COPYRIGHT_DATES_NEW%" 1>&2
+        call :replace "!__BUILD_SH!" "%_COPYRIGHT_DATES_OLD%" "%_COPYRIGHT_DATES_NEW%"
+        call "%GIT_HOME%\usr\bin\dos2unix.exe" --force "!__BUILD_SH!"
+        set /a __N_SH+=1
+    ) else (
+       echo    %_WARNING_LABEL% Could not find file "%%i\build.sh" 1>&2
     )
 )
 @rem Configuration files common to all projects
@@ -306,7 +320,8 @@ if exist "%__COMMON_GRADLE%" (
 call :message %__N1% "build.sbt"
 call :message %__N2% "project\build.properties"
 call :message %__N3% "project\plugins.sbt"
-call :message %__N4% "build.sc"
+call :message %__N_SC% "build.sc"
+call :message %__N_SH% "build.sh"
 call :message %__N5% "ivy.xml"
 call :message %__N6% "pom.xml"
 call :message %__N7% "common.gradle"

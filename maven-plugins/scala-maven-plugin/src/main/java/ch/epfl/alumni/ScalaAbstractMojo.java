@@ -160,8 +160,46 @@ abstract class ScalaAbstractMojo extends AbstractMojo {
         }
         ArrayList<File> jars = new ArrayList<File>();
         try {
+            // Scala 3.4.x
+            if (this.scalaVersion.startsWith("3.4.")) {
+                jars.add(this.resolveArtifact("org.scala-lang", "scala3-library_3", this.scalaVersion));
+                jars.add(this.resolveArtifact("org.scala-lang", "scala3-compiler_3", this.scalaVersion));
+                jars.add(this.resolveArtifact("org.scala-lang", "scala3-interfaces", this.scalaVersion));
+                jars.add(this.resolveArtifact("jline", "jline-reader", "3.19.0"));
+                jars.add(this.resolveArtifact("jline", "jline-terminal", "3.19.0"));
+                jars.add(this.resolveArtifact("jline", "jline-terminal-jna", "3.19.0"));
+                jars.add(this.resolveArtifact("net.java.dev.jna", "jna", "5.3.1"));
+                jars.add(this.resolveArtifact("org.scala-lang.modules", "scala-asm", "9.5.0-scala-1"));
+                jars.add(this.resolveArtifact("org.scala-sbt", "compiler-interface", "1.3.5"));           // ???
+            // Scala 3.3.x
+            } else if (this.scalaVersion.startsWith("3.3.")) {
+                String minorVersion = this.scalaVersion.substring(4);
+                // 3.3.2+ introduce compiler-interface-1.9.3.jar (was 1.3.5)
+                String interfaceVersion = minorVersion.matches("^[2-9]\\..*") ? "1.9.3" : "1.3.5";
+                jars.add(this.resolveArtifact("org.scala-lang", "scala-library", ".2.13.10"));
+                jars.add(this.resolveArtifact("org.scala-lang", "scala3-library_3", this.scalaVersion));
+                jars.add(this.resolveArtifact("org.scala-lang", "scala3-compiler_3", this.scalaVersion));
+                jars.add(this.resolveArtifact("org.scala-lang", "scala3-interfaces", this.scalaVersion));
+                jars.add(this.resolveArtifact("jline", "jline-reader", "3.19.0"));
+                jars.add(this.resolveArtifact("jline", "jline-terminal", "3.19.0"));
+                jars.add(this.resolveArtifact("jline", "jline-terminal-jna", "3.19.0"));
+                jars.add(this.resolveArtifact("net.java.dev.jna", "jna", "5.3.1"));
+                jars.add(this.resolveArtifact("org.scala-lang.modules", "scala-asm", "9.5.0-scala-1"));   // NEW
+                jars.add(this.resolveArtifact("org.scala-sbt", "compiler-interface", interfaceVersion));  // NEW
+            // Scala 3.2.x
+            } else if (this.scalaVersion.startsWith("3.2.")) {
+                jars.add(this.resolveArtifact("org.scala-lang", "scala-library", "2.13.10"));
+                jars.add(this.resolveArtifact("org.scala-lang", "scala3-library_3", this.scalaVersion));
+                jars.add(this.resolveArtifact("org.scala-lang", "scala3-compiler_3", this.scalaVersion));
+                jars.add(this.resolveArtifact("org.scala-lang", "scala3-interfaces", this.scalaVersion));
+                jars.add(this.resolveArtifact("jline", "jline-reader", "3.19.0"));
+                jars.add(this.resolveArtifact("jline", "jline-terminal", "3.19.0"));
+                jars.add(this.resolveArtifact("jline", "jline-terminal-jna", "3.19.0"));
+                jars.add(this.resolveArtifact("net.java.dev.jna", "jna", "5.3.1"));
+                jars.add(this.resolveArtifact("org.scala-lang.modules", "scala-asm", "9.3.0-scala-1"));   // NEW
+                jars.add(this.resolveArtifact("org.scala-sbt", "compiler-interface", "1.3.5"));
             // Scala 3.1.x
-            if (this.scalaVersion.startsWith("3.1.")) {
+            } else if (this.scalaVersion.startsWith("3.1.")) {
                 String minorVersion = this.scalaVersion.substring(4);
                 // 3.1.2+ introduce scala-library-2.13.8.jar
                 String scalaLibVersion = minorVersion.matches("^[2-9]\\..*") ? "2.13.8" : "2.13.6";
@@ -190,13 +228,25 @@ abstract class ScalaAbstractMojo extends AbstractMojo {
                 jars.add(this.resolveArtifact("net.java.dev.jna", "jna", "5.3.1"));
                 jars.add(this.resolveArtifact("org.scala-lang.modules", "scala-asm", "9.0.1-scala-1"));
                 jars.add(this.resolveArtifact("org.scala-sbt", "compiler-interface", "1.3.5"));
-            // Scala 2.13.x (upto 2.13.6)
+
+            //////////////////////////////////////////////////////////////////
+            // Scala 2 versions
+            //
+            // Scala 2.13.x (up to 2.13.12)
             } else if (this.scalaVersion.startsWith("2.13.")) {
                 jars.add(this.resolveArtifact("org.scala-lang", "scala-library", this.scalaVersion));
                 jars.add(this.resolveArtifact("org.scala-lang", "scala-compiler", this.scalaVersion));
                 jars.add(this.resolveArtifact("org.scala-lang", "scala-reflect", this.scalaVersion));
                 String minorVersion = this.scalaVersion.substring(5);
-                if (minorVersion.startsWith("8")) {
+                if (minorVersion.startsWith("11") || minorVersion.startsWith("12")) {
+                    jars.add(this.resolveArtifact("org.jline", "jline", "3.22.0"));
+                    jars.add(this.resolveArtifact("net.java.dev.jna", "jna", "5.13.0"));
+                    jars.add(this.resolveArtifact("io.github.java-diff-utils", "java-diff-utils", "4.12"));
+                } else if (minorVersion.startsWith("9") || minorVersion.startsWith("10")) {
+                    jars.add(this.resolveArtifact("org.jline", "jline", "3.21.0"));
+                    jars.add(this.resolveArtifact("net.java.dev.jna", "jna", "5.9.0"));
+                    jars.add(this.resolveArtifact("io.github.java-diff-utils", "java-diff-utils", "4.12"));
+                } else if (minorVersion.startsWith("8")) {
                     jars.add(this.resolveArtifact("org.jline", "jline", "3.21.0"));
                     jars.add(this.resolveArtifact("net.java.dev.jna", "jna", "5.9.0"));
                 } else if (minorVersion.startsWith("7")) {
@@ -223,10 +273,13 @@ abstract class ScalaAbstractMojo extends AbstractMojo {
                 }
             // Scala 2.12.x
             } else if (this.scalaVersion.startsWith("2.12.")) {
+                String minorVersion = this.scalaVersion.substring(4);
+                // 2.12.17+ introduce scala-xml-2.12-2.1.0.jar (was 1.0.6)
+                String xmlLibVersion = minorVersion.matches("^[17-99]\\..*") ? "2.1.0" : "1.0.6";
                 jars.add(this.resolveArtifact("org.scala-lang", "scala-library", this.scalaVersion));
                 jars.add(this.resolveArtifact("org.scala-lang", "scala-reflect", this.scalaVersion));
                 jars.add(this.resolveArtifact("org.scala-lang", "scala-compiler", this.scalaVersion));
-                jars.add(this.resolveArtifact("org.scala-lang.modules", "scala-xml_2.12", "1.0.6"));
+                jars.add(this.resolveArtifact("org.scala-lang.modules", "scala-xml_2.12", xmlLibVersion));
                 jars.add(this.resolveArtifact("org.jline", "jline", "2.14.6"));
             // Scala 2.11.x
             } else if (this.scalaVersion.startsWith("2.11.")) {

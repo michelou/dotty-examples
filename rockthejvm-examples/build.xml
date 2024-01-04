@@ -21,7 +21,7 @@
     <!-- JUnit 4 depends on Hamcrest version 1.3 -->
     <property name="hamcrest.version" value="1.3" />
     <property name="junit.version" value="4.13.2" />
-    <property name="junit-platform.version" value="1.9.3" />
+    <property name="junit-platform.version" value="1.10.1" />
 
     <target name="init.local" if="use.local">
         <property name="scala3.home" value="${env.SCALA3_HOME}" />
@@ -50,7 +50,7 @@
     </target>
 
     <target name="init.ivy" unless="use.local">
-        <!-- installed: C:/opt/apache-ant-1.10.10/lib/ivy-2.5.0.jar -->
+        <!-- installed: C:/opt/apache-ant/lib/ivy-2.5.2.jar -->
         <taskdef resource="org/apache/ivy/ant/antlib.xml"
             uri="antlib:org.apache.ivy.ant" />
         <ivy:resolve file="../ivy.xml" showprogress="false" log="download-only" />

@@ -18,9 +18,9 @@ Code examples presented below can be built/run with the following tools:
 | [**`ant.bat`**][apache_ant_cli]   | [**`build.xml`**](Enums/build.xml) | [**`build.xml`**](./build.xml), [**`ivy.xml`**](ivy.xml) | Any <sup><b>a)</b></sup> |
 | [**`cmd.exe`**][cmd_cli] | [**`build.bat`**](Enums/build.bat)<br/>([**`build.properties`**](Enums/project/build.properties)) | [**`cpath.bat`**](./cpath.bat) <sup><b>b)</b></sup>              | Windows only |
 | [**`sh.exe`**][sh_cli] | [**`build.sh`**](Enums/build.sh)<br/>([**`build.properties`**](Enums/project/build.properties)) |                   | [Cygwin]/[MSYS2]/Unix only |
-| [**`make.exe`**][gmake_cli]       | [**`Makefile`**](Enums/Makefile)   | [**`Makefile.inc`**](./Makefile.inc)         | Any|
-| [**`mvn.cmd`**][apache_maven_cli] | [**`pom.xml`**](Enums/pom.xml)     | [**`pom.xml`**](./pom.xml)                   | Any |
-| [**`sbt.bat`**][sbt_cli]          | [**`build.sbt`**](Enums/build.sbt) | n.a.                                         | Any |
+| [**`make.exe`**][gmake_cli]       | [`Makefile`](Enums/Makefile)   | [**`Makefile.inc`**](./Makefile.inc)         | Any|
+| [**`mvn.cmd`**][apache_maven_cli] | [`pom.xml`](Enums/pom.xml)     | [**`pom.xml`**](./pom.xml)                   | Any |
+| [**`sbt.bat`**][sbt_cli]          | [`build.sbt`](Enums/build.sbt) | n.a.                                         | Any |
 <div style="margin:0 10% 0 8px;font-size:90%;">
 <sup><b>a)</b></sup> Here "Any" means "tested on Windows, Cygwin, MSYS2 and Unix".<br/>
 <sup><b>b)</b></sup> This utility batch file manages <a href="https://maven.apache.org/" rel="external">Maven</a> dependencies and returns the associated Java class path (as environment variable).<br/>&nbsp;</div>
@@ -104,7 +104,7 @@ ten=10
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

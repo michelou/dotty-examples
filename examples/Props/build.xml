@@ -6,7 +6,7 @@
     <property name="target-docs.dir" value="${target.dir}/docs" />
     <property name="build.dir" value="${target.dir}/main/classes" />
     <property name="cfr-source.dir" value="${target.dir}/cfr-sources" />
-    <property name="main.class" value="Main" />
+    <property name="main.class" value="test" />
 
     <!-- task 'init' and macro 'dotc' are defined in parent build.xml -->
     <import file="../build.xml" />

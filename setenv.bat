@@ -39,14 +39,11 @@ set _VSCODE_PATH=
 
 @rem %1=version, %2=vendor
 @rem eg. bellsoft, corretto, bellsoft, openj9, redhat, sapmachine, temurin, zulu
-call :java 17 "temurin"
-if not %_EXITCODE%==0 goto end
-
 call :java 21 "temurin"
 if not %_EXITCODE%==0 goto end
 
 @rem last call to :java defines variable JAVA_HOME
-call :java 11 "temurin"
+call :java 17 "temurin"
 if not %_EXITCODE%==0 goto end
 
 call :scala2
@@ -300,11 +297,11 @@ set "_DRIVE_NAME=!__DRIVE_NAMES:~0,2!"
 if /i "%_DRIVE_NAME%"=="%__GIVEN_PATH:~0,2%" goto :eof
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% subst "%_DRIVE_NAME%" "%__GIVEN_PATH%" 1>&2
-) else if %_VERBOSE%==1 ( echo Assign drive %_DRIVE_NAME% to path "!__GIVEN_PATH.%USERPROFILE%=%%USERPROFILE%%!" 1>&2
+) else if %_VERBOSE%==1 ( echo Assign drive %_DRIVE_NAME% to path "!__GIVEN_PATH:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
 )
 subst "%_DRIVE_NAME%" "%__GIVEN_PATH%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to assign drive %_DRIVE_NAME% to path "!__GIVEN_PATH.%USERPROFILE%=%%USERPROFILE%%!" 1>&2
+    echo %_ERROR_LABEL% Failed to assign drive %_DRIVE_NAME% to path "!__GIVEN_PATH:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -401,7 +398,7 @@ if defined __BLOOP_CMD (
     set _PATH=C:\opt
     if exist "!__PATH!\bloop\" ( set "_BLOOP_HOME=!__PATH!\bloop"
     ) else (
-       for /f %%f in ('dir /ad /b "!_PATH!\bloop*" 2^>NUL') do set "_BLOOP_HOME=!_PATH!\%%f"
+       for /f "delims=" %%f in ('dir /ad /b "!_PATH!\bloop*" 2^>NUL') do set "_BLOOP_HOME=!_PATH!\%%f"
     )
     if defined _BLOOP_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Bloop installation directory "!_BLOOP_HOME!" 1>&2
@@ -505,7 +502,7 @@ if defined __SCALAC_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\scala\" ( set "_SCALA_HOME=!__PATH!\scala"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\scala-2*" 2^>NUL') do set "_SCALA_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\scala-2*" 2^>NUL') do set "_SCALA_HOME=!__PATH!\%%f"
     )
     if defined _SCALA_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala 2 installation directory "!_SCALA_HOME!" 1>&2
@@ -622,7 +619,7 @@ if defined __ANT_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\apache-ant\" ( set "_ANT_HOME=!__PATH!\apache-ant"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\apache-ant-*" 2^>NUL') do set "_ANT_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\apache-ant-*" 2^>NUL') do set "_ANT_HOME=!__PATH!\%%f"
         if not defined _ANT_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\apache-ant-*" 2^>NUL') do set "_ANT_HOME=!__PATH!\%%f"
@@ -659,7 +656,7 @@ if defined __BAZEL_CMD (
     if exist "!__PATH!\bazel\" ( set "_BAZEL_HOME=!__PATH!\bazel"
     ) else (
         set __PATH=C:\opt
-        for /f %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "_BAZEL_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "_BAZEL_HOME=!__PATH!\%%f"
         if not defined _BAZEL_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "_BAZEL_HOME=!__PATH!\%%f"
@@ -694,7 +691,7 @@ if defined __CFR_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable CFR_HOME 1>&2
 ) else (
     set __PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!__PATH!\cfr*" 2^>NUL') do set "_CFR_HOME=!__PATH!\%%f"
+    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\cfr*" 2^>NUL') do set "_CFR_HOME=!__PATH!\%%f"
     if defined _CFR_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default CFR installation directory "!_CFR_HOME!" 1>&2
     )
@@ -762,7 +759,7 @@ if defined __GRADLE_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\gradle\" ( set "_GRADLE_HOME=!__PATH!\gradle"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set "_GRADLE_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set "_GRADLE_HOME=!__PATH!\%%f"
         if not defined _GRADLE_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set "_GRADLE_HOME=!__PATH!\%%f"
@@ -791,7 +788,7 @@ if defined JACOCO_HOME (
     set __PATH=C:\opt
     if exist "!__PATH!\jacoco\" ( set "_JACOCO_HOME=!__PATH!\jacoco"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\jacoco-*" 2^>NUL') do set "_JACOCO_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\jacoco-*" 2^>NUL') do set "_JACOCO_HOME=!__PATH!\%%f"
         if not defined _JACOCO_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\jacoco-*" 2^>NUL') do set "_JACOCO_HOME=!__PATH!\%%f"
@@ -819,7 +816,7 @@ if defined JAVAFX_HOME (
     set __PATH=C:\opt
     if exist "!__PATH!\javafx\" ( set "_JAVAFX_HOME=!__PATH!\javafx"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\javafx-*" 2^>NUL') do set "_JAVAFX_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\javafx-*" 2^>NUL') do set "_JAVAFX_HOME=!__PATH!\%%f"
         if not defined _JAVAFX_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\javafx-*" 2^>NUL') do set "_JAVAFX_HOME=!__PATH!\%%f"
@@ -856,7 +853,7 @@ if defined __JMC_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\jmc\" ( set "_JMC_HOME=!__PATH!\jmc"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\jmc-*" 2^>NUL') do set "_JMC_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\jmc-*" 2^>NUL') do set "_JMC_HOME=!__PATH!\%%f"
         if not defined _JMC_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\jmc-*" 2^>NUL') do set "_JMC_HOME=!__PATH!\%%f"
@@ -946,7 +943,7 @@ if defined __MILL_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\mill\" ( set "_MILL_HOME=!__PATH!\mill"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\mill-*" 2^>NUL') do set "_MILL_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\mill-*" 2^>NUL') do set "_MILL_HOME=!__PATH!\%%f"
         if not defined _MILL_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\mill-*" 2^>NUL') do set "_MILL_HOME=!__PATH!\%%f"
@@ -1021,7 +1018,7 @@ if defined __MSYS2_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MSYS_HOME 1>&2
 ) else (
     set __PATH=C:\opt
-    if exist "!__PATH!\msys64\" ( set "_MSYS2_HOME=!__PATH!\msys64"
+    if exist "!__PATH!\msys64\" ( set "_MSYS_HOME=!__PATH!\msys64"
     ) else (
         for /f "delims=" %%f in ('dir /ad /b "!__PATH!\msys64*" 2^>NUL') do set "_MSYS_HOME=!__PATH!\%%f"
     )
@@ -1054,7 +1051,7 @@ if defined __SCALA_CLI_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\scala-cli\" ( set "_SCALA_CLI_HOME=!__PATH!\scala-cli"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\scala-cli*" 2^>NUL') do set "_SCALA_CLI_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\scala-cli*" 2^>NUL') do set "_SCALA_CLI_HOME=!__PATH!\%%f"
         if not defined _SCALA_CLI_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\scala-cli*" 2^>NUL') do set "_SCALA_CLI_HOME=!__PATH!\%%f"
@@ -1095,7 +1092,7 @@ if defined __GIT_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\Git\" ( set "_GIT_HOME=!__PATH!\Git"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         if not defined _GIT_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
@@ -1131,7 +1128,7 @@ if defined __CODE_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\VSCode\" ( set "_VSCODE_HOME=!__PATH!\VSCode"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
         if not defined _VSCODE_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
@@ -1181,7 +1178,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%SCALA3_HOME%\bin:scalac.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,4,*" %%i in ('call "%SCALA3_HOME%\bin\scalac.bat" -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalac %%l,"
+    for /f "tokens=1-3,4,*" %%i in ('call "%SCALA3_HOME%\bin\scalac.bat" -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalac %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%SCALA3_HOME%\bin:scalac.bat"
 )
 set "__SCALAFMT_CMD=%LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat"
