@@ -81,6 +81,15 @@ call :env_colors
 set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
 set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
+
+if not exist "%GIT_HOME%\usr\bin\grep.exe" (
+    echo %_ERROR_LABEL% Grep command not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_DOS2UNIX_CMD=%GIT_HOME%\usr\bin\dos2unix.exe"
+set "_GREP_CMD=%GIT_HOME%\usr\bin\grep.exe"
+set "_SED_CMD=%GIT_HOME%\usr\bin\sed.exe"
 goto :eof
 
 :env_colors
@@ -133,7 +142,6 @@ goto :eof
 :args
 set _HELP=0
 set _RUN=1
-set _TIMER=0
 set _VERBOSE=0
 set __N=0
 :args_loop
@@ -165,10 +173,9 @@ shift
 goto args_loop
 :args_done
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Options    : _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _HELP=%_HELP% _RUN=%_RUN%  1>&2
 )
-if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
 :help
@@ -187,7 +194,6 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%       print commands executed by this script
-echo     %__BEG_O%-timer%__END%       print total execution time
 echo     %__BEG_O%-verbose%__END%     print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
@@ -207,24 +213,6 @@ for %%i in (cdsexamples examples meta-examples myexamples plugin-examples) do (
 )
 goto :eof
 
-:replace
-set __FILE=%~1
-set __PATTERN_FROM=%~2
-set __PATTERN_TO=%~3
-set __PS1_SCRIPT= ^
-(Get-Content '%__FILE%') ^| ^
-Foreach { $_ -replace '%__PATTERN_FROM%','%__PATTERN_TO%' } ^| ^
-Set-Content '%__FILE%'
-
-if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -C "%__PS1_SCRIPT%" 1>&2
-powershell -C "%__PS1_SCRIPT%"
-if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to execute ps1 cmdlet 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-goto :eof
-
 :update_project
 set __PARENT_DIR=%~1
 set __N1=0
@@ -239,45 +227,62 @@ echo Parent directory: %__PARENT_DIR%
 for /f %%i in ('dir /ad /b "%__PARENT_DIR%" ^| findstr /v /c:"lib"') do (
     set "__BUILD_SBT=%__PARENT_DIR%\%%i\build.sbt"
     if exist "!__BUILD_SBT!" (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "!__BUILD_SBT!" "%_DOTTY_VERSION_OLD%" "%_DOTTY_VERSION_NEW%" 1>&2
-        call :replace "!__BUILD_SBT!" "%_DOTTY_VERSION_OLD%" "%_DOTTY_VERSION_NEW%"
-        set /a __N1+=1
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "!__BUILD_SBT!" "%_SCALATEST_VERSION_OLD%" "%_SCALATEST_VERSION_NEW%" 1>&2
-        call :replace "!__BUILD_SBT!" "%_SCALATEST_VERSION_OLD%" "%_SCALATEST_VERSION_NEW%"
-        set /a __N1+=1
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_DOTTY_VERSION_OLD%" "!__BUILD_SBT!" 1>&2
+        call "%_GREP_CMD%" -q "%_DOTTY_VERSION_OLD%" "!__BUILD_SBT!"
+        if !ERRORLEVEL!==0 (
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_DOTTY_VERSION_OLD%@%_DOTTY_VERSION_NEW%@g" "!__BUILD_SBT!" 1>&2
+            call "%_SED_CMD%" -i "s@%_DOTTY_VERSION_OLD%@%_DOTTY_VERSION_NEW%@g" "!__BUILD_SBT!"
+            set /a __N1+=1
+        )
     ) else (
        echo    %_WARNING_LABEL% Could not find file "%%i\build.sbt" 1>&2
     )
     set "__BUILD_PROPS=%__PARENT_DIR%\%%i\project\build.properties"
     if exist "!__BUILD_PROPS!" (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "!__BUILD_PROPS!" "%_SBT_VERSION_OLD%" "%_SBT_VERSION_NEW%" 1>&2
-        call :replace "!__BUILD_PROPS!" "%_SBT_VERSION_OLD%" "%_SBT_VERSION_NEW%"
-        set /a __N2+=1
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_SBT_VERSION_OLD%" "!__BUILD_PROPS!" 1>&2
+        call "%_GREP_CMD%" -q "%_SBT_VERSION_OLD%" "!__BUILD_PROPS!"
+        if !ERRORLEVEL!==0 (
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_SBT_VERSION_OLD%@%_SBT_VERSION_NEW%@g" "!__BUILD_PROPS!" 1>&2
+            call "%_SED_CMD%" -i "s@%_SBT_VERSION_OLD%@%_SBT_VERSION_NEW%@g" "!__BUILD_PROPS!"
+            set /a __N2+=1
+        )
     ) else (
        echo    %_WARNING_LABEL% Could not find file "%%i\project\build.properties" 1>&2
     )
     set "__PLUGINS_SBT=%__PARENT_DIR%\%%i\project\plugins.sbt"
     if exist "!__PLUGINS_SBT!" (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "!__PLUGINS_SBT!" "%_SBT_DOTTY_VERSION_OLD%" "%_SBT_DOTTY_VERSION_NEW%" 1>&2
-        call :replace "!__PLUGINS_SBT!" "%_SBT_DOTTY_VERSION_OLD%" "%_SBT_DOTTY_VERSION_NEW%"
-        set /a __N3+=1
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_SBT_DOTTY_VERSION_OLD%" "!__PLUGINS_SBT!" 1>&2
+        call "%_GREP_CMD%" -q "%_SBT_DOTTY_VERSION_OLD%" "!__PLUGINS_SBT!"
+        if !ERRORLEVEL!==0 (
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_SBT_DOTTY_VERSION_OLD%@%_SBT_DOTTY_VERSION_NEW%@g" "!__PLUGINS_SBT!" 1>&2
+            call "%_SED_CMD%" -i "s@%_SBT_DOTTY_VERSION_OLD%@%_SBT_DOTTY_VERSION_NEW%@g" "!__PLUGINS_SBT!"
+            set /a __N3+=1
+        )
     ) else (
        echo    %_WARNING_LABEL% Could not find file "%%i\project\plugins.sbt" 1>&2
     )
     set "__BUILD_SC=%__PARENT_DIR%\%%i\build.sc"
     if exist "!__BUILD_SC!" (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "!__BUILD_SC!" "%_DOTTY_VERSION_OLD%" "%_DOTTY_VERSION_NEW%" 1>&2
-        call :replace "!__BUILD_SC!" "%_DOTTY_VERSION_OLD%" "%_DOTTY_VERSION_NEW%"
-        set /a __N_SC+=1
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_DOTTY_VERSION_OLD%" "!__BUILD_SC!" 1>&2
+        call "%_GREP_CMD%" -q "%_DOTTY_VERSION_OLD%" "!__BUILD_SC!"
+        if !ERRORLEVEL!==0 (
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_DOTTY_VERSION_OLD%@%_DOTTY_VERSION_NEW%@g" "!__BUILD_SC!" 1>&2
+            call "%_SED_CMD%" -i "s@%_DOTTY_VERSION_OLD%@%_DOTTY_VERSION_NEW%@g" "!__BUILD_SC!"
+            set /a __N_SC+=1
+        )
     ) else (
        echo    %_WARNING_LABEL% Could not find file "%%i\build.sc" 1>&2
     )
     set "__BUILD_SH=%__PARENT_DIR%\%%i\build.sh"
     if exist "!__BUILD_SH!" (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "!__BUILD_SH!" "%_COPYRIGHT_DATES_OLD%" "%_COPYRIGHT_DATES_NEW%" 1>&2
-        call :replace "!__BUILD_SH!" "%_COPYRIGHT_DATES_OLD%" "%_COPYRIGHT_DATES_NEW%"
-        call "%GIT_HOME%\usr\bin\dos2unix.exe" --force "!__BUILD_SH!"
-        set /a __N_SH+=1
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_COPYRIGHT_DATES_OLD%" "!__BUILD_SH!" 1>&2
+        call "%_GREP_CMD%" -q "%_COPYRIGHT_DATES_OLD%" "!__BUILD_SH!"
+        if !ERRORLEVEL!==0 (
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_COPYRIGHT_DATES_OLD%@%_COPYRIGHT_DATES_NEW%@g" "!__BUILD_SH!" 1>&2
+            call "%_SED_CMD%" -i "s@%_COPYRIGHT_DATES_OLD%@%_COPYRIGHT_DATES_NEW%@g" "!__BUILD_SH!"
+            call "%_DOS2UNIX_CMD%" --force "!__BUILD_SH!"
+            set /a __N_SH+=1
+        )
     ) else (
        echo    %_WARNING_LABEL% Could not find file "%%i\build.sh" 1>&2
     )
@@ -285,35 +290,69 @@ for /f %%i in ('dir /ad /b "%__PARENT_DIR%" ^| findstr /v /c:"lib"') do (
 @rem Configuration files common to all projects
 set "__IVY_XML=%__PARENT_DIR%\ivy.xml"
 if exist "%__IVY_XML%" (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "%__IVY_XML%" "%_DOTTY_VERSION_OLD%" "%_DOTTY_VERSION_NEW%" 1>&2
-    call :replace "%__IVY_XML%" "%_DOTTY_VERSION_OLD%" "%_DOTTY_VERSION_NEW%"
-    set /a __N5+=1
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "%__IVY_XML%" "%_IVY_DOTTY_VERSION_OLD%" "%_IVY_DOTTY_VERSION_NEW%" 1>&2
-    call :replace "%__IVY_XML%" "%_IVY_DOTTY_VERSION_OLD%" "%_IVY_DOTTY_VERSION_NEW%"
+    set __N5_OLD=!__N5!
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_DOTTY_VERSION_OLD%" "!__IVY_XML!" 1>&2
+    call "%_GREP_CMD%" -q "%_DOTTY_VERSION_OLD%" "!__IVY_XML!"
+    if !ERRORLEVEL!==0 (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_DOTTY_VERSION_OLD%@%_DOTTY_VERSION_NEW%@g" "!__IVY_XML!" 1>&2
+        call "%_SED_CMD%" -i "s@%_DOTTY_VERSION_OLD%@%_DOTTY_VERSION_NEW%@g" "!__IVY_XML!"
+        set /a __N5+=1
+    )
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_IVY_DOTTY_VERSION_OLD%" "!__IVY_XML!" 1>&2
+    call "%_GREP_CMD%" -q "%_IVY_DOTTY_VERSION_OLD%" "!__IVY_XML!"
+    if !ERRORLEVEL!==0 (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_IVY_DOTTY_VERSION_OLD%@%_IVY_DOTTY_VERSION_NEW%@g" "!__IVY_XML!" 1>&2
+        call "%_SED_CMD%" -i "s@%_IVY_DOTTY_VERSION_OLD%@%_IVY_DOTTY_VERSION_NEW%@g" "!__IVY_XML!"
+        if !__N5!==!__N5_OLD! set /a __N5+=1
+    )
 ) else (
    echo    %_WARNING_LABEL% Could not find file "%__IVY_XML%" 1>&2
 )
 set "__POM_XML=%__PARENT_DIR%\pom.xml"
 if exist "%__POM_XML%" (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "%__POM_XML%" "%_POM_SCALA2_VERSION_OLD%" "%_POM_SCALA2_VERSION_NEW%" 1>&2
-    call :replace "%__POM_XML%" "%_POM_SCALA2_VERSION_OLD%" "%_POM_SCALA2_VERSION_NEW%"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "%__POM_XML%" "%_POM_SCALA3_VERSION_OLD%" "%_POM_SCALA3_VERSION_NEW%" 1>&2
-    call :replace "%__POM_XML%" "%_POM_SCALA3_VERSION_OLD%" "%_POM_SCALA3_VERSION_NEW%"
-    set /a __N6+=1
+    set __N6_OLD=!__N6!
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_POM_SCALA2_VERSION_OLD%" "!__POM_XML!" 1>&2
+    call "%_GREP_CMD%" -q "%_POM_SCALA2_VERSION_OLD%" "!__POM_XML!"
+    if !ERRORLEVEL!==0 (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_POM_SCALA2_VERSION_OLD%@%_POM_SCALA2_VERSION_NEW%@g" "!__POM_XML!" 1>&2
+        call "%_SED_CMD%" -i "s@%_POM_SCALA2_VERSION_OLD%@%_POM_SCALA2_VERSION_NEW%@g" "!__POM_XML!"
+        set /a __N6+=1
+    )
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_POM_SCALA3_VERSION_OLD%" "!__POM_XML!" 1>&2
+    call "%_GREP_CMD%" -q "%_POM_SCALA3_VERSION_OLD%" "!__POM_XML!"
+    if !ERRORLEVEL!==0 (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_POM_SCALA3_VERSION_OLD%@%_POM_SCALA3_VERSION_NEW%@g" "!__POM_XML!" 1>&2
+        call "%_SED_CMD%" -i "s@%_POM_SCALA3_VERSION_OLD%@%_POM_SCALA3_VERSION_NEW%@g" "!__POM_XML!"
+        if !__N6!==!__N6_OLD! set /a __N6+=1
+    )
     @rem e.g. dotty-library_0.25
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "%__POM_XML%" "%_IVY_DOTTY_VERSION_OLD%" "%_IVY_DOTTY_VERSION_NEW%" 1>&2
-    call :replace "%__POM_XML%" "%_IVY_DOTTY_VERSION_OLD%" "%_IVY_DOTTY_VERSION_NEW%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_IVY_DOTTY_VERSION_OLD%" "!__POM_XML!" 1>&2
+    call "%_GREP_CMD%" -q "%_IVY_DOTTY_VERSION_OLD%" "!__POM_XML!"
+    if !ERRORLEVEL!==0 (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_IVY_DOTTY_VERSION_OLD%@%_IVY_DOTTY_VERSION_NEW%@g" "!__POM_XML!" 1>&2
+        call "%_SED_CMD%" -i "s@%_IVY_DOTTY_VERSION_OLD%@%_IVY_DOTTY_VERSION_NEW%@g" "!__POM_XML!"
+        if !__N6!==!__N6_OLD! set /a __N6+=1
+    )
     @rem e.g. tasty-core_0.25
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "%__POM_XML%" "%_IVY_TASTY_VERSION_OLD%" "%_IVY_TASTY_VERSION_NEW%" 1>&2
-    call :replace "%__POM_XML%" "%_IVY_TASTY_VERSION_OLD%" "%_IVY_TASTY_VERSION_NEW%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_IVY_TASTY_VERSION_OLD%" "!__POM_XML!" 1>&2
+    call "%_GREP_CMD%" -q "%_IVY_TASTY_VERSION_OLD%" "!__POM_XML!"
+    if !ERRORLEVEL!==0 (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_IVY_TASTY_VERSION_OLD%@%_IVY_TASTY_VERSION_NEW%@g" "!__POM_XML!" 1>&2
+        call "%_SED_CMD%" -i "s@%_IVY_TASTY_VERSION_OLD%@%_IVY_TASTY_VERSION_NEW%@g" "!__POM_XML!"
+        if !__N6!==!__N6_OLD! set /a __N6+=1
+    )
 ) else (
     echo    %_WARNING_LABEL% Could not find file "%__POM_XML%" 1>&2
 )
 set "__COMMON_GRADLE=%__PARENT_DIR%\common.gradle"
 if exist "%__COMMON_GRADLE%" (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% call :replace "%__COMMON_GRADLE%" "%_GRADLE_DOTTY_VERSION_OLD%" "%_GRADLE_DOTTY_VERSION_NEW%" 1>&2
-    call :replace "%__COMMON_GRADLE%" "%_GRADLE_DOTTY_VERSION_OLD%" "%_GRADLE_DOTTY_VERSION_NEW%"
-    set /a __N7+=1
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_GRADLE_DOTTY_VERSION_OLD%" "!__COMMON_GRADLE!" 1>&2
+    call "%_GREP_CMD%" -q "%_GRADLE_DOTTY_VERSION_OLD%" "!__COMMON_GRADLE!"
+    if !ERRORLEVEL!==0 (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_GRADLE_DOTTY_VERSION_OLD%@%_GRADLE_DOTTY_VERSION_NEW%@g" "!__COMMON_GRADLE!" 1>&2
+        call "%_SED_CMD%" -i "s@%_GRADLE_DOTTY_VERSION_OLD%@%_GRADLE_DOTTY_VERSION_NEW%@g" "!__COMMON_GRADLE!"
+        set /a __N7+=1
+    )
 ) else (
     echo    %_WARNING_LABEL% Could not find file "%__COMMON_GRADLE%" 1>&2
 )
@@ -335,23 +374,10 @@ if %__N% gtr 1 ( set __STR=files ) else ( set __STR=file )
 echo    Updated %__N% %__FILE_NAME% %__STR%
 goto :eof
 
-@rem output parameter: _DURATION
-:duration
-set __START=%~1
-set __END=%~2
-
-for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
-goto :eof
-
 @rem #########################################################################
 @rem ## Cleanups
 
 :end
-if %_TIMER%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
-    call :duration "%_TIMER_START%" "!__TIMER_END!"
-    echo Total execution time: !_DURATION! 1>&2
-)
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%
 endlocal
