@@ -40,7 +40,7 @@ cleanup() {
     if $TIMER; then
         local TIMER_END=$(date +'%s')
         local duration=$((TIMER_END - TIMER_START))
-        echo "Total execution time: $(date -d @$duration +'%H:%M:%S')" 1>&2
+        echo "Total elapsed time: $(date -d @$duration +'%H:%M:%S')" 1>&2
     fi
     debug "EXITCODE=$EXITCODE"
     exit $EXITCODE
@@ -82,16 +82,17 @@ args() {
         if [[ ! -x "$SCALAFMT_CMD" ]]; then
             warning "Scalafmt installation not found"
             LINT=false
-        elif [[ ! -f "$SCALAFMT_CONFIG_FILE" ]]; then
+        elif [ ! -f "$SCALAFMT_CONFIG_FILE" ]; then
             warning "Scalafmt configuration file not found"
             LINT=false
         fi
     fi
     debug "Options    : TIMER=$TIMER VERBOSE=$VERBOSE"
     debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DECOMPILE=$DECOMPILE HELP=$HELP LINT=$LINT RUN=$RUN"
-    [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
     debug "Variables  : JAVA_HOME=$JAVA_HOME"
     debug "Variables  : SCALA3_HOME=$SCALA3_HOME"
+    [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
+    [[ -n "$SCALAFMT_HOME" ]] && debug "Variables  : SCALAFMT_HOME=$SCALAFMT_HOME"
     # See http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
     $TIMER && TIMER_START=$(date +"%s")
 }
@@ -198,18 +199,18 @@ compile_java() {
     done
     if [[ $n -eq 0 ]]; then
         warning "No Java source file found"
-        return 1
+        return
     fi
     local s=; [[ $n -gt 1 ]] && s="s"
     local n_files="$n Java source file$s"
     if $DEBUG; then
         debug "$JAVAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Compile $n_files to directory ${CLASSES_DIR/$ROOT_DIR\//}" 1>&2
     fi
     eval "$JAVAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\""
+        error "Compilation of $n_files failed"
         cleanup 1
     fi
 }
@@ -220,7 +221,7 @@ compile_scala() {
 
     local opts_file="$TARGET_DIR/scalac_opts.txt"
     local cpath="$CLASSES_DIR"
-    echo -color never -feature -classpath "$(mixed_path $cpath)" -d "$(mixed_path $CLASSES_DIR)" > "$opts_file"
+    echo -color never -classpath "$(mixed_path $cpath)" -d "$(mixed_path $CLASSES_DIR)" > "$opts_file"
 
     local sources_file="$TARGET_DIR/scalac_sources.txt"
     [[ -f "$sources_file" ]] && rm "$sources_file"
@@ -240,7 +241,7 @@ compile_scala() {
         # call :version_string
         # if not !_EXITCODE!==0 goto :eof
         local print_file="$TARGET_DIR/scalac-print${VERSION_SUFFIX}.scala"
-        #if [[ $SCALA_VERSION -eq 3 ]]; then
+        #if [ $SCALA_VERSION -eq 3 ]; then
         #    set __PRINT_FILE_REDIRECT=2^> "$print_file"
         #else
         #    set __PRINT_FILE_REDIRECT=1^> "$print_file"
@@ -249,11 +250,11 @@ compile_scala() {
     if $DEBUG; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Compile $n_files to directory ${CLASSES_DIR/$ROOT_DIR\//}" 1>&2
     fi
     eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to compile $n_files to directory \"${CLASSES_DIR/$ROOT_DIR\//}\""
+        error "Compilation of $n_files failed"
         cleanup 1
     fi
 }
@@ -272,19 +273,21 @@ decompile() {
     local output_dir="$TARGET_DIR/cfr-sources"
     [[ -d "$output_dir" ]] || mkdir -p "$output_dir"
 
-    local cfr_opts="--extraclasspath \"$(extra_cpath)\" --outputdir $(mixed_path $output_dir)"
+    local cfr_opts="--extraclasspath "$(extra_cpath)" --outputdir "$(mixed_path $output_dir)""
 
+    local n="$(ls -n $CLASSES_DIR/*.class | wc -l)"
     local class_dirs=
-    for f in $(find "$CLASSES_DIR" -type d -print); do
-        n="$(ls -n $f/*.class 2>/dev/null | wc -l)"
+    [[ $n -gt 0 ]] && class_dirs="$CLASSES_DIR"
+    for f in $(ls -d $CLASSES_DIR 2>/dev/null); do
+        n="$(ls -n $CLASSES_DIR/*.class | wc -l)"
         [[ $n -gt 0 ]] && class_dirs="$class_dirs $f"
     done
-    $VERBOSE && echo "Decompile Java bytecode to directory \"${output_dir/$ROOT_DIR\//}\"" 1>&2
+    $VERBOSE && echo "Decompile Java bytecode to directory ${output_dir/$ROOT_DIR\//}" 1>&2
     for f in $class_dirs; do
         debug "$CFR_CMD $cfr_opts $(mixed_path $f)/*.class"
-        exec "$CFR_CMD" $cfr_opts $(mixed_path $f)/\\*.class
+        eval "$CFR_CMD" $cfr_opts "$(mixed_path $f)/*.class" $STDERR_REDIRECT
         if [[ $? -ne 0 ]]; then
-            error "Failed to decompile generated code in directory \"$f\""
+            error "Failed to decompile generated code in directory $f"
             cleanup 1
         fi
     done
@@ -302,7 +305,7 @@ decompile() {
         echo "Save generated Java source files to file ${output_file/$ROOT_DIR\//}" 1>&2
     fi
     local java_files=
-    for f in $(find "$output_dir/" -type f -name "*.java" 2>/dev/null); do
+    for f in $(find $output_dir/ -name *.java 2>/dev/null); do
         java_files="$java_files $(mixed_path $f)"
     done
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
@@ -317,14 +320,14 @@ decompile() {
     fi
     local diff_opts=--strip-trailing-cr
 
-    local check_file="$SOURCE_DIR/build/cfr-source$version_suffix.java"
+    local check_file="$SOURCE_DIR/build/cfr-source$VERSION_SUFFIX.java"
     if [[ -f "$check_file" ]]; then
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
         elif $VERBOSE; then
             echo "Compare output file with check file ${check_file/$ROOT_DIR\//}" 1>&2
         fi
-        "$DIFF_CMD" $diff_opts "$(mixed_path $output_file)" "$(mixed_path $check_file)"
+        eval "$DIFF_CMD" $diff_opts "$(mixed_path $output_file)" "$(mixed_path $check_file)"
         if [[ $? -ne 0 ]]; then
             error "Output file and check file differ"
             cleanup 1
@@ -375,7 +378,7 @@ doc() {
 
     local doc_timestamp_file="$TARGET_DOCS_DIR/.latest-build"
 
-    local is_required="$(compile_required "$doc_timestamp_file" "$CLASSES_DIR/" "*.tasty")"
+    local is_required="$(compile_required "$doc_timestamp_file" "$MAIN_SOURCE_DIR/" "*.scala")"
     [[ $is_required -eq 0 ]] && return 1
 
     local sources_file="$TARGET_DIR/scaladoc_sources.txt"
@@ -383,37 +386,37 @@ doc() {
     # for f in $(find $SOURCE_DIR/main/java/ -name *.java 2>/dev/null); do
     #     echo $(mixed_path $f) >> "$sources_file"
     # done
-    for f in $(find "$CLASSES_DIR/" -type f -name "*.tasty" 2>/dev/null); do
+    for f in $(find "$SOURCE_DIR/main/scala/" -type f -name "*.scala" 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
     done
     local opts_file="$TARGET_DIR/scaladoc_opts.txt"
-    if [[ $SCALA_VERSION -eq 2 ]]; then
+    if [[ $SCALA_VERSION -eq 3 ]]; then
         echo -d "$(mixed_path $TARGET_DOCS_DIR)" -doc-title "$PROJECT_NAME" -doc-footer "$PROJECT_URL" -doc-version "$PROJECT_VERSION" > "$opts_file"
     else
-        echo -d "$(mixed_path $TARGET_DOCS_DIR)" -project "$PROJECT_NAME" -project-version "$PROJECT_VERSION" > "$opts_file"
+        echo -siteroot "$(mixed_path $TARGET_DOCS_DIR)" -project "$PROJECT_NAME" -project-url "$PROJECT_URL" -project-version "$PROJECT_VERSION" > "$opts_file"
     fi
     if $DEBUG; then
         debug "$SCALADOC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Generate HTML documentation into directory \"${TARGET_DOCS_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Generate HTML documentation into directory ${TARGET_DOCS_DIR/$ROOT_DIR\//}" 1>&2
     fi
     eval "$SCALADOC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to generate HTML documentation into directory \"${TARGET_DOCS_DIR/$ROOT_DIR\//}\""
+        error "Generation of HTML documentation failed"
         cleanup 1
     fi
     if $DEBUG; then
-        debug "HTML documentation saved into directory \"$TARGET_DOCS_DIR\""
+        debug "HTML documentation saved into directory $TARGET_DOCS_DIR"
     elif $VERBOSE; then
-        echo "HTML documentation saved into directory \"${TARGET_DOCS_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "HTML documentation saved into directory ${TARGET_DOCS_DIR/$ROOT_DIR\//}" 1>&2
     fi
     touch "$doc_timestamp_file"
 }
 
 run() {
-    local main_class_file="$CLASSES_DIR/${MAIN_CLASS//.//}.class"
+    local main_class_file="$CLASSES_DIR/${MAIN_CLASS/.//}.class"
     if [[ ! -f "$main_class_file" ]]; then
-        error "Scala main class \"$MAIN_CLASS\" not found ($main_class_file)"
+        error "Scala main class '$MAIN_CLASS' not found ($main_class_file)"
         cleanup 1
     fi
     # call :libs_cpath
@@ -424,11 +427,11 @@ run() {
     if $DEBUG; then
         debug "$SCALA_CMD $scala_opts $MAIN_CLASS $MAIN_ARGS"
     elif $VERBOSE; then
-        echo "Execute Scala main class \"$MAIN_CLASS\"" 1>&2
+        echo "Execute Scala main class $MAIN_CLASS" 1>&2
     fi
     eval "$SCALA_CMD" $scala_opts $MAIN_CLASS $MAIN_ARGS
     if [[ $? -ne 0 ]]; then
-        error "Failed to execute Scala main class \"$MAIN_CLASS\""
+        error "Program execution failed ($MAIN_CLASS)"
         cleanup 1
     fi
     if $TASTY; then
@@ -488,18 +491,12 @@ case "$(uname -s)" in
 esac
 unset CYGPATH_CMD
 PSEP=":"
-if $cygwin || $mingw || $msys; then
+if [[ $cygwin || $mingw || $msys ]]; then
     CYGPATH_CMD="$(which cygpath 2>/dev/null)"
-    PSEP=";"
-    [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
-    [[ -n "$GIT_HOME" ]] && GIT_HOME="$(mixed_path $GIT_HOME)"
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA3_HOME" ]] && SCALA3_HOME="$(mixed_path $SCALA3_HOME)"
-    DIFF_CMD="$GIT_HOME/usr/bin/diff.exe"
-    SCALAFMT_CMD="$LOCALAPPDATA/Coursier/data/bin/scalafmt.bat"
-else
-    DIFF_CMD="$(which diff)"
-    SCALAFMT_CMD="$HOME/.local/share/coursier/bin/scalafmt"
+    [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
+    [[ -n "$SCALAFMT_HOME" ]] && SCALAFMT_HOME="$(mixed_path $SCALAFMT_HOME)"
 fi
 if [[ ! -x "$JAVA_HOME/bin/javac" ]]; then
     error "Java SDK installation not found"
@@ -517,10 +514,16 @@ SCALA3="$SCALA3_HOME/bin/scala"
 SCALAC3="$SCALA3_HOME/bin/scalac"
 SCALADOC3="$SCALA3_HOME/bin/scaladoc"
 
+unset SCALAFMT_CMD
+if [[ -f "$SCALAFMT_HOME/bin/scalafmt" ]]; then
+    SCALAFMT_CMD="$SCALAFMT_HOME/bin/scalafmt"
+fi
 SCALAFMT_CONFIG_FILE="$(dirname $ROOT_DIR)/.scalafmt.conf"
 
 unset CFR_CMD
-[[ -x "$CFR_HOME/bin/cfr" ]] && CFR_CMD="$CFR_HOME/bin/cfr"
+if [[ -f "$CFR_HOME/bin/cfr" ]]; then
+    CFR_CMD="$CFR_HOME/bin/cfr"
+fi
 
 PROJECT_NAME="$(basename $ROOT_DIR)"
 PROJECT_URL="github.com/$USER/dotty-examples"
@@ -532,6 +535,8 @@ args "$@"
 SCALA_CMD=$SCALA3
 SCALAC_CMD=$SCALAC3
 SCALADOC_CMD=$SCALADOC3
+
+DIFF_CMD="$(which diff)"
 
 ##############################################################################
 ## Main

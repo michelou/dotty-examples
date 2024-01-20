@@ -179,7 +179,7 @@ if "%__ARG:~0,1%"=="-" (
     if not defined _CLASS_NAME ( set _CLASS_NAME=%__ARG%
     ) else if not defined _METH_NAME ( set _METH_NAME=%__ARG%
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
+        echo %_ERROR_LABEL% Name alread specfied "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -193,7 +193,7 @@ if not defined __SOME (
     set _SEARCH_IVY=1& set _SEARCH_MAVEN=1& set _SEARCH_JAVA=1& set _SEARCH_SCALA=1
 )
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Options   : _SEARCH_IVY=%_SEARCH_IVY% _SEARCH_MAVEN=%_SEARCH_MAVEN% _SEARCH_JAVA=%_SEARCH_JAVA% _SEARCH_SCALA=%_SEARCH_SCALA% 1>&2
+    echo %_DEBUG_LABEL% Options   : _SEARCH_IVY=%_SEARCH_IVY% _SEARCH_MAVEN=%_SEARCH_MAVEN% _SEARCH_JAVA=%_SEARCH_JAVA% _SEARCH_SCALA=%_SEARCH_SCALA% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Variables : "JAVA_HOME=%JAVA_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables : "SCALA_HOME=%SCALA_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables : "SCALA3_HOME=%SCALA3_HOME%" 1>&2
