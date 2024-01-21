@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="TypeLambdas-Underscore" default="compile" basedir="."
-    xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="TraitParameters" default="compile" basedir=".">
 
     <property name="scala-source.dir" value="${basedir}/src/main/scala" />
     <property name="target.dir" value="${basedir}/target" />
     <property name="target-docs.dir" value="${target.dir}/docs" />
     <property name="build.dir" value="${target.dir}/classes" />
+    <!-- top-level main function with @main annotation -->
     <property name="main.class" value="main" />
 
     <property name="test-source.dir" value="${basedir}/src/test/scala" />
-    <property name="test-build.dir" value="${target.dir}/test/classes" />
-    <property name="test-report.dir" value="${target.dir}/test/reports" />
+    <property name="test-build.dir" value="${target.dir}/test-classes" />
 
     <!-- task 'init' and macro 'dotc' are defined in parent build.xml -->
     <import file="../build.xml" />
@@ -39,12 +38,26 @@
         </java>
     </target>
 
-    <target name="clean">
-        <delete dir="${target.dir}"/>
+    <target name="-test-compile" depends="init">
+        <mkdir dir="${test-build.dir}" />
+        <dotc srcdir="${test-source.dir}"
+              destdir="${test-build.dir}"
+              classpathref="build.classpath" />
     </target>
 
-    <target name="cleanall" depends="clean">
-        <ivy:cleancache/>
+    <target name="test" depends="compile, -test-compile">
+        <junit printsummary="yes" haltonfailure="yes">
+            <!-- <jvmarg line="" /> -->
+            <classpath>
+                <path refid="test.classpath" />
+            </classpath>
+            <formatter type="plain"/>
+            <test name="${main.class}JUnitTest" />
+        </junit>
+    </target>
+
+    <target name="clean">
+        <delete dir="${target.dir}"/>
     </target>
 
 </project>

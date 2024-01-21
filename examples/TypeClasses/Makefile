@@ -23,7 +23,8 @@ TARGET  = $(TARGET_DIR)/.latest-build
 OPTS_FILE    = $(TARGET_DIR)/scalac_opts.txt
 SOURCES_FILE = $(TARGET_DIR)/scalac_sources.txt
 
-MAIN_CLASS = Main
+## top-level main function with @main annotation
+MAIN_CLASS = main
 MAIN_ARGS ?= 
 
 all: build

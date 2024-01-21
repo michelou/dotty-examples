@@ -668,6 +668,24 @@ The following command performs all substitutions for user-defined properties and
 <i>Source</i> : <a href="https://programmingtechie.com/2020/12/05/complete-maven-tutorial/">Complete Maven Tutorial</a> by Sai Upadhyayula, December 2020.
 </dd></dl>
 
+<span id="footnote_02">[3]</span> ***Scala annotation*** `@main` [↩](#anchor_03)
+
+<dl><dd>
+<pre style="font-size:80%;">
+<b>&gt; <a href="">type</a> src\main\scala\Main.scala</b>
+@main
+def main = 
+  println("Hello")
+&nbsp;
+<b>&gt; %JAVA_HOME%\bin\<a href="">javap</a> -cp target\classes main</b>
+Compiled from "Main.scala"
+public final class main {
+  public main();
+  public static void main(java.lang.String[]);
+}
+</pre>
+</dd></dl>
+
 ***
 
 *[mics](https://lampwww.epfl.ch/~michelou/)/January 2024* [**&#9650;**](#top)
