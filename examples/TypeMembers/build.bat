@@ -754,12 +754,13 @@ if not exist "%__MAIN_CLASS_FILE%" (
 call :libs_cpath
 if not %_EXITCODE%==0 goto :eof
 
-set __SCALA_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%"
+set "__OPTS_FILE=%_TARGET_DIR%\scala_opts.txt"
+echo -classpath "%_LIBS_CPATH:\=\\%%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" "@%__OPTS_FILE%" %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute Scala main class "%_MAIN_CLASS%" 1>&2
 )
-call "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
+call "%_SCALA_CMD%" "@%__OPTS_FILE%" %_MAIN_CLASS% %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to execute Scala main class "%_MAIN_CLASS%" 1>&2
     set _EXITCODE=1
@@ -777,14 +778,15 @@ if not exist "%_TASTY_CLASSES_DIR%" (
     set _EXITCODE=1
     goto :eof
 )
-set __SCALA_OPTS=-classpath "%_LIBS_CPATH%%_TASTY_CLASSES_DIR%"
+set "__OPTS_FILE=%_TARGET_DIR%\scala_opts.txt"
+echo -classpath "%_LIBS_CPATH:\=\\%%_TASTY_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% ^(compiled from TASTy^) 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" "@%__OPTS_FILE%" %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Scala main class "%_MAIN_CLASS%" ^(compiled from TASTy^) 1>&2
 )
-call "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
+call "%_SCALA_CMD%" "@%__OPTS_FILE%" %_MAIN_CLASS% %_MAIN_ARGS%
 if not !ERRORLEVEL!==0 (
-    echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
+    echo %_ERROR_LABEL% Failed to execute Scala main class "%_MAIN_CLASS%" ^(compiled from TASTy^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -910,10 +912,11 @@ for /f "usebackq" %%f in (`dir /s /b "%_TEST_CLASSES_DIR%\*JUnitTest.class" 2^>N
     ) else ( set "__MAIN_CLASS=%%~nf"
     )
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
-    ) else if %_VERBOSE%==1 ( echo Execute test !__MAIN_CLASS! 1>&2
+    ) else if %_VERBOSE%==1 ( echo Execute test "!__MAIN_CLASS!" 1>&2
     )
     call "%_JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS!
     if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to execute test "!__MAIN_CLASS!" 1>&2
         set _EXITCODE=1
         goto :eof
     )
