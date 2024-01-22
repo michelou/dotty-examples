@@ -515,7 +515,7 @@ set "__PATH=%~1"
 if not defined __PATH goto action_next
 set __PATH_ARRAY=%__PATH_ARRAY%,'%__PATH%'
 set __PATH_ARRAY1=%__PATH_ARRAY1%,'!__PATH:%_ROOT_DIR%=!'
-goto :action_path
+goto action_path
 
 :action_next
 set __TARGET_TIMESTAMP=00000000000000
