@@ -10,14 +10,16 @@ set _DEBUG=0
 set _EXITCODE=0
 
 @rem files README.md, RESOURCES.md, etc.
-set _LAST_MODIFIED_OLD=michelou/)/December 2023
-set _LAST_MODIFIED_NEW=michelou/)/January 2024
+set _LAST_MODIFIED_OLD=michelou/)/January 2024
+set _LAST_MODIFIED_NEW=michelou/)/February 2024
 
-set _LAST_DOWNLOAD_OLD=(\*December 2023\*)
-set _LAST_DOWNLOAD_NEW=(*January 2024*)
+set _LAST_DOWNLOAD_OLD=(\*January 2024\*)
+set _LAST_DOWNLOAD_NEW=(*February 2024*)
 
 @rem to be transformed into -not -path "./<dirname>/*"
-set _EXCLUDE_DIRS=docs docs.scala-lang dotty dotty-pandoc dotty-scaladoc dotty-test-ioexception examples_LOCAL scala-dist scala3-docs scala3-pandoc
+set _EXCLUDE_DIRS=cs206-functional-programming docs docs.scala-lang dotty ^
+    dotty-pandoc dotty-scaladoc dotty-test-ioexception examples_LOCAL ^
+    scala-dist scala3-docs scala3-pandoc
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -180,7 +182,7 @@ for %%i in (%_EXCLUDE_DIRS%) do (
 )
 set __N=0
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_FIND_CMD%" . -type f -name "*.md" %__FIND_EXCLUDES% 1>&2
-for /f "delims=" %%f in ('%_FIND_CMD% . -type f -name "*.md" %__EXCLUDES%') do (
+for /f "delims=" %%f in ('%_FIND_CMD% . -type f -name "*.md" %__FIND_EXCLUDES%') do (
     set __OLD_N=!__N!
     set "__INPUT_FILE=%%f"
     if %_DEBUG%==1 (echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_LAST_MODIFIED_OLD%" "!__INPUT_FILE!" 1>&2
