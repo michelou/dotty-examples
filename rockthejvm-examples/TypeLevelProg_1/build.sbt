@@ -1,8 +1,8 @@
-val scala3Version = "3.1.2-RC1"
-val akkaHttpVersion = "10.2.9"
-val sparkVersion = "3.2.1"
-val twitter4jVersion = "4.0.7"
-val kafkaVersion = "3.1.0"
+val scala3Version = "3.3.2"
+val akkaHttpVersion = "10.5.3"
+val sparkVersion = "3.5.0"
+val twitter4jVersion = "4.1.2"
+val kafkaVersion = "3.6.1"
 
 lazy val root = project
   .in(file("."))
@@ -28,8 +28,8 @@ lazy val root = project
       "org.apache.spark" % "spark-streaming_2.13" % sparkVersion,
 
       // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
-      "org.apache.logging.log4j" % "log4j-api" % "2.13.3",
-      "org.apache.logging.log4j" % "log4j-core" % "2.13.3",
+      "org.apache.logging.log4j" % "log4j-api" % "2.23.0",
+      "org.apache.logging.log4j" % "log4j-core" % "2.23.0",
 
       // https://mvnrepository.com/artifact/org.twitter4j/twitter4j-core
       "org.twitter4j" % "twitter4j-core" % twitter4jVersion,
@@ -42,7 +42,7 @@ lazy val root = project
       "org.apache.kafka" % "kafka_2.13" % kafkaVersion,
       "org.apache.kafka" % "kafka-streams" % kafkaVersion,
 
-      "org.scala-lang" % "scala-library" % "2.13.8",
-      "org.scala-lang" % "scala-reflect" % "2.13.8"
+      "org.scala-lang" % "scala-library" % "2.13.13",
+      "org.scala-lang" % "scala-reflect" % "2.13.13"
     )
   )

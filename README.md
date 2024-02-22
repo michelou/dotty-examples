@@ -81,7 +81,7 @@ C:\opt\mill\                       <i>( 67 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
 C:\opt\Python-3.11.1\              <i>(299 MB)</i>
 C:\opt\sbt\                        <i>(110 MB)</i>
-C:\opt\scala-2.13.12\              <i>( 24 MB)</i>
+C:\opt\scala-2.13.13\              <i>( 24 MB)</i>
 C:\opt\scala-cli\                  <i>( 95 MB)</i>
 C:\opt\scala3-3.3.2\               <i>( 38 MB)</i>
 C:\opt\VSCode\                     <i>(341 MB)</i>
@@ -332,7 +332,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   javac 17.0.10, scalac 2.13.12, scalac 3.3.2, scalafmt 3.7.2,
+   javac 17.0.10, scalac 2.13.13, scalac 3.3.2, scalafmt 3.7.2,
    ant 1.10.14, gradle 8.6, mvn 3.9.6, sbt 1.9.8, scala-cli 1.1.3,
    mill 0.11.7, bazel 7.0.2, cfr 0.152, make 3.81, python 3.11.1,
    git 2.43.0.windows.1, diff 3.10, bash 5.2.21(1)-release
@@ -361,13 +361,13 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also prints the tool paths and d
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   javac 17.0.10, scalac 2.13.12, scalac 3.3.2, scalafmt 3.7.12,
+   javac 17.0.10, scalac 2.13.13, scalac 3.3.2, scalafmt 3.7.12,
    ant 1.10.14, gradle 8.6, mvn 3.9.6, sbt 1.9.8, scala-cli 1.1.3,
    mill 0.11.7, bazel 7.0.2, cfr 0.152, make 3.81, python 3.11.1,
    git 2.43.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.21_9\bin\javac.exe
-   C:\opt\scala-2.13.12\bin\scalac.bat
+   C:\opt\scala-2.13.13\bin\scalac.bat
    C:\opt\scala3-3.3.1\bin\scalac.bat
    %LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat
    C:\opt\apache-ant\bin\ant.bat
@@ -402,7 +402,7 @@ Environment variables:
    "PYTHON_HOME=C:\opt\Python-3.11.1"
    "SBT_HOME=C:\opt\sbt"
    "SCALA_CLI_HOME=C:\opt\scala-cli"
-   "SCALA_HOME=C:\opt\scala-2.13.12"
+   "SCALA_HOME=C:\opt\scala-2.13.13"
    "SCALA3_HOME=C:\opt\scala3-3.3.2"
 Path associations:
    I:\: => %USERPROFILE%\workspace-perso\dotty-examples
@@ -457,16 +457,17 @@ Command [**`getnightly.bat download`**](bin/getnightly.bat) with options **` -ve
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose download</b>
 Delete directory "out\nightly"
 Download Scala 3 nightly files from Maven repository
-Downloading file scala3-library_3-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar ... 1.2 Mb
-Downloading file scala3-interfaces-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar ... 3.9 Kb
-Downloading file scala3-compiler_3-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar ... 19.3 Mb
-Downloading file scala3-presentation-compiler_3-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar ... 1.5 Mb
-Downloading file scala3-staging_3-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar ... 38.2 Kb
-Downloading file scala3-language-server_3-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar ... 148.9 Kb
-Downloading file tasty-core_3-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar ... 72.7 Kb
-Downloading file scala3-library_sjs1_3-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar ... 2 Mb
-Downloading file scala3-tasty-inspector_3-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar ... 17.9 Kb
-Downloading file scala3-sbt-bridge-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar ... 30.3 Kb
+Downloading file scala3-language-server_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 148.8 Kb
+Downloading file scala3-compiler_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 19.8 Mb
+Downloading file scala3-sbt-bridge-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 31.1 Kb
+Downloading file scala3-tasty-inspector_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 17.8 Kb
+Downloading file scala3-library_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 1.2 Mb
+Downloading file scala3-staging_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 39.7 Kb
+Downloading file scala3-presentation-compiler_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 1.6 Mb
+Downloading file scala3-library_sjs1_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 2 Mb
+Downloading file scala3-interfaces-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 3.9 Kb
+Downloading file scaladoc_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 4.6 Mb
+Downloading file tasty-core_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 92.6 Kb
 Downloading file antlr4-runtime-4.7.2.jar ... 330 Kb
 [...]
 Downloading file common ... 6 Kb
@@ -484,9 +485,9 @@ Converting file scaladoc.bat to DOS format
 Finished to download 54 files to directory "%LOCALAPPDATA%\Temp\scala3-nightly"
 Retrieve revision for hash "3e105f2" from GitHub repository "lampepfl/dotty"
 File "%LOCALAPPDATA%\Temp\scala3-nightly\VERSION":
-version:=3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY
-revision:=3e105f2
-buildTime:=2023-10-20 23:58:42+02:00
+version:=3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY
+revision:=e54be6e
+buildTime:=2024-02-22 20:02:47+01:00
 </pre>
 
 Output directory **`%TEMP%\scala3-nightly\`** contains the two subdirectories **`bin\`** and **`lib\`**:
@@ -506,19 +507,19 @@ autolink-0.6.0.jar
 [...]
 scala-asm-9.5.0-scala-1.jar
 scala-library-2.13.10.jar
-scala3-compiler_3-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar
-scala3-interfaces-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar
-scala3-language-server_3-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar
-scala3-library_3-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar
-scala3-library_sjs1_3-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar
-scala3-presentation-compiler_3-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar
-scala3-sbt-bridge-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar
-scala3-staging_3-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar
-scala3-tasty-inspector_3-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar
-scaladoc_3-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar
+scala3-compiler_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
+scala3-interfaces-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
+scala3-language-server_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
+scala3-library_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
+scala3-library_sjs1_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
+scala3-presentation-compiler_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
+scala3-sbt-bridge-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
+scala3-staging_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
+scala3-tasty-inspector_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
+scaladoc_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
 snakeyaml-2.0.jar
 strftime4j-1.0.5.jar
-tasty-core_3-3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY.jar
+tasty-core_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
 </pre>
 <!--
 > **:mag_right:** A few notes about the distributed Java archives:
@@ -531,10 +532,10 @@ Concretely, subcommand **`activate`** switches to the nightly build version and 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> activate</b>
-Active Scala 3 installation is 3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY (was 3.3.2)
+Active Scala 3 installation is 3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY (was 3.3.2)
 
 <b>&gt; %SCALA3_HOME%\bin\<a href="bin/3.0/scalac.bat">scalac</a> -version</b>
-Scala compiler version 3.4.0-RC1-bin-20231019-3e105f2-NIGHTLY-git-3e105f2 -- Copyright 2002-2023, LAMP/EPF
+Scala compiler version 3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY-git-e54be6e -- Copyright 2002-2024, LAMP/EPFL
 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> restore</b>
 Active Scala 3 installation is 3.3.2
@@ -570,11 +571,11 @@ For instance we get the following output when passing class name **`System`** to
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> System</b>
-Searching for class name System in archive files C:\opt\scala3-3.3.1\lib\*.jar
+Searching for class name System in archive files C:\opt\scala3-3.3.2\lib\*.jar
   jline-reader-3.19.0.jar:org/jline/reader/impl/completer/SystemCompleter.class
-  scala-library-2.13.12.jar:scala/sys/SystemProperties$.class
-  scala-library-2.13.12.jar:scala/sys/SystemProperties.class
-Searching for class name System in archive files C:\opt\scala-2.13.12\lib\*.jar
+  scala-library-2.13.13.jar:scala/sys/SystemProperties$.class
+  scala-library-2.13.13.jar:scala/sys/SystemProperties.class
+Searching for class name System in archive files C:\opt\scala-2.13.13\lib\*.jar
   jline-3.19.0.jar:org/jline/builtins/SystemRegistryImpl$CommandOutputStream.class
   [...]
   scala-library.jar:scala/sys/SystemProperties$.class
@@ -596,7 +597,7 @@ Searching for an unknown class name - e.g. **`BinarySearch`** - produces the fol
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> BinarySearch</b>
 Searching for class name BinarySearch in archive files C:\opt\scala3-3.3.1\lib\*.jar
-Searching for class name BinarySearch in archive files C:\opt\scala-2.13.12\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\scala-2.13.13\lib\*.jar
 Searching for class name BinarySearch in archive files C:\opt\jdk-temurin-11.0.21_9\lib\*.jar
 </pre>
 
@@ -605,7 +606,7 @@ Searching for **`FileSystem`** with option **`-artifact`** produces the followin
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> FileSystem -artifact</b>
 Searching for class name FileSystem in archive files C:\opt\scala3-3.3.1\lib\*.jar
-Searching for class name FileSystem in archive files C:\opt\scala-2.13.12\lib\*.jar
+Searching for class name FileSystem in archive files C:\opt\scala-2.13.13\lib\*.jar
 Searching for class name FileSystem in archive files c:\opt\jdk-temurin-11.0.21_9\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem.class
@@ -888,7 +889,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://gluonhq.com/products/javafx/">openjfx-17.0.8_windows-x64_bin-jmods.zip</a>           <i>( 37 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.43.0-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases" rel="external">sbt-1.9.8.zip</a>                                      <i>( 17 MB)</i>
-<a href="https://www.scala-lang.org/files/archive/" rel="external">scala-2.13.12.zip</a>                                  <i>( 22 MB)</i>
+<a href="https://www.scala-lang.org/files/archive/" rel="external">scala-2.13.13.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://github.com/VirtusLab/scala-cli/releases" rel="external">scala-cli-x86_64-pc-win32.zip</a>                      <i>( 31 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.3.2">scala3-3.3.2.zip</a>                                   <i>( 34 MB)</i>
 </pre>
@@ -928,7 +929,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 6.4 -> https://github.com/bazelbuild/bazel/releases/tag/6.4.0
 7.0 -> https://blog.bazel.build/2023/12/11/bazel-7-release.html
 -->
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.0.1
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.0.2
 [bloop_releases]: https://scalacenter.github.io/bloop/
 [bloop_relnotes]: https://github.com/scalacenter/bloop/releases/tag/v1.3.4
 [cfr_releases]: https://www.benf.org/other/cfr/
@@ -1009,7 +1010,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [scala_cli_downloads]: https://github.com/VirtusLab/scala-cli/releases
 [scala_cli_relnotes]: https://github.com/VirtusLab/scala-cli/releases/tag/v1.1.3
 [scala_releases]: https://www.scala-lang.org/files/archive/
-[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.12
+[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.13
 [scala_repl]: https://docs.scala-lang.org/overviews/repl/overview.html
 [scala_snapshots]: https://scala-ci.typesafe.com/ui/native/scala-pr-validation-snapshots/org/scala-lang
 [scala3_home]: https://dotty.epfl.ch

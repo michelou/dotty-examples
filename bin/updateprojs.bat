@@ -10,8 +10,8 @@ set _DEBUG=0
 set _EXITCODE=0
 
 @rem files build.sbt, build.sc and ivy.xml
-set _DOTTY_VERSION_OLD="3.3.1"
-set _DOTTY_VERSION_NEW="3.3.2-RC1"
+set _DOTTY_VERSION_OLD="3.3.2-RC1"
+set _DOTTY_VERSION_NEW="3.3.2-RC3"
 
 @rem files project\build.properties
 set _SBT_VERSION_OLD=sbt.version=1.9.7
@@ -27,22 +27,22 @@ set _SCALATEST_VERSION_OLD=^(\"scalatest_2.13\"^)^(.+\"3.2.16\"^)
 set _SCALATEST_VERSION_NEW=$1 %%%% \"3.2.17\"
 
 @rem files ivy.xml (NB. PS regex)
-set _IVY_DOTTY_VERSION_OLD=^(scala3-[a-z]+^)_3.3.1
-set _IVY_DOTTY_VERSION_NEW=$1_3.3.2-RC1
+set _IVY_DOTTY_VERSION_OLD=^(scala3-[a-z]+^)_3.3.2-RC1
+set _IVY_DOTTY_VERSION_NEW=$1_3.3.2-RC3
 
-set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_3.3.1
-set _IVY_TASTY_VERSION_NEW=$1_3.3.2-RC1
+set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_3.3.2-RC1
+set _IVY_TASTY_VERSION_NEW=$1_3.3.2-RC3
 
 @rem files pom.xml (NB. PS regex)
 set _POM_SCALA2_VERSION_OLD=scala.version^>2.13.11
 set _POM_SCALA2_VERSION_NEW=scala.version^>2.13.12
 
-set _POM_SCALA3_VERSION_OLD=scala3.version^>3.3.1
-set _POM_SCALA3_VERSION_NEW=scala3.version^>3.3.2-RC1
+set _POM_SCALA3_VERSION_OLD=scala3.version^>3.3.2-RC1
+set _POM_SCALA3_VERSION_NEW=scala3.version^>3.3.2-RC3
 
 @rem files common.gradle
-set _GRADLE_DOTTY_VERSION_OLD=scala3-compiler_3:3.3.1
-set _GRADLE_DOTTY_VERSION_NEW=scala3-compiler_3:3.3.2-RC1
+set _GRADLE_DOTTY_VERSION_OLD=scala3-compiler_3:3.3.2-RC1
+set _GRADLE_DOTTY_VERSION_NEW=scala3-compiler_3:3.3.2-RC3
 
 @rem copyright dates
 set _COPYRIGHT_DATES_OLD=2018-2023
@@ -87,9 +87,9 @@ if not exist "%GIT_HOME%\usr\bin\grep.exe" (
     set _EXITCODE=1
     goto :eof
 )
-set "_DOS2UNIX_CMD=%GIT_HOME%\usr\bin\dos2unix.exe"
 set "_GREP_CMD=%GIT_HOME%\usr\bin\grep.exe"
 set "_SED_CMD=%GIT_HOME%\usr\bin\sed.exe"
+set "_UNIX2DOS_CMD=%GIT_HOME%\usr\bin\unix2dos.exe"
 goto :eof
 
 :env_colors
@@ -232,6 +232,7 @@ for /f %%i in ('dir /ad /b "%__PARENT_DIR%" ^| findstr /v /c:"lib"') do (
         if !ERRORLEVEL!==0 (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_DOTTY_VERSION_OLD%@%_DOTTY_VERSION_NEW%@g" "!__BUILD_SBT!" 1>&2
             call "%_SED_CMD%" -i "s@%_DOTTY_VERSION_OLD%@%_DOTTY_VERSION_NEW%@g" "!__BUILD_SBT!"
+            call "%_UNIX2DOS_CMD%" -q "!__INPUT_FILE!"
             set /a __N1+=1
         )
     ) else (
@@ -244,6 +245,7 @@ for /f %%i in ('dir /ad /b "%__PARENT_DIR%" ^| findstr /v /c:"lib"') do (
         if !ERRORLEVEL!==0 (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_SBT_VERSION_OLD%@%_SBT_VERSION_NEW%@g" "!__BUILD_PROPS!" 1>&2
             call "%_SED_CMD%" -i "s@%_SBT_VERSION_OLD%@%_SBT_VERSION_NEW%@g" "!__BUILD_PROPS!"
+            call "%_UNIX2DOS_CMD%" -q "!__INPUT_FILE!"
             set /a __N2+=1
         )
     ) else (
@@ -256,6 +258,7 @@ for /f %%i in ('dir /ad /b "%__PARENT_DIR%" ^| findstr /v /c:"lib"') do (
         if !ERRORLEVEL!==0 (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_SBT_DOTTY_VERSION_OLD%@%_SBT_DOTTY_VERSION_NEW%@g" "!__PLUGINS_SBT!" 1>&2
             call "%_SED_CMD%" -i "s@%_SBT_DOTTY_VERSION_OLD%@%_SBT_DOTTY_VERSION_NEW%@g" "!__PLUGINS_SBT!"
+            call "%_UNIX2DOS_CMD%" -q "!__INPUT_FILE!"
             set /a __N3+=1
         )
     ) else (
@@ -268,6 +271,7 @@ for /f %%i in ('dir /ad /b "%__PARENT_DIR%" ^| findstr /v /c:"lib"') do (
         if !ERRORLEVEL!==0 (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_DOTTY_VERSION_OLD%@%_DOTTY_VERSION_NEW%@g" "!__BUILD_SC!" 1>&2
             call "%_SED_CMD%" -i "s@%_DOTTY_VERSION_OLD%@%_DOTTY_VERSION_NEW%@g" "!__BUILD_SC!"
+            call "%_UNIX2DOS_CMD%" -q "!__INPUT_FILE!"
             set /a __N_SC+=1
         )
     ) else (
@@ -280,7 +284,7 @@ for /f %%i in ('dir /ad /b "%__PARENT_DIR%" ^| findstr /v /c:"lib"') do (
         if !ERRORLEVEL!==0 (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_COPYRIGHT_DATES_OLD%@%_COPYRIGHT_DATES_NEW%@g" "!__BUILD_SH!" 1>&2
             call "%_SED_CMD%" -i "s@%_COPYRIGHT_DATES_OLD%@%_COPYRIGHT_DATES_NEW%@g" "!__BUILD_SH!"
-            call "%_DOS2UNIX_CMD%" --force "!__BUILD_SH!"
+            @rem call "%_DOS2UNIX_CMD%" --force "!__BUILD_SH!"
             set /a __N_SH+=1
         )
     ) else (
@@ -296,6 +300,7 @@ if exist "%__IVY_XML%" (
     if !ERRORLEVEL!==0 (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_DOTTY_VERSION_OLD%@%_DOTTY_VERSION_NEW%@g" "!__IVY_XML!" 1>&2
         call "%_SED_CMD%" -i "s@%_DOTTY_VERSION_OLD%@%_DOTTY_VERSION_NEW%@g" "!__IVY_XML!"
+        call "%_UNIX2DOS_CMD%" -q "!__INPUT_FILE!"
         set /a __N5+=1
     )
     if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_IVY_DOTTY_VERSION_OLD%" "!__IVY_XML!" 1>&2
@@ -303,6 +308,7 @@ if exist "%__IVY_XML%" (
     if !ERRORLEVEL!==0 (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_IVY_DOTTY_VERSION_OLD%@%_IVY_DOTTY_VERSION_NEW%@g" "!__IVY_XML!" 1>&2
         call "%_SED_CMD%" -i "s@%_IVY_DOTTY_VERSION_OLD%@%_IVY_DOTTY_VERSION_NEW%@g" "!__IVY_XML!"
+        call "%_UNIX2DOS_CMD%" -q "!__INPUT_FILE!"
         if !__N5!==!__N5_OLD! set /a __N5+=1
     )
 ) else (
@@ -316,6 +322,7 @@ if exist "%__POM_XML%" (
     if !ERRORLEVEL!==0 (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_POM_SCALA2_VERSION_OLD%@%_POM_SCALA2_VERSION_NEW%@g" "!__POM_XML!" 1>&2
         call "%_SED_CMD%" -i "s@%_POM_SCALA2_VERSION_OLD%@%_POM_SCALA2_VERSION_NEW%@g" "!__POM_XML!"
+        call "%_UNIX2DOS_CMD%" -q "!__INPUT_FILE!"
         set /a __N6+=1
     )
     if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_POM_SCALA3_VERSION_OLD%" "!__POM_XML!" 1>&2
@@ -323,6 +330,7 @@ if exist "%__POM_XML%" (
     if !ERRORLEVEL!==0 (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_POM_SCALA3_VERSION_OLD%@%_POM_SCALA3_VERSION_NEW%@g" "!__POM_XML!" 1>&2
         call "%_SED_CMD%" -i "s@%_POM_SCALA3_VERSION_OLD%@%_POM_SCALA3_VERSION_NEW%@g" "!__POM_XML!"
+        call "%_UNIX2DOS_CMD%" -q "!__INPUT_FILE!"
         if !__N6!==!__N6_OLD! set /a __N6+=1
     )
     @rem e.g. dotty-library_0.25
@@ -331,6 +339,7 @@ if exist "%__POM_XML%" (
     if !ERRORLEVEL!==0 (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_IVY_DOTTY_VERSION_OLD%@%_IVY_DOTTY_VERSION_NEW%@g" "!__POM_XML!" 1>&2
         call "%_SED_CMD%" -i "s@%_IVY_DOTTY_VERSION_OLD%@%_IVY_DOTTY_VERSION_NEW%@g" "!__POM_XML!"
+        call "%_UNIX2DOS_CMD%" -q "!__INPUT_FILE!"
         if !__N6!==!__N6_OLD! set /a __N6+=1
     )
     @rem e.g. tasty-core_0.25
@@ -339,6 +348,7 @@ if exist "%__POM_XML%" (
     if !ERRORLEVEL!==0 (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_IVY_TASTY_VERSION_OLD%@%_IVY_TASTY_VERSION_NEW%@g" "!__POM_XML!" 1>&2
         call "%_SED_CMD%" -i "s@%_IVY_TASTY_VERSION_OLD%@%_IVY_TASTY_VERSION_NEW%@g" "!__POM_XML!"
+        call "%_UNIX2DOS_CMD%" -q "!__INPUT_FILE!"
         if !__N6!==!__N6_OLD! set /a __N6+=1
     )
 ) else (
@@ -351,6 +361,7 @@ if exist "%__COMMON_GRADLE%" (
     if !ERRORLEVEL!==0 (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_GRADLE_DOTTY_VERSION_OLD%@%_GRADLE_DOTTY_VERSION_NEW%@g" "!__COMMON_GRADLE!" 1>&2
         call "%_SED_CMD%" -i "s@%_GRADLE_DOTTY_VERSION_OLD%@%_GRADLE_DOTTY_VERSION_NEW%@g" "!__COMMON_GRADLE!"
+        call "%_UNIX2DOS_CMD%" -q "!__INPUT_FILE!"
         set /a __N7+=1
     )
 ) else (

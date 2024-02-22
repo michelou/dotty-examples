@@ -18,7 +18,7 @@ if not exist "%__TEMP_DIR%" mkdir "%__TEMP_DIR%"
 set _LIBS_CPATH=
 
 set __SCALA_BINARY_VERSION=2.13
-set __SCALATEST_VERSION=3.2.17
+set __SCALATEST_VERSION=3.2.18
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
 @rem import scala.reflect.runtime.universe._
@@ -62,7 +62,7 @@ call :add_jar "org.scalatest" "scalatest_3" "%__SCALATEST_VERSION%"
 call :add_jar "org.scalactic" "scalactic_3" "%__SCALATEST_VERSION%"
 
 @rem Scala binary 2.13 -> 4.17.0, Scala binary 3 -> 5.0.7, 5.1.0, 5.2.0
-set __SPECS2_VERSION=5.4.1
+set __SPECS2_VERSION=5.5.1
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-core
 call :add_jar "org.specs2" "specs2-core_3" "%__SPECS2_VERSION%"

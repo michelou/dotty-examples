@@ -653,9 +653,9 @@ if defined __BAZEL_CMD (
     set "_BAZEL_HOME=%BAZEL_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable BAZEL_HOME 1>&2
 ) else (
+    set __PATH=C:\opt
     if exist "!__PATH!\bazel\" ( set "_BAZEL_HOME=!__PATH!\bazel"
     ) else (
-        set __PATH=C:\opt
         for /f "delims=" %%f in ('dir /ad /b "!__PATH!\bazel-*" 2^>NUL') do set "_BAZEL_HOME=!__PATH!\%%f"
         if not defined _BAZEL_HOME (
             set "__PATH=%ProgramFiles%"
