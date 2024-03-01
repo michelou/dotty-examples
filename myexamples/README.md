@@ -134,10 +134,10 @@ Command [**`setenv -bash`**](setenv.bat) starts a [Cygwin] Bash session:
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -bash</b>
 Tool versions:
-   javac 11.0.21, java 11.0.21, scalac 2.13.12, scalac 3.3.1,
-   ant 1.10.14, gradle 8.5, mill 0.11.5, mvn 3.9.6, sbt 1.9.7,
-   bazel 7.0.0, cfr 0.152, coursier 2.1.5, make 3.81, python 3.11.1,
-   git 2.43.0.windows.1, diff 3.10, bash 5.2.15(1)-release
+   javac 11.0.21, java 11.0.21, scalac 2.13.12, scalac 3.3.3,
+   ant 1.10.14, gradle 8.6, mill 0.11.7, mvn 3.9.6, sbt 1.9.9,
+   bazel 7.0.2, cfr 0.152, coursier 2.1.5, make 3.81, python 3.11.1,
+   git 2.44.0.windows.1, diff 3.10, bash 5.2.26(1)-release
 &nbsp;
 user@host MSYS /w
 <b>$ <a href="https://www.man7.org/linux/man-pages/man1/bash.1.html">bash</a> --version | <a href="https://man7.org/linux/man-pages/man1/grep.1.html">grep</a> bash</b>
@@ -170,10 +170,10 @@ Similarly, command [**`setenv -msys`**](setenv.bat) starts a [MSYS2] Bash sessio
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -msys</b>
 Tool versions:
-   javac 11.0.21 java 11.0.21 scalac 2.13.12, scalac 3.3.1,
-   ant 1.10.14, gradle 8.5, mill 0.11.5, mvn 3.9.6, sbt 1.9.7,
+   javac 11.0.21 java 11.0.21 scalac 2.13.12, scalac 3.3.3,
+   ant 1.10.14, gradle 8.6, mill 0.11.5, mvn 3.9.6, sbt 1.9.9,
    bazel 6.4.0, cfr 0.152, coursier 2.1.5, make 3.81, python 3.11.1,
-   git 2.43.0.windows.1, diff 3.10, bash 5.2.15(1)-release
+   git 2.44.0.windows.1, diff 3.10, bash 5.2.26(1)-release
 &nbsp;
 <b>$ <a href="https://www.man7.org/linux/man-pages/man1/bash.1.html">bash</a> --version | <a href="https://man7.org/linux/man-pages/man1/grep.1.html">grep</a> bash</b>
 GNU bash, version 5.3.26(1)-release (x86_64-pc-msys)
@@ -603,7 +603,7 @@ following parameters are passed as login shell command parameters.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
