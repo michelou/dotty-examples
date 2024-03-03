@@ -53,6 +53,7 @@ call :scalafmt
 if not defined _SCALAFMT_CMD (
     @rem optional
     echo %_WARNING_LABEL% Scalafmt installation not found 1>&2
+	echo ^(run Coursier command cs.exe install scalafmt^) 1>&2
     set _EXITCODE=0
 )
 call :scala3

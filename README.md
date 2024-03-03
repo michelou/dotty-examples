@@ -83,7 +83,7 @@ C:\opt\Python-3.11.1\              <i>(299 MB)</i>
 C:\opt\sbt\                        <i>(110 MB)</i>
 C:\opt\scala-2.13.13\              <i>( 24 MB)</i>
 C:\opt\scala-cli\                  <i>( 95 MB)</i>
-C:\opt\scala3-3.3.2\               <i>( 38 MB)</i>
+C:\opt\scala3-3.3.3\               <i>( 38 MB)</i>
 C:\opt\VSCode\                     <i>(341 MB)</i>
 </pre>
  <!-- jdk8: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
@@ -193,7 +193,7 @@ We distinguish different sets of batch/bash commands:
     > **&#9755;** Starting with version 3.0.2 those batch files are included in the [Scala 3][scala3_releases] software distribution (see [PR#13006](https://github.com/lampepfl/dotty/pull/13006), itself based on [PR#5444][github_PR5444]).
 
     <pre style="font-size:80%;">
-    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3-3.3.2\bin</b>
+    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3-3.3.3\bin</b>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/common">common</a>
     <a href="bin/3.0/common.bat">common.bat</a>
     <a href="https://github.com/lampepfl/dotty/blob/master/dist/bin/scala">scala</a>
@@ -332,7 +332,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   javac 17.0.10, scalac 2.13.13, scalac 3.3.2, scalafmt 3.7.2,
+   javac 17.0.10, scalac 2.13.13, scalac 3.3.3, scalafmt 3.7.2,
    ant 1.10.14, gradle 8.6, mvn 3.9.6, sbt 1.9.9, scala-cli 1.1.3,
    mill 0.11.7, bazel 7.0.2, cfr 0.152, make 3.81, python 3.11.1,
    git 2.44.0.windows.1, diff 3.10, bash 5.2.26(1)-release
@@ -361,7 +361,7 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also prints the tool paths and d
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   javac 17.0.10, scalac 2.13.13, scalac 3.3.2, scalafmt 3.7.12,
+   javac 17.0.10, scalac 2.13.13, scalac 3.3.3, scalafmt 3.7.12,
    ant 1.10.14, gradle 8.6, mvn 3.9.6, sbt 1.9.9, scala-cli 1.1.3,
    mill 0.11.7, bazel 7.0.2, cfr 0.152, make 3.81, python 3.11.1,
    git 2.44.0.windows.1, diff 3.10, bash 5.2.15(1)-release
@@ -403,7 +403,7 @@ Environment variables:
    "SBT_HOME=C:\opt\sbt"
    "SCALA_CLI_HOME=C:\opt\scala-cli"
    "SCALA_HOME=C:\opt\scala-2.13.13"
-   "SCALA3_HOME=C:\opt\scala3-3.3.2"
+   "SCALA3_HOME=C:\opt\scala3-3.3.3"
 Path associations:
    I:\: => %USERPROFILE%\workspace-perso\dotty-examples
 </pre>
@@ -424,10 +424,10 @@ Finished to clean up 12 subdirectories in Y:\dotty\myexamples
 Command [**`dirsize.bat`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.3.2 c:\opt\jdk-temurin-17.0.10_7</b>
+<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.3.3 c:\opt\jdk-temurin-17.0.10_7</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
-Size of directory "c:\opt\scala3-3.3.2" is 35.7 Mb
+Size of directory "c:\opt\scala3-3.3.3" is 35.7 Mb
 Size of directory "c:\opt\jdk-temurin-17.0.10_7" is 301.0 Mb
 </pre>
 
@@ -532,16 +532,16 @@ Concretely, subcommand **`activate`** switches to the nightly build version and 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> activate</b>
-Active Scala 3 installation is 3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY (was 3.3.2)
+Active Scala 3 installation is 3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY (was 3.3.3)
 
 <b>&gt; %SCALA3_HOME%\bin\<a href="bin/3.0/scalac.bat">scalac</a> -version</b>
 Scala compiler version 3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY-git-e54be6e -- Copyright 2002-2024, LAMP/EPFL
 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> restore</b>
-Active Scala 3 installation is 3.3.2
+Active Scala 3 installation is 3.3.3
 
 <b>&gt; %SCALA3_HOME%\bin\<a href="bin/3.0/scalac.bat">scalac</a> -version</b>
-Scala compiler version 3.3.2 -- Copyright 2002-2024, LAMP/EPFL
+Scala compiler version 3.3.3 -- Copyright 2002-2024, LAMP/EPFL
 </pre>
 
 > **:warning:** You need *write access* to the [Scala 3][scala3_home] installation directory (e.g. **`C:\opt\scala3-3.3.1\`** in our case) in order to successfully run the **`activate/reset`** subcommands.
@@ -571,7 +571,7 @@ For instance we get the following output when passing class name **`System`** to
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> System</b>
-Searching for class name System in archive files C:\opt\scala3-3.3.2\lib\*.jar
+Searching for class name System in archive files C:\opt\scala3-3.3.3\lib\*.jar
   jline-reader-3.19.0.jar:org/jline/reader/impl/completer/SystemCompleter.class
   scala-library-2.13.13.jar:scala/sys/SystemProperties$.class
   scala-library-2.13.13.jar:scala/sys/SystemProperties.class
@@ -733,11 +733,11 @@ More usage examples are presented in [**`examples\README.md`**](examples/README.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> scala</b>
-C:\opt\scala3-3.3.2\bin\scala
-C:\opt\scala3-3.3.2\bin\scala.bat
+C:\opt\scala3-3.3.3\bin\scala
+C:\opt\scala3-3.3.3\bin\scala.bat
 
 <b>&gt; <a href="bin/3.0/scala.bat">scala</a> -version</b>
-Scala code runner version 3.3.2 -- Copyright 2002-2024, LAMP/EPFL
+Scala code runner version 3.3.3 -- Copyright 2002-2024, LAMP/EPFL
 
 <b>&gt; <a href="bin/3.0/scala.bat">scala</a></b>
 Starting scala REPL...
@@ -755,7 +755,7 @@ The REPL has several commands available:
 val res0: String = C:\opt\jdk-temurin-17.0.10_7
 
 <b>scala&gt;</b> System.getenv().get("SCALA3_HOME")
-val res1: String = C:\opt\scala3-3.3.2
+val res1: String = C:\opt\scala3-3.3.3
 
 <b>scala&gt;</b> :load myexamples/HelloWorld/src/main/scala/HelloWorld.scala
 // defined object HelloWorld
@@ -891,7 +891,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://github.com/sbt/sbt/releases" rel="external">sbt-1.9.9.zip</a>                                      <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/" rel="external">scala-2.13.13.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://github.com/VirtusLab/scala-cli/releases" rel="external">scala-cli-x86_64-pc-win32.zip</a>                      <i>( 31 MB)</i>
-<a href="https://github.com/lampepfl/dotty/releases/tag/3.3.2">scala3-3.3.2.zip</a>                                   <i>( 34 MB)</i>
+<a href="https://github.com/lampepfl/dotty/releases/tag/3.3.3">scala3-3.3.3.zip</a>                                   <i>( 34 MB)</i>
 </pre>
 </dd></dl>
 
@@ -1015,7 +1015,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [scala_snapshots]: https://scala-ci.typesafe.com/ui/native/scala-pr-validation-snapshots/org/scala-lang
 [scala3_home]: https://dotty.epfl.ch
 [scala3_lts_releases]: https://github.com/lampepfl/dotty/releases
-[scala3_lts_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.3.2
+[scala3_lts_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.3.3
 [scala3_next_releases]: https://github.com/lampepfl/dotty/releases
 [scala3_next_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.4.0
 [scalac_cli]: https://docs.scala-lang.org/overviews/compiler-options/index.html
