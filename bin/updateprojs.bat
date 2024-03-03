@@ -135,8 +135,8 @@ set _STRONG_BG_BLUE=[104m
 
 @rem we define _RESET in last position to avoid crazy console output with type command
 set _BOLD=[1m
-set _INVERSE=[7m
 set _UNDERSCORE=[4m
+set _INVERSE=[7m
 set _RESET=[0m
 goto :eof
 
@@ -145,7 +145,6 @@ goto :eof
 set _HELP=0
 set _RUN=1
 set _VERBOSE=0
-set __N=0
 :args_loop
 set "__ARG=%~1"
 if not defined __ARG goto args_done
@@ -169,7 +168,6 @@ if "%__ARG:~0,1%"=="-" (
         set _EXITCODE=1
         goto args_done
     )
-    set /a __N+=1
 )
 shift
 goto args_loop
@@ -216,7 +214,7 @@ for %%i in (cdsexamples examples meta-examples myexamples plugin-examples) do (
 goto :eof
 
 :update_project
-set __PARENT_DIR=%~1
+set "__PARENT_DIR=%~1"
 set __N1=0
 set __N2=0
 set __N3=0
@@ -286,7 +284,7 @@ for /f %%i in ('dir /ad /b "%__PARENT_DIR%" ^| findstr /v /c:"lib"') do (
         if !ERRORLEVEL!==0 (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_COPYRIGHT_DATES_OLD%@%_COPYRIGHT_DATES_NEW%@g" "!__BUILD_SH!" 1>&2
             call "%_SED_CMD%" -i "s@%_COPYRIGHT_DATES_OLD%@%_COPYRIGHT_DATES_NEW%@g" "!__BUILD_SH!"
-            @rem call "%_DOS2UNIX_CMD%" --force "!__BUILD_SH!"
+            call "%_UNIX2DOS_CMD%" -q "!__BUILD_SH!"
             set /a __N_SH+=1
         )
     ) else (
