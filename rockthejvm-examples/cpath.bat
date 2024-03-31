@@ -22,7 +22,7 @@ set __SCALATEST_VERSION=3.2.18
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
 @rem import scala.reflect.runtime.universe._
-call :add_jar "org.scala-lang" "scala-reflect" "2.13.12"
+call :add_jar "org.scala-lang" "scala-reflect" "2.13.13"
 
 @rem https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect
 call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSION%" "1.1.2"
@@ -41,7 +41,7 @@ call :add_jar "org.hamcrest" "hamcrest-core" "1.3"
 call :add_jar "com.novocode" "junit-interface" "0.11"
 
 @rem https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
-call :add_jar "org.junit.jupiter" "junit-jupiter-engine" "5.10.1"
+call :add_jar "org.junit.jupiter" "junit-jupiter-engine" "5.10.2"
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"

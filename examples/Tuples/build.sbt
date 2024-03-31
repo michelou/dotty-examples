@@ -1,21 +1,21 @@
-val dottyVersion = "3.3.3"
+val scala3Version = "3.3.3" // = dottyLatestNightlyBuild.get
 
 lazy val root = project
   .in(file("."))
   .settings(
-    name := "TastyReflection",
+    name := "Tuples",
     description := "sbt example project to build/run Scala 3 applications",
-    version := "0.1.0",
-
-    scalaVersion := dottyVersion,
+    version := "1.0.0",
+    scalaVersion := scala3Version,
     scalacOptions ++= Seq(
       "-deprecation",
-      "-encoding", "UTF-8",
+      "-encoding",
+      "UTF-8",
       "-feature"
     ),
-
+    // resolvers += "Maven Central Server" at "http://central.maven.org/maven2",
     libraryDependencies ++= Seq(
       // https://mvnrepository.com/artifact/com.novocode/junit-interface
-      "com.novocode" % "junit-interface" % "0.11" % "test"
+      "com.novocode" % "junit-interface" % "0.11" % Test
     )
   )

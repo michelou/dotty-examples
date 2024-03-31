@@ -97,10 +97,6 @@ goto :eof
 :env_colors
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-set _RESET=[0m
-set _BOLD=[1m
-set _UNDERSCORE=[4m
-set _INVERSE=[7m
 
 @rem normal foreground colors
 set _NORMAL_FG_BLACK=[30m
@@ -138,6 +134,12 @@ set _STRONG_BG_RED=[101m
 set _STRONG_BG_GREEN=[102m
 set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
+
+@rem we defined _RESET in last position to avoid crazy console output for type command
+set _BOLD=[1m
+set _UNDERSCORE=[4m
+set _INVERSE=[7m
+set _RESET=[0m
 goto :eof
 
 @rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
@@ -318,15 +320,15 @@ echo     %__BEG_O%-print%__END%           print IR after compilation phase 'lamb
 echo     %__BEG_O%-scala2%__END%          use Scala 2 tools
 echo     %__BEG_O%-scala3%__END%          use Scala 3 tools ^(default^)
 echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
-echo     %__BEG_O%-timer%__END%           display total elapsed time
-echo     %__BEG_O%-verbose%__END%         display progress messages
+echo     %__BEG_O%-timer%__END%           print total execution time
+echo     %__BEG_O%-verbose%__END%         print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%            delete generated files
 echo     %__BEG_O%compile%__END%          compile Java/Scala source files
 echo     %__BEG_O%decompile%__END%        decompile generated code with %__BEG_N%CFR%__END%
 echo     %__BEG_O%doc%__END%              generate HTML documentation
-echo     %__BEG_O%help%__END%             display this help message
+echo     %__BEG_O%help%__END%             print this help message
 echo     %__BEG_O%lint%__END%             analyze Scala source files with %__BEG_N%Scalafmt%__END%
 echo     %__BEG_O%run%__END%              execute main class %__BEG_N%%_MAIN_CLASS%%__END%
 echo     %__DEB_O%run:d%__END%            execute main and generate diagnostic files for %__BEG_O%JITWatch%__END%

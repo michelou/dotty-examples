@@ -94,7 +94,7 @@ endif
 ifeq (,$(wildcard $(SCALA3_LIB_JAR)))
 	$(eval GROUP_ID := org.scala-lang)
 	$(eval ARTIFACT_ID := scala3-library_3)
-	$(eval VERSION := 3.3.2)
+	$(eval VERSION := 3.3.3)
 	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(VERSION).jar)
 	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(VERSION)/$(ARTIFACT_ID)-$(VERSION).jar)
 	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(VERSION).jar)

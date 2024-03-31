@@ -23,18 +23,18 @@
         <!-- https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect -->
         <scala-reflect.version>1.1.2</scala-reflect.version>
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
-        <scalatest.version>3.2.17</scalatest.version>
+        <scalatest.version>3.2.18</scalatest.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven.compiler.version>3.12.1</maven.compiler.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
         <!-- Note: JUnit 5 requires Surefire version 2.22.1 or higher -->
-        <maven.surefire.version>3.2.3</maven.surefire.version>
+        <maven.surefire.version>3.2.5</maven.surefire.version>
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
-        <specs2.version>5.4.1</specs2.version>
+        <specs2.version>5.5.1</specs2.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
         <maven.jar.version>3.3.0</maven.jar.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
-        <exec.maven.version>3.1.0</exec.maven.version>
+        <exec.maven.version>3.2.0</exec.maven.version>
         <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-core -->
         <hamcrest.version>2.2</hamcrest.version>
         <!-- https://mvnrepository.com/artifact/org.apache.ivy/ivy -->
@@ -45,9 +45,9 @@
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
-        <junit.platform.version>1.10.1</junit.platform.version>
+        <junit.platform.version>1.10.2</junit.platform.version>
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <jupiter.version>5.10.1</jupiter.version>
+        <jupiter.version>5.10.2</jupiter.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.plexus/plexus-utils -->
         <plexus-utils.version>4.0.0</plexus-utils.version>
 

@@ -15,7 +15,7 @@
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId>
         <scala.version>2.13.13</scala.version>
-        <scala3.version>3.3.2</scala3.version>
+        <scala3.version>3.3.3</scala3.version>
         <scala.local.install>true</scala.local.install>
 
         <!-- Maven plugin versions -->
@@ -34,7 +34,7 @@
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
         <maven.jar.version>3.3.0</maven.jar.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
-        <exec.maven.version>3.1.1</exec.maven.version>
+        <exec.maven.version>3.2.0</exec.maven.version>
         <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-core -->
         <hamcrest.version>2.2</hamcrest.version>
         <!-- https://mvnrepository.com/artifact/org.apache.ivy/ivy -->

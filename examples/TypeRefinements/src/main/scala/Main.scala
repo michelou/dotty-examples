@@ -18,8 +18,8 @@ object refinements:
   final case class Developer(name: Name, twitterHandle: TwitterHandle)
 
   def run: Unit =
-    val name: Name = "Tom"
-    val x = Developer(name, "@tom_76")
+    val name: Name = "Tom".asInstanceOf[Name]
+    val x = Developer(name, "@tom_76".asInstanceOf[TwitterHandle])
     assert(x.name.length > 0)
 
 // see https://kwark.github.io/refined-in-practice/#49
@@ -39,7 +39,7 @@ object improved:
 
   def run: Unit =
     val name: Name = "Tom".asInstanceOf[Name]
-    val x = Developer(name, "@tom_76")
+    val x = Developer(name, "@tom_76".asInstanceOf[TwitterHandle])
     assert(x.name.length > 0)
 
 @main def Main: Unit =
