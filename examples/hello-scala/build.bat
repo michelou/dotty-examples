@@ -88,6 +88,7 @@ if not exist "%JAVA_HOME%\bin\javac.exe" (
     set _EXITCODE=1
     goto :eof
 )
+set "_JAR_CMD=%JAVA_HOME%\bin\jar.exe"
 set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
 set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
 set "_JAVADOC_CMD=%JAVA_HOME%\bin\javadoc.exe"
@@ -134,15 +135,15 @@ set _DIFF_CMD=
 if exist "%GIT_HOME%\usr\bin\diff.exe" (
     set "_DIFF_CMD=%GIT_HOME%\usr\bin\diff.exe" 
 )
+set _NATIVE_IMAGE_CMD=
+if exist "%GRAALVM_HOME%\bin\native-image.cmd" (
+    set "_NATIVE_IMAGE_CMD=%GRAALVM_HOME%\bin\native-image.cmd"
+)
 goto :eof
 
 :env_colors
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-set _RESET=[0m
-set _BOLD=[1m
-set _UNDERSCORE=[4m
-set _INVERSE=[7m
 
 @rem normal foreground colors
 set _NORMAL_FG_BLACK=[30m
@@ -180,6 +181,12 @@ set _STRONG_BG_RED=[101m
 set _STRONG_BG_GREEN=[102m
 set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
+
+@rem we define _RESET in last position to avoid crazy console output with type command
+set _BOLD=[1m
+set _UNDERSCORE=[4m
+set _INVERSE=[7m
+set _RESET=[0m
 goto :eof
 
 @rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
@@ -227,6 +234,7 @@ set _LINK=0
 set _LINT=0
 set _MAIN_CLASS=%_MAIN_CLASS_DEFAULT%
 set _MAIN_ARGS=%_MAIN_ARGS_DEFAULT%
+set _NATIVE=0
 set _RUN=0
 set _RUN_TARGET=
 set _SCALA_CLI=
@@ -253,6 +261,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="-explain" ( set _SCALAC_OPTS_EXPLAIN=1
     ) else if "%__ARG%"=="-explain-types" ( set _SCALAC_OPTS_EXPLAIN_TYPES=1
     ) else if "%__ARG%"=="-help" ( set _HELP=1
+    ) else if "%__ARG%"=="-native" ( set _NATIVE=1
     ) else if "%__ARG%"=="-print" ( set _SCALAC_OPTS_PRINT=1
     ) else if "%__ARG%"=="-scala2" ( set _SCALA_VERSION=2
     ) else if "%__ARG%"=="-scala3" ( set _SCALA_VERSION=3
@@ -313,6 +322,10 @@ if %_LINT%==1 (
         echo %_WARNING_LABEL% Scalafmt configuration file not found 1>&2
         set _LINT=0
     )
+)
+if %_NATIVE%==1 if not defined _NATIVE_IMAGE_CMD (
+    echo %_WARNING_LABEL% GraalVM installation not found 1>&2
+    set _NATIVE=0
 )
 if defined _INSTRUMENTED if not exist "%JACOCO_HOME%\lib\jacococli.jar" (
     echo %_WARNING_LABEL% JaCoCo installation not found 1>&2
@@ -488,7 +501,7 @@ if %_ACTION_REQUIRED%==1 (
 )
 echo. > "%__TIMESTAMP_FILE%"
 
-if %_TASTY%==0 goto :eof
+if %_TASTY%==0 goto compile_next
 
 if not exist "%_TASTY_CLASSES_DIR%\" mkdir "%_TASTY_CLASSES_DIR%"
 
@@ -500,6 +513,14 @@ if %_ACTION_REQUIRED%==1 (
     if not !_EXITCODE!==0 goto :eof
 )
 echo. > "%__TASTY_TIMESTAMP_FILE%"
+:compile_next
+if %_NATIVE%==0 goto :eof
+
+call :action_required "%_TARGET_DIR%\XXX.jar" "%_CLASSES_DIR%\*.class"
+if %_ACTION_REQUIRED%==1 (
+    call :compile_native
+    if not !_EXITCODE!==0 goto :eof
+)
 goto :eof
 
 :compile_cli
@@ -616,12 +637,37 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURC
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
-if not !ERRORLEVEL!==0 (
+if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
 goto :eof
+
+:compile_native
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" --create --file "%_TARGET_DIR%\XXX.jar" --main-class "%_MAIN_CLASS%" -C "%_CLASSES_DIR%" . 1>&2
+) else if %_VERBOSE%==1 ( echo Create Java archive "%XXX.jar" into directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_JAR_CMD%" --create --file "%_TARGET_DIR%\XXX.jar" --main-class "%_MAIN_CLASS%" -C "%_CLASSES_DIR%" .
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to create Java archive "%XXX.jar" into directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set _NATIVE_IMAGE_OPTS="-H:-CheckToolchain" -o "%_TARGET_DIR%\XXX.exe" -classpath "%SCALA_HOME%\lib\scala-library.jar"
+if %_DEBUG%==1 ( set _NATIVE_IMAGE_OPTS="-H:+ReportExceptionStackTraces" %_NATIVE_IMAGE_OPTS%
+) else ( set _NATIVE_IMAGE_OPTS=--silent %_NATIVE_IMAGE_OPTS%
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_NATIVE_IMAGE_CMD%" %_NATIVE_IMAGE_OPTS% -jar "%_TARGET_DIR%\XXX.jar" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate native program 1>&2
+)
+call "%_NATIVE_IMAGE_CMD%" %_NATIVE_IMAGE_OPTS% -jar "%_TARGET_DIR%\XXX.jar"
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to create native program into directory "!_TARGET_DIR:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto:eof
 
 @rem input parameter: 1=target file 2=path (wildcards accepted)
 @rem output parameter: _ACTION_REQUIRED

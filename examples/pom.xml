@@ -32,7 +32,7 @@
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
         <specs2.version>5.5.1</specs2.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
-        <maven.jar.version>3.3.0</maven.jar.version>
+        <maven.jar.version>3.4.1</maven.jar.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
         <exec.maven.version>3.2.0</exec.maven.version>
         <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-core -->
@@ -49,7 +49,7 @@
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
         <jupiter.version>5.10.2</jupiter.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.plexus/plexus-utils -->
-        <plexus-utils.version>4.0.0</plexus-utils.version>
+        <plexus-utils.version>4.0.1</plexus-utils.version>
 
         <!-- Maven plugin dependencies -->
         <m2.directory>${user.home}/.m2/repository</m2.directory>
