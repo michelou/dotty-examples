@@ -1171,7 +1171,7 @@ set __VERSIONS_LINE4=
 set __WHERE_ARGS=
 where /q "%JAVA_HOME%\bin:javac.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,*" %%i in ('"%JAVA_HOME%\bin\javac.exe" -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% javac %%j,"
+    for /f "tokens=1,2,*" %%i in ('call "%JAVA_HOME%\bin\javac.exe" -version 2^>^&1') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% javac %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%JAVA_HOME%\bin:javac.exe"
 )
 where /q "%SCALA_HOME%\bin:scalac.bat"
@@ -1252,9 +1252,14 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('"%PYTHON_HOME%\python.exe" --version 2^>^&1') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% python %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%PYTHON_HOME%:python.exe"
 )
+where /q "%JACOCO_HOME%\lib:jacococli.jar"
+if %ERRORLEVEL%==0 if exist "%JAVA_HOME%\bin\java.exe" (
+    for /f "delims=. tokens=1-3,*" %%i in ('call "%JAVA_HOME%\bin\java.exe" -jar "%JACOCO_HOME%\lib\jacococli.jar" version') do set "__VERSIONS_LINE4=%__VERSIONS_LINE4% jacoco %%i.%%j.%%k,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%JACOCO_HOME%\lib:jacococli.jar"
+)
 where /q "%GIT_HOME%\bin:git.exe"
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1,2,*" %%i in ('"%GIT_HOME%\bin\git.exe" --version') do set "__VERSIONS_LINE4=%__VERSIONS_LINE4% git %%k,"
+   for /f "delims=. tokens=1-3,*" %%i in ('"%GIT_HOME%\bin\git.exe" --version') do set "__VERSIONS_LINE4=%__VERSIONS_LINE4% %%i.%%j.%%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\bin:git.exe"
 )
 where /q "%GIT_HOME%\usr\bin:diff.exe"
