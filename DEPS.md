@@ -25,33 +25,41 @@ The [Scala 3](https://www.scala-lang.org/download/scala3.html) and [Scala 2](htt
 > **:mag_right:** We observe a jump in the increases in size of the software distributions : 
 > |  Scala 3  | Release&nbsp;date | Zip&nbsp;archive | Installation |
 > |:----------|:------------:|:-----------:|:------------:|
-> | [**3.3.1**](https://github.com/lampepfl/dotty/releases/tag/3.3.1) | Sep&nbsp;2023 | 36.6 MB | **38.7 MB** |
-> | [3.3.0](https://github.com/lampepfl/dotty/releases/tag/3.3.0) | May&nbsp;2023 | 36.0 MB | 38.1 MB |
-> | [3.2.2](https://github.com/lampepfl/dotty/releases/tag/3.2.2) | Jan&nbsp;2023 | 35.5 MB | 37.6 MB |
-> | [3.2.1](https://github.com/lampepfl/dotty/releases/tag/3.2.1) | Sep 2022 | 35.5 MB | 37.6 MB |
-> | [3.2.0](https://github.com/lampepfl/dotty/releases/tag/3.2.0) | Sep 2022 | 34.2 MB | 36.1 MB |
-> |  [3.1.3](https://github.com/lampepfl/dotty/releases/tag/3.1.3)     | Jun 2022 |   33.8 MB   |   35.7 MB    |
-> |  [3.1.2](https://github.com/lampepfl/dotty/releases/tag/3.1.2)     | Apr 2022 |   33.4 MB   |   35.3 MB    |
-> |  [3.1.1](https://github.com/lampepfl/dotty/releases/tag/3.1.1)     | Jan 2022 |   33.3 MB   |   35.2 MB    |
-> |  [3.1.0](https://github.com/lampepfl/dotty/releases/tag/3.1.0)     | Oct 2021 |   33.1 MB   |   35.0 MB    |
-> |  [3.0.2](https://github.com/lampepfl/dotty/releases/tag/3.0.2)     | Sep 2021 |   31.2 MB   |   33.0 MB    |
-> |  [3.0.1](https://github.com/lampepfl/dotty/releases/tag/3.0.1)     | Jul 2021 |   29.8 MB   |   33.0 MB    |
+> | [**3.4.2**](https://github.com/scala/scala3/releases/tag/3.4.2-RC1) | Mar&nbsp;2024 | 37.3 MB | 29.4 MB |
+> | [3.4.1](https://github.com/scala/scala3/releases/tag/3.4.1)     | Mar&nbsp;2024 | 36.6 MB | |
+> | [3.4.0](https://github.com/scala/scala3/releases/tag/3.4.0)     | Feb&nbsp;2024 | 36.5 MB | |
+> | [3.3.3](https://github.com/scala/scala3/releases/tag/3.3.3)     | Feb&nbsp;2024 | 35.5 MB | 37.5 MB|
+> | [3.3.1](https://github.com/lampepfl/dotty/releases/tag/3.3.1)   | Sep&nbsp;2023 | 36.6 MB | 38.7 MB |
+> | [3.3.0](https://github.com/lampepfl/dotty/releases/tag/3.3.0)   | May&nbsp;2023 | 36.0 MB | 38.1 MB |
+> | [3.2.2](https://github.com/lampepfl/dotty/releases/tag/3.2.2)   | Jan&nbsp;2023 | 35.5 MB | 37.6 MB |
+> | [3.2.1](https://github.com/lampepfl/dotty/releases/tag/3.2.1)   | Sep&nbsp;2022 | 35.5 MB | 37.6 MB |
+> | [3.2.0](https://github.com/lampepfl/dotty/releases/tag/3.2.0)   | Sep&nbsp;2022 | 34.2 MB | 36.1 MB |
+> | [3.1.3](https://github.com/lampepfl/dotty/releases/tag/3.1.3)   | Jun&nbsp;2022 | 33.8 MB | 35.7 MB |
+> | [3.1.2](https://github.com/lampepfl/dotty/releases/tag/3.1.2)   | Apr&nbsp;2022 | 33.4 MB | 35.3 MB |
+> | [3.1.1](https://github.com/lampepfl/dotty/releases/tag/3.1.1)   | Jan&nbsp;2022 | 33.3 MB | 35.2 MB |
+> | [3.1.0](https://github.com/lampepfl/dotty/releases/tag/3.1.0)   | Oct&nbsp;2021 | 33.1 MB | 35.0 MB |
+> | [3.0.2](https://github.com/lampepfl/dotty/releases/tag/3.0.2)   | Sep&nbsp;2021 | 31.2 MB | 33.0 MB |
+> | [3.0.1](https://github.com/lampepfl/dotty/releases/tag/3.0.1)   | Jul&nbsp;2021 | 29.8 MB | 33.0 MB |
 >
 > | Scala 2.13 | Release&nbsp;date | Zip&nbsp;archive | Installation |
-> |:----------|:------------:|:-----------:|:------------:|
-> |  [**2.13.12**](https://www.scala-lang.org/download/2.13.12.html)         | Sep&nbsp;2023 |   22.9 MB   | **24.4 MB**  |
-> |  [2.13.11](https://www.scala-lang.org/download/2.13.11.html)         | Jun 2023 |   22.9 MB   | 24.4 MB  |
-> |  [2.13.10](https://www.scala-lang.org/download/2.13.10.html)         | Oct 2022 |   22.6 MB   |   24.0 MB    |
-> |  [2.13.9](https://www.scala-lang.org/download/2.13.9.html)         | Sep 2022 |   22.5 MB   |   24.0 MB    |
-> |  [2.13.8](https://www.scala-lang.org/download/2.13.8.html)         | Jan 2022 |   22.6 MB   |   24.1 MB    |
-> |  [2.13.7](https://www.scala-lang.org/download/2.13.7.html)         | Nov 2021 |   22.6 MB   |   24.1 MB    |
-> |  [2.13.6](https://www.scala-lang.org/download/2.13.6.html)         | May 2021 |   22.3 MB   |   23.8 MB    |
+> |:-----------|:------------:|:-----------:|:------------:|
+> | [**2.13.14**](https://www.scala-lang.org/download/2.13.14.html) | May&nbsp;2024 | 23.3 MB | 24.8 MB |
+> | [2.13.13](https://www.scala-lang.org/download/2.13.13.html)     |               | 23.0 MB | |
+> | [2.13.12](https://www.scala-lang.org/download/2.13.12.html)     | Sep&nbsp;2023 | 22.9 MB | 24.4 MB |
+> | [2.13.11](https://www.scala-lang.org/download/2.13.11.html)     | Jun&nbsp;2023 | 22.9 MB | 24.4 MB |
+> | [2.13.10](https://www.scala-lang.org/download/2.13.10.html)     | Oct&nbsp;2022 | 22.6 MB | 24.0 MB |
+> | [2.13.9](https://www.scala-lang.org/download/2.13.9.html)       | Sep&nbsp;2022 | 22.5 MB | 24.0 MB |
+> | [2.13.8](https://www.scala-lang.org/download/2.13.8.html)       | Jan&nbsp;2022 | 22.6 MB | 24.1 MB |
+> | [2.13.7](https://www.scala-lang.org/download/2.13.7.html)       | Nov&nbsp;2021 | 22.6 MB | 24.1 MB |
+> | [2.13.6](https://www.scala-lang.org/download/2.13.6.html)       | May&nbsp;2021 | 22.3 MB | 23.8 MB |
 >
 > | Scala 2.12 | Release&nbsp;date | Zip&nbsp;archive | Installation |
-> |:----------|:------------:|:-----------:|:------------:|
-> |  [**2.12.18**](https://www.scala-lang.org/download/2.12.18.html)       | Jun 2023 |   20.0 MB   | **21.4 MB**  |
-> |  [2.12.17](https://www.scala-lang.org/download/2.12.17.html)       | Sep 2022 |   20.0 MB   |   21.4 MB    |
-> |  [2.12.15](https://www.scala-lang.org/download/2.12.15.html)       | Sep 2021 |   20.1 MB   |   21.5 MB    |
+> |:-----------|:------------:|:-----------:|:------------:|
+> | [**2.12.19**](https://www.scala-lang.org/download/2.12.19.html) | Feb&nbsp;2024 | 20.1 MB | 21.4 MB |
+> | [2.12.18](https://www.scala-lang.org/download/2.12.18.html)     | Jun&nbsp;2023 | 20.0 MB | 21.4 MB |
+> | [2.12.17](https://www.scala-lang.org/download/2.12.17.html)     | Sep&nbsp;2022 | 20.0 MB | 21.4 MB |
+> | [2.12.16](https://www.scala-lang.org/download/2.12.16.html)     | Jun&nbsp;2022 | 20.1 MB | |
+> | [2.12.15](https://www.scala-lang.org/download/2.12.15.html)     | Sep&nbsp;2021 | 20.1 MB | 21.5 MB |
 
 In the next sections we give more details on those dependencies for the different Scala distributions currently available, namely [3.3](#scala33_releases), [3.2](#scala32_releases), [3.1](#scala31_releases), [3.0](#scala30_releases), [2.13](#scala213_releases) and [2.12](#scala212_releases).
 
@@ -65,11 +73,15 @@ As mentioned in the introduction the Scala 3.3 distributions depend on *many* ex
   <th style="padding:4px;">Current<br/>Version</th>
   <th><a href="https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler">3.3.0</a><br/><span style="color:gray;">final</span></th>
   <th><a href="https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler">3.3.1</a><br/><span style="color:gray;">final</span></th>
+  <th><a href="https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler_3/3.3.2">3.3.2</a><br/><span style="color:gray;">final</span></th>
+  <th><a href="https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler_3/3.3.3">3.3.3</a><br/><span style="color:gray;">final</span></th>
 </tr>
 
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4"><code>antlr4-*</code></a><br/>(<a href="https://github.com/antlr/antlr4/releases">relnotes</a>)</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.13.1"><b>4.13.1</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.7.2">4.7.2</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.7.2">4.7.2</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.7.2">4.7.2</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4/4.7.2">4.7.2</a></td>
 </tr>
@@ -78,17 +90,23 @@ As mentioned in the introduction the Scala 3.3 distributions depend on *many* ex
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.nibor.autolink/autolink/0.11.0"><b>0.11.0</b></a><br/><span style="color:gray;font-size:80%;">(Feb&nbsp;2023)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.nibor.autolink/autolink/0.6.0">0.6.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.nibor.autolink/autolink/0.6.0">0.6.0</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.nibor.autolink/autolink/0.6.0">0.6.0</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.nibor.autolink/autolink/0.6.0">0.6.0</a></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface" rel="external"><code>compiler-interface</code></a><br/>(<a href="https://github.com/sbt/zinc/releases" rel="external">relnotes</a>)</td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.9.5"><b>1.9.5</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.10.0"><b>1.10.0</b></a><br/><span style="color:gray;font-size:80%;">(May&nbsp;2024)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.3.5">1.3.5</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.3.5">1.3.5</a></td>
+  <td style="padding:4px;"></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/compiler-interface/1.9.3">1.9.3</a></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark"><code>flexmark-*</code></a><br/>(<a href="https://github.com/vsch/flexmark-java/blob/master/VERSION.md#0640">relnotes</a>)</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark/0.64.8"><b>0.64.8</b></a><br/><span style="color:gray;font-size:80%;">(May&nbsp;2023)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark/0.42.12">0.42.12</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark/0.62.2">0.62.2</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark/0.62.2">0.62.2</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.vladsch.flexmark/flexmark/0.62.2">0.62.2</a></td>
 </tr>
 <tr>
@@ -97,12 +115,16 @@ As mentioned in the introduction the Scala 3.3 distributions depend on *many* ex
   <td></td>
   <td></td>
   <td></td>
+  <td style="padding:4px;"></td>
+  <td style="padding:4px;"></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface"><code>util-interface</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.9.6"><b>1.9.6</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.10.0"><b>1.10.0</b></a><br/><span style="color:gray;font-size:80%;">(May&nbsp;2024)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.3.0">1.3.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.3.0">1.3.0</a></td>
+  <td style="padding:4px;"></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-sbt/util-interface/1.9.2">1.9.2</a></td>
 </tr>
 </table>
 

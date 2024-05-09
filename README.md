@@ -72,9 +72,9 @@ C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
 C:\opt\Git\                        <i>(367 MB)</i>
 C:\opt\gradle\                     <i>(138 MB)</i>
 C:\opt\jacoco\                     <i>( 10 MB)</i>
-C:\opt\javafx-sdk-17.0.10\         <i>(136 MB)</i>
-C:\opt\javafx-sdk-21.0.2\          <i>(138 MB)</i>
-C:\opt\jdk-temurin-1.8.0u382-b05\  <i>(189 MB)</i>
+C:\opt\javafx-sdk-17.0.11\         <i>(137 MB)</i>
+C:\opt\javafx-sdk-21.0.3\          <i>(138 MB)</i>
+C:\opt\jdk-temurin-1.8.0u412-b08\  <i>(189 MB)</i>
 C:\opt\jdk-temurin-17.0.11_9\      <i>(301 MB)</i>
 C:\opt\jdk-temurin-21.0.3_9\       <i>(326 MB)</i>
 C:\opt\jitwatch-1.4.9\             <i>( 36 MB)</i>
@@ -363,7 +363,7 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also prints the tool paths and d
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   javac 17.0.10, scalac 2.13.14, scalac 3.3.3, scalafmt 3.7.12,
+   javac 17.0.11, scalac 2.13.14, scalac 3.3.3, scalafmt 3.7.12,
    ant 1.10.14, gradle 8.7, mvn 3.9.6, sbt 1.9.9, scala-cli 1.3.1,
    mill 0.11.7, bazel 7.1.1, cfr 0.152, make 3.81, python 3.11.1,
    jacoco 0.8.12, git 2.45.0, diff 3.10, bash 5.2.26(1)-release
@@ -395,11 +395,10 @@ Environment variables:
    "COURSIER_HOME=C:\opt\coursier-2.1.7"
    "GIT_HOME=C:\opt\Git"
    "GRADLE_HOME=C:\opt\gradle"
-   "JAVA_HOME=C:\opt\jdk-temurin-11.0.22_7"
-   "JAVA11_HOME=C:\opt\jdk-temurin-11.0.22_7"
+   "JAVA_HOME=C:\opt\jdk-temurin-17.0.11_9"
    "JAVA17_HOME=C:\opt\jdk-temurin-17.0.11_9"
    "JAVA21_HOME=C:\opt\jdk-temurin-21.0.3_9"
-   "JAVAFX_HOME=C:\opt\javafx-sdk-17.0.10"
+   "JAVAFX_HOME=C:\opt\javafx-sdk-17.0.11"
    "MSVS_HOME=X:"
    "MSYS_HOME=C:\opt\msys64"
    "PYTHON_HOME=C:\opt\Python-3.11.1"
@@ -588,7 +587,7 @@ Searching for class name System in archive files C:\opt\jdk-temurin-11.0.21_9\li
   [...]
   jrt-fs.jar:jdk/internal/jrtfs/SystemImage$2.class
   jrt-fs.jar:jdk/internal/jrtfs/SystemImage.class
-Searching for class name System in archive files c:\opt\javafx-sdk-17.0.10\lib\*.jar
+Searching for class name System in archive files c:\opt\javafx-sdk-17.0.11\lib\*.jar
   javafx.graphics.jar:com/sun/glass/ui/SystemClipboard.class
   [...]
   javafx.graphics.jar:com/sun/javafx/tk/TKSystemMenu.class
@@ -893,10 +892,10 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u372b07.zip</a>     <i>( 99 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot">OpenJDK17U-jdk_x64_windows_hotspot_17.0.11_9.zip</a>   <i>(188 MB)</i>
 <a href="https://adoptium.net/fr/temurin/releases/?variant=openjdk21&jvmVariant=hotspot">OpenJDK21U-jdk_x64_windows_hotspot_21.0.3_9.zip</a>    <i>(191 MB)</i>
-<a href="https://gluonhq.com/products/javafx/">openjfx-17.0.10_windows-x64_bin-sdk.zip</a>            <i>( 39 MB)</i>
-<a href="https://gluonhq.com/products/javafx/">openjfx-17.0.10_windows-x64_bin-jmods.zip</a>          <i>( 37 MB)</i>
-<a href="https://gluonhq.com/products/javafx/">openjfx-21.0.2_windows-x64_bin-sdk.zip</a>             <i>( 39 MB)</i>
-<a href="https://gluonhq.com/products/javafx/">openjfx-21.0.2_windows-x64_bin-jmods.zip</a>           <i>( 37 MB)</i>
+<a href="https://gluonhq.com/products/javafx/">openjfx-17.0.11_windows-x64_bin-sdk.zip</a>            <i>( 39 MB)</i>
+<a href="https://gluonhq.com/products/javafx/">openjfx-17.0.11_windows-x64_bin-jmods.zip</a>          <i>( 37 MB)</i>
+<a href="https://gluonhq.com/products/javafx/">openjfx-21.0.3_windows-x64_bin-sdk.zip</a>             <i>( 39 MB)</i>
+<a href="https://gluonhq.com/products/javafx/">openjfx-21.0.3_windows-x64_bin-jmods.zip</a>           <i>( 37 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.45.0-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
 <a href="https://github.com/sbt/sbt/releases" rel="external">sbt-1.9.9.zip</a>                                      <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/" rel="external">scala-2.13.14.zip</a>                                  <i>( 22 MB)</i>
