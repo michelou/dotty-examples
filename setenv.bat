@@ -549,7 +549,7 @@ if defined __SCALAC_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\scala3\" ( set "_SCALA3_HOME=!__PATH!\scala3"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\scala3-3*" 2^>NUL') do set "_SCALA3_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\scala3-3*" 2^>NUL') do set "_SCALA3_HOME=!__PATH!\%%f"
         if not defined _SCALA3_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\scala3-3*" 2^>NUL') do set "_SCALA3_HOME=!__PATH!\%%f"
@@ -724,7 +724,7 @@ if defined __CS_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\coursier\" ( set "_COURSIER_HOME=!__PATH!\coursier"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\coursier-*" 2^>NUL') do set "_COURSIER_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\coursier-*" 2^>NUL') do set "_COURSIER_HOME=!__PATH!\%%f"
         if not defined _COURSIER_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\coursier-*" 2^>NUL') do set "_COURSIER_HOME=!__PATH!\%%f"
@@ -898,7 +898,7 @@ if defined __MVN_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\apache-maven\" ( set "_MAVEN_HOME=!__PATH!\apache-maven"
     ) else (
-        for /f %%f in ('dir /ad /b "!__PATH!\apache-maven-*" 2^>NUL') do set "_MAVEN_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\apache-maven-*" 2^>NUL') do set "_MAVEN_HOME=!__PATH!\%%f"
         if not defined _MAVEN_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\apache-maven-*" 2^>NUL') do set "_MAVEN_HOME=!__PATH!\%%f"
@@ -1259,7 +1259,9 @@ if %ERRORLEVEL%==0 if exist "%JAVA_HOME%\bin\java.exe" (
 )
 where /q "%GIT_HOME%\bin:git.exe"
 if %ERRORLEVEL%==0 (
-   for /f "delims=. tokens=1-3,*" %%i in ('"%GIT_HOME%\bin\git.exe" --version') do set "__VERSIONS_LINE4=%__VERSIONS_LINE4% %%i.%%j.%%k,"
+    for /f "tokens=1,2,*" %%i in ('"%GIT_HOME%\bin\git.exe" --version') do (
+        for /f "delims=. tokens=1,2,3,*" %%a in ("%%k") do set "__VERSIONS_LINE4=%__VERSIONS_LINE4% git %%a.%%b.%%c,"
+    )
     set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\bin:git.exe"
 )
 where /q "%GIT_HOME%\usr\bin:diff.exe"
@@ -1279,7 +1281,11 @@ echo   %__VERSIONS_LINE3%
 echo   %__VERSIONS_LINE4%
 if %__VERBOSE%==1 (
     echo Tool paths: 1>&2
-    for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p 1>&2
+    for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do (
+        set "__LINE=%%p"
+        setlocal enabledelayedexpansion
+        echo    !__LINE:%USERPROFILE%=%%USERPROFILE%%! 1>&2
+    )
     echo Environment variables: 1>&2
     if defined ANT_HOME echo    "ANT_HOME=%ANT_HOME%" 1>&2
     if defined BAZEL_HOME echo    "BAZEL_HOME=%BAZEL_HOME%" 1>&2

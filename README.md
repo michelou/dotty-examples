@@ -6,7 +6,7 @@
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;" src="docs/images/dotty.png" alt="Dotty project"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    This repository gathers <a href="https://dotty.epfl.ch/" rel="external">Scala 3</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/" rel="external">Dotty</a> project - or written by myself.<br/>
+    This repository gathers <a href="https://dotty.epfl.ch/" rel="external">Scala 3</a> code examples coming from various websites - mostly from the <a href="https://dotty.epfl.ch/" rel="external">Dotty</a> project - or written by ourself.<br/>
     In particular it includes build scripts (<a href="https://ant.apache.org/manual/using.html" rel="external">Ant files</a>, <a href="https://cloudblogs.microsoft.com/opensource/2023/02/21/introducing-bash-for-beginners/" rel="external">Bash scripts</a>, <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html" rel="external">Gradle scripts</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>, <a href="https://maven.apache.org/guides/introduction/introduction-to-the-pom.html" rel="external">Maven scripts</a>) for experimenting with the <a href="https://www.scala-lang.org/blog/2018/04/19/scala-3.html" rel="external">Scala 3</a> language on a Windows machine.
   </td>
   </tr>
@@ -19,7 +19,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [COBOL][cobol_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other trending topics we are continuously monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [COBOL][cobol_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Erlang][erlang_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other trending topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -36,7 +36,7 @@ Optionally one may also install the following software:
 
 - [Apache Ant 1.10][apache_ant] (requires Java 8) ([*release notes*][apache_ant_relnotes])
 - [Apache Maven 3.9][apache_maven] ([requires Java 8+][apache_maven_history]) ([*release notes*][apache_maven_relnotes])
-- [Bazel 7.1 LTS][bazel_releases] <sup id="anchor_03">[3](#footnote_03)</sup> ([*release notes*][bazel_relnotes])
+- [Bazel 7.2 LTS][bazel_releases] <sup id="anchor_03">[3](#footnote_03)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
 - [Gradle 8.7][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [JaCoCo 0.8][jacoco_downloads] <sup id="anchor_04">[4](#footnote_04)</sup> ([*change log*][jacoco_changelog])
@@ -100,6 +100,7 @@ C:\opt\VSCode\                     <i>(341 MB)</i>
  <!-- sbt: 1.6.1 = 50.6 MB, 1.6.2 = 50.6 MB -->
  <!-- sbt: 1.7.1 = 80.6 MB, 1.7.2 = 80.6 MB, 1.8.0 = 80.6 MB, 1.9.3 = 110.0 MB -->
  <!-- sbt: 1.9.6 = 136 MB, 1.9.7 = 135 MB, 1.9.8 -> 135 MB, 1.9.9 = 136 MB -->
+ <!-- sbt: 1.10.0 = MB -->
 
 > **:mag_right:** [Git for Windows][git_releases] provides a Bash emulation used to run [**`git.exe`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
@@ -335,9 +336,9 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 17.0.11, scalac 2.13.14, scalac 3.3.3, scalafmt 3.7.17,
-   ant 1.10.14, gradle 8.7, mvn 3.9.6, sbt 1.9.9, scala-cli 1.3.1,
-   mill 0.11.7, bazel 7.1.1, cfr 0.152, make 3.81, python 3.11.1,
-   jacoco 0.8.12, git 2.45.0, diff 3.10, bash 5.2.26(1)-release
+   ant 1.10.14, gradle 8.7, mvn 3.9.6, sbt 1.10.0, scala-cli 1.3.1,
+   mill 0.11.7, bazel 7.2.0, cfr 0.152, make 3.81, python 3.11.1,
+   jacoco 0.8.12, git 2.45.1, diff 3.10, bash 5.2.26(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt scala-cli</b>
 C:\opt\sbt\bin\sbt
@@ -364,9 +365,9 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also prints the tool paths and d
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 17.0.11, scalac 2.13.14, scalac 3.3.3, scalafmt 3.7.12,
-   ant 1.10.14, gradle 8.7, mvn 3.9.6, sbt 1.9.9, scala-cli 1.3.1,
-   mill 0.11.7, bazel 7.1.1, cfr 0.152, make 3.81, python 3.11.1,
-   jacoco 0.8.12, git 2.45.0, diff 3.10, bash 5.2.26(1)-release
+   ant 1.10.14, gradle 8.7, mvn 3.9.6, sbt 1.10.0, scala-cli 1.3.1,
+   mill 0.11.7, bazel 7.2.0, cfr 0.152, make 3.81, python 3.11.1,
+   jacoco 0.8.12, git 2.45.1, diff 3.10, bash 5.2.26(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.21_9\bin\javac.exe
    C:\opt\scala-2.13.14\bin\scalac.bat
@@ -459,17 +460,19 @@ Command [**`getnightly.bat download`**](bin/getnightly.bat) with options **` -ve
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> -verbose download</b>
 Delete directory "out\nightly"
 Download Scala 3 nightly files from Maven repository
-Downloading file scala3-language-server_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 148.8 Kb
-Downloading file scala3-compiler_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 19.8 Mb
-Downloading file scala3-sbt-bridge-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 31.1 Kb
-Downloading file scala3-tasty-inspector_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 17.8 Kb
-Downloading file scala3-library_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 1.2 Mb
-Downloading file scala3-staging_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 39.7 Kb
-Downloading file scala3-presentation-compiler_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 1.6 Mb
-Downloading file scala3-library_sjs1_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 2 Mb
-Downloading file scala3-interfaces-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 3.9 Kb
-Downloading file scaladoc_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 4.6 Mb
-Downloading file tasty-core_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar ... 92.6 Kb
+Downloading file scala3-language-server_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar ... 148.9 Kb
+Downloading file scala3-compiler_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar ... 20.3 Mb
+Downloading file scala3-sbt-bridge-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar ... 31.2 Kb
+Downloading file scala3-tasty-inspector_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar ... 17.4 Kb
+Downloading file scala3-library_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar ... 1.2 Mb
+Downloading file scala2-library-tasty-experimental_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar ... 3 Mb
+Downloading file scala3-staging_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar ... 40.7 Kb
+Downloading file scala3-presentation-compiler_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar ... 1.7 Mb
+Downloading file scala3-library_sjs1_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar ... 1.9 Mb
+Downloading file scala3-interfaces-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar ... 3.9 Kb
+Downloading file scala2-library-cc-tasty-experimental_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar ... 3 Mb
+Downloading file scaladoc_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar ... 4.7 Mb
+Downloading file tasty-core_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar ... 94.5 Kb
 Downloading file antlr4-runtime-4.7.2.jar ... 330 Kb
 [...]
 Downloading file common ... 6 Kb
@@ -487,9 +490,9 @@ Converting file scaladoc.bat to DOS format
 Finished to download 54 files to directory "%LOCALAPPDATA%\Temp\scala3-nightly"
 Retrieve revision for hash "3e105f2" from GitHub repository "lampepfl/dotty"
 File "%LOCALAPPDATA%\Temp\scala3-nightly\VERSION":
-version:=3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY
-revision:=e54be6e
-buildTime:=2024-02-22 20:02:47+01:00
+version:=3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY
+revision:=7c9aae3
+buildTime:=2024-05-15 23:09:19+02:00
 </pre>
 
 Output directory **`%TEMP%\scala3-nightly\`** contains the two subdirectories **`bin\`** and **`lib\`**:
@@ -507,21 +510,23 @@ scaladoc.bat
 antlr-runtime-4.7.2.jar
 autolink-0.6.0.jar
 [...]
-scala-asm-9.5.0-scala-1.jar
-scala-library-2.13.10.jar
-scala3-compiler_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
-scala3-interfaces-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
-scala3-language-server_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
-scala3-library_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
-scala3-library_sjs1_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
-scala3-presentation-compiler_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
-scala3-sbt-bridge-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
-scala3-staging_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
-scala3-tasty-inspector_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
-scaladoc_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
+scala-asm-9.6.0-scala-1.jar
+scala-library-2.13.12.jar
+scala2-library-cc-tasty-experimental_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar
+scala2-library-tasty-experimental_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar
+scala3-compiler_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar
+scala3-interfaces-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar
+scala3-language-server_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar
+scala3-library_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar
+scala3-library_sjs1_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar
+scala3-presentation-compiler_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar
+scala3-sbt-bridge-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar
+scala3-staging_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar
+scala3-tasty-inspector_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar
+scaladoc_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar
 snakeyaml-2.0.jar
-strftime4j-1.0.5.jar
-tasty-core_3-3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY.jar
+strftime4j-1.0.6.jar
+tasty-core_3-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar
 </pre>
 <!--
 > **:mag_right:** A few notes about the distributed Java archives:
@@ -534,10 +539,10 @@ Concretely, subcommand **`activate`** switches to the nightly build version and 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> activate</b>
-Active Scala 3 installation is 3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY (was 3.3.3)
+Active Scala 3 installation is 3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY (was 3.4.2-RC1)
 
 <b>&gt; %SCALA3_HOME%\bin\<a href="bin/3.0/scalac.bat">scalac</a> -version</b>
-Scala compiler version 3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY-git-e54be6e -- Copyright 2002-2024, LAMP/EPFL
+Scala compiler version 3.4.2-RC1-bin-20240221-e54be6e-NIGHTLY-git-e54be6e -- Copyright Scala compiler version 3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY-git-7c9aae3 -- Copyright 2002-2024, LAMP/EPF
 
 <b>&gt; <a href="bin/getnightly.bat">getnightly</a> restore</b>
 Active Scala 3 installation is 3.3.3
@@ -684,7 +689,7 @@ Command [**`updateprojs`**](bin/updateprojs.bat) updates the following software 
 | :----------- | :------: | :------ |
 | `build.sbt` | `dottyVersion` | `3.3.1` &rarr; `3.3.3` |
 | `build.sc` | `scalaVersion` | `3.3.1` &rarr; `3.3.3` |
-| `project\build.properties` | `sbt.version` | `1.9.8` &rarr; `1.9.9` |
+| `project\build.properties` | `sbt.version` | `1.9.9` &rarr; `1.10.0` |
 | `project\plugins.sbt` | `sbt-dotty` | `0.5.4` &rarr; `0.5.5` |
 
 > **:construction:** Currently we have to edit the value pairs (old/new) directly in the batch file.
@@ -884,7 +889,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://github.com/lihaoyi/mill/releases">0.11.7-assembly</a> (mill)                             <i>( 64 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.14-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.6-bin.zip</a>                         <i>( 10 MB)</i>
-<a href="https://github.com/bazelbuild/bazel/releases">bazel-7.1.1-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases">bazel-7.2.0-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
 <a href="https://gradle.org/install/">gradle-8.7-bin.zip</a>                                 <i>(124 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.12.zip</a>                                  <i>(  4 MB)</i>
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.9-shaded-win.jar</a>                   <i>( 36 MB)</i>
@@ -896,8 +901,8 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://gluonhq.com/products/javafx/">openjfx-17.0.11_windows-x64_bin-jmods.zip</a>          <i>( 37 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-21.0.3_windows-x64_bin-sdk.zip</a>             <i>( 39 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-21.0.3_windows-x64_bin-jmods.zip</a>           <i>( 37 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.45.0-64-bit.7z.exe</a>                   <i>( 41 MB)</i>
-<a href="https://github.com/sbt/sbt/releases" rel="external">sbt-1.9.9.zip</a>                                      <i>( 17 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.45.1-64-bit.7z.exe</a>                   <i>( 60 MB)</i>
+<a href="https://github.com/sbt/sbt/releases" rel="external">sbt-1.10.0.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/" rel="external">scala-2.13.14.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://github.com/VirtusLab/scala-cli/releases" rel="external">scala-cli-x86_64-pc-win32.zip</a>                      <i>( 31 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.3.3">scala3-3.3.3.zip</a>                                   <i>( 34 MB)</i>
@@ -918,8 +923,8 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 <!-- link refs -->
 
-[ada_examples]: https://github.com/michelou/ada-examples
-[akka_examples]: https://github.com/michelou/akka-examples
+[ada_examples]: https://github.com/michelou/ada-examples#top
+[akka_examples]: https://github.com/michelou/akka-examples#top
 [apache_ant]: https://ant.apache.org/
 [apache_ant_cli]: https://ant.apache.org/manual/running.html
 [apache_ant_relnotes]: https://archive.apache.org/dist/ant/RELEASE-NOTES-1.10.14.html
@@ -938,38 +943,41 @@ Command Prompt has been around for as long as we can remember, but starting with
 6.0 -> https://blog.bazel.build/2022/12/19/bazel-6.0.html
 6.4 -> https://github.com/bazelbuild/bazel/releases/tag/6.4.0
 7.0 -> https://blog.bazel.build/2023/12/11/bazel-7-release.html
+7.1 -> https://github.com/bazelbuild/bazel/releases/tag/7.1.0 
+7.2 -> https://github.com/bazelbuild/bazel/releases/tag/7.2.0rc1
 -->
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.1.1rc1
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.2.0rc1
 [bloop_releases]: https://scalacenter.github.io/bloop/
 [bloop_relnotes]: https://github.com/scalacenter/bloop/releases/tag/v1.3.4
 [cfr_releases]: https://www.benf.org/other/cfr/
 [cmd_cli]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd
-[cobol_examples]: https://github.com/michelou/cobol-examples
-[cpp_examples]: https://github.com/michelou/cpp-examples
-[dart_examples]: https://github.com/michelou/dart-examples
-[deno_examples]: https://github.com/michelou/deno-examples
-[docker_examples]: https://github.com/michelou/docker-examples
+[cobol_examples]: https://github.com/michelou/cobol-examples#top
+[cpp_examples]: https://github.com/michelou/cpp-examples#top
+[dart_examples]: https://github.com/michelou/dart-examples#top
+[deno_examples]: https://github.com/michelou/deno-examples#top
+[docker_examples]: https://github.com/michelou/docker-examples#top
 [dotty]: https://dotty.epfl.ch
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_nightly]: https://search.maven.org/search?q=g:ch.epfl.lamp
-[flix_examples]: https://github.com/michelou/flix-examples
+[erlang_examples]: https://github.com/michelou/erlang-examples#top
+[flix_examples]: https://github.com/michelou/flix-examples#top
 [github_scala]: https://github.com/lampepfl/dotty/blob/master/dist/bin/scala
 [git_bash]: https://www.atlassian.com/git/tutorials/git-bash
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.45.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.45.1.txt
 [github_guides]: https://guides.github.com/
 [github_lampepfl_dotty]: https://github.com/lampepfl/dotty
 [github_markdown]: https://github.github.com/gfm/
 [github_PR5444]: https://github.com/lampepfl/dotty/pull/5444
 [gmake_cli]: http://www.glue.umd.edu/lsf-docs/man/gmake.html
-[golang_examples]: https://github.com/michelou/golang-examples
-[graalvm_examples]: https://github.com/michelou/graalvm-examples
+[golang_examples]: https://github.com/michelou/golang-examples#top
+[graalvm_examples]: https://github.com/michelou/graalvm-examples#top
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 [gradle_install]: https://gradle.org/install/
 [gradle_relnotes]: https://docs.gradle.org/8.2/release-notes.html
-[haskell_examples]: https://github.com/michelou/haskell-examples
+[haskell_examples]: https://github.com/michelou/haskell-examples#top
 [jacoco_changelog]: https://www.jacoco.org/jacoco/trunk/doc/changes.html
 [jacoco_downloads]: https://www.eclemma.org/jacoco/
 [jar_file]: https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html
@@ -983,10 +991,10 @@ Command Prompt has been around for as long as we can remember, but starting with
 [javap_cli]: https://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html
 [jitwatch_releases]: https://github.com/AdoptOpenJDK/jitwatch/releases
 [jmh]: https://openjdk.java.net/projects/code-tools/jmh/
-[kafka_examples]: https://github.com/michelou/kafka-examples
-[kotlin_examples]: https://github.com/michelou/kotlin-examples
-[llvm_examples]: https://github.com/michelou/llvm-examples
-[m2_examples]: https://github.com/michelou/m2-examples
+[kafka_examples]: https://github.com/michelou/kafka-examples#top
+[kotlin_examples]: https://github.com/michelou/kotlin-examples#top
+[llvm_examples]: https://github.com/michelou/llvm-examples#top
+[m2_examples]: https://github.com/michelou/m2-examples#top
 [make_downloads]: https://sourceforge.net/projects/gnuwin32/files/make/3.81/
 [man1_awk]: https://www.linux.org/docs/man1/awk.html
 [man1_diff]: https://www.linux.org/docs/man1/diff.html
@@ -1005,16 +1013,16 @@ Command Prompt has been around for as long as we can remember, but starting with
 [mill_releases]: https://github.com/lihaoyi/mill/releases/
 [msys2_changelog]: https://github.com/msys2/setup-msys2/blob/master/CHANGELOG.md
 [msys2_releases]: https://github.com/msys2/msys2-installer/releases
-[nodejs_examples]: https://github.com/michelou/nodejs-examples
+[nodejs_examples]: https://github.com/michelou/nodejs-examples#top
 [oracle_openjdk17_api]: https://docs.oracle.com/en/java/javase/17/docs/api/
 [oracle_openjdk21]: https://jdk.java.net/21/
 [oracle_openjdk21_api]: https://docs.oracle.com/en/java/javase/21/docs/api/
 [oracle_openjdk21_relnotes]: https://jdk.java.net/21/release-notes
-[rust_examples]: https://github.com/michelou/rust-examples
+[rust_examples]: https://github.com/michelou/rust-examples#top
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_downloads]: https://github.com/sbt/sbt/releases
 [sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.9.9
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.10.0
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala]: https://www.scala-lang.org/
 [scala_api]: https://www.scala-lang.org/files/archive/api/current/
@@ -1031,8 +1039,8 @@ Command Prompt has been around for as long as we can remember, but starting with
 [scala3_next_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.4.0
 [scalac_cli]: https://docs.scala-lang.org/overviews/compiler-options/index.html
 [semanticdb_guide]: https://scalameta.org/docs/semanticdb/guide.html
-[spark_examples]: https://github.com/michelou/spark-examples
-[spring_examples]: https://github.com/michelou/spring-examples
+[spark_examples]: https://github.com/michelou/spark-examples#top
+[spring_examples]: https://github.com/michelou/spring-examples#top
 <!--
 8u212   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
 8u222   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-July/009840.html
@@ -1098,7 +1106,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [python_changelog]: https://docs.python.org/3.8/whatsnew/changelog.html#python-3-8-0-final
 [python_release]: https://www.python.org/downloads/release/python-380/
 -->
-[trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
+[trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples#top
 [unix_bash_script]: https://www.gnu.org/software/bash/manual/bash.html
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [vscode_downloads]: https://code.visualstudio.com/#alt-downloads
@@ -1107,6 +1115,6 @@ Command Prompt has been around for as long as we can remember, but starting with
 [windows_installer]: https://docs.microsoft.com/en-us/windows/win32/msi/windows-installer-portal
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
 [windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst
-[wix_examples]: https://github.com/michelou/wix-examples
+[wix_examples]: https://github.com/michelou/wix-examples#top
 [wsl]: https://ubuntu.com/wsl "Ubuntu WSL"
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/ "Everything You Need to Know About Zip Files"
