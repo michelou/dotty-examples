@@ -1,4 +1,4 @@
-# <span id="top">Building Scala 3 on Windows</span> <span style="size:25%;"><a href="README.md">↩</a></span>
+# <span id="top">Building Scala 3 on Windows</span> <span style="font-size:90%;">[↩](README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -24,8 +24,8 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 
 Our [Dotty fork][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.43][git_releases] ([*release notes*][git_relnotes])
-- [sbt 1.9][sbt_releases] (requires Java 8) ([*release notes*][sbt_relnotes])
+- [Git 2.45][git_releases] ([*release notes*][git_relnotes])
+- [sbt 1.10][sbt_releases] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Temurin OpenJDK 11][openjdk_releases] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
 <!--
 8u212   -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-April/009115.html
@@ -51,13 +51,13 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*September 2023*):
+For instance our development environment looks as follows (*June 2024*):
 
 <pre style="font-size:80%;">
 C:\opt\Git\                        <i>(367 MB)</i>
-C:\opt\jdk-temurin-1.8.0u372-b07\  <i>(186 MB)</i>
-C:\opt\jdk-temurin-11.0.20_8\      <i>(314 MB)</i>
-C:\opt\jdk-temurin-17.0.8_7\       <i>(293 MB)</i>
+C:\opt\jdk-temurin-1.8.0u412-b08\  <i>(186 MB)</i>
+C:\opt\jdk-temurin-11.0.23_9\      <i>(314 MB)</i>
+C:\opt\jdk-temurin-17.0.11_9\      <i>(293 MB)</i>
 C:\opt\sbt\                        <i>( 48 MB)</i>
 </pre>
 
@@ -131,8 +131,8 @@ We distinguish several sets of batch commands:
    Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
    &nbsp;
      Options:
-       -timer                 display the total build time
-       -verbose               display environment settings
+       -timer                 print the total build time
+       -verbose               print progress messages
    &nbsp;
      Subcommands:
        arch[ives]             generate gz/zip archives (after bootstrap)
@@ -142,7 +142,7 @@ We distinguish several sets of batch commands:
        compile                generate+test 1st stage compiler (after clone)
        community              test community-build
        doc[umentation]        generate documentation (after bootstrap)
-       help                   display this help message
+       help                   print this help message
        sbt                    test sbt-dotty (after bootstrap)
        update                 fetch/merge upstream repository
    &nbsp;
@@ -255,7 +255,7 @@ Command **`build -verbose clean`** also displays the tool paths/options and the 
 <b>&gt; <a href="bin/dotty/build.bat">build</a> -verbose clean</b>
 Tool paths
    "GIT_CMD=C:\opt\Git\bin\git.exe"
-   "JAVA_CMD=C:\opt\jdk-openjdk-11.0.20_8\bin\java.exe"
+   "JAVA_CMD=C:\opt\jdk-openjdk-11.0.23_9\bin\java.exe"
    "SBT_CMD=C:\opt\sbt\bin\sbt.bat"
 Tool options
    JAVA_OPTS=-Xmx2048m -XX:ReservedCodeCacheSize=2048m -XX:MaxMetaspaceSize=1024m

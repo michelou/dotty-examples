@@ -1,4 +1,4 @@
-# <span id="top">OpenJDK and Scala 3 on Windows</span> <span style="size:30%;"><a href="README.md">↩</a></span>
+# <span id="top">OpenJDK and Scala 3 on Windows</span> <span style="font-size:90%;">[↩](README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -18,7 +18,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - OpenJDK and Scala 3 on Windows [**&#9660;**](#bottom)
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other trending topics we are currently monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples], [WiX Toolset][wix_examples] and [Zig][zig_examples] are other topics we are currently monitoring.
 
 
 ## <span id="proj_deps">Project dependencies</span>
@@ -571,8 +571,8 @@ scala3-3.3.1-RC1-bin-SNAPSHOT-zulu-11.zip
 
 <!-- link refs -->
 
-[ada_examples]: https://github.com/michelou/ada-examples
-[akka_examples]: https://github.com/michelou/akka-examples
+[ada_examples]: https://github.com/michelou/ada-examples#top
+[akka_examples]: https://github.com/michelou/akka-examples#top
 [alibaba]: https://www.alibabagroup.com/en/global/home
 [amazon_aws]: https://aws.amazon.com/
 [azul_downloads]: https://www.azul.com/downloads/?package=jdk#download-openjdk
@@ -594,27 +594,27 @@ scala3-3.3.1-RC1-bin-SNAPSHOT-zulu-11.zip
 [corretto_11_relnotes]: https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/change-log.html
 [corretto_17_downloads]: https://github.com/corretto/corretto-17/releases
 [corretto_17_relnotes]: https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/change-log.html
-[cpp_examples]: https://github.com/michelou/cpp-examples
-[deno_examples]: https://github.com/michelou/deno-examples
+[cpp_examples]: https://github.com/michelou/cpp-examples#top
+[deno_examples]: https://github.com/michelou/deno-examples#top
 [dragonwell11_downloads]: https://github.com/alibaba/dragonwell11/releases
 [dragonwell11_relnotes]: https://github.com/alibaba/dragonwell11/wiki/Alibaba-Dragonwell-11-Release-Notes#110117
 [dragonwell17_downloads]: https://github.com/alibaba/dragonwell17/releases
 [dragonwell17_relnotes]: https://github.com/alibaba/dragonwell17/wiki/Alibaba-Dragonwell-17-Release-Notes
 [dragonwell8_downloads]: https://github.com/alibaba/dragonwell8/releases
 [eclipse]: https://www.eclipse.org/org/foundation/
-[flix_examples]: https://github.com/michelou/flix-examples
+[flix_examples]: https://github.com/michelou/flix-examples#top
 [graalvm_downloads]: https://github.com/graalvm/graalvm-ce-builds/releases
-[golang_examples]: https://github.com/michelou/golang-examples
-[graalvm_examples]: https://github.com/michelou/graalvm-examples
+[golang_examples]: https://github.com/michelou/golang-examples#top
+[graalvm_examples]: https://github.com/michelou/graalvm-examples#top
 [graalvm_org]: https://www.graalvm.org/
 [graalvm_relnotes]: https://www.graalvm.org/release-notes/21_2/
-[haskell_examples]: https://github.com/michelou/haskell-examples
+[haskell_examples]: https://github.com/michelou/haskell-examples#top
 [jmh_project]: https://openjdk.java.net/projects/code-tools/jmh/
-[kotlin_examples]: https://github.com/michelou/kotlin-examples
-[llvm_examples]: https://github.com/michelou/llvm-examples
+[kotlin_examples]: https://github.com/michelou/kotlin-examples#top
+[llvm_examples]: https://github.com/michelou/llvm-examples#top
 [microsoft]: https://docs.microsoft.com/en-us/java/
 [microsoft_downloads]: https://docs.microsoft.com/en-us/java/openjdk/download#generally-available-ga-builds
-[nodejs_examples]: https://github.com/michelou/nodejs-examples
+[nodejs_examples]: https://github.com/michelou/nodejs-examples#top
 [openj9_downloads]: https://developer.ibm.com/languages/java/semeru-runtimes/downloads
 [openj9_relnotes]: https://github.com/eclipse/openj9/releases/
 [openjdk_jck]: https://openjdk.java.net/groups/conformance/JckAccess/
@@ -623,13 +623,13 @@ scala3-3.3.1-RC1-bin-SNAPSHOT-zulu-11.zip
 [oracle_openjdk11_project]: https://openjdk.java.net/projects/jdk/11/
 [redhat]: https://www.redhat.com/
 [redhat_downloads]: https://developers.redhat.com/products/openjdk/download/
-[rust_examples]: https://github.com/michelou/rust-examples
+[rust_examples]: https://github.com/michelou/rust-examples#top
 [sapmachine_downloads]: https://github.com/SAP/SapMachine/releases
 [sap_home]: https://www.sap.com/
 [scala3_home]: https://dotty.epfl.ch/
 [scala3_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
-[spark_examples]: https://github.com/michelou/spark-examples
-[spring_examples]: https://github.com/michelou/spring-examples
+[spark_examples]: https://github.com/michelou/spark-examples#top
+[spring_examples]: https://github.com/michelou/spring-examples#top
 [temurin8_downloads]: https://github.com/adoptium/temurin8-binaries
 [temurin11_downloads]: https://github.com/adoptium/temurin11-binaries
 [temurin11_relnotes]: https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2021-July/006954.html
@@ -638,5 +638,6 @@ scala3-3.3.1-RC1-bin-SNAPSHOT-zulu-11.zip
 [trava_relnotes]: https://github.com/TravaOpenJDK/trava-jdk-11-dcevm/releases
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
-[wix_examples]: https://github.com/michelou/wix-examples
+[wix_examples]: https://github.com/michelou/wix-examples#top
+[zig_examples]: https://github.com/michelou/zig-examples#top
 [zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/

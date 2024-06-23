@@ -45,14 +45,14 @@ Optionally one may also install the following software:
 - [JITWatch 1.4][jitwatch_releases] (requires Java 11+)
 - [Mill 0.11][mill_releases] ([*change log*][mill_changelog])
 - [MSYS2 2024][msys2_releases] ([*change log*][msys2_changelog])
-- [sbt 1.9][sbt_downloads] (requires Java 8+) ([*release notes*][sbt_relnotes])
+- [sbt 1.10][sbt_downloads] (requires Java 8+) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8+) ([*release notes*][scala_relnotes], [*Scala API*][scala_api])
 - [Scala 2.13 DEV][scala_snapshots]
 - [Scala 3.4 Next][scala3_next_releases] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][scala3_next_relnotes])
 - [scala-cli 1.3][scala_cli_downloads] ([*release notes*][scala_cli_relnotes])
 - [Temurin OpenJDK 8 LTS][temurin_openjdk8] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][temurin_openjdk8_relnotes])
 - [Temurin OpenJDK 21 LTS][temurin_openjdk21] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][temurin_openjdk21_relnotes], [*Java 21 API*][oracle_openjdk21_api])
-- [Visual Studio Code 1.89][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.90][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 <!--
 - [Bloop 1.5][bloop_releases] (requires Java 8 and Python 2/3) ([*release notes*][bloop_relnotes])
@@ -100,7 +100,7 @@ C:\opt\VSCode\                     <i>(341 MB)</i>
  <!-- sbt: 1.6.1 = 50.6 MB, 1.6.2 = 50.6 MB -->
  <!-- sbt: 1.7.1 = 80.6 MB, 1.7.2 = 80.6 MB, 1.8.0 = 80.6 MB, 1.9.3 = 110.0 MB -->
  <!-- sbt: 1.9.6 = 136 MB, 1.9.7 = 135 MB, 1.9.8 -> 135 MB, 1.9.9 = 136 MB -->
- <!-- sbt: 1.10.0 = MB -->
+ <!-- sbt: 1.10.0 = 137 MB -->
 
 > **:mag_right:** [Git for Windows][git_releases] provides a Bash emulation used to run [**`git.exe`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
 
@@ -336,9 +336,9 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 17.0.11, scalac 2.13.14, scalac 3.3.3, scalafmt 3.7.17,
-   ant 1.10.14, gradle 8.8, mvn 3.9.6, sbt 1.10.0, scala-cli 1.3.1,
+   ant 1.10.14, gradle 8.8, mvn 3.9.8, sbt 1.10.0, scala-cli 1.3.2,
    mill 0.11.7, bazel 7.2.0, cfr 0.152, make 3.81, python 3.11.1,
-   jacoco 0.8.12, git 2.45.1, diff 3.10, bash 5.2.26(1)-release
+   jacoco 0.8.12, git 2.45.2, diff 3.10, bash 5.2.26(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt scala-cli</b>
 C:\opt\sbt\bin\sbt
@@ -365,9 +365,9 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also prints the tool paths and d
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 17.0.11, scalac 2.13.14, scalac 3.3.3, scalafmt 3.7.12,
-   ant 1.10.14, gradle 8, mvn 3.9.6, sbt 1.10.0, scala-cli 1.3.1,
+   ant 1.10.14, gradle 8.8, mvn 3.9.8, sbt 1.10.0, scala-cli 1.3.2,
    mill 0.11.7, bazel 7.2.0, cfr 0.152, make 3.81, python 3.11.1,
-   jacoco 0.8.12, git 2.45.1, diff 3.10, bash 5.2.26(1)-release
+   jacoco 0.8.12, git 2.45.2, diff 3.10, bash 5.2.26(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.21_9\bin\javac.exe
    C:\opt\scala-2.13.14\bin\scalac.bat
@@ -888,7 +888,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <pre style="font-size:80%;">
 <a href="https://github.com/lihaoyi/mill/releases">0.11.7-assembly</a> (mill)                             <i>( 64 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.14-bin.zip</a>                         <i>(  9 MB)</i>
-<a href="https://maven.apache.org/download.cgi">apache-maven-3.9.6-bin.zip</a>                         <i>( 10 MB)</i>
+<a href="https://maven.apache.org/download.cgi">apache-maven-3.9.8-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-7.2.0-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
 <a href="https://gradle.org/install/">gradle-8.8-bin.zip</a>                                 <i>(124 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.12.zip</a>                                  <i>(  4 MB)</i>
@@ -901,7 +901,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://gluonhq.com/products/javafx/">openjfx-17.0.11_windows-x64_bin-jmods.zip</a>          <i>( 37 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-21.0.3_windows-x64_bin-sdk.zip</a>             <i>( 39 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-21.0.3_windows-x64_bin-jmods.zip</a>           <i>( 37 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.45.1-64-bit.7z.exe</a>                   <i>( 60 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.45.2-64-bit.7z.exe</a>                   <i>( 60 MB)</i>
 <a href="https://github.com/sbt/sbt/releases" rel="external">sbt-1.10.0.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/" rel="external">scala-2.13.14.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://github.com/VirtusLab/scala-cli/releases" rel="external">scala-cli-x86_64-pc-win32.zip</a>                      <i>( 31 MB)</i>
@@ -932,7 +932,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
-[apache_maven_relnotes]: https://maven.apache.org/docs/3.9.6/release-notes.html
+[apache_maven_relnotes]: https://maven.apache.org/docs/3.9.8/release-notes.html
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [bazel_releases]: https://github.com/bazelbuild/bazel/releases
 <!--
@@ -965,7 +965,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [git_bash]: https://www.atlassian.com/git/tutorials/git-bash
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.45.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.45.2.txt
 [github_guides]: https://guides.github.com/
 [github_lampepfl_dotty]: https://github.com/lampepfl/dotty
 [github_markdown]: https://github.github.com/gfm/

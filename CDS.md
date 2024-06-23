@@ -1,4 +1,4 @@
-# <span id="top">Scala 3 and Data Sharing on Windows</span> <span style="size:30%;"><a href="README.md">↩</a></span>
+# <span id="top">Scala 3 and Data Sharing on Windows</span> <span style="font-size:90%;">[↩](README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -19,14 +19,14 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - Data Sharing and Dotty on Windows [**&#9660;**](#bottom)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other trending topics we are currently monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples], [WiX Toolset][wix_examples] and [Zig][zig_examples] are other topics we are currently monitoring.
 
 
 ## <span id="proj_deps">Project dependencies</span>
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.43][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.45][git_downloads] ([*release notes*][git_relnotes])
 - [Scala 3][scala3_releases] ([*release notes*][scala3_relnotes])
 - [Temurin OpenJDK 17 LTS][temurin_openjdk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk17_relnotes], [*bug fixes*][temurin_openjdk17_bugfixes], [Java 17 API][oracle_openjdk17_api])
 <!--
@@ -39,8 +39,8 @@ For instance our development environment looks as follows (*June 2024*):
 
 <pre style="font-size:80%;">
 C:\opt\Git\                     <i>(315 MB)</i>
-C:\opt\jdk-temurin-17.0.9_9\    <i>(302 MB)</i>
-C:\opt\scala3-3.3.2-RC1\        <i>( 57 MB)</i>
+C:\opt\jdk-temurin-17.0.11_9\   <i>(302 MB)</i>
+C:\opt\scala3-3.3.3\            <i>( 57 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_downloads] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -212,20 +212,17 @@ Classes per package (590):
 Let's check the contents of the output directory **`target\`**:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f target | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v "^[A-Z]"</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f target | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v "^[A-Z]"</b>
 |   JavaExample.classlist
 |   JavaExample.jar
 |   JavaExample.jsa
 |   MANIFEST.MF
-|
 +---<b>classes</b>
 |   |   .latest-build
-|   |
 |   \---<b>cdsexamples</b>
 |           JavaExample.classs
 |           ScriptEngineTest.class
 |           VMOptions.class
-|
 \---<b>logs</b>
         log_classlist.log
         log_dump.log
@@ -425,10 +422,8 @@ Finally we can check the contents of the output directory **`target\`**:
 |   DottyExample.jar
 |   DottyExample.jsa
 |   MANIFEST.MF
-|
 +---<b>classes</b>
 |   |   .latest-build
-|   |
 |   \---<b>cdsexamples</b>
 |           Main$.class
 |           Main.class
@@ -439,7 +434,6 @@ Finally we can check the contents of the output directory **`target\`**:
 |           VMOptions$.class
 |           VMOptions.class
 |           VMOptions.tasty
-|
 \---<b>logs</b>
         log_classlist.log
         log_dump.log
@@ -489,12 +483,12 @@ Support files for Java class sharing:
 </pre>
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3_3.1.1\lib\dotty-cds*</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir">dir</a> /b c:\opt\scala3_3.3.3\lib\dotty-cds*</b>
 dotty-cds-compiler.classlist
 dotty-cds-compiler.jsa
 dotty-cds-repl.classlist
 dotty-cds-repl.jsa
-dotty-cds_3-3.1.1.jar
+dotty-cds_3-3.3.3.jar
 </pre>
 
 <pre style="font-size:80%;">
@@ -711,26 +705,26 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 
 <!-- link refs -->
 
-[ada_examples]: https://github.com/michelou/ada-examples
-[akka_examples]: https://github.com/michelou/akka-examples
-[cpp_examples]: https://github.com/michelou/cpp-examples
-[dart_examples]: https://github.com/michelou/dart-examples
-[deno_examples]: https://github.com/michelou/deno-examples
+[ada_examples]: https://github.com/michelou/ada-examples#top
+[akka_examples]: https://github.com/michelou/akka-examples#top
+[cpp_examples]: https://github.com/michelou/cpp-examples#top
+[dart_examples]: https://github.com/michelou/dart-examples#top
+[deno_examples]: https://github.com/michelou/deno-examples#top
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
-[flix_examples]: https://github.com/michelou/flix-examples
+[flix_examples]: https://github.com/michelou/flix-examples#top
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
 [git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.43.0.txt
 [github_markdown]: https://github.github.com/gfm/
-[golang_examples]: https://github.com/michelou/golang-examples
-[graalvm_examples]: https://github.com/michelou/graalvm-examples
-[haskell_examples]: https://github.com/michelou/haskell-examples
+[golang_examples]: https://github.com/michelou/golang-examples#top
+[graalvm_examples]: https://github.com/michelou/graalvm-examples#top
+[haskell_examples]: https://github.com/michelou/haskell-examples#top
 [java_cli]: https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html
 [java_jep_341]: https://openjdk.java.net/jeps/341
 [java_lts]: https://www.oracle.com/technetwork/java/java-se-support-roadmap.html
 [jmh_project]: https://openjdk.java.net/projects/code-tools/jmh/
-[kotlin_examples]: https://github.com/michelou/kotlin-examples
-[llvm_examples]: https://github.com/michelou/llvm-examples
+[kotlin_examples]: https://github.com/michelou/kotlin-examples#top
+[llvm_examples]: https://github.com/michelou/llvm-examples#top
 [man1_awk]: https://www.linux.org/docs/man1/awk.html
 [man1_diff]: https://www.linux.org/docs/man1/diff.html
 [man1_file]: https://www.linux.org/docs/man1/file.html
@@ -740,21 +734,21 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [man1_rmdir]: https://www.linux.org/docs/man1/rmdir.html
 [man1_sed]: https://www.linux.org/docs/man1/sed.html
 [man1_wc]: https://www.linux.org/docs/man1/wc.html
-[nodejs_examples]: https://github.com/michelou/nodejs-examples
+[nodejs_examples]: https://github.com/michelou/nodejs-examples#top
 [oracle_openjdk17_api]: https://docs.oracle.com/en/java/javase/17/docs/api/
 [temurin11_downloads]: https://adoptium.net/?variant=openjdk11&jvmVariant=hotspot
 [temurin11_relnotes]: https://adoptium.net/release_notes.html
-[rust_examples]: https://github.com/michelou/rust-examples
+[rust_examples]: https://github.com/michelou/rust-examples#top
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [scala_2_13]: https://www.scala-lang.org/news/roadmap-2.13.html
 [scala_3]: https://www.scala-lang.org/blog/2018/04/19/scala-3.html
 [scala_downloads]: https://www.scala-lang.org/download/
 [scala3_home]: https://dotty.epfl.ch/
 [scala3_releases]: https://github.com/lampepfl/dotty/releases
-[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.3.1
+[scala3_relnotes]: https://github.com/lampepfl/dotty/releases/tag/3.3.3
 [dotty_tasty]: https://dotty.epfl.ch/docs/reference/metaprogramming/tasty-inspect.html
-[spark_examples]: https://github.com/michelou/spark-examples
-[spring_examples]: https://github.com/michelou/spring-examples
+[spark_examples]: https://github.com/michelou/spark-examples#top
+[spring_examples]: https://github.com/michelou/spring-examples#top
 <!--
 17.0.7  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-April/021899.html
 17.0.8  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024063.html
@@ -763,5 +757,6 @@ We can observe that 24 classes could not be found in the Java shared archive **`
 [temurin_openjdk17]: https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot
 [temurin_openjdk17_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
 [temurin_openjdk17_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026352.html
-[trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
-[wix_examples]: https://github.com/michelou/wix-examples
+[trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples#top
+[wix_examples]: https://github.com/michelou/wix-examples#top
+[zig_examples]: https://github.com/michelou/zig-examples#top

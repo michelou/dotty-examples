@@ -1,6 +1,6 @@
-# <span id="top">Maven Plugins</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
+# <span id="top">Maven Plugins</span> <span style="font-size:90%;">[⬆](../README.md#top)</span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:100px;">
     <a href="https://dotty.epfl.ch/" rel="external"><img style="border:0;width:100px;" src="../docs/images/dotty.png" width="100" alt="Dotty project"/></a>
@@ -25,17 +25,16 @@ This plugin project is adapted from the code example presented in section 11.4 &
 The project is organized as follows:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . |<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
 |   <a href="./first-maven-plugin/00download.txt">00download.txt</a>
 |   <a href="./first-maven-plugin/build.bat">build.bat</a>
 |   <a href="./first-maven-plugin/pom.xml">pom.xml</a>
-|
-+---src
++---<b>src</b>
     \---main
         \---java
             \---org
                 \---sonatype
-                    \---plugins
+                    \---<b>plugins</b>
                              <a href="./first-maven-plugin/src/main/java/org/sonatype/plugins/EchoMojo.java">EchoMojo.java</a>
 </pre>
 
@@ -48,22 +47,21 @@ The plugin project `hello-maven-plugin` is the code example presented in the onl
 The project is organized as follows :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="">tree</a> /a /f . |<a href="">findstr</a> /v /b [A-Z]</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
 |   <a href="./hello-maven-plugin/00download.txt">00download.txt</a>
 |   <a href="./hello-maven-plugin/install-local.bat">install-local.bat</a>
 |   <a href="./hello-maven-plugin/pom.xml">pom.xml</a>
-|
-+---src
-|   \---main
-|       +---java
-|           \---sample
-|               \---plugin
++---<b>src</b>
+|   \---<b>main</b>
+|       +---<b>java</b>
+|           \---<b>sample</b>
+|               \---<b>plugin</b>
 |                       <a href="./hello-maven-plugin/src/main/java/sample/plugin/GreetingMojo.java">GreetingMojo.java</a>
-\---test
+\---<b>test</b>
     |   <a href="./hello-maven-plugin/test/pom.xml">test\pom.xml</a>
-    \---src
-        \---main
-            +---java
+    \---<b>src</b>
+        \---<b>main</b>
+            +---<b>java</b>
                     <a href="./hello-maven-plugin/test/src/main/java/Dummy.java">Dummy.java</a>
 </pre>
 
@@ -85,11 +83,10 @@ The project is organized as follows :
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . |<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
 |   <a href="./scala-maven-plugin/pom.xml">pom.xml</a>
-|
-+---src
-    \---main
-        \---java
-            \---ch
++---<b>src</b>
+    \---<b>main</b>
+        \---<b>java</b>
+            \---<b>ch</b>
                 \---epfl
                     \---alumni
                             <a href="./scala-maven-plugin/src/main/java/ch/epfl/alumni/HelpMojo.java">HelpMojo.java</a>
@@ -129,7 +126,7 @@ Command [**`mvn`** `deploy:deploy-file`][apache_maven_cli] installs the Maven ar
 >
 > The plugin installation should look as follows :
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%USERPROFILE%</a>\.m2\repository\ch\epfl\alumni |<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+> <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f <a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%USERPROFILE%</a>\.m2\repository\ch\epfl\alumni | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
 > \---scala-maven-plugin
 >     |   maven-metadata-remote-repository.xml
 >     |   maven-metadata-remote-repository.xml.sha1
@@ -137,7 +134,6 @@ Command [**`mvn`** `deploy:deploy-file`][apache_maven_cli] installs the Maven ar
 >     |   maven-metadata.xml.md5
 >     |   maven-metadata.xml.sha1
 >     |   resolver-status.properties
->     |
 >     \---1.0.0
 >             scala-maven-plugin-1.0.0.jar
 >             scala-maven-plugin-1.0.0.jar.md5
@@ -159,8 +155,6 @@ Command [**`mvn`** `deploy:deploy-file`][apache_maven_cli] installs the Maven ar
 
 <dl><dd>
 We give here the <code>&lt;plugin></code> section of a POM file.
-</dd>
-<dd>
 <pre style="font-size:80%;">
 <b>&lt;plugin></b>
     <b>&lt;groupId></b>ch.epfl.alumni<b>&lt;/groupId></b>
@@ -170,26 +164,26 @@ We give here the <code>&lt;plugin></code> section of a POM file.
         <b>&lt;execution></b>
             <b>&lt;id></b>scala-compile<b>&lt;/id></b>
             <b>&lt;phase></b>compile<b>&lt;/phase></b>
-            &lt;goals>
+            <b>&lt;goals></b>
                 <b>&lt;goal></b>compile<b>&lt;/goal></b>
             <b>&lt;/goals></b>
             <b>&lt;configuration></b>
                 &lt;additionalClasspathElements>
-                    &lt;additionalClasspathElement>${m2.hamcrest.jar}&lt;/additionalClasspathElement>
-                    &lt;!-- ...more additions.. -->
+                    &lt;additionalClasspathElement><span style="color:darkviolet;">${m2.hamcrest.jar}</span>&lt;/additionalClasspathElement>
+                    <span style="color:green;">&lt;!-- ...more additions.. --></span>
                 <b>&lt;/additionalClasspathElements></b>
-                &lt;includes>
+                <b>&lt;includes></b>
                     <b>&lt;include></b>scala/**/*.scala<b>&lt;/include></b>
-                &lt;/includes>
-                &lt;installDirectory>${env.SCALA3_HOME}</installDirectory>
+                <b>&lt;/includes></b>
+                &lt;installDirectory><span style="color:darkviolet;">${env.SCALA3_HOME}</span>&lt;/installDirectory&gt;
             <b>&lt;/configuration></b>
         <b>&lt;/execution></b>
-        &lt;!-- ...execution of "run" goal... -->
+        <span style="color:green;">&lt;!-- ...execution of "run" goal... --></span>
     <b>&lt;/executions></b>
     <b>&lt;configuration></b>
-        <b>&lt;scalaVersion></b>${scala.version}<b>&lt;/scalaVersion></b>
-        <b>&lt;localInstall></b>${scala.local.install}<b>&lt;/localInstall></b>
-        &lt;!-- &lt;debug>true&lt;/debug> -->
+        <b>&lt;scalaVersion></b><span style="color:darkviolet;">${scala.version}</span><b>&lt;/scalaVersion></b>
+        <b>&lt;localInstall></b><span style="color:darkviolet;">${scala.local.install}</span><b>&lt;/localInstall></b>
+        <span style="color:green;">&lt;!-- &lt;debug>true&lt;/debug> --></span>
         <b>&lt;jvmArgs></b>
             <b>&lt;jvmArg></b>-Xms64m<b>&lt;/jvmArg></b>
             <b>&lt;jvmArg></b>-Xmx1024m<b>&lt;/jvmArg></b>
@@ -237,7 +231,7 @@ We give here the <code>&lt;plugin></code> section of a POM file.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
