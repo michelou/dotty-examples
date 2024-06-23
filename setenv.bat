@@ -205,8 +205,8 @@ set _STRONG_BG_BLUE=[104m
 
 @rem we define _RESET in last position to avoid crazy console output with type command
 set _BOLD=[1m
-set _INVERSE=[7m
 set _UNDERSCORE=[4m
+set _INVERSE=[7m
 set _RESET=[0m
 goto :eof
 
@@ -549,10 +549,10 @@ if defined __SCALAC_CMD (
     set __PATH=C:\opt
     if exist "!__PATH!\scala3\" ( set "_SCALA3_HOME=!__PATH!\scala3"
     ) else (
-        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\scala3-3*" 2^>NUL') do set "_SCALA3_HOME=!__PATH!\%%f"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\scala3-3.3*" 2^>NUL') do set "_SCALA3_HOME=!__PATH!\%%f"
         if not defined _SCALA3_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\scala3-3*" 2^>NUL') do set "_SCALA3_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\scala3-3.3*" 2^>NUL') do set "_SCALA3_HOME=!__PATH!\%%f"
         )
     )
     if defined _SCALA3_HOME (
@@ -1266,7 +1266,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%GIT_HOME%\usr\bin:diff.exe"
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1-3,*" %%i in ('"%GIT_HOME%\usr\bin\diff.exe" --version ^| findstr diff') do set "__VERSIONS_LINE4=%__VERSIONS_LINE4% diff %%l,"
+    for /f "tokens=1-3,*" %%i in ('"%GIT_HOME%\usr\bin\diff.exe" --version ^| findstr diff') do set "__VERSIONS_LINE4=%__VERSIONS_LINE4% diff %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\usr\bin:diff.exe"
 )
 where /q "%GIT_HOME%\bin:bash.exe"
@@ -1285,6 +1285,7 @@ if %__VERBOSE%==1 (
         set "__LINE=%%p"
         setlocal enabledelayedexpansion
         echo    !__LINE:%USERPROFILE%=%%USERPROFILE%%! 1>&2
+        endlocal
     )
     echo Environment variables: 1>&2
     if defined ANT_HOME echo    "ANT_HOME=%ANT_HOME%" 1>&2
@@ -1315,6 +1316,7 @@ if %__VERBOSE%==1 (
         set "__LINE=%%i"
         setlocal enabledelayedexpansion
         echo    !__LINE:%USERPROFILE%=%%USERPROFILE%%! 1>&2
+        endlocal
     )
 )
 goto :eof

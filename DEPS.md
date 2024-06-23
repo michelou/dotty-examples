@@ -1,4 +1,4 @@
-# <span id="top">Scala 3 Dependencies</span> <span style="size:25%;"><a href="README.md">↩</a></span>
+# <span id="top">Scala 3 Dependencies</span> <span style="font-size:90%;">[↩](README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -25,7 +25,7 @@ The [Scala 3](https://www.scala-lang.org/download/scala3.html) and [Scala 2](htt
 > **:mag_right:** We observe a jump in the increases in size of the software distributions : 
 > |  Scala 3  | Release&nbsp;date | Zip&nbsp;archive | Installation |
 > |:----------|:------------:|:-----------:|:------------:|
-> | [**3.4.2**](https://github.com/scala/scala3/releases/tag/3.4.2-RC1) | Mar&nbsp;2024 | 37.3 MB | 29.4 MB |
+> | [**3.4.2**](https://github.com/scala/scala3/releases/tag/3.4.2) | May&nbsp;2024 | 37.3 MB | 29.4 MB |
 > | [3.4.1](https://github.com/scala/scala3/releases/tag/3.4.1)     | Mar&nbsp;2024 | 36.6 MB | |
 > | [3.4.0](https://github.com/scala/scala3/releases/tag/3.4.0)     | Feb&nbsp;2024 | 36.5 MB | |
 > | [3.3.3](https://github.com/scala/scala3/releases/tag/3.3.3)     | Feb&nbsp;2024 | 35.5 MB | 37.5 MB|
@@ -742,6 +742,11 @@ Besides improvements and fixes <code>scala-asm</code> library updates also add s
   <th><a href="https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html">Class&nbsp;file&nbsp;version</a></th>
 </tr>
 <tr>
+  <td><a href="https://asm.ow2.io/versions.html">9.7.0</a></td>
+  <td>23</td>
+  <td><a href="https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/lang/reflect/ClassFileFormatVersion.java#L308" rel="external">67</a></td>
+</tr>
+<tr>
   <td><a href="https://asm.ow2.io/versions.html">9.6.0</a></td>
   <td>22</td>
   <td><a href="https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/lang/reflect/ClassFileFormatVersion.java#L296" rel="external">66</a></td>
@@ -889,7 +894,7 @@ Besides improvements and fixes <code>scala-asm</code> library updates also add s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

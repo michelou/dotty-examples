@@ -1,4 +1,4 @@
-# <span id="top">Scala 3 Resources</span> <span style="size:30%;"><a href="README.md">↩</a></span>
+# <span id="top">Scala 3 Resources</span> <span style="font-size:90%;">[↩](README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -36,7 +36,8 @@
    - [Prototype Loom-based concurrency API for Scala][blog_warski_2] by Adam Warski, February 2023.
    - [A solid checklist for configuring new Scala projects][blog_ciesielski] by Krzysztof Ciesielski, February 2023.
    - [The future of effects in Scala?][blog_warski_1] by Adam Warski, July 2022.
-- [**VIRTUSLAB**][virtuslab] [Scala Blog][blog_virtuslab] :
+- [**VIRTUSLAB**][virtuslab] [Scala News][blog_virtuslab] :
+  - [Scala 3 migration: 7 benefits that outweigh the risks](https://www.virtuslab.com/blog/technology/scala-3-migration-benefits-risks/) by Pawel Marks, &lt;year?&gt;.
   - [How to build a simple Scala application with Bazel](https://www.virtuslab.com/blog/introduction-to-bazel-for-scala-developers/), February 2023.
 - [Databricks Blog][blog_databricks]
    - [Scala at Scale at Databricks](https://databricks.com/blog/2021/12/03/scala-at-scale-at-databricks.html) by Li Haoyi, December 2021.
@@ -55,11 +56,11 @@
    - [Match Types in Scala 3](https://blog.rockthejvm.com/scala-3-match-types/), February 2021.
    - [Enums in Scala 3](https://blog.rockthejvm.com/enums-scala-3/), September 2020.
    - [New Types in Scala 3](https://blog.rockthejvm.com/new-types-scala-3/), September 2020.
-- [Scala Blog](http://www.shivamkapoor.com/blogs/technology/tag/scala/) by Shivan Kapoor:
-  - [Making sense of Functors in Scala](http://www.shivamkapoor.com/blogs/technology/2021/06/04/making-sense-of-functors-in-scala/), June 2021.
-  - [Recursive Descent Parsers in Scala - Part 3](http://www.shivamkapoor.com/blogs/technology/2020/12/06/recursive-descent-parsers-in-scala-3-cross-compiling-scala-parser-library-to-javascript-using-scala-js/), December 2020.
-  - [Recursive Descent Parsers in Scala - Part 2](http://www.shivamkapoor.com/blogs/technology/2020/08/10/recursive-descent-parsers-in-scala-2-build-parser-using-fastparse-parser-combinators/), August 2020.
-  - [Recursive Descent Parsers in Scala - Part 1](http://www.shivamkapoor.com/blogs/technology/2020/06/02/recursive-descent-parsers-in-scala-1-writing-context-free-grammar/), June 2020.
+- [Scala Blog](https://www.shivamkapoor.com/tag/scala/) by Shivan Kapoor:
+  - [Making sense of Functors in Scala][blog_kapoor_functors], June 2021.
+  - [Recursive Descent Parsers in Scala - Part 3][blog_kapoor_parsers3], December 2020.
+  - [Recursive Descent Parsers in Scala - Part 2][blog_kapoor_parsers2], August 2020.
+  - [Recursive Descent Parsers in Scala - Part 1][blog_kapoor_parsers1], June 2020.
 - [Figuring out Scala functional programming libraries](https://blog.softwaremill.com/figuring-out-scala-functional-programming-libraries-af8230efccb4) by Krzysztof Atłasik, March 2021.
 - [Higher-rank and higher-kinded types](https://www.stephanboyer.com/post/115/higher-rank-and-higher-kinded-types) by Stephan Boyer, April 2016.
 - [Sum Types Are Coming: What You Should Know](https://chadaustin.me/2015/07/sum-types/) by Chad Austin, July 2015.
@@ -70,7 +71,7 @@
 - [Beginning Scala 3][book_pollak] (3<sup>rd</sup> Edition) by David Pollak et al, 2022.<br/><span style="font-size:80%;">(Apress, ISBN 978-1-4842-7421-7)
 - [Scala Cookbook][book_alexander] (2<sup>nd</sup> Edition) by Alvin Alexander, August 2021.<br/><span style="font-size:80%;">(O'Reilly, ISBN 978-1-4920-5154-1, 802 pages)</span>
 - [Programming Scala][book_wampler] (3<sup>rd</sup> Edition) by Dean Wampler and Alex Payne, June 2021.<br/><span style="font-size:80%;">(O'Reilly, ISBN 978-1-4920-7789-3)</span>
-- [Programming in Scala](https://www.artima.com/shop/programming_in_scala_5ed) (5<sup>th</sup> Edition) by Martin Odersky et al., May 2021.<br/><span style="font-size:80%;">(<a href="https://www.artima.com/about">Artima Press</a>, ISBN ‎ 978-0-9971-4800-8, 651 pages)</span>
+- [Programming in Scala](https://www.artima.com/shop/programming_in_scala_5ed) (5<sup>th</sup> Edition) by Martin Odersky et al., May 2021.<br/><span style="font-size:80%;">(<a href="https://www.artima.com/about">Artima Press</a>, ISBN 978-0-9971-4800-8, 651 pages)</span>
 - [Hands-on Scala Programming][book_haoyi] by Li Haoyi, July 2020.<br/><span style="font-size:80%;">(Li Haoyli, ISBN 978-9-8114-5693-0, 414 pages)</span>
 - [Essential Scala](https://underscore.io/books/essential-scala/) (v1.3) by Noel Welsh and Dave Gurnell, April 2017.
 - [Introduction to Programming and Problem-Solving Using Scala][book_lewis]  (2<sup>nd</sup> edition) by Mark C. Lewis and Lisa Lacher, August 2016.<br/><span style="font-size:80%;">(CRC Press, ISBN 978-1-4987-3095-2, 590 pages)</span>
@@ -129,7 +130,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -141,6 +142,10 @@
 [article_yadukrishnan]: https://yadukrishnan.live/unlocking-the-power-of-sbt-a-beginners-guide-to-understanding-not-so-common-features
 [blog_47_degrees]: https://www.47deg.com/blog/tags/scala/
 [blog_databricks]: https://databricks.com/blog
+[blog_kapoor_functors]: https://www.shivamkapoor.com/2021/06/04/making-sense-of-functors-in-scala/
+[blog_kapoor_parsers1]: https://www.shivamkapoor.com/2020/06/02/recursive-descent-parsers-in-scala-1-writing-context-free-grammar/
+[blog_kapoor_parsers2]: https://www.shivamkapoor.com/2020/08/10/recursive-descent-parsers-in-scala-2-build-parser-using-fastparse-parser-combinators/
+[blog_kapoor_parsers3]: https://www.shivamkapoor.com/2020/12/06/recursive-descent-parsers-in-scala-3-cross-compiling-scala-parser-library-to-javascript-using-scala-js/
 [blog_nedelcu_enums]: https://alexn.org/blog/2023/05/25/scala-enums/
 [blog_nedelcu_given]: https://alexn.org/blog/2022/05/11/implicit-vs-scala-3-given/
 [blog_nedelcu_ideology1]: https://alexn.org/blog/2022/05/13/oop-vs-type-classes-part-1-ideology/
@@ -151,7 +156,7 @@
 [blog_nedelcu_tracking]: https://alexn.org/blog/2022/05/23/tracking-effects-in-scala/
 [blog_sarradin]: https://univalence.io/blog/articles/scala-3-un-nouveau-langage/
 [blog_warski_2]: https://softwaremill.com/prototype-loom-based-concurrency-api-for-scala/
-[blog_virtuslab]: https://www.virtuslab.com/tag/scala/
+[blog_virtuslab]: https://www.virtuslab.com/blog/tag/scala-news/
 [blog_warski_1]: https://softwaremill.com/the-future-of-effects-in-scala/
 [book_alexander]: https://www.oreilly.com/library/view/scala-cookbook-2nd/9781492051534/
 [book_haoyi]: https://www.handsonscala.com/

@@ -37,7 +37,7 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId>
-        <scala.version>2.13.13</scala.version>
+        <scala.version>2.13.14</scala.version>
         <scala.binary.version>2.13</scala.binary.version>
         <scala3.version>3.3.3</scala3.version>
         <scala.local.install>true</scala.local.install>
@@ -55,9 +55,9 @@
         <!-- Note: Specs2 5.x depends on Scala 3 while Specs2 4.x depends on Scala 2 or Scala 3 -->
         <specs2.version>4.20.2</specs2.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
-        <maven.jar.version>3.4.1</maven.jar.version>
+        <maven.jar.version>3.4.2</maven.jar.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
-        <exec.maven.version>3.2.0</exec.maven.version>
+        <exec.maven.version>3.3.0</exec.maven.version>
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
         <jmh.version>1.37</jmh.version>
