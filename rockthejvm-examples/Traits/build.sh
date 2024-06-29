@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2023 Stéphane Micheloud
+# Copyright (c) 2018-2024 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -101,16 +101,16 @@ help() {
 Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
-    -debug       show commands executed by this script
-    -timer       display total execution time
-    -verbose     display progress messages
+    -debug       print commands executed by this script
+    -timer       print total execution time
+    -verbose     print progress messages
 
   Subcommands:
     clean        delete generated files
     compile      compile Java/Scala source files
     decompile    decompile generated code with CFR
     doc          generate HTML documentation
-    help         display this help message
+    help         print this help message
     lint         analyze Scala source files with Scalafmt
     run          execute main class $MAIN_CLASS
 EOS
@@ -287,7 +287,7 @@ decompile() {
 
     ## output file contains Scala and CFR headers
     local output_file="$TARGET_DIR/cfr-sources$version_suffix.java"
-    echo // Compiled with $version_string > "$output_file"
+    echo "// Compiled with $version_string" > "$output_file"
 
     if $DEBUG; then
         debug "cat $output_dir/*.java >> $output_file"
@@ -443,11 +443,11 @@ EXITCODE=0
 
 ROOT_DIR="$(getHome)"
 
-SOURCE_DIR=$ROOT_DIR/src
-MAIN_SOURCE_DIR=$SOURCE_DIR/main/scala
-TARGET_DIR=$ROOT_DIR/target
-TARGET_DOCS_DIR=$TARGET_DIR/docs
-CLASSES_DIR=$TARGET_DIR/classes
+SOURCE_DIR="$ROOT_DIR/src"
+MAIN_SOURCE_DIR="$SOURCE_DIR/main/scala"
+TARGET_DIR="$ROOT_DIR/target"
+TARGET_DOCS_DIR="$TARGET_DIR/docs"
+CLASSES_DIR="$TARGET_DIR/classes"
 
 CLEAN=false
 COMPILE=false

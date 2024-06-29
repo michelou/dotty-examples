@@ -75,7 +75,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <scalaVersion>3.0.0-RC2</scalaVersion>
+                    <scalaVersion>3.3.3</scalaVersion>
                     <localInstall>true</localInstall>
                     <!-- <debug>true</debug> -->
                     <jvmArgs>

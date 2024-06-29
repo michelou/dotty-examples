@@ -20,7 +20,7 @@ val scalaSourcePath = os.pwd / "src" / "main" / "scala"
 
 val junitVersion = "4.13.2"
 val jupiterVersion = "5.10.2"
-val scalatestVersion = "3.2.18"
+val scalatestVersion = "3.2.19"
 val specs2Version = "5.5.3"
 
 // https://mvnrepository.com/artifact/junit/junit

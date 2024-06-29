@@ -18,6 +18,6 @@ lazy val root = project
 
     libraryDependencies ++= Seq(
       // https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-      "org.scala-lang.modules" %% "scala-xml" % "2.2.0"
+      "org.scala-lang.modules" %% "scala-xml" % "2.3.0"
     ) //.withDottyCompat(scalaVersion.value)
   )
