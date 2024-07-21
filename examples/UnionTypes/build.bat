@@ -120,6 +120,11 @@ set _DIFF_CMD=
 if exist "%GIT_HOME%\usr\bin\diff.exe" (
     set "_DIFF_CMD=%GIT_HOME%\usr\bin\diff.exe" 
 )
+@rem use newer PowerShell version if available
+where /q pwsh.exe
+if %ERRORLEVEL%==0 ( set _PSWH_CMD=pwsh.exe
+) else ( set _PSWH_CMD=powershell.exe
+)
 goto :eof
 
 :env_colors
@@ -198,6 +203,7 @@ if exist "%__PROPS_FILE%" (
     if defined _project_name set _PROJECT_NAME=!_project_name!
     if defined _project_url set _PROJECT_URL=!_project_url!
     if defined _project_version set _PROJECT_VERSION=!_project_version!
+    if defined _scala_version set _SCALA_VERSION=!_scala_version!
 )
 goto :eof
 
@@ -323,7 +329,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Variables  : "SCALA3_HOME=%SCALA3_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : _MAIN_CLASS=%_MAIN_CLASS% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
 )
-if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
+if %_TIMER%==1 for /f "delims=" %%i in ('call "%_PSWH_CMD%" -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
 :help
@@ -379,7 +385,7 @@ goto :eof
 :set_main
 set __ARG=%~1
 set __VALID=0
-for /f %%i in ('powershell -C "$s='%__ARG%'; if($s -match '^[\w$]+(\.[\w$]+)*$'){1}else{0}"') do set __VALID=%%i
+for /f %%i in ('call "%_PSWH_CMD%" -C "$s='%__ARG%'; if($s -match '^[\w$]+(\.[\w$]+)*$'){1}else{0}"') do set __VALID=%%i
 @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% __ARG=%__ARG% __VALID=%__VALID% 1>&2
 if %__VALID%==0 (
     echo %_ERROR_LABEL% Invalid class name passed to option "-main" ^(%__ARG%^) 1>&2
@@ -561,7 +567,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURC
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
@@ -587,11 +593,11 @@ goto action_path
 
 :action_next
 set __TARGET_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`call "%_PSWH_CMD%" -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
      set __TARGET_TIMESTAMP=%%i
 )
 set __SOURCE_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -recurse -path %__PATH_ARRAY% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`call "%_PSWH_CMD%" -c "gci -recurse -path %__PATH_ARRAY% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
     set __SOURCE_TIMESTAMP=%%i
 )
 call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
@@ -605,6 +611,7 @@ if %_DEBUG%==1 (
 )
 goto :eof
 
+@rem input parameters: %1=file timestamp 1, %2=file timestamp 2
 @rem output parameter: _NEWER
 :newer
 set __TIMESTAMP1=%~1
@@ -667,7 +674,7 @@ for /f "tokens=1-3,4,*" %%i in ('"%_SCALAC_CMD%" -version 2^>^&1') do (
     set "_VERSION_STRING=scala%_SCALA_VERSION%_%%l"
 )
 @rem keep only "-NIGHTLY" in version suffix when compiling with a nightly build 
-for /f "usebackq" %%i in (`powershell -c "$s='%_VERSION_STRING%';$i=$s.indexOf('NIGHTLY',0);$j=$s.indexOf('SNAPSHOT');if($i -gt 0){$s.substring(0, $i+7)}elseif($j -gt 0){$s.substring(0, $j+8)}else{$s}"`) do (
+for /f "usebackq" %%i in (`call "%_PSWH_CMD%" -c "$s='%_VERSION_STRING%';$i=$s.indexOf('NIGHTLY',0);$j=$s.indexOf('SNAPSHOT');if($i -gt 0){$s.substring(0, $i+7)}elseif($j -gt 0){$s.substring(0, $j+8)}else{$s}"`) do (
     set _VERSION_SUFFIX=_%%i
 )
 goto :eof
@@ -691,7 +698,7 @@ if %_VERBOSE%==1 echo Decompile Java bytecode to directory "!__OUTPUT_DIR:%_ROOT
 for %%i in (%__CLASS_DIRS%) do (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_CFR_CMD%" %__CFR_OPTS% "%%i\*.class" 1>&2
     call "%_CFR_CMD%" %__CFR_OPTS% "%%i"\*.class %_STDERR_REDIRECT%
-    if not errorlevel 0 (
+    if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Failed to decompile generated code in directory "%%i" 1>&2
         set _EXITCODE=1
         goto :eof
@@ -727,7 +734,7 @@ if exist "%__CHECK_FILE%" (
     ) else if %_VERBOSE%==1 ( echo Compare output file with check file "!__CHECK_FILE:%_ROOT_DIR%=!" 1>&2
     )
     call "%_DIFF_CMD%" %__DIFF_OPTS% "%__OUTPUT_FILE%" "%__CHECK_FILE%"
-    if not errorlevel 0 (
+    if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Output file and check file differ 1>&2
         set _EXITCODE=1
         goto :eof
@@ -808,7 +815,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS%
 ) else if %_VERBOSE%==1 ( echo Execute Scala main class "%_MAIN_CLASS%" ^(compiled from TASTy^) 1>&2
 )
 call "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to execute Scala main class "%_MAIN_CLASS%" ^(compiled from TASTy^) 1>&2
     set _EXITCODE=1
     goto :eof
@@ -834,7 +841,7 @@ set __CLASS_FILES=
 for /f "delims=" %%f in ('dir /s /b "%_CLASSES_DIR%\*.class" 2^>NUL') do (
     set __CLASS_FILES=!__CLASS_FILES! "%%f"
 )
-for %%f in ("%_CLASSES_DIR%\.") do set "__INSTR_CLASSES_DIR=%%~dpfinstrumented-classes"
+for /f "delims=" %%f in ("%_CLASSES_DIR%\.") do set "__INSTR_CLASSES_DIR=%%~dpfinstrumented-classes"
 if not exist "!__INSTR_CLASSES_DIR!" mkdir "!__INSTR_CLASSES_DIR!"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" instrument --quiet --dest "!__INSTR_CLASSES_DIR!" %__CLASS_FILES% 1>&2
@@ -873,6 +880,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" re
 )
 call "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" report "%__EXEC_FILE%" --classfiles "%_CLASSES_DIR%" --encoding UTF8 --html "%__TARGET_HTML_DIR%" --name "%_PROJECT_NAME%" --quiet --sourcefiles "%_MAIN_SOURCE_DIR%"
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to generate HTML report in directory "!__TARGET_HTML_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -938,10 +946,11 @@ for /f "usebackq" %%f in (`dir /s /b "%_TEST_CLASSES_DIR%\*JUnitTest.class" 2^>N
     ) else ( set "__MAIN_CLASS=%%~nf"
     )
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
-    ) else if %_VERBOSE%==1 ( echo Execute test !__MAIN_CLASS! 1>&2
+    ) else if %_VERBOSE%==1 ( echo Execute test "!__MAIN_CLASS!" 1>&2
     )
     call "%_JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS!
-    if not errorlevel 0 (
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to execute test "!__MAIN_CLASS!" 1>&2
         set _EXITCODE=1
         goto :eof
     )
@@ -953,7 +962,7 @@ goto :eof
 set __START=%~1
 set __END=%~2
 
-for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
+for /f "delims=" %%i in ('call "%_PSWH_CMD%" -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
 goto :eof
 
 @rem #########################################################################
@@ -961,7 +970,7 @@ goto :eof
 
 :end
 if %_TIMER%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
+    for /f "delims=" %%i in ('call "%_PSWH_CMD%" -c "(Get-Date)"') do set __TIMER_END=%%i
     call :duration "%_TIMER_START%" "!__TIMER_END!"
     echo Total execution time: !_DURATION! 1>&2
 )

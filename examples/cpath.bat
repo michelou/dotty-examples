@@ -13,6 +13,11 @@ if %_DEBUG%==1 echo [%~n0] "_MVN_CMD=%_MVN_CMD%"
 if %_DEBUG%==1 ( set _MVN_OPTS=
 ) else ( set _MVN_OPTS=--quiet
 )
+@rem use newer PowerShell version if available
+where /q pwsh.exe
+if %ERRORLEVEL%==0 ( set _PSWH_CMD=pwsh.exe
+) else ( set _PSWH_CMD=powershell.exe
+)
 set _CENTRAL_REPO=https://repo1.maven.org/maven2
 set "_LOCAL_REPO=%USERPROFILE%\.m2\repository"
 
@@ -48,7 +53,7 @@ call :add_jar "org.hamcrest" "hamcrest" "2.2"
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all
 call :add_jar "org.hamcrest" "hamcrest-all" "1.3"
 
-set __SCALATEST_VERSION=3.2.18
+set __SCALATEST_VERSION=3.2.19
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
@@ -68,11 +73,11 @@ call :add_jar "org.scalatest" "scalatest_3" "%__SCALATEST_VERSION%"
 @rem https://mvnrepository.com/artifact/org.scalactic
 call :add_jar "org.scalactic" "scalactic_3" "%__SCALATEST_VERSION%"
 
-set __SPECS2_VERSION=5.5.1
+set __SPECS2_VERSION=5.5.3
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
 @rem NB. dependency of specs2
-call :add_jar "org.scala-lang" "scala-reflect" "2.13.13"
+call :add_jar "org.scala-lang" "scala-reflect" "2.13.14"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-core
 call :add_jar "org.specs2" "specs2-core_3" "%__SPECS2_VERSION%"
@@ -90,7 +95,7 @@ call :add_jar "org.specs2" "specs2-matcher_3" "%__SPECS2_VERSION%"
 call :add_jar "org.specs2" "specs2-fp_3" "%__SPECS2_VERSION%"
 
 @rem https://mvnrepository.com/artifact/com.chuusai/shapeless
-call :add_jar "com.chuusai" "shapeless_%__SCALA_BINARY_VERSION%" "2.3.10"
+call :add_jar "com.chuusai" "shapeless_%__SCALA_BINARY_VERSION%" "2.3.12"
 
 @rem https://mvnrepository.com/artifact/eu.timepit/refined
 call :add_jar "eu.timepit" "refined_3" "0.11.0"
@@ -118,10 +123,10 @@ if not exist "%__JAR_FILE%" (
     set __JAR_URL=%_CENTRAL_REPO%/%__GROUP_ID:.=/%/%__ARTIFACT_ID%/%__VERSION%/%__JAR_NAME%
     set "__JAR_FILE=%_TEMP_DIR%\%__JAR_NAME%"
     if not exist "!__JAR_FILE!" (
-        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri '!__JAR_URL!' -Outfile '!__JAR_FILE!'" 1>&2
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% call "%_PSWH_CMD%" -c "Invoke-WebRequest -Uri '!__JAR_URL!' -Outfile '!__JAR_FILE!'" 1>&2
         ) else if %_VERBOSE%==1 ( echo Download file "%__JAR_NAME%" to directory "!_TEMP_DIR:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
         )
-        powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri '!__JAR_URL!' -Outfile '!__JAR_FILE!'"
+        call "%_PSWH_CMD%" -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri '!__JAR_URL!' -Outfile '!__JAR_FILE!'"
         if not !ERRORLEVEL!==0 (
             echo %_ERROR_LABEL% Failed to download file "%__JAR_NAME%" 1>&2
             set _EXITCODE=1

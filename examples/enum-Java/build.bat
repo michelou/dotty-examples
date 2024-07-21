@@ -76,6 +76,10 @@ set "_SCALA3=%SCALA3_HOME%\bin\scala.bat"
 set "_SCALAC3=%SCALA3_HOME%\bin\scalac.bat"
 set "_SCALADOC3=%SCALA3_HOME%\bin\scaladoc.bat"
 
+set _SCALA_CLI_CMD=
+if defined SCALA_CLI_HOME if exist "%SCALA_CLI_HOME%\scala-cli.exe" (
+    set "_SCALA_CLI_CMD=%SCALA_CLI_HOME%\scala-cli.exe"
+)
 set _SCALAFMT_CMD=
 if exist "%LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat" (
     set "_SCALAFMT_CMD=%LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat"
@@ -91,15 +95,16 @@ set _DIFF_CMD=
 if exist "%GIT_HOME%\usr\bin\diff.exe" (
     set "_DIFF_CMD=%GIT_HOME%\usr\bin\diff.exe" 
 )
+@rem use newer PowerShell version if available
+where /q pwsh.exe
+if %ERRORLEVEL%==0 ( set _PSWH_CMD=pwsh.exe
+) else ( set _PSWH_CMD=powershell.exe
+)
 goto :eof
 
 :env_colors
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-set _RESET=[0m
-set _BOLD=[1m
-set _UNDERSCORE=[4m
-set _INVERSE=[7m
 
 @rem normal foreground colors
 set _NORMAL_FG_BLACK=[30m
@@ -137,6 +142,12 @@ set _STRONG_BG_RED=[101m
 set _STRONG_BG_GREEN=[102m
 set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
+
+@rem we define _RESET in last position to avoid crazy console output with type command
+set _BOLD=[1m
+set _UNDERSCORE=[4m
+set _INVERSE=[7m
+set _RESET=[0m
 goto :eof
 
 @rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
@@ -178,6 +189,7 @@ goto :eof
 set _COMMANDS=
 set _MAIN_CLASS=%_MAIN_CLASS_DEFAULT%
 set _MAIN_ARGS=%_MAIN_ARGS_DEFAULT%
+set _SCALA_CLI=
 set _SCALA_VERSION=%_SCALA_VERSION_DEFAULT%
 set _SCALAC_OPTS_EXPLAIN=0
 set _SCALAC_OPTS_EXPLAIN_TYPES=0
@@ -194,7 +206,8 @@ if not defined __ARG (
 )
 if "%__ARG:~0,1%"=="-" (
     @rem option
-    if "%__ARG%"=="-debug" ( set _DEBUG=1
+    if "%__ARG%"=="-cli" ( set _SCALA_CLI=_cli
+    ) else if "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if "%__ARG%"=="-explain" ( set _SCALAC_OPTS_EXPLAIN=1
     ) else if "%__ARG%"=="-explain-types" ( set _SCALAC_OPTS_EXPLAIN_TYPES=1
     ) else if "%__ARG%"=="-help" ( set _HELP=1
@@ -257,8 +270,8 @@ if not "%_COMMANDS:lint=%"=="%_COMMANDS%" (
     )
 )
 if not "%_COMMANDS:run_instrumented=%"=="%_COMMANDS%" if not exist "%JACOCO_HOME%\lib\jacococli.jar" (
-   echo %_WARNING_LABEL% JaCoCo installation not found 1>&2
-   set _COMMANDS=%_COMMANDS:run_instrumented=%
+    echo %_WARNING_LABEL% JaCoCo installation not found 1>&2
+    set _COMMANDS=%_COMMANDS:run_instrumented=%
 )
 set "_SCALA_CMD=!_SCALA%_SCALA_VERSION%!"
 set "_SCALAC_CMD=!_SCALAC%_SCALA_VERSION%!"
@@ -288,11 +301,12 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Subcommands: %_COMMANDS% 1>&2
     if defined _CFR_CMD echo %_DEBUG_LABEL% Variables  : "CFR_HOME=%CFR_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "JAVA_HOME=%JAVA_HOME%" 1>&2
+    if defined _SCALA_CLI_CMD echo %_DEBUG_LABEL% Variables  : "SCALA_CLI_HOME=%SCALA_CLI_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "SCALA_HOME=%SCALA_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "SCALA3_HOME=%SCALA3_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : _MAIN_CLASS=%_MAIN_CLASS% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
 )
-if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
+if %_TIMER%==1 for /f "delims=" %%i in ('call "%_PSWH_CMD%" -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
 :help
@@ -318,11 +332,11 @@ echo     %__BEG_O%-print%__END%           print IR after compilation phase 'lamb
 echo     %__BEG_O%-scala2%__END%          use Scala 2 tools
 echo     %__BEG_O%-scala3%__END%          use Scala 3 tools ^(default^)
 echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
-echo     %__BEG_O%-timer%__END%           print total exection time
+echo     %__BEG_O%-timer%__END%           print total execution time
 echo     %__BEG_O%-verbose%__END%         print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
-echo     %__BEG_O%clean%__END%            delete generated class files
+echo     %__BEG_O%clean%__END%            delete generated files
 echo     %__BEG_O%compile%__END%          compile Java/Scala source files
 echo     %__BEG_O%decompile%__END%        decompile generated code with %__BEG_N%CFR%__END%
 echo     %__BEG_O%doc%__END%              generate HTML documentation
@@ -334,7 +348,7 @@ echo.
 echo   %__BEG_P%Properties:%__END%
 echo   ^(to be defined in SBT configuration file %__BEG_O%project\build.properties%__END%^)
 echo     %__BEG_O%main.class%__END%       alternative to option %__BEG_O%-main%__END%
-echo     %__BEG_O%main.args%__END%        list of arguments to be passed to main class
+echo     %__BEG_O%main.args%__END%        list of arguments to be passed to main class "%_MAIN_CLASS%"
 if %_VERBOSE%==0 goto :eof
 echo.
 echo   %__BEG_P%Build tools:%__END%
@@ -347,7 +361,7 @@ goto :eof
 :set_main
 set __ARG=%~1
 set __VALID=0
-for /f %%i in ('powershell -C "$s='%__ARG%'; if($s -match '^[\w$]+(\.[\w$]+)*$'){1}else{0}"') do set __VALID=%%i
+for /f %%i in ('call "%_PSWH_CMD%" -C "$s='%__ARG%'; if($s -match '^[\w$]+(\.[\w$]+)*$'){1}else{0}"') do set __VALID=%%i
 @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% __ARG=%__ARG% __VALID=%__VALID% 1>&2
 if %__VALID%==0 (
     echo %_ERROR_LABEL% Invalid class name passed to option "-main" ^(%__ARG%^) 1>&2
@@ -358,10 +372,35 @@ set _MAIN_CLASS=%__ARG%
 goto :eof
 
 :clean
+if defined _SCALA_CLI (
+    call :clean_cli
+    goto :eof
+)
 call :rmdir "%_TARGET_DIR%"
 @rem mill -> out\, sbt -> project\target\
 call :rmdir "%_ROOT_DIR%out"
 call :rmdir "%_ROOT_DIR%project\target"
+if exist "%_ROOT_DIR%hotspot_pid*.log" del /q "%_ROOT_DIR%hotspot_pid*.log"
+@rem https://romanowski.github.io/scala-cli/docs/guides/internals/#scala-build-directory
+for /f "delims=" %%f in ('dir /ad /b /s "%_SOURCE_DIR%" ^| findstr /e ".scala-build" 2^>NUL') do (
+    call :rmdir "%%f"
+)
+goto :eof
+
+:clean_cli
+set __CLI_OPTS=
+if %_DEBUG%==1 ( set __CLI_OPTS=-v %__SCALA_CLI_OPTS%
+) else if %_VERBOSE%==1 ( set __CLI_OPTS=-v %__SCALA_CLI_OPTS%
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CLI_CMD%" clean %__CLI_OPTS% "%_MAIN_SOURCE_DIR%" 1>&2
+) else if %_VERBOSE%==1 ( echo Clean project 1>&2
+)
+call "%_SCALA_CLI_CMD%" clean %__CLI_OPTS% "%_MAIN_SOURCE_DIR%"
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to clean project 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 goto :eof
 
 @rem input parameter: %1=directory path
@@ -388,13 +427,17 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_MAIN
 )
 call "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_MAIN_SOURCE_DIR%\"
 if not %ERRORLEVEL%==0 (
-    echo %_DEBUG_LABEL% Failed to analyze Scala source files with Scalafmt 1>&2
+    echo %_ERROR_LABEL% Failed to analyze Scala source files with Scalafmt 1>&2
     set _EXITCODE=1
     goto :eof
 )
 goto :eof
 
 :compile
+if defined _SCALA_CLI (
+    call :compile_cli
+    goto :eof
+)
 if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 
 set "__TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build"
@@ -423,6 +466,25 @@ if %_ACTION_REQUIRED%==1 (
     if not !_EXITCODE!==0 goto :eof
 )
 echo. > "%__TASTY_TIMESTAMP_FILE%"
+goto :eof
+
+:compile_cli
+if %_SCALA_VERSION%==2 ( set __CLI_OPTS=--scala 2.13
+) else ( set __CLI_OPTS=--scala 3
+)
+set __CLI_OPTS=-O -deprecation %__CLI_OPTS%
+if %_DEBUG%==1 ( set __CLI_OPTS=-v %__CLI_OPTS%
+) else if %_VERBOSE%==1 ( set __CLI_OPTS=-v %__CLI_OPTS%
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CLI_CMD%" compile %__CLI_OPTS% "%_MAIN_SOURCE_DIR%" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile Scala source files in directory "!_SOURCE_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_SCALA_CLI_CMD%" compile %__CLI_OPTS% "%_MAIN_SOURCE_DIR%"
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to compile Scala source files in directory "!_SOURCE_DIR:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 goto :eof
 
 :compile_java
@@ -517,7 +579,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURC
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
-if not !ERRORLEVEL!==0 (
+if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TASTY_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
@@ -541,11 +603,11 @@ goto action_path
 
 :action_next
 set __TARGET_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`call "%_PSWH_CMD%" -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
      set __TARGET_TIMESTAMP=%%i
 )
 set __SOURCE_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -recurse -path '%__PATH_ARRAY:~1%' -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`call "%_PSWH_CMD%" -c "gci -recurse -path '%__PATH_ARRAY:~1%' -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
     set __SOURCE_TIMESTAMP=%%i
 )
 call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
@@ -622,7 +684,7 @@ for /f "tokens=1-3,4,*" %%i in ('"%_SCALAC_CMD%" -version 2^>^&1') do (
     set "_VERSION_STRING=scala%_SCALA_VERSION%_%%l"
 )
 @rem keep only "-NIGHTLY" in version suffix when compiling with a nightly build 
-for /f "usebackq" %%i in (`powershell -c "$s='%_VERSION_STRING%';$i=$s.indexOf('NIGHTLY',0);$j=$s.indexOf('SNAPSHOT');if($i -gt 0){$s.substring(0, $i+7)}elseif($j -gt 0){$s.substring(0, $j+8)}else{$s}"`) do (
+for /f "usebackq" %%i in (`call "%_PSWH_CMD%" -c "$s='%_VERSION_STRING%';$i=$s.indexOf('NIGHTLY',0);$j=$s.indexOf('SNAPSHOT');if($i -gt 0){$s.substring(0, $i+7)}elseif($j -gt 0){$s.substring(0, $j+8)}else{$s}"`) do (
     set _VERSION_SUFFIX=_%%i
 )
 goto :eof
@@ -764,7 +826,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS%
 ) else if %_VERBOSE%==1 ( echo Execute Scala main class "%_MAIN_CLASS%" ^(compiled from TASTy^) 1>&2
 )
 call "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
-if not !ERRORLEVEL!==0 (
+if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to execute Scala main class "%_MAIN_CLASS%" ^(compiled from TASTy^) 1>&2
     set _EXITCODE=1
     goto :eof
@@ -790,7 +852,7 @@ set __CLASS_FILES=
 for /f "delims=" %%f in ('dir /s /b "%_CLASSES_DIR%\*.class" 2^>NUL') do (
     set __CLASS_FILES=!__CLASS_FILES! "%%f"
 )
-for %%f in ("%_CLASSES_DIR%\.") do set "__INSTR_CLASSES_DIR=%%~dpfinstrumented-classes"
+for /f "delims=" %%f in ("%_CLASSES_DIR%\.") do set "__INSTR_CLASSES_DIR=%%~dpfinstrumented-classes"
 if not exist "!__INSTR_CLASSES_DIR!" mkdir "!__INSTR_CLASSES_DIR!"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" instrument --quiet --dest "!__INSTR_CLASSES_DIR!" %__CLASS_FILES% 1>&2
@@ -802,7 +864,7 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 set __LIBS_CPATH=
-for %%f in ("%SCALA3_HOME%\lib\*.jar") do (
+for /f "delims=" %%f in ("%SCALA3_HOME%\lib\*.jar") do (
     set "__JAR_FILE=%%~nxf"
     if "!__JAR_FILE:~0,5!"=="dotty" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
     ) else if "!__JAR_FILE:~0,5!"=="tasty" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
@@ -829,6 +891,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" re
 )
 call "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" report "%__EXEC_FILE%" --classfiles "%_CLASSES_DIR%" --encoding UTF8 --html "%__TARGET_HTML_DIR%" --name "%_PROJECT_NAME%" --quiet --sourcefiles "%_MAIN_SOURCE_DIR%"
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to generate HTML report in directory "!__TARGET_HTML_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -909,7 +972,7 @@ goto :eof
 set __START=%~1
 set __END=%~2
 
-for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
+for /f "delims=" %%i in ('call "%_PSWH_CMD%" -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
 goto :eof
 
 @rem #########################################################################
@@ -917,7 +980,7 @@ goto :eof
 
 :end
 if %_TIMER%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
+    for /f "delims=" %%i in ('call "%_PSWH_CMD%" -c "(Get-Date)"') do set __TIMER_END=%%i
     call :duration "%_TIMER_START%" "!__TIMER_END!"
     echo Total execution time: !_DURATION! 1>&2
 )
