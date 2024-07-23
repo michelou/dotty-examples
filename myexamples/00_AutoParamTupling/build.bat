@@ -75,7 +75,7 @@ set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
-set "_MAIN_SOURCE_DIR=%_SOURCE_DIR%\main\scala"
+set "_SOURCE_MAIN_DIR=%_SOURCE_DIR%\main\scala"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_CLASSES_DIR=%_TARGET_DIR%\classes"
 set "_TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes"
@@ -130,8 +130,8 @@ if exist "%GIT_HOME%\usr\bin\diff.exe" (
 )
 @rem use newer PowerShell version if available
 where /q pwsh.exe
-if %ERRORLEVEL%==0 ( set _PSWH_CMD=pwsh.exe
-) else ( set _PSWH_CMD=powershell.exe
+if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
+) else ( set _PWSH_CMD=powershell.exe
 )
 goto :eof
 
@@ -273,7 +273,7 @@ if "%__ARG:~0,1%"=="-" (
     if "%__ARG%"=="clean" ( set _CLEAN=1
     ) else if "%__ARG%"=="compile" ( set _COMPILE=1
     ) else if "%__ARG%"=="decompile" ( set _COMPILE=1& set _DECOMPILE=1
-    ) else if "%__ARG%"=="doc" ( set _DOC=1
+    ) else if "%__ARG%"=="doc" ( set _COMPILE=1& set _DOC=1
     ) else if "%__ARG%"=="help" ( set _HELP=1
     ) else if "%__ARG%"=="hilite" ( set _HILITE_ME=1
     ) else if "%__ARG%"=="lint" ( set _LINT=1
@@ -295,7 +295,7 @@ if %_DEBUG%==1 set _STDERR_REDIRECT=
 
 if %_COMPILE%==1 if %_SCALA_VERSION%==2 if exist "%_SOURCE_DIR%\main\scala2" (
     @rem overwrite main source directory if Scala 2/3 sources differ 
-    set "_MAIN_SOURCE_DIR=%_SOURCE_DIR%\main\scala2"
+    set "_SOURCE_MAIN_DIR=%_SOURCE_DIR%\main\scala2"
 )
 if %_DECOMPILE%==1 if not defined _CFR_CMD (
     echo %_WARNING_LABEL% cfr installation not found 1>&2
@@ -344,7 +344,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Variables  : "SCALA3_HOME=%SCALA3_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : _MAIN_CLASS=%_MAIN_CLASS% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
 )
-if %_TIMER%==1 for /f "delims=" %%i in ('call "%_PSWH_CMD%" -c "(Get-Date)"') do set _TIMER_START=%%i
+if %_TIMER%==1 for /f "delims=" %%i in ('call "%_PWSH_CMD%" -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
 :help
@@ -400,7 +400,7 @@ goto :eof
 :set_main
 set __ARG=%~1
 set __VALID=0
-for /f %%i in ('call "%_PSWH_CMD%" -C "$s='%__ARG%'; if($s -match '^[\w$]+(\.[\w$]+)*$'){1}else{0}"') do set __VALID=%%i
+for /f %%i in ('call "%_PWSH_CMD%" -C "$s='%__ARG%'; if($s -match '^[\w$]+(\.[\w$]+)*$'){1}else{0}"') do set __VALID=%%i
 @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% __ARG=%__ARG% __VALID=%__VALID% 1>&2
 if %__VALID%==0 (
     echo %_ERROR_LABEL% Invalid class name passed to option "-main" ^(%__ARG%^) 1>&2
@@ -415,6 +415,7 @@ if defined _SCALA_CLI (
     call :clean_cli
     goto :eof
 )
+call :rmdir "%_ROOT_DIR%project\target"
 call :rmdir "%_TARGET_DIR%"
 @rem mill -> out\, sbt -> project\target\
 call :rmdir "%_ROOT_DIR%out"
@@ -431,10 +432,10 @@ set __CLI_OPTS=
 if %_DEBUG%==1 ( set __CLI_OPTS=-v %__SCALA_CLI_OPTS%
 ) else if %_VERBOSE%==1 ( set __CLI_OPTS=-v %__SCALA_CLI_OPTS%
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CLI_CMD%" clean %__CLI_OPTS% "%_MAIN_SOURCE_DIR%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CLI_CMD%" clean %__CLI_OPTS% "%_SOURCE_MAIN_DIR%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Clean project 1>&2
 )
-call "%_SCALA_CLI_CMD%" clean %__CLI_OPTS% "%_MAIN_SOURCE_DIR%"
+call "%_SCALA_CLI_CMD%" clean %__CLI_OPTS% "%_SOURCE_MAIN_DIR%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to clean project 1>&2
     set _EXITCODE=1
@@ -461,10 +462,10 @@ goto :eof
 set __SCALAFMT_OPTS=--test --config "%_SCALAFMT_CONFIG_FILE%"
 if %_DEBUG%==1 set __SCALAFMT_OPTS=--debug %__SCALAFMT_OPTS%
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_MAIN_SOURCE_DIR%\" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_SOURCE_MAIN_DIR%\" 1>&2
 ) else if %_VERBOSE%==1 ( echo Analyze Scala source files with Scalafmt 1>&2
 )
-call "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_MAIN_SOURCE_DIR%\"
+call "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_SOURCE_MAIN_DIR%\"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to analyze Scala source files with Scalafmt 1>&2
     set _EXITCODE=1
@@ -486,7 +487,7 @@ if %_ACTION_REQUIRED%==1 (
     call :compile_java
     if not !_EXITCODE!==0 goto :eof
 )
-call :action_required "%__TIMESTAMP_FILE%" "%_MAIN_SOURCE_DIR%\*.scala"
+call :action_required "%__TIMESTAMP_FILE%" "%_SOURCE_MAIN_DIR%\*.scala"
 if %_ACTION_REQUIRED%==1 (
     call :compile_scala
     if not !_EXITCODE!==0 goto :eof
@@ -515,10 +516,10 @@ set __CLI_OPTS=-O -deprecation %__CLI_OPTS%
 if %_DEBUG%==1 ( set __CLI_OPTS=-v %__CLI_OPTS%
 ) else if %_VERBOSE%==1 ( set __CLI_OPTS=-v %__CLI_OPTS%
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CLI_CMD%" compile %__CLI_OPTS% "%_MAIN_SOURCE_DIR%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CLI_CMD%" compile %__CLI_OPTS% "%_SOURCE_MAIN_DIR%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile Scala source files in directory "!_SOURCE_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%_SCALA_CLI_CMD%" compile %__CLI_OPTS% "%_MAIN_SOURCE_DIR%"
+call "%_SCALA_CLI_CMD%" compile %__CLI_OPTS% "%_SOURCE_MAIN_DIR%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile Scala source files in directory "!_SOURCE_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
@@ -569,7 +570,7 @@ echo %_SCALAC_OPTS% -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__O
 set "__SOURCES_FILE=%_TARGET_DIR%\scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
-for /f "delims=" %%f in ('dir /s /b "%_MAIN_SOURCE_DIR%\*.scala" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_SOURCE_MAIN_DIR%\*.scala" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
@@ -647,11 +648,11 @@ goto action_path
 
 :action_next
 set __TARGET_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`call "%_PSWH_CMD%" -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
      set __TARGET_TIMESTAMP=%%i
 )
 set __SOURCE_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`call "%_PSWH_CMD%" -c "gci -recurse -path '%__PATH_ARRAY%' -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -recurse -path '%__PATH_ARRAY%' -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
     set __SOURCE_TIMESTAMP=%%i
 )
 call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
@@ -728,7 +729,7 @@ for /f "tokens=1-3,4,*" %%i in ('"%_SCALAC_CMD%" -version 2^>^&1') do (
     set "_VERSION_STRING=scala%_SCALA_VERSION%_%%l"
 )
 @rem keep only "-NIGHTLY" in version suffix when compiling with a nightly build 
-for /f "usebackq" %%i in (`call "%_PSWH_CMD%" -c "$s='%_VERSION_STRING%';$i=$s.indexOf('NIGHTLY',0);$j=$s.indexOf('SNAPSHOT');if($i -gt 0){$s.substring(0, $i+7)}elseif($j -gt 0){$s.substring(0, $j+8)}else{$s}"`) do (
+for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "$s='%_VERSION_STRING%';$i=$s.indexOf('NIGHTLY',0);$j=$s.indexOf('SNAPSHOT');if($i -gt 0){$s.substring(0, $i+7)}elseif($j -gt 0){$s.substring(0, $j+8)}else{$s}"`) do (
     set _VERSION_SUFFIX=_%%i
 )
 goto :eof
@@ -835,7 +836,7 @@ if defined _SCALA_CLI (
     call :run_cli
     goto :eof
 )
-call :run_common 0
+call :run_common
 goto :eof
 
 :run_cli
@@ -848,10 +849,10 @@ if %_DEBUG%==1 ( set __CLI_OPTS=-v %__CLI_OPTS%
 )
 set __MAIN_ARGS=-- 1
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CLI_CMD%" run %__CLI_OPTS% "%_MAIN_SOURCE_DIR%" %__MAIN_ARGS% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CLI_CMD%" run %__CLI_OPTS% "%_SOURCE_MAIN_DIR%" %__MAIN_ARGS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute Scala main class "%_MAIN_CLASS%" 1>&2
 )
-call "%_SCALA_CLI_CMD%" run %__CLI_OPTS% "%_MAIN_SOURCE_DIR%" %__MAIN_ARGS%
+call "%_SCALA_CLI_CMD%" run %__CLI_OPTS% "%_SOURCE_MAIN_DIR%" %__MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to execute Scala main class "%_MAIN_CLASS%" 1>&2
     set _EXITCODE=1
@@ -859,7 +860,6 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-@rem input parameter: %1=diagnostic=0/1
 :run_common
 set "__MAIN_CLASS_FILE=%_CLASSES_DIR%\%_MAIN_CLASS:.=\%.class"
 if not exist "%__MAIN_CLASS_FILE%" (
@@ -933,6 +933,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" in
 )
 call "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" instrument --quiet --dest "!__INSTR_CLASSES_DIR!" %__CLASS_FILES%
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to instrument Java class files 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -959,17 +960,19 @@ if not %ERRORLEVEL%==0 (
 set "__TARGET_HTML_DIR=%_TARGET_DIR%\instrumented-html"
 if not exist "%__TARGET_HTML_DIR%\" mkdir "%__TARGET_HTML_DIR%" 1>NUL
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" report "%__EXEC_FILE%" --classfiles "%_CLASSES_DIR%" --encoding UTF8 --html "%__TARGET_HTML_DIR%" --name "%_PROJECT_NAME%" --quiet --sourcefiles "%_MAIN_SOURCE_DIR%" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" report "%__EXEC_FILE%" --classfiles "%_CLASSES_DIR%" --encoding UTF8 --html "%__TARGET_HTML_DIR%" --name "%_PROJECT_NAME%" --quiet --sourcefiles "%_SOURCE_MAIN_DIR%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Generate HTML report in directory "!__TARGET_HTML_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" report "%__EXEC_FILE%" --classfiles "%_CLASSES_DIR%" --encoding UTF8 --html "%__TARGET_HTML_DIR%" --name "%_PROJECT_NAME%" --quiet --sourcefiles "%_MAIN_SOURCE_DIR%"
+call "%_JAVA_CMD%" -jar "!__JACOCO_CLI_FILE!" report "%__EXEC_FILE%" --classfiles "%_CLASSES_DIR%" --encoding UTF8 --html "%__TARGET_HTML_DIR%" --name "%_PROJECT_NAME%" --quiet --sourcefiles "%_SOURCE_MAIN_DIR%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to generate HTML report in directory "!__TARGET_HTML_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% JaCoCo instrumentation report saved into file "%__TARGET_HTML_DIR%\index.html" 1>&2
-) else if %_VERBOSE%==1 ( echo JaCoCo instrumentation report saved into file "!__TARGET_HTML_DIR:%_ROOT_DIR%=!\index.html" 1>&2
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% JaCoCo instrumentation report saved into file "%__TARGET_HTML_DIR%\index.html" 1>&2
+) else if %_VERBOSE%==1 (
+    echo JaCoCo instrumentation report saved into file "!__TARGET_HTML_DIR:%_ROOT_DIR%=!\index.html" 1>&2
 )
 goto :eof
 
@@ -1067,10 +1070,10 @@ set __N=0
 for /f "delims=" %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     set "__SOURCE_FILE=%%i" 
     set "__OUT_FILE=%_TARGET_DIR%\html\%%~ni.html"
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% call "%_PSWH_CMD%" -c "$progressPreference='silentlyContinue';$code=Get-Content -Encoding UTF8 -Raw "!__SOURCE_FILE!";Invoke-WebRequest -Method POST -Uri %__URI% -Body @{code=$code; lexer='%__LEXER%'} -Outfile '!__OUT_FILE!'" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% call "%_PWSH_CMD%" -c "$progressPreference='silentlyContinue';$code=Get-Content -Encoding UTF8 -Raw "!__SOURCE_FILE!";Invoke-WebRequest -Method POST -Uri %__URI% -Body @{code=$code; lexer='%__LEXER%'} -Outfile '!__OUT_FILE!'" 1>&2
     ) else if %_VERBOSE%==1 ( echo Generate pretty-printed HTML code for Scala source file "!__SOURCE_FILE:%_ROOT_DIR%=!" 1>&2
     )
-    call "%_PSWH_CMD%" -c "$progressPreference='silentlyContinue';$code=Get-Content -Encoding UTF8 -Raw "!__SOURCE_FILE!";Invoke-WebRequest -Method POST -Uri %__URI% -Body @{code=$code; lexer='%__LEXER%'} -Outfile '!__OUT_FILE!'"
+    call "%_PWSH_CMD%" -c "$progressPreference='silentlyContinue';$code=Get-Content -Encoding UTF8 -Raw "!__SOURCE_FILE!";Invoke-WebRequest -Method POST -Uri %__URI% -Body @{code=$code; lexer='%__LEXER%'} -Outfile '!__OUT_FILE!'"
     if not !ERRORLEVEL!==0 (
         echo %_ERROR_LABEL% Failed to get response from web request to %_URI% 1>&2
         set _EXITCODE=1
@@ -1088,7 +1091,7 @@ goto :eof
 set __START=%~1
 set __END=%~2
 
-for /f "delims=" %%i in ('call "%_PSWH_CMD%" -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
+for /f "delims=" %%i in ('call "%_PWSH_CMD%" -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
 goto :eof
 
 @rem #########################################################################
@@ -1096,7 +1099,7 @@ goto :eof
 
 :end
 if %_TIMER%==1 (
-    for /f "delims=" %%i in ('call "%_PSWH_CMD%" -c "(Get-Date)"') do set __TIMER_END=%%i
+    for /f "delims=" %%i in ('call "%_PWSH_CMD%" -c "(Get-Date)"') do set __TIMER_END=%%i
     call :duration "%_TIMER_START%" "!__TIMER_END!"
     echo Total execution time: !_DURATION! 1>&2
 )

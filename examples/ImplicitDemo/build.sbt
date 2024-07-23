@@ -21,9 +21,9 @@ lazy val root = project
       // https://mvnrepository.com/artifact/com.novocode/junit-interface
       "com.novocode" % "junit-interface" % "0.11" % Test,
       // https://mvnrepository.com/artifact/org.scalacheck/scalacheck
-      "org.scalacheck" % "scalacheck_2.13" % "1.17.0" % Test,
+      "org.scalacheck" % "scalacheck_2.13" % "1.18.0" % Test,
       // https://mvnrepository.com/artifact/org.scalatest/scalatest
-      "org.scalatest" % "scalatest_2.13" % "3.2.17" % "test"
+      "org.scalatest" % "scalatest_2.13" % "3.2.19" % "test"
     ),
 
     testOptions ++= Seq(

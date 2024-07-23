@@ -239,7 +239,7 @@ We distinguish different sets of batch/bash commands:
         -verbose         print progress messages
     &nbsp;
       Subcommands:
-        clean            delete generated class files
+        clean            delete generated files
         compile          compile Java/Scala source files
         decompile        decompile generated code with <a href="https://www.benf.org/other/cfr/"><b>CFR</b></a>
         doc              generate HTML documentation

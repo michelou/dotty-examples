@@ -15,8 +15,8 @@ if %_DEBUG%==1 ( set _MVN_OPTS=
 )
 @rem use newer PowerShell version if available
 where /q pwsh.exe
-if %ERRORLEVEL%==0 ( set _PSWH_CMD=pwsh.exe
-) else ( set _PSWH_CMD=powershell.exe
+if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
+) else ( set _PWSH_CMD=powershell.exe
 )
 set _CENTRAL_REPO=https://repo1.maven.org/maven2
 set "_LOCAL_REPO=%USERPROFILE%\.m2\repository"
@@ -123,12 +123,12 @@ if not exist "%__JAR_FILE%" (
     set __JAR_URL=%_CENTRAL_REPO%/%__GROUP_ID:.=/%/%__ARTIFACT_ID%/%__VERSION%/%__JAR_NAME%
     set "__JAR_FILE=%_TEMP_DIR%\%__JAR_NAME%"
     if not exist "!__JAR_FILE!" (
-        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% call "%_PSWH_CMD%" -c "Invoke-WebRequest -Uri '!__JAR_URL!' -Outfile '!__JAR_FILE!'" 1>&2
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% call "%_PWSH_CMD%" -c "Invoke-WebRequest -Uri '!__JAR_URL!' -Outfile '!__JAR_FILE!'" 1>&2
         ) else if %_VERBOSE%==1 ( echo Download file "%__JAR_NAME%" to directory "!_TEMP_DIR:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
         )
-        call "%_PSWH_CMD%" -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri '!__JAR_URL!' -Outfile '!__JAR_FILE!'"
+        call "%_PWSH_CMD%" -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri '!__JAR_URL!' -Outfile '!__JAR_FILE!'"
         if not !ERRORLEVEL!==0 (
-            echo %_ERROR_LABEL% Failed to download file "%__JAR_NAME%" 1>&2
+            echo %_ERROR_LABEL% Failed to download file "%__JAR_NAME%" to directory "!_TEMP_DIR:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
             set _EXITCODE=1
             goto :eof
         )
