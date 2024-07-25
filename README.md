@@ -72,11 +72,11 @@ C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
 C:\opt\Git\                        <i>(367 MB)</i>
 C:\opt\gradle\                     <i>(138 MB)</i>
 C:\opt\jacoco\                     <i>( 10 MB)</i>
-C:\opt\javafx-sdk-17.0.11\         <i>(137 MB)</i>
-C:\opt\javafx-sdk-21.0.3\          <i>(138 MB)</i>
-C:\opt\jdk-temurin-1.8.0u412-b08\  <i>(189 MB)</i>
-C:\opt\jdk-temurin-17.0.11_9\      <i>(301 MB)</i>
-C:\opt\jdk-temurin-21.0.3_9\       <i>(326 MB)</i>
+C:\opt\javafx-sdk-17.0.12\         <i>(137 MB)</i>
+C:\opt\javafx-sdk-21.0.4\          <i>(138 MB)</i>
+C:\opt\jdk-temurin-1.8.0u422-b05\  <i>(189 MB)</i>
+C:\opt\jdk-temurin-17.0.12_7\      <i>(301 MB)</i>
+C:\opt\jdk-temurin-21.0.4_7\       <i>(326 MB)</i>
 C:\opt\jitwatch-1.4.9\             <i>( 36 MB)</i>
 C:\opt\mill\                       <i>( 67 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
@@ -335,7 +335,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   javac 17.0.11, scalac 2.13.14, scalac 3.3.4, scalafmt 3.7.17,
+   javac 17.0.12, scalac 2.13.14, scalac 3.3.4, scalafmt 3.7.17,
    ant 1.10.14, gradle 8.9, mvn 3.9.8, sbt 1.10.0, scala-cli 1.4.1,
    mill 0.11.8, bazel 7.2.1, cfr 0.152, make 3.81, python 3.11.1,
    jacoco 0.8.12, git 2.45.2, diff 3.10, bash 5.2.26(1)
@@ -353,10 +353,10 @@ Other development tools such as [**`javac.exe`**][javac_cli] and [**`scalac.bat`
 INFO: Could not find files for the given pattern(s).
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> /r %JAVA_HOME% javac</b>
-C:\opt\jdk-temurin-17.0.11_9\bin\javac.exe
+C:\opt\jdk-temurin-17.0.12_7\bin\javac.exe
 &nbsp;
 <b>&gt; %JAVA_HOME%\bin\<a href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javac.html">javac</a> -version</b>
-javac 17.0.11
+javac 17.0.12
 </pre>
 
 Command [**`setenv.bat -verbose`**](setenv.bat) also prints the tool paths and defined environment variables:
@@ -364,7 +364,7 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also prints the tool paths and d
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   javac 17.0.11, scalac 2.13.14, scalac 3.3.4-RC1, scalafmt 3.7.12,
+   javac 17.0.12, scalac 2.13.14, scalac 3.3.4-RC1, scalafmt 3.7.12,
    ant 1.10.14, gradle 8.9, mvn 3.9.8, sbt 1.10.0, scala-cli 1.4.1,
    mill 0.11.8, bazel 7.2.1, cfr 0.152, make 3.81, python 3.11.1,
    jacoco 0.8.12, git 2.45.2, diff 3.10, bash 5.2.26(1)
@@ -396,9 +396,9 @@ Environment variables:
    "COURSIER_HOME=C:\opt\coursier-2.1.7"
    "GIT_HOME=C:\opt\Git"
    "GRADLE_HOME=C:\opt\gradle"
-   "JAVA_HOME=C:\opt\jdk-temurin-17.0.11_9"
-   "JAVA17_HOME=C:\opt\jdk-temurin-17.0.11_9"
-   "JAVA21_HOME=C:\opt\jdk-temurin-21.0.3_9"
+   "JAVA_HOME=C:\opt\jdk-temurin-17.0.12_7"
+   "JAVA17_HOME=C:\opt\jdk-temurin-17.0.12_7"
+   "JAVA21_HOME=C:\opt\jdk-temurin-21.0.4_7"
    "JAVAFX_HOME=C:\opt\javafx-sdk-17.0.11"
    "MSVS_HOME=X:"
    "MSYS_HOME=C:\opt\msys64"
@@ -427,11 +427,11 @@ Finished to clean up 12 subdirectories in Y:\dotty\myexamples
 Command [**`dirsize.bat`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.3.4 c:\opt\jdk-temurin-17.0.11_9</b>
+<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.3.4 c:\opt\jdk-temurin-17.0.12_7</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
 Size of directory "c:\opt\scala3-3.3.4" is 35.7 Mb
-Size of directory "c:\opt\jdk-temurin-17.0.11_9" is 301.0 Mb
+Size of directory "c:\opt\jdk-temurin-17.0.12_7" is 301.0 Mb
 </pre>
 
 ### **`getnightly.bat`**
@@ -587,12 +587,12 @@ Searching for class name System in archive files C:\opt\scala-2.13.14\lib\*.jar
   [...]
   scala-library.jar:scala/sys/SystemProperties$.class
   scala-library.jar:scala/sys/SystemProperties.class
-Searching for class name System in archive files C:\opt\jdk-temurin-11.0.21_9\lib\*.jar
+Searching for class name System in archive files C:\opt\jdk-temurin-11.0.24_8\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   [...]
   jrt-fs.jar:jdk/internal/jrtfs/SystemImage$2.class
   jrt-fs.jar:jdk/internal/jrtfs/SystemImage.class
-Searching for class name System in archive files c:\opt\javafx-sdk-17.0.11\lib\*.jar
+Searching for class name System in archive files c:\opt\javafx-sdk-17.0.12\lib\*.jar
   javafx.graphics.jar:com/sun/glass/ui/SystemClipboard.class
   [...]
   javafx.graphics.jar:com/sun/javafx/tk/TKSystemMenu.class
@@ -614,7 +614,7 @@ Searching for **`FileSystem`** with option **`-artifact`** produces the followin
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> FileSystem -artifact</b>
 Searching for class name FileSystem in archive files C:\opt\scala3-3.3.4\lib\*.jar
 Searching for class name FileSystem in archive files C:\opt\scala-2.13.14\lib\*.jar
-Searching for class name FileSystem in archive files c:\opt\jdk-temurin-17.0.11_9\lib\*.jar
+Searching for class name FileSystem in archive files c:\opt\jdk-temurin-17.0.12_7\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystemProvider$1.class
@@ -759,7 +759,7 @@ The REPL has several commands available:
 :reset                   reset the repl to its initial state, forgetting all session entries
 
 <b>scala&gt;</b> System.getenv().get("JAVA_HOME")
-val res0: String = C:\opt\jdk-temurin-17.0.11_9
+val res0: String = C:\opt\jdk-temurin-17.0.12_7
 
 <b>scala&gt;</b> System.getenv().get("SCALA3_HOME")
 val res1: String = C:\opt\scala3-3.3.4
@@ -895,12 +895,12 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.9-shaded-win.jar</a>                   <i>( 36 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240507.exe</a>                          <i>( 94 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u372b07.zip</a>     <i>( 99 MB)</i>
-<a href="https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot">OpenJDK17U-jdk_x64_windows_hotspot_17.0.11_9.zip</a>   <i>(188 MB)</i>
-<a href="https://adoptium.net/fr/temurin/releases/?variant=openjdk21&jvmVariant=hotspot">OpenJDK21U-jdk_x64_windows_hotspot_21.0.3_9.zip</a>    <i>(191 MB)</i>
-<a href="https://gluonhq.com/products/javafx/">openjfx-17.0.11_windows-x64_bin-sdk.zip</a>            <i>( 39 MB)</i>
-<a href="https://gluonhq.com/products/javafx/">openjfx-17.0.11_windows-x64_bin-jmods.zip</a>          <i>( 37 MB)</i>
-<a href="https://gluonhq.com/products/javafx/">openjfx-21.0.3_windows-x64_bin-sdk.zip</a>             <i>( 39 MB)</i>
-<a href="https://gluonhq.com/products/javafx/">openjfx-21.0.3_windows-x64_bin-jmods.zip</a>           <i>( 37 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot">OpenJDK17U-jdk_x64_windows_hotspot_17.0.12_7.zip</a>   <i>(188 MB)</i>
+<a href="https://adoptium.net/fr/temurin/releases/?variant=openjdk21&jvmVariant=hotspot">OpenJDK21U-jdk_x64_windows_hotspot_21.0.4_7.zip</a>    <i>(191 MB)</i>
+<a href="https://gluonhq.com/products/javafx/">openjfx-17.0.12_windows-x64_bin-sdk.zip</a>            <i>( 39 MB)</i>
+<a href="https://gluonhq.com/products/javafx/">openjfx-17.0.12_windows-x64_bin-jmods.zip</a>          <i>( 37 MB)</i>
+<a href="https://gluonhq.com/products/javafx/">openjfx-21.0.4_windows-x64_bin-sdk.zip</a>             <i>( 39 MB)</i>
+<a href="https://gluonhq.com/products/javafx/">openjfx-21.0.4_windows-x64_bin-jmods.zip</a>           <i>( 37 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.45.2-64-bit.7z.exe</a>                   <i>( 60 MB)</i>
 <a href="https://github.com/sbt/sbt/releases" rel="external">sbt-1.10.0.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/" rel="external">scala-2.13.14.zip</a>                                  <i>( 22 MB)</i>
@@ -1079,29 +1079,32 @@ Command Prompt has been around for as long as we can remember, but starting with
 11.0.20 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024064.html
 11.0.21 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026351.html
 11.0.22 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-January/029215.html
+11.0.24 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-July/035797.html
 -->
 [temurin_openjdk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
-[temurin_openjdk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-17-bugfixes.html
-[temurin_openjdk11_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024064.html
+[temurin_openjdk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-24-relnotes.html
+[temurin_openjdk11_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-July/035797.html
 <!--
 17.0.7  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-April/021899.html
 17.0.8  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024063.html
 17.0.9  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026352.html
 17.0.10 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-January/029089.html
 17.0.11 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-April/032197.html
+17.0.12 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-July/035798.html
 -->
 [temurin_openjdk17]: https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot
-[temurin_openjdk17_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
-[temurin_openjdk17_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026352.html
+[temurin_openjdk17_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-4-bugfixes.html
+[temurin_openjdk17_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-July/035798.html
 <!--
 21_35   -> https://adoptium.net/fr/temurin/release-notes/?version=jdk-21+35
 21.0.1  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026351.html
 21.0.2  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-January/029090.html
 21.0.3  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-April/032196.html
+21.0.4  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-July/035862.html
 -->
 [temurin_openjdk21]: https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot
-[temurin_openjdk21_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
-[temurin_openjdk21_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026351.html
+[temurin_openjdk21_bugfixes]: https://www.oracle.com/java/technologies/javase/21all-relnotes.html
+[temurin_openjdk21_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-July/035862.html
 <!--
 [python_changelog]: https://docs.python.org/3.8/whatsnew/changelog.html#python-3-8-0-final
 [python_release]: https://www.python.org/downloads/release/python-380/
