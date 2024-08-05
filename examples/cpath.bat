@@ -8,7 +8,7 @@ if not defined _DEBUG set _DEBUG=0
 set _VERBOSE=0
 
 if not defined _MVN_CMD set "_MVN_CMD=%MAVEN_HOME%\bin\mvn.cmd"
-if %_DEBUG%==1 echo [%~n0] "_MVN_CMD=%_MVN_CMD%"
+if %_DEBUG%==1 echo [%~n0] "_MVN_CMD=%_MVN_CMD%" 1>&2
 
 if %_DEBUG%==1 ( set _MVN_OPTS=
 ) else ( set _MVN_OPTS=--quiet
@@ -23,7 +23,7 @@ set "_LOCAL_REPO=%USERPROFILE%\.m2\repository"
 
 set "_TEMP_DIR=%TEMP%\lib"
 if not exist "%_TEMP_DIR%" mkdir "%_TEMP_DIR%"
-if %_DEBUG%==1 echo [%~n0] "_TEMP_DIR=%_TEMP_DIR%"
+if %_DEBUG%==1 echo [%~n0] "_TEMP_DIR=%_TEMP_DIR%" 1>&2
 
 set __SCALA_BINARY_VERSION=2.13
 
@@ -33,7 +33,7 @@ set __SCALA_BINARY_VERSION=2.13
 set _LIBS_CPATH=
 
 @rem https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect
-call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSION%" "1.1.2"
+call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSION%" "1.1.3"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
 call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.3.0"

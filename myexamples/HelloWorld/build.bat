@@ -189,7 +189,7 @@ goto :eof
 set _MAIN_CLASS_DEFAULT=myexamples.HelloWorld
 set _MAIN_ARGS_DEFAULT=
 
-for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
+for /f "delims=" %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set _PROJECT_URL=github.com/%USERNAME%/dotty-examples
 set _PROJECT_VERSION=1.0-SNAPSHOT
 
@@ -681,10 +681,10 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 )
 goto :eof
 
-@rem input parameter: %1=flag to add Scala 3 libs
+@rem input parameter: %1=flag to add Scala 3 libraries
 @rem output parameter: _LIBS_CPATH
 :libs_cpath
-set __ADD_SCALA_LIBS=%~1
+set __ADD_SCALA3_LIBS=%~1
 
 for /f "delims=" %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
 if not exist "%__BATCH_FILE%" (
@@ -696,11 +696,11 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__BATCH_FILE%" %_DEBUG% 1>&2
 call "%__BATCH_FILE%" %_DEBUG%
 set "_LIBS_CPATH=%_CPATH%"
 
-if defined __ADD_SCALA_LIBS (
+if defined __ADD_SCALA3_LIBS (
     if %_SCALA_VERSION%==3 ( set __SCALA_HOME=%_SCALA3_HOME%
     ) else ( set __SCALA_HOME=%SCALA_HOME%
     )
-    if not defined __SCALA_HOME (
+    if not defined __SCALA3_HOME (
         echo %_ERROR_LABEL% Variable SCALA_HOME%_SCALA_VERSION% not defined 1>&2
         set _EXITCODE=1
         goto :eof
