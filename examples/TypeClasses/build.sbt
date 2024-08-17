@@ -1,4 +1,4 @@
-val dottyVersion = "3.3.4-RC1"
+val scala3Version = "3.3.4-RC1"
 
 lazy val root = project
   .in(file("."))
@@ -8,7 +8,7 @@ lazy val root = project
     organization := "Stéphane Micheloud",
     version := "0.1.0",
 
-    scalaVersion := dottyVersion,
+    scalaVersion := scala3Version,
     scalacOptions ++= Seq(
       "-deprecation",
       "-encoding", "UTF-8",
@@ -22,7 +22,7 @@ lazy val root = project
     javaOptions ++= List("-Dfile.encoding=UTF-8"),
 
     libraryDependencies ++= Seq(
-      // https://mvnrepository.com/artifact/com.novocode/junit-interface
-      "com.novocode" % "junit-interface" % "0.11" % "test"
+      // https://mvnrepository.com/artifact/com.github.sbt/junit-interface
+      "com.github.sbt" % "junit-interface" % "0.13.3" % "test"
     )
   )

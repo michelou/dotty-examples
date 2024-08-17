@@ -422,7 +422,7 @@ run() {
     # call :libs_cpath
     # if not %_EXITCODE%==0 goto :eof
 
-    local scala_opts="-classpath $(mixed_path $CLASSES_DIR)"
+    local scala_opts="-classpath \"$(mixed_path $CLASSES_DIR)\""
 
     if $DEBUG; then
         debug "$SCALA_CMD $scala_opts $MAIN_CLASS $MAIN_ARGS"

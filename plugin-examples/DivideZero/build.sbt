@@ -29,6 +29,6 @@ lazy val root = project
     // https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler
     libraryDependencies += "org.scala-lang" %% "scala3-compiler" % "3.3.4-RC1",
 
-    // https://mvnrepository.com/artifact/com.novocode/junit-interface
-    libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % Test
+    // https://mvnrepository.com/artifact/com.github.sbt/junit-interface
+    libraryDependencies += "com.github.sbt" % "junit-interface" % "0.13.3" % Test
   )

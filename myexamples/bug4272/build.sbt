@@ -12,5 +12,6 @@ lazy val root = project
       "-deprecation"
     ),
 
-    libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % "test"
+    // https://mvnrepository.com/artifact/com.github.sbt/junit-interface
+    libraryDependencies += "com.github.sbt" % "junit-interface" % "0.13.3" % "test"
   )

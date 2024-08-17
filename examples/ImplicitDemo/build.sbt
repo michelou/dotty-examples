@@ -5,8 +5,8 @@ lazy val root = project
   .settings(
     name := "ImplicitDemo",
     description := "sbt example project to build/run Scala 3 applications",
+    organization := "Stéphane Micheloud",
     version := "1.0.0",
-
     scalaVersion := scala3Version,
     scalacOptions ++= Seq(
       "-deprecation",
@@ -18,8 +18,8 @@ lazy val root = project
     // resolvers += "Maven Central Server" at "http://central.maven.org/maven2",
 
     libraryDependencies ++= Seq(
-      // https://mvnrepository.com/artifact/com.novocode/junit-interface
-      "com.novocode" % "junit-interface" % "0.11" % Test,
+      // https://mvnrepository.com/artifact/com.github.sbt/junit-interface
+      "com.github.sbt" % "junit-interface" % "0.13.3" % Test,
       // https://mvnrepository.com/artifact/org.scalacheck/scalacheck
       "org.scalacheck" % "scalacheck_2.13" % "1.18.0" % Test,
       // https://mvnrepository.com/artifact/org.scalatest/scalatest

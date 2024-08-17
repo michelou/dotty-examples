@@ -17,12 +17,12 @@ lazy val root = project
     // javaOptions ++= List("-Xms1024m", "-Xmx1024m", "-XX:ReservedCodeCacheSize=128m", "-Xss2m", "-Dfile.encoding=UTF-8"),
     //
     libraryDependencies ++= Seq(
-      // https://mvnrepository.com/artifact/com.novocode/junit-interface
-      "com.novocode" % "junit-interface" % "0.11" % Test,
+      // https://mvnrepository.com/artifact/com.github.sbt/junit-interface
+      "com.github.sbt" % "junit-interface" % "0.13.3" % Test,
       // https://mvnrepository.com/artifact/org.scalacheck/scalacheck
-      "org.scalacheck" %% "scalacheck" % "1.17.0" % Test,
+      "org.scalacheck" %% "scalacheck" % "1.18.0" % Test,
       // https://mvnrepository.com/artifact/org.scalatest/scalatest
-      "org.scalatest" %% "scalatest" % "3.2.17" % Test
+      "org.scalatest" %% "scalatest" % "3.2.19" % Test
     ),
     wartremoverErrors ++= Warts.all,
     testOptions ++= Seq(

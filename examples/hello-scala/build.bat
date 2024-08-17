@@ -681,11 +681,11 @@ set "__TARGET_FILE=%~1"
 set __PATH=%~2
 
 set __TARGET_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
      set __TARGET_TIMESTAMP=%%i
 )
 set __SOURCE_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -recurse -path '%__PATH%' -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`call "%_PWSH_CMD%"  -c "gci -recurse -path '%__PATH%' -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
     set __SOURCE_TIMESTAMP=%%i
 )
 call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
@@ -927,8 +927,8 @@ Elseif ($total_size -ge 1048576) {  $n = $total_size / 1048576; $unit='MB' } ^
 Else { $n = $total_size/1024; $unit='KB' } ^
 Write-Host ([math]::Round($n,1))" "$unit
 
-if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -C "..." 1>&2
-for /f "delims=" %%i in ('powershell -C "%__PS1_SCRIPT%"') do set _DIR_SIZE=%%i
+if %_DEBUG%==1 echo %_DEBUG_LABEL% call "%_PWSH_CMD%"  -C "..." 1>&2
+for /f "delims=" %%i in ('call "%_PWSH_CMD%"  -C "%__PS1_SCRIPT%"') do set _DIR_SIZE=%%i
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Execution of ps1 cmdlet failed 1>&2
     set _EXITCODE=1

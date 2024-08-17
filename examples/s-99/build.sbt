@@ -1,29 +1,29 @@
-val dottyVersion = "3.3.4-RC1"
-// val dottyVersion = dottyLatestNightlyBuild.get 
+val scala3Version = "3.3.4-RC1" // = dottyLatestNightlyBuild.get 
 
 lazy val root = project
   .in(file("."))
   .settings(
     name := "s-99",
     description := "sbt example project to build/run Scala 3 applications",
+    organization := "Stéphane Micheloud",
     version := "1.0.0",
-
-    scalaVersion := dottyVersion,
+    scalaVersion := scala3Version,
     scalacOptions ++= Seq(
       "-deprecation",
-      "-encoding", "UTF-8",
+      "-encoding",
+      "UTF-8",
       "-feature" 
     ),
 
     // resolvers += "Maven Central Server" at "http://central.maven.org/maven2",
 
     libraryDependencies ++= Seq(
-      // https://mvnrepository.com/artifact/com.novocode/junit-interface
-      "com.novocode" % "junit-interface" % "0.11" % Test,
+      // https://mvnrepository.com/artifact/com.github.sbt/junit-interface
+      "com.github.sbt" % "junit-interface" % "0.13.3" % Test,
       // https://mvnrepository.com/artifact/org.scalacheck/scalacheck
-      "org.scalacheck" % "scalacheck_3" % "1.15.4" % Test,
+      "org.scalacheck" % "scalacheck_3" % "1.18.0" % Test,
       // https://mvnrepository.com/artifact/org.scalatest/scalatest
-      "org.scalatest" % "scalatest_3" % "3.2.9" % "test"
+      "org.scalatest" % "scalatest_3" % "3.2.19" % "test"
     ),
 
     testOptions ++= Seq(

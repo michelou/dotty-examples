@@ -36,7 +36,7 @@ Optionally one may also install the following software:
 
 - [Apache Ant 1.10][apache_ant] (requires Java 8) ([*release notes*][apache_ant_relnotes])
 - [Apache Maven 3.9][apache_maven] ([requires Java 8+][apache_maven_history]) ([*release notes*][apache_maven_relnotes])
-- [Bazel 7.2 LTS][bazel_releases] <sup id="anchor_03">[3](#footnote_03)</sup> ([*release notes*][bazel_relnotes])
+- [Bazel 7.3 LTS][bazel_releases] <sup id="anchor_03">[3](#footnote_03)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
 - [Gradle 8.9][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [JaCoCo 0.8][jacoco_downloads] <sup id="anchor_04">[4](#footnote_04)</sup> ([*change log*][jacoco_changelog])
@@ -337,7 +337,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 Tool versions:
    javac 17.0.12, scalac 2.13.14, scalac 3.3.4, scalafmt 3.7.17,
    ant 1.10.14, gradle 8.9, mvn 3.9.8, sbt 1.10.0, scala-cli 1.4.1,
-   mill 0.11.11, bazel 7.2.1, cfr 0.152, make 3.81, python 3.11.1,
+   mill 0.11.11, bazel 7.3.0, cfr 0.152, make 3.81, python 3.11.1,
    jacoco 0.8.12, git 2.46.0, diff 3.10, bash 5.2.26(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt scala-cli</b>
@@ -366,7 +366,7 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also prints the tool paths and d
 Tool versions:
    javac 17.0.12, scalac 2.13.14, scalac 3.3.4-RC1, scalafmt 3.7.12,
    ant 1.10.14, gradle 8.9, mvn 3.9.8, sbt 1.10.0, scala-cli 1.4.1,
-   mill 0.11.11, bazel 7.2.1, cfr 0.152, make 3.81, python 3.11.1,
+   mill 0.11.11, bazel 7.3.0, cfr 0.152, make 3.81, python 3.11.1,
    jacoco 0.8.12, git 2.46.0, diff 3.10, bash 5.2.26(1)
 Tool paths:
    C:\opt\jdk-temurin-11.0.21_9\bin\javac.exe
@@ -889,7 +889,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://github.com/lihaoyi/mill/releases">0.11.11-assembly</a> (mill)                            <i>( 64 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.14-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.8-bin.zip</a>                         <i>( 10 MB)</i>
-<a href="https://github.com/bazelbuild/bazel/releases">bazel-7.2.1-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases">bazel-7.3.0-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
 <a href="https://gradle.org/install/">gradle-8.9-bin.zip</a>                                 <i>(124 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.12.zip</a>                                  <i>(  4 MB)</i>
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.9-shaded-win.jar</a>                   <i>( 36 MB)</i>
@@ -936,17 +936,18 @@ Command Prompt has been around for as long as we can remember, but starting with
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html
 [bazel_releases]: https://github.com/bazelbuild/bazel/releases
 <!--
-5.0 -> https://blog.bazel.build/2022/01/19/bazel-5.0.html
-5.1 -> https://blog.bazel.build/2022/03/24/bazel-5.1.html
-5.2 -> https://blog.bazel.build/2022/06/08/bazel-5.2.html
-5.3 -> https://blog.bazel.build/2022/08/23/bazel-5.3.html
-6.0 -> https://blog.bazel.build/2022/12/19/bazel-6.0.html
-6.4 -> https://github.com/bazelbuild/bazel/releases/tag/6.4.0
-7.0 -> https://blog.bazel.build/2023/12/11/bazel-7-release.html
-7.1 -> https://github.com/bazelbuild/bazel/releases/tag/7.1.0 
-7.2 -> https://github.com/bazelbuild/bazel/releases/tag/7.2.1
+5.0   -> https://blog.bazel.build/2022/01/19/bazel-5.0.html
+5.1   -> https://blog.bazel.build/2022/03/24/bazel-5.1.html
+5.2   -> https://blog.bazel.build/2022/06/08/bazel-5.2.html
+5.3   -> https://blog.bazel.build/2022/08/23/bazel-5.3.html
+6.0   -> https://blog.bazel.build/2022/12/19/bazel-6.0.html
+6.4   -> https://github.com/bazelbuild/bazel/releases/tag/6.4.0
+7.0   -> https://blog.bazel.build/2023/12/11/bazel-7-release.html
+7.1.0 -> https://github.com/bazelbuild/bazel/releases/tag/7.1.0 
+7.2.1 -> https://github.com/bazelbuild/bazel/releases/tag/7.2.1
+7.3.0 -> https://github.com/bazelbuild/bazel/releases/tag/7.3.0
 -->
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.2.1
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.3.0
 [bloop_releases]: https://scalacenter.github.io/bloop/
 [bloop_relnotes]: https://github.com/scalacenter/bloop/releases/tag/v1.3.4
 [cfr_releases]: https://www.benf.org/other/cfr/

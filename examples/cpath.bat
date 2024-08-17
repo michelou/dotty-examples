@@ -13,7 +13,7 @@ if %_DEBUG%==1 echo [%~n0] "_MVN_CMD=%_MVN_CMD%" 1>&2
 if %_DEBUG%==1 ( set _MVN_OPTS=
 ) else ( set _MVN_OPTS=--quiet
 )
-@rem use newer PowerShell version if available
+@rem we use the newer PowerShell version if available
 where /q pwsh.exe
 if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
 ) else ( set _PWSH_CMD=powershell.exe
@@ -27,6 +27,13 @@ if %_DEBUG%==1 echo [%~n0] "_TEMP_DIR=%_TEMP_DIR%" 1>&2
 
 set __SCALA_BINARY_VERSION=2.13
 
+@rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
+set __SCALA_XML_VERSION=2.3.0
+@rem https://mvnrepository.com/artifact/org.scalatest/scalatest
+set __SCALATEST_VERSION=3.2.19
+@rem https://mvnrepository.com/artifact/org.specs2/specs2
+set __SPECS2_VERSION=5.5.3
+
 @rem #########################################################################
 @rem ## Libraries to be added to _LIBS_CPATH
 
@@ -36,7 +43,7 @@ set _LIBS_CPATH=
 call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSION%" "1.1.3"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.3.0"
+call :add_jar "org.scala-lang.modules" "scala-xml_%__SCALA_BINARY_VERSION%" "%__SCALA_XML_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parser-combinators
 call :add_jar "org.scala-lang.modules" "scala-parser-combinators_%__SCALA_BINARY_VERSION%" "2.4.0"
@@ -52,8 +59,6 @@ call :add_jar "org.hamcrest" "hamcrest" "2.2"
 
 @rem https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all
 call :add_jar "org.hamcrest" "hamcrest-all" "1.3"
-
-set __SCALATEST_VERSION=3.2.19
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
@@ -72,8 +77,6 @@ call :add_jar "org.scalatest" "scalatest_3" "%__SCALATEST_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scalactic
 call :add_jar "org.scalactic" "scalactic_3" "%__SCALATEST_VERSION%"
-
-set __SPECS2_VERSION=5.5.3
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
 @rem NB. dependency of specs2

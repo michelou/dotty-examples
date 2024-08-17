@@ -33,20 +33,23 @@ goto end
 
 :env
 set _BASENAME=%~n0
+set "_ROOT_DIR=%~dp0"
 
 call :env_colors
 set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
 set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
+
+@rem we use the newer PowerShell version if available
+where /q pwsh.exe
+if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
+) else ( set _PWSH_CMD=powershell.exe
+)
 goto :eof
 
 :env_colors
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-set _RESET=[0m
-set _BOLD=[1m
-set _UNDERSCORE=[4m
-set _INVERSE=[7m
 
 @rem normal foreground colors
 set _NORMAL_FG_BLACK=[30m
@@ -84,21 +87,27 @@ set _STRONG_BG_RED=[101m
 set _STRONG_BG_GREEN=[102m
 set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
+
+@rem we define _RESET in last position to avoid crazy console output with type command
+set _BOLD=[1m
+set _UNDERSCORE=[4m
+set _INVERSE=[7m
+set _RESET=[0m
 goto :eof
 
 rem input parameter: %1=input file
 :touch_file
-set __FILE=%~1
+set "__FILE=%~1"
 
 set __PS1_SCRIPT= ^
 if (%_DEBUG% -eq 1) { Get-ItemProperty '%__FILE%' ^| Select LastWriteTime } ^
 [System.IO.Directory]::SetLastWriteTime('%__FILE%', (Get-Date)); ^
-if (%_DEBUG% -eq 1) { Get-ItemProperty %__FILE% ^| Select LastWriteTime }
+if (%_DEBUG% -eq 1) { Get-ItemProperty '%__FILE%' ^| Select LastWriteTime }
 
-if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -c "..." 1>&2
-powershell -c "%__PS1_SCRIPT%"
+if %_DEBUG%==1 echo %_DEBUG_LABEL% call "%_PWSH_CMD%" -c "..." 1>&2
+call "%_PWSH_CMD%" -c "%__PS1_SCRIPT%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Execution of ps1 cmdlet failed 1>&2
+    echo %_ERROR_LABEL% Failed to execute ps1 cmdlet 1>&2
     set _EXITCODE=1
     goto :eof
 )

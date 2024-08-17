@@ -271,7 +271,7 @@ decompile() {
     local output_dir="$TARGET_DIR/cfr-sources"
     [[ -d "$output_dir" ]] || mkdir -p "$output_dir"
 
-    local cfr_opts="--extraclasspath "$(extra_cpath)" --outputdir "$(mixed_path $output_dir)""
+    local cfr_opts="--extraclasspath \"$(extra_cpath)\" --outputdir \"$(mixed_path $output_dir)\""
 
     local n="$(ls -lR "$CLASSES_DIR/"**/*.class | wc -l)"
     local class_dirs=
@@ -377,9 +377,10 @@ version_string() {
 
 ## output parameter: LIBS_CPATH
 libs_cpath() {
+    local repo_dir="$HOME/.m2/repository"
     local cpath=
 	local jar_file=
-    for f in $(find "$HOME/.m2/repository/junit/" -type f -name "junit-4*.jar" 2>/dev/null); do 
+    for f in $(find "$repo_dir/junit/" -type f -name "junit-4*.jar" 2>/dev/null); do 
         jar_file="$f"
     done
 	[[ -f "$jar_file" ]] && cpath="$cpath$(mixed_path $jar_file)$PSEP"
@@ -437,7 +438,7 @@ run() {
     # call :libs_cpath
     # if not %_EXITCODE%==0 goto :eof
 
-    local scala_opts="-classpath $(mixed_path $CLASSES_DIR)"
+    local scala_opts="-classpath \"$(mixed_path $CLASSES_DIR)\""
 
     if $DEBUG; then
         debug "$SCALA_CMD $scala_opts $MAIN_CLASS $MAIN_ARGS"
@@ -468,11 +469,11 @@ EXITCODE=0
 
 ROOT_DIR="$(getHome)"
 
-SOURCE_DIR=$ROOT_DIR/src
-MAIN_SOURCE_DIR=$SOURCE_DIR/main/scala
-TARGET_DIR=$ROOT_DIR/target
-TARGET_DOCS_DIR=$TARGET_DIR/docs
-CLASSES_DIR=$TARGET_DIR/classes
+SOURCE_DIR="$ROOT_DIR/src"
+MAIN_SOURCE_DIR="$SOURCE_DIR/main/scala"
+TARGET_DIR="$ROOT_DIR/target"
+TARGET_DOCS_DIR="$TARGET_DIR/docs"
+CLASSES_DIR="$TARGET_DIR/classes"
 
 CLEAN=false
 COMPILE=false

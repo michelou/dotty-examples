@@ -186,7 +186,7 @@ compile_java() {
 
     local opts_file="$TARGET_DIR/javac_opts.txt"
     local cpath="$LIBS_CPATH$(mixed_path $CLASSES_DIR)"
-    echo -classpath "$cpath" -d "$(mixed_path $CLASSES_DIR)" > "$opts_file"
+    echo "-classpath \"$cpath\" -d \"$(mixed_path $CLASSES_DIR)\"" > "$opts_file"
 
     local sources_file="$TARGET_DIR/javac_sources.txt"
     [[ -f "$sources_file" ]] && rm "$sources_file"
@@ -219,7 +219,7 @@ compile_scala() {
 
     local opts_file="$TARGET_DIR/scalac_opts.txt"
     local cpath="$CLASSES_DIR"
-    echo -color never -classpath "$(mixed_path $cpath)" -d "$(mixed_path $CLASSES_DIR)" > "$opts_file"
+    echo "-color never -classpath \"$(mixed_path $cpath)\" -d \"$(mixed_path $CLASSES_DIR)\"" > "$opts_file"
 
     local sources_file="$TARGET_DIR/scalac_sources.txt"
     [[ -f "$sources_file" ]] && rm "$sources_file"
@@ -316,7 +316,7 @@ decompile() {
         fi
         return 0
     fi
-    local diff_opts=--strip-trailing-cr
+    local diff_opts="--strip-trailing-cr"
 
     local check_file="$SOURCE_DIR/build/cfr-source$version_suffix.java"
     if [[ -f "$check_file" ]]; then
@@ -373,9 +373,10 @@ version_string() {
 
 ## output parameter: LIBS_CPATH
 libs_cpath() {
+    local repo_dir="$HOME/.m2/repository"
     local cpath=
 	local jar_file=
-    for f in $(find "$HOME/.m2/repository/junit/" -type f -name "junit-4*.jar" 2>/dev/null); do 
+    for f in $(find "$repo_dir/junit/" -type f -name "junit-4*.jar" 2>/dev/null); do 
         jar_file="$f"
     done
 	[[ -f "$jar_file" ]] && cpath="$cpath$(mixed_path $jar_file)$PSEP"
@@ -430,7 +431,7 @@ run() {
     # call :libs_cpath
     # if not %_EXITCODE%==0 goto :eof
 
-    local scala_opts="-classpath $(mixed_path $CLASSES_DIR)"
+    local scala_opts="-classpath \"$(mixed_path $CLASSES_DIR)\""
 
     if $DEBUG; then
         debug "$SCALA_CMD $scala_opts $MAIN_CLASS $MAIN_ARGS"
@@ -461,11 +462,11 @@ EXITCODE=0
 
 ROOT_DIR="$(getHome)"
 
-SOURCE_DIR=$ROOT_DIR/src
-MAIN_SOURCE_DIR=$SOURCE_DIR/main/scala
-TARGET_DIR=$ROOT_DIR/target
-TARGET_DOCS_DIR=$TARGET_DIR/docs
-CLASSES_DIR=$TARGET_DIR/classes
+SOURCE_DIR="$ROOT_DIR/src"
+MAIN_SOURCE_DIR="$SOURCE_DIR/main/scala"
+TARGET_DIR="$ROOT_DIR/target"
+TARGET_DOCS_DIR="$TARGET_DIR/docs"
+CLASSES_DIR="$TARGET_DIR/classes"
 
 CLEAN=false
 COMPILE=false

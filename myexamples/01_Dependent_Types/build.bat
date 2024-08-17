@@ -844,7 +844,7 @@ goto :eof
 :run_common
 set "__MAIN_CLASS_FILE=%_CLASSES_DIR%\%_MAIN_CLASS:.=\%.class"
 if not exist "%__MAIN_CLASS_FILE%" (
-    echo %_ERROR_LABEL% Main class '%_MAIN_CLASS%' not found ^(%__MAIN_CLASS_FILE%^) 1>&2
+    echo %_ERROR_LABEL% Main class '%_MAIN_CLASS%' not found ^("%__MAIN_CLASS_FILE%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
