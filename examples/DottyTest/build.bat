@@ -606,7 +606,7 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 )
 goto :eof
 
-@rem input parameter: %1=flag to add Scala 3 libs
+@rem input parameter: %1=flag to add Scala 3 libraries
 @rem output parameter: _LIBS_CPATH
 :libs_cpath
 set __ADD_SCALA3_LIBS=%~1
@@ -627,7 +627,7 @@ if defined __ADD_SCALA3_LIBS (
         set _EXITCODE=1
         goto :eof
     )
-    for /f "delims=" %%f in ("%SCALA3_HOME%\lib\*.jar") do (
+    for /f "delims=" %%f in ('dir /s /b "%SCALA3_HOME%\lib\scala3-*.jar"') do (
         set "_LIBS_CPATH=!_LIBS_CPATH!%%f;"
     )
 )

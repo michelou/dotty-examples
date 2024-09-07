@@ -92,6 +92,7 @@ args() {
     [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
     debug "Variables  : JAVA_HOME=$JAVA_HOME"
     debug "Variables  : SCALA3_HOME=$SCALA3_HOME"
+    debug "Variables  : MAIN_CLASS=$MAIN_CLASS MAIN_ARGS=$MAIN_ARGS"
     # See http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
     $TIMER && TIMER_START=$(date +"%s")
 }

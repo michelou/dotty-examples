@@ -119,15 +119,16 @@ set _DIFF_CMD=
 if exist "%GIT_HOME%\usr\bin\diff.exe" (
     set "_DIFF_CMD=%GIT_HOME%\usr\bin\diff.exe" 
 )
+@rem we use the newer PowerShell version if available
+where /q pwsh.exe
+if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
+) else ( set _PWSH_CMD=powershell.exe
+)
 goto :eof
 
 :env_colors
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-set _RESET=[0m
-set _BOLD=[1m
-set _UNDERSCORE=[4m
-set _INVERSE=[7m
 
 @rem normal foreground colors
 set _NORMAL_FG_BLACK=[30m
@@ -165,6 +166,12 @@ set _STRONG_BG_RED=[101m
 set _STRONG_BG_GREEN=[102m
 set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
+
+@rem we define _RESET in last position to avoid crazy console output with type command
+set _BOLD=[1m
+set _UNDERSCORE=[4m
+set _INVERSE=[7m
+set _RESET=[0m
 goto :eof
 
 @rem output parameters: _MAIN_CLASS_DEFAULT, _MAIN_ARGS_DEFAULT
@@ -245,7 +252,7 @@ if "%__ARG:~0,1%"=="-" (
         call :set_main "!__ARG:~6!"
         if not !_EXITCODE!== 0 goto args_done
     ) else (
-        echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown option "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -261,7 +268,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="run:i" ( set _COMPILE=1& set _RUN=1& set _INSTRUMENTED=_instrumented
     ) else if "%__ARG%"=="test" ( set _COMPILE=1& set _TEST=1
     ) else (
-        echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
+        echo %_ERROR_LABEL% Unknown subcommand "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
@@ -318,7 +325,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Variables  : "SCALA3_HOME=%SCALA3_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : _MAIN_CLASS=%_MAIN_CLASS% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
 )
-if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
+if %_TIMER%==1 for /f "delims=" %%i in ('call "%_PWSH_CMD%" -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
 :help
@@ -373,7 +380,7 @@ goto :eof
 :set_main
 set __ARG=%~1
 set __VALID=0
-for /f %%i in ('powershell -C "$s='%__ARG%'; if($s -match '^[\w$]+(\.[\w$]+)*$'){1}else{0}"') do set __VALID=%%i
+for /f %%i in ('call "%_PWSH_CMD%" -C "$s='%__ARG%'; if($s -match '^[\w$]+(\.[\w$]+)*$'){1}else{0}"') do set __VALID=%%i
 @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% __ARG=%__ARG% __VALID=%__VALID% 1>&2
 if %__VALID%==0 (
     echo %_ERROR_LABEL% Invalid class name passed to option "-main" ^(%__ARG%^) 1>&2
@@ -388,7 +395,7 @@ call :rmdir "%_ROOT_DIR%out"
 call :rmdir "%_TARGET_DIR%"
 goto :eof
 
-@rem input parameter(s): %1=directory path
+@rem input parameter: %1=directory path
 :rmdir
 set "__DIR=%~1"
 if not exist "%__DIR%\" goto :eof
@@ -412,6 +419,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_SOUR
 )
 call "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% %_SOURCE_DIR%\main\scala\
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Found errors while analyzing Scala source files with Scalafmt 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -474,7 +482,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCE
 )
 call "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of %__N_FILES% failed 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -557,11 +565,11 @@ set "__TARGET_FILE=%~1"
 set __PATH=%~2
 
 set __TARGET_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
      set __TARGET_TIMESTAMP=%%i
 )
 set __SOURCE_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -recurse -path '%__PATH%' -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -recurse -path '%__PATH%' -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
     set __SOURCE_TIMESTAMP=%%i
 )
 call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
@@ -614,7 +622,7 @@ if defined __ADD_SCALA3_LIBS (
         set _EXITCODE=1
         goto :eof
     )
-    for %%f in ("%SCALA3_HOME%\lib\*.jar") do (
+    for /f "delims=" %%f in ('dir /s /b "%SCALA3_HOME%\lib\*.jar"') do (
         set "_LIBS_CPATH=!_LIBS_CPATH!%%f;"
     )
 )
@@ -646,7 +654,7 @@ if %_SCALA_VERSION%==3 (
 if "%_VERSION_STRING:NIGHTLY=%"=="%_VERSION_STRING%" (
     set _VERSION_SUFFIX=_%_VERSION_STRING%
 ) else (
-    for /f "usebackq" %%i in (`powershell -c "$s='%_VERSION_STRING%';$i=$s.indexOf('-bin',0); $s.substring(0, $i)"`) do (
+    for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "$s='%_VERSION_STRING%';$i=$s.indexOf('-bin',0); $s.substring(0, $i)"`) do (
         set _VERSION_SUFFIX=_%%i-NIGHTLY
     )
 )
@@ -739,7 +747,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOU
 )
 call "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Generation of HTML documentation failed 1>&2
+    echo %_ERROR_LABEL% Failed to generate HTML documentation into directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -762,11 +770,11 @@ if not %_EXITCODE%==0 goto :eof
 set __SCALA_OPTS=-classpath "%_LIBS_CPATH%%_CLASSES_DIR%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Scala main class "%_MAIN_CLASS%" 1>&2
 )
 call "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
+    echo %_ERROR_LABEL% Failed to execute Scala main class "%_MAIN_CLASS%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -786,11 +794,11 @@ if not exist "%_TASTY_CLASSES_DIR%" (
 set __SCALA_OPTS=-classpath "%_LIBS_CPATH%%_TASTY_CLASSES_DIR%;%_CLASSES_DIR%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS% 1>&2
-) else if %_VERBOSE%==1 ( echo Execute Scala main class %_MAIN_CLASS% ^(compiled from TASTy^) 1>&2
+) else if %_VERBOSE%==1 ( echo Execute Scala main class "%_MAIN_CLASS%" ^(compiled from TASTy^) 1>&2
 )
 call "%_SCALA_CMD%" %__SCALA_OPTS% %_MAIN_CLASS% %_MAIN_ARGS%
 if not !ERRORLEVEL!==0 (
-    echo %_ERROR_LABEL% Program execution failed ^(%_MAIN_CLASS%^) 1>&2
+    echo %_ERROR_LABEL% Failed to execute Scala main class "%_MAIN_CLASS%" ^(compiled from TASTy^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -829,7 +837,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURC
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of %__N_FILES% failed 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -853,10 +861,11 @@ for /f "usebackq" %%f in (`dir /s /b "%_TEST_CLASSES_DIR%\*JUnitTest.class" 2^>N
     ) else ( set "__MAIN_CLASS=%%~nf"
     )
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
-    ) else if %_VERBOSE%==1 ( echo Execute test !__MAIN_CLASS! 1>&2
+    ) else if %_VERBOSE%==1 ( echo Execute test "!__MAIN_CLASS!" 1>&2
     )
     call "%_JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS!
     if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to execute test "!__MAIN_CLASS!" 1>&2
         set _EXITCODE=1
         goto :eof
     )
@@ -868,7 +877,7 @@ goto :eof
 set __START=%~1
 set __END=%~2
 
-for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
+for /f "delims=" %%i in ('call "%_PWSH_CMD%" -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
 goto :eof
 
 @rem #########################################################################
@@ -876,7 +885,7 @@ goto :eof
 
 :end
 if %_TIMER%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
+    for /f "delims=" %%i in ('call "%_PWSH_CMD%" -c "(Get-Date)"') do set __TIMER_END=%%i
     call :duration "%_TIMER_START%" "!__TIMER_END!"
     echo Total execution time: !_DURATION! 1>&2
 )

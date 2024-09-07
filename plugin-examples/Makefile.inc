@@ -44,7 +44,7 @@ MKFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 MKFILE_DIR  := $(dir $(MKFILE_PATH))
 
 ## https://mvnrepository.com/artifact/org.scalatest/scalatest
-SCALATEST_VERSION = 3.2.17
+SCALATEST_VERSION = 3.2.19
 ## https://mvnrepository.com/artifact/org.specs2/specs2-core
 ## Note: Specs2 5.x depends on Scala 3 while Specs2 4.x depends on Scala 2 or Scala 3
 SPECS2_VERSION = 5.3.2

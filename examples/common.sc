@@ -3,7 +3,7 @@ import mill._, api._, scalalib._
 //////////////////////////////////////////////////////////////////////////////
 // Project properties
 
-val scalaVersion = "3.3.3"  // "3.3.0", "3.2.2", "3.1.3", "3.0.1", "2.13.11"
+val scalaVersion = "3.3.4-RC1"  // "3.3.3", "3.2.2", "3.1.3", "3.0.1", "2.13.11"
 val scalacOptions = Seq("-deprecation", "-encoding", "UTF8", "-feature")
 
 val forkArgs = Seq("-Xmx1g")
@@ -19,15 +19,15 @@ val scalaSourcePath = os.pwd / "src" / "main" / "scala"
 // Ivy dependencies
 
 val junitVersion = "4.13.2"
-val jupiterVersion = "5.10.1"
-val scalatestVersion = "3.2.18"
-val specs2Version = "5.5.1"
+val jupiterVersion = "5.11.0"
+val scalatestVersion = "3.2.19"
+val specs2Version = "5.5.3"
 
 // https://mvnrepository.com/artifact/junit/junit
 val ivyJunit = ivy"org.junit:org.junit:$junitVersion"
 
-// https://mvnrepository.com/artifact/com.novocode/junit-interface
-val ivyJunitInterface = ivy"com.novocode:junit-interface:0.11"
+// https://mvnrepository.com/artifact/com.github.sbt/junit-interface
+val ivyJunitInterface = ivy"com.github.sbt:junit-interface:0.13.3"
 
 // https://mvnrepository.com/artifact/org.apiguardian/apiguardian-api
 val ivyApiGuardian = ivy"org.apiguardian:apiguardian-api:1.1.2"
@@ -54,7 +54,7 @@ val ivySpecs2JUnit = ivy"org.specs2:specs2-junit_3:$specs2Version"
 val ivyScalaXml = ivy"org.scala-lang.modules:scala-xml_3:2.2.0"
 
 // https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parser-combinators
-val ivyScalaParser = ivy"org.scala-lang.modules:scala-parser-combinators_3:2.3.0"
+val ivyScalaParser = ivy"org.scala-lang.modules:scala-parser-combinators_3:2.4.0"
 
 //////////////////////////////////////////////////////////////////////////////
 // Helper functions

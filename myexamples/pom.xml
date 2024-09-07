@@ -14,7 +14,7 @@
 
         <!-- Scala settings -->
         <scala.groupId>org.scala-lang</scala.groupId>
-        <scala.version>2.13.13</scala.version>
+        <scala.version>2.13.14</scala.version>
         <scala3.version>3.3.4-RC1</scala3.version>
         <scala.local.install>true</scala.local.install>
 
@@ -45,9 +45,9 @@
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
-        <junit.platform.version>1.10.3</junit.platform.version>
+        <junit.platform.version>1.11.0</junit.platform.version>
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <jupiter.version>5.10.3</jupiter.version>
+        <jupiter.version>5.11.0</jupiter.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.plexus/plexus-utils -->
         <plexus-utils.version>4.0.1</plexus-utils.version>
 

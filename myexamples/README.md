@@ -1,4 +1,4 @@
-# <span id="top">Scala 3 examples</span> <span style="size:30%;"><a href="../README.md">⬆</a></span>
+# <span id="top">Scala 3 examples</span> <span style="font-size:90%;">[⬆](../README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -90,7 +90,7 @@ Buildfile: W:\myexamples\HelloWorld\build.xml
    [delete] Deleting directory W:\myexamples\HelloWorld\target
 
 <span style="font-weight:bold;color:#9966ff;">init.local:</span>
-     [echo] SCALA3_HOME=C:\opt\scala3-3.3.1
+     [echo] SCALA3_HOME=C:\opt\scala3-3.3.4
 
 <span style="font-weight:bold;color:#9966ff;">init.ivy:</span>
 
@@ -134,10 +134,10 @@ Command [**`setenv -bash`**](setenv.bat) starts a [Cygwin] Bash session:
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -bash</b>
 Tool versions:
-   javac 11.0.21, java 11.0.21, scalac 2.13.12, scalac 3.3.3,
-   ant 1.10.14, gradle 8.6, mill 0.11.7, mvn 3.9.6, sbt 1.9.9,
-   bazel 7.0.2, cfr 0.152, coursier 2.1.5, make 3.81, python 3.11.1,
-   git 2.44.0.windows.1, diff 3.10, bash 5.2.26(1)-release
+   javac 17.0.12, java 17.0.12, scalac 2.13.14, scalac 3.3.4-RC1,
+   ant 1.10.14, gradle 8.10, mill 0.11.7, mvn 3.9.8, sbt 1.10.1,
+   bazel 7.2.1, cfr 0.152, coursier 2.1.5, make 3.81, python 3.11.1,
+   git 2.46.0, diff 3.10, bash 5.2.26(1)-release
 &nbsp;
 user@host MSYS /w
 <b>$ <a href="https://www.man7.org/linux/man-pages/man1/bash.1.html">bash</a> --version | <a href="https://man7.org/linux/man-pages/man1/grep.1.html">grep</a> bash</b>
@@ -148,8 +148,8 @@ user@host MSYS /w
 ANT_HOME=C:\opt\apache-ant-1.10.14
 [...]
 SBT_HOME=C:\opt\sbt
-SCALA3_HOME=C:\opt\scala3-3.3.1
-SCALA_HOME=C:\opt\scala-2.13.12
+SCALA3_HOME=C:\opt\scala3-3.3.4
+SCALA_HOME=C:\opt\scala-2.13.14
 </pre>
 
 Command [**`build clean run`**](HelloWorld/build.sh) produces the following output for project [**`HelloWorld`**](./HelloWorld/):
@@ -170,10 +170,10 @@ Similarly, command [**`setenv -msys`**](setenv.bat) starts a [MSYS2] Bash sessio
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -msys</b>
 Tool versions:
-   javac 11.0.21 java 11.0.21 scalac 2.13.12, scalac 3.3.3,
-   ant 1.10.14, gradle 8.6, mill 0.11.5, mvn 3.9.6, sbt 1.9.9,
+   javac 17.0.12, java 17.0.12, scalac 2.13.14, scalac 3.3.4-RC1,
+   ant 1.10.14, gradle 8.10, mill 0.11.5, mvn 3.9.8, sbt 1.10.1,
    bazel 6.4.0, cfr 0.152, coursier 2.1.5, make 3.81, python 3.11.1,
-   git 2.44.0.windows.1, diff 3.10, bash 5.2.26(1)-release
+   git 2.46.0, diff 3.10, bash 5.2.26(1)-release
 &nbsp;
 <b>$ <a href="https://www.man7.org/linux/man-pages/man1/bash.1.html">bash</a> --version | <a href="https://man7.org/linux/man-pages/man1/grep.1.html">grep</a> bash</b>
 GNU bash, version 5.3.26(1)-release (x86_64-pc-msys)
@@ -183,7 +183,7 @@ ANT_HOME=C:\opt\apache-ant-1.10.14
 [...]
 SBT_HOME=C:\opt\sbt
 SCALA3_HOME=C:\opt\scala3-3.3.1
-SCALA_HOME=C:\opt\scala-2.13.12
+SCALA_HOME=C:\opt\scala-2.13.14
 </pre>
 
 Command [**`build clean run`**](HelloWorld/build.sh) produces the following output for project [**`HelloWorld`**](./HelloWorld/):
@@ -231,8 +231,8 @@ The parent file [**`myexamples\common.gradle`**](common.gradle) defines the task
 buildDir file(<span style="color:#990000;">"/target"</span>)
 
 <b>java</b> {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 <b>ext</b> {
     ...
@@ -302,7 +302,7 @@ Command **`make test`** executes the test suite [**`HelloWorldTest.scala`**](Hel
 <b>&gt; <a href="http://www.glue.umd.edu/lsf-docs/man/gmake.html">make</a> test</b>
 [ -d "target/test-classes" ] || mkdir -p "target/test-classes"
 scalac.bat "@target/scalac_test_opts.txt" "@target/scalac_test_sources.txt"
-java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.12/scala-library-2.13.12.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/dotty-library_3/3.3.1/scala3-library_3-3.3.1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.9/scalatest_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.9/scalactic_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.11.0/specs2-core_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.11.0/specs2-junit_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.11.0/specs2-matcher_2.13-4.11.0.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
+java.exe -classpath "%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.14/scala-library-2.13.14.jar;%USERPROFILE%/.m2/repository/ch/epfl/lamp/scala3-library_3/3.3.1/scala3-library_3-3.3.1.jar;%USERPROFILE%/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar;%USERPROFILE%/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar;%USERPROFILE%/.m2/repository/com/novocode/junit-interface/0.11/junit-interface-0.11.jar;%USERPROFILE%/.m2/repository/org/scalatest/scalatest_2.13/3.2.9/scalatest_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/scalactic/scalactic_2.13/3.2.9/scalactic_2.13-3.2.9.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-core_2.13/4.11.0/specs2-core_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-junit_2.13/4.11.0/specs2-junit_2.13-4.11.0.jar;%USERPROFILE%/.m2/repository/org/specs2/specs2-matcher_2.13/4.11.0/specs2-matcher_2.13-4.11.0.jar;target/classes;target/test-classes" org.junit.runner.JUnitCore myexamples.HelloWorldTest
 JUnit version 4.13.2
 .
 Time: 0.201
@@ -337,17 +337,17 @@ Command **`mvn clean test`** with option **`-debug`** produces additional debug 
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/run.html">mvn</a> -debug clean test | findstr /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-temurin-11.0.21_9\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.3.1 \
- -cp C:\opt\scala3-3.3.1\lib\*.jar -Dscala.usejavacp=true  \
+[DEBUG] [execute] C:\opt\jdk-temurin-17.0.12_7\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.3.4 \
+ -cp C:\opt\scala3-3.3.4\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath W:\dotty-examples\examples\hello-scala\target\classes \
  -d W:\dotty-examples\examples\hello-scala\target\classes \
  W:\dotty-examples\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\opt\jdk-temurin-11.0.21_9\bin\java.exe \
- -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.3.1 [...]
-[DEBUG] [execute] C:\opt\jdk-temurin-11.0.21_9\bin\java.exe \
- -Xms64m -Xmx1024m -cp C:\opt\scala3-3.3.1\lib\*.jar;\
+[DEBUG] [execute] C:\opt\jdk-temurin-17.0.12_7\bin\java.exe \
+ -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.3.4 [...]
+[DEBUG] [execute] C:\opt\jdk-temurin-17.0.12_7\bin\java.exe \
+ -Xms64m -Xmx1024m -cp C:\opt\scala3-3.3.4\lib\*.jar;\
 W:\dotty-examples\examples\hello-scala\target\classes hello
 </pre>
 
@@ -427,15 +427,15 @@ We can also specify phase **`package`** to generate (and maybe execute) the **`H
 Finally can check the Java manifest in **`HelloWorld-1.0-SNAPSHOT.jar`**:
 
 <pre style="font-size:80%;">
-<b>&gt;</b> <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.3.1\lib\dotty-library_3-3.3.1.jar;^
-c:\opt\scala3-3.3.1\lib\scala-library-2.13.12.jar ^
+<b>&gt;</b> <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.3.4\lib\scala3-library_3-3.3.4-RC1.jar;^
+c:\opt\scala3-3.3.4\lib\scala-library-2.13.14.jar ^
 -jar target\HelloWorld-1.0-SNAPSHOT.jar
 Hello world!
 </pre>
 
 > **:mag_right:** We can use batch script [**`searchjars`**](../bin/searchjars.bat) in case some class is missing in the specified classpath, e.g.
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.3.1\lib\scala3-library_3-3.3.1.jar -jar target\enum-Color-1.0-SNAPSHOT.jar</b>
+> <b>&gt; <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">java</a> -Xbootclasspath/a:c:\opt\scala3-3.3.4\lib\scala3-library_3-3.3.4-RC1.jar -jar target\enum-Color-1.0-SNAPSHOT.jar</b>
 > Exception in thread "main" java.lang.NoClassDefFoundError: scala/Serializable
 >         [...]
 >         at Main.main(Main.scala)
@@ -444,16 +444,16 @@ Hello world!
 >         ... 13 more
 > 
 > <b>&gt; <a href="../bin/searchjars.bat">searchjars</a> Serializable</b>
-> Searching for class name Serializable in library files C:\opt\scala3-3.3.1\lib\*.jar
+> Searching for class name Serializable in library files C:\opt\scala3-3.3.4\lib\*.jar
 >   jackson-core-2.13.3.jar:com/fasterxml/jackson/core/SerializableString.class
 >   [...]
->   scala-library-2.13.12.jar:scala/collection/generic/DefaultSerializable.class
-> Searching for class name Serializable in library files C:\opt\scala-2.13.12\lib\*.jar
+>   scala-library-2.13.14.jar:scala/collection/generic/DefaultSerializable.class
+> Searching for class name Serializable in library files C:\opt\scala-2.13.14\lib\*.jar
 >   scala-library.jar:scala/collection/generic/DefaultSerializable.class
-> Searching for class name Serializable in library files C:\opt\jdk-temurin-11.0.21_9\lib\*.jar
+> Searching for class name Serializable in library files C:\opt\jdk-temurin-17.0.12_7\lib\*.jar
 > Searching for class name Serializable in archive files C:\opt\javafx-sdk-17.0.1\lib\*.jar
 > </pre>
-> Class **`scala.Serializable`** is part of **`C:\opt\scala3-3.3.1\lib\scala-library-2.13.12.jar`**, so let us add it to our classpath !
+> Class **`scala.Serializable`** is part of **`C:\opt\scala3-3.3.4\lib\scala-library-2.13.14.jar`**, so let us add it to our classpath !
 
 
 ## <span id="mill">Mill build tool</span> <sup><sub>[**&#9650;**](#top)</sub></sup>
@@ -603,7 +603,7 @@ following parameters are passed as login shell command parameters.
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -614,7 +614,7 @@ following parameters are passed as login shell command parameters.
 [apache_ant_ivy]: https://ant.apache.org/ivy/
 [apache_ant_ivy_relnotes]: https://ant.apache.org/ivy/history/2.5.2/release-notes.html
 [apache_maven_about]: https://maven.apache.org/what-is-maven.html
-[apache_maven_cli]: https://maven.apache.org/ref/3.9.6/maven-embedder/cli.html
+[apache_maven_cli]: https://maven.apache.org/ref/3.9.8/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
 [bash]: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
 [bazel_cli]: https://docs.bazel.build/versions/master/command-line-reference.html

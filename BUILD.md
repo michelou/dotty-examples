@@ -18,13 +18,13 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 - [Data Sharing and Scala 3 on Windows](CDS.md)
 - [OpenJDK and Scala 3 on Windows](OPENJDK.md)
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalSqueak][graalsqueak_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodes_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [Wix Toolset][wix_examples] are other topics we are continuously investigating.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Flix][flix_examples], [Golang][golang_examples], [GraalSqueak][graalsqueak_examples], [GraalVM][graalvm_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodes_examples], [Rust][rust_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and, [Wix Toolset][wix_examples] and [Zig][zig_examples] are other topics we are continuously investigating.
 
 ## <span id="proj_deps">Project dependencies</span>
 
 Our [Dotty fork][github_dotty_fork] depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.45][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.46][git_releases] ([*release notes*][git_relnotes])
 - [sbt 1.10][sbt_releases] (requires Java 8) ([*release notes*][sbt_relnotes])
 - [Temurin OpenJDK 11][openjdk_releases] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][openjdk_relnotes])
 <!--
@@ -51,14 +51,14 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a Windows installer. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*August 2024*):
+For instance our development environment looks as follows (*September 2024*):
 
 <pre style="font-size:80%;">
-C:\opt\Git\                        <i>(367 MB)</i>
-C:\opt\jdk-temurin-1.8.0u412-b08\  <i>(186 MB)</i>
-C:\opt\jdk-temurin-11.0.23_9\      <i>(314 MB)</i>
-C:\opt\jdk-temurin-17.0.11_9\      <i>(293 MB)</i>
-C:\opt\sbt\                        <i>( 48 MB)</i>
+C:\opt\Git\                        <i>(388 MB)</i>
+C:\opt\jdk-temurin-1.8.0u412-b08\  <i>(189 MB)</i>
+C:\opt\jdk-temurin-11.0.24_8\      <i>(303 MB)</i>
+C:\opt\jdk-temurin-17.0.12_7\      <i>(301 MB)</i>
+C:\opt\sbt\                        <i>(137 MB)</i>
 </pre>
 
 > **:mag_right:** [Git for Windows][git_win] provides a BASH emulation used to run [**`git`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -642,33 +642,33 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
 
-[ada_examples]: https://github.com/michelou/ada-examples
-[akka_examples]: https://github.com/michelou/akka-examples
-[cpp_examples]: https://github.com/michelou/cpp-examples
-[dart_examples]: https://github.com/michelou/dart-examples
-[deno_examples]: https://github.com/michelou/deno-examples
+[ada_examples]: https://github.com/michelou/ada-examples#top
+[akka_examples]: https://github.com/michelou/akka-examples#top
+[cpp_examples]: https://github.com/michelou/cpp-examples#top
+[dart_examples]: https://github.com/michelou/dart-examples#top
+[deno_examples]: https://github.com/michelou/deno-examples#top
 [dotty_ci]: https://dotty-ci.epfl.ch/lampepfl/dotty
 [dotty_metaprogramming]: https://dotty.epfl.ch/docs/reference/metaprogramming/toc.html
 [dotty_releases]: https://github.com/lampepfl/dotty/releases
-[flix_examples]: https://github.com/michelou/flix-examples
+[flix_examples]: https://github.com/michelou/flix-examples#top
 [git_clean]: https://git-scm.com/docs/git-clean/
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.43.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.46.0.txt
 [git_win]: https://git-scm.com/
 [github_dotty]: https://github.com/lampepfl/dotty/
 [github_dotty_fork]: https://github.com/michelou/dotty/tree/master/
-[golang_examples]: https://github.com/michelou/golang-examples
+[golang_examples]: https://github.com/michelou/golang-examples#top
 [graalsqueak_examples]: https://github.com/michelou/graalsqueak-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [jmh]: https://openjdk.java.net/projects/code-tools/jmh/
-[kotlin_examples]: https://github.com/michelou/kotlin-examples
-[llvm_examples]: https://github.com/michelou/llvm-examples
+[kotlin_examples]: https://github.com/michelou/kotlin-examples#top
+[llvm_examples]: https://github.com/michelou/llvm-examples#top
 [man1_awk]: https://www.linux.org/docs/man1/awk.html
 [man1_diff]: https://www.linux.org/docs/man1/diff.html
 [man1_file]: https://www.linux.org/docs/man1/file.html
@@ -679,7 +679,7 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [man1_sed]: https://www.linux.org/docs/man1/sed.html
 [man1_wc]: https://www.linux.org/docs/man1/wc.html
 [microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
-[nodes_examples]: https://github.com/michelou/nodejs-examples
+[nodes_examples]: https://github.com/michelou/nodejs-examples#top
 [openjdk_releases]: https://adoptium.net/releases.html
 <!--
 8u232 -> https://mail.openjdk.java.net/pipermail/jdk8u-dev/2019-October/010452.html
@@ -689,17 +689,18 @@ That error is caused by one of the subprojects in directory <b><code>community-b
 [openjdk_relnotes]: https://mail.openjdk.java.net/pipermail/jdk8u-dev/2022-January/014522.html
 [temurin_openjdk17]: https://adoptium.net/releases.html
 [temurin_openjdk17_relnotes]: https://github.com/openjdk/jdk/compare/jdk-17%2B20...jdk-17%2B21
-[rust_examples]: https://github.com/michelou/rust-examples
+[rust_examples]: https://github.com/michelou/rust-examples#top
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_releases]: https://www.scala-sbt.org/download.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.9.3
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.10.1
 [scala3_docs]: https://dotty.epfl.ch/docs/
 [scala3_home]: https://dotty.epfl.ch/
-[spark_examples]: https://github.com/michelou/spark-examples
-[spring_examples]: https://github.com/michelou/spring-examples
-[trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
+[spark_examples]: https://github.com/michelou/spark-examples#top
+[spring_examples]: https://github.com/michelou/spring-examples#top
+[trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples#top
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
-[wix_examples]: https://github.com/michelou/wix-examples
-[zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/
+[wix_examples]: https://github.com/michelou/wix-exampleshtg-explains-everything-you-need-to-know-about-zipped-files/
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
 [windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst
+[zig_examples]: https://github.com/michelou/zig-examples#top
+[zip_archive]: https://www.howtogeek.com/178146/

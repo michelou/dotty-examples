@@ -92,6 +92,7 @@ args() {
     [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
     debug "Variables  : JAVA_HOME=$JAVA_HOME"
     debug "Variables  : SCALA3_HOME=$SCALA3_HOME"
+    debug "Variables  : MAIN_CLASS=$MAIN_CLASS MAIN_ARGS=$MAIN_ARGS"
     # See http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
     $TIMER && TIMER_START=$(date +"%s")
 }
@@ -230,7 +231,7 @@ compile_scala() {
     local sources_file="$TARGET_DIR/scalac_sources.txt"
     [[ -f "$sources_file" ]] && rm "$sources_file"
     local n=0
-    for f in $(find $SOURCE_DIR/main/scala/ -name *.scala 2>/dev/null); do
+    for f in $(find "$SOURCE_DIR/main/scala/" -type f -name "*.scala" 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done

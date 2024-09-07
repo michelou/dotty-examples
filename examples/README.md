@@ -177,7 +177,7 @@ Command [**`build -debug clean run`**](enum-Planet/build.bat) also displays inte
 [build] Options    : _EXPLAIN=0 _PRINT=0 _SCALA_VERSION=3 _TASTY=0 _TIMER=0 _VERBOSE=0
 [build] Subcommands:  clean compile run
 [build] Variables  : "CFR_HOME=C:\opt\cfr-0.152"
-[build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-17.0.11_9"
+[build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-17.0.12_7"
 [build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.3.4"
 [build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.14"
 [build] Variables  : _MAIN_CLASS=Planet _MAIN_ARGS=1
@@ -364,16 +364,16 @@ Command **` mvn.cmd compile test`** with option **`-debug`** produces additional
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html">mvn</a> -debug compile test | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /b /c:"[DEBUG]\ [execute]" 2>NUL</b>
-[DEBUG] [execute] C:\opt\jdk-temurin-17.0.11_9\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-temurin-17.0.12_7\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.3.4 \
  -cp C:\opt\scala3-3.3.4\lib\*.jar -Dscala.usejavacp=true  \
  dotty.tools.dotc.Main \
  -classpath Y:\examples\hello-scala\target\classes \
  -d Y:\examples\hello-scala\target\classes \
  Y:\examples\hello-scala\src\main\scala\hello.scala
-[DEBUG] [execute] C:\opt\jdk-temurin-17.0.11_9\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-temurin-17.0.12_7\bin\java.exe \
  -Xms64m -Xmx1024m -Dscala.home=C:\opt\scala3-3.3.4 [...]
-[DEBUG] [execute] C:\opt\jdk-temurin-17.0.11_9\bin\java.exe \
+[DEBUG] [execute] C:\opt\jdk-temurin-17.0.12_7\bin\java.exe \
  -Xms64m -Xmx1024m -cp C:\opt\scala3-3.3.4\lib\*.jar;\
 Y:\examples\hello-scala\target\classes hello
 </pre>
@@ -537,7 +537,7 @@ Specifying option `-cli` in command [`build.bat`](./enum-Planet/build.bat) does 
 [build] Options    : _EXPLAIN=0 _PRINT=0 _SCALA_VERSION=3 _TASTY=0 _TIMER=0 _VERBOSE=0
 [build] Subcommands:  compile run
 [build] Variables  : "CFR_HOME=C:\opt\cfr-0.152"
-[build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-17.0.11_9"
+[build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-17.0.12_7"
 [build] Variables  : "SCALA_CLI_HOME=c:\opt\scala-cli"
 [build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.14"
 [build] Variables  : "SCALA3_HOME=C:\opt\scala3-3.3.4"
@@ -548,7 +548,7 @@ Compiled project (Scala 3.3.4-RC1, JVM)
 [build] "c:\opt\scala-cli\scala-cli.exe" run -v --scala 3 --main-class "Planet" "Y:\examples\enum-Planet\src\main\scala" -- 1
 Compiling project (Scala 3.3.4-RC1, JVM)
 Compiled project (Scala 3.3.4-RC1, JVM)
-Running C:\opt\jdk-temurin-17.0.11_9\bin\java.exe -cp Y:\examples\enum-Planet\src\main\scala\.scala-build\project_909ac66893\classes\main;C:\Users\michelou\AppData\Local\Coursier\cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala3-library_3\3.3.4\scala3-library_3-3.3.4-RC1.jar;C:\Users\michelou\AppData\Local\Coursier\cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala-library\2.13.14\scala-library-2.13.14.jar Planet 1
+Running C:\opt\jdk-temurin-17.0.12_7\bin\java.exe -cp Y:\examples\enum-Planet\src\main\scala\.scala-build\project_909ac66893\classes\main;C:\Users\michelou\AppData\Local\Coursier\cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala3-library_3\3.3.4\scala3-library_3-3.3.4-RC1.jar;C:\Users\michelou\AppData\Local\Coursier\cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala-library\2.13.14\scala-library-2.13.14.jar Planet 1
 Mass of earth is 0.1020132025669991
 Your weight on MERCURY (0) is 0.37775761520093526
 Your weight on VENUS (1) is 0.9049990998410455
@@ -687,7 +687,7 @@ public final class main {
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

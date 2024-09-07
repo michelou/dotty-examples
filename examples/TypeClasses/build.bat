@@ -26,7 +26,7 @@ if %_HELP%==1 (
     exit /b !_EXITCODE!
 )
 if %_CLEAN%==1 (
-    call :clean
+    call :clean%_SCALA_CLI%
     if not !_EXITCODE!==0 goto end
 )
 if %_LINT%==1 (
@@ -34,7 +34,7 @@ if %_LINT%==1 (
     if not !_EXITCODE!==0 goto end
 )
 if %_COMPILE%==1 (
-    call :compile
+    call :compile%_SCALA_CLI%
     if not !_EXITCODE!==0 goto end
 )
 if %_DECOMPILE%==1 (
@@ -124,7 +124,7 @@ set _DIFF_CMD=
 if exist "%GIT_HOME%\usr\bin\diff.exe" (
     set "_DIFF_CMD=%GIT_HOME%\usr\bin\diff.exe" 
 )
-@rem use newer PowerShell version if available
+@rem we use the newer PowerShell version if available
 where /q pwsh.exe
 if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
 ) else ( set _PWSH_CMD=powershell.exe
@@ -399,10 +399,6 @@ set _MAIN_CLASS=%__ARG%
 goto :eof
 
 :clean
-if defined _SCALA_CLI (
-    call :clean_cli
-    goto :eof
-)
 call :rmdir "%_TARGET_DIR%"
 @rem mill -> out\, sbt -> project\target\
 call :rmdir "%_ROOT_DIR%out"
@@ -454,17 +450,13 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_MAIN
 )
 call "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_MAIN_SOURCE_DIR%\"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to analyze Scala source files with Scalafmt 1>&2
+    echo %_ERROR_LABEL% Found errors while analyzing Scala source files with Scalafmt 1>&2
     set _EXITCODE=1
     goto :eof
 )
 goto :eof
 
 :compile
-if defined _SCALA_CLI (
-    call :compile_cli
-    goto :eof
-)
 if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 
 set "__TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build"
@@ -693,7 +685,7 @@ if defined __ADD_SCALA3_LIBS (
         set _EXITCODE=1
         goto :eof
     )
-    for /f "delims=" %%f in ("%SCALA3_HOME%\lib\*.jar") do (
+    for /f "delims=" %%f in ('dir /s /b "%SCALA3_HOME%\lib\*.jar"') do (
         set "_LIBS_CPATH=!_LIBS_CPATH!%%f;"
     )
 )
@@ -897,9 +889,8 @@ if not %ERRORLEVEL%==0 (
 set __LIBS_CPATH=
 for /f "delims=" %%f in ("%SCALA3_HOME%\lib\*.jar") do (
     set "__JAR_FILE=%%~nxf"
-    if "!__JAR_FILE:~0,5!"=="dotty" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
+    if "!__JAR_FILE:~0,5!"=="scala" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
     ) else if "!__JAR_FILE:~0,5!"=="tasty" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
-    ) else if "!__JAR_FILE:~0,5!"=="scala" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
     )
 )
 set "__EXEC_FILE=%_TARGET_DIR%\jacoco.exec"
@@ -987,10 +978,11 @@ for /f "usebackq" %%f in (`dir /s /b "%_TEST_CLASSES_DIR%\*JUnitTest.class" 2^>N
     ) else ( set "__MAIN_CLASS=%%~nf"
     )
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS! 1>&2
-    ) else if %_VERBOSE%==1 ( echo Execute test !__MAIN_CLASS! 1>&2
+    ) else if %_VERBOSE%==1 ( echo Execute test "!__MAIN_CLASS!" 1>&2
     )
     call "%_JAVA_CMD%" %__TEST_JAVA_OPTS% org.junit.runner.JUnitCore !__MAIN_CLASS!
     if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to execute test "!__MAIN_CLASS!" 1>&2
         set _EXITCODE=1
         goto :eof
     )

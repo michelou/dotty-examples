@@ -26,7 +26,7 @@ if %_HELP%==1 (
     exit /b !_EXITCODE!
 )
 if %_CLEAN%==1 (
-    call :clean
+    call :clean%_SCALA_CLI%
     if not !_EXITCODE!==0 goto end
 )
 if %_LINT%==1 (
@@ -34,7 +34,7 @@ if %_LINT%==1 (
     if not !_EXITCODE!==0 goto end
 )
 if %_COMPILE%==1 (
-    call :compile
+    call :compile%_SCALA_CLI%
     if not !_EXITCODE!==0 goto end
 )
 if %_DECOMPILE%==1 (
@@ -114,7 +114,7 @@ if exist "%LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat" (
     set "_SCALAFMT_CMD=%LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat"
 )
 set _SCALAFMT_CONFIG_FILE=
-for %%f in ("%~dp0\.") do set "_SCALAFMT_CONFIG_FILE=%%~dpf.scalafmt.conf"
+for /f "delims=" %%f in ("%~dp0\.") do set "_SCALAFMT_CONFIG_FILE=%%~dpf.scalafmt.conf"
 
 set _CFR_CMD=
 if defined CFR_HOME if exist "%CFR_HOME%\bin\cfr.bat" (
@@ -124,7 +124,7 @@ set _DIFF_CMD=
 if exist "%GIT_HOME%\usr\bin\diff.exe" (
     set "_DIFF_CMD=%GIT_HOME%\usr\bin\diff.exe" 
 )
-@rem use newer PowerShell version if available
+@rem we use the newer PowerShell version if available
 where /q pwsh.exe
 if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
 ) else ( set _PWSH_CMD=powershell.exe
@@ -185,7 +185,7 @@ goto :eof
 set _MAIN_CLASS_DEFAULT=myexamples.Main
 set _MAIN_ARGS_DEFAULT=
 
-for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
+for /f "delims=" %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set _PROJECT_URL=github.com/%USERNAME%/dotty-examples
 set _PROJECT_VERSION=1.0-SNAPSHOT
 
@@ -405,10 +405,6 @@ set _MAIN_CLASS=%__ARG%
 goto :eof
 
 :clean
-if defined _SCALA_CLI (
-    call :clean_cli
-    goto :eof
-)
 call :rmdir "%_ROOT_DIR%out"
 call :rmdir "%_TARGET_DIR%"
 goto :eof
@@ -460,10 +456,6 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :compile
-if defined _SCALA_CLI (
-    call :compile_cli
-    goto :eof
-)
 if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 
 set "__TIMESTAMP_FILE=%_CLASSES_DIR%\.latest-build"

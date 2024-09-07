@@ -9,5 +9,5 @@
 // addSbtPlugin("com.github.sbt" % "sbt-release" % "1.0.15")
 // addSbtPlugin("com.github.sbt" % "sbt-pgp" % "2.1.2")
 addSbtPlugin("ch.epfl.scala" % "sbt-bloop" % "1.5.2")
-addSbtPlugin("org.wartremover" % "sbt-wartremover" % "3.0.6")
+addSbtPlugin("org.wartremover" % "sbt-wartremover" % "3.2.0")
 

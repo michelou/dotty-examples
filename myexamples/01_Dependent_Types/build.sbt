@@ -12,7 +12,6 @@ lazy val root = project
       "-encoding",
       "UTF-8"
     ),
-
     // https://mvnrepository.com/artifact/com.github.sbt/junit-interface
     libraryDependencies += "com.github.sbt" % "junit-interface" % "0.13.3" % "test"
   )

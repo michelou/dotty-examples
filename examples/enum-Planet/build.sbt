@@ -13,7 +13,6 @@ lazy val root = project
       "UTF-8",
       "-feature"
     ),
-
     // resolvers += "Maven Central Server" at "http://central.maven.org/maven2",
     libraryDependencies ++= Seq(
       // https://mvnrepository.com/artifact/com.github.sbt/junit-interface

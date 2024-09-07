@@ -10,7 +10,7 @@ class ColorSpecs2Test extends Specification {
 
   "Color enumeration" should {
     "contains 4 elements" in {
-      Color.values.size must_== 4
+      Color.values.size must beEqualTo(4)
     }
   }
 }

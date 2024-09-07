@@ -110,7 +110,7 @@ if exist "%LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat" (
     set "_SCALAFMT_CMD=%LOCALAPPDATA%\Coursier\data\bin\scalafmt.bat"
 )
 set _SCALAFMT_CONFIG_FILE=
-for %%f in ("%~dp0\.") do set "_SCALAFMT_CONFIG_FILE=%%~dpf.scalafmt.conf"
+for /f "delims=" %%f in ("%~dp0\.") do set "_SCALAFMT_CONFIG_FILE=%%~dpf.scalafmt.conf"
 
 set _CFR_CMD=
 if defined CFR_HOME if exist "%CFR_HOME%\bin\cfr.bat" (
@@ -120,7 +120,7 @@ set _DIFF_CMD=
 if exist "%GIT_HOME%\usr\bin\diff.exe" (
     set "_DIFF_CMD=%GIT_HOME%\usr\bin\diff.exe" 
 )
-@rem use newer PowerShell version if available
+@rem we use the newer PowerShell version if available
 where /q pwsh.exe
 if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
 ) else ( set _PWSH_CMD=powershell.exe
@@ -181,7 +181,7 @@ goto :eof
 set _MAIN_CLASS_DEFAULT=Main
 set _MAIN_ARGS_DEFAULT=
 
-for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
+for /f "delims=" %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set _PROJECT_URL=github.com/%USERNAME%/dotty-examples
 set _PROJECT_VERSION=1.0-SNAPSHOT
 
@@ -332,7 +332,7 @@ if %_DEBUG%==1 (
     )
     echo %_DEBUG_LABEL% Variables  : _MAIN_CLASS=%_MAIN_CLASS% _MAIN_ARGS=%_MAIN_ARGS% 1>&2
 )
-if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
+if %_TIMER%==1 for /f "delims=" %%i in ('call "%_PWSH_CMD%" -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
 :help
@@ -642,7 +642,7 @@ if defined __ADD_SCALA3_LIBS (
         set _EXITCODE=1
         goto :eof
     )
-    for /f "delims=" %%f in ("%SCALA3_HOME%\lib\*.jar") do (
+    for /f "delims=" %%f in ('dir /s /b "%SCALA3_HOME%\lib\*.jar"') do (
         set "_LIBS_CPATH=!_LIBS_CPATH!%%f;"
     )
 )
@@ -654,7 +654,7 @@ if %_SCALA_VERSION%==3 ( set "__LIB_PATH=%SCALA3_HOME%\lib"
 ) else ( set "__LIB_PATH=%SCALA_HOME%\lib"
 )
 set _EXTRA_CPATH=
-for /f "delims=" %%f in ("%__LIB_PATH%\*.jar") do (
+for /f "delims=" %%f in ('dir /s /b "%__LIB_PATH%\*.jar" 2^>NUL') do (
     set "_EXTRA_CPATH=!_EXTRA_CPATH!%%f;"
 )
 goto :eof
@@ -846,11 +846,10 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 set __LIBS_CPATH=
-for /f "delims=" %%f in ("%SCALA3_HOME%\lib\*.jar") do (
+for /f "delims=" %%f in ('dir /s /b "%SCALA3_HOME%\lib\*.jar"') do (
     set "__JAR_FILE=%%~nxf"
-    if "!__JAR_FILE:~0,5!"=="dotty" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
+    if "!__JAR_FILE:~0,5!"=="scala" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
     ) else if "!__JAR_FILE:~0,5!"=="tasty" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
-    ) else if "!__JAR_FILE:~0,5!"=="scala" ( set "__LIBS_CPATH=!__LIBS_CPATH!%%f;"
     )
 )
 set "__EXEC_FILE=%_TARGET_DIR%\jacoco.exec"

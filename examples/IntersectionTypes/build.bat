@@ -71,7 +71,7 @@ set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
-set "_MAIN_SOURCE_DIR=%_SOURCE_DIR%\main\scala"
+set "_SOURCE_MAIN_DIR=%_SOURCE_DIR%\main\scala"
 set "_TARGET_DIR=%_ROOT_DIR%target"
 set "_CLASSES_DIR=%_TARGET_DIR%\classes"
 set "_TASTY_CLASSES_DIR=%_TARGET_DIR%\tasty-classes"
@@ -419,7 +419,7 @@ if %_DEBUG%==1 set __SCALAFMT_OPTS=--debug %__SCALAFMT_OPTS%
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_SOURCE_DIR%\main\scala\" 1>&2
 ) else if %_VERBOSE%==1 ( echo Analyze Scala source files with Scalafmt 1>&2
 )
-call "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% %_MAIN_SOURCE_DIR%\
+call "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% %_SOURCE_MAIN_DIR%\
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to analyze Scala source files with Scalafmt 1>&2
     set _EXITCODE=1
@@ -437,7 +437,7 @@ if %_ACTION_REQUIRED%==1 (
     call :compile_java
     if not !_EXITCODE!==0 goto :eof
 )
-call :action_required "%__TIMESTAMP_FILE%" "%_MAIN_SOURCE_DIR%\*.scala"
+call :action_required "%__TIMESTAMP_FILE%" "%_SOURCE_MAIN_DIR%\*.scala"
 if %_ACTION_REQUIRED%==1 (
     call :compile_scala
     if not !_EXITCODE!==0 goto :eof
@@ -501,7 +501,7 @@ echo %_SCALAC_OPTS% -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__O
 set "__SOURCES_FILE=%_TARGET_DIR%\scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
-for /f "delims=" %%f in ('dir /s /b "%_MAIN_SOURCE_DIR%\*.scala" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_SOURCE_MAIN_DIR%\*.scala" 2^>NUL') do (
     echo %%f >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
@@ -571,10 +571,8 @@ set __PATH_ARRAY1=
 shift
 set "__PATH=%~1"
 if not defined __PATH goto action_next
-if defined __PATH_ARRAY set "__PATH_ARRAY=%__PATH_ARRAY%,"
-set __PATH_ARRAY=%__PATH_ARRAY%'%__PATH%'
-if defined __PATH_ARRAY1 set "__PATH_ARRAY1=%__PATH_ARRAY1%,"
-set __PATH_ARRAY1=%__PATH_ARRAY1%'!__PATH:%_ROOT_DIR%=!'
+set __PATH_ARRAY=%__PATH_ARRAY%,'%__PATH%'
+set __PATH_ARRAY1=%__PATH_ARRAY1%,'!__PATH:%_ROOT_DIR%=!'
 goto action_path
 
 :action_next
@@ -583,17 +581,17 @@ for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -path '%__TARGET_FILE%' -e
      set __TARGET_TIMESTAMP=%%i
 )
 set __SOURCE_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -recurse -path %__PATH_ARRAY% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -recurse -path %__PATH_ARRAY:~1% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
     set __SOURCE_TIMESTAMP=%%i
 )
 call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
 set _ACTION_REQUIRED=%_NEWER%
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% Target : '%__TARGET_FILE%' 1>&2
-    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: %__PATH_ARRAY% 1>&2
+    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: %__PATH_ARRAY:~1% 1>&2
     echo %_DEBUG_LABEL% _ACTION_REQUIRED=%_ACTION_REQUIRED% 1>&2
 ) else if %_VERBOSE%==1 if %_ACTION_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
-    echo No action required ^(%__PATH_ARRAY1%^) 1>&2
+    echo No action required ^("%__PATH_ARRAY1:~1%"^) 1>&2
 )
 goto :eof
 

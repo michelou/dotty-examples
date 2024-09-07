@@ -45,7 +45,7 @@
         <!-- Maven plugin versions -->
         <scala.maven.version>1.0.1</scala.maven.version> <!-- Dec 2018 -->
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
-        <scalatest.version>3.2.18</scalatest.version>
+        <scalatest.version>3.2.19</scalatest.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven.compiler.version>3.13.0</maven.compiler.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
@@ -53,20 +53,20 @@
         <maven.surefire.version>2.22.2</maven.surefire.version>
         <!-- https://mvnrepository.com/artifact/org.specs2/specs2-junit -->
         <!-- Note: Specs2 5.x depends on Scala 3 while Specs2 4.x depends on Scala 2 or Scala 3 -->
-        <specs2.version>4.20.2</specs2.version>
+        <specs2.version>4.20.8</specs2.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
         <maven.jar.version>3.4.2</maven.jar.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
-        <exec.maven.version>3.3.0</exec.maven.version>
+        <exec.maven.version>3.4.1</exec.maven.version>
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
         <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
         <jmh.version>1.37</jmh.version>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
-        <junit.platform.version>1.10.2</junit.platform.version>
+        <junit.platform.version>1.11.0</junit.platform.version>
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <jupiter.version>5.10.2</jupiter.version>
+        <jupiter.version>5.11.0</jupiter.version>
 
         <m2.directory>${user.home}/.m2/repository</m2.directory>
 

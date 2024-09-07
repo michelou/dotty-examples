@@ -92,6 +92,12 @@ if not exist "%CFR_HOME%\bin\cfr.bat" (
    goto :eof
 )
 set "_CFR_CMD=%CFR_HOME%\bin\cfr.bat"
+
+@rem use newer PowerShell version if available
+where /q pwsh.exe
+if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
+) else ( set _PWSH_CMD=powershell.exe
+)
 goto :eof
 
 :env_colors
@@ -240,7 +246,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Variables  : "JAVA_HOME=%JAVA_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "SCALA3_HOME=%SCALA3_HOME%" 1>&2
 )
-if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
+if %_TIMER%==1 for /f "delims=" %%i in ('call "%_PWSH_CMD%" -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
 :help
@@ -258,18 +264,18 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%           show commands executed by this script
+echo     %__BEG_O%-debug%__END%           print commands executed by this script
 echo     %__BEG_O%-explain%__END%         set compiler option %__BEG_O%-explain%__END%
 echo     %__BEG_O%-explain-types%__END%   set compiler option %__BEG_O%-explain-types%__END%
 echo     %__BEG_O%-tasty%__END%           compile both from source and TASTy files
-echo     %__BEG_O%-timer%__END%           display total execution time
-echo     %__BEG_O%-verbose%__END%         display progress messages
+echo     %__BEG_O%-timer%__END%           print total execution time
+echo     %__BEG_O%-verbose%__END%         print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%            delete generated class files
 echo     %__BEG_O%compile%__END%          compile Scala source files
 echo     %__BEG_O%doc%__END%              generate documentation
-echo     %__BEG_O%help%__END%             display this help message
+echo     %__BEG_O%help%__END%             print this help message
 echo     %__BEG_O%pack%__END%             create Java archive file
 echo     %__BEG_O%test%__END%             execute unit tests
 echo     %__BEG_O%test:noplugin%__END%    execute unit tests with NO plugin
@@ -315,16 +321,22 @@ echo %_SCALAC_OPTS% -language:implicitConversions -classpath "%_CLASSES_DIR:\=\\
 set "__SOURCES_FILE=%_TARGET_DIR%\scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
 set __N=0
-for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
+for /f "delims=" %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
+if %__N%==0 (
+    echo %_WARNING_LABEL% No Scala source files found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% Scala source file
+) else ( set __N_FILES=%__N% Scala source files
+)
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N% Scala source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to compile %__N% Scala source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -347,11 +359,11 @@ goto action_path
 
 :action_next
 set __TARGET_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
      set __TARGET_TIMESTAMP=%%i
 )
 set __SOURCE_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -recurse -path %__PATH_ARRAY:~1% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -recurse -path %__PATH_ARRAY:~1% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
     set __SOURCE_TIMESTAMP=%%i
 )
 call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
@@ -388,7 +400,7 @@ goto :eof
 :libs_cpath
 set __ADD_DOTTY_LIBS=%~1
 
-for %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
+for /f "delims=" %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
 if not exist "%__BATCH_FILE%" (
     echo %_ERROR_LABEL% Batch file "%__BATCH_FILE%" not found 1>&2
     set _EXITCODE=1
@@ -404,7 +416,7 @@ if defined __ADD_DOTTY_LIBS (
         set _EXITCODE=1
         goto :eof
     )
-    for %%f in ("%SCALA3_HOME%\lib\*.jar") do (
+    for /f "delims=" %%f in ("%SCALA3_HOME%\lib\*.jar") do (
         set _LIBS_CPATH=!_LIBS_CPATH!%%f;
     )
 )
@@ -422,7 +434,7 @@ set "__OPTS_FILE=%_TARGET_DIR%\scaladoc_opts.txt"
 echo -siteroot "%_TARGET_DOCS_DIR%" -project "%_PROJECT_NAME%" -project-url "%_PROJECT_URL%" -project-version "%_PROJECT_VERSION%" > "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_TARGET_DIR%\scaladoc_sources.txt"
-for /f %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
+for /f "delims=" %%i in ('dir /s /b "%_SOURCE_DIR%\main\scala\*.scala" 2^>NUL') do (
     echo %%i>> "%__SOURCES_FILE%"
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALADOC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
@@ -455,7 +467,7 @@ call :pack_manifest
 if not %_EXITCODE%==0 goto :eof
 
 set __FILES=-C "%_TARGET_DIR%" "%__PROP_FILENAME%"
-for /f %%f in ('dir /s /b "%_CLASSES_DIR%\*.class" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_CLASSES_DIR%\*.class" 2^>NUL') do (
     set "__CLASS_FILE=%%f"
     set __FILES=!__FILES! -C "%_CLASSES_DIR%" "!__CLASS_FILE:%_CLASSES_DIR%\=!"
 )
@@ -518,6 +530,12 @@ for /f "delims=" %%i in ('dir /s /b "%_SOURCE_DIR%\test\scala\*.scala" 2^>NUL') 
     echo %%i >> "%__SOURCES_FILE%"
     set /a __N+=1
 )
+if %__N%==0 (
+    echo %_WARNING_LABEL% No Scala test source files found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% Scala test source file
+) else ( set __N_FILES=%__N% Scala test source files
+)
 if %_TEST_PLUGIN%==0 ( set __SCALAC_OPTS=%_SCALAC_OPTS%
 ) else ( set __SCALAC_OPTS=%_SCALAC_OPTS% -Xplugin:"%_PLUGIN_JAR_FILE%" -Xplugin-require:%_PLUGIN_NAME% -P:"%_PLUGIN_NAME%:opt1=1"
 )
@@ -525,11 +543,11 @@ set "__OPTS_FILE=%_TARGET_DIR%\test_scalac_opts.txt"
 echo %__SCALAC_OPTS% -classpath "%_CLASSES_DIR%;%_TEST_CLASSES_DIR%" -d "%_TEST_CLASSES_DIR%" > "%__OPTS_FILE%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N% Scala test source files to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call %_SCALAC_CMD% "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Compilation of %__N% Scala test source files failed 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -545,7 +563,7 @@ for /f "tokens=1,2,3,4,*" %%i in ('%SCALA3_HOME%\bin\scalac.bat -version 2^>^&1'
 if "%__VERSION_STRING:NIGHTLY=%"=="%__VERSION_STRING%" (
     set __VERSION_SUFFIX=_%__VERSION_STRING%
 ) else (
-    for /f "usebackq" %%i in (`powershell -c "$s='%__VERSION_STRING%';$i=$s.indexOf('-bin',0); $s.substring(0, $i)"`) do (
+    for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "$s='%__VERSION_STRING%';$i=$s.indexOf('-bin',0); $s.substring(0, $i)"`) do (
         set __VERSION_SUFFIX=_%%i-NIGHTLY
     )
 )
@@ -607,13 +625,14 @@ if not %_EXITCODE%==0 goto :eof
 set __TEST_SCALA_OPTS=-classpath "%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
 
 @rem see https://github.com/junit-team/junit4/wiki/Getting-started
-for %%i in (%_TEST_CLASSES_DIR%\*Test.class) do (
+for /f "delims=" %%i in (%_TEST_CLASSES_DIR%\*Test.class) do (
     set "__MAIN_CLASS=%%~ni"
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CMD%" %__TEST_SCALA_OPTS% !__MAIN_CLASS! 1>&2
-    ) else if %_VERBOSE%==1 ( echo Execute test !__MAIN_CLASS! 1>&2
+    ) else if %_VERBOSE%==1 ( echo Execute test "!__MAIN_CLASS!" 1>&2
     )
     call "%_SCALA_CMD%" %__TEST_SCALA_OPTS% !__MAIN_CLASS!
     if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to execute test "!__MAIN_CLASS!" 1>&2
         set _EXITCODE=1
         goto :eof
     )
@@ -627,7 +646,7 @@ goto :eof
 set __START=%~1
 set __END=%~2
 
-for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
+for /f "delims=" %%i in ('call "%_PWSH_CMD%" -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
 goto :eof
 
 @rem #########################################################################
@@ -635,7 +654,7 @@ goto :eof
 
 :end
 if %_TIMER%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
+    for /f "delims=" %%i in ('call "%_PWSH_CMD%" -c "(Get-Date)"') do set __TIMER_END=%%i
     call :duration "%_TIMER_START%" "!__TIMER_END!"
     echo Total execution time: !_DURATION! 1>&2
 )

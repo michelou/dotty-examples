@@ -73,6 +73,8 @@
                             <additionalClasspathElements>
                                 <additionalClasspathElement>${m2.junit.jar}</additionalClasspathElement>
                             </additionalClasspathElements>
+                            <!-- <installDirectory>${env.SCALA3_HOME}</installDirectory> -->
+                            <localInstall>true</localInstall>
                         </configuration>
                     </execution>
                     <execution>
@@ -90,7 +92,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <scalaVersion>${scala.version}</scalaVersion>
+                    <scalaVersion>${scala3.version}</scalaVersion>
                     <localInstall>${scala.local.install}</localInstall>
                     <jvmArgs>
                         <jvmArg>-Xms64m</jvmArg>

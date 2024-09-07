@@ -10,12 +10,13 @@ set _DEBUG=0
 set _EXITCODE=0
 
 @rem files build.sbt, build.sc and ivy.xml
+@rem see https://mvnrepository.com/artifact/org.scala-lang/scala3-library
 set _DOTTY_VERSION_OLD="3.3.3"
 set _DOTTY_VERSION_NEW="3.3.4-RC1"
 
 @rem files project\build.properties
-set _SBT_VERSION_OLD=sbt.version=1.9.9
-set _SBT_VERSION_NEW=sbt.version=1.10.0
+set _SBT_VERSION_OLD=sbt.version=1.10.0
+set _SBT_VERSION_NEW=sbt.version=1.10.1
 
 @rem files project\plugins.sbt
 @rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/
@@ -34,8 +35,9 @@ set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_3.3.3
 set _IVY_TASTY_VERSION_NEW=$1_3.3.4-RC1
 
 @rem files pom.xml (NB. PS regex)
-set _POM_SCALA2_VERSION_OLD=scala.version^>2.13.12
-set _POM_SCALA2_VERSION_NEW=scala.version^>2.13.13
+@rem see https://mvnrepository.com/artifact/org.scala-lang/scala-library
+set _POM_SCALA2_VERSION_OLD=scala.version^>2.13.13
+set _POM_SCALA2_VERSION_NEW=scala.version^>2.13.14
 
 set _POM_SCALA3_VERSION_OLD=scala3.version^>3.3.3
 set _POM_SCALA3_VERSION_NEW=scala3.version^>3.3.4-RC1

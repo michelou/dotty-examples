@@ -13,6 +13,7 @@ lazy val root = project
       "-encoding",
       "UTF-8"
     ),
+
     libraryDependencies ++= Seq(
       // https://mvnrepository.com/artifact/com.github.sbt/junit-interface
       "com.github.sbt" % "junit-interface" % "0.13.3" % "test"

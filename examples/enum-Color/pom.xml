@@ -67,6 +67,8 @@
                         <configuration>
                             <compilerArgs>
                                 <compilerArg>-deprecation</compilerArg>
+                                <compilerArg>-feature</compilerArg>
+                                <compilerArg>-language:implicitConversions</compilerArg>
                             </compilerArgs>
                             <additionalClasspathElements>
                                 <additionalClasspathElement>${m2.hamcrest.jar}</additionalClasspathElement>

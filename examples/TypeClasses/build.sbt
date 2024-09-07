@@ -11,7 +11,8 @@ lazy val root = project
     scalaVersion := scala3Version,
     scalacOptions ++= Seq(
       "-deprecation",
-      "-encoding", "UTF-8",
+      "-encoding",
+      "UTF-8",
       "-feature"
     ),
 

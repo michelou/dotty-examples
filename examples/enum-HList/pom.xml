@@ -84,7 +84,8 @@
                             <includes>
                                 <include>scala/**/*.scala</include>
                             </includes>
-                            <installDirectory>${env.SCALA3_HOME}</installDirectory>
+                            <scalaVersion>${scala3.version}</scalaVersion>
+                            <localInstall>${scala.local.install}</localInstall>
                         </configuration>
                     </execution>
                     <execution>

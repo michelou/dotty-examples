@@ -373,7 +373,7 @@ doc() {
 
     local sources_file="$TARGET_DIR/scaladoc_sources.txt"
     [[ -f "$sources_file" ]] && rm -rf "$sources_file"
-    # for f in $(find $SOURCE_DIR/main/java/ -name *.java 2>/dev/null); do
+    # for f in $(find "$SOURCE_DIR/main/java/" -type f -name "*.java" 2>/dev/null); do
     #     echo $(mixed_path $f) >> "$sources_file"
     # done
     for f in $(find "$CLASSES_DIR/" -type f -name "*.tasty" 2>/dev/null); do
