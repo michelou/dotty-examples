@@ -62,7 +62,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*September 2024*) <sup id="anchor_06">[6](#footnote_05)</sup>:
+For instance our development environment looks as follows (*September 2024*) <sup id="anchor_06">[6](#footnote_06)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant\                 <i>( 40 MB)</i>
@@ -920,8 +920,8 @@ For instance, for Visual Studio 2019, we set variable <b><code>BAZEL_VC</code></
 The attentive Scala 3 user will have noticed that the size of the <a href="">Scala 3</a> software distribution has increased significantly with <a href="https://github.com/scala/scala3/releases/tag/3.5.0" rel="external">version 3.5.0</a>.
 <table>
 <tr><th>Scala 3 Version</th><th>Archive&nbsp;size</th><th>Installation&nbsp;size</th></tr>
-<tr><td>3.3.4 LTS</td><td>34 MB</td><td>38.6 MB</td></tr>
-<tr><td>3.5.0 Next</td><td>123 MB</td><td style="color:red;">131 MB</td></tr>
+<tr><td>3.3.4&nbsp;LTS</td><td>34 MB</td><td>38.6 MB</td></tr>
+<tr><td>3.5.0&nbsp;Next</td><td>123 MB</td><td style="color:red;">131 MB</td></tr>
 </table>
 That size increase of the Scala 3 software distribution comes from a big reorganization of its contents :
 <ul>
