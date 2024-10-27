@@ -67,6 +67,11 @@ set "_GREP_CMD=%GIT_HOME%\usr\bin\grep.exe"
 set "_SED_CMD=%GIT_HOME%\usr\bin\sed.exe"
 set "_UNIX2DOS_CMD=%GIT_HOME%\usr\bin\unix2dos.exe"
 
+@rem we use the newer PowerShell version if available
+where /q pwsh.exe
+if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
+) else ( set _PWSH_CMD=powershell.exe
+)
 set "_NIGHTLY_DIR=%TEMP%\scala3-nightly"
 set "_NIGHTLY_BIN_DIR=%_NIGHTLY_DIR%\bin"
 set "_NIGHTLY_LIB_DIR=%_NIGHTLY_DIR%\lib"
@@ -173,7 +178,7 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Subcommands: _DOWNLOAD=%_DOWNLOAD% _ACTIVATE=%_ACTIVATE% _RESTORE=%_RESTORE% 1>&2
     if defined SCALA3_HOME echo %_DEBUG_LABEL% Variables  : "SCALA3_HOME=%SCALA3_HOME%" 1>&2
 )
-if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
+if %_TIMER%==1 for /f "delims=" %%i in ('call "%_PWSH_CMD%" -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
 :help
@@ -216,8 +221,8 @@ Else { $n = $size/1024; $unit='Kb' } ^
 Write-Host ([math]::Round($n,1))" "$unit
 
 set _FILE_SIZE=0
-if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -C "..." 1>&2
-for /f "delims=" %%i in ('powershell -C "%__PS1_SCRIPT%"') do set _FILE_SIZE=%%i
+if %_DEBUG%==1 echo %_DEBUG_LABEL% call "%_PWSH_CMD%" -C "..." 1>&2
+for /f "delims=" %%i in ('call "%_PWSH_CMD%" -C "%__PS1_SCRIPT%"') do set _FILE_SIZE=%%i
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Execution of ps1 cmdlet failed 1>&2
     set _EXITCODE=1
@@ -245,7 +250,7 @@ goto :eof
 :download
 set _NIGHTLY_VERSION=
 
-for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%" %_DEBUG%') do (
+for /f "delims=" %%i in ('call "%_PWSH_CMD%" -ExecutionPolicy ByPass -File "%_PS1_FILE%" %_DEBUG%') do (
     for %%f in ("%%i") do set "__FILE_BASENAME=%%~nxf"
     if exist "%_NIGHTLY_DIR%\lib\!__FILE_BASENAME!" if %_FORCE%==0 (
         if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_NIGHTLY_DIR%\lib\!__FILE_BASENAME!" already exists 1>&2
@@ -260,10 +265,10 @@ call :rmdir "%_NIGHTLY_DIR%"
 if not %_EXITCODE%==0 goto :eof
 
 set __N=0
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%" %_DEBUG% 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% call "%_PWSH_CMD%" -ExecutionPolicy ByPass -File "%_PS1_FILE%" %_DEBUG% 1>&2
 ) else if %_VERBOSE%== 1 ( echo Download Scala 3 nightly files from Maven repository 1>&2
 )
-for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%" %_DEBUG%') do (
+for /f "delims=" %%i in ('call "%_PWSH_CMD%" -ExecutionPolicy ByPass -File "%_PS1_FILE%" %_DEBUG%') do (
     @rem set __URL=http://central.maven.org/maven2/%%i
     set __URL=https://repo.maven.apache.org/maven2/%%i
     for %%f in ("%%i") do set "__FILE_BASENAME=%%~nxf"
@@ -276,8 +281,8 @@ for /f "delims=" %%i in ('powershell -ExecutionPolicy ByPass -File "%_PS1_FILE%"
     if not exist "%_NIGHTLY_LIB_DIR%" mkdir "%_NIGHTLY_LIB_DIR%" 1>NUL
     set "__JAR_FILE=%_NIGHTLY_LIB_DIR%\!__FILE_BASENAME!"
     @rem NB. curl is faster than wget
-    @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -c "wget -uri !__URL! -Outfile '!__JAR_FILE!'" 1>&2
-    @rem powershell -c "$progressPreference='silentlyContinue';wget -uri !__URL! -Outfile '!__JAR_FILE!'"
+    @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% call "%_PWSH_CMD%" -c "wget -uri !__URL! -Outfile '!__JAR_FILE!'" 1>&2
+    @rem call "%_PWSH_CMD%" -c "$progressPreference='silentlyContinue';wget -uri !__URL! -Outfile '!__JAR_FILE!'"
     set __CURL_OPTS=--silent --insecure --url "!__URL!"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_CURL_CMD%" !__CURL_OPTS! ^> "!__JAR_FILE!" 1>&2
     call "%_CURL_CMD%" !__CURL_OPTS! > "!__JAR_FILE!"
@@ -319,8 +324,8 @@ for /f "tokens=1,*" %%i in (%__LST_FILE%) do (
         if %_VERBOSE%==1 <NUL set /p=Downloading file !__NAME! ... 
         set "__OUTFILE=%_NIGHTLY_DIR%\!__DIR!\!__NAME!"
         @rem NB. curl is faster than wget
-        @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% powershell -C "wget -uri '!__URI!' -outfile '!__OUTFILE!'"
-        @rem powershell -C "$progressPreference='silentlyContinue';wget -uri '!__URI!' -outfile '!__OUTFILE!'"
+        @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% call "%_PWSH_CMD%" -C "wget -uri '!__URI!' -outfile '!__OUTFILE!'"
+        @rem call "%_PWSH_CMD%" -C "$progressPreference='silentlyContinue';wget -uri '!__URI!' -outfile '!__OUTFILE!'"
         if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_CURL_CMD%" --silent --insecure  --url "!__URI!" ^> "!__OUTFILE!" 1>&2
         call "%_CURL_CMD%" --silent --insecure --url "!__URI!" > "!__OUTFILE!"
         if %_VERBOSE%==1 (
@@ -342,7 +347,7 @@ if %_VERBOSE%==1 echo Finished to download %__N% files to directory "!_NIGHTLY_D
 call :github_revision "%_NIGHTLY_VERSION%"
 if not %_EXITCODE%==0 goto :eof
 
-for /f "usebackq delims=" %%i in (`powershell -C "Get-Date -Format 'yyyy-MM-dd HH:mm:ssK'"`) do set "__BUILD_TIME=%%i"
+for /f "usebackq delims=" %%i in (`call "%_PWSH_CMD%" -C "Get-Date -Format 'yyyy-MM-dd HH:mm:ssK'"`) do set "__BUILD_TIME=%%i"
 (
     echo version:=%_NIGHTLY_VERSION%
     echo revision:=%_GITHUB_REVISION%
@@ -458,7 +463,7 @@ goto :eof
 set __START=%~1
 set __END=%~2
 
-for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
+for /f "delims=" %%i in ('call "%_PWSH_CMD%" -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
 goto :eof
 
 @rem #########################################################################
@@ -466,7 +471,7 @@ goto :eof
 
 :end
 if %_TIMER%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
+    for /f "delims=" %%i in ('call "%_PWSH_CMD%" -c "(Get-Date)"') do set __TIMER_END=%%i
     call :duration "%_TIMER_START%" "!__TIMER_END!"
     echo Total execution time: !_DURATION! 1>&2
 )

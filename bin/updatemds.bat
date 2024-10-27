@@ -10,11 +10,11 @@ set _DEBUG=0
 set _EXITCODE=0
 
 @rem files README.md, RESOURCES.md, etc.
-set _LAST_MODIFIED_OLD=michelou/)/August 2024
-set _LAST_MODIFIED_NEW=michelou/)/September 2024
+set _LAST_MODIFIED_OLD=michelou/)/September 2024
+set _LAST_MODIFIED_NEW=michelou/)/October 2024
 
-set _LAST_DOWNLOAD_OLD=(\*August 2024\*)
-set _LAST_DOWNLOAD_NEW=(*September 2024*)
+set _LAST_DOWNLOAD_OLD=(\*September 2024\*)
+set _LAST_DOWNLOAD_NEW=(*October 2024*)
 
 @rem to be transformed into -not -path "./<dirname>/*"
 set _EXCLUDE_TOPDIRS=cs206-functional-programming docs docs.scala-lang dotty ^
