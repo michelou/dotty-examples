@@ -75,8 +75,8 @@ C:\opt\jacoco\                     <i>( 10 MB)</i>
 C:\opt\javafx-sdk-17.0.12\         <i>(137 MB)</i>
 C:\opt\javafx-sdk-21.0.4\          <i>(138 MB)</i>
 C:\opt\jdk-temurin-1.8.0u422-b05\  <i>(189 MB)</i>
-C:\opt\jdk-temurin-17.0.12_7\      <i>(301 MB)</i>
-C:\opt\jdk-temurin-21.0.4_7\       <i>(326 MB)</i>
+C:\opt\jdk-temurin-17.0.13_11\     <i>(301 MB)</i>
+C:\opt\jdk-temurin-21.0.5_11\      <i>(326 MB)</i>
 C:\opt\jitwatch-1.4.9\             <i>( 36 MB)</i>
 C:\opt\mill\                       <i>( 67 MB)</i>
 C:\opt\msys64\                     <i>(5.5 GB)</i>
@@ -336,9 +336,9 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   javac 17.0.12, scalac 2.13.15, scalac 3.3.4, scalafmt 3.7.17,
+   javac 17.0.13, scalac 2.13.15, scalac 3.3.4, scalafmt 3.7.17,
    ant 1.10.15, gradle 8.10.2, mvn 3.9.9, sbt 1.10.3, scala-cli 1.5.1,
-   mill 0.11.12, bazel 7.4.0, cfr 0.152, make 3.81, python 3.11.1,
+   mill 0.12.1, bazel 7.4.0, cfr 0.152, make 3.81, python 3.11.1,
    jacoco 0.8.12, git 2.47.0, diff 3.10, bash 5.2.26(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt scala-cli</b>
@@ -354,10 +354,10 @@ Other development tools such as [**`javac.exe`**][javac_cli] and [**`scalac.bat`
 INFO: Could not find files for the given pattern(s).
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> /r %JAVA_HOME% javac</b>
-C:\opt\jdk-temurin-17.0.12_7\bin\javac.exe
+C:\opt\jdk-temurin-17.0.13_11\bin\javac.exe
 &nbsp;
 <b>&gt; %JAVA_HOME%\bin\<a href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javac.html">javac</a> -version</b>
-javac 17.0.12
+javac 17.0.13
 </pre>
 
 Command [**`setenv.bat -verbose`**](setenv.bat) also prints the tool paths and defined environment variables:
@@ -365,9 +365,9 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also prints the tool paths and d
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   javac 17.0.12, scalac 2.13.15, scalac 3.3.4, scalafmt 3.7.12,
+   javac 17.0.13, scalac 2.13.15, scalac 3.3.4, scalafmt 3.7.12,
    ant 1.10.15, gradle 10, mvn 3.9.9, sbt 1.10.1, scala-cli 1.5.1,
-   mill 0.11.12, bazel 7.3.1, cfr 0.152, make 3.81, python 3.11.1,
+   mill 0.12.1, bazel 7.3.1, cfr 0.152, make 3.81, python 3.11.1,
    jacoco 0.8.12, git 2.47.0, diff 3.10, bash 5.2.26(1)
 Tool paths:
    C:\opt\jdk-temurin-11.0.21_9\bin\javac.exe
@@ -397,9 +397,9 @@ Environment variables:
    "COURSIER_HOME=C:\opt\coursier-2.1.7"
    "GIT_HOME=C:\opt\Git"
    "GRADLE_HOME=C:\opt\gradle"
-   "JAVA_HOME=C:\opt\jdk-temurin-17.0.12_7"
-   "JAVA17_HOME=C:\opt\jdk-temurin-17.0.12_7"
-   "JAVA21_HOME=C:\opt\jdk-temurin-21.0.4_7"
+   "JAVA_HOME=C:\opt\jdk-temurin-17.0.13_11"
+   "JAVA17_HOME=C:\opt\jdk-temurin-17.0.13_11"
+   "JAVA21_HOME=C:\opt\jdk-temurin-21.0.5_11"
    "JAVAFX_HOME=C:\opt\javafx-sdk-21.0.4"
    "MSVS_HOME=X:"
    "MSYS_HOME=C:\opt\msys64"
@@ -429,11 +429,11 @@ Finished to clean up 12 subdirectories in Y:\dotty\myexamples
 Command [**`dirsize.bat`**](bin/dirsize.bat) returns the size (in Kb, Mb or Gb) of the specified directory paths:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.3.4 c:\opt\jdk-temurin-17.0.12_7</b>
+<b>&gt; <a href="bin/dirsize.bat">dirsize</a> examples myexamples c:\opt\scala3-3.3.4 c:\opt\jdk-temurin-17.0.13_11</b>
 Size of directory "examples" is 3.9 Mb
 Size of directory "myexamples" is 1.2 Mb
 Size of directory "c:\opt\scala3-3.3.4" is 35.7 Mb
-Size of directory "c:\opt\jdk-temurin-17.0.12_7" is 301.0 Mb
+Size of directory "c:\opt\jdk-temurin-17.0.13_11" is 304.0 Mb
 </pre>
 
 ### **`getnightly.bat`**
@@ -616,7 +616,7 @@ Searching for **`FileSystem`** with option **`-artifact`** produces the followin
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> FileSystem -artifact</b>
 Searching for class name FileSystem in archive files C:\opt\scala3-3.3.4\lib\*.jar
 Searching for class name FileSystem in archive files C:\opt\scala-2.13.15\lib\*.jar
-Searching for class name FileSystem in archive files c:\opt\jdk-temurin-17.0.12_7\lib\*.jar
+Searching for class name FileSystem in archive files c:\opt\jdk-temurin-17.0.13_11\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem.class
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystemProvider$1.class
@@ -761,7 +761,7 @@ The REPL has several commands available:
 :reset                   reset the repl to its initial state, forgetting all session entries
 
 <b>scala&gt;</b> System.getenv().get("JAVA_HOME")
-val res0: String = C:\opt\jdk-temurin-17.0.12_7
+val res0: String = C:\opt\jdk-temurin-17.0.13_11
 
 <b>scala&gt;</b> System.getenv().get("SCALA3_HOME")
 val res1: String = C:\opt\scala3-3.3.4
@@ -839,6 +839,11 @@ See also the <a href="https://bazel.build/release#support-matrix" rel="external"
   <td><a href="https://bazel.build/about/roadmap#bazel-8.0" rel="external">8.0.0</a></td>
   <td>Late 2024</a></td>
   <td>-</td>
+</tr>
+<tr>
+  <td><a href="https://github.com/bazelbuild/bazel/releases/tag/7.4.0">7.4.0</a></td>
+  <td>October 2024</td>
+  <td>December 2026</td>
 </tr>
 <tr>
   <td><a href="https://github.com/bazelbuild/bazel/releases/tag/7.3.1" rel="external">7.3.1</a></td>
@@ -921,7 +926,7 @@ The attentive Scala 3 user will have noticed that the size of the <a href="">Sca
 <table>
 <tr><th>Scala 3 Version</th><th>Archive&nbsp;size</th><th>Installation&nbsp;size</th></tr>
 <tr><td>3.3.4&nbsp;LTS</td><td>34 MB</td><td>38.6 MB</td></tr>
-<tr><td>3.5.0&nbsp;Next</td><td>123 MB</td><td style="color:red;">131 MB</td></tr>
+<tr><td>3.5.0&nbsp;Next</td><td>70 MB</td><td style="color:red;">131 MB</td></tr>
 </table>
 That size increase of the Scala 3 software distribution comes from a big reorganization of its contents :
 <ul>
@@ -958,7 +963,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/lihaoyi/mill/releases">0.11.12-assembly</a> (mill)                            <i>( 64 MB)</i>
+<a href="https://github.com/lihaoyi/mill/releases">0.12.1-assembly</a> (mill)                             <i>( 64 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.15-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.9-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-7.4.0-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
@@ -966,9 +971,9 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.12.zip</a>                                  <i>(  4 MB)</i>
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.9-shaded-win.jar</a>                   <i>( 36 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                          <i>( 94 MB)</i>
-<a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u372b07.zip</a>     <i>( 99 MB)</i>
-<a href="https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot">OpenJDK17U-jdk_x64_windows_hotspot_17.0.12_7.zip</a>   <i>(188 MB)</i>
-<a href="https://adoptium.net/fr/temurin/releases/?variant=openjdk21&jvmVariant=hotspot">OpenJDK21U-jdk_x64_windows_hotspot_21.0.4_7.zip</a>    <i>(191 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u432b06.zip</a>     <i>( 99 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot">OpenJDK17U-jdk_x64_windows_hotspot_17.0.13_11.zip</a>  <i>(188 MB)</i>
+<a href="https://adoptium.net/fr/temurin/releases/?variant=openjdk21&jvmVariant=hotspot">OpenJDK21U-jdk_x64_windows_hotspot_21.0.5_11.zip</a>   <i>(191 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-17.0.12_windows-x64_bin-sdk.zip</a>            <i>( 39 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-17.0.12_windows-x64_bin-jmods.zip</a>          <i>( 37 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-21.0.4_windows-x64_bin-sdk.zip</a>             <i>( 39 MB)</i>
@@ -981,7 +986,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.5.2">scala3-3.5.2.zip</a>                                   <i>(123 MB)</i>
 </pre>
 </dd></dl>
-<!-- scala3: 3.4.2 = 37 MB, 3.5.0 = 131 MB -->
+<!-- scala3: 3.4.2 = 37 MB, 3.5.0 = 131 MB, 3.5.2 = 138 MB -->
 
 <span id="footnote_07">[7]</span> ***PowerShell*** [↩](#anchor_07) <!-- 2018-05-09 -->
 
@@ -1020,14 +1025,16 @@ Command Prompt has been around for as long as we can remember, but starting with
 7.2.1 -> https://github.com/bazelbuild/bazel/releases/tag/7.2.1
 7.3.0 -> https://github.com/bazelbuild/bazel/releases/tag/7.3.0
 7.3.1 -> https://github.com/bazelbuild/bazel/releases/tag/7.3.1
+7.4.0 -> https://github.com/bazelbuild/bazel/releases/tag/7.4.0
 -->
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.3.0
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/7.4.0
 [bloop_releases]: https://scalacenter.github.io/bloop/
 [bloop_relnotes]: https://github.com/scalacenter/bloop/releases/tag/v1.3.4
 [cfr_releases]: https://www.benf.org/other/cfr/
 [cmd_cli]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd
 [cobol_examples]: https://github.com/michelou/cobol-examples#top
 [cpp_examples]: https://github.com/michelou/cpp-examples#top
+[dafny_examples]: https://github.com/michelou/dafny-examples#top
 [dart_examples]: https://github.com/michelou/dart-examples#top
 [deno_examples]: https://github.com/michelou/deno-examples#top
 [docker_examples]: https://github.com/michelou/docker-examples#top
@@ -1154,7 +1161,9 @@ Command Prompt has been around for as long as we can remember, but starting with
 11.0.20 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024064.html
 11.0.21 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026351.html
 11.0.22 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-January/029215.html
+11.0.23 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-April/032198.html
 11.0.24 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-July/035797.html
+11.0.25 -> 
 -->
 [temurin_openjdk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
 [temurin_openjdk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-24-relnotes.html
@@ -1166,6 +1175,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 17.0.10 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-January/029089.html
 17.0.11 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-April/032197.html
 17.0.12 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-July/035798.html
+17.0.13 -> 
 -->
 [temurin_openjdk17]: https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot
 [temurin_openjdk17_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-4-bugfixes.html
@@ -1176,6 +1186,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 21.0.2  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-January/029090.html
 21.0.3  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-April/032196.html
 21.0.4  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-July/035862.html
+21.0.5  -> 
 -->
 [temurin_openjdk21]: https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot
 [temurin_openjdk21_bugfixes]: https://www.oracle.com/java/technologies/javase/21all-relnotes.html

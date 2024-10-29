@@ -11,12 +11,12 @@ set _EXITCODE=0
 
 @rem files build.sbt, build.sc and ivy.xml
 @rem see https://mvnrepository.com/artifact/org.scala-lang/scala3-library
-set _DOTTY_VERSION_OLD="3.3.3"
-set _DOTTY_VERSION_NEW="3.3.4-RC1"
+set _DOTTY_VERSION_OLD="3.3.4-RC1"
+set _DOTTY_VERSION_NEW="3.3.4"
 
 @rem files project\build.properties
-set _SBT_VERSION_OLD=sbt.version=1.10.0
-set _SBT_VERSION_NEW=sbt.version=1.10.1
+set _SBT_VERSION_OLD=sbt.version=1.10.1
+set _SBT_VERSION_NEW=sbt.version=1.10.3
 
 @rem files project\plugins.sbt
 @rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/
@@ -28,23 +28,23 @@ set _SCALATEST_VERSION_OLD=^(\"scalatest_2.13\"^)^(.+\"3.2.18\"^)
 set _SCALATEST_VERSION_NEW=$1 %%%% \"3.2.19\"
 
 @rem files ivy.xml (NB. PS regex)
-set _IVY_DOTTY_VERSION_OLD=^(scala3-[a-z]+^)_3.3.3
-set _IVY_DOTTY_VERSION_NEW=$1_3.3.4-RC1
+set _IVY_DOTTY_VERSION_OLD=^(scala3-[a-z]+^)_3.3.4-RC1
+set _IVY_DOTTY_VERSION_NEW=$1_3.3.4
 
-set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_3.3.3
-set _IVY_TASTY_VERSION_NEW=$1_3.3.4-RC1
+set _IVY_TASTY_VERSION_OLD=^(tasty-[a-z]+^)_3.3.4-RC1
+set _IVY_TASTY_VERSION_NEW=$1_3.3.4
 
 @rem files pom.xml (NB. PS regex)
 @rem see https://mvnrepository.com/artifact/org.scala-lang/scala-library
 set _POM_SCALA2_VERSION_OLD=scala.version^>2.13.13
 set _POM_SCALA2_VERSION_NEW=scala.version^>2.13.14
 
-set _POM_SCALA3_VERSION_OLD=scala3.version^>3.3.3
-set _POM_SCALA3_VERSION_NEW=scala3.version^>3.3.4-RC1
+set _POM_SCALA3_VERSION_OLD=scala3.version^>3.3.4-RC1
+set _POM_SCALA3_VERSION_NEW=scala3.version^>3.3.4
 
 @rem files common.gradle
-set _GRADLE_DOTTY_VERSION_OLD=scala3-compiler_3:3.3.3
-set _GRADLE_DOTTY_VERSION_NEW=scala3-compiler_3:3.3.4-RC1
+set _GRADLE_DOTTY_VERSION_OLD=scala3-compiler_3:3.3.4-RC1
+set _GRADLE_DOTTY_VERSION_NEW=scala3-compiler_3:3.3.4
 
 @rem copyright dates
 set _COPYRIGHT_DATES_OLD=2018-2023
