@@ -43,26 +43,26 @@ Optionally one may also install the following software:
 - [JavaFX 17 LTS][javafx17_downloads] ([*release notes*][javafx17_relnotes])
 - [JavaFX 21 LTS][javafx21_downloads] ([*release notes*][javafx21_relnotes])
 - [JITWatch 1.4][jitwatch_releases] (requires Java 11+)
-- [Mill 0.11][mill_releases] ([*change log*][mill_changelog])
+- [Mill 0.12][mill_releases] ([*change log*][mill_changelog])
 - [MSYS2 2024][msys2_releases] ([*change log*][msys2_changelog])
 - [sbt 1.10][sbt_downloads] (requires Java 8+) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8+) ([*release notes*][scala_relnotes], [*Scala API*][scala_api])
 - [Scala 2.13 DEV][scala_snapshots]
 - [Scala 3.5 Next][scala3_next_releases] <sup id="anchor_05">[5](#footnote_05)</sup> ([*release notes*][scala3_next_relnotes])
 - [scala-cli 1.5][scala_cli_downloads] ([*release notes*][scala_cli_relnotes])
-- [Temurin OpenJDK 8 LTS][temurin_openjdk8] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][temurin_openjdk8_relnotes])
 - [Temurin OpenJDK 21 LTS][temurin_openjdk21] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][temurin_openjdk21_relnotes], [*Java 21 API*][oracle_openjdk21_api])
-- [Visual Studio Code 1.94][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.95][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 <!--
 - [Bloop 1.5][bloop_releases] (requires Java 8 and Python 2/3) ([*release notes*][bloop_relnotes])
 - [Python 3.8][python_release] ([*change log*][python_changelog])
+- [Temurin OpenJDK 8 LTS][temurin_openjdk8] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][temurin_openjdk8_relnotes])
 -->
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*October 2024*) <sup id="anchor_06">[6](#footnote_06)</sup>:
+For instance our development environment looks as follows (*November 2024*) <sup id="anchor_06">[6](#footnote_06)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant\                 <i>( 40 MB)</i>
@@ -100,7 +100,7 @@ C:\opt\VSCode\                     <i>(341 MB)</i>
  <!-- sbt: 1.6.1 = 50.6 MB, 1.6.2 = 50.6 MB -->
  <!-- sbt: 1.7.1 = 80.6 MB, 1.7.2 = 80.6 MB, 1.8.0 = 80.6 MB, 1.9.3 = 110.0 MB -->
  <!-- sbt: 1.9.6 = 136 MB, 1.9.7 = 135 MB, 1.9.8 -> 135 MB, 1.9.9 = 136 MB -->
- <!-- sbt: 1.10.0 = 137 MB, 1.10.1 = 137 MB -->
+ <!-- sbt: 1.10.0 = 137 MB, 1.10.1 = 137 MB, 1.10.3 = 137 MB -->
  <!-- scala3: 3.4.2 = 39 MB, 3.5.0 = 131 MB -->
 
 > **:mag_right:** [Git for Windows][git_releases] provides a Bash emulation used to run [**`git.exe`**][git_cli] from the command line (as well as over 250 Unix commands like [**`awk`**][man1_awk], [**`diff`**][man1_diff], [**`file`**][man1_file], [**`grep`**][man1_grep], [**`more`**][man1_more], [**`mv`**][man1_mv], [**`rmdir`**][man1_rmdir], [**`sed`**][man1_sed] and [**`wc`**][man1_wc]).
@@ -339,7 +339,7 @@ Tool versions:
    javac 17.0.13, scalac 2.13.15, scalac 3.3.4, scalafmt 3.7.17,
    ant 1.10.15, gradle 8.10.2, mvn 3.9.9, sbt 1.10.3, scala-cli 1.5.1,
    mill 0.12.1, bazel 7.4.0, cfr 0.152, make 3.81, python 3.11.1,
-   jacoco 0.8.12, git 2.47.0, diff 3.10, bash 5.2.26(1)
+   jacoco 0.8.12, git 2.47.0, diff 3.10, bash 5.2.37(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt scala-cli</b>
 C:\opt\sbt\bin\sbt
@@ -366,9 +366,9 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also prints the tool paths and d
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 17.0.13, scalac 2.13.15, scalac 3.3.4, scalafmt 3.7.12,
-   ant 1.10.15, gradle 10, mvn 3.9.9, sbt 1.10.1, scala-cli 1.5.1,
-   mill 0.12.1, bazel 7.3.1, cfr 0.152, make 3.81, python 3.11.1,
-   jacoco 0.8.12, git 2.47.0, diff 3.10, bash 5.2.26(1)
+   ant 1.10.15, gradle 10, mvn 3.9.9, sbt 1.10.3, scala-cli 1.5.1,
+   mill 0.12.1, bazel 7.4.0, cfr 0.152, make 3.81, python 3.11.1,
+   jacoco 0.8.12, git 2.47.0, diff 3.10, bash 5.2.37(1)
 Tool paths:
    C:\opt\jdk-temurin-11.0.21_9\bin\javac.exe
    C:\opt\scala-2.13.15\bin\scalac.bat
@@ -492,7 +492,7 @@ Converting file scaladoc.bat to DOS format
 Finished to download 54 files to directory "%LOCALAPPDATA%\Temp\scala3-nightly"
 Retrieve revision for hash "3e105f2" from GitHub repository "lampepfl/dotty"
 File "%LOCALAPPDATA%\Temp\scala3-nightly\VERSION":
-version:=3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY
+version:=3.6.2-RC1-bin-20240514-7c9aae3-NIGHTLY
 revision:=7c9aae3
 buildTime:=2024-05-15 23:09:19+02:00
 </pre>
@@ -522,7 +522,7 @@ scala3-language-server_3.6.2-RC1-bin-20241025-91ef921-NIGHTLY.jar
 scala3-library_3.6.2-RC1-bin-20241025-91ef921-NIGHTLY.jar
 scala3-library_sjs1_3.6.2-RC1-bin-20241025-91ef921-NIGHTLY.jar
 scala3-presentation-compiler_3.6.2-RC1-bin-20241025-91ef921-NIGHTLY.jar
-scala3-sbt-bridge-3.5.0-RC1-bin-20240514-7c9aae3-NIGHTLY.jar
+scala3-sbt-bridge-3.6.2-RC1-bin-20240514-7c9aae3-NIGHTLY.jar
 scala3-staging_3.6.2-RC1-bin-20241025-91ef921-NIGHTLY.jar
 scala3-tasty-inspector_3.6.2-RC1-bin-20241025-91ef921-NIGHTLY.jar
 scaladoc_3.6.2-RC1-bin-20241025-91ef921-NIGHTLY.jar
@@ -589,12 +589,12 @@ Searching for class name System in archive files C:\opt\scala-2.13.15\lib\*.jar
   [...]
   scala-library.jar:scala/sys/SystemProperties$.class
   scala-library.jar:scala/sys/SystemProperties.class
-Searching for class name System in archive files C:\opt\jdk-temurin-11.0.24_8\lib\*.jar
+Searching for class name System in archive files C:\opt\jdk-temurin-17.0.13_11\lib\*.jar
   jrt-fs.jar:jdk/internal/jrtfs/JrtFileSystem$1.class
   [...]
   jrt-fs.jar:jdk/internal/jrtfs/SystemImage$2.class
   jrt-fs.jar:jdk/internal/jrtfs/SystemImage.class
-Searching for class name System in archive files c:\opt\javafx-sdk-17.0.12\lib\*.jar
+Searching for class name System in archive files c:\opt\javafx-sdk-17.0.13_11\lib\*.jar
   javafx.graphics.jar:com/sun/glass/ui/SystemClipboard.class
   [...]
   javafx.graphics.jar:com/sun/javafx/tk/TKSystemMenu.class
@@ -607,7 +607,7 @@ Searching for an unknown class name - e.g. **`BinarySearch`** - produces the fol
 <b>&gt; <a href="bin/searchjars.bat">searchjars</a> BinarySearch</b>
 Searching for class name BinarySearch in archive files C:\opt\scala3-3.3.4\lib\*.jar
 Searching for class name BinarySearch in archive files C:\opt\scala-2.13.15\lib\*.jar
-Searching for class name BinarySearch in archive files C:\opt\jdk-temurin-11.0.21_9\lib\*.jar
+Searching for class name BinarySearch in archive files C:\opt\jdk-temurin-17.0.13_11\lib\*.jar
 </pre>
 
 Searching for **`FileSystem`** with option **`-artifact`** produces the following output:
@@ -996,7 +996,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

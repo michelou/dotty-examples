@@ -180,12 +180,27 @@ action_required() {
     fi
 }
 
-compile_java() {
-    # call :libs_cpath
-    # if not %_EXITCODE%==0 goto :eof
+## output parameter: LIBS_CPATH
+libs_cpath() {
+    local repo_dir="$HOME/.m2/repository"
+    local scala_binary_version="2.13"
+    local cpath=
+    jar_file=
+    for f in $(find "$repo_dir/junit/junit/" -type f -name "junit-4.13.2.jar" 2>/dev/null); do 
+        jar_file="$f"
+    done
+	[[ -f "$jar_file" ]] && cpath="$cpath$(mixed_path $jar_file)$PSEP"
+	local jar_file=
+    for f in $(find "$SCALA3_HOME/lib" -type f -name "scala3-compiler*.jar" 2>/dev/null); do 
+        jar_file="$f"
+    done
+	[[ -f "$jar_file" ]] && cpath="$cpath$(mixed_path $jar_file)$PSEP"
+	echo "$cpath"
+}
 
+compile_java() {
     local opts_file="$TARGET_DIR/javac_opts.txt"
-    local cpath="$LIBS_CPATH$(mixed_path $CLASSES_DIR)"
+    local cpath="$(libs_cpath)$(mixed_path $CLASSES_DIR)"
     echo -classpath "$cpath" -d "$(mixed_path $CLASSES_DIR)" > "$opts_file"
 
     local sources_file="$TARGET_DIR/javac_sources.txt"
@@ -214,12 +229,9 @@ compile_java() {
 }
 
 compile_scala() {
-    # call :libs_cpath
-    # if not %_EXITCODE%==0 goto :eof
-
     local opts_file="$TARGET_DIR/scalac_opts.txt"
-    local cpath="$CLASSES_DIR"
-    echo -color never -classpath "$(mixed_path $cpath)" -d "$(mixed_path $CLASSES_DIR)" > "$opts_file"
+    local cpath="$(libs_cpath)$(mixed_path $CLASSES_DIR)"
+    echo -color never -classpath "$cpath" -d "$(mixed_path $CLASSES_DIR)" > "$opts_file"
 
     local sources_file="$TARGET_DIR/scalac_sources.txt"
     [[ -f "$sources_file" ]] && rm "$sources_file"
@@ -320,7 +332,7 @@ decompile() {
         fi
         return 0
     fi
-    local diff_opts="--strip-trailing-cr"
+    local diff_opts=--strip-trailing-cr
 
     local check_file="$SOURCE_DIR/build/cfr-source$version_suffix.java"
     if [[ -f "$check_file" ]]; then
@@ -470,7 +482,7 @@ DECOMPILE=0
 DOC=0
 HELP=0
 LINT=0
-MAIN_CLASS=cdsexamples.Main
+MAIN_CLASS=Main
 MAIN_ARGS=
 RUN=0
 SCALA_VERSION=3

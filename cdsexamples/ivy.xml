@@ -18,13 +18,13 @@
         <!-- <dependency org="org.scala-lang" name="scala3-tasty-inspector_3" rev="3.3.4"/> -->
         <dependency org="org.scala-lang" name="tasty-core_3" rev="3.3.4"/>
         <dependency org="org.scala-lang" name="scaladoc_3" rev="3.3.4"/>
-        <dependency org="org.jline" name="jline-reader" rev="3.19.0"/>
-        <dependency org="org.jline" name="jline-terminal" rev="3.19.0"/>
-        <dependency org="org.jline" name="jline-terminal-jna" rev="3.19.0"/>
+        <dependency org="org.jline" name="jline-reader" rev="3.25.1"/>
+        <dependency org="org.jline" name="jline-terminal" rev="3.25.1"/>
+        <dependency org="org.jline" name="jline-terminal-jna" rev="3.25.1"/>
         <!-- see note on https://github.com/retronym/jline3#jansi-vs-jna -->
         <dependency org="net.java.dev.jna" name="jna" rev="5.3.1"/>
-        <dependency org="org.scala-lang" name="scala-library" rev="2.13.12"/>
-        <dependency org="org.scala-lang.modules" name="scala-asm" rev="9.5.0-scala-1"/>
+        <dependency org="org.scala-lang" name="scala-library" rev="2.13.14"/>
+        <dependency org="org.scala-lang.modules" name="scala-asm" rev="9.6.0-scala-1"/>
         <!--
         <dependency org="org.scala-lang.modules" name="scala-xml_3" rev="2.0.0"/>
         <dependency org="org.scala-sbt" name="compiler-interface" rev="1.2.5"/>

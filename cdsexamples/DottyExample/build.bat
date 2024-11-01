@@ -302,7 +302,7 @@ if %__N%==0 (
     echo "%_WARNING_LABEL% No Scala source file found 1>&2
     goto :eof
 ) else if %__N%==1 ( set __N_FILES=%__N% Scala source files
-) else ( set __N_FILES=%__N% Scala source file
+) else ( set __N_FILES=%__N% Scala source files
 )
 @rem see https://docs.scala-lang.org/overviews/compiler-options/index.html
 set "__OPTS_FILE=%_TARGET_DIR%\scalac_opts.txt"
@@ -338,6 +338,7 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 @rem Important: options containing an "=" character must be quoted
+@rem https://docs.oracle.com/en/java/javase/17/docs/specs/man/java.html#convert-gc-logging-flags-to-xlog
 set __JAVA_TOOL_OPTS="-XX:DumpLoadedClassList=%_CLASSLIST_FILE%"
 if %_DEBUG%==1 (
     set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-Xlog:class+path^=info"
@@ -346,9 +347,9 @@ if %_DEBUG%==1 (
     if not exist "%_LOG_DIR%\" mkdir "%_LOG_DIR%" 1>NUL
     @rem !!! Ignore drive letter (temporary hack, see JDK-8215398)
     @rem set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-Xlog:class+path:file=!__LOG_FILE!"
-    set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -Xlog:enable
+    set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-Xlog:gc*=info"
 ) else (
-    set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! -Xlog:disable
+    set __JAVA_TOOL_OPTS=!__JAVA_TOOL_OPTS! "-Xlog:gc*=off"
 )
 call :libs_cpath
 if not %_EXITCODE%==0 goto :eof
