@@ -72,8 +72,8 @@ C:\opt\cfr-0.152\                  <i>(  2 MB)</i>
 C:\opt\Git\                        <i>(367 MB)</i>
 C:\opt\gradle\                     <i>(138 MB)</i>
 C:\opt\jacoco\                     <i>( 10 MB)</i>
-C:\opt\javafx-sdk-17.0.12\         <i>(137 MB)</i>
-C:\opt\javafx-sdk-21.0.4\          <i>(138 MB)</i>
+C:\opt\javafx-sdk-17.0.13\         <i>(137 MB)</i>
+C:\opt\javafx-sdk-21.0.5\          <i>(138 MB)</i>
 C:\opt\jdk-temurin-1.8.0u422-b05\  <i>(189 MB)</i>
 C:\opt\jdk-temurin-17.0.13_11\     <i>(301 MB)</i>
 C:\opt\jdk-temurin-21.0.5_11\      <i>(326 MB)</i>
@@ -400,7 +400,7 @@ Environment variables:
    "JAVA_HOME=C:\opt\jdk-temurin-17.0.13_11"
    "JAVA17_HOME=C:\opt\jdk-temurin-17.0.13_11"
    "JAVA21_HOME=C:\opt\jdk-temurin-21.0.5_11"
-   "JAVAFX_HOME=C:\opt\javafx-sdk-21.0.4"
+   "JAVAFX_HOME=C:\opt\javafx-sdk-21.0.5"
    "MSVS_HOME=X:"
    "MSYS_HOME=C:\opt\msys64"
    "PYTHON_HOME=C:\opt\Python-3.11.1"
@@ -974,10 +974,10 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://adoptium.net/releases.html?variant=openjdk8&jvmVariant=hotspot">OpenJDK8U-jdk_x64_windows_hotspot_8u432b06.zip</a>     <i>( 99 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot">OpenJDK17U-jdk_x64_windows_hotspot_17.0.13_11.zip</a>  <i>(188 MB)</i>
 <a href="https://adoptium.net/fr/temurin/releases/?variant=openjdk21&jvmVariant=hotspot">OpenJDK21U-jdk_x64_windows_hotspot_21.0.5_11.zip</a>   <i>(191 MB)</i>
-<a href="https://gluonhq.com/products/javafx/">openjfx-17.0.12_windows-x64_bin-sdk.zip</a>            <i>( 39 MB)</i>
-<a href="https://gluonhq.com/products/javafx/">openjfx-17.0.12_windows-x64_bin-jmods.zip</a>          <i>( 37 MB)</i>
-<a href="https://gluonhq.com/products/javafx/">openjfx-21.0.4_windows-x64_bin-sdk.zip</a>             <i>( 39 MB)</i>
-<a href="https://gluonhq.com/products/javafx/">openjfx-21.0.4_windows-x64_bin-jmods.zip</a>           <i>( 37 MB)</i>
+<a href="https://gluonhq.com/products/javafx/">openjfx-17.0.13_windows-x64_bin-sdk.zip</a>            <i>( 39 MB)</i>
+<a href="https://gluonhq.com/products/javafx/">openjfx-17.0.13_windows-x64_bin-jmods.zip</a>          <i>( 37 MB)</i>
+<a href="https://gluonhq.com/products/javafx/">openjfx-21.0.5_windows-x64_bin-sdk.zip</a>             <i>( 39 MB)</i>
+<a href="https://gluonhq.com/products/javafx/">openjfx-21.0.5_windows-x64_bin-jmods.zip</a>           <i>( 37 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.47.0-64-bit.7z.exe</a>                   <i>( 60 MB)</i>
 <a href="https://github.com/sbt/sbt/releases" rel="external">sbt-1.10.3.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/" rel="external">scala-2.13.15.zip</a>                                  <i>( 22 MB)</i>
@@ -1163,7 +1163,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 11.0.22 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-January/029215.html
 11.0.23 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-April/032198.html
 11.0.24 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-July/035797.html
-11.0.25 -> 
+11.0.25 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-October/038512.html
 -->
 [temurin_openjdk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
 [temurin_openjdk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-24-relnotes.html
@@ -1175,7 +1175,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 17.0.10 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-January/029089.html
 17.0.11 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-April/032197.html
 17.0.12 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-July/035798.html
-17.0.13 -> 
+17.0.13 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-October/038867.html
 -->
 [temurin_openjdk17]: https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot
 [temurin_openjdk17_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-4-bugfixes.html
@@ -1186,7 +1186,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 21.0.2  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-January/029090.html
 21.0.3  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-April/032196.html
 21.0.4  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-July/035862.html
-21.0.5  -> 
+21.0.5  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-October/038866.html
 -->
 [temurin_openjdk21]: https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot
 [temurin_openjdk21_bugfixes]: https://www.oracle.com/java/technologies/javase/21all-relnotes.html
