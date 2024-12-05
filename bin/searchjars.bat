@@ -86,12 +86,20 @@ if not exist "%JAVA_HOME%\bin\jar.exe" (
 set "_JAR_CMD=%JAVA_HOME%\bin\jar.exe"
 set "_JAVAP_CMD=%JAVA_HOME%\bin\javap.exe"
 
-if not exist "%SCALA3_HOME%\lib\scala3-library_*.jar" (
+set __JAR_PATH=
+for /f "delims=" %%f in ('where /r "%SCALA3_HOME%" scala3-library*.jar') do (
+    set "__JAR_PATH=%%f"
+)
+if not defined __JAR_PATH (
     echo %_ERROR_LABEL% Scala 3 installation not found 1>&2
     set _EXITCODE=1
     goto :eof
 )
-if not exist "%SCALA_HOME%\lib\scala-library.jar" (
+set __JAR_PATH=
+for /f "delims=" %%f in ('where /r "%SCALA_HOME%" scala-library*.jar') do (
+    set "__JAR_PATH=%%f"
+)
+if not defined __JAR_PATH (
     echo %_ERROR_LABEL% Scala 2 installation not found 1>&2
     set _EXITCODE=1
     goto :eof
@@ -101,10 +109,6 @@ goto :eof
 :env_colors
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-set _RESET=[0m
-set _BOLD=[1m
-set _UNDERSCORE=[4m
-set _INVERSE=[7m
 
 @rem normal foreground colors
 set _NORMAL_FG_BLACK=[30m
@@ -142,24 +146,32 @@ set _STRONG_BG_RED=[101m
 set _STRONG_BG_GREEN=[102m
 set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
+
+@rem we define _RESET in last position to avoid crazy console output with type command
+set _BOLD=[1m
+set _UNDERSCORE=[4m
+set _INVERSE=[7m
+set _RESET=[0m
 goto :eof
 
 @rem input parameter: %*
-@rem output parameter: _HELP, _VERBOSE
+@rem output parameters: _HELP, _VERBOSE
 :args
 set _CLASS_NAME=
-set _HELP=
 set _METH_NAME=
+set _HELP=
 set _SEARCH_IVY=
 set _SEARCH_JAVA=
 set _SEARCH_MAVEN=
 set _SEARCH_SCALA=
 set _VERBOSE=0
-
+set __N=0
 :args_loop
 set "__ARG=%~1"
-if not defined __ARG goto args_done
-
+if not defined __ARG (
+    if !__N!==0 set _HELP=1
+    goto args_done
+)
 if "%__ARG:~0,1%"=="-" (
     @rem option
     if "%__ARG%"=="-artifact" ( set _SEARCH_IVY=1& set _SEARCH_MAVEN=1
@@ -179,10 +191,11 @@ if "%__ARG:~0,1%"=="-" (
     if not defined _CLASS_NAME ( set _CLASS_NAME=%__ARG%
     ) else if not defined _METH_NAME ( set _METH_NAME=%__ARG%
     ) else (
-        echo %_ERROR_LABEL% Name alread specfied "%__ARG%" 1>&2
+        echo %_ERROR_LABEL% Name already specified "%__ARG%" 1>&2
         set _EXITCODE=1
         goto args_done
     )
+    set /a __N+=1
 )
 shift
 goto args_loop
@@ -228,6 +241,7 @@ echo     %__BEG_O%-verbose%__END%      print download progress
 echo.
 echo   %__BEG_P%Arguments:%__END%
 echo     %__BEG_O%^<class_name^>%__END%  class name
+echo     %__BEG_O%^<meth_name^>%__END%     method name ^(optional^)
 goto :eof
 
 @rem input parameter: %1=lib directory, %2=traverse recursively
@@ -242,12 +256,12 @@ if defined __RECURSIVE (
     set __DIR_OPTS=/b
     set __SEARCH_FOR=Search for
 )
-for /f "delims=" %%i in ('dir %__DIR_OPTS% "%__LIB_DIR%\*.jar" ') do (
+for /f "delims=" %%i in ('dir %__DIR_OPTS% "%__LIB_DIR%\*.jar" 2^>NUL') do (
     if defined __RECURSIVE ( set "__JAR_FILE=%%i"
     ) else ( set "__JAR_FILE=%__LIB_DIR%\%%i"
     )
     for /f "delims=" %%f in ("!__JAR_FILE!") do set "_JAR_FILENAME=%%~nxf"
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" -tf "!__JAR_FILE!" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" -tf "!__JAR_FILE!" ^| findstr ".*%_CLASS_NAME%.*\.class$" 1>&2
     ) else if %_VERBOSE%==1 ( echo %__SEARCH_FOR% class name %_CLASS_NAME% in file "!__JAR_FILE:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
     )
     for /f "delims=" %%f in ('call "%_JAR_CMD%" -tf "!__JAR_FILE!" ^| findstr /e /r "%_CLASS_NAME%.*\.class"') do (

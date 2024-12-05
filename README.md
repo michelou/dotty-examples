@@ -38,7 +38,7 @@ Optionally one may also install the following software:
 - [Apache Maven 3.9][apache_maven] ([requires Java 8+][apache_maven_history]) ([*release notes*][apache_maven_relnotes])
 - [Bazel 7.4 LTS][bazel_releases] <sup id="anchor_03">[3](#footnote_03)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
-- [Gradle 8.10][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Gradle 8.11][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [JaCoCo 0.8][jacoco_downloads] <sup id="anchor_04">[4](#footnote_04)</sup> ([*change log*][jacoco_changelog])
 - [JavaFX 17 LTS][javafx17_downloads] ([*release notes*][javafx17_relnotes])
 - [JavaFX 21 LTS][javafx21_downloads] ([*release notes*][javafx21_relnotes])
@@ -62,7 +62,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*November 2024*) <sup id="anchor_06">[6](#footnote_06)</sup>:
+For instance our development environment looks as follows (*December 2024*) <sup id="anchor_06">[6](#footnote_06)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant\                 <i>( 40 MB)</i>
@@ -337,7 +337,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 17.0.13, scalac 2.13.15, scalac 3.3.4, scalafmt 3.7.17,
-   ant 1.10.15, gradle 8.10.2, mvn 3.9.9, sbt 1.10.3, scala-cli 1.5.1,
+   ant 1.10.15, gradle 8.11, mvn 3.9.9, sbt 1.10.6, scala-cli 1.5.1,
    mill 0.12.1, bazel 7.4.0, cfr 0.152, make 3.81, python 3.11.1,
    jacoco 0.8.12, git 2.47.0, diff 3.10, bash 5.2.37(1)
 
@@ -366,7 +366,7 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also prints the tool paths and d
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 17.0.13, scalac 2.13.15, scalac 3.3.4, scalafmt 3.7.12,
-   ant 1.10.15, gradle 10, mvn 3.9.9, sbt 1.10.3, scala-cli 1.5.1,
+   ant 1.10.15, gradle 10, mvn 3.9.9, sbt 1.10.6, scala-cli 1.5.1,
    mill 0.12.1, bazel 7.4.0, cfr 0.152, make 3.81, python 3.11.1,
    jacoco 0.8.12, git 2.47.0, diff 3.10, bash 5.2.37(1)
 Tool paths:
@@ -967,7 +967,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.15-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.9-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/bazelbuild/bazel/releases">bazel-7.4.0-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
-<a href="https://gradle.org/install/">gradle-8.10.2-bin.zip</a>                              <i>(124 MB)</i>
+<a href="https://gradle.org/install/">gradle-8.11-bin.zip</a>                                <i>(124 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.12.zip</a>                                  <i>(  4 MB)</i>
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.9-shaded-win.jar</a>                   <i>( 36 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                          <i>( 94 MB)</i>
@@ -979,7 +979,7 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://gluonhq.com/products/javafx/">openjfx-21.0.5_windows-x64_bin-sdk.zip</a>             <i>( 39 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-21.0.5_windows-x64_bin-jmods.zip</a>           <i>( 37 MB)</i>
 <a href="https://git-scm.com/download/win">PortableGit-2.47.0-64-bit.7z.exe</a>                   <i>( 60 MB)</i>
-<a href="https://github.com/sbt/sbt/releases" rel="external">sbt-1.10.3.zip</a>                                     <i>( 17 MB)</i>
+<a href="https://github.com/sbt/sbt/releases" rel="external">sbt-1.10.6.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/" rel="external">scala-2.13.15.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://github.com/VirtusLab/scala-cli/releases" rel="external">scala-cli-x86_64-pc-win32.zip</a>                      <i>( 31 MB)</i>
 <a href="https://github.com/lampepfl/dotty/releases/tag/3.3.4">scala3-3.3.4.zip</a>                                   <i>( 34 MB)</i>
@@ -996,7 +996,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -1104,7 +1104,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [sbt_cli]: https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.html
 [sbt_downloads]: https://github.com/sbt/sbt/releases
 [sbt_libs]: https://www.scala-sbt.org/1.x/docs/Library-Dependencies.html
-[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.10.3
+[sbt_relnotes]: https://github.com/sbt/sbt/releases/tag/v1.10.6
 [sbt_server]: https://www.scala-sbt.org/1.x/docs/sbt-server.html
 [scala]: https://www.scala-lang.org/
 [scala_api]: https://www.scala-lang.org/files/archive/api/current/

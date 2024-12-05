@@ -24,6 +24,7 @@
 ## <span id="blogs">Blogs</span> [**&#x25B4;**](#top)
 
 - [Scala blog posts](https://alexn.org/blog/tag/scala/) from Alexandru Nedelcu :
+  - [Scala's Future](https://alexn.org/blog/2024/01/10/scala-future/), January 2024.
   - [Scala 3 Enums][blog_nedelcu_enums], May 2023.
   - [Immutable Collections should be Your Default][blog_nedelcu_immutable], October 2022.
   - [Scripting with Scala][blog_nedelcu_scripting], September 2022.
@@ -49,13 +50,14 @@
    - [Typeclasses in Scala 3](https://www.47deg.com/blog/scala-3-typeclasses/), May 2021.
    - [Enumerations in Scala 3](https://www.47deg.com/blog/scala-3-enumerations/), April 2021.
    - [Compiler Plugin Development in Scala 3](https://www.47deg.com/blog/compiler-plugin-development-scala3/), March 2021.
-- [Rock the JVM Blog](https://blog.rockthejvm.com/) by Daniel Ciocîrlan.
-   - [Exploiting Implicit Ambiguity in Scala ](https://blog.rockthejvm.com/anti-implicits/), July 2021.
-   - [Scala 3: Anti-Givens](https://blog.rockthejvm.com/anti-givens/), June 2021.
-   - [Scala 3: Extension Methods](https://blog.rockthejvm.com/scala-3-extension-methods/), April 2021.
-   - [Match Types in Scala 3](https://blog.rockthejvm.com/scala-3-match-types/), February 2021.
-   - [Enums in Scala 3](https://blog.rockthejvm.com/enums-scala-3/), September 2020.
-   - [New Types in Scala 3](https://blog.rockthejvm.com/new-types-scala-3/), September 2020.
+- [Rock the JVM Blog](https://blog.rockthejvm.com/).
+   - [Functional Parallel Programming with Scala and Cats Effect](https://rockthejvm.com/articles/functional-parallel-programming-with-scala-and-cats-effect/) by Anzori Ghurtchumelia, March 2024.
+   - [Exploiting Implicit Ambiguity in Scala](https://blog.rockthejvm.com/anti-implicits/) by Daniel Ciocîrlan, July 2021.
+   - [Scala 3: Anti-Givens](https://blog.rockthejvm.com/anti-givens/) by Daniel Ciocîrlan, June 2021.
+   - [Scala 3: Extension Methods](https://blog.rockthejvm.com/scala-3-extension-methods/) by Daniel Ciocîrlan, April 2021.
+   - [Match Types in Scala 3](https://blog.rockthejvm.com/scala-3-match-types/) by Daniel Ciocîrlan, February 2021.
+   - [Enums in Scala 3](https://blog.rockthejvm.com/enums-scala-3/) by Daniel Ciocîrlan, September 2020.
+   - [New Types in Scala 3](https://blog.rockthejvm.com/new-types-scala-3/) by Daniel Ciocîrlan, September 2020.
 - [Scala Blog](https://www.shivamkapoor.com/tag/scala/) by Shivan Kapoor:
   - [Making sense of Functors in Scala][blog_kapoor_functors], June 2021.
   - [Recursive Descent Parsers in Scala - Part 3][blog_kapoor_parsers3], December 2020.
@@ -130,7 +132,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
