@@ -57,7 +57,7 @@ JUNIT_VERSION = 4.13.2
 SCALATEST_VERSION = 3.2.19
 ## https://mvnrepository.com/artifact/org.specs2/specs2-core
 ## Note: Specs2 5.x depends on Scala 3 while Specs2 4.x depends on Scala 2 or Scala 3
-SPECS2_VERSION = 5.5.3
+SPECS2_VERSION = 5.5.8
 
 SCALA_LIB_JAR         = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name "scala-library-2.13.*.jar" | tail -1)
 SCALA3_LIB_JAR        = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name "scala3-library_3-3.3.*.jar" | tail -1)
@@ -84,7 +84,7 @@ deps:
 ifeq (,$(wildcard $(SCALA_LIB_JAR)))
 	$(eval GROUP_ID := org.scala-lang)
 	$(eval ARTIFACT_ID := scala-library)
-	$(eval VERSION := 2.13.13)
+	$(eval VERSION := 2.13.15)
 	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(VERSION).jar)
 	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(VERSION)/$(ARTIFACT_ID)-$(VERSION).jar)
 	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(VERSION).jar)
@@ -94,7 +94,7 @@ endif
 ifeq (,$(wildcard $(SCALA3_LIB_JAR)))
 	$(eval GROUP_ID := org.scala-lang)
 	$(eval ARTIFACT_ID := scala3-library_3)
-	$(eval VERSION := 3.3.4-RC1)
+	$(eval VERSION := 3.3.5-RC1)
 	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(VERSION).jar)
 	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(VERSION)/$(ARTIFACT_ID)-$(VERSION).jar)
 	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(VERSION).jar)

@@ -102,7 +102,8 @@
 - [Cask](https://github.com/com-lihaoyi/cask) &ndash; a Scala HTTP micro-framework.
 - [Decline](https://github.com/bkirwi/decline) &ndash; a composable command-line parser for Scala.
 - [enumeratum](https://github.com/lloydmeta/enumeratum) &ndash; a type-safe, reflection-free, powerful enumeration implementation for Scala.
-- [iron](https://github.com/Iltotore/iron) &ndash; strong type constraints for Scala. 
+- [iron](https://github.com/Iltotore/iron) &ndash; strong type constraints for Scala.
+- [Ox](https://github.com/softwaremill/ox) &ndash; safe direct-style concurrency for Scala.
 - [Scala.js][project_scalajs] &ndash; a Scala backend to generate highly efficient JavaScript.
 - [ScalaStan][project_scalastan] &ndash; a Scala DSL for [Stan](https://mc-stan.org/), an open-source software for statistical modeling and high-performance statistical computation.
 - [Scalalikejdbc](https://github.com/scalikejdbc/scalikejdbc) &ndash; a tidy SQL-based DB access library for Scala developers.

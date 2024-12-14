@@ -52,7 +52,7 @@ JUNIT_VERSION = 4.13.2
 ## 
 SCALA_VERSION = 2.13.15
 ##
-SCALA3_VERSION = 3.3.4
+SCALA3_VERSION = 3.3.5-RC1
 ## https://mvnrepository.com/artifact/org.scalatest/scalatest
 SCALATEST_VERSION = 3.2.19
 ## https://mvnrepository.com/artifact/org.specs2/specs2-core

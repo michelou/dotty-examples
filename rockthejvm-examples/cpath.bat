@@ -56,7 +56,7 @@ call :add_jar "org.hamcrest" "hamcrest-core" "1.3"
 call :add_jar "com.novocode" "junit-interface" "0.11"
 
 @rem https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
-call :add_jar "org.junit.jupiter" "junit-jupiter-engine" "5.11.0"
+call :add_jar "org.junit.jupiter" "junit-jupiter-engine" "5.11.3"
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"
@@ -77,7 +77,7 @@ call :add_jar "org.scalatest" "scalatest_3" "%__SCALATEST_VERSION%"
 call :add_jar "org.scalactic" "scalactic_3" "%__SCALATEST_VERSION%"
 
 @rem Scala binary 2.13 -> 4.17.0, Scala binary 3 -> 5.0.7, 5.1.0, 5.2.0
-set __SPECS2_VERSION=5.5.3
+set __SPECS2_VERSION=5.5.8
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-core
 call :add_jar "org.specs2" "specs2-core_3" "%__SPECS2_VERSION%"
