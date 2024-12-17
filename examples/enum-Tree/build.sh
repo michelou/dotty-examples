@@ -260,7 +260,7 @@ compile_scala() {
 mixed_path() {
     if [[ -x "$CYGPATH_CMD" ]]; then
         $CYGPATH_CMD -am $1
-    elif [[ (($mingw + $msys)) -gt 0 ]]; then
+    elif [[ $(($mingw + $msys)) -gt 0 ]]; then
         echo $1 | sed 's|/|\\\\|g'
     else
         echo $1
@@ -491,7 +491,7 @@ case "$(uname -s)" in
 esac
 unset CYGPATH_CMD
 PSEP=":"
-if [[ (($cygwin + $mingw + $msys)) -gt 0 ]]; then
+if [[ $(($cygwin + $mingw + $msys)) -gt 0 ]]; then
     CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     PSEP=";"
     [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
