@@ -15,8 +15,8 @@ set _DOTTY_VERSION_OLD="3.3.4"
 set _DOTTY_VERSION_NEW="3.3.5-RC1"
 
 @rem files project\build.properties
-set _SBT_VERSION_OLD=sbt.version=1.10.3
-set _SBT_VERSION_NEW=sbt.version=1.10.6
+set _SBT_VERSION_OLD=sbt.version=1.10.6
+set _SBT_VERSION_NEW=sbt.version=1.10.7
 
 @rem files project\plugins.sbt
 @rem see https://search.maven.org/artifact/ch.epfl.lamp/sbt-dotty/
@@ -47,8 +47,8 @@ set _GRADLE_DOTTY_VERSION_OLD=scala3-compiler_3:3.3.4
 set _GRADLE_DOTTY_VERSION_NEW=scala3-compiler_3:3.3.5-RC1
 
 @rem copyright dates
-set _COPYRIGHT_DATES_OLD=2018-2023
-set _COPYRIGHT_DATES_NEW=2018-2024
+set _COPYRIGHT_DATES_OLD=2018-2024
+set _COPYRIGHT_DATES_NEW=2018-2025
 
 call :env
 if not %_EXITCODE%==0 goto end

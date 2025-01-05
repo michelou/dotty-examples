@@ -64,9 +64,9 @@
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
-        <junit.platform.version>1.11.3</junit.platform.version>
+        <junit.platform.version>1.11.4</junit.platform.version>
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <jupiter.version>5.11.3</jupiter.version>
+        <jupiter.version>5.11.4</jupiter.version>
 
         <m2.directory>${user.home}/.m2/repository</m2.directory>
 

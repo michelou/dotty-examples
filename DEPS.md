@@ -43,7 +43,8 @@ The [Scala 3](https://www.scala-lang.org/download/scala3.html) and [Scala 2](htt
 >
 > | Scala 2.13 | Release&nbsp;date | Zip&nbsp;archive | Installation |
 > |:-----------|:------------:|:-----------:|:------------:|
-> | [**2.13.14**](https://www.scala-lang.org/download/2.13.14.html) | May&nbsp;2024 | 23.3 MB | 24.8 MB |
+> | [**2.13.15**](https://www.scala-lang.org/download/2.13.15.html) | Sep&nbsp;2024 | 23.3 MB | 24.8 MB |
+> | [2.13.14](https://www.scala-lang.org/download/2.13.14.html) | May&nbsp;2024 | 23.3 MB | 24.8 MB |
 > | [2.13.13](https://www.scala-lang.org/download/2.13.13.html)     |               | 23.0 MB | |
 > | [2.13.12](https://www.scala-lang.org/download/2.13.12.html)     | Sep&nbsp;2023 | 22.9 MB | 24.4 MB |
 > | [2.13.11](https://www.scala-lang.org/download/2.13.11.html)     | Jun&nbsp;2023 | 22.9 MB | 24.4 MB |
@@ -742,6 +743,11 @@ Besides improvements and fixes <code>scala-asm</code> library updates also add s
   <th><a href="https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html">Class&nbsp;file&nbsp;version</a></th>
 </tr>
 <tr>
+  <td><a href="https://asm.ow2.io/versions.html">9.7.1</a></td>
+  <td>24</td>
+  <td><a href="https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/lang/reflect/ClassFileFormatVersion.java#L320" rel="external">68</a></td>
+</tr>
+<tr>
   <td><a href="https://asm.ow2.io/versions.html">9.7.0</a></td>
   <td>23</td>
   <td><a href="https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/lang/reflect/ClassFileFormatVersion.java#L308" rel="external">67</a></td>
@@ -894,7 +900,7 @@ Besides improvements and fixes <code>scala-asm</code> library updates also add s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
