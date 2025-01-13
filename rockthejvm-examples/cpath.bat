@@ -27,7 +27,7 @@ if %_DEBUG%==1 echo [%~n0] "_TEMP_DIR=%_TEMP_DIR%" 1>&2
 
 set __SCALA_BINARY_VERSION=2.13
 
-set __SCALA_VERSION=2.13.14
+set __SCALA_VERSION=2.13.15
 set __SCALATEST_VERSION=3.2.19
 
 @rem #########################################################################
@@ -40,10 +40,10 @@ set _LIBS_CPATH=
 call :add_jar "org.scala-lang" "scala-reflect" "%__SCALA_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect
-call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSION%" "1.1.2"
+call :add_jar "org.portable-scala" "portable-scala-reflect_%__SCALA_BINARY_VERSION%" "1.1.3"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml
-call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.2.0"
+call :add_jar "org.scala-lang.modules" "scala-xml_3" "2.3.0"
 
 @rem https://mvnrepository.com/artifact/junit/junit
 call :add_jar "junit" "junit" "4.13.2"
@@ -56,7 +56,7 @@ call :add_jar "org.hamcrest" "hamcrest-core" "1.3"
 call :add_jar "com.novocode" "junit-interface" "0.11"
 
 @rem https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
-call :add_jar "org.junit.jupiter" "junit-jupiter-engine" "5.11.3"
+call :add_jar "org.junit.jupiter" "junit-jupiter-engine" "5.11.4"
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest-compatible
 call :add_jar "org.scalatest" "scalatest-compatible" "%__SCALATEST_VERSION%"

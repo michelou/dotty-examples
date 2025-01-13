@@ -49,9 +49,9 @@ endif
 
 ## https://mvnrepository.com/artifact/junit/junit
 JUNIT_VERSION = 4.13.2
-## 
+## https://mvnrepository.com/artifact/org.scala-lang/scala-compiler
 SCALA_VERSION = 2.13.15
-##
+## https://mvnrepository.com/artifact/org.scala-lang/scala3-compiler
 SCALA3_VERSION = 3.3.5-RC1
 ## https://mvnrepository.com/artifact/org.scalatest/scalatest
 SCALATEST_VERSION = 3.2.19

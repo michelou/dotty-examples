@@ -24,7 +24,7 @@
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
         <maven.jar.version>3.3.0</maven.jar.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
-        <exec.maven.version>3.2.0</exec.maven.version>
+        <exec.maven.version>3.5.0</exec.maven.version>
         <!-- local -->
         <scala.maven.version>1.0.0</scala.maven.version>
 		<!-- https://mvnrepository.com/artifact/org.portable-scala/portable-scala-reflect -->
@@ -36,9 +36,9 @@
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
-        <junit.platform.version>1.10.2</junit.platform.version>
+        <junit.platform.version>1.11.4</junit.platform.version>
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <jupiter.version>5.10.2</jupiter.version>
+        <jupiter.version>5.11.4</jupiter.version>
 
         <!-- Maven plugin dependencies -->
         <m2.directory>${user.home}/.m2/repository</m2.directory>

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2024 Stéphane Micheloud
+# Copyright (c) 2018-2025 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -20,7 +20,7 @@ getHome() {
 
 debug() {
     local DEBUG_LABEL="[46m[DEBUG][0m"
-    $DEBUG && echo "$DEBUG_LABEL $1" 1>&2
+    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $1" 1>&2
 }
 
 warning() {
@@ -37,7 +37,7 @@ error() {
 cleanup() {
     [[ $1 =~ ^[0-1]$ ]] && EXITCODE=$1
 
-    if $TIMER; then
+    if [[ $TIMER -eq 1 ]]; then
         local TIMER_END=$(date +'%s')
         local duration=$((TIMER_END - TIMER_START))
         echo "Total elapsed time: $(date -d @$duration +'%H:%M:%S')" 1>&2
@@ -47,44 +47,44 @@ cleanup() {
 }
 
 args() {
-    [[ $# -eq 0 ]] && HELP=true && return 1
+    [[ $# -eq 0 ]] && HELP=1 && return 1
 
     for arg in "$@"; do
         case "$arg" in
         ## options
-        -debug)    DEBUG=true ;;
-        -help)     HELP=true ;;
-        -timer)    TIMER=true ;;
-        -verbose)  VERBOSE=true ;;
+        -debug)    DEBUG=1 ;;
+        -help)     HELP=1 ;;
+        -timer)    TIMER=1 ;;
+        -verbose)  VERBOSE=1 ;;
         -*)
             error "Unknown option $arg"
             EXITCODE=1 && return 0
             ;;
         ## subcommands
-        clean)     CLEAN=true ;;
-        compile)   COMPILE=true ;;
-        decompile) COMPILE=true && DECOMPILE=true ;;
-        doc)       COMPILE=true && DOC=true ;;
-        help)      HELP=true ;;
-        lint)      LINT=true ;;
-        run)       COMPILE=true && RUN=true ;;
+        clean)     CLEAN=1 ;;
+        compile)   COMPILE=1 ;;
+        decompile) COMPILE=1 && DECOMPILE=1 ;;
+        doc)       COMPILE=1 && DOC=1 ;;
+        help)      HELP=1 ;;
+        lint)      LINT=1 ;;
+        run)       COMPILE=1 && RUN=1 ;;
         *)
             error "Unknown subcommand $arg"
             EXITCODE=1 && return 0
             ;;
         esac
     done
-    if $DECOMPILE && [[ ! -x "$CFR_CMD" ]]; then
+    if [[ $DECOMPILE -eq 1 ]] && [[ ! -x "$CFR_CMD" ]]; then
         warning "cfr installation not found"
-        DECOMPILE=false
+        DECOMPILE=0
     fi
-    if $LINT; then
+    if [[ $LINT -eq 1 ]]; then
         if [[ ! -x "$SCALAFMT_CMD" ]]; then
             warning "Scalafmt installation not found"
-            LINT=false
+            LINT=0
         elif [[ ! -f "$SCALAFMT_CONFIG_FILE" ]]; then
             warning "Scalafmt configuration file not found"
-            LINT=false
+            LINT=0
         fi
     fi
     debug "Options    : TIMER=$TIMER VERBOSE=$VERBOSE"
@@ -93,7 +93,7 @@ args() {
     debug "Variables  : JAVA_HOME=$JAVA_HOME"
     debug "Variables  : SCALA3_HOME=$SCALA3_HOME"
     # See http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
-    $TIMER && TIMER_START=$(date +"%s")
+    [[ $TIMER -eq 1 ]] && TIMER_START=$(date +"%s")
 }
 
 help() {
@@ -118,9 +118,9 @@ EOS
 
 clean() {
     if [[ -d "$TARGET_DIR" ]]; then
-        if $DEBUG; then
+        if [[ $DEBUG -eq 1 ]]; then
             debug "Delete directory \"$TARGET_DIR\""
-        elif $VERBOSE; then
+        elif [[ $VERBOSE -eq 1 ]]; then
             echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
         fi
         rm -rf "$TARGET_DIR"

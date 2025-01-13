@@ -193,7 +193,7 @@ set __N_MD=0
 if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_FIND_CMD%" "%__ROOT_DIR%" -type f -name "*.md" %__FIND_EXCLUDES% 1>&2
 for /f "delims=" %%f in ('%_FIND_CMD% "%__ROOT_DIR%" -type f -name "*.md" %__FIND_EXCLUDES%') do (
     set "__INPUT_FILE=%%f"
-    if %_DEBUG%==1 (echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_LAST_MODIFIED_OLD%" "!__INPUT_FILE!" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_LAST_MODIFIED_OLD%" "!__INPUT_FILE!" 1>&2
     ) else if %_VERBOSE%==1 ( echo Check file "!__INPUT_FILE!" 1>&2
     )
     call "%_GREP_CMD%" -q "%_LAST_MODIFIED_OLD%" "!__INPUT_FILE!"
