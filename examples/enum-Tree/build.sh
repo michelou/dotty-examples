@@ -74,7 +74,7 @@ args() {
             ;;
         esac
     done
-    if [[ $DECOMPILE && [[ ! -x "$CFR_CMD" ]]; then
+    if [[ $DECOMPILE -eq 1 ]] && [[ ! -x "$CFR_CMD" ]]; then
         warning "cfr installation not found"
         DECOMPILE=0
     fi

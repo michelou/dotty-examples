@@ -157,7 +157,7 @@ goto :eof
 set _MAIN_CLASS_DEFAULT=Main
 set _MAIN_ARGS_DEFAULT=
 
-for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
+for /f "delims=" %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set _PROJECT_URL=github.com/%USERNAME%/dotty-examples
 set _PROJECT_VERSION=1.0-SNAPSHOT
 
@@ -810,7 +810,7 @@ set __CLI_OPTS=%__CLI_OPTS% --main-class "%_MAIN_CLASS%"
 if %_DEBUG%==1 ( set __CLI_OPTS=-v %__CLI_OPTS%
 ) else if %_VERBOSE%==1 ( set __CLI_OPTS=-v %__CLI_OPTS%
 )
-@rem set __MAIN_ARGS=-- 1
+set __MAIN_ARGS=
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALA_CLI_CMD%" run %__CLI_OPTS% "%_SOURCE_MAIN_DIR%" %__MAIN_ARGS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute Scala main class "%_MAIN_CLASS%" 1>&2

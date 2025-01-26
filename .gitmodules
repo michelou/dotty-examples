@@ -1,18 +1,18 @@
-[submodule "dotty"]
-	path = dotty
-	url = https://github.com/michelou/dotty.git
+[submodule "scala3"]
+	path = scala3
+	url = https://github.com/michelou/scala3.git
 
 [submodule "scala3-help"]
 	path = scala3-help
-	url = https://github.com/michelou/dotty.git
+	url = https://github.com/michelou/scala3.git
 
 [submodule "scala3-pandoc"]
 	path = scala3-pandoc
-	url = https://github.com/michelou/dotty.git
+	url = https://github.com/michelou/scala3.git
 
 [submodule "scala3-windows"]
 	path = scala3-windows
-	url = https://github.com/michelou/dotty.git
+	url = https://github.com/michelou/scala3.git
 
 [submodule "scala-3-migration-guide"]
 	path = scala-3-migration-guide

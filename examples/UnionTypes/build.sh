@@ -235,7 +235,7 @@ compile_scala() {
     local s=; [[ $n -gt 1 ]] && s="s"
     local n_files="$n Scala source file$s"
     local print_file_redirect=
-    if $SCALAC_OPTS_PRINT; then
+    if [[ $SCALAC_OPTS_PRINT -eq 1 ]]; then
         # call :version_string
         # if not !_EXITCODE!==0 goto :eof
         local print_file="$TARGET_DIR/scalac-print${VERSION_SUFFIX}.scala"
@@ -484,10 +484,10 @@ mingw=0
 msys=0
 darwin=0
 case "$(uname -s)" in
-    CYGWIN*) cygwin=true ;;
-    MINGW*)  mingw=true ;;
-    MSYS*)   msys=true ;;
-    Darwin*) darwin=true
+    CYGWIN*) cygwin=1 ;;
+    MINGW*)  mingw=1 ;;
+    MSYS*)   msys=1 ;;
+    Darwin*) darwin=1
 esac
 unset CYGPATH_CMD
 PSEP=":"

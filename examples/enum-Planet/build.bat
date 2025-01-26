@@ -96,7 +96,7 @@ set _DIFF_CMD=
 if exist "%GIT_HOME%\usr\bin\diff.exe" (
     set "_DIFF_CMD=%GIT_HOME%\usr\bin\diff.exe" 
 )
-@rem use newer PowerShell version if available
+@rem we use the newer PowerShell version if available
 where /q pwsh.exe
 if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
 ) else ( set _PWSH_CMD=powershell.exe
@@ -267,9 +267,9 @@ if not "%_COMMANDS:lint=%"=="%_COMMANDS%" (
     ) else if not defined _SCALAFMT_CONFIG_FILE (
         echo %_WARNING_LABEL% Scalafmt configuration file not found 1>&2
         set _COMMANDS=%_COMMANDS:lint=%
-    ) else if %_SCALA_VERSION%==3 (
-        echo %_WARNING_LABEL% Scalafmt doesn't yet support Scala 3 1>&2
-        set _COMMANDS=%_COMMANDS:lint=%
+    @rem ) else if %_SCALA_VERSION%==3 (
+    @rem     echo %_WARNING_LABEL% Scalafmt doesn't yet support Scala 3 1>&2
+    @rem     set _COMMANDS=%_COMMANDS:lint=%
     )
 )
 if not "%_COMMANDS:run_instrumented=%"=="%_COMMANDS%" if not exist "%JACOCO_HOME%\lib\jacococli.jar" (
@@ -433,7 +433,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_SOUR
 )
 call "%_SCALAFMT_CMD%" %__SCALAFMT_OPTS% "%_SOURCE_MAIN_DIR%\"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to analyze Scala source files with Scalafmt 1>&2
+    echo %_ERROR_LABEL% Found errors while analyzing Scala source files with Scalafmt 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -625,10 +625,10 @@ call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
 set _ACTION_REQUIRED=%_NEWER%
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% Target : '%__TARGET_FILE%' 1>&2
-    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: %__PATH_ARRAY% 1>&2
+    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: %__PATH_ARRAY:~1% 1>&2
     echo %_DEBUG_LABEL% _ACTION_REQUIRED=%_ACTION_REQUIRED% 1>&2
 ) else if %_VERBOSE%==1 if %_ACTION_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
-    echo No action required ^(%__PATH_ARRAY1%^) 1>&2
+    echo No action required ^("%__PATH_ARRAY1%"^) 1>&2
 )
 goto :eof
 

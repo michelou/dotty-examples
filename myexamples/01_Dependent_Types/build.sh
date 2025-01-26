@@ -449,6 +449,8 @@ TARGET_DIR="$ROOT_DIR/target"
 TARGET_DOCS_DIR="$TARGET_DIR/docs"
 CLASSES_DIR="$TARGET_DIR/classes"
 
+## We refrain from using `true` and `false` which are Bash commands
+## (see https://man7.org/linux/man-pages/man1/false.1.html)
 CLEAN=0
 COMPILE=0
 DEBUG=0
