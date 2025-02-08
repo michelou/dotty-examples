@@ -95,7 +95,7 @@ The project is organized as follows :
                             <a href="./scala-maven-plugin/src/main/java/ch/epfl/alumni/ScalaRunMojo.java">ScalaRunMojo.java</a>
 </pre>
 
-Command [**`mvn`** `package`][apache_maven_cli] generates the JAR file `scala-maven-plugin-1.0.0.jar` to be deployed as Maven artifact :
+Command [**`mvn`** `package`][apache_maven_cli] generates the JAR file `scala-maven-plugin-1.0.1.jar` to be deployed as Maven artifact :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://maven.apache.org/ref/current/maven-embedder/cli.html">mvn</a> clean compile package</b>
@@ -108,13 +108,13 @@ Command [**`mvn`** `package`][apache_maven_cli] generates the JAR file `scala-ma
 [...]
 &nbsp;
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/dir" rel="external">dir</a> /b target\*.jar</b>
-scala-maven-plugin-1.0.0.jar
+scala-maven-plugin-1.0.1.jar
 </pre>
 
 Command [**`mvn`** `deploy:deploy-file`][apache_maven_cli] installs the Maven artifact for our plugin into our local Maven repository <code><a href="https://en.wikipedia.org/wiki/Environment_variable#Default_values">%USERPROFILE%</a>\\.m2\repository\\</code> :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://maven.apache.org/ref/current/maven-embedder/cli.html">mvn</a> deploy:deploy-file -DgroupId=ch.epfl.alumni -DartifactId=scala-maven-plugin -Dversion=1.0.0 -Durl=file://%USERPROFILE%/.m2/repository -DupdateReleaseInfo=true -Dfile=.\target\scala-maven-plugin-1.0.0.jar -Dpackaging=jar -DpomFile=.\pom.xml -DgeneratePom=true -DcreateChecksum=true</b>
+<b>&gt; <a href="https://maven.apache.org/ref/current/maven-embedder/cli.html">mvn</a> deploy:deploy-file -DgroupId=ch.epfl.alumni -DartifactId=scala-maven-plugin -Dversion=1.0.1 -Durl=file://%USERPROFILE%/.m2/repository -DupdateReleaseInfo=true -Dfile=.\target\scala-maven-plugin-1.0.1.jar -Dpackaging=jar -DpomFile=.\pom.xml -DgeneratePom=true -DcreateChecksum=true</b>
 [INFO] Scanning for projects...
 [...]
 </pre>
@@ -122,7 +122,7 @@ Command [**`mvn`** `deploy:deploy-file`][apache_maven_cli] installs the Maven ar
 > **&#9755;** **`scala-maven-plugin` *Installation***<br/>
 > A user has currently two possibilities to install `scala-maven-plugin`:
 > - Download our source project, generate and install the plugin as described above.
-> - Download and extract the Zip file [`scala-maven-plugin-1.0.zip`](../bin/scala-maven-plugin-1.0.zip) into the local Maven repository.
+> - Download and extract the Zip file [`scala-maven-plugin-1.0.1.zip`](../bin/scala-maven-plugin-1.0.1.zip) into the local Maven repository.
 >
 > The plugin installation should look as follows :
 > <pre style="font-size:80%;">
@@ -134,13 +134,13 @@ Command [**`mvn`** `deploy:deploy-file`][apache_maven_cli] installs the Maven ar
 >     |   maven-metadata.xml.md5
 >     |   maven-metadata.xml.sha1
 >     |   resolver-status.properties
->     \---1.0.0
->             scala-maven-plugin-1.0.0.jar
->             scala-maven-plugin-1.0.0.jar.md5
->             scala-maven-plugin-1.0.0.jar.sha1
->             scala-maven-plugin-1.0.0.pom
->             scala-maven-plugin-1.0.0.pom.md5
->             scala-maven-plugin-1.0.0.pom.sha1
+>     \---1.0.1
+>             scala-maven-plugin-1.0.1.jar
+>             scala-maven-plugin-1.0.1.jar.md5
+>             scala-maven-plugin-1.0.1.jar.sha1
+>             scala-maven-plugin-1.0.1.pom
+>             scala-maven-plugin-1.0.1.pom.md5
+>             scala-maven-plugin-1.0.1.pom.sha1
 > </pre>
 
 <!--
