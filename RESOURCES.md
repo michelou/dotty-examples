@@ -23,6 +23,8 @@
 
 ## <span id="blogs">Blogs</span> [**&#x25B4;**](#top)
 
+- [Pierre Ricadat's Tech Blog](https://blog.pierre-ricadat.com/):
+  - [Scala 3 Migration: Report from the Field](https://blog.pierre-ricadat.com/scala-3-migration-report-from-the-field), February 2025.
 - [Scala blog posts](https://alexn.org/blog/tag/scala/) from Alexandru Nedelcu :
   - [Scala's Future](https://alexn.org/blog/2024/01/10/scala-future/), January 2024.
   - [Scala 3 Enums][blog_nedelcu_enums], May 2023.
@@ -51,6 +53,7 @@
    - [Enumerations in Scala 3](https://www.47deg.com/blog/scala-3-enumerations/), April 2021.
    - [Compiler Plugin Development in Scala 3](https://www.47deg.com/blog/compiler-plugin-development-scala3/), March 2021.
 - [Rock the JVM Blog](https://blog.rockthejvm.com/).
+   - [Scala 3 Inlines Explained ](https://rockthejvm.com/articles/scala-3-inlines), February 2025.
    - [Functional Parallel Programming with Scala and Cats Effect](https://rockthejvm.com/articles/functional-parallel-programming-with-scala-and-cats-effect/) by Anzori Ghurtchumelia, March 2024.
    - [Exploiting Implicit Ambiguity in Scala](https://blog.rockthejvm.com/anti-implicits/) by Daniel Ciocîrlan, July 2021.
    - [Scala 3: Anti-Givens](https://blog.rockthejvm.com/anti-givens/) by Daniel Ciocîrlan, June 2021.
@@ -133,7 +136,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2025* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

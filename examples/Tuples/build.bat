@@ -35,7 +35,6 @@ goto end
 :env
 set _BASENAME=%~n0
 set "_ROOT_DIR=%~dp0"
-set _TIMER=0
 
 call :env_colors
 set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
@@ -153,7 +152,7 @@ goto :eof
 set _MAIN_CLASS_DEFAULT=Main
 set _MAIN_ARGS_DEFAULT=
 
-for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
+for /f "delims=" %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 set _PROJECT_URL=github.com/%USERNAME%/dotty-examples
 set _PROJECT_VERSION=1.0-SNAPSHOT
 
@@ -246,15 +245,15 @@ goto args_loop
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
-if not "%_COMMANDS:compile=%"=="%_COMMANDS%" if %_SCALA_VERSION%==2 if exist "%_SOURCE_DIR%\main\scala2" (
+if not "!_COMMANDS:compile=!"=="%_COMMANDS%" if %_SCALA_VERSION%==2 if exist "%_SOURCE_DIR%\main\scala2" (
     @rem overwrite main source directory if Scala 2/3 sources differ 
     set "_MAIN_SOURCE_DIR=%_SOURCE_DIR%\main\scala2"
 )
-if not "%_COMMANDS:decompile=%"=="%_COMMANDS%" if not defined _CFR_CMD (
+if not "!_COMMANDS:decompile=!"=="%_COMMANDS%" if not defined _CFR_CMD (
     echo %_WARNING_LABEL% cfr installation not found 1>&2
     set _COMMANDS=%_COMMANDS:decompile=%
 )
-if not "%_COMMANDS:lint=%"=="%_COMMANDS%" (
+if not "!_COMMANDS:lint=!"=="%_COMMANDS%" (
     if not defined _SCALAFMT_CMD (
         echo %_WARNING_LABEL% Scalafmt installation not found 1>&2
         set _COMMANDS=%_COMMANDS:lint=%
@@ -266,7 +265,7 @@ if not "%_COMMANDS:lint=%"=="%_COMMANDS%" (
     @rem     set _COMMANDS=%_COMMANDS:lint=%
     )
 )
-if not "%_COMMANDS:run_instrumented=%"=="%_COMMANDS%" if not exist "%JACOCO_HOME%\lib\jacococli.jar" (
+if not "!_COMMANDS:run_instrumented=!"=="%_COMMANDS%" if not exist "%JACOCO_HOME%\lib\jacococli.jar" (
     echo %_WARNING_LABEL% JaCoCo installation not found 1>&2
     set _COMMANDS=%_COMMANDS:run_instrumented=%
 )

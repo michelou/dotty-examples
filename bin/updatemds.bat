@@ -10,16 +10,16 @@ set _DEBUG=0
 set _EXITCODE=0
 
 @rem files README.md, RESOURCES.md, etc.
-set _LAST_MODIFIED_OLD=michelou/)/December 2024
-set _LAST_MODIFIED_NEW=michelou/)/January 2025
+set _LAST_MODIFIED_OLD=michelou/)/January 2025
+set _LAST_MODIFIED_NEW=michelou/)/February 2025
 
-set _LAST_DOWNLOAD_OLD=(\*December 2024\*)
-set _LAST_DOWNLOAD_NEW=(*January 2025*)
+set _LAST_DOWNLOAD_OLD=(\*January 2025\*)
+set _LAST_DOWNLOAD_NEW=(*February 2025*)
 
 @rem to be transformed into -not -path "./<dirname>/*"
-set _EXCLUDE_TOPDIRS=cs206-functional-programming docs docs.scala-lang dotty ^
+set _EXCLUDE_TOPDIRS=cs206-functional-programming docs docs.scala-lang ^
     dotty-pandoc dotty-scaladoc dotty-test-ioexception ^
-    scala-dist scala3-docs scala3-pandoc
+    scala-dist scala3 scala3-docs scala3-pandoc
 set _EXCLUDE_SUBDIRS=_LOCAL
 
 call :env

@@ -249,15 +249,15 @@ goto args_loop
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
-if not "%_COMMANDS:compile=%"=="%_COMMANDS%" if %_SCALA_VERSION%==2 if exist "%_MAIN_SOURCE_DIR%2" (
+if not "!_COMMANDS:compile=!"=="%_COMMANDS%" if %_SCALA_VERSION%==2 if exist "%_MAIN_SOURCE_DIR%2" (
     echo %_WARNING_LABEL% Scala 2 and Scala 3 source files differ 1>&2
     set "_MAIN_SOURCE_DIR=%_MAIN_SOURCE_DIR%2"
 )
-if not "%_COMMANDS:decompile=%"=="%_COMMANDS%" if not defined _CFR_CMD (
+if not "!_COMMANDS:decompile=!"=="%_COMMANDS%" if not defined _CFR_CMD (
     echo %_WARNING_LABEL% cfr installation not found 1>&2
     set _COMMANDS=%_COMMANDS:decompile=%
 )
-if not "%_COMMANDS:lint=%"=="%_COMMANDS%" (
+if not "!_COMMANDS:lint=!"=="%_COMMANDS%" (
     if not defined _SCALAFMT_CMD (
         echo %_WARNING_LABEL% Scalafmt installation not found 1>&2
         set _COMMANDS=%_COMMANDS:lint=%
@@ -269,7 +269,7 @@ if not "%_COMMANDS:lint=%"=="%_COMMANDS%" (
         set _COMMANDS=%_COMMANDS:lint=%
     )
 )
-if not "%_COMMANDS:run_instrumented=%"=="%_COMMANDS%" if not exist "%JACOCO_HOME%\lib\jacococli.jar" (
+if not "!_COMMANDS:run_instrumented=!"=="%_COMMANDS%" if not exist "%JACOCO_HOME%\lib\jacococli.jar" (
     echo %_WARNING_LABEL% JaCoCo installation not found 1>&2
     set _COMMANDS=%_COMMANDS:run_instrumented=%
 )
