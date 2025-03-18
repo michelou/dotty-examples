@@ -20,7 +20,7 @@
     <property name="apiguardian.version" value="1.1.2" />
     <property name="cfr.version" value="0.152" />
     <property name="hamcrest.version" value="2.2" />
-    <property name="junit-platform.version" value="1.10.2" />
+    <property name="junit-platform.version" value="1.12.1" />
     <property name="junit.version" value="4.13.2" />
 
     <target name="init.local" if="use.local">

@@ -31,7 +31,7 @@ set __SCALA_BINARY_VERSION=2.13
 set __SCALA_XML_VERSION=2.3.0
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest
 set __SCALATEST_VERSION=3.2.19
-@rem https://mvnrepository.com/artifact/org.specs2/specs2
+@rem https://mvnrepository.com/artifact/org.specs2/specs2-core
 set __SPECS2_VERSION=5.5.8
 
 @rem #########################################################################
@@ -80,7 +80,7 @@ call :add_jar "org.scalactic" "scalactic_3" "%__SCALATEST_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.scala-lang/scala-reflect
 @rem NB. dependency of specs2
-call :add_jar "org.scala-lang" "scala-reflect" "2.13.15"
+call :add_jar "org.scala-lang" "scala-reflect" "2.13.16"
 
 @rem https://mvnrepository.com/artifact/org.specs2/specs2-core
 call :add_jar "org.specs2" "specs2-core_3" "%__SPECS2_VERSION%"
@@ -98,7 +98,7 @@ call :add_jar "org.specs2" "specs2-matcher_3" "%__SPECS2_VERSION%"
 call :add_jar "org.specs2" "specs2-fp_3" "%__SPECS2_VERSION%"
 
 @rem https://mvnrepository.com/artifact/com.chuusai/shapeless
-call :add_jar "com.chuusai" "shapeless_%__SCALA_BINARY_VERSION%" "2.3.12"
+call :add_jar "com.chuusai" "shapeless_%__SCALA_BINARY_VERSION%" "2.3.13"
 
 @rem https://mvnrepository.com/artifact/eu.timepit/refined
 call :add_jar "eu.timepit" "refined_3" "0.11.0"

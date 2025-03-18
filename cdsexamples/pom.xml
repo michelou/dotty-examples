@@ -47,7 +47,7 @@
         <!-- https://mvnrepository.com/artifact/org.scalatest/scalatest -->
         <scalatest.version>3.2.19</scalatest.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
-        <maven.compiler.version>3.13.0</maven.compiler.version>
+        <maven.compiler.version>3.14.0</maven.compiler.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
         <!-- Note: JUnit 5 requires Surefire version 2.22.1 or higher -->
         <maven.surefire.version>2.22.2</maven.surefire.version>
@@ -64,9 +64,9 @@
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/org.junit.platform/junit-platform-engine -->
-        <junit.platform.version>1.11.4</junit.platform.version>
+        <junit.platform.version>1.12.1</junit.platform.version>
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <jupiter.version>5.11.4</jupiter.version>
+        <jupiter.version>5.12.1</jupiter.version>
 
         <m2.directory>${user.home}/.m2/repository</m2.directory>
 

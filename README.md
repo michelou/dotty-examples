@@ -25,7 +25,7 @@ This document is part of a series of topics related to [Scala 3][scala3_home] on
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Git 2.47][git_releases] ([*release notes*][git_relnotes])
+- [Git 2.49][git_releases] ([*release notes*][git_relnotes])
 - [Scala 3.3 LTS][scala3_lts_releases] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][scala3_lts_relnotes])
 - [Temurin OpenJDK 17 LTS][temurin_openjdk17] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][temurin_openjdk17_relnotes], [*bug fixes*][temurin_openjdk17_bugfixes], [Java 17 API][oracle_openjdk17_api])
 <!--
@@ -38,7 +38,7 @@ Optionally one may also install the following software:
 - [Apache Maven 3.9][apache_maven] ([requires Java 8+][apache_maven_history]) ([*release notes*][apache_maven_relnotes])
 - [Bazel 8.1 LTS][bazel_releases] <sup id="anchor_03">[3](#footnote_03)</sup> ([*release notes*][bazel_relnotes])
 - [CFR 0.15][cfr_releases] (Java decompiler)
-- [Gradle 8.12][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Gradle 8.13][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [JaCoCo 0.8][jacoco_downloads] <sup id="anchor_04">[4](#footnote_04)</sup> ([*change log*][jacoco_changelog])
 - [JavaFX 17 LTS][javafx17_downloads] ([*release notes*][javafx17_relnotes])
 - [JavaFX 21 LTS][javafx21_downloads] ([*release notes*][javafx21_relnotes])
@@ -48,10 +48,10 @@ Optionally one may also install the following software:
 - [sbt 1.10][sbt_downloads] (requires Java 8+) ([*release notes*][sbt_relnotes])
 - [Scala 2.13][scala_releases] (requires Java 8+) ([*release notes*][scala_relnotes], [*Scala API*][scala_api])
 - [Scala 2.13 DEV][scala_snapshots]
-- [Scala 3.5 Next][scala3_next_releases] <sup id="anchor_05">[5](#footnote_05)</sup> ([*release notes*][scala3_next_relnotes])
-- [scala-cli 1.6][scala_cli_downloads] ([*release notes*][scala_cli_relnotes])
+- [Scala 3.6 Next][scala3_next_releases] <sup id="anchor_05">[5](#footnote_05)</sup> ([*release notes*][scala3_next_relnotes])
+- [scala-cli 1.7][scala_cli_downloads] ([*release notes*][scala_cli_relnotes])
 - [Temurin OpenJDK 21 LTS][temurin_openjdk21] <sup id="anchor_02">[2](#footnote_02)</sup> ([*release notes*][temurin_openjdk21_relnotes], [*Java 21 API*][oracle_openjdk21_api])
-- [Visual Studio Code 1.97][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.98][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 <!--
 - [Bloop 1.5][bloop_releases] (requires Java 8 and Python 2/3) ([*release notes*][bloop_relnotes])
@@ -62,7 +62,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [`/opt/`][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*February 2025*) <sup id="anchor_06">[6](#footnote_06)</sup>:
+For instance our development environment looks as follows (*March 2025*) <sup id="anchor_06">[6](#footnote_06)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant\                 <i>( 40 MB)</i>
@@ -85,7 +85,7 @@ C:\opt\sbt\                        <i>(110 MB)</i>
 C:\opt\scala-2.13.16\              <i>( 24 MB)</i>
 C:\opt\scala-cli\                  <i>( 95 MB)</i>
 C:\opt\scala3-3.3.5\               <i>( 38 MB)</i>
-C:\opt\scala3-3.5.2\               <i>(131 MB)</i>
+C:\opt\scala3-3.6.4\               <i>(131 MB)</i>
 C:\opt\VSCode\                     <i>(341 MB)</i>
 </pre>
  <!-- jdk8: 242-b08 = 184 MB, 252-b09 = 181 MB , 262-b10 = 184 MB -->
@@ -337,9 +337,9 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    javac 17.0.14, scalac 2.13.16, scalac 3.3.5, scalafmt 3.7.17,
-   ant 1.10.15, gradle 8.12.1, mvn 3.9.9, sbt 1.10.7, scala-cli 1.6.1,
-   mill 0.12.7, bazel 8.1.0rc3, cfr 0.152, make 3.81, python 3.11.1,
-   jacoco 0.8.12, git 2.47.1, diff 3.10, bash 5.2.37(1)
+   ant 1.10.15, gradle 8.13, mvn 3.9.9, sbt 1.10.7, scala-cli 1.7.1,
+   mill 0.12.9, bazel 8.1.1, cfr 0.152, make 3.81, python 3.11.1,
+   jacoco 0.8.12, git 2.49.0, diff 3.10, bash 5.2.37(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1" rel="external">where</a> sbt scala-cli</b>
 C:\opt\sbt\bin\sbt
@@ -366,9 +366,9 @@ Command [**`setenv.bat -verbose`**](setenv.bat) also prints the tool paths and d
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    javac 17.0.14, scalac 2.13.16, scalac 3.3.5, scalafmt 3.7.12,
-   ant 1.10.15, gradle 8.12.1, mvn 3.9.9, sbt 1.10.7, scala-cli 1.6.1,
-   mill 0.12.7, bazel 8.1.0rc3, cfr 0.152, make 3.81, python 3.11.1,
-   jacoco 0.8.12, git 2.47.1, diff 3.10, bash 5.2.37(1)
+   ant 1.10.15, gradle 8.13, mvn 3.9.9, sbt 1.10.7, scala-cli 1.7.1,
+   mill 0.12.9, bazel 8.1.1, cfr 0.152, make 3.81, python 3.11.1,
+   jacoco 0.8.12, git 2.49.0, diff 3.10, bash 5.2.37(1)
 Tool paths:
    C:\opt\jdk-temurin-11.0.21_9\bin\javac.exe
    C:\opt\scala-2.13.16\bin\scalac.bat
@@ -408,7 +408,7 @@ Environment variables:
    "SCALA_CLI_HOME=C:\opt\scala-cli"
    "SCALA_HOME=C:\opt\scala-2.13.16"
    "SCALA3_HOME=C:\opt\scala3-3.3.5"
-   "SCALA3_NEXT_HOME=C:\opt\scala3-3.5.2"
+   "SCALA3_NEXT_HOME=C:\opt\scala3-3.6.4"
 Path associations:
    I:\: => %USERPROFILE%\workspace-perso\dotty-examples
 </pre>
@@ -963,11 +963,11 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/lihaoyi/mill/releases">0.12.7-assembly</a> (mill)                             <i>( 64 MB)</i>
+<a href="https://github.com/lihaoyi/mill/releases">0.12.9-assembly</a> (mill)                             <i>( 64 MB)</i>
 <a href="https://ant.apache.org/bindownload.cgi">apache-ant-1.10.15-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.9-bin.zip</a>                         <i>( 10 MB)</i>
-<a href="https://github.com/bazelbuild/bazel/releases">bazel-8.1.0rc3-windows-x86_64.zip</a>                  <i>( 40 MB)</i>
-<a href="https://gradle.org/install/">gradle-8.12.1-bin.zip</a>                              <i>(124 MB)</i>
+<a href="https://github.com/bazelbuild/bazel/releases">bazel-8.1.1-windows-x86_64.zip</a>                     <i>( 40 MB)</i>
+<a href="https://gradle.org/install/">gradle-8.13-bin.zip</a>                                <i>(124 MB)</i>
 <a href="https://www.eclemma.org/jacoco/">jacoco-0.8.12.zip</a>                                  <i>(  4 MB)</i>
 <a href="https://github.com/AdoptOpenJDK/jitwatch/releases">jitwatch-ui-1.4.9-shaded-win.jar</a>                   <i>( 36 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                          <i>( 94 MB)</i>
@@ -978,12 +978,12 @@ In our case we downloaded the following installation files (<a href="#proj_deps"
 <a href="https://gluonhq.com/products/javafx/">openjfx-17.0.14_windows-x64_bin-jmods.zip</a>          <i>( 37 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-21.0.6_windows-x64_bin-sdk.zip</a>             <i>( 39 MB)</i>
 <a href="https://gluonhq.com/products/javafx/">openjfx-21.0.6_windows-x64_bin-jmods.zip</a>           <i>( 37 MB)</i>
-<a href="https://git-scm.com/download/win">PortableGit-2.47.1-64-bit.7z.exe</a>                   <i>( 60 MB)</i>
+<a href="https://git-scm.com/download/win">PortableGit-2.49.0-64-bit.7z.exe</a>                   <i>( 60 MB)</i>
 <a href="https://github.com/sbt/sbt/releases" rel="external">sbt-1.10.7.zip</a>                                     <i>( 17 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/" rel="external">scala-2.13.16.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://github.com/VirtusLab/scala-cli/releases" rel="external">scala-cli-x86_64-pc-win32.zip</a>                      <i>( 31 MB)</i>
 <a href="https://github.com/scala/scala3/releases/tag/3.3.5">scala3-3.3.5.zip</a>                                   <i>( 34 MB)</i>
-<a href="https://github.com/scala/scala3/releases/tag/3.5.2">scala3-3.5.2.zip</a>                                   <i>(123 MB)</i>
+<a href="https://github.com/scala/scala3/releases/tag/3.6.4">scala3-3.6.4.zip</a>                                   <i>(123 MB)</i>
 </pre>
 </dd></dl>
 <!-- scala3: 3.4.2 = 37 MB, 3.5.0 = 131 MB, 3.5.2 = 138 MB -->
@@ -996,7 +996,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2025* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -1027,9 +1027,9 @@ Command Prompt has been around for as long as we can remember, but starting with
 7.3.1 -> https://github.com/bazelbuild/bazel/releases/tag/7.3.1
 7.4.0 -> https://github.com/bazelbuild/bazel/releases/tag/7.4.0
 8.0.0 -> https://github.com/bazelbuild/bazel/releases/tag/8.0.0
-8.1.0 -> https://github.com/bazelbuild/bazel/releases/tag/8.1.0rc3
+8.1.0 -> https://github.com/bazelbuild/bazel/releases/tag/8.1.1
 -->
-[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/8.1.0rc3
+[bazel_relnotes]: https://github.com/bazelbuild/bazel/releases/tag/8.1.1
 [bloop_releases]: https://scalacenter.github.io/bloop/
 [bloop_relnotes]: https://github.com/scalacenter/bloop/releases/tag/v1.3.4
 [cfr_releases]: https://www.benf.org/other/cfr/
@@ -1049,7 +1049,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [git_bash]: https://www.atlassian.com/git/tutorials/git-bash
 [git_cli]: https://git-scm.com/docs/git
 [git_releases]: https://git-scm.com/download/win
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.47.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.49.0.txt
 [github_guides]: https://guides.github.com/
 [github_scala_scala3]: https://github.com/scala/scala3
 [github_markdown]: https://github.github.com/gfm/
@@ -1092,7 +1092,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [maven_lamp]: https://search.maven.org/search?q=g:ch.epfl.lamp
 [microsoft_powershell]: https://docs.microsoft.com/en-us/powershell/scripting/getting-started/getting-started-with-windows-powershell?view=powershell-6
 [microsoft_vscode]: https://code.visualstudio.com/
-[mill_changelog]: https://github.com/com-lihaoyi/mill/releases/tag/0.12.7
+[mill_changelog]: https://github.com/com-lihaoyi/mill/releases/tag/0.12.9
 [mill_cli]: https://com-lihaoyi.github.io/mill/#command-line-tools
 [mill_releases]: https://github.com/lihaoyi/mill/releases/
 [msys2_changelog]: https://github.com/msys2/setup-msys2/blob/master/CHANGELOG.md
@@ -1111,7 +1111,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [scala]: https://www.scala-lang.org/
 [scala_api]: https://www.scala-lang.org/files/archive/api/current/
 [scala_cli_downloads]: https://github.com/VirtusLab/scala-cli/releases
-[scala_cli_relnotes]: https://github.com/VirtusLab/scala-cli/releases/tag/v1.6.1
+[scala_cli_relnotes]: https://github.com/VirtusLab/scala-cli/releases/tag/v1.7.1
 [scala_releases]: https://www.scala-lang.org/files/archive/
 [scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.16
 [scala_repl]: https://docs.scala-lang.org/overviews/repl/overview.html
@@ -1120,7 +1120,7 @@ Command Prompt has been around for as long as we can remember, but starting with
 [scala3_lts_releases]: https://github.com/scala/scala3/releases
 [scala3_lts_relnotes]: https://github.com/scala/scala3/releases/tag/3.3.5
 [scala3_next_releases]: https://github.com/scala/scala3/releases
-[scala3_next_relnotes]: https://github.com/scala/scala3/releases/tag/3.5.2
+[scala3_next_relnotes]: https://github.com/scala/scala3/releases/tag/3.6.4
 [scalac_cli]: https://docs.scala-lang.org/overviews/compiler-options/index.html
 [semanticdb_guide]: https://scalameta.org/docs/semanticdb/guide.html
 [sml_examples]: https://github.com/michelou/sml-examples#top
